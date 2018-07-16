@@ -152,5 +152,5 @@
 </script>
 
 <style scoped>
-  @import "./../../../../static/css/all.css";
+  @import "./../../../../static/css/discover/all.css";
 </style>
