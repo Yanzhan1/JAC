@@ -1,0 +1,167 @@
+.all{
+  word-break:break-all;
+  font-family: "PingFangSC";
+  background-color: #f1f1f1;
+
+}
+/*头部*/
+.header{
+  font-size: 0.4rem;
+  position: fixed;
+  width: 100%;
+  background: #2099FF;
+}
+.head-tab{
+  color: #EFEFEF;
+  font-size: 0.36rem;
+}
+/*上拉下拉*/
+.down-frash{
+  font-size: 0.3rem;visibility: hidden
+}
+/*字体,尺寸*/
+.size_32{
+   font-size: 0.32rem;
+ }
+.size_28{
+  font-size: 0.28rem;
+}
+.height_444{
+  height: 4.44rem;
+}
+.height_5{
+  height: 5rem;
+}
+.height_582{
+  height: 5.82rem;
+}
+.height_27{
+  height: 2.7rem;
+}
+.height_132{
+  height: 1.32rem;
+}
+.height_188{
+  height: 1.88rem;
+}
+.w_28{
+  width: 0.28rem;
+}
+.w_04{
+  width: 0.4rem;
+}
+.mr_004{
+  margin-right: 0.04rem;
+}
+.mr_006{
+  margin-right: 0.06rem;
+}
+.mr_16{
+  margin-right: 0.16rem;
+}
+.circle_4{
+  border-radius: 0.36rem;
+  width: 0.4rem;
+  height: 0.4rem;
+}
+/*浮动*/
+.f_right{
+  float: right;
+}
+.f_left{
+  float: left;
+}
+.t_right{
+  text-align: right;
+}
+.t_left{
+  text-align: left;
+}
+/*盒子*/
+.box_1{
+  width: 92%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  background-color: #ffffff;
+  border-radius: 0.12rem;
+  overflow: hidden;
+  margin-top: 0.3rem;
+}
+.box_2{
+  width: 100%;
+  height: 3.12rem;
+}
+.box_2 img{
+  width: 100%;
+  height: 3.12rem;
+  object-fit:cover;
+}
+.box_3{
+  width: 100%;
+  padding: 0.24rem 0.2rem;
+}
+.box_3 .title_info{
+  color: #222222;
+  height: 0.8rem;
+  line-height: 0.4rem;
+  margin-bottom: 0.16rem;
+  font-size: 0.28rem;
+}
+.box_3 .title_activity{
+  color: #222222;
+  line-height: 0.32rem;
+  font-size: 0.32rem;
+  height: 0.32rem;
+  margin-bottom: 0.18rem;
+}
+.box_3 .title_now{
+  color: #555555;
+  height: 0.8rem;
+  line-height: 0.4rem;
+  margin-bottom: 0.16rem;
+  font-size: 0.28rem;
+}
+.box_3 .operation_info{
+  height: 0.42rem;
+  width: 100%;
+  line-height: 0.42rem;
+}
+.box_3 .operation_activity{
+  height: 0.32rem;
+  width: 50%;
+  line-height: 0.32rem;
+}
+.box_3 .operation_info img,.box_3 .operation_activity ,.box_4 .operation_info img{
+  vertical-align: middle;
+}
+.box_3 .operation_info span{
+  color: #cccccc;
+  font-size: 0.28rem;
+  margin-right: 0.4rem;
+}
+.box_3 .operation_activity span{
+  color: #555555;
+  font-size: 0.28rem;
+}
+.box_4{
+  width: 100%;
+  padding: 0.2rem 0.2rem;
+}
+.box_4 .operation_info{
+  height: 0.28rem;
+  line-height: 0.4rem;
+}
+.box_4 .now_user{
+  font-size: 0.28rem;
+  color: #555555;
+}
+.box_4 .now_date{
+  font-size: 0.28rem;
+  color: #888888;
+  float: right;
+}
+.thin_line{
+  border-bottom: 0.02rem solid #f5f5f5;
+}
+
