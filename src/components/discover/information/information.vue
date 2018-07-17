@@ -20,14 +20,14 @@
               </p>
               <div class="operation_info">
                 <!--阅读数量-->
-                <img src="../../../../static/images/disc/eye.png" class="w_04 mr_006"/>
+                <img src="../../../../static/images/discover/eye.png" class="w_04 mr_006"/>
                 <span>{{item.readNum}}</span>
                 <!--评论数量-->
-                <img src="../../../../static/images/disc/comment.png" class="w_04 mr_006" @click="toDetail(item.manageId)"/>
+                <img src="../../../../static/images/discover/comment.png" class="w_04 mr_006" @click="toDetail(item.manageId)"/>
                 <span class="size_28">{{item.commentNum}}</span>
                 <!--是否点赞以及点赞数量-->
-                <img v-if="item.likeStatus" src="../../../../static/images/disc/nozan.png" class="w_04 mr_006" @click="giveInformationLike(item.manageId,index)"/>
-                <img v-else src="../../../../static/images/disc/zan.png" class="w_04 mr_006" @click="removeInformationLike(item.manageId,index)"/>
+                <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="w_04 mr_006" @click="giveInformationLike(item.manageId,index)"/>
+                <img v-else src="../../../../static/images/discover/zan.png" class="w_04 mr_006" @click="removeInformationLike(item.manageId,index)"/>
                 <span class="size_28">{{item.likeNum}}</span>
               </div>
             </div>
@@ -42,7 +42,7 @@
 
 <script>
     import { MessageBox } from 'mint-ui';
-    import shareBox from '../../publicmodule/shareBox.vue';
+    import shareBox from '../component/shareBox.vue';
     import { Toast } from 'mint-ui';
     let shareIndex="";
     export default {
@@ -66,7 +66,7 @@
       },
       methods:{
         toDetail: function (id) {
-          this.$router.push({path:"/discdetail",query:{id:id}})
+          this.$router.push({path:"/information/informationDetail",query:{id:id}})
         },
         loadTop() {
           this.getRefreshList();

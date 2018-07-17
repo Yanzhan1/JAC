@@ -19,31 +19,31 @@
               </p>
               <div v-if="item.activityState==0">
                 <div class="operation_activity f_left">
-                  <img src="../../../../static/images/disc/date1.png" class="w_28 mr_004"/>
+                  <img src="../../../../static/images/discover/date1.png" class="w_28 mr_004"/>
                   <span>{{item.planDate}}</span>
                 </div>
                 <div class="operation_activity f_right t_right">
-                  <img src="../../../../static/images/disc/start1.png" class="w_28 mr_004"/>
+                  <img src="../../../../static/images/discover/start1.png" class="w_28 mr_004"/>
                   <span>未开始</span>
                 </div>
               </div>
               <div v-if="item.activityState==1">
                 <div class="operation_activity f_left">
-                  <img src="../../../../static/images/disc/date2.png" class="w_28 mr_004"/>
+                  <img src="../../../../static/images/discover/date2.png" class="w_28 mr_004"/>
                   <span>{{item.planDate}}</span>
                 </div>
                 <div class="operation_activity f_right t_right">
-                  <img src="../../../../static/images/disc/start2.png" class="w_28 mr_004"/>
+                  <img src="../../../../static/images/discover/start2.png" class="w_28 mr_004"/>
                   <span>进行中</span>
                 </div>
               </div>
               <div v-if="item.activityState==2">
                 <div class="operation_activity f_left">
-                  <img src="../../../../static/images/disc/date3.png" class="w_28 mr_004"/>
+                  <img src="../../../../static/images/discover/date3.png" class="w_28 mr_004"/>
                   <span>{{item.planDate}}</span>
                 </div>
                 <div class="operation_activity f_right t_right">
-                  <img src="../../../../static/images/disc/start3.png" class="w_28 mr_004"/>
+                  <img src="../../../../static/images/discover/start3.png" class="w_28 mr_004"/>
                   <span>已结束</span>
                 </div>
               </div>
@@ -84,7 +84,7 @@
           this.topStatus = status;
         },
         toDetail: function (id) {
-          this.$router.push({path:"/activity/DetailActivity",query:{activityId:id}})
+          this.$router.push({path:"/activity/activityDetail",query:{activityId:id}})
         },
         getRefreshList: function () {
           //获取活动列表第一页
