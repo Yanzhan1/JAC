@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Main from '@/components/Main'
 //爱车部分
 import Lovecar from '@/components/Lovecar/lovecar'
+//我的部分
+import My from '@/components/My/Myindex'
 //发现部分
 import Discover from '@/components/discover/discover'
 import Recommend from '@/components/discover/recommend/recommend' //推荐首页
@@ -25,10 +27,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      /*name: 'main',*/
       component: Main,
-
-
       children: [{
           path: '/',
           redirect: '/discover'
@@ -102,7 +101,7 @@ export default new Router({
         {
           path: "/activity/detailactivity/WantGo",
           component: WantGo
-        }*/]
+        }]*/
       /*children:[{
           path: '/',
           redirect: '/recommend'
@@ -112,9 +111,14 @@ export default new Router({
           component: Recommend
         },
         {
+          path: '/',
+          redirect: '/activity'
+        },
+        {
           path: "/activity",
           component: Activity
         },
+        //爱车页面
         {
           path: "/information",
           component: Information
@@ -122,12 +126,17 @@ export default new Router({
         {
           path: "/now",
           component: Now
-        },
+        },*/
         {
           path: "/lovecar",
           component: Lovecar
+        },
+        //我的页面
+        {
+          path: "/myindex",
+          component: My
         }
-      ]*/
+      ]
     }
   ]
 })

@@ -73,6 +73,9 @@ Vue.use(mintui)
 //状态管理
 import store from './store'
 
+//导入jquery
+import $ from 'jquery'
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
