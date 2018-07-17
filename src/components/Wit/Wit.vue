@@ -147,8 +147,8 @@ textarea::-webkit-input-placeholder {
 .bustype img {
   width: 0.14rem;
   display: block;
-  padding: 0.14rem;
-}
+  margin:0 .14rem
+  }
 .bustype span {
   font-size: 0.21rem;
   color: #222;
@@ -176,18 +176,18 @@ textarea::-webkit-input-placeholder {
 }
 .bustypes img {
   width: 0.3rem;
-  margin-right: 0.3rem;
+  margin-right: 0.14rem;
 }
 .bustypes_1 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  /* justify-content: flex-start; */
 }
 .bustypes_1 img {
   width: 0.14rem;
   display: block;
-  padding: 0.14rem;
+  margin-left:.14rem
 }
 .bustypes_1 span {
   font-size: 0.21rem;
