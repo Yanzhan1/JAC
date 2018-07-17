@@ -1,3 +1,30 @@
+.header {
+  font-size: 0.36rem;
+  position: fixed;
+  width: 92%;
+  background: #ffffff;
+  height: .88rem;
+  line-height: .88rem;
+  padding: 0 4% 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  top: 0;
+  z-index: 999;
+}
+.all{
+  word-break:break-all;
+  font-family: "PingFangSC";
+  background-color: #fff;
+  width: 92%;
+  margin: 0 auto;
+}
 /*活动、资讯滚动之前透明头部*/
 .header1{
   background-color: rgba(0,0,0,0.1);
@@ -87,9 +114,9 @@
   float: right;
   width: 88%;
 }
-.comment_userinfo .user_info div{
+/*.comment_userinfo .user_info div{
   height: 0.36rem;
-}
+}*/
 .comment_userinfo .user_info .user_name{
   font-size: 0.32rem;
   color: #222222;
@@ -130,7 +157,6 @@
 }
 .comment_msg{
   background: #f5f5f5;
-  width: 100%;
   border-radius: 0.08rem;
   margin-top: 0.2rem;
   padding: 0.22rem 0.2rem;
@@ -151,6 +177,9 @@
 /*公共样式*/
 .mr_006{
   margin-right: 0.06rem;
+}
+.mr_16{
+  margin-right: 0.16rem;
 }
 .w_04{
   width: 0.4rem;
@@ -180,6 +209,9 @@
 .font_4{
   color: #555555;font-size: 0.28rem;
 }
+.top_14{
+  margin-top: 1.4rem;width: 100%;
+}
 /*评论输入框相关样式*/
 .allHideComment{
   font-family: PingFangSC-Regular;
@@ -208,11 +240,10 @@
   color: #49BBFF;
   text-align: center;
   line-height: 0.28rem;
-  margin-left: 0.4rem;
+  margin-left: 0.2rem;
 }
 .myInput{
   width: 100%;
-  padding:0.24rem 0;
   background: #ffffff;
   position: fixed;
   bottom: 0;
@@ -229,4 +260,57 @@
   background-color: #000000;
   z-index:1;
   opacity: 0.2;
+}
+/*此刻详情*/
+.contentIconInfo{
+  height: 0.4rem;width: 100%;line-height: 0.4rem;
+  margin-top: 0.22rem;
+  margin-bottom: 0.4rem;
+}
+.contentIconInfo img{
+  vertical-align: middle;width: 0.4rem;margin-right: 0.16rem;
+}
+.contentIconInfo span{
+  font-size: 0.28rem;color: #CCCCCC;
+}
+.f_right{
+  float: right;
+}
+.f_left{
+  float: left;
+}
+.guanzhu{
+  width: 22%;float: right;text-align: right;
+}
+.guanzhu img{
+  vertical-align: middle;width:0.36rem;height: 0.36rem;float: left;
+}
+.now_detail{
+  width: 100%;overflow: hidden;color: #555555;font-size: 0.24rem;line-height: 0.4rem;margin: auto;padding: 0.1rem;
+}
+.now_detailPic{
+  width: 100%;overflow: hidden;border-radius: 0.16rem;margin-bottom: 0.16rem;
+}
+.pic1{
+  border-radius: 0.1rem;width: 100%;height:3.2rem;object-fit:cover;
+}
+.pic2_1{
+  border-radius: 0.1rem;width: 49%;height:3.2rem;float: left; border-radius: 0.1rem 0 0 0.1rem;object-fit:cover;
+}
+.pic2_2{
+  border-radius: 0.1rem;width: 49%;height:3.2rem;float: left; border-radius: 0 0.1rem 0.1rem 0;object-fit:cover;
+}
+.pic3_1{
+  border-radius: 0.1rem;width: 60%;height:3.2rem;float: left; border-radius: 0.1rem 0 0 0.1rem;object-fit:cover;
+}
+.pic3_2{
+  border-radius: 0.1rem;width: 38%;height:1.55rem;float: left; border-radius: 0 0.1rem 0 0;object-fit:cover;
+  margin-bottom: 0.1rem;
+}
+.pic3_3{
+  border-radius: 0.1rem;width: 38%;height:1.55rem;float: left; border-radius: 0 0 0.1rem 0;object-fit:cover;
+}
+.pics{
+  width: 100%; margin-top: 0.1rem;margin-bottom: 0.2rem;
+  height: 3.2rem;
 }

@@ -7,49 +7,38 @@
       </div>
       <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
         <!--活动列表S-->
-        <div v-for="item in activityList">
-          <div class="box_1 height_444">
-            <div class="box_2">
-              <img :src="item.imgUrl" @click="toDetail(item.activityId)"/>
-            </div>
-            <div class="box_3 height_132">
-              <p class="title_activity" @click="toDetail(item.activityId)">
-                {{item.activityTitle.slice(0,20)}}
-                <span v-if="item.activityTitle.length>20">...</span>
+          <div v-for="(item,index) in activityList">
+            <div class="boxInfo">
+              <p class="listTitleInfo" @click="toDetail(item.manageId)">
+                {{item.activityTitle.slice(0,46)}}
+                <span v-if="item.activityTitle.length>46">...</span>
               </p>
-              <div v-if="item.activityState==0">
-                <div class="operation_activity f_left">
-                  <img src="../../../../static/images/discover/date1.png" class="w_28 mr_004"/>
-                  <span>{{item.planDate}}</span>
+              <img class="listPic312" @click="toDetail(item.activityId)" :src="item.imgUrl"/>
+              <div class="listIconActivity">
+                <!--未开始-->
+                <div v-if="item.activityState==0">
+                  <img src="../../../../static/images/discover/date1.png" class="f_left"/>
+                  <span class="f_left">{{item.planDate}}</span>
+                  <span class="f_right">未开始</span>
+                  <img src="../../../../static/images/discover/start1.png" class="f_right"/>
                 </div>
-                <div class="operation_activity f_right t_right">
-                  <img src="../../../../static/images/discover/start1.png" class="w_28 mr_004"/>
-                  <span>未开始</span>
+                <!--已开始-->
+                <div v-if="item.activityState==1">
+                  <img src="../../../../static/images/discover/date2.png" class="f_left"/>
+                  <span class="f_left">{{item.planDate}}</span>
+                  <span class="f_right">已开始</span>
+                  <img src="../../../../static/images/discover/start2.png" class="f_right"/>
                 </div>
-              </div>
-              <div v-if="item.activityState==1">
-                <div class="operation_activity f_left">
-                  <img src="../../../../static/images/discover/date2.png" class="w_28 mr_004"/>
-                  <span>{{item.planDate}}</span>
-                </div>
-                <div class="operation_activity f_right t_right">
-                  <img src="../../../../static/images/discover/start2.png" class="w_28 mr_004"/>
-                  <span>进行中</span>
-                </div>
-              </div>
-              <div v-if="item.activityState==2">
-                <div class="operation_activity f_left">
-                  <img src="../../../../static/images/discover/date3.png" class="w_28 mr_004"/>
-                  <span>{{item.planDate}}</span>
-                </div>
-                <div class="operation_activity f_right t_right">
-                  <img src="../../../../static/images/discover/start3.png" class="w_28 mr_004"/>
-                  <span>已结束</span>
+                <!--已结束-->
+                <div v-if="item.activityState==2">
+                  <img src="../../../../static/images/discover/date3.png" class="f_left"/>
+                  <span class="f_left">{{item.planDate}}</span>
+                  <span class="f_right">已结束</span>
+                  <img src="../../../../static/images/discover/start3.png" class="f_right"/>
                 </div>
               </div>
             </div>
           </div>
-        </div>
         <!--活动列表E-->
       </div>
     </mt-loadmore>

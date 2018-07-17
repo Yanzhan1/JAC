@@ -1,5 +1,5 @@
 <template>
-  <div class="all" style="word-break:break-all;">
+  <div>
     <div @click="bgHide" id="bgShare" style="position: fixed; width: 100%;height: 100%;background: #000000; display: none;opacity: 0.2"></div>
     <div>
       <header class="header header1" id="header1">
@@ -25,16 +25,14 @@
         </p>
         <p class="content" v-html="content.manageBody">
         </p>
-        <div class="operation_content">
-          <div>
-            <img src="../../../../static/images/discover/eye.png" class="w_04 mr_006 v_m"/>
-            <span class="num_28">{{content.readNum}}</span>
-          </div>
-          <div>
-            <img v-if="content.likeStatus" src="../../../../static/images/discover/nozan.png" class="w_04 mr_006 v_m" @click="giveArticleLike"/>
-            <img v-else src="../../../../static/images/discover/zan.png" class="w_04 mr_006 v_m" @click="removeArticleLike"/>
-            <span class="num_28">{{content.likeNum}}</span>
-          </div>
+        <div class="contentIconInfo">
+          <!--阅读数量-->
+          <img src="../../../../static/images/discover/eye.png" class="f_left"/>
+          <span class="f_left">{{content.readNum}}</span>
+          <!--是否点赞以及点赞数量-->
+          <span class="f_right">{{content.likeNum}}</span>
+          <img v-if="content.likeStatus" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveArticleLike">
+          <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeArticleLike">
         </div>
         <!--内容E-->
         <!--评论S-->
@@ -58,8 +56,8 @@
                 </div>
                 <div class="operation_comment">
                   <div>
-                    <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="w_04 mr_006 v_m" @click="giveCommentLike(item.id,index)"/>
-                    <img v-else src="../../../../static/images/discover/zan.png" class="w_04 mr_006 v_m" @click="removeCommentLike(item.id,index)"/>
+                    <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="w_04 mr_16 v_m f_left" @click="giveCommentLike(item.id,index)"/>
+                    <img v-else src="../../../../static/images/discover/zan.png" class="w_04 mr_16 v_m f_left" @click="removeCommentLike(item.id,index)"/>
                     <span style="font-size: 0.28rem;">{{item.likeNum}}</span>
                   </div>
                 </div>
@@ -115,7 +113,7 @@
     <!--<DiscCommentBox ref="commentbox"></DiscCommentBox>-->
     <div id="commentBg" @click="closeComment"/>
     <div class="flex contentcenter myInput">
-      <input autofocus="autofocus" ref="commentfocus" id="comment" type="text" v-model="commentMsg" @click="commentbtn"/>
+      <input autofocus="autofocus" ref="commentfocus" id="comment" type="text" v-model="commentMsg" @click="commentbtn" placeholder="写评论..."/>
       <span class="send" @click="comment">发送</span>
     </div>
     <!--评论输入框E-->

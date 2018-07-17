@@ -9,40 +9,79 @@
       <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
         <!--社区列表S-->
         <div  v-for="(item,index) in nowList">
-          <div :class="['box_1' ,item.momentImgList ? 'height_582' : 'height_27']">
-            <div class="box_2" v-if="item.momentImgList">
-              <img @click="toDetail(item.id)" :src="item.momentImgList[0]"/>
-            </div>
-            <div class="box_3 height_188 thin_line">
-              <p class="title_now" @click="toDetail(item.id,item.user.user_id)">
-                {{item.momentMessage.slice(0,46)}}
-                <span v-if="item.momentMessage.length>46">...</span>
-              </p>
-              <div class="operation_info">
-                <!--阅读数量-->
-                <img src="../../../../static/images/discover/eye.png" class="w_04 mr_006"/>
-                <span>{{item.readNum}}</span>
-                <!--评论数量-->
-                <img @click="toDetail(item.id)" src="../../../../static/images/discover/comment.png" class="w_04 mr_006"/>
-                <span class="size_28">{{item.commentNum}}</span>
-                <!--是否点赞以及点赞数量-->
-                <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="w_04 mr_006" @click="giveMomentLike(item.id,index)"/>
-                <img v-else src="../../../../static/images/discover/zan.png" class="w_04 mr_006" @click="removeMomentLike(item.id,index)"/>
-                <span class="size_28">{{item.likeNum}}</span>
+          <div class="boxInfo">
+          <!--发布者信息S-->
+          <div class="comment_userinfo">
+            <div class="user_head">
+              <div @click="changeUserStartId(item.user.user_id)">
+                <img v-if="item.user" :src="item.user.head_image" class="head_72"/>
+                <img v-else src="../../../../static/images/discover/normalhead.png" class="head_72"/>
               </div>
             </div>
-            <div class="box_4 height_188">
-              <div class="operation_info">
-                <div @click="changeUserStartId(item.user.user_id)">
-                  <img v-if="item.user" :src="item.user.head_image" src="../../../../static/images/discover/a.png" class="mr_16 f_left circle_4"/>
-                  <img v-else src="../../../../static/images/discover/normalhead.png" class="mr_16 f_left circle_4"/>
-                  <span v-if="item.user" class="now_user f_left">{{item.user.nick_name}}</span>
-                  <span v-else class="now_user f_left">尚未设置昵称</span>
+            <div class="user_info">
+              <div v-if="item.user" class="user_name">
+                {{item.user.nick_name}}
+              </div>
+              <div v-else class="user_name">
+                尚未设置昵称
+              </div>
+              <div class="guanzhu">
+                <div v-if="item.user && userId != item.user.user_id">
+                  <div v-if="item.focusStatus == 0">
+                    <img src="../../../../static/images/discover/jgz.png">
+                    <span class="font_4" @click="addFoucs(item.user.user_id,index)">关注</span>
+                  </div>
+                  <div v-else-if="item.focusStatus == 1">
+                    <img src="../../../../static/images/discover/ygz.png">
+                    <span class="font_4" @click="removeFoucs(item.user.user_id,index)">已关注</span>
+                  </div>
+                  <div v-else="item.focusStatus == 2">
+                    <img src="../../../../static/images/discover/ygz.png">
+                    <span class="font_4" @click="removeFoucs(item.user.user_id,index)">相互关注</span>
+                  </div>
                 </div>
-                <span class="now_date">{{item.createDate}}</span>
+              </div>
+              <div class="user_date">
+                {{item.createDate}}
               </div>
             </div>
           </div>
+          <!--发布者信息E-->
+          <div @click="toDetail(item.id)" class="listTitleInfo">{{item.momentMessage}}</div>
+          <div class="pics" v-if="item.momentImgList">
+            <div v-if="item.momentImgList.length==1" v-for="imgItem in item.momentImgList">
+              <img @click="toDetail(item.id)" :src="imgItem" class="pic1"/>
+            </div>
+            <div v-if="item.momentImgList.length==2">
+              <img @click="toDetail(item.id)" :src="item.momentImgList[0]" style="margin-right: 2%;" class="pic2_1"/>
+              <img @click="toDetail(item.id)" :src="item.momentImgList[1]" class="pic2_2"/>
+            </div>
+            <div v-if="item.momentImgList.length==3">
+              <img @click="toDetail(item.id)" :src="item.momentImgList[0]" style="margin-right: 2%;" class="pic3_1"/>
+              <img @click="toDetail(item.id)" :src="item.momentImgList[1]" class="pic3_2"/>
+              <img @click="toDetail(item.id)" :src="item.momentImgList[2]" class="pic3_3"/>
+            </div>
+            <div v-if="item.momentImgList.length>3">
+              <div style="position: relative;">
+                <div style="color: #ffffff;right: 0.4rem;bottom: -3rem;position: absolute">
+                  {{item.momentImgList.length}}
+                </div>
+                <img @click="toDetail(item.id)" :src="item.momentImgList[0]" style="margin-right: 2%;" class="pic3_1"/>
+                <img @click="toDetail(item.id)" :src="item.momentImgList[1]" class="pic3_2"/>
+                <img @click="toDetail(item.id)" :src="item.momentImgList[2]" class="pic3_3"/>
+              </div>
+            </div>
+          </div>
+          <!--阅读数量,是否点赞以及点赞数量S-->
+          <div class="listIconInfo">
+            <img src="../../../../static/images/discover/eye.png" class="f_left"/>
+            <span class="f_left">{{item.readNum}}</span>
+            <span class="f_right">{{item.likeNum}}</span>
+            <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveMomentLike(item.id,index)"/>
+            <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeMomentLike(item.id,index)"/>
+          </div>
+          <!--阅读数量,是否点赞以及点赞数量E-->
+        </div>
         </div>
         <!--社区列表E-->
       </div>
@@ -308,4 +347,5 @@
 
 <style scoped>
   @import "./../../../../static/css/discover/all.css";
+  @import "./../../../../static/css/discover/detail.css";
 </style>

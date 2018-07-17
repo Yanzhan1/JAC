@@ -2,7 +2,8 @@
   word-break:break-all;
   font-family: "PingFangSC";
   background-color: #fff;
-
+  width: 92%;
+  margin: 0 auto;
 }
 /*头部*/
 .header{
@@ -16,6 +17,12 @@
   font-size: 0.36rem;
 }
 /*资讯*/
+.wrap{
+  width: 92%;margin: 0 auto;
+}
+.boxInfo{
+  margin-top: 0.4rem;padding-bottom:0.4rem;border-bottom: 0.02rem solid #f1f1f1
+}
 .listTitleInfo{
   font-size: 0.28rem;
   color: #555555;
@@ -29,6 +36,25 @@
   -moz-border-radius: 0.08rem;
   border-radius: 0.08rem;
   margin: 0.16rem 0;
+}
+.listIconInfo{
+  height: 0.4rem;width: 100%;line-height: 0.4rem;
+}
+.listIconInfo img{
+  vertical-align: middle;width: 0.4rem;margin-right: 0.16rem;
+}
+.listIconInfo span{
+  font-size: 0.28rem;color: #CCCCCC;
+}
+/*活动*/
+.listIconActivity{
+  height: 0.28rem;width: 100%;line-height: 0.28rem;
+}
+.listIconActivity img{
+  vertical-align: middle;width: 0.28rem;margin-right: 0.16rem;
+}
+.listIconActivity span{
+  font-size: 0.28rem;color: #555555;
 }
 /*上拉下拉*/
 .down-frash{
@@ -78,6 +104,13 @@
   border-radius: 0.36rem;
   width: 0.4rem;
   height: 0.4rem;
+}
+.head_72{
+  width: 0.72rem;
+  height: 0.72rem;
+  -webkit-border-radius: 0.36rem;
+  -moz-border-radius: 0.36rem;
+  border-radius: 0.36rem;
 }
 /*浮动*/
 .f_right{

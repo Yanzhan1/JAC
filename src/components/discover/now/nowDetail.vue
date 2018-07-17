@@ -1,5 +1,5 @@
 <template>
-  <div class="all">
+  <div>
     <!--<div @click="bgHide" id="bgShare" style="position: fixed; width: 100%;height: 100%;background: black; display: none;opacity: 0"></div>-->
     <header class="header header2">
       <img class="header-left" src="../../../../static/images/discover/backblue.png" @click="goBack">
@@ -7,14 +7,13 @@
       <img src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)"/>
     </header>
       <shareBox :index="0" :item="content" :flag="flag" :type="type" :isCenter="true" @closeShare="bgHide"></shareBox>
-      <div class="detail">
-        <div style="margin-top: 1.4rem;width: 100%;">
-          <div>
-            <!--评论者信息S-->
+      <div class="wrap_92">
+        <div class="top_14">
+            <!--发布者信息S-->
             <div class="comment_userinfo">
               <div class="user_head">
                 <div @click="changeUserStartId(content.user.user_id)">
-                  <img v-if="content.user" :src="content.user.head_image" />
+                  <img v-if="content.user" :src="content.user.head_image"/>
                   <img v-else src="../../../../static/images/discover/normalhead.png" />
                 </div>
               </div>
@@ -25,18 +24,18 @@
                 <div v-else class="user_name">
                   尚未设置昵称
                 </div>
-                <div class="operation_comment">
-                  <div style="float: right;" v-if="content.user && userId != content.user.user_id">
+                <div class="guanzhu">
+                  <div v-if="content.user && userId != content.user.user_id">
                     <div v-if="content.focusStatus == 0">
-                      <img src="../../../../static/images/discover/jgz.png" style="width:0.28rem;height: 0.28rem; " />
+                      <img src="../../../../static/images/discover/jgz.png">
                       <span class="font_4" @click="addFoucs(content.user.user_id)">关注</span>
                     </div>
                     <div v-else-if="content.focusStatus == 1">
-                      <img src="../../../../static/images/discover/ygz.png" style="width:0.28rem;height: 0.28rem; " />
+                      <img src="../../../../static/images/discover/ygz.png">
                       <span class="font_4" @click="removeFoucs(content.user.user_id)">已关注</span>
                     </div>
                     <div v-else="content.focusStatus == 2">
-                      <img src="../../../../static/images/discover/ygz.png" style="width:0.28rem;height: 0.28rem; ">
+                      <img src="../../../../static/images/discover/ygz.png">
                       <span class="font_4" @click="removeFoucs(content.user.user_id)">相互关注</span>
                     </div>
                   </div>
@@ -46,142 +45,83 @@
                 </div>
               </div>
             </div>
-            <!--评论者信息E-->
-            <!--<div class="d_02">
-              <div class="d_03">
-                <div @click="changeUserStartId(content.user.user_id)">
-                  <img v-if="content.user" :src="content.user.head_image" class="head_72"/>
-                  <img v-else src="../../../../static/images/discover/normalhead.png" class="head_72"/>
-                </div>
-              </div>
-              <div class="d_04" style="width: 88%;">
-                <span  style="color: #222222;font-size: 0.28rem;padding-left: 0.2rem;width: 100%;">
-                <span v-if="content.user">{{content.user.nick_name}}</span>
-                <span v-else>尚未设置昵称</span>
-                <span style="color: #222222;font-size: 0.28rem;float: right;" v-if="content.user && userId != content.user.user_id">
-                    <div v-if="content.focusStatus == 0">
-                      <img src="../../../../static/images/discover/jiaguanzhu1@2x.png" style="width:0.2rem;height: 0.2rem; " /> <span @click="addFoucs(content.user.user_id)">关注</span>
-                    </div>
-                    <div v-else-if="content.focusStatus == 1">
-                      <img src="../../../../static/images/discover/yiguanzhu1@2x.png" style="width:0.2rem;height: 0.2rem; " /> <span @click="removeFoucs(content.user.user_id)">已关注</span>
-                    </div>
-                    <div v-else="content.focusStatus == 2">
-                      <img src="../../../../static/images/discover/yiguanzhu1@2x.png" style="width:0.2rem;height: 0.2rem; "> <span @click="removeFoucs(content.user.user_id)">相互关注</span>
-                    </div>
-                  </span>
-                <br>
-                <span style="color: #888888;font-size: 0.24rem;">{{content.issuedDate}}</span>
-              </span>
-              </div>
-            </div>-->
-            <div style="width: 100%;overflow: hidden;color: #555555;font-size: 0.24rem;line-height: 0.4rem;margin: auto;padding: 0.1rem;">
+            <!--发布者信息E-->
+            <!--详情S-->
+            <div class="now_detail">
               {{content.momentMessage}}
             </div>
             <div v-for="item in content.momentImgList">
-              <img :src="item" style="width: 100%;overflow: hidden;border-radius: 0.2rem"/>
+              <img :src="item" class="now_detailPic"/>
             </div>
-            <div class="d_07">
-              <!--浏览距今时间-->
-              <div class="d_08">
-                <img src="../../../../static/images/discover/eye.png" class="icon"/>
-                <span class="iconNum">{{content.issuedDate}}</span>
+            <!--详情E-->
+            <div class="contentIconInfo">
+              <!--阅读数量-->
+              <img src="../../../../static/images/discover/eye.png" class="f_left"/>
+              <span class="f_left">{{content.readNum}}</span>
+              <!--是否点赞以及点赞数量-->
+              <span class="f_right">{{content.likeNum}}</span>
+              <img v-if="content.likeStatus" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveArticleLike">
+              <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeArticleLike">
+            </div>
+        </div>
+        <!--评论S-->
+        <div class="comment" id="commentTop">
+      <p class="all_comment">全部评论 ({{conmmentsList.length}})</p>
+      <div class="comment_wrap" v-for="(item,index) in conmmentsList">
+        <!--评论者信息S-->
+        <div class="comment_userinfo">
+          <div class="user_head">
+            <div @click="changeUserStartId(item.user.user_id)">
+              <img v-if="item.user" :src="item.user.head_image" />
+              <img v-else src="../../../../static/images/discover/normalhead.png" />
+            </div>
+          </div>
+          <div class="user_info">
+            <div v-if="item.user" class="user_name">
+              {{item.user.nick_name}}
+            </div>
+            <div v-else class="user_name">
+              尚未设置昵称
+            </div>
+            <div class="operation_comment">
+              <div>
+                <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="w_04 mr_16 v_m f_left" @click="giveCommentLike(item.id,index)"/>
+                <img v-else src="../../../../static/images/discover/zan.png" class="w_04 mr_16 v_m f_left" @click="removeCommentLike(item.id,index)"/>
+                <span style="font-size: 0.28rem;">{{item.likeNum}}</span>
               </div>
-              <div class="d_09">
-                <!--评论-->
-                <!--<img @click="toDetail(content.id)" src="../../../../static/images/discover/pinglun.png" class="icon"/>
-                <span class="iconNum">{{content.commentNum}}</span>
-                <div style="width: 0.2rem;"></div>-->
-                <!--是否点赞-->
-                <span v-if="content.likeStatus">
-                  <img src="../../../../static/images/discover/nozan.png" class="icon" @click="giveArticleLike">
-                </span>
-                <span v-else>
-                  <img src="../../../../static/images/discover/zan.png" class="icon" @click="removeArticleLike">
-                </span>
-                <span class="iconNum">{{content.likeNum}}</span>
-              </div>
-              <!--<div class="d_08">
-                <img  src="../../../../static/images/discover/fenxiang.png"  style="width: 0.32rem;margin-right: 0.16rem;" @click="onShareClick(0)"/>
-                &lt;!&ndash;是否点赞&ndash;&gt;
-                <span v-if="content.likeStatus">
-                    <img src="../../../../static/images/discover/good2@2x.png" alt="" style="width: 0.32rem;margin-right: 0.16rem;" @click="giveArticleLike">
+            </div>
+            <div class="user_date">
+              {{item.commentTime}}
+              <span v-if="item.user && userId == item.user.user_id">
+                    <span @click="deleteComment(item.id)" class="font_1">删除</span>
                   </span>
-                <span v-else>
-                    <img src="../../../../static/images/discover/good1@2x.png" alt="" style="width: 0.32rem;margin-right: 0.16rem;" @click="removeArticleLike">
-                  </span>
-                <span style="color: #888888;font-size: 0.24rem;margin-right: 0.16rem;">{{content.likeNum}}</span>
-                <img src="../../../../static/images/discover/pinglun.png" style="width: 0.32rem;margin-right: 0.16rem;"/>
-                <span style="color: #888888;font-size: 0.24rem;margin-right: 0.1rem;">{{content.commentNum}}</span>
-              </div>
-              <div class="d_09">
-                <span style="color: #888888;font-size: 0.24rem;margin-right: 0.1rem;">{{content.readNum}}</span>
-                <img src="../../../../static/images/discover/chakan.png" style="width: 0.32rem;"/>
-              </div>-->
             </div>
           </div>
         </div>
-      </div>
-    <div style="height: 0.8rem;"></div>
-   <!-- <div class="liner"></div>-->
-    <div style="margin-bottom: 1rem;">
-      <div id="pinglun" class="dd_01 detail" style="font-size: 0.32rem;color: #222222;font-weight: bold">
-        全部评论
-      </div>
-      <div id="pinglun_item01" class="dd_02 detail" v-for="(item,index) in conmmentsList">
-        <div class="dd_03">
-          <div @click="changeUserStartId(item.user.user_id)">
-            <img v-if="item.user" :src="item.user.head_image" style="border-radius: 35px;width:0.72rem;height: 0.72rem; "  />
-            <img v-else src="../../../../static/images/discover/normalhead.png" style="border-radius: 15px;width:0.72rem;height: 0.72rem; "  />
-          </div>
-          <div class="d_04" style="width: 88%;">
-              <span style="color: #222222;font-size: 0.28rem;padding-left: 0.2rem;width: 100%;">
-                <span v-if="item.user">{{item.user.nick_name}}</span>
-                <span v-else>尚未设置昵称</span>
-                <div style="float: right;height: 0.32rem;line-height: 0.32rem">
-                  <!--是否点赞-->
-                  <span v-if="item.likeStatus">
-                    <img src="../../../../static/images/discover/nozan.png" alt="" style="width: 0.32rem;float:left;" @click="giveCommentLike(item.id,index)">
-                  </span>
-                  <span v-else>
-                    <img src="../../../../static/images/discover/zan.png" alt="" style="width: 0.32rem;float:left;" @click="removeCommentLike(item.id,index)">
-                  </span>
-                  <span style="color: #888888;font-size: 0.24rem;margin-left: 0.1rem;float:left;">{{item.likeNum}}</span>
-                  <img @click="commentbtn1(item.id)" src="../../../../static/images/discover/comment.png" style="width: 0.32rem;height: 0.32rem;margin-left:0.2rem;float:right;"/>
-                </div>
-                <br>
-                <div>
-                  <span style="color: #888888;font-size: 0.24rem;">{{item.commentTime}}</span>
-                  <span v-if="item.user && userId == item.user.user_id">
-                    <span @click="deleteComment(item.id)" style="color: #888888;font-size: 0.24rem;">删除</span>
-                  </span>
-                </div>
-              </span>
-          </div>
-        </div>
-        <div style="width:100%;">
-          <div style="width: 86%;float: right;padding-bottom: 0.2rem;">
-            <div @click="commentbtn1(item.id)">
-              <span style="font-size: 0.24rem;color: #555555;">{{item.message}}</span>
-            </div>
-            <div style="background: #F8F8F8;border-radius: 8px;padding: 0.2rem;" v-if="item.reverts && item.reverts.length>0">
+        <!--评论者信息E-->
+        <!--评论内容和回复内容S-->
+        <div class="comment_content">
+          <p @click="commentbtnBack(item.id)">{{item.message}}</p>
+          <div v-if="item.reverts && item.reverts.length>0">
+            <div class="comment_msg">
               <div v-for="(back,index) in item.reverts.slice(0,3)">
-                <span style="color: #666666;font-size: 0.24rem;">
-                  <span>
-                    <span @click="changeUserStartId(back.user.user_id)">
-                      <span v-if="back.user.nick_name">{{back.user.nick_name}}</span>
-                      <span v-else style="color: #666666;font-size: 0.24rem;">尚未设置昵称:</span>
+                    <span class="font_1">
+                      <span>
+                        <span @click="changeUserStartId(back.user.user_id)">
+                          <span v-if="back.user.nick_name">{{back.user.nick_name}}</span>
+                          <span v-else>尚未设置昵称:</span>
+                        </span>
+                      </span>
+                      <span v-if="index!=0 && back.beCommentUser" @click="changeUserStartId(back.beCommentUser.user_id)">
+                        &nbsp;&nbsp;回复&nbsp;&nbsp;
+                        <span v-if="back.beCommentUser.nick_name">{{back.beCommentUser.nick_name}}</span>
+                        <span>尚未设置昵称:</span><br>
+                      </span>
                     </span>
-                  </span>
-                  <span v-if="index!=0 && back.beCommentUser" @click="changeUserStartId(back.beCommentUser.user_id)">
-                    &nbsp;&nbsp;回复&nbsp;&nbsp;
-                    <span v-if="back.beCommentUser.nick_name">{{back.beCommentUser.nick_name}}</span>
-                    <span v-else style="color: #666666;font-size: 0.24rem;">尚未设置昵称</span><br>
-                  </span>
-                </span>
-                <span style="color: #888888;font-size: 0.2rem;margin-left: 0.4rem" @click="commentbtn1(item.id,back.id)">{{back.message}}</span>
+                <span class="font_2" @click="commentbtnBack(item.id,back.id)">{{back.message}}</span>
                 <span v-if="back.user && userId == back.user.user_id">
-                    <span @click="deleteComment(back.id)" style="color: #888888;font-size: 0.24rem;">删除</span>
-                </span>
+                        <span @click="deleteComment(back.id)" class="font_1">删除</span>
+                    </span>
               </div>
               <div class="allHideComment" v-if="item.reverts && item.reverts.length>3" @click="toCommentList(item.id)">
                 全部{{item.reverts.length}}条评论>
@@ -189,26 +129,21 @@
             </div>
           </div>
         </div>
-        <div class="dd_08">
-        </div>
+        <!--评论内容和回复内容E-->
+        <div class="interval_002"></div>
       </div>
     </div>
-    <div class="comment-wrap">
-      <div  style="width: 80%;display: flex;flex-direction: row;" id="commentBox">
-        <div id='id_comment' @click="commentbtn"  style="display: flex;flex-direction: row;align-items: center;width: 100%;bottom: 0;">
-          <input v-model="commentMsg" id="comment" placeholder="写评论..." class="comment-input"/>
         </div>
-      </div>
-      <div id="id_pl_btn">
-        <button id="sendBtn" @click="comment" :disabled="isDisable">发送</button>
-      </div>
-      <mt-actionsheet
-        :actions="actions"
-        v-model="sheetVisible"
-        cancelText="">
-      </mt-actionsheet>
-    </div>
-    <div id="bg1" @click="bgbtn1" style="display: none;  position:fixed;  top: 0;  left: 0;  width: 100%;  height: 100%;  background-color: black;  z-index:999; opacity: 0.3;"/>
+        <div style="height: 1rem;"></div>
+        <!--评论E-->
+        <!--评论输入框S-->
+        <!--<DiscCommentBox ref="commentbox"></DiscCommentBox>-->
+        <div id="commentBg" @click="closeComment"/>
+        <div class="flex contentcenter myInput">
+          <input autofocus="autofocus" ref="commentfocus" id="comment" type="text" v-model="commentMsg" @click="commentbtn" placeholder="写评论..."/>
+          <span class="send" @click="comment">发送</span>
+        </div>
+        <!--评论输入框E-->
   </div>
 </template>
 
@@ -531,25 +466,20 @@
       },
       //点击评论
       commentbtn(){
-        $("#bg").show();//显示遮罩层
-        $("#id_pl_icon").hide();
-        //$("#id_pl_btn").show();
+        $("#commentBg").show();
         $("#comment").focus();
       },
-      //回复
-      commentbtn1(id,backId){
-        $("#bg").show();
-        $("#id_pl_icon").hide();
-        //$("#id_pl_btn").show();
+      //点击回复
+      commentbtnBack(id,backId){
+        $("#commentBg").show();
         $("#comment").focus();
         this.fId = id;
         this.bId = backId;
       },
       //取消评论
-      bgbtn(){
-        $("#bg").hide();
+      closeComment(){
+        $("#commentBg").hide();
         $("#id_pl_icon").show();
-        //$("#id_pl_btn").hide();
         this.commentMsg = '';
       },
       //分享
@@ -603,89 +533,4 @@
 
 <style scoped>
   @import "./../../../../static/css/discover/detail.css";
-  .all .mui-title,.all .mui-bar{
-    font-size: 0.4rem;
-    line-height: 1rem;
-    height: 1rem;
-  }
-  .liner{
-    height: 0.2rem;background: #f8f8f8;
-  }
-  .all .mui-bar a{
-    font-size: 0.4rem;
-    line-height: 0.8rem;
-  }
-  .dd_01{
-    width:100%;height: 1rem;display: flex;flex-direction: row;align-items: center;justify-content: flex-start;;
-  }
-  .dd_02{
-    display: flex;flex-direction: column;;
-  }
-  .dd_03{
-    width:100%;height:0.8rem;display: flex;flex-direction: row;
-  }
-  .dd_08{
-    height: 0.2rem;display: flex;flex-direction: row;align-items: center;
-  }
-  .detail{
-    width: 90%;
-    margin: 0 auto;
-  }
-  #sendBtn{
-    color: #FC3846;
-    font-size: 0.28rem;
-    margin: 0.16rem;
-    float: right;
-    width: 1rem;
-    height: 0.6rem;
-    background: #1A1D23;
-    border: none;
-  }
-  #id_pl_btn{
-    width: 20%;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-  }
-  .header-title{
-    color: #FC3846 ;
-    font-size: 0.36rem;
-  }
-  .icon{
-    width: 0.44rem;margin-right: 0.16rem;
-  }
-  .iconNum{
-    color: #888888;font-size: 0.24rem;margin-right: 0.1rem;
-  }
-  .comment-wrap{
-    width:100%;
-    height: 0.9rem;
-    background: #1A1D23;
-    border-top:1px solid #f8f8f8;
-    position: fixed;
-    bottom: 0;
-    display: flex;
-    flex-direction: row;
-    padding-left: 0.4rem;
-    padding-right: 0.4rem;
-    z-index: 20000;
-  }
-  .comment-input{
-    background:#1A1D23;
-    height: 0.52rem;
-    width: 100%;
-    border-radius:0.16rem;
-    border: none;
-    font-size: 0.3rem;
-    padding: 0.1rem;
-    color: #ffffff;
-    border: 0.02rem solid rgba(152, 152, 152, 0.51);
-  }
-  .allHideComment{
-    font-family: PingFangSC-Regular;
-    font-size: 0.28rem;
-    color: #666666;
-    height: 0.6rem;
-    line-height: 0.6rem;
-  }
 </style>

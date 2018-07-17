@@ -8,26 +8,24 @@
       </div>
       <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
         <!--资讯列表S-->
-        <div v-for="(item,index) in informationList">
-          <div style="width: 92%;margin: 0 auto;">
-            <div>
+          <div v-for="(item,index) in informationList">
+            <div class="boxInfo">
               <p class="listTitleInfo" @click="toDetail(item.manageId)">
                 {{item.manageTitle.slice(0,46)}}
                 <span v-if="item.manageTitle.length>46">...</span>
               </p>
               <img class="listPic312" @click="toDetail(item.manageId)" :src="item.imgUrl"/>
-              <div style="height: 0.4rem;width: 100%;line-height: 0.4rem;">
+              <div class="listIconInfo">
                 <!--阅读数量-->
-                <img src="../../../../static/images/discover/eye.png" style="vertical-align: middle;width: 0.4rem;float: left;margin-right: 0.16rem;"/>
-                <span style="font-size: 0.28rem;float: left;color: #CCCCCC;">{{item.readNum}}</span>
+                <img src="../../../../static/images/discover/eye.png" class="f_left"/>
+                <span class="f_left">{{item.readNum}}</span>
                 <!--是否点赞以及点赞数量-->
-                <span style="font-size: 0.28rem;float: right;color: #CCCCCC;">{{item.likeNum}}</span>
-                <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" style="vertical-align: middle;width: 0.4rem;float: right;margin-right: 0.16rem;" @click="giveInformationLike(item.manageId,index)"/>
-                <img v-else src="../../../../static/images/discover/zan.png" style="vertical-align: middle;width: 0.4rem;float: right;margin-right: 0.16rem;" @click="removeInformationLike(item.manageId,index)"/>
+                <span class="f_right">{{item.likeNum}}</span>
+                <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveInformationLike(item.manageId,index)"/>
+                <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeInformationLike(item.manageId,index)"/>
               </div>
             </div>
           </div>
-        </div>
         <!--资讯列表E-->
       </div>
     </mt-loadmore>
