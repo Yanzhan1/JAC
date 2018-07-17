@@ -14,10 +14,18 @@ img { border:none;}
 img{display: block;}
 ul,ol { list-style:none;}
 a{text-decoration: none;}
-/*设置所有元素包含padding  margin;设置所有元基本大小为28px*/
+/*设置所有元素包含padding  margin;设置所有元基本大小为28px,设置所有字体*/
 *{
-  box-sizing: content-box;
+  box-sizing: border-box;
   font-size: 0.28rem;
+}
+body{
+  font-family:'PingFangSC'
+}
+
+/*解决所有图片比实际高3px问题*/
+img{
+  margin-bottom: -3px;
 }
 
 /*flex布局类名*/
