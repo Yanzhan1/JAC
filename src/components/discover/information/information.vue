@@ -1,5 +1,5 @@
 <template>
-  <div class="all">
+  <div class="all" >
     <!--<div @click="bgHide" id="bgShareInfo" style="position: fixed; width: 100%;height: 100%;background: black; display: none;opacity: 0"></div>-->
     <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="80">
       <div slot="top" class="mint-loadmore-top" style="margin-top:-54px;">
@@ -9,26 +9,21 @@
       <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
         <!--资讯列表S-->
         <div v-for="(item,index) in informationList">
-          <div class="box_1 height_5">
-            <div class="box_2">
-              <img @click="toDetail(item.manageId)" :src="item.imgUrl"/>
-            </div>
-            <div class="box_3 height_188">
-              <p class="title_info" @click="toDetail(item.manageId)">
+          <div style="width: 92%;margin: 0 auto;">
+            <div>
+              <p class="listTitleInfo" @click="toDetail(item.manageId)">
                 {{item.manageTitle.slice(0,46)}}
                 <span v-if="item.manageTitle.length>46">...</span>
               </p>
-              <div class="operation_info">
+              <img class="listPic312" @click="toDetail(item.manageId)" :src="item.imgUrl"/>
+              <div style="height: 0.4rem;width: 100%;line-height: 0.4rem;">
                 <!--阅读数量-->
-                <img src="../../../../static/images/discover/eye.png" class="w_04 mr_006"/>
-                <span>{{item.readNum}}</span>
-                <!--评论数量-->
-                <img src="../../../../static/images/discover/comment.png" class="w_04 mr_006" @click="toDetail(item.manageId)"/>
-                <span class="size_28">{{item.commentNum}}</span>
+                <img src="../../../../static/images/discover/eye.png" style="vertical-align: middle;width: 0.4rem;float: left;margin-right: 0.16rem;"/>
+                <span style="font-size: 0.28rem;float: left;color: #CCCCCC;">{{item.readNum}}</span>
                 <!--是否点赞以及点赞数量-->
-                <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="w_04 mr_006" @click="giveInformationLike(item.manageId,index)"/>
-                <img v-else src="../../../../static/images/discover/zan.png" class="w_04 mr_006" @click="removeInformationLike(item.manageId,index)"/>
-                <span class="size_28">{{item.likeNum}}</span>
+                <span style="font-size: 0.28rem;float: right;color: #CCCCCC;">{{item.likeNum}}</span>
+                <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" style="vertical-align: middle;width: 0.4rem;float: right;margin-right: 0.16rem;" @click="giveInformationLike(item.manageId,index)"/>
+                <img v-else src="../../../../static/images/discover/zan.png" style="vertical-align: middle;width: 0.4rem;float: right;margin-right: 0.16rem;" @click="removeInformationLike(item.manageId,index)"/>
               </div>
             </div>
           </div>

@@ -93,7 +93,11 @@ export default new Router({
             path: "/now",
             component: Now,
             meta: { keepAlive: true }
-          }]
+          },
+            {
+              path: "/lovecar",
+              component: Lovecar
+            }]
         },
         /*{
           path: "/activity/detailactivity",

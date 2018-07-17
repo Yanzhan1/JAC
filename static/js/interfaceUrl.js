@@ -1,5 +1,5 @@
-//var indexip = 'http://122.112.247.25/api/DK-DM-PORTAL-API'
-var indexip = 'http://172.18.31.40:8868'
+var indexip = 'http://122.112.247.25/api/DK-DM-PORTAL-API'
+//var indexip = 'http://172.18.31.40:8868'
 //首页
 var INDEXMESSAGE = {
   getRecommend: indexip + '/recommend/recommendList', //首页-推荐
