@@ -154,12 +154,12 @@
     border-bottom: 0.04rem solid #49BBFF;
     color: #49BBFF;
     height: 0.8rem;
-    line-height: 0.8rem;
+    line-height: 0.78rem;
   }
   .myheader {
     font-size: 0.4rem;
     position: fixed;
-    width: 90%;
+    width: 100%;
     background: #ffffff;
     height: .88rem;
     line-height: .88rem;
