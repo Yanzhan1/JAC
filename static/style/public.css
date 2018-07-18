@@ -64,6 +64,7 @@ img{
   position: fixed;
   top: 0;
   background:#fff ;
+  border-bottom: 1px solid #F1F1F1;
   /*background: -webkit-linear-gradient(#5A7DA3, #597BA1); !* Safari 5.1 - 6.0 *!
   background: -o-linear-gradient(#5A7DA3, #597BA1); !* Opera 11.1 - 12.0 *!
   background: -moz-linear-gradient(#5A7DA3, #597BA1); !* Firefox 3.6 - 15 *!
