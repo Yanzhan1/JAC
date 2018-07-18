@@ -102,7 +102,7 @@
         <div style="height: 0.4rem;"></div>
       </div>
       <!--晒图内容E-->
-      <div style="height: 0.4rem;"></div>
+      <div style="height: 0.88rem;"></div>
       <!--按钮控制S-->
       <div v-if="userId">
         <div class="sign_btn" v-if="content.activityState==2 || content.activityState==1" @click="toPic(content.activityId)">
@@ -389,7 +389,7 @@
       }
     }
     /*悬浮,更换头部背景透明度和文字*/
-    /* $(document).ready(function(){
+     $(document).ready(function(){
        //获取图片高度imgHeight
        var imgHeight = 0;
        $("#bgImg").on("load",function(){
@@ -407,7 +407,7 @@
            $("#header2").show();
          }
        });
-     });*/
+     });
 </script>
 
 <style scoped>

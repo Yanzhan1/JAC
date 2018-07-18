@@ -62,8 +62,8 @@
               <img @click="toDetail(item.id)" :src="item.momentImgList[2]" class="pic3_3"/>
             </div>
             <div v-if="item.momentImgList.length>3">
-              <div style="position: relative;">
-                <div style="color: #ffffff;right: 0.4rem;bottom: -3rem;position: absolute">
+              <div  class="shequMore_box">
+                <div class="shequNum">
                   {{item.momentImgList.length}}
                 </div>
                 <img @click="toDetail(item.id)" :src="item.momentImgList[0]" style="margin-right: 2%;" class="pic3_1"/>
