@@ -2,7 +2,7 @@
     <div>
       <div class="myheader">
         <div>
-          <img src="../../static/images/discover/shaixuan.png" @click="publish" style="width: 0.4rem;margin-top: 0.1rem;"  />
+          <img src="../../static/images/discover/shaixuan.png" @click="publish" style="width: 0.4rem;"/>
         </div>
         <div style="" class="head-tab"  :class="{ recommand: isRecommand }" @click.stop.prevent="goIsRecommand">
           <span class="size_36">推荐</span>
@@ -17,7 +17,7 @@
           <span class="size_36">资讯</span>
         </div>
         <div>
-          <img src="../../static/images/discover/camera.png" @click="publish" style="width: 0.4rem;margin-top: 0.1rem;" id='id_publish' />
+          <img src="../../static/images/discover/camera.png" @click="publish" style="width: 0.4rem;" id='id_publish'/>
         </div>
       </div>
     </div>
