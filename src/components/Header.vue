@@ -1,5 +1,4 @@
 <template>
-  <div class="header">
     <div>
       <div class="myheader">
         <div>
@@ -22,8 +21,6 @@
         </div>
       </div>
     </div>
-
-  </div>
 </template>
 
 <script>
@@ -138,18 +135,6 @@
   .top-pic img{
     width: 0.48rem;height: 0.48rem;position: relative;top: 16%;
   }
-  /*.myheader {
-    width: 90%;
-    height: .88rem;
-    line-height: .8rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    z-index: 199;
-    padding:none !important;
-  }*/
   .recommand,.information,.allActivity,.now,.question {
     border-bottom: 0.04rem solid #49BBFF;
     color: #49BBFF;
