@@ -1,7 +1,7 @@
 .header {
   font-size: 0.36rem;
   position: fixed;
-  width: 92%;
+  width: 100%;
   background: #ffffff;
   height: .88rem;
   line-height: .88rem;
@@ -121,7 +121,7 @@
   font-size: 0.32rem;
   color: #222222;
   line-height: 0.36rem;
-  width: 74%;
+  width: 70%;
   float: left;
 }
 .comment_userinfo .user_info .user_date{
@@ -202,7 +202,7 @@
 }
 .font_3{
   font-size: 0.28rem;
-  color: #2099FF;
+  color: #49BBFF;
   text-align: center;
   line-height: 0.28rem;
 }
@@ -211,6 +211,37 @@
 }
 .top_14{
   margin-top: 1.4rem;width: 100%;
+}
+.blue_28{
+  color: #49BBFF;
+  font-size: 0.28rem;
+}
+.ml_2{
+  margin-left: 0.2rem;
+}
+.w_28{
+  width: 0.28rem;
+}
+.mr_32{
+  margin-right: 0.32rem;
+}
+.sign_head{
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 25px;
+  margin-left: -0.2rem;
+  float: left;
+}
+.flag_word{
+  width: 92%;
+  margin: 0 auto;
+  font-size: 0.32rem;
+  color: #555555;
+  letter-spacing: 0;
+  line-height: 0.32rem;
+  margin-bottom: 0.32rem;
+  border-top: 0.02rem solid #F5F5F5;
+  padding-top: 0.4rem;
 }
 /*评论输入框相关样式*/
 .allHideComment{
@@ -313,4 +344,91 @@
 .pics{
   width: 100%; margin-top: 0.1rem;margin-bottom: 0.2rem;
   height: 3.2rem;
+}
+.mr_2{
+  margin-right: 2%;
+}
+/*活动详情*/
+.contentActTitle{
+  font-size: 0.36rem;
+  color: #333333;
+  letter-spacing: 1px;
+  line-height: 0.36rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.24rem;
+}
+.duiqiDiv{
+  height: 0.28rem;
+  width: 100%;
+  line-height: 0.28rem;
+}
+.sign_btn{
+  height: 0.88rem;
+  background: #49BBFF;
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  font-size: 0.32rem;
+  color: #F5F5F5;
+  letter-spacing: 1px;
+  line-height: 0.88rem;
+  bottom: 0;
+}
+.shaitu{
+  float: right;text-align: right;
+}
+.shaitu img{
+  vertical-align: middle;
+  width:0.4rem;
+  height: 0.4rem;
+  float: left;
+  margin-right: 0.16rem;
+}
+.picTitle{
+  font-size: 0.28rem;
+  color: #555555;
+  letter-spacing: 0;
+  line-height: 0.4rem;
+}
+.shaitu1{
+  width: 100%;
+  height: 3.12rem;
+  border-radius: 0.08rem;
+  margin-top: 0.16rem;
+}
+.shaitu2_1{
+  border-radius: 0.1rem;width: 49%;height:3.2rem;float: left; border-radius: 0.08rem;object-fit:cover;margin-top: 0.16rem;
+}
+.shaitu2_2{
+  border-radius: 0.1rem;width: 49%;height:3.2rem;float: left; border-radius: 0.08rem;object-fit:cover;margin-top: 0.16rem;
+}
+.shaitu3_1{
+  border-radius: 0.1rem;width: 32%;height:2.1rem;float: left; border-radius: 0.08rem;object-fit:cover;margin-top: 0.16rem;
+}
+.shaitu3_2{
+  border-radius: 0.1rem;width: 32%;height:2.1rem;float: left; border-radius: 0.08rem;object-fit:cover;margin-top: 0.16rem;
+}
+.shaitu3_3{
+  border-radius: 0.1rem;width: 32%;height:2.1rem;float: left; border-radius: 0.08rem;object-fit:cover;margin-top: 0.16rem;
+}
+.shaituNum{
+  color: #ffffff;
+  right: 0.02rem;
+  bottom: -0.16rem;
+  position: absolute;
+  background: #000000;
+  z-index: 3;
+  width: 0.4rem;
+  height: 0.4rem;
+  opacity: 0.2;
+  text-align: center;
+}
+.shaitu2_box{
+  clear: both;height: 3.2rem;
+}
+.shaitu3_box{
+  clear: both;height: 2.1rem;
+}
+.shaituMore_box{
+  position: relative;clear: both;height: 2.1rem;
 }

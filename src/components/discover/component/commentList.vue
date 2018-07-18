@@ -1,5 +1,5 @@
 <template>
-  <div class="all">
+  <div>
     <header class="header header2">
       <img class="header-left" src="../../../../static/images/discover/backblue.png" @click="goBack">
       <p class="header-title-fff" style="width: 100%;text-align: center">评论详情</p>
@@ -23,8 +23,8 @@
             </div>
             <div class="operation_comment">
               <div>
-                <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="w_04 mr_006 v_m" @click="giveCommentLike(item.id,index)"/>
-                <img v-else src="../../../../static/images/discover/zan.png" class="w_04 mr_006 v_m" @click="removeCommentLike(item.id,index)"/>
+                <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="w_04 mr_16 v_m f_left" @click="giveCommentLike(item.id,index)"/>
+                <img v-else src="../../../../static/images/discover/zan.png" class="w_04 mr_16 v_m f_left" @click="removeCommentLike(item.id,index)"/>
                 <span style="font-size: 0.28rem;">{{item.likeNum}}</span>
               </div>
             </div>
