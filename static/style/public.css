@@ -51,3 +51,36 @@ img{
 .around{
   justify-content: space-around;
 }
+
+/* 头部样式 */
+.header {
+  width: 100%;
+  height:.88rem;
+  line-height: .88rem;
+  padding:0 .3rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  background:#fff ;
+  /*background: -webkit-linear-gradient(#5A7DA3, #597BA1); !* Safari 5.1 - 6.0 *!
+  background: -o-linear-gradient(#5A7DA3, #597BA1); !* Opera 11.1 - 12.0 *!
+  background: -moz-linear-gradient(#5A7DA3, #597BA1); !* Firefox 3.6 - 15 *!
+  background: linear-gradient(#5A7DA3, #597BA1); !* 标准的语法 *!*/
+  z-index:2;
+}
+.header .header-left{
+  width: .4rem;
+  height: .4rem;
+}
+.header .header-right{
+  width: .4rem;
+  height: .4rem;
+}
+.header-title{
+  height:.88rem;
+  line-height: .88rem;
+  font-size: .36rem;
+  color: #222222;
+}
