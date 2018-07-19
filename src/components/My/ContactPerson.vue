@@ -12,6 +12,7 @@
 		<router-link tag="div" class="conpson-mobile" to="" >
 			<mt-cell title="电话号码"  value="18709238745" is-link></mt-cell>
 		</router-link>
+		<div class="bottom-btn">修改</div>
 	</div>
 </template>
 
