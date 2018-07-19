@@ -161,7 +161,7 @@
       },
       toDetail: function (id,userId) {
         this.$store.state.UserStartId = userId;
-        this.$router.push({path:"/discover/nowDetail",query:{id:id}})
+        this.$router.push({path:"/now/nowDetail",query:{id:id}})
       },
       clickImg(e) {
         this.showImg = true;
