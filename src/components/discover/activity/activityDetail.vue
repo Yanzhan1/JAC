@@ -43,7 +43,7 @@
       </div>
       <!--活动内容E-->
       <!--晒图内容S-->
-      <div class="flag_word">用户晒图()</div>
+      <div class="flag_word">用户晒图({{pictureList.length}})</div>
       <div  v-if="content.activityState==2" v-for="(item,index) in pictureList" style="width: 92%;margin: auto;">
         <!--发布者信息S-->
         <div class="comment_userinfo">
@@ -150,7 +150,7 @@
       },
       methods:{
         toDetail: function (id) {
-          this.$router.push({path:"/discover/picDetail",query:{id:id}})
+          this.$router.push({path:"/activity/pictureDetail",query:{id:id}})
         },
         toSign: function (id) {
           this.$router.push({path:"/activity/toSign",query:{activityId:id}})

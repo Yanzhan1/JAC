@@ -23,8 +23,9 @@ import Now from '@/components/discover/now/now' //此刻首页
 import ActivityDetail from '@/components/discover/activity/activityDetail' //活动详情
 import InformationDetail from '@/components/discover/information/informationDetail' //资讯详情
 import NowDetail from '@/components/discover/now/nowDetail' //此刻详情
+import PictureDetail from '@/components/discover/activity/pictureDetail' //晒图详情
 
-import CommentList from '@/components/discover/component/commentList' //评论详情(公共)
+import CommentList from '@/components/discover/component/commentList' //超过4条的评论列表(公共)
 import AddPic from '@/components/discover/now/addPic' //新增此刻
 import ToSign from '@/components/discover/activity/toSign' //活动报名
 
@@ -87,7 +88,12 @@ export default new Router({
 			}, {
 				path: "/now/nowDetail",
 				component: NowDetail
-			}, {
+			},
+      {
+        path: "/activity/pictureDetail",
+        component: PictureDetail
+      },
+      {
 				path: "/component/commentList",
 				component: CommentList
 			}, {

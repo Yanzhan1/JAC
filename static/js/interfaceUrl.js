@@ -37,6 +37,7 @@ var DISCOVERMESSAGE = {
   removeShowPictureLike: indexip + '/userLike/removeShowPictureLike',//取消点赞
   showPictureComment: indexip + '/userComment/showPictureComment', //晒图评论
   showPictureCommentList: indexip + '/userComment/showPictureCommentList', //晒图评论列表
+  pictureRead: indexip + '/readerHistory/picture', //晒图浏览量
   /*圈子*/
   momentGiveLike: indexip + '/userLike/giveMomentLike', //此刻点赞
   momentRemoveLike: indexip + '/userLike/removeMomentLike', //此刻取消点赞
