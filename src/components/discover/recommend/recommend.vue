@@ -184,6 +184,7 @@
   import { MessageBox } from 'mint-ui';
   import { Toast } from 'mint-ui';
   import shareBox from '../component/shareBox.vue';
+  import popUp from '../component/PopUp.vue'
     export default {
       name: "Recommend",
       data(){
@@ -204,7 +205,8 @@
           }
       },
       components: {
-        shareBox
+        shareBox,
+        popUp
       },
       methods:{
         toDetailInfo: function (id) {
