@@ -38,12 +38,25 @@
   align-items: center;
   border-bottom: 1px solid #F1F1F1;
 }
-.head img{
+.head img, .headerUser img{
   width: 0.4rem;
 }
-.head span{
+.head span,.headerUser span{
   color: #49BBFF;
   font-size: 0.28rem;
+}
+.headerUser {
+  font-size: 0.36rem;
+  position: fixed;
+  width: 100%;
+  background: #ffffff;
+  height: .88rem;
+  line-height: .88rem;
+  padding: 0 4% 0;
+  display: flex;
+  align-items: center;
+  top: 0;
+  z-index: 999;
 }
 .all{
   word-break:break-all;
@@ -239,6 +252,12 @@
 .font_4{
   color: #555555;font-size: 0.28rem;
 }
+.font_5{
+  color: #555555;font-size: 0.32rem;
+}
+.font_6{
+  color: #888888;font-size: 0.32rem;
+}
 .top_14{
   margin-top: 1.4rem;width: 100%;
 }
@@ -404,6 +423,9 @@
 .mr_2{
   margin-right: 2%;
 }
+.pt_4{
+  padding-top: 0.4rem;
+}
 .shequMore_box{
   position: relative;clear: both;height: 2.1rem;
 }
@@ -546,4 +568,43 @@
   height: 2.1rem;
   margin-left: 4%;
   background: #f5f5f5;
+}
+/*个人首页*/
+.startbg{
+  background: url('../../../static/images/discover/startbg.png') no-repeat center center;
+  background-size: 100% 100%;
+  text-align: center;
+  position: relative;
+}
+.startbg .wrapbg{
+  text-align: center; width: 100%; margin: 0 auto;padding-top: 1.4rem;
+}
+.startbg img{
+  height: 1.4rem;width: 1.4rem;display: inline-block;
+}
+.startbg .user_info{
+  width: 100%;margin-top: 0.26rem;
+}
+.bottom_btn_wrap{
+  height: 1rem;position: fixed;width: 100%;background: #ffffff;text-align: center;padding: 0.6% 0.4rem;z-index: 3;bottom: 0;
+}
+.bottom_jgz{
+  background: #49BBFF;
+  border-radius: 0.08rem;
+  width: 100%;
+  height: 0.88rem;
+  line-height: 0.88rem;
+  font-size: 0.32rem;
+  color: #F5F5F5;
+  letter-spacing: 1px;
+}
+.bottom_ygz{
+  background: #CCCCCC;
+  border-radius: 0.08rem;
+  width: 100%;
+  height: 0.88rem;
+  line-height: 0.88rem;
+  font-size: 0.32rem;
+  color: #F5F5F5;
+  letter-spacing: 1px;
 }

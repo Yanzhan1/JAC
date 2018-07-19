@@ -146,7 +146,7 @@
         },
         changeUserStartId(id){
           if(id == this.$store.state.userId){
-            this.$router.push({path:'/my/mystart'});
+            this.$router.push({path:'/mystart'});
           }else{
             this.$store.state.UserStartId = id;
             this.$router.push({path:'/userstart'});
