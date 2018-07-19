@@ -18,6 +18,26 @@
   top: 0;
   z-index: 999;
 }
+.header0 {
+  font-size: 0.36rem;
+  position: fixed;
+  width: 100%;
+  background: #ffffff;
+  height: .88rem;
+  line-height: .88rem;
+  padding: 0 4% 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  top: 0;
+  z-index: 999;
+}
 .head{
   font-size: 0.36rem;
   width: 100%;
@@ -38,7 +58,7 @@
   align-items: center;
   border-bottom: 1px solid #F1F1F1;
 }
-.head img, .headerUser img{
+.head img, .headerUser img,.header0 img{
   width: 0.4rem;
 }
 .head span,.headerUser span{

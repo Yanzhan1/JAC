@@ -1,11 +1,11 @@
 <template>
     <div>
       <div @click="bgHide" id="bgShare"></div>
-      <header class="header header1" id="header1">
+      <header class="header0 header1" id="header1">
         <img class="header_left" src="../../../../static/images/discover/backfff.png" @click="goBack">
         <img class="header_right" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)"/>
       </header>
-      <header class="header header2" id="header2" style="display: none">
+      <header class="header0 header2" id="header2" style="display: none">
         <img class="header_left" src="../../../../static/images/discover/backblue.png" @click="goBack">
         <p class="header-title-fff">活动详情</p>
         <img class="header_right" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)"/>
@@ -380,60 +380,30 @@
       },
       mounted(){
           this.$store.dispatch("hideFoot")
-          this.$nextTick(function () {
-            //初始化数据
-            this.getActivity();
-            this.getReadNum();
-            this.getPictureList();
-          })
+        /*悬浮,更换头部背景透明度和文字*/
+        $(window).scroll(()=> {
+          if($("html,body").scrollTop() <= $("#bgImg").height()){
+            $("#header1").show();
+            $("#header2").hide();
+          }else{
+            $("#header1").hide();
+            $("#header2").show();
+          }
+        })
+        //初始化数据
+        this.$nextTick(function () {
+          this.getActivity();
+          this.getReadNum();
+          this.getPictureList();
+        })
       }
     }
-    /*悬浮,更换头部背景透明度和文字*/
-     $(document).ready(function(){
-       //获取图片高度imgHeight
-       var imgHeight = 0;
-       $("#bgImg").on("load",function(){
-         imgHeight = $(this).height();
-       });
-       //根据图片高度切换透明/不透明头部
-       $(document).scroll(function(){
-         var top = $(document).scrollTop();
-         if(top < imgHeight){
-           $("#header1").show();
-           $("#header2").hide();
-         }
-         else if(top >= imgHeight){
-           $("#header1").hide();
-           $("#header2").show();
-         }
-       });
-     });
 </script>
 
 <style scoped>
   @import "./../../../../static/css/discover/detail.css";
-  .act_13{
-    height: 0.5rem;
-    display: flex;
-    flex-direction: row;
-    padding-left: 0.2rem;
-    margin-bottom: 0.4rem;
-  }
-  .act_14{
-    display: flex;flex-direction: row;align-items: center;
-  }
-  .act_15{
-    width: 96%;display: flex;flex-direction: row;align-items: center;font-size: 0.3rem;color: #222222;padding-left: 0.2rem;
-  }
-  .act_16{
-    width: 0.32rem;display: flex;flex-direction: row;align-items: center;float: right;
-  }
   .act_16 img{
     height: 0.32rem;width: 0.32rem
-  }
-  .title{
-    color: #222222;
-    font-size: 0.44rem;
   }
   .content{
     font-family: PingFangSC-Regular;
@@ -446,81 +416,7 @@
     overflow: hidden;
     width: 100%;
   }
-  .wantgo{
-    background: #FC3846;
-    border-radius: 0.16rem;
-    height: 0.88rem;
-    color: #ffffff;
-    letter-spacing: 0;
-    text-align: center;
-    font-size: 0.28rem;
-    line-height: 0.88rem;
-    position: fixed;
-    bottom: 0.3rem;
-    width: 92%;
-    margin-left: 4%;
-  }
-  #mess{
-    z-index: 666;position: fixed;margin-top: 1rem;right: 0.1rem;display: none;
-  }
   #bgShare{
     position: fixed; width: 100%;height: 100%;background: black; display: none;opacity: 0.2
-  }
-  .like{
-    margin-top: 0.4rem;height: 0.32rem;line-height: 0.44rem;
-  }
-  .likeIcon{
-    width: 0.44rem;float:left;
-  }
-  .liner{
-    height: 0.2rem;background: #f8f8f8;
-    margin-bottom: 0.4rem;
-  }
-  .pics{
-    width: 100%;
-    margin: auto;
-    text-align: center;
-  }
-  .user-head{
-    border-radius: 15px;width:0.72rem;height: 0.72rem;
-    float: left;
-  }
-  .user-name{
-    float: left;color: #222222;font-size: 0.28rem;padding-left: 0.2rem;
-    width: 88%;
-    height: 0.72rem;
-    line-height: 0.72rem;
-  }
-  .pic-title{
-    font-size: 0.28rem;
-    color: #555555;
-    margin-top: 0.6rem;
-    margin-bottom: 0.3rem;
-  }
-  .date{
-    font-size: 0.24rem;
-    color: #888888;
-    float: left;
-  }
-  .d_08{
-    height: 0.7rem;
-    line-height: 0.7rem;
-  }
-  .header-title{
-    color: #FC3846 ;
-    font-size: 0.36rem;
-  }
-  .go-num{
-    color: #FC3846;
-    font-size: 0.28rem;
-  }
-  .w_01{
-    width: 100%;height: 0.8rem;line-height: 0.8rem
-  }
-  .w_02{
-    width: 0.4rem;height: 0.4rem;vertical-align: middle;
-  }
-  .w_03{
-    font-size: 0.28rem;color: #999999;
   }
 </style>

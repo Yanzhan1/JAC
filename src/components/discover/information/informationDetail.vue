@@ -2,11 +2,11 @@
   <div>
     <div @click="bgHide" id="bgShare" style="position: fixed; width: 100%;height: 100%;background: #000000; display: none;opacity: 0.2"></div>
     <div>
-      <header class="header header1" id="header1">
+      <header class="header0 header1" id="header1">
         <img class="header_left" src="../../../../static/images/discover/backfff.png" @click="goBack">
         <img class="header_right" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)"/>
       </header>
-      <header class="header header2" id="header2" style="display: none">
+      <header class="header0 header2" id="header2" style="display: none">
         <img class="header_left" src="../../../../static/images/discover/backblue.png" @click="goBack">
         <p class="header-title-fff">资讯详情</p>
         <img class="header_right" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)"/>
@@ -403,8 +403,18 @@
     },*/
     mounted(){
       this.$store.dispatch("hideFoot"),
+        /*悬浮,更换头部背景透明度和文字*/
+        $(window).scroll(()=> {
+          if($("html,body").scrollTop() <= $("#bgImg").height()){
+            $("#header1").show();
+            $("#header2").hide();
+          }else{
+            $("#header1").hide();
+            $("#header2").show();
+          }
+        })
+        //初始化数据
         this.$nextTick(function () {
-          //初始化数据
           this.getDetail();
           this.getReadNum();
           this.getComments();
@@ -412,27 +422,6 @@
         })
     }
   }
-
-  /*悬浮,更换头部背景透明度和文字*/
-  $(document).ready(function(){
-    //获取图片高度imgHeight
-    var imgHeight = 0;
-    $("#bgImg").on("load",function(){
-      imgHeight = $(this).height();
-    });
-    //根据图片高度切换透明/不透明头部
-    $(document).scroll(function(){
-      var top = $(document).scrollTop();
-      if(top < imgHeight){
-        $("#header1").show();
-        $("#header2").hide();
-      }
-      else if(top >= imgHeight){
-        $("#header1").hide();
-        $("#header2").show();
-      }
-    });
-  });
 </script>
 
 <style scoped>
