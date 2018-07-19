@@ -46,7 +46,8 @@ import {
   Toast,
   TabContainer,
   TabContainerItem,
-  Spinner
+  Spinner,
+  Radio
 } from 'mint-ui'; //按需引入部分组件
 Vue.component(Search.name, Search);
 Vue.component(PaletteButton.name, PaletteButton);
@@ -66,6 +67,7 @@ Vue.component(Toast.name, Toast);
 Vue.component(TabContainer.name, TabContainer);
 Vue.component(TabContainerItem.name, TabContainerItem);
 Vue.component(Spinner.name, Spinner);
+Vue.component(Radio.name, Radio);
 //导入mint-ui
 import mintui from 'mint-ui'
 import 'mint-ui/lib/style.css'
