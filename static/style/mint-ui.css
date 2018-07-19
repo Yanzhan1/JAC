@@ -1,0 +1,10 @@
+.mint-msgbox {
+    height: 25%;
+    border-radius: 0.2rem;
+}
+.mint-msgbox-header {
+    padding: 0.25rem 0 0;
+}
+.mint-msgbox-content {
+    padding: 0.5rem 0.2rem 0.5rem;
+}

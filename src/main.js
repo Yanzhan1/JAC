@@ -71,6 +71,7 @@ Vue.component(Radio.name, Radio);
 //导入mint-ui
 import mintui from 'mint-ui'
 import 'mint-ui/lib/style.css'
+import '../static/style/mint-ui.css'
 Vue.use(mintui)
 //状态管理
 import store from './store'
