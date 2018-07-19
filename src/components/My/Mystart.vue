@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="header header1" id="header1" style="border: none;">
+    <header class="header0 header1" id="header1" style="border: none;">
       <img class="header_left" src="../../../static/images/discover/backfff.png" @click="goBack">
     </header>
     <header class="headerUser" id="header2" style="display: none">
@@ -271,13 +271,16 @@
     },
     mounted(){
       this.$store.dispatch('hideFoot');
-      /*$(window).scroll(()=> {
-        if($("html,body").scrollTop() >= $(".top").height()){
-            $(".nav").css('background','#666666')
+      /*悬浮,更换头部背景透明度和文字*/
+      $(window).scroll(()=> {
+        if($("html,body").scrollTop() <= 300){
+          $("#header1").show();
+          $("#header2").hide();
         }else{
-          $(".nav").css('background','rgba(34,34,34,0.10)')
+          $("#header1").hide();
+          $("#header2").show();
         }
-      })*/
+      })
       this.getMineList();
       this.getuserMessage();
       this.myFocusNum();
@@ -286,26 +289,6 @@
     }
   }
 
-  /*悬浮,更换头部背景透明度和文字*/
-  $(document).ready(function(){
-    //获取图片高度imgHeight
-    var imgHeight = 0;
-    $("#bgImg").on("load",function(){
-      imgHeight = $(this).height();
-    });
-    //根据图片高度切换透明/不透明头部
-    $(document).scroll(function(){
-      var top = $(document).scrollTop();
-      if(top < imgHeight){
-        $("#header1").show();
-        $("#header2").hide();
-      }
-      else if(top >= imgHeight){
-        $("#header1").hide();
-        $("#header2").show();
-      }
-    });
-  });
 </script>
 
 <style scoped>
