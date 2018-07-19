@@ -455,7 +455,7 @@
           $(".nav").css('background','rgba(34,34,34,0.10)')
         }
       })*/
-      this.init();
+      //this.init();
       //获取好友关系 电咖没有好友功能
       // this.getfriendconnect();
       this.getUserList();

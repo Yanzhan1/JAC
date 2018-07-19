@@ -10,6 +10,9 @@ import ReviseSuccess from '@/components/Lovecar/ReviseSuccess'
 import My from '@/components/My/Myindex'
 import Mystart from '@/components/My/Mystart'
 import Userstart from '@/components/My/Userstart'
+import Fans from '@/components/My/Fans'
+import Focus from '@/components/My/Focus'
+
 //发现部分
 import Discover from '@/components/discover/discover'
 import Recommend from '@/components/discover/recommend/recommend' //推荐首页
@@ -177,6 +180,14 @@ export default new Router({
 				path: "/userstart",
 				component: Userstart
 			},
+      {
+        path: "/fans",
+        component: Fans
+      },
+      {
+        path: "/focus",
+        component: Focus
+      },
 			//智享部分
 			{
 				path: '/wit',
