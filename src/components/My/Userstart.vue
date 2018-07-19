@@ -111,7 +111,7 @@
 <script>
   /*import CommentBox from './commentBox.vue';*/
   import moment from "moment";
-  import { Toast } from 'Mint-ui';
+  import { Toast } from 'mint-ui';
   import { MessageBox } from 'mint-ui';
   /*import shareBox from '../publicmodule/shareBox.vue';*/
   export default {
