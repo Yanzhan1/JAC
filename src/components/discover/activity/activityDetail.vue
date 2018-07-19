@@ -1,136 +1,124 @@
 <template>
-    <div class="all">
+    <div>
       <div @click="bgHide" id="bgShare"></div>
-      <header class="header" id="head">
-        <!--<header class="header headerOpacity" id="head">-->
-        <img class="header-left" src="../../../../static/images/discover/backfff.png" @click="goBack">
-        <p class="header-title">活动详情</p>
-        <img src="../../../../static/images/discover/morefff.png"  @click="onShareClick(0)"/>
+      <header class="header header1" id="header1">
+        <img class="header_left" src="../../../../static/images/discover/backfff.png" @click="goBack">
+        <img class="header_right" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)"/>
       </header>
-      <!--<div id="mess" @click="onShareClick(0)">
-          <img src="../../../../static/images/discover/shareOrange.png"/>
-      </div>-->
+      <header class="header header2" id="header2" style="display: none">
+        <img class="header_left" src="../../../../static/images/discover/backblue.png" @click="goBack">
+        <p class="header-title-fff">活动详情</p>
+        <img class="header_right" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)"/>
+      </header>
+      <!--活动内容S-->
       <shareBox :index="0" :item="content" :flag="flag" :type="type" :isCenter="true" @closeShare="bgHide"></shareBox>
-      <div style="height: 0.88rem"></div>
       <img :src="content.imgUrl" style="width: 100%;" id="bgImg"/>
-      <div class="detail">
-        <p class="title">
+      <div class="wrap_92">
+        <p class="contentActTitle">
           {{content.activityTitle}}
         </p>
-        <div style="height: 0.48rem"></div>
-        <div style="height: 0.4rem;width: 100%;line-height: 0.4rem;">
-          <img src="../../../../static/images/discover/date1.png" style="vertical-align: middle;"/>
-          <span class="w_03">活动时间：{{content.planDate}}</span>
+        <div class="duiqiDiv">
+          <img src="../../../../static/images/discover/date1.png" class="w_28 mr_16 v_m f_left"/>
+          <span class="font_4">{{content.planDate}}</span>
         </div>
-        <div style="height: 0.32rem"></div>
-        <div style="height: 0.4rem;width: 100%;line-height: 0.4rem;">
-          <!--<img src="../../../../static/images/discover/huodongdingwei@2x.png" style="vertical-align: middle;"/>-->
-          <span class="w_03">活动地点：{{content.activityAddress}}</span>
+        <div style="margin-top: 0.4rem;margin-bottom: 0.4rem;margin-left: 0.2rem;">
+          <img v-for="item in showJoinList.slice(0,10)" :src="item" class="sign_head"/>
+          <span v-if="content.joinList" class="blue_28 ml_2">
+            {{content.joinList.length}}人想参加
+          </span>
+          <span v-else class="blue_28 ml_2">
+            0人想参加
+          </span>
         </div>
-        <div style="height: 0.48rem"></div>
-          <div  class="act_13" to="/activity/detailactivity/WantGo" style="width: 100%;">
-            <div class="act_14">
-              <img v-for="item in showJoinList.slice(0,10)" :src="item" width="50px" height="50px" style="border-radius: 25px;margin-left: -0.2rem;"/>
-            </div>
-            <div class="act_15" >
-              <span v-if="content.joinList" class="go-num">
-                {{content.joinList.length}}人想参加
-              </span>
-              <span v-else class="go-num">
-                0人想参加
-              </span>
-            </div>
-            <div class="act_16">
-              <!--<span v-if="content.collectionStatus">
-                <img src="../../../../static/images/discover/shoucang.png" alt="" @click="collection" >
-              </span>
-              <span v-else>
-                <img src="../../../../static/images/discover/shoucang1.png" alt="" @click="messageBoxCofirm">
-              </span>-->
-            </div>
-          </div>
-          <p class="content" v-html="content.activityBody">
-          </p>
-          <div class="like">
-            <img src="../../../../static/images/discover/eye.png" class="likeIcon" style="margin-right: 0.1rem;"/>
-            <span style="color: #CCCCCC;font-size: 0.24rem;margin-right: 0.1rem;float:left;">{{this.readnum}}</span>
-            <span style="color: #CCCCCC;font-size: 0.24rem;margin-left: 0.1rem;float:right">{{content.likeNum}}</span>
-            <span v-if="content.likeStatus" style="float:right;margin-right: 0.1rem;">
-              <img src="../../../../static/images/discover/nozan.png" alt="" class="likeIcon" @click="giveActivityLike">
-            </span>
-            <span v-else style="float:right;margin-right: 0.1rem;">
-              <img src="../../../../static/images/discover/zan.png" alt="" class="likeIcon" @click="removeActivityLike">
-            </span>
-
-          </div>
-          <div style="height: 1rem;"></div>
+        <p class="content" v-html="content.activityBody"></p>
+        <div class="contentIconInfo">
+          <!--阅读数量-->
+          <img src="../../../../static/images/discover/eye.png" class="f_left"/>
+          <span class="f_left">{{content.readNum}}</span>
+          <!--是否点赞以及点赞数量-->
+          <span class="f_right">{{content.likeNum}}</span>
+          <img v-if="content.likeStatus" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveActivityLike">
+          <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeActivityLike">
+        </div>
       </div>
-      <div class="liner"></div>
-      <div  v-if="content.activityState==2" v-for="(item,index) in pictureList" style="width: 90%;margin: auto;">
-        <div class="d_02">
-          <div class="d_03" style="width: 100%;" @click="changeUserStartId(item.user.user_id)">
-            <img v-if="item.user" :src="item.user.head_image" class="user-head"/>
-            <img v-else src="../../../../static/images/discover/normalhead.png" class="user-head" />
-            <div class="user-name">
-              <span v-if="item.user">{{item.user.nick_name}}</span>
-              <span v-else>尚未设置昵称</span>
+      <!--活动内容E-->
+      <!--晒图内容S-->
+      <div class="flag_word">用户晒图()</div>
+      <div  v-if="content.activityState==2" v-for="(item,index) in pictureList" style="width: 92%;margin: auto;">
+        <!--发布者信息S-->
+        <div class="comment_userinfo">
+          <div class="user_head">
+            <div @click="changeUserStartId(content.user.user_id)">
+              <img v-if="content.user" :src="content.user.head_image"/>
+              <img v-else src="../../../../static/images/discover/normalhead.png" />
             </div>
+          </div>
+          <div class="user_info">
+            <div v-if="content.user" class="user_name">
+              {{content.user.nick_name}}
+            </div>
+            <div v-else class="user_name">
+              尚未设置昵称
+            </div>
+            <div class="shaitu">
+              <img class="f_left" src="../../../../static/images/discover/comment.png" alt="" @click="toDetail(item.id)">
+              <span class="num_28 f_left mr_32">{{item.commentNum}}</span>
+              <img v-if="item.likeStatus" class="f_left" src="../../../../static/images/discover/nozan.png" alt="" @click="giveShowPictureLike(index,item.id)">
+              <img v-else class="f_left" src="../../../../static/images/discover/zan.png" alt="" @click="removeShowPictureLike(index,item.id)">
+              <span class="num_28 f_left">{{item.likeNum}}</span>
+            </div>
+            <div class="user_date">
+              {{item.issuedDate}}
+            </div>
+          </div>
+        </div>
+        <!--发布者信息E-->
+        <div class="picTitle"><span @click="toDetail(item.id)">{{item.message}}</span>
+        <span style="float: right;" v-if="item.user && self(item.user.user_id)" @click="deletePic(item.id)">删除</span></div>
+        <div v-if="item.showImgList && item.showImgList.length>0 && item.showImgList!=''" @click="toDetail(item.id)">
+          <div v-if="item.showImgList.length==1">
+            <img :src="item.showImgList[0]" class="shaitu1">
+          </div>
+          <div v-if="item.showImgList.length==2" class="shaitu2_box">
+            <img :src="item.showImgList[0]" class="shaitu2_1 mr_2">
+            <img :src="item.showImgList[1]" class="shaitu2_2">
+          </div>
+          <div v-if="item.showImgList.length==3" class="shaitu3_box">
+            <img :src="item.showImgList[0]" class="shaitu3_1 mr_2">
+            <img :src="item.showImgList[1]" class="shaitu3_2 mr_2">
+            <img :src="item.showImgList[2]" class="shaitu3_3">
+          </div>
+          <div v-if="item.showImgList.length>3" class="shaituMore_box">
+            <div class="shaituNum">
+              {{item.showImgList.length}}
+            </div>
+            <img :src="item.showImgList[0]" class="shaitu3_1 mr_2">
+            <img :src="item.showImgList[1]" class="shaitu3_2 mr_2">
+            <img :src="item.showImgList[2]" class="shaitu3_3">
           </div>
         </div>
         <div style="height: 0.4rem;"></div>
-        <div class="pic-title"><span @click="toDetail(item.id)">{{item.message}}</span>
-          <span style="float: right;" v-if="item.user && self(item.user.user_id)" @click="deletePic(item.id)">删除</span></div>
-        <div class="pics">
-          <div v-if="item.showImgList && item.showImgList.length>0 && item.showImgList!=''" style="width:100%;flex-wrap: wrap" class="flex between">
-            <div v-for="imgItem in item.showImgList"
-                 :style="item.showImgList.length==1?
-               'width:100%':((item.showImgList.length==2 || item.showImgList.length==4)?
-               'width:48%':'width:32%')">
-              <img @click="toDetail(item.id)" :src="imgItem" style="border-radius: 0.1rem;width: 100%;"
-                   :style="(item.showImgList.length ==1 || item.showImgList.length == 2 || item.showImgList.length == 4)
-                    ? 'height:3.2rem':'height:2.4rem'"/>
-            </div>
-          </div>
-        </div>
-        <div class="d_07">
-          <div class="d_08">
-            <div style="float:right;">
-              <span v-if="item.likeStatus">
-                <img src="../../../../static/images/discover/nozan.png" alt="" @click="giveShowPictureLike(index,item.id)" style="width: 0.32rem;" >
-              </span>
-              <span v-else>
-                <img src="../../../../static/images/discover/zan.png" alt="" @click="removeShowPictureLike(index,item.id)" style="width: 0.32rem;" >
-              </span>
-              <span style="color: #888888;font-size: 0.24rem;">{{item.likeNum}}</span>
-              <img src="../../../../static/images/discover/comment.png" style="width: 0.32rem;" @click="toDetail(index,item.id)"/>
-              <span style="color: #888888;font-size: 0.24rem;">{{item.commentNum}}</span>
-            </div>
-            <span class="date">{{item.issuedDate}}</span>
-          </div>
-        </div>
-        <div style="height: 0.2rem;"></div>
         <div style="height: 0.02rem;background-color: #f8f8f8;width: 100%;"></div>
-        <div style="height: 0.2rem;"></div>
+        <div style="height: 0.4rem;"></div>
       </div>
-
-      <div style="height: 2rem;"></div>
-      <div style="height: 1.4rem;background: #ffffff;bottom: 0;position: fixed;width: 100%;"></div>
+      <!--晒图内容E-->
+      <div style="height: 0.88rem;"></div>
+      <!--按钮控制S-->
       <div v-if="userId">
-        <div v-if="content.activityState==2 || content.activityState==1" class="d_06" @click="toPic(content.activityId)" >
-          <div class="wantgo">晒图</div>
+        <div class="sign_btn" v-if="content.activityState==2 || content.activityState==1" @click="toPic(content.activityId)">
+          晒&nbsp;图
         </div>
-        <div v-else-if="content.activityState==0 && content.joinStatus">
-          <router-link tag="div" class="d_06"  :to="{path:'/activity/detailactivity/WantGo',query: {activityId: content.activityId}}">
-            <div class="wantgo">预约报名</div>
-          </router-link>
+        <div class="sign_btn" v-else-if="content.activityState==0 && content.joinStatus" @click="toSign(content.activityId)">
+          报&nbsp;名
         </div>
-        <div v-else-if="content.activityState==0 && !content.joinStatus" class="d_06">
-          <div class="wantgo">已报名</div>
+        <div class="sign_btn" v-else-if="content.activityState==0 && !content.joinStatus" @click="toPic(content.activityId)">
+          已报名
         </div>
       </div>
-      <div v-else class="d_06" @click="cantWantGo">
-        <div class="wantgo">报名</div>
+      <div class="sign_btn" v-else  @click="cantWantGo">
+        报&nbsp;名
       </div>
+      <!--按钮控制E-->
       <div id="bg1" @click="bgbtn1" style="display: none;  position:fixed;  top: 0;  left: 0;  width: 100%;  height: 100%;  background-color: black;  z-index:1; opacity: 0;"/>
     </div>
 </template>
@@ -163,6 +151,9 @@
       methods:{
         toDetail: function (id) {
           this.$router.push({path:"/discover/picDetail",query:{id:id}})
+        },
+        toSign: function (id) {
+          this.$router.push({path:"/activity/toSign",query:{activityId:id}})
         },
         toPic: function (id) {
           if (isMobile.iOS()) {
@@ -397,42 +388,30 @@
           })
       }
     }
-    /*悬浮，预留*/
-    /*$(document).ready(function(){
-      var imgHeight = 0;
-      $("#bgImg").on("load",function(){
-        imgHeight = $(this).height();
-      });
-
-      $(document).scroll(function(){
-        var top = $(document).scrollTop();
-        if(top < imgHeight){
-          $("#head").addClass("headerOpacity");
-        }
-        else if(top >= imgHeight){
-          $("#head").removeClass("headerOpacity");
-          $("#head").addClass("headerBg");
-        }
-      });
-    });*/
+    /*悬浮,更换头部背景透明度和文字*/
+     $(document).ready(function(){
+       //获取图片高度imgHeight
+       var imgHeight = 0;
+       $("#bgImg").on("load",function(){
+         imgHeight = $(this).height();
+       });
+       //根据图片高度切换透明/不透明头部
+       $(document).scroll(function(){
+         var top = $(document).scrollTop();
+         if(top < imgHeight){
+           $("#header1").show();
+           $("#header2").hide();
+         }
+         else if(top >= imgHeight){
+           $("#header1").hide();
+           $("#header2").show();
+         }
+       });
+     });
 </script>
 
 <style scoped>
-  .all{
-    font-size: 0.4rem;
-    line-height: normal;
-    background: #fff;
-    height: auto;
-  }
-  .header{
-    background:#1A1D23;
-  }
-  .headerOpacity{
-    opacity: 0;
-  }
-  .headerBg{
-    opacity: 1;
-  }
+  @import "./../../../../static/css/discover/detail.css";
   .act_13{
     height: 0.5rem;
     display: flex;
@@ -451,13 +430,6 @@
   }
   .act_16 img{
     height: 0.32rem;width: 0.32rem
-  }
-  .detail{
-    padding-top: 0.62rem;
-    height: auto;
-    width: 92%;
-    margin: 0 auto;
-
   }
   .title{
     color: #222222;

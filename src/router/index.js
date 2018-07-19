@@ -5,6 +5,8 @@ import Main from '@/components/Main'
 import Lovecar from '@/components/Lovecar/lovecar'
 //我的部分
 import My from '@/components/My/Myindex'
+import Mystart from '@/components/My/Mystart'
+import Userstart from '@/components/My/Userstart'
 //发现部分
 import Discover from '@/components/discover/discover'
 import Recommend from '@/components/discover/recommend/recommend' //推荐首页
@@ -139,6 +141,14 @@ export default new Router({
             {
                 path: "/myindex",
                 component: My
+            },
+            {
+              path: "/mystart",
+              component: Mystart
+            },
+            {
+              path: "/userstart",
+              component: Userstart
             },
             //智享部分
             {

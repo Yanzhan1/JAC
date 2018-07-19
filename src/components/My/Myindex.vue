@@ -6,7 +6,7 @@
               <img src="../../../static/images/my/mine_message@2x.png" alt="">
             </div>
           <div class="mytophead flex between cocenter">
-            <div style="padding-left: 0.4rem;padding-right: 0.2rem" class="flex cocenter">
+            <div style="padding-left: 0.3rem;padding-right: 0.2rem" class="flex cocenter">
               <img src="../../../static/images/test/my/pic_touxiang@2x.png" alt="" style="width: 1.2rem;height: 1.2rem">
               <div class="flex column" style="margin-left: 0.2rem;">
                 <div class="flex cocenter" style="overflow: hidden">
@@ -19,6 +19,10 @@
             <img src="../../../static/images/my/qr_code@2x.png" alt="" style="width: 0.4rem;height: 0.4rem">
           </div>
           <div class="mytopbottom flex around">
+              <div>
+                <span>176</span>
+                <span>获赞</span>
+              </div>
               <div>
                 <span>3</span>
                 <span>发布</span>
@@ -140,7 +144,7 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    padding: 0.3rem 0;
+    padding: 0.3rem;
     width: 100%;
   }
   .mytopbottom>div{
@@ -153,7 +157,7 @@
     font-size: 0.36rem;
   }
   .mytopbottom>div>span:nth-child(2){
-    font-size: 0.28rem;
+    font-size: 0.24rem;
     color: #dcf5ff;
   }
   .mybottom{

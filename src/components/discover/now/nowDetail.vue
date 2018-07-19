@@ -3,7 +3,7 @@
     <!--<div @click="bgHide" id="bgShare" style="position: fixed; width: 100%;height: 100%;background: black; display: none;opacity: 0"></div>-->
     <header class="header header2">
       <img class="header-left" src="../../../../static/images/discover/backblue.png" @click="goBack">
-      <p class="header-title-fff">圈子详情</p>
+      <p class="header-title-fff">社区详情</p>
       <img src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)"/>
     </header>
       <shareBox :index="0" :item="content" :flag="flag" :type="type" :isCenter="true" @closeShare="bgHide"></shareBox>

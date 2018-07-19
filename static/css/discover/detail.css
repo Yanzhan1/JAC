@@ -1,7 +1,7 @@
 .header {
   font-size: 0.36rem;
   position: fixed;
-  width: 92%;
+  width: 100%;
   background: #ffffff;
   height: .88rem;
   line-height: .88rem;
@@ -18,6 +18,33 @@
   top: 0;
   z-index: 999;
 }
+.head{
+  font-size: 0.36rem;
+  width: 100%;
+  padding: 0 4% 0;
+  background: #ffffff;
+  height: .88rem;
+  line-height: .88rem;
+  top: 0;
+  z-index: 999;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-bottom: 1px solid #F1F1F1;
+}
+.head img{
+  width: 0.4rem;
+}
+.head span{
+  color: #49BBFF;
+  font-size: 0.28rem;
+}
 .all{
   word-break:break-all;
   font-family: "PingFangSC";
@@ -28,7 +55,6 @@
 /*活动、资讯滚动之前透明头部*/
 .header1{
   background-color: rgba(0,0,0,0.1);
-  opacity: 0.1;
 }
 /*活动、资讯滚动之后不透明头部*/
 .header2{
@@ -121,7 +147,7 @@
   font-size: 0.32rem;
   color: #222222;
   line-height: 0.36rem;
-  width: 74%;
+  width: 70%;
   float: left;
 }
 .comment_userinfo .user_info .user_date{
@@ -202,15 +228,76 @@
 }
 .font_3{
   font-size: 0.28rem;
-  color: #2099FF;
+  color: #49BBFF;
   text-align: center;
   line-height: 0.28rem;
+}
+.font_36{
+  font-size: 0.36rem;
+  color: #ffffff;
 }
 .font_4{
   color: #555555;font-size: 0.28rem;
 }
 .top_14{
   margin-top: 1.4rem;width: 100%;
+}
+.mb_16{
+  margin-bottom: 0.16rem;
+}
+.num3{
+  padding: 0.68rem 0.56rem 0.34rem 0.56rem;display: flex;display: flex;
+}
+.mytopbottom{
+  padding: 0.3rem;
+  width: 100%;
+  margin-top: 0.38rem;
+}
+.mytopbottom>div{
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+}
+.mytopbottom>div>span{
+  font-size: 0.36rem;
+}
+
+
+.font_24fff{
+  font-size: 0.24rem;
+  color: #FFFFFF;
+  line-height: 0.28rem;
+}
+.blue_28{
+  color: #49BBFF;
+  font-size: 0.28rem;
+}
+.ml_2{
+  margin-left: 0.2rem;
+}
+.w_28{
+  width: 0.28rem;
+}
+.mr_32{
+  margin-right: 0.32rem;
+}
+.sign_head{
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 25px;
+  margin-left: -0.2rem;
+  float: left;
+}
+.flag_word{
+  width: 92%;
+  margin: 0 auto;
+  font-size: 0.32rem;
+  color: #555555;
+  letter-spacing: 0;
+  line-height: 0.32rem;
+  margin-bottom: 0.32rem;
+  border-top: 0.02rem solid #F5F5F5;
+  padding-top: 0.4rem;
 }
 /*评论输入框相关样式*/
 .allHideComment{
@@ -313,4 +400,150 @@
 .pics{
   width: 100%; margin-top: 0.1rem;margin-bottom: 0.2rem;
   height: 3.2rem;
+}
+.mr_2{
+  margin-right: 2%;
+}
+.shequMore_box{
+  position: relative;clear: both;height: 2.1rem;
+}
+.shequNum{
+  color: #ffffff;
+  right: 0;
+  bottom: -1.1rem;
+  position: absolute;
+  background: #000000;
+  z-index: 3;
+  width: 0.4rem;
+  height: 0.4rem;
+  opacity: 0.2;
+  text-align: center;
+  -webkit-border-radius: 0 0 0.8rem 0;
+  -moz-border-radius: 0 0 0.8rem 0;
+  border-radius: 0 0 0.8rem 0;
+}
+/*活动详情*/
+.contentActTitle{
+  font-size: 0.36rem;
+  color: #333333;
+  letter-spacing: 1px;
+  line-height: 0.36rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.24rem;
+}
+.duiqiDiv{
+  height: 0.28rem;
+  width: 100%;
+  line-height: 0.28rem;
+}
+.sign_btn{
+  height: 0.88rem;
+  background: #49BBFF;
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  font-size: 0.32rem;
+  color: #F5F5F5;
+  letter-spacing: 1px;
+  line-height: 0.88rem;
+  bottom: 0;
+}
+.shaitu{
+  float: right;text-align: right;
+}
+.shaitu img{
+  vertical-align: middle;
+  width:0.4rem;
+  height: 0.4rem;
+  float: left;
+  margin-right: 0.16rem;
+}
+.picTitle{
+  font-size: 0.28rem;
+  color: #555555;
+  letter-spacing: 0;
+  line-height: 0.4rem;
+}
+.shaitu1{
+  width: 100%;
+  height: 3.12rem;
+  border-radius: 0.08rem;
+  margin-top: 0.16rem;
+}
+.shaitu2_1{
+  border-radius: 0.1rem;width: 49%;height:3.2rem;float: left; border-radius: 0.08rem;object-fit:cover;margin-top: 0.16rem;
+}
+.shaitu2_2{
+  border-radius: 0.1rem;width: 49%;height:3.2rem;float: left; border-radius: 0.08rem;object-fit:cover;margin-top: 0.16rem;
+}
+.shaitu3_1{
+  border-radius: 0.1rem;width: 32%;height:2.1rem;float: left; border-radius: 0.08rem;object-fit:cover;margin-top: 0.16rem;
+}
+.shaitu3_2{
+  border-radius: 0.1rem;width: 32%;height:2.1rem;float: left; border-radius: 0.08rem;object-fit:cover;margin-top: 0.16rem;
+}
+.shaitu3_3{
+  border-radius: 0.1rem;width: 32%;height:2.1rem;float: left; border-radius: 0.08rem;object-fit:cover;margin-top: 0.16rem;
+}
+.shaituNum{
+  color: #ffffff;
+  right: 0.02rem;
+  bottom: -0.16rem;
+  position: absolute;
+  background: #000000;
+  z-index: 3;
+  width: 0.4rem;
+  height: 0.4rem;
+  opacity: 0.2;
+  text-align: center;
+}
+.shaitu2_box{
+  clear: both;height: 3.2rem;
+}
+.shaitu3_box{
+  clear: both;height: 2.1rem;
+}
+.shaituMore_box{
+  position: relative;clear: both;height: 2.1rem;
+}
+.sign_cell{
+  width: 92%;margin: 0 auto;height: 0.88rem;line-height: 0.88rem;font-size: 0.28rem;
+}
+.sign_cell p{
+  width: 30%;float: left;color: #555555;
+}
+.sign_cell input{
+  height: 0.88rem;width: 70%;text-align: right;float: right;border: none;color: #888888;
+}
+.f5_line02{
+  height: 0.02rem;background: #f5f5f5;width: 92%;margin: 0 auto
+}
+.f5_line1{
+  background: #F5F5F5;
+  height: 0.1rem;
+  width:  100%;
+}
+/*新增此刻*/
+.addNowBox{
+  margin-top: 0.32rem;
+}
+.msg{
+  background: #F5F5F5;
+  border-radius: 0.08rem;
+  width: 100%;
+  font-size: 0.28rem;
+  color: #888888;
+  line-height: 0.4rem;
+  border: none;
+  height: 1.6rem;
+  padding: 0.2rem;
+  margin-bottom: 0.3rem;
+}
+.cameraBg{
+  padding: 0.86rem;
+  border-radius: 0.08rem;
+  width: 2.1rem;
+  height: 2.1rem;
+  margin-left: 4%;
+  background: #f5f5f5;
 }

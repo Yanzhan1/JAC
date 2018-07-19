@@ -210,13 +210,13 @@
       },
       methods:{
         toDetailInfo: function (id) {
-          this.$router.push({path:"/discdetail",query:{id:id}})
+          this.$router.push({path:"/information/informationDetail",query:{id:id}})
         },
         toNowDetail: function(id){
-          this.$router.push({path:"/discover/nowDetail",query:{id:id}})
+          this.$router.push({path:"/now/nowDetail",query:{id:id}})
         },
         toActDetail: function (id) {
-          this.$router.push({path:"/activity/DetailActivity",query:{activityId:id}})
+          this.$router.push({path:"/activity/activityDetail",query:{activityId:id}})
         },
         self(id){
           if(id==this.$store.state.userId){
@@ -488,4 +488,5 @@
 
 <style scoped>
   @import "./../../../../static/css/discover/all.css";
+  @import "./../../../../static/css/discover/detail.css";
 </style>

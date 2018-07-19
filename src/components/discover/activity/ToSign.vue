@@ -1,13 +1,31 @@
 <template>
   <div class="allcontent">
-    <div class="all" style="background: #fff;">
-      <header class="header">
-        <img class="header-left" src="../../../../static/images/discover/backblue.png" alt=""  @click="$router.go(-1)">
-        <p class="header-title">活动报名</p>
+    <div>
+      <header class="head">
+        <img class="header-left" src="../../../../static/images/back@2x.png" @click="$router.go(-1)">
+        <p class="header-title-fff" style="text-align: center">活动报名</p>
         <div class="header-right"></div>
       </header>
-      <div style="height: 1.2rem;"></div>
-      <div class="box_01">
+      <div class="sign_cell">
+        <p>姓名</p>
+        <input v-model="user" placeholder="点击输入姓名"/>
+      </div>
+      <div class="f5_line02"></div>
+      <div class="sign_cell">
+        <p>手机号码</p>
+        <input v-model="phoneNum" placeholder="请输入手机号"/>
+      </div>
+      <div class="f5_line1"></div>
+      <div class="sign_cell">
+        <p>预约人数</p>
+        <input v-model="user" placeholder="点击选择预约人数"/>
+      </div>
+      <div class="f5_line02"></div>
+      <div class="sign_cell">
+        <p>是否携带小孩</p>
+        <input v-model="user" placeholder="点击选择是否携带小孩"/>
+      </div>
+      <!--<div class="box_01">
         <p class="lab">姓名:</p>
         <input v-model="user" class="inp" placeholder=""/>
       </div>
@@ -27,7 +45,7 @@
             :options="['是','否']">
           </mt-radio>
         </div>
-      </div>
+      </div>-->
 
       <!--<p class="sure">
         <img src="../../../../static/images/discover/select_icon@2x.png"/>
@@ -182,34 +200,9 @@
 </script>
 
 <style scoped>
+  @import "./../../../../static/css/discover/detail.css";
   .allcontent{
     height: 100%;
-  }
-  .all{
-    font-size: 0.4rem;
-    line-height: normal;
-    background: #fff;
-  }
-  .all .mui-title,.all .mui-bar{
-    font-size: 0.4rem;
-    line-height: 1rem;
-    height: 1rem;
-  }
-  .all .mui-bar a{
-    font-size: 0.4rem;
-    line-height: 0.8rem;
-  }
-  .w_01{
-    background-color: #FFFFFF;
-  }
-  .w_02{
-    display: flex;flex-direction: row;align-items: center;padding-left: 20px;
-  }
-  .w_03{
-    color: #666666; font-size:0.36rem;padding-left: 20px;
-  }
-  .w_04{
-    border-width: 1px;border-color: #F5F5F5;border-style: none none solid none;
   }
   .box_01{
     height: 1.42rem;
@@ -232,43 +225,12 @@
     border: none;
     text-indent: 0.3rem;
   }
-  .sure{
-    font-family: PingFangSC-Regular;
-    font-size: 0.2rem;
-    color: #888888;
-    letter-spacing: 0.12px;
-    line-height: 0.2rem;
-    text-align: left;
-    width: 90%;
-    margin: 0 auto;
-    padding-bottom: 5rem;
-  }
-  .sureTo{
-    font-size: 0.2rem;
-    color: #222222;
-    letter-spacing: 0.12px;
-    line-height: 0.2rem;
-  }
-
   .mint-popup-4 {
     width: 100%;
     height:0.88rem;
   }
-  .inputSpan{
-    width: 100%;
-    height: 0.88rem;
-    border-radius: 0.16rem;
-    background-color:#efefef;
-    font-size: 0.28rem;
-    color: #cccccc;
-    line-height: 0.88rem;
-    text-indent: 0.2rem;
-  }
   .mint-popup-4{
     height: 3.4rem;
-  }
-  .picker-slot{
-    font-size: 0.9rem !important;
   }
   .wantgo{
     background: #CCCCCC;/*#FC3846*/

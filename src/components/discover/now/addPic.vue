@@ -1,16 +1,15 @@
 <template>
-  <div class="all">
-    <header class="header">
-      <img  src="../../../../static/images/discover/backfff.png" @click="$router.go(-1)">
-      <span style="font-size: 0.32rem;color: #FC3846">圈子</span>
-      <span @click="send" style="font-size: 0.28rem;color: #ffffff">发布</span>
+  <div>
+    <header class="head">
+      <img class="header-left" src="../../../../static/images/back@2x.png" @click="$router.go(-1)">
+      <p class="header-title-fff">社区</p>
+      <span @click="send">发布</span>
     </header>
-
-    <div class="box">
-        <textarea v-model="message" name="" rows="4" cols="60" class="msg" placeholder="请输入你想表达的心情话语..."></textarea>
+    <div class="addNowBox wrap_92">
+        <textarea v-model="message" name="" rows="4" cols="60" class="msg" placeholder="分享美好瞬间..."></textarea>
     </div>
-    <div @click="checkPic" class="p_04" style="padding: 0.3rem;border-radius: 0.16rem;width: 1.04rem;height: 1.04rem;margin-left: 4%;margin-bottom:100%">
-      <!--<img src="../../../static/images/discover/fabu2@2x.png"  style="width: 0.48rem;background-color: #f8f8f8;"/>-->
+    <div @click="checkPic" class="p_04 cameraBg">
+      <img src="../../../../static/images/discover/camera.png"  style="width: 0.4rem;"/>
     </div>
     <!--<div class="form-group" style="margin-bottom: 2rem;">
       &lt;!&ndash;<input type="file" class="form-control" @change="onFileChange">&ndash;&gt;
@@ -119,39 +118,5 @@
 </script>
 
 <style scoped>
-  .p_01{
-    background-color: #FFFFFF;height: 2.4rem;
-  }
-  .p_02{
-    background-color: #FFFFFF;height:0.2rem;border-width: 1px;border-style: none none solid none;border-color: #f5f5f5;
-  }
-  .p_03{
-    background-color: #FFFFFF;height: 0.2rem;
-  }
-  .p_04{
-    height: 2.4rem;background-color: #f8f8f8;
-  }
-  .back{
-    padding-left:0.4rem;
-  }
-  .box{
-    width: 100%;
-    margin: 0 auto;
-    margin-top: 1.4rem;
-    text-align: center;
-  }
-  .msg{
-    font-size: 0.3rem;
-    color: #888888;
-    border: none;
-    height: 2.56rem;
-    padding: 0.3rem;
-    background: #f8f8f8;
-    border-radius: 0.16rem;
-    width: 92%;
-    line-height: 0.4rem
-  }
-  .header{
-    background-color: #1A1D23;
-  }
+  @import "./../../../../static/css/discover/detail.css";
 </style>

@@ -1,24 +1,23 @@
 <template>
-  <div class="header">
     <div>
       <div class="myheader">
         <div>
           <img src="../../static/images/discover/shaixuan.png" @click="open" style="width: 0.4rem;margin-top: 0.1rem;"  />
         </div>
         <div style="" class="head-tab"  :class="{ recommand: isRecommand }" @click.stop.prevent="goIsRecommand">
-          <span>推荐</span>
+          <span class="size_36">推荐</span>
         </div>
         <div style="" class="head-tab" :class="{ allActivity: isAllActivity }"  @click.stop.prevent="goAllActivity">
-          <span>活动</span>
+          <span class="size_36">活动</span>
         </div>
         <div style="" class="head-tab" :class="{ now: isNow }" @click.stop.prevent="goIsNow">
-          <span>社区</span>
+          <span class="size_36">社区</span>
         </div>
         <div style="" class="head-tab" :class="{ information: isInformation }" @click.stop.prevent="goInformation">
-          <span>资讯</span>
+          <span class="size_36">资讯</span>
         </div>
         <div>
-          <img src="../../static/images/discover/camera.png" @click="publish" style="width: 0.4rem;margin-top: 0.1rem;" id='id_publish' />
+          <img src="../../static/images/discover/camera.png" @click="publish" style="width: 0.4rem;" id='id_publish'/>
         </div>
         <mt-popup
           style="width:80%;border-radius:4px;"
@@ -77,7 +76,6 @@
         </mt-popup>        
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -223,23 +221,11 @@
   .top-pic img{
     width: 0.48rem;height: 0.48rem;position: relative;top: 16%;
   }
-  /*.myheader {
-    width: 90%;
-    height: .88rem;
-    line-height: .8rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    z-index: 199;
-    padding:none !important;
-  }*/
   .recommand,.information,.allActivity,.now,.question {
     border-bottom: 0.04rem solid #49BBFF;
     color: #49BBFF;
     height: 0.8rem;
-    line-height: 0.78rem;
+    line-height: 0.8rem;
   }
   .myheader {
     font-size: 0.4rem;
@@ -256,5 +242,8 @@
     align-items: center;
     top: 0;
     z-index: 999;
+  }
+  .size_36{
+    font-size: 0.36rem;
   }
 </style>

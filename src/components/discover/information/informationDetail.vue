@@ -379,7 +379,7 @@
         $(showId).show();
         console.log(showId)
         $("#bgShare").show();
-        this.bgbtn1();
+        //this.bgbtn1();
       },
       //分享关闭
       bgHide: function () {
@@ -414,7 +414,7 @@
   }
 
   /*悬浮,更换头部背景透明度和文字*/
- /* $(document).ready(function(){
+  $(document).ready(function(){
     //获取图片高度imgHeight
     var imgHeight = 0;
     $("#bgImg").on("load",function(){
@@ -432,7 +432,7 @@
         $("#header2").show();
       }
     });
-  });*/
+  });
 </script>
 
 <style scoped>
