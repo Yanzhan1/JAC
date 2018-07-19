@@ -12,6 +12,11 @@ import Mystart from '@/components/My/Mystart'
 import Userstart from '@/components/My/Userstart'
 import Fans from '@/components/My/Fans'
 import Focus from '@/components/My/Focus'
+import FeedbackRecord from '@/components/My/FeedbackRecord'
+import ContactPerson from '@/components/My/ContactPerson'
+import ModifyPassword from '@/components/My/ModifyPassword'
+import MyFeedback from '@/components/My/MyFeedback'
+import MySetUp from '@/components/My/MySetUp'
 
 //发现部分
 import Discover from '@/components/discover/discover'
@@ -180,14 +185,40 @@ export default new Router({
 				path: "/userstart",
 				component: Userstart
 			},
-      {
-        path: "/fans",
-        component: Fans
-      },
-      {
-        path: "/focus",
-        component: Focus
-      },
+			{
+				path: "/fans",
+				component: Fans
+			},
+			{
+				path: "/focus",
+				component: Focus
+			},
+			{
+				path: "/feedbackRecord",
+				name: '反馈记录',
+				component: FeedbackRecord
+			},
+			{
+				path: "/contactPerson",
+				name: '紧急联系人',
+				component: ContactPerson
+			},
+			{
+				path: "/modifyPassword",
+				name: '修改密码',
+				component: ModifyPassword
+			},
+			{
+				path: "/myFeedback",
+				name: '我的反馈',
+				component: MyFeedback
+			},
+			{
+				path: "/mySetUp",
+				name: '设置',
+				component: MySetUp
+			},
+
 			//智享部分
 			{
 				path: '/wit',

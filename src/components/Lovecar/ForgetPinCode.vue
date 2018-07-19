@@ -40,7 +40,7 @@
 				<button class="btn" v-if="!showTime" @click="submitCode">获取验证码</button>
 			</div>
 		</div>
-		<button class="confirmChange">确认提交</button>
+		<button class="bottom-btn">确认提交</button>
 	</div>
 </template>
 
@@ -49,6 +49,7 @@
 		name: 'forgetPinCode',
 		data() {
 			return {
+				//倒计时按钮状态
 				showTime: true
 			}
 		},
@@ -62,6 +63,7 @@
 </script>
 
 <style scoped>
+	/*flex布局*/
 	.flex-center-between {
 		display: flex;
 		justify-content: space-between;
@@ -115,9 +117,9 @@
 		padding-left: 0.5rem;
 		border-left: 1px solid #444444;
 	}
-	/*修改按钮*/
+	/*确认提交按钮*/
 	
-	.confirmChange {
+	.confirmSubmit {
 		position: fixed;
 		bottom: 0;
 		width: 100%;
@@ -126,6 +128,7 @@
 		background: #49BBFF;
 		font-size: 0.3rem;
 		color: #ffffff;
+		border: none;
 		border-radius: 0.1rem;
 	}
 </style>

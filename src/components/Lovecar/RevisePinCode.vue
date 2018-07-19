@@ -40,7 +40,7 @@
 				<button class="btn" v-if="!showTime" @click="submitCode">获取验证码</button>
 			</div>
 		</div>
-		<button class="confirmChange" @click="confirmRevise">确认修改</button>
+		<button class="bottom-btn" @click="confirmRevise">确认修改</button>
 	</div>
 </template>
 
@@ -50,6 +50,7 @@
 		name: '',
 		data() {
 			return {
+				//倒计时按钮状态
 				showTime: true
 			}
 		},
@@ -58,7 +59,7 @@
 			submitCode() {
 
 			},
-			//确认修改
+			//确认修改,messagebox弹出框
 			confirmRevise() {
 				MessageBox.confirm('',{
 					title: '提示',
@@ -73,6 +74,7 @@
 					cancelButtonHighlight: true
 				}).then(action => {
 					if(action == 'confirm') {
+						//跳转修改成功页面
 						this.$router.push('/reviseSuccess')
 						console.log('abc');
 					}
@@ -87,6 +89,7 @@
 </script>
 
 <style scoped>
+	/*flex布局*/
 	.flex-center-between {
 		display: flex;
 		justify-content: space-between;
@@ -151,6 +154,7 @@
 		background: #49BBFF;
 		font-size: 0.3rem;
 		color: #ffffff;
+		border: none;
 		border-radius: 0.1rem;
 	}
 	/*取消按钮*/
