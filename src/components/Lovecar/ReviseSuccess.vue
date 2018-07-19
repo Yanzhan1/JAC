@@ -7,7 +7,7 @@
 		</header>
 		<div style="height:0.88rem"></div>
 		<div class="revise-success">
-			<img :src="'./static/images/Lovecar/完成@2x.png'" />
+			<img :src="'./static/images/Lovecar/finish@2x.png'" />
 			<p>操作成功</p>
 			<button>返回首页</button>
 		</div>
@@ -26,6 +26,7 @@
 </script>
 
 <style scoped>
+	/*主体布局*/
 	.revise-success {
 		display: flex;
 		flex-direction: column;
