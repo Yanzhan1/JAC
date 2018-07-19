@@ -5,6 +5,7 @@
                 <input class="ipt" type="text" placeholder="搜索服务">
                 <img class="pic" src="../../../static/images/Wit/zhixiang_home_search_service_icon.png" alt="">
             </div>
+         
             <ul class="ul_list">
                 <li class="li_list">
                     <img src="../../../static/images/Wit/zhixiang_home_search_dealer_btn.png" alt="">
@@ -93,6 +94,7 @@ export default {};
   border: 0;
   display: inline-block;
   position: relative;
+  padding-left:.6rem
 }
 .search {
   padding: 0.47rem;
@@ -102,7 +104,7 @@ input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
   color: #a5a5a5;
   font-size: 0.28rem;
-  padding-left: 0.7rem;
+ 
 }
 .pic {
   width: 0.42rem;
