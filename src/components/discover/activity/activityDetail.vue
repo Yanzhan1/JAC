@@ -44,7 +44,7 @@
       <!--活动内容E-->
       <!--晒图内容S-->
       <div class="flag_word">用户晒图({{pictureList.length}})</div>
-      <div  v-if="content.activityState==2" v-for="(item,index) in pictureList" style="width: 92%;margin: auto;">
+      <div  v-if="content.activityState==2||content.activityState==1" v-for="(item,index) in pictureList" style="width: 92%;margin: auto;">
         <!--发布者信息S-->
         <div class="comment_userinfo">
           <div class="user_head">
@@ -213,7 +213,7 @@
         //晒图列表
         getPictureList(){
           var _this = this;
-          this.$http.post(DISCOVERMESSAGE.pictureList, {"uid": _this.$store.state.userId,"id": _this.activityId}).then(function (res) {
+          this.$http.post(DISCOVERMESSAGE.pictureList, {"uid": _this.$store.state.userId,"lid": _this.activityId}).then(function (res) {
             if (res.data.status) {
               _this.pictureList = res.data.data;
             } else {
