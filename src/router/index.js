@@ -42,6 +42,42 @@ export default new Router({
 				path: '/',
 				redirect: '/discover'
 			},
+      //发现
+      {
+        path: "/discover",
+        component: Discover,
+        children: [{
+          path: '/',
+          redirect: "/recommend",
+          meta: {
+            keepAlive: true
+          }
+        }, {
+          path: "/recommend",
+          component: Recommend,
+          meta: {
+            keepAlive: true
+          }
+        }, {
+          path: "/activity",
+          component: Activity,
+          meta: {
+            keepAlive: true
+          }
+        }, {
+          path: "/information",
+          component: Information,
+          meta: {
+            keepAlive: true
+          }
+        }, {
+          path: "/now",
+          component: Now,
+          meta: {
+            keepAlive: true
+          }
+        }]
+      },
 			{
 				path: "/activity/activityDetail",
 				component: ActivityDetail
@@ -61,93 +97,6 @@ export default new Router({
 				path: "/activity/toSign",
 				component: ToSign
 			},
-			/*
-			         {
-			         path: "/commentList",
-			         component: CommentList
-			       },
-			       {
-			         path: "/discover/toAsk",
-			         component: ToAsk
-			       }, {
-			         path: "/discover/questionDetail",
-			         component: QuestionDetail
-			       }, {
-			         path: "/discover/showPicture",
-			         component: ShowPicture
-			       }, {
-			         path: "/discover/picDetail",
-			         component: PicDetail
-			       },*/
-			//发现
-			{
-				path: "/discover",
-				component: Discover,
-				children: [{
-					path: '/',
-					redirect: "/recommend",
-					meta: {
-						keepAlive: true
-					}
-				}, {
-					path: "/recommend",
-					component: Recommend,
-					meta: {
-						keepAlive: true
-					}
-				}, {
-					path: "/activity",
-					component: Activity,
-					meta: {
-						keepAlive: true
-					}
-				}, {
-					path: "/information",
-					component: Information,
-					meta: {
-						keepAlive: true
-					}
-				}, {
-					path: "/now",
-					component: Now,
-					meta: {
-						keepAlive: true
-					}
-				}]
-			},
-			/*{
-			  path: "/activity/detailactivity",
-			  component: DetailActivity
-			},
-			{
-			  path: "/activity/detailactivity/WantGo",
-			  component: WantGo
-			}]*/
-			/*children:[{
-			    path: '/',
-			    redirect: '/recommend'
-			  },
-			  {
-			    path: "/recommend",
-			    component: Recommend
-			  },
-			  {
-			    path: '/',
-			    redirect: '/activity'
-			  },
-			  {
-			    path: "/activity",
-			    component: Activity
-			  },
-			  //爱车页面
-			  {
-			    path: "/information",
-			    component: Information
-			  },
-			  {
-			    path: "/now",
-			    component: Now
-			  },*/
 			{
 				path: "/lovecar",
 				component: Lovecar
@@ -194,7 +143,6 @@ export default new Router({
 				name: '智享首页',
 				component: Wit
 			}
-
 		]
 	}]
 })

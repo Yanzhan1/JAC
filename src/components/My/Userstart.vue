@@ -448,14 +448,17 @@
     },
     mounted(){
       this.$store.dispatch('hideFoot');
-      /*$(window).scroll(()=> {
-        if($("html,body").scrollTop() >= $(".top").height()){
-            $(".nav").css('background','#666666')
+      /*悬浮,更换头部背景透明度和文字*/
+      $(window).scroll(()=> {
+        if($("html,body").scrollTop() <= 300){
+          $("#header1").show();
+          $("#header2").hide();
         }else{
-          $(".nav").css('background','rgba(34,34,34,0.10)')
+          $("#header1").hide();
+          $("#header2").show();
         }
-      })*/
-      this.init();
+      })
+      //this.init();
       //获取好友关系 电咖没有好友功能
       // this.getfriendconnect();
       this.getUserList();
