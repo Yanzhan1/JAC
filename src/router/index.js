@@ -6,6 +6,8 @@ import Lovecar from '@/components/Lovecar/lovecar'
 import RevisePinCode from '@/components/Lovecar/RevisePinCode'
 import ForgetPinCode from '@/components/Lovecar/ForgetPinCode'
 import ReviseSuccess from '@/components/Lovecar/ReviseSuccess'
+import Authorize from "@/components/Lovecar/Authorize.vue"
+import Authorize_next from "@/components/Lovecar/Authorize_next.vue"
 //我的部分
 import My from '@/components/My/Myindex'
 import Mystart from '@/components/My/Mystart'
@@ -40,146 +42,154 @@ import Wit from '@/components/Wit/Wit.vue' //智享首页
 Vue.use(Router)
 
 export default new Router({
-	mode: 'hash',
-	routes: [{
-		path: '/',
-		component: Main,
-		children: [{
-				path: '/',
-				redirect: '/discover'
-			},
-      //发现
-      {
-        path: "/discover",
-        component: Discover,
+    mode: 'hash',
+    routes: [{
+        path: '/',
+        component: Main,
         children: [{
-          path: '/',
-          redirect: "/recommend",
-          meta: {
-            keepAlive: true
-          }
-        }, {
-          path: "/recommend",
-          component: Recommend,
-          meta: {
-            keepAlive: true
-          }
-        }, {
-          path: "/activity",
-          component: Activity,
-          meta: {
-            keepAlive: true
-          }
-        }, {
-          path: "/information",
-          component: Information,
-          meta: {
-            keepAlive: true
-          }
-        }, {
-          path: "/now",
-          component: Now,
-          meta: {
-            keepAlive: true
-          }
-        }]
-      },
-			{
-				path: "/activity/activityDetail",
-				component: ActivityDetail
-			}, {
-				path: "/information/informationDetail",
-				component: InformationDetail
-			}, {
-				path: "/now/nowDetail",
-				component: NowDetail
-			},
-      {
-        path: "/activity/pictureDetail",
-        component: PictureDetail
-      },
-      {
-				path: "/component/commentList",
-				component: CommentList
-			}, {
-				path: "/now/addPic",
-				component: AddPic
-			}, {
-				path: "/activity/toSign",
-				component: ToSign
-			},
-			{
-				path: "/lovecar",
-				component: Lovecar
-			},
-			{
-				path: "/revisePinCode",
-				naem: '修改pin码',
-				component: RevisePinCode
-			},
-			{
-				path: "/forgetPinCode",
-				naem: '忘记pin码',
-				component: ForgetPinCode
-			},
-			{
-				path: "/reviseSuccess",
-				naem: '修改pin成功',
-				component: ReviseSuccess
-			},
-			//我的页面
-			{
-				path: "/myindex",
-				component: My
-			},
-			{
-				path: "/mystart",
-				component: Mystart
-			},
-			{
-				path: "/userstart",
-				component: Userstart
-			},
-			{
-				path: "/fans",
-				component: Fans
-			},
-			{
-				path: "/focus",
-				component: Focus
-			},
-			{
-				path: "/feedbackRecord",
-				name: '反馈记录',
-				component: FeedbackRecord
-			},
-			{
-				path: "/contactPerson",
-				name: '紧急联系人',
-				component: ContactPerson
-			},
-			{
-				path: "/modifyPassword",
-				name: '修改密码',
-				component: ModifyPassword
-			},
-			{
-				path: "/myFeedback",
-				name: '我的反馈',
-				component: MyFeedback
-			},
-			{
-				path: "/mySetUp",
-				name: '设置',
-				component: MySetUp
-			},
+                path: '/',
+                redirect: '/discover'
+            },
+            //发现
+            {
+                path: "/discover",
+                component: Discover,
+                children: [{
+                    path: '/',
+                    redirect: "/recommend",
+                    meta: {
+                        keepAlive: true
+                    }
+                }, {
+                    path: "/recommend",
+                    component: Recommend,
+                    meta: {
+                        keepAlive: true
+                    }
+                }, {
+                    path: "/activity",
+                    component: Activity,
+                    meta: {
+                        keepAlive: true
+                    }
+                }, {
+                    path: "/information",
+                    component: Information,
+                    meta: {
+                        keepAlive: true
+                    }
+                }, {
+                    path: "/now",
+                    component: Now,
+                    meta: {
+                        keepAlive: true
+                    }
+                }]
+            },
+            {
+                path: "/activity/activityDetail",
+                component: ActivityDetail
+            }, {
+                path: "/information/informationDetail",
+                component: InformationDetail
+            }, {
+                path: "/now/nowDetail",
+                component: NowDetail
+            },
+            {
+                path: "/activity/pictureDetail",
+                component: PictureDetail
+            },
+            {
+                path: "/component/commentList",
+                component: CommentList
+            }, {
+                path: "/now/addPic",
+                component: AddPic
+            }, {
+                path: "/activity/toSign",
+                component: ToSign
+            },
+            {
+                path: "/lovecar",
+                component: Lovecar
+            },
+            {
+                path: "/Authorize",
+                component: Authorize
+            },
+            {
+                path: "/Authorize_next",
+                component: Authorize_next
+            },
+            {
+                path: "/revisePinCode",
+                naem: '修改pin码',
+                component: RevisePinCode
+            },
+            {
+                path: "/forgetPinCode",
+                naem: '忘记pin码',
+                component: ForgetPinCode
+            },
+            {
+                path: "/reviseSuccess",
+                naem: '修改pin成功',
+                component: ReviseSuccess
+            },
+            //我的页面
+            {
+                path: "/myindex",
+                component: My
+            },
+            {
+                path: "/mystart",
+                component: Mystart
+            },
+            {
+                path: "/userstart",
+                component: Userstart
+            },
+            {
+                path: "/fans",
+                component: Fans
+            },
+            {
+                path: "/focus",
+                component: Focus
+            },
+            {
+                path: "/feedbackRecord",
+                name: '反馈记录',
+                component: FeedbackRecord
+            },
+            {
+                path: "/contactPerson",
+                name: '紧急联系人',
+                component: ContactPerson
+            },
+            {
+                path: "/modifyPassword",
+                name: '修改密码',
+                component: ModifyPassword
+            },
+            {
+                path: "/myFeedback",
+                name: '我的反馈',
+                component: MyFeedback
+            },
+            {
+                path: "/mySetUp",
+                name: '设置',
+                component: MySetUp
+            },
 
-			//智享部分
-			{
-				path: '/wit',
-				name: '智享首页',
-				component: Wit
-			}
-		]
-	}]
+            //智享部分
+            {
+                path: '/wit',
+                name: '智享首页',
+                component: Wit
+            }
+        ]
+    }]
 })
