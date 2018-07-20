@@ -35,7 +35,7 @@ import PictureDetail from '@/components/discover/activity/pictureDetail' //晒�
 import CommentList from '@/components/discover/component/commentList' //超过4条的评论列表(公共)
 import AddPic from '@/components/discover/now/addPic' //新增此刻
 import ToSign from '@/components/discover/activity/toSign' //活动报名
-
+import ToInform from '@/components/discover/component/inform' //举报此刻
 // 智享部分
 import Wit from '@/components/Wit/Wit.vue' //智享首页
 
@@ -109,6 +109,9 @@ export default new Router({
             }, {
                 path: "/activity/toSign",
                 component: ToSign
+            },{
+                path: "/component/inform",
+                component: ToInform
             },
             {
                 path: "/lovecar",

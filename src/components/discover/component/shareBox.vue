@@ -156,7 +156,7 @@
       //跳转到举报页面
       inform: function (userId) {
         this.$store.state.UserStartId = userId;
-        this.$router.push('/inform');
+        this.$router.push('/component/inform');
       },
       back:function () {
         this.$emit('closeShare')
