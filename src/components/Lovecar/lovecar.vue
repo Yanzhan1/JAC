@@ -119,12 +119,12 @@
           <span></span>
         </div>
         <div id="wrap">
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
+          <input class="ipts" type="text" />
+          <input class="ipts" type="text" />
+          <input class="ipts" type="text" />
+          <input  class="ipts" type="text" />
+          <input class="ipts" type="text" />
+          <input class="ipts" type="text" />
         </div>
       </div>
     </mt-popup>
@@ -142,10 +142,10 @@
           <img src="../../../static/images/Lovecar/xiupin.png" alt="">
           <span>修改PIN</span>
         </router-link>
-        <li>
+       <router-link tag="li" to="/Bus_test"> 
           <img src="../../../static/images/Lovecar/chejian.png" alt="">
           <span>车辆体检</span>
-        </li>
+       </router-link>
         <router-link tag='li' to="/Authorize">
           <img src="../../../static/images/Lovecar/yuancheng.png" alt="">
           <span>远程授权</span>
@@ -211,22 +211,22 @@ export default {
   }
 };
 //密码输入框
-onload = function() {
-  var txts = document.getElementsByTagName("input");
-  for (var i = 0; i < txts.length; i++) {
-    var t = txts[i];
-    t.index = i;
-    t.setAttribute("readonly", true);
-    t.onkeyup = function() {
-      this.value = this.value.replace(/^(.).*$/, "$1");
-      var next = this.index + 1;
-      if (next > txts.length - 1) return;
-      txts[next].removeAttribute("readonly");
-      txts[next].focus();
-    };
-  }
-  txts[0].removeAttribute("readonly");
-};
+// onload = function() {
+//   var txts = document.getElementsByClassName("ipts");
+//   for (var i = 0; i < txts.length; i++) {
+//     var t = txts[i];
+//     t.index = i;
+//     t.setAttribute("readonly", true);
+//     t.onkeyup = function() {
+//       this.value = this.value.replace(/^(.).*$/, "$1");
+//       var next = this.index + 1;
+//       if (next > txts.length - 1) return;
+//       txts[next].removeAttribute("readonly");
+//       txts[next].focus();
+//     };
+//   }
+//   txts[0].removeAttribute("readonly");
+// };
 </script>
 
 <style scoped>
