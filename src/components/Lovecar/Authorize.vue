@@ -20,12 +20,12 @@
                 </div>
             </div>
             <div class="aut auts">被授权者账号：</div>
-            <div>
+            <div class="iptcont flex row cocenter">
                 <span style="font-size:.24rem;color:#888">请输入账号</span>
                 <input maxlength="" type="text" class="ipt">
             </div>
         </div>
-        <button class="bottom-btn">发送授权</button>
+        <button class="bottom-btn" @click='next()'>发送授权</button>
     </div>
 </template>
 
@@ -34,6 +34,11 @@ export default {
   name: "",
   data() {
     return {};
+  },
+  methods:{
+      next(){
+          this.$router.push('/Authorize_next')
+      }
   }
 };
 </script>
@@ -41,6 +46,7 @@ export default {
 <style scoped>
 .autime {
   margin-left: 0.3rem;
+  margin-right:.3rem
 }
 .aut {
   font-size: 0.3rem;
@@ -71,6 +77,10 @@ export default {
 }
 .ipt{
     border:none
+}
+.iptcont{
+    padding:.2rem 0;
+    border-bottom:1px solid #f1f1f1
 }
 
 </style>
