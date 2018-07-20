@@ -8,6 +8,10 @@ import ForgetPinCode from '@/components/Lovecar/ForgetPinCode'
 import ReviseSuccess from '@/components/Lovecar/ReviseSuccess'
 import Authorize from "@/components/Lovecar/Authorize.vue"
 import Authorize_next from "@/components/Lovecar/Authorize_next.vue"
+import WifiLink from "@/components/Lovecar/WifiLink"
+import WifiSetup from "@/components/Lovecar/WifiSetup"
+import FuelQuery from "@/components/Lovecar/FuelQuery"
+import FlowQuery from "@/components/Lovecar/FlowQuery"
 //我的部分
 import My from '@/components/My/Myindex'
 import Mystart from '@/components/My/Mystart'
@@ -139,6 +143,26 @@ export default new Router({
                 path: "/reviseSuccess",
                 naem: '修改pin成功',
                 component: ReviseSuccess
+            },
+            {
+                path: "/wifiLink",
+                naem: 'wifi直连',
+                component: WifiLink
+            },
+            {
+                path: "/wifiSetup",
+                naem: 'wifi设置',
+                component: WifiSetup
+            },
+            {
+                path: "/fuelQuery",
+                naem: '燃油查询',
+                component: FuelQuery
+            },
+            {
+                path: "/flowQuery",
+                naem: '流量查询',
+                component: FlowQuery
             },
             //我的页面
             {
