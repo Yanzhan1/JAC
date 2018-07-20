@@ -146,7 +146,7 @@
           <img src="../../../static/images/Lovecar/chejian.png" alt="">
           <span>车辆体检</span>
         </li>
-        <li>
+        <li  @click="fns(3)">
           <img src="../../../static/images/Lovecar/yuancheng.png" alt="">
           <span>远程授权</span>
         </li>
@@ -209,9 +209,12 @@ export default {
     },
     fns(num) {
       switch (num) {
-          case 2:
+           case 2:
            this.$router.push("/revisePinCode");
-          break;
+           break;
+           case 3:
+           this.$router.push("/Authorize");
+           break;
          
       }
      
