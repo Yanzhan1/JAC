@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!--<div @click="bgHide" id="bgShare" style="position: fixed; width: 100%;height: 100%;background: black; display: none;opacity: 0"></div>-->
+    <div @click="bgHide" id="bgShare" style="position: fixed; width: 100%;height: 100%;background: #000000; display: none;opacity: 0.2;top: 0;"></div>
     <header class="header header2">
       <img class="header-left" src="../../../../static/images/discover/backblue.png" @click="goBack">
       <p class="header-title-fff">社区详情</p>
@@ -133,17 +133,17 @@
         <div class="interval_002"></div>
       </div>
     </div>
-        </div>
-        <div style="height: 1rem;"></div>
-        <!--评论E-->
-        <!--评论输入框S-->
-        <!--<DiscCommentBox ref="commentbox"></DiscCommentBox>-->
-        <div id="commentBg" @click="closeComment"/>
-        <div class="flex contentcenter myInput">
-          <input autofocus="autofocus" ref="commentfocus" id="comment" type="text" v-model="commentMsg" @click="commentbtn" placeholder="写评论..."/>
-          <span class="send" @click="comment">发送</span>
-        </div>
-        <!--评论输入框E-->
+  </div>
+  <div style="height: 1rem;"></div>
+  <!--评论E-->
+  <!--评论输入框S-->
+  <!--<DiscCommentBox ref="commentbox"></DiscCommentBox>-->
+  <div id="commentBg" @click="closeComment" />
+  <div class="flex contentcenter myInput" id="myInput">
+    <input autofocus="autofocus" ref="commentfocus" id="comment" type="text" v-model="commentMsg" @click="commentbtn" placeholder="写评论..."/>
+    <span class="send" @click="comment">发送</span>
+  </div>
+  <!--评论输入框E-->
   </div>
 </template>
 
@@ -482,22 +482,23 @@
         $("#id_pl_icon").show();
         this.commentMsg = '';
       },
-      //分享
+      //分享弹出
       onShareClick: function (index) {
         this.indexNum = index;
         var showId = '#share_person'+index;
-        $(showId).show().css('padding',"0 .3rem");
+        $(showId).show();
+        console.log(showId)
         $("#bgShare").show();
-        $("#bg1").show();
-//        this.bgbtn1();
+        $("#myInput").hide();
       },
-      bgbtn1(){
+      //分享关闭
+      bgHide: function () {
         var showId = '#share_person'+this.indexNum;
         $(showId).hide();
         $("#bgShare").hide();
-        $("#bg1").hide();
+        $("#myInput").show();
       },
-      bgHide: function () {
+      bgbtn1(){
         var showId = '#share_person'+this.indexNum;
         $(showId).hide();
         $("#bgShare").hide();

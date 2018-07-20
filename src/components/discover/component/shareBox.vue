@@ -1,59 +1,83 @@
 <template>
 <div :id="'share_'+flag+index" class="shareHide">
   <div class="personWrap" v-if="isCenter && flag=='person'">
-    <div class="contentWord">
+    <!--<div class="contentWord">
       <span class="shareWord">分享</span>
       <span class="cancelWord" @click="back">取消</span>
-    </div>
+    </div>-->
     <div class="contentShare">
-      <div class="shareBox">
-        <img src="../../../../static/images/discover/pyq.png" class="shareIcon" @click="toShare(item,'WEIXIN_CIRCLE')"/>
-        <span style="color: #222222;">朋友圈</span>
-      </div>
       <div class="shareBox">
         <img src="../../../../static/images/discover/wx.png" class="shareIcon" @click="toShare(item,'WEIXIN')"/>
         <span style="color: #222222;">微信</span>
+      </div>
+      <div class="shareBox">
+        <img src="../../../../static/images/discover/pyq.png" class="shareIcon" @click="toShare(item,'WEIXIN_CIRCLE')"/>
+        <span style="color: #222222;">朋友圈</span>
       </div>
       <div class="shareBox">
         <img src="../../../../static/images/discover/qq.png" class="shareIcon" @click="toShare(item,'QQ')"/>
         <span style="color: #222222;">QQ</span>
       </div>
       <div class="shareBox">
+        <img src="../../../../static/images/discover/qqkongjian.png" class="shareIcon" @click="toShare(item,'QQ')"/>
+        <span style="color: #222222;">QQ空间</span>
+      </div>
+      <div class="shareBox">
         <img src="../../../../static/images/discover/weibo.png" class="shareIcon" @click="toShare(item,'SELF')"/>
         <span style="color: #222222;">微博</span>
       </div>
-      <div class="shareBox">
+      <div class="shareBox mt_4">
+        <img src="../../../../static/images/discover/shoucang.png" class="shareIcon" @click="toShare(item,'SELF')"/>
+        <span style="color: #222222;">收藏</span>
+      </div>
+      <!--<div class="shareBox mt_4">
+        <img src="../../../../static/images/discover/yishoucang.png" class="shareIcon" @click="toShare(item,'SELF')"/>
+        <span style="color: #222222;">已收藏</span>
+      </div>-->
+      <div class="shareBox mt_4">
         <img src="../../../../static/images/discover/jubao.png" class="shareIcon" @click="inform(item.user.user_id,'SELF')"/>
         <span style="color: #222222;">举报</span>
       </div>
+      <!--<div class="shareBox mt_4">
+        <img src="../../../../static/images/discover/yijubao.png" class="shareIcon" @click="inform(item.user.user_id,'SELF')"/>
+        <span style="color: #222222;">已举报</span>
+      </div>-->
     </div>
   </div>
   <div class="contentWrap" v-else-if="isCenter">
-    <div class="contentWord">
+    <!--<div class="contentWord">
       <span class="shareWord">分享</span>
       <span class="cancelWord" @click="back">取消</span>
-    </div>
+    </div>-->
     <div class="contentShare">
-      <div class="shareBox">
-        <img src="../../../../static/images/discover/pyq.png" class="shareIcon" @click="toShare(item,'WEIXIN_CIRCLE')"/>
-        <span style="color: #222222;">朋友圈</span>
-      </div>
       <div class="shareBox">
         <img src="../../../../static/images/discover/wx.png" class="shareIcon" @click="toShare(item,'WEIXIN')"/>
         <span style="color: #222222;">微信</span>
       </div>
       <div class="shareBox">
+        <img src="../../../../static/images/discover/pyq.png" class="shareIcon" @click="toShare(item,'WEIXIN_CIRCLE')"/>
+        <span style="color: #222222;">朋友圈</span>
+      </div>
+      <div class="shareBox">
         <img src="../../../../static/images/discover/qq.png" class="shareIcon" @click="toShare(item,'QQ')"/>
         <span style="color: #222222;">QQ</span>
       </div>
-      <!--<div class="shareBox">
-        <img src="../../../static/images/discover/zn.png" class="shareIcon" @click="toShare(item,'SELF')"/>
+      <div class="shareBox">
+        <img src="../../../../static/images/discover/qqkongjian.png" class="shareIcon" @click="toShare(item,'QQ')"/>
         <span style="color: #222222;">QQ空间</span>
-      </div>-->
+      </div>
       <div class="shareBox">
         <img src="../../../../static/images/discover/weibo.png" class="shareIcon" @click="toShare(item,'SELF')"/>
         <span style="color: #222222;">微博</span>
       </div>
+      <div class="shareBox mt_4">
+        <img src="../../../../static/images/discover/shoucang.png" class="shareIcon" @click="toShare(item,'SELF')"/>
+        <span style="color: #222222;">收藏</span>
+      </div>
+      <!--<div class="shareBox mt_4">
+        <img src="../../../../static/images/discover/yishoucang.png" class="shareIcon" @click="toShare(item,'SELF')"/>
+        <span style="color: #222222;">已收藏</span>
+      </div>-->
     </div>
   </div>
   <div class="listWrap" v-else>
@@ -74,6 +98,9 @@
       <span style="color: #222222;">QQ空间</span>
     </div>-->
   </div>
+
+  <div @click="back" class="cancle">取消</div>
+
 </div>
 </template>
 <script>
@@ -190,13 +217,28 @@
 </script>
 <style scoped>
   /*分享*/
+  .cancle{
+    width: 92%;
+    height: 0.88rem;
+    line-height: 0.88rem;
+    background: #ffffff;
+    margin-top: 0.1rem;
+    z-index: 1000000;
+    bottom: 0.2rem;
+    position: fixed;
+    border-radius: 0.08rem;
+    font-size: 0.32rem;
+    color: #49BBFF;
+    text-align: center;
+    margin-left: 4%;
+  }
   .shareIcon{
     padding-left:0.2rem;
     padding-right:0.2rem;
     width: 1.2rem;
   }
   .shareBox{
-    width: 1.2rem;
+    width: 20%;
     height: 100%;
     float: left;
     text-align: center;
@@ -208,34 +250,35 @@
     z-index: 20;
   }
   .listWrap{
-    width: 5.2rem;
-    padding: 0.2rem;
-    height: 1.6rem;
+    width: 92%;
+    padding: 0.4rem;
+    height: 28%;
     z-index: 999666;
     background: #fdfdfd;
-    border-radius: 0.4rem;
-    margin-left:0.1rem;
-    position: absolute
+    border-radius: 0.08rem;
+    margin-left:4%;
+    position: fixed;
+    bottom: 1.24rem;
   }
   .contentWrap{
     width: 92%;
     padding: 0.4rem;
-    height: 24%;
+    height: 28%;
     z-index: 999666;
     background: #fdfdfd;
-    border-radius: 0.2rem;
-    margin-left:5%;
+    border-radius: 0.08rem;
+    margin-left:4%;
     position: fixed;
-    bottom: 0.2rem;
+    bottom: 1.24rem;
   }
   .contentWord{
     border-bottom: 0.01rem solid #b7b7b7;
     height: 34%;
   }
   .contentShare{
-    height: 64%;
+    height: 48%;
     width: 100%;
-    padding-top: 6%;
+    border-bottom: 0.02rem solid #f1f1f1;
   }
   .shareWord{
     font-family: PingFangSC-Medium;
@@ -250,11 +293,18 @@
   .personWrap{
     width: 92%;
     padding: 0.4rem;
-    height: 24%;
+    height: 28%;
     z-index: 999666;
     background: #fdfdfd;
-    border-radius: 0.2rem;
+    border-radius: 0.08rem;
     position: fixed;
-    bottom: 0.2rem;
+    bottom: 1.24rem;
+    margin-left: 4%;
+  }
+  .ml_4{
+    margin-left: 4%;
+  }
+  .mt_4{
+    margin-top: 0.4rem;
   }
 </style>

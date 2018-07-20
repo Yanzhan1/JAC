@@ -91,13 +91,9 @@
                           <img src="../../../../static/images/discover/jgz.png">
                           <span class="font_4" @click="addFoucs(item.user.user_id,index)">关注</span>
                         </div>
-                        <div v-else-if="item.focusStatus == 1">
+                        <div v-else-if="item.focusStatus == 1||item.focusStatus == 2">
                           <img src="../../../../static/images/discover/ygz.png">
                           <span class="font_4" @click="removeFoucs(item.user.user_id,index)">已关注</span>
-                        </div>
-                        <div v-else="item.focusStatus == 2">
-                          <img src="../../../../static/images/discover/ygz.png">
-                          <span class="font_4" @click="removeFoucs(item.user.user_id,index)">相互关注</span>
                         </div>
                       </div>
                     </div>
@@ -137,8 +133,8 @@
                   <img src="../../../../static/images/discover/eye.png" class="f_left"/>
                   <span class="f_left">{{item.readNum}}</span>
                   <span class="f_right">{{item.likeNum}}</span>
-                  <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveMomentLike(item.id,index)"/>
-                  <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeMomentLike(item.id,index)"/>
+                  <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveMomentLike(item.id,index,2)"/>
+                  <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeMomentLike(item.id,index,2)"/>
                 </div>
                 <!--阅读数量,是否点赞以及点赞数量E-->
               </div>
@@ -189,7 +185,7 @@
       name: "Recommend",
       data(){
           return{
-            userId:this.$store.state.userId,
+            userId:0,
             pageNum:1,
             allLoaded: false,
             loadEnd:false,
@@ -242,6 +238,9 @@
           this.topStatus = status;
         },
         changeUserStartId(id){
+          console.log(this.$store.state.userId+"本人id")
+          console.log(id+"获取id")
+          console.log(id == this.$store.state.userId)
           if(id == this.$store.state.userId){
             this.$router.push({path:'/my/mystart'});
           }else{
@@ -480,6 +479,7 @@
       },
       mounted(){
         this.getRefreshList();
+        this.userId=this.$store.state.userId;
         // alert(this.$store.state.userId)
       }
 

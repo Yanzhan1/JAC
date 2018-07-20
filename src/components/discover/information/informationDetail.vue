@@ -112,12 +112,12 @@
     <!--评论输入框S-->
     <!--<DiscCommentBox ref="commentbox"></DiscCommentBox>-->
     <div id="commentBg" @click="closeComment"/>
-    <div class="flex contentcenter myInput">
-      <input autofocus="autofocus" ref="commentfocus" id="comment" type="text" v-model="commentMsg" @click="commentbtn" placeholder="写评论..."/>
-      <span class="send" @click="comment">发送</span>
+      <div class="flex contentcenter myInput" id="myInput">
+        <input autofocus="autofocus" ref="commentfocus" id="comment" type="text" v-model="commentMsg" @click="commentbtn" placeholder="写评论..."/>
+        <span class="send" @click="comment">发送</span>
+      </div>
+      <!--评论输入框E-->
     </div>
-    <!--评论输入框E-->
-  </div>
 </template>
 
 <script>
@@ -379,13 +379,14 @@
         $(showId).show();
         console.log(showId)
         $("#bgShare").show();
-        //this.bgbtn1();
+        $("#myInput").hide();
       },
       //分享关闭
       bgHide: function () {
         var showId = '#share_information'+this.indexNum;
         $(showId).hide();
         $("#bgShare").hide();
+        $("#myInput").show();
       },
       //返回上一级
       goBack:function () {
