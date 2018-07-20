@@ -1,7 +1,7 @@
 <template>
   <div class="tophead">
     <div class="nav">
-      <img src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
+      <img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
       <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;瑞丰 R3</span>
       <span class="txt_r">车机已登录</span>
     </div>
@@ -128,6 +128,56 @@
         </div>
       </div>
     </mt-popup>
+
+    <!-- 弹出层 左上 -->
+    <div class="mask" v-if="MaskIsshow"></div>
+    <img class="cancel" v-if="MaskIsshow" @click="delde" src="../.././../static/images/Lovecar/button9@2x.png" alt="" style="width:.28rem">
+    <div v-if="MaskIsshow" class="mask_content">
+      <ul class="tipcontent">
+        <li>
+          <img src="../../../static/images/Lovecar/ding.png" alt="">
+          <span>盯盯拍</span>
+        </li>
+        <li @click="fns(2)">
+          <img src="../../../static/images/Lovecar/xiupin.png" alt="">
+          <span>修改PIN</span>
+        </li>
+        <li>
+          <img src="../../../static/images/Lovecar/chejian.png" alt="">
+          <span>车辆体检</span>
+        </li>
+        <li>
+          <img src="../../../static/images/Lovecar/yuancheng.png" alt="">
+          <span>远程授权</span>
+        </li>
+
+        <li>
+          <img src="../../../static/images/Lovecar/dingwei.png" alt="">
+          <span>定位</span>
+        </li>
+        <li>
+          <img src="../../../static/images/Lovecar/liuliang.png" alt="">
+          <span>流量查询</span>
+        </li>
+        <li>
+          <img src="../../../static/images/Lovecar/ranyou.png" alt="">
+          <span>燃油统计</span>
+        </li>
+        <li>
+          <img src="../../../static/images/Lovecar/dianzi.png" alt="">
+          <span>电子围栏</span>
+        </li>
+
+        <li>
+          <img src="../../../static/images/Lovecar/wifi.png" alt="">
+          <span>wifi直连</span>
+        </li>
+        <li>
+          <img src="../../../static/images/Lovecar/zhiting.png" alt="">
+          <span>智能停车</span>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -136,25 +186,41 @@ export default {
   name: "lovecar",
   data() {
     return {
-      activeshow: 1,
-      popupVisible: false
+      activeshow: 1, //默认第一个高亮
+      popupVisible: false,
+      MaskIsshow: false //黑色遮罩层
     };
   },
   methods: {
     fn(type) {
       this.activeshow = type;
     },
-
     enter() {
       this.popupVisible = true;
     },
     cancel() {
       this.popupVisible = false;
+    },
+    delde() {
+      this.MaskIsshow = false;
+    },
+    navtip() {
+      this.MaskIsshow = true;
+    },
+    fns(num) {
+      switch (num) {
+          case 2:
+           this.$router.push("/revisePinCode");
+          break;
+         
+      }
+     
     }
   }
 };
+//密码输入框
 onload = function() {
-  var txts = wrap.getElementsByTagName("input");
+  var txts = document.getElementsByTagName("input");
   for (var i = 0; i < txts.length; i++) {
     var t = txts[i];
     t.index = i;
@@ -172,6 +238,59 @@ onload = function() {
 </script>
 
 <style scoped>
+/* 左上角弹框 */
+.mask {
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  background: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+.mask_content {
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  right: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  background-color: #fff;
+  height: 4.1rem;
+  width: 90%;
+  z-index: 10000;
+  border-radius: 3px;
+}
+.cancel {
+  position: fixed;
+  z-index: 10000;
+  top: 0.4rem;
+  left: 0.3rem;
+}
+.tipcontent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+.tipcontent li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+  margin-top: 0.3rem;
+}
+.tipcontent li img {
+  width: 0.4rem;
+  display: block;
+}
+.tipcontent li span {
+  color: #444;
+  font-size: 0.22rem;
+  margin-top: 0.23rem;
+}
+/*  */
 #wrap {
   display: flex;
   flex-direction: row;
