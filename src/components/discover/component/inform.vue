@@ -26,7 +26,7 @@
       name: "infrom",
       data(){
           return{
-            value:''
+            value:'色情低俗'
           }
       },
       created(){
@@ -82,4 +82,5 @@
     color:#888888;
     font-size: 0.28rem;
   }
+
 </style>
