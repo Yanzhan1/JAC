@@ -11,7 +11,8 @@
         <img class="header_right" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)"/>
       </header>
       <!--活动内容S-->
-      <shareBox :index="0" :item="content" :flag="flag" :type="type" :isCenter="true" @closeShare="bgHide"></shareBox>
+      <shareBox :index="0" :item="content" :flag="flag" :type="type" :collectionStatus="content.collectionStatus" :isCenter="true"
+                @closeShare="bgHide" @collection="collection" @reCollection="messageBoxCofirm"></shareBox>
       <img :src="content.imgUrl" style="width: 100%;" id="bgImg"/>
       <div class="wrap_92">
         <p class="contentActTitle">
@@ -244,6 +245,9 @@
           this.$http.post(DISCOVERMESSAGE.activetyCollection, {"uid": _this.userId,"lid": _this.activityId}).then(function (res) {
             if (res.data.status) {
               _this.content.collectionStatus = false;
+              setTimeout(()=>{
+                _this.bgHide();
+              },2000)
             } else {
               if(_this.$store.state.userId == null){
                 _this.toLogin();
@@ -256,12 +260,14 @@
         //取消收藏
         messageBoxCofirm: function(){
           var _this = this;
-          MessageBox.confirm('确定取消收藏?').then(action => {
+          /*MessageBox.confirm('确定取消收藏?').then(action => {*/
             var _this = this;
-            this.$http.post(DISCOVERMESSAGE.activetyRemoveCollection, {"uid": _this.userId,"lid": _this.activityId}, ).then(function (res) {
+            this.$http.post(DISCOVERMESSAGE.activetyRemoveCollection, {"uid": _this.userId,"lid": _this.activityId}).then(function (res) {
               if (res.data.status) {
                 _this.content.collectionStatus = true;
-                Toast('取消成功');
+                setTimeout(()=>{
+                  _this.bgHide();
+                },2000)
               } else {
                 if(_this.$store.state.userId == null){
                   _this.toLogin();
@@ -270,7 +276,7 @@
                 }
               }
             });
-          });
+          /*});*/
         },
         //浏览量
         getReadNum: function () {

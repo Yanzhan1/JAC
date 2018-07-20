@@ -1,10 +1,6 @@
 <template>
 <div :id="'share_'+flag+index" class="shareHide">
-  <div class="personWrap" v-if="isCenter && flag=='person'">
-    <!--<div class="contentWord">
-      <span class="shareWord">分享</span>
-      <span class="cancelWord" @click="back">取消</span>
-    </div>-->
+  <div class="contentWrap">
     <div class="contentShare">
       <div class="shareBox">
         <img src="../../../../static/images/discover/wx.png" class="shareIcon" @click="toShare(item,'WEIXIN')"/>
@@ -26,91 +22,47 @@
         <img src="../../../../static/images/discover/weibo.png" class="shareIcon" @click="toShare(item,'SELF')"/>
         <span style="color: #222222;">微博</span>
       </div>
-      <div class="shareBox mt_4">
-        <img src="../../../../static/images/discover/shoucang.png" class="shareIcon" @click="toShare(item,'SELF')"/>
-        <span style="color: #222222;">收藏</span>
+      <!--此刻（举报）-->
+      <div  v-if="isCenter && flag=='person'">
+        <div class="shareBox mt_4">
+          <img src="../../../../static/images/discover/yijubao.png" class="shareIcon" @click="inform(item.user.user_id,'SELF')"/>
+          <span style="color: #222222;">举报</span>
+        </div>
+        <!--<div class="shareBox mt_4">
+          <img src="../../../../static/images/discover/jubao.png" class="shareIcon" @click="inform(item.user.user_id,'SELF')"/>
+          <span style="color: #222222;">已举报</span>
+        </div>-->
       </div>
-      <!--<div class="shareBox mt_4">
-        <img src="../../../../static/images/discover/yishoucang.png" class="shareIcon" @click="toShare(item,'SELF')"/>
-        <span style="color: #222222;">已收藏</span>
-      </div>-->
-      <div class="shareBox mt_4">
-        <img src="../../../../static/images/discover/jubao.png" class="shareIcon" @click="inform(item.user.user_id,'SELF')"/>
-        <span style="color: #222222;">举报</span>
-      </div>
-      <!--<div class="shareBox mt_4">
-        <img src="../../../../static/images/discover/yijubao.png" class="shareIcon" @click="inform(item.user.user_id,'SELF')"/>
-        <span style="color: #222222;">已举报</span>
-      </div>-->
+      <!--资讯、活动（收藏）-->
+      <div v-else>
+        <div class="shareBox mt_4" v-if="collectionStatus" @click="collection">
+          <img src="../../../../static/images/discover/yishoucang.png" class="shareIcon"/>
+          <span style="color: #222222;">收藏</span>
+        </div>
+        <div class="shareBox mt_4" v-if="!collectionStatus" @click="reCollection">
+          <img src="../../../../static/images/discover/shoucang.png" class="shareIcon"/>
+          <span style="color: #222222;">已收藏</span>
+        </div>
+        </div>
     </div>
   </div>
-  <div class="contentWrap" v-else-if="isCenter">
-    <!--<div class="contentWord">
-      <span class="shareWord">分享</span>
-      <span class="cancelWord" @click="back">取消</span>
-    </div>-->
-    <div class="contentShare">
-      <div class="shareBox">
-        <img src="../../../../static/images/discover/wx.png" class="shareIcon" @click="toShare(item,'WEIXIN')"/>
-        <span style="color: #222222;">微信</span>
-      </div>
-      <div class="shareBox">
-        <img src="../../../../static/images/discover/pyq.png" class="shareIcon" @click="toShare(item,'WEIXIN_CIRCLE')"/>
-        <span style="color: #222222;">朋友圈</span>
-      </div>
-      <div class="shareBox">
-        <img src="../../../../static/images/discover/qq.png" class="shareIcon" @click="toShare(item,'QQ')"/>
-        <span style="color: #222222;">QQ</span>
-      </div>
-      <div class="shareBox">
-        <img src="../../../../static/images/discover/qqkongjian.png" class="shareIcon" @click="toShare(item,'QQ')"/>
-        <span style="color: #222222;">QQ空间</span>
-      </div>
-      <div class="shareBox">
-        <img src="../../../../static/images/discover/weibo.png" class="shareIcon" @click="toShare(item,'SELF')"/>
-        <span style="color: #222222;">微博</span>
-      </div>
-      <div class="shareBox mt_4">
-        <img src="../../../../static/images/discover/shoucang.png" class="shareIcon" @click="toShare(item,'SELF')"/>
-        <span style="color: #222222;">收藏</span>
-      </div>
-      <!--<div class="shareBox mt_4">
-        <img src="../../../../static/images/discover/yishoucang.png" class="shareIcon" @click="toShare(item,'SELF')"/>
-        <span style="color: #222222;">已收藏</span>
-      </div>-->
-    </div>
-  </div>
-  <div class="listWrap" v-else>
-    <div class="shareBox">
-      <img src="../../../../static/images/discover/pyq.png" class="shareIcon" @click="toShare(item,'WEIXIN_CIRCLE')"/>
-      <span style="color: #222222;">朋友圈</span>
-    </div>
-    <div class="shareBox">
-      <img src="../../../../static/images/discover/wx.png" class="shareIcon" @click="toShare(item,'WEIXIN')"/>
-      <span style="color: #222222;">微信</span>
-    </div>
-    <div class="shareBox">
-      <img src="../../../../static/images/discover/qq.png" class="shareIcon" @click="toShare(item,'QQ')"/>
-      <span style="color: #222222;">QQ</span>
-    </div>
-    <!--<div class="shareBox">
-      <img src="../../../static/images/discover/zn.png" class="shareIcon" @click="toShare(item,'SELF')"/>
-      <span style="color: #222222;">QQ空间</span>
-    </div>-->
-  </div>
-
   <div @click="back" class="cancle">取消</div>
 
 </div>
 </template>
 <script>
+  import { Toast } from 'mint-ui';
   export default {
     name: "shareBox",
-    props: ['index','item','flag','type','isCenter'],
+    props: ['index','item','flag','type','collectionStatus','isCenter'],
+    data: function () {
+      return {
+        myCollect: this.collectionStatus
+      };
+    },
     methods: {
       //分享到朋友圈
       toShare: function (item,platform) {
-
         let content = '';
         let imageURL = '';
         let title = '';
@@ -207,8 +159,23 @@
         this.$router.push('/inform');
       },
       back:function () {
-        //this.$router.go(-1);
         this.$emit('closeShare')
+      },
+      collection:function () {
+        this.change();
+        this.$emit('collection')
+      },
+      reCollection:function () {
+        this.change();
+        this.$emit('reCollection')
+      },
+      change() {
+        this.myCollect = !this.myCollect;
+      }
+    },
+    watch: {
+      collectionStatus(val) {
+        this.myCollect = val;
       }
     },
     mounted(){
@@ -249,17 +216,6 @@
     display: none;
     z-index: 20;
   }
-  .listWrap{
-    width: 92%;
-    padding: 0.4rem;
-    height: 28%;
-    z-index: 999666;
-    background: #fdfdfd;
-    border-radius: 0.08rem;
-    margin-left:4%;
-    position: fixed;
-    bottom: 1.24rem;
-  }
   .contentWrap{
     width: 92%;
     padding: 0.4rem;
@@ -271,38 +227,10 @@
     position: fixed;
     bottom: 1.24rem;
   }
-  .contentWord{
-    border-bottom: 0.01rem solid #b7b7b7;
-    height: 34%;
-  }
   .contentShare{
     height: 48%;
     width: 100%;
     border-bottom: 0.02rem solid #f1f1f1;
-  }
-  .shareWord{
-    font-family: PingFangSC-Medium;
-    font-size: 0.32rem;
-    color: #333333;
-  }
-  .cancelWord{
-    font-size: 0.32rem;
-    color: #FC3846;
-    float: right;
-  }
-  .personWrap{
-    width: 92%;
-    padding: 0.4rem;
-    height: 28%;
-    z-index: 999666;
-    background: #fdfdfd;
-    border-radius: 0.08rem;
-    position: fixed;
-    bottom: 1.24rem;
-    margin-left: 4%;
-  }
-  .ml_4{
-    margin-left: 4%;
   }
   .mt_4{
     margin-top: 0.4rem;

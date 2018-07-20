@@ -12,7 +12,8 @@
         <img class="header_right" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)"/>
       </header>
       <!--分享组件-->
-      <shareBox :index="0" :item="content" :flag="flag" :type="type" :isCenter="true" @closeShare="bgHide"></shareBox>
+      <shareBox :index="0" :item="content" :flag="flag" :type="type" :collectionStatus="content.collectionStatus" :isCenter="true"
+                @closeShare="bgHide" @collection="collection" @reCollection="messageBoxCofirm"></shareBox>
       <!--资讯详情S-->
       <img :src="content.imgUrl" style="width: 100%;" id="bgImg"/>
       <div class="wrap_92">
@@ -141,7 +142,7 @@
         flag: 'information',
         type: 'information',
         userId: this.$store.state.userId,
-        isDisable: false
+        isDisable: false,
       }
     },
     created(){
@@ -160,11 +161,14 @@
         this.$router.push({path:"/component/commentList",query:{id:id}})
       },
       //资讯收藏
-      collection: function (manageId) {
+      collection: function () {
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.informationCollection, {"uid": _this.userId,"lid": manageId}).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.informationCollection, {"uid": _this.userId,"lid": _this.manageId}).then(function (res) {
           if (res.data.status) {
             _this.content.collectionStatus = false;
+            setTimeout(()=>{
+              _this.bgHide();
+            },1500)
           } else {
             if(_this.$store.state.userId == null){
               _this.toLogin();
@@ -175,13 +179,15 @@
         });
       },
       //资讯取消收藏
-      messageBoxCofirm: function(manageId){
-        MessageBox.confirm('确定取消收藏?').then(action => {
+      messageBoxCofirm: function(){
+        //MessageBox.confirm('确定取消收藏?').then(action => {
           var _this = this;
-          this.$http.post(DISCOVERMESSAGE.informationRemoveCollection, {"uid": _this.userId,"lid": manageId}).then(function (res) {
+          this.$http.post(DISCOVERMESSAGE.informationRemoveCollection, {"uid": _this.userId,"lid": _this.manageId}).then(function (res) {
             if (res.data.status) {
               _this.content.collectionStatus = true;
-              Toast('取消收藏成功');
+              setTimeout(()=>{
+                _this.bgHide();
+              },1500)
             } else {
               if(_this.$store.state.userId == null){
                 _this.toLogin();
@@ -189,7 +195,7 @@
                 MessageBox('提示', res.data.errorMsg);
               }
             }
-          });
+          //});
         });
       },
       changeUserStartId(id){
