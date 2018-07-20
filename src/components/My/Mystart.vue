@@ -5,7 +5,7 @@
     </header>
     <header class="headerUser" id="header2" style="display: none">
       <img class="f_left" src="../../../static/images/discover/backblue.png" @click="goBack">
-      <img class="f_left" src="../../../static/images/discover/normalhead.png">
+      <img class="f_left head_4" src="../../../static/images/discover/normalhead.png">
       <p class="header-title-fff" style="margin-left: 30%;"><!--{{userInfo.nickName}}-->用户名</p>
     </header>
     <div class="startbg">
