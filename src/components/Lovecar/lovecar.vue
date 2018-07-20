@@ -138,18 +138,18 @@
           <img src="../../../static/images/Lovecar/ding.png" alt="">
           <span>盯盯拍</span>
         </li>
-        <li @click="fns(2)">
+        <router-link tag='li' to="/revisePinCode">
           <img src="../../../static/images/Lovecar/xiupin.png" alt="">
           <span>修改PIN</span>
-        </li>
+        </router-link>
         <li>
           <img src="../../../static/images/Lovecar/chejian.png" alt="">
           <span>车辆体检</span>
         </li>
-        <li  @click="fns(3)">
+        <router-link tag='li' to="/Authorize">
           <img src="../../../static/images/Lovecar/yuancheng.png" alt="">
           <span>远程授权</span>
-        </li>
+        </router-link>
 
         <li>
           <img src="../../../static/images/Lovecar/dingwei.png" alt="">
@@ -207,18 +207,7 @@ export default {
     navtip() {
       this.MaskIsshow = true;
     },
-    fns(num) {
-      switch (num) {
-           case 2:
-           this.$router.push("/revisePinCode");
-           break;
-           case 3:
-           this.$router.push("/Authorize");
-           break;
-         
-      }
-     
-    }
+    
   }
 };
 //密码输入框
