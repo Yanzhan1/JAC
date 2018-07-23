@@ -7,14 +7,14 @@
         <div style="" class="head-tab"  :class="{ recommand: isRecommand }" @click.stop.prevent="goIsRecommand">
           <span class="size_36">推荐</span>
         </div>
+        <div style="" class="head-tab" :class="{ information: isInformation }" @click.stop.prevent="goInformation">
+          <span class="size_36">资讯</span>
+        </div>
         <div style="" class="head-tab" :class="{ allActivity: isAllActivity }"  @click.stop.prevent="goAllActivity">
           <span class="size_36">活动</span>
         </div>
         <div style="" class="head-tab" :class="{ now: isNow }" @click.stop.prevent="goIsNow">
           <span class="size_36">社区</span>
-        </div>
-        <div style="" class="head-tab" :class="{ information: isInformation }" @click.stop.prevent="goInformation">
-          <span class="size_36">资讯</span>
         </div>
         <div>
           <img src="../../static/images/discover/camera.png" @click="publish" style="width: 0.4rem;" id='id_publish'/>
@@ -33,13 +33,13 @@
                 <tr>
                   <td>
                     <input type="radio" value="1" v-model="picked">
-                    <label for="one">全部</label>                    
+                    <label for="one">全部</label>
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <input type="radio" value="2" v-model="picked">
-                    <label for="two">乘用车</label>  
+                    <label for="two">乘用车</label>
                   </td>
                   <td>
                     <input type="radio" value="3" v-model="picked">
@@ -49,11 +49,11 @@
                 <tr>
                   <td>
                     <input type="radio" value="4" v-model="picked">
-                    <label for="two">商务车</label>                    
+                    <label for="two">商务车</label>
                   </td>
                   <td>
                     <input type="radio" value="5" v-model="picked">
-                    <label for="two">轻卡</label>                    
+                    <label for="two">轻卡</label>
                   </td>
                 </tr>
                 <tr>
@@ -65,15 +65,15 @@
                     <input type="radio" value="7" v-model="picked">
                     <label for="two">重卡</label>
                   </td>
-                </tr>                                                
+                </tr>
               </table>
-            </div>                                                                     
+            </div>
           </div>
           <div style="width:100%;display:flex;text-align:center;">
-            <p style="felx:1;width:100%;font-size:.32rem;color:#888888;" @click="cancle">取消</p>  
+            <p style="felx:1;width:100%;font-size:.32rem;color:#888888;" @click="cancle">取消</p>
             <p style="felx:1;width:100%;font-size:.32rem;color:#49BBFF;" @click="confirm">确定</p>
-          </div>          
-        </mt-popup>        
+          </div>
+        </mt-popup>
       </div>
     </div>
 </template>
@@ -85,14 +85,14 @@
   export default {
     data() {
       return {
-        userId:this.$store.state.userId,        
+        userId:this.$store.state.userId,
         isRecommand: true,
         isInformation: true,
         isAllActivity: true,
         isNow: true,
         isQuestion: true,
         popup: false,
-        picked: "1",      
+        picked: "1",
       }
     },
     components: {
@@ -168,7 +168,7 @@
           } else {
             console.log(res.data.errorMsg);
           }
-        });        
+        });
       },
       cancle: function() {
         this.popup = false
@@ -209,7 +209,7 @@
               this.isQuestion = false
             }
         }
-        this.$nextTick(function () {    
+        this.$nextTick(function () {
           console.log("this.picked",this.picked)
         })
     }
