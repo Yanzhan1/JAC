@@ -1,22 +1,24 @@
 <template>
-    <div>
-        <header class="header">
-            <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-            <span class="header-title">车辆体检</span>
-            <span class="header-right"></span>
-        </header>
-        <div style="height:.88rem"></div>
-        <h2>诊断时间：06-29 17:33</h2>
-        <ul class="ul_content">
-            <li class="flex row between cocenter" v-for="(item,index) in 15" :key="index">
-                <span class="li_quan">电子转向柱锁</span>
-                <span class="right_pic"></span>
-            </li>
-        </ul>
-    </div>
+  <div>
+    <header class="header">
+      <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+      <span class="header-title">车辆体检</span>
+      <span class="header-right"></span>
+    </header>
+    <div style="height:.88rem"></div>
+    <h2>诊断时间：06-29 17:33</h2>
+    <ul class="ul_content">
+      <li class="flex row between cocenter" v-for="(item,index) in 15" :key="index">
+        <span class="li_quan">电子转向柱锁</span>
+        <span class="right_pic"></span>
+      </li>
+    </ul>
+  </div>
 </template>
 <script>
-export default {};
+export default {
+  
+};
 </script>
 <style scoped>
 h2 {

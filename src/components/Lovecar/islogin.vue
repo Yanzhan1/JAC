@@ -32,12 +32,10 @@ export default {
         cancelButtonText: "取消",
         confirmButtonHighlight: true,
         cancelButtonHighlight: true
-      })
-        .then(action => {
+      }).then(action => {
           if (action == "confirm") {
           }
-        })
-        .catch(err => {
+        }).catch(err => {
           if (err == "cancel") {
           }
         });

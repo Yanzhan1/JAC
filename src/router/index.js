@@ -29,6 +29,7 @@ import ModifyPassword from '@/components/My/ModifyPassword'
 import MyFeedback from '@/components/My/MyFeedback'
 import MySetUp from '@/components/My/MySetUp'
 import Bus_test from '../components/Lovecar/Bus_test.vue'
+import Edictperson from '../components/My/edictperson.vue'
 //发现部分
 import Discover from '@/components/discover/discover'
 import Recommend from '@/components/discover/recommend/recommend' //推荐首页
@@ -214,6 +215,11 @@ export default new Router({
             {
                 path: "/focus",
                 component: Focus
+            },
+            {
+                path: "/edictperson",
+                name: '修改个人信息',
+                component: Edictperson
             },
             {
                 path: "/feedbackRecord",
