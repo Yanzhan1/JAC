@@ -96,6 +96,7 @@
         <!--阅读数量,是否点赞以及点赞数量E-->
       </div>
     </div>
+    <div style="height: 1rem;"></div>
     <!--社区列表E-->
     <div class="bottom_btn_wrap">
       <div v-if="focusStatu == 0" class="bottom_jgz" @click="addFoucs">
