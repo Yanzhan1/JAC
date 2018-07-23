@@ -417,11 +417,11 @@
               _this.getComments();
               _this.isDisable = false;
             },1000)
-            _this.bgbtn();
+            _this.closeComment();
           } else {
             MessageBox('提示', res.data.errorMsg);
             _this.isDisable = false;
-            _this.bgbtn();
+            _this.closeComment();
 
           }
         });
@@ -497,12 +497,6 @@
         $(showId).hide();
         $("#bgShare").hide();
         $("#myInput").show();
-      },
-      bgbtn1(){
-        var showId = '#share_person'+this.indexNum;
-        $(showId).hide();
-        $("#bgShare").hide();
-        $("#bg1").hide();
       },
       //返回上一级
       goBack:function () {
