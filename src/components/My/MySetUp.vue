@@ -16,18 +16,43 @@
 			<mt-cell title="修改密码" is-link></mt-cell>
 		</router-link>
 		<router-link tag="div" class="setup-loginout" to="">
-			<mt-cell title="退出登录" is-link></mt-cell>
+			<mt-cell @click.native="signOut" title="退出登录" is-link></mt-cell>
 		</router-link>
-		<button class="bottom-btn">退出</button>
 	</div>
 </template>
 
 <script>
+	import { MessageBox } from 'mint-ui';
 	export default {
 		name: '',
 		data () {
 			return {
 				
+			}
+		},
+		methods: {
+			signOut () {
+				MessageBox.confirm('',{
+					title: '提示',
+					message: '您确定要退出登录吗？',
+					showConfirmButton: true,
+					showCancelButton: true,
+					cancelButtonClass: 'cancelButton',
+					confirmButtonClass: 'confirmButton',
+					confirmButtonText: '退出',
+					cancelButtonText: '取消',
+					confirmButtonHighlight: true,
+					cancelButtonHighlight: true
+				}).then(action => {
+					if(action == 'confirm') {
+						//跳转修改成功页面
+						console.log('abc');
+					}
+				}).catch(err => {
+					if(err == 'cancel') {
+						console.log('123');
+					}
+				});
 			}
 		}
 	}

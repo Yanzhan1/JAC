@@ -13,6 +13,10 @@ import WifiSetup from "@/components/Lovecar/WifiSetup"
 import FuelQuery from "@/components/Lovecar/FuelQuery"
 import FlowQuery from "@/components/Lovecar/FlowQuery"
 import Islogin from '../components/Lovecar/islogin.vue'
+import IntelligenceParking from "@/components/Lovecar/IntelligenceParking"
+import IntelligentParkingInfo from "@/components/Lovecar/IntelligentParkingInfo"
+import IntelligentParkingUninfo from "@/components/Lovecar/IntelligentParkingUninfo"
+
 //我的部分
 import My from '@/components/My/Myindex'
 import Mystart from '@/components/My/Mystart'
@@ -174,6 +178,22 @@ export default new Router({
                 naem: '流量查询',
                 component: FlowQuery
             },
+            {
+                path: "/intelligenceParking",
+                naem: '智能停车G1',
+                component: IntelligenceParking
+            },
+            {
+                path: "/intelligenceParkingInfo",
+                naem: '智能停车G2',
+                component: IntelligentParkingInfo
+            },
+            {
+                path: "/intelligenceParkingUninfo",
+                naem: '智能停车G3',
+                component: IntelligentParkingUninfo
+            },
+
             //我的页面
             {
                 path: "/myindex",

@@ -19,7 +19,7 @@
 				<span style="font-size: 0.26rem;color: #444444;">
 					原pin码:
 				</span>
-				<input placeholder="请输入原PIN码" type="text" />
+				<input placeholder="请输入原PIN码" type="text" v-model="condition.oldPin" />
 			</div>
 		</div>
 		<div class="origin-pin">
@@ -27,7 +27,7 @@
 				<span style="font-size: 0.26rem;color: #444444;">
 					新pin码:
 				</span>
-				<input placeholder="请输入原PIN码" type="text" />
+				<input placeholder="请输入原PIN码" type="text" v-model="condition.newPin" />
 			</div>
 		</div>
 		<div class="origin-pin">
@@ -35,7 +35,7 @@
 				<span style="font-size: 0.26rem;color: #444444;">
 					短信验证码:
 				</span>
-				<input style="padding-right: 0;width: 2.8rem;" placeholder="请输入验证码" type="text" />
+				<input style="padding-right: 0;width: 2.8rem;" placeholder="请输入验证码" type="text" v-model="condition.verificationCode" />
 				<button class="btn" v-if="showTime">59秒后重发</button>
 				<button class="btn" v-if="!showTime" @click="submitCode">获取验证码</button>
 			</div>
@@ -51,7 +51,13 @@
 		data() {
 			return {
 				//倒计时按钮状态
-				showTime: true
+				showTime: true,
+				//修改pin码数据
+				condition: {
+					oldPin: '',
+					newPin: '',
+					verificationCode: ''
+				}
 			}
 		},
 		methods: {
@@ -75,7 +81,6 @@
 				}).then(action => {
 					if(action == 'confirm') {
 						//跳转修改成功页面
-						this.$router.push('/reviseSuccess')
 						console.log('abc');
 					}
 				}).catch(err => {

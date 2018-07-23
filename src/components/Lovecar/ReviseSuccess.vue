@@ -2,14 +2,16 @@
 	<div>
 		<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-			<span class="header-title"></span>
+			<span class="header-title">忘记PIN码</span>
 			<span class="header-right"></span>
 		</header>
 		<div style="height:0.88rem"></div>
 		<div class="revise-success">
 			<img :src="'./static/images/Lovecar/finish@2x.png'" />
 			<p>操作成功</p>
-			<button>返回首页</button>
+			<router-link class="btn" tag="button" to="">
+				返回首页
+			</router-link>
 		</div>
 	</div>
 </template>
@@ -51,13 +53,14 @@
 		font-size: 0.3rem;
 		color: #49BBFF;
 	}
-	.revise-success>button {
+	.revise-success>.btn {
 		width: 5rem;
-		height: 0.98rem;
-		line-height: 0.98rem;
+		height: 1.18rem;
+		line-height: 0.58rem;
 		color: #fff;
 		background-color: #49BBFF;
 		border: none;
 		border-radius: 0.08rem;
+		outline: none;
 	}
 </style>

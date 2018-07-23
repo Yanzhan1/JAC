@@ -35,7 +35,7 @@
 				</div>
 			</div>
 		</div>
-
+		<button class="bottom-btn">流量购买</button>
 	</div>
 </template>
 

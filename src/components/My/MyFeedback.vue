@@ -92,17 +92,6 @@
 					$(document).height($(window).height() + 'px');
 				}
 			},
-			scrollContent() {
-		        this.interval = setInterval(() => {
-		            this.scrollToEnd();
-		        }, 500)
-		    },
-		    scrollToEnd() {
-		        document.body.scrollTop = document.body.scrollHeight;
-		    },
-		    clearSrcoll() {
-		        clearInterval(this.interval);
-		    },
 		    //ios输入框唤起键盘时改变fixed布局
 			focus() {
 				var u = navigator.userAgent,
@@ -125,7 +114,6 @@
 							'position': 'fixed',
 							'top': '0'
 						});
-						this.clearSrcoll ()
 						//或者$('#viewport').height('auto');
 					})
 					$('textarea').on('focus', function() {
@@ -141,7 +129,6 @@
 							'position': 'fixed',
 							'top': '0'
 						});
-						this.clearSrcoll ()
 						//或者$('#viewport').height('auto');
 					})
 				}

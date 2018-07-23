@@ -160,4 +160,8 @@ img {
 	color: #ffffff;
 	border: none;
 }
+.line {
+	height: 0.1rem;
+	background-color: #F1F1F1;
+}
 

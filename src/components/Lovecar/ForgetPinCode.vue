@@ -19,7 +19,7 @@
 				<span style="font-size: 0.26rem;color: #444444;">
 					已绑定手机号:
 				</span>
-				<input placeholder="已绑定手机号" type="text" />
+				<input placeholder="已绑定手机号" type="text" v-model="pin.phone" />
 			</div>
 		</div>
 		<div class="origin-pin">
@@ -27,7 +27,7 @@
 				<span style="font-size: 0.26rem;color: #444444;">
 					新pin码:
 				</span>
-				<input placeholder="请输入原PIN码" type="text" />
+				<input placeholder="请输入原PIN码" type="text" v-model="pin.newPin" />
 			</div>
 		</div>
 		<div class="origin-pin">
@@ -35,28 +35,49 @@
 				<span style="font-size: 0.26rem;color: #444444;">
 					短信验证码:
 				</span>
-				<input style="padding-right: 0;width: 2.8rem;" placeholder="请输入验证码" type="text" />
+				<input style="padding-right: 0;width: 2.8rem;" placeholder="请输入验证码" type="text" v-model="pin.verificationCode" />
 				<button class="btn" v-if="showTime">59秒后重发</button>
 				<button class="btn" v-if="!showTime" @click="submitCode">获取验证码</button>
 			</div>
 		</div>
-		<button class="bottom-btn">确认提交</button>
+		<button class="bottom-btn" @click="confirmSub">确认提交</button>
 	</div>
 </template>
 
 <script>
+	import {Toast} from 'mint-ui'
 	export default {
 		name: 'forgetPinCode',
 		data() {
 			return {
 				//倒计时按钮状态
-				showTime: true
+				showTime: true,
+				//忘记pin码数据
+				pin: {
+					phone: '',
+					newPin: '',
+					verificationCode: ''
+				}
 			}
 		},
 		methods: {
 			//获取验证码
 			submitCode() {
 
+			},
+			//底部确认提交
+			confirmSub () {
+				if(this.pin.phone == '' || this.pin.newPin == '' || this.pin.verificationCode == '') {
+					Toast({
+						message: '输入不能为空',
+						position: 'middle',
+						duration: 2000
+					});
+					return false;
+				} else {
+					this.$router.push('/reviseSuccess')
+				}
+				
 			}
 		}
 	}

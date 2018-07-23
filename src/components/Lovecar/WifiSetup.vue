@@ -11,7 +11,7 @@
 				<span style="font-size: 0.26rem;color: #444444;">
 					wifi名称:
 				</span>
-				<input type="text" placeholder="QEwDdsdSasV" v-model="name" />
+				<input type="text" v-model="wifiData.name" />
 			</div>
 		</div>
 		<div class="origin-pin">
@@ -19,7 +19,7 @@
 				<span style="font-size: 0.26rem;color: #444444;">
 					密码:
 				</span>
-				<input type="text" placeholder="1234456" v-model="password" />
+				<input type="text" v-model="wifiData.pwd" />
 			</div>
 		</div>
 		<button class="bottom-btn" @click="confirm">确认</button>
@@ -32,10 +32,13 @@
 		name: 'wifiSetup',
 		data () {
 			return {
-				//wifi名称
-				name: '',
-				//wifi密码
-				password: ''
+				//wifi数据
+				wifiData: {
+					name: 'QEwDdsdSasV',
+					//wifi密码
+					pwd: '123456'
+				}
+				
 			}
 		},
 		methods: {
@@ -53,13 +56,11 @@
 					cancelButtonHighlight: true
 				}).then(action => {
 					if(action == 'confirm') {
-						//跳转修改成功页面
-						this.$router.push('/reviseSuccess')
-						console.log('abc');
+						console.log('wifiset');
 					}
 				}).catch(err => {
 					if(err == 'cancel') {
-						console.log('123');
+						console.log('cancel');
 					}
 				});
 			}
