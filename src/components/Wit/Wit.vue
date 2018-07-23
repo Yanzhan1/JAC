@@ -7,7 +7,7 @@
             </div>
          
             <ul class="ul_list">
-                <li class="li_list">
+                <li class="li_list" @click="fn()">
                     <img src="../../../static/images/Wit/zhixiang_home_search_dealer_btn.png" alt="">
                     <span>经销商</span>
                 </li>
@@ -74,7 +74,18 @@
     </div>
 </template>
 <script>
-export default {};
+export default {
+  data(){
+    return{
+
+    }
+   },
+   methods:{
+     fn(){
+       this.$router.push('/wit/dealer')
+     }
+   }
+};
 </script>
 <style scoped>
 * {

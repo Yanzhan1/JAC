@@ -12,6 +12,7 @@ import WifiLink from "@/components/Lovecar/WifiLink"
 import WifiSetup from "@/components/Lovecar/WifiSetup"
 import FuelQuery from "@/components/Lovecar/FuelQuery"
 import FlowQuery from "@/components/Lovecar/FlowQuery"
+import Islogin from '../components/Lovecar/islogin.vue'
 //我的部分
 import My from '@/components/My/Myindex'
 import Mystart from '@/components/My/Mystart'
@@ -23,7 +24,7 @@ import ContactPerson from '@/components/My/ContactPerson'
 import ModifyPassword from '@/components/My/ModifyPassword'
 import MyFeedback from '@/components/My/MyFeedback'
 import MySetUp from '@/components/My/MySetUp'
-
+import Bus_test from '../components/Lovecar/Bus_test.vue'
 //发现部分
 import Discover from '@/components/discover/discover'
 import Recommend from '@/components/discover/recommend/recommend' //推荐首页
@@ -42,7 +43,7 @@ import ToSign from '@/components/discover/activity/toSign' //活动报名
 import ToInform from '@/components/discover/component/inform' //举报此刻
 // 智享部分
 import Wit from '@/components/Wit/Wit.vue' //智享首页
-
+import Dealer from '../components/Wit/dealer.vue' //经销商查询
 Vue.use(Router)
 
 export default new Router({
@@ -113,13 +114,17 @@ export default new Router({
             }, {
                 path: "/activity/toSign",
                 component: ToSign
-            },{
+            }, {
                 path: "/component/inform",
                 component: ToInform
             },
             {
                 path: "/lovecar",
                 component: Lovecar
+            },
+            {
+                path: "/Bus_test",
+                component: Bus_test
             },
             {
                 path: "/Authorize",
@@ -129,6 +134,11 @@ export default new Router({
                 path: "/Authorize_next",
                 component: Authorize_next
             },
+            {
+                path: "/islogin",
+                component: Islogin
+            },
+
             {
                 path: "/revisePinCode",
                 naem: '修改pin码',
@@ -216,6 +226,11 @@ export default new Router({
                 path: '/wit',
                 name: '智享首页',
                 component: Wit
+            },
+            {
+                path: '/wit/dealer',
+                name: '经销商查询',
+                component: Dealer
             }
         ]
     }]

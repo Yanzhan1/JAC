@@ -3,7 +3,7 @@
     <div class="nav">
       <img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
       <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;瑞丰 R3</span>
-      <span class="txt_r">车机已登录</span>
+      <span class="txt_r" @click="islogin()">已登录</span>
     </div>
     <div class="navs navs_h">
       <div class="navs_t">
@@ -155,23 +155,23 @@
           <img src="../../../static/images/Lovecar/dingwei.png" alt="">
           <span>定位</span>
         </li>
-        <li>
+       <router-link tag='li' to="/flowQuery"> 
           <img src="../../../static/images/Lovecar/liuliang.png" alt="">
           <span>流量查询</span>
-        </li>
-        <li>
+       </router-link> 
+       <router-link tag='li' to="/fuelQuery">
           <img src="../../../static/images/Lovecar/ranyou.png" alt="">
           <span>燃油统计</span>
-        </li>
+      </router-link>
         <li>
           <img src="../../../static/images/Lovecar/dianzi.png" alt="">
           <span>电子围栏</span>
         </li>
 
-        <li>
+     <router-link tag='li' to="/wifiLink">
           <img src="../../../static/images/Lovecar/wifi.png" alt="">
           <span>wifi直连</span>
-        </li>
+       </router-link>
         <li>
           <img src="../../../static/images/Lovecar/zhiting.png" alt="">
           <span>智能停车</span>
@@ -207,8 +207,11 @@ export default {
     navtip() {
       this.MaskIsshow = true;
     },
-    
-  }
+    islogin(){
+      this.$router.push('/islogin')
+    }
+  },
+  
 };
 //密码输入框
 // onload = function() {
@@ -377,7 +380,7 @@ input:focus {
 .tophead {
   height: 2.9rem;
   width: 100%;
-  background-image: url("../../../static/images/Wit/bg-mine.png");
+  background-image: url("../../../static/images/Lovecar/bg.png");
   display: block;
   background-size: content;
 }
