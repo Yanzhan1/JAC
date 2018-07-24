@@ -6,7 +6,7 @@
               <img src="../../../static/images/my/mine_message@2x.png" alt="">
             </div>
           <div class="mytophead flex between cocenter">
-            <div style="padding-left: 0.3rem;padding-right: 0.2rem" class="flex cocenter">
+            <div @click="edict()" style="padding-left: 0.3rem;padding-right: 0.2rem" class="flex cocenter">
               <img src="../../../static/images/test/my/pic_touxiang@2x.png" alt="" style="width: 1.2rem;height: 1.2rem">
               <div class="flex column" style="margin-left: 0.2rem;">
                 <div class="flex cocenter" style="overflow: hidden">
@@ -114,7 +114,9 @@
         }
       },
       methods:{
-
+        edict(){
+          this.$router.push('/edictperson')
+        }
       },
       mounted(){
 

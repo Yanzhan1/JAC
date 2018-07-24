@@ -29,16 +29,15 @@
         <span class="txt" style="margin-left:.1rem">全选</span>
       </div>
       <ul class="flex row wrap between">
-        <!-- flex row list_li cocenter -->
         <li class="flex row cocenter list_li" v-for="(item,index) in good_list" :key="index">
           <label class="input-label" :class="{active: item.is_selected}" @click="select_one(index)"></label>
           <span class="txt" style="margin-left:.1rem">{{item.name}}</span>
         </li>
 
       </ul>
-      <div class="fot" style="width:100%;display:flex;text-align:center;padding:.3rem">
-        <p class="pp" style="felx:1;width:100%;font-size:.32rem;color:#888888;" @click="fn">取消</p>
-        <p style="felx:1;width:100%;font-size:.32rem;color:#49BBFF;" @click="fn">确定</p>
+      <div class="fot">
+        <p class="pp" style="" @click="fn">取消</p>
+        <p class="sure" style="" @click="fn">确定</p>
       </div>
     </mt-popup>
   </div>
@@ -103,14 +102,30 @@ $(function() {
 .mint-popup {
   width: 80%;
 }
-.fot{
-position: relative;
+.fot {
+  position: relative;
+  width: 100%;
+  display: flex;
+  text-align: center;
+  padding: 0.3rem;
+}
+.pp {
+  felx: 1;
+  width: 100%;
+  font-size: 0.32rem;
+  color: #888888;
+}
+.sure {
+  felx: 1;
+  width: 100%;
+  font-size: 0.32rem;
+  color: #49bbff;
 }
 .pp:after {
   content: "";
   position: absolute;
- right: 3rem;
-    top: .2rem;
+  right: 3rem;
+  top: 0.2rem;
   width: 0.01rem;
   height: 0.6rem;
   background-color: #f1f1f1;
