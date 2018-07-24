@@ -3,21 +3,24 @@ import Router from 'vue-router'
 import Main from '@/components/Main'
 //爱车部分
 import Lovecar from '@/components/Lovecar/lovecar'
-import RevisePinCode from '@/components/Lovecar/RevisePinCode'
-import ForgetPinCode from '@/components/Lovecar/ForgetPinCode'
-import ReviseSuccess from '@/components/Lovecar/ReviseSuccess'
+import RevisePinCode from '@/components/Lovecar/RevisePinCode' //修改pin码
+import ForgetPinCode from '@/components/Lovecar/ForgetPinCode'  //忘记pin码
+import ReviseSuccess from '@/components/Lovecar/ReviseSuccess' //pin码修改成功
 import Authorize from "@/components/Lovecar/Authorize.vue"
 import Authorize_next from "@/components/Lovecar/Authorize_next.vue"
-import WifiLink from "@/components/Lovecar/WifiLink"
-import WifiSetup from "@/components/Lovecar/WifiSetup"
-import FuelQuery from "@/components/Lovecar/FuelQuery"
-import FlowQuery from "@/components/Lovecar/FlowQuery"
-import Islogin from '../components/Lovecar/islogin.vue'
-import IntelligenceParking from "@/components/Lovecar/IntelligenceParking"
-import IntelligentParkingInfo from "@/components/Lovecar/IntelligentParkingInfo"
-import IntelligentParkingUninfo from "@/components/Lovecar/IntelligentParkingUninfo"
-import AirConditionControl from "@/components/Lovecar/AirConditionControl"
-import InputCount from "@/components/publicmodel/InputCount"
+import WifiLink from "@/components/Lovecar/WifiLink"  //wifi直连
+import WifiSetup from "@/components/Lovecar/WifiSetup" //wifi设置
+import FuelQuery from "@/components/Lovecar/FuelQuery" //燃油查询
+import FlowQuery from "@/components/Lovecar/FlowQuery" //流量查询
+import Islogin from '../components/Lovecar/islogin.vue' 
+import IntelligenceParking from "@/components/Lovecar/IntelligenceParking" //智能停车G1
+import IntelligentParkingInfo from "@/components/Lovecar/IntelligentParkingInfo" //智能停车G2
+import IntelligentParkingUninfo from "@/components/Lovecar/IntelligentParkingUninfo" //智能停车G3
+import AirConditionControl from "@/components/Lovecar/AirConditionControl"//空调控制
+import AdjustSeatTemper from "@/components/Lovecar/AdjustSeatTemper"//座椅调温
+import WindowControl from "@/components/Lovecar/WindowControl"//车窗控制
+import SkylightControl from "@/components/Lovecar/SkylightControl"//天窗控制
+import AirEvoluor from "@/components/Lovecar/AirEvoluor" //空气进化器
 
 //我的部分
 import My from '@/components/My/Myindex'
@@ -203,9 +206,24 @@ export default new Router({
                 component: AirConditionControl
             },
             {
-                path: "/inputCount",
-                naem: 'input计数器',
-                component: InputCount
+                path: "/adjustSeatTemper",
+                naem: '座椅调温',
+                component: AdjustSeatTemper
+            },
+            {
+                path: "/windowControl",
+                naem: '车窗控制',
+                component: WindowControl
+            },
+            {
+                path: "/skylightControl",
+                naem: '天窗控制',
+                component: SkylightControl
+            },
+            {
+                path: "/airEvoluor",
+                naem: '空气净化器',
+                component: AirEvoluor
             },
 
             //我的页面
