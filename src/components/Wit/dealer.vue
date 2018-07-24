@@ -26,7 +26,7 @@
         </div>
         <div class="one" style="height:.1rem;"></div>
         <ul class="" style="padding:.1rem .2rem">
-            <li class="ul_list flex row around " v-for="item in 4" @click="search()">
+            <li class="ul_list flex row around " v-for="(item,index) in 4" :key="index" @click="search()">
                 <div class="ul_list flex cocenter"> <img class="pic" src="../../../static/images/Wit/bg-mine.png" alt=""></div>
                 <div class="flex column around  mid">
                     <span class="txt_top dian">上海新乡汽车服务中心dsfsdf</span>

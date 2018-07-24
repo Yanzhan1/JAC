@@ -90,7 +90,7 @@ export default {
       messageBoxAlert: function() {
       MessageBox.alert("您的密码修改成功", "提示");
     },
-    changemessage() {
+     changemessage() {
     //   this.changeInfo.user_id = this.$store.state.userId;
     //   if(this.userInfo.nick_name == ""){
     //     let instance = Toast({
@@ -157,8 +157,8 @@ export default {
     //     });
     },
     toaddress() {
-      var id = this.$store.state.userId;
-      this.$router.push({ path: "", query: { id: id } });
+    //   var id = this.$store.state.userId;
+    //   this.$router.push({ path: "", query: { id: id } });
     }
   },
   mounted() {

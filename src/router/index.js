@@ -49,6 +49,7 @@ import ToInform from '@/components/discover/component/inform' //举报此刻
 // 智享部分
 import Wit from '@/components/Wit/Wit.vue' //智享首页
 import Dealer from '../components/Wit/dealer.vue' //经销商查询
+import Recoment_bus from '../components/Wit/Recoment_bus.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -257,6 +258,11 @@ export default new Router({
                 path: '/wit/dealer',
                 name: '经销商查询',
                 component: Dealer
+            },
+            {
+                path: '/wit/recoment_bus',
+                name: '主推车型',
+                component: Recoment_bus
             }
         ]
     }]

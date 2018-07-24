@@ -21,7 +21,7 @@
         </li>
         <li class="li_list" @click="confirmRevise">
           <img src="../../../static/images/Wit/zhixiang_home_road_rescue_btn.png" alt="">
-          <span >道路救援</span>
+          <span>道路救援</span>
         </li>
       </ul>
     </div>
@@ -48,9 +48,9 @@
       </li>
     </ul>
     <div style="height:.1rem;background-color:#f5f5f5"></div>
-    <div class="bustypes">
-      <div class="bustypes_1">
-        <img src="../../../static/images/Wit/zhixiang_home_service_title_point.png" alt="">
+    <div class="bustypes" @click="tobus()">
+      <div class="bustypes_1" >
+         <img src="../../../static/images/Wit/zhixiang_home_service_title_point.png" alt="">
         <span>主推车型</span>
       </div>
       <img src="../../../static/images/Wit/next.png" alt="">
@@ -104,6 +104,9 @@ export default {
     },
     fn() {
       this.$router.push("/wit/dealer");
+    },
+    tobus(){
+      this.$router.push('/wit/recoment_bus')
     }
   }
 };
