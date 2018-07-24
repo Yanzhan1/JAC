@@ -52,11 +52,22 @@
                 </div>
             </li>
         </ul>
-        <button class="bottom-btn">添加新地址</button>
+        <button class="bottom-btn" style="outline:none" @click="toadd()">添加新地址</button>
     </div>
 </template>
 <script>
-export default {};
+export default {
+    data(){
+        return {
+
+        }
+    },
+    methods:{
+        toadd(){
+            this.$router.push('/addmydress')
+        }
+    }
+};
 </script>
 <style scoped>
 .names {

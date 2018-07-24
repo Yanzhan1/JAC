@@ -33,6 +33,7 @@ import MySetUp from '@/components/My/MySetUp'
 import Bus_test from '@/components/Lovecar/Bus_test.vue'
 import Edictperson from '@/components/My/edictperson.vue'
 import Myaddress from '@/components/My/myaddress.vue'
+import Addmydress from '@/components/My/addmydress.vue'
 //发现部分
 import Discover from '@/components/discover/discover'
 import Recommend from '@/components/discover/recommend/recommend' //推荐首页
@@ -228,7 +229,13 @@ export default new Router({
             },
             {
                 path: "/focus",
+
                 component: Focus
+            },
+            {
+                path: "/addmydress",
+                name: '增加新地址',
+                component: Addmydress
             },
             {
                 path: "/edictperson",
@@ -262,7 +269,7 @@ export default new Router({
             },
             {
                 path: "/myaddress",
-                name: '设置',
+                name: '我的地址管理',
                 component: Myaddress
             },
 
