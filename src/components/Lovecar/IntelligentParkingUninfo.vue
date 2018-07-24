@@ -28,6 +28,7 @@
 </script>
 
 <style scoped>
+	/*绝对居中*/
 	.intelligent-wrap {
 		position: absolute;
 		top: 50%;

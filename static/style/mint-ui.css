@@ -17,3 +17,13 @@
     padding: 0 0.1rem 0 0.35rem;
 	background-image: none;
 }
+/*mint-ui switch*/
+.mint-switch-core {
+	width: 1.21rem;
+}
+.mint-switch-core::before {
+	width: 1.18rem;
+}
+.mint-switch-input:checked + .mint-switch-core::after {
+    transform: translateX(0.6rem);
+}

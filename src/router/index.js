@@ -16,6 +16,8 @@ import Islogin from '../components/Lovecar/islogin.vue'
 import IntelligenceParking from "@/components/Lovecar/IntelligenceParking"
 import IntelligentParkingInfo from "@/components/Lovecar/IntelligentParkingInfo"
 import IntelligentParkingUninfo from "@/components/Lovecar/IntelligentParkingUninfo"
+import AirConditionControl from "@/components/Lovecar/AirConditionControl"
+import InputCount from "@/components/publicmodel/InputCount"
 
 //我的部分
 import My from '@/components/My/Myindex'
@@ -194,6 +196,16 @@ export default new Router({
                 path: "/intelligenceParkingUninfo",
                 naem: '智能停车G3',
                 component: IntelligentParkingUninfo
+            },
+            {
+                path: "/airConditionControl",
+                naem: '空调控制',
+                component: AirConditionControl
+            },
+            {
+                path: "/inputCount",
+                naem: 'input计数器',
+                component: InputCount
             },
 
             //我的页面
