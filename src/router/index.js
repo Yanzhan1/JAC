@@ -30,8 +30,9 @@ import ContactPerson from '@/components/My/ContactPerson'
 import ModifyPassword from '@/components/My/ModifyPassword'
 import MyFeedback from '@/components/My/MyFeedback'
 import MySetUp from '@/components/My/MySetUp'
-import Bus_test from '../components/Lovecar/Bus_test.vue'
-import Edictperson from '../components/My/edictperson.vue'
+import Bus_test from '@/components/Lovecar/Bus_test.vue'
+import Edictperson from '@/components/My/edictperson.vue'
+import Myaddress from '@/components/My/myaddress.vue'
 //发现部分
 import Discover from '@/components/discover/discover'
 import Recommend from '@/components/discover/recommend/recommend' //推荐首页
@@ -258,6 +259,11 @@ export default new Router({
                 path: "/mySetUp",
                 name: '设置',
                 component: MySetUp
+            },
+            {
+                path: "/myaddress",
+                name: '设置',
+                component: Myaddress
             },
 
             //智享部分

@@ -1,0 +1,96 @@
+<template>
+    <div>
+        <header class="header">
+            <img class="header-left" src="../../../static/images/back@2x.png" @click="$route.meta.keepAlive = false;$router.go(-1)">
+            <span class="header-title">地址管理</span>
+            <div></div>
+        </header>
+        <div style="height:.88rem"></div>
+        <ul style="padding:.2rem .4rem">
+            <li class="flex column maincenter" style="height:2.21rem;border-bottom:1px solid #f1f1f1;">
+                <div class="flex row between">
+                    <span class="names">天天</span>
+                    <span class="tell">15021115604</span>
+                </div>
+                <div class="address">江苏省邳州市铁富镇5858号左转右转今飞凯达手</div>
+                <div class="flex row between">
+                    <div>
+                        <span class="mor" v-if="4<5">默认</span>
+                    </div>
+                    <div class="flex row">
+                        <div class="flex row maincenter cocenter" style="margin-right:.4rem">
+                            <img src="../../../static/images/my/address_write.png" alt="" style="width:.28rem;height:.28rem">
+                            <span class="edict">编辑</span>
+                        </div>
+                        <div class="flex row maincenter cocenter">
+                            <img src="../../../static/images/my/address_delete.png" alt="" style="width:.26rem;height:.28rem">
+                            <span class="delte">删除</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="flex column maincenter" style="height:2.21rem;border-bottom:1px solid #f1f1f1;">
+                <div class="flex row between">
+                    <span class="names">天天</span>
+                    <span class="tell">15021115604</span>
+                </div>
+                <div class="address">江苏省邳州市铁富镇5858号左转右转今飞凯达手</div>
+                <div class="flex row between">
+                    <div>
+                        <span class="mor" v-if="4>5">默认</span>
+                    </div>
+                    <div class="flex row">
+                        <div class="flex row maincenter cocenter" style="margin-right:.4rem">
+                            <img src="../../../static/images/my/address_write.png" alt="" style="width:.28rem;height:.28rem">
+                            <span class="edict">编辑</span>
+                        </div>
+                        <div class="flex row maincenter cocenter">
+                            <img src="../../../static/images/my/address_delete.png" alt="" style="width:.26rem;height:.28rem">
+                            <span class="delte">删除</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <button class="bottom-btn">添加新地址</button>
+    </div>
+</template>
+<script>
+export default {};
+</script>
+<style scoped>
+.names {
+  font-size: 0.31rem;
+  color: #222;
+}
+.tell {
+  font-size: 0.24rem;
+  color: #222;
+}
+.address {
+  font-size: 0.27rem;
+  color: #555;
+  margin-top: 0.2rem;
+  margin-bottom: 0.4rem;
+}
+.mor {
+  font-size: 0.22rem;
+  color: #fff;
+  background-color: #49bbff;
+  width: 0.72rem;
+  display: block;
+  border-radius: 0.1rem;
+  text-align: center;
+  line-height: 0.36rem;
+}
+.edict {
+  color: #49bbff;
+  font-size: 0.25rem;
+  margin-left: 0.1rem;
+}
+.delte {
+  color: #49bbff;
+  font-size: 0.25rem;
+  margin-left: 0.1rem;
+}
+</style>

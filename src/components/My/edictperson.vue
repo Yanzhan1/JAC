@@ -51,9 +51,9 @@
         </div>
       </div>
       <div class="gradientline"></div>
-      <div class="contentList nickname">
+      <div class="contentList nickname" @click="toaddress">
         <span class="contentList-left">我的地址</span>
-        <div class="contentList-right" @click="toaddress">
+        <div class="contentList-right" >
           <img src="../../../static/images/my/next@2x.png" style="width: 0.4rem;height: 0.4rem" />
         </div>
       </div>
@@ -111,7 +111,7 @@ export default {
       MessageBox.alert("您的密码修改成功", "提示");
     },
     changemessage() {
-      this.popupVisible=true
+      this.popupVisible = true;
       //   this.changeInfo.user_id = this.$store.state.userId;
       //   if(this.userInfo.nick_name == ""){
       //     let instance = Toast({
@@ -176,8 +176,8 @@ export default {
       //     });
     },
     toaddress() {
-      //   var id = this.$store.state.userId;
-      //   this.$router.push({ path: "", query: { id: id } });
+        // var id = this.$store.state.userId;
+        this.$router.push({ path: "/myaddress", query: {} });
     }
   },
   mounted() {},
@@ -309,16 +309,16 @@ input {
   height: 4.46rem;
   border-radius: 0.2rem;
 }
-.btn{
-  line-height: .88rem;
-  width:5rem;
+.btn {
+  line-height: 0.88rem;
+  width: 5rem;
   background-color: #44bbff;
-  font-size:.31rem;
-  color:#fff;
-  text-align:center ;
+  font-size: 0.31rem;
+  color: #fff;
+  text-align: center;
   display: block;
-  border:0;
-  outline:none;
-  border-radius:5px 
+  border: 0;
+  outline: none;
+  border-radius: 5px;
 }
 </style>
