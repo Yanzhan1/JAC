@@ -1,13 +1,13 @@
 /*背景图设置*/
 
 .backgroundimage {
-	background: #fff;
-	position: fixed;
-	z-index: -1;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
+    background: #fff;
+    position: fixed;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 }
 
 
@@ -30,143 +30,147 @@ h5,
 h6,
 form,
 img {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 img {
-	border: none;
+    border: none;
 }
 
 img {
-	display: block;
+    display: block;
 }
 
 ul,
 ol {
-	list-style: none;
+    list-style: none;
 }
 
 a {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 
 /*设置所有元素包含padding  margin;设置所有元基本大小为28px,设置所有字体*/
 
 * {
-	box-sizing: border-box;
-	font-size: 0.28rem;
+    box-sizing: border-box;
+    font-size: 0.28rem;
 }
 
 body {
-	font-family: 'PingFangSC'
+    font-family: 'PingFangSC'
 }
 
 
 /*解决所有图片比实际高3px问题*/
 
 img {
-	margin-bottom: -3px;
+    margin-bottom: -3px;
 }
 
 
 /*flex布局类名*/
 
 .contentcenter {
-	justify-content: center;
-	align-items: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .maincenter {
-	justify-content: center;
+    justify-content: center;
 }
 
 .cocenter {
-	align-items: center;
+    align-items: center;
 }
 
 .flex {
-	display: flex;
+    display: flex;
 }
 
 .column {
-	flex-direction: column;
+    flex-direction: column;
+}
+
+.row {
+    flex-direction: row
 }
 
 .between {
-	justify-content: space-between;
+    justify-content: space-between;
 }
 
 .around {
-	justify-content: space-around;
+    justify-content: space-around;
 }
 
 
 /* 头部样式 */
 
 .header {
-	width: 100%;
-	height: .88rem;
-	line-height: .88rem;
-	padding: 0 .3rem 0;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	position: fixed;
-	top: 0;
-	background: #fff;
-	border-bottom: 1px solid #F1F1F1;
-	/*background: -webkit-linear-gradient(#5A7DA3, #597BA1); !* Safari 5.1 - 6.0 *!
+    width: 100%;
+    height: .88rem;
+    line-height: .88rem;
+    padding: 0 .3rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    background: #fff;
+    border-bottom: 1px solid #F1F1F1;
+    /*background: -webkit-linear-gradient(#5A7DA3, #597BA1); !* Safari 5.1 - 6.0 *!
   background: -o-linear-gradient(#5A7DA3, #597BA1); !* Opera 11.1 - 12.0 *!
   background: -moz-linear-gradient(#5A7DA3, #597BA1); !* Firefox 3.6 - 15 *!
   background: linear-gradient(#5A7DA3, #597BA1); !* 标准的语法 *!*/
-	z-index: 2;
+    z-index: 2;
 }
 
 .header .header-left {
-	width: .4rem;
-	height: .4rem;
+    width: .4rem;
+    height: .4rem;
 }
 
 .header .header-right {
-	width: .4rem;
-	height: .4rem;
+    width: .4rem;
+    height: .4rem;
 }
 
 .header-title {
-	height: .88rem;
-	line-height: .88rem;
-	font-size: .36rem;
-	color: #222222;
+    height: .88rem;
+    line-height: .88rem;
+    font-size: .36rem;
+    color: #222222;
 }
 
 .cancelButton {
-	color: #26a2ff;
+    color: #26a2ff;
 }
 
 
 /*底部按钮*/
 
 .bottom-btn {
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	height: 0.88rem;
-	line-height: 0.88rem;
-	text-align: center;
-	background: #49BBFF;
-	font-size: 0.3rem;
-	color: #ffffff;
-	border: none;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 0.88rem;
+    line-height: 0.88rem;
+    text-align: center;
+    background: #49BBFF;
+    font-size: 0.3rem;
+    color: #ffffff;
+    border: none;
 }
+
 .line {
-	height: 0.1rem;
-	background-color: #F1F1F1;
+    height: 0.1rem;
+    background-color: #F1F1F1;
 }
 
-@font-face{
-  font-family:"DIN 1451 std";
-  src: url('../../static/font/DIN-1451-Std-Engschrift.ttf');
+@font-face {
+    font-family: "DIN 1451 std";
+    src: url('../../static/font/DIN-1451-Std-Engschrift.ttf');
 }
-

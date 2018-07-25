@@ -15,7 +15,7 @@
           <img src="../../../static/images/Wit/zhixiang_home_maintenance_outlets_btn.png" alt="">
           <span>维保网点</span>
         </li>
-        <li class="li_list">
+        <li class="li_list" @click="pre_weib()">
           <img src="../../../static/images/Wit/zhixiang_home_maintenance_appointment_btn.png" alt="">
           <span>维保预约</span>
         </li>
@@ -110,6 +110,9 @@ export default {
     },
     search_net(){
       this.$router.push('/wit/search_net')
+    },
+    pre_weib(){
+      this.$router.push('/wit/pre_weib')
     }
   }
 };

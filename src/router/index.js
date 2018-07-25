@@ -4,22 +4,22 @@ import Main from '@/components/Main'
 //爱车部分
 import Lovecar from '@/components/Lovecar/lovecar'
 import RevisePinCode from '@/components/Lovecar/RevisePinCode' //修改pin码
-import ForgetPinCode from '@/components/Lovecar/ForgetPinCode'  //忘记pin码
+import ForgetPinCode from '@/components/Lovecar/ForgetPinCode' //忘记pin码
 import ReviseSuccess from '@/components/Lovecar/ReviseSuccess' //pin码修改成功
 import Authorize from "@/components/Lovecar/Authorize.vue"
 import Authorize_next from "@/components/Lovecar/Authorize_next.vue"
-import WifiLink from "@/components/Lovecar/WifiLink"  //wifi直连
+import WifiLink from "@/components/Lovecar/WifiLink" //wifi直连
 import WifiSetup from "@/components/Lovecar/WifiSetup" //wifi设置
 import FuelQuery from "@/components/Lovecar/FuelQuery" //燃油查询
 import FlowQuery from "@/components/Lovecar/FlowQuery" //流量查询
-import Islogin from '../components/Lovecar/islogin.vue' 
+import Islogin from '../components/Lovecar/islogin.vue'
 import IntelligenceParking from "@/components/Lovecar/IntelligenceParking" //智能停车G1
 import IntelligentParkingInfo from "@/components/Lovecar/IntelligentParkingInfo" //智能停车G2
 import IntelligentParkingUninfo from "@/components/Lovecar/IntelligentParkingUninfo" //智能停车G3
-import AirConditionControl from "@/components/Lovecar/AirConditionControl"//空调控制
-import AdjustSeatTemper from "@/components/Lovecar/AdjustSeatTemper"//座椅调温
-import WindowControl from "@/components/Lovecar/WindowControl"//车窗控制
-import SkylightControl from "@/components/Lovecar/SkylightControl"//天窗控制
+import AirConditionControl from "@/components/Lovecar/AirConditionControl" //空调控制
+import AdjustSeatTemper from "@/components/Lovecar/AdjustSeatTemper" //座椅调温
+import WindowControl from "@/components/Lovecar/WindowControl" //车窗控制
+import SkylightControl from "@/components/Lovecar/SkylightControl" //天窗控制
 import AirEvoluor from "@/components/Lovecar/AirEvoluor" //空气进化器
 
 //我的部分
@@ -28,11 +28,11 @@ import Mystart from '@/components/My/Mystart'
 import Userstart from '@/components/My/Userstart'
 import Fans from '@/components/My/Fans'
 import Focus from '@/components/My/Focus'
-import FeedbackRecord from '@/components/My/FeedbackRecord'//反馈记录
+import FeedbackRecord from '@/components/My/FeedbackRecord' //反馈记录
 import ContactPerson from '@/components/My/ContactPerson' //紧急联系人
-import ModifyPassword from '@/components/My/ModifyPassword'//修改密码
+import ModifyPassword from '@/components/My/ModifyPassword' //修改密码
 import MyFeedback from '@/components/My/MyFeedback' //我的返回
-import MySetUp from '@/components/My/MySetUp'//我的设置
+import MySetUp from '@/components/My/MySetUp' //我的设置
 import Bus_test from '@/components/Lovecar/Bus_test.vue'
 import Edictperson from '@/components/My/edictperson.vue' //编辑个人信息
 import Myaddress from '@/components/My/myaddress.vue' //我的地址管理
@@ -59,6 +59,7 @@ import Wit from '@/components/Wit/Wit.vue' //智享首页
 import Dealer from '../components/Wit/dealer.vue' //经销商查询
 import Recoment_bus from '../components/Wit/Recoment_bus.vue'
 import Search_net from '../components/Wit/Search_net.vue' //网点查询
+import Pre_weib from '../components/Wit/pre_weib.vue' //维保预约
 Vue.use(Router)
 
 export default new Router({
@@ -249,7 +250,6 @@ export default new Router({
             },
             {
                 path: "/focus",
-
                 component: Focus
             },
             {
@@ -315,6 +315,10 @@ export default new Router({
                 path: '/wit/search_net',
                 name: '网点查询',
                 component: Search_net
+            }, {
+                path: '/wit/pre_weib',
+                name: '维保预约',
+                component: Pre_weib
             }
         ]
     }]
