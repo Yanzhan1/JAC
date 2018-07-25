@@ -40,12 +40,14 @@
 				</div>
 			</div>
 			<!--风量计数器Start-->
-			<div class="air-change">
+			<div class="air-change flex-center">
+				<img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
 				<div class="wind-count">
 					<span @click=" windReduce" class="addWind"><</span>
 					<input class="wind-input" type="text" v-model="windNum[winIndex]" />
 					<span @click="windAdd" class="reduceWind">></span>
-				</div>			
+				</div>
+				<img :src="'./static/images/Lovecar/right@2x.png'" alt="" />
 			</div>
 			<!--风量计数器End-->
 		</div>
@@ -175,11 +177,7 @@
 		justify-content: space-between;
 		align-items: center;
 	}
-	.flex-column-align{/*竖直方向水平居中*/
-	  display: flex;
-	  flex-direction: column;
-	  align-items: center;
-	}
+
 	.flex-center-between {
 		/*水平垂直居中-两边对齐*/
 		display: flex;
@@ -288,6 +286,10 @@
 		width: 3.7rem;
 		/*background: url('../../../static/images/Lovecar/line4@2x.png') no-repeat center;*/
 		background-size: contain;
+	}
+	.air-change>img {
+		width: 0.8rem;
+		height: 1px;
 	}
 	.wind-count {
 	    display: flex;

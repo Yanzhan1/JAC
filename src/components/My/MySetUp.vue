@@ -6,6 +6,9 @@
 			<span class="header-right"></span>
 		</header>
 		<div style="height:0.88rem"></div>
+		<mt-cell :title="title">
+			<mt-switch @change="turn" v-model="value"></mt-switch>
+		</mt-cell>
 		<router-link tag="div" class="setup-ctcperson" to="/contactPerson">
 			<mt-cell title="紧急联系人" is-link></mt-cell>
 		</router-link>
@@ -27,7 +30,8 @@
 		name: '',
 		data () {
 			return {
-				
+				title: '软键盘',
+				value: false
 			}
 		},
 		methods: {
@@ -53,6 +57,9 @@
 						console.log('123');
 					}
 				});
+			},
+			turn () {
+				
 			}
 		}
 	}

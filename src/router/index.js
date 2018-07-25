@@ -28,11 +28,11 @@ import Mystart from '@/components/My/Mystart'
 import Userstart from '@/components/My/Userstart'
 import Fans from '@/components/My/Fans'
 import Focus from '@/components/My/Focus'
-import FeedbackRecord from '@/components/My/FeedbackRecord'
-import ContactPerson from '@/components/My/ContactPerson'
-import ModifyPassword from '@/components/My/ModifyPassword'
-import MyFeedback from '@/components/My/MyFeedback'
-import MySetUp from '@/components/My/MySetUp'
+import FeedbackRecord from '@/components/My/FeedbackRecord'//反馈记录
+import ContactPerson from '@/components/My/ContactPerson' //紧急联系人
+import ModifyPassword from '@/components/My/ModifyPassword'//修改密码
+import MyFeedback from '@/components/My/MyFeedback' //我的返回
+import MySetUp from '@/components/My/MySetUp'//我的设置
 import Bus_test from '@/components/Lovecar/Bus_test.vue'
 import Edictperson from '@/components/My/edictperson.vue'
 import Myaddress from '@/components/My/myaddress.vue'
