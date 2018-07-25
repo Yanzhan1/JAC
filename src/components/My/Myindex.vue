@@ -73,7 +73,7 @@
           </div>
           <img src="../../../static/images/my/next@2x.png" alt="">
         </div>
-        <div class="mylist">
+        <div class="mylist" @click="my_dealer()">
           <div class="flex cocenter">
             <img src="../../../static/images/my/mine_agency@2x.png" alt="">
             <span>我的经销商</span>
@@ -116,6 +116,9 @@
       methods:{
         edict(){
           this.$router.push('/edictperson')
+        },
+        my_dealer(){
+          this.$router.push('/my_dealer')
         }
       },
       mounted(){

@@ -34,9 +34,10 @@ import ModifyPassword from '@/components/My/ModifyPassword'//修改密码
 import MyFeedback from '@/components/My/MyFeedback' //我的返回
 import MySetUp from '@/components/My/MySetUp'//我的设置
 import Bus_test from '@/components/Lovecar/Bus_test.vue'
-import Edictperson from '@/components/My/edictperson.vue'
-import Myaddress from '@/components/My/myaddress.vue'
-import Addmydress from '@/components/My/addmydress.vue'
+import Edictperson from '@/components/My/edictperson.vue' //编辑个人信息
+import Myaddress from '@/components/My/myaddress.vue' //我的地址管理
+import Addmydress from '@/components/My/addmydress.vue' //新增地址
+import My_dealer from '../components/My/My_dealer.vue' //我的经销商列表
 //发现部分
 import Discover from '@/components/discover/discover'
 import Recommend from '@/components/discover/recommend/recommend' //推荐首页
@@ -57,6 +58,7 @@ import ToInform from '@/components/discover/component/inform' //举报此刻
 import Wit from '@/components/Wit/Wit.vue' //智享首页
 import Dealer from '../components/Wit/dealer.vue' //经销商查询
 import Recoment_bus from '../components/Wit/Recoment_bus.vue'
+import Search_net from '../components/Wit/Search_net.vue' //网点查询
 Vue.use(Router)
 
 export default new Router({
@@ -289,8 +291,11 @@ export default new Router({
                 path: "/myaddress",
                 name: '我的地址管理',
                 component: Myaddress
+            }, {
+                path: "/my_dealer",
+                name: '我的经销商列表',
+                component: My_dealer
             },
-
             //智享部分
             {
                 path: '/wit',
@@ -306,6 +311,10 @@ export default new Router({
                 path: '/wit/recoment_bus',
                 name: '主推车型',
                 component: Recoment_bus
+            }, {
+                path: '/wit/search_net',
+                name: '网点查询',
+                component: Search_net
             }
         ]
     }]

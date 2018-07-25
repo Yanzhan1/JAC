@@ -11,7 +11,7 @@
           <img src="../../../static/images/Wit/zhixiang_home_search_dealer_btn.png" alt="">
           <span>经销商</span>
         </li>
-        <li class="li_list">
+        <li class="li_list" @click="search_net()">
           <img src="../../../static/images/Wit/zhixiang_home_maintenance_outlets_btn.png" alt="">
           <span>维保网点</span>
         </li>
@@ -49,8 +49,8 @@
     </ul>
     <div style="height:.1rem;background-color:#f5f5f5"></div>
     <div class="bustypes" @click="tobus()">
-      <div class="bustypes_1" >
-         <img src="../../../static/images/Wit/zhixiang_home_service_title_point.png" alt="">
+      <div class="bustypes_1">
+        <img src="../../../static/images/Wit/zhixiang_home_service_title_point.png" alt="">
         <span>主推车型</span>
       </div>
       <img src="../../../static/images/Wit/next.png" alt="">
@@ -105,8 +105,11 @@ export default {
     fn() {
       this.$router.push("/wit/dealer");
     },
-    tobus(){
-      this.$router.push('/wit/recoment_bus')
+    tobus() {
+      this.$router.push("/wit/recoment_bus");
+    },
+    search_net(){
+      this.$router.push('/wit/search_net')
     }
   }
 };
