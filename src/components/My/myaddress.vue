@@ -22,7 +22,7 @@
                             <img src="../../../static/images/my/address_write.png" alt="" style="width:.28rem;height:.28rem">
                             <span class="edict">编辑</span>
                         </div>
-                        <div class="flex row maincenter cocenter">
+                        <div class="flex row maincenter cocenter" @click="confirmRevise(2)">
                             <img src="../../../static/images/my/address_delete.png" alt="" style="width:.26rem;height:.28rem">
                             <span class="delte">删除</span>
                         </div>
@@ -40,11 +40,11 @@
                         <span class="mor" v-if="4>5">默认</span>
                     </div>
                     <div class="flex row">
-                        <div class="flex row maincenter cocenter" style="margin-right:.4rem">
+                        <div @click="educt()" class="flex row maincenter cocenter" style="margin-right:.4rem">
                             <img src="../../../static/images/my/address_write.png" alt="" style="width:.28rem;height:.28rem">
                             <span class="edict">编辑</span>
                         </div>
-                        <div class="flex row maincenter cocenter">
+                        <div class="flex row maincenter cocenter" @click="confirmRevise(3)">
                             <img src="../../../static/images/my/address_delete.png" alt="" style="width:.26rem;height:.28rem">
                             <span class="delte">删除</span>
                         </div>
@@ -56,17 +56,42 @@
     </div>
 </template>
 <script>
+import { MessageBox } from "mint-ui";
 export default {
-    data(){
-        return {
-
-        }
+  data() {
+    return {};
+  },
+  methods: {
+    toadd() {
+      this.$router.push("/addmydress");
     },
-    methods:{
-        toadd(){
-            this.$router.push('/addmydress')
-        }
+    educt() {
+      this.$router.push("/edictdress");
+    },
+    confirmRevise(num) {
+      MessageBox.confirm("", {
+        title: "提示",
+        message: "您确定要删除吗？",
+        showConfirmButton: true,
+        showCancelButton: true,
+        cancelButtonClass: "cancelButton",
+        confirmButtonClass: "confirmButton",
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        confirmButtonHighlight: true,
+        cancelButtonHighlight: true
+      })
+        .then(action => {
+          if (action == "confirm") {
+              console.log(num)
+          }
+        })
+        .catch(err => {
+          if (err == "cancel") {
+          }
+        });
     }
+  }
 };
 </script>
 <style scoped>
@@ -98,10 +123,14 @@ export default {
   color: #49bbff;
   font-size: 0.25rem;
   margin-left: 0.1rem;
+  margin-top:.1rem
 }
 .delte {
   color: #49bbff;
   font-size: 0.25rem;
   margin-left: 0.1rem;
+  margin-top:.1rem
 }
+ 
+
 </style>

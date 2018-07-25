@@ -321,4 +321,7 @@ input {
   outline: none;
   border-radius: 5px;
 }
+textarea:hover{
+        border-color: #FF00FF;
+    }
 </style>
