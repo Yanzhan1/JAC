@@ -161,3 +161,8 @@ img {
 	border: none;
 }
 
+@font-face{
+  font-family:"DIN 1451 std";
+  src: url('../../static/font/DIN-1451-Std-Engschrift.ttf');
+}
+
