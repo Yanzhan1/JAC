@@ -41,18 +41,18 @@ import My_dealer from '../components/My/My_dealer.vue' //我的经销商列表
 import MyOrder from '../components/My/MyOrder.vue' //我的订单
 import MyWl from '../components/My/MyWl.vue' //我的物流
 import Compontent from '../components/My/Compontent.vue' //评价
+import Recommended from '../components/My/Recommended' //推荐码
+
 //发现部分
 import Discover from '@/components/discover/discover'
 import Recommend from '@/components/discover/recommend/recommend' //推荐首页
 import Activity from '@/components/discover/activity/activity' //活动首页
 import Information from '@/components/discover/information/information' //资讯首页
 import Now from '@/components/discover/now/now' //此刻首页
-
 import ActivityDetail from '@/components/discover/activity/activityDetail' //活动详情
 import InformationDetail from '@/components/discover/information/informationDetail' //资讯详情
 import NowDetail from '@/components/discover/now/nowDetail' //此刻详情
 import PictureDetail from '@/components/discover/activity/pictureDetail' //晒图详情
-
 import CommentList from '@/components/discover/component/commentList' //超过4条的评论列表(公共)
 import AddPic from '@/components/discover/now/addPic' //新增此刻
 import ToSign from '@/components/discover/activity/toSign' //活动报名
@@ -63,6 +63,9 @@ import Dealer from '../components/Wit/dealer.vue' //经销商查询
 import Recoment_bus from '../components/Wit/Recoment_bus.vue'
 import Search_net from '../components/Wit/Search_net.vue' //网点查询
 import Pre_weib from '../components/Wit/pre_weib.vue' //维保预约
+import Characteristic from '../components/Wit/Characteristic' //车系特色
+import Configure from '../components/Wit/Configure' //配置参数
+import Reserve from '../components/Wit/Reserve' //车辆预定
 Vue.use(Router)
 
 export default new Router({
@@ -312,6 +315,12 @@ export default new Router({
                 name: '评价',
                 component: Compontent
             },
+            {
+                path: "/Recommended",
+                name: '推荐码',
+                component: Recommended
+            },
+
             //智享部分
             {
                 path: '/wit',
@@ -324,6 +333,7 @@ export default new Router({
                 component: Dealer
             },
             {
+
                 path: '/wit/recoment_bus',
                 name: '主推车型',
                 component: Recoment_bus
@@ -335,7 +345,22 @@ export default new Router({
                 path: '/wit/pre_weib',
                 name: '维保预约',
                 component: Pre_weib
-            }
+            },
+            {
+                path: '/wit/Characteristic',
+                name: '车系特色',
+                component: Characteristic
+            },
+            {
+                path: '/wit/Configure',
+                name: '配置参数',
+                component: Configure
+            },
+            {
+                path: '/wit/Reserve',
+                name: '车辆预定',
+                component: Reserve
+            },
         ]
     }]
 })
