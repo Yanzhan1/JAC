@@ -27,3 +27,7 @@
 .mint-switch-input:checked + .mint-switch-core::after {
     transform: translateX(0.6rem);
 }
+/*mint-ui popup*/
+.mint-popup {
+	border-radius: 0.2rem;
+}

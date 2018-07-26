@@ -24,13 +24,25 @@
 					<span style="font-size: 0.68rem;color: #222222;">{{windNum[winIndex]}}</span>
 				</div>
 				<div class="wind-blows">
-					<img v-if="activeShow" :src="'./static/images/Lovecar/Purify@2x.png'" alt="" />
+					<img v-if="activeShowImg" :src="'./static/images/Lovecar/Purify@2x.png'" alt="" />
 					<img v-else :src="'./static/images/Lovecar/Purify1@2x.png'" alt="" />
-					<span style="color: #49BBFF;">pm2.5:</span>&nbsp;&nbsp;
-					<span style="font-size: 0.36rem;color: #49BBFF;">11μg/m³</span>
+					<div class="pm-data" v-if="value">
+						<div v-if="pmState" style="color: #888888;" @click="getPmData">点击获取数据</div>
+						<div v-else>
+							<div class="pm-show">
+								<span style="color: #49BBFF;">pm2.5:</span>&nbsp;&nbsp;
+								<span style="font-size: 0.36rem;color: #49BBFF;">11μg/m³</span>
+							</div>
+							
+							<div class="Refresh flex-center-between">
+								<img :class="{rotateActive: rotateState}" :src="'./static/images/Lovecar/Refresh@2x.png'" alt="" />
+								<span @click="refreshPmData">刷新数据</span>
+							</div>
+						</div>					
+					</div>					
 				</div>
 				<div class="num">
-					<!--<span :class="activeShow?'fontActive':'loseActives'">{{number}}</span>-->
+					<!--<span :class="activeShowImg?'fontActive':'loseActives'">{{number}}</span>-->
 				</div>
 			</div>
 			<!--进化器强度计数器Start-->
@@ -60,28 +72,31 @@
 			return {
 				//进化器控制按钮开关
 				value: false,
-				value: false,
 				//图片激活变量
-				activeShow: 0,
+				activeShowImg: 0,
 				//进化器强度展示
 				windNum: ['高', '中', '低'],
 				winMin: 0,
 				//进化器控制变量
-				winIndex: 0
+				winIndex: 0,
+				//PM提示状态
+				pmState: true,
+				//PM2.5数据loading状态
+				rotateState: false,
 			}
 		},
 		methods: {
 			//进化器控制开关方法
 			turn() {
-				this.activeShow = !this.activeShow
+				this.activeShowImg = !this.activeShowImg
 			},
 			//激活底部图标方法
 			change(val) {
-				this.activeShow ? this.activeShow = val : this.activeShow = 0
+				this.activeShowImg ? this.activeShowImg = val : this.activeShowImg = 0
 			},
 			//进化器强度增加
 			windAdd() {
-				if(this.activeShow) {
+				if(this.activeShowImg) {
 					if(this.winIndex >= this.windNum.length - 1) {
 						this.winIndex = 0
 					} else {
@@ -94,7 +109,7 @@
 			},
 			//进化器强度减弱
 			windReduce() {
-				if(this.activeShow) {
+				if(this.activeShowImg) {
 					if(this.winIndex <= this.winMin) {
 						this.winIndex = this.windNum.length - 1
 					} else {
@@ -104,6 +119,17 @@
 					return
 				}
 
+			},
+			//获取PM2.5数据
+			getPmData () {
+				this.pmState = false
+			},
+			//刷新PM2.5数据
+			refreshPmData () {
+				this.rotateState = true
+				setTimeout(() => {
+					this.rotateState = false
+				}, 1000)
 			}
 		}
 	}
@@ -184,7 +210,7 @@
 	}
 	
 	.window-content {
-		height: 5.6rem;
+		height: 7.6rem;
 		width: 100%;
 	}
 	/*进化器强度*/
@@ -196,15 +222,44 @@
 	/*进化器图片*/
 	
 	.wind-blows {
-	    margin-right: 0.5rem;
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: space-between;
+	    align-items: center;
 		align-self: flex-end;
+	    width: 3rem;
+	    height: 4.6rem;
+	    margin-right: 0.5rem;
 	}
 	
 	.wind-blows>img {
 	    width: 1.4rem;
 	    height: 2.35rem;
 	    margin: 0 auto;
-	    margin-bottom: 0.8rem;
+	}
+	/*PM数据*/
+	.pm-data {
+		display: flex;
+		flex-direction: column;
+	    width: 3rem;
+	    height: 1.6rem;
+    	line-height: 0.5rem;
+    	text-align: center;
+	}
+	.pm-show {
+		display: flex;
+	}
+	.Refresh {
+		justify-content: space-around;
+	}
+	.Refresh>img {
+		width: 0.4rem;
+		height: 0.32rem;
+	}
+	.Refresh>span {
+	    display: inline-block;
+    	margin-right: 0.9rem;
+    	color: #888888;
 	}
 	/*进化器强度计数器*/
 	
@@ -213,6 +268,7 @@
 	    justify-content: center;
 	    flex-direction: column;
 	    align-items: center;
+        margin-right: 0.6rem;
 	}
 	
 	.window-change>div>img {
@@ -254,5 +310,16 @@
 		line-height: 0.6rem;
 		text-align: center;
 		border-left: 1px solid #999999;
+	}
+	.rotateActive {
+		animation: rotate 2s linear infinite;
+	}
+	@-webkit-keyframes rotate{
+		0%{
+			transform: rotate(0deg);
+		}
+		100%{
+			transform: rotate(360deg);
+		}
 	}
 </style>
