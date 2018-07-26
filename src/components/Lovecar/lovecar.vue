@@ -4,6 +4,7 @@
       <img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
       <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;瑞丰 R3</span>
       <span class="txt_r" @click="islogin()">已登录</span>
+      <canvas id="can"></canvas>
     </div>
     <div class="navs navs_h">
       <div class="navs_t">
@@ -142,7 +143,7 @@
           <img src="../../../static/images/Lovecar/xiupin.png" alt="">
           <span>修改PIN</span>
         </router-link>
-       <router-link tag="li" to="/Bus_test"> 
+       <router-link tag="li" to="/Bus_test">
           <img src="../../../static/images/Lovecar/chejian.png" alt="">
           <span>车辆体检</span>
        </router-link>
@@ -155,10 +156,10 @@
           <img src="../../../static/images/Lovecar/dingwei.png" alt="">
           <span>定位</span>
         </li>
-       <router-link tag='li' to="/flowQuery"> 
+       <router-link tag='li' to="/flowQuery">
           <img src="../../../static/images/Lovecar/liuliang.png" alt="">
           <span>流量查询</span>
-       </router-link> 
+       </router-link>
        <router-link tag='li' to="/fuelQuery">
           <img src="../../../static/images/Lovecar/ranyou.png" alt="">
           <span>燃油统计</span>
@@ -182,13 +183,15 @@
 </template>
 
 <script>
+  import {Createarc} from '../../../static/js/drawarc.js'
 export default {
   name: "lovecar",
   data() {
     return {
       activeshow: 1, //默认第一个高亮
       popupVisible: false,
-      MaskIsshow: false //黑色遮罩层
+      MaskIsshow: false, //黑色遮罩层
+      num:3
     };
   },
   methods: {
@@ -211,7 +214,24 @@ export default {
       this.$router.push('/islogin')
     }
   },
-  
+  mounted(){
+    new Createarc({
+      el:'can',//canvas id
+      vuethis:this,//使用位置的this指向
+      num:'num',//data数值
+      type:'right',//圆弧方向  left right
+      tempdel:4,//总差值
+      ratio:0.3,//宽度比例
+      iscontrol:true,//控制是否能滑动
+      color:{
+        start:'#CD853F',//圆弧下边颜色
+        center:'',
+        end:'#C0FF3E',//圆弧上边颜色
+        num:3
+      }
+    })
+  }
+
 };
 //密码输入框
 // onload = function() {
@@ -497,4 +517,11 @@ input:focus {
   width: 0.17rem;
   padding-top: 0.4rem;
 }
+  #can{
+    position: fixed;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    z-index: 9999999;
+  }
 </style>
