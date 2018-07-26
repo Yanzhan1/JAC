@@ -30,6 +30,7 @@ import MyFeedback from '@/components/My/MyFeedback'
 import MySetUp from '@/components/My/MySetUp'
 import Bus_test from '../components/Lovecar/Bus_test.vue'
 import Edictperson from '../components/My/edictperson.vue'
+import Recommended from '../components/My/Recommended' //推荐码
 //发现部分
 import Discover from '@/components/discover/discover'
 import Recommend from '@/components/discover/recommend/recommend' //推荐首页
@@ -49,6 +50,9 @@ import ToInform from '@/components/discover/component/inform' //举报此刻
 // 智享部分
 import Wit from '@/components/Wit/Wit.vue' //智享首页
 import Dealer from '../components/Wit/dealer.vue' //经销商查询
+import Characteristic from '../components/Wit/Characteristic' //车系特色
+import Configure from '../components/Wit/Configure' //配置参数
+import Reserve from '../components/Wit/Reserve' //车辆预定
 Vue.use(Router)
 
 export default new Router({
@@ -246,6 +250,11 @@ export default new Router({
                 name: '设置',
                 component: MySetUp
             },
+            {
+                path: "/Recommended",
+                name: '推荐码',
+                component: Recommended
+            },
 
             //智享部分
             {
@@ -257,7 +266,22 @@ export default new Router({
                 path: '/wit/dealer',
                 name: '经销商查询',
                 component: Dealer
-            }
+            },
+            {
+                path: '/wit/Characteristic',
+                name: '车系特色',
+                component: Characteristic
+            },
+            {
+                path: '/wit/Configure',
+                name: '配置参数',
+                component: Configure
+            },
+            {
+                path: '/wit/Reserve',
+                name: '车辆预定',
+                component: Reserve
+            },
         ]
     }]
 })

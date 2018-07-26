@@ -56,7 +56,7 @@
       <img src="../../../static/images/Wit/next.png" alt="">
     </div>
     <ul class="bus">
-      <li class="bus_li">
+      <li class="bus_li" @click="specil">
         <img src="../../../static/images/Wit/bg-mine.png" alt="">
         <div class="bus_1">
           <span class="bus_2">瑞丰S7</span>
@@ -104,6 +104,9 @@ export default {
     },
     fn() {
       this.$router.push("/wit/dealer");
+    },
+    specil(){
+      this.$router.push('/wit/Characteristic')
     }
   }
 };

@@ -1,19 +1,48 @@
 /*mint-ui  messagebox*/
+
 .mint-msgbox {
     height: 25%;
     border-radius: 0.2rem;
 }
+
 .mint-msgbox-header {
     padding: 0.25rem 0 0;
 }
+
 .mint-msgbox-content {
     padding: 0.5rem 0.2rem 0.4rem;
 }
+
+
 /*mint-ui cell*/
+
 .mint-cell:last-child {
-	background-size: 95% 1px;
+    background-size: 95% 1px;
 }
+
 .mint-cell-wrapper {
     padding: 0 0.1rem 0 0.35rem;
-	background-image: none;
+    background-image: none;
+}
+
+
+/* mit-ui picker */
+
+.picker-item {
+    height: .36rem;
+    line-height: .36rem;
+    padding: 0 .2rem;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #222;
+    left: 0;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
