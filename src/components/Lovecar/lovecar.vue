@@ -119,17 +119,18 @@
           <div style="font-size:.36rem;color:#222">请输入PIN码</div>
           <span></span>
         </div>
-        <div id="wrap">
-          <input class="ipts" type="text" />
-          <input class="ipts" type="text" />
-          <input class="ipts" type="text" />
-          <input  class="ipts" type="text" />
-          <input class="ipts" type="text" />
-          <input class="ipts" type="text" />
+        <div class="pin-code flex maincenter cocenter">
+          <div id="pinCon">
+            <input @click="onTypewriting" v-model="pinNumber" class="pin-input" maxlength="6" type="text" readonly/>
+          </div>
         </div>
       </div>
     </mt-popup>
-
+    <div class="typer" v-if="IsShow">
+      <ul class="flex yy">
+        <li class="typer-num" v-for="(item,index) in keyNums" :key="index" :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}" @click="input(item)">{{item}}</li>
+      </ul>
+    </div>
     <!-- 弹出层 左上 -->
     <div class="mask" v-if="MaskIsshow"></div>
     <img class="cancel" v-if="MaskIsshow" @click="delde" src="../.././../static/images/Lovecar/button9@2x.png" alt="" style="width:.28rem">
@@ -143,10 +144,10 @@
           <img src="../../../static/images/Lovecar/xiupin.png" alt="">
           <span>修改PIN</span>
         </router-link>
-       <router-link tag="li" to="/Bus_test">
+        <router-link tag="li" to="/Bus_test">
           <img src="../../../static/images/Lovecar/chejian.png" alt="">
           <span>车辆体检</span>
-       </router-link>
+        </router-link>
         <router-link tag='li' to="/Authorize">
           <img src="../../../static/images/Lovecar/yuancheng.png" alt="">
           <span>远程授权</span>
@@ -156,23 +157,23 @@
           <img src="../../../static/images/Lovecar/dingwei.png" alt="">
           <span>定位</span>
         </li>
-       <router-link tag='li' to="/flowQuery">
+        <router-link tag='li' to="/flowQuery">
           <img src="../../../static/images/Lovecar/liuliang.png" alt="">
           <span>流量查询</span>
-       </router-link>
-       <router-link tag='li' to="/fuelQuery">
+        </router-link>
+        <router-link tag='li' to="/fuelQuery">
           <img src="../../../static/images/Lovecar/ranyou.png" alt="">
           <span>燃油统计</span>
-      </router-link>
+        </router-link>
         <li>
           <img src="../../../static/images/Lovecar/dianzi.png" alt="">
           <span>电子围栏</span>
         </li>
 
-     <router-link tag='li' to="/wifiLink">
+        <router-link tag='li' to="/wifiLink">
           <img src="../../../static/images/Lovecar/wifi.png" alt="">
           <span>wifi直连</span>
-       </router-link>
+        </router-link>
         <li>
           <img src="../../../static/images/Lovecar/zhiting.png" alt="">
           <span>智能停车</span>
@@ -183,7 +184,7 @@
 </template>
 
 <script>
-  import {Createarc} from '../../../static/js/drawarc.js'
+import { Createarc } from "../../../static/js/drawarc.js";
 export default {
   name: "lovecar",
   data() {
@@ -191,68 +192,183 @@ export default {
       activeshow: 1, //默认第一个高亮
       popupVisible: false,
       MaskIsshow: false, //黑色遮罩层
-      num:3
+      num: 3,
+      IsShow: false,
+      keyNums: [],
+      pinNumber: ""
     };
   },
   methods: {
+    //点击高亮
     fn(type) {
       this.activeshow = type;
     },
+    // 锁 尾 熄 停 事件
     enter() {
       this.popupVisible = true;
     },
+    //关闭PIN码弹框
     cancel() {
+      this.IsShow = false;
       this.popupVisible = false;
     },
+    //关闭顶部主菜单
     delde() {
       this.MaskIsshow = false;
     },
     navtip() {
       this.MaskIsshow = true;
     },
-    islogin(){
-      this.$router.push('/islogin')
+    islogin() {
+      this.$router.push("/islogin");
+    },
+    //随机数
+    randomnum(min, max) {
+      var num = Math.floor(Math.random() * (max - min) + min);
+      return num;
+    },
+    onTypewriting() {
+      this.IsShow = true;
+      this.produceArray();
+    },
+    produceArray() {
+      var that = this;
+      var arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+      var arr2 = [];
+      for (var i = 0; i < 12; i++) {
+        var randomnumber = that.randomnum(0, arr.length);
+        if (i == 9) {
+          arr2.push("关闭");
+        } else if (i == 11) {
+          arr2.push("Del");
+        } else {
+          arr2.push(arr[randomnumber]);
+          arr.splice(randomnumber, 1);
+        }
+      }
+      that.keyNums = arr2;
+    },
+    //输入框事件
+    input(item) {
+      if (item == "关闭") {
+        this.IsShow = false;
+        return;
+      }
+      if (item == "Del") {
+        this.pinNumber = this.pinNumber.slice(0, -1);
+        return;
+      }
+      if (this.pinNumber.length < 6) {
+        this.pinNumber = this.pinNumber + item;
+      } else {
+      }
     }
   },
-  mounted(){
-    new Createarc({
-      el:'can',//canvas id
-      vuethis:this,//使用位置的this指向
-      num:'num',//data数值
-      type:'right',//圆弧方向  left right
-      tempdel:4,//总差值
-      ratio:0.3,//宽度比例
-      iscontrol:true,//控制是否能滑动
-      color:{
-        start:'#CD853F',//圆弧下边颜色
-        center:'',
-        end:'#C0FF3E',//圆弧上边颜色
-        num:3
+  //检测输入框
+  watch: {
+    pinNumber(newVal, oldVal) {
+      if (this.pinNumber.length == 6) {
+        setTimeout(() => {
+          var PIN = this.pinNumber;
+          this.popupVisible = !this.popupVisible;
+          (this.IsShow = false), (this.pinNumber = "");
+        }, 1000);
       }
-    })
+    }
+  },
+  mounted() {
+    new Createarc({
+      el: "can", //canvas id
+      vuethis: this, //使用位置的this指向
+      num: "num", //data数值
+      type: "right", //圆弧方向  left right
+      tempdel: 4, //总差值
+      ratio: 0.3, //宽度比例
+      iscontrol: true, //控制是否能滑动
+      color: {
+        start: "#CD853F", //圆弧下边颜色
+        center: "",
+        end: "#C0FF3E", //圆弧上边颜色
+        num: 3
+      }
+    });
   }
-
 };
-//密码输入框
-// onload = function() {
-//   var txts = document.getElementsByClassName("ipts");
-//   for (var i = 0; i < txts.length; i++) {
-//     var t = txts[i];
-//     t.index = i;
-//     t.setAttribute("readonly", true);
-//     t.onkeyup = function() {
-//       this.value = this.value.replace(/^(.).*$/, "$1");
-//       var next = this.index + 1;
-//       if (next > txts.length - 1) return;
-//       txts[next].removeAttribute("readonly");
-//       txts[next].focus();
-//     };
-//   }
-//   txts[0].removeAttribute("readonly");
-// };
 </script>
 
 <style scoped>
+.pin-code {
+  height: 2rem;
+  width: 100%;
+}
+.pin-code > div > input {
+  display: block;
+  width: 5.6rem;
+  height: 0.94rem;
+  text-indent: 0.4rem;
+  letter-spacing: 0.77rem;
+  border: none;
+  outline: none;
+  background: url(../../../static/images/Lovecar/border@2x.png) no-repeat center;
+  background-size: 100%;
+}
+.typer {
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+  height: 4.5rem;
+  width: 100%;
+  padding-top: 0.1rem;
+  z-index: 3000;
+}
+.typer li {
+  float: left;
+  height: 0.7rem;
+  margin: 0.1rem 0.05rem 0;
+  color: #333;
+  text-align: center;
+  font-size: 0.32rem;
+  line-height: 0.7rem;
+  background-color: #ccc;
+  -webkit-border-radius: 0.1rem;
+  -moz-border-radius: 0.1rem;
+  border-radius: 0.1rem;
+}
+.typer li.typer-num {
+  width: 31%;
+  background-image: -webkit-linear-gradient(
+    125deg,
+    #147b96,
+    #e6d205 25%,
+    #147b96 50%,
+    #e6d205 75%,
+    #147b96
+  );
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-background-size: 200% 100%;
+  -webkit-animation: masked-animation 4s infinite linear;
+}
+.typer li.typer-num.is-A {
+  margin-left: 0.31rem;
+}
+.typer li.typer-num.is-OK {
+  width: 0.8rem;
+  margin-left: 0.1rem;
+}
+@-webkit-keyframes masked-animation {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+.yy {
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 100%;
+}
 /* 左上角弹框 */
 .mask {
   width: 100%;
@@ -517,11 +633,11 @@ input:focus {
   width: 0.17rem;
   padding-top: 0.4rem;
 }
-  #can{
-    position: fixed;
-    left: 50%;
-    top:50%;
-    transform: translate(-50%,-50%);
-    z-index: 9999999;
-  }
+#can {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999999;
+}
 </style>
