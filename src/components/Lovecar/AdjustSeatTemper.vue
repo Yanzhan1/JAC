@@ -462,9 +462,6 @@
 		top: 0.7rem;
 		margin-left: -31%;
 	}
-	.curve>.seat-hei {
-		
-	}
 	/*座椅主体*/
 	
 	.seat-wrap {

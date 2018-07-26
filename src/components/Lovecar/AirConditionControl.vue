@@ -17,6 +17,24 @@
 				<span style="width: 0.54rem;height: 1px; background: rgba(153,153,153,1);margin-bottom: 0.4rem;"></span>
 			</div>
 		</div>
+		<!--曲线Start-->
+		<div class="curve"> 
+				<div class="cureve-text">
+					<span style="left: 3.1rem;top: 2.6rem;">15</span>
+					<span style="left: 2.6rem;top: 0.9rem;">24</span>
+					<span style="left: 1.6rem;top: -0.1rem;">28</span>
+					<span style="left: 0rem;top: -0.3rem;">32</span>
+				</div>
+				<div class="curveActive" v-show="curveState">
+					<canvas id="rightColorful"></canvas>
+				</div>
+				<div class="curveLoseActive" v-show="!curveState">
+					<canvas id="rightGray"></canvas>
+				</div>
+			
+		</div>
+		<!--曲线End-->
+		
 		<!--空调主体Start-->
 		<div class="air-wrap flex-column-align">
 			<div class="air-content flex-center-between">
@@ -41,7 +59,7 @@
 				
 				<!--温度数值Start-->
 				<div class="num">
-					<span :class="activeShowImg?'fontActive':'loseActives'">{{number}}</span>
+					<span :class="activeShowImg?'fontActive':'loseActives'">{{number}}℃</span>
 				</div>
 				<!--温度数值End-->
 			</div>
@@ -116,7 +134,7 @@
 </template>
 
 <script>
-	//	import Mtpopup from './Mtpopup'
+	import { Createarc } from '../../../static/js/drawarc.js'
 	export default {
 		name: 'airconditionControl',
 		data() {
@@ -130,6 +148,7 @@
 				min: 15,
 				//温度展示值
 				number: 15,
+				temperNum: [15,24,28,32],
 				//风量展示
 				windNum: [1, 2, 3, 4],
 				winMin: 0,
@@ -142,7 +161,12 @@
 				//自定义软键盘状态 0 消失 2 键盘开启
 				showTyper: 0,
 				//软键盘内容-12位随机数组
-				keyNums: []
+				keyNums: [],
+				//曲线状态
+				curveState: false,
+				//空调默认点
+				airSpace: 0,
+				
 			}
 		},
 		methods: {
@@ -251,7 +275,45 @@
 					}
 				}
 				that.keyNums = arr2
+			},
+			//产生曲线
+			produCurve () {
+				//温度激活弧线
+				new Createarc({
+					el: 'rightColorful', //canvas id
+					vuethis: this, //使用位置的this指向
+					num: 'airSpace', //data数值
+					type: 'right', //圆弧方向  left right
+					tempdel: 4, //总差值
+					ratio: 0.4, //宽度比例
+					iscontrol: true, //控制是否能滑动，可以滑动
+					color: {
+						start: '#e22e10', //圆弧下边颜色
+						center: '#f39310',
+						end: '#04e8db', //圆弧上边颜色
+						num: 3
+					}
+				})
+				//温度未激活弧线
+				new Createarc({
+					el: 'rightGray', //canvas id
+					vuethis: this, //使用位置的this指向
+					num: 'airSpace', //data数值
+					type: 'right', //圆弧方向  left right
+					tempdel: 4, //总差值
+					ratio: 0.4, //宽度比例
+					iscontrol: false, //控制是否能滑动，禁止滑动
+					color: {
+						start: '#EEEEEE', //圆弧下边颜色
+						center: '#EEEEEE',
+						end: '#EEEEEE', //圆弧上边颜色
+						num: 3
+					}
+				})
 			}
+		},
+		mounted () {
+			this.produCurve()
 		},
 		watch: {
 			pinNumber(newVal, oldVal) {
@@ -259,6 +321,7 @@
 				if (this.pinNumber.length == 6) {
 					setTimeout( () => {
 						this.value = !this.value
+						this.curveState = !this.curveState
 						this.activeShowImg = !this.activeShowImg,
 						//消失遮罩
 						this.popupVisible = !this.popupVisible
@@ -267,6 +330,15 @@
 						//清空pin码
 						this.pinNumber = ''
 					},1000)
+					
+				}
+			},
+			airSpace (newVal, oldVal) {
+				this.number = this.temperNum[newVal]
+			},
+			number (newVal, oldVal) {
+				if (newVal == 24) {
+					this.airSpace = 1;
 					
 				}
 			}
@@ -333,6 +405,22 @@
 		font-size: 0.22rem;
 		font-family: PingFang-SC-Regular;
 		color: rgba(34, 34, 34, 1);
+	}
+	/*曲线*/
+	
+	.curve {
+		position: relative;
+	}
+	.curve>.cureve-text> span {
+		position: absolute;
+		color: #222222;
+		font-size: 0.26rem;
+	}
+	.curve>div {
+        position: absolute;
+	    left: 50%;
+	    top: 0.9rem;
+	    margin-left: -7%;
 	}
 	/*空调主体*/
 	

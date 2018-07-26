@@ -17,6 +17,24 @@
 				<span style="width: 0.54rem;height: 1px; background: rgba(153,153,153,1);margin-bottom: 0.4rem;"></span>
 			</div>
 		</div>
+		
+		<!--曲线Start-->
+		<div class="curve"> 
+				<div class="cureve-text">
+					<span style="left: 3.1rem;top: 2.6rem;">低</span>
+					<span style="left: 2.2rem;top: 0.3rem;">中</span>
+					<span style="left: 0rem;top: -0.3rem;">高</span>
+				</div>
+				<div class="curveActive" v-show="curveState">
+					<canvas id="rightColorful"></canvas>
+				</div>
+				<div class="curveLoseActive" v-show="!curveState">
+					<canvas id="rightGray"></canvas>
+				</div>
+			
+		</div>
+		<!--曲线End-->
+		
 		<!--进化器主体Start-->
 		<div class="window-wrap flex-column-align">
 			<div class="window-content flex-center-between">
@@ -99,6 +117,7 @@
 </template>
 
 <script>
+	import { Createarc } from '../../../static/js/drawarc.js'
 	export default {
 		name: 'skylightControl',
 		data() {
@@ -123,7 +142,11 @@
 				//pin码弹出框控制变量
 				popupVisible: false,
 				//软键盘内容-12位随机数组
-				keyNums: []
+				keyNums: [],
+				//曲线状态
+				curveState: false,
+				//净化器默认点
+				evoluorSpace: 0,
 			}
 		},
 		methods: { //进化器控制开关方法
@@ -220,7 +243,45 @@
 					}
 				}
 				that.keyNums = arr2
+			},
+			//产生曲线
+			produCurve () {
+				//净化器激活弧线
+				new Createarc({
+					el: 'rightColorful', //canvas id
+					vuethis: this, //使用位置的this指向
+					num: 'evoluorSpace', //data数值
+					type: 'right', //圆弧方向  left right
+					tempdel: 3, //总差值
+					ratio: 0.4, //宽度比例
+					iscontrol: true, //控制是否能滑动，可以滑动
+					color: {
+						start: '#e22e10', //圆弧下边颜色
+						center: '#f39310',
+						end: '#04e8db', //圆弧上边颜色
+						num: 3
+					}
+				})
+				//进化器未激活弧线
+				new Createarc({
+					el: 'rightGray', //canvas id
+					vuethis: this, //使用位置的this指向
+					num: 'evoluorSpace', //data数值
+					type: 'right', //圆弧方向  left right
+					tempdel: 3, //总差值
+					ratio: 0.4, //宽度比例
+					iscontrol: false, //控制是否能滑动，禁止滑动
+					color: {
+						start: '#EEEEEE', //圆弧下边颜色
+						center: '#EEEEEE',
+						end: '#EEEEEE', //圆弧上边颜色
+						num: 3
+					}
+				})
 			}
+		},
+		mounted () {
+			this.produCurve()
 		},
 		watch: {
 			pinNumber(newVal, oldVal) {
@@ -228,6 +289,7 @@
 				if (this.pinNumber.length == 6) {
 					setTimeout( () => {
 						this.value = !this.value
+						this.curveState = !this.curveState
 						this.activeShowImg = !this.activeShowImg,
 						//消失遮罩
 						this.popupVisible = !this.popupVisible
@@ -238,6 +300,9 @@
 					},1000)
 					
 				}
+			},
+			evoluorSpace (newVal, oldVal) {
+				this.winIndex = newVal
 			}
 		}
 	}
@@ -310,6 +375,23 @@
 		font-family: PingFang-SC-Regular;
 		color: rgba(34, 34, 34, 1);
 	}
+	/*曲线*/
+	
+	.curve {
+		position: relative;
+	}
+	.curve>.cureve-text> span {
+		position: absolute;
+		color: #222222;
+		font-size: 0.26rem;
+	}
+	.curve>div {
+        position: absolute;
+	    left: 50%;
+	    top: 0.9rem;
+	    margin-left: -7%;
+	}
+	
 	/*进化器主体*/
 	
 	.window-wrap {
