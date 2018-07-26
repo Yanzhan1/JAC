@@ -20,31 +20,37 @@
 		<!--空调主体Start-->
 		<div class="air-wrap flex-column-align">
 			<div class="air-content flex-center-between">
+				<!--温度计数器Start-->
 				<div class="temperature">
 					<span style="display:block;margin-bottom: 0.4rem;">温度</span>
-					<!--温度计数器Start-->
 					<div class="temper-inputcoun flex-center">
 						<div class="counter">
 							<span @click="add" style="transform: rotateZ(-90deg);">></span>
 							<span @click="reduce" style="transform: rotateZ(-90deg);"><</span>
 						</div>
 					</div>
-					<!--温度计数器End-->
 				</div>
+				<!--温度计数器End-->
+				
+				<!--空调图Start-->
 				<div class="wind-blows">
 					<img v-if="activeShowImg" :src="'./static/images/Lovecar/air@2x.png'" alt="" />
 					<img v-else :src="'./static/images/Lovecar/air1@2x.png'" alt="" />
 				</div>
+				<!--空调End-->
+				
+				<!--温度数值Start-->
 				<div class="num">
 					<span :class="activeShowImg?'fontActive':'loseActives'">{{number}}</span>
 				</div>
+				<!--温度数值End-->
 			</div>
 			<!--风量计数器Start-->
 			<div class="air-change flex-center">
 				<img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
 				<div class="wind-count">
 					<span @click=" windReduce" class="addWind"><</span>
-					<input class="wind-input" type="text" v-model="windNum[winIndex]" />
+					<input class="wind-input" type="text" v-model="windNum[winIndex]" readonly />
 					<span @click="windAdd" class="reduceWind">></span>
 				</div>
 				<img :src="'./static/images/Lovecar/right@2x.png'" alt="" />
@@ -133,7 +139,7 @@
 				popupVisible: false,
 				//pin码值
 				pinNumber: '',
-				//自定义软键盘状态
+				//自定义软键盘状态 0 消失 2 键盘开启
 				showTyper: 0,
 				//软键盘内容-12位随机数组
 				keyNums: []
@@ -147,8 +153,6 @@
 				} else {
 					this.value = false;
 				}
-				//图片激活变量
-//				this.activeShowImg = !this.activeShowImg
 				this.popupVisible = !this.popupVisible
 			},
 			//激活底部图标方法
@@ -199,15 +203,15 @@
 				}
 
 			},
-			//产生随机数
-			randomnum(min, max) {
-				var num = Math.floor(Math.random() * (max - min) + min);
-				return num;
-			},
 			//点击遮罩或者'x'移除popup
 			removeMask () {
 				this.popupVisible = !this.popupVisible
 				this.showTyper = 0;
+			},
+			//产生随机数
+			randomnum(min, max) {
+				var num = Math.floor(Math.random() * (max - min) + min);
+				return num;
 			},
 			//键盘点击事件，传入键盘本身的值
 			input(item) {
@@ -264,11 +268,6 @@
 						this.pinNumber = ''
 					},1000)
 					
-				} else if (this.pinNumber.length == 0 ) {
-					
-				} else {
-//					this.value = false
-//					this.activeShowImg = 0
 				}
 			}
 		}

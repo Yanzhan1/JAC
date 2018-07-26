@@ -8,13 +8,13 @@
 		<div style="height:0.88rem"></div>
 		<div class="seat-header">
 			<div class="seat-btn">
-				<div class="seat-warm flex-center-between" style="width: 2rem;">
+				<div class="seat-warm flex-center-between" style="width: 2.2rem;">
 					<span>加热</span>
-					<mt-switch v-model="value" @change="turn"></mt-switch>
+					<mt-switch v-model="value" @change="turn"><span></span></mt-switch>
 				</div>
-				<div class="car-aeration flex-center-between" style="width: 2rem;">
+				<div class="car-aeration flex-center-between" style="width: 2.2rem;">
 					<span>通风</span>
-					<mt-switch v-model="aeraValue"></mt-switch>
+					<mt-switch v-model="aeraValue"><span></span></mt-switch>
 				</div>
 
 			</div>
@@ -26,15 +26,37 @@
 		</div>
 		<!--主副驾驶位温度展示Start-->
 		<div class="seat-remind">
-			<span :class="activeShow?'fontActive':'loseActives'">{{fuWindNum[fuWinIndex]}}</span>
-			<span :class="activeShow?'fontActive':'loseActives'">{{windNum[winIndex]}}</span>
+			<span :class="activeShowImg?'fontActive':'loseActives'">{{fuWindNum[fuWinIndex]}}</span>
+			<span :class="activeShowImg?'fontActive':'loseActives'">{{windNum[winIndex]}}</span>
 		</div>
 		<!--主副驾驶位温度展示End-->
+
+		<!--曲线Start-->
+		<div class="curve">
+			<div class="cureve-text">
+				<span style="left: 1.8rem;top: -0.3rem;">高</span>
+				<span style="left: 2.5rem;top: -0.3rem;">高</span>
+				<span style="left: 0.2rem;top: 0.4rem;">中</span>
+				<span style="left: 4.1rem;top: 0.4rem;">中</span>
+				<span style="left: -0.3rem;top: 1.7rem;">低</span>
+				<span style="left: 4.6rem;top: 1.7rem;">低</span>
+			</div>
+			<div class="curveActive" v-show="curveState">
+				<canvas id="leftColorful"></canvas>
+				<canvas id="rightColorful"></canvas>
+			</div>
+			<div class="curveLoseActive" v-show="!curveState">
+				<canvas id="leftGray"></canvas>
+				<canvas id="rightGray"></canvas>
+			</div>
+		</div>
+	
+		<!--曲线End-->
 
 		<!--座椅主体Start-->
 		<div class="seat-wrap flex-column-align">
 			<div class="wind-blows">
-				<div class="seat-active" v-if="activeShow">
+				<div class="seat-active" v-if="activeShowImg">
 					<div style="display: flex;margin-bottom: 0.23rem;">
 						<img :src="'./static/images/Lovecar/Chair2@2x.png'" alt="" />
 						<img :src="'./static/images/Lovecar/Chair2@2x.png'" alt="" />
@@ -62,7 +84,7 @@
 					<span style="font-size: 0.22rem;color: #222222;">主驾驶</span>
 					<div class="wind-count">
 						<span @click="reduce" class="addWind"><</span>
-						<input class="wind-input" type="text" v-model="fuWindNum[fuWinIndex]" />
+						<input class="wind-input" type="text" v-model="fuWindNum[fuWinIndex]" readonly/>
 						<span @click="add" class="reduceWind">></span>
 					</div>
 				</div>
@@ -71,7 +93,7 @@
 					<span style="font-size: 0.22rem;color: #222222;">副驾驶</span>
 					<div class="wind-count">
 						<span @click=" windReduce" class="addWind"><</span>
-						<input class="wind-input" type="text" v-model="windNum[winIndex]" />
+						<input class="wind-input" type="text" v-model="windNum[winIndex]" readonly/>
 						<span @click="windAdd" class="reduceWind">></span>
 					</div>
 				</div>
@@ -79,10 +101,35 @@
 			<!--计数器End-->
 		</div>
 		<!--座椅主体End-->
+		<!--pin码弹出框Start-->
+		<div class="bgMask" v-if="popupVisible" @click="removeMask"></div>
+		<mt-popup v-model="popupVisible" :modal="false">
+			<div class="pin-remain">
+				<div class="flex-center-between">
+					<img @click="removeMask" :src="'./static/images/Wit/delete@3x.png'" alt="" style="width:.28rem">
+					<div style="font-size:.36rem;color:#222">请输入PIN码</div>
+					<span></span>
+				</div>
+				<div class="pin-code flex-center">
+					<div id="pinCon" @click="onTypewriting">
+						<input class="pin-input" maxlength="6" type="text" v-model="pinNumber" readonly/>
+					</div>
+				</div>
+			</div>
+		</mt-popup>
+		<!--pin码弹出框End-->
+		<!--自定义软键盘Start-->
+		<div class="typer" v-show="showTyper!=0">
+			<ul v-show="showTyper==2">
+				<li class="typer-num" v-for="item in keyNums" :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}" @click="input(item)">{{item}}</li>
+			</ul>
+		</div>
+		<!--自定义软键盘End-->
 	</div>
 </template>
 
 <script>
+	import { Createarc } from '../../../static/js/drawarc.js'
 	export default {
 		name: 'adjustSeatTemper',
 		data() {
@@ -92,7 +139,7 @@
 				//通风开关
 				aeraValue: false,
 				//图片激活变量
-				activeShow: 0,
+				activeShowImg: 0,
 				//副驾展示
 				windNum: ['高', '中', '低'],
 				//主驾展示
@@ -101,21 +148,35 @@
 				//副驾控制变量
 				winIndex: 0,
 				//主驾控制变量
-				fuWinIndex: 0
+				fuWinIndex: 0,
+				//pin码弹出框控制变量
+				popupVisible: false,
+				//pin码值
+				pinNumber: '',
+				//自定义软键盘状态 0 消失 2 键盘开启
+				showTyper: 0,
+				//软键盘内容-12位随机数组
+				keyNums: [],
+				//主驾座椅弧线温度默认点
+				seatTemperSpace: 0,
+				//副驾座椅弧线温度默认点
+				fuSeatTemperSpace: 0,
+				//曲线状态
+				curveState: false
 			}
 		},
 		methods: {
 			//座椅控制开关方法
 			turn() {
-				this.activeShow = !this.activeShow
+				if(this.activeShowImg) {
+					this.value = true;
+				} else {
+					this.value = false;
+				}
+				this.popupVisible = !this.popupVisible
 			},
-			//激活图标方法
-			change(val) {
-				this.activeShow ? this.activeShow = val : this.activeShow = 0
-			},
-			//副驾座椅温度增加
 			add() {
-				if(this.activeShow) {
+				if(this.activeShowImg) {
 					if(this.fuWinIndex >= this.fuWindNum.length - 1) {
 						this.fuWinIndex = 0
 					} else {
@@ -127,7 +188,7 @@
 			},
 			//副驾座椅温度减少
 			reduce() {
-				if(this.activeShow) {
+				if(this.activeShowImg) {
 					if(this.fuWinIndex <= this.winMin) {
 						this.fuWinIndex = this.fuWindNum.length - 1
 					} else {
@@ -139,7 +200,7 @@
 			},
 			//主驾温度增加
 			windAdd() {
-				if(this.activeShow) {
+				if(this.activeShowImg) {
 					if(this.winIndex >= this.windNum.length - 1) {
 						this.winIndex = 0
 					} else {
@@ -152,7 +213,7 @@
 			},
 			//主驾温度减少
 			windReduce() {
-				if(this.activeShow) {
+				if(this.activeShowImg) {
 					if(this.winIndex <= this.winMin) {
 						this.winIndex = this.windNum.length - 1
 					} else {
@@ -162,6 +223,142 @@
 					return
 				}
 
+			},
+			//点击遮罩或者'x'移除popup
+			removeMask() {
+				this.popupVisible = !this.popupVisible
+				this.showTyper = 0;
+			},
+			//产生随机数
+			randomnum(min, max) {
+				var num = Math.floor(Math.random() * (max - min) + min);
+				return num;
+			},
+			//键盘点击事件，传入键盘本身的值
+			input(item) {
+				if(item == '关闭') { //判断是否点击了关闭按钮
+					this.showTyper = 0;
+					return;
+				}
+				if(item == 'Del') { //判断是否点击了删除按钮
+					this.pinNumber = this.pinNumber.slice(0, -1);
+					return;
+				}
+				if(this.pinNumber.length < 6) { //判断位数，还未超出5位则可继续输入
+					this.pinNumber = this.pinNumber + item;
+				} else {
+
+				}
+			},
+			//点击pin码验证框时，弹出自定义键盘
+			onTypewriting() {
+				this.showTyper = 2;
+				this.produceArray()
+			},
+			//产生软键盘12位随机数组
+			produceArray() {
+				var that = this
+				var arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+				var arr2 = []
+				for(var i = 0; i < 12; i++) {
+					var randomnumber = that.randomnum(0, arr.length);
+					if(i == 9) {
+						arr2.push('关闭')
+					} else if(i == 11) {
+						arr2.push('Del')
+					} else {
+						arr2.push(arr[randomnumber]);
+						arr.splice(randomnumber, 1);
+					}
+				}
+				that.keyNums = arr2
+			},
+			//产生曲线
+			produCurve() {
+				//主驾激活弧线
+				new Createarc({
+					el: 'leftColorful', //canvas id
+					vuethis: this, //使用位置的this指向
+					num: 'seatTemperSpace', //data数值
+					type: 'left', //圆弧方向  left right
+					tempdel: 3, //总差值
+					ratio: 0.3, //宽度比例
+					iscontrol: true, //控制是否能滑动，可以滑动
+					color: {
+						start: '#CD853F', //圆弧下边颜色
+						end: '#C0FF3E', //圆弧上边颜色
+					}
+				})
+				//副驾激活弧线
+				new Createarc({
+					el: 'rightColorful', //canvas id
+					vuethis: this, //使用位置的this指向
+					num: 'fuSeatTemperSpace', //data数值
+					type: 'right', //圆弧方向  left right
+					tempdel: 3, //总差值
+					ratio: 0.3, //宽度比例
+					iscontrol: true, //控制是否能滑动，可以滑动
+					color: {
+						start: '#CD853F', //圆弧下边颜色
+						end: '#C0FF3E', //圆弧上边颜色
+					}
+				})
+				//副驾未激活弧线
+				new Createarc({
+					el: 'leftGray', //canvas id
+					vuethis: this, //使用位置的this指向
+					num: 'seatTemperSpace', //data数值
+					type: 'left', //圆弧方向  left right
+					tempdel: 3, //总差值
+					ratio: 0.3, //宽度比例
+					iscontrol: false, //控制是否能滑动，禁止滑动
+					color: {
+						start: '#EEEEEE', //圆弧下边颜色
+						end: '#EEEEEE', //圆弧上边颜色
+					}
+				})
+				//副驾未激活弧线
+				new Createarc({
+					el: 'rightGray', //canvas id
+					vuethis: this, //使用位置的this指向
+					num: 'seatTemperSpace', //data数值
+					type: 'right', //圆弧方向  left right
+					tempdel: 3, //总差值
+					ratio: 0.3, //宽度比例
+					iscontrol: false, //控制是否能滑动，禁止滑动
+					color: {
+						start: '#EEEEEE', //圆弧下边颜色
+						end: '#EEEEEE', //圆弧上边颜色
+					}
+				})
+			}
+		},
+		mounted() {
+			this.produCurve()
+		},
+		watch: {
+			pinNumber(newVal, oldVal) {
+				//				console.log(this.pinNumber.length)
+				if(this.pinNumber.length == 6) {
+					setTimeout(() => {
+						this.value = !this.value
+						this.curveState = !this.curveState
+						this.activeShowImg = !this.activeShowImg,
+							//消失遮罩
+							this.popupVisible = !this.popupVisible
+						//消失软键盘
+						this.showTyper = 0,
+							//清空pin码
+							this.pinNumber = ''
+					}, 1000)
+
+				}
+			},
+			seatTemperSpace (newVal, oldVal) {
+				this.fuWinIndex = newVal
+			},
+			fuSeatTemperSpace (newVal, oldVal) {
+				this.winIndex  =  newVal
 			}
 		}
 	}
@@ -236,21 +433,42 @@
 		color: rgba(34, 34, 34, 1);
 	}
 	/*主副驾温度*/
+	
 	.seat-remind {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		padding: 0 0.5rem;
 	}
+	
 	.seat-remind>span {
 		color: #222222;
 		font-size: 0.68rem;
 	}
+	/*曲线*/
+	
+	.curve {
+		position: relative;
+		height: 2.1rem;
+	}
+	.curve>.cureve-text> span {
+		position: absolute;
+		color: #222222;
+		font-size: 0.26rem;
+	}
+	.curve>div {
+		position: absolute;
+		left: 50%;
+		top: 0.7rem;
+		margin-left: -31%;
+	}
+	.curve>.seat-hei {
+		
+	}
 	/*座椅主体*/
 	
 	.seat-wrap {
-		height: 7.2rem;
-		padding-top: 2.7rem;
+		height: 4.8rem;
 	}
 	
 	.wind-blows img {
@@ -280,6 +498,7 @@
 		border: none;
 		text-align: center;
 	}
+	
 	.input-count {
 		width: 90%;
 	}
@@ -307,8 +526,124 @@
 		font-size: 0.68rem;
 	}
 	/*座椅温度展示未激活字体*/
+	
 	.loseActives {
 		color: #666666;
 		font-size: 0.68rem;
+	}
+	/*pin码提示框*/
+	
+	.pin-remain {
+		width: 6.3rem;
+		height: 3.3rem;
+		padding: 0.2rem 0.4rem;
+	}
+	
+	.pin-code {
+		height: 2rem;
+		width: 100%;
+	}
+	
+	.pin-code>div {}
+	
+	.pin-code>div>input {
+		display: block;
+		width: 5.6rem;
+		height: 0.94rem;
+		text-indent: 0.4rem;
+		letter-spacing: 0.77rem;
+		/*text-align: center;*/
+		border: none;
+		outline: none;
+		background: url(../../../static/images/Lovecar/border@2x.png) no-repeat center;
+		background-size: 100%;
+	}
+	/*自定义软键盘*/
+	
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+	}
+	
+	ul>li {
+		width: 33.3%;
+	}
+	
+	.typer {
+		position: fixed;
+		bottom: 0;
+		background-color: #fff;
+		height: 4.5rem;
+		width: 100%;
+		padding-top: .1rem;
+		z-index: 3000;
+	}
+	
+	.typer li {
+		float: left;
+		height: .7rem;
+		margin: .1rem .05rem 0;
+		color: #333;
+		text-align: center;
+		font-size: .32rem;
+		line-height: .7rem;
+		background-color: #ccc;
+		-webkit-border-radius: .1rem;
+		-moz-border-radius: .1rem;
+		border-radius: .1rem;
+	}
+	
+	.typer li.typer-pro {
+		width: 31%;
+		padding: 0 .15rem;
+	}
+	
+	.typer li.typer-pro.is-closeType {
+		width: 1.2rem;
+		float: right;
+	}
+	
+	.typer li.typer-num {
+		width: 31%;
+		/*padding: 0.8rem .1rem;*/
+		background-image: -webkit-linear-gradient(125deg, #147B96, #E6D205 25%, #147B96 50%, #E6D205 75%, #147B96);
+		-webkit-text-fill-color: transparent;
+		-webkit-background-clip: text;
+		-webkit-background-size: 200% 100%;
+		-webkit-animation: masked-animation 4s infinite linear;
+	}
+	
+	.typer li.typer-num.is-A {
+		margin-left: .31rem;
+	}
+	
+	.typer li.typer-num.is-OK {
+		width: .8rem;
+		margin-left: .1rem;
+	}
+	
+	@-webkit-keyframes masked-animation {
+		0% {
+			background-position: 0 0;
+		}
+		100% {
+			background-position: -100% 0;
+		}
+	}
+	/*自定遮罩层*/
+	
+	.bgMask {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0.5;
+		background: #000;
 	}
 </style>
