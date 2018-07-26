@@ -39,9 +39,9 @@
           </div>
 
         </div>
-        <img v-if="activeshow==1" class="line" src="../../../static/images/Wit/line3@3x.png" alt="">
-        <img v-else-if="activeshow==2" class="line" src="../../../static/images/Wit/line1@2x.png" alt="">
-        <img v-else-if="activeshow==3" class="line" src="../../../static/images/Wit/line2@3x.png" alt="">
+        <img v-if="activeshow==1" class="line_x" src="../../../static/images/Wit/line3@3x.png" alt="">
+        <img v-else-if="activeshow==2" class="line_x" src="../../../static/images/Wit/line1@2x.png" alt="">
+        <img v-else-if="activeshow==3" class="line_x" src="../../../static/images/Wit/line2@3x.png" alt="">
       </div>
       <div class="bus_l">
         <img src="../../../static/images/Wit/bus.png" alt="" class="bus_righgt">
@@ -493,7 +493,7 @@ input:focus {
   font-size: 0.28rem;
   color: #444;
 }
-.line {
+.line_x {
   width: 0.17rem;
   padding-top: 0.4rem;
 }

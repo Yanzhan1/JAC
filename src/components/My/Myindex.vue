@@ -45,7 +45,7 @@
           </div>
           <img src="../../../static/images/my/next@2x.png" alt="">
         </div>
-        <div class="mylist">
+        <div class="mylist" @click="myorder()">
           <div class="flex cocenter">
             <img src="../../../static/images/my/mine_list@2x.png" alt="">
             <span>我的订单</span>
@@ -119,6 +119,9 @@
         },
         my_dealer(){
           this.$router.push('/my_dealer')
+        },
+        myorder(){
+          this.$router.push('/myorder')
         }
       },
       mounted(){

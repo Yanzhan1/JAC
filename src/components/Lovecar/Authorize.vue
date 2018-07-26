@@ -13,7 +13,7 @@
                     <span style="font-size:.24rem;color:#888;margin-right:.1rem">起始时间</span>
                     <img src="../../../static/images/Lovecar/zhankai@3x.png" alt="" style="width:.18rem;height:.1rem">
                 </div>
-                <span class="line">---</span>
+                <span class="lines">---</span>
                 <div class="flex row cocenter btns">
                     <span style="font-size:.24rem;color:#888;margin-right:.1rem">结束时间</span>
                     <img src="../../../static/images/Lovecar/zhankai@3x.png" alt="" style="width:.18rem;height:.1rem">
@@ -67,7 +67,7 @@ export default {
   height: 0.5rem;
   justify-content: center;
 }
-.line {
+.lines {
   display: block;
   color: #f1f1f1;
   padding: 0 0.3rem;

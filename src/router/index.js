@@ -38,6 +38,9 @@ import Edictperson from '@/components/My/edictperson.vue' //编辑个人信息
 import Myaddress from '@/components/My/myaddress.vue' //我的地址管理
 import Addmydress from '@/components/My/addmydress.vue' //新增地址
 import My_dealer from '../components/My/My_dealer.vue' //我的经销商列表
+import MyOrder from '../components/My/MyOrder.vue' //我的订单
+import MyWl from '../components/My/MyWl.vue' //我的物流
+import Compontent from '../components/My/Compontent.vue' //评价
 //发现部分
 import Discover from '@/components/discover/discover'
 import Recommend from '@/components/discover/recommend/recommend' //推荐首页
@@ -295,6 +298,19 @@ export default new Router({
                 path: "/my_dealer",
                 name: '我的经销商列表',
                 component: My_dealer
+            },
+            {
+                path: "/myorder",
+                name: '我的订单',
+                component: MyOrder
+            }, {
+                path: "/mywl",
+                name: '我的物流',
+                component: MyWl
+            }, {
+                path: "/compontent",
+                name: '评价',
+                component: Compontent
             },
             //智享部分
             {
