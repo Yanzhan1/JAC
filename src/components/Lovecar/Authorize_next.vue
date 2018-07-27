@@ -8,7 +8,7 @@
         <div style="height:.88rem"></div>
         <div class="count flex">
             <div class="imgs">
-                <img src="" alt="">
+                <img src="../../../static/images/Lovecar/car_bg@2x.png" alt="">
             </div>
             <div>
                 <div>
@@ -57,7 +57,14 @@ export default {
         cancelButtonText: "取消",
         confirmButtonHighlight: true,
         cancelButtonHighlight: true
-      });
+      }).then(action => {
+          if (action == "confirm") {
+          }
+        })
+        .catch(err => {
+          if (err == "cancel") {
+          }
+        });
     }
   }
 };
@@ -71,10 +78,12 @@ export default {
 .imgs {
   width: 1.2rem;
   height: 1.2rem;
-  background-color: PINK;
   border-radius: 50%;
   margin-left: 0.3rem;
   margin-right: 0.34rem;
+}
+.imgs img{
+  width:100%
 }
 .authort_t {
   height: 1rem;

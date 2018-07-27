@@ -7,7 +7,7 @@
       </div>
       <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
         <!--活动列表S-->
-          <div v-for="(item,index) in activityList">
+          <div v-for="(item) in activityList" :key="item.id">
             <div class="boxInfo">
               <p class="listTitleInfo" @click="toDetail(item.manageId)">
                 {{item.activityTitle.slice(0,46)}}

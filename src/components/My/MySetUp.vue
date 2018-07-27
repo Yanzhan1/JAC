@@ -6,6 +6,9 @@
 			<span class="header-right"></span>
 		</header>
 		<div style="height:0.88rem"></div>
+		<mt-cell :title="title">
+			<mt-switch @change="turn" v-model="value"></mt-switch>
+		</mt-cell>
 		<router-link tag="div" class="setup-ctcperson" to="/contactPerson">
 			<mt-cell title="紧急联系人" is-link></mt-cell>
 		</router-link>
@@ -16,17 +19,46 @@
 			<mt-cell title="修改密码" is-link></mt-cell>
 		</router-link>
 		<router-link tag="div" class="setup-loginout" to="">
-			<mt-cell title="退出登录" is-link></mt-cell>
+			<mt-cell @click.native="signOut" title="退出登录" is-link></mt-cell>
 		</router-link>
-		<button class="bottom-btn">退出</button>
 	</div>
 </template>
 
 <script>
+	import { MessageBox } from 'mint-ui';
 	export default {
 		name: '',
 		data () {
 			return {
+				title: '软键盘',
+				value: false
+			}
+		},
+		methods: {
+			signOut () {
+				MessageBox.confirm('',{
+					title: '提示',
+					message: '您确定要退出登录吗？',
+					showConfirmButton: true,
+					showCancelButton: true,
+					cancelButtonClass: 'cancelButton',
+					confirmButtonClass: 'confirmButton',
+					confirmButtonText: '退出',
+					cancelButtonText: '取消',
+					confirmButtonHighlight: true,
+					cancelButtonHighlight: true
+				}).then(action => {
+					if(action == 'confirm') {
+						//跳转修改成功页面
+						console.log('abc');
+					}
+				}).catch(err => {
+					if(err == 'cancel') {
+						console.log('123');
+					}
+				});
+			},
+			turn () {
 				
 			}
 		}

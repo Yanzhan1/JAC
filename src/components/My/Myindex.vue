@@ -6,7 +6,7 @@
               <img src="../../../static/images/my/mine_message@2x.png" alt="">
             </div>
           <div class="mytophead flex between cocenter">
-            <div style="padding-left: 0.3rem;padding-right: 0.2rem" class="flex cocenter">
+            <div @click="edict()" style="padding-left: 0.3rem;padding-right: 0.2rem" class="flex cocenter">
               <img src="../../../static/images/test/my/pic_touxiang@2x.png" alt="" style="width: 1.2rem;height: 1.2rem">
               <div class="flex column" style="margin-left: 0.2rem;">
                 <div class="flex cocenter" style="overflow: hidden">
@@ -45,7 +45,7 @@
           </div>
           <img src="../../../static/images/my/next@2x.png" alt="">
         </div>
-        <div class="mylist">
+        <div class="mylist" @click="myorder()">
           <div class="flex cocenter">
             <img src="../../../static/images/my/mine_list@2x.png" alt="">
             <span>我的订单</span>
@@ -73,7 +73,7 @@
           </div>
           <img src="../../../static/images/my/next@2x.png" alt="">
         </div>
-        <div class="mylist">
+        <div class="mylist" @click="my_dealer()">
           <div class="flex cocenter">
             <img src="../../../static/images/my/mine_agency@2x.png" alt="">
             <span>我的经销商</span>
@@ -114,7 +114,15 @@
         }
       },
       methods:{
-
+        edict(){
+          this.$router.push('/edictperson')
+        },
+        my_dealer(){
+          this.$router.push('/my_dealer')
+        },
+        myorder(){
+          this.$router.push('/myorder')
+        }
       },
       mounted(){
 
