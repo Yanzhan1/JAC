@@ -26,8 +26,8 @@
 		</div>
 		<!--主副驾驶位温度展示Start-->
 		<div class="seat-remind">
-			<span :class="activeShowImg?'fontActive':'loseActives'">{{fuWindNum[fuWinIndex]}}</span>
-			<span :class="activeShowImg?'fontActive':'loseActives'">{{windNum[winIndex]}}</span>
+			<span :class="activeShowImg?'fontActive':'loseActives'">{{windNum[seatTemperSpace]}}</span>
+			<span :class="activeShowImg?'fontActive':'loseActives'">{{fuWindNum[fuSeatTemperSpace]}}</span>
 		</div>
 		<!--主副驾驶位温度展示End-->
 
@@ -50,7 +50,7 @@
 				<canvas id="rightGray"></canvas>
 			</div>
 		</div>
-	
+
 		<!--曲线End-->
 
 		<!--座椅主体Start-->
@@ -84,7 +84,7 @@
 					<span style="font-size: 0.22rem;color: #222222;">主驾驶</span>
 					<div class="wind-count">
 						<span @click="reduce" class="addWind"><</span>
-						<input class="wind-input" type="text" v-model="fuWindNum[fuWinIndex]" readonly/>
+						<input class="wind-input" type="text" v-model="windNum[seatTemperSpace]" readonly/>
 						<span @click="add" class="reduceWind">></span>
 					</div>
 				</div>
@@ -93,7 +93,7 @@
 					<span style="font-size: 0.22rem;color: #222222;">副驾驶</span>
 					<div class="wind-count">
 						<span @click=" windReduce" class="addWind"><</span>
-						<input class="wind-input" type="text" v-model="windNum[winIndex]" readonly/>
+						<input class="wind-input" type="text" v-model="fuWindNum[fuSeatTemperSpace]" readonly/>
 						<span @click="windAdd" class="reduceWind">></span>
 					</div>
 				</div>
@@ -140,15 +140,11 @@
 				aeraValue: false,
 				//图片激活变量
 				activeShowImg: 0,
-				//副驾展示
-				windNum: ['高', '中', '低'],
 				//主驾展示
-				fuWindNum: ['高', '中', '低'],
+				windNum: ['低', '中', '高'],
+				//副驾展示
+				fuWindNum: ['低', '中', '高'],
 				winMin: 0,
-				//副驾控制变量
-				winIndex: 0,
-				//主驾控制变量
-				fuWinIndex: 0,
 				//pin码弹出框控制变量
 				popupVisible: false,
 				//pin码值
@@ -175,49 +171,102 @@
 				}
 				this.popupVisible = !this.popupVisible
 			},
+			//主驾座椅温度增加
 			add() {
 				if(this.activeShowImg) {
-					if(this.fuWinIndex >= this.fuWindNum.length - 1) {
-						this.fuWinIndex = 0
+					if(this.seatTemperSpace >= this.windNum.length - 1) {
+						this.seatTemperSpace = this.windNum.length - 1
 					} else {
-						this.fuWinIndex++
+						this.seatTemperSpace++
+							new Createarc({
+								el: 'leftColorful', //canvas id
+								vuethis: this, //使用位置的this指向
+								num: 'seatTemperSpace', //data数值
+								type: 'left', //圆弧方向  left right
+								tempdel: 3, //总差值
+								ratio: 0.3, //宽度比例
+								iscontrol: true, //控制是否能滑动，可以滑动
+								color: {
+									start: '#CD853F', //圆弧下边颜色
+									end: '#C0FF3E', //圆弧上边颜色
+								}
+							})
 					}
 				} else {
 					return
 				}
 			},
-			//副驾座椅温度减少
+			//主驾座椅温度减少
 			reduce() {
 				if(this.activeShowImg) {
-					if(this.fuWinIndex <= this.winMin) {
-						this.fuWinIndex = this.fuWindNum.length - 1
+					if(this.seatTemperSpace <= this.winMin) {
+						this.seatTemperSpace = this.winMin
 					} else {
-						this.fuWinIndex--
+						this.seatTemperSpace--
+							new Createarc({
+								el: 'leftColorful', //canvas id
+								vuethis: this, //使用位置的this指向
+								num: 'seatTemperSpace', //data数值
+								type: 'left', //圆弧方向  left right
+								tempdel: 3, //总差值
+								ratio: 0.3, //宽度比例
+								iscontrol: true, //控制是否能滑动，可以滑动
+								color: {
+									start: '#CD853F', //圆弧下边颜色
+									end: '#C0FF3E', //圆弧上边颜色
+								}
+							})
 					}
 				} else {
 					return
 				}
 			},
-			//主驾温度增加
+			//副驾温度增加
 			windAdd() {
 				if(this.activeShowImg) {
-					if(this.winIndex >= this.windNum.length - 1) {
-						this.winIndex = 0
+					if(this.fuSeatTemperSpace >= this.windNum.length - 1) {
+						this.fuSeatTemperSpace = this.windNum.length - 1
 					} else {
-						this.winIndex++
+						this.fuSeatTemperSpace++
+							new Createarc({
+								el: 'rightColorful', //canvas id
+								vuethis: this, //使用位置的this指向
+								num: 'fuSeatTemperSpace', //data数值
+								type: 'right', //圆弧方向  left right
+								tempdel: 3, //总差值
+								ratio: 0.3, //宽度比例
+								iscontrol: true, //控制是否能滑动，可以滑动
+								color: {
+									start: '#CD853F', //圆弧下边颜色
+									end: '#C0FF3E', //圆弧上边颜色
+								}
+							})
 					}
 				} else {
 					return
 				}
 
 			},
-			//主驾温度减少
+			//副驾温度减少
 			windReduce() {
 				if(this.activeShowImg) {
-					if(this.winIndex <= this.winMin) {
-						this.winIndex = this.windNum.length - 1
+					if(this.fuSeatTemperSpace <= this.winMin) {
+						this.fuSeatTemperSpace = this.winMin
 					} else {
-						this.winIndex--
+						this.fuSeatTemperSpace--
+							new Createarc({
+								el: 'rightColorful', //canvas id
+								vuethis: this, //使用位置的this指向
+								num: 'fuSeatTemperSpace', //data数值
+								type: 'right', //圆弧方向  left right
+								tempdel: 3, //总差值
+								ratio: 0.3, //宽度比例
+								iscontrol: true, //控制是否能滑动，可以滑动
+								color: {
+									start: '#CD853F', //圆弧下边颜色
+									end: '#C0FF3E', //圆弧上边颜色
+								}
+							})
 					}
 				} else {
 					return
@@ -303,7 +352,7 @@
 						end: '#C0FF3E', //圆弧上边颜色
 					}
 				})
-				//副驾未激活弧线
+				//主驾未激活弧线
 				new Createarc({
 					el: 'leftGray', //canvas id
 					vuethis: this, //使用位置的this指向
@@ -321,7 +370,7 @@
 				new Createarc({
 					el: 'rightGray', //canvas id
 					vuethis: this, //使用位置的this指向
-					num: 'seatTemperSpace', //data数值
+					num: 'fuSeatTemperSpace', //data数值
 					type: 'right', //圆弧方向  left right
 					tempdel: 3, //总差值
 					ratio: 0.3, //宽度比例
@@ -353,13 +402,13 @@
 					}, 1000)
 
 				}
-			},
-			seatTemperSpace (newVal, oldVal) {
-				this.fuWinIndex = newVal
-			},
-			fuSeatTemperSpace (newVal, oldVal) {
-				this.winIndex  =  newVal
 			}
+			//			seatTemperSpace(newVal, oldVal) {
+			//				this.fuWinIndex = newVal
+			//			},
+			//			fuSeatTemperSpace(newVal, oldVal) {
+			//				this.winIndex = newVal
+			//			}
 		}
 	}
 </script>
@@ -451,11 +500,13 @@
 		position: relative;
 		height: 2.1rem;
 	}
-	.curve>.cureve-text> span {
+	
+	.curve>.cureve-text>span {
 		position: absolute;
 		color: #222222;
 		font-size: 0.26rem;
 	}
+	
 	.curve>div {
 		position: absolute;
 		left: 50%;

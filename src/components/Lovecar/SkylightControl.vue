@@ -37,7 +37,7 @@
 					<img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
 					<div class="wind-count">
 						<span @click=" windReduce" class="addWind"><</span>
-						<input class="wind-input" type="text" v-model="windNum[winIndex]" />
+						<input class="wind-input" type="text" v-model="windNum[winIndex]" readonly/>
 						<span @click="windAdd" class="reduceWind">></span>
 					</div>
 					<img :src="'./static/images/Lovecar/right@2x.png'" alt="" />

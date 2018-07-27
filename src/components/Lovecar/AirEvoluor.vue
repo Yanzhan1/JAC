@@ -17,24 +17,23 @@
 				<span style="width: 0.54rem;height: 1px; background: rgba(153,153,153,1);margin-bottom: 0.4rem;"></span>
 			</div>
 		</div>
-		
+
 		<!--曲线Start-->
-		<div class="curve"> 
-				<div class="cureve-text">
-					<span style="left: 3.1rem;top: 2.6rem;">低</span>
-					<span style="left: 2.2rem;top: 0.3rem;">中</span>
-					<span style="left: 0rem;top: -0.3rem;">高</span>
-				</div>
-				<div class="curveActive" v-show="curveState">
-					<canvas id="rightColorful"></canvas>
-				</div>
-				<div class="curveLoseActive" v-show="!curveState">
-					<canvas id="rightGray"></canvas>
-				</div>
-			
+		<div class="curve">
+			<div class="cureve-text">
+				<span style="left: 3.1rem;top: 2.6rem;">低</span>
+				<span style="left: 2.2rem;top: 0.3rem;">中</span>
+				<span style="left: 0rem;top: -0.3rem;">高</span>
+			</div>
+			<div class="curveActive" v-show="curveState">
+				<canvas id="rightColorful"></canvas>
+			</div>
+			<div class="curveLoseActive" v-show="!curveState">
+				<canvas id="rightGray"></canvas>
+			</div>
 		</div>
 		<!--曲线End-->
-		
+
 		<!--进化器主体Start-->
 		<div class="window-wrap flex-column-align">
 			<div class="window-content flex-center-between">
@@ -127,7 +126,7 @@
 				//图片激活变量
 				activeShowImg: 0,
 				//进化器强度展示
-				windNum: ['高', '中', '低'],
+				windNum: ['低', '中', '高'],
 				winMin: 0,
 				//进化器控制变量
 				winIndex: 0,
@@ -151,7 +150,7 @@
 		},
 		methods: { //进化器控制开关方法
 			turn() {
-				if (this.activeShowImg) {
+				if(this.activeShowImg) {
 					this.value = true;
 				} else {
 					this.value = false;
@@ -161,10 +160,25 @@
 			//进化器强度增加
 			windAdd() {
 				if(this.activeShowImg) {
-					if(this.winIndex >= this.windNum.length - 1) {
-						this.winIndex = 0
+					if(this.evoluorSpace >= this.windNum.length - 1) {
+						this.evoluorSpace = this.windNum.length - 1
 					} else {
-						this.winIndex++
+						this.evoluorSpace++
+							new Createarc({
+								el: 'rightColorful', //canvas id
+								vuethis: this, //使用位置的this指向
+								num: 'evoluorSpace', //data数值
+								type: 'right', //圆弧方向  left right
+								tempdel: 3, //总差值
+								ratio: 0.4, //宽度比例
+								iscontrol: true, //控制是否能滑动，可以滑动
+								color: {
+									start: '#e22e10', //圆弧下边颜色
+									center: '#f39310',
+									end: '#04e8db', //圆弧上边颜色
+									num: 3
+								}
+							})
 					}
 				} else {
 					return
@@ -174,10 +188,25 @@
 			//进化器强度减弱
 			windReduce() {
 				if(this.activeShowImg) {
-					if(this.winIndex <= this.winMin) {
-						this.winIndex = this.windNum.length - 1
+					if(this.evoluorSpace <= this.winMin) {
+						this.evoluorSpace = this.winMin
 					} else {
-						this.winIndex--
+						this.evoluorSpace--
+							new Createarc({
+								el: 'rightColorful', //canvas id
+								vuethis: this, //使用位置的this指向
+								num: 'evoluorSpace', //data数值
+								type: 'right', //圆弧方向  left right
+								tempdel: 3, //总差值
+								ratio: 0.4, //宽度比例
+								iscontrol: true, //控制是否能滑动，可以滑动
+								color: {
+									start: '#e22e10', //圆弧下边颜色
+									center: '#f39310',
+									end: '#04e8db', //圆弧上边颜色
+									num: 3
+								}
+							})
 					}
 				} else {
 					return
@@ -245,7 +274,7 @@
 				that.keyNums = arr2
 			},
 			//产生曲线
-			produCurve () {
+			produCurve() {
 				//净化器激活弧线
 				new Createarc({
 					el: 'rightColorful', //canvas id
@@ -280,28 +309,28 @@
 				})
 			}
 		},
-		mounted () {
+		mounted() {
 			this.produCurve()
 		},
 		watch: {
 			pinNumber(newVal, oldVal) {
-//				console.log(this.pinNumber.length)
-				if (this.pinNumber.length == 6) {
-					setTimeout( () => {
+				//				console.log(this.pinNumber.length)
+				if(this.pinNumber.length == 6) {
+					setTimeout(() => {
 						this.value = !this.value
 						this.curveState = !this.curveState
 						this.activeShowImg = !this.activeShowImg,
-						//消失遮罩
-						this.popupVisible = !this.popupVisible
+							//消失遮罩
+							this.popupVisible = !this.popupVisible
 						//消失软键盘
 						this.showTyper = 0,
-						//清空pin码
-						this.pinNumber = ''
-					},1000)
-					
+							//清空pin码
+							this.pinNumber = ''
+					}, 1000)
+
 				}
 			},
-			evoluorSpace (newVal, oldVal) {
+			evoluorSpace(newVal, oldVal) {
 				this.winIndex = newVal
 			}
 		}
@@ -380,18 +409,19 @@
 	.curve {
 		position: relative;
 	}
-	.curve>.cureve-text> span {
+	
+	.curve>.cureve-text>span {
 		position: absolute;
 		color: #222222;
 		font-size: 0.26rem;
 	}
-	.curve>div {
-        position: absolute;
-	    left: 50%;
-	    top: 0.9rem;
-	    margin-left: -7%;
-	}
 	
+	.curve>div {
+		position: absolute;
+		left: 50%;
+		top: 0.9rem;
+		margin-left: -7%;
+	}
 	/*进化器主体*/
 	
 	.window-wrap {

@@ -19,18 +19,18 @@
 		</div>
 		<!--曲线Start-->
 		<div class="curve">
-				<div class="cureve-text">
-					<span style="left: 3.1rem;top: 2.6rem;">15</span>
-					<span style="left: 2.6rem;top: 0.9rem;">24</span>
-					<span style="left: 1.6rem;top: -0.1rem;">28</span>
-					<span style="left: 0rem;top: -0.3rem;">32</span>
-				</div>
-				<div class="curveActive" v-show="curveState">
-					<canvas id="rightColorful"></canvas>
-				</div>
-				<div class="curveLoseActive" v-show="!curveState">
-					<canvas id="rightGray"></canvas>
-				</div>
+			<div class="cureve-text">
+				<span style="left: 3.1rem;top: 2.6rem;">15</span>
+				<span style="left: 2.6rem;top: 0.9rem;">24</span>
+				<span style="left: 1.6rem;top: -0.1rem;">28</span>
+				<span style="left: 0rem;top: -0.3rem;">32</span>
+			</div>
+			<div class="curveActive" v-show="curveState">
+				<canvas id="rightColorful"></canvas>
+			</div>
+			<div class="curveLoseActive" v-show="!curveState">
+				<canvas id="rightGray"></canvas>
+			</div>
 
 		</div>
 		<!--曲线End-->
@@ -59,7 +59,7 @@
 
 				<!--温度数值Start-->
 				<div class="num">
-					<span :class="activeShowImg?'fontActive':'loseActives'">{{airSpace}}℃</span>
+					<span :class="activeShowImg?'fontActive':'loseActives'">{{temperNum[airSpace]}}℃</span>
 				</div>
 				<!--温度数值End-->
 			</div>
@@ -143,12 +143,11 @@
 				//图片激活变量
 				activeShowImg: 0,
 				//温度调节最大值
-				max: 32,
+				max: 17,
 				//温度调节最小值
-				min: 15,
+				min: 0,
 				//温度展示值
-				number: 15,
-				temperNum: [15,24,28,32],
+				temperNum: [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
 				//风量展示
 				windNum: [1, 2, 3, 4],
 				winMin: 0,
@@ -172,7 +171,7 @@
 		methods: {
 			//空调控制开关方法
 			turn() {
-				if (this.activeShowImg) {
+				if(this.activeShowImg) {
 					this.value = true;
 				} else {
 					this.value = false;
@@ -185,34 +184,49 @@
 			},
 			//温度增加
 			add() {
-				if(this.activeShowImg && this.number < this.max) {
+				if(this.activeShowImg && this.airSpace < this.max) {
 					this.airSpace++;
-          new Createarc({
-            el: 'rightColorful', //canvas id
-            vuethis: this, //使用位置的this指向
-            num: 'airSpace', //data数值
-            type: 'right', //圆弧方向  left right
-            tempdel: 4, //总差值
-            ratio: 0.4, //宽度比例
-            iscontrol: true, //控制是否能滑动，可以滑动
-            color: {
-              start: '#e22e10', //圆弧下边颜色
-              center: '#f39310',
-              end: '#04e8db', //圆弧上边颜色
-              num: 3
-            }
-          })
-				} else if(this.number >= this.max) {
+					new Createarc({
+						el: 'rightColorful', //canvas id
+						vuethis: this, //使用位置的this指向
+						num: 'airSpace', //data数值
+						type: 'right', //圆弧方向  left right
+						tempdel: 18, //总差值
+						ratio: 0.4, //宽度比例
+						iscontrol: true, //控制是否能滑动，可以滑动
+						color: {
+							start: '#e22e10', //圆弧下边颜色
+							center: '#f39310',
+							end: '#04e8db', //圆弧上边颜色
+							num: 3
+						}
+					})
+				} else if(this.airSpace >= this.max) {
 					this.airSpace = this.max;
 					return
 				}
 			},
 			//温度减少
 			reduce() {
-				if(this.activeShowImg && this.number > this.min) {
-					this.number--;
-				} else if(this.number <= this.min) {
-					this.number = this.min
+				if(this.activeShowImg && this.airSpace > this.min) {
+					this.airSpace--;
+					new Createarc({
+						el: 'rightColorful', //canvas id
+						vuethis: this, //使用位置的this指向
+						num: 'airSpace', //data数值
+						type: 'right', //圆弧方向  left right
+						tempdel: 18, //总差值
+						ratio: 0.4, //宽度比例
+						iscontrol: true, //控制是否能滑动，可以滑动
+						color: {
+							start: '#e22e10', //圆弧下边颜色
+							center: '#f39310',
+							end: '#04e8db', //圆弧上边颜色
+							num: 3
+						}
+					})
+				} else if(this.airSpace <= this.min) {
+					this.airSpace = this.min
 					return
 				}
 			},
@@ -243,7 +257,7 @@
 
 			},
 			//点击遮罩或者'x'移除popup
-			removeMask () {
+			removeMask() {
 				this.popupVisible = !this.popupVisible
 				this.showTyper = 0;
 			},
@@ -292,14 +306,14 @@
 				that.keyNums = arr2
 			},
 			//产生曲线
-			produCurve () {
+			produCurve() {
 				//温度激活弧线
 				new Createarc({
 					el: 'rightColorful', //canvas id
 					vuethis: this, //使用位置的this指向
 					num: 'airSpace', //data数值
 					type: 'right', //圆弧方向  left right
-					tempdel: 4, //总差值
+					tempdel: 18, //总差值
 					ratio: 0.4, //宽度比例
 					iscontrol: true, //控制是否能滑动，可以滑动
 					color: {
@@ -315,7 +329,7 @@
 					vuethis: this, //使用位置的this指向
 					num: 'airSpace', //data数值
 					type: 'right', //圆弧方向  left right
-					tempdel: 4, //总差值
+					tempdel: 18, //总差值
 					ratio: 0.4, //宽度比例
 					iscontrol: false, //控制是否能滑动，禁止滑动
 					color: {
@@ -327,34 +341,25 @@
 				})
 			}
 		},
-		mounted () {
+		mounted() {
 			this.produCurve()
 
 		},
 		watch: {
 			pinNumber(newVal, oldVal) {
-//				console.log(this.pinNumber.length)
-				if (this.pinNumber.length == 6) {
-					setTimeout( () => {
+				//				console.log(this.pinNumber.length)
+				if(this.pinNumber.length == 6) {
+					setTimeout(() => {
 						this.value = !this.value
 						this.curveState = !this.curveState
 						this.activeShowImg = !this.activeShowImg,
-						//消失遮罩
-						this.popupVisible = !this.popupVisible
+							//消失遮罩
+							this.popupVisible = !this.popupVisible
 						//消失软键盘
 						this.showTyper = 0,
-						//清空pin码
-						this.pinNumber = ''
-					},1000)
-
-				}
-			},
-			/*airSpace (newVal, oldVal) {
-				this.number = this.temperNum[newVal]
-			},*/
-			number (newVal, oldVal) {
-				if (newVal == 24) {
-					this.airSpace = 1;
+							//清空pin码
+							this.pinNumber = ''
+					}, 1000)
 
 				}
 			}
@@ -364,27 +369,27 @@
 
 <style scoped>
 	/*flex*/
-
+	
 	.flex-column-align {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
 		align-items: center;
 	}
-
+	
 	.flex-center-between {
 		/*水平垂直居中-两边对齐*/
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 	}
-
+	
 	.flex-column {
 		/*竖直方向*/
 		display: flex;
 		flex-direction: column;
 	}
-
+	
 	.flex-center {
 		/*水平垂直居中*/
 		display: flex;
@@ -392,12 +397,12 @@
 		align-items: center;
 	}
 	/*空调头部*/
-
+	
 	.air-header {
 		padding: 0.4rem 0.64rem 0 0.68rem
 	}
 	/*空调开关按钮*/
-
+	
 	.air-btn {
 		display: flex;
 		flex-direction: column;
@@ -405,7 +410,7 @@
 		align-items: center;
 	}
 	/*空调标志*/
-
+	
 	.air-ch {
 		height: 0.31rem;
 		margin-bottom: 0.17rem;
@@ -413,7 +418,7 @@
 		color: rgb(34, 34, 34);
 		font-size: 0.32rem;
 	}
-
+	
 	.air-en {
 		height: 0.18rem;
 		margin-bottom: 0.36rem;
@@ -423,41 +428,43 @@
 		color: rgba(34, 34, 34, 1);
 	}
 	/*曲线*/
-
+	
 	.curve {
 		position: relative;
 	}
-	.curve>.cureve-text> span {
+	
+	.curve>.cureve-text>span {
 		position: absolute;
 		color: #222222;
 		font-size: 0.26rem;
 	}
+	
 	.curve>div {
-        position: absolute;
-	    left: 50%;
-	    top: 0.9rem;
-	    margin-left: -7%;
+		position: absolute;
+		left: 50%;
+		top: 0.9rem;
+		margin-left: -7%;
 	}
 	/*空调主体*/
-
+	
 	.air-wrap {
 		height: 6.6rem;
 		padding: 0 0.68rem;
 	}
-
+	
 	.air-content {
 		width: 100%;
 	}
-
+	
 	.temperature {}
-
+	
 	.temper-inputcoun {
 		height: 3.4rem;
 		background: url('../../../static/images/Lovecar/line5@2x_21.png') no-repeat center;
 		background-size: contain;
 	}
 	/*温度计数器*/
-
+	
 	.counter {
 		display: flex;
 		flex-direction: column;
@@ -470,46 +477,46 @@
 		background: #fff;
 	}
 	/*风扇部分*/
-
+	
 	.wind-blows {
 		margin-left: 1rem;
 		align-self: flex-end;
 	}
-
+	
 	.wind-blows>img {
 		width: 2.66rem;
 		height: 1.89rem;
 	}
 	/*温度部分*/
-
+	
 	.num {
 		align-self: flex-start;
 	}
 	/*温度激活字体*/
-
+	
 	.fontActive {
 		font-size: 0.68rem;
 		color: #222222;
 	}
 	/*温度未激活字体*/
-
+	
 	.loseActives {
 		font-size: 0.68rem;
 		color: #999999;
 	}
 	/*风量计数器*/
-
+	
 	.air-change {
 		width: 3.7rem;
 		/*background: url('../../../static/images/Lovecar/line4@2x.png') no-repeat center;*/
 		background-size: contain;
 	}
-
+	
 	.air-change>img {
 		width: 0.8rem;
 		height: 1px;
 	}
-
+	
 	.wind-count {
 		display: flex;
 		justify-content: center;
@@ -519,7 +526,7 @@
 		border: 1px solid #999999;
 		border-radius: 0.3rem;
 	}
-
+	
 	.air-change .wind-input {
 		width: 0.9rem;
 		height: 0.6rem;
@@ -527,7 +534,7 @@
 		border: none;
 		text-align: center;
 	}
-
+	
 	.addWind {
 		display: block;
 		width: 0.6rem;
@@ -536,7 +543,7 @@
 		text-align: center;
 		border-right: 1px solid #999999;
 	}
-
+	
 	.reduceWind {
 		display: block;
 		width: 0.6rem;
@@ -546,7 +553,7 @@
 		border-left: 1px solid #999999;
 	}
 	/*分割线*/
-
+	
 	.sing-line {
 		width: 6.18rem;
 		height: 1px;
@@ -554,46 +561,46 @@
 		background: rgba(153, 153, 153, .3)
 	}
 	/*空调底部*/
-
+	
 	.air-footer {
 		width: 71%;
 		margin: 0.36rem auto 0 auto;
 	}
-
+	
 	.tabar>img {
 		width: 0.44rem;
 		height: 0.44rem;
 		margin-bottom: 0.22rem;
 	}
-
+	
 	.tabar>span {
 		font-size: 0.22rem;
 	}
 	/*底部激活字体*/
-
+	
 	.active {
 		color: #49BBFF;
 	}
 	/*底部未激活字体*/
-
+	
 	.actives {
 		color: #999999;
 	}
 	/*pin码提示框*/
-
+	
 	.pin-remain {
 		width: 6.3rem;
 		height: 3.3rem;
 		padding: 0.2rem 0.4rem;
 	}
-
+	
 	.pin-code {
 		height: 2rem;
 		width: 100%;
 	}
-
+	
 	.pin-code>div {}
-
+	
 	.pin-code>div>input {
 		display: block;
 		width: 5.6rem;
@@ -607,7 +614,7 @@
 		background-size: 100%;
 	}
 	/*自定义软键盘*/
-
+	
 	ul {
 		display: flex;
 		flex-wrap: wrap;
@@ -615,11 +622,11 @@
 		align-items: center;
 		height: 100%;
 	}
-
+	
 	ul>li {
 		width: 33.3%;
 	}
-
+	
 	.typer {
 		position: fixed;
 		bottom: 0;
@@ -629,7 +636,7 @@
 		padding-top: .1rem;
 		z-index: 3000;
 	}
-
+	
 	.typer li {
 		float: left;
 		height: .7rem;
@@ -643,49 +650,55 @@
 		-moz-border-radius: .1rem;
 		border-radius: .1rem;
 	}
-
+	
 	.typer li.typer-pro {
 		width: 31%;
 		padding: 0 .15rem;
 	}
-
+	
 	.typer li.typer-pro.is-closeType {
 		width: 1.2rem;
 		float: right;
 	}
-
+	
 	.typer li.typer-num {
 		width: 31%;
 		/*padding: 0.8rem .1rem;*/
 		background-image: -webkit-linear-gradient(125deg, #147B96, #E6D205 25%, #147B96 50%, #E6D205 75%, #147B96);
-        -webkit-text-fill-color: transparent;
-        -webkit-background-clip: text;
-        -webkit-background-size: 200% 100%;
-        -webkit-animation: masked-animation 4s infinite linear;
+		-webkit-text-fill-color: transparent;
+		-webkit-background-clip: text;
+		-webkit-background-size: 200% 100%;
+		-webkit-animation: masked-animation 4s infinite linear;
 	}
-
+	
 	.typer li.typer-num.is-A {
 		margin-left: .31rem;
 	}
-
+	
 	.typer li.typer-num.is-OK {
 		width: .8rem;
 		margin-left: .1rem;
 	}
+	
 	@-webkit-keyframes masked-animation {
-         0%{ background-position: 0 0;}
-         100% { background-position: -100% 0;}
-    }
-    /*自定遮罩层*/
-   .bgMask {
-	    position: absolute;
-	    left: 0;
-	    top: 0;
-	    right: 0;
-	    bottom: 0;
-	    width: 100%;
-	    height: 100%;
-	    opacity: 0.5;
-	    background: #000;
-   }
+		0% {
+			background-position: 0 0;
+		}
+		100% {
+			background-position: -100% 0;
+		}
+	}
+	/*自定遮罩层*/
+	
+	.bgMask {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0.5;
+		background: #000;
+	}
 </style>
