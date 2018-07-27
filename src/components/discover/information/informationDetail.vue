@@ -122,7 +122,7 @@
 </template>
 
 <script>
-  import DiscCommentBox from '../component/discCommentBox.vue';
+  import DiscCommentBox from '../component/DiscCommentBox.vue';
   import { MessageBox } from 'mint-ui';
   import { Toast } from 'mint-ui';
   import shareBox from '../component/shareBox.vue';
