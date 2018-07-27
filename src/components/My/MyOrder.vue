@@ -21,7 +21,7 @@
                             <span class="times">2018 09-21 18:34</span>
                             <span></span>
                         </p>
-                        <div class="flex row con">
+                        <router-link to="/orderdetails" tag="div" class="flex row con">
                             <div class="flex column bus_left">
                                 <img style="height:1.2rem;width:2.46rem" src="../../../static/images/test/my/car_ruifeng_s5.png" alt="">
                                 <span class="busname">瑞风 S5</span>
@@ -32,7 +32,7 @@
                                 <span class="bus_right">订单编号：08509859043589</span>
                                 <span class="bus_right">基本型 珍珠白</span>
                             </div>
-                        </div>
+                        </router-link>
                         <div class="flex row between bt">
                             <span></span>
                             <span class="cancel" @click="confirmRevise()">取消订单</span>

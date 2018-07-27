@@ -42,6 +42,7 @@ import MyOrder from '../components/My/MyOrder.vue' //我的订单
 import MyWl from '../components/My/MyWl.vue' //我的物流
 import Compontent from '../components/My/Compontent.vue' //评价
 import Recommended from '../components/My/Recommended' //推荐码
+import OrderDetails from '..//components/My/OrderDetails.vue' //订单详情
 // 消息
 import News from '../components/news/news.vue' //消息
 import StyNews from '../components/news/StyNews.vue' //系统消息
@@ -323,6 +324,10 @@ export default new Router({
                 path: "/Recommended",
                 name: '推荐码',
                 component: Recommended
+            }, {
+                path: "/orderdetails",
+                name: '订单详情',
+                component: OrderDetails
             },
             // 消息
             {
