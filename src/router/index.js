@@ -43,7 +43,7 @@ import MyWl from '../components/My/MyWl.vue' //我的物流
 import Compontent from '../components/My/Compontent.vue' //评价
 import Recommended from '../components/My/Recommended' //推荐码
 // 消息
-import News from '../components/news/news.vue' //消息
+import News from '../components/news/News.vue' //消息
 import StyNews from '../components/news/StyNews.vue' //系统消息
 import ActiveNew from '../components/news/ActiveNew.vue' //活动
 import Discuss from '../components/news/Discuss.vue' //评论
