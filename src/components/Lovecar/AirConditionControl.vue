@@ -21,8 +21,8 @@
 		<div class="curve">
 			<div class="cureve-text">
 				<span style="left: 3.1rem;top: 2.6rem;">15</span>
-				<span style="left: 2.6rem;top: 0.9rem;">24</span>
-				<span style="left: 1.6rem;top: -0.1rem;">28</span>
+				<span style="left: 2.6rem;top: 0.9rem;">21</span>
+				<span style="left: 1.6rem;top: -0.1rem;">26</span>
 				<span style="left: 0rem;top: -0.3rem;">32</span>
 			</div>
 			<div class="curveActive" v-show="curveState">
@@ -146,7 +146,7 @@
 				max: 17,
 				//温度调节最小值
 				min: 0,
-				//温度展示值
+				//温度展示值,通过空调默认点控制
 				temperNum: [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
 				//风量展示
 				windNum: [1, 2, 3, 4],
@@ -159,7 +159,7 @@
 				pinNumber: '',
 				//自定义软键盘状态 0 消失 2 键盘开启
 				showTyper: 0,
-				//软键盘内容-12位随机数组
+				//软键盘内容12位随机数组
 				keyNums: [],
 				//曲线状态
 				curveState: false,
@@ -186,6 +186,7 @@
 			add() {
 				if(this.activeShowImg && this.airSpace < this.max) {
 					this.airSpace++;
+					//计数器控制曲线
 					new Createarc({
 						el: 'rightColorful', //canvas id
 						vuethis: this, //使用位置的this指向
@@ -196,7 +197,7 @@
 						iscontrol: true, //控制是否能滑动，可以滑动
 						color: {
 							start: '#e22e10', //圆弧下边颜色
-							center: '#f39310',
+							center: '#f39310', //圆弧中间颜色
 							end: '#04e8db', //圆弧上边颜色
 							num: 3
 						}
@@ -210,6 +211,7 @@
 			reduce() {
 				if(this.activeShowImg && this.airSpace > this.min) {
 					this.airSpace--;
+					//计数器控制曲线
 					new Createarc({
 						el: 'rightColorful', //canvas id
 						vuethis: this, //使用位置的this指向
@@ -220,7 +222,7 @@
 						iscontrol: true, //控制是否能滑动，可以滑动
 						color: {
 							start: '#e22e10', //圆弧下边颜色
-							center: '#f39310',
+							center: '#f39310',//圆弧中间颜色
 							end: '#04e8db', //圆弧上边颜色
 							num: 3
 						}
@@ -276,7 +278,7 @@
 					this.pinNumber = this.pinNumber.slice(0, -1);
 					return;
 				}
-				if(this.pinNumber.length < 6) { //判断位数，还未超出5位则可继续输入
+				if(this.pinNumber.length < 6) { //判断位数，还未超出6位则可继续输入
 					this.pinNumber = this.pinNumber + item;
 				} else {
 
@@ -351,14 +353,16 @@
 				if(this.pinNumber.length == 6) {
 					setTimeout(() => {
 						this.value = !this.value
+						//pin码正确激活弧线
 						this.curveState = !this.curveState
+						//pin码正确激活空调图
 						this.activeShowImg = !this.activeShowImg,
-							//消失遮罩
-							this.popupVisible = !this.popupVisible
+						//消失遮罩
+						this.popupVisible = !this.popupVisible
 						//消失软键盘
 						this.showTyper = 0,
-							//清空pin码
-							this.pinNumber = ''
+						//清空pin码
+						this.pinNumber = ''
 					}, 1000)
 
 				}

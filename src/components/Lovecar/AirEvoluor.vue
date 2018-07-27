@@ -164,6 +164,7 @@
 						this.evoluorSpace = this.windNum.length - 1
 					} else {
 						this.evoluorSpace++
+							//计数器控制曲线
 							new Createarc({
 								el: 'rightColorful', //canvas id
 								vuethis: this, //使用位置的this指向
@@ -192,6 +193,7 @@
 						this.evoluorSpace = this.winMin
 					} else {
 						this.evoluorSpace--
+							//计数器控制曲线
 							new Createarc({
 								el: 'rightColorful', //canvas id
 								vuethis: this, //使用位置的this指向
@@ -244,7 +246,7 @@
 					this.pinNumber = this.pinNumber.slice(0, -1);
 					return;
 				}
-				if(this.pinNumber.length < 6) { //判断位数，还未超出5位则可继续输入
+				if(this.pinNumber.length < 6) { //判断位数，还未超出6位则可继续输入
 					this.pinNumber = this.pinNumber + item;
 				} else {
 
@@ -318,14 +320,16 @@
 				if(this.pinNumber.length == 6) {
 					setTimeout(() => {
 						this.value = !this.value
+						//pin码正确激活弧线
 						this.curveState = !this.curveState
+						//pin码正确激活进化器图
 						this.activeShowImg = !this.activeShowImg,
-							//消失遮罩
-							this.popupVisible = !this.popupVisible
+						//消失遮罩
+						this.popupVisible = !this.popupVisible
 						//消失软键盘
 						this.showTyper = 0,
-							//清空pin码
-							this.pinNumber = ''
+						//清空pin码
+						this.pinNumber = ''
 					}, 1000)
 
 				}

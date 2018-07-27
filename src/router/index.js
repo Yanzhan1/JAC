@@ -217,27 +217,27 @@ export default new Router({
                 component: IntelligentParkingUninfo
             },
             {
-                path: "/airConditionControl",
+                path: "/lovecar/airConditionControl",
                 naem: '空调控制',
                 component: AirConditionControl
             },
             {
-                path: "/adjustSeatTemper",
+                path: "/lovecar/adjustSeatTemper",
                 naem: '座椅调温',
                 component: AdjustSeatTemper
             },
             {
-                path: "/windowControl",
+                path: "/lovecar/lovecar/windowControl",
                 naem: '车窗控制',
                 component: WindowControl
             },
             {
-                path: "/skylightControl",
+                path: "/lovecar/skylightControl",
                 naem: '天窗控制',
                 component: SkylightControl
             },
             {
-                path: "/airEvoluor",
+                path: "/lovecar/airEvoluor",
                 naem: '空气净化器',
                 component: AirEvoluor
             },

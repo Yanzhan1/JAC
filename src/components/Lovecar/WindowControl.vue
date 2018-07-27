@@ -7,10 +7,10 @@
 		</header>
 		<div style="height:0.88rem"></div>
 		<div class="window-header">
-			<div class="window-btn">
+			<!--<div class="window-btn">
 				<mt-switch v-model="value" @change="turn"></mt-switch>
 				<span>OFF/NO</span>
-			</div>
+			</div>-->
 			<div class="window-sign flex-column">
 				<span class="window-ch">车窗</span>
 				<span class="window-en">CONTROL</span>
@@ -38,7 +38,7 @@
 		<div class="window-wrap flex-column-align">
 			<div class="window-content flex-center-between">
 				<div class="temperature">
-					<span :class="activeShowImg?'fontActive':'loseActives'" style="font-size: 0.68rem;color: #222222;">{{windNum[winIndex]}}</span>
+					<span :class="activeShowImg?'fontActive':'loseActives'" style="font-size: 0.68rem;color: #222222;">{{windNum[windowSpace]}}</span>
 				</div>
 				<div class="wind-blows">
 					<img v-if="activeShowImg" :src="'./static/images/Lovecar/window@2x.png'" alt="" />
@@ -54,7 +54,7 @@
 					<img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
 					<div class="wind-count">
 						<span @click=" windReduce" class="addWind"><</span>
-						<input class="wind-input" type="text" v-model="windNum[winIndex]" readonly/>
+						<input class="wind-input" type="text" v-model="windNum[windowSpace]" readonly/>
 						<span @click="windAdd" class="reduceWind">></span>
 					</div>
 					<img :src="'./static/images/Lovecar/right@2x.png'" alt="" />
@@ -63,7 +63,7 @@
 			</div>
 			<!--车窗高度计数器End-->
 		</div>
-		<!--车窗信息提示-->
+		<!--车窗信息提示Start-->
 		<mt-popup v-model="popupInfo">
 			<div class="wind-wrap">
 				<div class="window-title">
@@ -82,14 +82,39 @@
 					<button @click="reduceWindow" style="width: 48%;">取消</button>
 				</div>
 			</div>
-
 		</mt-popup>
+		<!--车窗信息提示End-->
+
+		<!--pin码弹出框Start-->
+		<div class="bgMask" v-if="popupVisible" @click="removeMask"></div>
+		<mt-popup v-model="popupVisible" :modal="false">
+			<div class="pin-remain">
+				<div class="flex-center-between">
+					<img @click="removeMask" :src="'./static/images/Wit/delete@3x.png'" alt="" style="width:.28rem">
+					<div style="font-size:.36rem;color:#222">请输入PIN码</div>
+					<span></span>
+				</div>
+				<div class="pin-code flex-center">
+					<div id="pinCon" @click="onTypewriting">
+						<input class="pin-input" maxlength="6" type="text" v-model="pinNumber" readonly/>
+					</div>
+				</div>
+			</div>
+		</mt-popup>
+		<!--pin码弹出框结束-->
+		<!--自定义软键盘Start-->
+		<div class="typer" v-show="showTyper!=0">
+			<ul v-show="showTyper==2">
+				<li class="typer-num" v-for="item in keyNums" :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}" @click="input(item)">{{item}}</li>
+			</ul>
+		</div>
+		<!--自定义软键盘End-->
+
 	</div>
 </template>
 
 <script>
 	import { Createarc } from '../../../static/js/drawarc.js'
-	import { MessageBox } from 'mint-ui';
 	export default {
 		name: 'windowControl',
 		data() {
@@ -102,32 +127,50 @@
 				//车窗高度展示
 				windNum: ['0%', '50%', '100%'],
 				winMin: 0,
-				//车窗控制变量
-				winIndex: 0,
-				//曲线状态
+				//曲线状态 true彩色 false灰色
 				curveState: false,
-				//净化器默认点
+				//曲线滑动默认点
 				windowSpace: 0,
-				//车窗信息提示框
-				popupInfo: false,
-				//提醒状态
-				remindState: true
+				//页面进入提示框状态 true弹出 false消失
+				popupInfo: true,
+				//页面进入提示框'不在提醒'状态 true不在提醒未激活  false激活
+				remindState: false,
+				//pin码弹出框控制变量
+				popupVisible: false,
+				//pin码值
+				pinNumber: '',
+				//自定义软键盘状态 0 消失 2 键盘开启
+				showTyper: 0,
+				//软键盘内容12位随机数组
+				keyNums: [],
 			}
 		},
 		methods: {
-			//车窗控制开关方法
-			turn() {
-				this.activeShowImg = !this.activeShowImg
-			},
 			//车窗高度增加
 			windAdd() {
 				if(this.activeShowImg) {
-					if(this.winIndex >= this.windNum.length - 1) {
-						this.winIndex = this.windNum.length - 1
-					} else {
-						this.winIndex++
+					this.popupVisible = false
+					if(this.windowSpace >= this.windNum.length - 1) {
+						this.windowSpace = this.windNum.length - 1
+					} else {						
+						this.windowSpace++
+							//计数器控制曲线
+							new Createarc({
+								el: 'rightColorful', //canvas id
+								vuethis: this, //使用位置的this指向
+								num: 'windowSpace', //data数值
+								type: 'right', //圆弧方向  left right
+								tempdel: 3, //总差值
+								ratio: 0.4, //宽度比例
+								iscontrol: true, //控制是否能滑动，可以滑动
+								color: {
+									start: '#49bbff', //圆弧下边颜色
+									end: '#04e8db', //圆弧上边颜色
+								}
+							})
 					}
 				} else {
+					this.popupVisible = true
 					return
 				}
 
@@ -135,19 +178,36 @@
 			//车窗高度减少
 			windReduce() {
 				if(this.activeShowImg) {
-					if(this.winIndex <= this.winMin) {
-						this.winIndex = 0
+					this.popupVisible = false
+					if(this.windowSpace <= this.winMin) {
+						this.windowSpace = 0
 					} else {
-						this.winIndex--
+						this.windowSpace--
+							//计数器控制曲线
+							new Createarc({
+								el: 'rightColorful', //canvas id
+								vuethis: this, //使用位置的this指向
+								num: 'windowSpace', //data数值
+								type: 'right', //圆弧方向  left right
+								tempdel: 3, //总差值
+								ratio: 0.4, //宽度比例
+								iscontrol: true, //控制是否能滑动，可以滑动
+								color: {
+									start: '#49bbff', //圆弧下边颜色
+									end: '#04e8db', //圆弧上边颜色
+									num: 2
+								}
+							})
 					}
 				} else {
+					this.popupVisible = true
 					return
 				}
 
 			},
 			//产生曲线
 			produCurve() {
-				//净化器激活弧线
+				//车窗激活弧线
 				new Createarc({
 					el: 'rightColorful', //canvas id
 					vuethis: this, //使用位置的this指向
@@ -157,13 +217,12 @@
 					ratio: 0.4, //宽度比例
 					iscontrol: true, //控制是否能滑动，可以滑动
 					color: {
-						start: '#e22e10', //圆弧下边颜色
-						center: '#f39310',
+						start: '#49bbff', //圆弧下边颜色
 						end: '#04e8db', //圆弧上边颜色
-						num: 3
+						num: 2
 					}
 				})
-				//进化器未激活弧线
+				//车窗未激活弧线
 				new Createarc({
 					el: 'rightGray', //canvas id
 					vuethis: this, //使用位置的this指向
@@ -174,26 +233,94 @@
 					iscontrol: false, //控制是否能滑动，禁止滑动
 					color: {
 						start: '#EEEEEE', //圆弧下边颜色
-						center: '#EEEEEE',
 						end: '#EEEEEE', //圆弧上边颜色
-						num: 3
+						num: 2
 					}
 				})
 			},
-			//提醒状态
-			remind () {
-				this.remindState = false
+			//页面进入提示框中'不在提醒'状态
+			remind() {
+				this.remindState = !this.remindState
 			},
-			//修改车窗高度弹出框-确定
-			winConfirm () {
+			//修改车窗高度弹出框-确定，调节接口需要发出请求，获取信息提示框状态
+			winConfirm() {
 				this.popupInfo = false
 			},
-			reduceWindow () {
-				
-			}
+			//修改车窗高度弹出框-取消
+			reduceWindow() {
+				this.popupInfo = false
+			},
+			//点击遮罩或者'x'移除popup
+			removeMask() {
+				this.popupVisible = !this.popupVisible
+				this.showTyper = 0;
+			},
+			//产生随机数
+			randomnum(min, max) {
+				var num = Math.floor(Math.random() * (max - min) + min);
+				return num;
+			},
+			//键盘点击事件，传入键盘本身的值
+			input(item) {
+				if(item == '关闭') { //判断是否点击了关闭按钮
+					this.showTyper = 0;
+					return;
+				}
+				if(item == 'Del') { //判断是否点击了删除按钮
+					this.pinNumber = this.pinNumber.slice(0, -1);
+					return;
+				}
+				if(this.pinNumber.length < 6) { //判断位数，还未超出5位则可继续输入
+					this.pinNumber = this.pinNumber + item;
+				} else {
+
+				}
+			},
+			//点击pin码验证框时，弹出自定义键盘
+			onTypewriting() {
+				this.showTyper = 2;
+				this.produceArray()
+			},
+			//产生软键盘12位随机数组
+			produceArray() {
+				var that = this
+				var arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+				var arr2 = []
+				for(var i = 0; i < 12; i++) {
+					var randomnumber = that.randomnum(0, arr.length);
+					if(i == 9) {
+						arr2.push('关闭')
+					} else if(i == 11) {
+						arr2.push('Del')
+					} else {
+						arr2.push(arr[randomnumber]);
+						arr.splice(randomnumber, 1);
+					}
+				}
+				that.keyNums = arr2
+			},
 		},
 		mounted() {
 			this.produCurve()
+		},
+		watch: {
+			pinNumber(newVal, oldVal) {
+				//console.log(this.pinNumber.length)
+				if(this.pinNumber.length == 6) {
+						setTimeout(() => {
+							//输入正确pin码激活曲线
+							this.curveState = !this.curveState
+							//输入正确pin码激活车窗图
+							this.activeShowImg = !this.activeShowImg,
+							//消失遮罩
+							this.popupVisible = !this.popupVisible
+							//消失软键盘
+							this.showTyper = 0,
+							//清空pin码
+							this.pinNumber = ''
+						}, 1000)
+				}
+			}
 		}
 	}
 </script>
@@ -237,7 +364,7 @@
 	/*车窗头部*/
 	
 	.window-header {
-		padding: 0.4rem 0.64rem 0 0.68rem
+		padding: 1.6rem 0.64rem 0 0.68rem
 	}
 	/*车窗开关按钮*/
 	
@@ -370,7 +497,7 @@
 		font-size: 0.68rem;
 		color: #999999;
 	}
-	/*车窗提示*/
+	/*页面进入提示*/
 	
 	.wind-wrap {
 		width: 6.3rem;
@@ -392,8 +519,8 @@
 	}
 	
 	.info-time {
-	    display: flex;
-    	align-items: center;
+		display: flex;
+		align-items: center;
 		color: #888888;
 		height: 0.24rem;
 		line-height: 0.24rem;
@@ -402,9 +529,10 @@
 	
 	.info-time>img {
 		width: 0.4rem;
-    	height: 0.4rem;
-    	margin-right: 0.2rem;
+		height: 0.4rem;
+		margin-right: 0.2rem;
 	}
+	
 	.info-time>span {
 		font-size: 0.24rem;
 	}
@@ -425,7 +553,123 @@
 		width: 50%;
 		padding: 0.1rem 0;
 	}
+	
 	.info-btn>button:not(:last-child) {
 		border-right: 1px solid #f1f1f1;
+	}
+	/*pin码提示框*/
+	
+	.pin-remain {
+		width: 6.3rem;
+		height: 3.3rem;
+		padding: 0.2rem 0.4rem;
+	}
+	
+	.pin-code {
+		height: 2rem;
+		width: 100%;
+	}
+	
+	.pin-code>div {}
+	
+	.pin-code>div>input {
+		display: block;
+		width: 5.6rem;
+		height: 0.94rem;
+		text-indent: 0.4rem;
+		letter-spacing: 0.77rem;
+		/*text-align: center;*/
+		border: none;
+		outline: none;
+		background: url(../../../static/images/Lovecar/border@2x.png) no-repeat center;
+		background-size: 100%;
+	}
+	/*自定义软键盘*/
+	
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+	}
+	
+	ul>li {
+		width: 33.3%;
+	}
+	
+	.typer {
+		position: fixed;
+		bottom: 0;
+		background-color: #fff;
+		height: 4.5rem;
+		width: 100%;
+		padding-top: .1rem;
+		z-index: 3000;
+	}
+	
+	.typer li {
+		float: left;
+		height: .7rem;
+		margin: .1rem .05rem 0;
+		color: #333;
+		text-align: center;
+		font-size: .32rem;
+		line-height: .7rem;
+		background-color: #ccc;
+		-webkit-border-radius: .1rem;
+		-moz-border-radius: .1rem;
+		border-radius: .1rem;
+	}
+	
+	.typer li.typer-pro {
+		width: 31%;
+		padding: 0 .15rem;
+	}
+	
+	.typer li.typer-pro.is-closeType {
+		width: 1.2rem;
+		float: right;
+	}
+	
+	.typer li.typer-num {
+		width: 31%;
+		/*padding: 0.8rem .1rem;*/
+		background-image: -webkit-linear-gradient(125deg, #147B96, #E6D205 25%, #147B96 50%, #E6D205 75%, #147B96);
+		-webkit-text-fill-color: transparent;
+		-webkit-background-clip: text;
+		-webkit-background-size: 200% 100%;
+		-webkit-animation: masked-animation 4s infinite linear;
+	}
+	
+	.typer li.typer-num.is-A {
+		margin-left: .31rem;
+	}
+	
+	.typer li.typer-num.is-OK {
+		width: .8rem;
+		margin-left: .1rem;
+	}
+	
+	@-webkit-keyframes masked-animation {
+		0% {
+			background-position: 0 0;
+		}
+		100% {
+			background-position: -100% 0;
+		}
+	}
+	/*自定遮罩层*/
+	
+	.bgMask {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0.5;
+		background: #000;
 	}
 </style>
