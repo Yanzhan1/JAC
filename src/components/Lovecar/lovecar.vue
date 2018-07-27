@@ -4,7 +4,6 @@
       <img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
       <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;瑞丰 R3</span>
       <span class="txt_r" @click="islogin()">已登录</span>
-      <canvas id="can"></canvas>
     </div>
     <div class="navs navs_h">
       <div class="navs_t">
@@ -184,7 +183,6 @@
 </template>
 
 <script>
-import { Createarc } from "../../../static/js/drawarc.js";
 export default {
   name: "lovecar",
   data() {
@@ -277,21 +275,7 @@ export default {
     }
   },
   mounted() {
-    new Createarc({
-      el: "can", //canvas id
-      vuethis: this, //使用位置的this指向
-      num: "num", //data数值
-      type: "right", //圆弧方向  left right
-      tempdel: 4, //总差值
-      ratio: 0.3, //宽度比例
-      iscontrol: true, //控制是否能滑动
-      color: {
-        start: "#CD853F", //圆弧下边颜色
-        center: "",
-        end: "#C0FF3E", //圆弧上边颜色
-        num: 3
-      }
-    });
+
   }
 };
 </script>

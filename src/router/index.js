@@ -42,7 +42,11 @@ import MyOrder from '../components/My/MyOrder.vue' //我的订单
 import MyWl from '../components/My/MyWl.vue' //我的物流
 import Compontent from '../components/My/Compontent.vue' //评价
 import Recommended from '../components/My/Recommended' //推荐码
-
+// 消息
+import News from '../components/news/news.vue' //消息
+import StyNews from '../components/news/StyNews.vue' //系统消息
+import ActiveNew from '../components/news/ActiveNew.vue' //活动
+import Discuss from '../components/news/Discuss.vue' //评论
 //发现部分
 import Discover from '@/components/discover/discover'
 import Recommend from '@/components/discover/recommend/recommend' //推荐首页
@@ -319,6 +323,25 @@ export default new Router({
                 path: "/Recommended",
                 name: '推荐码',
                 component: Recommended
+            },
+            // 消息
+            {
+                path: "/news",
+                name: '消息',
+                component: News
+            }, {
+                path: "/stynew",
+                name: '系统消息',
+                component: StyNews
+            },
+            {
+                path: "/activenew",
+                name: '活动',
+                component: ActiveNew
+            }, {
+                path: "/discuss",
+                name: '评论',
+                component: Discuss
             },
 
             //智享部分
