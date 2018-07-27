@@ -73,41 +73,41 @@
       </div>
     </div>
     <ul style="padding:0 .2rem">
-      <li class="navs air">
+      <router-link to="/airConditionControl" tag="li" class="navs air">
         <div class="navs">
           <img class="picc" src="../../../static/images/Wit/ari.png" alt="">
           <span class="pic_txt">空调温度</span>
         </div>
         <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
-      </li>
-      <li class="navs air">
+      </router-link>
+      <router-link to="/adjustSeatTemper"  tag="li" class="navs air">
         <div class="navs">
           <img class="picc" src="../../../static/images/Wit/zuoyi.png" alt="">
           <span class="pic_txt">座椅调节</span>
         </div>
         <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
-      </li>
-      <li class="navs air">
+      </router-link>
+      <router-link to="/windowControl" tag="li"  class="navs air">
         <div class="navs">
           <img class="picc" src="../../../static/images/Wit/chechuang.png" alt="">
           <span class="pic_txt">车窗控制</span>
         </div>
         <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
-      </li>
-      <li class="navs air">
+      </router-link>
+      <router-link to="/skylightControl" tag="li" class="navs air">
         <div class="navs">
           <img class="picc" src="../../../static/images/Wit/tianchuang.png" alt="">
           <span class="pic_txt">天窗控制</span>
         </div>
         <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
-      </li>
-      <li class="navs air">
+      </router-link>
+      <router-link to="/airEvoluor" tag="li"  class="navs air">
         <div class="navs">
           <img class="picc" src="../../../static/images/Wit/icon5@3x.png" alt="">
           <span class="pic_txt">空气净化器</span>
         </div>
         <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
-      </li>
+      </router-link>
     </ul>
     <!-- 输入框 -->
     <div id="bg" class="bg" />
