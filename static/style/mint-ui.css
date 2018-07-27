@@ -68,3 +68,7 @@
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
+
+.picker-slot.picker-slot-right {
+    text-align: center;
+}
