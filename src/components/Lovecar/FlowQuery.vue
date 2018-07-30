@@ -18,7 +18,7 @@
 					<span>APN1</span>
 				</div>
 				<div class="origin-pin">
-					<div class="flex-center-between revisePinCommon">
+					<div class="flex-align-center revisePinCommon">
 						<span style="font-size: 0.26rem;color: #444444;">
 					本月总流量:
 				</span>
@@ -26,7 +26,7 @@
 					</div>
 				</div>
 				<div class="origin-pin">
-					<div class="flex-center-between revisePinCommon">
+					<div class="flex-align-center revisePinCommon">
 						<span style="font-size: 0.26rem;color: #444444;">
 					已使用流量:
 				</span>
@@ -67,6 +67,11 @@
 		justify-content: center;
 		align-items: center;
 	}
+	
+	.flex-align-center{/*垂直居中*/
+	  display: flex;
+	  align-items: center;
+	}
 	/*公共样式*/
 	
 	.revisePinCommon {
@@ -77,8 +82,8 @@
 	input {
 		outline: none;
 		border: none;
-		padding-right: 1.7rem;
 		background: none;
+		margin-left: 0.46rem;
 	}
 	/*头部*/
 	
@@ -86,7 +91,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
-		height: 1.9rem;
+		height: 1rem;
 		padding: 0 0.3rem;
 	}
 	

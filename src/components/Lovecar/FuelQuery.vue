@@ -20,7 +20,7 @@
 					<span>统计总量</span>
 				</div>
 				<div class="origin-pin">
-					<div class="flex-center-between revisePinCommon">
+					<div class="flex-align-center revisePinCommon">
 						<span style="font-size: 0.26rem;color: #444444;">
 							本月总里程:
 						</span>
@@ -28,7 +28,7 @@
 					</div>
 				</div>
 				<div class="origin-pin">
-					<div class="flex-center-between revisePinCommon">
+					<div class="flex-align-center revisePinCommon">
 						<span style="font-size: 0.26rem;color: #444444;">
 							已使用油耗:
 						</span>
@@ -39,7 +39,7 @@
 					<span>平均油耗</span>
 				</div>
 				<div class="origin-pin">
-					<div class="flex-center-between revisePinCommon">
+					<div class="flex-align-center revisePinCommon">
 						<span style="font-size: 0.26rem;color: #444444;">
 							周平均油耗:
 						</span>
@@ -47,7 +47,7 @@
 					</div>
 				</div>
 				<div class="origin-pin">
-					<div class="flex-center-between revisePinCommon">
+					<div class="flex-align-center revisePinCommon">
 						<span style="font-size: 0.26rem;color: #444444;">
 							日平均油耗:
 						</span>
@@ -94,6 +94,10 @@
 		justify-content: center;
 		align-items: center;
 	}
+	.flex-align-center{/*垂直居中*/
+	  display: flex;
+	  align-items: center;
+	}
 	/*公共样式*/
 	
 	.revisePinCommon {
@@ -104,8 +108,8 @@
 	input {
 		outline: none;
 		border: none;
-		padding-right: 1.7rem;
 		background: none;
+		margin-left: 0.46rem;
 	}
 	/*头部*/
 	

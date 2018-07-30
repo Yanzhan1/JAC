@@ -7,7 +7,7 @@
 		</header>
 		<div style="height:0.88rem"></div>
 		<div class="origin-pin">
-			<div class="flex-center-between revisePinCommon">
+			<div class="flex-align-center revisePinCommon">
 				<span style="font-size: 0.26rem;color: #444444;">
 					wifi名称:
 				</span>
@@ -15,11 +15,11 @@
 			</div>
 		</div>
 		<div class="origin-pin">
-			<div class="flex-center-between revisePinCommon">
+			<div class="flex-align-center revisePinCommon">
 				<span style="font-size: 0.26rem;color: #444444;">
 					密码:
 				</span>
-				<input type="text" v-model="wifiData.pwd" />
+				<input style="margin-left: 0.9rem;" type="text" v-model="wifiData.pwd" />
 			</div>
 		</div>
 		<button class="bottom-btn" @click="confirm">确认</button>
@@ -82,6 +82,10 @@
 		justify-content: center;
 		align-items: center;
 	}
+	.flex-align-center{/*垂直居中*/
+	  display: flex;
+	  align-items: center;
+	}
 	/*公共样式*/
 	
 	.revisePinCommon {
@@ -92,8 +96,8 @@
 	input {
 		outline: none;
 		border: none;
-		padding-right: 1.5rem;
 		background: none;
+		margin-left: 0.4rem;
 	}
 	
 	.origin-pin>div {

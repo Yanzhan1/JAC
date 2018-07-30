@@ -107,10 +107,11 @@
 		padding: 0.2rem 0.3rem 0.5rem;
 		background: #F5F5F5;
 	    border-radius: 0.08rem;
+	    align-items: flex-start;
 	}
 	/*left部分*/
 	.bus-left {
-		height: 2.12rem;
+		height: 2.22rem;
 	}
 	.bus-left>img {
 	    width: 2.78rem;

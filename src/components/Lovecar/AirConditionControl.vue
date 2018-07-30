@@ -20,9 +20,9 @@
 		<!--曲线Start-->
 		<div class="curve">
 			<div class="cureve-text">
-				<span style="left: 3.1rem;top: 2.6rem;">15</span>
-				<span style="left: 2.6rem;top: 0.9rem;">21</span>
-				<span style="left: 1.6rem;top: -0.1rem;">26</span>
+				<span style="left: 3.1rem;top: 2.6rem;">17</span>
+				<span style="left: 2.6rem;top: 0.9rem;">22</span>
+				<span style="left: 1.6rem;top: -0.1rem;">27</span>
 				<span style="left: 0rem;top: -0.3rem;">32</span>
 			</div>
 			<div class="curveActive" v-show="curveState">
@@ -143,11 +143,11 @@
 				//图片激活变量
 				activeShowImg: 0,
 				//温度调节最大值
-				max: 17,
+				max: 15,
 				//温度调节最小值
 				min: 0,
 				//温度展示值,通过空调默认点控制
-				temperNum: [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
+				temperNum: [17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
 				//风量展示
 				windNum: [1, 2, 3, 4],
 				winMin: 0,
@@ -192,7 +192,7 @@
 						vuethis: this, //使用位置的this指向
 						num: 'airSpace', //data数值
 						type: 'right', //圆弧方向  left right
-						tempdel: 18, //总差值
+						tempdel: 16, //总差值
 						ratio: 0.4, //宽度比例
 						iscontrol: true, //控制是否能滑动，可以滑动
 						color: {
@@ -217,7 +217,7 @@
 						vuethis: this, //使用位置的this指向
 						num: 'airSpace', //data数值
 						type: 'right', //圆弧方向  left right
-						tempdel: 18, //总差值
+						tempdel: 16, //总差值
 						ratio: 0.4, //宽度比例
 						iscontrol: true, //控制是否能滑动，可以滑动
 						color: {
@@ -315,7 +315,7 @@
 					vuethis: this, //使用位置的this指向
 					num: 'airSpace', //data数值
 					type: 'right', //圆弧方向  left right
-					tempdel: 18, //总差值
+					tempdel: 16, //总差值
 					ratio: 0.4, //宽度比例
 					iscontrol: true, //控制是否能滑动，可以滑动
 					color: {
@@ -331,7 +331,7 @@
 					vuethis: this, //使用位置的this指向
 					num: 'airSpace', //data数值
 					type: 'right', //圆弧方向  left right
-					tempdel: 18, //总差值
+					tempdel: 16, //总差值
 					ratio: 0.4, //宽度比例
 					iscontrol: false, //控制是否能滑动，禁止滑动
 					color: {
@@ -635,9 +635,8 @@
 		position: fixed;
 		bottom: 0;
 		background-color: #fff;
-		height: 4.5rem;
+		height: 4rem;
 		width: 100%;
-		padding-top: .1rem;
 		z-index: 3000;
 	}
 	

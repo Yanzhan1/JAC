@@ -15,29 +15,31 @@
 
 		</div>
 		<div class="origin-pin">
-			<div class="flex-center-between revisePinCommon">
-				<span style="font-size: 0.26rem;color: #444444;">
+			<div class="flex-align-center revisePinCommon">
+				<span style="font-size: 0.26rem;color: #444444;width: 1.1rem;">
 					原pin码:
 				</span>
-				<input placeholder="请输入原PIN码" type="text" v-model="condition.oldPin" />
+				<input class="pinInput" placeholder="请输入原PIN码" type="text" v-model="condition.oldPin" />
 			</div>
 		</div>
 		<div class="origin-pin">
-			<div class="flex-center-between revisePinCommon">
-				<span style="font-size: 0.26rem;color: #444444;">
+			<div class="flex-align-center revisePinCommon">
+				<span style="font-size: 0.26rem;color: #444444;width: 1.1rem;">
 					新pin码:
 				</span>
-				<input placeholder="请输入原PIN码" type="text" v-model="condition.newPin" />
+				<input class="pinInput" placeholder="请输入原PIN码" type="text" v-model="condition.newPin" />
 			</div>
 		</div>
 		<div class="origin-pin">
 			<div class="flex-center-between revisePinCommon">
-				<span style="font-size: 0.26rem;color: #444444;">
+				<div>
+					<span style="font-size: 0.26rem;color: #444444; width: 1.65rem">
 					短信验证码:
-				</span>
-				<input style="padding-right: 0;width: 2.8rem;" placeholder="请输入验证码" type="text" v-model="condition.verificationCode" />
+					</span>
+					<input class="verification-code" placeholder="请输入验证码" type="text" v-model="condition.verificationCode" />
+				</div>		
 				<button class="btn" v-if="showTime">59秒后重发</button>
-				<button class="btn" v-if="!showTime" @click="submitCode">获取验证码</button>
+				<button class="btn" v-else  @click="submitCode">获取验证码</button>
 			</div>
 		</div>
 		<router-link tag="p" class="forget-pinCode" to="/lovecar/forgetPinCode">忘记PIN码？</router-link>
@@ -107,6 +109,11 @@
 		justify-content: center;
 		align-items: center;
 	}
+	
+	.flex-align-center{/*垂直居中*/
+	  display: flex;
+	  align-items: center;
+	}
 	/*单页面公共样式*/
 	
 	.revisePinCommon {
@@ -114,10 +121,11 @@
 		border-bottom: 1px solid #EFEFEF;
 	}
 	
-	input {
+	.pinInput {
+		width: 2.1rem;
+		margin-left: 0.74rem;
 		outline: none;
 		border: none;
-		padding-right: 1.5rem;
 	}
 	/*message信息提示*/
 	
@@ -140,9 +148,14 @@
 		margin: 0 auto;
 	}
 	/*验证码按钮*/
-	
+	.verification-code {
+		border: none;
+		outline: none;	
+		width: 2rem;
+	    margin-left: 0.4rem;
+	}
 	.origin-pin .btn {
-		padding-left: 0.5rem;
+		padding-left: 0.3rem;
 		border: none;
 		-webkit-appearance: none;
 		color: #444444;

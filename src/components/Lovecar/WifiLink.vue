@@ -11,7 +11,7 @@
 		</mt-cell>
 		<div class="line"></div>
 		<div class="origin-pin">
-			<div class="flex-center-between revisePinCommon">
+			<div class="flex-align-center revisePinCommon">
 				<span style="font-size: 0.26rem;color: #444444;">
 					wifi名称:
 				</span>
@@ -19,11 +19,11 @@
 			</div>
 		</div>
 		<div class="origin-pin">
-			<div class="flex-center-between revisePinCommon">
+			<div class="flex-align-center revisePinCommon">
 				<span style="font-size: 0.26rem;color: #444444;">
 					密码:
 				</span>
-				<input :disabled="disabled" type="text" v-model="pwd" />
+				<input style="margin-left: 1rem;" :disabled="disabled" type="text" v-model="pwd" />
 			</div>
 		</div>
 	</div>
@@ -68,6 +68,10 @@
 		justify-content: center;
 		align-items: center;
 	}
+	.flex-align-center{/*垂直居中*/
+	  display: flex;
+	  align-items: center;
+	}
 	/*公共样式*/
 	.revisePinCommon {
 		height: 1rem;
@@ -77,8 +81,8 @@
 	input {
 		outline: none;
 		border: none;
-		padding-right: 1.5rem;
 	    background: none;
+	    margin-left: 0.6rem;
 	}
 	/*灰色间隔*/
 	.line {

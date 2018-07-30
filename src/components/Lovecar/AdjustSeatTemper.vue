@@ -636,9 +636,8 @@
 		position: fixed;
 		bottom: 0;
 		background-color: #fff;
-		height: 4.5rem;
+		height: 4rem;
 		width: 100%;
-		padding-top: .1rem;
 		z-index: 3000;
 	}
 	
