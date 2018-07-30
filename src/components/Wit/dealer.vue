@@ -66,7 +66,7 @@ export default {
       this.popupVisible = true;
     },
     cancel(){
-         this.popupVisible =false;
+      this.popupVisible =false;
     }
   }
 };

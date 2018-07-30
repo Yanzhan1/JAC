@@ -16,7 +16,7 @@
             <span style="margin-top: 0.16rem;font-size: 0.22rem;color: #dcf5ff;">记录美好的时刻...</span>
           </div>
         </div>
-        <img src="../../../static/images/my/qr_code@2x.png" alt="" style="width: 0.4rem;height: 0.4rem">
+        <img  @click="twoma()" src="../../../static/images/my/qr_code@2x.png" alt="" style="width: 0.4rem;height: 0.4rem">
       </div>
       <div class="mytopbottom flex around">
         <div>
@@ -124,6 +124,9 @@ export default {
     },
     tonews(){
      this.$router.push('/news')
+    },
+    twoma(){
+     this.$router.push('/twoma')
     }
   },
   mounted() {}

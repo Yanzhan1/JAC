@@ -47,6 +47,8 @@ import OrderDetails from '..//components/My/OrderDetails.vue' //订单详情
 import MyBus from '..//components/My/MyBus' //我的车辆
 import PlateBind from '..//components/My/PlateBind' //车牌绑定
 import AddBus from '..//components/My/AddBus' //添加车辆
+import TwoMa from '../components/My/TwoMa.vue' //二维码
+import Test_Result from '../components/Lovecar/Test_Reault.vue' //测试结果
 // 消息
 import News from '../components/news/News.vue' //消息
 import StyNews from '../components/news/StyNews.vue' //系统消息
@@ -352,6 +354,14 @@ export default new Router({
                 path: "/myindex/addBus",
                 name: '添加车辆',
                 component: AddBus
+            }, {
+                path: "/twoma",
+                name: '二维码',
+                component: TwoMa
+            }, {
+                path: "/test_result",
+                name: '测试结果',
+                component: Test_Result
             },
             // 消息
             {
