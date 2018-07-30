@@ -40,6 +40,7 @@
 				<button class="btn" v-if="!showTime" @click="submitCode">获取验证码</button>
 			</div>
 		</div>
+		<router-link tag="p" class="forget-pinCode" to="/lovecar/forgetPinCode">忘记PIN码？</router-link>
 		<button class="bottom-btn" @click="confirmRevise">确认修改</button>
 	</div>
 </template>
@@ -165,5 +166,13 @@
 	/*取消按钮*/
 	.cancelButton {
 	    color: #26a2ff !important;
+	}
+	/*忘记pin码*/
+	.forget-pinCode {
+		margin-top: 0.3rem;
+		margin-right: 0.52rem;
+		color: #49BBFF;
+		font-size: 0.24rem;
+		text-align: right;
 	}
 </style>

@@ -188,8 +188,10 @@
 								ratio: 0.3, //宽度比例
 								iscontrol: true, //控制是否能滑动，可以滑动
 								color: {
-									start: '#CD853F', //圆弧下边颜色
-									end: '#C0FF3E', //圆弧上边颜色
+									start: '#e22e10', //圆弧下边颜色
+									center: '#f39310',
+									end: '#04e8db', //圆弧上边颜色
+									num: 3
 								}
 							})
 					}
@@ -214,8 +216,10 @@
 								ratio: 0.3, //宽度比例
 								iscontrol: true, //控制是否能滑动，可以滑动
 								color: {
-									start: '#CD853F', //圆弧下边颜色
-									end: '#C0FF3E', //圆弧上边颜色
+									start: '#e22e10', //圆弧下边颜色
+									center: '#f39310',
+									end: '#04e8db', //圆弧上边颜色
+									num: 3
 								}
 							})
 					}
@@ -240,8 +244,10 @@
 								ratio: 0.3, //宽度比例
 								iscontrol: true, //控制是否能滑动，可以滑动
 								color: {
-									start: '#CD853F', //圆弧下边颜色
-									end: '#C0FF3E', //圆弧上边颜色
+									start: '#e22e10', //圆弧下边颜色
+									center: '#f39310',
+									end: '#04e8db', //圆弧上边颜色
+									num: 3
 								}
 							})
 					}
@@ -267,8 +273,10 @@
 								ratio: 0.3, //宽度比例
 								iscontrol: true, //控制是否能滑动，可以滑动
 								color: {
-									start: '#CD853F', //圆弧下边颜色
-									end: '#C0FF3E', //圆弧上边颜色
+									start: '#e22e10', //圆弧下边颜色
+									center: '#f39310',
+									end: '#04e8db', //圆弧上边颜色
+									num: 3
 								}
 							})
 					}
@@ -338,8 +346,10 @@
 					ratio: 0.3, //宽度比例
 					iscontrol: true, //控制是否能滑动，可以滑动
 					color: {
-						start: '#CD853F', //圆弧下边颜色
-						end: '#C0FF3E', //圆弧上边颜色
+						start: '#e22e10', //圆弧下边颜色
+						center: '#f39310',
+						end: '#04e8db', //圆弧上边颜色
+						num: 3
 					}
 				})
 				//副驾激活弧线
@@ -352,8 +362,10 @@
 					ratio: 0.3, //宽度比例
 					iscontrol: true, //控制是否能滑动，可以滑动
 					color: {
-						start: '#CD853F', //圆弧下边颜色
-						end: '#C0FF3E', //圆弧上边颜色
+						start: '#e22e10', //圆弧下边颜色
+						center: '#f39310',
+						end: '#04e8db', //圆弧上边颜色
+						num: 3
 					}
 				})
 				//主驾未激活弧线

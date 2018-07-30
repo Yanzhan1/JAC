@@ -38,13 +38,13 @@
       </div>
     </div>
     <div class="mybottom">
-      <div class="mylist">
-        <div class="flex cocenter">
+    	<router-link tag="div" class="mylist" to="/myindex/myBus">
+    		<div class="flex cocenter">
           <img src="../../../static/images/my/mine_car@2x.png" alt="">
           <span>我的车辆</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </div>
+    	</router-link>
       <div class="mylist" @click="myorder()">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_list@2x.png" alt="">
@@ -94,13 +94,14 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
       </div>
-      <div class="mylist">
-        <div class="flex cocenter">
+      <!--<router-link tag="div" class="mylist" to=""></router-link>-->
+      <router-link tag="div" class="mylist" to="/myindex/mySetUp">
+      	<div class="flex cocenter">
           <img src="../../../static/images/my/mine_set@2x.png" alt="">
           <span>设置</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </div>
+      </router-link>
     </div>
   </div>
 </template>

@@ -174,10 +174,8 @@
 								ratio: 0.4, //宽度比例
 								iscontrol: true, //控制是否能滑动，可以滑动
 								color: {
-									start: '#e22e10', //圆弧下边颜色
-									center: '#f39310',
+									start: '#49bbff', //圆弧下边颜色
 									end: '#04e8db', //圆弧上边颜色
-									num: 3
 								}
 							})
 					}
@@ -203,10 +201,8 @@
 								ratio: 0.4, //宽度比例
 								iscontrol: true, //控制是否能滑动，可以滑动
 								color: {
-									start: '#e22e10', //圆弧下边颜色
-									center: '#f39310',
+									start: '#49bbff', //圆弧下边颜色
 									end: '#04e8db', //圆弧上边颜色
-									num: 3
 								}
 							})
 					}
@@ -287,10 +283,8 @@
 					ratio: 0.4, //宽度比例
 					iscontrol: true, //控制是否能滑动，可以滑动
 					color: {
-						start: '#e22e10', //圆弧下边颜色
-						center: '#f39310',
+						start: '#49bbff', //圆弧下边颜色
 						end: '#04e8db', //圆弧上边颜色
-						num: 3
 					}
 				})
 				//进化器未激活弧线

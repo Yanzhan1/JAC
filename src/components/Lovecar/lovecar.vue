@@ -73,35 +73,35 @@
       </div>
     </div>
     <ul style="padding:0 .2rem">
-      <router-link to="/airConditionControl" tag="li" class="navs air">
+      <router-link to="/lovecar/airConditionControl" tag="li" class="navs air">
         <div class="navs">
           <img class="picc" src="../../../static/images/Wit/ari.png" alt="">
           <span class="pic_txt">空调温度</span>
         </div>
         <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
       </router-link>
-      <router-link to="/adjustSeatTemper"  tag="li" class="navs air">
+      <router-link to="/lovecar/adjustSeatTemper"  tag="li" class="navs air">
         <div class="navs">
           <img class="picc" src="../../../static/images/Wit/zuoyi.png" alt="">
           <span class="pic_txt">座椅调节</span>
         </div>
         <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
       </router-link>
-      <router-link to="/windowControl" tag="li"  class="navs air">
+      <router-link to="/lovecar/lovecar/windowControl" tag="li"  class="navs air">
         <div class="navs">
           <img class="picc" src="../../../static/images/Wit/chechuang.png" alt="">
           <span class="pic_txt">车窗控制</span>
         </div>
         <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
       </router-link>
-      <router-link to="/skylightControl" tag="li" class="navs air">
+      <router-link to="/lovecar/skylightControl" tag="li" class="navs air">
         <div class="navs">
           <img class="picc" src="../../../static/images/Wit/tianchuang.png" alt="">
           <span class="pic_txt">天窗控制</span>
         </div>
         <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
       </router-link>
-      <router-link to="/airEvoluor" tag="li"  class="navs air">
+      <router-link to="/lovecar/airEvoluor" tag="li"  class="navs air">
         <div class="navs">
           <img class="picc" src="../../../static/images/Wit/icon5@3x.png" alt="">
           <span class="pic_txt">空气净化器</span>
@@ -139,7 +139,7 @@
           <img src="../../../static/images/Lovecar/ding.png" alt="">
           <span>盯盯拍</span>
         </li>
-        <router-link tag='li' to="/revisePinCode">
+        <router-link tag='li' to="/lovecar/revisePinCode">
           <img src="../../../static/images/Lovecar/xiupin.png" alt="">
           <span>修改PIN</span>
         </router-link>
@@ -156,11 +156,11 @@
           <img src="../../../static/images/Lovecar/dingwei.png" alt="">
           <span>定位</span>
         </li>
-        <router-link tag='li' to="/flowQuery">
+        <router-link tag='li' to="/lovecar/flowQuery">
           <img src="../../../static/images/Lovecar/liuliang.png" alt="">
           <span>流量查询</span>
         </router-link>
-        <router-link tag='li' to="/fuelQuery">
+        <router-link tag='li' to="/lovecar/fuelQuery">
           <img src="../../../static/images/Lovecar/ranyou.png" alt="">
           <span>燃油统计</span>
         </router-link>
@@ -169,14 +169,14 @@
           <span>电子围栏</span>
         </li>
 
-        <router-link tag='li' to="/wifiLink">
+        <router-link tag='li' to="/lovecar/wifiLink">
           <img src="../../../static/images/Lovecar/wifi.png" alt="">
           <span>wifi直连</span>
         </router-link>
-        <li>
-          <img src="../../../static/images/Lovecar/zhiting.png" alt="">
+        <router-link tag="li" to='/lovecar/intelligenceParking'>
+        	<img src="../../../static/images/Lovecar/zhiting.png" alt="">
           <span>智能停车</span>
-        </li>
+        </router-link>
       </ul>
     </div>
   </div>

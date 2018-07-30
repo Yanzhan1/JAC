@@ -29,6 +29,7 @@ import Userstart from '@/components/My/Userstart'
 import Fans from '@/components/My/Fans'
 import Focus from '@/components/My/Focus'
 import FeedbackRecord from '@/components/My/FeedbackRecord' //反馈记录
+import FeedbackDetail from '@/components/My/FeedbackDetail' //反馈详情
 import ContactPerson from '@/components/My/ContactPerson' //紧急联系人
 import ModifyPassword from '@/components/My/ModifyPassword' //修改密码
 import MyFeedback from '@/components/My/MyFeedback' //我的返回
@@ -43,6 +44,9 @@ import MyWl from '../components/My/MyWl.vue' //我的物流
 import Compontent from '../components/My/Compontent.vue' //评价
 import Recommended from '../components/My/Recommended' //推荐码
 import OrderDetails from '..//components/My/OrderDetails.vue' //订单详情
+import MyBus from '..//components/My/MyBus' //我的车辆
+import PlateBind from '..//components/My/PlateBind' //车牌绑定
+import AddBus from '..//components/My/AddBus' //添加车辆
 // 消息
 import News from '../components/news/News.vue' //消息
 import StyNews from '../components/news/StyNews.vue' //系统消息
@@ -167,52 +171,52 @@ export default new Router({
             },
 
             {
-                path: "/revisePinCode",
+                path: "/lovecar/revisePinCode",
                 naem: '修改pin码',
                 component: RevisePinCode
             },
             {
-                path: "/forgetPinCode",
+                path: "/lovecar/forgetPinCode",
                 naem: '忘记pin码',
                 component: ForgetPinCode
             },
             {
-                path: "/reviseSuccess",
+                path: "/lovecar/reviseSuccess",
                 naem: '修改pin成功',
                 component: ReviseSuccess
             },
             {
-                path: "/wifiLink",
+                path: "/lovecar/wifiLink",
                 naem: 'wifi直连',
                 component: WifiLink
             },
             {
-                path: "/wifiSetup",
+                path: "/lovecar/wifiSetup",
                 naem: 'wifi设置',
                 component: WifiSetup
             },
             {
-                path: "/fuelQuery",
+                path: "/lovecar/fuelQuery",
                 naem: '燃油查询',
                 component: FuelQuery
             },
             {
-                path: "/flowQuery",
+                path: "/lovecar/flowQuery",
                 naem: '流量查询',
                 component: FlowQuery
             },
             {
-                path: "/intelligenceParking",
+                path: "/lovecar/intelligenceParking",
                 naem: '智能停车G1',
                 component: IntelligenceParking
             },
             {
-                path: "/intelligenceParkingInfo",
+                path: "/lovecar/intelligenceParkingInfo",
                 naem: '智能停车G2',
                 component: IntelligentParkingInfo
             },
             {
-                path: "/intelligenceParkingUninfo",
+                path: "/lovecar/intelligenceParkingUninfo",
                 naem: '智能停车G3',
                 component: IntelligentParkingUninfo
             },
@@ -274,27 +278,32 @@ export default new Router({
                 component: Edictperson
             },
             {
-                path: "/feedbackRecord",
+                path: "/myindex//feedbackRecord",
                 name: '反馈记录',
                 component: FeedbackRecord
             },
             {
-                path: "/contactPerson",
+                path: "/myindex/feedbackDetail",
+                name: '反馈详情',
+                component: FeedbackDetail
+            },
+            {
+                path: "/myindex/contactPerson",
                 name: '紧急联系人',
                 component: ContactPerson
             },
             {
-                path: "/modifyPassword",
+                path: "/myindex/modifyPassword",
                 name: '修改密码',
                 component: ModifyPassword
             },
             {
-                path: "/myFeedback",
+                path: "/myindex/myFeedback",
                 name: '我的反馈',
                 component: MyFeedback
             },
             {
-                path: "/mySetUp",
+                path: "/myindex/mySetUp",
                 name: '设置',
                 component: MySetUp
             },
@@ -328,6 +337,21 @@ export default new Router({
                 path: "/orderdetails",
                 name: '订单详情',
                 component: OrderDetails
+            },
+            {
+                path: "/myindex/myBus",
+                name: '我的车辆',
+                component: MyBus
+            },
+            {
+                path: "/myindex/plateBind",
+                name: '车牌绑定',
+                component: PlateBind
+            },
+            {
+                path: "/myindex/addBus",
+                name: '添加车辆',
+                component: AddBus
             },
             // 消息
             {

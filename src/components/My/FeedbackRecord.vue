@@ -7,7 +7,7 @@
 		</header>
 		<div style="height:0.88rem"></div>
 		<div v-for="item in 2" class="freeback-wrap flex-center">
-			<div class="question-content flex-column-align">
+			<router-link tag="div" class="question-content flex-column-align" to="/myindex/feedbackDetail">
 				<div class="question">
 					<span>【问题】非车主不能使用吗</span>
 					<span>2018-07-22 10:23</span>
@@ -17,7 +17,7 @@
 					<span>官方回复：您好！目前非车主仅能使用部分体验功能哦！</span>
 					<span>2018-07-22 10:23</span>
 				</div>
-			</div>
+			</router-link>
 		</div>
 	</div>
 </template>

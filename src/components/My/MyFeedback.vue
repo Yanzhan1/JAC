@@ -78,6 +78,7 @@
 					this.FeedbackPerson.mobile = '';
 					return false;
 				} else {
+					this.$router.push({path:'/myindex//feedbackRecord'})
 					console.log(this.FeedbackPerson.name)
 				}
 			},
