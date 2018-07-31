@@ -3,19 +3,19 @@
     <header class="header">
       <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
       <div id="tip">
-        <span class="header-title active" style="margin-right:.2rem">全部车型</span>
-        <span class="header-title">主推车型</span>
+        <span class="header-title" :class="type==1?'active':''" style="margin-right:.2rem" @click="getcarbus(1)">全部车型</span>
+        <span class="header-title" :class="type==2?'active':''" @click="getcarbus(2)">主推车型</span>
       </div>
       <span @click="shai()" class="header-right"><img src="../../../static/images/Wit/shaixuan1@3x.png" alt="" style="width:.4rem"></span>
     </header>
     <div style="height:.88rem"></div>
     <ul>
-      <li class="bus_li" v-for="(item,index) in 5" :key="index">
+      <li class="bus_li" v-for="(item,index) in this.mainbus" :key="index">
         <img src="../../../static/images/Wit/bg-mine.png" alt="">
         <div class="bus_1">
-          <span class="bus_2">瑞丰S7</span>
+          <span class="bus_2">{{item.modelName}}</span>
           <span class="bus_3">
-            <span style="color:#a5a5a5;font-size:.22rem"> 官方指导价</span> ：9.7万起</span>
+            <span style="color:#a5a5a5;font-size:.22rem">{{type}} 官方指导价</span> ：{{item.guidancePrice}}万起</span>
         </div>
         <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
       </li>
@@ -33,8 +33,7 @@
           <label class="input-label" :class="{active: item.is_selected}" @click="select_one(index)"></label>
           <span class="txt" style="margin-left:.1rem">{{item.name}}</span>
         </li>
-
-      </ul>
+ </ul>
       <div class="fot">
         <p class="pp" style="" @click="fn">取消</p>
         <p class="sure" style="" @click="fn">确定</p>
@@ -50,6 +49,9 @@ export default {
     return {
       popupVisible: false,
       selected_all: false,
+      type: 1,
+      highlyRecommend: "", //全部车型 传1 主推车型
+      mainbus: {}, //存储展示的数据 主推车型 全部车型
       good_list: [
         { name: "乘用车", is_selected: false },
         { name: "新能源", is_selected: false },
@@ -86,17 +88,41 @@ export default {
     },
     fn() {
       this.popupVisible = false;
-    }
+    },
+    //渲染列表
+    getcarbus(num) {
+      if (num == 1) {
+        this.type = 1;
+        this.highlyRecommend = "";
+      } else {
+        this.type = 2;
+        this.highlyRecommend = "1";
+      }
+      var param = {
+        highlyRecommend: this.highlyRecommend
+      };
+      this.$http.post(Wit.MainBus, param).then(res => {
+        if (res.data.code == 0) {
+          this.mainbus = {};
+          this.mainbus = res.data.data;
+        }
+      });
+    },
+    //切换频道 多选框
+     choosemore(){
+       var param={}
+       console.log(Wit.Switching)
+         this.$http.post('http://172.21.4.231:8082/automobilemanage/vehicleBrand/searchVehicleBrandList',param).then(res=>{
+
+         })
+     }
+  },
+  created() {
+    //获取全部车型，主推车型
+    this.getcarbus();
+    this.choosemore()
   }
 };
-$(function() {
-  $("#tip span").on("click", function() {
-    $(this)
-      .addClass("active")
-      .siblings()
-      .removeClass("active");
-  });
-});
 </script>
  <style scoped>
 .mint-popup {
@@ -144,8 +170,15 @@ $(function() {
   margin-left: 0.8rem;
   line-height: 0.88rem;
 }
-.active {
+
+.header-title {
+  height: 0.88rem;
+  line-height: 0.88rem;
+  font-size: 0.36rem;
   color: #ccc;
+}
+.active {
+  color: #222;
 }
 .list_li {
   width: 40%;
@@ -171,6 +204,7 @@ $(function() {
   flex-direction: column;
   margin-left: 0.38rem;
   align-items: flex-start;
+  width: 4rem;
 }
 .bus_2 {
   font-size: 0.3rem;

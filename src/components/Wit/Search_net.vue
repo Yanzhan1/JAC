@@ -26,14 +26,14 @@
         </div>
         <div class="one" style="height:.1rem;"></div>
         <ul class="" style="padding:.1rem .2rem">
-            <li class="ul_list flex row around " v-for="(item,index) in 4" :key="index" @click="search()">
+            <li class="ul_list flex row around " v-for="(item,index) in mainbus" :key="index" @click="search()">
                 <div class="ul_list flex cocenter"> <img class="pic" src="../../../static/images/Wit/bg-mine.png" alt=""></div>
                 <div class="flex column around  mid">
-                    <span class="txt_top dian">上海新乡汽车服务中心dsfsdf</span>
+                    <span class="txt_top dian">{{item.dealerName}}</span>
                     <span class="txt_m">电话： 021-3324234</span>
                     <span class="flex row cocenter">
                         <img style="width:.25rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">
-                        <span class="txt_m dian" style="margin-top:.1rem">上海市金山区39339号6号</span>
+                        <span class="txt_m dian" style="margin-top:.1rem">{{item.dealerAddress}}</span>
                     </span>
                 </div>
                 <div class="flex column around cocenter">
@@ -58,7 +58,9 @@ import { Popup } from "mint-ui";
 export default {
   data() {
     return {
-      popupVisible: false
+      popupVisible: false,
+      mainbus:{}//维保网点查询
+
     };
   },
   methods: {
@@ -67,7 +69,19 @@ export default {
     },
     cancel(){
          this.popupVisible =false;
+    },
+    // 维保网点查询
+    dealer(){
+        var param={"dealerType":"01"}
+        this.$http.post(Wit.Dealer,param).then(res=>{
+         if(res.data.code == 0){
+          this.mainbus= res.data.data.records
+         }
+       })
     }
+  },
+  created(){
+    this.dealer()
   }
 };
 </script>

@@ -10,7 +10,7 @@
             <li class="flex row li_st between cocenter"  @click="times(3)">
                 <p style="font-size:.27rem;color:#555">申请服务车型</p>
                 <div class="flex row cocenter">
-                    <span style="font-size:.26rem;color:#222">瑞风M6</span>
+                    <span style="font-size:.26rem;color:#222">{{ addressProvince }} {{ addressCity }}</span>
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
                 </div>
             </li>
@@ -156,15 +156,16 @@ export default {
             
           }
         ],
-         addressProvince: '北京1',
-        addressCity: '北京1',
-      slots:[{values: ['苏州金龙汽车销售有限公司','大连中盛汽车4销售有限公司', '大连中盛汽车销售有限公司', '泰马金融股颠三倒四份汽车'],defaultIndex: 3,}, ]
+         addressProvince: '江苏',
+         addressCity: '徐州',
+      slots:[
+          {values: ['苏州金龙汽车销售有限公司','大连中盛汽车4销售有限公司', '大连中盛汽车销售有限公司', '泰马金融股颠三倒四份汽车'],defaultIndex: 3,}, ]
     };
   },
   methods: {
     onValuesChange(picker, values) {
-      console.log(picker, values);
-      },
+      console.log(values);
+   },
     times(type){
         this.popupVisible=true
         this.type=type
