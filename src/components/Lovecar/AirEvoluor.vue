@@ -371,6 +371,10 @@
 		justify-content: center;
 		align-items: center;
 	}
+	.mint-popup {
+		border-radius: 0.1rem;
+	}
+	   
 	/*进化器头部*/
 	
 	.window-header {

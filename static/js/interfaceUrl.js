@@ -1,4 +1,5 @@
 var indexip = 'http://172.20.20.69/api/dk-dm-portal-api'
+//武毅
 var mip = 'http://172.21.4.231:8082' //智享
     //var indexip = 'http://172.18.31.40:8868'
     //首页
@@ -89,5 +90,6 @@ var DISCOVERMESSAGE = {
 var Wit = {
     MainBus: mip + '/automobilemanage/vehicleModel/searchVehicleModelList', //全部车型 主推车型
     Dealer: mip + '/automobilemanage/dealerBaseInformation/searchDealerBaseInformationListPage', //经销商查询
-    Switching: mip + '/automobilemanage/vehicleBrand/searchVehicleBrandList' //频道选择
+    searchVehicleBrandList: mip+'/automobilemanage/vehicleBrand/searchVehicleBrandList', //品牌
+    searchVehicleSeriesList: mip+'/automobilemanage/vehicleSeries/searchVehicleSeriesList',//车型
 }

@@ -461,6 +461,9 @@
 		display: flex;
 		flex-direction: column;
 	}
+	.mint-popup {
+		border-radius: 0.1rem;
+	}
 	/*座椅头部*/
 	
 	.seat-header {

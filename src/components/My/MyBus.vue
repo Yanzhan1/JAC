@@ -96,6 +96,7 @@
 		font-size: 0.22rem;
 		color: #555555;
 	}
+	   
 	/*bus主体*/
 	/*.bus-wrap {
 		padding: 0.3rem;

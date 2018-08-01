@@ -233,7 +233,7 @@ export default new Router({
                 component: AdjustSeatTemper
             },
             {
-                path: "/lovecar/lovecar/windowControl",
+                path: "/lovecar/windowControl",
                 naem: '车窗控制',
                 component: WindowControl
             },
