@@ -179,10 +179,18 @@ export default {
         this.addressCity = values[1];
       }
   },
+  created(){
+    //   品牌
+    var param={}
+    this.$http.post(Wit.Switching,param).then(res=>{
+      
+    })
+  }
 };
 </script>
 <style scoped>
 /* 插件样式 */
+
 .one{
     position: fixed;
     height: 1.7rem;

@@ -13,9 +13,9 @@
       <li class="bus_li" v-for="(item,index) in this.mainbus" :key="index">
         <img src="../../../static/images/Wit/bg-mine.png" alt="">
         <div class="bus_1">
-          <span class="bus_2">{{item.modelName}}</span>
+          <span class="bus_2">{{item.seriesName}}</span>
           <span class="bus_3">
-            <span style="color:#a5a5a5;font-size:.22rem">{{type}} 官方指导价</span> ：{{item.guidancePrice}}万起</span>
+            <span style="color:#a5a5a5;font-size:.22rem"> 官方指导价</span> ：{{item.guidancePrice}}万起</span>
         </div>
         <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
       </li>
@@ -31,12 +31,12 @@
       <ul class="flex row wrap between">
         <li class="flex row cocenter list_li" v-for="(item,index) in good_list" :key="index">
           <label class="input-label" :class="{active: item.is_selected}" @click="select_one(index)"></label>
-          <span class="txt" style="margin-left:.1rem">{{item.name}}</span>
+          <span class="txt" style="margin-left:.1rem">{{item.brandName}}</span>
         </li>
- </ul>
+      </ul>
       <div class="fot">
-        <p class="pp" style="" @click="fn">取消</p>
-        <p class="sure" style="" @click="fn">确定</p>
+        <p class="pp" style="" @click="fn(1)">取消</p>
+        <p class="sure" style="" @click="fn(2)">确定</p>
       </div>
     </mt-popup>
   </div>
@@ -52,13 +52,15 @@ export default {
       type: 1,
       highlyRecommend: "", //全部车型 传1 主推车型
       mainbus: {}, //存储展示的数据 主推车型 全部车型
+      choosebus: {}, //选择频道
+      arr:[],
       good_list: [
-        { name: "乘用车", is_selected: false },
-        { name: "新能源", is_selected: false },
-        { name: "商务车", is_selected: false },
-        { name: "轻卡", is_selected: false },
-        { name: "皮卡", is_selected: false },
-        { name: "重卡", is_selected: false }
+        // { brandName: "乘用车", is_selected: false },
+        // { brandName: "新能源", is_selected: false },
+        // { brandName: "商务车", is_selected: false },
+        // { brandName: "轻卡", is_selected: false },
+        // { brandName: "皮卡", is_selected: false },
+        // { brandName: "重卡", is_selected: false }
       ]
     };
   },
@@ -86,7 +88,27 @@ export default {
         this.selected_all = true;
       }
     },
-    fn() {
+    //切换频道
+    fn(num) {
+      if(num=2){
+        for(let i=0;i<this.good_list.length;i++){
+          if(this.good_list[i].is_selected){
+            this.arr.push(this.good_list[i].no)
+            var arr=this.arr
+            var param = {
+              'highlyRecommend': this.highlyRecommend,
+               nos:arr
+             };
+            this.$http.post(Wit.MainBus,param).then(res=>{
+            if (res.data.code == 0){
+              this.arr=[]
+              this.mainbus={},
+              this.mainbus=res.data.data
+            }
+            })
+          }
+        }
+      }
       this.popupVisible = false;
     },
     //渲染列表
@@ -109,18 +131,24 @@ export default {
       });
     },
     //切换频道 多选框
-     choosemore(){
-       var param={}
-       console.log(Wit.Switching)
-         this.$http.post('http://172.21.4.231:8082/automobilemanage/vehicleBrand/searchVehicleBrandList',param).then(res=>{
-
-         })
-     }
+    choosemore() {
+      var param = {};
+      this.$http.post(Wit.Switching,param)
+        .then(res => {
+          if (res.data.code == 0) {
+             this.choosebus = res.data.data;
+             for(let i=0;i<this.choosebus.length;i++){
+               this.choosebus[i].is_selected=false
+             }
+          }
+          this.good_list=this.choosebus
+          });
+       }
   },
   created() {
     //获取全部车型，主推车型
     this.getcarbus();
-    this.choosemore()
+    this.choosemore();
   }
 };
 </script>

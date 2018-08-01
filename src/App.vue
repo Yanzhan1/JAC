@@ -11,5 +11,10 @@ export default {
 </script>
 
 <style>
-
+.picker-item{
+ color:#ccc
+}
+.picker-item.picker-selected{
+    color:#222
+}
 </style>

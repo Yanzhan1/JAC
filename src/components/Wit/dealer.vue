@@ -7,21 +7,19 @@
 		</header>
 		<div style="height:.88rem"></div>
 		<div class="flex row around con cocenter">
-			<div class="flex row cocenter">
+			<div class="flex row cocenter" style="margin-left:.4rem">
 				<select v-model="brandNo">
 					<option value="" disabled selected>品牌</option>
 					<option v-for="(item,index) in searchVehicleBrandList" :key="index" :value="item.no">{{item.brandName}}</option>
 				</select>
-				<!--<span>品牌</span>
-				<img src="../../../static/images/Wit/screen_arrow_btn.png" alt="">-->
+				 <img src="../../../static/images/Wit/screen_arrow_btn.png" alt="">
 			</div>
 			<div class="flex row cocenter">
 				<select v-model="seriesNo">
 					<option value="" disabled selected>车型</option>
 					<option v-for="(item,index) in searchVehicleSeriesList" :key="index" :value="item.no">{{item.seriesName}}</option>
 				</select>
-				<!--<span>车型</span>
-				<img src="../../../static/images/Wit/screen_arrow_btn.png" alt="">-->
+				 <img src="../../../static/images/Wit/screen_arrow_btn.png" alt="">
 			</div>
 			<div class="flex row cocenter">
 				<span>省份</span>
@@ -78,25 +76,17 @@
 			init() {
 				var param = {}
 				var data = {}
-				console.log(Wit)
-				//请求品牌列表
-				this.$http.post(Wit.searchVehicleBrandList, data).then(res => {
+			  //请求品牌列表
+			   	this.$http.post(Wit.searchVehicleBrandList, data).then(res =>  {
 						const data = res.data;
-//						console.log(data);
-						if(data.code == 0) {
-							this.searchVehicleBrandList = data.data;
-//							console.log(this.searchVehicleBrandList)
-						} else {
-							alert(data.msg)
-						}
+                 	   if(data.code == 0) {
+						this.searchVehicleBrandList = data.data;
+            	        } 
 					})
-					.catch((error) => {
-						alert('系统异常')
-					});
-					//经销商
-				this.$http.post(Wit.Dealer, param).then(res => {
+				 //经销商
+			  	this.$http.post(Wit.Dealer, param).then(res => {
 					if(res.data.code == 0) {
-						this.mainbus = res.data.data.records
+					this.mainbus = res.data.data.records
 					}
 				})					
 			},
@@ -107,35 +97,31 @@
 				this.popupVisible = false;
 			}
 		},
-		mounted () {
-			this.init()
+	    	mounted () {
+			  this.init()
 		},
-		watch: {
-			brandNo (newVal, oldVal) {	
+	    	watch: {
+			  brandNo (newVal, oldVal) {	
 				let data = {
-					brandNo: this.brandNo
-				}
-				//请求车型列表
+				   brandNo: this.brandNo
+                }
+          //请求车型列表
 				this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
 						const data = res.data;
 						if(data.code == 0) {
 							this.searchVehicleSeriesList = data.data;
-							console.log(this.searchVehicleBrandList)
-						} else {
-							alert(data.msg)
-						}
+						} 
 					})
-					.catch((error) => {
-						alert('系统异常')
-					});
-			},
-			seriesNo (newVal, oldVal) {
-				
+				},
+			   seriesNo (newVal, oldVal) {
 			}
 		}
 	};
 </script>
 <style scoped>
+    select{
+          width:.6rem
+    }
 	.row {
 		flex-direction: row;
 	}
