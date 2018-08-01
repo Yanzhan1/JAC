@@ -326,6 +326,10 @@
 		justify-content: center;
 		align-items: center;
 	}
+	.mint-popup {
+		border-radius: 0.1rem;
+	}
+	    
 	/*天窗头部*/
 	
 	.skylight-header {

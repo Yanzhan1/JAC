@@ -25,7 +25,7 @@
 				<span style="left: 1.6rem;top: -0.1rem;">27</span>
 				<span style="left: 0rem;top: -0.3rem;">32</span>
 			</div>
-			<div class="curveActive" v-show="curveState">
+			<div @touchend="end" class="curveActive" v-show="curveState">
 				<canvas id="rightColorful"></canvas>
 			</div>
 			<div class="curveLoseActive" v-show="!curveState">
@@ -52,7 +52,7 @@
 
 				<!--空调图Start-->
 				<div class="wind-blows">
-					<img v-if="activeShowImg" :src="'./static/images/Lovecar/air@2x.png'" alt="" />
+					<img :class="{rotateActive: rotateState}" v-if="activeShowImg" :src="'./static/images/Lovecar/air@2x.png'" alt="" />
 					<img v-else :src="'./static/images/Lovecar/air1@2x.png'" alt="" />
 				</div>
 				<!--空调End-->
@@ -149,7 +149,7 @@
 				//温度展示值,通过空调默认点控制
 				temperNum: [17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
 				//风量展示
-				windNum: [1, 2, 3, 4],
+				windNum: [1, 2, 3, 4, 5, 6, 7],
 				winMin: 0,
 				//风量控制变量
 				winIndex: 0,
@@ -165,6 +165,8 @@
 				curveState: false,
 				//空调默认点
 				airSpace: 0,
+				//空调图旋转状态
+				rotateState: false
 
 			}
 		},
@@ -236,7 +238,7 @@
 			windAdd() {
 				if(this.activeShowImg) {
 					if(this.winIndex >= this.windNum.length - 1) {
-						this.winIndex = 0
+						this.winIndex = this.windNum.length - 1
 					} else {
 						this.winIndex++
 					}
@@ -249,14 +251,13 @@
 			windReduce() {
 				if(this.activeShowImg) {
 					if(this.winIndex <= this.winMin) {
-						this.winIndex = this.windNum.length - 1
+						this.winIndex = this.winMin
 					} else {
 						this.winIndex--
 					}
 				} else {
 					return
 				}
-
 			},
 			//点击遮罩或者'x'移除popup
 			removeMask() {
@@ -341,11 +342,23 @@
 						num: 3
 					}
 				})
+			},
+			//用户停止滑动触发移动端事件,发送后端请求
+			end () {
+//				var start = $('#rightColorful').on('touchstart)
+				console.log(this.temperNum[this.airSpace])
+			},
+			//激活空调图,进行旋转
+			refreshPmData() {
+				this.rotateState = true
+				setTimeout(() => {
+					this.rotateState = false
+				}, 1000)
 			}
 		},
 		mounted() {
 			this.produCurve()
-
+			
 		},
 		watch: {
 			pinNumber(newVal, oldVal) {
@@ -357,6 +370,7 @@
 						this.curveState = !this.curveState
 						//pin码正确激活空调图
 						this.activeShowImg = !this.activeShowImg,
+						this.refreshPmData (),
 						//消失遮罩
 						this.popupVisible = !this.popupVisible
 						//消失软键盘
@@ -399,6 +413,9 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+	}
+	.mint-popup {
+		border-radius: 0.1rem;
 	}
 	/*空调头部*/
 	
@@ -703,5 +720,18 @@
 		height: 100%;
 		opacity: 0.5;
 		background: #000;
+	}
+	.rotateActive {
+		transform-origin: (center,center);
+		animation: rotate 1s ease-in-out infinite;
+	}
+	
+	@-webkit-keyframes rotate {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
 	}
 </style>

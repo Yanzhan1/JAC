@@ -361,6 +361,9 @@
 		justify-content: center;
 		align-items: center;
 	}
+	.mint-popup {
+		border-radius: 0.1rem;
+	}
 	/*车窗头部*/
 	
 	.window-header {
