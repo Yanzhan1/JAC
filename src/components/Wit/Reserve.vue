@@ -10,7 +10,7 @@
                 <ul style="margin-top:1.43rem">
                     <li class="all">
                         <span>预定车型</span>
-                        <div>{{this.stylecar}}</div>
+                        <div @click="choose_car">{{this.stylecar}}</div>
                     </li>
                     <li class="all">
                         <span>选择经销商</span>
@@ -105,7 +105,7 @@
 export default {
   data() {
     return {
-      stylecar: "瑞风M6",
+      stylecar: "瑞风M6",//车系
       region: false,
       distributors: false,
       success: false,
@@ -215,7 +215,21 @@ export default {
       if (values[0] > values[1]) {
         picker.setSlotValue(1, values[0]);
       }
+    },
+    //选择预定车型
+    choose_car(){
+      console.log(Wit.Prearranged)
+      var param={}
+      this.$http.post(Wit.Prearranged,param).then((res)=>{
+        console.log(res)
+      })
     }
+  },
+  mounted(){
+    console.log(Wit.Distributor)
+    this.$http.post(Wit.Distributor,{'code':0,'msg':'success'}).then((res)=>{
+      console.log(res)
+    })
   }
 };
 </script>
