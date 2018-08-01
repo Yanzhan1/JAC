@@ -9,7 +9,7 @@
 		<div class="fuel-title">
 			<span>统计周期</span>
 			<div>
-				<div>2018年6月</div>
+				<div @click="date_choose">2018年6月</div>
 				<img :src="'./static/images/next@2x.png'" alt="" />
 			</div>
 		</div>
@@ -75,6 +75,11 @@
 					weekOilConsumer: "7L",
 					dayOilConsumer: "1L"
 				}]
+			}
+		},
+		methods:{
+			date_choose(){
+				this.$router.push('/Datechoose')
 			}
 		}
 	}
