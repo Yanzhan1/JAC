@@ -17,7 +17,7 @@
             <li class="flex row li_st between cocenter">
                 <p style="font-size:.27rem;color:#555">车辆VIN码</p>
                 <div class="flex row cocenter">
-                    <span style="font-size:.26rem;color:#222">TcLjfafkdsjflkds</span>
+                   <input type="text" placeholder="请输入pin码" style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
                 </div>
             </li>
@@ -45,27 +45,27 @@
         </ul>
         <div style="padding:0 .33rem;margin-top:.4rem;">
             <span style="font-size:.27rem;color:#555">需求描述:</span>
-            <textarea placeholder="输入文本..." class="texta" style="line-height: normal" maxlength="50"></textarea>
+            <textarea placeholder="输入文本..." class="texta" style="line-height: normal;outline:none" maxlength="50"></textarea>
         </div>
         <ul style="padding:0 .33rem">
             <li class="flex row li_st between cocenter">
                 <p style="font-size:.27rem;color:#555">姓名</p>
                 <div class="flex row cocenter">
-                    <span style="font-size:.26rem;color:#222">李涛</span>
+                   <input type="text" placeholder="请输入姓名" style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
                 </div>
             </li>
             <li class="flex row li_st between cocenter">
                 <p style="font-size:.27rem;color:#555">手机号</p>
                 <div class="flex row cocenter">
-                    <span style="font-size:.26rem;color:#222">15021015604</span>
+                     <input type="text" placeholder="请输入手机号" style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
                 </div>
             </li>
             <li class="flex row li_st between cocenter">
                 <p style="font-size:.27rem;color:#555">电子邮箱</p>
                 <div class="flex row cocenter">
-                    <span style="font-size:.26rem;color:#222">342285154@qq.com</span>
+                     <input type="text" placeholder="请输入邮箱" style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
                 </div>
             </li>
@@ -88,17 +88,16 @@
                 </div>
                 <mt-picker  :slots="slots" @change="onValuesChange"></mt-picker>
             </div>
-              <div style="width:100%;z-index:999" v-if="type==3">
+        <div style="width:100%;z-index:999" v-if="type==3">
              <div class="flex row between pp">
                     <span></span>
-                    <span style="font-size:.34rem;color:#222;margin-left: .7rem;" v-model="this.car">选择服务车型</span>
+                    <span style="font-size:.34rem;color:#222;margin-left: .7rem;" >选择服务车型</span>
                     <span style="font-size:.3rem;color:#49BBFF;margin:0 .3rem" @click="sure">确定</span>
                 </div>
                  <mt-picker :slots="addressSlots" @change="onAddressChange" :visible-item-count="5"></mt-picker>
             </div>
         </mt-popup>
-       
-    </div>
+</div>
 </template>
 <script>
 import { Picker } from "mint-ui";
@@ -162,7 +161,6 @@ export default {
     };
   },
   mounted(){
-  
         this.$http.post(Wit.Distributor,{"dealerType":"01"}).then((res)=>{
         var chooseaddress= res.data.data.records
         for(var i=0;i<chooseaddress.length;i++){
@@ -170,6 +168,7 @@ export default {
         this.Idchooseaddress.push(chooseaddress[i].no)
             }
         })
+        // 申请服务车型
         this.$http.post(Wit.Brand,{}).then((res)=>{
             var choosecar=res.data.data
             for(var i=0;i<choosecar.length;i++){
@@ -177,6 +176,7 @@ export default {
                 this.Idchoosebrand.push(choosecar[i].no)
             }
         })
+        // 车系
         this.$http.post(Wit.System,{"brandNo":"VB2018071805540264192"}).then((res)=>{
             for(var i=0;i<res.data.data.length;i++){
                 this.addressSlots[2].values.push(res.data.data[i].seriesName)
@@ -187,6 +187,10 @@ export default {
   methods: {
     onValuesChange(picker, values) {
         this.address=values
+        console.log(picker)
+   },
+   onValuesChanges(picker, values){
+
    },
     onDateChange(picker,values){
         console.log();
