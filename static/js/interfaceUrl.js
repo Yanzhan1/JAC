@@ -97,5 +97,6 @@ var Wit = {
     searchVehicleSeriesList: mip + '/vehicleSeries/searchVehicleSeriesList', //车型
     Brand: mip + '/vehicleBrand/searchVehicleBrandList', //选择品牌
     System: mip + '/vehicleSeries/searchVehicleSeriesList', //选择车系
-    Area: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage' //选择地区
+    Area: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //选择地区
+    PreBus: mip + '/cluesOrderFrom/addCluesOrderFrom' //车辆预定提交
 }

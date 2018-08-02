@@ -29,7 +29,7 @@
                     <li class="name all">
                         <span>姓名</span>
                         <div class="allflex">
-                            <input type="text" name="" id="" placeholder="点击输入姓名" v-model="this.name">
+                            <input placeholder="点击输入姓名" v-model="name">
                             <img src="/static/images/next@2x.png" alt="">
                         </div>
                     </li>
@@ -43,14 +43,14 @@
                     <li class="phone all">
                         <span>手机</span>
                         <div class="allflex">
-                            <input type="text" name="" id="" placeholder="点击输入手机号" v-model="this.phone">
+                            <input placeholder="点击输入手机号" v-model="tell">
                             <img src="/static/images/next@2x.png" alt="">
                         </div>
                     </li>
                     <li class="all">
                         <span>电子邮箱</span>
                         <div class="allflex">
-                            <input type="text" name="" id="" placeholder="点击输入邮箱" v-model="this.email">
+                            <input type="text" name="" id="" placeholder="点击输入邮箱" v-model="email">
                             <img src="/static/images/next@2x.png" alt="">
                         </div>
                     </li>
@@ -64,13 +64,13 @@
                     <li class="all">
                         <span>地址</span>
                         <div class="allflex">
-                            <input type="text" name="" id="" placeholder="点击输入地址" v-model="this.address">
+                            <input type="text" name="" id="" placeholder="点击输入地址" v-model="address">
                             <img src="/static/images/next@2x.png" alt="">
                         </div>
                     </li>
                 </ul>
                 <span class='Remarks'>备注说明：</span>
-                <textarea placeholder="输入文本..."></textarea>
+                <textarea placeholder="输入文本..." v-model="beizhu"></textarea>
             <!-- <mt-button plain size='large' style="background:#49BBFF;color:#fff;border:0;" @click.native="sub">提交</mt-button> -->
             <div class="submit" v-show="success">
                 <img src="/static/images/Wit/gou@2x.png" alt="" style="width:.8rem;height:.8rem;" class="gou">
@@ -102,6 +102,7 @@
 </template>
 
 <script>
+import { Toast } from 'mint-ui';
 export default {
   data() {
     return {
@@ -114,10 +115,11 @@ export default {
       Recommend: "", //推荐码
       name: "", //姓名
       smallname: "", //称谓
-      phone: "", //电话
+      tell: "", //电话
       email: "", //邮箱
       area: [], //地区
       address: "", //地址
+      beizhu:"",//备注
       Idchooseaddress:[],//返回选择经销商的no     
       thanks:
         "感谢您对江淮汽车的关注与支持，我们专业的服务员会第一时间与您联系!",
@@ -175,8 +177,63 @@ export default {
       this.region = false;
     },
     sub() {
-      this.success = true;
-      this.region = true;
+      var name=this.name
+      if (name == "") {
+        Toast({
+          message: "姓名不能为空",
+          duration: 1000,
+          position: "middle"
+        });
+        return false;
+      }
+       var tell=this.tell//手机号
+        let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+      var numFlag = reg.test(tell);
+      if (!numFlag) {
+        Toast({
+          message: "手机号码格式不对！",
+          duration: 1000,
+          position: "middle"
+        });
+        return false;
+      }
+       var address=this.address
+      if (address == "") {
+        Toast({
+          message: "地址不能为空",
+          duration: 1000,
+          position: "middle"
+        });
+        return false;
+      }
+      var beizhu=this.beizhu 
+       if (beizhu == "") {
+        Toast({
+          message: "备注不能为空",
+          duration: 1000,
+          position: "middle"
+        });
+        return false;
+      }
+        var param=  {
+            customerName:this.stylecar,//姓名
+            fkDealerId:"N7650100",//经销商编号
+            gender:"1",//性别
+            mobile:this.tell,//手机号 
+            email:"yi.wu@timanetworks.com",//email
+            address:this.address,//地址
+            comments:this.beizhu, //商家备注
+            province:"022" ,//省份ID
+            series:"CY001" ,//意向车系
+            model:"CYRF010" //意向车型
+         }
+        this.$http.post(Wit.PreBus,param).then(res=>{
+        if(res.data.code==0){
+          this.success = true;
+          this.region = true;
+       }
+     }) 
+     
     },
     //所在地区
     onValuesChange(picker, values) {
