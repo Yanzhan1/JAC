@@ -25,16 +25,18 @@
         切换频道
       </div>
       <div class="flex row cocenter roe">
-        <label class="input-label" :class="{active: selected_all}" @click="slect_all"></label>
+        <!-- <label class="input-label" :class="{active: selected_all}" @click="slect_all"></label> -->
+         <label><input type="radio" v-model="gender" :value="'null'"/></label>
         <span class="txt" style="margin-left:.1rem">全选</span>
       </div>
       <ul class="flex row wrap between">
         <li class="flex row cocenter list_li" v-for="(item,index) in good_list" :key="index">
-          <label class="input-label" :class="{active: item.is_selected}" @click="select_one(index)"></label>
+          <!-- <label class="input-label" :class="{active: item.is_selected}" @click="select_one(index)"></label> -->
+           <label><input type="radio" v-model="gender" :value="item.no"/></label>
           <span class="txt" style="margin-left:.1rem">{{item.brandName}}</span>
         </li>
       </ul>
-      <div class="fot">
+       <div class="fot">
         <p class="pp" style="" @click="fn(1)">取消</p>
         <p class="sure" style="" @click="fn(2)">确定</p>
       </div>
@@ -54,6 +56,7 @@ export default {
       mainbus: {}, //存储展示的数据 主推车型 全部车型
       choosebus: {}, //选择频道
       arr:[],
+      gender:'',
       good_list: [
         // { brandName: "乘用车", is_selected: false },
         // { brandName: "新能源", is_selected: false },
@@ -69,6 +72,7 @@ export default {
       this.popupVisible = true;
     },
     select_one(index) {
+    
       if (this.good_list[index].is_selected == true) {
         this.good_list[index].is_selected = false;
       } else {
@@ -91,23 +95,35 @@ export default {
     //切换频道
     fn(num) {
       if(num=2){
-        for(let i=0;i<this.good_list.length;i++){
-          if(this.good_list[i].is_selected){
-            this.arr.push(this.good_list[i].no)
-            var arr=this.arr
+          var arr=this.arr
             var param = {
               'highlyRecommend': this.highlyRecommend,
-               nos:arr
+               nos:this.gender
              };
-            this.$http.post(Wit.MainBus,param).then(res=>{
-            if (res.data.code == 0){
-              this.arr=[]
+          console.log(param)
+             this.$http.post(Wit.MainBus,param).then(res=>{
+              if (res.data.code == 0){
               this.mainbus={},
               this.mainbus=res.data.data
             }
-            })
-          }
-        }
+             })
+         // for(let i=0;i<this.good_list.length;i++){
+        //   if(this.good_list[i].is_selected){
+        //     this.arr.push(this.good_list[i].no)
+        //     var arr=this.arr
+        //     var param = {
+        //       'highlyRecommend': this.highlyRecommend,
+        //        nos:arr
+        //      };
+        //     this.$http.post(Wit.MainBus,param).then(res=>{
+        //     if (res.data.code == 0){
+        //       this.arr=[]
+        //       this.mainbus={},
+        //       this.mainbus=res.data.data
+        //     }
+        //     })
+        //   }
+        // }
       }
       this.popupVisible = false;
     },
