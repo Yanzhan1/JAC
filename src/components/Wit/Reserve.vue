@@ -212,7 +212,6 @@ export default {
     },
   },
   mounted(){
-    console.log(Wit.Distributor)
     this.$http.post(Wit.Distributor,{"dealerType":"01"}).then((res)=>{
       var chooseaddress= res.data.data.records
       for(var i=0;i<chooseaddress.length;i++){
