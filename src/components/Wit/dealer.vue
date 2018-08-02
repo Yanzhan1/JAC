@@ -7,26 +7,26 @@
 		</header>
 		<div style="height:.88rem"></div>
 		<div class="flex row around con cocenter">
-			<div class="flex row cocenter" style="margin-left:.4rem">
-				<select v-model="brandNo">
-					<option value="" disabled selected>品牌</option>
-					<option v-for="(item,index) in searchVehicleBrandList" :key="index" :value="item.no">{{item.brandName}}</option>
+			<div class="flex row cocenter">
+				<select-compon v-model="brandNo" :selections="searchVehicleBrandList" :title="brandTitle" :carryProperty="carryProperty" :carryContent="carryContent" @on-change="receiveIndex"></select-compon>
+			</div>
+			<div class="flex row cocenter">
+				<select-compon :selections="searchVehicleSeriesList" :title="carModelTitle"></select-compon>
+			</div>
+			<div class="flex row cocenter">
+				<select v-model="provinceId">
+					<option value="" disabled selected>省份</option>
+					<option v-for="(item,index) in searchCountryAreaCodeListPage" :key="index" :value="item.id">{{item.name}}</option>
 				</select>
-				 <img src="../../../static/images/Wit/screen_arrow_btn.png" alt="">
+				<!--<span>省份</span>
+				<img src="../../../static/images/Wit/screen_arrow_btn.png" alt="">-->
 			</div>
 			<div class="flex row cocenter">
-				<select v-model="seriesNo">
-					<option value="" disabled selected>车型</option>
-					<option v-for="(item,index) in searchVehicleSeriesList" :key="index" :value="item.no">{{item.seriesName}}</option>
+				<select v-model="cityId">
+					<option value="" disabled selected>城市</option>
+					<option v-for="(item,index) in cityList" :key="index" :value="item.id">{{item.name}}</option>
 				</select>
-				 <img src="../../../static/images/Wit/screen_arrow_btn.png" alt="">
-			</div>
-			<div class="flex row cocenter">
-				<span>省份</span>
-				<img src="../../../static/images/Wit/screen_arrow_btn.png" alt="">
-			</div>
-			<div class="flex row cocenter">
-				<span>城市</span>
+				<!--<span>城市</span>-->
 				<img src="../../../static/images/Wit/screen_arrow_btn.png" alt="">
 			</div>
 		</div>
@@ -61,72 +61,137 @@
 </template>
 <script>
 	import { Popup } from "mint-ui";
+	import selectCompon from '../publicmodel/SelectCompon'
 	export default {
 		data() {
 			return {
 				popupVisible: false,
 				mainbus: {}, //存储展示的数据经销商列表
 				searchVehicleBrandList: [], //品牌列表
-				brandNo: '',//品牌Id
-				searchVehicleSeriesList: [],//车型列表
+				brandNo: '', //品牌Id
+				searchVehicleSeriesList: [], //车型列表
 				seriesNo: '', //车型Id
+				searchCountryAreaCodeListPage: [], //省份列表
+				provinceId: '', //省份id
+				cityList: [], //城市列表
+				cityId: '', //城市id
+				brandTitle: '品牌', //品牌title
+				carModelTitle: '车型', //车型title
+				carryProperty: 'no',  //
+				carryContent: 'seriesName'
 			};
+		},
+		components: {
+			selectCompon
 		},
 		methods: {
 			init() {
 				var param = {}
-				var data = {}
-			  //请求品牌列表
-			   	this.$http.post(Wit.searchVehicleBrandList, data).then(res =>  {
+				var data = {
+					"parentId": null,
+					"level": 1
+				}
+				//请求品牌列表
+				this.$http.post(Wit.searchVehicleBrandList, data).then(res => {
 						const data = res.data;
-                 	   if(data.code == 0) {
-						this.searchVehicleBrandList = data.data;
-            	        } 
+						//						console.log(data);
+						if(data.code == 0) {
+							this.searchVehicleBrandList = data.data;
+							//							console.log(this.searchVehicleBrandList)
+						} else {
+							alert(data.msg)
+						}
 					})
-				 //经销商
-			  	this.$http.post(Wit.Dealer, param).then(res => {
-					if(res.data.code == 0) {
-					this.mainbus = res.data.data.records
+					.catch((error) => {
+						alert('系统异常')
+					});
+				//经销商
+				this.$http.post(Wit.Dealer, param).then(res => {
+						if(res.data.code == 0) {
+							this.mainbus = res.data.data.records
+						}
+					}),
+				//请求省份列表
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+					const data = res.data;
+					//						console.log(data);
+					if(data.code == 0) {
+						this.searchCountryAreaCodeListPage = data.data.records;
+						console.log(this.searchCountryAreaCodeListPage)
+					} else {
+						alert(data.msg)
 					}
-				})					
+				})
+				.catch((error) => {
+					alert('系统异常')
+				});
 			},
 			search() {
 				this.popupVisible = true;
 			},
 			cancel() {
 				this.popupVisible = false;
+			},
+			//接受select组件穿过来的index,父子组件通信
+			receiveIndex (val) {
+				this.brandNo = val.val
 			}
 		},
-	    	mounted () {
-			  this.init()
+		mounted() {
+			this.init()
 		},
-	    	watch: {
-			  brandNo (newVal, oldVal) {	
+		watch: {
+			//监听品牌id,获得车型列表
+			brandNo(newVal, oldVal) {
 				let data = {
-				   brandNo: this.brandNo
-                }
-          //请求车型列表
+					brandNo: this.brandNo
+				}
+				//请求车型列表
 				this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
 						const data = res.data;
 						if(data.code == 0) {
 							this.searchVehicleSeriesList = data.data;
-						} 
+//							console.log(this.searchVehicleBrandList)
+						} else {
+							alert(data.msg)
+						}
 					})
-				},
-			   seriesNo (newVal, oldVal) {
+					.catch((error) => {
+						alert('系统异常')
+					});
+			},
+			seriesNo(newVal, oldVal) {
+
+			},
+			provinceId(newVal, oldVal) { //监听省,获取市列表
+				let data = {
+					"parentId": this.provinceId,
+					"level": 2
+				}
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+						const data = res.data;
+						//						console.log(data);
+						if(data.code == 0) {
+							this.cityList = data.data.records;
+							//							console.log(this.searchCountryAreaCodeListPage)
+						} else {
+							alert(data.msg)
+						}
+					})
+					.catch((error) => {
+						alert('系统异常')
+					});
 			}
 		}
 	};
 </script>
 <style scoped>
-    select{
-          width:.6rem
-    }
 	.row {
 		flex-direction: row;
 	}
 	
 	.con div {
+	    position: relative;
 		height: 0.88rem;
 	}
 	
@@ -192,6 +257,7 @@
 		color: #888;
 		border: 0;
 	}
+	
 	select {
 		/*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
 		border: none;
