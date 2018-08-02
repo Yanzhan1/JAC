@@ -344,7 +344,7 @@
                 </ul>
             </mt-tab-container-item>
         </mt-tab-container>
-        <div class="footer" @click="reserve">在线订车</div>
+        <div class="bottom-btn" @click="reserve">在线订车</div>
     </div>
 </template>
 

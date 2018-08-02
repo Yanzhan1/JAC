@@ -7,7 +7,7 @@
                 <span class="header-title">车辆预定</span>
                 <span class="header-right"></span>
                 </header>
-                <ul style="margin-top:1.43rem">
+                <ul style="margin-top:.88rem">
                     <li class="all">
                         <span>预定车型</span>
                         <div>{{this.stylecar}}</div>
@@ -84,7 +84,7 @@
                 </div>
             </div>
              <div class="bottom">
-                    <h3 @click="sub">提交</h3>
+                    <h3 @click="sub" class="bottom-btn">提交</h3>
             </div>
             </div>
             <div class="region" v-show="this.areas">
@@ -125,12 +125,7 @@ export default {
         {
           flex: 1,
           values: [
-            "上海市",
-            "浙江省",
-            "江苏省",
-            "安徽省",
-            "黑龙江省",
-            "陕西省"
+           
           ],
           className: "slot1",
           textAlign: "center"
@@ -141,20 +136,7 @@ export default {
           itemHieight: 74,
           className: "slot2"
         },
-        {
-          flex: 1,
-          values: [
-            "开发区",
-            "松江区",
-            "闵行区",
-            "浦东新区",
-            "萧山区",
-            "滨江区"
-          ],
-          className: "slot3",
-          textAlign: "center"
-        }
-      ],
+       ],
       slots2: [
         {
           values: [],
@@ -212,6 +194,7 @@ export default {
     },
   },
   mounted(){
+    //经销商
     this.$http.post(Wit.Distributor,{"dealerType":"01"}).then((res)=>{
       var chooseaddress= res.data.data.records
       for(var i=0;i<chooseaddress.length;i++){
@@ -219,6 +202,14 @@ export default {
         this.Idchooseaddress.push(chooseaddress[i].no)
       }
     })
+    //地区
+    this.$http.post(Wit.Area,{}).then(res=>{
+       var address=res.data.data.records
+     for(let i=0;i<address.length;i++){
+       this.slots[0].values.push(address[i].name)
+     }
+   })
+
   }
 };
 </script>
