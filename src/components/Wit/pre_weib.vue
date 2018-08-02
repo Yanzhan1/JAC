@@ -10,7 +10,7 @@
             <li class="flex row li_st between cocenter"  @click="times(3)">
                 <p style="font-size:.27rem;color:#555">申请服务车型</p>
                 <div class="flex row cocenter">
-                    <span style="font-size:.26rem;color:#222">{{ addressProvince }} {{ addressCity }}</span>
+                    <span style="font-size:.26rem;color:#222">{{this.car[0]}} {{this.car[1]}}</span>
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
                 </div>
             </li>
@@ -24,7 +24,7 @@
             <li class="flex row li_st between cocenter" @click="times(2)">
                 <p style="font-size:.27rem;color:#555">希望联系的服务商</p>
                 <div class="flex row cocenter">
-                    <span style="font-size:.26rem;color:#222">上海马太科技汽车中心</span>
+                    <span style="font-size:.26rem;color:#222">{{this.address[0]}}</span>
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
                 </div>
             </li>
@@ -78,7 +78,7 @@
                     <span style="font-size:.34rem;color:#222;margin-left: .7rem;">选择服务时间</span>
                     <span style="font-size:.3rem;color:#49BBFF;margin:0 .3rem" @click="sure">确定</span>
                 </div>
-                <mt-picker  :slots="slotss" @change="onValuesChange"></mt-picker>
+                <mt-picker  :slots="slotss" @change="onDateChange"></mt-picker>
             </div>
            <div style="width:100%;z-index:999" v-if="type==2">
              <div class="flex row between pp">
@@ -91,7 +91,7 @@
               <div style="width:100%;z-index:999" v-if="type==3">
              <div class="flex row between pp">
                     <span></span>
-                    <span style="font-size:.34rem;color:#222;margin-left: .7rem;">选择服务车型</span>
+                    <span style="font-size:.34rem;color:#222;margin-left: .7rem;" v-model="this.car">选择服务车型</span>
                     <span style="font-size:.3rem;color:#49BBFF;margin:0 .3rem" @click="sure">确定</span>
                 </div>
                  <mt-picker :slots="addressSlots" @change="onAddressChange" :visible-item-count="5"></mt-picker>
@@ -102,12 +102,6 @@
 </template>
 <script>
 import { Picker } from "mint-ui";
-const address = {
-  '江西': ['南昌', '吉安', '宜春', '抚州', '上饶'],
-    '广东': ['广州',  '茂名', '肇庆', '惠州', '梅州', '汕尾', '河源', '阳江', '清远', '东莞', '中山', '潮州', '揭阳', '云浮'],
-    '湖南': ['长沙',  '益阳', '郴州', '永州', '怀化', '娄底', '湘西土家族苗族自治州'],
-    '广西': ['南宁', '玉林', '百色', '贺州', '河池', '来宾', '崇左'],
-   };
 export default {
   
   data() {
@@ -115,10 +109,15 @@ export default {
       popupVisible: false,
       showToolbar:true,
       type:1,
+      car:[],
+      address:[],
+      Idchooseaddress:[],//返回服务商的no
+      Idchoosebrand:[],//返回品牌的no
+      Idchoosesystem:[],//返回车系的no
       slotss: [
         {
           flex: 1,
-          values: ["2018","2017","2016","2015","2014","2013","2012","2011",],
+          values: ["2018","2017","2015","2014","2013","2012","2011",],
           className: "slot1",
           textAlign: "left",
            defaultIndex: 2
@@ -138,33 +137,59 @@ export default {
           defaultIndex: 2
         }
       ],
-      addressSlots: [
-          {
-            flex: 1,
-            values: Object.keys(address),
-            className: 'slot1',
-            textAlign: 'center'
-          }, {
-            divider: true,
-            content: '-',
-            className: 'slot2'
-          }, {
-            flex: 1,
-            values: ['南昌'],
-            className: 'slot3',
-            textAlign: 'center',
-            
-          }
-        ],
-         addressProvince: '江苏',
-         addressCity: '徐州',
+          addressSlots: [
+        {
+          flex: 1,
+          values: [],
+          className: "slot1",
+          textAlign: "center"
+        },
+        {
+          divider: true,
+          content: "",
+          itemHieight: 74,
+          className: "slot2"
+        },
+        {
+          flex: 1,
+          values: [],
+          className: "slot3",
+          textAlign: "center"
+        }
+      ],
       slots:[
-          {values: ['苏州金龙汽车销售有限公司','大连中盛汽车4销售有限公司', '大连中盛汽车销售有限公司', '泰马金融股颠三倒四份汽车'],defaultIndex: 3,}, ]
+          {values: [],defaultIndex: 3,} ]
     };
+  },
+  mounted(){
+  
+        this.$http.post(Wit.Distributor,{"dealerType":"01"}).then((res)=>{
+        var chooseaddress= res.data.data.records
+        for(var i=0;i<chooseaddress.length;i++){
+        this.slots[0].values.push(chooseaddress[i].dealerName)
+        this.Idchooseaddress.push(chooseaddress[i].no)
+            }
+        })
+        this.$http.post(Wit.Brand,{}).then((res)=>{
+            var choosecar=res.data.data
+            for(var i=0;i<choosecar.length;i++){
+                this.addressSlots[0].values.push(choosecar[i].brandName)
+                this.Idchoosebrand.push(choosecar[i].no)
+            }
+        })
+        this.$http.post(Wit.System,{"brandNo":"VB2018071805540264192"}).then((res)=>{
+            for(var i=0;i<res.data.data.length;i++){
+                this.addressSlots[2].values.push(res.data.data[i].seriesName)
+                this.Idchoosesystem.push(res.data.data[i].no)
+            }
+        })
   },
   methods: {
     onValuesChange(picker, values) {
-      console.log(values);
+        this.address=values
+   },
+    onDateChange(picker,values){
+        console.log();
    },
     times(type){
         this.popupVisible=true
@@ -173,11 +198,13 @@ export default {
     sure(){
          this.popupVisible=false
     },
-     onAddressChange(picker, values) {
-        picker.setSlotValues(1, address[values[0]]);
-        this.addressProvince = values[0];
-        this.addressCity = values[1];
+    //选择服务车型
+ onAddressChange(picker, values) {
+      this.car = values;
+      if (values[0] > values[1]) {
+        picker.setSlotValue(1, values[0]);
       }
+    },
   },
   created(){
     //   品牌
@@ -222,5 +249,4 @@ export default {
   width: 100%;
 }
 </style>
-
 

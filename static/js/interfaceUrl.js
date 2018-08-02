@@ -91,7 +91,9 @@ var Wit = {
     MainBus: mip + '/automobilemanage/vehicleModel/searchVehicleModelList', //全部车型 主推车型
     Dealer: mip + '/automobilemanage/dealerBaseInformation/searchDealerBaseInformationListPage', //经销商查询
     Switching: mip + '/automobilemanage/vehicleBrand/searchVehicleBrandList', //频道选择
-    Distributor: mip + '/automobilemanage/dealerBaseInformation/searchDealerBaseInfor', //选择经销商
+    Distributor: mip + '/automobilemanage/dealerBaseInformation/searchDealerBaseInformationListPage', //选择经销商
     searchVehicleBrandList: mip + '/automobilemanage/vehicleBrand/searchVehicleBrandList', //品牌
     searchVehicleSeriesList: mip + '/automobilemanage/vehicleSeries/searchVehicleSeriesList', //车型
+    Brand: mip + '/automobilemanage/vehicleBrand/searchVehicleBrandList', //选择品牌
+    System: mip + '/automobilemanage/vehicleSeries/searchVehicleSeriesList' //选择车系
 }

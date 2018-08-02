@@ -10,7 +10,7 @@
                 <ul style="margin-top:1.43rem">
                     <li class="all">
                         <span>预定车型</span>
-                        <div @click="choose_car">{{this.stylecar}}</div>
+                        <div>{{this.stylecar}}</div>
                     </li>
                     <li class="all">
                         <span>选择经销商</span>
@@ -118,6 +118,7 @@ export default {
       email: "", //邮箱
       area: [], //地区
       address: "", //地址
+      Idchooseaddress:[],//返回选择经销商的no     
       thanks:
         "感谢您对江淮汽车的关注与支持，我们专业的服务员会第一时间与您联系!",
       slots: [
@@ -156,14 +157,7 @@ export default {
       ],
       slots2: [
         {
-          values: [
-            "阿里巴巴有限公司",
-            "阿里嘻嘻",
-            "阿里哈哈按时",
-            "阿里哦哦",
-            "阿里啊啊",
-            "阿里旺旺"
-          ],
+          values: [],
           className: "slot1",
           textAlign: "right"
         },
@@ -216,19 +210,15 @@ export default {
         picker.setSlotValue(1, values[0]);
       }
     },
-    //选择预定车型
-    choose_car(){
-      console.log(Wit.Prearranged)
-      var param={}
-      this.$http.post(Wit.Prearranged,param).then((res)=>{
-        console.log(res)
-      })
-    }
   },
   mounted(){
     console.log(Wit.Distributor)
-    this.$http.post(Wit.Distributor,{'code':0,'msg':'success'}).then((res)=>{
-      console.log(res)
+    this.$http.post(Wit.Distributor,{"dealerType":"01"}).then((res)=>{
+      var chooseaddress= res.data.data.records
+      for(var i=0;i<chooseaddress.length;i++){
+        this.slots2[0].values.push(chooseaddress[i].dealerName)
+        this.Idchooseaddress.push(chooseaddress[i].no)
+      }
     })
   }
 };
