@@ -32,6 +32,7 @@ import Focus from '@/components/My/Focus'
 import FeedbackRecord from '@/components/My/FeedbackRecord' //反馈记录
 import FeedbackDetail from '@/components/My/FeedbackDetail' //反馈详情
 import ContactPerson from '@/components/My/ContactPerson' //紧急联系人
+import ModifyLikeman from '@/components/My/ModifyLikeman' //修改联系人
 import ModifyPassword from '@/components/My/ModifyPassword' //修改密码
 import MyFeedback from '@/components/My/MyFeedback' //我的返回
 import MySetUp from '@/components/My/MySetUp' //我的设置
@@ -299,6 +300,11 @@ export default new Router({
                 path: "/myindex/contactPerson",
                 name: '紧急联系人',
                 component: ContactPerson
+            },
+            {
+                path: "/myindex/modifyLikeman",
+                name: '修改联系人',
+                component: ModifyLikeman
             },
             {
                 path: "/myindex/modifyPassword",
