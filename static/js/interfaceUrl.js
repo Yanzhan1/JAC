@@ -1,10 +1,13 @@
 var indexip = 'http://172.20.20.69/api/dk-dm-portal-api'
-    //服务器-智享
+//服务器-智享
 var mip = 'http://172.20.20.69:8082/automobilemanage' //智享
-    //服务器-admin(跟用户有关即我的)
+//服务器-admin(跟用户有关即我的)
 var mips = 'http://172.20.20.69:8081/' //地区
-    //var indexip = 'http://172.18.31.40:8868'
-    //首页
+
+//服务器→反馈记录
+var rec = 'http://172.20.20.69:8083/'
+//var indexip = 'http://172.18.31.40:8868'
+//首页
 var INDEXMESSAGE = {
     getRecommend: indexip + '/recommend/recommendList', //首页-推荐
     getInfomation: indexip + '/information/indexList', //首页-资讯
@@ -102,16 +105,8 @@ var Wit = {
     PreBus: mip + '/cluesOrderFrom/addCluesOrderFrom', //车辆预定提交
     Brand: mip + '/vehicleBrand/selectVehicleSeriesByBrand', //选择品牌
     searchCountryAreaCodeListPage: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //省份
-    searchUserBaseInformationOne: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //用户基本信息详细查询
+    searchUserBaseInformationOne: mips + '/admin/userBaseInformation/searchUserBaseInformationOne',//用户基本信息详细查询
     updateUserBaseInformation: mips + '/admin/userBaseInformation/updateUserBaseInformation', //用户基本信息更新
-    ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromList', //线索订单,
-    My_Bus: mip + '/userVehicle/searchUserVehicleList', //我的车辆
-    JFmybus: mip + '/userVehicle/deleteUserVehicle', //解绑我的车辆,
-    AddMyBus: mip + '/vehicle/addVehicle', //添加我的车辆
-    Edict: mip + '/vehicle/updateVehicle', //修改车辆信息
-    ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromList', //线索订单
-    Address: mips + '/admin/userAddress/searchUserAddressList', //my部分查询所有地址
-    RemoveAddress: mips + '/admin/userAddress/deleteUserAddress', //my部分删除当前地址
-    AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
-    ChangeAddress: mips + '/admin/userAddress/updateUserAddress' //my部分修改地址
+    addComplaintsSuggestions: rec + '/enjoyservice/complaintsSuggestions/addComplaintsSuggestions',//反馈记录
+    searchComplaintsSuggestionsList: rec+'/enjoyservice/complaintsSuggestions/searchComplaintsSuggestionsList'//投诉建议查询
 }
