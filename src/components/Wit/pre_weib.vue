@@ -17,7 +17,7 @@
             <li class="flex row li_st between cocenter">
                 <p style="font-size:.27rem;color:#555">车辆VIN码</p>
                 <div class="flex row cocenter">
-                   <input type="text" placeholder="请输入pin码" style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">
+                   <input type="text" placeholder="请输入pin码" v-model="Pinma" style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
                 </div>
             </li>
@@ -31,7 +31,7 @@
             <li class="flex row li_st between cocenter" @click="times(1)">
                 <p style="font-size:.27rem;color:#555">选择服务时间</p>
                 <div class="flex row cocenter">
-                    <span style="font-size:.26rem;color:#222"></span>
+                    <span  ref="Gettimes" style="font-size:.26rem;color:#222">{{this.newyear[0]}}-{{this.allvalues[1]}}-{{this.allvalues[2]}}</span>
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
                 </div>
             </li>
@@ -70,7 +70,7 @@
                 </div>
             </li>
         </ul>
-        <span class="bottom-btn" style="background-color:#ccc;">立即预约</span>
+        <span class="bottom-btn" style="background-color:#ccc;" @click="submitt()">立即预约</span>
         <mt-popup v-model="popupVisible" position="bottom">
             <div style="width:100%;z-index:999" v-if="type==1">
                 <div class="flex row between pp">
@@ -101,6 +101,7 @@
 </template>
 <script>
 import { Picker } from "mint-ui";
+import { Toast } from 'mint-ui';
 export default {
   
   data() {
@@ -110,7 +111,10 @@ export default {
       type:1,
       car:[],
       newyear:[],
+      choosetimes:'',
+      timesstamp:'',//时间戳
       Textarea:'',//需求描述
+      Pinma:'',//pin码
       Names:'',//姓名
       Phones:'',//电话
       Email:'',//电子邮箱
@@ -118,21 +122,22 @@ export default {
       chooseaddress:{},//所有的服务商接口数据
       choosebrands:{},//所有的车系接口数据
       address:[],
-      allvalues:[],
+      allvalues:[],//时间
       onDateChangevalue:[],//values的月份
       Idchooseaddress:'',//返回服务商的每个no
       Idchoosebrand:'',//返回品牌的每个nobrand
       Idchoosesystem:'',//返回每个车系的no
+      allnum:0,//判断所有必要内容是否填写
       array31: [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
         "10",
         "11",
         "12",
@@ -157,15 +162,15 @@ export default {
         "31"
       ],
       array30: [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
         "10",
         "11",
         "12",
@@ -189,15 +194,15 @@ export default {
         "30"
       ],
       array29: [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
         "10",
         "11",
         "12",
@@ -220,15 +225,15 @@ export default {
         "29"
       ],
       array28: [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
         "10",
         "11",
         "12",
@@ -376,6 +381,56 @@ export default {
         picker.setSlotValue(1, values[0]);
       }
     },
+    submitt(el){
+        this.timesstamp=(new Date(this.$refs.Gettimes.innerHTML)).getTime()
+        if(this.Names==''){
+            Toast('请输入姓名')
+        }else{
+            this.allnum++
+        }
+        if(this.car.length==0){
+            Toast('请选择车型')
+        }else{
+            this.allnum++
+        }
+        if(this.Pinma==''){
+            Toast('请输入pin码')
+        }else{
+            this.allnum++
+        }
+        if(this.address.length==0){
+            Toast('请选择经销商')
+        }else{
+            this.allnum++
+        }
+        if(this.allvalues.length==0){
+            Toast('请选择日期')
+        }else{
+            this.allnum++
+        }
+        if(this.Textarea==''){
+            Toast('请输入文本')
+        }else{
+            this.allnum++
+        }
+        var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+        if(!reg.test(this.Phones)){
+            Toast('请输入正确的手机号')
+        }else{
+            this.allnum++
+        }
+   
+        var regs=/^[0-9a-zA-Z_]{5,12}@[a-zA-Z0-9_]{2,5}([.][a-zA-Z]{2,5})$/
+        if(!regs.test(this.Email)){
+            Toast('请输入正确的邮箱')
+        }else{
+            this.allnum++
+        }
+        if(this.allnum==8){
+            
+        }
+
+    }
   },
   watch:{
       onDateChangevalue(){
@@ -395,8 +450,9 @@ export default {
             }
         }
       }
-  }
+  },
 };
+
 </script>
 <style scoped>
 /* 插件样式 */
