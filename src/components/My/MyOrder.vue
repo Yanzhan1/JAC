@@ -154,7 +154,8 @@ import { MessageBox } from "mint-ui";
 export default {
   data() {
     return {
-      selected: "one"
+      selected: "one",
+      Xorder:{}//线索订单
     };
   },
   methods: {
@@ -185,7 +186,20 @@ export default {
     },
     compontent(){
       this.$router.push("/compontent");
-    }
+    },
+    //线索订单
+      GetXorder(){
+          this.$http.post(Wit.ClueOrder,{"userNo":"UBS2018072410503423882"}).then(res=>{
+              if(res.data.code==0){
+                  this.Xorder=res.data.data
+                  console.log(this.Xorder)
+              }
+           
+          })
+      }
+  },
+  created(){
+    this.GetXorder()
   }
 };
 </script>
