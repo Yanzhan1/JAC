@@ -20,7 +20,9 @@
                     <div class="flex row">
                         <div class="flex row maincenter cocenter" style="margin-right:.4rem">
                             <img src="../../../static/images/my/address_write.png" alt="" style="width:.28rem;height:.28rem">
-                            <span class="edict">编辑</span>
+                            <router-link class="edict" :to="{name:'changeaddress',query:item}" tag="span">
+                                编辑
+                            </router-link>
                         </div>
                         <div class="flex row maincenter cocenter" @click="confirmRevise(item.no)">
                             <img src="../../../static/images/my/address_delete.png" alt="" style="width:.26rem;height:.28rem">
@@ -29,28 +31,7 @@
                     </div>
                 </div>
             </li>
-            <!-- <li class="flex column maincenter" style="height:2.21rem;border-bottom:1px solid #f1f1f1;">
-                <div class="flex row between">
-                    <span class="names">天天</span>
-                    <span class="tell">15021115604</span>
-                </div>
-                <div class="address">江苏省邳州市铁富镇5858号左转右转今飞凯达手</div>
-                <div class="flex row between">
-                    <div>
-                        <span class="mor" v-if="4>5">默认</span>
-                    </div>
-                    <div class="flex row">
-                        <div @click="educt()" class="flex row maincenter cocenter" style="margin-right:.4rem">
-                            <img src="../../../static/images/my/address_write.png" alt="" style="width:.28rem;height:.28rem">
-                            <span class="edict">编辑</span>
-                        </div>
-                        <div class="flex row maincenter cocenter" @click="confirmRevise(3)">
-                            <img src="../../../static/images/my/address_delete.png" alt="" style="width:.26rem;height:.28rem">
-                            <span class="delte">删除</span>
-                        </div>
-                    </div>
-                </div>
-            </li> -->
+
         </ul>
         <div style="height:1rem;"></div>
         <button class="bottom-btn" style="outline:none" @click="toadd()">添加新地址</button>
@@ -88,14 +69,13 @@ export default {
         cancelButtonText: "取消",
         confirmButtonHighlight: true,
         cancelButtonHighlight: true
-      })
-        .then(action => {
+      }).then(action => {
           if (action == "confirm") {
 
               this.$http.post(Wit.RemoveAddress,{no:num}).then((res)=>{
                   
+                  this.getaddress()
               })
-              this.getaddress()
           }
         })
         .catch(err => {

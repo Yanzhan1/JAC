@@ -108,5 +108,10 @@ var Wit = {
     My_Bus: mip + '/userVehicle/searchUserVehicleList', //我的车辆
     JFmybus: mip + '/userVehicle/deleteUserVehicle', //解绑我的车辆,
     AddMyBus: mip + '/vehicle/addVehicle', //添加我的车辆
-    Edict: mip + '/vehicle/updateVehicle' //修改车辆信息
+    Edict: mip + '/vehicle/updateVehicle', //修改车辆信息
+    ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromList', //线索订单
+    Address: mips + '/admin/userAddress/searchUserAddressList', //my部分查询所有地址
+    RemoveAddress: mips + '/admin/userAddress/deleteUserAddress', //my部分删除当前地址
+    AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
+    ChangeAddress: mips + '/admin/userAddress/updateUserAddress' //my部分修改地址
 }
