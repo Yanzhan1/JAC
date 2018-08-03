@@ -70,7 +70,7 @@
                 </div>
             </li>
         </ul>
-        <span class="bottom-btn" style="background-color:#ccc;" @click="submitt()">立即预约</span>
+        <span class="bottom-btn" style="background-color:#ccc;" @click="submitt($event)">立即预约</span>
         <mt-popup v-model="popupVisible" position="bottom">
             <div style="width:100%;z-index:999" v-if="type==1">
                 <div class="flex row between pp">
@@ -381,41 +381,49 @@ export default {
         picker.setSlotValue(1, values[0]);
       }
     },
-    submitt(el){
-        this.timesstamp=(new Date(this.$refs.Gettimes.innerHTML)).getTime()
-        if(this.Names==''){
+    choose_color(){
+                if(this.Names==''){
             Toast('请输入姓名')
+            return false
         }else{
             this.allnum++
         }
         if(this.car.length==0){
             Toast('请选择车型')
+            return false
         }else{
             this.allnum++
         }
         if(this.Pinma==''){
             Toast('请输入pin码')
+            return false
         }else{
             this.allnum++
         }
         if(this.address.length==0){
             Toast('请选择经销商')
+            return false
         }else{
             this.allnum++
         }
         if(this.allvalues.length==0){
             Toast('请选择日期')
+            return false
         }else{
             this.allnum++
         }
         if(this.Textarea==''){
             Toast('请输入文本')
+            return false
+            
         }else{
             this.allnum++
         }
         var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+        console.log(reg.test(this.Phones))
         if(!reg.test(this.Phones)){
             Toast('请输入正确的手机号')
+            return false
         }else{
             this.allnum++
         }
@@ -423,13 +431,35 @@ export default {
         var regs=/^[0-9a-zA-Z_]{5,12}@[a-zA-Z0-9_]{2,5}([.][a-zA-Z]{2,5})$/
         if(!regs.test(this.Email)){
             Toast('请输入正确的邮箱')
+            return false
         }else{
             this.allnum++
         }
         if(this.allnum==8){
-            
+            el.target.style.backgroundColor='#49BBFF'
         }
-
+    },
+    submitt(el){
+        this.timesstamp=(new Date(this.$refs.Gettimes.innerHTML)).getTime()
+        this.choose_color()
+        if(this.Names!=''&&this.car.length!=0&&this.Pinma!=''&&this.address.length!=0&&this.allvalues.length!=0&&this.Textarea!=''&&reg.test(this.Phones)==true&&regs.test(this.Email)==true){
+            el.target.style.backgroundColor='#49BBFF'
+            var parmass={
+            customerName:this.Names, 
+            fkDealerId:"N7650100", //姓名
+            gender:"1", //性别
+            mobile:this.Phones, //电话
+            email:this.Email, //邮箱
+            address:"上海市徐汇区田林路", 
+            comments:this.Idchooseaddress, //商家
+            province:"022", 
+            series:this.Idchoosesystem,//车系
+            model: this. Idchoosebrand//车型
+        }
+        this.$http.post(Wit.PreBus,parmass).then((res)=>{
+            console.log(res)
+        })
+        }
     }
   },
   watch:{

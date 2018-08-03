@@ -7,15 +7,15 @@
         </header>
         <div style="height:.88rem"></div>
         <ul style="padding:.2rem .4rem">
-            <li class="flex column maincenter" style="height:2.21rem;border-bottom:1px solid #f1f1f1;">
+            <li class="flex column maincenter" v-for='(item,index) in this.alladdress' :key='index' style="height:2.21rem;border-bottom:1px solid #f1f1f1;">
                 <div class="flex row between">
-                    <span class="names">天天</span>
-                    <span class="tell">15021115604</span>
+                    <span class="names">{{item.receiveName}}</span>
+                    <span class="tell">{{item.receiveMobile}}</span>
                 </div>
-                <div class="address">江苏省邳州市铁富镇5858号左转右转今飞凯达手</div>
+                <div class="address">{{item.address}}</div>
                 <div class="flex row between">
                     <div>
-                        <span class="mor" v-if="4<5">默认</span>
+                        <span class="mor" v-if="item.isDefault==1">默认</span>
                     </div>
                     <div class="flex row">
                         <div class="flex row maincenter cocenter" style="margin-right:.4rem">
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </li>
-            <li class="flex column maincenter" style="height:2.21rem;border-bottom:1px solid #f1f1f1;">
+            <!-- <li class="flex column maincenter" style="height:2.21rem;border-bottom:1px solid #f1f1f1;">
                 <div class="flex row between">
                     <span class="names">天天</span>
                     <span class="tell">15021115604</span>
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                 </div>
-            </li>
+            </li> -->
         </ul>
         <button class="bottom-btn" style="outline:none" @click="toadd()">添加新地址</button>
     </div>
@@ -59,7 +59,9 @@
 import { MessageBox } from "mint-ui";
 export default {
   data() {
-    return {};
+    return {
+        alladdress:{}
+    };
   },
   methods: {
     toadd() {
@@ -83,7 +85,7 @@ export default {
       })
         .then(action => {
           if (action == "confirm") {
-              console.log(num)
+              this.$http.post()
           }
         })
         .catch(err => {
@@ -91,6 +93,12 @@ export default {
           }
         });
     }
+  },
+  mounted(){
+      this.$http.post(Wit.Address,{}).then((res)=>{
+          this.alladdress=res.data.data
+          console.log(res.data.data)
+      })
   }
 };
 </script>

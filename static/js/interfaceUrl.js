@@ -1,9 +1,9 @@
 var indexip = 'http://172.20.20.69/api/dk-dm-portal-api'
-//服务器-智享
+    //服务器-智享
 var mip = 'http://172.20.20.69:8082/automobilemanage' //智享
-//服务器-admin(跟用户有关即我的)
+    //服务器-admin(跟用户有关即我的)
 var mips = 'http://172.20.20.69:8081/' //地区
-//首页
+    //首页
 var INDEXMESSAGE = {
     getRecommend: indexip + '/recommend/recommendList', //首页-推荐
     getInfomation: indexip + '/information/indexList', //首页-资讯
@@ -100,5 +100,6 @@ var Wit = {
     Area: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //选择地区
     PreBus: mip + '/cluesOrderFrom/addCluesOrderFrom', //车辆预定提交
     Brand: mip + '/vehicleBrand/selectVehicleSeriesByBrand', //选择品牌
-    searchCountryAreaCodeListPage: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage' //省份
+    searchCountryAreaCodeListPage: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //省份
+    Address: mips + '/admin/userAddress/searchUserAddressList' //my部分查询所有地址
 }
