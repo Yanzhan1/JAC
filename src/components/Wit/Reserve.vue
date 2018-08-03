@@ -22,7 +22,7 @@
                     <li class="all">
                         <span>推荐码</span>
                         <div class="allflex">
-                            <input type="text" name="" id="" placeholder='点击输入推荐码' v-model="this.Recommend">
+                            <input type="text" name="" id="" placeholder='点击输入推荐码' v-model="Recommend">
                             <img src="/static/images/next@2x.png" alt="">
                         </div>
                     </li>
@@ -36,7 +36,7 @@
                     <li class="sixname all">
                         <span>称谓</span>
                         <div class="allflex">
-                            <input type="text" name="" id="" placeholder="点击输入称谓" v-model="this.smallname">
+                            <input type="text" name="" id="" placeholder="点击输入称谓" v-model="smallname">
                             <img src="/static/images/next@2x.png" alt="">
                         </div>
                     </li>
@@ -57,7 +57,7 @@
                     <li @click="regions" class="all">
                         <span>所在地区</span>
                         <div class="allflex">
-                            <input type="text" name="" id="" placeholder="点击选择地区" v-model="this.area">
+                            <input type="text" name="" id="" placeholder="点击选择地区" v-model="area">
                             <img src="/static/images/next@2x.png" alt="">
                         </div>
                     </li>
@@ -71,7 +71,7 @@
                 </ul>
                 <span class='Remarks'>备注说明：</span>
                 <textarea placeholder="输入文本..." v-model="beizhu"></textarea>
-            <!-- <mt-button plain size='large' style="background:#49BBFF;color:#fff;border:0;" @click.native="sub">提交</mt-button> -->
+          
             <div class="submit" v-show="success">
                 <img src="/static/images/Wit/gou@2x.png" alt="" style="width:.8rem;height:.8rem;" class="gou">
                 <h3>提交成功</h3>

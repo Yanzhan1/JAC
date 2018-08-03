@@ -97,9 +97,7 @@
                 </div>
                 <mt-picker  :slots="service" @change="onServicesChange"></mt-picker>
            </div>  
-
-
-            <div style="width:100%;z-index:999" v-if="type==3">
+           <div style="width:100%;z-index:999" v-if="type==3">
              <div class="flex row between pp">
                     <span></span>
                     <span style="font-size:.34rem;color:#222;margin-left: .7rem;" >选择服务车型</span>
@@ -108,6 +106,19 @@
                  <mt-picker :slots="addressSlots" @change="onAddressChange" :visible-item-count="5"></mt-picker>
             </div>
         </mt-popup>
+          <!-- 提交成功后显示 -->
+       <div class="submit" v-show="success">
+                <img src="/static/images/Wit/gou@2x.png" alt="" style="width:.8rem;height:.8rem;" class="gou">
+                <h3>提交成功</h3>
+                <div class="success_bt">{{this.thanks}}</div>
+                <div style="width:5.68rem;height:.02rem;background:#f1f1f1;margin:.2rem auto;"></div>
+                <div class="look">
+                    <div class="look_l">查看订单</div>
+                    <div style="width:.02rem;height:.6rem;background:#f1f1f1;"></div>
+                    <div class="look_r" @click="complete">完成</div>
+                </div>
+            </div> 
+             <div v-show="region" class="black" ></div> <!-- 遮罩层  --> 
 </div>
 </template>
 <script>
@@ -119,8 +130,12 @@ export default {
     return {
       popupVisible: false,
       showToolbar:true,
+       success: false,
+       region:false,
       type:1,
-      car:[],
+      thanks:
+        "感谢您对江淮汽车的关注与支持，我们专业的服务员会第一时间与您联系!",
+       car:[],
       newyear:[],
       choosetimes:'',
       timesstamp:'',//时间戳
@@ -359,6 +374,11 @@ export default {
     sure(){
          this.popupVisible=false
     },
+     complete() {
+      this.success = false;
+      this.region=false
+   
+    },
     //选择服务车型
     onAddressChange(picker, values) {
       this.car = values;
@@ -386,65 +406,51 @@ export default {
                 if(this.Names==''){
             Toast('请输入姓名')
             return false
-        }else{
-            this.allnum++
         }
         if(this.car.length==0){
             Toast('请选择车型')
             return false
-        }else{
-            this.allnum++
         }
         if(this.Pinma==''){
             Toast('请输入pin码')
             return false
-        }else{
-            this.allnum++
         }
         if(this.address.length==0){
             Toast('请选择经销商')
             return false
-        }else{
-            this.allnum++
         }
         if(this.allvalues.length==0){
             Toast('请选择日期')
             return false
-        }else{
-            this.allnum++
         }
         if(this.Textarea==''){
             Toast('请输入文本')
             return false
             
-        }else{
-            this.allnum++
         }
         var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
         console.log(reg.test(this.Phones))
         if(!reg.test(this.Phones)){
             Toast('请输入正确的手机号')
             return false
-        }else{
-            this.allnum++
         }
    
         var regs=/^[0-9a-zA-Z_]{5,12}@[a-zA-Z0-9_]{2,5}([.][a-zA-Z]{2,5})$/
         if(!regs.test(this.Email)){
             Toast('请输入正确的邮箱')
             return false
-        }else{
-            this.allnum++
         }
-        if(this.allnum==8){
-            el.target.style.backgroundColor='#49BBFF'
-        }
+        
     },
     submitt(el){
         this.timesstamp=(new Date(this.$refs.Gettimes.innerHTML)).getTime()
         this.choose_color()
+       var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+          var regs=/^[0-9a-zA-Z_]{5,12}@[a-zA-Z0-9_]{2,5}([.][a-zA-Z]{2,5})$/
+        
         if(this.Names!=''&&this.car.length!=0&&this.Pinma!=''&&this.address.length!=0&&this.allvalues.length!=0&&this.Textarea!=''&&reg.test(this.Phones)==true&&regs.test(this.Email)==true){
             el.target.style.backgroundColor='#49BBFF'
+            
             var parmass={
             customerName:this.Names, 
             fkDealerId:"N7650100", //姓名
@@ -458,11 +464,27 @@ export default {
             model: this. Idchoosebrand//车型
         }
         this.$http.post(Wit.PreBus,parmass).then((res)=>{
-            console.log(res)
+           this.success=true,
+           this.region=true
         })
         }
     }
   },
+//   watch:{
+//       onDateChangevalue(){
+//           if(this.allvalues[1]==1||this.allvalues[1]==3||this.allvalues[1]==5||this.allvalues[1]==7||this.allvalues[1]==8||this.allvalues[1]==10||this.allvalues[1]==12){
+//             this.slotss[2].values=this.array31
+//         }
+//         if(this.allvalues[1]==4||this.allvalues[1]==6||this.allvalues[1]==9||this.allvalues[1]==11){
+//             this.slotss[2].values=this.array30
+//         }
+//         if(this.newyear%4==0||this.newyear%100==0&&this.newyear%400){
+//             if(this.allvalues[1]==2){
+//                 this.slotss[2].values=this.array28
+//             }
+//         }
+//     }
+//   },
   watch:{
       onDateChangevalue(){
           if(this.allvalues[1]==1||this.allvalues[1]==3||this.allvalues[1]==5||this.allvalues[1]==7||this.allvalues[1]==8||this.allvalues[1]==10||this.allvalues[1]==12){
@@ -517,6 +539,59 @@ export default {
 }
 .mint-popup {
   width: 100%;
+}
+.submit {
+  position: absolute;
+  top: 3.31rem;
+  left: 0.65rem;
+  width: 6.2rem;
+  height: 4.12rem;
+  background: #fff;
+  z-index: 1001;
+  border-radius: 0.2rem;
+  font-family: PingFang SC;
+  font-weight: Medium;
+  color: #222;
+}
+.submit > h3 {
+  text-align: center;
+  font-size: 0.36rem;
+  margin-top: 0.31rem;
+}
+.success_bt {
+  width: 5.02rem;
+  text-align: center;
+  margin-left: 0.59rem;
+  margin-top: 0.36rem;
+}
+.gou {
+  margin-left: 2.7rem;
+  margin-top: 0.21rem;
+}
+.look {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: #1e99ff;
+}
+.look .look_l {
+  margin-left: 0.49rem;
+  font-size: 0.34rem;
+}
+.look .look_r {
+  margin-right: 0.49rem;
+  font-size: 0.34rem;
+}
+.black {
+  width: 100%;
+  height: 110%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 </style>
 
