@@ -8,19 +8,18 @@
 		<div style="height:.88rem"></div>
 		<div class="flex row around con cocenter">
 			<div class="flex row cocenter">
+				  <!-- 品牌 -->
 				<select-compon v-model="brandNo" :selections="searchVehicleBrandList" :title="brandTitle" :carryProperty="carryProperty" :carryContent="carryContent" @on-change="receiveIndex"></select-compon>
+			
 			</div>
 			<div class="flex row cocenter">
+				<!-- 车型 -->
 				<select-compon :selections="searchVehicleSeriesList" :title="carModelTitle"></select-compon>
 			</div>
 			<div class="flex row cocenter">
-				<select v-model="provinceId">
-					<option value="" disabled selected>省份</option>
-					<option v-for="(item,index) in searchCountryAreaCodeListPage" :key="index" :value="item.id">{{item.name}}</option>
-				</select>
-				<!--<span>省份</span>
-				<img src="../../../static/images/Wit/screen_arrow_btn.png" alt="">-->
-			</div>
+				<!-- 省份 -->
+			 <select-compon v-model="parentId" :selections="searchCountryAreaCodeListPage" :title="provinceName" :carryProperty="ids"  @on-change="receiveIndex"></select-compon>
+		  </div>
 			<div class="flex row cocenter">
 				<select v-model="cityId">
 					<option value="" disabled selected>城市</option>
@@ -77,8 +76,11 @@
 				cityId: '', //城市id
 				brandTitle: '品牌', //品牌title
 				carModelTitle: '车型', //车型title
-				carryProperty: 'no',  //
-				carryContent: 'seriesName'
+				carryProperty: 'no',  // 获取车型的字段名
+				carryContent: 'seriesName',
+				parentId:'', //被检测的省份id 
+				provinceName:'省份',
+				ids: 'parentId'
 			};
 		},
 		components: {
@@ -94,18 +96,11 @@
 				//请求品牌列表
 				this.$http.post(Wit.searchVehicleBrandList, data).then(res => {
 						const data = res.data;
-						//						console.log(data);
 						if(data.code == 0) {
 							this.searchVehicleBrandList = data.data;
-							//							console.log(this.searchVehicleBrandList)
-						} else {
-							alert(data.msg)
-						}
+						} 
 					})
-					.catch((error) => {
-						alert('系统异常')
-					});
-				//经销商
+					//经销商
 				this.$http.post(Wit.Dealer, param).then(res => {
 						if(res.data.code == 0) {
 							this.mainbus = res.data.data.records
@@ -114,17 +109,12 @@
 				//请求省份列表
 				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
 					const data = res.data;
-					//						console.log(data);
-					if(data.code == 0) {
+				 if(data.code == 0) {
 						this.searchCountryAreaCodeListPage = data.data.records;
 						console.log(this.searchCountryAreaCodeListPage)
-					} else {
-						alert(data.msg)
 					}
 				})
-				.catch((error) => {
-					alert('系统异常')
-				});
+				
 			},
 			search() {
 				this.popupVisible = true;
@@ -135,7 +125,9 @@
 			//接受select组件穿过来的index,父子组件通信
 			receiveIndex (val) {
 				this.brandNo = val.val
-			}
+				this.parentId=val.val
+			},
+
 		},
 		mounted() {
 			this.init()
@@ -151,22 +143,17 @@
 						const data = res.data;
 						if(data.code == 0) {
 							this.searchVehicleSeriesList = data.data;
-//							console.log(this.searchVehicleBrandList)
-						} else {
-							alert(data.msg)
-						}
-					})
-					.catch((error) => {
-						alert('系统异常')
-					});
+                 } 
+				})
+					
 			},
 			seriesNo(newVal, oldVal) {
 
 			},
-			provinceId(newVal, oldVal) { //监听省,获取市列表
+			parentId(newVal, oldVal) { //监听省,获取市列表
 				let data = {
-					"parentId": this.provinceId,
-					"level": 2
+			     	parentId:this.provinceId, //被检测的省份id 
+					level: 2
 				}
 				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
 						const data = res.data;
@@ -178,10 +165,7 @@
 							alert(data.msg)
 						}
 					})
-					.catch((error) => {
-						alert('系统异常')
-					});
-			}
+				}
 		}
 	};
 </script>

@@ -35,10 +35,10 @@
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
                 </div>
             </li>
-            <li class="flex row li_st between cocenter">
+            <li class="flex row li_st between cocenter"  @click="times(4)">
                 <p style="font-size:.27rem;color:#555">可预约项目</p>
                 <div class="flex row cocenter">
-                    <span style="font-size:.26rem;color:#222"></span>
+                    <span style="font-size:.26rem;color:#222">{{this.services[0]}}</span>
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
                 </div>
             </li>
@@ -87,8 +87,19 @@
                     <span style="font-size:.3rem;color:#49BBFF;margin:0 .3rem" @click="sure">确定</span>
                 </div>
                 <mt-picker  :slots="slots" @change="onValuesChange"></mt-picker>
-            </div>
-        <div style="width:100%;z-index:999" v-if="type==3">
+          </div>
+
+           <div style="width:100%;z-index:999" v-if="type==4">
+             <div class="flex row between pp">
+                    <span></span>
+                    <span style="font-size:.34rem;color:#222;margin-left: .7rem;">选择服务类型</span>
+                    <span style="font-size:.3rem;color:#49BBFF;margin:0 .3rem" @click="sure">确定</span>
+                </div>
+                <mt-picker  :slots="service" @change="onServicesChange"></mt-picker>
+           </div>  
+
+
+            <div style="width:100%;z-index:999" v-if="type==3">
              <div class="flex row between pp">
                     <span></span>
                     <span style="font-size:.34rem;color:#222;margin-left: .7rem;" >选择服务车型</span>
@@ -128,6 +139,7 @@ export default {
       Idchoosebrand:'',//返回品牌的每个nobrand
       Idchoosesystem:'',//返回每个车系的no
       allnum:0,//判断所有必要内容是否填写
+      services:[],
       array31: [
         "01",
         "02",
@@ -298,7 +310,8 @@ export default {
         }
       ],
       slots:[
-          {values: [],defaultIndex: 3,} ]
+          {values: [],defaultIndex: 3,} ],
+     service:[{values:['维修','保养']}]
     };
   },
   mounted(){
@@ -333,23 +346,11 @@ export default {
     onDateChange(picker,values){
         this.allvalues=values;
         this.onDateChangevalue=values[1]
-        // if(values[1]==1||values[1]==3||values[1]==5||values[1]==7||values[1]==8||values[1]==10||values[1]==12){
-        //     this.slotss[2].values=this.array31
-        // }
-        // console.log(values[1]==4||values[1]==6||values[1]==9||values[1]==11)
-        // if(values[1]==4||values[1]==6||values[1]==9||values[1]==11){
-        //     this.slotss[2].values=this.array30
-        // }
-        // if(this.newyear%4==0||this.newyear%100==0&&this.newyear%400){
-        //     if(values[1]==2){
-        //         this.slotss[2].values=this.array28
-        //     }
-        // }else{
-        //     if(values[1]==2){
-        //         this.slotss[2].values=this.array29
-        //     }
-        // }
-        
+       
+    },
+    onServicesChange(picker, values){
+        console.log(values)
+        this.services=values
     },
     times(type){
         this.popupVisible=true

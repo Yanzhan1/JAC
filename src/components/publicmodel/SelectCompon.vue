@@ -7,7 +7,7 @@
 		</div>
 		<div class="selection-list" v-if="isDrop">
 			<ul>
-				<li v-for="(item,index) in selections"  :key="index" @click="chooseSelection(index, item[carryProperty])">{{ item.brandName ? item.brandName : item.seriesName}}</li>
+				<li v-for="(item,index) in selections"  :key="index" @click="chooseSelection(index, item[carryProperty])">{{ (item.brandName ? item.brandName : item.seriesName) || item.name}}</li>
 			</ul>
 		</div>
 	</div>
@@ -44,7 +44,7 @@
 				type: String
 			}
 		},  
-		//你好
+		//
 		methods: {
 			toggleDrop() {
 				this.isDrop = !this.isDrop;
@@ -63,7 +63,7 @@
 		},
 		computed: {
 			selected() {
-				return (this.selections[this.nowIndex] && this.selections[this.nowIndex].brandName) || (this.selections[this.nowIndex] && this.selections[this.nowIndex].seriesName)
+				return (this.selections[this.nowIndex] && this.selections[this.nowIndex].brandName) || (this.selections[this.nowIndex] && this.selections[this.nowIndex].seriesName) ||(this.selections[this.nowIndex] && this.selections[this.nowIndex].name)
 			}
 		}
 	}
