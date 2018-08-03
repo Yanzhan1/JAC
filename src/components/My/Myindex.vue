@@ -45,13 +45,13 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
     	</router-link>
-      <div class="mylist" @click="myorder()">
-        <div class="flex cocenter">
+      <router-link class="mylist" tag="div" to="/myorder">
+       <div class="flex cocenter">
           <img src="../../../static/images/my/mine_list@2x.png" alt="">
           <span>我的订单</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </div>
+      </router-link>
       <div class="mylist">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_record_maintanance@2x.png" alt="">
@@ -73,13 +73,13 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
       </div>
-      <div class="mylist" @click="my_dealer()">
-        <div class="flex cocenter">
+      <router-link to="/my_dealer" tag="div"  class="mylist">
+          <div class="flex cocenter">
           <img src="../../../static/images/my/mine_agency@2x.png" alt="">
           <span>我的经销商</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </div>
+       </router-link>
       <div class="mylist">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_recommend@2x.png" alt="">
@@ -87,15 +87,14 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
       </div>
-      <div class="mylist">
+      <div class="mylist" @click="scan()">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_code@2x.png" alt="">
           <span>扫一扫</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
       </div>
-      <!--<router-link tag="div" class="mylist" to=""></router-link>-->
-      <router-link tag="div" class="mylist" to="/myindex/mySetUp">
+     <router-link tag="div" class="mylist" to="/myindex/mySetUp">
       	<div class="flex cocenter">
           <img src="../../../static/images/my/mine_set@2x.png" alt="">
           <span>设置</span>
@@ -113,21 +112,27 @@ export default {
     return {};
   },
   methods: {
+    //编辑个人信息
     edict() {
       this.$router.push("/edictperson");
     },
-    my_dealer() {
-      this.$router.push("/my_dealer");
-    },
-    myorder() {
-      this.$router.push("/myorder");
-    },
+    //消息
     tonews(){
      this.$router.push('/news')
     },
+    //二维码
     twoma(){
      this.$router.push('/twoma')
-    }
+    },
+    //扫一扫
+    scan(){
+      if (isMobile.iOS()) {
+        var params ={};
+        window.webkit.messageHandlers.scan.postMessage(params);
+      } else if(isMobile.Android()) {
+        js2android.scan();
+      }
+    },
   },
   mounted() {}
 };
@@ -147,7 +152,6 @@ export default {
 .mytopicon > img {
   width: 0.4rem;
   height: 0.4rem; 
-   
 }
 .mytophead {
   margin-top: 0.1rem;

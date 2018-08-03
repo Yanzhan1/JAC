@@ -104,5 +104,9 @@ var Wit = {
     searchCountryAreaCodeListPage: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //省份
     searchUserBaseInformationOne: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //用户基本信息详细查询
     updateUserBaseInformation: mips + '/admin/userBaseInformation/updateUserBaseInformation', //用户基本信息更新
-    ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromList' //线索订单
+    ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromList', //线索订单,
+    My_Bus: mip + '/userVehicle/searchUserVehicleList', //我的车辆
+    JFmybus: mip + '/userVehicle/deleteUserVehicle', //解绑我的车辆,
+    AddMyBus: mip + '/vehicle/addVehicle', //添加我的车辆
+    Edict: mip + '/vehicle/updateVehicle' //修改车辆信息
 }

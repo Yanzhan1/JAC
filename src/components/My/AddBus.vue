@@ -15,41 +15,71 @@
 			<input type="text" placeholder="请输入完整发动机号" v-model="engine" />
 		</div>
 		<img class="driver-licence" :src="'./static/images/my/drivingcard.png'" alt="" />
+		<div class="bottom-btn " @click="AddMybus()">提交</div>
 	</div>
 </template>
 
 <script>
-	export default {
-		name: 'addBus',
-		data () {
-			return {
-				//pin码
-				rame: '',
-				//发动机码
-				engine: ''
-			}
-		}
-	}
+import { Toast } from "mint-ui";
+export default {
+  name: "addBus",
+  data() {
+    return {
+      //pin码
+      rame: "",
+      //发动机码
+      engine: ""
+    };
+  },
+  methods: {
+    AddMybus() {
+      var param = {
+        vehicleName: "江淮999",
+        color: "黑色",
+        plateLicenseNo: "沪A111111",
+        userNo: "UBS2018072410503423882",
+        relationType: "01",
+        isDefault: "01",
+        engineNo: "VJ00102",
+        vin: "LJ1702345G8001011"
+      };
+      this.$http.post(Wit.AddMyBus, param).then(res => {
+        if (res.data.code == 0) {
+          Toast({
+            message: "添加成功！",
+            duration: 1000,
+            position: "middle"
+		  });
+		  var self=this
+		  setTimeout(function(){
+            self.$router.go(-1);
+		  },2000)
+         
+        }
+      });
+    }
+  }
+};
 </script>
 
 <style scoped>
-	.rame-number {
-	    display: flex;
-	    justify-content: space-between;
-	    align-items: center;
-	    width: 92%;
-	    height: 1rem;
-	    margin: 0 auto;
-	    border-bottom: 1px solid #f1f1f1;
-	}
-	input {
-	    width: 2.6rem;
-		border: none;
-		outline: none;
-	}
-	.driver-licence {
-		width: 84%;
-		height: 3.6rem;
-		margin: 0.56rem auto 0 auto; 
-	}
+.rame-number {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 92%;
+  height: 1rem;
+  margin: 0 auto;
+  border-bottom: 1px solid #f1f1f1;
+}
+input {
+  width: 2.6rem;
+  border: none;
+  outline: none;
+}
+.driver-licence {
+  width: 84%;
+  height: 3.6rem;
+  margin: 0.56rem auto 0 auto;
+}
 </style>

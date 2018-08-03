@@ -10,7 +10,7 @@
 			<span style="color: #555555;">车牌号码</span>
 			<input type="text" placeholder="请输入车牌号" v-model="plate" />
 		</div>
-		<button class="confirm">确认</button>
+		<button class="confirm" @click="add()">确认</button>
 	</div>
 </template>
 
@@ -20,8 +20,25 @@
 		data() {
 			return {
 				//车牌号
-				plate: ''
+				plate: '',
+				
 			}
+		},
+		methods:{
+           add(){
+			   var param={
+				   plateLicenseNo:this.plate,
+				   no:this.$route.query.no
+			   }
+			  this.$http.post(Wit.Edict,param).then(res=>{
+                if(res.data.code==0){
+					this.$router.go(-1)
+				}
+			  })
+		   }
+		},
+		created(){
+			this.plate=this.$route.query.plateLicenseNo
 		}
 	}
 </script>

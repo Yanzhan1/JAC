@@ -8,26 +8,26 @@
 		<div style="height:0.88rem"></div>
 		<!--<div class="bus-wrap">-->
 			<ul class="bus-list">
-				<li class="bus-content flex-center-between">
+				<li class="bus-content flex-center-between" v-for="(item,index) in BusDetails" :key="index">
 					<div class="bus-left">
 						<div class="bus-name flex-align-center">
 							<img v-if="carState" :src="'./static/images/Lovecar/window2@2x.png'" alt="" />
 							<img v-else :src="'./static/images/Lovecar/loseWindow.png'" alt="" />
-							<span style="color: #49BBFF;">瑞风 S7 {{carState ? '默认' : ''}}</span>
+							<span style="color: #49BBFF;">{{item.seriesName}} {{carState ? '默认' : ''}}</span>
 						</div>
-						<img :src="'./static/images/my/car_ruifeng_s5@2x.png'" alt="" />
+						<img :src="'./static/images/my/car_ruifeng_s5@2x.png'" alt=""  @click="edict()" />
 					</div>
 					<div class="bus-right">
-						<p class="bus-untie" @click="unite">解绑</p>
+						<p class="bus-untie" @click="unite()">解绑</p>
 						<div class="flex-align-center">
-							<span style="color:#49BBFF;">{{carState ? '沪A 12345' : '添加车牌'}}</span>
-							<router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" to="/myindex/plateBind"></router-link>
+							<span style="color:#49BBFF;"> {{item.plateLicenseNo}}</span>
+							<router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{no:item.no,plateLicenseNo:item.plateLicenseNo}}"></router-link>
 						</div>
 						<div>
-							<span class="commonFontSize">车架号：ea39588182284554</span>
+							<span class="commonFontSize">车架号：{{item.engineNo}}</span>
 						</div>
 						<div>
-							<span class="commonFontSize">发动机号：dd94895984395949</span>
+							<span class="commonFontSize">发动机号：{{item.vin}}</span>
 						</div>
 					</div>
 				</li>
@@ -43,9 +43,9 @@
 		data () {
 			return {
 				//汽车默认状态
-				carState: true
-				
-			}
+				carState: true,
+				BusDetails:[]//我的车辆信息
+	    	}
 		},
 		methods: {
 			unite () {
@@ -61,22 +61,39 @@
 					confirmButtonHighlight: true,
 					cancelButtonHighlight: true
 				}).then(action => {
-					if(action == 'confirm') {
-						//跳转修改成功页面
-						console.log('abc');
+					    if(action == 'confirm') {
+						this.$http.post(Wit.JFmybus,{"userNo":"UBS2018072410503423882"}).then(res=>{
+							
+						})
+						
 					}
-				}).catch(err => {
-					if(err == 'cancel') {
-						console.log('123');
-					}
-				});
-			}
+				})
+			},
+			//我的车辆
+			MyBus(){
+			   this.$http.post(Wit.My_Bus,{"userNo":"UBS2018072410503423882"}).then(res=>{
+				   if(res.data.code==0){
+					 this.BusDetails=res.data.data
+					
+				   }
+               
+			   })
+		  },
+		 
+		
+		},
+		created(){
+			this.MyBus()
 		}
+		
 	}
 </script>
 
 <style scoped>
 	/*flex*/
+	li{
+		margin-top: .3rem;
+	}
 	.flex-center{/*水平垂直居中*/
 	  display: flex;
 	  justify-content: center;
