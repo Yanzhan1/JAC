@@ -30,12 +30,33 @@
 		name: 'modifyLikeman',
 		data() {
 			return {
-				modifyinfo: this.$route.params.modify //路由传参获取紧急联系人信息
+				modifyinfo: this.$route.params.modify, //路由传参获取紧急联系人信息
+				condition: {
+					no: this.modifyinfo ? this.modifyinfo.no: ''
+				}
 			}
 		},
 		methods: {
-			confirm() {//修改紧急联系人确认
-
+			confirm() {
+				//更改用户信息→修改紧急联系人
+				this.$http.post(Wit.updateUserBaseInformation, this.condition).then(res => {
+					const data = res.data;
+					if(data.code == 0) {
+						this.userInfor = data.data
+					} else {
+						let instance = Toast({
+							message: res.data.data.respMsg,
+							position: 'middle',
+							duration: 1000
+						});
+					}
+				}).catch((error) => {
+						let instance = Toast({
+							message: '系统异常',
+							position: 'middle',
+							duration: 1000
+						});
+				});
 			},
 			getFocus () { //进入页面自动获取输入框的焦点
 				this.$refs.content.focus()

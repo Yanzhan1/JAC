@@ -3,4 +3,5 @@ export default {
     islogin: true, //判断是否登录 测试用
   userId:1165864,//用户userID 正式上线用
   UserStartId:null,
+  no:''
 }

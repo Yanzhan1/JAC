@@ -52,7 +52,7 @@
 					}
 				}).catch((error) => {
 						let instance = Toast({
-							message: res.data.data.respMsg,
+							message: '系统异常',
 							position: 'middle',
 							duration: 1000
 						});
