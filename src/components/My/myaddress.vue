@@ -22,7 +22,7 @@
                             <img src="../../../static/images/my/address_write.png" alt="" style="width:.28rem;height:.28rem">
                             <span class="edict">编辑</span>
                         </div>
-                        <div class="flex row maincenter cocenter" @click="confirmRevise(2)">
+                        <div class="flex row maincenter cocenter" @click="confirmRevise(item.no)">
                             <img src="../../../static/images/my/address_delete.png" alt="" style="width:.26rem;height:.28rem">
                             <span class="delte">删除</span>
                         </div>
@@ -52,6 +52,7 @@
                 </div>
             </li> -->
         </ul>
+        <div style="height:1rem;"></div>
         <button class="bottom-btn" style="outline:none" @click="toadd()">添加新地址</button>
     </div>
 </template>
@@ -70,6 +71,11 @@ export default {
     educt() {
       this.$router.push("/edictdress");
     },
+    getaddress(){
+         this.$http.post(Wit.Address,{}).then((res)=>{
+          this.alladdress=res.data.data
+      })
+    },
     confirmRevise(num) {
       MessageBox.confirm("", {
         title: "提示",
@@ -85,7 +91,11 @@ export default {
       })
         .then(action => {
           if (action == "confirm") {
-              this.$http.post()
+
+              this.$http.post(Wit.RemoveAddress,{no:num}).then((res)=>{
+                  
+              })
+              this.getaddress()
           }
         })
         .catch(err => {
@@ -95,10 +105,8 @@ export default {
     }
   },
   mounted(){
-      this.$http.post(Wit.Address,{}).then((res)=>{
-          this.alladdress=res.data.data
-          console.log(res.data.data)
-      })
+      //获取所有的地址
+     this.getaddress()
   }
 };
 </script>
