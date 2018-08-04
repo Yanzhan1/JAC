@@ -134,4 +134,5 @@ var Lovecar = {
     Carquery: mipsss + '/vehicle/query-vehicle-condition', //车辆车况查询
     Changepin: mipsss + '/vehicle/update-vehicle-pin', //修改pin码
     Getphonepin: mipsss + '/vehicle//identify-code', //获取验证码
+    Checkphonepin: mipsss + '/vehicle/check-vehicle-pin', //验证pin码
 }

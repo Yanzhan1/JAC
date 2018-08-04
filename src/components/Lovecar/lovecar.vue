@@ -308,7 +308,11 @@
 						var PIN = this.pinNumber;
 						this.popupVisible = !this.popupVisible;
 						(this.IsShow = false), (this.pinNumber = "");
-					}, 1000);
+						console.log(Lovecar)
+						this.$http.post(Lovecar.Checkphonepin,{pin:this.pinNumber},getpin).then((res)=>{
+							console.log(res)
+						})
+					}, 2000);
 				}
 			}
 		},

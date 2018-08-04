@@ -27,7 +27,7 @@
 				<span style="font-size: 0.26rem;color: #444444;width: 1.1rem;">
 					新pin码:
 				</span>
-				<input class="pinInput" placeholder="请输入原PIN码" type="text" v-model="condition.newPin" />
+				<input class="pinInput" placeholder="请输入新PIN码" type="text" v-model="condition.newPin" />
 			</div>
 		</div>
 		<div class="origin-pin">
@@ -39,7 +39,7 @@
 					<input class="verification-code" placeholder="请输入验证码" type="text" v-model="condition.verificationCode" />
 				</div>		
 				<button class="btn" v-if="showTime"   @click="submitCode">获取验证码</button>
-				<button class="btn" v-else >59秒后重发</button>
+				<button class="btn" v-else >{{this.num}}秒后重发</button>
 			</div>
 		</div>
 		<router-link tag="p" class="forget-pinCode" to="/lovecar/forgetPinCode">忘记PIN码？</router-link>
@@ -60,22 +60,25 @@
 					oldPin: '',
 					newPin: '',
 					verificationCode: ''
-				}
+				},
+				num:'60'
 			}
 		},
 		methods: {
 			//获取验证码
 			submitCode() {
-				// var getpin={
-				// 	headers:{
-				// 		"identityParam":{
-				// 			token:"sdfasdfasdfasd",phone:"1231341234"
-				// 		}		
-				// 	}
-				// }
 				this.$http.post(Lovecar.Getphonepin,{phoneNum:'15062212774'},getpin).then((res)=>{
-					console.log(res)
+					this.condition.verificationCode=res.data.data
 				})
+				this.showTime=false;
+				var times=setInterval(()=>{
+					this.num--
+				if(this.num==0){
+					this.showTime=true;
+					clearInterval(times)
+					this.num=60;
+				}
+				},1000)
 			},
 			//确认修改,messagebox弹出框
 			confirmRevise() {
@@ -93,7 +96,9 @@
 				}).then(action => {
 					if(action == 'confirm') {
 						//跳转修改成功页面
-						console.log('abc');
+						this.$http.post(Lovecar.Changepin,{newPin:this.condition.newPin,oldPin:this.condition.oldPin},getpin).then((res)=>{
+							console.log(res)
+						})
 					}
 				}).catch(err => {
 					if(err == 'cancel') {
@@ -166,6 +171,7 @@
 	    margin-left: 0.4rem;
 	}
 	.origin-pin .btn {
+		outline: none;
 		padding-left: 0.3rem;
 		border: none;
 		-webkit-appearance: none;
