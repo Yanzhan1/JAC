@@ -4,6 +4,10 @@ var mip = 'http://172.20.20.69:8082/automobilemanage' //智享
     //服务器-admin(跟用户有关即我的)
 var mips = 'http://172.20.20.69:8081/' //地区
 
+var mipss = 'http://172.20.20.69:8084/v2/api-docs' //爱车
+
+var mipsss = 'http://172.21.4.184:8084/' //爱车本地服务器  yys
+
 //服务器→反馈记录
 var rec = 'http://172.20.20.69:8083/'
     //var indexip = 'http://172.18.31.40:8868'
@@ -120,4 +124,9 @@ var Wit = {
     AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
     ChangeAddress: mips + '/admin/userAddress/updateUserAddress', //my部分修改地址
     Defaultaddress: mips + '/admin/userAddress/setDefaultAddress' //my部分设置默认地址
+}
+var Lovecar = {
+    Carquery: mipsss + '/vehicle/query-vehicle-condition', //车辆车况查询
+    Changepin: mipsss + '/vehicle/update-vehicle-pin', //修改pin码
+    Getphonepin: mipsss + '/vehicle//identify-code', //获取验证码
 }

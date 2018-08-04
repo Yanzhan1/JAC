@@ -54,6 +54,7 @@ export default {
     },
     getaddress(){
          this.$http.post(Wit.Address,{}).then((res)=>{
+             console.log(res)
           this.alladdress=res.data.data
       })
     },

@@ -204,6 +204,9 @@
 			// 锁 尾 熄 停 事件
 			enter() {
 				this.popupVisible = true;
+				// this.$http.post(Lovecar,{}).then((res)=>{
+				// 		console.log(res)
+				// })
 			},
 			//关闭PIN码弹框
 			cancel() {
@@ -310,7 +313,6 @@
 			}
 		},
 		mounted() {
-
 		}
 	};
 </script>

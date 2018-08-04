@@ -62,13 +62,14 @@ export default {
       num: "",
       isShow: false,
       Originaladdress:{},
+      provinceNo:'',//返回给后端的code
+      provinceName:'',//返回给后端的name
       everycode:'',//返回给后台的地区code
       allarea:[],//所有的地区
       choosedarea:'',//被选择的地区
       ishide: false, //控制城市的显示
       nowindex: 0, //默认显示上海
       provinceId: "100000",
-      provinceName: "北京",
       address: "",
       options: [],
       cityList: ['上海','北京'],
@@ -97,6 +98,7 @@ export default {
     this.name=this.Originaladdress.receiveName
     this.num=this.Originaladdress.receiveMobile
     this.address=this.Originaladdress.address
+    this.choosedarea=this.Originaladdress.provinceName
   },
     methods: {
       handleSubmit() {
@@ -138,7 +140,8 @@ export default {
           receiveName: this.name,//姓名
           receiveMobile: this.num,//手机号码
           isDefalut: flag,//是否选定为默认2为选择默认
-          provinceName: this.everycode,//所在地区的code
+          provinceNo: this.everycode,//所在地区的code
+          provinceName:this.provinceName,//所在的地区的名字
           address: this.address
         };
         this.$http.post(Wit.Defaultaddress,param).then((res)=>{
@@ -168,10 +171,11 @@ export default {
       onValuesChange(picker, values) {
         this.choosedarea=values[0]
         for(var i=0;i<this.allarea.length;i++){
-          if(this.allarea[i].name==this.choosedarea){
-            this.everycode=this.allarea[i].code;
-          }
-        }
+            if(this.choosedarea==this.allarea[i].name){
+                this.provinceName=this.allarea[i].name;
+                this.everycode=this.allarea[i].code;
+            }
+        }     
       if (values[0] > values[1]) {
         picker.setSlotValue(1, values[0]);
       }
