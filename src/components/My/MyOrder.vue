@@ -16,21 +16,21 @@
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="one">
                 <ul>
-                    <li class="flex column">
+                    <li class="flex column" v-for="(item,index)  in Xorder" :key="index">
                         <p class="flex row tim">
-                            <span class="times">2018 09-21 18:34</span>
+                            <span class="times">{{item.time}}</span>
                             <span></span>
                         </p>
                         <router-link to="/orderdetails" tag="div" class="flex row con">
                             <div class="flex column bus_left">
                                 <img style="height:1.2rem;width:2.46rem" src="../../../static/images/test/my/car_ruifeng_s5.png" alt="">
-                                <span class="busname">瑞风 S5</span>
+                                <span class="busname">{{item.model}}</span>
                             </div>
                             <div class="flex column tp">
                                 <span class="bus_right">经销商：上海天马汽车销售有限</span>
-                                <span class="bus_right">地址：上海市徐汇区田林路200号</span>
-                                <span class="bus_right">订单编号：08509859043589</span>
-                                <span class="bus_right">基本型 珍珠白</span>
+                                <span class="bus_right">地址：{{item.address}}</span>
+                                <span class="bus_right">订单编号：{{item.fkDealerId}}</span>
+                                <span class="bus_right">基本型 {{item.carColor}}</span>
                             </div>
                         </router-link>
                         <div class="flex row between bt">
@@ -192,6 +192,9 @@ export default {
           this.$http.post(Wit.ClueOrder,{"userNo":"UBS2018072410503423882"}).then(res=>{
               if(res.data.code==0){
                   this.Xorder=res.data.data
+                  for(let i =0;i<this.Xorder.length;i++){
+                      this.Xorder[i].time= operationTime.getTime(  this.Xorder[i].createdDate, 1 );
+                  }
                   console.log(this.Xorder)
               }
            
