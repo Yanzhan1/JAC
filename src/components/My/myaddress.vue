@@ -20,7 +20,7 @@
                     <div class="flex row">
                         <div class="flex row maincenter cocenter" style="margin-right:.4rem">
                             <img src="../../../static/images/my/address_write.png" alt="" style="width:.28rem;height:.28rem">
-                            <router-link class="edict" :to="{name:'changeaddress',query:item}" tag="span">
+                            <router-link class="edict" :to="{name:'changeaddress',params:item}" tag="span">
                                 编辑
                             </router-link>
                         </div>

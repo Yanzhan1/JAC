@@ -92,7 +92,7 @@ export default {
         this.slots[0].values.push(this.allarea[i].name)
       }
     })
-    this.Originaladdress=this.$route.query
+    this.Originaladdress=this.$route.params
     console.log(this.Originaladdress)
     this.name=this.Originaladdress.receiveName
     this.num=this.Originaladdress.receiveMobile
@@ -101,9 +101,9 @@ export default {
     methods: {
       handleSubmit() {
         var self = this;
-        var flag = '0';
-        if (!self.selected) flag = '1';
-        // var name = this.name;
+        var flag = 0;
+        if (!self.selected) flag = 1;
+        var name = this.name;
         // if (name == "") {
         //   Toast({
         //     message: "姓名不能为空",
@@ -141,8 +141,10 @@ export default {
           provinceName: this.everycode,//所在地区的code
           address: this.address
         };
+        this.$http.post(Wit.Defaultaddress,param).then((res)=>{
+           console.log(res)
+       })
         this.$http.post(Wit.ChangeAddress, param).then(res => {
-            console.log(res)
             if(res.data.code==0){
                 
                 this.$router.go(-1)
