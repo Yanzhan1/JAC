@@ -108,7 +108,7 @@ var Wit = {
     searchUserBaseInformationOne: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //用户基本信息详细查询
     updateUserBaseInformation: mips + '/admin/userBaseInformation/updateUserBaseInformation', //用户基本信息更新
     addComplaintsSuggestions: rec + '/enjoyservice/complaintsSuggestions/addComplaintsSuggestions', //反馈记录
-    searchComplaintsSuggestionsList: rec + '/enjoyservice/complaintsSuggestions/searchComplaintsSuggestionsList' //投诉建议查询
+    searchComplaintsSuggestionsList: rec + '/enjoyservice/complaintsSuggestions/searchComplaintsSuggestionsList', //投诉建议查询
     ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromList', //线索订单,
     My_Bus: mip + '/userVehicle/searchUserVehicleList', //我的车辆
     JFmybus: mip + '/userVehicle/deleteUserVehicle', //解绑我的车辆,
