@@ -7,13 +7,14 @@
       </div>
       <div class="mytophead flex between cocenter">
         <div @click="edict()" style="padding-left: 0.3rem;padding-right: 0.2rem" class="flex cocenter">
-          <img src="../../../static/images/test/my/pic_touxiang@2x.png" alt="" style="width: 1.2rem;height: 1.2rem">
+          <img :src="Personal.headUrl" alt="" style="width: 1.2rem;height: 1.2rem">
           <div class="flex column" style="margin-left: 0.2rem;">
             <div class="flex cocenter" style="overflow: hidden">
-              <span style="color: #fff;font-size: 0.32rem;font-weight: bold">李逍遥</span>
-              <img src="../../../static/images/my/gender_man@2x.png" alt="" style="width: 0.28rem;height: 0.28rem">
+              <span style="color: #fff;font-size: 0.32rem;font-weight: bold">{{Personal.userRealName}}</span>
+              <img v-if="Personal.sex==1" src="../../../static/images/my/gender_man@2x.png" alt="" style="width: 0.28rem;height: 0.28rem">
+              <img v-if="Personal.sex==2" src="../../../static/images/my/gender_woman.png" alt="" style="width: 0.28rem;height: 0.28rem">
             </div>
-            <span style="margin-top: 0.16rem;font-size: 0.22rem;color: #dcf5ff;">记录美好的时刻...</span>
+            <span style="margin-top: 0.16rem;font-size: 0.22rem;color: #dcf5ff;">{{Personal.personalSignature}}</span>
           </div>
         </div>
         <img  @click="twoma()" src="../../../static/images/my/qr_code@2x.png" alt="" style="width: 0.4rem;height: 0.4rem">
@@ -109,7 +110,9 @@
 export default {
   name: "Myindex",
   data() {
-    return {};
+    return {
+      Personal:{}//个人信息
+    };
   },
   methods: {
     //编辑个人信息
@@ -133,6 +136,20 @@ export default {
         js2android.scan();
       }
     },
+  //获取我的基本信息
+      getuserinfo(){
+         var param={
+              no: "AD022018072505235135056",
+         }
+         this.$http.post(Wit.UserInfo,param).then(res=>{
+          if(res.data.code==0){
+            this.Personal=res.data.data
+             }
+         })
+      }
+  },
+  created(){
+    this.getuserinfo()
   },
   mounted() {}
 };

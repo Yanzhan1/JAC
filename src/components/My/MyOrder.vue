@@ -197,8 +197,7 @@ export default {
                   }
                   console.log(this.Xorder)
               }
-           
-          })
+         })
       }
   },
   created(){

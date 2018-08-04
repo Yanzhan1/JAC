@@ -11,7 +11,7 @@
         <span class="contentList-left">头像</span>
         <div class="contentList-right">
           <div style="width:.76rem;height:.76rem">
-            <img :src="userInfo.head_image" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem">
+            <img :src="userInfo.headUrl" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem">
           </div>
           <div class="inputfile">
             <img src="../../../static/images/my/next@2x.png" style="width: 0.4rem;height: 0.4rem;z-index: 1" />
@@ -23,7 +23,7 @@
       <div class="contentList nickname">
         <span class="contentList-left">昵称</span>
         <div class="contentList-right">
-          <input type="text" v-model="userInfo.nick_name" class="name" maxlength="16">
+          <input type="text" v-model="userInfo.userRealName" class="name" maxlength="16">
         </div>
       </div>
       <div class="gradientline"></div>
@@ -36,7 +36,7 @@
 
       <div class="personalSignature">
         <span class="contentList-left">个人签名:</span>
-        <textarea v-model="userInfo.description" style="line-height: normal" maxlength="50"></textarea>
+        <textarea v-model="userInfo.personalSignature" style="line-height: normal;out-line:none" maxlength="50"></textarea>
       </div>
       <div class="gradientline"></div>
       <div class="personalSignature">
@@ -86,107 +86,104 @@ export default {
       sex: 1, //1男，0女
       userInfo: {
         head_image: "../../../static/images/Lovecar/bg.png",
-        nick_name: "fnaggna",
-        region: "江苏",
-        description: "fdsfds",
-        sex: 1
-      },
+        },
       changeInfo: {}
     };
   },
   methods: {
     init() {},
-    changepicture(e) {
-      var _this = this;
-      var reader = new FileReader();
-      reader.onload = (function(file) {
-        return function(e) {
-          _this.userInfo.head_image = this.result;
-        };
-      })(e.target.files[0]);
-      reader.readAsDataURL(e.target.files[0]);
-    },
-
-    messageBoxAlert: function() {
-      MessageBox.alert("您的密码修改成功", "提示");
-    },
+    //图片更改
+  //   changepicture(e) {
+  //   var _this = this;
+  //     var reader = new FileReader();
+  //     reader.onload = (function(file) {
+  //       return function(e) {
+  //         _this.userInfo.head_image = this.result;
+  //       };
+  //     })(e.target.files[0]);
+  //     reader.readAsDataURL(e.target.files[0]);
+  //  },
+//点击保存
     changemessage() {
-      this.popupVisible = true;
-      //   this.changeInfo.user_id = this.$store.state.userId;
-      //   if(this.userInfo.nick_name == ""){
-      //     let instance = Toast({
-      //       message: "昵称不能为空",
-      //       position: "middle",
-      //       duration: 1000
-      //     });
-      //     return
-      //   }
-      //   this.changeInfo.nick_name = this.userInfo.nick_name;
-      //   //验证表情
-      //   var regRule = /\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g;
-      //   if(this.changeInfo.nick_name.match(regRule)) {
-      //     this.changeInfo.nick_name = this.changeInfo.nick_name.replace(/\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g, "");
-      //     let instance = Toast({
-      //       message: "昵称不能输入表情",
-      //       position: "middle",
-      //       duration: 1000
-      //     });
-      //     return
-      //   }
-      //   this.changeInfo.description = this.userInfo.description;
-      //   this.changeInfo.sex = this.userInfo.sex;
-      //   this.changeInfo.region = this.userInfo.region;
-      //   this.changeInfo.head_image = this.userInfo.head_image.replace(
-      //     "data:image/jpeg;base64,",
-      //     ""
-      //   );
-      //  this.$http
-      //     .post('', this.changeInfo)
-      //     .then(res => {
-      //     if (res.data.errcode == 0) {
-      //         let instance = Toast({
-      //           message: "修改成功",
-      //           position: "middle",
-      //           duration: 1000
-      //         });
-      //         if(res.data.retobj){
-      //           if (isMobile.iOS()) {
-      //             var data = {
-      //               head_image:res.data.head_image
-      //             }
-      //             window.webkit.messageHandlers.changeImage.postMessage(data);
-      //           } else if(isMobile.Android()) {
-      //             js2android.changeImage(res.data.head_image);
-      //           }
-      //         }
-      //         this.$router.go(-1);
-      //       } else {
-      //         let instance = Toast({
-      //           message: res.data.errmsg,
-      //           position: "middle",
-      //           duration: 1000
-      //         });
-      //       }
-      //     }).catch(() => {
-      //       let instance = Toast({
-      //         message: "系统出现问题",
-      //         position: "middle",
-      //         duration: 1000
-      //       });
-      //     });
+      if(this.userInfo.userRealName == ""){
+          let instance = Toast({
+            message: "昵称不能为空",
+            position: "middle",
+            duration: 1000
+          });
+          return
+        }
+        this.changeInfo.userRealName = this.userInfo.userRealName; //赋值  参数 昵称
+        //验证表情
+        // var regRule = /\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g;
+        // if(this.changeInfo.userRealName.match(regRule)) {
+        //   this.changeInfo.userRealName = this.changeInfo.userRealName.replace(/\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g, "");
+        //   let instance = Toast({
+        //     message: "昵称不能输入表情",
+        //     position: "middle",
+        //     duration: 1000
+        //   });
+        //   return
+        // }
+        this.changeInfo.personalSignature = this.userInfo.personalSignature;
+        this.changeInfo.sex = this.userInfo.sex;
+        this.changeInfo.no= "AD022018072505235135056",
+        // this.changeInfo.head_image = this.userInfo.head_image.replace(
+        //   "data:image/jpeg;base64,",
+        //   ""
+        // );
+    
+       this.$http.post(Wit.UpUserinfo, this.changeInfo).then(res => {
+          if (res.data.code == 0) {
+               this.popupVisible = true;
+              //   if(res.data.retobj){
+              //   if (isMobile.iOS()) {
+              //     var data = {
+              //       head_image:res.data.head_image
+              //     }
+              //     window.webkit.messageHandlers.changeImage.postMessage(data);
+              //   } else if(isMobile.Android()) {
+              //     js2android.changeImage(res.data.head_image);
+              //   }
+              // }
+              var self=this
+              setTimeout(function(){
+                 self.$router.go(-1);
+              },2000)
+             } else {
+              let instance = Toast({
+                message: res.data.errmsg,
+                position: "middle",
+                duration: 1000
+              });
+            }
+          }).catch(() => {
+            let instance = Toast({
+              message: "系统出现问题",
+              position: "middle",
+              duration: 1000
+            });
+          });
     },
     toaddress() {
-        // var id = this.$store.state.userId;
-        this.$router.push({ path: "/myaddress", query: {} });
+       this.$router.push({ path: "/myaddress", query: {} });
     }
   },
-  mounted() {},
-  created() {},
-  destroyed() {}
-};
+  mounted() {
+     //获取用户基本信息
+     var param={
+        no: "AD022018072505235135056",
+     }
+    //  Wit.UserInfo
+     this.$http.post(Wit.UserInfo,param).then(res=>{
+     if(res.data.code==0){
+       this.userInfo=res.data.data
+        }
+        console.log(this.userInfo)
+  })
+  }
+ }
 </script>
-
-
 <style scoped>
 /*分割线*/
 .inputfile {

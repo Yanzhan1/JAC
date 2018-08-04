@@ -121,5 +121,7 @@ var Wit = {
     AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
     ChangeAddress: mips + '/admin/userAddress/updateUserAddress', //my部分修改地址
     Defaultaddress: mips + '/admin/userAddress/setDefaultAddress', //my部分设置默认地址
-    MyDealer: mip + '/dealerBaseInformation/selectSeriesDealerBaseInformation' //我的 我的经销商列表
+    MyDealer: mip + '/dealerBaseInformation/selectSeriesDealerBaseInformation', //我的 我的经销商列表
+    UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
+    UpUserinfo: mips + '/admin/userBaseInformation/updateUserBaseInformation' //更改用户信息
 }
