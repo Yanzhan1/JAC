@@ -112,6 +112,7 @@ var Wit = {
     ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromList', //线索订单,
     My_Bus: mip + '/userVehicle/searchUserVehicleList', //我的车辆
     JFmybus: mip + '/userVehicle/deleteUserVehicle', //解绑我的车辆,
+    SetOneDefault: mip + '/userVehicle/setDefaultVehicle', //我的车辆设为默认
     AddMyBus: mip + '/vehicle/addVehicle', //添加我的车辆
     Edict: mip + '/vehicle/updateVehicle', //修改车辆信息
     ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromList', //线索订单
@@ -119,5 +120,6 @@ var Wit = {
     RemoveAddress: mips + '/admin/userAddress/deleteUserAddress', //my部分删除当前地址
     AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
     ChangeAddress: mips + '/admin/userAddress/updateUserAddress', //my部分修改地址
-    Defaultaddress: mips + '/admin/userAddress/setDefaultAddress' //my部分设置默认地址
+    Defaultaddress: mips + '/admin/userAddress/setDefaultAddress', //my部分设置默认地址
+    MyDealer: mip + '/dealerBaseInformation/selectSeriesDealerBaseInformation' //我的 我的经销商列表
 }
