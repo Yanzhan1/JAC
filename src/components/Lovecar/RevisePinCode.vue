@@ -38,8 +38,8 @@
 					</span>
 					<input class="verification-code" placeholder="请输入验证码" type="text" v-model="condition.verificationCode" />
 				</div>		
-				<button class="btn" v-if="showTime">59秒后重发</button>
-				<button class="btn" v-else  @click="submitCode">获取验证码</button>
+				<button class="btn" v-if="showTime"   @click="submitCode">获取验证码</button>
+				<button class="btn" v-else >59秒后重发</button>
 			</div>
 		</div>
 		<router-link tag="p" class="forget-pinCode" to="/lovecar/forgetPinCode">忘记PIN码？</router-link>
@@ -66,7 +66,16 @@
 		methods: {
 			//获取验证码
 			submitCode() {
-
+				// var getpin={
+				// 	headers:{
+				// 		"identityParam":{
+				// 			token:"sdfasdfasdfasd",phone:"1231341234"
+				// 		}		
+				// 	}
+				// }
+				this.$http.post(Lovecar.Getphonepin,{phoneNum:'15062212774'},getpin).then((res)=>{
+					console.log(res)
+				})
 			},
 			//确认修改,messagebox弹出框
 			confirmRevise() {
@@ -91,7 +100,9 @@
 						console.log('123');
 					}
 				});
-			}
+			},
+			mounted() {
+			},
 		}
 	}
 </script>
