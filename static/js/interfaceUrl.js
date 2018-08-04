@@ -113,5 +113,6 @@ var Wit = {
     Address: mips + '/admin/userAddress/searchUserAddressList', //my部分查询所有地址
     RemoveAddress: mips + '/admin/userAddress/deleteUserAddress', //my部分删除当前地址
     AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
-    ChangeAddress: mips + '/admin/userAddress/updateUserAddress' //my部分修改地址
+    ChangeAddress: mips + '/admin/userAddress/updateUserAddress', //my部分修改地址
+    Defaultaddress: mips + '/admin/userAddress/setDefaultAddress' //my部分设置默认地址
 }
