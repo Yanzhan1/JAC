@@ -313,6 +313,7 @@
 				//				console.log(this.pinNumber.length)
 				if(this.pinNumber.length == 6) {
 					setTimeout(() => {
+						var nums=this.pinNumber
 						this.value = !this.value
 						//pin码正确激活弧线
 						this.curveState = !this.curveState
@@ -324,6 +325,9 @@
 						this.showTyper = 0,
 						//清空pin码
 						this.pinNumber = ''
+						this.$http.post(Lovecar.Checkphonepin,{pin:nums},getpin).then((res)=>{
+						console.log(res)
+					})						
 					}, 1000)
 
 				}
