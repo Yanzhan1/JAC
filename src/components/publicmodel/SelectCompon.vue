@@ -19,8 +19,7 @@
 		data() {
 			return {
 				isDrop: false,
-				nowIndex: 0,
-				titleState: true, //头部状态
+				nowIndex: 0
 			}
 		},
 		props: {
