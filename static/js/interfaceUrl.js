@@ -119,7 +119,7 @@ var Wit = {
         SetOneDefault: mip + '/userVehicle/setDefaultVehicle', //我的车辆设为默认
         AddMyBus: mip + '/vehicle/addVehicle', //添加我的车辆
         Edict: mip + '/vehicle/updateVehicle', //修改车辆信息
-        ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromList', //线索订单
+        ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromListPage', //线索订单
         Address: mips + '/admin/userAddress/searchUserAddressList', //my部分查询所有地址
         RemoveAddress: mips + '/admin/userAddress/deleteUserAddress', //my部分删除当前地址
         AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址

@@ -99,6 +99,7 @@ export default {
     this.num=this.Originaladdress.receiveMobile
     this.address=this.Originaladdress.address
     this.choosedarea=this.Originaladdress.provinceName
+    this.no=this.Originaladdress.no
   },
     methods: {
       handleSubmit() {
@@ -134,9 +135,8 @@ export default {
         //   return false;
         // }
         var param = {
-          // customerId: this.$store.state.userId,
-          no:'UADDRESS2018072005190649087',
-          userNo:"dealer1213",
+          no:this.no,
+          userNo:"UBS2018072410463590813",
           receiveName: this.name,//姓名
           receiveMobile: this.num,//手机号码
           isDefalut: flag,//是否选定为默认2为选择默认
@@ -144,9 +144,11 @@ export default {
           provinceName:this.provinceName,//所在的地区的名字
           address: this.address
         };
-        this.$http.post(Wit.Defaultaddress,param).then((res)=>{
-           console.log(res)
-       })
+        if(flag==1){
+          this.$http.post(Wit.Defaultaddress,param).then((res)=>{
+         s})
+        }
+        
         this.$http.post(Wit.ChangeAddress, param).then(res => {
             if(res.data.code==0){
                 

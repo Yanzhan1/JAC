@@ -53,9 +53,8 @@ export default {
       this.$router.push("/edictdress");
     },
     getaddress(){
-         this.$http.post(Wit.Address,{}).then((res)=>{
-             console.log(res)
-          this.alladdress=res.data.data
+         this.$http.post(Wit.Address,{ userNo:"UBS2018072410463590813"}).then((res)=>{
+         this.alladdress=res.data.data
       })
     },
     confirmRevise(num) {
