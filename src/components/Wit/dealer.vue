@@ -235,6 +235,7 @@
 	.con div {
 		position: relative;
 		height: 0.88rem;
+		width:1.5rem
 	}
 	
 	.con div img {
@@ -336,6 +337,7 @@
 		height: 100%;
 		background: #fff;
 		text-align: center;
+		margin-left:.2rem;
 	}
 	
 	.selection-show .arrow {

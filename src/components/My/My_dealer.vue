@@ -65,15 +65,12 @@ export default {
            current:2,
            size:20
         }
-        //    wit.MyDealer
-        this.$http.post('http://172.21.4.231:8082//automobilemanage/dealerBaseInformation/selectSeriesDealerBaseInformation',param).then(res=>{
+        this.$http.post(Wit.MyDealer,param).then(res=>{
          if(res.data.code==0){
              this.mydealer=res.data.data.records
-             console.log( this.mydealer)
-         }
+          }
         })
-    }
-   
+      }
   },
    created(){
         this.GetMyDealer()
