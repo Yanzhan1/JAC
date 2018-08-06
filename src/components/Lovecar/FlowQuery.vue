@@ -49,6 +49,17 @@
 				//展示作用，不能输入
 				disabled: true
 			}
+		},
+		mounted(){
+			console.log(Lovecar)
+			this.$http.post(Lovecar.Flow,{ 
+					vin: "MS",
+					simNum:"12",
+					imei:"1",
+					iccid:"12"
+    			},getpin).then((res)=>{
+				console.log(res)
+			})
 		}
 	}
 </script>

@@ -211,7 +211,7 @@ export default new Router({
                 component: Datechoose
             },
             {
-                path: "/flowQuery",
+                path: "/lovecar/flowQuery",
                 naem: '流量查询',
                 component: FlowQuery
             },

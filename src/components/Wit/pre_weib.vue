@@ -443,6 +443,7 @@ export default {
         
     },
     submitt(el){
+        console.log(this.$refs.Gettimes.innerHTML)
         this.timesstamp=(new Date(this.$refs.Gettimes.innerHTML)).getTime()
         this.choose_color()
        var reg = /^[1][3,4,5,7,8][0-9]{9}$/;

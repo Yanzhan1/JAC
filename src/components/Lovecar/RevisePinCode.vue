@@ -96,6 +96,7 @@
 				}).then(action => {
 					if(action == 'confirm') {
 						//跳转修改成功页面
+						console.log(Lovecar.Changepin)
 						this.$http.post(Lovecar.Changepin,{newPin:this.condition.newPin,oldPin:this.condition.oldPin},getpin).then((res)=>{
 							console.log(res)
 						})
@@ -107,6 +108,7 @@
 				});
 			},
 			mounted() {
+
 			},
 		}
 	}

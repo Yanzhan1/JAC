@@ -8,7 +8,8 @@ var mipss = 'http://172.20.20.69:8084/v2/api-docs' //爱车
 
 var mipsss = 'http://172.21.4.184:8084/' //爱车本地服务器  yys
 
-//服务器→反馈记录
+var mipes = 'http://172.21.4.37:8081/automobilemanage' //my收货地址部分 杨毅飞本地
+    //服务器→反馈记录
 var rec = 'http://172.20.20.69:8083/'
     //var indexip = 'http://172.18.31.40:8868'
     //首页
@@ -124,6 +125,7 @@ var Wit = {
         RemoveAddress: mips + '/admin/userAddress/deleteUserAddress', //my部分删除当前地址
         AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
         ChangeAddress: mips + '/admin/userAddress/updateUserAddress', //my部分修改地址
+        // ChangeAddress: mipes + '/admin/userAddress/updateUserAddress', //my部分修改地址
         Defaultaddress: mips + '/admin/userAddress/setDefaultAddress', //my部分设置默认地址
         MyDealer: mip + '/dealerBaseInformation/selectSeriesDealerBaseInformation', //我的 我的经销商列表
         UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
@@ -132,7 +134,11 @@ var Wit = {
     //爱车
 var Lovecar = {
     Carquery: mipsss + '/vehicle/query-vehicle-condition', //车辆车况查询
+    OperationId: mipsss + '/vehicle/vehicle-async-result', //获取车辆车况查询返回的operationId发送给后端
     Changepin: mipsss + '/vehicle/update-vehicle-pin', //修改pin码
     Getphonepin: mipsss + '/vehicle//identify-code', //获取验证码
     Checkphonepin: mipsss + '/vehicle/check-vehicle-pin', //验证pin码
+    Fuel: mipsss + '/vehicle/query-vehicle-fuel-Statistics', //燃油接口
+    Flow: mipsss + '/vehicle/query-vehicle-cyc-flow-query', //流量查询
+    Longrange: mipsss + '/vehicle/set-vehicle-remoteset', //远程授权
 }

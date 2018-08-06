@@ -81,6 +81,11 @@
 			date_choose(){
 				this.$router.push('/Datechoose')
 			}
+		},
+		mounted(){
+			this.$http.post(Lovecar.Fuel,{vin: "1G",beginTime:"1530720000",endTime:"1533109759",type:"day"},getpin).then((res)=>{
+				console.log(res)
+			})
 		}
 	}
 </script>

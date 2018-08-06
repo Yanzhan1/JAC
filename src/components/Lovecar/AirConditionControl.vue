@@ -364,6 +364,9 @@
 			pinNumber(newVal, oldVal) {
 				//				console.log(this.pinNumber.length)
 				if(this.pinNumber.length == 6) {
+					this.$http.post(Lovecar.Checkphonepin,{pin:this.pinNumber},getpin).then((res)=>{
+						console.log(res)
+					})
 					setTimeout(() => {
 						this.value = !this.value
 						//pin码正确激活弧线

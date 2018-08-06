@@ -1036,7 +1036,7 @@ export default {
       }
     },
     cheeks() {
-      this.$router.push("/fuelQuery");
+      this.$router.push("/lovecar/fuelQuery");
     }
   }
 };

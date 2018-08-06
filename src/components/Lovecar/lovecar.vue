@@ -308,8 +308,7 @@
 						var PIN = this.pinNumber;
 						this.popupVisible = !this.popupVisible;
 						(this.IsShow = false), (this.pinNumber = "");
-						console.log(Lovecar)
-						this.$http.post(Lovecar.Checkphonepin,{pin:this.pinNumber},getpin).then((res)=>{
+						this.$http.post(Lovecar.Checkphonepin,{pin:PIN},getpin).then((res)=>{
 							console.log(res)
 						})
 					}, 2000);
@@ -317,6 +316,13 @@
 			}
 		},
 		mounted() {
+				
+				this.$http.post(Lovecar.Carquery,{vins: ["LS5A3CJC9JF810003"]},getpin).then((res)=>{
+					this.$http.post(Lovecar.OperationId,{operationId:res.data.operationId},getpin).then((res)=>{
+						
+					})
+				
+			})
 		}
 	};
 </script>
