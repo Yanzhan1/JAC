@@ -34,8 +34,14 @@ export default {
   },
   created() {
     var self=this
+    var param={
+       'vin':'LS5A3CJC9JF810003'
+    }
+    this.$http.post(Lovecar.BusTest,param,getpin).then(res=>{
+
+    })
     setTimeout(function() {
-       self.$router.push('/test_result');
+        self.$router.push('/test_result');
     }, 3000);
   }
 };

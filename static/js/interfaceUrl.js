@@ -113,7 +113,7 @@ var Wit = {
         updateUserBaseInformation: mips + '/admin/userBaseInformation/updateUserBaseInformation', //用户基本信息更新
         addComplaintsSuggestions: rec + '/enjoyservice/complaintsSuggestions/addComplaintsSuggestions', //反馈记录
         searchComplaintsSuggestionsList: rec + '/enjoyservice/complaintsSuggestions/searchComplaintsSuggestionsList', //投诉建议查询
-        ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromList', //线索订单,
+        ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromListPage', //线索订单
         My_Bus: mip + '/userVehicle/searchUserVehicleList', //我的车辆
         JFmybus: mip + '/userVehicle/deleteUserVehicle', //解绑我的车辆,
         SetOneDefault: mip + '/userVehicle/setDefaultVehicle', //我的车辆设为默认
@@ -135,4 +135,5 @@ var Lovecar = {
     Changepin: mipsss + '/vehicle/update-vehicle-pin', //修改pin码
     Getphonepin: mipsss + '/vehicle//identify-code', //获取验证码
     Checkphonepin: mipsss + '/vehicle/check-vehicle-pin', //验证pin码
+    BusTest: mipsss + 'vehicle/query-cyc-car-examination', //车辆体检
 }

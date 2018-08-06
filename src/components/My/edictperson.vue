@@ -85,7 +85,7 @@ export default {
       popupVisible: false,
       sex: 1, //1男，0女
       userInfo: {
-        head_image: "../../../static/images/Lovecar/bg.png",
+       
         },
       changeInfo: {}
     };
@@ -93,16 +93,19 @@ export default {
   methods: {
     init() {},
     //图片更改
-  //   changepicture(e) {
-  //   var _this = this;
-  //     var reader = new FileReader();
-  //     reader.onload = (function(file) {
-  //       return function(e) {
-  //         _this.userInfo.head_image = this.result;
-  //       };
-  //     })(e.target.files[0]);
-  //     reader.readAsDataURL(e.target.files[0]);
-  //  },
+    changepicture(e) {
+     
+    var _this = this;
+      var reader = new FileReader();
+      reader.onload = (function(file) {
+        return function(e) {
+          console.log(e)
+          _this.userInfo.headUrl = this.result;//base64
+          //  _this.$http.post('http://172.20.20.69:8762//filestore/v1/picture',{img:this.result},pichead)
+        };
+      })(e.target.files[0]);
+      reader.readAsDataURL(e.target.files[0]);
+   },
 //点击保存
     changemessage() {
       if(this.userInfo.userRealName == ""){
@@ -174,13 +177,11 @@ export default {
      var param={
         no: "AD022018072505235135056",
      }
-    //  Wit.UserInfo
      this.$http.post(Wit.UserInfo,param).then(res=>{
      if(res.data.code==0){
        this.userInfo=res.data.data
         }
-        console.log(this.userInfo)
-  })
+    })
   }
  }
 </script>

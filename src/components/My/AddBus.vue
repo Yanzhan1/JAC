@@ -34,12 +34,7 @@ export default {
   methods: {
     AddMybus() {
       var param = {
-        vehicleName: "江淮999",
-        color: "黑色",
-        plateLicenseNo: "沪A111111",
-        userNo: "UBS2018072410503423882",
-        relationType: "01",
-        isDefault: "01",
+       userNo: "UBS2018072410503423882",
         engineNo: "VJ00102",
         vin: "LJ1702345G8001011"
       };
@@ -54,8 +49,7 @@ export default {
 		  setTimeout(function(){
             self.$router.go(-1);
 		  },2000)
-         
-        }
+     }
       });
     }
   }

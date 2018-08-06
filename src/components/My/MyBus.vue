@@ -23,7 +23,7 @@
 					<p class="bus-untie" @click="unite(item.no)">解绑</p>
 					<div class="flex-align-center">
 						<span style="color:#49BBFF;"> {{item.plateLicenseNo}}</span>
-						<router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{no:item.no,plateLicenseNo:item.plateLicenseNo}}"></router-link>
+						<router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{no:item.no,plateLicenseNo:item.engineNo}}"></router-link>
 					</div>
 					<div>
 						<span class="commonFontSize">车架号：{{item.engineNo}}</span>
