@@ -12,7 +12,6 @@
 					<span>【{{questionTyep[item.complaintsType]}}】{{item.complaintsContent}}</span>
 					<span>{{getTime(item.createdDate)}}</span>
 				</div>
-				<div class="line"></div>
 			</router-link>
 		</div>
 	</div>
@@ -90,7 +89,7 @@
 	
 	.question-content {
 		width: 92%;
-		height: 3.54rem;
+		height: 2.07rem;
 		margin-top: 0.3rem;
 		background: #fff;
 		border-radius: 0.08rem;

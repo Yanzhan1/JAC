@@ -178,82 +178,82 @@ export default new Router({
 
             {
                 path: "/lovecar/revisePinCode",
-                naem: '修改pin码',
+                name: '修改pin码',
                 component: RevisePinCode
             },
             {
                 path: "/lovecar/forgetPinCode",
-                naem: '忘记pin码',
+                name: '忘记pin码',
                 component: ForgetPinCode
             },
             {
                 path: "/lovecar/reviseSuccess",
-                naem: '修改pin成功',
+                name: '修改pin成功',
                 component: ReviseSuccess
             },
             {
                 path: "/lovecar/wifiLink",
-                naem: 'wifi直连',
+                name: 'wifi直连',
                 component: WifiLink
             },
             {
                 path: "/lovecar/wifiSetup",
-                naem: 'wifi设置',
+                name: 'wifi设置',
                 component: WifiSetup
             },
             {
                 path: "/lovecar/fuelQuery",
-                naem: '燃油查询',
+                name: '燃油查询',
                 component: FuelQuery
             },
             {
                 path: "/Datechoose",
-                naem: '日期选择',
+                name: '日期选择',
                 component: Datechoose
             },
             {
                 path: "/lovecar/flowQuery",
-                naem: '流量查询',
+                name: '流量查询',
                 component: FlowQuery
             },
             {
                 path: "/lovecar/intelligenceParking",
-                naem: '智能停车G1',
+                name: '智能停车G1',
                 component: IntelligenceParking
             },
             {
                 path: "/lovecar/intelligenceParkingInfo",
-                naem: '智能停车G2',
+                name: '智能停车G2',
                 component: IntelligentParkingInfo
             },
             {
                 path: "/lovecar/intelligenceParkingUninfo",
-                naem: '智能停车G3',
+                name: '智能停车G3',
                 component: IntelligentParkingUninfo
             },
             {
                 path: "/lovecar/airConditionControl",
-                naem: '空调控制',
+                name: '空调控制',
                 component: AirConditionControl
             },
             {
                 path: "/lovecar/adjustSeatTemper",
-                naem: '座椅调温',
+                name: '座椅调温',
                 component: AdjustSeatTemper
             },
             {
                 path: "/lovecar/windowControl",
-                naem: '车窗控制',
+                name: '车窗控制',
                 component: WindowControl
             },
             {
                 path: "/lovecar/skylightControl",
-                naem: '天窗控制',
+                name: '天窗控制',
                 component: SkylightControl
             },
             {
                 path: "/lovecar/airEvoluor",
-                naem: '空气净化器',
+                name: '空气净化器',
                 component: AirEvoluor
             },
 
@@ -294,7 +294,7 @@ export default new Router({
                 component: Edictperson
             },
             {
-                path: "/myindex//feedbackRecord",
+                path: "/myindex/feedbackRecord",
                 name: '反馈记录',
                 component: FeedbackRecord
             },
@@ -320,7 +320,7 @@ export default new Router({
             },
             {
                 path: "/myindex/reviousePwdSuccess",
-                name: '修改密码',
+                name: '修改密码成功',
                 component: ReviousePwdSuccess
             },
             {

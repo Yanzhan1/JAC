@@ -9,7 +9,7 @@
 		<div class="air-header">
 			<div class="air-btn">
 				<mt-switch v-model="value" @change="turn"><span></span></mt-switch>
-				<span>OFF/NO</span>
+				<span style="margin-right: 0.2rem;">OFF/NO</span>
 			</div>
 			<div class="air-sign flex-column">
 				<span class="air-ch">空调</span>
@@ -52,6 +52,9 @@
 
 				<!--空调图Start-->
 				<div class="wind-blows">
+					<div>
+						
+					</div>
 					<img :class="{rotateActive: rotateState}" v-if="activeShowImg" :src="'./static/images/Lovecar/air@2x.png'" alt="" />
 					<img v-else :src="'./static/images/Lovecar/air1@2x.png'" alt="" />
 				</div>

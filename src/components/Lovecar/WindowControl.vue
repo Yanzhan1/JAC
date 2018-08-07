@@ -95,8 +95,16 @@
 					<span></span>
 				</div>
 				<div class="pin-code flex-center">
-					<div id="pinCon" @click="onTypewriting">
+					<div v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
 						<input class="pin-input" maxlength="6" type="text" v-model="pinNumber" readonly/>
+					</div>
+					<div v-else class="pin">
+						<input v-model="ownKeyBoard.first"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.second"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.third"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.fourth"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.fifth"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.sixth"  type="text" maxlength="1" />
 					</div>
 				</div>
 			</div>
@@ -120,12 +128,20 @@
 		data() {
 			return {
 				//车窗控制按钮开关
-				value: false,
-				value: false,
+				//value: false,
+				//移动端键盘值
+				ownKeyBoard: {
+					first: '',
+					second: '',
+					third: '',
+					fourth: '',
+					fifth: '',
+					sixth: ''
+				},
 				//图片激活变量
 				activeShowImg: 0,
 				//车窗高度展示
-				windNum: ['0%', '50%', '100%'],
+				windNum: ['0%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%'],
 				winMin: 0,
 				//曲线状态 true彩色 false灰色
 				curveState: false,
@@ -160,7 +176,7 @@
 								vuethis: this, //使用位置的this指向
 								num: 'windowSpace', //data数值
 								type: 'right', //圆弧方向  left right
-								tempdel: 3, //总差值
+								tempdel: 11, //总差值
 								ratio: 0.4, //宽度比例
 								iscontrol: true, //控制是否能滑动，可以滑动
 								color: {
@@ -189,7 +205,7 @@
 								vuethis: this, //使用位置的this指向
 								num: 'windowSpace', //data数值
 								type: 'right', //圆弧方向  left right
-								tempdel: 3, //总差值
+								tempdel: 11, //总差值
 								ratio: 0.4, //宽度比例
 								iscontrol: true, //控制是否能滑动，可以滑动
 								color: {
@@ -213,7 +229,7 @@
 					vuethis: this, //使用位置的this指向
 					num: 'windowSpace', //data数值
 					type: 'right', //圆弧方向  left right
-					tempdel: 3, //总差值
+					tempdel: 11, //总差值
 					ratio: 0.4, //宽度比例
 					iscontrol: true, //控制是否能滑动，可以滑动
 					color: {
@@ -228,7 +244,7 @@
 					vuethis: this, //使用位置的this指向
 					num: 'windowSpace', //data数值
 					type: 'right', //圆弧方向  left right
-					tempdel: 3, //总差值
+					tempdel: 11, //总差值
 					ratio: 0.4, //宽度比例
 					iscontrol: false, //控制是否能滑动，禁止滑动
 					color: {
@@ -299,9 +315,57 @@
 				}
 				that.keyNums = arr2
 			},
+			//执行判定
+			inputs () {	
+				var _this=this
+				$('.pin input').on("input propertychange",function(){
+					_this.inputFun($(this));
+				});
+				$('.pin input').on("keyup",function(e){
+					var ev = e;
+					_this.keyupFun($(this),ev);
+				});
+
+			},
+			//判断输入的密码还是否为数字
+			inputFun (value) {
+				var reg = new RegExp("^[0-9]*$");
+				var val = value.val();
+				if(!reg.test(val)){
+					value.val('')
+				}else{
+					value.next().focus();
+				}
+			},
+			//监听backspace事件
+			keyupFun (value,e) {
+				var k = e.keyCode;
+				var val = e.key; //"Backspace"
+				if(k == 8){		//8是backspace的keyCode
+					value.prev().focus();
+				}else{
+					return false;
+				}
+			}
 		},
 		mounted() {
-			this.produCurve()
+			this.produCurve();
+			this.inputs()
+		},
+		computed: {
+			fullValue:{ //拼接input输入框值,激活修改
+				get () {
+					return this.ownKeyBoard.first + this.ownKeyBoard.second + this.ownKeyBoard.third + this.ownKeyBoard.fourth + this.ownKeyBoard.fifth + this.ownKeyBoard.sixth
+				},
+				set (newVal) {
+					this.ownKeyBoard.first=newVal
+					this.ownKeyBoard.second=newVal
+					this.ownKeyBoard.third=newVal
+					this.ownKeyBoard.fourth=newVal
+					this.ownKeyBoard.fifth=newVal
+					this.ownKeyBoard.sixth=newVal
+				}	
+			}
 		},
 		watch: {
 			pinNumber(newVal, oldVal) {
@@ -323,6 +387,23 @@
 							console.log(res)
 					})
 						}, 1000)
+				}
+			},
+			fullValue (newVal, oldVal) {
+				if(this.fullValue.length == 6) {
+					setTimeout(() => {
+						this.value = !this.value
+						//pin码正确激活弧线
+						this.curveState = !this.curveState
+						//pin码正确激活空调图
+						this.activeShowImg = !this.activeShowImg,
+						//消失遮罩
+						this.popupVisible = !this.popupVisible
+						//消失软键盘
+						this.showTyper = 0,
+						//清空pin码
+						this.fullValue = ''
+					}, 1000)
 				}
 			}
 		}
@@ -579,7 +660,7 @@
 	
 	.pin-code>div {}
 	
-	.pin-code>div>input {
+	.pin-code>div>.pin-input {
 		display: block;
 		width: 5.6rem;
 		height: 0.94rem;
@@ -590,6 +671,21 @@
 		outline: none;
 		background: url(../../../static/images/Lovecar/border@2x.png) no-repeat center;
 		background-size: 100%;
+	}
+	.pin-code>.pin {
+	    display: flex;
+    	align-items: center;
+    	border: 1px solid #ccc;
+	}
+	.pin-code>.pin>input:not(:last-child) {
+    	border-right: 1px solid #ccc;
+	}
+	.pin-code>.pin>input {
+		width: 0.93rem;
+    	height: 0.94rem;
+    	text-align: center;
+	    border: none;
+    	outline: none;
 	}
 	/*自定义软键盘*/
 	

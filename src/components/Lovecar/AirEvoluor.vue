@@ -9,7 +9,7 @@
 		<div class="window-header">
 			<div class="window-btn">
 				<mt-switch v-model="value" @change="turn"><span></span></mt-switch>
-				<span>OFF/NO</span>
+				<span style="margin-right: 0.2rem;">OFF/NO</span>
 			</div>
 			<div class="window-sign flex-column">
 				<span class="window-ch">天窗</span>
@@ -39,7 +39,7 @@
 			<div class="window-content flex-center-between">
 				<!--净化器提示[高，中，低]Start-->
 				<div class="temperature">
-					<span style="font-size: 0.68rem;color: #222222;">{{windNum[winIndex]}}</span>
+					<span style="font-size: 0.68rem;color: #222222;">{{windNum[evoluorSpace]}}</span>
 				</div>
 				<!--净化器提示[高，中，低]End-->
 
@@ -79,7 +79,7 @@
 					<img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
 					<div class="wind-count">
 						<span @click=" windReduce" class="addWind"><</span>
-						<input class="wind-input" type="text" v-model="windNum[winIndex]" readonly />
+						<input class="wind-input" type="text" v-model="windNum[evoluorSpace]" readonly />
 						<span @click="windAdd" class="reduceWind">></span>
 					</div>
 					<img :src="'./static/images/Lovecar/right@2x.png'" alt="" />
@@ -97,8 +97,16 @@
 					<span></span>
 				</div>
 				<div class="pin-code flex-center">
-					<div id="pinCon" @click="onTypewriting">
+					<div v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
 						<input class="pin-input" maxlength="6" type="text" v-model="pinNumber" readonly/>
+					</div>
+					<div v-else class="pin">
+						<input v-model="ownKeyBoard.first"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.second"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.third"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.fourth"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.fifth"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.sixth"  type="text" maxlength="1" />
 					</div>
 				</div>
 			</div>
@@ -121,6 +129,15 @@
 		name: 'skylightControl',
 		data() {
 			return {
+				//移动端键盘值
+				ownKeyBoard:{
+					first:'',
+					second: '',
+					third: '',
+					fourth: '',
+					fifth: '',
+					sixth: ''
+				},
 				//进化器控制按钮开关
 				value: false,
 				//图片激活变量
@@ -303,10 +320,58 @@
 						num: 3
 					}
 				})
+			},
+			//执行判定
+			inputs () {	
+				var _this=this
+				$('.pin input').on("input propertychange",function(){
+					_this.inputFun($(this));
+				});
+				$('.pin input').on("keyup",function(e){
+					var ev = e;
+					_this.keyupFun($(this),ev);
+				});
+
+			},
+			//判断输入的密码还是否为数字
+			inputFun (value) {
+				var reg = new RegExp("^[0-9]*$");
+				var val = value.val();
+				if(!reg.test(val)){
+					value.val('')
+				}else{
+					value.next().focus();
+				}
+			},
+			//监听backspace事件
+			keyupFun (value,e) {
+				var k = e.keyCode;
+				var val = e.key; //"Backspace"
+				if(k == 8){		//8是backspace的keyCode
+					value.prev().focus();
+				}else{
+					return false;
+				}
 			}
 		},
 		mounted() {
-			this.produCurve()
+			this.produCurve();
+			this.inputs()
+		},
+		computed: {
+			fullValue:{ //拼接input输入框值,激活修改
+				get () {
+					return this.ownKeyBoard.first + this.ownKeyBoard.second + this.ownKeyBoard.third + this.ownKeyBoard.fourth + this.ownKeyBoard.fifth + this.ownKeyBoard.sixth
+				},
+				set (newVal) {
+					this.ownKeyBoard.first=newVal
+					this.ownKeyBoard.second=newVal
+					this.ownKeyBoard.third=newVal
+					this.ownKeyBoard.fourth=newVal
+					this.ownKeyBoard.fifth=newVal
+					this.ownKeyBoard.sixth=newVal
+				}	
+			}
 		},
 		watch: {
 			pinNumber(newVal, oldVal) {
@@ -332,8 +397,23 @@
 
 				}
 			},
-			evoluorSpace(newVal, oldVal) {
-				this.winIndex = newVal
+			fullValue (newVal, oldVal) {
+				if(this.fullValue.length == 6) {
+					setTimeout(() => {
+						this.value = !this.value
+						//pin码正确激活弧线
+						this.curveState = !this.curveState
+						//pin码正确激活空调图
+						this.activeShowImg = !this.activeShowImg,
+						this.refreshPmData (),
+						//消失遮罩
+						this.popupVisible = !this.popupVisible
+						//消失软键盘
+						this.showTyper = 0,
+						//清空pin码
+						this.fullValue = ''
+					}, 1000)
+				}
 			}
 		}
 	}
@@ -570,7 +650,7 @@
 	
 	.pin-code>div {}
 	
-	.pin-code>div>input {
+	.pin-code>div>.pin-input {
 		display: block;
 		width: 5.6rem;
 		height: 0.94rem;
@@ -581,6 +661,21 @@
 		outline: none;
 		background: url(../../../static/images/Lovecar/border@2x.png) no-repeat center;
 		background-size: 100%;
+	}
+	.pin-code>.pin {
+	    display: flex;
+    	align-items: center;
+    	border: 1px solid #ccc;
+	}
+	.pin-code>.pin>input:not(:last-child) {
+    	border-right: 1px solid #ccc;
+	}
+	.pin-code>.pin>input {
+		width: 0.93rem;
+    	height: 0.94rem;
+    	text-align: center;
+	    border: none;
+    	outline: none;
 	}
 	/*自定义软键盘*/
 	
