@@ -9,7 +9,7 @@
 		<div class="fuel-title">
 			<span>统计周期</span>
 			<div>
-				<div @click="date_choose">2018年6月</div>
+				<div @click="date_choose">{{this.years}}年{{this.months}}月</div>
 				<img :src="'./static/images/next@2x.png'" alt="" />
 			</div>
 		</div>
@@ -69,6 +69,9 @@
 				num: '100KM',
 				//展示作用，不能输入
 				disabled: true,
+				years:'',
+				months:'',
+				times:'',
 				count: [{
 					monthMileage: "100KM",
 					oilConsumer: "20L",
@@ -84,7 +87,19 @@
 		},
 		mounted(){
 			console.log(this.$route.params)
-			this.$http.post(Lovecar.Fuel,{vin: "1G",beginTime:"1530720000",endTime:"1533109759",type:"day"},getpin).then((res)=>{
+			var accpect=this.$route.params
+			this.years=accpect.showtop.years;
+			this.months=accpect.showtop.months;
+			if(accpect.times=='月'){
+				this.times='months'
+			}
+			if(accpect.times=='周'){
+				this.times='week'
+			}
+			if(accpect.times=='日'){
+				this.times=='day'
+			}
+			this.$http.post(Lovecar.Fuel,{vin: "1G",beginTime:accpect.begintime,endTime:accpect.endtime,type:this.times},getpin).then((res)=>{
 				console.log(res)
 			})
 		}

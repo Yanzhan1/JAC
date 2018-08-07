@@ -990,7 +990,7 @@ export default {
       }
       if(this.times=='月'){
         this.monthsstart=this.Changetimestamp()[1];
-        this.monthend=this.Changetimestamp()[0];
+        this.monthsend=this.Changetimestamp()[0];
       }
       console.log(this.Changetimestamp())
       this.$router.push({
@@ -998,6 +998,9 @@ export default {
         params:{
           begintime:this.monthsstart,
           endtime:this.monthsend,
+          times:this.times,
+          showtop:this.newdates,
+          showtopdate:this.showdate,
         }
       });
     },

@@ -14,7 +14,7 @@ var mipes = 'http://172.21.4.37:8081/automobilemanage' //my收货地址部分 �
 var li = 'http://172.21.12.19:8083'
 
 
-    //服务器→反馈记录
+//服务器→反馈记录
 var rec = 'http://172.20.20.69:8083/'
     //var indexip = 'http://172.18.31.40:8868'
     //首页
@@ -119,9 +119,9 @@ var Wit = {
         updateUserBaseInformation: mips + '/admin/userBaseInformation/updateUserBaseInformation', //用户基本信息更新
         addComplaintsSuggestions: rec + '/enjoyservice/complaintsSuggestions/addComplaintsSuggestions', //反馈记录
         searchComplaintsSuggestionsList: rec + '/enjoyservice/complaintsSuggestions/searchComplaintsSuggestionsList', //投诉建议查询
-       searchComplaintsSuggestionsOne: rec + '/enjoyservice/complaintsSuggestions/searchComplaintsSuggestionsOne', //投诉建议详细信息
+        searchComplaintsSuggestionsOne: rec + '/enjoyservice/complaintsSuggestions/searchComplaintsSuggestionsOne', //投诉建议详细信息
         searchComplaintsSuggestionsReplyOne: rec + '/enjoyservice/complaintsSuggestionsReply/searchComplaintsSuggestionsReplyOne', //投诉及建议回复查询详细信息
-        updateUserPassword: mips + '/admin/userBaseInformation/updateUserPassword',//用户修改密码
+        updateUserPassword: mips + '/admin/userBaseInformation/updateUserPassword', //用户修改密码
 
         ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromListPage', //线索订单
         My_Bus: mip + '/userVehicle/searchUserVehicleList', //我的车辆
@@ -139,8 +139,8 @@ var Wit = {
         MyDealer: mip + '/dealerBaseInformation/selectSeriesDealerBaseInformation', //我的 我的经销商列表
         UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
         UpUserinfo: mips + '/admin/userBaseInformation/updateUserBaseInformation', //更改用户信息
-//      updateUserPassword: mips + '/admin/userBaseInformation/updateUserPassword',//用户修改密码
-         getComAndSugDet: li + '/enjoyservice/complaintsSuggestionsReply/getComAndSugDet', //反馈详情→李明本地
+        //      updateUserPassword: mips + '/admin/userBaseInformation/updateUserPassword',//用户修改密码
+        getComAndSugDet: li + '/enjoyservice/complaintsSuggestionsReply/getComAndSugDet', //反馈详情→李明本地
 
     }
     //爱车
