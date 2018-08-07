@@ -411,17 +411,24 @@
 			this.inputs()
 		},
 		computed: {
-			fullValue () {
-				return this.ownKeyBoard.first + this.ownKeyBoard.second + this.ownKeyBoard.third + this.ownKeyBoard.fourth + this.ownKeyBoard.fifth + this.ownKeyBoard.sixth
+			fullValue:{ //拼接input输入框值,激活修改
+				get () {
+					return this.ownKeyBoard.first + this.ownKeyBoard.second + this.ownKeyBoard.third + this.ownKeyBoard.fourth + this.ownKeyBoard.fifth + this.ownKeyBoard.sixth
+				},
+				set (newVal) {
+					this.ownKeyBoard.first=newVal
+					this.ownKeyBoard.second=newVal
+					this.ownKeyBoard.third=newVal
+					this.ownKeyBoard.fourth=newVal
+					this.ownKeyBoard.fifth=newVal
+					this.ownKeyBoard.sixth=newVal
+				}	
 			}
 		},
 		watch: {
 			pinNumber(newVal, oldVal) {
 				//				console.log(this.pinNumber.length)
 				if(this.pinNumber.length == 6) {
-					this.$http.post(Lovecar.Checkphonepin,{pin:this.pinNumber},getpin).then((res)=>{
-						console.log(res)
-					})
 					setTimeout(() => {
 						this.value = !this.value
 						//pin码正确激活弧线

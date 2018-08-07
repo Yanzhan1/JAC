@@ -34,6 +34,7 @@ import FeedbackDetail from '@/components/My/FeedbackDetail' //反馈详情
 import ContactPerson from '@/components/My/ContactPerson' //紧急联系人
 import ModifyLikeman from '@/components/My/ModifyLikeman' //修改联系人
 import ModifyPassword from '@/components/My/ModifyPassword' //修改密码
+import ReviousePwdSuccess from '@/components/My/ReviousePwdSuccess' //修改密码成功
 import MyFeedback from '@/components/My/MyFeedback' //我的反馈
 import MySetUp from '@/components/My/MySetUp' //我的设置
 import Bus_test from '@/components/Lovecar/Bus_test.vue'
@@ -316,6 +317,11 @@ export default new Router({
                 path: "/myindex/modifyPassword",
                 name: '修改密码',
                 component: ModifyPassword
+            },
+            {
+                path: "/myindex/reviousePwdSuccess",
+                name: '修改密码',
+                component: ReviousePwdSuccess
             },
             {
                 path: "/myindex/myFeedback",
