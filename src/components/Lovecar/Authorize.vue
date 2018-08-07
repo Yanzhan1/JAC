@@ -12,19 +12,19 @@
             <div class="">
                 <div class="starttimes">
                     <div style="width:2rem;">起始时间</div>
-                    <span style="margin-left:2rem;">{{this.start[0]}}-{{this.start[1]}}-{{this.start[2]}}-{{this.start[3]}}</span>
+                    <span style="margin-left:2rem;" ref="startt">{{this.start[0]}}-{{this.start[1]}}-{{this.start[2]}} {{this.start[3]}}</span>
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem" @click="startlefts">
                 </div>
                 <div class="starttimes">
-                    <div style="width:2rem;">结束时间</div>
-                    <span style="margin-left:2rem;">{{this.end[0]}}-{{this.end[1]}}-{{this.end[2]}}-{{this.end[3]}}</span>
+                    <div style="width:2rem;" >结束时间</div>
+                    <span style="margin-left:2rem;" ref="endd">{{this.end[0]}}-{{this.end[1]}}-{{this.end[2]}} {{this.end[3]}}</span>
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem" @click="endrights">
                 </div>
             </div>
             <div class="aut auts">被授权者账号：</div>
             <div class="iptcont flex row cocenter">
                 <span style="font-size:.24rem;color:#888;" >请输入账号</span>
-                <input maxlength="" type="text" class="ipt" style="margin-left:.5rem;outline:none">
+                <input maxlength="" type="text" class="ipt" style="margin-left:.5rem;outline:none" v-model="Account">
             </div>
         </div>
         <div v-show="this.startleft" class="starts">
@@ -35,9 +35,10 @@
         <div v-show="this.endright" class="starts">
             <div style="text-align:center;line-height:1rem;font-size:.3rem;">选择结束时间</div>
             <div style="float:right;margin-right:.3rem;color:#49BBFF;" @click="hided2">确定</div>
-            <mt-picker :slots="slotstwo" @change="onValuesChangend" style="height:4rem;margin-top:1rem;"></mt-picker>
+            <mt-picker :slots="slotsone" @change="onValuesChangend" style="height:4rem;margin-top:1rem;"></mt-picker>
         </div>
-        <button class="bottom-btn" @click='next()'>发送授权</button>
+        <router-link :to="{name:'Authorize_next',params:{a:this.shang,b:this.xia}}" tag="button" class="bottom-btn" @click.native="next">发送授权</router-link>
+        <!-- <button class="bottom-btn" @click='next()'>发送授权</button> -->
     </div>
 </template>
 
@@ -46,51 +47,19 @@ export default {
   name: "",
   data() {
     return {
-        bgblack:false,
-        startleft:false,
-        endright:false,
+        bgblack:false,//遮罩层
+        startleft:false,//控制起始时间选择
+        endright:false,//控制结束时间选择
+        shang:'',//起始时间
+        xia:'',//结束时间
         start:[],
         end:[],
+        Account:'',
          slotsone: [
             {
             flex: 1,
             values: ['2010', '2011', '2012', '2013', '2014', '2015'],
             className: 'slot1',
-            textAlign: 'right'
-            }, {
-            divider: true,
-            content: '-',
-            className: 'slot2'
-            }, {
-            flex: 1,
-            values: ['01', '02', '03', '04', '05', '06'],
-            className: 'slot3',
-            textAlign: 'left'
-            },{
-            divider: true,
-            content: '-',
-            className: 'slot4'
-            }, {
-            flex: 1,
-            values: ['01', '02', '03', '04', '05', '06'],
-            className: 'slot5',
-            textAlign: 'center'
-            }, {
-            divider: true,
-            content: '-',
-            className: 'slot6'
-            },{
-            flex: 1,
-            values: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00'],
-            className: 'slot7',
-            textAlign: 'center'
-            }
-        ],
-         slotstwo: [
-            {
-            flex: 1,
-            values: ['2015', '2016', '2017', '2018', '2019', '2020'],
-            className: 'slot1',
             textAlign: 'center'
             }, {
             divider: true,
@@ -98,25 +67,95 @@ export default {
             className: 'slot2'
             }, {
             flex: 1,
-            values: ['01', '02', '03', '04', '05', '06'],
+            values:[
+                "01",
+                "02",
+                "03",
+                "04",
+                "05",
+                "06",
+                "07",
+                "08",
+                "09",
+                "10",
+                "11",
+                "12"
+            ],
             className: 'slot3',
             textAlign: 'center'
-            }, {
+            },{
             divider: true,
             content: '-',
             className: 'slot4'
             }, {
             flex: 1,
-            values: ['01', '02', '03', '04', '05', '06'],
+            values:[
+                "01",
+                "02",
+                "03",
+                "04",
+                "05",
+                "06",
+                "07",
+                "08",
+                "09",
+                "10",
+                "11",
+                "12",
+                "13",
+                "14",
+                "15",
+                "16",
+                "17",
+                "18",
+                "19",
+                "20",
+                "21",
+                "22",
+                "23",
+                "24",
+                "25",
+                "26",
+                "27",
+                "28",
+                "29",
+                "30",
+                "31"
+            ],
             className: 'slot5',
             textAlign: 'center'
             }, {
             divider: true,
-            content: '-',
+            content: ' ',
             className: 'slot6'
             },{
             flex: 1,
-            values: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00'],
+            values: [
+                '00:00',
+                "01:00",
+                "02:00",
+                "03:00",
+                "04:00",
+                "05:00",
+                "06:00",
+                "07:00",
+                "08:00",
+                "09:00",
+                "10:00",
+                "11:00",
+                "12:00",
+                "13:00",
+                "14:00",
+                "15:00",
+                "16:00",
+                "17:00",
+                "18:00",
+                "19:00",
+                "20:00",
+                "21:00",
+                "22:00",
+                "23:00",
+            ],
             className: 'slot7',
             textAlign: 'center'
             }
@@ -125,7 +164,26 @@ export default {
   },
   methods:{
       next(){
-          this.$router.push('/Authorize_next')
+          console.log(1)
+        //   this.shang=this.$refs.startt.innerHTML
+        //   this.xia=this.$refs.endd.innerHTML
+          var shang=new Date(this.shang).getTime()
+          var xia=new Date(this.xia).getTime()
+          console.log(this.shang,this.xia)
+          var param={
+                vin: "LS5A3CJC9JF810003", 
+                operationType: "CONTROL_AUTH", 
+                operation: 1, 
+                extParams: {
+                childNum: this.Account, 
+                beginTime: shang, 
+                endTime: xia,
+            }
+        }
+        //   this.$http.post(Lovecar.Longrange,param,getpin).then((res)=>{
+        //       console.log(res)
+        //   })
+        //   this.$router.push('/Authorize_next')
       },
       bgblacks(){
           this.bgblack=false;
@@ -138,7 +196,7 @@ export default {
       },
       endrights(){
           this.bgblack=true;
-          this.endright=true
+          this.endright=true;
       },
       hided1(){
           this.bgblack=false;
@@ -150,24 +208,17 @@ export default {
       },
        onValuesChange(picker, values) {
            this.start=values
+           this.shang=this.$refs.startt.innerHTML
+           this.xia=this.$refs.endd.innerHTML
     },
         onValuesChangend(picker, values) {
             this.end=values
+            this.xia=this.$refs.endd.innerHTML
+            this.shang=this.$refs.startt.innerHTML
     }
   },
   mounted(){
-      this.$http.post(Lovecar.Longrange,{
-        vin: "LS5A3CJC9JF810003", 
-        operationType: "CONTROL_AUTH", 
-        operation: 1, 
-        extParams: {
-        childNum: "1234556", 
-        beginTime: 1531732112967, 
-        endTime: 1531735990657
-    }
-},getpin).then((res)=>{
-          console.log(res)
-      })
+
   }
 };
 </script>

@@ -30,7 +30,7 @@
 				<input class="pinInput" placeholder="请输入新PIN码" type="text" v-model="condition.newPin" />
 			</div>
 		</div>
-		<div class="origin-pin">
+		<!-- <div class="origin-pin">
 			<div class="flex-center-between revisePinCommon">
 				<div>
 					<span style="font-size: 0.26rem;color: #444444; width: 1.65rem">
@@ -41,7 +41,7 @@
 				<button class="btn" v-if="showTime"   @click="submitCode">获取验证码</button>
 				<button class="btn" v-else >{{this.num}}秒后重发</button>
 			</div>
-		</div>
+		</div> -->
 		<router-link tag="p" class="forget-pinCode" to="/lovecar/forgetPinCode">忘记PIN码？</router-link>
 		<button class="bottom-btn" @click="confirmRevise">确认修改</button>
 	</div>
@@ -56,6 +56,7 @@
 				//倒计时按钮状态
 				showTime: true,
 				//修改pin码数据
+				Verification:'',
 				condition: {
 					oldPin: '',
 					newPin: '',
@@ -65,21 +66,6 @@
 			}
 		},
 		methods: {
-			//获取验证码
-			submitCode() {
-				this.$http.post(Lovecar.Getphonepin,{phoneNum:'15062212774'},getpin).then((res)=>{
-					this.condition.verificationCode=res.data.data
-				})
-				this.showTime=false;
-				var times=setInterval(()=>{
-					this.num--
-				if(this.num==0){
-					this.showTime=true;
-					clearInterval(times)
-					this.num=60;
-				}
-				},1000)
-			},
 			//确认修改,messagebox弹出框
 			confirmRevise() {
 				MessageBox.confirm('',{

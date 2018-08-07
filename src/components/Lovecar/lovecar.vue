@@ -131,7 +131,7 @@
 			</ul>
 		</div>
 		<!-- 弹出层 左上 -->
-		<div class="mask" v-if="MaskIsshow"></div>
+		<div class="mask" v-if="MaskIsshow" @click="moved"></div>
 		<img class="cancel" v-if="MaskIsshow" @click="delde" src="../.././../static/images/Lovecar/button9@2x.png" alt="" style="width:.28rem">
 		<div v-if="MaskIsshow" class="mask_content">
 			<ul class="tipcontent">
@@ -200,6 +200,11 @@
 			//点击高亮
 			fn(type) {
 				this.activeshow = type;
+			},
+			moved(){
+				this.MaskIsshow=false;
+				this.IsShow=false;
+				this.popupVisible = false;
 			},
 			// 锁 尾 熄 停 事件
 			enter() {
@@ -319,7 +324,7 @@
 				
 				this.$http.post(Lovecar.Carquery,{vins: ["LS5A3CJC9JF810003"]},getpin).then((res)=>{
 					this.$http.post(Lovecar.OperationId,{operationId:res.data.operationId},getpin).then((res)=>{
-						
+						console.log(res)
 					})
 				
 			})

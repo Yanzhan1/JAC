@@ -27,7 +27,7 @@
 				<span style="font-size: 0.26rem;color: #444444;">
 					新pin码:
 				</span>
-				<input class="newpinInput" placeholder="请输入原PIN码" type="text" v-model="pin.newPin" />
+				<input class="newpinInput" placeholder="请输入新PIN码" type="text" v-model="pin.newPin" />
 			</div>
 		</div>
 		<div class="origin-pin">
@@ -36,8 +36,8 @@
 					<span style="font-size: 0.26rem;color: #444444;">短信验证码:</span>
 					<input class="verification-code" placeholder="请输入验证码" type="text" v-model="pin.verificationCode" />
 				</div>
-				<button class="btn" v-if="showTime">59秒后重发</button>
-				<button class="btn" v-else @click="submitCode">获取验证码</button>
+				<button class="btn" v-if="showTime" @click="submitCode">获取验证码</button>
+				<button class="btn" v-else>{{this.times}}秒后重发</button>
 			</div>
 		</div>
 		<button class="bottom-btn" @click="confirmSub">确认提交</button>
@@ -52,7 +52,9 @@
 			return {
 				//倒计时按钮状态
 				showTime: true,
+				times:'60',//倒计时
 				//忘记pin码数据
+				Verification:'',//后端返回的验证码
 				pin: {
 					phone: '',
 					newPin: '',
@@ -63,7 +65,21 @@
 		methods: {
 			//获取验证码
 			submitCode() {
-
+				this.showTime=false;
+				var backtime=setInterval(()=>{
+					this.times--;
+					if(this.times==0){
+						this.times=60;
+						this.showTime=true;
+						window.clearInterval(backtime)
+					}
+				},1000)
+				var phone=this.pin.phone
+				console.log(phone)
+				this.$http.post(Lovecar.Getphonepin,{phoneNum: phone},getpin).then((res)=>{
+					this.Verification=res.data.data;
+					console.log(this.Verification)
+				})
 			},
 			//底部确认提交
 			confirmSub () {

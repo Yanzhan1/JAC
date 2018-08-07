@@ -89,17 +89,19 @@ import { MessageBox } from "mint-ui";
 export default {
   data() {
     return {
-      current:0,
-      times: "月",
+      current:0,//用来判断日的时候具体选择哪一个的index
+      times: "月",//默认选择月
       opentime: false, //遮罩层
-      showgou1: true,
-      showgou2: false,
-      showgou3: false,
-      showdate: "",
-      showweek: "",
+      showgou1: true,//选择月的选项
+      showgou2: false,//选择周的选项
+      showgou3: false,//选择日的选项
+      showdate: "",//选择具体的日
+      showweek: "",//选择具体的周
+      monthsstart:'',
+      monthsend:'',
       // newdates:'',
       newdates: { years: "", months: "" },
-      arraynum: [],
+      arraynum: [],//需要被渲染的数组
       array1: [
         "1",
         "2",
@@ -532,35 +534,7 @@ export default {
     });
   },
   updated() {
-    var dt = new Date(this.newdates.years, this.newdates.months - 1, 1);
-    var n = dt.getDay();
-    var center_l = document.getElementsByClassName("date_center");
-    switch (n) {
-      case 0: //一号是星期天
-        center_l[0].style.marginLeft = "6.42rem";
-        center_l[0].style.borderLeft = ".01rem solid #eee";
-        break;
-      case 2: //一号是星期二
-        center_l[0].style.marginLeft = "1.07rem";
-        center_l[0].style.borderLeft = ".01rem solid #eee";
-        break;
-      case 3: //一号是星期三
-        center_l[0].style.marginLeft = "2.14rem";
-        center_l[0].style.borderLeft = ".01rem solid #eee";
-        break;
-      case 4: //一号是星期四
-        center_l[0].style.marginLeft = "3.21rem";
-        center_l[0].style.borderLeft = ".01rem solid #eee";
-        break;
-      case 5: //一号是星期五
-        center_l[0].style.marginLeft = "4.28rem";
-        center_l[0].style.borderLeft = ".01rem solid #eee";
-        break;
-      case 6: //一号是星期六
-        center_l[0].style.marginLeft = "5.35rem";
-        center_l[0].style.borderLeft = ".01rem solid #eee";
-        break;
-    }
+   this.week_left()
   },
   methods: {
     choose_times() {
@@ -595,6 +569,38 @@ export default {
         this.opentime = false;
       }, 200);
       this.times = "日";
+    },
+    //根据每个月的1号是星期几判断每个月1号与左边的距离
+    week_left(){
+        var dt = new Date(this.newdates.years, this.newdates.months - 1, 1);
+      var n = dt.getDay();
+      var center_l = document.getElementsByClassName("date_center");
+      switch (n) {
+        case 0: //一号是星期天
+          center_l[0].style.marginLeft = "6.42rem";
+          center_l[0].style.borderLeft = ".01rem solid #eee";
+          break;
+        case 2: //一号是星期二
+          center_l[0].style.marginLeft = "1.07rem";
+          center_l[0].style.borderLeft = ".01rem solid #eee";
+          break;
+        case 3: //一号是星期三
+          center_l[0].style.marginLeft = "2.14rem";
+          center_l[0].style.borderLeft = ".01rem solid #eee";
+          break;
+        case 4: //一号是星期四
+          center_l[0].style.marginLeft = "3.21rem";
+          center_l[0].style.borderLeft = ".01rem solid #eee";
+          break;
+        case 5: //一号是星期五
+          center_l[0].style.marginLeft = "4.28rem";
+          center_l[0].style.borderLeft = ".01rem solid #eee";
+          break;
+        case 6: //一号是星期六
+          center_l[0].style.marginLeft = "5.35rem";
+          center_l[0].style.borderLeft = ".01rem solid #eee";
+          break;
+      }
     },
     //选择每个月的第几周的天数排列出来
     week_choose(){
@@ -836,36 +842,7 @@ export default {
       }
         this.week_choose();
       if (this.showweek > 2 && this.showweek <= 6) {
-        var dt = new Date(this.newdates.years, this.newdates.months - 1, 1);
-        var n = dt.getDay();
-        console.log(n)
-        console.log(this.$refs.weekdate[0].style.marginLeft)
-        switch (n) {
-            case 0: //一号是星期天
-              this.$refs.weekdate[0].style.marginLeft = "-6.42rem";
-              this.$refs.weekdate[0].style.borderLeft = ".01rem solid #eee";
-              break;
-            case 2: //一号是星期二
-              this.$refs.weekdate[0].style.marginLeft = "-1.07rem";
-              this.$refs.weekdate[0].style.borderLeft = ".01rem solid #eee";
-              break;
-            case 3: //一号是星期三
-              this.$refs.weekdate[0].style.marginLeft = "-2.14rem";
-              this.$refs.weekdate[0].style.borderLeft = ".01rem solid #eee";
-              break;
-            case 4: //一号是星期四
-              this.$refs.weekdate[0].style.marginLeft = "-3.21rem";
-              this.$refs.weekdate[0].style.borderLeft = ".01rem solid #eee";
-              break;
-            case 5: //一号是星期五
-              this.$refs.weekdate[0].style.marginLeft = "-4.28rem";
-              this.$refs.weekdate[0].style.borderLeft = ".01rem solid #eee";
-              break;
-            case 6: //一号是星期六
-              this.$refs.weekdate[0].style.marginLeft = "-5.35rem";
-              this.$refs.weekdate[0].style.borderLeft = ".01rem solid #eee";
-              break;
-          }
+        week_left()
       }
     },
     turn_r_week() {
@@ -907,36 +884,7 @@ export default {
           this.arraynum = this.array3;
         }
       }
-      //根据每个月的1号是星期几判断每个月1号与左边的距离
-      var dt = new Date(this.newdates.years, this.newdates.months - 1, 1);
-      var n = dt.getDay();
-      var center_l = document.getElementsByClassName("date_center");
-      switch (n) {
-        case 0: //一号是星期天
-          center_l[0].style.marginLeft = "6.42rem";
-          center_l[0].style.borderLeft = ".01rem solid #eee";
-          break;
-        case 2: //一号是星期二
-          center_l[0].style.marginLeft = "1.07rem";
-          center_l[0].style.borderLeft = ".01rem solid #eee";
-          break;
-        case 3: //一号是星期三
-          center_l[0].style.marginLeft = "2.14rem";
-          center_l[0].style.borderLeft = ".01rem solid #eee";
-          break;
-        case 4: //一号是星期四
-          center_l[0].style.marginLeft = "3.21rem";
-          center_l[0].style.borderLeft = ".01rem solid #eee";
-          break;
-        case 5: //一号是星期五
-          center_l[0].style.marginLeft = "4.28rem";
-          center_l[0].style.borderLeft = ".01rem solid #eee";
-          break;
-        case 6: //一号是星期六
-          center_l[0].style.marginLeft = "5.35rem";
-          center_l[0].style.borderLeft = ".01rem solid #eee";
-          break;
-      }
+      this.week_left()
     },
     turn_r() {
       var date = new Date();
@@ -1036,8 +984,67 @@ export default {
       }
     },
     cheeks() {
-      this.$router.push("/lovecar/fuelQuery");
+      if(this.times=='日'){
+        this.monthsstart=this.Changetimestamp();
+        this.monthend=new Date().getTime()
+      }
+      if(this.times=='月'){
+        this.monthsstart=this.Changetimestamp()[1];
+        this.monthend=this.Changetimestamp()[0];
+      }
+      console.log(this.Changetimestamp())
+      this.$router.push({
+        name:'燃油查询',
+        params:{
+          begintime:this.monthsstart,
+          endtime:this.monthsend,
+        }
+      });
+    },
+    //转化时间戳
+    Changetimestamp(value){
+      if(this.times=='日'){
+        return  operationTime.toTimeStamp(this.callback0)
+      }
+      if(this.times=='月'){
+       if(this.newdates.month==1||3||5||7||8||10||12){
+          return  [operationTime.toTimeStamp(this.callback31),operationTime.toTimeStamp(this.callback1)]
+       }
+       if(this.newdates.months==4||6||9||11){
+         return  [operationTime.toTimeStamp(this.callback30),operationTime.toTimeStamp(this.callback1)] 
+       }
+       if(this.newdates.months==2){
+         if(this.newdates.years%4==0||this.newdates.years%100==0&&this.newdates.years%400==0){
+           return [operationTime.toTimeStamp(this.callback28),operationTime.toTimeStamp(this.callback1)] 
+         }else{
+           return [operationTime.toTimeStamp(this.callback29),operationTime.toTimeStamp(this.callback1)] 
+         }
+       }
+     }
+      
     }
+  },
+  computed:{
+    //年月日拼接
+    callback0:function(){
+      return  this.newdates.years+'-'+this.newdates.months+'-'+this.showdate
+    },
+    //年月拼接
+    callback31:function(){
+      return this.newdates.years+'-'+this.newdates.months+'-'+'31'
+    },
+    callback30:function(){
+      return this.newdates.years+'-'+this.newdates.months+'-'+'30'
+    },
+    callback29:function(){
+      return this.newdates.years+'-'+this.newdates.months+'-'+'29'
+    },
+    callback28:function(){
+      return this.newdates.years+'-'+this.newdates.months+'-'+'28'
+    },
+    callback1:function(){
+      return this.newdates.years+'-'+this.newdates.months+'-'+'1'
+    },
   }
 };
 </script>

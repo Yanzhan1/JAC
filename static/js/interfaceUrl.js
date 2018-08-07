@@ -4,7 +4,7 @@ var mip = 'http://172.20.20.69:8082/automobilemanage' //智享
     //服务器-admin(跟用户有关即我的)
 var mips = 'http://172.20.20.69:8081/' //地区
 
-var mipss = 'http://172.20.20.69:8084/v2/api-docs' //爱车
+var mipss = 'http://172.20.20.69:8084/' //爱车
 
 var mipsss = 'http://172.21.4.184:8084/' //爱车本地服务器  yys
 
@@ -133,13 +133,13 @@ var Wit = {
     }
     //爱车
 var Lovecar = {
-    Carquery: mipsss + '/vehicle/query-vehicle-condition', //车辆车况查询
-    OperationId: mipsss + '/vehicle/vehicle-async-result', //获取车辆车况查询返回的operationId发送给后端
-    Changepin: mipsss + '/vehicle/update-vehicle-pin', //修改pin码
-    Getphonepin: mipsss + '/vehicle//identify-code', //获取验证码
-    Checkphonepin: mipsss + '/vehicle/check-vehicle-pin', //验证pin码
-    BusTest: mipsss + 'vehicle/query-cyc-car-examination', //车辆体检
-    Fuel: mipsss + '/vehicle/query-vehicle-fuel-Statistics', //燃油接口
-    Flow: mipsss + '/vehicle/query-vehicle-cyc-flow-query', //流量查询
-    Longrange: mipsss + '/vehicle/set-vehicle-remoteset', //远程授权
+    Carquery: mipss + '/vehicle/query-vehicle-condition', //车辆车况查询
+    OperationId: mipss + '/vehicle/vehicle-async-result', //获取车辆车况查询返回的operationId发送给后端
+    Changepin: mipss + '/vehicle/update-vehicle-pin', //修改pin码
+    Getphonepin: mipss + '/vehicle//identify-code', //获取验证码
+    Checkphonepin: mipss + '/vehicle/check-vehicle-pin', //验证pin码
+    BusTest: mipss + 'vehicle/query-cyc-car-examination', //车辆体检
+    Fuel: mipss + '/vehicle/query-vehicle-fuel-Statistics', //燃油接口
+    Flow: mipss + '/vehicle/query-vehicle-cyc-flow-query', //流量查询
+    Longrange: mipss + '/vehicle/set-vehicle-remoteset', //远程设置
 }
