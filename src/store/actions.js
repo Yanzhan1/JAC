@@ -5,5 +5,8 @@ export default {
     },
     NO: ({ commit, state}, payload) => {
     	commit(types.NO, payload)
+    },
+    SOFTKEYBOARD: ({commit, state}, payload) => {
+    	commit(types.SOFTKEYBOARD, payload)
     }
 }

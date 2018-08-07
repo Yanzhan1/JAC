@@ -8,22 +8,62 @@
 		<div style="height:0.88rem"></div>
 		<ul class="feedback-wrap">
 			<li>
-				<div class="question">【意见】为什么APP上控制空调模式没有用？只能 使用制冷和除霜。座椅高度调控也只能控制主驾 驶？请帮我解决一下，谢谢！</div>
-				<div class="question-time">2018-07-22 10:23</div>
-				<div class="answer-content">官方回复：您好！针对您的问题我们会有工作人员跟您联系答复哦！</div>
-				<div class="answer-time">2018-07-22 13:01</div>
+				<div class="question">【{{questionTyep[replyDetailSuggestions.complaintsType]}}】{{replyDetailSuggestions.complaintsContent}}</div>
+				<div class="question-time">{{getTime(replyDetailSuggestions.createdDate)}}</div>
+				<div class="answer-content">官方回复：{{replyDetailSuggestions.comSugRe.replyContent}}</div>
+				<div class="answer-time">{{getTime(replyDetailSuggestions.comSugRe.createdDate)}}</div>
 			</li>
 		</ul>
 	</div>
 </template>
 
 <script>
+	import { Toast } from 'mint-ui';
 	export default {
 		name: 'feedbackDetail',
 		data () {
 			return {
-				
+				condition: {
+					no: 'EN012018080306281087599'
+				},
+				detailSuggestions:{},//投诉建议详细查看
+				replyDetailSuggestions: {}, //回复投诉建议详细
+				questionTyep: { //意见种类
+					'1': '问题	',
+					'2': '意见'
+				}	
 			}
+		},
+		methods: {
+			init() {
+				//请求投诉及建议回复查询详细信息
+				this.$http.post(Wit.getComAndSugDet, this.condition).then(res => {
+					const data = res.data;
+					console.log(data);
+					if(data.code == 0) {
+						this.replyDetailSuggestions = data.data
+					} else {
+						let instance = Toast({
+							message: data.Msg,
+							position: 'middle',
+							duration: 1000
+						});
+					}
+				}).catch((error) => {
+					let instance = Toast({
+						message: '系统异常',
+						position: 'middle',
+						duration: 1000
+					});
+				});
+				
+			},
+		    getTime (date) { //转化时间戳
+		    	return operationTime.getTime(date,2)
+		    },
+		},
+		mounted () {
+			this.init()
 		}
 	}
 </script>

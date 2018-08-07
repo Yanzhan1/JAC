@@ -11,7 +11,7 @@
 				<span style="font-size: 0.26rem;color: #444444;">
 					旧密码:
 				</span>
-				<input placeholder="请输入旧密码" type="text" />
+				<input v-model="condition.oldPassword" placeholder="请输入旧密码" type="text" />
 			</div>
 		</div>
 		<div class="origin-pin">
@@ -19,19 +19,47 @@
 				<span style="font-size: 0.26rem;color: #444444;">
 					新密码:
 				</span>
-				<input placeholder="请输入新密码" type="text" />
+				<input v-model="condition.newPassword" placeholder="请输入新密码" type="text" />
 			</div>
 		</div>
-		<button class="bottom-btn">确认修改</button>
+		<button class="bottom-btn" @click="modifyPwd">确认修改</button>
 	</div>
 </template>
 
 <script>
+	import { Toast } from 'mint-ui';
 	export default {
 		name: '',
 		data () {
 			return {
-				
+				condition: {
+					oldPassword: '',
+					newPassword: '',
+					no: this.$store.state.no
+				}
+			}
+		},
+		methods: {
+			modifyPwd () { //修改密码
+				this.$http.post(Wit.updateUserPassword, this.condition).then(res => {
+					const data = res.data;
+					console.log(data);
+					if(data.code == 0) {
+						this.$router.push('/myindex/reviousePwdSuccess')
+					} else {
+						let instance = Toast({
+							message: data.msg,
+							position: 'middle',
+							duration: 2000
+						});
+					}
+				}).catch((error) => {
+					let instance = Toast({
+						message: '系统异常',
+						position: 'middle',
+						duration: 2000
+					});
+				});
 			}
 		}
 	}
