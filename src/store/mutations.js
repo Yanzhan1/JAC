@@ -4,6 +4,9 @@ export default {
         state.islogin = true;
     },
     [types.NO]: (state,payload) => {
-    	state.no = payload
+    	state.no = payload;
+    },
+    [types.SOFTKEYBOARD]: (state, payload) => {
+    	state.softkeyboard = payload;
     }
 }

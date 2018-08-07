@@ -3,7 +3,7 @@
 		<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">我的反馈</span>
-			<span class="header-right">记录</span>
+			<router-link tag="span" class="header-right" to="/myindex/feedbackRecord">记录</router-link>
 		</header>
 		<div style="height:0.88rem"></div>
 		<div class="freedback-wrap">
