@@ -169,6 +169,7 @@ export default new Router({
             },
             {
                 path: "/Authorize_next",
+                name: 'Authorize_next',
                 component: Authorize_next
             },
             {
