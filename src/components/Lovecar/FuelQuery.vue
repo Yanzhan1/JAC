@@ -100,24 +100,26 @@
 			this.$http.post(Lovecar.Fuel,{vin: "1G",beginTime:this.turntimes(),endTime:newstimes,type:'months'},getpin).then((res)=>{
 				console.log(res)
 			})
-			var accpect=this.$route.params
-			console.log(accpect)
-			
-			this.years=accpect.showtop.years;
-			this.months=accpect.showtop.months;
-			if(accpect.times=='月'){
-				this.times='months'
+			if(this.$route.params.begintime){
+				var accpect=this.$route.params
+				console.log(accpect)
+				
+				this.years=accpect.showtop.years;
+				this.months=accpect.showtop.months;
+				if(accpect.times=='月'){
+					this.times='months'
+				}
+				if(accpect.times=='周'){
+					this.times='week'
+				}
+				if(accpect.times=='日'){
+					this.times=='day'
+				}
+				//路由传过来所选择的日期渲染页面
+				this.$http.post(Lovecar.Fuel,{vin: "1G",beginTime:accpect.begintime,endTime:accpect.endtime,type:this.times},getpin).then((res)=>{
+					console.log(res)
+				})
 			}
-			if(accpect.times=='周'){
-				this.times='week'
-			}
-			if(accpect.times=='日'){
-				this.times=='day'
-			}
-			//路由传过来所选择的日期渲染页面
-			this.$http.post(Lovecar.Fuel,{vin: "1G",beginTime:accpect.begintime,endTime:accpect.endtime,type:this.times},getpin).then((res)=>{
-				console.log(res)
-			})
 		}
 	}
 </script>
