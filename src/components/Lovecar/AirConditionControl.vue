@@ -8,8 +8,17 @@
 		<div style="height:0.88rem"></div>
 		<div class="air-header">
 			<div class="air-btn">
-				<mt-switch v-model="value" @change="turn"><span></span></mt-switch>
-				<span style="margin-right: 0.2rem;">OFF/NO</span>
+				<div>
+					<span style="margin-right: 0.2rem;">开关</span>
+					<mt-switch v-model="value" @change="turn"><span></span></mt-switch>
+				</div>
+				
+				<div>
+					<span style="margin-right: 0.2rem;">压缩机</span>
+					<mt-switch v-model="compressor" @change="turnCompressor"><span></span></mt-switch>
+				</div>
+				
+				
 			</div>
 			<div class="air-sign flex-column">
 				<span class="air-ch">空调</span>
@@ -52,11 +61,15 @@
 
 				<!--空调图Start-->
 				<div class="wind-blows">
-					<div>
-						
+					<div  v-if="activeShowImg">
+						<img class="color-fan" :class="{rotateActive: rotateState}" :src="'./static/images/Lovecar/ariss@2x.png'" alt="" />
+						<img class="small-fan" :class="{rotateActive: rotateState}" :src="'./static/images/Lovecar/airs@2x.png'" alt="" />
 					</div>
-					<img :class="{rotateActive: rotateState}" v-if="activeShowImg" :src="'./static/images/Lovecar/air@2x.png'" alt="" />
-					<img v-else :src="'./static/images/Lovecar/air1@2x.png'" alt="" />
+					<div v-else>
+						<img class="gray-fan" :src="'./static/images/Lovecar/air1@2x.png'" alt="" />
+					</div>
+					<!--<img :class="{rotateActive: rotateState}" :src="'./static/images/Lovecar/air@2x.png'" alt="" />
+					<img v-else :src="'./static/images/Lovecar/air1@2x.png'" alt="" />-->
 				</div>
 				<!--空调End-->
 
@@ -83,29 +96,18 @@
 		<!--底部导航Start-->
 		<div class="air-footer flex-center-between">
 			<div class="tabar flex-column-align" @click="change(1)">
-				<img v-if="activeShowImg == 1" :src="'./static/images/Lovecar/zhileng1@2x_6.png'" />
-				<img v-else :src="'./static/images/Lovecar/zhileng@2x.png'" />
-				<span :class="activeShowImg==1?'active':'actives'">制冷</span>
+				<img v-if="activeShowImg == 1" :src="'./static/images/Lovecar/no-off@2x.png'" />
+				<img v-else :src="'./static/images/Lovecar/no-off2@2x.png'" />
 			</div>
 			<div class="tabar flex-column-align" @click="change(2)">
-				<img v-if="activeShowImg == 2" :src="'./static/images/Lovecar/chushuang1@2x_8.png'" />
-				<img v-else :src="'./static/images/Lovecar/chushuang@2x.png'" />
-				<span :class="activeShowImg==2?'active':'actives'">除霜</span>
+				<img v-if="activeShowImg == 2" :src="'./static/images/Lovecar/off-left@2x.png'" />
+				<img v-else :src="'./static/images/Lovecar/off-left2@2x.png'" />
+				<span :class="activeShowImg==2?'active':'actives'">内循环</span>
 			</div>
 			<div class="tabar flex-column-align" @click="change(3)">
-				<img v-if="activeShowImg == 3" :src="'./static/images/Lovecar/zhire1@2x_2.png'" />
-				<img v-else :src="'./static/images/Lovecar/zhire@2x.png'" />
-				<span :class="activeShowImg==3?'active':'actives'">制热</span>
-			</div>
-			<div class="tabar flex-column-align" @click="change(4)">
-				<img v-if="activeShowImg == 4" :src="'./static/images/Lovecar/chushi1@2x_85.png'" />
-				<img v-else :src="'./static/images/Lovecar/chushi@2x.png'" />
-				<span :class="activeShowImg==4?'active':'actives'">除湿</span>
-			</div>
-			<div class="tabar flex-column-align" @click="change(5)">
-				<img v-if="activeShowImg == 5" :src="'./static/images/Lovecar/shuimian1@2x_25.png'" />
-				<img v-else :src="'./static/images/Lovecar/shuimian@2x.png'" />
-				<span :class="activeShowImg==5?'active':'actives'">睡眠</span>
+				<img v-if="activeShowImg == 3" :src="'./static/images/Lovecar/off-right@2x.png'" />
+				<img v-else :src="'./static/images/Lovecar/off-right2@2x.png'" />
+				<span :class="activeShowImg==3?'active':'actives'">外循环</span>
 			</div>
 			<!--底部导航End-->
 		</div>
@@ -160,8 +162,10 @@
 					fifth: '',
 					sixth: ''
 				},
-				//顶部switch按钮激活变量
+				//开关switch按钮激活变量
 				value: false,
+				//压缩机switch按钮激活变量
+				compressor: false,
 				//图片激活变量
 				activeShowImg: 0,
 				//温度调节最大值
@@ -200,6 +204,16 @@
 					this.value = false;
 				}
 				this.popupVisible = !this.popupVisible
+			},
+			//压缩机控制开关
+			turnCompressor () {
+				if(this.activeShowImg) {
+					this.compressor = this.compressor;
+					console.log(this.compressor)
+				} else {
+					this.compressor = false;
+					console.log(this.compressor)
+				}
 			},
 			//激活底部图标方法
 			change(val) {
@@ -512,9 +526,14 @@
 	
 	.air-btn {
 		display: flex;
-		flex-direction: column;
-		justify-content: center;
+		flex-direction: row;
+		justify-content: space-around;
 		align-items: center;
+	    margin-bottom: 0.47rem;
+	}
+	.air-btn>div {
+		display: flex;
+	    align-items: center;
 	}
 	/*空调标志*/
 	
@@ -555,7 +574,7 @@
 	/*空调主体*/
 	
 	.air-wrap {
-		height: 6.6rem;
+		height: 6.3rem;
 		padding: 0 0.68rem;
 	}
 	
@@ -586,13 +605,30 @@
 	/*风扇部分*/
 	
 	.wind-blows {
-		margin-left: 1rem;
+		margin-left: 0.5rem;
 		align-self: flex-end;
 	}
-	
-	.wind-blows>img {
-		width: 2.66rem;
+	.wind-blows>div {
+	    position: relative;
+   	 	display: flex;
+    	align-items: center;
+    	justify-content: center;
+	}
+	.wind-blows>div>.color-fan {
+		width: 1.8rem;
 		height: 1.89rem;
+	}
+	.wind-blows>div>.gray-fan {
+		width: 2.35rem;
+		height: 1.89rem;
+	}
+	.wind-blows>div>.small-fan {
+	    position: absolute;
+	    top: 0.7rem;
+	    left: 1.6rem;
+		width: 1.1rem;
+		height: 1.1rem;
+	    z-index: -1;
 	}
 	/*温度部分*/
 	
@@ -664,7 +700,7 @@
 	.sing-line {
 		width: 6.18rem;
 		height: 1px;
-		margin: 1.3rem auto 0.4rem auto;
+		margin: 1rem auto 0.4rem auto;
 		background: rgba(153, 153, 153, .3)
 	}
 	/*空调底部*/
@@ -673,11 +709,13 @@
 		width: 71%;
 		margin: 0.36rem auto 0 auto;
 	}
-	
+	.tabar {
+		height: 1.24rem;
+	}
 	.tabar>img {
-		width: 0.44rem;
-		height: 0.44rem;
-		margin-bottom: 0.22rem;
+	    width: 0.88rem;
+    	height: 0.88rem;
+    	margin-bottom: 0.13rem;
 	}
 	
 	.tabar>span {
@@ -686,11 +724,13 @@
 	/*底部激活字体*/
 	
 	.active {
+		display: block;
 		color: #49BBFF;
 	}
 	/*底部未激活字体*/
 	
 	.actives {
+		display: none;
 		color: #999999;
 	}
 	/*pin码提示框*/

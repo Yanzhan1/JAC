@@ -193,7 +193,7 @@
 				num: 3,
 				IsShow: false,
 				keyNums: [],
-				msg:'车机已登录',
+				msg: '车机已登录',
 				pinNumber: ""
 			};
 		},
@@ -202,9 +202,9 @@
 			fn(type) {
 				this.activeshow = type;
 			},
-			moved(){
-				this.MaskIsshow=false;
-				this.IsShow=false;
+			moved() {
+				this.MaskIsshow = false;
+				this.IsShow = false;
 				this.popupVisible = false;
 			},
 			// 锁 尾 熄 停 事件
@@ -271,38 +271,32 @@
 			},
 			//跳转电子围栏
 			turnPage() {
-				var u = navigator.userAgent,
-					app = navigator.appVersion;
-				var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
-				var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-				if(isAndroid) {
-					window.js2android.goEfence()
-				} else if(isIOS) {　
-
+				//js判断手机操作系统(ios或者是Android)
+				var system = IOSAndAndroid.isIOSOrAndroid();
+				if(system == "Android") {
+					window.js2android.goEfence() //电子围栏
+				} else if(system == "IOS") {
+					window.webkit.messageHandlers.goEfenceiOS.postMessage({});
 				}
 			},
 			//跳转盯盯拍
 			turnDing() {
-				var u = navigator.userAgent,
-					app = navigator.appVersion;
-				var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
-				var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-				if(isAndroid) {
-					window.js2android.goDDPai()()
-				} else if(isIOS) {　
-
+				//js判断手机操作系统(ios或者是Android)
+				var system = IOSAndAndroid.isIOSOrAndroid();
+				if(system == "Android") {
+					window.js2android.goDDPai() //盯盯拍
+				} else if(system == "IOS") {
+					window.webkit.messageHandlers.goDDPaiiOS.postMessage({});
 				}
 			},
 			//跳转定位
-			turnPosition () {
-				var u = navigator.userAgent,
-					app = navigator.appVersion;
-				var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
-				var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-				if(isAndroid) {
-					window.js2android.goCarLocation()()
-				} else if(isIOS) {　
-
+			turnPosition() {
+				//js判断手机操作系统(ios或者是Android)
+				var system = IOSAndAndroid.isIOSOrAndroid();
+				if(system == "Android") {
+					window.js2android.goCarLocation() //定位
+				} else if(system == "IOS") {
+					window.webkit.messageHandlers.goCarLocationiOS.postMessage({});
 				}
 			}
 		},
@@ -314,7 +308,9 @@
 						var PIN = this.pinNumber;
 						this.popupVisible = !this.popupVisible;
 						(this.IsShow = false), (this.pinNumber = "");
-						this.$http.post(Lovecar.Checkphonepin,{pin:PIN},getpin).then((res)=>{
+						this.$http.post(Lovecar.Checkphonepin, {
+							pin: PIN
+						}, getpin).then((res) => {
 							console.log(res)
 						})
 					}, 2000);
@@ -322,11 +318,15 @@
 			}
 		},
 		mounted() {
-				
-				this.$http.post(Lovecar.Carquery,{vins: ["LS5A3CJC9JF810003"]},getpin).then((res)=>{
-					this.$http.post(Lovecar.OperationId,{operationId:res.data.operationId},getpin).then((res)=>{
-						console.log(res)
-					})
+
+			this.$http.post(Lovecar.Carquery, {
+				vins: ["LS5A3CJC9JF810003"]
+			}, getpin).then((res) => {
+				this.$http.post(Lovecar.OperationId, {
+					operationId: res.data.operationId
+				}, getpin).then((res) => {
+					console.log(res)
+				})
 			})
 		}
 	};

@@ -5,4 +5,5 @@ export default {
 	UserStartId: null,
 	no: '', //模拟使用的用户no
 	softkeyboard: true, //默认软键盘开启
+	token: {}, //用户token
 }

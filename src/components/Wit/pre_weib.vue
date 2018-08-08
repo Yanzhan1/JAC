@@ -374,10 +374,9 @@ export default {
     sure(){
          this.popupVisible=false
     },
-     complete() {
+    complete() {
       this.success = false;
       this.region=false
-   
     },
     //选择服务车型
     onAddressChange(picker, values) {

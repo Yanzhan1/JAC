@@ -8,5 +8,8 @@ export default {
     },
     [types.SOFTKEYBOARD]: (state, payload) => {
     	state.softkeyboard = payload;
+    },
+    [types.TOKEN]: (state, payload) => {
+    	state.token = payload
     }
 }
