@@ -76,7 +76,7 @@
 				},1000)
 				var phone=this.pin.phone
 				console.log(phone)
-				this.$http.post(Lovecar.Getphonepin,{phoneNum: phone},getpin).then((res)=>{
+				this.$http.post(Lovecar.Getphonepin,{phoneNum: phone},this.$store.state.getpin).then((res)=>{
 					this.Verification=res.data.data;
 					console.log(this.Verification)
 				})

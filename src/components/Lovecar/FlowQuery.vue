@@ -171,7 +171,7 @@
 							simNum:"12",//Tbox中的sim卡号
 							imei:"1",//sim卡中的imei卡号
 							iccid:"12"//sim卡中的iccid卡号
-						},getpin).then((res)=>{
+						},this.$store.state.getpin).then((res)=>{
 						console.log(res)
 			})
 					setTimeout(() => {

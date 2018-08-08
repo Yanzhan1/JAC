@@ -310,7 +310,7 @@
 						(this.IsShow = false), (this.pinNumber = "");
 						this.$http.post(Lovecar.Checkphonepin, {
 							pin: PIN
-						}, getpin).then((res) => {
+						},this.$store.state.getpin).then((res) => {
 							console.log(res)
 						})
 					}, 2000);
@@ -321,10 +321,11 @@
 
 			this.$http.post(Lovecar.Carquery, {
 				vins: ["LS5A3CJC9JF810003"]
-			}, getpin).then((res) => {
+			}, this.$store.state.getpin).then((res) => {
+				console.log(res)
 				this.$http.post(Lovecar.OperationId, {
 					operationId: res.data.operationId
-				}, getpin).then((res) => {
+				},this.$store.state.getpin).then((res) => {
 					console.log(res)
 				})
 			})
