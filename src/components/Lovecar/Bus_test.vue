@@ -37,7 +37,7 @@ export default {
     var param={
        'vin':'LS5A3CJC9JF810003'
     }
-    this.$http.post(Lovecar.BusTest,param,getpin).then(res=>{
+    this.$http.post(Lovecar.BusTest,param,this.$store.state.getpin).then(res=>{
 
     })
     setTimeout(function() {

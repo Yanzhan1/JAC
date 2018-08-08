@@ -1,13 +1,3 @@
-//爱车部分添加请求头
-var getpin = {
-    headers: {
-        "identityParam": {
-            token: "sdfasdfasdfasd",
-            phone: "1231341234"
-        }
-    }
-}
-
 var operationTime = {
     /*
      * 两个参数:ns为时间戳,type(1,2,3,4)为需要返回时间格式

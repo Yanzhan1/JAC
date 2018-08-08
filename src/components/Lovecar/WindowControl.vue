@@ -383,7 +383,7 @@
 							this.showTyper = 0,
 							//清空pin码
 							this.pinNumber = ''
-							this.$http.post(Lovecar.Checkphonepin,{pin:nums},getpin).then((res)=>{
+							this.$http.post(Lovecar.Checkphonepin,{pin:nums},this.$store.state.getpin).then((res)=>{
 							console.log(res)
 					})
 						}, 1000)

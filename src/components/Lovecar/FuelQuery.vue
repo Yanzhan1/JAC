@@ -116,7 +116,7 @@
 					this.times=='day'
 				}
 				//路由传过来所选择的日期渲染页面
-				this.$http.post(Lovecar.Fuel,{vin: "1G",beginTime:accpect.begintime,endTime:accpect.endtime,type:this.times},getpin).then((res)=>{
+				this.$http.post(Lovecar.Fuel,{vin: "1G",beginTime:accpect.begintime,endTime:accpect.endtime,type:this.times},this.$store.state.this.$store.state.getpin).then((res)=>{
 					console.log(res)
 				})
 			}
