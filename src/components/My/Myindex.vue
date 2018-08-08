@@ -163,9 +163,8 @@
 				} else if(system == "IOS") {
 					let Iostoken = getCookie('token')
 					let Iosno = getCookie('no')
-					alert(Iostoken, Iosno)
-					
-					//		          window.webkit.messageHandlers.backAction.postMessage({});
+//					alert(Iostoken)	
+//					alert(Iosno)
 				}
 			}
 		},

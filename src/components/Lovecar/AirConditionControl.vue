@@ -65,7 +65,7 @@
 						<img class="color-fan" :class="{rotateActive: rotateState}" :src="'./static/images/Lovecar/ariss@2x.png'" alt="" />
 						<img class="small-fan" :class="{rotateActive: rotateState}" :src="'./static/images/Lovecar/airs@2x.png'" alt="" />
 					</div>
-					<div v-else>
+					<div v-else style="margin-left: 0.4rem;">
 						<img class="gray-fan" :src="'./static/images/Lovecar/air1@2x.png'" alt="" />
 					</div>
 					<!--<img :class="{rotateActive: rotateState}" :src="'./static/images/Lovecar/air@2x.png'" alt="" />
