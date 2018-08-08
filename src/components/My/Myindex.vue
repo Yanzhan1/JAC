@@ -7,7 +7,8 @@
       </div>
       <div class="mytophead flex between cocenter">
         <div @click="edict()" style="padding-left: 0.3rem;padding-right: 0.2rem" class="flex cocenter">
-          <img :src="Personal.headUrl" alt="" style="width: 1.2rem;height: 1.2rem">
+          <div style="width: 1.2rem;height: 1.2rem;border-radius:50%;overflow:hidden">  <img :src="Personal.headUrl" alt="" style="width:100%;height:100%"></div>
+        
           <div class="flex column" style="margin-left: 0.2rem;">
             <div class="flex cocenter" style="overflow: hidden">
               <span style="color: #fff;font-size: 0.32rem;font-weight: bold">{{Personal.userRealName}}</span>
@@ -53,13 +54,13 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
       </router-link>
-      <div class="mylist">
+      <router-link  to="/myindex/wbrecode"  class="mylist" tag="div">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_record_maintanance@2x.png" alt="">
           <span>维保记录</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </div>
+      </router-link>
       <div class="mylist">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_collection@2x.png" alt="">

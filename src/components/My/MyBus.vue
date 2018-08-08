@@ -15,7 +15,7 @@
 					<div class="bus-name flex-align-center">
 						<label for="foot-check" class="input-label deft_0" :class="{active:item.isDefault==1}" @click="setOneDefault(item.no,item.isDefault)"> </label>
 						 <!-- <span v-if="item.isDefault==1" style="color: #49BBFF">默认</span> -->
-						<span style="color: #49BBFF;">{{item.seriesName}}</span>
+						<span style="color: #49BBFF;">{{item.seriesName}}{{item.isDefault==1?'（默认）':''}}</span>
 					</div>
 					<img :src="'./static/images/my/car_ruifeng_s5@2x.png'" alt=""  />
 				</div>

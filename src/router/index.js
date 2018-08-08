@@ -53,6 +53,7 @@ import PlateBind from '..//components/My/PlateBind' //车牌绑定
 import AddBus from '..//components/My/AddBus' //添加车辆
 import TwoMa from '../components/My/TwoMa.vue' //二维码
 import Test_Result from '../components/Lovecar/Test_Reault.vue' //测试结果
+import WbRecode from '../components/My/WbRecode.vue' //维保记录
 // 消息
 import News from '../components/news/News.vue' //消息
 import StyNews from '../components/news/StyNews.vue' //系统消息
@@ -333,6 +334,10 @@ export default new Router({
                 path: "/myindex/mySetUp",
                 name: '设置',
                 component: MySetUp
+            }, {
+                path: "/myindex/wbrecode",
+                name: '维保记录',
+                component: WbRecode
             },
             {
                 path: "/myaddress",
