@@ -1003,6 +1003,18 @@ export default {
           showtopdate:this.showdate,
         }
       });
+        // if(this.times=='月'){
+        //   this.times='months'
+        // }
+        // if(this.times=='周'){
+        //   this.times='week'
+        // }
+        // if(this.times=='日'){
+        //   this.times=='day'
+        // }
+      	// this.$http.post(Lovecar.Fuel,{vin: "1G",beginTime:this.monthsstart,endTime:this.monthsend,type:this.times},getpin).then((res)=>{
+				// console.log(res)
+			// })
     },
     //转化时间戳
     Changetimestamp(value){

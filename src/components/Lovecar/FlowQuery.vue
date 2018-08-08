@@ -7,8 +7,13 @@
 		</header>
 		<div style="height:0.88rem"></div>
 		<div class="flow-title">
-			<span>计费周期</span>
-			<span>2018-06-01至2018-07-01</span>
+			<span>截止日期</span>
+			<span>{{this.Closingdate}}</span>
+		</div>
+		<div class="line"></div>
+		<div class="flow-title">
+			<span>流量包名称</span>
+			<span>{{this.Flowpacket}}</span>
 		</div>
 		<div class="line"></div>
 		<div class="flow-wrap">
@@ -33,6 +38,14 @@
 						<input :disabled="disabled" type="text" v-model="num" />
 					</div>
 				</div>
+				<div class="origin-pin">
+					<div class="flex-align-center revisePinCommon">
+						<span style="font-size: 0.26rem;color: #444444;">
+					剩余流量:
+				</span>
+						<input :disabled="disabled" type="text" v-model="num" />
+					</div>
+				</div>
 			</div>
 		</div>
 		<button class="bottom-btn">流量购买</button>
@@ -47,16 +60,21 @@
 				//流量
 				num: '100G',
 				//展示作用，不能输入
-				disabled: true
+				disabled: true,
+				Closingdate:'2020-07-12',//截止日期
+				Flowpacket:'至尊黄金套餐',//流量包名称
 			}
+		},
+		methods:{
+
 		},
 		mounted(){
 			console.log(Lovecar)
 			this.$http.post(Lovecar.Flow,{ 
-					vin: "MS",
-					simNum:"12",
-					imei:"1",
-					iccid:"12"
+					vin: "123456",//车辆vin码
+					simNum:"12",//Tbox中的sim卡号
+					imei:"1",//sim卡中的imei卡号
+					iccid:"12"//sim卡中的iccid卡号
     			},getpin).then((res)=>{
 				console.log(res)
 			})
@@ -102,8 +120,13 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
-		height: 1rem;
+		height: 1.5rem;
 		padding: 0 0.3rem;
+		font-family: PingFang-SC-Medium;
+		font-weight: Medium;
+		color: #222;
+		font-size: .26rem;
+		line-height: .28rem;
 	}
 	
 	.flow-title>span:nth-of-type(1) {

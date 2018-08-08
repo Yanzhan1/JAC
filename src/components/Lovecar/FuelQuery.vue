@@ -72,6 +72,7 @@
 				years:'',
 				months:'',
 				times:'',
+				remaketime:'',
 				count: [{
 					monthMileage: "100KM",
 					oilConsumer: "20L",
@@ -83,11 +84,25 @@
 		methods:{
 			date_choose(){
 				this.$router.push('/Datechoose')
+			},
+			//转换时间戳
+			turntimes(value){
+				return operationTime.toTimeStamp(this.remaketime)
 			}
 		},
 		mounted(){
-			console.log(this.$route.params)
+			this.years=new Date().getFullYear();
+			this.months=new Date().getMonth()+1;
+			var newstimes=new Date().getTime();
+			this.remaketime=this.years+'-'+this.months+'-'+'01'
+			console.log(this.turntimes())
+			//获取默认页面的请求从当月的1号到当月的当日
+			this.$http.post(Lovecar.Fuel,{vin: "1G",beginTime:this.turntimes(),endTime:newstimes,type:'months'},getpin).then((res)=>{
+				console.log(res)
+			})
 			var accpect=this.$route.params
+			console.log(accpect)
+			
 			this.years=accpect.showtop.years;
 			this.months=accpect.showtop.months;
 			if(accpect.times=='月'){
@@ -99,6 +114,7 @@
 			if(accpect.times=='日'){
 				this.times=='day'
 			}
+			//路由传过来所选择的日期渲染页面
 			this.$http.post(Lovecar.Fuel,{vin: "1G",beginTime:accpect.begintime,endTime:accpect.endtime,type:this.times},getpin).then((res)=>{
 				console.log(res)
 			})
