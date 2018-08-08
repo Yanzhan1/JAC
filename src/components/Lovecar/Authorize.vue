@@ -10,15 +10,15 @@
         <div class="autime flex column around">
             <div class="aut" style="color:#49BBFF;font-size:.31rem;line-height:.32rem;">授权时间</div>
             <div class="">
-                <div class="starttimes">
+                <div class="starttimes" @click="startlefts">
                     <div style="width:2rem;">起始时间</div>
                     <span style="margin-left:2rem;" ref="startt">{{this.start[0]}}-{{this.start[1]}}-{{this.start[2]}} {{this.start[3]}}</span>
-                    <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem" @click="startlefts">
+                    <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem" >
                 </div>
-                <div class="starttimes">
+                <div class="starttimes" @click="endrights">
                     <div style="width:2rem;" >结束时间</div>
                     <span style="margin-left:2rem;" ref="endd">{{this.end[0]}}-{{this.end[1]}}-{{this.end[2]}} {{this.end[3]}}</span>
-                    <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem" @click="endrights">
+                    <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem" >
                 </div>
             </div>
             <div class="aut auts">被授权者账号：</div>
@@ -38,8 +38,7 @@
             <mt-picker :slots="slotsone" @change="onValuesChangend" style="height:4rem;margin-top:1rem;"></mt-picker>
         </div>
         <router-link :to="{name:'Authorize_next',params:{a:this.shang,b:this.xia}}" tag="button" class="bottom-btn" @click.native="next">发送授权</router-link>
-        <!-- <button class="bottom-btn" @click='next()'>发送授权</button> -->
-    </div>
+       </div>
 </template>
 
 <script>
@@ -53,7 +52,7 @@ export default {
         shang:'',//起始时间
         xia:'',//结束时间
         start:[],
-        end:[],
+        end:[],//起始时间
         Account:'',
          slotsone: [
             {
@@ -164,12 +163,10 @@ export default {
   },
   methods:{
       next(){
-          console.log(1)
-        //   this.shang=this.$refs.startt.innerHTML
-        //   this.xia=this.$refs.endd.innerHTML
+          //获得时间戳
           var shang=new Date(this.shang).getTime()
           var xia=new Date(this.xia).getTime()
-          console.log(this.shang,this.xia)
+      
           var param={
                 vin: "LS5A3CJC9JF810003", 
                 operationType: "CONTROL_AUTH", 
@@ -180,11 +177,7 @@ export default {
                 endTime: xia,
             }
         }
-        //   this.$http.post(Lovecar.Longrange,param,getpin).then((res)=>{
-        //       console.log(res)
-        //   })
-        //   this.$router.push('/Authorize_next')
-      },
+        },
       bgblacks(){
           this.bgblack=false;
           this.endright=false;
