@@ -3,7 +3,7 @@
 		<div class="nav">
 			<img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
 			<span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;瑞丰 R3</span>
-			<span class="txt_r" @click="islogin()">已登录</span>
+			<span class="txt_r" @click="islogin()">{{msg}}</span>
 		</div>
 		<div class="navs navs_h">
 			<div class="navs_t">
@@ -193,6 +193,7 @@
 				num: 3,
 				IsShow: false,
 				keyNums: [],
+				msg:'车机已登录',
 				pinNumber: ""
 			};
 		},
@@ -326,12 +327,10 @@
 					this.$http.post(Lovecar.OperationId,{operationId:res.data.operationId},getpin).then((res)=>{
 						console.log(res)
 					})
-				
 			})
 		}
 	};
 </script>
-
 <style scoped>
 	.pin-code {
 		height: 2rem;
