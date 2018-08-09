@@ -37,11 +37,13 @@
             <div style="float:right;margin-right:.3rem;color:#49BBFF;" @click="hided2">确定</div>
             <mt-picker :slots="slotsone" @change="onValuesChangend" style="height:4rem;margin-top:1rem;"></mt-picker>
         </div>
-        <router-link :to="{name:'Authorize_next',params:{a:this.shang,b:this.xia}}" tag="button" class="bottom-btn" @click.native="next">发送授权</router-link>
+        <!-- <router-link :to="{name:'Authorize_next',params:{a:this.shang,b:this.xia}}" tag="button" class="bottom-btn" @click.native="next">发送授权</router-link> -->
+        <button class="bottom-btn" @click='next'>发送授权</button>
        </div>
 </template>
 
 <script>
+import {Toast} from 'mint-ui'
 export default {
   name: "",
   data() {
@@ -166,17 +168,43 @@ export default {
           //获得时间戳
           var shang=new Date(this.shang).getTime()
           var xia=new Date(this.xia).getTime()
-      
-          var param={
-                vin: "LS5A3CJC9JF810003", 
-                operationType: "CONTROL_AUTH", 
-                operation: 1, 
-                extParams: {
-                childNum: this.Account, 
-                beginTime: shang, 
-                endTime: xia,
+          if(shang>xia){
+              Toast({
+                  message:'输入时间不能大于结束时间',
+                  position:'middle',
+                  duration:2000,
+              })
+          }else if(this.Account==''){
+              Toast({
+                  message:'请输入被授权账号',
+                  position:'middle',
+                  duration:2000,
+              })
+          }
+          else{
+              var param={
+                    vin: "LS5A3CJC9JF810003", 
+                    operationType: "CONTROL_AUTH", 
+                    operation: 1, 
+                    extParams: {
+                    childNum: this.Account, 
+                    beginTime: shang, 
+                    endTime: xia,
+                }
             }
-        }
+        this.$http.post(Lovecar.Longrange,param,this.$store.state.getpin).then((res)=>{
+            console.log(res)
+            if(res.data.returnSuccess){
+                this.$router.push({
+                name:'Authorize_next',
+                params:{
+                        a:this.shang,
+                        b:this.xia
+            }
+         })
+            }
+        })
+          }
         },
       bgblacks(){
           this.bgblack=false;

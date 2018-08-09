@@ -154,8 +154,7 @@ var Lovecar = {
     Fuel: mipss + '/vehicle/query-vehicle-fuel-Statistics', //燃油接口
     Flow: mipss + '/vehicle/query-vehicle-cyc-flow-query', //流量查询
     Longrange: mipss + '/vehicle/set-vehicle-remoteset', //远程设置
-    LoginOut: mipss + '/vehicle/remote-vehicle-login-or-logout' //退出登录
-
-
-
+    LoginOut: mipss + '/vehicle/remote-vehicle-login-or-logout', //退出登录
+    Findcode: mipss + '/vehicle/forget-vehicle-pin', //找回pin码
+    Control: mipss + '/vehicle/remote-vehicle-control', //远程控制
 }

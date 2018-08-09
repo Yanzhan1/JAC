@@ -91,7 +91,10 @@
 					});
 					return false;
 				} else {
-					this.$router.push('/lovecar/reviseSuccess')
+					this.$http.post(Lovecar.Findcode,{newPin:this.pin.newPin},this.$store.state.getpin).then((res)=>{
+						console.log(res)
+					})
+					// this.$router.push('/lovecar/reviseSuccess')
 				}
 				
 			}

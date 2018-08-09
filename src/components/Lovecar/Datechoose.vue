@@ -11,7 +11,7 @@
                 <div class="every_times">
                 <img src="/static/images/Lovecar/left-balck.png" alt="" class="img_l" @click="turn_l">
                 <div class="center">{{this.newdates.years}}年{{this.newdates.months}}月</div>
-                <img src="/static/images/Lovecar/right-gray.png" alt="" class="img_r" @click="turn_r">
+                <img src="/static/images/Lovecar/right-black.png" alt="" class="img_r" @click="turn_r">
                 <div style="position:absolute" class="date_all">
                     <div class="date_top">
                         <div>一</div>
@@ -30,7 +30,7 @@
                 <div class="every_times">
                 <img src="/static/images/Lovecar/left-balck.png" alt="" class="img_l" @click="turn_l_week">
                 <div class="center">{{this.newdates.years}}年{{this.newdates.months}}月,第{{this.showweek}}周</div>
-                <img src="/static/images/Lovecar/right-gray.png" alt="" class="img_r" @click="turn_r_week">
+                <img src="/static/images/Lovecar/right-black.png" alt="" class="img_r" @click="turn_r_week">
                 <div style="position:absolute" class="date_all">
                     <div class="date_top">
                         <div>一</div>
@@ -49,7 +49,7 @@
                 <div class="every_times">
                 <img src="/static/images/Lovecar/left-balck.png" alt="" class="img_l" @click="turn_l">
                 <div class="center">{{this.newdates.years}}年{{this.newdates.months}}月{{this.showdate}}日</div>
-                <img src="/static/images/Lovecar/right-gray.png" alt="" class="img_r" @click="turn_r">
+                <img src="/static/images/Lovecar/right-black.png" alt="" class="img_r" @click="turn_r">
                 <div style="position:absolute" class="date_all">
                     <div class="date_top">
                         <div>一</div>
@@ -301,240 +301,13 @@ export default {
           this.showweek = "5";
           break;
       }
-      var dt = new Date(this.newdates.years, this.newdates.months - 1, 1);
-      var m = dt.getDay();
-      if (this.showweek == 1) {
-        if (m == 0) {
-          m = 7;
-        }
-        if (
-          this.newdates.months == 1 ||
-          this.newdates.months == 3 ||
-          this.newdates.months == 5 ||
-          this.newdates.months == 7 ||
-          this.newdates.months == 8 ||
-          this.newdates.months == 10 ||
-          this.newdates.months == 12
-        ) {
-          this.newarray1 = this.array1.slice(0, 8 - m);
-          this.newarraynum = this.newarray1;
-        }
-        if (
-          this.newdates.months == 4 ||
-          this.newdates.months == 6 ||
-          this.newdates.months == 9 ||
-          this.newdates.months == 11
-        ) {
-          this.newarray2 = this.array2.slice(0, 8 - m);
-          this.newarraynum = this.newarray2;
-        }
-        if (this.newdates.months == 2) {
-          if (
-            this.newdates.years % 4 == 0 ||
-            (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
-          ) {
-            this.newarray3 = this.array3.slice(0, 8 - m);
-            this.newarraynum = this.newarray4;
-          } else {
-            this.newarraynum = this.newarray3;
-            this.newarray4 = this.array4.slice(0, 8 - m);
-          }
-        }
-      }
-      if (this.showweek == 2) {
-        if (m == 0) {
-          m = 7;
-        }
-        if (
-          this.newdates.months == 1 ||
-          this.newdates.months == 3 ||
-          this.newdates.months == 5 ||
-          this.newdates.months == 7 ||
-          this.newdates.months == 8 ||
-          this.newdates.months == 10 ||
-          this.newdates.months == 12
-        ) {
-          this.newarray1 = this.array1.slice(8 - m, 15 - m);
-          this.newarraynum = this.newarray1;
-        }
-        if (
-          this.newdates.months == 4 ||
-          this.newdates.months == 6 ||
-          this.newdates.months == 9 ||
-          this.newdates.months == 11
-        ) {
-          this.newarray2 = this.array2.slice(8 - m, 15 - m);
-          this.newarraynum = this.newarray2;
-        }
-        if (this.newdates.months == 2) {
-          if (
-            this.newdates.years % 4 == 0 ||
-            (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
-          ) {
-            this.newarray4 = this.array4.slice(8 - m, 15 - m);
-            this.newarraynum = this.newarray4;
-          } else {
-            this.newarray3 = this.array3.slice(8 - m, 15 - m);
-            this.newarraynum = this.newarray3;
-          }
-        }
-      }
-      if (this.showweek == 3) {
-        if (m == 0) {
-          m = 7;
-        }
-        if (
-          this.newdates.months == 1 ||
-          this.newdates.months == 3 ||
-          this.newdates.months == 5 ||
-          this.newdates.months == 7 ||
-          this.newdates.months == 8 ||
-          this.newdates.months == 10 ||
-          this.newdates.months == 12
-        ) {
-          this.newarray1 = this.array1.slice(15 - m, 22 - m);
-          this.newarraynum = this.newarray1;
-        }
-        if (
-          this.newdates.months == 4 ||
-          this.newdates.months == 6 ||
-          this.newdates.months == 9 ||
-          this.newdates.months == 11
-        ) {
-          this.newarray2 = this.array2.slice(15 - m, 22 - m);
-          this.newarraynum = this.newarray2;
-        }
-        if (this.newdates.months == 2) {
-          if (
-            this.newdates.years % 4 == 0 ||
-            (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
-          ) {
-            this.newarray4 = this.array4.slice(15 - m, 22 - m);
-            this.newarraynum = this.newarray4;
-          } else {
-            this.newarray3 = this.array3.slice(15 - m, 22 - m);
-            this.newarraynum = this.newarray3;
-          }
-        }
-      }
-      if (this.showweek == 4) {
-        if (m == 0) {
-          m = 7;
-        }
-        if (
-          this.newdates.months == 1 ||
-          this.newdates.months == 3 ||
-          this.newdates.months == 5 ||
-          this.newdates.months == 7 ||
-          this.newdates.months == 8 ||
-          this.newdates.months == 10 ||
-          this.newdates.months == 12
-        ) {
-          this.newarray1 = this.array1.slice(22 - m, 29 - m);
-          this.newarraynum = this.newarray1;
-        }
-        if (
-          this.newdates.months == 4 ||
-          this.newdates.months == 6 ||
-          this.newdates.months == 9 ||
-          this.newdates.months == 11
-        ) {
-          this.newarray2 = this.array2.slice(22 - m, 29 - m);
-          this.newarraynum = this.newarray2;
-        }
-        if (this.newdates.months == 2) {
-          if (
-            this.newdates.years % 4 == 0 ||
-            (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
-          ) {
-            this.newarraynum = this.newarray4;
-            this.newarray4 = this.array4.slice(22 - m, 29 - m);
-          } else {
-            this.newarray3 = this.array3.slice(22 - m, 29 - m);
-            this.newarraynum = this.newarray3;
-          }
-        }
-      }
-      if (this.showweek == 5) {
-        if (m == 0) {
-          m = 7;
-        }
-        if (
-          this.newdates.months == 1 ||
-          this.newdates.months == 3 ||
-          this.newdates.months == 5 ||
-          this.newdates.months == 7 ||
-          this.newdates.months == 8 ||
-          this.newdates.months == 10 ||
-          this.newdates.months == 12
-        ) {
-          this.newarray1 = this.array1.slice(29 - m, 36 - m);
-          this.newarraynum = this.newarray1;
-        }
-        if (
-          this.newdates.months == 4 ||
-          this.newdates.months == 6 ||
-          this.newdates.months == 9 ||
-          this.newdates.months == 11
-        ) {
-          this.newarray2 = this.array2.slice(29 - m, 36 - m);
-          this.newarraynum = this.newarray2;
-        }
-        if (this.newdates.months == 2) {
-          if (
-            this.newdates.years % 4 == 0 ||
-            (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
-          ) {
-            this.newarraynum = this.newarray4;
-            this.newarray4 = this.array4.slice(29 - m, 36 - m);
-          } else {
-            this.newarray3 = this.array3.slice(29 - m, 36 - m);
-            this.newarraynum = this.newarray3;
-          }
-        }
-      }
-      if (this.showweek == 6) {
-        if (m == 0) {
-          m = 7;
-        }
-        if (
-          this.newdates.months == 1 ||
-          this.newdates.months == 3 ||
-          this.newdates.months == 5 ||
-          this.newdates.months == 7 ||
-          this.newdates.months == 8 ||
-          this.newdates.months == 10 ||
-          this.newdates.months == 12
-        ) {
-          this.newarray1 = this.array1.slice(36 - m, 39 - m);
-          this.newarraynum = this.newarray1;
-        }
-        if (
-          this.newdates.months == 4 ||
-          this.newdates.months == 6 ||
-          this.newdates.months == 9 ||
-          this.newdates.months == 11
-        ) {
-          this.newarray2 = this.array2.slice(36 - m, 39 - m);
-          this.newarraynum = this.newarray2;
-        }
-        if (this.newdates.months == 2) {
-          if (
-            this.newdates.years % 4 == 0 ||
-            (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
-          ) {
-            this.newarray4 = this.array4.slice(36 - m, 39 - m);
-            this.newarraynum = this.newarray4;
-          } else {
-            this.newarray3 = this.array3.slice(36 - m, 39 - m);
-            this.newarraynum = this.newarray3;
-          }
-        }
-      }
+      this.week_choose()
     });
   },
   updated() {
-   this.week_left()
+    if(this.times!='周'){
+      this.week_left()
+    }
   },
   methods: {
     choose_times() {
@@ -572,6 +345,7 @@ export default {
     },
     //根据每个月的1号是星期几判断每个月1号与左边的距离
     week_left(){
+      if(this.times!='周'){
         var dt = new Date(this.newdates.years, this.newdates.months - 1, 1);
       var n = dt.getDay();
       var center_l = document.getElementsByClassName("date_center");
@@ -601,11 +375,14 @@ export default {
           center_l[0].style.borderLeft = ".01rem solid #eee";
           break;
       }
+      }
     },
     //选择每个月的第几周的天数排列出来
     week_choose(){
       var dt = new Date(this.newdates.years, this.newdates.months - 1, 1);
+      //m表示当月的1号是周几
       var m = dt.getDay();
+      console.log(m)
       if (this.showweek == 1) {
         if (m == 0) {
           m = 7;
@@ -634,14 +411,14 @@ export default {
         if (this.newdates.months == 2) {
           if (
             this.newdates.years % 4 == 0 ||
-            (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
+            this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0
           ) {
             this.newarray3 = this.array3.slice(0, 8 - m);
             console.log(this.newarray3);
-            this.newarraynum = this.newarray4;
-          } else {
             this.newarraynum = this.newarray3;
+          } else {
             this.newarray4 = this.array4.slice(0, 8 - m);
+            this.newarraynum = this.newarray4;
           }
         }
       }
@@ -836,15 +613,17 @@ export default {
         }
       }
     },
+    //点击切换周左按钮
     turn_l_week() {
       if (this.showweek > 1 && this.showweek <= 6) {
         this.showweek--;
       }
         this.week_choose();
-      if (this.showweek > 2 && this.showweek <= 6) {
-        week_left()
-      }
+      // if (this.showweek > 2 && this.showweek <= 6) {
+      //   this.week_left()
+      // }
     },
+    //点击切换右按钮的周
     turn_r_week() {
       if (this.showweek > 0 && this.showweek < 6) {
         this.showweek++;
@@ -931,35 +710,7 @@ export default {
           this.arraynum = this.array3;
         }
       }
-      var dt = new Date(this.newdates.years, this.newdates.months - 1, 1);
-      var n = dt.getDay();
-      var center_l = document.getElementsByClassName("date_center");
-      switch (n) {
-        case 0: //一号是星期天
-          center_l[0].style.marginLeft = "6.42rem";
-          center_l[0].style.borderLeft = ".01rem solid #eee";
-          break;
-        case 2: //一号是星期二
-          center_l[0].style.marginLeft = "1.07rem";
-          center_l[0].style.borderLeft = ".01rem solid #eee";
-          break;
-        case 3: //一号是星期三
-          center_l[0].style.marginLeft = "2.14rem";
-          center_l[0].style.borderLeft = ".01rem solid #eee";
-          break;
-        case 4: //一号是星期四
-          center_l[0].style.marginLeft = "3.21rem";
-          center_l[0].style.borderLeft = ".01rem solid #eee";
-          break;
-        case 5: //一号是星期五
-          center_l[0].style.marginLeft = "4.28rem";
-          center_l[0].style.borderLeft = ".01rem solid #eee";
-          break;
-        case 6: //一号是星期六
-          center_l[0].style.marginLeft = "5.35rem";
-          center_l[0].style.borderLeft = ".01rem solid #eee";
-          break;
-      }
+      this.week_left()
     },
     changecolor(el,index) {
       var date = new Date();
@@ -1064,7 +815,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .header-right > img {
   position: absolute;
   width: 0.18rem;
