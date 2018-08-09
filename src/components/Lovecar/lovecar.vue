@@ -318,7 +318,6 @@
 			}
 		},
 		mounted() {
-
 			this.$http.post(Lovecar.Carquery, {
 				vins: ["LS5A3CJC9JF810003"]
 			}, this.$store.state.getpin).then((res) => {

@@ -37,8 +37,8 @@
 					name: 'QEwDdsdSasV',
 					//wifi密码
 					pwd: '123456'
-				}
-				
+				},
+				userCategory:'',		
 			}
 		},
 		methods: {
@@ -56,7 +56,19 @@
 					cancelButtonHighlight: true
 				}).then(action => {
 					if(action == 'confirm') {
-						console.log('wifiset');
+							var param={
+								vin: "LS5A3CJC9JF810003",
+								operationType: "WIFI",
+								operation: 3,
+								extParams: {
+									userCategory: this.userCategory,
+									newAccount: this.wifiData.name,
+									newPwd:this.wifiData.pwd
+								}
+							}
+						this.$http.post(Lovecar.Control,param,this.$store.state.getpin).then((res)=>{
+								console.log(res)
+						})
 					}
 				}).catch(err => {
 					if(err == 'cancel') {
@@ -64,6 +76,10 @@
 					}
 				});
 			}
+		},
+		mounted(){
+			this.$route.params.userCategory?this.userCategory=1:this.userCategory=2
+			console.log(this.userCategory)
 		}
 	}
 </script>

@@ -3,7 +3,7 @@
 		<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">wifil直连</span>
-			<span class="header-right"><router-link tag="img" to="/lovecar/wifiSetup" style="width: 0.36rem;height: 0.36rem;" :src="'./static/images/Lovecar/Set@2x.png'"></router-link></span>
+			<span class="header-right"><router-link tag="img" :to="{name:'wifi设置',params:{userCategory:this.value}}" style="width: 0.36rem;height: 0.36rem;" :src="'./static/images/Lovecar/Set@2x.png'"></router-link></span>
 		</header>
 		<div style="height:0.88rem"></div>
 		<mt-cell :title="title">
@@ -43,7 +43,8 @@
 				//名字输入框内容
 				name: 'QEwDdsdSasV',
 				//密码输入框内容
-				pwd: '12345678'
+				pwd: '12345678',
+				num:''
 			}
 		},
 		methods: {
@@ -51,7 +52,7 @@
 			turn () {
 				this.disabled = !this.disabled
 			}
-		}
+		},
 	}
 </script>
 
