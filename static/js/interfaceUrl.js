@@ -1,4 +1,4 @@
-var indexip = 'http://172.20.20.69/api/dk-dm-portal-api'
+var indexip = 'http://test.jac.timanetwork.net/api/dk-dm-portal-api'
     //服务器-智享
 var mip = 'http://172.20.20.69:8082/automobilemanage' //智享
     //服务器-admin(跟用户有关即我的)
