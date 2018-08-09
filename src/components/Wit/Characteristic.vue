@@ -7,12 +7,7 @@
         </div>
         <div class="main">
             <img src="" alt="" class="nav">
-            <div class="comment">
-                <div class="car"></div>
-                <div class="bottom">
-                    <h3 @click="reserve">在线订车</h3>
-                </div>
-            </div>
+           <h3 class="bottom-btn" @click="reserve">在线订车</h3>
         </div>
     </div>
 </template>

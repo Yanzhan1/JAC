@@ -7,15 +7,15 @@
 		</header>
 		<div style="height:0.88rem"></div>
 		<mt-cell :title="title">
-			<mt-switch @change="turn" v-model="value"></mt-switch>
+			<mt-switch @change="turn" v-model="value"><span></span></mt-switch>
 		</mt-cell>
-		<router-link tag="div" class="setup-ctcperson" to="/contactPerson">
+		<router-link tag="div" class="setup-ctcperson" to="/myindex/contactPerson">
 			<mt-cell title="紧急联系人" is-link></mt-cell>
 		</router-link>
-		<router-link tag="div" class="setup-feedback" to="/myFeedback">
+		<router-link tag="div" class="setup-feedback" to="/myindex/myFeedback">
 			<mt-cell title="我的反馈" is-link></mt-cell>
 		</router-link>
-		<router-link tag="div" class="setup-modifypwd" to="/modifyPassword">
+		<router-link tag="div" class="setup-modifypwd" to="/myindex/modifyPassword">
 			<mt-cell title="修改密码" is-link></mt-cell>
 		</router-link>
 		<router-link tag="div" class="setup-loginout" to="">
@@ -31,7 +31,7 @@
 		data () {
 			return {
 				title: '软键盘',
-				value: false
+				value: true
 			}
 		},
 		methods: {
@@ -59,7 +59,7 @@
 				});
 			},
 			turn () {
-				
+				this.value ? this.$store.dispatch('SOFTKEYBOARD',true) : this.$store.dispatch('SOFTKEYBOARD',false)
 			}
 		}
 	}

@@ -25,13 +25,13 @@
         <ul class="authort flex column">
             <li class="authort_t cocenter flex" style="border-bottom:1px solid #f1f1f1">
                 <span style="font-size:.26rem;color:#555">授权时间：</span>
-                <span class="times mid">2018-2-02</span>
-                <span class="times">18:30:00</span>
+                <span class="times mid">{{this.gettime}}</span>
+                
             </li>
             <li class="authort_t cocenter flex">
-                <span style="font-size:.26rem;color:#555">授权时间：</span>
-                <span class="times mid">2018-2-02</span>
-                <span class="times">18:30:00</span>
+                <span style="font-size:.26rem;color:#555">结束授权时间：</span>
+                <span class="times mid">{{this.overtime}}</span>
+                
             </li>
         </ul>
         <button class="bottom-btn" @click="confirmRevise">解除授权</button>
@@ -42,7 +42,10 @@ import { MessageBox } from "mint-ui";
 
 export default {
   data() {
-    return {};
+    return {
+      gettime:'',
+      overtime:'',
+    };
   },
   methods: {
     confirmRevise() {
@@ -66,6 +69,11 @@ export default {
           }
         });
     }
+  },
+  mounted(){
+    console.log(this.$route.params)
+    this.gettime=this.$route.params.a;
+    this.overtime=this.$route.params.b;
   }
 };
 </script>

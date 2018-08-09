@@ -26,8 +26,8 @@
 		</div>
 		<!--主副驾驶位温度展示Start-->
 		<div class="seat-remind">
-			<span :class="activeShowImg?'fontActive':'loseActives'">{{fuWindNum[fuWinIndex]}}</span>
-			<span :class="activeShowImg?'fontActive':'loseActives'">{{windNum[winIndex]}}</span>
+			<span :class="activeShowImg?'fontActive':'loseActives'">{{windNum[seatTemperSpace]}}</span>
+			<span :class="activeShowImg?'fontActive':'loseActives'">{{fuWindNum[fuSeatTemperSpace]}}</span>
 		</div>
 		<!--主副驾驶位温度展示End-->
 
@@ -50,7 +50,7 @@
 				<canvas id="rightGray"></canvas>
 			</div>
 		</div>
-	
+
 		<!--曲线End-->
 
 		<!--座椅主体Start-->
@@ -84,7 +84,7 @@
 					<span style="font-size: 0.22rem;color: #222222;">主驾驶</span>
 					<div class="wind-count">
 						<span @click="reduce" class="addWind"><</span>
-						<input class="wind-input" type="text" v-model="fuWindNum[fuWinIndex]" readonly/>
+						<input class="wind-input" type="text" v-model="windNum[seatTemperSpace]" readonly/>
 						<span @click="add" class="reduceWind">></span>
 					</div>
 				</div>
@@ -93,7 +93,7 @@
 					<span style="font-size: 0.22rem;color: #222222;">副驾驶</span>
 					<div class="wind-count">
 						<span @click=" windReduce" class="addWind"><</span>
-						<input class="wind-input" type="text" v-model="windNum[winIndex]" readonly/>
+						<input class="wind-input" type="text" v-model="fuWindNum[fuSeatTemperSpace]" readonly/>
 						<span @click="windAdd" class="reduceWind">></span>
 					</div>
 				</div>
@@ -111,8 +111,16 @@
 					<span></span>
 				</div>
 				<div class="pin-code flex-center">
-					<div id="pinCon" @click="onTypewriting">
+					<div v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
 						<input class="pin-input" maxlength="6" type="text" v-model="pinNumber" readonly/>
+					</div>
+					<div v-else class="pin">
+						<input v-model="ownKeyBoard.first"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.second"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.third"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.fourth"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.fifth"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.sixth"  type="text" maxlength="1" />
 					</div>
 				</div>
 			</div>
@@ -134,21 +142,26 @@
 		name: 'adjustSeatTemper',
 		data() {
 			return {
+				//移动端键盘值
+				ownKeyBoard: {
+					first: '',
+					second: '',
+					third: '',
+					fourth: '',
+					fifth: '',
+					sixth: ''
+				},
 				//加热开关
 				value: false,
 				//通风开关
 				aeraValue: false,
 				//图片激活变量
 				activeShowImg: 0,
-				//副驾展示
-				windNum: ['高', '中', '低'],
 				//主驾展示
-				fuWindNum: ['高', '中', '低'],
+				windNum: ['低', '中', '高'],
+				//副驾展示
+				fuWindNum: ['低', '中', '高'],
 				winMin: 0,
-				//副驾控制变量
-				winIndex: 0,
-				//主驾控制变量
-				fuWinIndex: 0,
 				//pin码弹出框控制变量
 				popupVisible: false,
 				//pin码值
@@ -175,49 +188,114 @@
 				}
 				this.popupVisible = !this.popupVisible
 			},
+			//主驾座椅温度增加
 			add() {
 				if(this.activeShowImg) {
-					if(this.fuWinIndex >= this.fuWindNum.length - 1) {
-						this.fuWinIndex = 0
+					if(this.seatTemperSpace >= this.windNum.length - 1) {
+						this.seatTemperSpace = this.windNum.length - 1
 					} else {
-						this.fuWinIndex++
+						this.seatTemperSpace++
+							//计数器控制曲线
+							new Createarc({
+								el: 'leftColorful', //canvas id
+								vuethis: this, //使用位置的this指向
+								num: 'seatTemperSpace', //data数值
+								type: 'left', //圆弧方向  left right
+								tempdel: 3, //总差值
+								ratio: 0.3, //宽度比例
+								iscontrol: true, //控制是否能滑动，可以滑动
+								color: {
+									start: '#e22e10', //圆弧下边颜色
+									center: '#f39310',
+									end: '#04e8db', //圆弧上边颜色
+									num: 3
+								}
+							})
 					}
 				} else {
 					return
 				}
 			},
-			//副驾座椅温度减少
+			//主驾座椅温度减少
 			reduce() {
 				if(this.activeShowImg) {
-					if(this.fuWinIndex <= this.winMin) {
-						this.fuWinIndex = this.fuWindNum.length - 1
+					if(this.seatTemperSpace <= this.winMin) {
+						this.seatTemperSpace = this.winMin
 					} else {
-						this.fuWinIndex--
+						this.seatTemperSpace--
+							//计数器控制曲线
+							new Createarc({
+								el: 'leftColorful', //canvas id
+								vuethis: this, //使用位置的this指向
+								num: 'seatTemperSpace', //data数值
+								type: 'left', //圆弧方向  left right
+								tempdel: 3, //总差值
+								ratio: 0.3, //宽度比例
+								iscontrol: true, //控制是否能滑动，可以滑动
+								color: {
+									start: '#e22e10', //圆弧下边颜色
+									center: '#f39310',
+									end: '#04e8db', //圆弧上边颜色
+									num: 3
+								}
+							})
 					}
 				} else {
 					return
 				}
 			},
-			//主驾温度增加
+			//副驾温度增加
 			windAdd() {
 				if(this.activeShowImg) {
-					if(this.winIndex >= this.windNum.length - 1) {
-						this.winIndex = 0
+					if(this.fuSeatTemperSpace >= this.windNum.length - 1) {
+						this.fuSeatTemperSpace = this.windNum.length - 1
 					} else {
-						this.winIndex++
+						this.fuSeatTemperSpace++
+							//计数器控制曲线
+							new Createarc({
+								el: 'rightColorful', //canvas id
+								vuethis: this, //使用位置的this指向
+								num: 'fuSeatTemperSpace', //data数值
+								type: 'right', //圆弧方向  left right
+								tempdel: 3, //总差值
+								ratio: 0.3, //宽度比例
+								iscontrol: true, //控制是否能滑动，可以滑动
+								color: {
+									start: '#e22e10', //圆弧下边颜色
+									center: '#f39310',
+									end: '#04e8db', //圆弧上边颜色
+									num: 3
+								}
+							})
 					}
 				} else {
 					return
 				}
 
 			},
-			//主驾温度减少
+			//副驾温度减少
 			windReduce() {
 				if(this.activeShowImg) {
-					if(this.winIndex <= this.winMin) {
-						this.winIndex = this.windNum.length - 1
+					if(this.fuSeatTemperSpace <= this.winMin) {
+						this.fuSeatTemperSpace = this.winMin
 					} else {
-						this.winIndex--
+						this.fuSeatTemperSpace--
+							//计数器控制曲线
+							new Createarc({
+								el: 'rightColorful', //canvas id
+								vuethis: this, //使用位置的this指向
+								num: 'fuSeatTemperSpace', //data数值
+								type: 'right', //圆弧方向  left right
+								tempdel: 3, //总差值
+								ratio: 0.3, //宽度比例
+								iscontrol: true, //控制是否能滑动，可以滑动
+								color: {
+									start: '#e22e10', //圆弧下边颜色
+									center: '#f39310',
+									end: '#04e8db', //圆弧上边颜色
+									num: 3
+								}
+							})
 					}
 				} else {
 					return
@@ -244,7 +322,7 @@
 					this.pinNumber = this.pinNumber.slice(0, -1);
 					return;
 				}
-				if(this.pinNumber.length < 6) { //判断位数，还未超出5位则可继续输入
+				if(this.pinNumber.length < 6) { //判断位数，还未超出6位则可继续输入
 					this.pinNumber = this.pinNumber + item;
 				} else {
 
@@ -285,8 +363,10 @@
 					ratio: 0.3, //宽度比例
 					iscontrol: true, //控制是否能滑动，可以滑动
 					color: {
-						start: '#CD853F', //圆弧下边颜色
-						end: '#C0FF3E', //圆弧上边颜色
+						start: '#e22e10', //圆弧下边颜色
+						center: '#f39310',
+						end: '#04e8db', //圆弧上边颜色
+						num: 3
 					}
 				})
 				//副驾激活弧线
@@ -299,11 +379,13 @@
 					ratio: 0.3, //宽度比例
 					iscontrol: true, //控制是否能滑动，可以滑动
 					color: {
-						start: '#CD853F', //圆弧下边颜色
-						end: '#C0FF3E', //圆弧上边颜色
+						start: '#e22e10', //圆弧下边颜色
+						center: '#f39310',
+						end: '#04e8db', //圆弧上边颜色
+						num: 3
 					}
 				})
-				//副驾未激活弧线
+				//主驾未激活弧线
 				new Createarc({
 					el: 'leftGray', //canvas id
 					vuethis: this, //使用位置的this指向
@@ -321,7 +403,7 @@
 				new Createarc({
 					el: 'rightGray', //canvas id
 					vuethis: this, //使用位置的this指向
-					num: 'seatTemperSpace', //data数值
+					num: 'fuSeatTemperSpace', //data数值
 					type: 'right', //圆弧方向  left right
 					tempdel: 3, //总差值
 					ratio: 0.3, //宽度比例
@@ -331,18 +413,74 @@
 						end: '#EEEEEE', //圆弧上边颜色
 					}
 				})
+			},
+			//执行判定
+			inputs () {	
+				var _this=this
+				$('.pin input').on("input propertychange",function(){
+					_this.inputFun($(this));
+				});
+				$('.pin input').on("keyup",function(e){
+					var ev = e;
+					_this.keyupFun($(this),ev);
+				});
+
+			},
+			//判断输入的密码还是否为数字
+			inputFun (value) {
+				var reg = new RegExp("^[0-9]*$");
+				var val = value.val();
+				if(!reg.test(val)){
+					value.val('')
+				}else{
+					value.next().focus();
+				}
+			},
+			//监听backspace事件
+			keyupFun (value,e) {
+				var k = e.keyCode;
+				var val = e.key; //"Backspace"
+				if(k == 8){		//8是backspace的keyCode
+					value.prev().focus();
+				}else{
+					return false;
+				}
 			}
 		},
 		mounted() {
-			this.produCurve()
+			this.produCurve();
+			this.inputs ()
+		},
+		computed: {
+			fullValue:{ //拼接input输入框值,激活修改
+				get () {
+					return this.ownKeyBoard.first + this.ownKeyBoard.second + this.ownKeyBoard.third + this.ownKeyBoard.fourth + this.ownKeyBoard.fifth + this.ownKeyBoard.sixth
+				},
+				set (newVal) {
+					this.ownKeyBoard.first=newVal
+					this.ownKeyBoard.second=newVal
+					this.ownKeyBoard.third=newVal
+					this.ownKeyBoard.fourth=newVal
+					this.ownKeyBoard.fifth=newVal
+					this.ownKeyBoard.sixth=newVal
+				}	
+			}
 		},
 		watch: {
 			pinNumber(newVal, oldVal) {
 				//				console.log(this.pinNumber.length)
 				if(this.pinNumber.length == 6) {
 					setTimeout(() => {
+						var nums = this.pinNumber
+						this.$http.post(Lovecar.Checkphonepin, {
+							pin: nums
+						},this.$store.state.getpin).then((res) => {
+							console.log(res)
+						})
 						this.value = !this.value
+						//pin码正确激活弧线
 						this.curveState = !this.curveState
+						//pin码正确激活座椅图
 						this.activeShowImg = !this.activeShowImg,
 							//消失遮罩
 							this.popupVisible = !this.popupVisible
@@ -350,15 +488,27 @@
 						this.showTyper = 0,
 							//清空pin码
 							this.pinNumber = ''
+						
 					}, 1000)
 
 				}
 			},
-			seatTemperSpace (newVal, oldVal) {
-				this.fuWinIndex = newVal
-			},
-			fuSeatTemperSpace (newVal, oldVal) {
-				this.winIndex  =  newVal
+			fullValue (newVal, oldVal) {
+				if(this.fullValue.length == 6) {
+					setTimeout(() => {
+						this.value = !this.value
+						//pin码正确激活弧线
+						this.curveState = !this.curveState
+						//pin码正确激活空调图
+						this.activeShowImg = !this.activeShowImg,
+						//消失遮罩
+						this.popupVisible = !this.popupVisible
+						//消失软键盘
+						this.showTyper = 0,
+						//清空pin码
+						this.fullValue = ''
+					}, 1000)
+				}
 			}
 		}
 	}
@@ -399,6 +549,10 @@
 		/*竖直方向*/
 		display: flex;
 		flex-direction: column;
+	}
+	
+	.mint-popup {
+		border-radius: 0.1rem;
 	}
 	/*座椅头部*/
 	
@@ -451,11 +605,13 @@
 		position: relative;
 		height: 2.1rem;
 	}
-	.curve>.cureve-text> span {
+	
+	.curve>.cureve-text>span {
 		position: absolute;
 		color: #222222;
 		font-size: 0.26rem;
 	}
+	
 	.curve>div {
 		position: absolute;
 		left: 50%;
@@ -543,7 +699,7 @@
 	
 	.pin-code>div {}
 	
-	.pin-code>div>input {
+	.pin-code>div>.pin-input {
 		display: block;
 		width: 5.6rem;
 		height: 0.94rem;
@@ -554,6 +710,21 @@
 		outline: none;
 		background: url(../../../static/images/Lovecar/border@2x.png) no-repeat center;
 		background-size: 100%;
+	}
+	.pin-code>.pin {
+	    display: flex;
+    	align-items: center;
+    	border: 1px solid #ccc;
+	}
+	.pin-code>.pin>input:not(:last-child) {
+    	border-right: 1px solid #ccc;
+	}
+	.pin-code>.pin>input {
+		width: 0.93rem;
+    	height: 0.94rem;
+    	text-align: center;
+	    border: none;
+    	outline: none;
 	}
 	/*自定义软键盘*/
 	
@@ -573,9 +744,8 @@
 		position: fixed;
 		bottom: 0;
 		background-color: #fff;
-		height: 4.5rem;
+		height: 4rem;
 		width: 100%;
-		padding-top: .1rem;
 		z-index: 3000;
 	}
 	

@@ -3,24 +3,24 @@
 		<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">我的反馈</span>
-			<span class="header-right">记录</span>
+			<router-link tag="span" class="header-right" to="/myindex/feedbackRecord">记录</router-link>
 		</header>
 		<div style="height:0.88rem"></div>
 		<div class="freedback-wrap">
 			<div class="freedback-type">
-				<span :class="{active:1==FreebackMode}" @click="change(1)">问题</span>
-				<span :class="{active:2==FreebackMode}" @click="change(2)" style="margin-left: 0.25rem;">意见</span>
+				<span :class="{active:1==condition.complaintsType}" @click="change(1)">问题</span>
+				<span :class="{active:2==condition.complaintsType}" @click="change(2)" style="margin-left: 0.25rem;">意见</span>
 			</div>
-			<textarea class="freedback-content" placeholder="请输入您的问题或意见" name="" rows="" cols="" v-model="TextContent"></textarea>
+			<textarea class="freedback-content" placeholder="请输入您的问题或意见" name="" rows="" cols="" v-model="condition.complaintsContent"></textarea>
 			<div class="flex-column person-info">
 				<span>姓名</span>
-				<input @focus="focus" ref="input" v-model="FeedbackPerson.name" type="text" />
+				<input @focus="focus" ref="input" v-model="condition.contact" type="text" />
 			</div>
 			<div class="flex-column person-info">
 				<span>联系方式</span>
-				<input @focus="focus" v-model="FeedbackPerson.mobile" type="text" />
+				<input @focus="focus" v-model="condition.contactInformation" type="text" />
 			</div>
-			
+
 		</div>
 		<button class="bottom-btn" @click="submitFeedback">提交反馈</button>
 	</div>
@@ -32,27 +32,25 @@
 		name: '',
 		data() {
 			return {
-				//反馈类型
-				FreebackMode: 1,
-				//文本框内容
-				TextContent: '',
-				FeedbackPerson: {
-					name: '',
-					mobile: ''
-				},
-				interval: null
+				condition: {
+					complaintsType: '1', //反馈类型
+					complaintsContent: '', //反馈内容
+					contact: '', //反馈联系人
+					contactInformation: '', //反馈联系方式
+					userNo: this.$store.state.no
+				}
 			}
 		},
 		methods: {
 			//更改反馈类型
 			change(val) {
-				this.FreebackMode = val
+				this.condition.complaintsType = val
 			},
-			//提交反馈
+			//提交反馈信息
 			submitFeedback() {
 				let regMobile = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
 				let checkName = /^[\u4e00-\u9fa5]{2,4}$/
-				if(this.FeedbackPerson.name == '' || this.FeedbackPerson.mobile == '' || this.TextContent == '') {
+				if(this.condition.complaintsContent == '' || this.condition.contact == '' || this.condition.contactInformation == '') {
 					Toast({
 						message: '输入不能为空',
 						position: 'middle',
@@ -60,39 +58,50 @@
 					});
 					return false;
 				}
-				if(!checkName.test(this.FeedbackPerson.name)) {
+				if(!checkName.test(this.condition.contact)) {
 					Toast({
 						message: '用户2-4位中文名',
 						position: 'middle',
 						duration: 2000
 					});
-					this.FeedbackPerson.name = '';
 					return false;
 				}
-				if(!regMobile.test(this.FeedbackPerson.mobile)) {
+				if(!regMobile.test(this.condition.contactInformation)) {
 					Toast({
 						message: '手机号格式不正确',
 						position: 'middle',
 						duration: 2000
 					});
-					this.FeedbackPerson.mobile = '';
 					return false;
 				} else {
-					console.log(this.FeedbackPerson.name)
-				}
-			},
-			//文档高度等于可视区域高度
-			initHeight() {
-				//文档的高度，小于可视窗口的高度情况下，设置文档高度等于可视区域高度
-				if($(document).height() < $(window).height()) {
-					$('.bottom-btn').css({
-						'position': 'fixed',
-						'bottom': '0px'
+					this.$http.post(Wit.addComplaintsSuggestions, this.condition).then(res => {
+						const data = res.data;
+						if(data.code == 0) {
+								Toast({
+									message: '反馈成功',
+									position: 'middle',
+									duration: 2000
+								});
+								setTimeout(() => {
+									this.$router.push('/myindex/feedbackRecord')
+								}, 2000)
+						} else {
+							let instance = Toast({
+								message: data.Msg,
+								position: 'middle',
+								duration: 1000
+							});
+						}
+					}).catch((error) => {
+						let instance = Toast({
+							message: '系统异常',
+							position: 'middle',
+							duration: 1000
+						});
 					});
-					$(document).height($(window).height() + 'px');
 				}
 			},
-		    //ios输入框唤起键盘时改变fixed布局
+			//ios输入框唤起键盘时改变fixed布局
 			focus() {
 				var u = navigator.userAgent,
 					app = navigator.appVersion;
@@ -101,46 +110,21 @@
 				if(isAndroid) {
 
 				} else if(isIOS) {
-					$('input').on('focus', function() {
-						$('.bottom-btn').css('position', 'static');
-						$('.header').css('position', 'static');
-						//或者$('#viewport').height($(window).height()+'px');
-					}).on('blur', function() {
-						$('.bottom-btn').css({
-							'position': 'fixed',
-							'bottom': '0'
-						});
-						$('.header').css({
-							'position': 'fixed',
-							'top': '0'
-						});
-						//或者$('#viewport').height('auto');
-					})
-					$('textarea').on('focus', function() {
-						$('.bottom-btn').css('position', 'static');
-						$('.header').css('position', 'static');
-						//或者$('#viewport').height($(window).height()+'px');
-					}).on('blur', function() {
-						$('.bottom-btn').css({
-							'position': 'fixed',
-							'bottom': '0'
-						});
-						$('.header').css({
-							'position': 'fixed',
-							'top': '0'
-						});
-						//或者$('#viewport').height('auto');
-					})
+					var windheight = $(window).height(); /*未唤起键盘时当前窗口高度*/
+					$(window).resize(function() {
+						var docheight = $(window).height(); /*唤起键盘时当前窗口高度*/
+						if(docheight < windheight) { /*当唤起键盘窗口高度小于未唤起键盘窗口高度时执行*/
+							$(".bottom-btn").css("position", "static");
+						} else {
+							$(".bottom-btn").css("position", "fixed");
+						}
+					});
 				}
-
-				//				document.body.scrollTop = document.body.scrollHeight
 			},
 
 		},
 		mounted() {
 
-			this.initHeight()
-			this.focus()
 		}
 	}
 </script>
@@ -166,7 +150,7 @@
 	/*总体设置*/
 	
 	.freedback-wrap {
-		padding: 0.4rem 0.3rem;
+		padding: 0.4rem 0.3rem 1rem 0.3rem;
 	}
 	/*反馈类型*/
 	
@@ -226,5 +210,4 @@
 		background: #f5f5f5;
 		border-radius: 0.08rem;
 	}
-	
 </style>

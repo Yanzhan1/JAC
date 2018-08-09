@@ -16,7 +16,7 @@
 		</mt-cell>
 		<div class="line"></div>
 		<div class="origin-pin">
-			<div class="flex-center-between revisePinCommon">
+			<div class="flex-align-center revisePinCommon">
 				<span class="commentFont">
 					授权时间：
 				</span>
@@ -24,7 +24,7 @@
 			</div>
 		</div>
 		<div class="origin-pin">
-			<div class="flex-center-between revisePinCommon">
+			<div class="flex-align-center revisePinCommon">
 				<span class="commentFont">
 					结束时间：
 				</span>
@@ -32,19 +32,19 @@
 			</div>
 		</div>
 		<div class="origin-pin">
-			<div class="flex-center-between revisePinCommon">
+			<div class="flex-align-center revisePinCommon">
 				<span class="commentFont">
 					担保费：
 				</span>
-				<input class="commentFontSize" :disabled="disabled" type="text" v-model="securitySpend" />
+				<input style="margin-left: 0.6rem" class="commentFontSize" :disabled="disabled" type="text" v-model="securitySpend" />
 			</div>
 		</div>
 		<div class="origin-pin">
-			<div class="flex-center-between revisePinCommon">
+			<div class="flex-align-center revisePinCommon">
 				<span class="commentFont">
 					可停止：
 				</span>
-				<input :disabled="disabled" type="text" v-model="parkingDuration" style="color: #3A5CFF;font-size: 0.28rem;" />
+				<input :disabled="disabled" type="text" v-model="parkingDuration" style="color: #3A5CFF;font-size: 0.28rem;margin-left: 0.6rem;" />
 			</div>
 		</div>
 		<div class="btn flex-center-around">
@@ -107,6 +107,10 @@
 		justify-content: space-around;
 		align-items: center;
 	}
+	.flex-align-center{/*垂直居中*/
+	  display: flex;
+	  align-items: center;
+	}
 	/*公共样式*/
 	
 	.commentFont {
@@ -127,8 +131,8 @@
 	input {
 		outline: none;
 		border: none;
-		padding-right: 1.5rem;
 		background: none;
+		margin-left: 0.4rem;
 	}
 	
 	.origin-pin>div {

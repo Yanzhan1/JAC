@@ -8,8 +8,20 @@
     <div style="height:.88rem"></div>
     <h2>诊断时间：06-29 17:33</h2>
     <ul class="ul_content">
-      <li class="flex row between cocenter" v-for="(item,index) in 15" :key="index">
-        <span class="li_quan">电子转向柱锁</span>
+      <li class="flex row between cocenter">
+        <p class="li_quan">电子转向柱锁</p>
+        <span class="right_pic actives"></span>
+      </li>
+      <li class="flex row between cocenter">
+        <p class="li_quan">电子转向柱锁</p>
+        <span class="right_pic"></span>
+      </li>
+      <li class="flex row between cocenter">
+        <p class="li_quan">电子转向柱锁</p>
+        <span class="right_pic"></span>
+      </li>
+      <li class="flex row between cocenter">
+        <p class="li_quan">电子转向柱锁</p>
         <span class="right_pic"></span>
       </li>
     </ul>
@@ -17,7 +29,21 @@
 </template>
 <script>
 export default {
-  
+  data() {
+    return {};
+  },
+  created() {
+    var self=this
+    var param={
+       'vin':'LS5A3CJC9JF810003'
+    }
+    this.$http.post(Lovecar.BusTest,param,this.$store.state.getpin).then(res=>{
+
+    })
+    setTimeout(function() {
+        self.$router.push('/test_result');
+    }, 3000);
+  }
 };
 </script>
 <style scoped>
@@ -59,6 +85,12 @@ h2 {
   height: 0.4rem;
   display: block;
   background-size: 100%;
+}
+.right_pic.actives {
+  background-image: url("../../../static/images/Lovecar/yichang.png");
+  width: 0.4rem;
+  height: 0.34rem;
+  display: block;
 }
 </style>
 

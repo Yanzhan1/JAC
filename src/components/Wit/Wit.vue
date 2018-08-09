@@ -34,7 +34,7 @@
         <img src="../../../static/images/Wit/zhixiang_home_capacity_buy_car_btn.png" alt="">
         <span>智能选车</span>
       </li>
-      <li class="li_list_1">
+      <li class="li_list_1"  @click="search()">
         <img src="../../../static/images/Wit/zhixiang_home_maintaim_search_btn.png" alt="">
         <span>保养查询</span>
       </li>
@@ -56,28 +56,48 @@
       <img src="../../../static/images/Wit/next.png" alt="">
     </div>
     <ul class="bus">
-      <li class="bus_li" @click="specil">
+      <li class="bus_li" @click="specil" v-for="(item,index) in this.mainbus" :key="index">
         <img src="../../../static/images/Wit/bg-mine.png" alt="">
         <div class="bus_1">
-          <span class="bus_2">瑞丰S7</span>
-          <span class="bus_3">官方指导价：9.7万起</span>
-        </div>
-      </li>
-      <li class="bus_li">
-        <img src="../../../static/images/Wit/bg-mine.png" alt="">
-        <div class="bus_1">
-          <span class="bus_2">江淮IEVA50</span>
-          <span class="bus_3">官方指导价：12.25万起</span>
+          <span class="bus_2">{{item.modelName}}</span>
+          <span class="bus_3">官方指导价：{{item.guidancePrice}}万起</span>
         </div>
       </li>
     </ul>
+
+    <mt-popup v-model="popupVisible" position="center">
+      <div class="bgc">
+        <div style="font-size:.25rem;color:#fff;text-align:center;margin-top:.2rem">车辆VIP码：84092184032840932</div>
+      </div>
+      <div class="flex row maincenter" style="margin-top:.54rem">
+        <div class="mt_l flex column" >
+           <span style="font-size:.46rem;color:#fff;">5000 <span style="font-size:.22rem;color:#fff;">km</span> </span>
+           <span style="font-size:.22rem;color:#fff;margin-top:.34rem">距离下次保养</span>
+        </div>
+        <div class="mt_m" style="font-size:.9rem;color:#f5f5f5;padding:0 .7rem">/</div>
+        <div class="mt_r flex column ">
+          <span>
+                <span style="font-size:.46rem;color:#fff;">06/26</span>
+                <span class="tim">2018</span>
+          </span>
+          <span style="font-size:.22rem;color:#fff;margin-top:.34rem">预计下次保养时间</span>
+        </div>
+      </div>
+      <div class="know" @click="know()">我知道了</div>
+      <div style="width:100%;">
+        <img @click="know()"  src="../../../static/images/Wit/mycar_check.png" alt="" style="width:.58rem;height:.58rem;margin:.75rem auto">
+      </div>
+    </mt-popup>
   </div>
 </template>
 <script>
 import { MessageBox } from "mint-ui";
 export default {
   data() {
-    return {};
+    return {
+      popupVisible: false,
+      mainbus:{},//主推车型
+    };
   },
   methods: {
     confirmRevise() {
@@ -108,22 +128,66 @@ export default {
     tobus() {
       this.$router.push("/wit/recoment_bus");
     },
-    search_net(){
-      this.$router.push('/wit/search_net')
+    search_net() {
+      this.$router.push("/wit/search_net");
     },
-    pre_weib(){
-      this.$router.push('/wit/pre_weib')
-  },
-    specil(){
-      this.$router.push('/wit/Characteristic')
+    pre_weib() {
+      this.$router.push("/wit/pre_weib");
+    },
+    specil() {
+      this.$router.push("/wit/Characteristic");
+    },
+    search(){
+      this.popupVisible=true
+    },
+    know(){
+      this.popupVisible=false
     }
+  },
+  created(){
+    //获取主推车型，传{}表示全部车型
+     var param={
+        "highlyRecommend":"1"
+     }
+     this.$http.post(Wit.MainBus,param).then(res=>{
+        if(res.data.code==0){
+         var arr=res.data.data
+          arr.splice(3)
+          this.mainbus=arr
+       }
+     })
   }
-}
+};
 </script>
 <style scoped>
 * {
   padding: 0;
   margin: 0;
+}
+.know{
+  line-height: .82rem;
+  width:5.64rem;
+  background-color: #fff;
+  font-size:.32rem;
+  color:#4189FF;
+  text-align: center;
+  margin:.6rem auto;
+  border-radius: .2rem;
+}
+.tim{
+  font-size:.14rem;
+  background-color: #fff;
+  color:#3B67FF;
+  line-height: .24rem;
+  padding:0 .1rem
+}
+.mint-popup {
+  width: 90%;
+  height: 4.12rem;
+  background-image: url("../../../static/images/Wit/windows_maintain_search_bg.png");
+  background-size: 100%;
+  top: 42%;
+  border-radius: .2rem;
 }
 .tophead {
   height: 3.8rem;

@@ -6,41 +6,74 @@
 			<span class="header-right"></span>
 		</header>
 		<div style="height:0.88rem"></div>
-		<div v-for="item in 2" class="freeback-wrap flex-center">
-			<div class="question-content flex-column-align">
+		<div v-for="(item,index) in questionContent" class="freeback-wrap flex-center" :key="index">
+			<router-link tag="div" class="question-content flex-column-align" to="/myindex/feedbackDetail">
 				<div class="question">
-					<span>【问题】非车主不能使用吗</span>
-					<span>2018-07-22 10:23</span>
+					<span>【{{questionTyep[item.complaintsType]}}】{{item.complaintsContent}}</span>
+					<span>{{getTime(item.createdDate)}}</span>
 				</div>
-				<div class="line"></div>
-				<div class="answer">
-					<span>官方回复：您好！目前非车主仅能使用部分体验功能哦！</span>
-					<span>2018-07-22 10:23</span>
-				</div>
-			</div>
+			</router-link>
 		</div>
 	</div>
 </template>
 
 <script>
+	import { Toast } from 'mint-ui';
 	export default {
-		name: '',
+		name: 'feedbackRecord',
 		data() {
 			return {
-
+				condition: { //后台需要传参
+					
+				},
+				questionContent: [], //意见内容
+				questionTyep: { //意见种类
+					'1': '问题	',
+					'2': '意见'
+				}	
 			}
+		},
+		methods: {
+			init() {
+				this.$http.post(Wit.searchComplaintsSuggestionsList, this.condition).then(res => {
+					const data = res.data;
+					if(data.code == 0) {
+						this.questionContent = data.data
+					} else {
+						let instance = Toast({
+							message: data.Msg,
+							position: 'middle',
+							duration: 1000
+						});
+					}
+				}).catch((error) => {
+					let instance = Toast({
+						message: '系统异常',
+						position: 'middle',
+						duration: 1000
+					});
+				});
+			},
+		    getTime (date) { //转化时间戳
+		    	return operationTime.getTime(date,2)
+		    },
+		},
+		mounted () {
+			this.init()
 		}
 	}
 </script>
 
 <style scoped>
 	/*水平垂直居中*/
+	
 	.flex-center {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 	}
 	/*竖直方向水平居中*/
+	
 	.flex-column-align {
 		display: flex;
 		flex-direction: column;
@@ -56,7 +89,7 @@
 	
 	.question-content {
 		width: 92%;
-		height: 3.54rem;
+		height: 2.07rem;
 		margin-top: 0.3rem;
 		background: #fff;
 		border-radius: 0.08rem;
@@ -72,32 +105,38 @@
 		height: 1.2rem;
 		width: 100%;
 	}
+	
 	.question>span:nth-of-type(1) {
 		font-size: 0.32rem;
 		color: #222222;
 	}
+	
 	.question>span:nth-of-type(2) {
 		font-size: 0.22rem;
 		color: #888888;
 	}
-	/*线*/	
+	/*线*/
+	
 	.line {
 		width: 100%;
 		height: 1px;
-	    margin: 0.3rem 0 0.26rem;
+		margin: 0.3rem 0 0.26rem;
 		background-color: #F1F1F1;
 	}
-	/*回答*/	
+	/*回答*/
+	
 	.answer {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-	    height: 1.6rem;
+		height: 1.6rem;
 	}
+	
 	.answer>span:nth-of-type(1) {
 		font-size: 0.28rem;
 		color: #555555;
 	}
+	
 	.answer>span:nth-of-type(2) {
 		font-size: 0.22rem;
 		color: #888888;

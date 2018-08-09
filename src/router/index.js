@@ -11,6 +11,7 @@ import Authorize_next from "@/components/Lovecar/Authorize_next.vue"
 import WifiLink from "@/components/Lovecar/WifiLink" //wifi直连
 import WifiSetup from "@/components/Lovecar/WifiSetup" //wifi设置
 import FuelQuery from "@/components/Lovecar/FuelQuery" //燃油查询
+import Datechoose from '@/components/Lovecar/Datechoose' //日期选择
 import FlowQuery from "@/components/Lovecar/FlowQuery" //流量查询
 import Islogin from '../components/Lovecar/islogin.vue'
 import IntelligenceParking from "@/components/Lovecar/IntelligenceParking" //智能停车G1
@@ -29,19 +30,30 @@ import Userstart from '@/components/My/Userstart'
 import Fans from '@/components/My/Fans'
 import Focus from '@/components/My/Focus'
 import FeedbackRecord from '@/components/My/FeedbackRecord' //反馈记录
+import FeedbackDetail from '@/components/My/FeedbackDetail' //反馈详情
 import ContactPerson from '@/components/My/ContactPerson' //紧急联系人
+import ModifyLikeman from '@/components/My/ModifyLikeman' //修改联系人
 import ModifyPassword from '@/components/My/ModifyPassword' //修改密码
-import MyFeedback from '@/components/My/MyFeedback' //我的返回
+import ReviousePwdSuccess from '@/components/My/ReviousePwdSuccess' //修改密码成功
+import MyFeedback from '@/components/My/MyFeedback' //我的反馈
 import MySetUp from '@/components/My/MySetUp' //我的设置
 import Bus_test from '@/components/Lovecar/Bus_test.vue'
 import Edictperson from '@/components/My/edictperson.vue' //编辑个人信息
 import Myaddress from '@/components/My/myaddress.vue' //我的地址管理
 import Addmydress from '@/components/My/addmydress.vue' //新增地址
+import Changeaddress from '@/components/My/changeaddress.vue' //新增地址
 import My_dealer from '../components/My/My_dealer.vue' //我的经销商列表
 import MyOrder from '../components/My/MyOrder.vue' //我的订单
 import MyWl from '../components/My/MyWl.vue' //我的物流
 import Compontent from '../components/My/Compontent.vue' //评价
 import Recommended from '../components/My/Recommended' //推荐码
+import OrderDetails from '..//components/My/OrderDetails.vue' //订单详情
+import MyBus from '..//components/My/MyBus' //我的车辆
+import PlateBind from '..//components/My/PlateBind' //车牌绑定
+import AddBus from '..//components/My/AddBus' //添加车辆
+import TwoMa from '../components/My/TwoMa.vue' //二维码
+import Test_Result from '../components/Lovecar/Test_Reault.vue' //测试结果
+import WbRecode from '../components/My/WbRecode.vue' //维保记录
 // 消息
 import News from '../components/news/News.vue' //消息
 import StyNews from '../components/news/StyNews.vue' //系统消息
@@ -158,6 +170,7 @@ export default new Router({
             },
             {
                 path: "/Authorize_next",
+                name: 'Authorize_next',
                 component: Authorize_next
             },
             {
@@ -166,78 +179,83 @@ export default new Router({
             },
 
             {
-                path: "/revisePinCode",
-                naem: '修改pin码',
+                path: "/lovecar/revisePinCode",
+                name: '修改pin码',
                 component: RevisePinCode
             },
             {
-                path: "/forgetPinCode",
-                naem: '忘记pin码',
+                path: "/lovecar/forgetPinCode",
+                name: '忘记pin码',
                 component: ForgetPinCode
             },
             {
-                path: "/reviseSuccess",
-                naem: '修改pin成功',
+                path: "/lovecar/reviseSuccess",
+                name: '修改pin成功',
                 component: ReviseSuccess
             },
             {
-                path: "/wifiLink",
-                naem: 'wifi直连',
+                path: "/lovecar/wifiLink",
+                name: 'wifi直连',
                 component: WifiLink
             },
             {
-                path: "/wifiSetup",
-                naem: 'wifi设置',
+                path: "/lovecar/wifiSetup",
+                name: 'wifi设置',
                 component: WifiSetup
             },
             {
-                path: "/fuelQuery",
-                naem: '燃油查询',
+                path: "/lovecar/fuelQuery",
+                name: '燃油查询',
                 component: FuelQuery
             },
             {
-                path: "/flowQuery",
-                naem: '流量查询',
+                path: "/Datechoose",
+                name: '日期选择',
+                component: Datechoose
+            },
+            {
+                path: "/lovecar/flowQuery",
+                name: '流量查询',
                 component: FlowQuery
             },
             {
-                path: "/intelligenceParking",
-                naem: '智能停车G1',
+                path: "/lovecar/intelligenceParking",
+                name: '智能停车G1',
                 component: IntelligenceParking
             },
             {
-                path: "/intelligenceParkingInfo",
-                naem: '智能停车G2',
+                path: "/lovecar/intelligenceParkingInfo",
+                name: '智能停车G2',
                 component: IntelligentParkingInfo
             },
             {
-                path: "/intelligenceParkingUninfo",
-                naem: '智能停车G3',
+                path: "/lovecar/intelligenceParkingUninfo",
+                name: '智能停车G3',
                 component: IntelligentParkingUninfo
             },
             {
-                path: "/airConditionControl",
-                naem: '空调控制',
+                path: "/lovecar/airConditionControl",
+                name: '空调控制',
                 component: AirConditionControl
             },
             {
-                path: "/adjustSeatTemper",
-                naem: '座椅调温',
+                path: "/lovecar/adjustSeatTemper",
+                name: '座椅调温',
                 component: AdjustSeatTemper
             },
             {
-                path: "/windowControl",
-                naem: '车窗控制',
+                path: "/lovecar/windowControl",
+                name: '车窗控制',
                 component: WindowControl
             },
             {
-                path: "/skylightControl",
-                naem: '天窗控制',
+                path: "/lovecar/skylightControl",
+                name: '天窗控制',
                 component: SkylightControl
             },
             {
-                path: "/airEvoluor",
-                naem: '空气净化器',
+                path: "/lovecar/airEvoluor",
+                name: '空气净化器',
                 component: AirEvoluor
             },
 
@@ -268,34 +286,58 @@ export default new Router({
                 component: Addmydress
             },
             {
+                path: "/changeaddress",
+                name: 'changeaddress',
+                component: Changeaddress
+            },
+            {
                 path: "/edictperson",
                 name: '修改个人信息',
                 component: Edictperson
             },
             {
-                path: "/feedbackRecord",
+                path: "/myindex/feedbackRecord",
                 name: '反馈记录',
                 component: FeedbackRecord
             },
             {
-                path: "/contactPerson",
+                path: "/myindex/feedbackDetail",
+                name: '反馈详情',
+                component: FeedbackDetail
+            },
+            {
+                path: "/myindex/contactPerson",
                 name: '紧急联系人',
                 component: ContactPerson
             },
             {
-                path: "/modifyPassword",
+                path: "/myindex/modifyLikeman",
+                name: '修改联系人',
+                component: ModifyLikeman
+            },
+            {
+                path: "/myindex/modifyPassword",
                 name: '修改密码',
                 component: ModifyPassword
             },
             {
-                path: "/myFeedback",
+                path: "/myindex/reviousePwdSuccess",
+                name: '修改密码成功',
+                component: ReviousePwdSuccess
+            },
+            {
+                path: "/myindex/myFeedback",
                 name: '我的反馈',
                 component: MyFeedback
             },
             {
-                path: "/mySetUp",
+                path: "/myindex/mySetUp",
                 name: '设置',
                 component: MySetUp
+            }, {
+                path: "/myindex/wbrecode",
+                name: '维保记录',
+                component: WbRecode
             },
             {
                 path: "/myaddress",
@@ -323,6 +365,33 @@ export default new Router({
                 path: "/Recommended",
                 name: '推荐码',
                 component: Recommended
+            }, {
+                path: "/orderdetails",
+                name: '订单详情',
+                component: OrderDetails
+            },
+            {
+                path: "/myindex/myBus",
+                name: '我的车辆',
+                component: MyBus
+            },
+            {
+                path: "/myindex/plateBind",
+                name: '车牌绑定',
+                component: PlateBind
+            },
+            {
+                path: "/myindex/addBus",
+                name: '添加车辆',
+                component: AddBus
+            }, {
+                path: "/twoma",
+                name: '二维码',
+                component: TwoMa
+            }, {
+                path: "/test_result",
+                name: '测试结果',
+                component: Test_Result
             },
             // 消息
             {

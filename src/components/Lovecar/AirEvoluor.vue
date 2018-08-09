@@ -9,7 +9,7 @@
 		<div class="window-header">
 			<div class="window-btn">
 				<mt-switch v-model="value" @change="turn"><span></span></mt-switch>
-				<span>OFF/NO</span>
+				<span style="margin-right: 0.2rem;">OFF/NO</span>
 			</div>
 			<div class="window-sign flex-column">
 				<span class="window-ch">天窗</span>
@@ -17,30 +17,29 @@
 				<span style="width: 0.54rem;height: 1px; background: rgba(153,153,153,1);margin-bottom: 0.4rem;"></span>
 			</div>
 		</div>
-		
+
 		<!--曲线Start-->
-		<div class="curve"> 
-				<div class="cureve-text">
-					<span style="left: 3.1rem;top: 2.6rem;">低</span>
-					<span style="left: 2.2rem;top: 0.3rem;">中</span>
-					<span style="left: 0rem;top: -0.3rem;">高</span>
-				</div>
-				<div class="curveActive" v-show="curveState">
-					<canvas id="rightColorful"></canvas>
-				</div>
-				<div class="curveLoseActive" v-show="!curveState">
-					<canvas id="rightGray"></canvas>
-				</div>
-			
+		<div class="curve">
+			<div class="cureve-text">
+				<span style="left: 3.1rem;top: 2.6rem;">低</span>
+				<span style="left: 2.2rem;top: 0.3rem;">中</span>
+				<span style="left: 0rem;top: -0.3rem;">高</span>
+			</div>
+			<div class="curveActive" v-show="curveState">
+				<canvas id="rightColorful"></canvas>
+			</div>
+			<div class="curveLoseActive" v-show="!curveState">
+				<canvas id="rightGray"></canvas>
+			</div>
 		</div>
 		<!--曲线End-->
-		
+
 		<!--进化器主体Start-->
 		<div class="window-wrap flex-column-align">
 			<div class="window-content flex-center-between">
 				<!--净化器提示[高，中，低]Start-->
 				<div class="temperature">
-					<span style="font-size: 0.68rem;color: #222222;">{{windNum[winIndex]}}</span>
+					<span style="font-size: 0.68rem;color: #222222;">{{windNum[evoluorSpace]}}</span>
 				</div>
 				<!--净化器提示[高，中，低]End-->
 
@@ -80,7 +79,7 @@
 					<img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
 					<div class="wind-count">
 						<span @click=" windReduce" class="addWind"><</span>
-						<input class="wind-input" type="text" v-model="windNum[winIndex]" readonly />
+						<input class="wind-input" type="text" v-model="windNum[evoluorSpace]" readonly />
 						<span @click="windAdd" class="reduceWind">></span>
 					</div>
 					<img :src="'./static/images/Lovecar/right@2x.png'" alt="" />
@@ -98,8 +97,16 @@
 					<span></span>
 				</div>
 				<div class="pin-code flex-center">
-					<div id="pinCon" @click="onTypewriting">
+					<div v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
 						<input class="pin-input" maxlength="6" type="text" v-model="pinNumber" readonly/>
+					</div>
+					<div v-else class="pin">
+						<input v-model="ownKeyBoard.first"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.second"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.third"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.fourth"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.fifth"  type="text" maxlength="1" />
+						<input v-model="ownKeyBoard.sixth"  type="text" maxlength="1" />
 					</div>
 				</div>
 			</div>
@@ -122,12 +129,21 @@
 		name: 'skylightControl',
 		data() {
 			return {
+				//移动端键盘值
+				ownKeyBoard:{
+					first:'',
+					second: '',
+					third: '',
+					fourth: '',
+					fifth: '',
+					sixth: ''
+				},
 				//进化器控制按钮开关
 				value: false,
 				//图片激活变量
 				activeShowImg: 0,
 				//进化器强度展示
-				windNum: ['高', '中', '低'],
+				windNum: ['低', '中', '高'],
 				winMin: 0,
 				//进化器控制变量
 				winIndex: 0,
@@ -151,7 +167,7 @@
 		},
 		methods: { //进化器控制开关方法
 			turn() {
-				if (this.activeShowImg) {
+				if(this.activeShowImg) {
 					this.value = true;
 				} else {
 					this.value = false;
@@ -161,10 +177,24 @@
 			//进化器强度增加
 			windAdd() {
 				if(this.activeShowImg) {
-					if(this.winIndex >= this.windNum.length - 1) {
-						this.winIndex = 0
+					if(this.evoluorSpace >= this.windNum.length - 1) {
+						this.evoluorSpace = this.windNum.length - 1
 					} else {
-						this.winIndex++
+						this.evoluorSpace++
+							//计数器控制曲线
+							new Createarc({
+								el: 'rightColorful', //canvas id
+								vuethis: this, //使用位置的this指向
+								num: 'evoluorSpace', //data数值
+								type: 'right', //圆弧方向  left right
+								tempdel: 3, //总差值
+								ratio: 0.4, //宽度比例
+								iscontrol: true, //控制是否能滑动，可以滑动
+								color: {
+									start: '#49bbff', //圆弧下边颜色
+									end: '#04e8db', //圆弧上边颜色
+								}
+							})
 					}
 				} else {
 					return
@@ -174,10 +204,24 @@
 			//进化器强度减弱
 			windReduce() {
 				if(this.activeShowImg) {
-					if(this.winIndex <= this.winMin) {
-						this.winIndex = this.windNum.length - 1
+					if(this.evoluorSpace <= this.winMin) {
+						this.evoluorSpace = this.winMin
 					} else {
-						this.winIndex--
+						this.evoluorSpace--
+							//计数器控制曲线
+							new Createarc({
+								el: 'rightColorful', //canvas id
+								vuethis: this, //使用位置的this指向
+								num: 'evoluorSpace', //data数值
+								type: 'right', //圆弧方向  left right
+								tempdel: 3, //总差值
+								ratio: 0.4, //宽度比例
+								iscontrol: true, //控制是否能滑动，可以滑动
+								color: {
+									start: '#49bbff', //圆弧下边颜色
+									end: '#04e8db', //圆弧上边颜色
+								}
+							})
 					}
 				} else {
 					return
@@ -215,7 +259,7 @@
 					this.pinNumber = this.pinNumber.slice(0, -1);
 					return;
 				}
-				if(this.pinNumber.length < 6) { //判断位数，还未超出5位则可继续输入
+				if(this.pinNumber.length < 6) { //判断位数，还未超出6位则可继续输入
 					this.pinNumber = this.pinNumber + item;
 				} else {
 
@@ -245,7 +289,7 @@
 				that.keyNums = arr2
 			},
 			//产生曲线
-			produCurve () {
+			produCurve() {
 				//净化器激活弧线
 				new Createarc({
 					el: 'rightColorful', //canvas id
@@ -256,10 +300,8 @@
 					ratio: 0.4, //宽度比例
 					iscontrol: true, //控制是否能滑动，可以滑动
 					color: {
-						start: '#e22e10', //圆弧下边颜色
-						center: '#f39310',
+						start: '#49bbff', //圆弧下边颜色
 						end: '#04e8db', //圆弧上边颜色
-						num: 3
 					}
 				})
 				//进化器未激活弧线
@@ -278,18 +320,69 @@
 						num: 3
 					}
 				})
+			},
+			//执行判定
+			inputs () {	
+				var _this=this
+				$('.pin input').on("input propertychange",function(){
+					_this.inputFun($(this));
+				});
+				$('.pin input').on("keyup",function(e){
+					var ev = e;
+					_this.keyupFun($(this),ev);
+				});
+
+			},
+			//判断输入的密码还是否为数字
+			inputFun (value) {
+				var reg = new RegExp("^[0-9]*$");
+				var val = value.val();
+				if(!reg.test(val)){
+					value.val('')
+				}else{
+					value.next().focus();
+				}
+			},
+			//监听backspace事件
+			keyupFun (value,e) {
+				var k = e.keyCode;
+				var val = e.key; //"Backspace"
+				if(k == 8){		//8是backspace的keyCode
+					value.prev().focus();
+				}else{
+					return false;
+				}
 			}
 		},
-		mounted () {
-			this.produCurve()
+		mounted() {
+			this.produCurve();
+			this.inputs()
+		},
+		computed: {
+			fullValue:{ //拼接input输入框值,激活修改
+				get () {
+					return this.ownKeyBoard.first + this.ownKeyBoard.second + this.ownKeyBoard.third + this.ownKeyBoard.fourth + this.ownKeyBoard.fifth + this.ownKeyBoard.sixth
+				},
+				set (newVal) {
+					this.ownKeyBoard.first=newVal
+					this.ownKeyBoard.second=newVal
+					this.ownKeyBoard.third=newVal
+					this.ownKeyBoard.fourth=newVal
+					this.ownKeyBoard.fifth=newVal
+					this.ownKeyBoard.sixth=newVal
+				}	
+			}
 		},
 		watch: {
 			pinNumber(newVal, oldVal) {
-//				console.log(this.pinNumber.length)
-				if (this.pinNumber.length == 6) {
-					setTimeout( () => {
+				//				console.log(this.pinNumber.length)
+				if(this.pinNumber.length == 6) {
+					setTimeout(() => {
+						var nums=this.pinNumber
 						this.value = !this.value
+						//pin码正确激活弧线
 						this.curveState = !this.curveState
+						//pin码正确激活进化器图
 						this.activeShowImg = !this.activeShowImg,
 						//消失遮罩
 						this.popupVisible = !this.popupVisible
@@ -297,12 +390,30 @@
 						this.showTyper = 0,
 						//清空pin码
 						this.pinNumber = ''
-					},1000)
-					
+						this.$http.post(Lovecar.Checkphonepin,{pin:nums},this.$store.state.getpin).then((res)=>{
+						console.log(res)
+					})						
+					}, 1000)
+
 				}
 			},
-			evoluorSpace (newVal, oldVal) {
-				this.winIndex = newVal
+			fullValue (newVal, oldVal) {
+				if(this.fullValue.length == 6) {
+					setTimeout(() => {
+						this.value = !this.value
+						//pin码正确激活弧线
+						this.curveState = !this.curveState
+						//pin码正确激活空调图
+						this.activeShowImg = !this.activeShowImg,
+						this.refreshPmData (),
+						//消失遮罩
+						this.popupVisible = !this.popupVisible
+						//消失软键盘
+						this.showTyper = 0,
+						//清空pin码
+						this.fullValue = ''
+					}, 1000)
+				}
 			}
 		}
 	}
@@ -344,6 +455,10 @@
 		justify-content: center;
 		align-items: center;
 	}
+	.mint-popup {
+		border-radius: 0.1rem;
+	}
+	   
 	/*进化器头部*/
 	
 	.window-header {
@@ -380,18 +495,19 @@
 	.curve {
 		position: relative;
 	}
-	.curve>.cureve-text> span {
+	
+	.curve>.cureve-text>span {
 		position: absolute;
 		color: #222222;
 		font-size: 0.26rem;
 	}
-	.curve>div {
-        position: absolute;
-	    left: 50%;
-	    top: 0.9rem;
-	    margin-left: -7%;
-	}
 	
+	.curve>div {
+		position: absolute;
+		left: 50%;
+		top: 0.9rem;
+		margin-left: -7%;
+	}
 	/*进化器主体*/
 	
 	.window-wrap {
@@ -534,7 +650,7 @@
 	
 	.pin-code>div {}
 	
-	.pin-code>div>input {
+	.pin-code>div>.pin-input {
 		display: block;
 		width: 5.6rem;
 		height: 0.94rem;
@@ -545,6 +661,21 @@
 		outline: none;
 		background: url(../../../static/images/Lovecar/border@2x.png) no-repeat center;
 		background-size: 100%;
+	}
+	.pin-code>.pin {
+	    display: flex;
+    	align-items: center;
+    	border: 1px solid #ccc;
+	}
+	.pin-code>.pin>input:not(:last-child) {
+    	border-right: 1px solid #ccc;
+	}
+	.pin-code>.pin>input {
+		width: 0.93rem;
+    	height: 0.94rem;
+    	text-align: center;
+	    border: none;
+    	outline: none;
 	}
 	/*自定义软键盘*/
 	
@@ -564,9 +695,8 @@
 		position: fixed;
 		bottom: 0;
 		background-color: #fff;
-		height: 4.5rem;
+		height: 4rem;
 		width: 100%;
-		padding-top: .1rem;
 		z-index: 3000;
 	}
 	

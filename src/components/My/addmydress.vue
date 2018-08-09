@@ -1,5 +1,6 @@
 <template>
     <div>
+      <div v-show="bgcolor" class="bgcolor" @click="hidess"></div>
         <header class="header">
             <img class="header-left" src="../../../static/images/back@2x.png" @click="$route.meta.keepAlive = false;$router.go(-1)">
             <span class="header-title">添加新地址</span>
@@ -19,14 +20,11 @@
                 <div class="contentList nickname areas">
                     <span class="contentList-left" style="float:left">所在地区</span>
                     <div class="contentList-right" style="float:right">
-                        <!-- <span class="place">所在地区 {{cityList[nowindex]?cityList[nowindex].province_name:''}}</span> -->
-                        <span class="place">点击选择地区</span>
+                      <input type="text" name="" id="" class="place" @click="choosearea()" placeholder="请选择地区" v-model="this.choosedarea">
+                        <!-- <span class="place" @click="choosearea()">{{this.beforechoosedarea}}</span> -->
                         <img class="pic" src="../../../static/images/my/next@2x.png" />
                     </div>
                 </div>
-                <ul class="citys" v-show="ishide">
-                    <!-- <li @click='changecity(index,item.province_code,item.province_name)' v-for="(item,index) in cityList" :key="index">{{item.province_name}}</li> -->
-                </ul>
             </div>
             <div class="inputcontent">
                 <div class="peop">详细地址：</div>
@@ -40,108 +38,158 @@
                 <span class="ft_2">&nbsp;设为默认地址</span>
             </div>
         </div>
-        <span class="bottom-btn">保存</span>
+        <div style="position:absolute;z-index:1000;bottom:0;width:100%;background:#fff;" v-show="this.shows">
+          <div style="text-align:center;line-height:.8rem;font-size:.4rem">选择地区</div>
+          <div style="text-align: right;color: #49BBFF;margin-right:.2rem;" @click="hides()">确定</div>
+          <mt-picker :slots="slots" @change="onValuesChange" ></mt-picker>
+        </div>
+        <div style="height:10rem"></div>
+        <span class="bottom-btn" @click="handleSubmit">保存</span>
     </div>
 </template>
 <script>
 import { Toast } from "mint-ui";
 export default {
-  data() {
+  data(){
     return {
+      bgcolor:false,
+      shows:false,//控制选择地区显示
       selected: true,
       name: "",
       num: "",
       isShow: false,
+      everycode:'',//返回给后台的地区code
+      allarea:[],//所有的地区
+      choosedarea:'',//被选择的地区
       ishide: false, //控制城市的显示
       nowindex: 0, //默认显示上海
       provinceId: "100000",
       provinceName: "北京",
       address: "",
       options: [],
-      cityList: []
+      cityList: ['上海','北京'],
+       slots: [
+        {
+          flex: 1,
+          values: [],
+          className: 'slot1',
+          textAlign: 'center'
+        }
+      ]
     };
   },
   mounted() {
     // this.getProvinceList();
     this.info = this.$route.query;
     $(".editPersonalDetails").height($(".editPersonalDetails").height());
+    this.$http.post(Wit.Area,{}).then((res)=>{
+      this.allarea=res.data.data.records
+      for(var i=0;i<this.allarea.length;i++){
+        this.slots[0].values.push(this.allarea[i].name)
+      }
+    })
   },
-  created() {}
-  //   methods: {
-  //     handleSubmit() {
-  //       var self = this;
-  //       var flag = 1;
-  //       if (!self.selected) flag = 2;
-  //       var name = this.name;
-  //       if (name == "") {
-  //         Toast({
-  //           message: "姓名不能为空",
-  //           duration: 1000,
-  //           position: "bottom"
-  //         });
-  //         return false;
-  //       }
-  //       let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
-  //       var numFlag = reg.test(this.num);
-  //       if (!numFlag) {
-  //         Toast({
-  //           message: "手机号码格式不对！",
-  //           duration: 1000,
-  //           position: "bottom"
-  //         });
-  //         return false;
-  //       }
-  //        var address = this.address.trim();
-  //       if (address == "") {
-  //         Toast({
-  //           message: "收货地址不能为空",
-  //           duration: 1000,
-  //           position: "bottom"
-  //         });
-  //         return false;
-  //       }
-  //       var param = {
-  //         customerId: this.$store.state.userId,
-  //         receiveName: this.name,
-  //         receiveMobile: this.num,
-  //         isDefalut: flag,
-  //         provinceId: this.provinceId,
-  //         provinceName: this.provinceName,
-  //         address: this.address
-  //       };
-  //       var str = handleParam(param);
-  //       function handleParam(param) {
-  //         var str = "";
-  //         for (let i in param) {
-  //           if (i == "customerId") {
-  //             str += "?" + i + "=" + param[i];
-  //           } else {
-  //             str += "&" + i + "=" + param[i];
-  //           }
-  //         }
-  //         return str;
-  //       }
-  //       getData(self, SURPERISSE.addExpress + str, param);
-  //     },
+    methods: {
+      handleSubmit() {
+        var self = this;
+        var flag = 0;
+        if (!self.selected) flag = 1;
+        var name = this.name;
+        if (name == "") {
+          Toast({
+            message: "姓名不能为空",
+            duration: 1000,
+            position: "bottom"
+          });
+          return false;
+        }
+        let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+        var numFlag = reg.test(this.num);
+        if (!numFlag) {
+          Toast({
+            message: "手机号码格式不对！",
+            duration: 1000,
+            position: "bottom"
+          });
+          return false;
+        }
+         var address = this.address.trim();
+        if (address == "") {
+          Toast({
+            message: "收货地址不能为空",
+            duration: 1000,
+            position: "bottom"
+          });
+          return false;
+        }
+        var param = {
+          // customerId: this.$store.state.userId,
+          userNo:"UBS2018072410463590813",
+          receiveName: this.name,//姓名
+          receiveMobile: this.num,//手机号码
+          isDefalut: flag,//是否选定为默认2为选择默认
+          provinceName: this.everycode,//所在地区的code
+          address: this.address
+        };
+        this.$http.post(Wit.AddAddress, param).then(res => {
+          if(res.data.code==0){
+            this.$router.go(-1)
+          }
+        });
 
-  //     getProvinceList() {
-  //       this.$http.post(SURPERISSE.getProvinceList, textPlain).then(res => {
-  //         if (res.data.errmsg == "ok") {
-  //           const data = res.data;
-  //           this.cityList = data.retobj;
-  //         }
-  //       });
-  //     },
-  //     fn() {
-  //       this.ishide = !this.ishide;
-  //     },
-  //     changecity(index, code, name) {
-  //       this.nowindex = index;
-  //       this.ishide = false;
-  //       this.provinceId = code;
-  //       this.provinceName = name;
-  //      }
-  //   }
+      },
+
+      // getProvinceList() {
+      //   var params={
+      //     address: "string",//收货人地址
+      //     cityId: 0,//城市id
+      //     cityName: "string",//城市名称
+      //     cityNo: "string",//城市编码
+      //     countryId: 0,//区域id
+      //     countryName: "string",//区域名称
+      //     countryNo: "string",//区域编码
+      //     current: 0,
+      //     id: 0,
+      //     isDefault: 0,
+      //     no: "string",//编码
+      //     provinceId: 0,//省份id
+      //     provinceName: "string",//省份名称
+      //     provinceNo: "string",//省份编码
+      //     receiveMobile: "string",//收货人联系电话
+      //     receiveName: "string",//收货人姓名
+      //     size: 0,
+      //     userId: 0,//用户id
+      //     userNo: "string",//用户编码
+      //     zipcode: "string"//邮编
+      //   }
+        // this.$http.post(Wit.AddAddress, {}).then(res => {
+
+        // });
+      // },
+      choosearea(){
+        this.shows=true;
+        this.bgcolor=true;
+      },
+      hides(){
+        this.bgcolor=false;
+        this.shows=false;
+      },
+      hidess(){
+        this.bgcolor=false;
+        this.shows=false;
+      },
+      onValuesChange(picker, values) {
+        this.choosedarea=values[0]
+        for(var i=0;i<this.allarea.length;i++){
+          if(this.allarea[i].name==this.choosedarea){
+            this.everycode=this.allarea[i].code;
+          }
+        }
+      if (values[0] > values[1]) {
+        picker.setSlotValue(1, values[0]);
+      }
+    }
+    }
 };
 // function getData(self, url, param) {
 //   self.$http
@@ -163,6 +211,17 @@ export default {
 // }
 </script>
 <style scoped>
+.bgcolor{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 999;
+}
 .contentList {
   display: flex;
   justify-content: space-between;
@@ -191,7 +250,7 @@ export default {
   height: 0.4rem;
 }
 .place {
-  color: #ccc;
+  color: #222;
   font-size: 0.28rem;
 }
 .peop {

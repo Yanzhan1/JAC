@@ -15,31 +15,34 @@
 
 		</div>
 		<div class="origin-pin">
-			<div class="flex-center-between revisePinCommon">
-				<span style="font-size: 0.26rem;color: #444444;">
+			<div class="flex-align-center revisePinCommon">
+				<span style="font-size: 0.26rem;color: #444444;width: 1.1rem;">
 					原pin码:
 				</span>
-				<input placeholder="请输入原PIN码" type="text" v-model="condition.oldPin" />
+				<input class="pinInput" placeholder="请输入原PIN码" type="text" v-model="condition.oldPin" />
 			</div>
 		</div>
 		<div class="origin-pin">
-			<div class="flex-center-between revisePinCommon">
-				<span style="font-size: 0.26rem;color: #444444;">
+			<div class="flex-align-center revisePinCommon">
+				<span style="font-size: 0.26rem;color: #444444;width: 1.1rem;">
 					新pin码:
 				</span>
-				<input placeholder="请输入原PIN码" type="text" v-model="condition.newPin" />
+				<input class="pinInput" placeholder="请输入新PIN码" type="text" v-model="condition.newPin" />
 			</div>
 		</div>
-		<div class="origin-pin">
+		<!-- <div class="origin-pin">
 			<div class="flex-center-between revisePinCommon">
-				<span style="font-size: 0.26rem;color: #444444;">
+				<div>
+					<span style="font-size: 0.26rem;color: #444444; width: 1.65rem">
 					短信验证码:
-				</span>
-				<input style="padding-right: 0;width: 2.8rem;" placeholder="请输入验证码" type="text" v-model="condition.verificationCode" />
-				<button class="btn" v-if="showTime">59秒后重发</button>
-				<button class="btn" v-if="!showTime" @click="submitCode">获取验证码</button>
+					</span>
+					<input class="verification-code" placeholder="请输入验证码" type="text" v-model="condition.verificationCode" />
+				</div>		
+				<button class="btn" v-if="showTime"   @click="submitCode">获取验证码</button>
+				<button class="btn" v-else >{{this.num}}秒后重发</button>
 			</div>
-		</div>
+		</div> -->
+		<router-link tag="p" class="forget-pinCode" to="/lovecar/forgetPinCode">忘记PIN码？</router-link>
 		<button class="bottom-btn" @click="confirmRevise">确认修改</button>
 	</div>
 </template>
@@ -53,18 +56,16 @@
 				//倒计时按钮状态
 				showTime: true,
 				//修改pin码数据
+				Verification:'',
 				condition: {
 					oldPin: '',
 					newPin: '',
 					verificationCode: ''
-				}
+				},
+				num:'60'
 			}
 		},
 		methods: {
-			//获取验证码
-			submitCode() {
-
-			},
 			//确认修改,messagebox弹出框
 			confirmRevise() {
 				MessageBox.confirm('',{
@@ -81,14 +82,20 @@
 				}).then(action => {
 					if(action == 'confirm') {
 						//跳转修改成功页面
-						console.log('abc');
+						console.log(Lovecar.Changepin)
+						this.$http.post(Lovecar.Changepin,{newPin:this.condition.newPin,oldPin:this.condition.oldPin},this.$store.state.getpin).then((res)=>{
+							console.log(res)
+						})
 					}
 				}).catch(err => {
 					if(err == 'cancel') {
 						console.log('123');
 					}
 				});
-			}
+			},
+			mounted() {
+
+			},
 		}
 	}
 </script>
@@ -106,6 +113,11 @@
 		justify-content: center;
 		align-items: center;
 	}
+	
+	.flex-align-center{/*垂直居中*/
+	  display: flex;
+	  align-items: center;
+	}
 	/*单页面公共样式*/
 	
 	.revisePinCommon {
@@ -113,10 +125,11 @@
 		border-bottom: 1px solid #EFEFEF;
 	}
 	
-	input {
+	.pinInput {
+		width: 2.1rem;
+		margin-left: 0.74rem;
 		outline: none;
 		border: none;
-		padding-right: 1.5rem;
 	}
 	/*message信息提示*/
 	
@@ -139,9 +152,15 @@
 		margin: 0 auto;
 	}
 	/*验证码按钮*/
-	
+	.verification-code {
+		border: none;
+		outline: none;	
+		width: 2rem;
+	    margin-left: 0.4rem;
+	}
 	.origin-pin .btn {
-		padding-left: 0.5rem;
+		outline: none;
+		padding-left: 0.3rem;
 		border: none;
 		-webkit-appearance: none;
 		color: #444444;
@@ -165,5 +184,13 @@
 	/*取消按钮*/
 	.cancelButton {
 	    color: #26a2ff !important;
+	}
+	/*忘记pin码*/
+	.forget-pinCode {
+		margin-top: 0.3rem;
+		margin-right: 0.52rem;
+		color: #49BBFF;
+		font-size: 0.24rem;
+		text-align: right;
 	}
 </style>

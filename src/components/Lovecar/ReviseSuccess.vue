@@ -9,7 +9,7 @@
 		<div class="revise-success">
 			<img :src="'./static/images/Lovecar/finish@2x.png'" />
 			<p>操作成功</p>
-			<router-link class="btn" tag="button" to="">
+			<router-link class="btn" tag="button" to="/lovecar">
 				返回首页
 			</router-link>
 		</div>
