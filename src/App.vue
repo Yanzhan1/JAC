@@ -15,7 +15,7 @@ export default {
   methods: {
     isLogin(userInfo){
       console.log(userInfo)
-      if(userInfo.userId){
+      if(userInfo && userInfo.userId){
         this.$store.dispatch('isLogin',true);
         this.$store.dispatch('userId',userInfo.userId);
         this.$store.dispatch('uuid',userInfo.uuid);
