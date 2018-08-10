@@ -31,7 +31,7 @@
 		data() {
 			return {
 				condition: {
-					no: 'UBS2018072410503423882'
+					no: this.$store.state.no
 				},
 				userInfor: {
 					

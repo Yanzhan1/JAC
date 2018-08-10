@@ -3,11 +3,11 @@
 		<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">wifil直连</span>
-			<span class="header-right"><router-link tag="img" :to="{name:'wifi设置',params:{userCategory:this.value}}" style="width: 0.36rem;height: 0.36rem;" :src="'./static/images/Lovecar/Set@2x.png'"></router-link></span>
+			<span class="header-right"><router-link tag="img" :to="{name:'wifi设置',params:{userCategory:this.value,names:this.names,pwd:this.pwd}}" style="width: 0.36rem;height: 0.36rem;" :src="'./static/images/Lovecar/Set@2x.png'"></router-link></span>
 		</header>
 		<div style="height:0.88rem"></div>
 		<mt-cell :title="title">
-			<mt-switch @change="turn" v-model="value"></mt-switch>
+			<mt-switch  v-model="value"></mt-switch>
 		</mt-cell>
 		<div class="line"></div>
 		<div class="origin-pin">
@@ -15,7 +15,7 @@
 				<span style="font-size: 0.26rem;color: #444444;">
 					wifi名称:
 				</span>
-				<input :disabled="disabled" type="text" v-model="name" />
+				<input :disabled="disabled" type="text" v-model="names" />
 			</div>
 		</div>
 		<div class="origin-pin">
@@ -41,18 +41,23 @@
 				//输入框是否可输入
 				disabled: true,
 				//名字输入框内容
-				name: 'QEwDdsdSasV',
+				names: '',
 				//密码输入框内容
-				pwd: '12345678',
-				num:''
+				pwd: '',
 			}
 		},
 		methods: {
-			//输入框是否可输入
-			turn () {
-				this.disabled = !this.disabled
-			}
 		},
+		mounted(){
+			console.log(this.$route.params.userCategory)
+			this.names=this.$route.params.wifiname
+			this.pwd=this.$route.params.wifipwd
+			if(this.$route.params.userCategory==1){
+				this.value=true
+			}else{
+				this.value=false
+			}
+		}
 	}
 </script>
 

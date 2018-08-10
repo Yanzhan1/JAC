@@ -1,41 +1,41 @@
 <template>
-	<div class="my-bus">
-		<header class="header">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-			<span class="header-title">我的车辆</span>
-			<span class="header-right">
-				<router-link tag="img" to="/myindex/addBus" style="width: 0.36rem;height: 0.36rem;" :src="'./static/images/my/mycar_add.png'"></router-link>
-			</span>
-		</header>
-		<div style="height:0.88rem"></div>
-		<!--<div class="bus-wrap">-->
-		<ul class="bus-list">
-			<li class="bus-content flex-center-between" v-for="(item,index) in BusDetails" :key="index">
-				<div class="bus-left">
-					<div class="bus-name flex-align-center">
-						<label for="foot-check" class="input-label deft_0" :class="{active:item.isDefault==1}" @click="setOneDefault(item.no,item.isDefault)"> </label>
-						 <!-- <span v-if="item.isDefault==1" style="color: #49BBFF">默认</span> -->
-						<span style="color: #49BBFF;">{{item.seriesName}}{{item.isDefault==1?'（默认）':''}}</span>
-					</div>
-					<img :src="'./static/images/my/car_ruifeng_s5@2x.png'" alt=""  />
-				</div>
-				<div class="bus-right">
-					<p class="bus-untie" @click="unite(item.no)">解绑</p>
-					<div class="flex-align-center">
-						<span style="color:#49BBFF;"> {{item.plateLicenseNo}}</span>
-						<router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{no:item.no,plateLicenseNo:item.engineNo}}"></router-link>
-					</div>
-					<div>
-						<span class="commonFontSize">车架号：{{item.engineNo}}</span>
-					</div>
-					<div>
-						<span class="commonFontSize">发动机号：{{item.vin}}</span>
-					</div>
-				</div>
-			</li>
-		</ul>
-		<!--</div>-->
-	</div>
+  <div class="my-bus">
+    <header class="header">
+      <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+      <span class="header-title">我的车辆</span>
+      <span class="header-right">
+        <router-link tag="img" to="/myindex/addBus" style="width: 0.36rem;height: 0.36rem;" :src="'./static/images/my/mycar_add.png'"></router-link>
+      </span>
+    </header>
+    <div style="height:0.88rem"></div>
+    <!--<div class="bus-wrap">-->
+    <ul class="bus-list">
+      <li class="bus-content flex-center-between" v-for="(item,index) in BusDetails" :key="index">
+        <div class="bus-left">
+          <div class="bus-name flex-align-center">
+            <label for="foot-check" class="input-label deft_0" :class="{active:item.isDefault==1}" @click="setOneDefault(item.no,item.isDefault)"> </label>
+            <!-- <span v-if="item.isDefault==1" style="color: #49BBFF">默认</span> -->
+            <span style="color: #49BBFF;">{{item.seriesName}}{{item.isDefault==1?'（默认）':''}}</span>
+          </div>
+          <img :src="'./static/images/my/car_ruifeng_s5@2x.png'" alt="" />
+        </div>
+        <div class="bus-right">
+          <p class="bus-untie" @click="unite(item.no)">解绑</p>
+          <div class="flex-align-center">
+            <span style="color:#49BBFF;"> {{item.plateLicenseNo}}</span>
+            <router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{no:item.no,plateLicenseNo:item.engineNo}}"></router-link>
+          </div>
+          <div>
+            <span class="commonFontSize">车架号：{{item.engineNo}}</span>
+          </div>
+          <div>
+            <span class="commonFontSize">发动机号：{{item.vin}}</span>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <!--</div>-->
+  </div>
 </template>
 
 <script>
@@ -50,7 +50,7 @@ export default {
     };
   },
   methods: {
-	  //解绑
+    //解绑
     unite(no) {
       MessageBox.confirm("", {
         title: "提示",
@@ -65,29 +65,27 @@ export default {
         cancelButtonHighlight: true
       }).then(action => {
         if (action == "confirm") {
-          console.log(no);
+          console.log();
           var param = {
             userNo: "UBS2018072410503423882",
             vehicleNo: no
-		  };
-		//   Wit.JFmybus
+          };
           this.$http.post(Wit.JFmybus, param).then(res => {
-                if(res.data.code==0){
-			  this.MyBus(); 
-		   }
-		  });
-	   }
+            if (res.data.code == 0) {
+              this.MyBus();
+            }
+          });
+        }
       });
     },
     //我的车辆
     MyBus() {
-      this.$http
-        .post(Wit.My_Bus, { userNo: "UBS2018072410503423882" })
-        .then(res => {
-          if (res.data.code == 0) {
-            this.BusDetails = res.data.data;
-          }
-        });
+      var no = this.$store.state.no;
+      this.$http.post(Wit.My_Bus, { userNo: no }).then(res => {
+        if (res.data.code == 0) {
+          this.BusDetails = res.data.data;
+        }
+      });
     },
     //设为默认
     setOneDefault(no, isDefault) {
@@ -99,12 +97,11 @@ export default {
       var param = {
         vehicleNo: no,
         isDefault: 1,
-        userNo: "UBS2018072410503423882"
-	  };
-	//   Wit.SetOneDefault
-      this.$http.post( Wit.SetOneDefault, param).then(res => {
+        userNo: this.$store.state.no
+      };
+      this.$http.post(Wit.SetOneDefault, param).then(res => {
         if (res.data.code == 0) {
-			  this.MyBus();
+          this.MyBus();
         }
       });
     }
