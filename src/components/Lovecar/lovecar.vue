@@ -37,39 +37,42 @@
 						<img v-else class="pic1" src="../../../static/images/Wit/chechuang1.png" alt="">
 						<span :class="activeshow==3?'active':'actives'" class="txt1">车窗</span>
 					</div>
-
-				</div>
+              </div>
 				<img v-if="activeshow==1" class="line_x" src="../../../static/images/Wit/line3@3x.png" alt="">
 				<img v-else-if="activeshow==2" class="line_x" src="../../../static/images/Wit/line1@2x.png" alt="">
 				<img v-else-if="activeshow==3" class="line_x" src="../../../static/images/Wit/line2@3x.png" alt="">
 			</div>
 			<div class="bus_l">
 				<img src="../../../static/images/Wit/bus.png" alt="" class="bus_righgt">
-				<span class='busl_r left_1'>{{Condition.left_top}}</span>
-				<span class='busl_r  left_2'>{{Condition.right_top}}</span>
-				<span class='busl_r right_1'>{{Condition.left_bottom}}</span>
-				<span class='busl_r right_2'>{{Condition.right_top}}</span>
+				<span  ref='open' class='busl_r left_1'>{{Condition.left_top}}</span>
+				<span ref='open' class='busl_r  left_2'>{{Condition.right_top}}</span>
+				<span  ref='open' class='busl_r right_1'>{{Condition.left_bottom}}</span>
+				<span  ref='open' class='busl_r right_2'>{{Condition.right_top}}</span>
 				<span class='busl_r top_1'>未关</span>
 				<span class='busl_r bottom_1'>未关</span>
 				<span class='busl_r middle_1'>已关</span>
 			</div>
 		</div>
 		<div class="content lines">
-			<div class="content_1" @click="enter">
-				<img class="content_pic" src="../../../static/images/Wit/suoding.png" alt="">
-				<span class="content_txt">锁定</span>
+			<div class="content_1" @click="enter(1)">
+				<img  v-if="activeshows==1" class="content_pic" src="../../../static/images/Wit/button4@3x_32.png" alt="">
+				<img  v-else class="content_pic" src="../../../static/images/Wit/button4@3x.png" alt="">
+				<span  :class="activeshows==1?'act':'activess'" >锁定</span>
 			</div>
-			<div class="content_1">
-				<img class="content_pic" src="../../../static/images/Wit/weimen.png" alt="">
-				<span class="content_txt">尾门</span>
+			<div class="content_1"  @click="enter(2)">
+				<img  v-if="activeshows==2" class="content_pic" src="../../../static/images/Wit/button5@3x_86.png" alt="">
+				<img v-else  class="content_pic" src="../../../static/images/Wit/button5@3x.png" alt="">
+				<span :class="activeshows==2?'act':'activess'" >尾门</span>
 			</div>
-			<div class="content_1">
-				<img class="content_pic" src="../../../static/images/Wit/xihuo.png" alt="">
-				<span class="content_txt">熄火</span>
+			<div class="content_1"  @click="enter(3)">
+				<img v-if="activeshows==3" class="content_pic" src="../../../static/images/Wit/button6@3x_91.png" alt="">
+				<img v-else class="content_pic" src="../../../static/images/Wit/button6@3x.png" alt="">
+				<span :class="activeshows==3?'act':'activess'" >熄火</span>
 			</div>
-			<div class="content_1">
-				<img class="content_pic" src="../../../static/images/Wit/xunche.png" alt="">
-				<span class="content_txt">停车</span>
+			<div class="content_1" @click="enter(4)">
+				  <img v-if="activeshows==4"  class="content_pic" src="../../../static/images/Wit/button7@3x_2.png" alt="">
+					<img v-else class="content_pic" src="../../../static/images/Wit/button7@3x.png" alt="">
+				  <span :class="activeshows==4?'act':'activess'" >停车</span>
 			</div>
 		</div>
 		<ul style="padding:0 .2rem">
@@ -187,7 +190,8 @@ export default {
   name: "lovecar",
   data() {
     return {
-      activeshow: 1, //默认第一个高亮
+	  activeshow: 1, //默认第一个高亮
+	  activeshows:1,
       popupVisible: false,
       MaskIsshow: false, //黑色遮罩层
       num: 3,
@@ -222,9 +226,9 @@ export default {
 	  };
 	  if( this.activeshow==1){
 		this.Condition=tai
-	  }else if(this.activeshow==2){
-         this.Condition=door
-	  }else if(this.activeshow==3){
+		 }else if(this.activeshow==2){
+		 this.Condition=door
+		 }else if(this.activeshow==3){
         this.Condition=window
 	  }
     },
@@ -234,8 +238,15 @@ export default {
       this.popupVisible = false;
     },
     // 锁 尾 熄 停 事件
-    enter() {
-      this.popupVisible = true;
+    enter(type) {
+		  this.activeshows = type;
+		  if(type==4){
+			  setTimeout(()=>{
+				 this.activeshows=5
+			  },500)
+			
+		  }
+        //   this.popupVisible = true;
       // this.$http.post(Lovecar,{}).then((res)=>{
       // 		console.log(res)
       // })
@@ -585,7 +596,11 @@ input:focus {
 .active {
   color: #49bbff;
 }
-
+.act{
+	  color: #49bbff;
+	  font-size:.22rem;
+	  margin-top: .12rem;
+}
 .actives {
   color: #ccc !important;
 }
@@ -687,7 +702,7 @@ input:focus {
   color: #fff;
 }
 
-.content_txt {
+.activess{
   color: #444;
   font-size: 0.22rem;
   margin-top: 0.12rem;
