@@ -313,6 +313,29 @@
 						},this.$store.state.getpin).then((res) => {
 							console.log(res)
 						})
+						// var param={
+						// 		vin: "LS5A3CJC9JF810003",
+						// 		operationType: "LOCK",
+						// 		operation: 3,//操作项
+						// 		extParams: {
+						// 			userCategory: this.userCategory,
+						// 			newAccount: this.wifiData.name,
+						// 			newPwd:this.wifiData.pwd
+						// 		}
+						// 	}
+						// this.$http.post(Lovecar.Control,param,this.$store.state.getpin).then((res)=>{
+						// 		console.log(res)
+						// 		if(res.data.returnErrCode=="C01_0015"){
+						// 			this.$router.push({
+						// 				name:'wifi直连',
+						// 				params:{
+						// 					wifiname:this.wifiData.name,
+						// 					wifipwd:this.wifiData.pwd,
+						// 					userCategory:this.userCategory,
+						// 				}
+						// 			})
+						// 		}
+						// })
 					}, 2000);
 				}
 			}
@@ -329,6 +352,7 @@
 				})
 			}),
 			console.log(Lovecar)
+			console.log(1)
 			console.log(Lovecar.LogStatus)
 			this.$http.post(Lovecar.LogStatus,{},this.$store.state.getpin).then((res)=>{
 				console.log(res)

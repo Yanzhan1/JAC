@@ -38,7 +38,8 @@
 					//wifi密码
 					pwd: ''
 				},
-				userCategory:'',		
+				userCategory:'',
+				operationIds:'',		
 			}
 		},
 		methods: {
@@ -67,7 +68,8 @@
 								}
 							}
 						this.$http.post(Lovecar.Control,param,this.$store.state.getpin).then((res)=>{
-								console.log(res)
+							console.log(res.data)
+								this.operationIds=res.data.operationId
 								if(res.data.returnErrCode=="C01_0015"){
 									this.$router.push({
 										name:'wifi直连',
@@ -78,6 +80,10 @@
 										}
 									})
 								}
+						})
+						console.log(this.operationIds)
+						this.$http.post(Lovecar.OperationId,{operationId:this.operationIds},this.$store.state.getpin).then((res)=>{
+							console.log(res)
 						})
 					}
 				}).catch(err => {
