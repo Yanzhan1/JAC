@@ -23,11 +23,11 @@
                         </p>
                         <router-link to="/orderdetails" tag="div" class="flex row con">
                             <div class="flex column bus_left">
-                                <img style="height:1.2rem;width:2.46rem" src="../../../static/images/test/my/car_ruifeng_s5.png" alt="">
+                                <img style="height:1.2rem;width:2.46rem" :src=item.imageUrl alt="">
                                 <span class="busname">{{item.model}}</span>
                             </div>
                             <div class="flex column tp">
-                                <span class="bus_right">经销商：上海天马汽车销售有限</span>
+                                <span class="bus_right">经销商：{{item.dealerName}}</span>
                                 <span class="bus_right">地址：{{item.address}}</span>
                                 <span class="bus_right">订单编号：{{item.fkDealerId}}</span>
                                 <span class="bus_right">基本型 {{item.carColor}}</span>
@@ -189,14 +189,17 @@ export default {
     },
     //线索订单
       GetXorder(){
-          this.$http.post(Wit.ClueOrder,{"userNo":"UBS2018072410503423882"}).then(res=>{
+          var no=this.$store.state.no
+          console.log(no)
+          this.$http.post(Wit.ClueOrder,{"userNo":no}).then(res=>{
               if(res.data.code==0){
-                  this.Xorder=res.data.data
-                  for(let i =0;i<this.Xorder.length;i++){
+                  this.Xorder=res.data.data.records
+                for(let i =0;i<this.Xorder.length;i++){
                       this.Xorder[i].time= operationTime.getTime(  this.Xorder[i].createdDate, 1 );
                   }
-                  console.log(this.Xorder)
-              }
+                 
+           }
+           
          })
       }
   },

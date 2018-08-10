@@ -11,7 +11,7 @@
 				<span style="font-size: 0.26rem;color: #444444;">
 					旧密码:
 				</span>
-				<input v-model="condition.oldPassword" placeholder="请输入旧密码" type="text" />
+				<input  v-model="condition.oldPassword" placeholder="请输入旧密码" type="text" />
 			</div>
 		</div>
 		<div class="origin-pin">

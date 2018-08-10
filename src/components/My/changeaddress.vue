@@ -94,7 +94,6 @@ export default {
       }
     })
     this.Originaladdress=this.$route.params
-    console.log(this.Originaladdress)
     this.name=this.Originaladdress.receiveName
     this.num=this.Originaladdress.receiveMobile
     this.address=this.Originaladdress.address
@@ -144,17 +143,15 @@ export default {
           provinceName:this.provinceName,//所在的地区的名字
           address: this.address
         };
+        this.$http.post(Wit.ChangeAddress, param).then(res => {
+            if(res.data.code==0){
+                this.$router.go(-1)
+            }
+        });
         if(flag==1){
           this.$http.post(Wit.Defaultaddress,param).then((res)=>{
          })
         }
-        
-        this.$http.post(Wit.ChangeAddress, param).then(res => {
-            if(res.data.code==0){
-                
-                this.$router.go(-1)
-            }
-        });
 
 
       },

@@ -84,24 +84,24 @@ export default {
     return {
       popupVisible: false,
       sex: 1, //1男，0女
-      userInfo: {
-       
-        },
-      changeInfo: {}
+      userInfo: {}, //展示用户信息
+      changeInfo: {},//更该用户信息传的参数
+      headUrl:''//图片地址
     };
   },
   methods: {
     init() {},
     //图片更改
     changepicture(e) {
-     
-    var _this = this;
+      var _this = this;
       var reader = new FileReader();
       reader.onload = (function(file) {
         return function(e) {
-          console.log(e)
-          _this.userInfo.headUrl = this.result;//base64
-          //  _this.$http.post('http://172.20.20.69:8762//filestore/v1/picture',{img:this.result},pichead)
+           _this.userInfo.headUrl = this.result;//base64
+           _this.$http.post('http://172.20.20.69:8762/fi/filestore/v1/picture',_this.userInfo.headUrl).then(res=>{
+
+           })
+          
         };
       })(e.target.files[0]);
       reader.readAsDataURL(e.target.files[0]);
@@ -131,11 +131,6 @@ export default {
         this.changeInfo.personalSignature = this.userInfo.personalSignature;
         this.changeInfo.sex = this.userInfo.sex;
         this.changeInfo.no= "AD022018072505235135056",
-        // this.changeInfo.head_image = this.userInfo.head_image.replace(
-        //   "data:image/jpeg;base64,",
-        //   ""
-        // );
-    
        this.$http.post(Wit.UpUserinfo, this.changeInfo).then(res => {
           if (res.data.code == 0) {
                this.popupVisible = true;
