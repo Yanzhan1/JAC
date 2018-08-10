@@ -321,12 +321,17 @@
 			this.$http.post(Lovecar.Carquery, {
 				vins: ["LS5A3CJC9JF810003"]
 			}, this.$store.state.getpin).then((res) => {
-				console.log(res)
+
 				this.$http.post(Lovecar.OperationId, {
 					operationId: res.data.operationId
 				},this.$store.state.getpin).then((res) => {
-					console.log(res)
+				
 				})
+			}),
+			console.log(Lovecar)
+			console.log(Lovecar.LogStatus)
+			this.$http.post(Lovecar.LogStatus,{},this.$store.state.getpin).then((res)=>{
+				console.log(res)
 			})
 		}
 	};

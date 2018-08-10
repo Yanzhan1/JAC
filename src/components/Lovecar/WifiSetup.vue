@@ -67,6 +67,7 @@
 								}
 							}
 						this.$http.post(Lovecar.Control,param,this.$store.state.getpin).then((res)=>{
+								console.log(res)
 								if(res.data.returnErrCode=="C01_0015"){
 									this.$router.push({
 										name:'wifi直连',

@@ -7,7 +7,7 @@
 		</header>
 		<div style="height:0.88rem"></div>
 		<mt-cell :title="title">
-			<mt-switch @change="turn" v-model="value"></mt-switch>
+			<mt-switch  v-model="value"></mt-switch>
 		</mt-cell>
 		<div class="line"></div>
 		<div class="origin-pin">
@@ -47,10 +47,6 @@
 			}
 		},
 		methods: {
-			//输入框是否可输入
-			turn () {
-				this.disabled = !this.disabled
-			}
 		},
 		mounted(){
 			console.log(this.$route.params.userCategory)
