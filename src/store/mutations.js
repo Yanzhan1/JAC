@@ -11,5 +11,11 @@ export default {
     },
     [types.TOKEN]: (state, payload) => {
     	state.token = payload
+    },
+    [types.USERID]: (state, payload) => {
+      state.userId = payload
+    },
+    [types.UUID]: (state, payload) => {
+      state.uuid = payload
     }
 }

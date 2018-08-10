@@ -11,5 +11,11 @@ export default {
     },
     TOKEN: ({commit, state}, payload) => {
     	commit(types.TOKEN, payload)
-    }
+    },
+    userId: ({ commit, state }, payload) => {
+      commit(types.USERID, payload)
+    },
+    uuid: ({ commit, state }, payload) => {
+      commit(types.UUID, payload)
+    },
 }

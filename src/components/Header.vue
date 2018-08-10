@@ -143,12 +143,16 @@
       },
       //发布心情
       publish:function () {
-         this.$router.push({path:"/now/addPic"})
-        /*if (isMobile.iOS()) {
-          window.webkit.messageHandlers.send.postMessage("");
-        } else if(isMobile.Android()) {
-          NativeJavaScriptInterface.send("圈子");
-        }*/
+         // this.$router.push({path:"/now/addPic"})
+        if (isMobile.iOS()) {
+          let uuid = this.$store.state.uuid;
+          let params = {
+            uuid
+          }
+          window.webkit.messageHandlers.send.postMessage(params);
+        } else if (isMobile.Android()) {
+          js2android.send("圈子", this.$store.state.uuid, null);
+        }
       },
       open: function() {
         this.popup = true
