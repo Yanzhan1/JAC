@@ -399,6 +399,7 @@ export default {
       });
   }
 };
+	
 </script>
 <style scoped>
 .pin-code {
