@@ -146,7 +146,7 @@ export default {
         };
         if(flag==1){
           this.$http.post(Wit.Defaultaddress,param).then((res)=>{
-         s})
+         })
         }
         
         this.$http.post(Wit.ChangeAddress, param).then(res => {
