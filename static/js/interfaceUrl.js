@@ -1,7 +1,5 @@
-
-
 const constants = require('@constants/index.js')
-const {apiHost} = constants
+const { apiHost } = constants
 
 console.log(`执行环境${apiHost}`)
 var indexip = `${apiHost}/api/dk-dm-portal-api`
@@ -163,4 +161,5 @@ window.Lovecar = {
     LoginOut: mipss + '/vehicle/remote-vehicle-login-or-logout', //退出登录
     Findcode: mipss + '/vehicle/forget-vehicle-pin', //找回pin码
     Control: mipss + '/vehicle/remote-vehicle-control', //远程控制
+    LogStatus: mipss + '/vehicle/vehicle-logStatus' //获取机车登入状态
 }
