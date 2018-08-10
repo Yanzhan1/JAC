@@ -34,7 +34,7 @@ export default {
   methods: {
     AddMybus() {
       var param = {
-       userNo: "UBS2018072410503423882",
+        userNo: this.$store.state.no,
         engineNo: "VJ00102",
         vin: "LJ1702345G8001011"
       };

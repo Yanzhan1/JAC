@@ -45,7 +45,7 @@
           <div style="text-align: right;color: #49BBFF;margin-right:.2rem;" @click="hides()">确定</div>
           <mt-picker :slots="slots" @change="onValuesChange" ></mt-picker>
         </div>
-        <div style="height:10rem"></div>
+        
         <span class="bottom-btn" @click="handleSubmit">保存</span>
     </div>
 </template>
