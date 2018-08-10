@@ -19,12 +19,10 @@ export default {
         this.$store.dispatch('isLogin',true);
         this.$store.dispatch('userId',userInfo.userId);
         this.$store.dispatch('uuid',userInfo.uuid);
-        alert("登录了！接收到:"+userInfo.userId+"vuex: islogin:"+this.$store.state.islogin+" userId:"+this.$store.state.userId)
       }else{
         this.$store.dispatch('isLogin',false);
         this.$store.dispatch('userId',null);
         this.$store.dispatch('uuid',null);
-        alert("登出了！接收到:"+userInfo+"vuex: islogin:"+this.$store.state.islogin+" userId:"+this.$store.state.userId)
 
       }
     },
