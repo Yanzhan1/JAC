@@ -91,10 +91,19 @@
 					});
 					return false;
 				} else {
-					this.$http.post(Lovecar.Findcode,{newPin:this.pin.newPin},this.$store.state.getpin).then((res)=>{
-						console.log(res)
-					})
-					// this.$router.push('/lovecar/reviseSuccess')
+					if(this.pin.verificationCode==this.Verification){
+						this.$http.post(Lovecar.Findcode,{newPin:this.pin.newPin},this.$store.state.getpin).then((res)=>{
+							console.log(res)
+							this.$router.push('/lovecar/reviseSuccess')
+							})
+						}else{
+							Toast({
+							message: '请输入正确的验证码',
+							position: 'middle',
+							duration: 2000
+					});
+						}
+					
 				}
 				
 			}

@@ -160,7 +160,7 @@
 			},
 		},
 		mounted(){
-
+			
 		},
 		watch:{
 			pinNumber(newVal, oldVal) {

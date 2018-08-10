@@ -34,9 +34,9 @@
 			return {
 				//wifi数据
 				wifiData: {
-					name: 'QEwDdsdSasV',
+					name: '',
 					//wifi密码
-					pwd: '123456'
+					pwd: ''
 				},
 				userCategory:'',		
 			}
@@ -67,7 +67,16 @@
 								}
 							}
 						this.$http.post(Lovecar.Control,param,this.$store.state.getpin).then((res)=>{
-								console.log(res)
+								if(res.data.returnErrCode=="C01_0015"){
+									this.$router.push({
+										name:'wifi直连',
+										params:{
+											wifiname:this.wifiData.name,
+											wifipwd:this.wifiData.pwd,
+											userCategory:this.userCategory,
+										}
+									})
+								}
 						})
 					}
 				}).catch(err => {
@@ -79,6 +88,8 @@
 		},
 		mounted(){
 			this.$route.params.userCategory?this.userCategory=1:this.userCategory=2
+			this.wifiData.name=this.$route.params.names
+			this.wifiData.pwd=this.$route.params.pwd
 			console.log(this.userCategory)
 		}
 	}

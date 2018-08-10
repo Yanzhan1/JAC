@@ -308,6 +308,7 @@ export default {
     if(this.times!='周'){
       this.week_left()
     }
+    this.reduceleft()
   },
   methods: {
     choose_times() {
@@ -342,6 +343,15 @@ export default {
         this.opentime = false;
       }, 200);
       this.times = "日";
+    },
+    //解决周部分不需要右margin的问题
+    reduceleft(){
+      if(this.times=='周'){
+      var dt = new Date(this.newdates.years, this.newdates.months - 1, 1);
+      var n = dt.getDay();
+      var center_l = document.getElementsByClassName("date_center");
+      center_l[0].style.marginLeft='0rem';
+      }
     },
     //根据每个月的1号是星期几判断每个月1号与左边的距离
     week_left(){
@@ -619,16 +629,18 @@ export default {
         this.showweek--;
       }
         this.week_choose();
-      // if (this.showweek > 2 && this.showweek <= 6) {
-      //   this.week_left()
-      // }
+      if (this.showweek > 2 && this.showweek <= 6) {
+        this.week_left()
+      }
+      this.reduceleft()
     },
     //点击切换右按钮的周
     turn_r_week() {
       if (this.showweek > 0 && this.showweek < 6) {
         this.showweek++;
       }
-          this.week_choose()
+      this.week_choose()
+      this.reduceleft()
     },
     turn_l() {
       this.newdates.months--;
@@ -712,6 +724,7 @@ export default {
       }
       this.week_left()
     },
+    //判断当前日期后无燃油数据以及选择当前日期
     changecolor(el,index) {
       var date = new Date();
       var year = date.getFullYear();
@@ -734,6 +747,7 @@ export default {
         this.showdate = el.target.innerHTML;
       }
     },
+    //点击后把需要展示的年月日以及一些需要的数据传过去
     cheeks() {
       if(this.times=='日'){
         this.monthsstart=this.Changetimestamp();
@@ -754,18 +768,6 @@ export default {
           showtopdate:this.showdate,
         }
       });
-        // if(this.times=='月'){
-        //   this.times='months'
-        // }
-        // if(this.times=='周'){
-        //   this.times='week'
-        // }
-        // if(this.times=='日'){
-        //   this.times=='day'
-        // }
-      	// this.$http.post(Lovecar.Fuel,{vin: "1G",beginTime:this.monthsstart,endTime:this.monthsend,type:this.times},getpin).then((res)=>{
-				// console.log(res)
-			// })
     },
     //转化时间戳
     Changetimestamp(value){

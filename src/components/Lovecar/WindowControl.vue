@@ -78,8 +78,8 @@
 					<span @click="remind">不再提醒</span>
 				</div>
 				<div class="info-btn">
-					<button @click="winConfirm">确定</button>
-					<button @click="reduceWindow" style="width: 48%;">取消</button>
+					<button @click="winConfirm">取消</button>
+					<button @click="reduceWindow" style="width: 48%;">确定</button>
 				</div>
 			</div>
 		</mt-popup>
