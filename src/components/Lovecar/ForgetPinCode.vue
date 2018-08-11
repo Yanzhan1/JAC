@@ -79,6 +79,9 @@
 				this.$http.post(Lovecar.Getphonepin,{phoneNum: phone},this.$store.state.getpin).then((res)=>{
 					this.Verification=res.data.data;
 					console.log(this.Verification)
+					if(this.Verification==this.pin.verificationCode){
+						console.log('验证码正确')
+					}
 				})
 			},
 			//底部确认提交
@@ -90,11 +93,17 @@
 						duration: 2000
 					});
 					return false;
-				} else {
+				} else if(this.Verification==this.pin.verificationCode){
 					this.$http.post(Lovecar.Findcode,{newPin:this.pin.newPin},this.$store.state.getpin).then((res)=>{
 						console.log(res)
-					})
 					// this.$router.push('/lovecar/reviseSuccess')
+					})
+				} else {
+					Toast({
+						message: '请输入正确的验证码',
+						position: 'middle',
+						duration: 2000
+					});
 				}
 				
 			}
