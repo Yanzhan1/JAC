@@ -82,7 +82,11 @@
 				</div>
 				<img src="../../../static/images/my/next@2x.png" alt="">
 			</router-link>
+<<<<<<< HEAD
 			<div class="mylist" @click="recommended">
+=======
+			<div class="mylist" @click="Recommend" >
+>>>>>>> ddd
 				<div class="flex cocenter">
 					<img src="../../../static/images/my/mine_recommend@2x.png" alt="">
 					<span>推荐码</span>
@@ -167,7 +171,11 @@
 //					alert(Iosno)
 				}
 			},
+<<<<<<< HEAD
 			recommended(){
+=======
+			Recommend(){
+>>>>>>> ddd
 				this.$router.push('/Recommended')
 			}
 		},

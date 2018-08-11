@@ -724,7 +724,11 @@ export default {
       }
       this.week_left()
     },
+<<<<<<< HEAD
     //判断当前日期后无燃油数据以及选择当前日期
+=======
+    //日部分判断点击之后的日子没有燃油数据以及日的选择
+>>>>>>> ddd
     changecolor(el,index) {
       var date = new Date();
       var year = date.getFullYear();
@@ -747,8 +751,13 @@ export default {
         this.showdate = el.target.innerHTML;
       }
     },
+<<<<<<< HEAD
     //点击后把需要展示的年月日以及一些需要的数据传过去
+=======
+    //点击查询时候传过去的东西
+>>>>>>> ddd
     cheeks() {
+      //根据选择的是日或者周选择传过去的起始和结束时间戳
       if(this.times=='日'){
         this.monthsstart=this.Changetimestamp();
         this.monthend=new Date().getTime()
@@ -761,11 +770,11 @@ export default {
       this.$router.push({
         name:'燃油查询',
         params:{
-          begintime:this.monthsstart,
-          endtime:this.monthsend,
-          times:this.times,
-          showtop:this.newdates,
-          showtopdate:this.showdate,
+          begintime:this.monthsstart,//传过去的起始时间戳
+          endtime:this.monthsend,//传过去的结束时间戳
+          times:this.times,//传过去的顶部显示的年月日
+          showtop:this.newdates,//传过去的具体年和月是个对象
+          showtopdate:this.showdate,//传过去的具体日
         }
       });
     },

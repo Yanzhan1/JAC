@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 const constants = require('@constants/index.js')
 const { apiHost } = constants
 
 console.log(`执行环境${apiHost}`)
 var indexip = `${apiHost}/api/dk-dm-portal-api`
+=======
+var indexip = 'http://test.jac.timanetwork.net/api/dk-dm-portal-api'
+>>>>>>> ddd
     //服务器-智享
 var mip = 'http://172.20.20.69:8082/automobilemanage' //智享
     //服务器-admin(跟用户有关即我的)
@@ -22,14 +26,14 @@ var li = 'http://172.21.12.19:8083'
 var rec = 'http://172.20.20.69:8083/'
     //var indexip = 'http://172.18.31.40:8868'
     //首页
-window.INDEXMESSAGE = {
+var INDEXMESSAGE = {
     getRecommend: indexip + '/recommend/recommendList', //首页-推荐
     getInfomation: indexip + '/information/indexList', //首页-资讯
     getActivity: indexip + '/activity/indexList', //首页-活动
     getNow: indexip + '/moment/indexList', //首页-此刻
     getQuestion: indexip + '/question/indexList', //首页-问答
 }
-window.DISCOVERMESSAGE = {
+var DISCOVERMESSAGE = {
         /*资讯*/
         informationGiveLike: indexip + '/userLike/giveInformationLike', //资讯点赞
         informationRemoveLike: indexip + '/userLike/removeInformationLike', //资讯取消点赞
@@ -106,7 +110,7 @@ window.DISCOVERMESSAGE = {
         getOneComment: indexip + '/userComment/getOneComment', //进入评论页获取当前评论所有回复
     }
     // 智享
-window.Wit = {
+var Wit = {
         MainBus: mip + '/vehicleModel/searchVehicleModelList', //全部车型 主推车型
         Dealer: mip + '/dealerBaseInformation/searchDealerBaseInformationListPage', //经销商查询
         Switching: mip + '/vehicleBrand/searchVehicleBrandList', //频道选择
@@ -148,16 +152,17 @@ window.Wit = {
 
     }
     //爱车
-window.Lovecar = {
+var Lovecar = {
     Carquery: mipss + '/vehicle/query-vehicle-condition', //车辆车况查询
-    OperationId: mipss + '/vehicle/vehicle-async-result', //获取车辆车况查询返回的operationId发送给后端
+    // OperationId: mipss + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
+    OperationId: mipss + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
     Changepin: mipss + '/vehicle/update-vehicle-pin', //修改pin码
     Getphonepin: mipss + '/vehicle//identify-code', //获取验证码
     Checkphonepin: mipss + '/vehicle/check-vehicle-pin', //验证pin码
     BusTest: mipss + 'vehicle/query-cyc-car-examination', //车辆体检
     Fuel: mipss + '/vehicle/query-vehicle-fuel-Statistics', //燃油接口
     Flow: mipss + '/vehicle/query-vehicle-cyc-flow-query', //流量查询
-    Longrange: mipss + '/vehicle/set-vehicle-remoteset', //远程设置
+    Longrange: mipss + '/vehicle/set-vehicle-remoteset', //车辆远程设置
     LoginOut: mipss + '/vehicle/remote-vehicle-login-or-logout', //退出登录
     Findcode: mipss + '/vehicle/forget-vehicle-pin', //找回pin码
     Control: mipss + '/vehicle/remote-vehicle-control', //远程控制

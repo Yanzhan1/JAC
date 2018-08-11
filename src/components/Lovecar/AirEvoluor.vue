@@ -378,6 +378,7 @@
 				//				console.log(this.pinNumber.length)
 				if(this.pinNumber.length == 6) {
 					setTimeout(() => {
+						//输入的pin码
 						var nums=this.pinNumber
 						this.value = !this.value
 						//pin码正确激活弧线

@@ -170,7 +170,7 @@ export default {
           var xia=new Date(this.xia).getTime()
           if(shang>xia){
               Toast({
-                  message:'输入时间不能大于结束时间',
+                  message:'起始时间不能大于结束时间',
                   position:'middle',
                   duration:2000,
               })
@@ -184,12 +184,12 @@ export default {
           else{
               var param={
                     vin: "LS5A3CJC9JF810003", 
-                    operationType: "CONTROL_AUTH", 
-                    operation: 1, 
+                    operationType: "CONTROL_AUTH", //操作类型
+                    operation: 1, //操作项
                     extParams: {
-                    childNum: this.Account, 
-                    beginTime: shang, 
-                    endTime: xia,
+                    childNum: this.Account, //被授权账号
+                    beginTime: shang, //起始的时间戳
+                    endTime: xia,//结束时间戳
                 }
             }
         this.$http.post(Lovecar.Longrange,param,this.$store.state.getpin).then((res)=>{
