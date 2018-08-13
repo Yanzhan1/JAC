@@ -145,7 +145,7 @@ export default {
     }
   },
   created(){
-     
+        console.log(Wit)
     //获取主推车型，传{}表示全部车型
      var param={
         

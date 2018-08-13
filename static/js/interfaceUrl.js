@@ -1,13 +1,12 @@
-<<<<<<< HEAD
 const constants = require('@constants/index.js')
 const { apiHost } = constants
 
 console.log(`执行环境${apiHost}`)
 var indexip = `${apiHost}/api/dk-dm-portal-api`
-=======
+
 var indexip = 'http://test.jac.timanetwork.net/api/dk-dm-portal-api'
->>>>>>> ddd
-    //服务器-智享
+
+//服务器-智享
 var mip = 'http://172.20.20.69:8082/automobilemanage' //智享
     //服务器-admin(跟用户有关即我的)
 var mips = 'http://172.20.20.69:8081/' //地区
@@ -110,7 +109,7 @@ var DISCOVERMESSAGE = {
         getOneComment: indexip + '/userComment/getOneComment', //进入评论页获取当前评论所有回复
     }
     // 智享
-var Wit = {
+window.Wit = {
         MainBus: mip + '/vehicleModel/searchVehicleModelList', //全部车型 主推车型
         Dealer: mip + '/dealerBaseInformation/searchDealerBaseInformationListPage', //经销商查询
         Switching: mip + '/vehicleBrand/searchVehicleBrandList', //频道选择
@@ -152,7 +151,7 @@ var Wit = {
 
     }
     //爱车
-var Lovecar = {
+window.Lovecar = {
     Carquery: mipss + '/vehicle/query-vehicle-condition', //车辆车况查询
     // OperationId: mipss + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
     OperationId: mipss + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
