@@ -7,22 +7,16 @@ var indexip = `${apiHost}/api/dk-dm-portal-api`
 var indexip = 'http://test.jac.timanetwork.net/api/dk-dm-portal-api'
 
 //服务器-智享
-var mip = 'http://172.20.20.69:8082/automobilemanage' //智享
-    //服务器-admin(跟用户有关即我的)
-var mips = 'http://172.20.20.69:8081/' //地区
+var mip = 'http://172.20.20.70:8082/automobilemanage' //智享
+//服务器-admin(跟用户有关即我的)
+var mips = 'http://172.20.20.70:8081/' //地区
 
-var mipss = 'http://172.20.20.69:8084/' //爱车
-
-var mipsss = 'http://172.21.4.184:8084/' //爱车本地服务器  yys
-
-var mipes = 'http://172.21.4.37:8081/automobilemanage' //my收货地址部分 杨毅飞本地
-
-//李明→本地反馈详情
-var li = 'http://172.21.12.19:8083'
-
+var mipss = 'http://172.20.20.70:8084/' //爱车
 
 //服务器→反馈记录
-var rec = 'http://172.20.20.69:8083/'
+var rec = 'http://172.20.20.70:8083/'
+
+
     //var indexip = 'http://172.18.31.40:8868'
     //首页
 var INDEXMESSAGE = {
@@ -141,13 +135,12 @@ window.Wit = {
         RemoveAddress: mips + '/admin/userAddress/deleteUserAddress', //my部分删除当前地址
         AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
         ChangeAddress: mips + '/admin/userAddress/updateUserAddress', //my部分修改地址
-        // ChangeAddress: mipes + '/admin/userAddress/updateUserAddress', //my部分修改地址
         Defaultaddress: mips + '/admin/userAddress/setDefaultAddress', //my部分设置默认地址
         MyDealer: mip + '/dealerBaseInformation/selectSeriesDealerBaseInformation', //我的 我的经销商列表
         UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
         UpUserinfo: mips + '/admin/userBaseInformation/updateUserBaseInformation', //更改用户信息
         //      updateUserPassword: mips + '/admin/userBaseInformation/updateUserPassword',//用户修改密码
-        getComAndSugDet: li + '/enjoyservice/complaintsSuggestionsReply/getComAndSugDet', //反馈详情→李明本地
+        getComAndSugDet: rec + '/enjoyservice/complaintsSuggestionsReply/getComAndSugDet', //反馈详情
 
     }
     //爱车

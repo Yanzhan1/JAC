@@ -49,8 +49,8 @@
 					cancelButtonHighlight: true
 				}).then(action => {
 					if(action == 'confirm') {
-						//跳转修改成功页面
-						console.log('abc');
+						//退出App
+						window.js2android.logout()
 					}
 				}).catch(err => {
 					if(err == 'cancel') {
@@ -66,5 +66,7 @@
 </script>
 
 <style scoped>
-
+	.mint-msgbox {
+		height: 23% !important;
+	}
 </style>

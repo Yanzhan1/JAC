@@ -359,6 +359,10 @@ export default {
         console.log(this.Idchooseaddress)
    },
     onDateChange(picker,values){
+//  	let da = getValues()
+//  	console.log(da)
+//  	console.log(values)
+//  	console.log(picker)
         this.allvalues=values;
         this.onDateChangevalue=values[1]
        

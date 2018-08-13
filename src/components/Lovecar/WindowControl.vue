@@ -72,10 +72,10 @@
 				<div class="info-content">
 					<span>降下车窗可能存在风险，请确定车机已允许该操作。</span>
 				</div>
-				<div class="info-time">
+				<div class="info-time" @click="remind">
 					<img v-if="remindState" :src="'./static/images/Lovecar/loseWindow.png'" alt="" />
 					<img v-else :src="'./static/images/Lovecar/window2@2x.png'" alt="" />
-					<span @click="remind">不再提醒</span>
+					<span style="margin-top: 0.1rem;">不再提醒</span>
 				</div>
 				<div class="info-btn">
 					<button @click="winConfirm">取消</button>
@@ -447,6 +447,7 @@
 		align-items: center;
 	}
 	.mint-popup {
+		width: 84%;
 		border-radius: 0.1rem;
 	}
 	/*车窗头部*/
@@ -588,8 +589,7 @@
 	/*页面进入提示*/
 	
 	.wind-wrap {
-		width: 6.3rem;
-		padding: 0.44rem 0.58rem 0.33rem;
+		padding: 0.44rem 0.58rem 0.1rem;
 	}
 	
 	.window-title {
