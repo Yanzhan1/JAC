@@ -54,25 +54,25 @@
 			</div>
 		</div>
 		<div class="content lines">
-			<div class="content_1" @click="enter(1)">
-				<img  v-if="activeshows==1" class="content_pic" src="../../../static/images/Wit/button4@3x_32.png" alt="">
+			<div class="content_1" @click="isTrue=!isTrue">
+				<img  v-if="activeshows==this.isTrue" class="content_pic" src="../../../static/images/Wit/button4@3x_32.png" alt="">
 				<img  v-else class="content_pic" src="../../../static/images/Wit/button4@3x.png" alt="">
-				<span  :class="activeshows==1?'act':'activess'" >锁定</span>
+				<span  :class="activeshows==this.isTrue?'act':'activess'" >锁定</span>
 			</div>
-			<div class="content_1"  @click="enter(2)">
-				<img  v-if="activeshows==2" class="content_pic" src="../../../static/images/Wit/button5@3x_86.png" alt="">
+			<div class="content_1"  @click="isTrues=!isTrues">
+				<img  v-if="activeshows==this.isTrues" class="content_pic" src="../../../static/images/Wit/button5@3x_86.png" alt="">
 				<img v-else  class="content_pic" src="../../../static/images/Wit/button5@3x.png" alt="">
-				<span :class="activeshows==2?'act':'activess'" >尾门</span>
+				<span :class="activeshows==this.isTrues?'act':'activess'" >尾门</span>
 			</div>
-			<div class="content_1"  @click="enter(3)">
-				<img v-if="activeshows==3" class="content_pic" src="../../../static/images/Wit/button6@3x_91.png" alt="">
+			<div class="content_1"   @click="isTruess=!isTruess">
+				<img v-if="activeshows==this.isTruess" class="content_pic" src="../../../static/images/Wit/button6@3x_91.png" alt="">
 				<img v-else class="content_pic" src="../../../static/images/Wit/button6@3x.png" alt="">
-				<span :class="activeshows==3?'act':'activess'" >熄火</span>
+				<span :class="activeshows==this.isTruess?'act':'activess'" >熄火</span>
 			</div>
-			<div class="content_1" @click="enter(4)">
-				  <img v-if="activeshows==4"  class="content_pic" src="../../../static/images/Wit/button7@3x_2.png" alt="">
+			<div class="content_1" @click="enter()">
+				  <img v-if="activeshows==this.isTruesss"  class="content_pic" src="../../../static/images/Wit/button7@3x_2.png" alt="">
 					<img v-else class="content_pic" src="../../../static/images/Wit/button7@3x.png" alt="">
-				  <span :class="activeshows==4?'act':'activess'" >停车</span>
+				  <span :class="activeshows==this.isTruesss?'act':'activess'" >停车</span>
 			</div>
 		</div>
 		<ul style="padding:0 .2rem">
@@ -190,12 +190,16 @@ export default {
   name: "lovecar",
   data() {
     return {
-	  activeshow: 1, //默认第一个高亮
-	  activeshows:1,
+	     activeshow: 1, //默认第一个高亮
+	    activeshows:1,
       popupVisible: false,
       MaskIsshow: false, //黑色遮罩层
       num: 3,
-      IsShow: false,
+       isTrue:true,//锁定
+       isTruesss:false,//停车
+       isTruess:false,//熄火
+       isTrues:false,//尾门
+       IsShow: false,
       keyNums: [],
       msg: "车机已登录",
 	  pinNumber: "",
@@ -238,18 +242,11 @@ export default {
       this.popupVisible = false;
     },
     // 锁 尾 熄 停 事件
-    enter(type) {
-		  this.activeshows = type;
-		  if(type==4){
-			  setTimeout(()=>{
-				 this.activeshows=5
-			  },500)
-			
-		  }
-        //   this.popupVisible = true;
-      // this.$http.post(Lovecar,{}).then((res)=>{
-      // 		console.log(res)
-      // })
+    enter() {
+		 this.isTruesss=!this.isTruesss
+      setTimeout(()=>{
+ this.isTruesss=!this.isTruesss
+      },500)  
     },
     //关闭PIN码弹框
     cancel() {
