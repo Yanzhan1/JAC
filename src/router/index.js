@@ -19,6 +19,7 @@ import IntelligentParkingInfo from "@/components/Lovecar/IntelligentParkingInfo"
 import IntelligentParkingUninfo from "@/components/Lovecar/IntelligentParkingUninfo" //智能停车G3
 import AirConditionControl from "@/components/Lovecar/AirConditionControl" //空调控制
 import AdjustSeatTemper from "@/components/Lovecar/AdjustSeatTemper" //座椅调温
+import AdjustSeatAeration from "@/components/Lovecar/AdjustSeatAeration" //座椅通风
 import WindowControl from "@/components/Lovecar/WindowControl" //车窗控制
 import SkylightControl from "@/components/Lovecar/SkylightControl" //天窗控制
 import AirEvoluor from "@/components/Lovecar/AirEvoluor" //空气进化器
@@ -242,6 +243,11 @@ export default new Router({
                 path: "/lovecar/adjustSeatTemper",
                 name: '座椅调温',
                 component: AdjustSeatTemper
+            },
+            {
+                path: "/lovecar/adjustSeatAeration",
+                name: '座椅通风',
+                component: AdjustSeatAeration
             },
             {
                 path: "/lovecar/windowControl",

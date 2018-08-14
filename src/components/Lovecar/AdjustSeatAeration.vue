@@ -2,8 +2,8 @@
 	<div class="adjust-seat-temper">
 		<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-			<router-link tag='span' class="seatAeration" to="/lovecar/adjustSeatAeration">座椅通风<span></span></router-link>
-			<router-link tag='span' class="seatHeating active" style="margin-right: 1.3rem;" to="/lovecar/adjustSeatTemper">座椅加热<span></span></router-link>
+			<router-link tag='span' class="seatAeration active" to="/lovecar/adjustSeatAeration">座椅通风<span></span></router-link>
+			<router-link tag='span' class="seatHeating" style="margin-right: 1.3rem;" to="/lovecar/adjustSeatTemper">座椅加热<span></span></router-link>
 		</header>
 		<div style="height:0.88rem"></div>
 		<div class="seat-header">
@@ -19,8 +19,8 @@
 
 			</div>
 			<div class="seat-sign flex-column">
-				<span class="seat-ch">座椅加热</span>
-				<span class="seat-en">SEATHEATING</span>
+				<span class="seat-ch">座椅通风</span>
+				<span class="seat-en">CHAIRAERATION</span>
 				<span style="width: 0.54rem;height: 1px; background: rgba(153,153,153,1);margin-bottom: 0.4rem;"></span>
 			</div>
 		</div>

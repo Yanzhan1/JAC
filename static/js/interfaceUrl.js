@@ -19,14 +19,14 @@ var rec = 'http://172.20.20.70:8083/'
 
     //var indexip = 'http://172.18.31.40:8868'
     //首页
-var INDEXMESSAGE = {
+window.INDEXMESSAGE = {
     getRecommend: indexip + '/recommend/recommendList', //首页-推荐
     getInfomation: indexip + '/information/indexList', //首页-资讯
     getActivity: indexip + '/activity/indexList', //首页-活动
     getNow: indexip + '/moment/indexList', //首页-此刻
     getQuestion: indexip + '/question/indexList', //首页-问答
 }
-var DISCOVERMESSAGE = {
+window.DISCOVERMESSAGE = {
         /*资讯*/
         informationGiveLike: indexip + '/userLike/giveInformationLike', //资讯点赞
         informationRemoveLike: indexip + '/userLike/removeInformationLike', //资讯取消点赞
