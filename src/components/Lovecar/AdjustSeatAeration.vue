@@ -333,7 +333,7 @@
 				this.httpcoolmain()
 			},
 			endright(){
-
+				this.httpcoolnext()
 			},
 			//主驾通风接口
 			httpcoolmain(){
@@ -457,6 +457,7 @@
 							} else {
 								//消失遮罩
 								this.popupVisible = !this.popupVisible
+								this.httpcoolnext()
 								//消失软键盘
 								this.showTyper = 0,
 								//清空pin码
