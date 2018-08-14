@@ -37,7 +37,8 @@ export default {
     height: 1.18rem;
     justify-content: center;
     align-items: center;
-    position: relative;
+    position: fixed;
+    top:0
 }
 .specil>p{
     padding: .25rem;

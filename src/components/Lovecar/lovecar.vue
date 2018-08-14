@@ -57,7 +57,7 @@
 			<div class="content_1" @click="doors">
 				<img  v-if="activeshows==this.isTrue" class="content_pic" src="../../../static/images/Wit/button4@3x_32.png" alt="">
 				<img  v-else class="content_pic" src="../../../static/images/Wit/button4@3x.png" alt="">
-				<span  :class="activeshows==this.isTrue?'act':'activess'" >锁定</span>
+				<span  :class="activeshows==this.isTrue?'act':'activess'" >车门</span>
 			</div>
 			<div class="content_1"  @click="isTrues=!isTrues">
 				<img  v-if="activeshows==this.isTrues" class="content_pic" src="../../../static/images/Wit/button5@3x_86.png" alt="">
