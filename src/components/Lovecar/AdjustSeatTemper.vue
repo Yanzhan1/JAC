@@ -140,7 +140,6 @@
 				windNum: ['低', '中', '高'],
 				//副驾展示
 				fuWindNum: ['低', '中', '高'],
-				winMin: 0,
 				//pin码弹出框控制变量
 				popupVisible: false,
 				//pin码值
@@ -153,9 +152,7 @@
 				seatTemperSpace: 0,
 				//副驾座椅弧线温度默认点
 				fuSeatTemperSpace: 0,
-				//曲线状态
-				curveState: false,
-				//左右按钮
+				//左右按钮判断
 				btnContent: ''
 			}
 		},
@@ -348,8 +345,7 @@
 			}
 		},
 		watch: {
-			pinNumber(newVal, oldVal) {				
-				//				console.log(this.pinNumber.length)
+			pinNumber(newVal, oldVal) {	//监听一个input输入值(与自定义软键盘配合)，激活对应状态			
 				if(this.pinNumber.length == 6) {
 						var nums = this.pinNumber
 						this.$http.post(Lovecar.Checkphonepin, {
@@ -357,32 +353,34 @@
 						},this.$store.state.getpin).then((res) => {
 							const data = res.data
 							if (data.returnSuccess == true) {
-								if (this.btnContent == '主驾') {
+								if (this.btnContent == '主驾') {//主驾调温激活
 									this.value = !this.value
-									//pin码正确激活弧线
-									this.curveState = !this.curveState
 									//pin码正确激活主驾座椅图
 									this.activeShowImgLeft = !this.activeShowImgLeft,
-										//消失遮罩
-										this.popupVisible = !this.popupVisible
+									//消失遮罩
+									this.popupVisible = !this.popupVisible
 									//消失软键盘
 									this.showTyper = 0,
-										//清空pin码
+									//清空pin码
 									this.pinNumber = ''
-								} else {
+								} else {   //副驾调温激活
 									this.aeraValue = !this.aeraValue
-									//pin码正确激活弧线
-									this.curveState = !this.curveState
 									//pin码正确激活座椅图
 									this.activeShowImgRight = !this.activeShowImgRight,
-										//消失遮罩
-										this.popupVisible = !this.popupVisible
+									//消失遮罩
+									this.popupVisible = !this.popupVisible
 									//消失软键盘
 									this.showTyper = 0,
-										//清空pin码
+									//清空pin码
 									this.pinNumber = ''
 								}								
 							} else {
+								//消失遮罩
+								this.popupVisible = !this.popupVisible
+								//消失软键盘
+								this.showTyper = 0,
+								//清空pin码
+								this.fullValue = ''
 								let instance = Toast({
                                        message: data.returnErrCode,
                                        position: 'middle',
@@ -399,7 +397,7 @@
 						})
 				}
 			},
-			fullValue (newVal, oldVal) {
+			fullValue (newVal, oldVal) { //监听拼接后的input输入框值(与手机自带键盘配合)，激活对应的状态
 				if(this.fullValue.length == 6) {
 					var nums = this.fullValue
 						this.$http.post(Lovecar.Checkphonepin, {
@@ -407,10 +405,8 @@
 						},this.$store.state.getpin).then((res) => {
 							const data = res.data
 							if (data.returnSuccess == true) {
-								if (this.btnContent == '主驾') {
+								if (this.btnContent == '主驾') { //判断为主驾的时候激活主驾曲线和图
 									this.value = !this.value
-									//pin码正确激活弧线
-									this.curveState = !this.curveState
 									//pin码正确激活主驾座椅图
 									this.activeShowImgLeft = !this.activeShowImgLeft,
 										//消失遮罩
@@ -421,8 +417,6 @@
 									this.fullValue = ''
 								} else {
 									this.aeraValue = !this.aeraValue
-									//pin码正确激活弧线
-									this.curveState = !this.curveState
 									//pin码正确激活座椅图
 									this.activeShowImgRight = !this.activeShowImgRight,
 									//消失遮罩
@@ -433,8 +427,14 @@
 									this.fullValue = ''
 								}								
 							} else {
+								//消失遮罩
+								this.popupVisible = !this.popupVisible
+								//消失软键盘
+								this.showTyper = 0,
+								//清空pin码
+								this.fullValue = ''
 								let instance = Toast({
-                                       message: data.returnErrCode,
+                                       message: data.returnErrMsg,
                                        position: 'middle',
                                        duration: 1000
                           		});

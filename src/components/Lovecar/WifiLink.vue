@@ -2,7 +2,7 @@
 	<div class="wifi-link">
 		<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-			<span class="header-title">wifil直连</span>
+			<span class="header-title">WIFI直连</span>
 			<span class="header-right"><router-link tag="img" :to="{name:'wifi设置',params:{names:this.names,pwd:this.pwd}}" @click.native="wifisend" style="width: 0.36rem;height: 0.36rem;" :src="'./static/images/Lovecar/Set@2x.png'"></router-link></span>
 		</header>
 		<div style="height:0.88rem"></div>
@@ -21,7 +21,7 @@
 		<div class="origin-pin">
 			<div class="flex-align-center revisePinCommon">
 				<span style="font-size: 0.26rem;color: #444444;">
-					密码:
+					账户:
 				</span>
 				<input style="margin-left: 1rem;" :disabled="disabled" type="text" v-model="pwd" />
 			</div>
