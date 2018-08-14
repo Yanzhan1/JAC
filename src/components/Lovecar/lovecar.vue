@@ -54,7 +54,7 @@
 			</div>
 		</div>
 		<div class="content lines">
-			<div class="content_1" @click="isTrue=!isTrue">
+			<div class="content_1" @click="isTrue=!isTrue" >
 				<img  v-if="activeshows==this.isTrue" class="content_pic" src="../../../static/images/Wit/button4@3x_32.png" alt="">
 				<img  v-else class="content_pic" src="../../../static/images/Wit/button4@3x.png" alt="">
 				<span  :class="activeshows==this.isTrue?'act':'activess'" >锁定</span>
