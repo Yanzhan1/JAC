@@ -38,7 +38,7 @@
 					//wifi密码
 					pwd: ''
 				},
-				userCategory:'',
+				userCategory:'',//传入1：车主或者2：授权用户
 				operationIds:'',		
 			}
 		},
@@ -58,33 +58,36 @@
 				}).then(action => {
 					if(action == 'confirm') {
 							var param={
-								vin: "LS5A3CJC9JF810003",
+								vin: this.$store.state.vin,
 								operationType: "WIFI",
 								operation: 3,
 								extParams: {
-									userCategory: this.userCategory,
+									userCategory: 1,
 									newAccount: this.wifiData.name,
 									newPwd:this.wifiData.pwd
 								}
 							}
 						this.$http.post(Lovecar.Control,param,this.$store.state.getpin).then((res)=>{
-							console.log(res.data)
-								this.operationIds=res.data.operationId
-								if(res.data.returnErrCode=="C01_0015"){
+							console.log(res)
+							this.operationIds=res.data.operationId
+							console.log(this.operationIds)
+								setTimeout(()=>{
+									this.$http.post(Lovecar.OperationId,{operationId:this.operationIds},this.$store.state.getpin).then((res)=>{
+										console.log(res)
+									},1000)
+								})
+								if(res.data.returnSuccess==true){
 									this.$router.push({
 										name:'wifi直连',
 										params:{
 											wifiname:this.wifiData.name,
 											wifipwd:this.wifiData.pwd,
-											userCategory:this.userCategory,
+											// userCategory:this.userCategory,
 										}
 									})
 								}
 						})
-						console.log(this.operationIds)
-						this.$http.post(Lovecar.OperationId,{operationId:this.operationIds},this.$store.state.getpin).then((res)=>{
-							console.log(res)
-						})
+
 					}
 				}).catch(err => {
 					if(err == 'cancel') {
@@ -94,10 +97,10 @@
 			}
 		},
 		mounted(){
-			this.$route.params.userCategory?this.userCategory=1:this.userCategory=2
+			// this.$route.params.userCategory?this.userCategory=1:this.userCategory=2
 			this.wifiData.name=this.$route.params.names
 			this.wifiData.pwd=this.$route.params.pwd
-			console.log(this.userCategory)
+			// console.log(this.userCategory)
 		}
 	}
 </script>

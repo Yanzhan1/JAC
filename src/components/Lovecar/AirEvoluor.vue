@@ -138,6 +138,7 @@
 					fifth: '',
 					sixth: ''
 				},
+				operationIds:'',
 				//进化器控制按钮开关
 				value: false,
 				//图片激活变量
@@ -163,6 +164,7 @@
 				curveState: false,
 				//净化器默认点
 				evoluorSpace: 0,
+				nums:0,//传给后台的控制开关的值
 			}
 		},
 		methods: { //进化器控制开关方法
@@ -173,6 +175,8 @@
 					this.value = false;
 				}
 				this.popupVisible = !this.popupVisible
+				this.value?this.nums=1:this.nums=2
+				console.log(this.nums)
 			},
 			//进化器强度增加
 			windAdd() {
@@ -199,7 +203,7 @@
 				} else {
 					return
 				}
-
+				httpairevolution()
 			},
 			//进化器强度减弱
 			windReduce() {
@@ -226,7 +230,7 @@
 				} else {
 					return
 				}
-
+				this.httpairevolution()
 			},
 			//获取PM2.5数据
 			getPmData() {
@@ -352,6 +356,27 @@
 				}else{
 					return false;
 				}
+			},
+			//空气进化器请求
+			httpairevolution(){
+				console.log(this.windNum[this.evoluorSpace])
+					var param = {
+						vin:this.$store.state.vin,
+						operationType: "PURIFICATION",
+						operation:this.nums,
+						extParams: {
+						pattern:this.windNum[this.evoluorSpace]//档位
+						}
+					};
+					this.$http.post(Lovecar.Control, param, this.$store.state.getpin).then(res => {
+						console.log(res);
+						// this.operationIds=res.data.operationId
+						// setTimeout(()=>{
+						// 	this.$http.post(Lovecar.OperationId,{operationId:this.operationIds},this.$store.state.getpin).then((res)=>{
+						// 		console.log(res)
+						// 	},1000)
+						// })
+			});				
 			}
 		},
 		mounted() {
@@ -378,7 +403,6 @@
 				//				console.log(this.pinNumber.length)
 				if(this.pinNumber.length == 6) {
 					setTimeout(() => {
-						//输入的pin码
 						var nums=this.pinNumber
 						this.value = !this.value
 						//pin码正确激活弧线

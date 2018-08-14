@@ -54,7 +54,7 @@
 			</div>
 		</div>
 		<div class="content lines">
-			<div class="content_1" @click="isTrue=!isTrue" >
+			<div class="content_1" @click="isTrue=!isTrue">
 				<img  v-if="activeshows==this.isTrue" class="content_pic" src="../../../static/images/Wit/button4@3x_32.png" alt="">
 				<img  v-else class="content_pic" src="../../../static/images/Wit/button4@3x.png" alt="">
 				<span  :class="activeshows==this.isTrue?'act':'activess'" >锁定</span>
@@ -72,7 +72,7 @@
 			<div class="content_1" @click="enter()">
 				  <img v-if="activeshows==this.isTruesss"  class="content_pic" src="../../../static/images/Wit/button7@3x_2.png" alt="">
 					<img v-else class="content_pic" src="../../../static/images/Wit/button7@3x.png" alt="">
-				  <span :class="activeshows==this.isTruesss?'act':'activess'" >停车</span>
+				  <span :class="activeshows==this.isTruesss?'act':'activess'" >寻车</span>
 			</div>
 		</div>
 		<ul style="padding:0 .2rem">
@@ -207,6 +207,9 @@ export default {
     };
   },
   methods: {
+    // shows(){
+    //   popupVisible: true
+    // },
     //点击高亮
     fn(type) {
       this.activeshow = type;
@@ -241,9 +244,26 @@ export default {
       this.IsShow = false;
       this.popupVisible = false;
     },
-    // 锁 尾 熄 停 事件
+    // 寻车 事件
     enter() {
-		 this.isTruesss=!this.isTruesss
+    //  this.isTruesss=!this.isTruesss
+		// 		var param = {
+		// 			vin: "LS5A3CJC9JF810003",
+		// 			operationType: "AIRCONDITIONER",
+		// 			operation: this.nums, //操作项
+		// 			extParams: {
+		// 				airQuantity: this.Air,
+		// 				loop: this.loop,
+		// 				temperature: this.temperNum[this.airSpace],
+		// 				airType: 0,
+		// 				ac: this.Compressors
+		// 			}
+		// 		};
+		// 		this.$http
+		// 			.post(Lovecar.Control, param, this.$store.state.getpin)
+		// 			.then(res => {
+		// 				console.log(res);
+		// 			});
       setTimeout(()=>{
  this.isTruesss=!this.isTruesss
       },500)  

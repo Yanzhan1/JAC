@@ -25,7 +25,7 @@
 				<!--<span style="left: 2.2rem;top: 0.3rem;">50%</span>-->
 				<span style="left: 0rem;top: -0.3rem;">100%</span>
 			</div>
-			<div class="curveActive" v-show="curveState">
+			<div class="curveActive" v-show="curveState" @touchend="end">
 				<canvas id="rightColorful"></canvas>
 			</div>
 			<div class="curveLoseActive" v-show="!curveState">
@@ -38,7 +38,7 @@
 		<div class="skylight-wrap flex-column-align">
 			<div class="skylight-content flex-center-between">
 				<div class="temperature">
-					<span style="font-size: 0.68rem;color: #222222;">{{windNum[skylightSpace]}}</span>
+					<span style="font-size: 0.68rem;color: #222222;">{{windNum[this.skylightSpace]}}</span>
 				</div>
 				<div class="wind-blows">
 					<img v-if="activeShowImg" :src="'./static/images/Lovecar/skylight@2x.png'" alt="" />
@@ -138,7 +138,11 @@
 		methods: {
 			//天窗控制开关方法
 			turn() {
+
 //				this.activeShowImg = !this.activeShowImg
+			},
+			end(){
+				this.httpsky()
 			},
 			//天窗宽度增加
 			windAdd() {
@@ -168,7 +172,7 @@
 					this.popupVisible = true
 					return
 				}
-
+				this.httpsky()
 			},
 			//天窗宽度减少
 			windReduce() {
@@ -198,6 +202,7 @@
 					this.popupVisible = true
 					return
 				}
+				this.httpsky()
 			},
 			//产生曲线
 			produCurve() {
@@ -312,11 +317,32 @@
 				}else{
 					return false;
 				}
+			},
+			httpsky(){
+			var param = {						
+						vin:this.$store.state.vin,
+						operationType: "SUNROOF",
+						extParams: {
+						fluctuationType:2,//档位百分比
+						percent:this.windNum[this.skylightSpace].replace(/%/g,''),//0-100
+						// gear:'',//车窗1,2,3,4,5档可选
+					}
+				};
+				this.$http.post(Lovecar.Control, param, this.$store.state.getpin).then(res => {
+					console.log(res);
+					// this.operationIds=res.data.operationId
+					// setTimeout(()=>{
+					// 	this.$http.post(Lovecar.OperationId,{operationId:this.operationIds},this.$store.state.getpin).then((res)=>{
+					// 		console.log(res)
+					// 	},1000)
+					// })
+			});
 			}
 		},
 		mounted () {
 			this.produCurve();
 			this.inputs ()
+			console.log(this.windNum[this.skylightSpace].replace(/%/g,''))
 		},
 		computed: {
 			fullValue:{ //拼接input输入框值,激活修改
@@ -351,6 +377,7 @@
 							this.pinNumber = ''
 							this.$http.post(Lovecar.Checkphonepin,{pin:nums},this.$store.state.getpin).then((res)=>{
 							console.log(res)
+							this.httpsky()
 					})							
 						}, 1000)
 				}

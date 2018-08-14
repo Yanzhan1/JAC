@@ -25,7 +25,7 @@
 				<span style="left: 2.2rem;top: 0.3rem;">50%</span>
 				<span style="left: 0rem;top: -0.3rem;">100%</span>
 			</div>
-			<div class="curveActive" v-show="curveState">
+			<div class="curveActive" v-show="curveState" @touchend="end">
 				<canvas id="rightColorful"></canvas>
 			</div>
 			<div class="curveLoseActive" v-show="!curveState">
@@ -72,10 +72,10 @@
 				<div class="info-content">
 					<span>降下车窗可能存在风险，请确定车机已允许该操作。</span>
 				</div>
-				<div class="info-time" @click="remind">
+				<div class="info-time">
 					<img v-if="remindState" :src="'./static/images/Lovecar/loseWindow.png'" alt="" />
 					<img v-else :src="'./static/images/Lovecar/window2@2x.png'" alt="" />
-					<span style="margin-top: 0.1rem;">不再提醒</span>
+					<span @click="remind">不再提醒</span>
 				</div>
 				<div class="info-btn">
 					<button @click="winConfirm">取消</button>
@@ -162,6 +162,9 @@
 			}
 		},
 		methods: {
+			end(){
+				
+			},
 			//车窗高度增加
 			windAdd() {
 				if(this.activeShowImg) {
@@ -447,7 +450,6 @@
 		align-items: center;
 	}
 	.mint-popup {
-		width: 84%;
 		border-radius: 0.1rem;
 	}
 	/*车窗头部*/
@@ -589,7 +591,8 @@
 	/*页面进入提示*/
 	
 	.wind-wrap {
-		padding: 0.44rem 0.58rem 0.1rem;
+		width: 6.3rem;
+		padding: 0.44rem 0.58rem 0.33rem;
 	}
 	
 	.window-title {

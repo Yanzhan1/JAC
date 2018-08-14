@@ -35,7 +35,7 @@ export default {
   created() {
     var self=this
     var param={
-       'vin':'LS5A3CJC9JF810003'
+       vin:this.$store.state.vin
     }
     this.$http.post(Lovecar.BusTest,param,this.$store.state.getpin).then(res=>{
 

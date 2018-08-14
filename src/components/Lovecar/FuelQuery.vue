@@ -97,7 +97,7 @@
 			this.remaketime=this.years+'-'+this.months+'-'+'01'
 			console.log(this.turntimes())
 			//获取默认页面的请求从当月的1号到当月的当日
-			this.$http.post(Lovecar.Fuel,{vin: "1G",beginTime:this.turntimes(),endTime:newstimes,type:'months'},this.$store.state.getpin).then((res)=>{
+			this.$http.post(Lovecar.Fuel,{vin: this.$store.state.vin,beginTime:this.turntimes(),endTime:newstimes,type:'months'},this.$store.state.getpin).then((res)=>{
 				console.log(res)
 			})
 			if(this.$route.params.begintime){
@@ -116,7 +116,7 @@
 					this.times=='day'
 				}
 				//路由传过来所选择的日期渲染页面
-				this.$http.post(Lovecar.Fuel,{vin: "1G",beginTime:accpect.begintime,endTime:accpect.endtime,type:this.times},this.$store.state.getpin).then((res)=>{
+				this.$http.post(Lovecar.Fuel,{vin: this.$store.state.vin,beginTime:accpect.begintime,endTime:accpect.endtime,type:this.times},this.$store.state.getpin).then((res)=>{
 					console.log(res)
 				})
 			}

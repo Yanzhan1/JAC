@@ -36,7 +36,7 @@ export default {
         .then(action => {
           if (action == "confirm") {
             var param = {
-              vin: "1G1BL52P7TR115520",
+              vin:this.$store.state.vin,
               operation: "0"
             };
             this.$http.post(Lovecar.LoginOut,param,this.$store.state.getpin).then(res => {
