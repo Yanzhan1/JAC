@@ -382,7 +382,7 @@
 								//清空pin码
 								this.fullValue = ''
 								let instance = Toast({
-                                       message: data.returnErrCode,
+                                       message: data.returnErrMsg,
                                        position: 'middle',
                                        duration: 1000
                           		});
