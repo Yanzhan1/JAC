@@ -176,10 +176,10 @@
 					<img src="../../../static/images/Lovecar/wifi.png" alt="">
 					<span>wifi直连</span>
 				</router-link>
-				<router-link tag="li" to='/lovecar/intelligenceParking'>
+				<!-- <router-link tag="li" to='/lovecar/intelligenceParking'>
 					<img src="../../../static/images/Lovecar/zhiting.png" alt="">
 					<span>智能停车</span>
-				</router-link>
+				</router-link> -->
 			</ul>
 		</div>
 	</div>
@@ -500,8 +500,9 @@ export default {
           )
           .then(res => {});
       }),
+      console.log(this.$store.state.getpin)
       this.$http
-        .post(Lovecar.LogStatus, {}, this.$store.state.getpin)
+        .get(Lovecar.LogStatus, {}, this.$store.state.getpin)
         .then(res => {});
   }
 };
