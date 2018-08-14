@@ -42,8 +42,8 @@
 				<span style="left: 4.6rem;top: 1.7rem;">低</span>
 			</div>
 			<div class="curveActive" style="z-index: 100;">
-				<canvas :style="{visibility:value?'visible':'hidden'}" id="leftColorful"></canvas>
-				<canvas :style="{visibility:aeraValue?'visible':'hidden'}"  id="rightColorful"></canvas>
+				<canvas :style="{visibility:value?'visible':'hidden'}" id="leftColorful" @touchend='endleft'></canvas>
+				<canvas :style="{visibility:aeraValue?'visible':'hidden'}"  id="rightColorful" @touchend='endright'></canvas>
 			</div>
 			<div class="curveLoseActive" style="z-index: 50;">
 				<canvas :style="{visibility:value?'hidden':'visible'}" id="leftGray"></canvas>
@@ -153,7 +153,13 @@
 				//副驾座椅弧线温度默认点
 				fuSeatTemperSpace: 0,
 				//左右按钮判断
-				btnContent: ''
+				btnContent: '',
+				//主驾传给后台的档位
+				mainheat:0,
+				//副驾座传给后台的档位
+				nextheat:0,
+				operationIds:'',//主驾加热时候传给后台的
+				operationIdss:'',
 			}
 		},
 		methods: {
@@ -164,6 +170,7 @@
 				} else {
 					this.value = false;
 				}
+				
 				this.popupVisible = !this.popupVisible
 			},
 			//副驾座椅通风开关方法
@@ -174,6 +181,7 @@
 				else {
 					this.aeraValue = false;
 				}
+				
 				this.popupVisible = !this.popupVisible
 			},
 			//判断点击是左边还是右边
@@ -323,11 +331,87 @@
 				}else{
 					return false;
 				}
+			},
+			//左半边滑动结束触发接口
+			endleft(){
+				this.httpheatmain()
+			},
+			//右半边滑动结束触发接口
+			endright(){
+				this.httpheatnext()
+			},
+			//主驾加热接口
+			httpheatmain(){
+				if(this.value){
+					if(this.windNum[this.seatTemperSpace]=='低'){
+						this.mainheat=1
+					}
+					if(this.windNum[this.seatTemperSpace]=='中'){
+						this.mainheat=2
+					}
+					if(this.windNum[this.seatTemperSpace]=='高'){
+						this.mainheat=3
+					}
+				}
+				var param = {
+					vin: this.$store.state.vin,
+					operationType: "HOSTSEAT_HEAT",
+					operation: 2, //操作项
+					extParams: {
+						temperature:this.mainheat
+					}
+				};
+				this.$http
+					.post(Lovecar.Control, param, this.$store.state.getpin)
+					.then(res => {
+					this.operationIds=res.data.operationId
+					console.log(this.operationIds)
+					setTimeout(()=>{
+						this.$http.post(Lovecar.OperationId,{operationId:this.operationIds},this.$store.state.getpin).then((res)=>{
+							console.log(res)
+						},1000)
+					})
+					});
+			},
+			//副驾加热接口
+			httpheatnext(){
+				if(this.aeraValue){
+					if(this.fuWindNum[this.fuSeatTemperSpace]=='低'){
+						this.nextheat=1
+					}
+					if(this.fuWindNum[this.fuSeatTemperSpace]=='中'){
+						this.nextheat=2
+					}
+					if(this.fuWindNum[this.fuSeatTemperSpace]=='高'){
+						this.nextheat=3
+					}
+				}
+				var param = {
+					vin: this.$store.state.vin,
+					operationType: "VICESEAT_HEAT",
+					operation: 2, //操作项
+					extParams: {
+						temperature:this.nextheat
+					}
+				};
+				this.$http
+					.post(Lovecar.Control, param, this.$store.state.getpin)
+					.then(res => {
+					this.operationIdss=res.data.operationId
+					console.log(this.operationIdss)
+					setTimeout(()=>{
+						this.$http.post(Lovecar.OperationId,{operationId:this.operationIdss},this.$store.state.getpin).then((res)=>{
+							console.log(res)
+						},1000)
+					})
+					});
 			}
 		},
 		mounted() {
 			this.produCurve();
-			this.inputs ()
+			this.inputs ();
+			this.httpheatmain();
+			this.httpheatnext();
 		},
 		computed: {
 			fullValue:{ //拼接input输入框值,激活修改
@@ -355,6 +439,7 @@
 							if (data.returnSuccess == true) {
 								if (this.btnContent == '主驾') {//主驾调温激活
 									this.value = !this.value
+									this.httpheatmain()
 									//pin码正确激活主驾座椅图
 									this.activeShowImgLeft = !this.activeShowImgLeft,
 									//消失遮罩
@@ -365,6 +450,7 @@
 									this.pinNumber = ''
 								} else {   //副驾调温激活
 									this.aeraValue = !this.aeraValue
+									this.httpheatnext()
 									//pin码正确激活座椅图
 									this.activeShowImgRight = !this.activeShowImgRight,
 									//消失遮罩

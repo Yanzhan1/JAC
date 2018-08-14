@@ -26,7 +26,7 @@
 				<span style="left: 0rem;top: -0.3rem;">高</span>
 			</div>
 			<div class="curveActive" v-show="curveState">
-				<canvas id="rightColorful"></canvas>
+				<canvas id="rightColorful" @touchend="end"></canvas>
 			</div>
 			<div class="curveLoseActive" v-show="!curveState">
 				<canvas id="rightGray"></canvas>
@@ -165,9 +165,15 @@
 				//净化器默认点
 				evoluorSpace: 0,
 				nums:0,//传给后台的控制开关的值
+				airnums:'',
 			}
 		},
-		methods: { //进化器控制开关方法
+		methods: {
+			//滑动结束的时候发送请求
+			end(){
+				this.httpairevolution()
+			},
+			//进化器控制开关方法
 			turn() {
 				if(this.activeShowImg) {
 					this.value = true;
@@ -177,6 +183,7 @@
 				this.popupVisible = !this.popupVisible
 				this.value?this.nums=1:this.nums=2
 				console.log(this.nums)
+				this.httpairevolution()
 			},
 			//进化器强度增加
 			windAdd() {
@@ -203,7 +210,7 @@
 				} else {
 					return
 				}
-				httpairevolution()
+				this.httpairevolution()
 			},
 			//进化器强度减弱
 			windReduce() {
@@ -360,22 +367,31 @@
 			//空气进化器请求
 			httpairevolution(){
 				console.log(this.windNum[this.evoluorSpace])
+				if(this.windNum[this.evoluorSpace]=='低'){
+					this.airnums=1
+				}
+				if(this.windNum[this.evoluorSpace]=='中'){
+					this.airnums=2
+				}
+				if(this.windNum[this.evoluorSpace]=='高'){
+					this.airnums=3
+				}
 					var param = {
 						vin:this.$store.state.vin,
 						operationType: "PURIFICATION",
 						operation:this.nums,
 						extParams: {
-						pattern:this.windNum[this.evoluorSpace]//档位
+						pattern:this.airnums//档位
 						}
 					};
 					this.$http.post(Lovecar.Control, param, this.$store.state.getpin).then(res => {
 						console.log(res);
-						// this.operationIds=res.data.operationId
-						// setTimeout(()=>{
-						// 	this.$http.post(Lovecar.OperationId,{operationId:this.operationIds},this.$store.state.getpin).then((res)=>{
-						// 		console.log(res)
-						// 	},1000)
-						// })
+						this.operationIds=res.data.operationId
+						setTimeout(()=>{
+							this.$http.post(Lovecar.OperationId,{operationId:this.operationIds},this.$store.state.getpin).then((res)=>{
+								console.log(res)
+							},1000)
+						})
 			});				
 			}
 		},
@@ -417,6 +433,7 @@
 						this.pinNumber = ''
 						this.$http.post(Lovecar.Checkphonepin,{pin:nums},this.$store.state.getpin).then((res)=>{
 						console.log(res)
+						this.httpairevolution()
 					})						
 					}, 1000)
 
