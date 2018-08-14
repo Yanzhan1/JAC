@@ -138,6 +138,7 @@
 					fifth: '',
 					sixth: ''
 				},
+				operationIds:'',
 				//图片激活变量
 				activeShowImg: 0,
 				//车窗高度展示
@@ -163,7 +164,7 @@
 		},
 		methods: {
 			end(){
-				
+				this.httpwindow()
 			},
 			//车窗高度增加
 			windAdd() {
@@ -192,7 +193,7 @@
 					this.popupVisible = true
 					return
 				}
-
+				this.httpwindow();
 			},
 			//车窗高度减少
 			windReduce() {
@@ -222,7 +223,7 @@
 					this.popupVisible = true
 					return
 				}
-
+				this.httpwindow();
 			},
 			//产生曲线
 			produCurve() {
@@ -349,11 +350,38 @@
 				}else{
 					return false;
 				}
+			},
+			//车窗接口
+			httpwindow(){
+				var param = {
+					vin: this.$store.state.vin,
+					operationType: "WINDOW",
+					// operation: this.nums, //操作项
+					extParams: {
+						windowNum:5,
+						fluctuationType:2,
+						percent: this.windNum[this.windowSpace].replace(/%/g,''),
+						// gear:''
+					}
+				};
+				this.$http
+					.post(Lovecar.Control, param, this.$store.state.getpin)
+					.then(res => {
+						console.log(res);
+						this.operationIds=res.data.operationId
+						console.log(this.operationIds)
+						setTimeout(()=>{
+							this.$http.post(Lovecar.OperationId,{operationId:this.operationIds},this.$store.state.getpin).then((res)=>{
+								console.log(res)
+							},1000)
+						})
+					});
 			}
 		},
 		mounted() {
 			this.produCurve();
 			this.inputs()
+			this.httpwindow();
 		},
 		computed: {
 			fullValue:{ //拼接input输入框值,激活修改

@@ -16,6 +16,6 @@ export default {
                 phone: "1231341234"
             }
         }
-    }, //爱车发送请求时的token
+    }, //爱车发送请求时的token,暂用
     vin: 'LS5A3CJC9JF810003' //车辆的pin码暂时用，登入后拿到放这里
 }

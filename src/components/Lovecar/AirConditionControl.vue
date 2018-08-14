@@ -225,7 +225,7 @@ export default {
       } else {
         this.value = false;
       }
-      this.value ? (this.nums = 1) : (this.nums = 2);
+      this.value ? (this.nums = 2) : (this.nums = 1);
       this.popupVisible = !this.popupVisible;
     },
     //压缩机控制开关

@@ -54,7 +54,7 @@
 			</div>
 		</div>
 		<div class="content lines">
-			<div class="content_1" @click="isTrue=!isTrue">
+			<div class="content_1" @click="doors">
 				<img  v-if="activeshows==this.isTrue" class="content_pic" src="../../../static/images/Wit/button4@3x_32.png" alt="">
 				<img  v-else class="content_pic" src="../../../static/images/Wit/button4@3x.png" alt="">
 				<span  :class="activeshows==this.isTrue?'act':'activess'" >锁定</span>
@@ -64,7 +64,7 @@
 				<img v-else  class="content_pic" src="../../../static/images/Wit/button5@3x.png" alt="">
 				<span :class="activeshows==this.isTrues?'act':'activess'" >尾门</span>
 			</div>
-			<div class="content_1"   @click="isTruess=!isTruess">
+			<div class="content_1"   @click="closefire">
 				<img v-if="activeshows==this.isTruess" class="content_pic" src="../../../static/images/Wit/button6@3x_91.png" alt="">
 				<img v-else class="content_pic" src="../../../static/images/Wit/button6@3x.png" alt="">
 				<span :class="activeshows==this.isTruess?'act':'activess'" >熄火</span>
@@ -190,20 +190,26 @@ export default {
   name: "lovecar",
   data() {
     return {
-	     activeshow: 1, //默认第一个高亮
-	    activeshows:1,
+      activeshow: 1, //默认第一个高亮
+      activeshows: 1,
       popupVisible: false,
       MaskIsshow: false, //黑色遮罩层
       num: 3,
-       isTrue:true,//锁定
-       isTruesss:false,//停车
-       isTruess:false,//熄火
-       isTrues:false,//尾门
-       IsShow: false,
+      isTrue: false, //锁定
+      isTruesss: false, //停车
+      isTruess: false, //熄火
+      isTrues: false, //尾门
+      IsShow: false,
+      locknum: 2, //控制锁状态2为锁定默认
+      firenum: 2, //控制引擎状态2为熄火默认
       keyNums: [],
+      operationIds: "", //lock传给后台的
+      operationIdss: "", //熄火传给后台的
+      operationIdses: "", //寻车传给后台的
       msg: "车机已登录",
-	  pinNumber: "",
-	  Condition:{}
+      pinNumber: "",
+      type: "", //判断点击事件
+      Condition: {}
     };
   },
   methods: {
@@ -218,55 +224,63 @@ export default {
         right_top: "2.4bar",
         left_bottom: "2bar",
         right_bottom: "2bar"
-	  };
-	  var door = {
+      };
+      var door = {
         left_top: "已关闭",
         right_top: "已打开",
         left_bottom: "已关闭",
         right_bottom: "已关闭"
-	  };
-	   var window = {
+      };
+      var window = {
         left_top: "已打开",
         right_top: "已关闭",
         left_bottom: "已关闭",
         right_bottom: "已打开"
-	  };
-	  if( this.activeshow==1){
-		this.Condition=tai
-		 }else if(this.activeshow==2){
-		 this.Condition=door
-		 }else if(this.activeshow==3){
-        this.Condition=window
-	  }
+      };
+      if (this.activeshow == 1) {
+        this.Condition = tai;
+      } else if (this.activeshow == 2) {
+        this.Condition = door;
+      } else if (this.activeshow == 3) {
+        this.Condition = window;
+      }
     },
     moved() {
       this.MaskIsshow = false;
       this.IsShow = false;
       this.popupVisible = false;
     },
+    //锁的弹出框
+    doors() {
+      this.type = 1;
+      this.popupVisible = true;
+    },
+    //熄火的请求
+    closefire() {
+      this.type = 3;
+      this.popupVisible = true;
+    },
     // 寻车 事件
     enter() {
-    //  this.isTruesss=!this.isTruesss
-		// 		var param = {
-		// 			vin: "LS5A3CJC9JF810003",
-		// 			operationType: "AIRCONDITIONER",
-		// 			operation: this.nums, //操作项
-		// 			extParams: {
-		// 				airQuantity: this.Air,
-		// 				loop: this.loop,
-		// 				temperature: this.temperNum[this.airSpace],
-		// 				airType: 0,
-		// 				ac: this.Compressors
-		// 			}
-		// 		};
-		// 		this.$http
-		// 			.post(Lovecar.Control, param, this.$store.state.getpin)
-		// 			.then(res => {
-		// 				console.log(res);
-		// 			});
-      setTimeout(()=>{
- this.isTruesss=!this.isTruesss
-      },500)  
+      this.type = 4;
+      this.popupVisible = true;
+      // this.isTruesss=!this.isTruesss
+      // setTimeout(()=>{
+      //   this.isTruesss=!this.isTruesss
+      // },500)
+      // var param = {
+      //   vin: this.$store.state.vin,
+      //   operationType: "FIND_VEHICLE",
+      // };
+      // this.$http
+      //   .post(Lovecar.Control, param, this.$store.state.getpin)
+      //   .then(res => {
+      //     console.log(res);
+      //     this.operationIdses=res.data.operationId
+      //       this.$http.post(Lovecar.OperationId,{operationId:this.operationIdses},this.$store.state.getpin).then((res)=>{
+      //             console.log(res)
+      //       },1000)
+      //   });
     },
     //关闭PIN码弹框
     cancel() {
@@ -372,28 +386,106 @@ export default {
               this.$store.state.getpin
             )
             .then(res => {
-            //   console.log(res);
+              console.log(res);
+              if (this.type == 1) {
+                //车辆锁定的接口
+                this.isTrue = !this.isTrue;
+                this.isTrue ? (this.locknum = 2) : (this.locknum = 1);
+                // console.log(this.locknum)
+                var param = {
+                  vin: this.$store.state.vin,
+                  operationType: "LOCK",
+                  operation: this.locknum //操作项
+                };
+                this.$http
+                  .post(Lovecar.Control, param, this.$store.state.getpin)
+                  .then(res => {
+                    this.operationIds = res.data.operationId;
+                    // console.log(this.operationIds)
+                    setTimeout(() => {
+                      this.$http
+                        .post(
+                          Lovecar.OperationId,
+                          { operationId: this.operationIds },
+                          this.$store.state.getpin
+                        )
+                        .then(res => {
+                          console.log(res);
+                        }, 1000);
+                    });
+                  });
+              } else if (this.type == 3) {
+                //引擎接口，熄火
+                this.isTruess = !this.isTruess;
+                this.isTruess ? (this.firenum = 1) : (this.firenum = 2);
+                console.log(this.firenum);
+                var param = {
+                  vin: this.$store.state.vin,
+                  operationType: "ENGINE",
+                  operation: this.locknum //操作项
+                };
+                this.$http
+                  .post(Lovecar.Control, param, this.$store.state.getpin)
+                  .then(res => {
+                    this.operationIdss = res.data.operationId;
+                    console.log(this.operationIdss);
+                    setTimeout(() => {
+                      this.$http
+                        .post(
+                          Lovecar.OperationId,
+                          { operationId: this.operationIdss },
+                          this.$store.state.getpin
+                        )
+                        .then(res => {
+                          console.log(res);
+                        }, 1000);
+                    });
+                  });
+              } else if (this.type == 4) {
+                this.isTruesss = !this.isTruesss;
+                setTimeout(() => {
+                  this.isTruesss = !this.isTruesss;
+                }, 500);
+                var param = {
+                  vin: this.$store.state.vin,
+                  operationType: "FIND_VEHICLE"
+                };
+                this.$http
+                  .post(Lovecar.Control, param, this.$store.state.getpin)
+                  .then(res => {
+                    console.log(res);
+                    this.operationIdses = res.data.operationId;
+                    this.$http
+                      .post(
+                        Lovecar.OperationId,
+                        { operationId: this.operationIdses },
+                        this.$store.state.getpin
+                      )
+                      .then(res => {
+                        console.log(res);
+                      }, 1000);
+                  });
+              }
             });
         }, 2000);
       }
-	},
-	
+    }
   },
-  created(){
+  created() {
     var tai = {
-        left_top: "2.5bar",
-        right_top: "2.4bar",
-        left_bottom: "2bar",
-        right_bottom: "2bar"
-	  };
-	  this.Condition=tai
-	 },
+      left_top: "2.5bar",
+      right_top: "2.4bar",
+      left_bottom: "2bar",
+      right_bottom: "2bar"
+    };
+    this.Condition = tai;
+  },
   mounted() {
     this.$http
       .post(
         Lovecar.Carquery,
         {
-          vins: ["LS5A3CJC9JF810003"]
+          vins: [this.$store.state.vin]
         },
         this.$store.state.getpin
       )
@@ -408,15 +500,11 @@ export default {
           )
           .then(res => {});
       }),
-    
-    this.$http
-      .post(Lovecar.LogStatus, {}, this.$store.state.getpin)
-      .then(res => {
-       
-      });
+      this.$http
+        .post(Lovecar.LogStatus, {}, this.$store.state.getpin)
+        .then(res => {});
   }
 };
-	
 </script>
 <style scoped>
 .pin-code {
@@ -475,16 +563,13 @@ export default {
   -webkit-background-size: 200% 100%;
   -webkit-animation: masked-animation 4s infinite linear;
 }
-
 .typer li.typer-num.is-A {
   margin-left: 0.31rem;
 }
-
 .typer li.typer-num.is-OK {
   width: 0.8rem;
   margin-left: 0.1rem;
 }
-
 @-webkit-keyframes masked-animation {
   0% {
     background-position: 0 0;
@@ -493,14 +578,12 @@ export default {
     background-position: -100% 0;
   }
 }
-
 .yy {
   flex-wrap: wrap;
   justify-content: center;
   height: 100%;
 }
 /* 左上角弹框 */
-
 .mask {
   width: 100%;
   height: 100%;
@@ -511,7 +594,6 @@ export default {
   left: 0;
   z-index: 999;
 }
-
 .mask_content {
   position: fixed;
   top: 25%;
@@ -524,7 +606,6 @@ export default {
   z-index: 10000;
   border-radius: 3px;
 }
-
 .cancel {
   position: fixed;
   z-index: 10000;
@@ -537,9 +618,9 @@ export default {
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
+
   box-sizing: border-box;
 }
-
 .tipcontent li {
   display: flex;
   flex-direction: column;
@@ -547,26 +628,22 @@ export default {
   width: 25%;
   margin-top: 0.3rem;
 }
-
 .tipcontent li img {
   width: 0.4rem;
   display: block;
 }
-
 .tipcontent li span {
   color: #444;
   font-size: 0.22rem;
   margin-top: 0.23rem;
 }
 /*  */
-
 #wrap {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 0.4rem 0;
 }
-
 #wrap input[type="text"] {
   width: 20%;
   height: 0.7rem;
@@ -585,17 +662,14 @@ export default {
   width: 20%;
   height: 0.7rem;
 }
-
 input:focus {
   outline: none;
 }
-
 .con {
   width: 6rem;
   height: 3rem;
   padding: 0.2rem 0.4rem;
 }
-
 .del {
   display: flex;
   flex-direction: row;
@@ -605,54 +679,46 @@ input:focus {
   border-bottom: 1px solid #f1f1f1;
   height: 0.88rem;
 }
-
 .sure {
   margin-bottom: 0.16rem;
   color: #555;
 }
-
 .active {
   color: #49bbff;
 }
-.act{
-	  color: #49bbff;
-	  font-size:.22rem;
-	  margin-top: .12rem;
+.act {
+  color: #49bbff;
+
+  font-size: 0.22rem;
+  margin-top: 0.12rem;
 }
 .actives {
   color: #ccc !important;
 }
-
 .bus_l {
   position: relative;
 }
-
 .busl_r {
   position: absolute;
   font-size: 0.25rem;
   color: #49bbff;
 }
-
 .left_1 {
   left: -0.6rem;
   top: 1.5rem;
 }
-
 .left_2 {
   left: -0.6rem;
   top: 3rem;
 }
-
 .right_1 {
   right: 1.3rem;
   top: 1.5rem;
 }
-
 .right_2 {
   right: 1.3rem;
   top: 3rem;
 }
-
 .top_1 {
   top: 0.8rem;
   left: 0.6rem;
@@ -681,7 +747,6 @@ input:focus {
   display: block;
   background-size: content;
 }
-
 .nav {
   display: flex;
   flex-direction: row;
@@ -690,21 +755,17 @@ input:focus {
   justify-content: space-between;
   padding: 0.5rem 0.28rem;
 }
-
 .left_bus {
   display: flex;
   flex-direction: column;
 }
-
 .content_pic {
   width: 0.28rem;
   height: 0.34rem;
 }
-
 .lines {
   border-bottom: 1px solid #f1f1f1;
 }
-
 .left_bus1 {
   display: flex;
   flex-direction: column;
@@ -714,39 +775,32 @@ input:focus {
   padding-right: 0.6rem;
   padding-left: 0.2rem;
 }
-
 .txt_m {
   font-size: 0.34rem;
   color: #fff;
 }
-
-.activess{
+.activess {
   color: #444;
   font-size: 0.22rem;
   margin-top: 0.12rem;
 }
-
 .txt_r {
   font-size: 0.25rem;
   color: #fff;
 }
-
 .bus_righgt {
   width: 1.99rem;
   height: 4.24rem;
   margin-right: 1.83rem;
 }
-
 .left_bus .pic1 {
   width: 0.4rem;
   height: 0.4rem;
 }
-
 .left_bus .txt1 {
   font-size: 0.26rem;
   margin-top: 0.17rem;
 }
-
 .navs {
   display: flex;
   flex-direction: row;
@@ -759,7 +813,6 @@ input:focus {
   flex-direction: row;
   justify-content: space-around;
 }
-
 .content_1 {
   display: flex;
   flex-direction: column;
@@ -770,7 +823,6 @@ input:focus {
 .navs_h {
   height: 2rem;
 }
-
 .navs_t {
   display: flex;
   flex-direction: column;
@@ -782,19 +834,16 @@ input:focus {
   color: #fff;
   font-size: 0.28rem;
 }
-
 .txt {
   color: #fff;
   font-size: 0.23rem;
   margin-top: 0.18rem;
 }
-
 .air {
   height: 1.2rem;
   border-bottom: 1px solid #f1f1f1;
   justify-content: space-between;
 }
-
 .picc {
   width: 0.38rem;
   display: block;
@@ -807,17 +856,14 @@ input:focus {
   display: block;
   margin-right: 0.4rem;
 }
-
 .pic_txt {
   font-size: 0.28rem;
   color: #444;
 }
-
 .line_x {
   width: 0.17rem;
   padding-top: 0.4rem;
 }
-
 #can {
   position: fixed;
   left: 50%;
