@@ -38,11 +38,11 @@ export default {
        vin:this.$store.state.vin
     }
     this.$http.post(Lovecar.BusTest,param,this.$store.state.getpin).then(res=>{
-
-    })
-    setTimeout(function() {
-        self.$router.push('/test_result');
+      setTimeout(function() {
+        self.$router.replace('/test_result');
     }, 3000);
+    })
+  
   }
 };
 </script>
