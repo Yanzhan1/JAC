@@ -50,7 +50,10 @@
 				}).then(action => {
 					if(action == 'confirm') {
 						//退出App
+						localStorage.removeItem('Tip')
 						window.js2android.logout()
+						// 
+					
 					}
 				}).catch(err => {
 					if(err == 'cancel') {

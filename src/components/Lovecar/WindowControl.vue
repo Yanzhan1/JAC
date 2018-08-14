@@ -261,6 +261,7 @@
 			//页面进入提示框中'不在提醒'状态
 			remind() {
 				this.remindState = !this.remindState
+				console.log(	this.remindState)
 			},
 			//修改车窗高度弹出框-确定，调节接口需要发出请求，获取信息提示框状态
 			winConfirm() {
@@ -268,6 +269,10 @@
 			},
 			//修改车窗高度弹出框-取消
 			reduceWindow() {
+				console.log(this.remindState)
+				if(this.remindState==false){
+					localStorage.Tip=true
+				}
 				this.popupInfo = false
 			},
 			//点击遮罩或者'x'移除popup
@@ -379,9 +384,18 @@
 			}
 		},
 		mounted() {
+			
 			this.produCurve();
 			this.inputs()
 			this.httpwindow();
+		},
+		created(){
+			console.log(localStorage.Tip)
+             if(localStorage.Tip){
+				 this.popupInfo=false
+			}else{
+				 this.popupInfo=true
+			}
 		},
 		computed: {
 			fullValue:{ //拼接input输入框值,激活修改
