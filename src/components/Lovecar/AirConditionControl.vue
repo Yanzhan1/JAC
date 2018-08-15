@@ -150,6 +150,7 @@
 
 <script>
 import { Createarc } from "../../../static/js/drawarc.js";
+import { Toast } from "mint-ui";
 export default {
   name: "airconditionControl",
   data() {
@@ -214,8 +215,8 @@ export default {
       nums: 2,
       Air: "", //风量的当前显示内容
       loop: 0, //传给后台循环的index
-      Compressors: 0 ,//传给后台的控制压缩机数值
-      operationIds:'',
+      Compressors: 0, //传给后台的控制压缩机数值
+      operationIds: ""
     };
   },
   methods: {
@@ -238,8 +239,8 @@ export default {
       }
       this.compressor ? (this.compressors = 2) : (this.compressors = 1);
       console.log(this.compressor);
-	  console.log(this.compressors);
-	  this.httpair();
+      console.log(this.compressors);
+      this.httpair();
     },
     //激活底部图标方法
     change(val) {
@@ -254,8 +255,8 @@ export default {
       }
       this.activeShowImg
         ? (this.activeShowImg = val)
-		: (this.activeShowImg = 0);
-		this.httpair();
+        : (this.activeShowImg = 0);
+      this.httpair();
     },
     //温度增加
     add() {
@@ -280,8 +281,8 @@ export default {
       } else if (this.airSpace >= this.max) {
         this.airSpace = this.max;
         return;
-	  }
-	  this.httpair();
+      }
+      this.httpair();
     },
     //温度减少
     reduce() {
@@ -306,8 +307,8 @@ export default {
       } else if (this.airSpace <= this.min) {
         this.airSpace = this.min;
         return;
-	  }
-	  this.httpair();
+      }
+      this.httpair();
     },
     //风量增加
     windAdd() {
@@ -320,8 +321,8 @@ export default {
       } else {
         return;
       }
-	  this.Air = this.$refs.Air.value;
-	  this.httpair();
+      this.Air = this.$refs.Air.value;
+      this.httpair();
     },
     //风量减少
     windReduce() {
@@ -334,8 +335,8 @@ export default {
       } else {
         return;
       }
-	  this.Air = this.$refs.Air.value;
-	  this.httpair();
+      this.Air = this.$refs.Air.value;
+      this.httpair();
     },
     //点击遮罩或者'x'移除popup
     removeMask() {
@@ -425,8 +426,8 @@ export default {
     },
     //用户停止滑动触发移动端事件,发送后端请求
     end() {
-	  //				var start = $('#rightColorful').on('touchstart)
-	  this.httpair();
+      //				var start = $('#rightColorful').on('touchstart)
+      this.httpair();
       console.log(this.temperNum[this.airSpace]);
     },
     //激活空调图,进行旋转
@@ -467,8 +468,8 @@ export default {
       } else {
         return false;
       }
-	},
-	//每次改变请求的方法
+    },
+    //每次改变请求的方法
     httpair() {
       var param = {
         vin: this.$store.state.vin,
@@ -485,13 +486,19 @@ export default {
       this.$http
         .post(Lovecar.Control, param, this.$store.state.getpin)
         .then(res => {
-          this.operationIds=res.data.operationId
-          console.log(this.operationIds)
-          setTimeout(()=>{
-            this.$http.post(Lovecar.OperationId,{operationId:this.operationIds},this.$store.state.getpin).then((res)=>{
-                  console.log(res)
-            },1000)
-          })
+          this.operationIds = res.data.operationId;
+          console.log(this.operationIds);
+          setTimeout(() => {
+            this.$http
+              .post(
+                Lovecar.OperationId,
+                { operationId: this.operationIds },
+                this.$store.state.getpin
+              )
+              .then(res => {
+                console.log(res);
+              }, 1000);
+          });
         });
     }
   },
@@ -527,54 +534,108 @@ export default {
     pinNumber(newVal, oldVal) {
       //				console.log(this.pinNumber.length)
       if (this.pinNumber.length == 6) {
-        setTimeout(() => {
-          var PIN = this.pinNumber;
-          this.$http
-            .post(
-              Lovecar.Checkphonepin,
-              {
-                pin: PIN
-              },
-              this.$store.state.getpin
-            )
-            .then(res => {
-              console.log(res.data.returnSuccess);
-              res.data.returnSuccess ? (this.num = 1) : (this.num = 2);
+        var PIN = this.pinNumber;
+        this.$http
+          .post(
+            Lovecar.Checkphonepin,
+            {
+              pin: PIN
+            },
+            this.$store.state.getpin
+          )
+          .then(res => {
+            console.log(res.data.returnSuccess);
+            res.data.returnSuccess ? (this.num = 1) : (this.num = 2);
+            if (res.data.returnSuccess) {
+              this.value = !this.value;
+              //pin码正确激活弧线
+              this.curveState = !this.curveState;
+              //pin码正确激活空调图
+              (this.activeShowImg = !this.activeShowImg),
+                this.refreshPmData(),
+                //消失遮罩
+                (this.popupVisible = !this.popupVisible);
+              //消失软键盘
+              (this.showTyper = 0),
+                //清空pin码
+                (this.pinNumber = "");
+              console.log(this.Compressors);
+              console.log(this.temperNum[this.airSpace]);
+              this.httpair();
+            } else {
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
+              //消失软键盘
+              (this.showTyper = 0),
+                //清空pin码
+                (this.pinNumber = "");
+              Toast({
+                message: data.returnErrMsg,
+                position: "middle",
+                duration: 1000
+              });
+            }
+          })
+          .catch(err => {
+            Toast({
+              message: "系统异常",
+              position: "middle",
+              duration: 1000
             });
-          this.value = !this.value;
-          //pin码正确激活弧线
-          this.curveState = !this.curveState;
-          //pin码正确激活空调图
-          (this.activeShowImg = !this.activeShowImg),
-            this.refreshPmData(),
-            //消失遮罩
-            (this.popupVisible = !this.popupVisible);
-          //消失软键盘
-          (this.showTyper = 0),
-            //清空pin码
-            (this.pinNumber = "");
-          console.log(this.Compressors);
-          console.log(this.temperNum[this.airSpace]);
-          this.httpair();
-        }, 1000);
+          });
       }
     },
     fullValue(newVal, oldVal) {
       if (this.fullValue.length == 6) {
-        setTimeout(() => {
-          this.value = !this.value;
-          //pin码正确激活弧线
-          this.curveState = !this.curveState;
-          //pin码正确激活空调图
-          (this.activeShowImg = !this.activeShowImg),
-            this.refreshPmData(),
-            //消失遮罩
-            (this.popupVisible = !this.popupVisible);
-          //消失软键盘
-          (this.showTyper = 0),
-            //清空pin码
-            (this.fullValue = "");
-        }, 1000);
+        var PIN = this.fullValue;
+        this.$http
+          .post(
+            Lovecar.Checkphonepin,
+            {
+              pin: PIN
+            },
+            this.$store.state.getpin
+          )
+          .then(res => {
+            console.log(res.data.returnSuccess);
+            res.data.returnSuccess ? (this.num = 1) : (this.num = 2);
+            if (res.data.returnSuccess) {
+              this.value = !this.value;
+              //pin码正确激活弧线
+              this.curveState = !this.curveState;
+              //pin码正确激活空调图
+              (this.activeShowImg = !this.activeShowImg),
+                this.refreshPmData(),
+                //消失遮罩
+                (this.popupVisible = !this.popupVisible);
+              //消失软键盘
+              (this.showTyper = 0),
+                //清空pin码
+                (this.fullValue = "");
+              console.log(this.Compressors);
+              console.log(this.temperNum[this.airSpace]);
+              this.httpair();
+            } else {
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
+              //消失软键盘
+              (this.showTyper = 0),
+                //清空pin码
+                (this.fullValue = "");
+              Toast({
+                message: data.returnErrMsg,
+                position: "middle",
+                duration: 1000
+              });
+            }
+          })
+          .catch(err => {
+            Toast({
+              message: "系统异常",
+              position: "middle",
+              duration: 1000
+            });
+          });
       }
     },
     updated() {}
@@ -938,16 +999,13 @@ ul > li {
   -webkit-background-size: 200% 100%;
   -webkit-animation: masked-animation 4s infinite linear;
 }
-
 .typer li.typer-num.is-A {
   margin-left: 0.31rem;
 }
-
 .typer li.typer-num.is-OK {
   width: 0.8rem;
   margin-left: 0.1rem;
 }
-
 @-webkit-keyframes masked-animation {
   0% {
     background-position: 0 0;
@@ -957,7 +1015,6 @@ ul > li {
   }
 }
 /*自定遮罩层*/
-
 .bgMask {
   position: absolute;
   left: 0;
@@ -973,7 +1030,6 @@ ul > li {
   transform-origin: (center, center);
   animation: rotate 1s ease-in-out infinite;
 }
-
 @-webkit-keyframes rotate {
   0% {
     transform: rotate(0deg);

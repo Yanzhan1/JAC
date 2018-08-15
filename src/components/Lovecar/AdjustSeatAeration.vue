@@ -445,6 +445,7 @@
 									this.pinNumber = ''
 								} else { 	//副驾通风激活
 									this.aeraValue = !this.aeraValue
+									this.httpcoolnext()
 									//pin码正确激活座椅图
 									this.activeShowImgRight = !this.activeShowImgRight,
 									//消失遮罩
@@ -456,13 +457,12 @@
 								}								
 							} else {
 								//消失遮罩
-								this.popupVisible = !this.popupVisible
-								this.httpcoolnext()
+								this.popupVisible = !this.popupVisible							
 								//消失软键盘
 								this.showTyper = 0,
 								//清空pin码
 								this.fullValue = ''
-								let instance = Toast({
+									Toast({
                                        message: data.returnErrMsg,
                                        position: 'middle',
                                        duration: 1000
