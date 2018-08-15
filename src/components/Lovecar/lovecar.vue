@@ -508,6 +508,9 @@ export default {
 };
 </script>
 <style scoped>
+.mint-popup {
+  border-radius: .1rem
+}
 .pin-code {
   height: 2rem;
   width: 100%;

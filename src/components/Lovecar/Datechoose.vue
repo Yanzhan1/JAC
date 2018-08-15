@@ -1,87 +1,97 @@
 <template>
-    <div>
-        <header class="header">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-			<span class="header-title">{{this.times}}</span>
-			<span class="header-right"><img src="/static/images/Lovecar/zhankai@2x.png" alt="" @click="choose_times"></span>
-		</header>
-        <div style="width:100%;height:.01rem;background:#f1f1f1"></div>
-        <div style="margin-top:.95rem;height:11.16rem;width:100%;" class="nav">
-            <div v-if="this.times=='月'">
-                <div class="every_times">
-                <img src="/static/images/Lovecar/left-balck.png" alt="" class="img_l" @click="turn_l">
-                <div class="center">{{this.newdates.years}}年{{this.newdates.months}}月</div>
-                <img src="/static/images/Lovecar/right-black.png" alt="" class="img_r" @click="turn_r">
-                <div style="position:absolute" class="date_all">
-                    <div class="date_top">
-                        <div>一</div>
-                        <div>二</div>
-                        <div>三</div>
-                        <div>四</div>
-                        <div>五</div>
-                        <div style="color:#FF3366">六</div>
-                        <div style="color:#FF3366">日</div>
-                    </div>
-                    <div class="date_center" v-for="(item,index) in arraynum" :key="index">{{item}}</div>
-                </div>
-            </div>
-            </div>
-            <div v-if="this.times=='周'">
-                <div class="every_times">
-                <img src="/static/images/Lovecar/left-balck.png" alt="" class="img_l" @click="turn_l_week">
-                <div class="center">{{this.newdates.years}}年{{this.newdates.months}}月,第{{this.showweek}}周</div>
-                <img src="/static/images/Lovecar/right-black.png" alt="" class="img_r" @click="turn_r_week">
-                <div style="position:absolute" class="date_all">
-                    <div class="date_top">
-                        <div>一</div>
-                        <div>二</div>
-                        <div>三</div>
-                        <div>四</div>
-                        <div>五</div>
-                        <div style="color:#FF3366">六</div>
-                        <div style="color:#FF3366">日</div>
-                    </div>
-                    <div ref="weekdate" class="date_center" v-for="(item,index) in newarraynum" :key="index">{{item}}</div>
-                </div>
-            </div>
-            </div>
-            <div v-if="this.times=='日'">
-                <div class="every_times">
-                <img src="/static/images/Lovecar/left-balck.png" alt="" class="img_l" @click="turn_l">
-                <div class="center">{{this.newdates.years}}年{{this.newdates.months}}月{{this.showdate}}日</div>
-                <img src="/static/images/Lovecar/right-black.png" alt="" class="img_r" @click="turn_r">
-                <div style="position:absolute" class="date_all">
-                    <div class="date_top">
-                        <div>一</div>
-                        <div>二</div>
-                        <div>三</div>
-                        <div>四</div>
-                        <div>五</div>
-                        <div style="color:#FF3366">六</div>
-                        <div style="color:#FF3366">日</div>
-                    </div>
-                    <div class="date_center" v-for="(item,index) in arraynum" @click.stop="changecolor($event,index)" :class="{blue:current==index}"  :key="index">{{item}}</div>
-                </div>
-            </div>
-            </div>
-        </div>
-        <div class="date_bottom">
-            <div class="cheek" @click="cheeks">点击查询</div>
-        </div>
-        <div>
+  <div>
+    <header class="header">
+      <!-- <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+      <span class="header-title">{{this.times}}</span>
+      <span class="header-right"><img src="/static/images/Lovecar/zhankai@2x.png" alt="" @click="choose_times"></span> -->
 
-        </div>
-        <div class="choose_date" v-show="this.opentime">
-                <img src="/static/images/Lovecar/delete@2x.png" alt="" @click="close_times">
-            <div class="choose_data_t">
-                <div @click="month"><span>月</span><img src="/static/images/Lovecar/gou.png" alt="" class="img" v-show="this.showgou1"></div>
-                <div @click="week"><span>周</span><img src="/static/images/Lovecar/gou.png" alt="" class="img" v-show="this.showgou2"></div>
-                <div @click="day"><span>日</span><img src="/static/images/Lovecar/gou.png" alt="" class="img" v-show="this.showgou3"></div>
+      <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+      <div class="header-title flex row cocenter">
+        <span>{{this.times}}</span>
+        <img src="/static/images/Lovecar/zhankai@2x.png" alt="" @click="choose_times" style="width:.18rem;height:.1rem;margin-left:.1rem">
+      </div>
+      <span class="header-right"></span>
+    </header>
+    <div style="width:100%;height:.01rem;background:#f1f1f1"></div>
+    <div style="margin-top:.95rem;height:11.16rem;width:100%;" class="nav">
+      <div v-if="this.times=='月'">
+        <div class="every_times">
+          <img src="/static/images/Lovecar/left-balck.png" alt="" class="img_l" @click="turn_l">
+          <div class="center">{{this.newdates.years}}年{{this.newdates.months}}月</div>
+          <img src="/static/images/Lovecar/right-black.png" alt="" class="img_r" @click="turn_r">
+          <div style="position:absolute" class="date_all">
+            <div class="date_top">
+              <div>一</div>
+              <div>二</div>
+              <div>三</div>
+              <div>四</div>
+              <div>五</div>
+              <div style="color:#FF3366">六</div>
+              <div style="color:#FF3366">日</div>
             </div>
+            <div class="date_center" v-for="(item,index) in arraynum" :key="index">{{item}}</div>
+          </div>
         </div>
-        <!-- 遮罩层 -->
-        <div class="black" v-show="this.opentime" @click="close_times"></div>
+      </div>
+      <div v-if="this.times=='周'">
+        <div class="every_times">
+          <img src="/static/images/Lovecar/left-balck.png" alt="" class="img_l" @click="turn_l_week">
+          <div class="center">{{this.newdates.years}}年{{this.newdates.months}}月,第{{this.showweek}}周</div>
+          <img src="/static/images/Lovecar/right-black.png" alt="" class="img_r" @click="turn_r_week">
+          <div style="position:absolute" class="date_all">
+            <div class="date_top">
+              <div>一</div>
+              <div>二</div>
+              <div>三</div>
+              <div>四</div>
+              <div>五</div>
+              <div style="color:#FF3366">六</div>
+              <div style="color:#FF3366">日</div>
+            </div>
+            <div ref="weekdate" class="date_center" v-for="(item,index) in newarraynum" :key="index">{{item}}</div>
+          </div>
+        </div>
+      </div>
+      <div v-if="this.times=='日'">
+        <div class="every_times">
+          <img src="/static/images/Lovecar/left-balck.png" alt="" class="img_l" @click="turn_l">
+          <div class="center">{{this.newdates.years}}年{{this.newdates.months}}月{{this.showdate}}日</div>
+          <img src="/static/images/Lovecar/right-black.png" alt="" class="img_r" @click="turn_r">
+          <div style="position:absolute" class="date_all">
+            <div class="date_top">
+              <div>一</div>
+              <div>二</div>
+              <div>三</div>
+              <div>四</div>
+              <div>五</div>
+              <div style="color:#FF3366">六</div>
+              <div style="color:#FF3366">日</div>
+            </div>
+            <div class="date_center" v-for="(item,index) in arraynum" @click.stop="changecolor($event,index)" :class="{blue:current==index}" :key="index">{{item}}</div>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="date_bottom">
+      <div class="cheek" @click="cheeks">点击查询</div>
+    </div>
+    <div>
+
+    </div>
+    <div class="choose_date" v-show="this.opentime">
+      <img src="/static/images/Lovecar/delete@2x.png" alt="" @click="close_times">
+      <div class="choose_data_t">
+        <div @click="month">
+          <span>月</span><img src="/static/images/Lovecar/gou.png" alt="" class="img" v-show="this.showgou1"></div>
+        <div @click="week">
+          <span>周</span><img src="/static/images/Lovecar/gou.png" alt="" class="img" v-show="this.showgou2"></div>
+        <div @click="day">
+          <span>日</span><img src="/static/images/Lovecar/gou.png" alt="" class="img" v-show="this.showgou3"></div>
+      </div>
+    </div>
+    <!-- 遮罩层 -->
+    <div class="black" v-show="this.opentime" @click="close_times"></div>
+  </div>
 </template>
 
 <script>
@@ -89,19 +99,19 @@ import { MessageBox } from "mint-ui";
 export default {
   data() {
     return {
-      current:0,//用来判断日的时候具体选择哪一个的index
-      times: "月",//默认选择月
+      current: 0, //用来判断日的时候具体选择哪一个的index
+      times: "月", //默认选择月
       opentime: false, //遮罩层
-      showgou1: true,//选择月的选项
-      showgou2: false,//选择周的选项
-      showgou3: false,//选择日的选项
-      showdate: "",//选择具体的日
-      showweek: "",//选择具体的周
-      monthsstart:'',
-      monthsend:'',
+      showgou1: true, //选择月的选项
+      showgou2: false, //选择周的选项
+      showgou3: false, //选择日的选项
+      showdate: "", //选择具体的日
+      showweek: "", //选择具体的周
+      monthsstart: "",
+      monthsend: "",
       // newdates:'',
       newdates: { years: "", months: "" },
-      arraynum: [],//需要被渲染的数组
+      arraynum: [], //需要被渲染的数组
       array1: [
         "1",
         "2",
@@ -301,14 +311,14 @@ export default {
           this.showweek = "5";
           break;
       }
-      this.week_choose()
+      this.week_choose();
     });
   },
   updated() {
-    if(this.times!='周'){
-      this.week_left()
+    if (this.times != "周") {
+      this.week_left();
     }
-    this.reduceleft()
+    this.reduceleft();
   },
   methods: {
     choose_times() {
@@ -345,54 +355,54 @@ export default {
       this.times = "日";
     },
     //解决周部分不需要右margin的问题
-    reduceleft(){
-      if(this.times=='周'){
-      var dt = new Date(this.newdates.years, this.newdates.months - 1, 1);
-      var n = dt.getDay();
-      var center_l = document.getElementsByClassName("date_center");
-      center_l[0].style.marginLeft='0rem';
+    reduceleft() {
+      if (this.times == "周") {
+        var dt = new Date(this.newdates.years, this.newdates.months - 1, 1);
+        var n = dt.getDay();
+        var center_l = document.getElementsByClassName("date_center");
+        center_l[0].style.marginLeft = "0rem";
       }
     },
     //根据每个月的1号是星期几判断每个月1号与左边的距离
-    week_left(){
-      if(this.times!='周'){
+    week_left() {
+      if (this.times != "周") {
         var dt = new Date(this.newdates.years, this.newdates.months - 1, 1);
-      var n = dt.getDay();
-      var center_l = document.getElementsByClassName("date_center");
-      switch (n) {
-        case 0: //一号是星期天
-          center_l[0].style.marginLeft = "6.42rem";
-          center_l[0].style.borderLeft = ".01rem solid #eee";
-          break;
-        case 2: //一号是星期二
-          center_l[0].style.marginLeft = "1.07rem";
-          center_l[0].style.borderLeft = ".01rem solid #eee";
-          break;
-        case 3: //一号是星期三
-          center_l[0].style.marginLeft = "2.14rem";
-          center_l[0].style.borderLeft = ".01rem solid #eee";
-          break;
-        case 4: //一号是星期四
-          center_l[0].style.marginLeft = "3.21rem";
-          center_l[0].style.borderLeft = ".01rem solid #eee";
-          break;
-        case 5: //一号是星期五
-          center_l[0].style.marginLeft = "4.28rem";
-          center_l[0].style.borderLeft = ".01rem solid #eee";
-          break;
-        case 6: //一号是星期六
-          center_l[0].style.marginLeft = "5.35rem";
-          center_l[0].style.borderLeft = ".01rem solid #eee";
-          break;
-      }
+        var n = dt.getDay();
+        var center_l = document.getElementsByClassName("date_center");
+        switch (n) {
+          case 0: //一号是星期天
+            center_l[0].style.marginLeft = "6.42rem";
+            center_l[0].style.borderLeft = ".01rem solid #eee";
+            break;
+          case 2: //一号是星期二
+            center_l[0].style.marginLeft = "1.07rem";
+            center_l[0].style.borderLeft = ".01rem solid #eee";
+            break;
+          case 3: //一号是星期三
+            center_l[0].style.marginLeft = "2.14rem";
+            center_l[0].style.borderLeft = ".01rem solid #eee";
+            break;
+          case 4: //一号是星期四
+            center_l[0].style.marginLeft = "3.21rem";
+            center_l[0].style.borderLeft = ".01rem solid #eee";
+            break;
+          case 5: //一号是星期五
+            center_l[0].style.marginLeft = "4.28rem";
+            center_l[0].style.borderLeft = ".01rem solid #eee";
+            break;
+          case 6: //一号是星期六
+            center_l[0].style.marginLeft = "5.35rem";
+            center_l[0].style.borderLeft = ".01rem solid #eee";
+            break;
+        }
       }
     },
     //选择每个月的第几周的天数排列出来
-    week_choose(){
+    week_choose() {
       var dt = new Date(this.newdates.years, this.newdates.months - 1, 1);
       //m表示当月的1号是周几
       var m = dt.getDay();
-      console.log(m)
+      console.log(m);
       if (this.showweek == 1) {
         if (m == 0) {
           m = 7;
@@ -421,7 +431,7 @@ export default {
         if (this.newdates.months == 2) {
           if (
             this.newdates.years % 4 == 0 ||
-            this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0
+            (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
           ) {
             this.newarray3 = this.array3.slice(0, 8 - m);
             console.log(this.newarray3);
@@ -628,19 +638,19 @@ export default {
       if (this.showweek > 1 && this.showweek <= 6) {
         this.showweek--;
       }
-        this.week_choose();
+      this.week_choose();
       if (this.showweek > 2 && this.showweek <= 6) {
-        this.week_left()
+        this.week_left();
       }
-      this.reduceleft()
+      this.reduceleft();
     },
     //点击切换右按钮的周
     turn_r_week() {
       if (this.showweek > 0 && this.showweek < 6) {
         this.showweek++;
       }
-      this.week_choose()
-      this.reduceleft()
+      this.week_choose();
+      this.reduceleft();
     },
     turn_l() {
       this.newdates.months--;
@@ -675,7 +685,7 @@ export default {
           this.arraynum = this.array3;
         }
       }
-      this.week_left()
+      this.week_left();
     },
     turn_r() {
       var date = new Date();
@@ -722,15 +732,15 @@ export default {
           this.arraynum = this.array3;
         }
       }
-      this.week_left()
+      this.week_left();
     },
     //日部分判断点击之后的日子没有燃油数据以及日的选择
-    changecolor(el,index) {
+    changecolor(el, index) {
       var date = new Date();
       var year = date.getFullYear();
       var month = date.getMonth() + 1;
       var day = date.getDate();
-      console.log(index)
+      console.log(index);
       if (
         this.newdates.years == year &&
         this.newdates.months == month &&
@@ -742,7 +752,7 @@ export default {
           showCanceButton: true
         });
       } else {
-        this.current=index;
+        this.current = index;
         // el.target.style.backgroundColor='#49bbff';
         this.showdate = el.target.innerHTML;
       }
@@ -750,70 +760,86 @@ export default {
     //点击查询时候传过去的东西
     cheeks() {
       //根据选择的是日或者周选择传过去的起始和结束时间戳
-      if(this.times=='日'){
-        this.monthsstart=this.Changetimestamp();
-        this.monthend=new Date().getTime()
+      if (this.times == "日") {
+        this.monthsstart = this.Changetimestamp();
+        this.monthend = new Date().getTime();
       }
-      if(this.times=='月'){
-        this.monthsstart=this.Changetimestamp()[1];
-        this.monthsend=this.Changetimestamp()[0];
+      if (this.times == "月") {
+        this.monthsstart = this.Changetimestamp()[1];
+        this.monthsend = this.Changetimestamp()[0];
       }
-      console.log(this.Changetimestamp())
+      console.log(this.Changetimestamp());
       this.$router.push({
-        name:'燃油查询',
-        params:{
-          begintime:this.monthsstart,//传过去的起始时间戳
-          endtime:this.monthsend,//传过去的结束时间戳
-          times:this.times,//传过去的顶部显示的年月日
-          showtop:this.newdates,//传过去的具体年和月是个对象
-          showtopdate:this.showdate,//传过去的具体日
+        name: "燃油查询",
+        params: {
+          begintime: this.monthsstart, //传过去的起始时间戳
+          endtime: this.monthsend, //传过去的结束时间戳
+          times: this.times, //传过去的顶部显示的年月日
+          showtop: this.newdates, //传过去的具体年和月是个对象
+          showtopdate: this.showdate //传过去的具体日
         }
       });
     },
     //转化时间戳
-    Changetimestamp(value){
-      if(this.times=='日'){
-        return  operationTime.toTimeStamp(this.callback0)
+    Changetimestamp(value) {
+      if (this.times == "日") {
+        return operationTime.toTimeStamp(this.callback0);
       }
-      if(this.times=='月'){
-       if(this.newdates.month==1||3||5||7||8||10||12){
-          return  [operationTime.toTimeStamp(this.callback31),operationTime.toTimeStamp(this.callback1)]
-       }
-       if(this.newdates.months==4||6||9||11){
-         return  [operationTime.toTimeStamp(this.callback30),operationTime.toTimeStamp(this.callback1)] 
-       }
-       if(this.newdates.months==2){
-         if(this.newdates.years%4==0||this.newdates.years%100==0&&this.newdates.years%400==0){
-           return [operationTime.toTimeStamp(this.callback28),operationTime.toTimeStamp(this.callback1)] 
-         }else{
-           return [operationTime.toTimeStamp(this.callback29),operationTime.toTimeStamp(this.callback1)] 
-         }
-       }
-     }
-      
+      if (this.times == "月") {
+        if (this.newdates.month == 1 || 3 || 5 || 7 || 8 || 10 || 12) {
+          return [
+            operationTime.toTimeStamp(this.callback31),
+            operationTime.toTimeStamp(this.callback1)
+          ];
+        }
+        if (this.newdates.months == 4 || 6 || 9 || 11) {
+          return [
+            operationTime.toTimeStamp(this.callback30),
+            operationTime.toTimeStamp(this.callback1)
+          ];
+        }
+        if (this.newdates.months == 2) {
+          if (
+            this.newdates.years % 4 == 0 ||
+            (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
+          ) {
+            return [
+              operationTime.toTimeStamp(this.callback28),
+              operationTime.toTimeStamp(this.callback1)
+            ];
+          } else {
+            return [
+              operationTime.toTimeStamp(this.callback29),
+              operationTime.toTimeStamp(this.callback1)
+            ];
+          }
+        }
+      }
     }
   },
-  computed:{
+  computed: {
     //年月日拼接
-    callback0:function(){
-      return  this.newdates.years+'-'+this.newdates.months+'-'+this.showdate
+    callback0: function() {
+      return (
+        this.newdates.years + "-" + this.newdates.months + "-" + this.showdate
+      );
     },
     //年月拼接
-    callback31:function(){
-      return this.newdates.years+'-'+this.newdates.months+'-'+'31'
+    callback31: function() {
+      return this.newdates.years + "-" + this.newdates.months + "-" + "31";
     },
-    callback30:function(){
-      return this.newdates.years+'-'+this.newdates.months+'-'+'30'
+    callback30: function() {
+      return this.newdates.years + "-" + this.newdates.months + "-" + "30";
     },
-    callback29:function(){
-      return this.newdates.years+'-'+this.newdates.months+'-'+'29'
+    callback29: function() {
+      return this.newdates.years + "-" + this.newdates.months + "-" + "29";
     },
-    callback28:function(){
-      return this.newdates.years+'-'+this.newdates.months+'-'+'28'
+    callback28: function() {
+      return this.newdates.years + "-" + this.newdates.months + "-" + "28";
     },
-    callback1:function(){
-      return this.newdates.years+'-'+this.newdates.months+'-'+'1'
-    },
+    callback1: function() {
+      return this.newdates.years + "-" + this.newdates.months + "-" + "1";
+    }
   }
 };
 </script>
@@ -987,8 +1013,8 @@ export default {
   text-align: center;
   line-height: 1rem;
 }
-.blue{
-     background:#49bbff;
+.blue {
+  background: #49bbff;
 }
 </style>
 

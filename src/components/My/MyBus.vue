@@ -169,7 +169,7 @@ li {
   height: 2.22rem;
 }
 .bus-left > img {
-  width: 2.78rem;
+  width: 2.5rem;
   height: 1.42rem;
   margin-top: 0.45rem;
 }
