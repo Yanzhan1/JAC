@@ -380,7 +380,7 @@
 								//消失软键盘
 								this.showTyper = 0,
 								//清空pin码
-								this.fullValue = ''
+								this.pinNumber = ''
 								let instance = Toast({
                                        message: data.returnErrMsg,
                                        position: 'middle',
@@ -784,5 +784,6 @@
 		height: 100%;
 		opacity: 0.5;
 		background: #000;
+		z-index: 1000;
 	}
 </style>
