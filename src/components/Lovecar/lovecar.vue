@@ -3,7 +3,8 @@
 		<div class="nav">
 			<img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
 			<span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;瑞丰 R3</span>
-			<span class="txt_r" @click="islogin()">{{msg}}</span>
+			<span class="txt_r" @click="islogin()" v-if="this.LoginStatus">机车已登录</span>
+      	<span class="txt_r" v-else  @click="login()">机车未登录</span>
 		</div>
 		<div class="navs navs_h">
 			<div class="navs_t">
@@ -209,7 +210,8 @@ export default {
       msg: "车机已登录",
       pinNumber: "",
       type: "", //判断点击事件
-      Condition: {}
+      Condition: {},
+      LoginStatus:''//机车登录状态
     };
   },
   methods: {
@@ -367,6 +369,15 @@ export default {
       } else if (system == "IOS") {
         window.webkit.messageHandlers.goCarLocationiOS.postMessage({});
       }
+    },
+    // 机车未登录 点击 扫一扫
+    login(){
+       if(isMobile.iOS()) {
+					var params = {};
+					window.webkit.messageHandlers.scan.postMessage(params);
+				} else if(isMobile.Android()) {
+					js2android.scan();
+				}
     }
   },
   //检测输入框
@@ -500,10 +511,11 @@ export default {
           )
           .then(res => {});
       }),
-      console.log(this.$store.state.getpin)
-      this.$http
-        .get(Lovecar.LogStatus, {}, this.$store.state.getpin)
-        .then(res => {});
+   this.$http.get(Lovecar.LogStatus, this.$store.state.getpin).then(res => {
+        if(res.status==200){
+          this.LoginStatus=res.data.data[1].logStatus
+          }
+     });
   }
 };
 </script>

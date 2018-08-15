@@ -103,7 +103,7 @@
 					<span>设置</span>
 				</div>
 				<div style="display: flex;align-items: center;">
-					<span>1.4</span>
+					<span>1.5</span>
 					<img src="../../../static/images/my/next@2x.png" alt="">
 				</div>
 			</router-link>

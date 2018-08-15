@@ -18,5 +18,5 @@ export default {
             "identityParam": "{'userId': 'c123','token': 'sdfasdfasdfasd','phone': '1231341234'}"
         }
     }, //爱车发送请求时的token,暂用
-    vin: 'LS5A3CJC9JF810003' //车辆的pin码暂时用，登入后拿到放这里
+    vin: 'LS5A3CJC9JF830020' //车辆的pin码暂时用，登入后拿到放这里
 }
