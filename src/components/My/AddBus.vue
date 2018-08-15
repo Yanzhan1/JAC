@@ -33,12 +33,13 @@ export default {
   },
   methods: {
     AddMybus() {
+      console.log(this.$store.state.mytoken)
       var param = {
         userNo: this.$store.state.no,
         engineNo: "VJ00102",
         vin: "LJ1702345G8001011"
       };
-      this.$http.post(Wit.AddMyBus, param).then(res => {
+      this.$http.post(Wit.AddMyBus, param,this.$store.state.mytoken).then(res => {
         if (res.data.code == 0) {
           Toast({
             message: "添加成功！",

@@ -86,7 +86,7 @@ export default {
   mounted() {
     this.info = this.$route.query;
     $(".editPersonalDetails").height($(".editPersonalDetails").height());
-    this.$http.post(Wit.Area,{}).then((res)=>{
+    this.$http.post(Wit.Area,{},this.$store.state.mytoken).then((res)=>{
         this.allarea=res.data.data.records
         console.log(this.allarea)
       for(var i=0;i<this.allarea.length;i++){
@@ -143,13 +143,13 @@ export default {
           provinceName:this.provinceName,//所在的地区的名字
           address: this.address
         };
-        this.$http.post(Wit.ChangeAddress, param).then(res => {
+        this.$http.post(Wit.ChangeAddress, param,this.$store.state.mytoken).then(res => {
             if(res.data.code==0){
                 this.$router.go(-1)
             }
         });
         if(flag==1){
-          this.$http.post(Wit.Defaultaddress,param).then((res)=>{
+          this.$http.post(Wit.Defaultaddress,param,this.$store.state.mytoken).then((res)=>{
          })
         }
 
