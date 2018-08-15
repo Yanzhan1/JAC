@@ -548,6 +548,7 @@ export default {
             res.data.returnSuccess ? (this.num = 1) : (this.num = 2);
             if (res.data.returnSuccess) {
               this.value = !this.value;
+              this.httpair();
               //pin码正确激活弧线
               this.curveState = !this.curveState;
               //pin码正确激活空调图
@@ -561,7 +562,7 @@ export default {
                 (this.pinNumber = "");
               console.log(this.Compressors);
               console.log(this.temperNum[this.airSpace]);
-              this.httpair();
+
             } else {
               //消失遮罩
               this.popupVisible = !this.popupVisible;
@@ -601,6 +602,7 @@ export default {
             res.data.returnSuccess ? (this.num = 1) : (this.num = 2);
             if (res.data.returnSuccess) {
               this.value = !this.value;
+              this.httpair();
               //pin码正确激活弧线
               this.curveState = !this.curveState;
               //pin码正确激活空调图
@@ -614,7 +616,7 @@ export default {
                 (this.fullValue = "");
               console.log(this.Compressors);
               console.log(this.temperNum[this.airSpace]);
-              this.httpair();
+              
             } else {
               //消失遮罩
               this.popupVisible = !this.popupVisible;

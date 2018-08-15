@@ -187,6 +187,7 @@
 </template>
 
 <script>
+import {Toast} from 'mint-ui'
 export default {
   name: "lovecar",
   data() {
@@ -386,6 +387,15 @@ export default {
               operation: "1"
             };
             this.$http.post(Lovecar.LoginOut,param,this.$store.state.getpin).then(res => {
+              if(res.status==200){
+                  Toast({
+                  message: '登入成功',
+                  position: "middle",
+                  duration: 3000
+                });
+                this.LoginStatus=true
+              }
+              // alert(JSON.stringify(res.status))
            });
      }
   },
@@ -465,7 +475,7 @@ export default {
                 this.isTruesss = !this.isTruesss;
                 setTimeout(() => {
                   this.isTruesss = !this.isTruesss;
-                }, 500);
+                },2000);
                 var param = {
                   vin: this.$store.state.vin,
                   operationType: "FIND_VEHICLE"
@@ -501,6 +511,7 @@ export default {
     this.Condition = tai;
   },
   mounted() {
+    //暴露方法给原生,登入判断
      window.getStatus = this.getStatus;
     this.$http
       .post(
@@ -526,6 +537,7 @@ export default {
           this.LoginStatus=res.data.data[1].logStatus
           }
      });
+    
   }
 };
 </script>

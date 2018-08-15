@@ -1,7 +1,7 @@
 <template>
 	<div class="adjust-seat-temper">
 		<header class="header">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.push('/lovecar')">
 			<router-link tag='span' class="seatAeration active" to="/lovecar/adjustSeatAeration">座椅通风<span></span></router-link>
 			<router-link tag='span' class="seatHeating" style="margin-right: 1.3rem;" to="/lovecar/adjustSeatTemper">座椅加热<span></span></router-link>
 		</header>
@@ -405,8 +405,6 @@
 		mounted() {
 			this.produCurve();
 			this.inputs ()
-			this.httpcoolmain()
-			// this.httpcoolnext()
 		},
 		computed: {
 			fullValue:{ //拼接input输入框值,激活修改
