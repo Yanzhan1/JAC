@@ -381,6 +381,12 @@ export default {
     },
      getStatus(status){
        console.log(status)
+           var param = {
+              vin:this.$store.state.vin,
+              operation: "1"
+            };
+            this.$http.post(Lovecar.LoginOut,param,this.$store.state.getpin).then(res => {
+           });
      }
   },
   //检测输入框
