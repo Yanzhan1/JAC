@@ -378,7 +378,10 @@ export default {
 				} else if(isMobile.Android()) {
 					js2android.scan();
 				}
-    }
+    },
+     getStatus(status){
+       console.log(status)
+     }
   },
   //检测输入框
   watch: {
@@ -492,6 +495,7 @@ export default {
     this.Condition = tai;
   },
   mounted() {
+     window.getStatus = this.getStatus;
     this.$http
       .post(
         Lovecar.Carquery,
