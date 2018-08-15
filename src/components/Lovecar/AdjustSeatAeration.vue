@@ -865,5 +865,6 @@
 		height: 100%;
 		opacity: 0.5;
 		background: #000;
+		z-index: 1000;
 	}
 </style>
