@@ -182,7 +182,7 @@ export default {
         this.value = false;
       }
       this.popupVisible = !this.popupVisible;
-      this.value ? (this.nums = 1) : (this.nums = 2);
+      this.value ? (this.nums = 2) : (this.nums = 1);
       console.log(this.nums);
       this.httpairevolution();
     },
