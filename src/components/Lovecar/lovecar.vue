@@ -1,193 +1,193 @@
 <template>
-	<div class="tophead">
-		<div class="nav">
-			<img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
-			<span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;瑞丰 R3</span>
-			<span class="txt_r" @click="islogin()" v-if="this.LoginStatus">机车已登录</span>
-      	<span class="txt_r" v-else  @click="login()">机车未登录</span>
-		</div>
-		<div class="navs navs_h">
-			<div class="navs_t">
-				<span class="num">50</span>
-				<span class="txt">剩余油量（%）</span>
-			</div>
-			<div class="navs_t">
-				<span class="num">1333</span>
-				<span class="txt">行驶里程（KM）</span>
-			</div>
-			<div class="navs_t">
-				<span class="num">133</span>
-				<span class="txt">续航里程（KM）</span>
-			</div>
-		</div>
-		<div style="height:4.75rem;" class="content">
-			<div class="content">
-				<div class="left_bus1">
-					<div class="left_bus" @click="fn(1)">
-						<img v-if="activeshow==1" class="pic1" src="../../../static/images/Wit/taiya.png" alt="">
-						<img v-else class="pic1" src="../../../static/images/Wit/taiya1.png" alt="">
-						<span :class="activeshow==1?'active':'actives'" class="txt1">胎压</span>
-					</div>
-					<div class="left_bus" @click="fn(2)">
-						<img v-if="activeshow==2" class="pic1" src="../../../static/images/Wit/chemen.png" alt="">
-						<img v-else class="pic1" src="../../../static/images/Wit/chemen1.png" alt="">
-						<span :class="activeshow==2?'active':'actives'" class="txt1">车门</span>
-					</div>
-					<div class="left_bus" @click="fn(3)">
-						<img v-if="activeshow==3" class="pic1" src="../../../static/images/Wit/chechuang.png" alt="">
-						<img v-else class="pic1" src="../../../static/images/Wit/chechuang1.png" alt="">
-						<span :class="activeshow==3?'active':'actives'" class="txt1">车窗</span>
-					</div>
-              </div>
-				<img v-if="activeshow==1" class="line_x" src="../../../static/images/Wit/line3@3x.png" alt="">
-				<img v-else-if="activeshow==2" class="line_x" src="../../../static/images/Wit/line1@2x.png" alt="">
-				<img v-else-if="activeshow==3" class="line_x" src="../../../static/images/Wit/line2@3x.png" alt="">
-			</div>
-			<div class="bus_l">
-				<img src="../../../static/images/Wit/bus.png" alt="" class="bus_righgt">
-				<span  ref='open' class='busl_r left_1'>{{Condition.left_top}}</span>
-				<span ref='open' class='busl_r  left_2'>{{Condition.right_top}}</span>
-				<span  ref='open' class='busl_r right_1'>{{Condition.left_bottom}}</span>
-				<span  ref='open' class='busl_r right_2'>{{Condition.right_top}}</span>
-				<span class='busl_r top_1'>未关</span>
-				<span class='busl_r bottom_1'>未关</span>
-				<span class='busl_r middle_1'>已关</span>
-			</div>
-		</div>
-		<div class="content lines">
-			<div class="content_1" @click="doors">
-				<img  v-if="activeshows==this.isTrue" class="content_pic" src="../../../static/images/Wit/button4@3x_32.png" alt="">
-				<img  v-else class="content_pic" src="../../../static/images/Wit/button4@3x.png" alt="">
-				<span  :class="activeshows==this.isTrue?'act':'activess'" >车门</span>
-			</div>
-			<div class="content_1"  @click="isTrues=!isTrues">
-				<img  v-if="activeshows==this.isTrues" class="content_pic" src="../../../static/images/Wit/button5@3x_86.png" alt="">
-				<img v-else  class="content_pic" src="../../../static/images/Wit/button5@3x.png" alt="">
-				<span :class="activeshows==this.isTrues?'act':'activess'" >尾门</span>
-			</div>
-			<div class="content_1"   @click="closefire">
-				<img v-if="activeshows==this.isTruess" class="content_pic" src="../../../static/images/Wit/button6@3x_91.png" alt="">
-				<img v-else class="content_pic" src="../../../static/images/Wit/button6@3x.png" alt="">
-				<span :class="activeshows==this.isTruess?'act':'activess'" >熄火</span>
-			</div>
-			<div class="content_1" @click="enter()">
-				  <img v-if="activeshows==this.isTruesss"  class="content_pic" src="../../../static/images/Wit/button7@3x_2.png" alt="">
-					<img v-else class="content_pic" src="../../../static/images/Wit/button7@3x.png" alt="">
-				  <span :class="activeshows==this.isTruesss?'act':'activess'" >寻车</span>
-			</div>
-		</div>
-		<ul style="padding:0 .2rem">
-			<router-link to="/lovecar/airConditionControl" tag="li" class="navs air">
-				<div class="navs">
-					<img class="picc" src="../../../static/images/Wit/ari.png" alt="">
-					<span class="pic_txt">空调温度</span>
-				</div>
-				<img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
-			</router-link>
-			<router-link to="/lovecar/adjustSeatTemper" tag="li" class="navs air">
-				<div class="navs">
-					<img class="picc" src="../../../static/images/Wit/zuoyi.png" alt="">
-					<span class="pic_txt">座椅调节</span>
-				</div>
-				<img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
-			</router-link>
-			<router-link to="/lovecar/windowControl" tag="li" class="navs air">
-				<div class="navs">
-					<img class="picc" src="../../../static/images/Wit/chechuang.png" alt="">
-					<span class="pic_txt">车窗控制</span>
-				</div>
-				<img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
-			</router-link>
-			<router-link to="/lovecar/skylightControl" tag="li" class="navs air">
-				<div class="navs">
-					<img class="picc" src="../../../static/images/Wit/tianchuang.png" alt="">
-					<span class="pic_txt">天窗控制</span>
-				</div>
-				<img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
-			</router-link>
-			<router-link to="/lovecar/airEvoluor" tag="li" class="navs air">
-				<div class="navs">
-					<img class="picc" src="../../../static/images/Wit/icon5@3x.png" alt="">
-					<span class="pic_txt">空气净化器</span>
-				</div>
-				<img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
-			</router-link>
-		</ul>
-		<!-- 输入框 -->
-		<div id="bg" class="bg" />
-		<mt-popup v-model="popupVisible" position="middle">
-			<div class="con">
-				<div class="del">
-					<img @click="cancel" src="../.././../static/images/Wit/delete@3x.png" alt="" style="width:.28rem">
-					<div style="font-size:.36rem;color:#222">请输入PIN码</div>
-					<span></span>
-				</div>
-				<div class="pin-code flex maincenter cocenter">
-					<div id="pinCon">
-						<input @click="onTypewriting" v-model="pinNumber" class="pin-input" maxlength="6" type="text" readonly/>
-					</div>
-				</div>
-			</div>
-		</mt-popup>
-		<div class="typer" v-if="IsShow">
-			<ul class="flex yy">
-				<li class="typer-num" v-for="(item,index) in keyNums" :key="index" :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}" @click="input(item)">{{item}}</li>
-			</ul>
-		</div>
-		<!-- 弹出层 左上 -->
-		<div class="mask" v-if="MaskIsshow" @click="moved"></div>
-		<img class="cancel" v-if="MaskIsshow" @click="delde" src="../.././../static/images/Lovecar/button9@2x.png" alt="" style="width:.28rem">
-		<div v-if="MaskIsshow" class="mask_content">
-			<ul class="tipcontent">
-				<li @click="turnDing">
-					<img src="../../../static/images/Lovecar/ding.png" alt="">
-					<span>盯盯拍</span>
-				</li>
-				<router-link tag='li' to="/lovecar/revisePinCode">
-					<img src="../../../static/images/Lovecar/xiupin.png" alt="">
-					<span>修改PIN</span>
-				</router-link>
-				<router-link tag="li" to="/Bus_test">
-					<img src="../../../static/images/Lovecar/chejian.png" alt="">
-					<span>车辆体检</span>
-				</router-link>
-				<router-link tag='li' to="/Authorize">
-					<img src="../../../static/images/Lovecar/yuancheng.png" alt="">
-					<span>远程授权</span>
-				</router-link>
+  <div class="tophead">
+    <div class="nav">
+      <img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
+      <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;瑞丰 R3</span>
+      <span class="txt_r" @click="islogin()" v-if="this.LoginStatus">机车已登录</span>
+      <span class="txt_r" v-else @click="login()">机车未登录</span>
+    </div>
+    <div class="navs navs_h">
+      <div class="navs_t">
+        <span class="num">50</span>
+        <span class="txt">剩余油量（%）</span>
+      </div>
+      <div class="navs_t">
+        <span class="num">1333</span>
+        <span class="txt">行驶里程（KM）</span>
+      </div>
+      <div class="navs_t">
+        <span class="num">133</span>
+        <span class="txt">续航里程（KM）</span>
+      </div>
+    </div>
+    <div style="height:4.75rem;" class="content">
+      <div class="content">
+        <div class="left_bus1">
+          <div class="left_bus" @click="fn(1)">
+            <img v-if="activeshow==1" class="pic1" src="../../../static/images/Wit/taiya.png" alt="">
+            <img v-else class="pic1" src="../../../static/images/Wit/taiya1.png" alt="">
+            <span :class="activeshow==1?'active':'actives'" class="txt1">胎压</span>
+          </div>
+          <div class="left_bus" @click="fn(2)">
+            <img v-if="activeshow==2" class="pic1" src="../../../static/images/Wit/chemen.png" alt="">
+            <img v-else class="pic1" src="../../../static/images/Wit/chemen1.png" alt="">
+            <span :class="activeshow==2?'active':'actives'" class="txt1">车门</span>
+          </div>
+          <div class="left_bus" @click="fn(3)">
+            <img v-if="activeshow==3" class="pic1" src="../../../static/images/Wit/chechuang.png" alt="">
+            <img v-else class="pic1" src="../../../static/images/Wit/chechuang1.png" alt="">
+            <span :class="activeshow==3?'active':'actives'" class="txt1">车窗</span>
+          </div>
+        </div>
+        <img v-if="activeshow==1" class="line_x" src="../../../static/images/Wit/line3@3x.png" alt="">
+        <img v-else-if="activeshow==2" class="line_x" src="../../../static/images/Wit/line1@2x.png" alt="">
+        <img v-else-if="activeshow==3" class="line_x" src="../../../static/images/Wit/line2@3x.png" alt="">
+      </div>
+      <div class="bus_l">
+        <img src="../../../static/images/Wit/bus.png" alt="" class="bus_righgt">
+        <span ref='open' class='busl_r left_1'>{{Condition.left_top}}</span>
+        <span ref='open' class='busl_r  left_2'>{{Condition.right_top}}</span>
+        <span ref='open' class='busl_r right_1'>{{Condition.left_bottom}}</span>
+        <span ref='open' class='busl_r right_2'>{{Condition.right_top}}</span>
+        <span class='busl_r top_1'>未关</span>
+        <span class='busl_r bottom_1'>未关</span>
+        <span class='busl_r middle_1'>已关</span>
+      </div>
+    </div>
+    <div class="content lines">
+      <div class="content_1" @click="doors">
+        <img v-if="activeshows==this.isTrue" class="content_pic" src="../../../static/images/Wit/button4@3x_32.png" alt="">
+        <img v-else class="content_pic" src="../../../static/images/Wit/button4@3x.png" alt="">
+        <span :class="activeshows==this.isTrue?'act':'activess'">车门</span>
+      </div>
+      <div class="content_1" @click="isTrues=!isTrues">
+        <img v-if="activeshows==this.isTrues" class="content_pic" src="../../../static/images/Wit/button5@3x_86.png" alt="">
+        <img v-else class="content_pic" src="../../../static/images/Wit/button5@3x.png" alt="">
+        <span :class="activeshows==this.isTrues?'act':'activess'">尾门</span>
+      </div>
+      <div class="content_1" @click="closefire">
+        <img v-if="activeshows==this.isTruess" class="content_pic" src="../../../static/images/Wit/button6@3x_91.png" alt="">
+        <img v-else class="content_pic" src="../../../static/images/Wit/button6@3x.png" alt="">
+        <span :class="activeshows==this.isTruess?'act':'activess'">熄火</span>
+      </div>
+      <div class="content_1" @click="enter()">
+        <img v-if="activeshows==this.isTruesss" class="content_pic" src="../../../static/images/Wit/button7@3x_2.png" alt="">
+        <img v-else class="content_pic" src="../../../static/images/Wit/button7@3x.png" alt="">
+        <span :class="activeshows==this.isTruesss?'act':'activess'">寻车</span>
+      </div>
+    </div>
+    <ul style="padding:0 .2rem">
+      <router-link to="/lovecar/airConditionControl" tag="li" class="navs air">
+        <div class="navs">
+          <img class="picc" src="../../../static/images/Wit/ari.png" alt="">
+          <span class="pic_txt">空调温度</span>
+        </div>
+        <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
+      </router-link>
+      <router-link to="/lovecar/adjustSeatTemper" tag="li" class="navs air">
+        <div class="navs">
+          <img class="picc" src="../../../static/images/Wit/zuoyi.png" alt="">
+          <span class="pic_txt">座椅调节</span>
+        </div>
+        <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
+      </router-link>
+      <router-link to="/lovecar/windowControl" tag="li" class="navs air">
+        <div class="navs">
+          <img class="picc" src="../../../static/images/Wit/chechuang.png" alt="">
+          <span class="pic_txt">车窗控制</span>
+        </div>
+        <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
+      </router-link>
+      <router-link to="/lovecar/skylightControl" tag="li" class="navs air">
+        <div class="navs">
+          <img class="picc" src="../../../static/images/Wit/tianchuang.png" alt="">
+          <span class="pic_txt">天窗控制</span>
+        </div>
+        <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
+      </router-link>
+      <router-link to="/lovecar/airEvoluor" tag="li" class="navs air">
+        <div class="navs">
+          <img class="picc" src="../../../static/images/Wit/icon5@3x.png" alt="">
+          <span class="pic_txt">空气净化器</span>
+        </div>
+        <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
+      </router-link>
+    </ul>
+    <!-- 输入框 -->
+    <div id="bg" class="bg" />
+    <mt-popup v-model="popupVisible" position="middle">
+      <div class="con">
+        <div class="del">
+          <img @click="cancel" src="../.././../static/images/Wit/delete@3x.png" alt="" style="width:.28rem">
+          <div style="font-size:.36rem;color:#222">请输入PIN码</div>
+          <span></span>
+        </div>
+        <div class="pin-code flex maincenter cocenter">
+          <div id="pinCon">
+            <input @click="onTypewriting" v-model="pinNumber" class="pin-input" maxlength="6" type="text" readonly/>
+          </div>
+        </div>
+      </div>
+    </mt-popup>
+    <div class="typer" v-if="IsShow">
+      <ul class="flex yy">
+        <li class="typer-num" v-for="(item,index) in keyNums" :key="index" :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}" @click="input(item)">{{item}}</li>
+      </ul>
+    </div>
+    <!-- 弹出层 左上 -->
+    <div class="mask" v-if="MaskIsshow" @click="moved"></div>
+    <img class="cancel" v-if="MaskIsshow" @click="delde" src="../.././../static/images/Lovecar/button9@2x.png" alt="" style="width:.28rem">
+    <div v-if="MaskIsshow" class="mask_content">
+      <ul class="tipcontent">
+        <li @click="turnDing">
+          <img src="../../../static/images/Lovecar/ding.png" alt="">
+          <span>盯盯拍</span>
+        </li>
+        <router-link tag='li' to="/lovecar/revisePinCode">
+          <img src="../../../static/images/Lovecar/xiupin.png" alt="">
+          <span>修改PIN</span>
+        </router-link>
+        <router-link tag="li" to="/Bus_test">
+          <img src="../../../static/images/Lovecar/chejian.png" alt="">
+          <span>车辆体检</span>
+        </router-link>
+        <router-link tag='li' to="/Authorize">
+          <img src="../../../static/images/Lovecar/yuancheng.png" alt="">
+          <span>远程授权</span>
+        </router-link>
 
-				<li @click="turnPosition">
-					<img src="../../../static/images/Lovecar/dingwei.png" alt="">
-					<span>定位</span>
-				</li>
-				<router-link tag='li' to="/lovecar/flowQuery">
-					<img src="../../../static/images/Lovecar/liuliang.png" alt="">
-					<span>流量查询</span>
-				</router-link>
-				<router-link tag='li' to="/lovecar/fuelQuery">
-					<img src="../../../static/images/Lovecar/ranyou.png" alt="">
-					<span>燃油统计</span>
-				</router-link>
-				<li @click="turnPage">
-					<img src="../../../static/images/Lovecar/dianzi.png" alt="">
-					<span>电子围栏</span>
-				</li>
+        <li @click="turnPosition">
+          <img src="../../../static/images/Lovecar/dingwei.png" alt="">
+          <span>定位</span>
+        </li>
+        <router-link tag='li' to="/lovecar/flowQuery">
+          <img src="../../../static/images/Lovecar/liuliang.png" alt="">
+          <span>流量查询</span>
+        </router-link>
+        <router-link tag='li' to="/lovecar/fuelQuery">
+          <img src="../../../static/images/Lovecar/ranyou.png" alt="">
+          <span>燃油统计</span>
+        </router-link>
+        <li @click="turnPage">
+          <img src="../../../static/images/Lovecar/dianzi.png" alt="">
+          <span>电子围栏</span>
+        </li>
 
-				<router-link tag='li' to="/lovecar/wifiLink">
-					<img src="../../../static/images/Lovecar/wifi.png" alt="">
-					<span>wifi直连</span>
-				</router-link>
-				<!-- <router-link tag="li" to='/lovecar/intelligenceParking'>
+        <router-link tag='li' to="/lovecar/wifiLink">
+          <img src="../../../static/images/Lovecar/wifi.png" alt="">
+          <span>wifi直连</span>
+        </router-link>
+        <!-- <router-link tag="li" to='/lovecar/intelligenceParking'>
 					<img src="../../../static/images/Lovecar/zhiting.png" alt="">
 					<span>智能停车</span>
 				</router-link> -->
-			</ul>
-		</div>
-	</div>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <script>
-import {Toast} from 'mint-ui'
+import { Toast } from "mint-ui";
 export default {
   name: "lovecar",
   data() {
@@ -212,7 +212,9 @@ export default {
       pinNumber: "",
       type: "", //判断点击事件
       Condition: {},
-      LoginStatus:''//机车登录状态
+      LoginStatus: "", //机车登录状态
+      time:"",
+      sjc:''
     };
   },
   methods: {
@@ -255,11 +257,13 @@ export default {
     },
     //锁的弹出框
     doors() {
+      
       this.type = 1;
       this.popupVisible = true;
     },
     //熄火的请求
     closefire() {
+       
       this.type = 3;
       this.popupVisible = true;
     },
@@ -267,23 +271,6 @@ export default {
     enter() {
       this.type = 4;
       this.popupVisible = true;
-      // this.isTruesss=!this.isTruesss
-      // setTimeout(()=>{
-      //   this.isTruesss=!this.isTruesss
-      // },500)
-      // var param = {
-      //   vin: this.$store.state.vin,
-      //   operationType: "FIND_VEHICLE",
-      // };
-      // this.$http
-      //   .post(Lovecar.Control, param, this.$store.state.getpin)
-      //   .then(res => {
-      //     console.log(res);
-      //     this.operationIdses=res.data.operationId
-      //       this.$http.post(Lovecar.OperationId,{operationId:this.operationIdses},this.$store.state.getpin).then((res)=>{
-      //             console.log(res)
-      //       },1000)
-      //   });
     },
     //关闭PIN码弹框
     cancel() {
@@ -372,32 +359,79 @@ export default {
       }
     },
     // 机车未登录 点击 扫一扫
-    login(){
-       if(isMobile.iOS()) {
-					var params = {};
-					window.webkit.messageHandlers.scan.postMessage(params);
-				} else if(isMobile.Android()) {
-					js2android.scan();
-				}
+    login() {
+      if (isMobile.iOS()) {
+        var params = {};
+        window.webkit.messageHandlers.scan.postMessage(params);
+      } else if (isMobile.Android()) {
+        js2android.scan();
+      }
     },
-     getStatus(status){
-       console.log(status)
-           var param = {
-              vin:this.$store.state.vin,
-              operation: "1"
-            };
-            this.$http.post(Lovecar.LoginOut,param,this.$store.state.getpin).then(res => {
-              if(res.status==200){
-                  Toast({
-                  message: '登入成功',
-                  position: "middle",
-                  duration: 3000
-                });
-                this.LoginStatus=true
+    getStatus(status) {
+      console.log(status);
+      var param = {
+        vin: this.$store.state.vin,
+        operation: "1"
+      };
+      this.$http
+        .post(Lovecar.LoginOut, param, this.$store.state.getpin)
+        .then(res => {
+          if (res.status == 200) {
+            Toast({
+              message: "登入成功",
+              position: "middle",
+              duration: 3000
+            });
+            this.LoginStatus = true;
+          }
+       });
+    },
+     getAsyReturn(operationId) {
+           var flag = true;
+          this.sjc=new Date().getTime()
+          this.time=  setInterval(() => {
+          this.$http.post(Lovecar.OperationId,{ operationId: operationId},this.$store.state.getpin).then(res => {
+             
+               var  tS = new Date().getTime()-this.sjc //时间戳 差
+               var tSS=  parseInt(tS/1000%60)  // 时间差    
+              if (res.data.returnSuccess = true){
+                  if (res.data.status == "IN_PROGRESS") {
+                    //60s  后 清除定时器，不在发请求
+                    console.log(tSS)
+                    if(tSS>=12){
+                    Toast({
+                      message: "请求超时",
+                      position: "middle",
+                      duration: 3000
+                    });
+                     var self=this
+                      clearInterval(self.time)
+                 }
+                  } else if (res.data.status == "SUCCEED") {
+                     flag = false;
+                      clearInterval(this.time)
+                  } else if(res.data.status == "FAILED") {
+                     flag = false;
+                    Toast({
+                      message: "指令下发成功，处理失败！",
+                      position: "middle",
+                      duration: 3000
+                    });
+                     clearInterval(this.time)
+                  }
+              }else {
+                Toast({
+                      message: "指令下发失败！",
+                      position: "middle",
+                      duration: 3000
+                    });
+                      flag = false;
+                      clearInterval(this.time)
               }
-              // alert(JSON.stringify(res.status))
            });
-     }
+        }, 4000);
+
+  }
   },
   //检测输入框
   watch: {
@@ -419,37 +453,33 @@ export default {
               console.log(res);
               if (this.type == 1) {
                 //车辆锁定的接口
+                
                 this.isTrue = !this.isTrue;
                 this.isTrue ? (this.locknum = 2) : (this.locknum = 1);
-                // console.log(this.locknum)
-                var param = {
+               var param = {
                   vin: this.$store.state.vin,
                   operationType: "LOCK",
                   operation: this.locknum //操作项
                 };
-                this.$http
-                  .post(Lovecar.Control, param, this.$store.state.getpin)
-                  .then(res => {
+                this.$http.post(Lovecar.Control, param, this.$store.state.getpin).then(res => {
                     this.operationIds = res.data.operationId;
-                    // console.log(this.operationIds)
-                    setTimeout(() => {
-                      this.$http
-                        .post(
-                          Lovecar.OperationId,
-                          { operationId: this.operationIds },
-                          this.$store.state.getpin
-                        )
-                        .then(res => {
-                          console.log(res);
-                        }, 1000);
-                    });
+                  // setTimeout(() => {
+                  //     this.$http
+                  //       .post(
+                  //         Lovecar.OperationId,
+                  //         { operationId: this.operationIds },
+                  //         this.$store.state.getpin
+                  //       )
+                  //       .then(res => {
+                  //         }, 6000);
+                  //   });
+               this.getAsyReturn(this.operationIds)
                   });
               } else if (this.type == 3) {
                 //引擎接口，熄火
                 this.isTruess = !this.isTruess;
                 this.isTruess ? (this.firenum = 1) : (this.firenum = 2);
-                console.log(this.firenum);
-                var param = {
+                   var param = {
                   vin: this.$store.state.vin,
                   operationType: "ENGINE",
                   operation: this.locknum //操作项
@@ -458,24 +488,24 @@ export default {
                   .post(Lovecar.Control, param, this.$store.state.getpin)
                   .then(res => {
                     this.operationIdss = res.data.operationId;
-                    console.log(this.operationIdss);
-                    setTimeout(() => {
-                      this.$http
-                        .post(
-                          Lovecar.OperationId,
-                          { operationId: this.operationIdss },
-                          this.$store.state.getpin
-                        )
-                        .then(res => {
-                          console.log(res);
-                        }, 1000);
-                    });
+                     this.getAsyReturn(this.operationIdss)
+                    // setTimeout(() => {
+                    //   this.$http
+                    //     .post(
+                    //       Lovecar.OperationId,
+                    //       { operationId: this.operationIdss },
+                    //       this.$store.state.getpin
+                    //     )
+                    //     .then(res => {
+                    //       console.log(res);
+                    //     }, 1000);
+                    // });
                   });
               } else if (this.type == 4) {
                 this.isTruesss = !this.isTruesss;
                 setTimeout(() => {
                   this.isTruesss = !this.isTruesss;
-                },2000);
+                }, 2000);
                 var param = {
                   vin: this.$store.state.vin,
                   operationType: "FIND_VEHICLE"
@@ -484,15 +514,9 @@ export default {
                   .post(Lovecar.Control, param, this.$store.state.getpin)
                   .then(res => {
                     this.operationIdses = res.data.operationId;
-                    this.$http
-                      .post(
-                        Lovecar.OperationId,
-                        { operationId: this.operationIdses },
-                        this.$store.state.getpin
-                      )
-                      .then(res => {
-                    
-                      }, 1000);
+                     this.getAsyReturn( this.operationIdses)
+                    // this.$http.post( Lovecar.OperationId,{ operationId: this.operationIdses },this.$store.state.getpin)
+                    // .then(res => {}, 1000);
                   });
               }
             });
@@ -510,39 +534,36 @@ export default {
     this.Condition = tai;
   },
   mounted() {
+  
     //暴露方法给原生,登入判断
-     window.getStatus = this.getStatus;
-    this.$http
-      .post(
-        Lovecar.Carquery,
-        {
-          vins: [this.$store.state.vin]
-        },
-        this.$store.state.getpin
-      )
-      .then(res => {
-        this.$http
-          .post(
-            Lovecar.OperationId,
-            {
-              operationId: res.data.operationId
-            },
-            this.$store.state.getpin
-          )
-          .then(res => {});
-      }),
-   this.$http.get(Lovecar.LogStatus, this.$store.state.getpin).then(res => {
-        if(res.status==200){
-          this.LoginStatus=res.data.data[1].logStatus
-          }
-     });
-    
-  }
+    window.getStatus = this.getStatus;
+    this.$http.post(Lovecar.Carquery,{vins: [this.$store.state.vin]},this.$store.state.getpin).then(res => {
+    if(res.data.returnSuccess){
+             this.getAsyReturn(res.data.operationId)
+            }else{
+                 Toast({
+                      message: "token验证失败",
+                      position: "middle",
+                      duration: 3000
+                    });
+         }
+ }),
+    //获取机车 登录登出状态
+      this.$http.get(Lovecar.LogStatus, this.$store.state.getpin).then(res => {
+        if (res.status == 200) {
+         
+          this.LoginStatus = res.data.data[1].logStatus;
+        }
+      });
+  },
+
 };
+
+
 </script>
 <style scoped>
 .mint-popup {
-  border-radius: .1rem
+  border-radius: 0.1rem;
 }
 .pin-code {
   height: 2rem;
@@ -649,13 +670,11 @@ export default {
   top: 0.4rem;
   left: 0.3rem;
 }
-
 .tipcontent {
   display: flex;
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-
   box-sizing: border-box;
 }
 .tipcontent li {
@@ -687,14 +706,12 @@ export default {
   float: left;
   text-align: center;
 }
-
 .one {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 0.4rem 0;
 }
-
 .one input {
   width: 20%;
   height: 0.7rem;
@@ -725,7 +742,6 @@ input:focus {
 }
 .act {
   color: #49bbff;
-
   font-size: 0.22rem;
   margin-top: 0.12rem;
 }
@@ -762,14 +778,12 @@ input:focus {
   color: #fc3b46;
   font-size: 0.24rem;
 }
-
 .bottom_1 {
   bottom: 1.1rem;
   left: 0.6rem;
   color: #fc3b46;
   font-size: 0.24rem;
 }
-
 .middle_1 {
   bottom: 2.5rem;
   left: 0.6rem;
@@ -844,7 +858,6 @@ input:focus {
   justify-content: space-around;
   align-items: center;
 }
-
 .content {
   display: flex;
   flex-direction: row;
@@ -856,7 +869,6 @@ input:focus {
   align-items: center;
   padding: 0.31rem 0;
 }
-
 .navs_h {
   height: 2rem;
 }
@@ -866,7 +878,6 @@ input:focus {
   justify-content: space-between;
   align-items: center;
 }
-
 .num {
   color: #fff;
   font-size: 0.28rem;
@@ -887,7 +898,6 @@ input:focus {
   margin-left: 0.65rem;
   margin-right: 0.51rem;
 }
-
 .pic_r {
   width: 0.3rem;
   display: block;

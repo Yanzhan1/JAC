@@ -158,5 +158,5 @@ window.Lovecar = {
     LoginOut: mipss + '/vehicle/remote-vehicle-login-or-logout', //退出登录
     Findcode: mipss + '/vehicle/forget-vehicle-pin', //找回pin码
     Control: mipss + '/vehicle/remote-vehicle-control', //远程控制
-    LogStatus: mipss + '/vehicle/vehicle-logStatus' //获取机车登入状态
+    LogStatus: mipss + '/vehicle/vehicle-logstatus' //获取机车登入状态
 }
