@@ -386,6 +386,7 @@ export default {
           }
        });
     },
+    //重复调用异步接口
      getAsyReturn(operationId) {
            var flag = true;
           this.sjc=new Date().getTime()
@@ -398,7 +399,7 @@ export default {
                   if (res.data.status == "IN_PROGRESS") {
                     //60s  后 清除定时器，不在发请求
                     console.log(tSS)
-                    if(tSS>=12){
+                    if(tSS>=60){
                     Toast({
                       message: "请求超时",
                       position: "middle",
@@ -538,20 +539,19 @@ export default {
     //暴露方法给原生,登入判断
     window.getStatus = this.getStatus;
     this.$http.post(Lovecar.Carquery,{vins: [this.$store.state.vin]},this.$store.state.getpin).then(res => {
-    if(res.data.returnSuccess){
+          if(res.data.returnSuccess){
              this.getAsyReturn(res.data.operationId)
             }else{
                  Toast({
                       message: "token验证失败",
                       position: "middle",
                       duration: 3000
-                    });
+           });
          }
  }),
     //获取机车 登录登出状态
       this.$http.get(Lovecar.LogStatus, this.$store.state.getpin).then(res => {
         if (res.status == 200) {
-         
           this.LoginStatus = res.data.data[1].logStatus;
         }
       });
