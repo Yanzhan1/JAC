@@ -551,7 +551,7 @@ export default {
  }),
     //获取机车 登录登出状态
       this.$http.get(Lovecar.LogStatus, this.$store.state.getpin).then(res => {
-        if (res.status == 200) {
+        if (res.data.returnSuccess) {
           this.LoginStatus = res.data.data[1].logStatus;
         }
       });
