@@ -35,7 +35,9 @@ router.beforeEach((to, from, next) => {
     userInfo = js2android.getUserInfo()
     alert(JSON.stringify(userInfo))
   }
-  Vue.prototype.$http.defaults.headers.common['timaToken'] = userInfo.token
+  if(userInfo && userInfo.token){
+    Vue.prototype.$http.defaults.headers.common['timaToken'] = userInfo.token
+  }
   next()
 })
 // mint-ui插件
