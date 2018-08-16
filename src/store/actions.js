@@ -18,4 +18,7 @@ export default {
     uuid: ({ commit, state }, payload) => {
       commit(types.UUID, payload)
     },
+    userInfo: ({ commit, state }, payload) => {
+      commit(types.USERINFO, payload)
+    },
 }
