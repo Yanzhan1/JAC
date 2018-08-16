@@ -9,7 +9,7 @@
 		<div class="revisePinCommon flex-center revise-pin-mes ">
 			<div class="">
 				<span>
-					您的手机号码是177********，请输入原PIN码和新PIN码，并点击“获取验证码”:
+					您的手机号码是{{userPhone ? userPhone : '' | toFormat() }}，请输入原PIN码和新PIN码，并点击“获取验证码”:
 				</span>
 			</div>
 
@@ -59,19 +59,21 @@
 					phone: '',
 					newPin: '',
 					verificationCode: ''
-				}
+				},
+				userPhone: null, //用户信息，手机号
+				setTime: null
 			}
 		},
 		methods: {
 			//获取验证码
 			submitCode() {
 				this.showTime=false;
-				var backtime=setInterval(()=>{
+				this.setTime=setInterval(()=>{
 					this.times--;
 					if(this.times==0){
 						this.times=60;
 						this.showTime=true;
-						window.clearInterval(backtime)
+						window.clearInterval(this.setTime)
 					}
 				},1000)
 				var phone=this.pin.phone
@@ -110,6 +112,19 @@
 				}
 				
 			}
+		},
+		filters: {
+			toFormat (val) {
+				let headPhone = val.slice(0,3)
+				let str1 = `${headPhone}********` 
+				return str1
+			}
+		},
+		created () {
+			this.userPhone = this.$route.params.userPhone
+		},
+		mounted () {
+			clearInterval(this.setTime)
 		}
 	}
 </script>
