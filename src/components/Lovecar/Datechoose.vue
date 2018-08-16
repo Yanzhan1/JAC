@@ -14,6 +14,16 @@
     </header>
     <div style="width:100%;height:.01rem;background:#f1f1f1"></div>
     <div style="margin-top:.95rem;height:11.16rem;width:100%;" class="nav">
+      <div v-if="this.times=='年'">
+        <div class="every_times">
+          <img src="/static/images/Lovecar/left-balck.png" alt="" class="img_l" @click="l_year">
+          <div class="center">{{this.leftnewsyear}}年~{{this.newsyear}}年</div>
+          <img src="/static/images/Lovecar/right-black.png" alt="" class="img_r" @click="r_year">
+          <div class="year_main" style="position:absolute;width:100%;top:1rem">
+            <div class="year_center" v-for="(item,index) in arrayyear" @click.stop="changecoloryear($event,index)" :class="{blue:current==index}" :key="index">{{item}}</div>
+          </div>
+        </div>
+      </div>
       <div v-if="this.times=='月'">
         <div class="every_times">
           <img src="/static/images/Lovecar/left-balck.png" alt="" class="img_l" @click="turn_l">
@@ -81,6 +91,8 @@
     <div class="choose_date" v-show="this.opentime">
       <img src="/static/images/Lovecar/delete@2x.png" alt="" @click="close_times">
       <div class="choose_data_t">
+        <div @click="year">
+          <span>年</span><img src="/static/images/Lovecar/gou.png" alt="" class="img" v-show="this.showgou4"></div>
         <div @click="month">
           <span>月</span><img src="/static/images/Lovecar/gou.png" alt="" class="img" v-show="this.showgou1"></div>
         <div @click="week">
@@ -105,13 +117,17 @@ export default {
       showgou1: true, //选择月的选项
       showgou2: false, //选择周的选项
       showgou3: false, //选择日的选项
+      showgou4:false,//选择年的选项
       showdate: "", //选择具体的日
       showweek: "", //选择具体的周
       monthsstart: "",
       monthsend: "",
+      newsyear:'',//当前年份
+      leftnewsyear:'',
       // newdates:'',
       newdates: { years: "", months: "" },
       arraynum: [], //需要被渲染的数组
+      arrayyear:[],//年
       array1: [
         "1",
         "2",
@@ -245,13 +261,22 @@ export default {
       newarraynum: []
     };
   },
+  created(){
+
+  },
   mounted() {
+    console.log(this.$store.state.getpin.headers.identityParam.phone)
     this.$nextTick(() => {
       var date = new Date();
       var year = date.getFullYear();
       var month = date.getMonth() + 1;
       this.newdates.years = year;
       this.newdates.months = month;
+      this.newsyear=year
+      this.leftnewsyear=this.newsyear-11
+        for(var i = this.leftnewsyear; i <= this.newsyear;i++){
+        this.arrayyear.push(i);
+      }
       if (
         this.newdates.months == 1 ||
         this.newdates.months == 3 ||
@@ -327,10 +352,39 @@ export default {
     close_times() {
       this.opentime = false;
     },
+    l_year(){
+      this.leftnewsyear-=11
+      this.newsyear-=11
+      this.arrayyear = [];
+      for(var i = this.leftnewsyear; i <= this.newsyear;i++){
+        this.arrayyear.push(i);
+      }
+    },  
+    r_year(){
+      if(this.newsyear<new Date().getFullYear()){
+        this.leftnewsyear+=11
+        this.newsyear+=11
+        this.arrayyear = [];
+        for(var i = this.leftnewsyear; i <= this.newsyear;i++){
+          this.arrayyear.push(i);
+        }
+      }
+    },
+    year(){
+      this.showgou4=true;
+      this.showgou1 = false;
+      this.showgou2 = false;
+      this.showgou3 = false;
+      setTimeout(() => {
+        this.opentime = false;
+      }, 200);
+      this.times='年'     
+    },
     month() {
       this.showgou1 = true;
       this.showgou2 = false;
       this.showgou3 = false;
+      this.showgou4=false;
       setTimeout(() => {
         this.opentime = false;
       }, 200);
@@ -340,6 +394,7 @@ export default {
       this.showgou1 = false;
       this.showgou2 = true;
       this.showgou3 = false;
+      this.showgou4=false;
       setTimeout(() => {
         this.opentime = false;
       }, 200);
@@ -349,6 +404,7 @@ export default {
       this.showgou1 = false;
       this.showgou2 = false;
       this.showgou3 = true;
+      this.showgou4=false;
       setTimeout(() => {
         this.opentime = false;
       }, 200);
@@ -357,15 +413,17 @@ export default {
     //解决周部分不需要右margin的问题
     reduceleft() {
       if (this.times == "周") {
-        var dt = new Date(this.newdates.years, this.newdates.months - 1, 1);
-        var n = dt.getDay();
         var center_l = document.getElementsByClassName("date_center");
         center_l[0].style.marginLeft = "0rem";
+      }
+      if(this.times=='年'){
+        var center_ll = document.getElementsByClassName("year_center");
+       center_ll[0].style.marginLeft=0
       }
     },
     //根据每个月的1号是星期几判断每个月1号与左边的距离
     week_left() {
-      if (this.times != "周") {
+      if (this.times != "周"&&this.times!='年') {
         var dt = new Date(this.newdates.years, this.newdates.months - 1, 1);
         var n = dt.getDay();
         var center_l = document.getElementsByClassName("date_center");
@@ -740,7 +798,6 @@ export default {
       var year = date.getFullYear();
       var month = date.getMonth() + 1;
       var day = date.getDate();
-      console.log(index);
       if (
         this.newdates.years == year &&
         this.newdates.months == month &&
@@ -757,12 +814,18 @@ export default {
         this.showdate = el.target.innerHTML;
       }
     },
+    changecoloryear(el, index) {
+        this.current = index;
+        // el.target.style.backgroundColor='#49bbff';
+        this.showdate = el.target.innerHTML;
+      
+    },
     //点击查询时候传过去的东西
     cheeks() {
       //根据选择的是日或者周选择传过去的起始和结束时间戳
       if (this.times == "日") {
         this.monthsstart = this.Changetimestamp();
-        this.monthend = new Date().getTime();
+        this.monthsend = new Date().getTime();
       }
       if (this.times == "月") {
         this.monthsstart = this.Changetimestamp()[1];
@@ -896,7 +959,7 @@ export default {
 }
 .choose_data_t {
   margin-top: 0.96rem;
-  height: 2.94rem;
+  height: 3.83rem;
 }
 .choose_data_t > div {
   height: 0.96rem;
@@ -990,6 +1053,19 @@ export default {
   padding-left: 0.2rem;
   background: #e8f5ff;
 }
+.year_center{
+  width: 24.9%;
+  height: 1.6rem;
+  background: #e8f5ff;
+  float: left;
+  text-align: left;
+  font-size: .3rem;
+  font-family: PingFang SC;
+  font-weight: Medium;
+  color:#222;
+  line-height: 1.2rem;
+  padding-left: .28rem;
+}
 .date_bottom {
   position: absolute;
   bottom: 0;
@@ -1012,6 +1088,11 @@ export default {
   float: left;
   text-align: center;
   line-height: 1rem;
+}
+year_main{
+    /* position: absolute;
+    top: 1rem;
+    width: 100%; */
 }
 .blue {
   background: #49bbff;

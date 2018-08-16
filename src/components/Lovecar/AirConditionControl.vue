@@ -488,17 +488,20 @@ export default {
         .then(res => {
           this.operationIds = res.data.operationId;
           console.log(this.operationIds);
-          setTimeout(() => {
-            this.$http
-              .post(
-                Lovecar.OperationId,
-                { operationId: this.operationIds },
-                this.$store.state.getpin
-              )
-              .then(res => {
-                console.log(res);
-              }, 1000);
-          });
+          console.log(res.data.returnSuccess)
+          if(res.data.returnSuccess){
+            setTimeout(() => {
+              this.$http
+                .post(
+                  Lovecar.OperationId,
+                  { operationId: this.operationIds },
+                  this.$store.state.getpin
+                )
+                .then(res => {
+                  console.log(res);
+                }, 1000);
+            });
+          }
         });
     }
   },
