@@ -35,7 +35,7 @@
 		},
 		methods: {
 			init() {
-				this.$http.post(Wit.searchComplaintsSuggestionsList, this.condition).then(res => {
+				this.$http.post(Wit.searchComplaintsSuggestionsList, this.condition,this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.questionContent = data.data

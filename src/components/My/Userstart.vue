@@ -180,7 +180,7 @@
           params: data,
           method:"get",
           formUrlencoded
-        }).then((res)=>{
+        },this.$store.state.mytoken).then((res)=>{
           if(res.data.success){
             this.userInfo = res.data.data;
 //            this.$store.state.userstartUuid = res.data.account.uuid;
@@ -293,7 +293,7 @@
       //获取我和他人的关注状态
       focusStatus: function(){
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.focusStatu,{"uid": _this.$store.state.userId,"focusId": _this.$store.state.UserStartId}).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.focusStatu,{"uid": _this.$store.state.userId,"focusId": _this.$store.state.UserStartId},this.$store.state.mytoken).then(function (res) {
           if (res.data.status) {
             _this.focusStatu = res.data.data;
           } else {
@@ -323,7 +323,7 @@
         var _this = this;
         MessageBox.confirm('确定取消关注?').then(action => {
           var _this = this;
-          this.$http.post(DISCOVERMESSAGE.unFocus, {"uid": _this.$store.state.userId,"focusId": _this.$store.state.UserStartId}).then(function (res) {
+          this.$http.post(DISCOVERMESSAGE.unFocus, {"uid": _this.$store.state.userId,"focusId": _this.$store.state.UserStartId},this.$store.state.mytoken).then(function (res) {
             if (res.data.status) {
               _this.focusStatus();
               _this.focusStatu = res.data.data;
@@ -341,7 +341,7 @@
       //他的关注数量
       myFocusNum: function(){
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.myFocusNum,{"uid": _this.$store.state.UserStartId}).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.myFocusNum,{"uid": _this.$store.state.UserStartId},this.$store.state.mytoken).then(function (res) {
           if (res.data.status) {
             _this.focsNum = res.data.data;
           } else {
@@ -352,7 +352,7 @@
       //他的粉丝数量
       myFansNum: function(){
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.myFansNum,{"uid": _this.$store.state.UserStartId}).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.myFansNum,{"uid": _this.$store.state.UserStartId},this.$store.state.mytoken).then(function (res) {
           if (res.data.status) {
             _this.fansNum = res.data.data;
           } else {
@@ -363,7 +363,7 @@
       //他的点赞数量
       myLikeNum: function(){
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.myLikeNum,{"uid": _this.$store.state.UserStartId}).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.myLikeNum,{"uid": _this.$store.state.UserStartId},this.$store.state.mytoken).then(function (res) {
           if (res.data.status) {
             _this.likeNum = res.data.data;
           } else {
@@ -387,7 +387,7 @@
       //给此刻点赞
       giveNowLike: function (manageId,index) {
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.momentGiveLike, {"uid": _this.$store.state.UserStartId,"lid": manageId}).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.momentGiveLike, {"uid": _this.$store.state.UserStartId,"lid": manageId},this.$store.state.mytoken).then(function (res) {
           if (res.data.status) {
             _this.myList[index].likeNum = res.data.data.num;
             _this.myList[index].likeStatus = false;
@@ -403,7 +403,7 @@
       //给此刻取消点赞
       removeNowLike: function (manageId,index) {
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.momentRemoveLike, {"uid": _this.userId,"lid": manageId}).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.momentRemoveLike, {"uid": _this.userId,"lid": manageId},this.$store.state.mytoken).then(function (res) {
           if (res.data.status) {
             _this.myList[index].likeNum = res.data.data.num;
             _this.myList[index].likeStatus = true;

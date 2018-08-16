@@ -60,7 +60,7 @@
         },
         getFansList: function () {
           var _this = this;
-          this.$http.post(DISCOVERMESSAGE.fansList, {"uid":this.userId}).then(function (res) {
+          this.$http.post(DISCOVERMESSAGE.fansList, {"uid":this.userId},this.$store.state.mytoken).then(function (res) {
             if (res.data.status) {
               _this.list = res.data.data;
             } else {

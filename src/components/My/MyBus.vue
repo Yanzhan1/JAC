@@ -70,7 +70,7 @@ export default {
             userNo: "UBS2018072410503423882",
             vehicleNo: no
           };
-          this.$http.post(Wit.JFmybus, param).then(res => {
+          this.$http.post(Wit.JFmybus, param,this.$store.state.mytoken).then(res => {
             if (res.data.code == 0) {
               this.MyBus();
             }
@@ -81,7 +81,7 @@ export default {
     //我的车辆
     MyBus() {
       var no = this.$store.state.no;
-      this.$http.post(Wit.My_Bus, { userNo: no }).then(res => {
+      this.$http.post(Wit.My_Bus, { userNo: no },this.$store.state.mytoken).then(res => {
         if (res.data.code == 0) {
           this.BusDetails = res.data.data;
         }
@@ -99,7 +99,7 @@ export default {
         isDefault: 1,
         userNo: this.$store.state.no
       };
-      this.$http.post(Wit.SetOneDefault, param).then(res => {
+      this.$http.post(Wit.SetOneDefault, param,this.$store.state.mytoken).then(res => {
         if (res.data.code == 0) {
           this.MyBus();
         }

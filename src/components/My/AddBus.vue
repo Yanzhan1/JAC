@@ -39,6 +39,7 @@ export default {
         engineNo: "VJ00102",
         vin: "LJ1702345G8001011"
       };
+      
       this.$http.post(Wit.AddMyBus, param,this.$store.state.mytoken).then(res => {
         if (res.data.code == 0) {
           Toast({

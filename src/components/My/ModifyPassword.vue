@@ -41,7 +41,7 @@
 		},
 		methods: {
 			modifyPwd () { //修改密码
-				this.$http.post(Wit.updateUserPassword, this.condition).then(res => {
+				this.$http.post(Wit.updateUserPassword, this.condition,this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					console.log(data);
 					if(data.code == 0) {
