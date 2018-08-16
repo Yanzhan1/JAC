@@ -371,27 +371,27 @@ export default {
         var center_l = document.getElementsByClassName("date_center");
         switch (n) {
           case 0: //一号是星期天
-            center_l[0].style.marginLeft = "6.42rem";
+            center_l[0].style.marginLeft = "85.59%";
             center_l[0].style.borderLeft = ".01rem solid #eee";
             break;
           case 2: //一号是星期二
-            center_l[0].style.marginLeft = "1.07rem";
+            center_l[0].style.marginLeft = "14.26%";
             center_l[0].style.borderLeft = ".01rem solid #eee";
             break;
           case 3: //一号是星期三
-            center_l[0].style.marginLeft = "2.14rem";
+            center_l[0].style.marginLeft = "28.52%";
             center_l[0].style.borderLeft = ".01rem solid #eee";
             break;
           case 4: //一号是星期四
-            center_l[0].style.marginLeft = "3.21rem";
+            center_l[0].style.marginLeft = "42.81%";
             center_l[0].style.borderLeft = ".01rem solid #eee";
             break;
           case 5: //一号是星期五
-            center_l[0].style.marginLeft = "4.28rem";
+            center_l[0].style.marginLeft = "57.07%";
             center_l[0].style.borderLeft = ".01rem solid #eee";
             break;
           case 6: //一号是星期六
-            center_l[0].style.marginLeft = "5.35rem";
+            center_l[0].style.marginLeft = "71.33%";
             center_l[0].style.borderLeft = ".01rem solid #eee";
             break;
         }
@@ -950,7 +950,7 @@ export default {
   align-items: center;
 }
 .date_top > div {
-  width: 1.07rem;
+  width: 14.26%;
   text-align: center;
   border: 0.01rem solid #eee;
   padding-top: 0.15rem;
@@ -975,13 +975,13 @@ export default {
   border-bottom: 0.01rem solid #eee;
 }
 .date_week > div {
-  width: 1.07rem;
+  width: 14.26%;
   text-align: center;
   padding-top: 0.15rem;
   padding-bottom: 0.15rem;
 }
 .date_center {
-  width: 1.07rem;
+  width: 14.26%;
   height: 1.07rem;
   border: 0.01rem solid #eee;
   border-left: 0;
@@ -1007,7 +1007,7 @@ export default {
   color: #fff;
 }
 .week_center {
-  width: 1.07rem;
+  width: 14.26%;
   height: 1.07rem;
   float: left;
   text-align: center;
