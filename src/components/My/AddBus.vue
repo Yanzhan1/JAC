@@ -51,6 +51,12 @@ export default {
 		  setTimeout(function(){
             self.$router.go(-1);
 		  },2000)
+     }else{
+       Toast({
+            message: "添加失败，系统维护中！",
+            duration: 1000,
+            position: "middle"
+		  });
      }
       });
     }
