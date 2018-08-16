@@ -23,10 +23,11 @@
           <p class="bus-untie" @click="unite(item.no)">解绑</p>
           <div class="flex-align-center">
             <span style="color:#49BBFF;"> {{item.plateLicenseNo}}</span>
-            <router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{no:item.no,plateLicenseNo:item.engineNo}}"></router-link>
+            <!-- <router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{no:item.no,plateLicenseNo:item.engineNo}}"></router-link> -->
           </div>
-          <div>
+          <div class="flex row cocenter">
             <span class="commonFontSize">车架号：{{item.engineNo}}</span>
+              <router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{no:item.no,plateLicenseNo:item.engineNo}}"></router-link>
           </div>
           <div>
             <span class="commonFontSize">发动机号：{{item.vin}}</span>
@@ -40,6 +41,7 @@
 
 <script>
 import { MessageBox } from "mint-ui";
+import { Toast } from "mint-ui";
 export default {
   name: "myBus",
   data() {
@@ -65,7 +67,6 @@ export default {
         cancelButtonHighlight: true
       }).then(action => {
         if (action == "confirm") {
-          console.log();
           var param = {
             userNo: "UBS2018072410503423882",
             vehicleNo: no
@@ -73,6 +74,12 @@ export default {
           this.$http.post(Wit.JFmybus, param,this.$store.state.mytoken).then(res => {
             if (res.data.code == 0) {
               this.MyBus();
+            }else{
+               Toast({
+            message: "解绑失败，请稍后重试！",
+            duration: 1000,
+            position: "middle"
+		  });
             }
           });
         }

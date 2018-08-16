@@ -28,7 +28,7 @@
            add(){
 			   var param={
 				   plateLicenseNo:this.plate,
-				   no:this.$route.query.no
+				   modelNo:this.$route.query.no
 			   }
 			  this.$http.post(Wit.Edict,param,this.$store.state.mytoken).then(res=>{
                 if(res.data.code==0){
