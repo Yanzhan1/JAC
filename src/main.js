@@ -11,6 +11,7 @@ import './../static/style/public.css'
 
 //导入axios
 import axios from 'axios'
+
 Vue.prototype.$http = axios;
 Vue.prototype.toLogin = function() {
   MessageBox({
@@ -27,19 +28,20 @@ Vue.prototype.toLogin = function() {
   });
 }
 
-router.beforeEach((to, from, next) => {
-  var userInfo;
-  if (isMobile.iOS()) {
-    // window.webkit.messageHandlers.goLogin.postMessage("");
-  } else if(isMobile.Android()) {
-    userInfo = js2android.getUserInfo()
-    alert(JSON.stringify(userInfo))
-  }
-  if(userInfo && userInfo.token){
-    Vue.prototype.$http.defaults.headers.common['timaToken'] = userInfo.token
-  }
-  next()
-})
+// router.beforeEach((to, from, next) => {
+//   if(axios.defaults.headers.common['timaToken']){
+//     var userInfo;
+//     if (isMobile.iOS()) {
+//       // window.webkit.messageHandlers.goLogin.postMessage("");
+//     } else if(isMobile.Android()) {
+//       userInfo = js2android.getUserInfo()
+//     }
+//     if(userInfo && userInfo.token){
+//       axios.defaults.headers.common['timaToken'] = userInfo.token
+//     }
+//   }
+//   next()
+// })
 // mint-ui插件
 import {
   Search,
