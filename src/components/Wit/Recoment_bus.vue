@@ -139,7 +139,7 @@ export default {
       var param = {
         highlyRecommend: this.highlyRecommend
       };
-      this.$http.post(Wit.MainBus, param).then(res => {
+      this.$http.post(Wit.MainBus, param,this.$store.state.mytoken).then(res => {
         if (res.data.code == 0) {
           this.mainbus = {};
           this.mainbus = res.data.data;
@@ -149,7 +149,7 @@ export default {
     //切换频道 多选框
     choosemore() {
       var param = {};
-      this.$http.post(Wit.Switching,param)
+      this.$http.post(Wit.Switching,param,this.$store.state.mytoken)
         .then(res => {
           if (res.data.code == 0) {
              this.choosebus = res.data.data;

@@ -483,7 +483,6 @@ export default {
                 this.$http
                   .post(Lovecar.Control, param, this.$store.state.getpin)
                   .then(res => {
-                    console.log(res);
                     this.operationIdses = res.data.operationId;
                     this.$http
                       .post(
@@ -492,7 +491,7 @@ export default {
                         this.$store.state.getpin
                       )
                       .then(res => {
-                        console.log(res);
+                    
                       }, 1000);
                   });
               }

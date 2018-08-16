@@ -331,14 +331,14 @@ export default {
   },
   mounted(){
         //选择经销商接口
-        this.$http.post(Wit.Distributor,{"dealerType":"01"}).then((res)=>{
+        this.$http.post(Wit.Distributor,{"dealerType":"01"},this.$store.state.mytoken).then((res)=>{
         this.chooseaddress= res.data.data.records
         for(var i=0;i<this.chooseaddress.length;i++){
         this.slots[0].values.push(this.chooseaddress[i].dealerName)
             }
         })
         // 申请服务车型接口
-        this.$http.post(Wit.Brand,{}).then((res)=>{
+        this.$http.post(Wit.Brand,{},this.$store.state.mytoken).then((res)=>{
              this.choosecar=res.data.data
             for(var i=0;i<this.choosecar.length;i++){
                 this.addressSlots[0].values.push(this.choosecar[i].seriesName)
@@ -391,7 +391,7 @@ export default {
                 }
             }
             //选择车系接口
-              this.$http.post(Wit.System,{brandNo:this.Idchoosebrand}).then((res)=>{
+              this.$http.post(Wit.System,{brandNo:this.Idchoosebrand},this.$store.state.mytoken).then((res)=>{
                   this.choosebrands=res.data.data
                   this.addressSlots[2].values=[]
                       for(var i=0;i<this.choosebrands.length;i++){
@@ -467,7 +467,7 @@ export default {
             series:this.Idchoosesystem,//车系
             model: this. Idchoosebrand//车型
         }
-        this.$http.post(Wit.PreBus,parmass).then((res)=>{
+        this.$http.post(Wit.PreBus,parmass,this.$store.state.mytoken).then((res)=>{
            this.success=true,
            this.region=true
         })

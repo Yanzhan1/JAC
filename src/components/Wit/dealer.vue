@@ -130,20 +130,20 @@
 					"level": 1
 				}
 				//请求品牌列表
-				this.$http.post(Wit.searchVehicleBrandList, data).then(res => {
+				this.$http.post(Wit.searchVehicleBrandList, data,this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchVehicleBrandList = data.data;
 					}
 				})
 				//经销商
-				this.$http.post(Wit.Dealer, param).then(res => {
+				this.$http.post(Wit.Dealer, param,this.$store.state.mytoken).then(res => {
 						if(res.data.code == 0) {
 							this.mainbus = res.data.data.records
 						}
 					}),
 				//请求省份列表
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data,this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchCountryAreaCodeListPage = data.data.records;
@@ -202,7 +202,7 @@
 					brandNo: this.brandNo
 				}
 				//请求车型列表
-				this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
+				this.$http.post(Wit.searchVehicleSeriesList, data,this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchVehicleSeriesList = data.data;
@@ -215,7 +215,7 @@
 					parentId: this.provinceId, //被检测的省份id 
 					level: 2
 				}
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data,this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.cityList = data.data.records;
