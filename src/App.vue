@@ -31,7 +31,7 @@ export default {
         this.$store.dispatch('userId',null);
         this.$store.dispatch('userInfo',null);
       }
-      this.$http.headers.common['token'] = this.$store.state.token;
+      this.$http.defaults.headers.common['token'] = this.$store.state.token;
     },
   	getNo () { //调试使用的模拟no
   		this.$store.dispatch('NO', 'UBS2018072410503423882')
