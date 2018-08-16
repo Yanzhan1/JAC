@@ -464,10 +464,10 @@ export default {
             address:"上海市徐汇区田林路", 
             comments:this.Idchooseaddress, //商家
             province:"022", 
-            series:this.Idchoosesystem,//车系
-            model: this. Idchoosebrand//车型
-        }
-        this.$http.post(Wit.PreBus,parmass,this.$store.state.mytoken).then((res)=>{
+            series:'ZK003',//车系
+            model: 'ZKLJ004'//车型
+        }       
+        this.$http.post(Wit.Wbpre,parmass,this.$store.state.mytoken).then((res)=>{
            this.success=true,
            this.region=true
         })

@@ -114,6 +114,7 @@ window.Wit = {
         System: mip + '/vehicleSeries/searchVehicleSeriesList', //选择车系
         Area: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //选择地区
         PreBus: mip + '/cluesOrderFrom/addCluesOrderFrom', //车辆预定提交
+        Wbpre: mip + '/maintenanceReservationOrder/addMaintenanceReservationOrder', //维保预约
         Brand: mip + '/vehicleBrand/selectVehicleSeriesByBrand', //选择品牌
         searchCountryAreaCodeListPage: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //省份
         searchUserBaseInformationOne: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //用户基本信息详细查询
