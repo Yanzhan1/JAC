@@ -9,9 +9,6 @@ export default {
     SOFTKEYBOARD: ({commit, state}, payload) => {
     	commit(types.SOFTKEYBOARD, payload)
     },
-    TOKEN: ({commit, state}, payload) => {
-    	commit(types.TOKEN, payload)
-    },
     userId: ({ commit, state }, payload) => {
       commit(types.USERID, payload)
     },

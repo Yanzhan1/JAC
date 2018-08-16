@@ -8,7 +8,6 @@ export default {
     no: '', //模拟使用的用户no
     mobile:null,//用户手机号
     softkeyboard: true, //默认软键盘开启
-    token: null, //用户token
     getpin: {
         headers: {
             // "identityParam": {
