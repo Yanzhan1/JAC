@@ -150,7 +150,7 @@ export default {
      var param={
         
      }
-     this.$http.post(Wit.MainBus,param,this.$store.state.mytoken).then(res=>{
+     this.$http.post(Wit.MainBus,param).then(res=>{
         if(res.data.code==0){
          var arr=res.data.data
           arr.splice(3)

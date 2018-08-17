@@ -239,7 +239,7 @@ export default {
       }
       // console.log(this.compressor)
       this.compressor ? (this.compressors = 2) : (this.compressors = 1);
-      console.log(this.compressors)
+      console.log(this.compressors);
       this.httpair();
     },
     //激活底部图标方法
@@ -469,6 +469,57 @@ export default {
         return false;
       }
     },
+    //重复调用异步接口
+    getAsyReturn(operationId) {
+      var flag = true;
+      this.sjc = new Date().getTime();
+      this.time = setInterval(() => {
+        this.$http
+          .post(
+            Lovecar.OperationId,
+            { operationId: operationId },
+            this.$store.state.getpin
+          )
+          .then(res => {
+            var tS = new Date().getTime() - this.sjc; //时间戳 差
+            var tSS = parseInt((tS / 1000) % 60); // 时间差
+            if ((res.data.returnSuccess = true)) {
+              if (res.data.status == "IN_PROGRESS") {
+                //60s  后 清除定时器，不在发请求
+                console.log(tSS);
+                if (tSS >= 56) {
+                  Toast({
+                    message: "请求超时",
+                    position: "middle",
+                    duration: 3000
+                  });
+                  var self = this;
+                  clearInterval(self.time);
+                }
+              } else if (res.data.status == "SUCCEED") {
+                flag = false;
+                clearInterval(this.time);
+              } else if (res.data.status == "FAILED") {
+                flag = false;
+                Toast({
+                  message: "指令下发成功，处理失败！",
+                  position: "middle",
+                  duration: 3000
+                });
+                clearInterval(this.time);
+              }
+            } else {
+              Toast({
+                message: "指令下发失败！",
+                position: "middle",
+                duration: 3000
+              });
+              flag = false;
+              clearInterval(this.time);
+            }
+          });
+      }, 4000);
+    },
     //每次改变请求的方法
     httpair() {
       var param = {
@@ -483,24 +534,20 @@ export default {
           ac: this.compressors
         }
       };
-      console.log(this.compressors)
+      console.log(this.compressors);
       this.$http
         .post(Lovecar.Control, param, this.$store.state.getpin)
         .then(res => {
           this.operationIds = res.data.operationId;
           console.log(this.operationIds);
-          console.log(res.data.returnSuccess)
-          if(res.data.returnSuccess){
-            setTimeout(() => {
-              this.$http
-                .post(
-                  Lovecar.OperationId,
-                  { operationId: this.operationIds },
-                  this.$store.state.getpin
-                )
-                .then(res => {
-                  console.log(res);
-                }, 1000);
+          console.log(res.data.returnSuccess);
+          if (res.data.returnSuccess) {
+            this.getAsyReturn(res.data.operationId);
+          } else {
+            Toast({
+              message: "token验证失败",
+              position: "middle",
+              duration: 3000
             });
           }
         });
@@ -566,7 +613,6 @@ export default {
                 (this.pinNumber = "");
               console.log(this.Compressors);
               console.log(this.temperNum[this.airSpace]);
-
             } else {
               //消失遮罩
               this.popupVisible = !this.popupVisible;
@@ -620,7 +666,6 @@ export default {
                 (this.fullValue = "");
               console.log(this.Compressors);
               console.log(this.temperNum[this.airSpace]);
-              
             } else {
               //消失遮罩
               this.popupVisible = !this.popupVisible;

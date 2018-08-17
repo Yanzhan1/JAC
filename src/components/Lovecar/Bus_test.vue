@@ -31,69 +31,78 @@
 export default {
   data() {
     return {
-      time:"",
-      sjc:''
+      time: "",
+      sjc: ""
     };
   },
   created() {
-    var self=this
-    var param={
-       vin:this.$store.state.vin
-    }
-    this.$http.post(Lovecar.BusTest,param,this.$store.state.getpin).then(res=>{
-       
-          this.getAsyReturn(this.operationIds)
+    var self = this;
+    var param = {
+      vin: this.$store.state.vin
+    };
+    this.$http
+      .post(Lovecar.BusTest, param, this.$store.state.getpin)
+      .then(res => {
+        if (res.data.returnSuccess) {
+          this.getAsyReturn(res.data.operationId);
+        } else {
+          Toast({
+            message: "token验证失败",
+            position: "middle",
+            duration: 3000
+          });
+        }
         //     self.$router.replace('/test_result');
-
-    })
-  
+      });
   },
-  methods:{
-     //重复调用的接口
-     getAsyReturn(operationId) {
-          this.sjc=new Date().getTime()
-          this.time=  setInterval(() => {
-          this.$http.post(Lovecar.OperationId,{ operationId: operationId},this.$store.state.getpin).then(res => {
-             
-               var  tS = new Date().getTime()-this.sjc //时间戳 差
-               var tSS=  parseInt(tS/1000%60)  // 时间差    
-              if (res.data.returnSuccess = true){
-                  if (res.data.status == "IN_PROGRESS") {
-                    //60s  后 清除定时器，不在发请求
-                    console.log(tSS)
-                    if(tSS>=12){
-                    Toast({
-                      message: "请求超时",
-                      position: "middle",
-                      duration: 3000
-                    });
-                     var self=this
-                      clearInterval(self.time)
-                 }
-                  } else if (res.data.status == "SUCCEED") {
-                   
-                      clearInterval(this.time)
-                  } else if(res.data.status == "FAILED") {
-                   
-                    Toast({
-                      message: "指令下发成功，处理失败！",
-                      position: "middle",
-                      duration: 3000
-                    });
-                     clearInterval(this.time)
-                  }
-              }else {
+  methods: {
+    //重复调用的接口
+    getAsyReturn(operationId) {
+      this.sjc = new Date().getTime();
+      this.time = setInterval(() => {
+        this.$http
+          .post(
+            Lovecar.OperationId,
+            { operationId: operationId },
+            this.$store.state.getpin
+          )
+          .then(res => {
+            var tS = new Date().getTime() - this.sjc; //时间戳 差
+            var tSS = parseInt((tS / 1000) % 60); // 时间差
+            if ((res.data.returnSuccess = true)) {
+              if (res.data.status == "IN_PROGRESS") {
+                //60s  后 清除定时器，不在发请求
+                console.log(tSS);
+                if (tSS >= 12) {
+                  Toast({
+                    message: "请求超时",
+                    position: "middle",
+                    duration: 3000
+                  });
+                  var self = this;
+                  clearInterval(self.time);
+                }
+              } else if (res.data.status == "SUCCEED") {
+                clearInterval(this.time);
+              } else if (res.data.status == "FAILED") {
                 Toast({
-                      message: "指令下发失败！",
-                      position: "middle",
-                      duration: 3000
-                    });
-               clearInterval(this.time)
+                  message: "指令下发成功，处理失败！",
+                  position: "middle",
+                  duration: 3000
+                });
+                clearInterval(this.time);
               }
-           });
-        }, 4000);
-
-  }
+            } else {
+              Toast({
+                message: "指令下发失败！",
+                position: "middle",
+                duration: 3000
+              });
+              clearInterval(this.time);
+            }
+          });
+      }, 4000);
+    }
   }
 };
 </script>

@@ -455,7 +455,7 @@ export default {
         operationType: "VICESEAT_HEAT",
         operation: 1, //操作项
         extParams: {
-          temperature: this.nextcool
+          windOper: this.nextcool
         }
       };
       this.$http
