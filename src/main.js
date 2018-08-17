@@ -36,9 +36,7 @@ router.beforeEach((to, from, next) => {
     } else if(isMobile.Android()) {
       userInfo = js2android.getUserInfo()
     }
-    alert(JSON.stringify(userInfo) + " "+(userInfo && userInfo.token))
     if(userInfo && userInfo.token){
-      alert("进了判断，token为"+ userInfo.token)
       $http.defaults.headers.common['timaToken'] = userInfo.token
     }
   }
