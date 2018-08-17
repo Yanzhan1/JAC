@@ -6,7 +6,7 @@ export default {
     uuid: null,
     UserStartId: null,
     no: '', //模拟使用的用户no
-    mobile:null,//用户手机号
+    mobile: null, //用户手机号
     softkeyboard: true, //默认软键盘开启
     getpin: {
         headers: {

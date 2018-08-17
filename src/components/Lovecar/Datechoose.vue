@@ -111,7 +111,7 @@ import { MessageBox } from "mint-ui";
 export default {
   data() {
     return {
-      current: 0, //用来判断日的时候具体选择哪一个的index
+      current: 11, //用来判断日的时候具体选择哪一个的index
       times: "月", //默认选择月
       opentime: false, //遮罩层
       showgou1: true, //选择月的选项

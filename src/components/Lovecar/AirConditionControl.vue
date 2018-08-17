@@ -215,7 +215,7 @@ export default {
       nums: 2,
       Air: "", //风量的当前显示内容
       loop: 0, //传给后台循环的index
-      Compressors: 0, //传给后台的控制压缩机数值
+      compressors: 0, //传给后台的控制压缩机数值
       operationIds: ""
     };
   },
@@ -237,9 +237,9 @@ export default {
       } else {
         this.compressor = false;
       }
+      // console.log(this.compressor)
       this.compressor ? (this.compressors = 2) : (this.compressors = 1);
-      console.log(this.compressor);
-      console.log(this.compressors);
+      console.log(this.compressors)
       this.httpair();
     },
     //激活底部图标方法
@@ -480,9 +480,10 @@ export default {
           loop: this.loop,
           temperature: this.temperNum[this.airSpace],
           airType: 0,
-          ac: this.Compressors
+          ac: this.compressors
         }
       };
+      console.log(this.compressors)
       this.$http
         .post(Lovecar.Control, param, this.$store.state.getpin)
         .then(res => {
