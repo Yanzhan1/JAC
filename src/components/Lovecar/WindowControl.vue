@@ -276,11 +276,11 @@ export default {
       this.remindState = !this.remindState;
       console.log(this.remindState);
     },
-    //修改车窗高度弹出框-确定，调节接口需要发出请求，获取信息提示框状态
+    //修改车窗高度弹出框-取消
     winConfirm() {
       this.popupInfo = false;
     },
-    //修改车窗高度弹出框-取消
+    //修改车窗高度弹出框-确定，remindState为true，'不在提醒'未激活，false，'不在提醒'激活
     reduceWindow() {
       console.log(this.remindState);
       if (this.remindState == false) {

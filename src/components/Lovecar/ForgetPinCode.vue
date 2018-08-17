@@ -1,7 +1,7 @@
 <template>
 	<div class="revise-pin-code">
 		<header class="header">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goBack">
 			<span class="header-title">忘记pin码</span>
 			<span class="header-right"></span>
 		</header>
@@ -37,7 +37,7 @@
 					<input class="verification-code" placeholder="请输入验证码" type="text" v-model="pin.verificationCode" />
 				</div>
 				<button class="btn" v-if="showTime" @click="submitCode">获取验证码</button>
-				<button class="btn" v-else>{{this.times}}秒后重发</button>
+				<button class="btn" v-else>{{this.remainingTime}}秒后重发</button>
 			</div>
 		</div>
 		<button class="bottom-btn" @click="confirmSub">确认提交</button>
@@ -52,7 +52,6 @@
 			return {
 				//倒计时按钮状态
 				showTime: true,
-				times:'60',//倒计时
 				//忘记pin码数据
 				Verification:'',//后端返回的验证码
 				pin: {
@@ -61,29 +60,43 @@
 					verificationCode: ''
 				},
 				userPhone: null, //用户信息，手机号
-				setTime: null
+				setTime: null, //验证码计时器
+				timeStamp: null, //时间戳
+				startTime: '', //开始时间
+				enterPageTime: '', //进入页面时间
+				remainingTime: '60' //剩余时间
 			}
 		},
 		methods: {
 			//获取验证码
 			submitCode() {
 				this.showTime=false;
-				this.setTime=setInterval(()=>{
-					this.times--;
-					if(this.times==0){
-						this.times=60;
-						this.showTime=true;
-						window.clearInterval(this.setTime)
-					}
-				},1000)
+				this.startTime = new Date().getTime()
+				localStorage.setItem('startTime', this.startTime);
+//				localStorage.setItem('check', true)
+				this.countDown();
 				var phone=this.pin.phone
-				console.log(phone)
-				this.$http.post(Lovecar.Getphonepin,{phoneNum: phone},this.$store.state.getpin).then((res)=>{
-					this.Verification=res.data.data;
-					console.log(this.Verification)
-					if(this.Verification==this.pin.verificationCode){
-						console.log('验证码正确')
-					}
+				this.$http.post(Lovecar.Getphonepin,{phoneNum: phone}, this.$store.state.getPin)
+				.then((res)=>{
+					const data = res.data;
+					if (data.returnSuccess) {
+						this.Verification=res.data.data;
+						this.timeStamp = session.getAttribute('firstTime')
+						console.log(this.timeStamp)
+					} else {
+						let instance = Toast({
+								message: data.returnErrMsg,
+								position: 'middle',
+								duration: 1000
+						});
+					}					
+				})
+				.catch((err) => {
+					let instance = Toast({
+								message: err.returnErrMsg,
+								position: 'middle',
+								duration: 1000
+					});
 				})
 			},
 			//底部确认提交
@@ -111,6 +124,22 @@
 					
 				}
 				
+			},
+			countDown () { //验证码倒计时
+				this.setTime=setInterval(()=>{
+					this.remainingTime--;
+					if(this.remainingTime <=0){
+//						localStorage.setItem('check', false)
+						this.remainingTime=60;
+						this.showTime=true;
+						window.clearInterval(this.setTime)
+					}
+					console.log(111)
+				},1000)
+			},
+			goBack () {
+				this.$router.go(-1);
+				window.clearInterval(this.setTime)
 			}
 		},
 		filters: {
@@ -124,7 +153,20 @@
 			this.userPhone = this.$route.params.userPhone
 		},
 		mounted () {
-			clearInterval(this.setTime)
+			this.enterPageTime = new Date().getTime()  //进入页面时间戳
+			let startTime = localStorage.getItem('startTime')
+			if (startTime) {
+				this.remainingTime = 60 - Math.floor([this.enterPageTime - startTime]/1000) //剩余时间	
+				if (this.remainingTime <= 0) {
+//					this.remainingTime = 60					
+					this.showTime = true
+				} else {
+					this.showTime = false
+					this.countDown ()
+				}
+			}
+			
+				
 		}
 	}
 </script>
