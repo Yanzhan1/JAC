@@ -155,6 +155,7 @@ export default {
   name: "airconditionControl",
   data() {
     return {
+      time:'',//定时器命名
       //移动端键盘值
       ownKeyBoard: {
         first: "",
@@ -213,7 +214,6 @@ export default {
       //空调图旋转状态
       rotateState: false,
       nums: 2,
-      Air: "", //风量的当前显示内容
       loop: 0, //传给后台循环的index
       compressors: 0, //传给后台的控制压缩机数值
       operationIds: ""
@@ -321,7 +321,6 @@ export default {
       } else {
         return;
       }
-      this.Air = this.$refs.Air.value;
       this.httpair();
     },
     //风量减少
@@ -489,7 +488,7 @@ export default {
                 console.log(tSS);
                 if (tSS >= 56) {
                   Toast({
-                    message: "请求超时",
+                    message: "空调温度调节请求超时",
                     position: "middle",
                     duration: 3000
                   });
@@ -527,7 +526,7 @@ export default {
         operationType: "AIRCONDITIONER",
         operation: this.nums, //操作项
         extParams: {
-          airQuantity: this.Air,
+          airQuantity: this.windNum[this.winIndex],
           loop: this.loop,
           temperature: this.temperNum[this.airSpace],
           airType: 0,
@@ -556,7 +555,6 @@ export default {
   mounted() {
     this.produCurve();
     this.inputs();
-    this.Air = this.$refs.Air.value;
   },
   computed: {
     fullValue: {

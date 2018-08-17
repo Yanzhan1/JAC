@@ -157,7 +157,8 @@ export default {
       //主驾传给后台的档位
       mainheat: 0,
       //副驾座传给后台的档位
-      nextheat: 0,
+	  nextheat: 0,
+	  time:'',//定时器命名
       operationIds: "", //主驾加热时候传给后台的
       operationIdss: ""
     };
@@ -361,7 +362,7 @@ export default {
                 console.log(tSS);
                 if (tSS >= 56) {
                   Toast({
-                    message: "请求超时",
+                    message: "座椅温度调节请求超时",
                     position: "middle",
                     duration: 3000
                   });

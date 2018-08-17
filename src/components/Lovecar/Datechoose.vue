@@ -120,6 +120,7 @@ export default {
       showgou4:false,//选择年的选项
       showdate: "", //选择具体的日
       showweek: "", //选择具体的周
+      showyear:'',//选择具体的年
       monthsstart: "",
       monthsend: "",
       newsyear:'',//当前年份
@@ -817,7 +818,7 @@ export default {
     changecoloryear(el, index) {
         this.current = index;
         // el.target.style.backgroundColor='#49bbff';
-        this.showdate = el.target.innerHTML;
+        this.showyear= el.target.innerHTML;
       
     },
     //点击查询时候传过去的东西

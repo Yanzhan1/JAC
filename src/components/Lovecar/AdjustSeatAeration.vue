@@ -142,6 +142,7 @@ export default {
       fuWindNum: ["低", "中", "高"],
       //pin码弹出框控制变量
       popupVisible: false,
+      time:'',//定时器命名
       //pin码值
       pinNumber: "",
       //自定义软键盘状态 0 消失 2 键盘开启
@@ -350,7 +351,7 @@ export default {
                 console.log(tSS);
                 if (tSS >= 56) {
                   Toast({
-                    message: "请求超时",
+                    message: "座椅通风请求超时",
                     position: "middle",
                     duration: 3000
                   });

@@ -106,6 +106,7 @@ export default {
   name: "skylightControl",
   data() {
     return {
+      time:'',//定时器命名
       //天窗控制按钮开关
       //				value: false,
       //移动端键盘值
@@ -341,7 +342,7 @@ export default {
                 console.log(tSS);
                 if (tSS >= 56) {
                   Toast({
-                    message: "请求超时",
+                    message: "天窗调控请求超时",
                     position: "middle",
                     duration: 3000
                   });

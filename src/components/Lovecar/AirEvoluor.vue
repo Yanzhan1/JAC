@@ -130,6 +130,7 @@ export default {
   name: "skylightControl",
   data() {
     return {
+      time:'',//定时器命名
       //移动端键盘值
       ownKeyBoard: {
         first: "",
@@ -387,7 +388,7 @@ export default {
                 console.log(tSS);
                 if (tSS >= 56) {
                   Toast({
-                    message: "请求超时",
+                    message: "空气净化器请求超时",
                     position: "middle",
                     duration: 3000
                   });

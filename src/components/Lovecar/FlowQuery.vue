@@ -88,6 +88,7 @@
 		name: 'flowQuery',
 		data() {
 			return {
+				time:'',//定时器命名
 				//流量
 				num: '100G',
 				IsShow:false,//控制自定义键盘显示

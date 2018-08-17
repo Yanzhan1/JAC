@@ -34,6 +34,7 @@ export default {
   name: "wifiLink",
   data() {
     return {
+      time:'',//定时器命名
       //开关按钮状态
       value: true,
       //开关按钮title
@@ -69,7 +70,7 @@ export default {
                 console.log(tSS);
                 if (tSS >= 56) {
                   Toast({
-                    message: "请求超时",
+                    message: "无线连接请求超时",
                     position: "middle",
                     duration: 3000
                   });
