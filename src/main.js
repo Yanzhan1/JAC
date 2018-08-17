@@ -27,21 +27,21 @@ Vue.prototype.toLogin = function() {
     }
   });
 }
-var $http = Vue.prototype.$http;
-router.beforeEach((to, from, next) => {
-  if($http.defaults.headers.common['timaToken']){
-    var userInfo;
-    if (isMobile.iOS()) {
-      // window.webkit.messageHandlers.goLogin.postMessage("");
-    } else if(isMobile.Android()) {
-      userInfo = js2android.getUserInfo()
-    }
-    if(userInfo && userInfo.token){
-      $http.defaults.headers.common['timaToken'] = userInfo.token
-    }
-  }
-  next()
-})
+// var $http = Vue.prototype.$http;
+// router.beforeEach((to, from, next) => {
+//   if($http.defaults.headers.common['timaToken']){
+//     var userInfo;
+//     if (isMobile.iOS()) {
+//       // window.webkit.messageHandlers.goLogin.postMessage("");
+//     } else if(isMobile.Android()) {
+//       userInfo = js2android.getUserInfo()
+//     }
+//     if(userInfo && userInfo.token){
+//       $http.defaults.headers.common['timaToken'] = userInfo.token
+//     }
+//   }
+//   next()
+// })
 // mint-ui插件
 import {
   Search,
