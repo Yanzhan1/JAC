@@ -458,7 +458,7 @@ export default {
                 //车辆锁定的接口
 
                 this.isTrue = !this.isTrue;
-                this.isTrue ? (this.locknum = 2) : (this.locknum = 1);
+                this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
                 var param = {
                   vin: this.$store.state.vin,
                   operationType: "LOCK",
