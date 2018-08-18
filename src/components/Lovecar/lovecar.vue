@@ -495,7 +495,7 @@ export default {
                 var param = {
                   vin: this.$store.state.vin,
                   operationType: "ENGINE",
-                  operation: this.locknum //操作项
+                  operation: this.firenum //操作项
                 };
                 this.$http
                   .post(Lovecar.Control, param, this.$store.state.getpin)
