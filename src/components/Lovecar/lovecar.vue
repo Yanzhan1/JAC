@@ -384,57 +384,65 @@ export default {
           }
         });
     },
-    //重复调用异步接口
-    getAsyReturn(operationId) {
-      var flag = true;
-      this.sjc = new Date().getTime();
-      this.time = setInterval(() => {
-        this.$http
-          .post(
-            Lovecar.OperationId,
-            { operationId: operationId },
-            this.$store.state.getpin
-          )
-          .then(res => {
-            var tS = new Date().getTime() - this.sjc; //时间戳 差
-            var tSS = parseInt((tS / 1000) % 60); // 时间差
-            if ((res.data.returnSuccess = true)) {
-              if (res.data.status == "IN_PROGRESS") {
-                //60s  后 清除定时器，不在发请求
-                console.log(tSS);
-                if (tSS >= 56) {
-                  Toast({
-                    message: "请求超时",
-                    position: "middle",
-                    duration: 3000
-                  });
-                  var self = this;
-                  clearInterval(self.time);
-                }
-              } else if (res.data.status == "SUCCEED") {
-                flag = false;
-                clearInterval(this.time);
-              } else if (res.data.status == "FAILED") {
-                flag = false;
-                Toast({
-                  message: "指令下发成功，处理失败！",
-                  position: "middle",
-                  duration: 3000
-                });
-                clearInterval(this.time);
-              }
-            } else {
-              Toast({
-                message: "指令下发失败！",
+ Mr_J:
+//重复调用异步接口
+getAsyReturn(operationId) {
+    var flag = true;
+    this.sjc = new Date().getTime();
+    this.time = setInterval(() => {
+        var tS = new Date().getTime() - this.sjc; //时间戳 差
+        var tSS = parseInt((tS / 1000) % 60); // 时间差
+        if (tSS >= 56) {
+            Toast({
+                message: "请求超时",
                 position: "middle",
                 duration: 3000
-              });
-              flag = false;
-              clearInterval(this.time);
-            }
-          });
-      }, 4000);
-    }
+            });
+            var self = this;
+            clearInterval(self.time);
+        }
+        this.$http.post(Lovecar.OperationId,{ operationId: operationId },this.$store.state.getpin).then(res => {
+                console.log("返回的信息是:")
+                console.log(res)
+                console.log(res.data)
+                if ((res.data.returnSuccess = true)) {
+                    console.log("等于true 进来了")
+                    if (res.data.status == "IN_PROGRESS") {
+                        Toast({
+                            message: "指令下发成功，处理中！",
+                            position: "middle",
+                            duration: 3000
+                        });
+                    } else if (res.data.status == "SUCCEED") {
+                        flag = false;
+                        clearInterval(this.time);
+                    } else if (res.data.status == "FAILED") {
+                        flag = false;
+                        Toast({
+                            message: "指令下发成功，处理失败！",
+                            position: "middle",
+                            duration: 3000
+                        });
+                        clearInterval(this.time);
+                    }
+                } else {
+                    console.log("请求返回 = false  应该退出循环")
+                    Toast({
+                        message: res.data.returnErrMsg,
+                        position: "middle",
+                        duration: 3000
+                    });
+                    flag = false;
+                    clearInterval(this.time);
+                }
+            });
+    }, 4000);
+    console.log("标示---"+flag)
+}
+
+迷茫:
+我
+
   },
   //检测输入框
   watch: {

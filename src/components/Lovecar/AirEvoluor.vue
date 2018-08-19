@@ -12,7 +12,7 @@
 				<span style="margin-right: 0.2rem;">OFF/NO</span>
 			</div>
 			<div class="window-sign flex-column">
-				<span class="window-ch">天窗</span>
+				<span class="window-ch">空气净化器</span>
 				<span class="window-en">AIRCLEAER</span>
 				<span style="width: 0.54rem;height: 1px; background: rgba(153,153,153,1);margin-bottom: 0.4rem;"></span>
 			</div>
@@ -382,7 +382,7 @@ export default {
           .then(res => {
             var tS = new Date().getTime() - this.sjc; //时间戳 差
             var tSS = parseInt((tS / 1000) % 60); // 时间差
-            if ((res.data.returnSuccess = true)) {
+            if ((res.data.returnSuccess == true)) {
               if (res.data.status == "IN_PROGRESS") {
                 //60s  后 清除定时器，不在发请求
                 console.log(tSS);
@@ -521,14 +521,14 @@ export default {
               //消失软键盘
               (this.showTyper = 0),
                 //清空pin码
-                (this.fullValue = "");
+                (this.pinNumber = "");
             } else {
               //消失遮罩
               this.popupVisible = !this.popupVisible;
               //消失软键盘
               (this.showTyper = 0),
                 //清空pin码
-                (this.fullValue = "");
+                (this.pinNumber = "");
               Toast({
                 message: data.returnErrMsg,
                 position: "middle",
