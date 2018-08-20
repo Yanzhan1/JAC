@@ -119,7 +119,7 @@ export default {
       showgou3: false, //选择日的选项
       showgou4:false,//选择年的选项
       showdate: "", //选择具体的日
-      showweek: "", //选择具体的周
+      showweek: 1, //选择具体的周
       showyear:'',//选择具体的年
       newsday:'',//当天的日
       monthsstart: "",
@@ -267,7 +267,6 @@ export default {
 
   },
   mounted() {
-    this.$nextTick(() => {
       var date = new Date();
       var year = date.getFullYear();
       var month = date.getMonth() + 1;
@@ -338,8 +337,8 @@ export default {
           this.showweek = "5";
           break;
       }
-      this.week_choose();
-    });
+      this.weeknew();
+
   },
   updated() {
     if (this.times != "周") {
@@ -457,6 +456,94 @@ export default {
         }
       }
     },
+    weeknew(){
+      if(this.showweek==1){
+          this.newarray1 = this.array1.slice(0, 7);
+          this.newarraynum = this.newarray1;         
+      }
+      if(this.showweek==2){
+          this.newarray1 = this.array1.slice(7, 14);
+          this.newarraynum = this.newarray1;         
+      }
+      if(this.showweek==3){
+          this.newarray1 = this.array1.slice(14, 21);
+          this.newarraynum = this.newarray1;         
+      }
+      if(this.showweek==4){
+          this.newarray1 = this.array1.slice(21, 28);
+           this.newarraynum = this.newarray1;        
+      }
+      if(this.showweek==5){
+        if(
+          this.newdates.months == 1 ||
+          this.newdates.months == 3 ||
+          this.newdates.months == 5 ||
+          this.newdates.months == 7 ||
+          this.newdates.months == 8 ||
+          this.newdates.months == 10 ||
+          this.newdates.months == 12
+        ){
+          this.newarray1=this.array1.slice(28,31);
+          this.newarraynum = this.newarray1;
+        }
+        if(
+          this.newdates.months == 4 ||
+          this.newdates.months == 6 ||
+          this.newdates.months == 9 ||
+          this.newdates.months == 11
+        ){
+          this.newarray1=this.array1.slice(28,30)
+          this.newarraynum = this.newarray1;
+        }
+        if(this.newdates.months==2){
+          if (
+            this.newdates.years % 4 == 0 ||
+            (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
+          ) {
+            this.newarray1 = this.array1.slice(28, 28);
+            this.newarraynum = this.newarray1;
+          } else {
+            this.newarray1 = this.array1.slice(28, 29);
+            this.newarraynum = this.newarray1;
+          }          
+        }     
+      }
+
+    },
+    //输入年月，输出具体的某一周的起止日期
+    getInfo(year, month) {
+        var d = new Date();
+        // what day is first day
+        d.setFullYear(year, month - 1, 1);
+        var w1 = d.getDay();
+        if (w1 == 0) w1 = 7;
+        // total day of month
+        d.setFullYear(year, month, 0);
+        var dd = d.getDate();
+        // first Monday
+        var d1
+        if (w1 != 1) d1 = 7 - w1 + 2;
+        else d1 = 1;
+        var week_count = Math.ceil((dd - d1 + 1) / 7);
+        var arrfrom = []
+        var arrto = []
+        for (var i = 0; i < week_count; i++) {
+            var monday = d1 + i * 7;
+            var sunday = monday + 6;
+            var from = year + "-" + month + "-" + monday;
+            var to;
+            if (sunday <= dd) {
+                to = year + "-" + month + "-" + sunday;
+            } else {
+                d.setFullYear(year, month - 1, sunday);
+                to = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+            }
+            arrfrom.push(from)
+            arrto.push(to)
+                // console.log(i + 1, from, to)
+        }
+        return {arrfrom,arrto}
+    },
     //选择每个月的第几周的天数排列出来
     week_choose() {
       var dt = new Date(this.newdates.years, this.newdates.months - 1, 1);
@@ -476,7 +563,7 @@ export default {
           this.newdates.months == 10 ||
           this.newdates.months == 12
         ) {
-          this.newarray1 = this.array1.slice(0, 8 - m);
+          this.newarray1 = this.array1.slice(0, 7 - m);
           this.newarraynum = this.newarray1;
         }
         if (
@@ -485,7 +572,7 @@ export default {
           this.newdates.months == 9 ||
           this.newdates.months == 11
         ) {
-          this.newarray2 = this.array2.slice(0, 8 - m);
+          this.newarray2 = this.array2.slice(0, 7 - m);
           this.newarraynum = this.newarray2;
         }
         if (this.newdates.months == 2) {
@@ -493,11 +580,11 @@ export default {
             this.newdates.years % 4 == 0 ||
             (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
           ) {
-            this.newarray3 = this.array3.slice(0, 8 - m);
+            this.newarray3 = this.array3.slice(0, 7 - m);
             console.log(this.newarray3);
             this.newarraynum = this.newarray3;
           } else {
-            this.newarray4 = this.array4.slice(0, 8 - m);
+            this.newarray4 = this.array4.slice(0, 7 - m);
             this.newarraynum = this.newarray4;
           }
         }
@@ -515,7 +602,7 @@ export default {
           this.newdates.months == 10 ||
           this.newdates.months == 12
         ) {
-          this.newarray1 = this.array1.slice(8 - m, 15 - m);
+          this.newarray1 = this.array1.slice(7 - m, 14 - m);
           this.newarraynum = this.newarray1;
         }
         if (
@@ -524,7 +611,7 @@ export default {
           this.newdates.months == 9 ||
           this.newdates.months == 11
         ) {
-          this.newarray2 = this.array2.slice(8 - m, 15 - m);
+          this.newarray2 = this.array2.slice(7 - m, 14 - m);
           this.newarraynum = this.newarray2;
         }
         if (this.newdates.months == 2) {
@@ -532,10 +619,10 @@ export default {
             this.newdates.years % 4 == 0 ||
             (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
           ) {
-            this.newarray4 = this.array4.slice(8 - m, 15 - m);
+            this.newarray4 = this.array4.slice(7 - m, 14 - m);
             this.newarraynum = this.newarray4;
           } else {
-            this.newarray3 = this.array3.slice(8 - m, 15 - m);
+            this.newarray3 = this.array3.slice(7 - m, 14 - m);
             this.newarraynum = this.newarray3;
           }
         }
@@ -553,7 +640,7 @@ export default {
           this.newdates.months == 10 ||
           this.newdates.months == 12
         ) {
-          this.newarray1 = this.array1.slice(15 - m, 22 - m);
+          this.newarray1 = this.array1.slice(14 - m, 21 - m);
           this.newarraynum = this.newarray1;
         }
         if (
@@ -562,7 +649,7 @@ export default {
           this.newdates.months == 9 ||
           this.newdates.months == 11
         ) {
-          this.newarray2 = this.array2.slice(15 - m, 22 - m);
+          this.newarray2 = this.array2.slice(14 - m, 21 - m);
           this.newarraynum = this.newarray2;
         }
         if (this.newdates.months == 2) {
@@ -570,10 +657,10 @@ export default {
             this.newdates.years % 4 == 0 ||
             (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
           ) {
-            this.newarray4 = this.array4.slice(15 - m, 22 - m);
+            this.newarray4 = this.array4.slice(14 - m, 21 - m);
             this.newarraynum = this.newarray4;
           } else {
-            this.newarray3 = this.array3.slice(15 - m, 22 - m);
+            this.newarray3 = this.array3.slice(14 - m, 21 - m);
             this.newarraynum = this.newarray3;
           }
         }
@@ -591,7 +678,7 @@ export default {
           this.newdates.months == 10 ||
           this.newdates.months == 12
         ) {
-          this.newarray1 = this.array1.slice(22 - m, 29 - m);
+          this.newarray1 = this.array1.slice(21 - m, 28 - m);
           this.newarraynum = this.newarray1;
         }
         if (
@@ -600,7 +687,7 @@ export default {
           this.newdates.months == 9 ||
           this.newdates.months == 11
         ) {
-          this.newarray2 = this.array2.slice(22 - m, 29 - m);
+          this.newarray2 = this.array2.slice(21 - m, 28 - m);
           this.newarraynum = this.newarray2;
         }
         if (this.newdates.months == 2) {
@@ -609,9 +696,9 @@ export default {
             (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
           ) {
             this.newarraynum = this.newarray4;
-            this.newarray4 = this.array4.slice(22 - m, 29 - m);
+            this.newarray4 = this.array4.slice(21 - m, 28 - m);
           } else {
-            this.newarray3 = this.array3.slice(22 - m, 29 - m);
+            this.newarray3 = this.array3.slice(21 - m, 28 - m);
             this.newarraynum = this.newarray3;
           }
         }
@@ -629,7 +716,7 @@ export default {
           this.newdates.months == 10 ||
           this.newdates.months == 12
         ) {
-          this.newarray1 = this.array1.slice(29 - m, 36 - m);
+          this.newarray1 = this.array1.slice(28 - m, 35 - m);
           this.newarraynum = this.newarray1;
         }
         if (
@@ -638,7 +725,7 @@ export default {
           this.newdates.months == 9 ||
           this.newdates.months == 11
         ) {
-          this.newarray2 = this.array2.slice(29 - m, 36 - m);
+          this.newarray2 = this.array2.slice(28 - m, 35 - m);
           this.newarraynum = this.newarray2;
         }
         if (this.newdates.months == 2) {
@@ -647,9 +734,9 @@ export default {
             (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
           ) {
             this.newarraynum = this.newarray4;
-            this.newarray4 = this.array4.slice(29 - m, 36 - m);
+            this.newarray4 = this.array4.slice(28 - m, 35 - m);
           } else {
-            this.newarray3 = this.array3.slice(29 - m, 36 - m);
+            this.newarray3 = this.array3.slice(28 - m, 35 - m);
             this.newarraynum = this.newarray3;
           }
         }
@@ -667,7 +754,7 @@ export default {
           this.newdates.months == 10 ||
           this.newdates.months == 12
         ) {
-          this.newarray1 = this.array1.slice(36 - m, 39 - m);
+          this.newarray1 = this.array1.slice(35 - m, 38 - m);
           this.newarraynum = this.newarray1;
         }
         if (
@@ -676,7 +763,7 @@ export default {
           this.newdates.months == 9 ||
           this.newdates.months == 11
         ) {
-          this.newarray2 = this.array2.slice(36 - m, 39 - m);
+          this.newarray2 = this.array2.slice(35 - m, 38 - m);
           this.newarraynum = this.newarray2;
         }
         if (this.newdates.months == 2) {
@@ -684,10 +771,10 @@ export default {
             this.newdates.years % 4 == 0 ||
             (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
           ) {
-            this.newarray4 = this.array4.slice(36 - m, 39 - m);
+            this.newarray4 = this.array4.slice(35 - m, 38 - m);
             this.newarraynum = this.newarray4;
           } else {
-            this.newarray3 = this.array3.slice(36 - m, 39 - m);
+            this.newarray3 = this.array3.slice(35 - m, 38 - m);
             this.newarraynum = this.newarray3;
           }
         }
@@ -695,22 +782,24 @@ export default {
     },
     //点击切换周左按钮
     turn_l_week() {
-      if (this.showweek > 1 && this.showweek <= 6) {
+      if (this.showweek > 1 && this.showweek <= 5) {
         this.showweek--;
       }
-      this.week_choose();
-      if (this.showweek > 2 && this.showweek <= 6) {
+      this.weeknew();
+      if (this.showweek > 2 && this.showweek <= 5) {
         this.week_left();
       }
       this.reduceleft();
+      this.getInfo(this.newdates.years,this.newdates.months);
     },
     //点击切换右按钮的周
     turn_r_week() {
-      if (this.showweek > 0 && this.showweek < 6) {
+      if (this.showweek > 0 && this.showweek < 5) {
         this.showweek++;
       }
-      this.week_choose();
+      this.weeknew();
       this.reduceleft();
+      this.getInfo(this.newdates.years,this.newdates.months);
     },
     turn_l() {
       this.newdates.months--;
@@ -829,6 +918,10 @@ export default {
         this.monthsstart = this.Changetimestamp();
         this.monthsend = new Date().getTime();
       }
+      if(this.times=='周'){
+        this.monthsstart = this.Changetimestamp()[0];
+        this.monthsend = this.Changetimestamp()[1];
+      }
       if (this.times == "月") {
         this.monthsstart = this.Changetimestamp()[1];
         this.monthsend = this.Changetimestamp()[0];
@@ -853,6 +946,33 @@ export default {
     Changetimestamp(value) {
       if (this.times == "日") {
         return operationTime.toTimeStamp(this.callback0);
+      }
+      if(this.times=='周'){
+        this.getInfo(this.newdates.years,this.newdates.months);
+        if(this.showweek==1){
+          return [
+            operationTime.toTimeStamp(this.getInfo(this.newdates.years,this.newdates.months).arrfrom[0]),//起始
+            operationTime.toTimeStamp(this.getInfo(this.newdates.years,this.newdates.months).arrto[0])//结束
+          ]
+        }
+        if(this.showweek==2){
+          return [
+            operationTime.toTimeStamp(this.getInfo(this.newdates.years,this.newdates.months).arrfrom[1]),//起始
+            operationTime.toTimeStamp(this.getInfo(this.newdates.years,this.newdates.months).arrto[1])//结束
+          ]          
+        }
+        if(this.showweek==3){
+          return [
+            operationTime.toTimeStamp(this.getInfo(this.newdates.years,this.newdates.months).arrfrom[2]),//起始
+            operationTime.toTimeStamp(this.getInfo(this.newdates.years,this.newdates.months).arrto[2])//结束
+          ]          
+        }
+        if(this.showweek==4){
+          return [
+            operationTime.toTimeStamp(this.getInfo(this.newdates.years,this.newdates.months).arrfrom[3]),//起始
+            operationTime.toTimeStamp(this.getInfo(this.newdates.years,this.newdates.months).arrto[3])//结束
+          ]          
+        }
       }
       if (this.times == "月") {
         if(this.times=='年'&&this.showyear==new Date().getFullYear()){
