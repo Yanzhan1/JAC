@@ -121,6 +121,7 @@ export default {
       showdate: "", //选择具体的日
       showweek: "", //选择具体的周
       showyear:'',//选择具体的年
+      newsday:'',//当天的日
       monthsstart: "",
       monthsend: "",
       newsyear:'',//当前年份
@@ -266,11 +267,11 @@ export default {
 
   },
   mounted() {
-    console.log(this.$store.state.getpin.headers.identityParam.phone)
     this.$nextTick(() => {
       var date = new Date();
       var year = date.getFullYear();
       var month = date.getMonth() + 1;
+      this.newsday=date.getDate();
       this.newdates.years = year;
       this.newdates.months = month;
       this.newsyear=year
@@ -832,6 +833,10 @@ export default {
         this.monthsstart = this.Changetimestamp()[1];
         this.monthsend = this.Changetimestamp()[0];
       }
+      if(this.times=='年'){
+        this.monthsstart=this.Changetimestamp()[1];
+        this.monthsend=this.Changetimestamp()[0];
+      }
       console.log(this.Changetimestamp());
       this.$router.push({
         name: "燃油查询",
@@ -851,35 +856,52 @@ export default {
       }
       if (this.times == "月") {
         if(this.times=='年'&&this.showyear==new Date().getFullYear()){
-          return 
-        }
-        if (this.newdates.month == 1 || 3 || 5 || 7 || 8 || 10 || 12) {
           return [
-            operationTime.toTimeStamp(this.callback31),
+            operationTime.toTimeStamp(this.callbacknow),
             operationTime.toTimeStamp(this.callback1)
-          ];
-        }
-        if (this.newdates.months == 4 || 6 || 9 || 11) {
-          return [
-            operationTime.toTimeStamp(this.callback30),
-            operationTime.toTimeStamp(this.callback1)
-          ];
-        }
-        if (this.newdates.months == 2) {
-          if (
-            this.newdates.years % 4 == 0 ||
-            (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
-          ) {
+          ]
+        }else{
+          if (this.newdates.month == 1 || 3 || 5 || 7 || 8 || 10 || 12) {
             return [
-              operationTime.toTimeStamp(this.callback28),
-              operationTime.toTimeStamp(this.callback1)
-            ];
-          } else {
-            return [
-              operationTime.toTimeStamp(this.callback29),
+              operationTime.toTimeStamp(this.callback31),
               operationTime.toTimeStamp(this.callback1)
             ];
           }
+          if (this.newdates.months == 4 || 6 || 9 || 11) {
+            return [
+              operationTime.toTimeStamp(this.callback30),
+              operationTime.toTimeStamp(this.callback1)
+            ];
+          }
+          if (this.newdates.months == 2) {
+            if (
+              this.newdates.years % 4 == 0 ||
+              (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
+            ) {
+              return [
+                operationTime.toTimeStamp(this.callback28),
+                operationTime.toTimeStamp(this.callback1)
+              ];
+            } else {
+              return [
+                operationTime.toTimeStamp(this.callback29),
+                operationTime.toTimeStamp(this.callback1)
+              ];
+            }
+        }
+        }
+      }
+      if(this.times=='年'){
+        if(this.times=='年'&&this.showyear==new Date().getFullYear()){
+          return [
+            operationTime.toTimeStamp(this.callbacknow),
+            operationTime.toTimeStamp(this.callbackyearstart)
+          ]
+        }else{
+          return [
+            operationTime.toTimeStamp(this.callbackyearlast),
+            operationTime.toTimeStamp(this.callbackyearstart)
+          ]
         }
       }
     }
@@ -911,6 +933,15 @@ export default {
     },
     callback1: function() {
       return this.newdates.years + "-" + this.newdates.months + "-" + "1";
+    },
+    callbacknow:function(){
+      return this.newsyear.years+'-'+this.newdates.months+'-'+this.newsday
+    },
+    callbackyearlast:function(){
+      return this.showyear +'-'+'12'+'-'+'31'
+    },
+    callbackyearstart:function(){
+      return this.showyear+'-'+'1'+'-'+'1'
     }
   }
 };
