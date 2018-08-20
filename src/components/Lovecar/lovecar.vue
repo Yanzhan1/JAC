@@ -398,7 +398,8 @@ export default {
           .then(res => {
             var tS = new Date().getTime() - this.sjc; //时间戳 差
             var tSS = parseInt((tS / 1000) % 60); // 时间差
-            if ((res.data.returnSuccess = true)) {
+            if ((res.data.returnSuccess == true)) {
+            console.log(res)
               if (res.data.status == "IN_PROGRESS") {
                 //60s  后 清除定时器，不在发请求
                 console.log(tSS);
@@ -458,7 +459,7 @@ export default {
                 //车辆锁定的接口
 
                 this.isTrue = !this.isTrue;
-                this.isTrue ? (this.locknum = 2) : (this.locknum = 1);
+                this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
                 var param = {
                   vin: this.$store.state.vin,
                   operationType: "LOCK",
@@ -495,7 +496,7 @@ export default {
                 var param = {
                   vin: this.$store.state.vin,
                   operationType: "ENGINE",
-                  operation: this.locknum //操作项
+                  operation: this.firenum //操作项
                 };
                 this.$http
                   .post(Lovecar.Control, param, this.$store.state.getpin)

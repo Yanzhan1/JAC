@@ -850,6 +850,9 @@ export default {
         return operationTime.toTimeStamp(this.callback0);
       }
       if (this.times == "月") {
+        if(this.times=='年'&&this.showyear==new Date().getFullYear()){
+          return 
+        }
         if (this.newdates.month == 1 || 3 || 5 || 7 || 8 || 10 || 12) {
           return [
             operationTime.toTimeStamp(this.callback31),
@@ -883,6 +886,11 @@ export default {
   },
   computed: {
     //年月日拼接
+    callback00:function(){
+      return(
+      new Date().getFullYear()+'-1-01'
+      );
+    },
     callback0: function() {
       return (
         this.newdates.years + "-" + this.newdates.months + "-" + this.showdate
