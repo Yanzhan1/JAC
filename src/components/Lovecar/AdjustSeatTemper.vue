@@ -344,8 +344,9 @@ export default {
     },
     //重复调用异步接口
     getAsyReturn(operationId) {
-      var flag = true;
+     var flag = true;
       this.sjc = new Date().getTime();
+//    clearInterval(this.time)
       this.time = setInterval(() => {
         this.$http
           .post(
@@ -367,24 +368,26 @@ export default {
                     duration: 3000
                   });
                   var self = this;
-                  clearInterval(self.time);
+                  window.clearInterval(self.time);
                 }
-              } else if (res.data.status == "SUCCEED") {
+              } 
+              if (res.data.status == "SUCCEED") {
                 flag = false;
                 Toast({
                   message: "下达指令成功",
                   position: "middle",
                   duration: 3000
                 });
-                clearInterval(this.time);
-              } else if (res.data.status == "FAILED") {
+                window.clearInterval(this.time);
+              } 
+              if (res.data.status == "FAILED") {
                 flag = false;
                 Toast({
                   message: "指令下发成功，处理失败！",
                   position: "middle",
                   duration: 3000
                 });
-                clearInterval(this.time);
+                window.clearInterval(this.time);
               }
             } else {
               Toast({
@@ -393,7 +396,7 @@ export default {
                 duration: 3000
               });
               flag = false;
-              clearInterval(this.time);
+              window.clearInterval(this.time);
             }
           });
       }, 4000);
@@ -486,8 +489,6 @@ export default {
   mounted() {
     this.produCurve();
     this.inputs();
-    this.httpheatmain();
-    this.httpheatnext();
   },
   computed: {
     fullValue: {

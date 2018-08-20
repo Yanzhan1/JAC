@@ -471,7 +471,7 @@ export default {
   mounted() {
     this.produCurve();
     this.inputs();
-    this.httpwindow();
+//  this.httpwindow();
   },
   created() {
     console.log(localStorage.Tip);
@@ -509,6 +509,7 @@ export default {
       //console.log(this.pinNumber.length)
       if (this.pinNumber.length == 6) {
         var nums = this.pinNumber;
+//      alert(this.$store.state.getpin.headers.identityParam.token)
         this.$http
           .post(
             Lovecar.Checkphonepin,

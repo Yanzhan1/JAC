@@ -355,8 +355,7 @@ export default {
                     position: "middle",
                     duration: 3000
                   });
-                  var self = this;
-                  clearInterval(self.time);
+                  clearInterval(this.time);
                 }
               } else if (res.data.status == "SUCCEED") {
                 flag = false;

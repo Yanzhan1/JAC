@@ -588,7 +588,10 @@ export default {
     pinNumber(newVal, oldVal) {
       //				console.log(this.pinNumber.length)
       if (this.pinNumber.length == 6) {
+//    	alert(11)
         var PIN = this.pinNumber;
+//      alert(PIN)
+//		alert(this.$store.state.getpin.headers.identityParam)
         this.$http
           .post(
             Lovecar.Checkphonepin,
@@ -598,7 +601,7 @@ export default {
             this.$store.state.getpin
           )
           .then(res => {
-            console.log(res.data.returnSuccess);
+//          alert(res.data.returnSuccess);
             res.data.returnSuccess ? (this.num = 1) : (this.num = 2);
             if (res.data.returnSuccess) {
               this.value = !this.value;
@@ -614,8 +617,8 @@ export default {
               (this.showTyper = 0),
                 //清空pin码
                 (this.pinNumber = "");
-              console.log(this.Compressors);
-              console.log(this.temperNum[this.airSpace]);
+              /*console.log(this.Compressors);
+              console.log(this.temperNum[this.airSpace]);*/
             } else {
               //消失遮罩
               this.popupVisible = !this.popupVisible;
@@ -637,6 +640,7 @@ export default {
               duration: 1000
             });
           });
+          alert(222)
       }
     },
     fullValue(newVal, oldVal) {
