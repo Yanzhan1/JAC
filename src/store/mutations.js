@@ -15,6 +15,9 @@ export default {
     [types.UUID]: (state, payload) => {
       state.uuid = payload
     },
+    [types.TOKEN]: (state, payload) => {
+      state.token = payload
+    },
     [types.USERINFO]: (state, payload) => {
       if(payload){
         state.no = payload.no
