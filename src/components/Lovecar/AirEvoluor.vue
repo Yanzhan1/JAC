@@ -130,7 +130,7 @@ export default {
   name: "skylightControl",
   data() {
     return {
-      time:'',//定时器命名
+      time: "", //定时器命名
       //移动端键盘值
       ownKeyBoard: {
         first: "",
@@ -382,7 +382,7 @@ export default {
           .then(res => {
             var tS = new Date().getTime() - this.sjc; //时间戳 差
             var tSS = parseInt((tS / 1000) % 60); // 时间差
-            if ((res.data.returnSuccess == true)) {
+            if (res.data.returnSuccess == true) {
               if (res.data.status == "IN_PROGRESS") {
                 //60s  后 清除定时器，不在发请求
                 console.log(tSS);
@@ -397,6 +397,11 @@ export default {
                 }
               } else if (res.data.status == "SUCCEED") {
                 flag = false;
+                Toast({
+                  message: "下达指令成功",
+                  position: "middle",
+                  duration: 3000
+                });
                 clearInterval(this.time);
               } else if (res.data.status == "FAILED") {
                 flag = false;

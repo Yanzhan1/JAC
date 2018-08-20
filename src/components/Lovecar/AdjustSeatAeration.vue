@@ -142,7 +142,7 @@ export default {
       fuWindNum: ["低", "中", "高"],
       //pin码弹出框控制变量
       popupVisible: false,
-      time:'',//定时器命名
+      time: "", //定时器命名
       //pin码值
       pinNumber: "",
       //自定义软键盘状态 0 消失 2 键盘开启
@@ -345,7 +345,7 @@ export default {
           .then(res => {
             var tS = new Date().getTime() - this.sjc; //时间戳 差
             var tSS = parseInt((tS / 1000) % 60); // 时间差
-            if ((res.data.returnSuccess == true)) {
+            if (res.data.returnSuccess == true) {
               if (res.data.status == "IN_PROGRESS") {
                 //60s  后 清除定时器，不在发请求
                 console.log(tSS);
@@ -360,6 +360,11 @@ export default {
                 }
               } else if (res.data.status == "SUCCEED") {
                 flag = false;
+                Toast({
+                  message: "下达指令成功",
+                  position: "middle",
+                  duration: 3000
+                });
                 clearInterval(this.time);
               } else if (res.data.status == "FAILED") {
                 flag = false;
@@ -424,18 +429,18 @@ export default {
               duration: 3000
             });
           }
-    
-        //   setTimeout(() => {
-        //     this.$http
-        //       .post(
-        //         Lovecar.OperationId,
-        //         { operationId: this.operationIds },
-        //         this.$store.state.getpin
-        //       )
-        //       .then(res => {
-        //         console.log(res);
-        //       }, 1000);
-        //   });
+
+          //   setTimeout(() => {
+          //     this.$http
+          //       .post(
+          //         Lovecar.OperationId,
+          //         { operationId: this.operationIds },
+          //         this.$store.state.getpin
+          //       )
+          //       .then(res => {
+          //         console.log(res);
+          //       }, 1000);
+          //   });
         });
     },
     //副驾通风接口
@@ -463,27 +468,27 @@ export default {
         .post(Lovecar.Control, param, this.$store.state.getpin)
         .then(res => {
           this.operationIdss = res.data.operationId;
-		  console.log(this.operationIdss);
-		   if(res.data.returnSuccess){
-             this.getAsyReturn(res.data.operationId)
-            }else{
-                 Toast({
-                      message: "token验证失败",
-                      position: "middle",
-                      duration: 3000
-           });
-         }
-        //   setTimeout(() => {
-        //     this.$http
-        //       .post(
-        //         Lovecar.OperationId,
-        //         { operationId: this.operationIdss },
-        //         this.$store.state.getpin
-        //       )
-        //       .then(res => {
-        //         console.log(res);
-        //       }, 1000);
-        //   });
+          console.log(this.operationIdss);
+          if (res.data.returnSuccess) {
+            this.getAsyReturn(res.data.operationId);
+          } else {
+            Toast({
+              message: "token验证失败",
+              position: "middle",
+              duration: 3000
+            });
+          }
+          //   setTimeout(() => {
+          //     this.$http
+          //       .post(
+          //         Lovecar.OperationId,
+          //         { operationId: this.operationIdss },
+          //         this.$store.state.getpin
+          //       )
+          //       .then(res => {
+          //         console.log(res);
+          //       }, 1000);
+          //   });
         });
     }
   },
@@ -950,16 +955,13 @@ ul > li {
   -webkit-background-size: 200% 100%;
   -webkit-animation: masked-animation 4s infinite linear;
 }
-
 .typer li.typer-num.is-A {
   margin-left: 0.31rem;
 }
-
 .typer li.typer-num.is-OK {
   width: 0.8rem;
   margin-left: 0.1rem;
 }
-
 @-webkit-keyframes masked-animation {
   0% {
     background-position: 0 0;
@@ -969,7 +971,6 @@ ul > li {
   }
 }
 /*自定遮罩层*/
-
 .bgMask {
   position: absolute;
   left: 0;

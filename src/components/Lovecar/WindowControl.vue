@@ -160,7 +160,7 @@ export default {
       //曲线状态 true彩色 false灰色
       curveState: false,
       //曲线滑动默认点
-      windowSpace: 0,
+      windowSpace: 10,
       //页面进入提示框状态 true弹出 false消失
       popupInfo: true,
       //页面进入提示框'不在提醒'状态 true不在提醒未激活  false激活

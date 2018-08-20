@@ -414,6 +414,11 @@ export default {
                 }
               } else if (res.data.status == "SUCCEED") {
                 flag = false;
+                   Toast({
+                    message: "下达指令成功",
+                    position: "middle",
+                    duration: 3000
+                  });
                 clearInterval(this.time);
               } else if (res.data.status == "FAILED") {
                 flag = false;
@@ -584,7 +589,7 @@ export default {
         }
       }),
       //获取机车 登录登出状态
-      this.$http.get(Lovecar.LogStatus, this.$store.state.getpin).then(res => {
+      this.$http.get(Lovecar.LogStatus,this.$store.state.getpin).then(res => {
         if (res.data.returnSuccess) {
           this.LoginStatus = res.data.data[1].logStatus;
         }
