@@ -130,6 +130,7 @@ export default {
   name: "skylightControl",
   data() {
     return {
+      sjc:'',
       time: "", //定时器命名
       //移动端键盘值
       ownKeyBoard: {
@@ -171,6 +172,97 @@ export default {
     };
   },
   methods: {
+//重复调用异步接口
+    getAsyReturn(operationId) {
+      var flag = true;
+      this.sjc = new Date().getTime();
+      this.time = setInterval(() => {
+        this.$http
+          .post(
+            Lovecar.OperationId,
+            { operationId: operationId },
+            this.$store.state.getpin
+          )
+          .then(res => {
+            var tS = new Date().getTime() - this.sjc; //时间戳 差
+            var tSS = parseInt((tS / 1000) % 60); // 时间差
+            if (res.data.returnSuccess == true) {
+              if (res.data.status == "IN_PROGRESS") {
+                //60s  后 清除定时器，不在发请求
+                console.log(tSS);
+                if (tSS >= 56) {
+                  Toast({
+                    message: "请求超时",
+                    position: "middle",
+                    duration: 3000
+                  });
+                  var self = this;
+                  clearInterval(self.time);
+                }
+              } else if (res.data.status == "SUCCEED") {
+                flag = false;
+                Toast({
+                  message: "下达指令成功",
+                  position: "middle",
+                  duration: 3000
+                });
+                clearInterval(this.time);
+              } else if (res.data.status == "FAILED") {
+                flag = false;
+                Toast({
+                  message: "指令下发成功，处理失败！",
+                  position: "middle",
+                  duration: 3000
+                });
+                clearInterval(this.time);
+              }
+            } else {
+              Toast({
+                message: "指令下发失败！",
+                position: "middle",
+                duration: 3000
+              });
+              flag = false;
+              clearInterval(this.time);
+            }
+          });
+      }, 4000);
+    },
+    //空气进化器请求
+    httpairevolution() {
+      if (this.windNum[this.evoluorSpace] == "低") {
+        this.airnums = 1;
+      }
+      if (this.windNum[this.evoluorSpace] == "中") {
+        this.airnums = 2;
+      }
+      if (this.windNum[this.evoluorSpace] == "高") {
+        this.airnums = 3;
+      }
+      var param = {
+        vin: this.$store.state.vin,
+        operationType: "PURIFICATION",
+        operation: this.nums,
+        extParams: {
+          pattern: this.airnums //档位
+        }
+      };
+      this.$http
+        .post(Lovecar.Control, param, this.$store.state.getpin)
+        .then(res => {
+          this.operationIds = res.data.operationId;
+          if (res.data.returnSuccess) {
+            this.getAsyReturn(res.data.operationId);
+          } else {
+            Toast({
+              message: "token验证失败",
+              position: "middle",
+              duration: 3000
+            });
+          }
+
+        });
+    },
     //滑动结束的时候发送请求
     end() {
       this.httpairevolution();
@@ -184,8 +276,6 @@ export default {
       }
       this.popupVisible = !this.popupVisible;
       this.value ? (this.nums = 2) : (this.nums = 1);
-      console.log(this.nums);
-      this.httpairevolution();
     },
     //进化器强度增加
     windAdd() {
@@ -368,109 +458,7 @@ export default {
         return false;
       }
     },
-    //重复调用异步接口
-    getAsyReturn(operationId) {
-      var flag = true;
-      this.sjc = new Date().getTime();
-      this.time = setInterval(() => {
-        this.$http
-          .post(
-            Lovecar.OperationId,
-            { operationId: operationId },
-            this.$store.state.getpin
-          )
-          .then(res => {
-            var tS = new Date().getTime() - this.sjc; //时间戳 差
-            var tSS = parseInt((tS / 1000) % 60); // 时间差
-            if (res.data.returnSuccess == true) {
-              if (res.data.status == "IN_PROGRESS") {
-                //60s  后 清除定时器，不在发请求
-                console.log(tSS);
-                if (tSS >= 56) {
-                  Toast({
-                    message: "空气净化器请求超时",
-                    position: "middle",
-                    duration: 3000
-                  });
-                  var self = this;
-                  clearInterval(self.time);
-                }
-              } else if (res.data.status == "SUCCEED") {
-                flag = false;
-                Toast({
-                  message: "下达指令成功",
-                  position: "middle",
-                  duration: 3000
-                });
-                clearInterval(this.time);
-              } else if (res.data.status == "FAILED") {
-                flag = false;
-                Toast({
-                  message: "指令下发成功，处理失败！",
-                  position: "middle",
-                  duration: 3000
-                });
-                clearInterval(this.time);
-              }
-            } else {
-              Toast({
-                message: "指令下发失败！",
-                position: "middle",
-                duration: 3000
-              });
-              flag = false;
-              clearInterval(this.time);
-            }
-          });
-      }, 4000);
-    },
-    //空气进化器请求
-    httpairevolution() {
-      console.log(this.windNum[this.evoluorSpace]);
-      if (this.windNum[this.evoluorSpace] == "低") {
-        this.airnums = 1;
-      }
-      if (this.windNum[this.evoluorSpace] == "中") {
-        this.airnums = 2;
-      }
-      if (this.windNum[this.evoluorSpace] == "高") {
-        this.airnums = 3;
-      }
-      var param = {
-        vin: this.$store.state.vin,
-        operationType: "PURIFICATION",
-        operation: this.nums,
-        extParams: {
-          pattern: this.airnums //档位
-        }
-      };
-      this.$http
-        .post(Lovecar.Control, param, this.$store.state.getpin)
-        .then(res => {
-          console.log(res);
-          this.operationIds = res.data.operationId;
-          if (res.data.returnSuccess) {
-            this.getAsyReturn(res.data.operationId);
-          } else {
-            Toast({
-              message: "token验证失败",
-              position: "middle",
-              duration: 3000
-            });
-          }
-          // setTimeout(() => {
-          //   this.$http
-          //     .post(
-          //       Lovecar.OperationId,
-          //       { operationId: this.operationIds },
-          //       this.$store.state.getpin
-          //     )
-          //     .then(res => {
-          //       console.log(res);
-          //     }, 1000);
-          // });
-        });
-    }
+ 
   },
   mounted() {
     this.produCurve();

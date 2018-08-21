@@ -456,6 +456,7 @@ export default {
         }
       }
     },
+    //周渲染的数据
     weeknew(){
       if(this.showweek==1){
           this.newarray1 = this.array1.slice(0, 7);
@@ -790,7 +791,6 @@ export default {
         this.week_left();
       }
       this.reduceleft();
-      this.getInfo(this.newdates.years,this.newdates.months);
     },
     //点击切换右按钮的周
     turn_r_week() {
@@ -799,7 +799,6 @@ export default {
       }
       this.weeknew();
       this.reduceleft();
-      this.getInfo(this.newdates.years,this.newdates.months);
     },
     turn_l() {
       this.newdates.months--;
