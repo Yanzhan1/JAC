@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/components/Main'
+//状态管理
+import store from '../store'
+//导入axios
+import axios from 'axios'
+
 //爱车部分
 import Lovecar from '@/components/Lovecar/lovecar'
 import RevisePinCode from '@/components/Lovecar/RevisePinCode' //修改pin码
@@ -85,7 +90,7 @@ import Configure from '../components/Wit/Configure' //配置参数
 import Reserve from '../components/Wit/Reserve' //车辆预定
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
     mode: 'hash',
     routes: [{
         path: '/',
@@ -462,3 +467,42 @@ export default new Router({
         ]
     }]
 })
+
+const $http = axios;
+const $store = store
+router.beforeEach((to, from, next) => {
+  debugger;
+  if(!$http.defaults.headers.common['timaToken']){
+    var userInfo;
+    if (isMobile.iOS()) {
+      // TODO IOS方法待提供
+      // window.webkit.messageHandlers.goLogin.postMessage("");
+    } else if(isMobile.Android()) {
+      userInfo = js2android.getUserInfo()
+    }
+    // alert("原生传进来的值： "+JSON.stringify(userInfo))
+    if(userInfo && userInfo.userId){
+      $store.dispatch('isLogin',true);
+      $store.dispatch('userId',userInfo.userId);
+      $store.dispatch('userInfo',userInfo);
+      // alert(
+      //   "store里面的值，" +
+      //   "vin: "+ $store.state.vin +
+      //   " userId: "+ $store.state.userId +
+      //   " no: "+ $store.state.no +
+      //   " token: "+ $store.state.token +
+      //   " mobile: "+ $store.state.mobile
+      // )
+    }else{
+      $store.dispatch('isLogin',false);
+      $store.dispatch('userId',null);
+      $store.dispatch('userInfo',null);
+      // TODO 跳转至登录页面 待处理
+
+    }
+    $http.defaults.headers.common['timaToken'] = $store.state.token;
+    // alert("axios里面的token值： "+$http.defaults.headers.common['timaToken'])
+  }
+  next()
+})
+ export default router;

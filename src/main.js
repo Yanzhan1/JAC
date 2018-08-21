@@ -14,57 +14,43 @@ import axios from 'axios'
 
 Vue.prototype.$http = axios;
 Vue.prototype.toLogin = function() {
-        MessageBox({
-            title: '提示',
-            message: '请登录',
-            confirmButtonText: '确定'
-        }).then(action => {
-            console.log("跳转登录");
-            if (isMobile.iOS()) {
-                window.webkit.messageHandlers.goLogin.postMessage("");
-            } else if (isMobile.Android()) {
-                NativeJavaScriptInterface.goLogin();
-            }
-        });
+  MessageBox({
+    title: '提示',
+    message: '请登录',
+    confirmButtonText: '确定'
+  }).then(action => {
+    console.log("跳转登录");
+    if (isMobile.iOS()) {
+      window.webkit.messageHandlers.goLogin.postMessage("");
+    } else if(isMobile.Android()) {
+      NativeJavaScriptInterface.goLogin();
     }
-    // var $http = Vue.prototype.$http;
-    // router.beforeEach((to, from, next) => {
-    //   if($http.defaults.headers.common['timaToken']){
-    //     var userInfo;
-    //     if (isMobile.iOS()) {
-    //       // window.webkit.messageHandlers.goLogin.postMessage("");
-    //     } else if(isMobile.Android()) {
-    //       userInfo = js2android.getUserInfo()
-    //     }
-    //     if(userInfo && userInfo.token){
-    //       $http.defaults.headers.common['timaToken'] = userInfo.token
-    //     }
-    //   }
-    //   next()
-    // })
-    // mint-ui插件
+  });
+}
+
+// mint-ui插件
 import {
-    Search,
-    PaletteButton,
-    IndexList,
-    IndexSection,
-    Cell,
-    Swipe,
-    SwipeItem,
-    CellSwipe,
-    Actionsheet,
-    Popup,
-    Checklist,
-    Switch,
-    Picker,
-    Navbar,
-    TabItem,
-    MessageBox,
-    Toast,
-    TabContainer,
-    TabContainerItem,
-    Spinner,
-    Radio
+  Search,
+  PaletteButton,
+  IndexList,
+  IndexSection,
+  Cell,
+  Swipe,
+  SwipeItem,
+  CellSwipe,
+  Actionsheet,
+  Popup,
+  Checklist,
+  Switch,
+  Picker,
+  Navbar,
+  TabItem,
+  MessageBox,
+  Toast,
+  TabContainer,
+  TabContainerItem,
+  Spinner,
+  Radio
 } from 'mint-ui'; //按需引入部分组件
 Vue.component(Search.name, Search);
 Vue.component(PaletteButton.name, PaletteButton);
@@ -90,20 +76,19 @@ import mintui from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import '../static/style/mint-ui.css'
 Vue.use(mintui)
-    //状态管理
+//状态管理
 import store from './store'
 
 //导入jquery
 import $ from 'jquery'
-// require('./assets/util/vconsole.js')
 
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-    el: '#app',
-    router,
-    store,
-    components: { App },
-    template: '<App/>'
+  el: '#app',
+  router,
+  store,
+  components: { App },
+  template: '<App/>'
 })
