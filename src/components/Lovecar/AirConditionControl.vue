@@ -569,8 +569,26 @@ export default {
     }
   },
   mounted() {
+//	console.log(this.$store.state.vin)
     this.produCurve();
     this.inputs();
+    this.$http
+      .post(
+        Lovecar.Carquery,
+        { vins: [this.$store.state.vin] },
+        this.$store.state.getpin
+      )
+      .then(res => {
+        if (res.data.returnSuccess) {
+       		this.getAsyReturn(res.data.operationId);
+        } else {
+          Toast({
+            message: res.data.returnErrMsg,
+            position: "middle",
+            duration: 3000
+          });
+        }
+      })
   },
   computed: {
     fullValue: {

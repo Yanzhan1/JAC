@@ -44,13 +44,22 @@
 		
 		// 添加响应拦截器
 		    this.$http.interceptors.response.use((response)=> {
+//		    	console.log(response.config.url)
 		    	if (response.config.url != 'http://test.jac.timanetwork.net/jvconnectedcar/vehicle/vehicle-async-results') {
-		    		this.loadingnum--;
-				      if(this.loadingnum == 0){
-				        this.loadingflag = false;
-				        this.$refs.loadingPage.closeLoading();
-				      }    
-		    	}		      
+		    		   this.loadingnum--;
+		    		   
+				      	if(this.loadingnum == 0){
+				        	this.loadingflag = false;
+				        	this.$forceUpdate();
+				        	this.$refs.loadingPage.closeLoading();
+				     	} 
+		    	}
+	    		this.loadingnum--;	    		   
+		      	if(this.loadingnum == 0){
+		        	this.loadingflag = false;
+		        	this.$forceUpdate();
+		        	this.$refs.loadingPage.closeLoading();
+		     	} 		    	
 		      return response;
 		    },(error)=> {
 		       this.loadingnum--;
