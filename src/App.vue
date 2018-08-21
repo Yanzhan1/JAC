@@ -15,9 +15,10 @@ export default {
   methods: {
     isLogin(userInfo){
       // alert("原生传进来的值： "+JSON.stringify(userInfo))
-      if(userInfo && userInfo.userId){
+      if(userInfo && userInfo.no){
         this.$store.dispatch('isLogin',true);
-        this.$store.dispatch('userId',userInfo.userId);
+        // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
+        this.$store.dispatch('userId',userInfo.no);
         this.$store.dispatch('userInfo',userInfo);
         // alert(
         //   "store里面的值，" +
