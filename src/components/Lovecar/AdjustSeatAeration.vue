@@ -1,7 +1,7 @@
 <template>
 	<div class="adjust-seat-temper">
 		<header class="header">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.push('/lovecar')">
+			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
 			<router-link tag='span' class="seatAeration active" to="/lovecar/adjustSeatAeration">座椅通风<span></span></router-link>
 			<router-link tag='span' class="seatHeating" style="margin-right: 1.3rem;" to="/lovecar/adjustSeatTemper">座椅加热<span></span></router-link>
 		</header>
@@ -179,6 +179,11 @@ export default {
         this.aeraValue = false;
       }
       this.popupVisible = !this.popupVisible;
+    },
+    //路由跳转的时候清除轮询loading
+    goback () {
+    	this.$router.push('/lovecar');
+    	this.$store.dispatch('LOADINGFLAG', false)
     },
     //判断点击是左边还是右边
     changeState(val) {
@@ -495,6 +500,30 @@ export default {
   mounted() {
     this.produCurve();
     this.inputs();
+    this.$http
+      .post(
+        Lovecar.Carquery,
+        { vins: [this.$store.state.vin] },
+        this.$store.state.getpin
+      )
+      .then(res => {
+        if (res.data.returnSuccess) {
+       		this.getAsyReturn(res.data.operationId);
+        } else {
+          Toast({
+            message: res.data.returnErrMsg,
+            position: "middle",
+            duration: 3000
+          });
+        }
+      })
+      .catch( err => {
+      	Toast({
+            message: '系统异常',
+            position: "middle",
+            duration: 3000
+          });
+      })
   },
   computed: {
     fullValue: {

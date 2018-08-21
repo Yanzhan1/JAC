@@ -568,6 +568,7 @@ export default {
     this.Condition = tai;
   },
   mounted() {
+  	console.log(this.$store.state.vin)
     //暴露方法给原生,登入判断
     window.getStatus = this.getStatus;
     this.$http

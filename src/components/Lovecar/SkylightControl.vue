@@ -1,7 +1,7 @@
 <template>
 	<div class="skylight-control">
 		<header class="header">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
 			<span class="header-title">天窗控制</span>
 			<span class="header-right"></span>
 		</header>
@@ -145,6 +145,11 @@ export default {
     },
     end() {
       this.httpsky();
+    },
+    //路由跳转的时候清除轮询loading
+    goback () {
+    	this.$router.go(-1);
+    	this.$store.dispatch('LOADINGFLAG', false)
     },
     //天窗宽度增加
     windAdd() {
@@ -420,7 +425,30 @@ export default {
   mounted() {
     this.produCurve();
     this.inputs();
-    console.log(this.windNum[this.skylightSpace].replace(/%/g, ""));
+    this.$http
+      .post(
+        Lovecar.Carquery,
+        { vins: [this.$store.state.vin] },
+        this.$store.state.getpin
+      )
+      .then(res => {
+        if (res.data.returnSuccess) {
+       		this.getAsyReturn(res.data.operationId);
+        } else {
+          Toast({
+            message: res.data.returnErrMsg,
+            position: "middle",
+            duration: 3000
+          });
+        }
+      })
+      .catch( err => {
+      	Toast({
+            message: '系统异常',
+            position: "middle",
+            duration: 3000
+          });
+      })
   },
   computed: {
     fullValue: {

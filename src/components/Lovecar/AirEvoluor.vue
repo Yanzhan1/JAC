@@ -1,7 +1,7 @@
 <template>
 	<div class="skylight-control">
 		<header class="header">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
 			<span class="header-title">空气进化器</span>
 			<span class="header-right"></span>
 		</header>
@@ -172,6 +172,11 @@ export default {
     };
   },
   methods: {
+  	//路由跳转的时候清除轮询loading
+    goback () {
+    	this.$router.go(-1);
+    	this.$store.dispatch('LOADINGFLAG', false)
+    },
 //重复调用异步接口
     getAsyReturn(operationId) {
       var flag = true;
@@ -186,6 +191,7 @@ export default {
           .then(res => {
             var tS = new Date().getTime() - this.sjc; //时间戳 差
             var tSS = parseInt((tS / 1000) % 60); // 时间差
+            console.log(tss)
             if (res.data.returnSuccess == true) {
               if (res.data.status == "IN_PROGRESS") {
                 //60s  后 清除定时器，不在发请求
@@ -464,6 +470,30 @@ export default {
   	clearInterval(this.time)
     this.produCurve();
     this.inputs();
+    this.$http
+      .post(
+        Lovecar.Carquery,
+        { vins: [this.$store.state.vin] },
+        this.$store.state.getpin
+      )
+      .then(res => {
+        if (res.data.returnSuccess) {
+       		this.getAsyReturn(res.data.operationId);
+        } else {
+          Toast({
+            message: res.data.returnErrMsg,
+            position: "middle",
+            duration: 3000
+          });
+        }
+      })
+      .catch( err => {
+      	Toast({
+            message: '系统异常',
+            position: "middle",
+            duration: 3000
+          });
+      })
   },
   computed: {
     fullValue: {
