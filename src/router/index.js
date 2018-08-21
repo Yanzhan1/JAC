@@ -471,9 +471,9 @@ const router = new Router({
 const $http = axios;
 const $store = store
 router.beforeEach((to, from, next) => {
-  debugger;
-  if(!$http.defaults.headers.common['timaToken']){
-    var userInfo;
+  try {
+    if(!$http.defaults.headers.common['timaToken']){
+      var userInfo;
     if (isMobile.iOS()) {
       // TODO IOS方法待提供
       // window.webkit.messageHandlers.goLogin.postMessage("");
@@ -502,7 +502,10 @@ router.beforeEach((to, from, next) => {
     }
     $http.defaults.headers.common['timaToken'] = $store.state.token;
     // alert("axios里面的token值： "+$http.defaults.headers.common['timaToken'])
+    }
+    next()
+  } catch (e) {
+    next()
   }
-  next()
 })
  export default router;
