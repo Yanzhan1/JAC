@@ -408,8 +408,7 @@ export default {
                     position: "middle",
                     duration: 3000
                   });
-                  var self = this;
-                  clearInterval(self.time);
+                  clearInterval(this.time);
                 }
               } else if (res.data.status == "SUCCEED") {
                 flag = false;
@@ -578,7 +577,7 @@ export default {
       )
       .then(res => {
         if (res.data.returnSuccess) {
-//        this.getAsyReturn(res.data.operationId);
+       this.getAsyReturn(res.data.operationId);
         } else {
           Toast({
             message: res.data.returnErrMsg,
