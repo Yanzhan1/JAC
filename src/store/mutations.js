@@ -30,5 +30,8 @@ export default {
         state.vin = null
         state.token = null
       }
+    },
+    [types.LOADINGFLAG]: (state, payload) => {
+    	state.loadingflag = payload
     }
 }

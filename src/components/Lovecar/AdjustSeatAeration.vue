@@ -356,6 +356,7 @@ export default {
                     duration: 3000
                   });
                   clearInterval(this.time);
+                  this.$store.dispatch('LOADINGFLAG', false)
                 }
               } else if (res.data.status == "SUCCEED") {
                 flag = false;

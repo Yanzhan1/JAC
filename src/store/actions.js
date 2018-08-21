@@ -21,4 +21,7 @@ export default {
     userInfo: ({ commit, state }, payload) => {
       commit(types.USERINFO, payload)
     },
+    LOADINGFLAG: ({commit, state}, payload) => {
+    	commit(types.LOADINGFLAG, payload)
+    }
 }
