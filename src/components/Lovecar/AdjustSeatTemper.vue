@@ -369,6 +369,7 @@ export default {
                   });
                   var self = this;
                   window.clearInterval(self.time);
+                  this.$store.dispatch('LOADINGFLAG', false)
                 }
               } 
               if (res.data.status == "SUCCEED") {

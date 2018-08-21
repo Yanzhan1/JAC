@@ -495,6 +495,7 @@ export default {
                   });
                   var self = this;
                   clearInterval(self.time);
+                  this.$store.dispatch('LOADINGFLAG', false)
                 }
               } else if (res.data.status == "SUCCEED") {
                 flag = false;
@@ -549,11 +550,20 @@ export default {
           if (res.data.returnSuccess) {
             this.getAsyReturn(res.data.operationId);
           } else {
-            Toast({
-              message: "token验证失败",
-              position: "middle",
-              duration: 3000
-            });
+          	if (res.data.returnErrCode == 400) {
+          		Toast({
+	              message: "token验证失败",
+	              position: "middle",
+	              duration: 3000
+	            });
+          	} else {
+          		Toast({
+	              message: res.data.returnErrMsg,
+	              position: "middle",
+	              duration: 3000
+	            });
+          	}
+            
           }
         });
     }
@@ -587,12 +597,8 @@ export default {
   },
   watch: {
     pinNumber(newVal, oldVal) {
-      //				console.log(this.pinNumber.length)
       if (this.pinNumber.length == 6) {
-//    	alert(11)
         var PIN = this.pinNumber;
-//      alert(PIN)
-//		alert(this.$store.state.getpin.headers.identityParam)
         this.$http
           .post(
             Lovecar.Checkphonepin,
@@ -602,7 +608,6 @@ export default {
             this.$store.state.getpin
           )
           .then(res => {
-//          alert(res.data.returnSuccess);
             res.data.returnSuccess ? (this.num = 1) : (this.num = 2);
             if (res.data.returnSuccess) {
               this.value = !this.value;
@@ -621,6 +626,7 @@ export default {
               /*console.log(this.Compressors);
               console.log(this.temperNum[this.airSpace]);*/
             } else {
+            	alert(1);
               //消失遮罩
               this.popupVisible = !this.popupVisible;
               //消失软键盘
@@ -634,14 +640,13 @@ export default {
               });
             }
           })
-          .catch(err => {
+          .catch(err => {         	
             Toast({
               message: "系统异常",
               position: "middle",
               duration: 1000
             });
           });
-//        alert(222)
       }
     },
     fullValue(newVal, oldVal) {
