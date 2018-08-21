@@ -399,7 +399,6 @@ export default {
             var tS = new Date().getTime() - this.sjc; //时间戳 差
             var tSS = parseInt((tS / 1000) % 60); // 时间差
             if ((res.data.returnSuccess == true)) {
-            console.log(res)
               if (res.data.status == "IN_PROGRESS") {
                 //60s  后 清除定时器，不在发请求
                 console.log(tSS);
@@ -579,10 +578,10 @@ export default {
       )
       .then(res => {
         if (res.data.returnSuccess) {
-          this.getAsyReturn(res.data.operationId);
+//        this.getAsyReturn(res.data.operationId);
         } else {
           Toast({
-            message: "token验证失败",
+            message: res.data.returnErrMsg,
             position: "middle",
             duration: 3000
           });
