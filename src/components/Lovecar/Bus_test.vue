@@ -110,7 +110,7 @@ export default {
               this.$store.dispatch('LOADINGFLAG', false)
             }
           });
-      }, 4000);
+      }, 1000);
     }
   }
 };

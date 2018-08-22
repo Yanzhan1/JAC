@@ -108,7 +108,7 @@ export default {
               this.$store.dispatch('LOADINGFLAG', false)
             }
           });
-      }, 4000);
+      }, 1000);
     },
     turn() {
       this.value ? (this.nums = 1) : (this.nums = 2);

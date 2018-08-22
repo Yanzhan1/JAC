@@ -434,7 +434,7 @@ export default {
               this.$store.dispatch('LOADINGFLAG', false)
             }
           });
-      }, 4000);
+      }, 1000);
     },
     //车窗接口
     httpwindow() {

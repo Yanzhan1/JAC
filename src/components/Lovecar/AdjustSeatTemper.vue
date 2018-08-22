@@ -408,7 +408,7 @@ export default {
               this.$store.dispatch('LOADINGFLAG', false)
             }
           });
-      }, 4000);
+      }, 1000);
     },
     //主驾加热接口
     httpheatmain() {

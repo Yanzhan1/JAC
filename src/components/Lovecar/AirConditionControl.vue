@@ -534,7 +534,7 @@ export default {
               this.$store.dispatch('LOADINGFLAG', false)
             }
           });
-      }, 4000);
+      }, 1000);
     },
     //每次改变请求的方法
     httpair() {
