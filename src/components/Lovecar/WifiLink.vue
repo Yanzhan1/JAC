@@ -167,11 +167,6 @@ export default {
     // console.log(this.$route.params.userCategory)
     this.names = this.$route.params.wifiname;
     this.pwd = this.$route.params.wifipwd;
-    // if(this.$route.params.userCategory==1){
-    // 	this.value=true
-    // }else{
-    // 	this.value=false
-    // }
   }
 };
 </script>
