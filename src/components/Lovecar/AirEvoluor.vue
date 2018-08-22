@@ -249,7 +249,7 @@ export default {
         this.airnums = 3;
       }
       var param = {
-        vin: this.$store.state.vin,
+        vin: this.$store.state.vins,
         operationType: "PURIFICATION",
         operation: this.nums,
         extParams: {
@@ -476,7 +476,7 @@ export default {
     this.$http
       .post(
         Lovecar.Carquery,
-        { vins: [this.$store.state.vin] },
+        { vins: [this.$store.state.vins] },
         this.$store.state.getpin
       )
       .then(res => {

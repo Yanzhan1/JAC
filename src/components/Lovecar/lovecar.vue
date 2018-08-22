@@ -368,7 +368,7 @@ export default {
     getStatus(status) {
       console.log(status);
       var param = {
-        vin: this.$store.state.vin,
+        vin: this.$store.state.vins,
         operation: "1"
       };
       this.$http
@@ -468,7 +468,7 @@ export default {
                 this.isTrue = !this.isTrue;
                 this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
                 var param = {
-                  vin: this.$store.state.vin,
+                  vin: this.$store.state.vins,
                   operationType: "LOCK",
                   operation: this.locknum //操作项
                 };
@@ -501,7 +501,7 @@ export default {
                 this.isTruess = !this.isTruess;
                 this.isTruess ? (this.firenum = 1) : (this.firenum = 2);
                 var param = {
-                  vin: this.$store.state.vin,
+                  vin: this.$store.state.vins,
                   operationType: "ENGINE",
                   operation: this.firenum //操作项
                 };
@@ -536,7 +536,7 @@ export default {
                   this.isTruesss = !this.isTruesss;
                 }, 2000);
                 var param = {
-                  vin: this.$store.state.vin,
+                  vin: this.$store.state.vins,
                   operationType: "FIND_VEHICLE"
                 };
                 this.$http
@@ -571,13 +571,13 @@ export default {
     this.Condition = tai;
   },
   mounted() {
-  	console.log(this.$store.state.vin)
+  	console.log(this.$store.state.vins)
     //暴露方法给原生,登入判断
     window.getStatus = this.getStatus;
     this.$http
       .post(
         Lovecar.Carquery,
-        { vins: [this.$store.state.vin] },
+        { vins: [this.$store.state.vins] },
         this.$store.state.getpin
       )
       .then(res => {

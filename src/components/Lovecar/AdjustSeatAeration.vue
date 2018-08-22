@@ -415,7 +415,7 @@ export default {
         }
       }
       var param = {
-        vin: this.$store.state.vin,
+        vin: this.$store.state.vins,
         operationType: "HOSTSEAT_HEAT",
         operation: 1, //操作项
         extParams: {
@@ -467,7 +467,7 @@ export default {
         }
       }
       var param = {
-        vin: this.$store.state.vin,
+        vin: this.$store.state.vins,
         operationType: "VICESEAT_HEAT",
         operation: 1, //操作项
         extParams: {
@@ -509,7 +509,7 @@ export default {
     this.$http
       .post(
         Lovecar.Carquery,
-        { vins: [this.$store.state.vin] },
+        { vins: [this.$store.state.vins] },
         this.$store.state.getpin
       )
       .then(res => {

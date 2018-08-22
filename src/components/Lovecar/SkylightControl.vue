@@ -389,7 +389,7 @@ export default {
     },
     httpsky() {
       var param = {
-        vin: this.$store.state.vin,
+        vin: this.$store.state.vins,
         operationType: "SUNROOF",
         extParams: {
           fluctuationType: 2, //档位百分比
@@ -436,7 +436,7 @@ export default {
     this.$http
       .post(
         Lovecar.Carquery,
-        { vins: [this.$store.state.vin] },
+        { vins: [this.$store.state.vins] },
         this.$store.state.getpin
       )
       .then(res => {

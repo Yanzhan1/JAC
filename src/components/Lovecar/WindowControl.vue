@@ -439,7 +439,7 @@ export default {
     //车窗接口
     httpwindow() {
       var param = {
-        vin: this.$store.state.vin,
+        vin: this.$store.state.vins,
         operationType: "WINDOW",
         // operation: this.nums, //操作项
         extParams: {
@@ -487,7 +487,7 @@ export default {
 	this.$http
       .post(
         Lovecar.Carquery,
-        { vins: [this.$store.state.vin] },
+        { vins: [this.$store.state.vins] },
         this.$store.state.getpin
       )
       .then(res => {
