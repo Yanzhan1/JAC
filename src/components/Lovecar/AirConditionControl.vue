@@ -487,7 +487,9 @@ export default {
           )
           .then(res => {
             var tS = new Date().getTime() - this.sjc; //时间戳 差
+            console.log(tS)
             var tSS = parseInt((tS / 1000) % 60); // 时间差
+            console.log(tSS)
             if (res.data.returnSuccess == true) {
               if (res.data.status == "IN_PROGRESS") {
                 //60s  后 清除定时器，不在发请求
@@ -589,7 +591,7 @@ export default {
     this.$http
       .post(
         Lovecar.Carquery,
-        { vin: [this.$store.state.vins] },
+        { vins: [this.$store.state.vins] },
         this.$store.state.getpin
       )
       .then(res => {

@@ -476,7 +476,7 @@ export default {
     this.$http
       .post(
         Lovecar.Carquery,
-        { vin: [this.$store.state.vins] },
+        { vins: [this.$store.state.vins] },
         this.$store.state.getpin
       )
       .then(res => {
