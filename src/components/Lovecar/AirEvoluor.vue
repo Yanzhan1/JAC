@@ -78,9 +78,9 @@
 					<span style="width: 0.5rem;margin-right: 0.47rem;font-size: 0.24rem;color: #222222;">风速</span>
 					<img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
 					<div class="wind-count">
-						<span @click=" windReduce" class="addWind"><</span>
+						<button @click=" windReduce" class="addWind conmmon-style"><</button>
 						<input class="wind-input" type="text" v-model="windNum[evoluorSpace]" readonly />
-						<span @click="windAdd" class="reduceWind">></span>
+						<button @click="windAdd" class="reduceWind conmmon-style">></button>
 					</div>
 					<img :src="'./static/images/Lovecar/right@2x.png'" alt="" />
 				</div>
@@ -712,6 +712,13 @@ export default {
   border-radius: 0.1rem;
 }
 
+.conmmon-style { /*公共样式*/
+	border: none;
+	outline: none;
+	appearance: none;
+	-webkit-appearance: none;
+	background: none;
+}
 /*进化器头部*/
 
 .window-header {

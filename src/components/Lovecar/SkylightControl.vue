@@ -53,9 +53,9 @@
 				<div style="margin-bottom: 0.36rem;" class="flex-center">
 					<img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
 					<div class="wind-count">
-						<span @click=" windReduce" class="addWind"><</span>
+						<button @click=" windReduce" class="addWind conmmon-style"><</button>
 						<input class="wind-input" type="text" v-model="windNum[skylightSpace]" readonly/>
-						<span @click="windAdd" class="reduceWind">></span>
+						<button @click="windAdd" class="reduceWind conmmon-style">></button>
 					</div>
 					<img :src="'./static/images/Lovecar/right@2x.png'" alt="" />
 				</div>
@@ -679,6 +679,13 @@ export default {
   border-radius: 0.1rem;
 }
 
+.conmmon-style { /*公共样式*/
+	border: none;
+	outline: none;
+	appearance: none;
+	-webkit-appearance: none;
+	background: none;
+}
 /*天窗头部*/
 
 .skylight-header {

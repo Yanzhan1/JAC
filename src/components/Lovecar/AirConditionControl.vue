@@ -17,8 +17,7 @@
 					<span style="margin-right: 0.2rem;">压缩机</span>
 					<mt-switch v-model="compressor" @change="turnCompressor"><span></span></mt-switch>
 				</div>
-				
-				
+				<div v-if="!value" class="switch-mask"></div>
 			</div>
 			<div class="air-sign flex-column">
 				<span class="air-ch">空调</span>
@@ -52,8 +51,8 @@
 					<span style="display:block;margin-bottom: 0.4rem;">温度</span>
 					<div class="temper-inputcoun flex-center">
 						<div class="counter">
-							<span @click="add" style="transform: rotateZ(-90deg);">></span>
-							<span @click="reduce" style="transform: rotateZ(-90deg);"><</span>
+							<button class="conmmon-style" :disabled="!value" @click="add" style="transform: rotateZ(-90deg);">></button>
+							<button class="conmmon-style" :disabled="!value" @click="reduce" style="transform: rotateZ(-90deg);"><</button>
 						</div>
 					</div>
 				</div>
@@ -83,9 +82,9 @@
 			<div class="air-change flex-center">
 				<img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
 				<div class="wind-count">
-					<span @click=" windReduce" class="addWind"><</span>
+					<button  @click=" windReduce" class="addWind conmmon-style"><</button>
 					<input class="wind-input" ref="Air" type="text" v-model="windNum[winIndex]" readonly />
-					<span @click="windAdd" class="reduceWind">></span>
+					<button  @click="windAdd" class="reduceWind conmmon-style">></button>
 				</div>
 				<img :src="'./static/images/Lovecar/right@2x.png'" alt="" />
 			</div>
@@ -95,20 +94,20 @@
 		<div class="sing-line"></div>
 		<!--底部导航Start-->
 		<div class="air-footer flex-center-between">
-			<div class="tabar flex-column-align" @click="change(1)">
+			<button :disabled="!value" class="tabar flex-column-align" @click="change(1)">
 				<img v-if="activeShowImg == 1" :src="'./static/images/Lovecar/no-off@2x.png'" />
 				<img v-else :src="'./static/images/Lovecar/no-off2@2x.png'" />
-			</div>
-			<div class="tabar flex-column-align" @click="change(2)">
+			</button>
+			<button :disabled="!value" class="tabar flex-column-align" @click="change(2)">
 				<img v-if="activeShowImg == 2" :src="'./static/images/Lovecar/off-left@2x.png'" />
 				<img v-else :src="'./static/images/Lovecar/off-left2@2x.png'" />
 				<span :class="activeShowImg==2?'active':'actives'">内循环</span>
-			</div>
-			<div class="tabar flex-column-align" @click="change(3)">
+			</button>
+			<button :disabled="!value" class="tabar flex-column-align" @click="change(3)">
 				<img v-if="activeShowImg == 3" :src="'./static/images/Lovecar/off-right@2x.png'" />
 				<img v-else :src="'./static/images/Lovecar/off-right2@2x.png'" />
 				<span :class="activeShowImg==3?'active':'actives'">外循环</span>
-			</div>
+			</button>
 			<!--底部导航End-->
 		</div>
 		<!--pin码弹出框Start-->
@@ -150,7 +149,7 @@
 
 <script>
 import { Createarc } from "../../../static/js/drawarc.js";
-// import Vconsole from "../../assets/util/vconsole.js";
+   import Vconsole from "../../assets/util/vconsole.js";
 import { Toast } from "mint-ui";
 export default {
   name: "airconditionControl",
@@ -240,7 +239,6 @@ export default {
       }
       // console.log(this.compressor)
       this.compressor ? (this.compressors = 2) : (this.compressors = 1);
-      console.log(this.compressors);
       this.httpair();
     },
     //激活底部图标方法
@@ -517,7 +515,7 @@ export default {
                             Toast({
                               message: "请求超时",
                               position: "middle",
-                              duration: 3000
+                              duration: 2000
                             });
                             clearInterval(this.time);
                             this.$store.dispatch("LOADINGFLAG", false);
@@ -527,7 +525,7 @@ export default {
                           Toast({
                             message: "下达指令成功",
                             position: "middle",
-                            duration: 3000
+                            duration: 2000
                           });
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
@@ -536,7 +534,7 @@ export default {
                           Toast({
                             message: "指令下发成功，处理失败！",
                             position: "middle",
-                            duration: 3000
+                            duration: 2000
                           });
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
@@ -545,7 +543,7 @@ export default {
                         Toast({
                           message: "指令下发失败！",
                           position: "middle",
-                          duration: 3000
+                          duration: 2000
                         });
                         flag = false;
                         clearInterval(this.time);
@@ -559,14 +557,14 @@ export default {
               Toast({
                 message: "下达指令成功",
                 position: "middle",
-                duration: 3000
+                duration: 2000
               });
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
                 message: "指令下发成功，处理失败！",
                 position: "middle",
-                duration: 3000
+                duration: 2000
               });
               this.$store.dispatch("LOADINGFLAG", false);
             }
@@ -574,7 +572,7 @@ export default {
             Toast({
               message: "指令下发失败！",
               position: "middle",
-              duration: 3000
+              duration: 2000
             });
             flag = false;
             clearInterval(this.time);
@@ -828,6 +826,13 @@ export default {
 .mint-popup {
   border-radius: 0.1rem;
 }
+.conmmon-style {
+	border: none;
+	outline: none;
+	appearance: none;
+	-webkit-appearance: none;
+	background: none;
+}
 /*空调头部*/
 
 .air-header {
@@ -836,6 +841,7 @@ export default {
 /*空调开关按钮*/
 
 .air-btn {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -845,6 +851,13 @@ export default {
 .air-btn > div {
   display: flex;
   align-items: center;
+}
+.air-btn>.switch-mask {
+    position: absolute;
+    left: 54%;
+    width: 38%;
+    height: 100%;
+    background-color:transparent ;
 }
 /*空调标志*/
 
@@ -914,6 +927,9 @@ export default {
   border: 1px solid #999999;
   border-radius: 0.3rem;
   background: #fff;
+}
+.count>button {
+	border: none
 }
 /*风扇部分*/
 
@@ -1024,6 +1040,11 @@ export default {
 }
 .tabar {
   height: 1.24rem;
+  background: none;
+  appearance: none;
+  border: none;
+  -webkit-appearance: none;
+  outline: none;
 }
 .tabar > img {
   width: 0.88rem;

@@ -49,9 +49,14 @@
 					cancelButtonHighlight: true
 				}).then(action => {
 					if(action == 'confirm') {
-						//退出App
 						localStorage.removeItem('Tip')
-						window.js2android.logout()
+						var system = IOSAndAndroid.isIOSOrAndroid();
+					      if (system == "Android") {
+					        window.js2android.logout()//安卓退出App
+					      } else if (system == "IOS") {
+					      	console.log(111)
+					        window.webkit.messageHandlers.logout.postMessage({});
+					      }						
 					}
 				}).catch(err => {
 					if(err == 'cancel') {
