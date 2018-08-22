@@ -388,60 +388,109 @@ export default {
     getAsyReturn(operationId) {
       var flag = true;
       this.sjc = new Date().getTime();
-      this.time = setInterval(() => {
-        this.$http
-          .post(
-            Lovecar.OperationId,
-            { operationId: operationId },
-            this.$store.state.getpin
-          )
-          .then(res => {
-            var tS = new Date().getTime() - this.sjc; //时间戳 差
-            var tSS = parseInt((tS / 1000) % 60); // 时间差
-            if ((res.data.returnSuccess == true)) {
-              if (res.data.status == "IN_PROGRESS") {
-                //60s  后 清除定时器，不在发请求
-                console.log(tSS);
-                if (tSS >= 56) {
-                  Toast({
-                    message: "请求超时",
-                    position: "middle",
-                    duration: 3000
-                  });
-                  clearInterval(this.time);
-                  this.$store.dispatch('LOADINGFLAG', false)
-                }
-              } else if (res.data.status == "SUCCEED") {
-                flag = false;
-                   Toast({
-                    message: "下达指令成功",
-                    position: "middle",
-                    duration: 3000
-                  });
-                clearInterval(this.time);
-                this.$store.dispatch('LOADINGFLAG', false)
-              } else if (res.data.status == "FAILED") {
-                flag = false;
+      this.$http
+        .post(
+          Lovecar.OperationId,
+          { operationId: operationId },
+          this.$store.state.getpin
+        )
+        .then(res => {
+          var tS = new Date().getTime() - this.sjc; //时间戳 差
+          var tSS = parseInt((tS / 1000) % 60); // 时间差
+          if (res.data.returnSuccess == true) {
+            if (res.data.status == "IN_PROGRESS") {
+              //60s  后 清除定时器，不在发请求
+              console.log(tSS);
+              if (tSS >= 56) {
                 Toast({
-                  message: "指令下发成功，处理失败！",
+                  message: "请求超时",
                   position: "middle",
                   duration: 3000
                 });
-                clearInterval(this.time);
-                this.$store.dispatch('LOADINGFLAG', false)
+                this.$store.dispatch("LOADINGFLAG", false);
+              } else {
+                this.time = setInterval(() => {
+                  this.$http
+                    .post(
+                      Lovecar.OperationId,
+                      { operationId: operationId },
+                      this.$store.state.getpin
+                    )
+                    .then(res => {
+                      var tS = new Date().getTime() - this.sjc; //时间戳 差
+                      var tSS = parseInt((tS / 1000) % 60); // 时间差
+                      if (res.data.returnSuccess == true) {
+                        if (res.data.status == "IN_PROGRESS") {
+                          //60s  后 清除定时器，不在发请求
+                          console.log(tSS);
+                          if (tSS >= 56) {
+                            Toast({
+                              message: "请求超时",
+                              position: "middle",
+                              duration: 3000
+                            });
+                            clearInterval(this.time);
+                            this.$store.dispatch("LOADINGFLAG", false);
+                          }
+                        } else if (res.data.status == "SUCCEED") {
+                          flag = false;
+                          Toast({
+                            message: "下达指令成功",
+                            position: "middle",
+                            duration: 3000
+                          });
+                          clearInterval(this.time);
+                          this.$store.dispatch("LOADINGFLAG", false);
+                        } else if (res.data.status == "FAILED") {
+                          flag = false;
+                          Toast({
+                            message: "指令下发成功，处理失败！",
+                            position: "middle",
+                            duration: 3000
+                          });
+                          clearInterval(this.time);
+                          this.$store.dispatch("LOADINGFLAG", false);
+                        }
+                      } else {
+                        Toast({
+                          message: "指令下发失败！",
+                          position: "middle",
+                          duration: 3000
+                        });
+                        flag = false;
+                        clearInterval(this.time);
+                        this.$store.dispatch("LOADINGFLAG", false);
+                      }
+                    });
+                }, 4000);
               }
-            } else {
+            } else if (res.data.status == "SUCCEED") {
+              flag = false;
               Toast({
-                message: "指令下发失败！",
+                message: "下达指令成功",
                 position: "middle",
                 duration: 3000
               });
-              flag = false;
-              clearInterval(this.time);
-              this.$store.dispatch('LOADINGFLAG', false)
+              this.$store.dispatch("LOADINGFLAG", false);
+            } else if (res.data.status == "FAILED") {
+              Toast({
+                message: "指令下发成功，处理失败！",
+                position: "middle",
+                duration: 3000
+              });
+              this.$store.dispatch("LOADINGFLAG", false);
             }
-          });
-      }, 1000);
+          } else {
+            Toast({
+              message: "指令下发失败！",
+              position: "middle",
+              duration: 3000
+            });
+            flag = false;
+            clearInterval(this.time);
+            this.$store.dispatch("LOADINGFLAG", false);
+          }
+        });
     }
   },
   //检测输入框
@@ -509,15 +558,15 @@ export default {
                   .post(Lovecar.Control, param, this.$store.state.getpin)
                   .then(res => {
                     this.operationIdss = res.data.operationId;
-                    if(res.data.returnSuccess){
-                                this.getAsyReturn(res.data.operationId)
-                                }else{
-                                    Toast({
-                                          message: "token验证失败",
-                                          position: "middle",
-                                          duration: 3000
-                              });
-                            }
+                    if (res.data.returnSuccess) {
+                      this.getAsyReturn(res.data.operationId);
+                    } else {
+                      Toast({
+                        message: "token验证失败",
+                        position: "middle",
+                        duration: 3000
+                      });
+                    }
                     // setTimeout(() => {
                     //   this.$http
                     //     .post(
@@ -543,13 +592,13 @@ export default {
                   .post(Lovecar.Control, param, this.$store.state.getpin)
                   .then(res => {
                     this.operationIdses = res.data.operationId;
-                     if(res.data.returnSuccess){
-                        this.getAsyReturn(res.data.operationId)
-                        }else{
-                            Toast({
-                                  message: "token验证失败",
-                                  position: "middle",
-                                  duration: 3000
+                    if (res.data.returnSuccess) {
+                      this.getAsyReturn(res.data.operationId);
+                    } else {
+                      Toast({
+                        message: "token验证失败",
+                        position: "middle",
+                        duration: 3000
                       });
                     }
                     // this.$http.post( Lovecar.OperationId,{ operationId: this.operationIdses },this.$store.state.getpin)
@@ -571,7 +620,7 @@ export default {
     this.Condition = tai;
   },
   mounted() {
-  	console.log(this.$store.state.vins)
+    console.log(this.$store.state.vins);
     //暴露方法给原生,登入判断
     window.getStatus = this.getStatus;
     this.$http
@@ -582,7 +631,7 @@ export default {
       )
       .then(res => {
         if (res.data.returnSuccess) {
-       		this.getAsyReturn(res.data.operationId);
+          this.getAsyReturn(res.data.operationId);
         } else {
           Toast({
             message: res.data.returnErrMsg,
@@ -592,9 +641,9 @@ export default {
         }
       }),
       //获取机车 登录登出状态
-      this.$http.get(Lovecar.LogStatus,this.$store.state.getpin).then(res => {
+      this.$http.get(Lovecar.LogStatus, this.$store.state.getpin).then(res => {
         if (res.data.returnSuccess) {
-          this.LoginStatus = res.data.data[1].logStatus;
+          this.LoginStatus = res.data.data[1]?res.data.data[1].logStatus:[]
         }
       });
   }

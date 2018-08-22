@@ -189,9 +189,9 @@ export default {
       this.btnContent = val;
     },
     //路由跳转的时候清除轮询loading
-    goback () {
-    	this.$router.push('/lovecar');
-    	this.$store.dispatch('LOADINGFLAG', false)
+    goback() {
+      this.$router.push("/lovecar");
+      this.$store.dispatch("LOADINGFLAG", false);
     },
     //点击遮罩或者'x'移除popup
     removeMask() {
@@ -349,66 +349,111 @@ export default {
     },
     //重复调用异步接口
     getAsyReturn(operationId) {
-     var flag = true;
+      var flag = true;
       this.sjc = new Date().getTime();
-//    clearInterval(this.time)
-      this.time = setInterval(() => {
-        this.$http
-          .post(
-            Lovecar.OperationId,
-            { operationId: operationId },
-            this.$store.state.getpin
-          )
-          .then(res => {
-            var tS = new Date().getTime() - this.sjc; //时间戳 差
-            var tSS = parseInt((tS / 1000) % 60); // 时间差
-            if (res.data.returnSuccess == true) {
-              if (res.data.status == "IN_PROGRESS") {
-                //60s  后 清除定时器，不在发请求
-                console.log(tSS);
-                if (tSS >= 56) {
-                  Toast({
-                    message: "座椅温度调节请求超时",
-                    position: "middle",
-                    duration: 3000
-                  });
-                  var self = this;
-                  window.clearInterval(self.time);
-                  this.$store.dispatch('LOADINGFLAG', false)
-                }
-              } 
-              if (res.data.status == "SUCCEED") {
-                flag = false;
+      this.$http
+        .post(
+          Lovecar.OperationId,
+          { operationId: operationId },
+          this.$store.state.getpin
+        )
+        .then(res => {
+          var tS = new Date().getTime() - this.sjc; //时间戳 差
+          var tSS = parseInt((tS / 1000) % 60); // 时间差
+          if (res.data.returnSuccess == true) {
+            if (res.data.status == "IN_PROGRESS") {
+              //60s  后 清除定时器，不在发请求
+              console.log(tSS);
+              if (tSS >= 56) {
                 Toast({
-                  message: "下达指令成功",
+                  message: "请求超时",
                   position: "middle",
                   duration: 3000
                 });
-                window.clearInterval(this.time);
-                this.$store.dispatch('LOADINGFLAG', false)
-              } 
-              if (res.data.status == "FAILED") {
-                flag = false;
-                Toast({
-                  message: "指令下发成功，处理失败！",
-                  position: "middle",
-                  duration: 3000
-                });
-                window.clearInterval(this.time);
-                this.$store.dispatch('LOADINGFLAG', false)
+                this.$store.dispatch("LOADINGFLAG", false);
+              } else {
+                this.time = setInterval(() => {
+                  this.$http
+                    .post(
+                      Lovecar.OperationId,
+                      { operationId: operationId },
+                      this.$store.state.getpin
+                    )
+                    .then(res => {
+                      var tS = new Date().getTime() - this.sjc; //时间戳 差
+                      var tSS = parseInt((tS / 1000) % 60); // 时间差
+                      if (res.data.returnSuccess == true) {
+                        if (res.data.status == "IN_PROGRESS") {
+                          //60s  后 清除定时器，不在发请求
+                          console.log(tSS);
+                          if (tSS >= 56) {
+                            Toast({
+                              message: "请求超时",
+                              position: "middle",
+                              duration: 3000
+                            });
+                            clearInterval(this.time);
+                            this.$store.dispatch("LOADINGFLAG", false);
+                          }
+                        } else if (res.data.status == "SUCCEED") {
+                          flag = false;
+                          Toast({
+                            message: "下达指令成功",
+                            position: "middle",
+                            duration: 3000
+                          });
+                          clearInterval(this.time);
+                          this.$store.dispatch("LOADINGFLAG", false);
+                        } else if (res.data.status == "FAILED") {
+                          flag = false;
+                          Toast({
+                            message: "指令下发成功，处理失败！",
+                            position: "middle",
+                            duration: 3000
+                          });
+                          clearInterval(this.time);
+                          this.$store.dispatch("LOADINGFLAG", false);
+                        }
+                      } else {
+                        Toast({
+                          message: "指令下发失败！",
+                          position: "middle",
+                          duration: 3000
+                        });
+                        flag = false;
+                        clearInterval(this.time);
+                        this.$store.dispatch("LOADINGFLAG", false);
+                      }
+                    });
+                }, 4000);
               }
-            } else {
+            } else if (res.data.status == "SUCCEED") {
+              flag = false;
               Toast({
-                message: "指令下发失败！",
+                message: "下达指令成功",
                 position: "middle",
                 duration: 3000
               });
-              flag = false;
-              window.clearInterval(this.time);
-              this.$store.dispatch('LOADINGFLAG', false)
+              this.$store.dispatch("LOADINGFLAG", false);
+            } else if (res.data.status == "FAILED") {
+              Toast({
+                message: "指令下发成功，处理失败！",
+                position: "middle",
+                duration: 3000
+              });
+              this.$store.dispatch("LOADINGFLAG", false);
             }
-          });
-      }, 1000);
+          } else {
+            Toast({
+              message: "指令下发失败！",
+              position: "middle",
+              duration: 3000
+            });
+            flag = false;
+            clearInterval(this.time);
+            this.$store.dispatch("LOADINGFLAG", false);
+          }
+        });
     },
     //主驾加热接口
     httpheatmain() {
@@ -439,26 +484,26 @@ export default {
             this.getAsyReturn(res.data.operationId);
           } else {
             if (res.data.returnErrCode == 400) {
-          		Toast({
-	              message: "token验证失败",
-	              position: "middle",
-	              duration: 3000
-	            });
-          	} else {
-          		Toast({
-	              message: res.data.returnErrMsg,
-	              position: "middle",
-	              duration: 3000
-	            });
-          	}
+              Toast({
+                message: "token验证失败",
+                position: "middle",
+                duration: 3000
+              });
+            } else {
+              Toast({
+                message: res.data.returnErrMsg,
+                position: "middle",
+                duration: 3000
+              });
+            }
           }
         })
         .catch(err => {
-        	Toast({
-              message: '系统异常',
-              position: "middle",
-              duration: 3000
-            });
+          Toast({
+            message: "系统异常",
+            position: "middle",
+            duration: 3000
+          });
         });
     },
     //副驾加热接口
@@ -505,7 +550,7 @@ export default {
     }
   },
   mounted() {
-  	clearInterval(this.time)
+    clearInterval(this.time);
     this.produCurve();
     this.inputs();
     this.$http
@@ -516,7 +561,7 @@ export default {
       )
       .then(res => {
         if (res.data.returnSuccess) {
-       		this.getAsyReturn(res.data.operationId);
+          this.getAsyReturn(res.data.operationId);
         } else {
           Toast({
             message: res.data.returnErrMsg,
@@ -525,13 +570,13 @@ export default {
           });
         }
       })
-      .catch( err => {
-      	Toast({
-            message: '系统异常',
-            position: "middle",
-            duration: 3000
-          });
-      })
+      .catch(err => {
+        Toast({
+          message: "系统异常",
+          position: "middle",
+          duration: 3000
+        });
+      });
   },
   computed: {
     fullValue: {
