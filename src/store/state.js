@@ -9,6 +9,7 @@ export default {
     mobile: null, //用户手机号
     softkeyboard: true, //默认软键盘开启
     token: null, //用户token
+    userNo: 'AD022018081504171568405', //userNo
     getpin: {
         headers: {
             "identityParam": "{ userId: 'c123', token: 'sdfasdfasdfasd', phone: '15221794973' }",
@@ -19,6 +20,6 @@ export default {
             "timaToken": "Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTUzMzg2NzA4NDAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6MjUsXCJpbml0VXNlclwiOjAsXCJsYXN0TW9kaWZpZWREYXRlXCI6MTUzNDI5NjYyMzAwMCxcIm5vXCI6XCJBRDAyMjAxODA4MTAxMDExMjQ2MTk0OFwiLFwicGFzc3dvcmRcIjpcIjEyMzQ1NnNcIixcInBob25lXCI6XCIxNTAyMTYwMDI4MVwiLFwidXNlclN0YXR1c1wiOjAsXCJ2ZXJzaW9uXCI6NH0iLCJjcmVhdGVkIjoxNTM0MzM0NDIyNjU1LCJ1c2VyTm8iOiJBRDAyMjAxODA4MTAxMDExMjQ2MTk0OCIsImV4cCI6MTUzNTE5ODQyMiwidXNlcklkIjoyNX0.ODi5uVNeIe7y8om_dUe1wjgmMeGd8vgT_IUWUJpLSRs"
         }
     }, //除了爱车部分暂用的token
-    vins:'LS5A3CJC9JF830020', //车辆的pin码暂时用，登入后拿到放这里 
-    loadingflag: false,  //loading动画状态
+    vins: 'LS5A3CJC9JF830020', //车辆的pin码暂时用，登入后拿到放这里 
+    loadingflag: false, //loading动画状态
 }

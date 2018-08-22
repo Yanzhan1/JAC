@@ -150,7 +150,7 @@
 
 <script>
 import { Createarc } from "../../../static/js/drawarc.js";
-import Vconsole from "../../assets/util/vconsole.js";
+// import Vconsole from "../../assets/util/vconsole.js";
 import { Toast } from "mint-ui";
 export default {
   name: "airconditionControl",
