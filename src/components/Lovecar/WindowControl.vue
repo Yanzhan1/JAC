@@ -471,7 +471,7 @@ export default {
           	}
           }
         })
-        .catch({
+        .catch(err => {
         	Toast({
               message: '系统异常',
               position: "middle",
