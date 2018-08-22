@@ -203,7 +203,7 @@ export default {
         console.log(res);
         this.operationIds = res.data.operationId;
         if (res.data.returnSuccess) {
-          this.getAsyReturn(res.data.operationId);
+          // this.getAsyReturn(res.data.operationId);
         } else {
           Toast({
             message: "token验证失败",

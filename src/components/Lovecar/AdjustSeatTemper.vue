@@ -561,7 +561,7 @@ export default {
       )
       .then(res => {
         if (res.data.returnSuccess) {
-          this.getAsyReturn(res.data.operationId);
+          // this.getAsyReturn(res.data.operationId);
         } else {
           Toast({
             message: res.data.returnErrMsg,
