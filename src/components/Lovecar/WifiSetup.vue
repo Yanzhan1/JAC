@@ -80,6 +80,7 @@ export default {
                   duration: 3000
                 });
                 clearInterval(this.time);
+                this.$store.dispatch('LOADINGFLAG', false)
               } else if (res.data.status == "FAILED") {
                 flag = false;
                 Toast({
@@ -88,6 +89,7 @@ export default {
                   duration: 3000
                 });
                 clearInterval(this.time);
+                this.$store.dispatch('LOADINGFLAG', false)
               }
             } else {
               Toast({
@@ -97,6 +99,7 @@ export default {
               });
               flag = false;
               clearInterval(this.time);
+              this.$store.dispatch('LOADINGFLAG', false)
             }
           });
       }, 4000);
@@ -118,7 +121,7 @@ export default {
         .then(action => {
           if (action == "confirm") {
             var param = {
-              vin: this.$store.state.vin,
+              vin: this.$store.state.vins,
               operationType: "WIFI",
               operation: 3,
               extParams: {

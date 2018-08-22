@@ -38,7 +38,7 @@ export default {
   created() {
     var self = this;
     var param = {
-      vin: this.$store.state.vin
+      vin: this.$store.state.vins
     };
     this.$http
       .post(Lovecar.BusTest, param, this.$store.state.getpin)
@@ -90,6 +90,7 @@ export default {
                   duration: 3000
                 });
                 clearInterval(this.time);
+                this.$store.dispatch('LOADINGFLAG', false)
               } else if (res.data.status == "FAILED") {
                 Toast({
                   message: "指令下发成功，处理失败！",
@@ -97,6 +98,7 @@ export default {
                   duration: 3000
                 });
                 clearInterval(this.time);
+                this.$store.dispatch('LOADINGFLAG', false)
               }
             } else {
               Toast({
@@ -105,6 +107,7 @@ export default {
                 duration: 3000
               });
               clearInterval(this.time);
+              this.$store.dispatch('LOADINGFLAG', false)
             }
           });
       }, 4000);

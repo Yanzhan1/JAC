@@ -86,6 +86,7 @@ export default {
                   duration: 3000
                 });
                 clearInterval(this.time);
+                this.$store.dispatch('LOADINGFLAG', false)
               } else if (res.data.status == "FAILED") {
                 flag = false;
                 Toast({
@@ -94,6 +95,7 @@ export default {
                   duration: 3000
                 });
                 clearInterval(this.time);
+                this.$store.dispatch('LOADINGFLAG', false)
               }
             } else {
               Toast({
@@ -103,6 +105,7 @@ export default {
               });
               flag = false;
               clearInterval(this.time);
+              this.$store.dispatch('LOADINGFLAG', false)
             }
           });
       }, 4000);
@@ -112,7 +115,7 @@ export default {
       console.log(this.value);
       console.log(this.nums);
       var param = {
-        vin: this.$store.state.vin,
+        vin: this.$store.state.vins,
         operationType: "WIFI",
         operation: this.nums, //操作项
         extParams: {
@@ -139,7 +142,7 @@ export default {
   },
   mounted() {
     var param = {
-      vin: this.$store.state.vin,
+      vin: this.$store.state.vins,
       operationType: "WIFI",
       operation: 5, //操作项
       extParams: {
