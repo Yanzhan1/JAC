@@ -385,6 +385,7 @@ export default {
                   duration: 3000
                 });
                 window.clearInterval(this.time);
+                this.$store.dispatch('LOADINGFLAG', false)
               } 
               if (res.data.status == "FAILED") {
                 flag = false;
@@ -394,6 +395,7 @@ export default {
                   duration: 3000
                 });
                 window.clearInterval(this.time);
+                this.$store.dispatch('LOADINGFLAG', false)
               }
             } else {
               Toast({
@@ -403,6 +405,7 @@ export default {
               });
               flag = false;
               window.clearInterval(this.time);
+              this.$store.dispatch('LOADINGFLAG', false)
             }
           });
       }, 4000);
@@ -435,18 +438,27 @@ export default {
           if (res.data.returnSuccess) {
             this.getAsyReturn(res.data.operationId);
           } else {
-            Toast({
-              message: "token验证失败",
+            if (res.data.returnErrCode == 400) {
+          		Toast({
+	              message: "token验证失败",
+	              position: "middle",
+	              duration: 3000
+	            });
+          	} else {
+          		Toast({
+	              message: res.data.returnErrMsg,
+	              position: "middle",
+	              duration: 3000
+	            });
+          	}
+          }
+        })
+        .catch({
+        	Toast({
+              message: '系统异常',
               position: "middle",
               duration: 3000
             });
-          }
-          console.log(this.operationIds);
-          // setTimeout(()=>{
-          // 	this.$http.post(Lovecar.OperationId,{operationId:this.operationIds},this.$store.state.getpin).then((res)=>{
-          // 		console.log(res)
-          // 	},1000)
-          // })
         });
     },
     //副驾加热接口
@@ -493,6 +505,7 @@ export default {
     }
   },
   mounted() {
+  	clearInterval(this.time)
     this.produCurve();
     this.inputs();
     this.$http

@@ -371,6 +371,7 @@ export default {
                   duration: 3000
                 });
                 clearInterval(this.time);
+                this.$store.dispatch('LOADINGFLAG', false)
               } else if (res.data.status == "FAILED") {
                 flag = false;
                 Toast({
@@ -379,6 +380,7 @@ export default {
                   duration: 3000
                 });
                 clearInterval(this.time);
+                this.$store.dispatch('LOADINGFLAG', false)
               }
             } else {
               Toast({
@@ -388,6 +390,7 @@ export default {
               });
               flag = false;
               clearInterval(this.time);
+              this.$store.dispatch('LOADINGFLAG', false)
             }
           });
       }, 4000);
@@ -422,30 +425,32 @@ export default {
       this.$http
         .post(Lovecar.Control, param, this.$store.state.getpin)
         .then(res => {
-          console.log(res);
           this.operationIds = res.data.operationId;
           console.log(this.operationIds);
           if (res.data.returnSuccess) {
             this.getAsyReturn(res.data.operationId);
           } else {
-            Toast({
-              message: "token验证失败",
+            if (res.data.returnErrCode == 400) {
+          		Toast({
+	              message: "token验证失败",
+	              position: "middle",
+	              duration: 3000
+	            });
+          	} else {
+          		Toast({
+	              message: res.data.returnErrMsg,
+	              position: "middle",
+	              duration: 3000
+	            });
+          	}
+          }
+        })
+        .catch({
+        	Toast({
+              message: '系统异常',
               position: "middle",
               duration: 3000
             });
-          }
-
-          //   setTimeout(() => {
-          //     this.$http
-          //       .post(
-          //         Lovecar.OperationId,
-          //         { operationId: this.operationIds },
-          //         this.$store.state.getpin
-          //       )
-          //       .then(res => {
-          //         console.log(res);
-          //       }, 1000);
-          //   });
         });
     },
     //副驾通风接口
@@ -498,6 +503,7 @@ export default {
     }
   },
   mounted() {
+  	clearInterval(this.time)
     this.produCurve();
     this.inputs();
     this.$http

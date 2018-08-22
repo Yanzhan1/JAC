@@ -23,17 +23,17 @@
     },
     methods:{
       closeLoading(){
-        clearInterval(this.timer);
+//      clearInterval(this.timer);
       }
     },
     mounted:function () {
       this.$nextTick(function () {
-        let img=document.getElementById('img');
-        var  current=0;
-        this.timer=setInterval(()=>{
-          current = (current+8)%360;
-          img.style.transform = 'rotate('+current+'deg)'
-        },50)
+//      let img=document.getElementById('img');
+//      var  current=0;
+//      this.timer=setInterval(()=>{
+//        current = (current+8)%360;
+//        img.style.transform = 'rotate('+current+'deg)'
+//      },50)
       });
     },
   };
@@ -68,5 +68,46 @@
     width: .94rem !important;
     height: .94rem !important;
     margin-bottom: 0.1rem;
+    animation: rotate 1.5s linear  infinite
   }
+  @-webkit-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-ms-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 </style>

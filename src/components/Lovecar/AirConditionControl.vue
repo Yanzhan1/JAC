@@ -510,6 +510,7 @@ export default {
                   duration: 3000
                 });
                 clearInterval(this.time);
+                this.$store.dispatch('LOADINGFLAG', false)
               } else if (res.data.status == "FAILED") {
                 flag = false;
                 Toast({
@@ -518,6 +519,7 @@ export default {
                   duration: 3000
                 });
                 clearInterval(this.time);
+                this.$store.dispatch('LOADINGFLAG', false)
               }
             } else {
               Toast({
@@ -527,6 +529,7 @@ export default {
               });
               flag = false;
               clearInterval(this.time);
+              this.$store.dispatch('LOADINGFLAG', false)
             }
           });
       }, 4000);
@@ -550,8 +553,6 @@ export default {
         .post(Lovecar.Control, param, this.$store.state.getpin)
         .then(res => {
           this.operationIds = res.data.operationId;
-          console.log(this.operationIds);
-          console.log(res.data.returnSuccess);
           if (res.data.returnSuccess) {
             this.getAsyReturn(res.data.operationId);
           } else {
@@ -570,10 +571,19 @@ export default {
           	}
             
           }
+        })
+        .catch({
+        	Toast({
+	              message: '系统异常',
+	              position: "middle",
+	              duration: 3000
+	            });
         });
+        
     }
   },
   mounted() {
+  	clearInterval(this.time)
     this.produCurve();
     this.inputs();
     this.$http
@@ -600,7 +610,11 @@ export default {
             duration: 3000
           });
       })
-  },
+  }, 
+	beforeRouteLeave (to,from, next) {
+		clearInterval(this.time);
+		next()
+	},
   computed: {
     fullValue: {
       //拼接input输入框值,激活修改

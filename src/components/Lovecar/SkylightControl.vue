@@ -363,6 +363,7 @@ export default {
                   duration: 3000
                 });
                 clearInterval(this.time);
+                this.$store.dispatch('LOADINGFLAG', false)
               } else if (res.data.status == "FAILED") {
                 flag = false;
                 Toast({
@@ -371,6 +372,7 @@ export default {
                   duration: 3000
                 });
                 clearInterval(this.time);
+                this.$store.dispatch('LOADINGFLAG', false)
               }
             } else {
               Toast({
@@ -380,6 +382,7 @@ export default {
               });
               flag = false;
               clearInterval(this.time);
+              this.$store.dispatch('LOADINGFLAG', false)
             }
           });
       }, 4000);
@@ -402,27 +405,32 @@ export default {
           if (res.data.returnSuccess) {
             this.getAsyReturn(res.data.operationId);
           } else {
-            Toast({
-              message: "token验证失败",
-              position: "middle",
-              duration: 3000
-            });
+            if (res.data.returnErrCode == 400) {
+          		Toast({
+	              message: "token验证失败",
+	              position: "middle",
+	              duration: 3000
+	            });
+          	} else {
+          		Toast({
+	              message: res.data.returnErrMsg,
+	              position: "middle",
+	              duration: 3000
+	            });
+          	}
           }
-          // setTimeout(() => {
-          //   this.$http
-          //     .post(
-          //       Lovecar.OperationId,
-          //       { operationId: this.operationIds },
-          //       this.$store.state.getpin
-          //     )
-          //     .then(res => {
-          //       console.log(res);
-          //     }, 1000);
-          // });
+        })
+        .catch({
+        	Toast({
+	              message: '系统异常',
+	              position: "middle",
+	              duration: 3000
+	            });
         });
     }
   },
   mounted() {
+  	clearInterval(this.time)
     this.produCurve();
     this.inputs();
     this.$http
