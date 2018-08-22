@@ -467,8 +467,8 @@ export default {
         if (this.windNum[this.seatTemperSpace] == "高") {
           this.mainheat = 3;
         }
-      }else{
-        this.mainheat=0;
+      } else {
+        this.mainheat = 0;
       }
       var param = {
         vin: this.$store.state.vins,
@@ -520,8 +520,8 @@ export default {
         if (this.fuWindNum[this.fuSeatTemperSpace] == "高") {
           this.nextheat = 3;
         }
-      }else{
-        this.nextheat=0;
+      } else {
+        this.nextheat = 0;
       }
       var param = {
         vin: this.$store.state.vins,
@@ -539,17 +539,27 @@ export default {
           if (res.data.returnSuccess) {
             this.getAsyReturn(res.data.operationId);
           } else {
-            Toast({
-              message: "token验证失败",
-              position: "middle",
-              duration: 3000
-            });
+            if (res.data.returnErrCode == 400) {
+              Toast({
+                message: "token验证失败",
+                position: "middle",
+                duration: 3000
+              });
+            } else {
+              Toast({
+                message: res.data.returnErrMsg,
+                position: "middle",
+                duration: 3000
+              });
+            }
           }
-          // setTimeout(()=>{
-          // 	this.$http.post(Lovecar.OperationId,{operationId:this.operationIdss},this.$store.state.getpin).then((res)=>{
-          // 		console.log(res)
-          // 	},1000)
-          // })
+        })
+        .catch(err => {
+          Toast({
+            message: "系统异常",
+            position: "middle",
+            duration: 3000
+          });
         });
     }
   },

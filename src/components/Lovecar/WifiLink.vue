@@ -205,12 +205,27 @@ export default {
         if (res.data.returnSuccess) {
           // this.getAsyReturn(res.data.operationId);
         } else {
-          Toast({
-            message: "token验证失败",
-            position: "middle",
-            duration: 3000
-          });
+          if (res.data.returnErrCode == 400) {
+            Toast({
+              message: "token验证失败",
+              position: "middle",
+              duration: 3000
+            });
+          } else {
+            Toast({
+              message: res.data.returnErrMsg,
+              position: "middle",
+              duration: 3000
+            });
+          }
         }
+      })
+      .catch(err => {
+        Toast({
+          message: "系统异常",
+          position: "middle",
+          duration: 1000
+        });
       });
     // console.log(this.$route.params.userCategory)
     this.names = this.$route.params.wifiname;

@@ -60,7 +60,7 @@
         <img v-else class="content_pic" src="../../../static/images/Wit/button4@3x.png" alt="">
         <span :class="activeshows==this.isTrue?'act':'activess'">车门</span>
       </div>
-      <div class="content_1" @click="isTrues=!isTrues">
+      <div class="content_1" @click="backbox">
         <img v-if="activeshows==this.isTrues" class="content_pic" src="../../../static/images/Wit/button5@3x_86.png" alt="">
         <img v-else class="content_pic" src="../../../static/images/Wit/button5@3x.png" alt="">
         <span :class="activeshows==this.isTrues?'act':'activess'">尾门</span>
@@ -204,6 +204,7 @@ export default {
       IsShow: false,
       locknum: 2, //控制锁状态2为锁定默认
       firenum: 2, //控制引擎状态2为熄火默认
+      backnum: 2, //控制后备箱状态2为关闭默认
       keyNums: [],
       operationIds: "", //lock传给后台的
       operationIdss: "", //熄火传给后台的
@@ -258,6 +259,11 @@ export default {
     //锁的弹出框
     doors() {
       this.type = 1;
+      this.popupVisible = true;
+    },
+    //后备箱的请求
+    backbox() {
+      this.type = 2;
       this.popupVisible = true;
     },
     //熄火的请求
@@ -513,7 +519,6 @@ export default {
               console.log(res);
               if (this.type == 1) {
                 //车辆锁定的接口
-
                 this.isTrue = !this.isTrue;
                 this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
                 var param = {
@@ -525,26 +530,65 @@ export default {
                   .post(Lovecar.Control, param, this.$store.state.getpin)
                   .then(res => {
                     this.operationIds = res.data.operationId;
-                    // setTimeout(() => {
-                    //     this.$http
-                    //       .post(
-                    //         Lovecar.OperationId,
-                    //         { operationId: this.operationIds },
-                    //         this.$store.state.getpin
-                    //       )
-                    //       .then(res => {
-                    //         }, 6000);
-                    //   });
                     if (res.data.returnSuccess) {
                       this.getAsyReturn(res.data.operationId);
                     } else {
-                      Toast({
-                        message: "token验证失败",
-                        position: "middle",
-                        duration: 3000
-                      });
+                      if (res.data.returnErrCode == 400) {
+                        Toast({
+                          message: "token验证失败",
+                          position: "middle",
+                          duration: 3000
+                        });
+                      } else {
+                        Toast({
+                          message: res.data.returnErrMsg,
+                          position: "middle",
+                          duration: 3000
+                        });
+                      }
                     }
+                  })
+                  .catch(err => {
+                    Toast({
+                      message: "系统异常",
+                      position: "middle",
+                      duration: 3000
+                    });
                   });
+              } else if (this.type == 2) {
+                //后备箱接口
+                // this.isTrues=!this.isTrues;
+                // this.isTrues?this.backnum=1:this.isTrues=2
+                // var param={
+                //   vin:this.$store.state.vins,
+                //   operationType:'TRUNK',
+                //   operation:this.backnum
+                // }
+                // this.$http.post(Lovecar.Control,param,this.$store.state.getpin).then((res)=>{
+                //   if(res.data.returnSuccess){
+                //     this.getAsyReturn(res.data.operationId)
+                //   }else{
+                //     if (res.data.returnErrCode == 400) {
+                //         Toast({
+                //           message: "token验证失败",
+                //           position: "middle",
+                //           duration: 3000
+                //         });
+                //       } else {
+                //         Toast({
+                //           message: res.data.returnErrMsg,
+                //           position: "middle",
+                //           duration: 3000
+                //         });
+                //       }
+                //   }
+                // }).catch(err => {
+                // 	Toast({
+                //       message: '系统异常',
+                //       position: "middle",
+                //       duration: 3000
+                //     });
+                // });
               } else if (this.type == 3) {
                 //引擎接口，熄火
                 this.isTruess = !this.isTruess;
@@ -561,23 +605,27 @@ export default {
                     if (res.data.returnSuccess) {
                       this.getAsyReturn(res.data.operationId);
                     } else {
-                      Toast({
-                        message: "token验证失败",
-                        position: "middle",
-                        duration: 3000
-                      });
+                      if (res.data.returnErrCode == 400) {
+                        Toast({
+                          message: "token验证失败",
+                          position: "middle",
+                          duration: 3000
+                        });
+                      } else {
+                        Toast({
+                          message: res.data.returnErrMsg,
+                          position: "middle",
+                          duration: 3000
+                        });
+                      }
                     }
-                    // setTimeout(() => {
-                    //   this.$http
-                    //     .post(
-                    //       Lovecar.OperationId,
-                    //       { operationId: this.operationIdss },
-                    //       this.$store.state.getpin
-                    //     )
-                    //     .then(res => {
-                    //       console.log(res);
-                    //     }, 1000);
-                    // });
+                  })
+                  .catch(err => {
+                    Toast({
+                      message: "系统异常",
+                      position: "middle",
+                      duration: 3000
+                    });
                   });
               } else if (this.type == 4) {
                 this.isTruesss = !this.isTruesss;
@@ -595,14 +643,27 @@ export default {
                     if (res.data.returnSuccess) {
                       this.getAsyReturn(res.data.operationId);
                     } else {
-                      Toast({
-                        message: "token验证失败",
-                        position: "middle",
-                        duration: 3000
-                      });
+                      if (res.data.returnErrCode == 400) {
+                        Toast({
+                          message: "token验证失败",
+                          position: "middle",
+                          duration: 3000
+                        });
+                      } else {
+                        Toast({
+                          message: res.data.returnErrMsg,
+                          position: "middle",
+                          duration: 3000
+                        });
+                      }
                     }
-                    // this.$http.post( Lovecar.OperationId,{ operationId: this.operationIdses },this.$store.state.getpin)
-                    // .then(res => {}, 1000);
+                  })
+                  .catch(err => {
+                    Toast({
+                      message: "系统异常",
+                      position: "middle",
+                      duration: 3000
+                    });
                   });
               }
             });
@@ -643,7 +704,7 @@ export default {
       //获取机车 登录登出状态
       this.$http.get(Lovecar.LogStatus, this.$store.state.getpin).then(res => {
         if (res.data.returnSuccess) {
-          this.LoginStatus = res.data.data[1]?res.data.data[1].logStatus:[]
+          this.LoginStatus = res.data.data[1] ? res.data.data[1].logStatus : [];
         }
       });
   }

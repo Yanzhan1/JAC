@@ -46,13 +46,28 @@ export default {
         if (res.data.returnSuccess) {
           this.getAsyReturn(res.data.operationId);
         } else {
-          Toast({
-            message: "token验证失败",
-            position: "middle",
-            duration: 3000
-          });
+          if (res.data.returnErrCode == 400) {
+            Toast({
+              message: "token验证失败",
+              position: "middle",
+              duration: 3000
+            });
+          } else {
+            Toast({
+              message: res.data.returnErrMsg,
+              position: "middle",
+              duration: 3000
+            });
+          }
         }
         //     self.$router.replace('/test_result');
+      })
+      .catch(err => {
+        Toast({
+          message: "系统异常",
+          position: "middle",
+          duration: 3000
+        });
       });
   },
   methods: {
@@ -163,7 +178,7 @@ export default {
             this.$store.dispatch("LOADINGFLAG", false);
           }
         });
-    },
+    }
   }
 };
 </script>
