@@ -467,6 +467,8 @@ export default {
         if (this.windNum[this.seatTemperSpace] == "高") {
           this.mainheat = 3;
         }
+      }else{
+        this.mainheat=0;
       }
       var param = {
         vin: this.$store.state.vins,
@@ -518,6 +520,8 @@ export default {
         if (this.fuWindNum[this.fuSeatTemperSpace] == "高") {
           this.nextheat = 3;
         }
+      }else{
+        this.nextheat=0;
       }
       var param = {
         vin: this.$store.state.vins,
