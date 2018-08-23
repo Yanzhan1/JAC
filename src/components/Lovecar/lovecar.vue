@@ -556,39 +556,39 @@ export default {
                     });
                   });
               } else if (this.type == 2) {
-                //后备箱接口
-                // this.isTrues=!this.isTrues;
-                // this.isTrues?this.backnum=1:this.isTrues=2
-                // var param={
-                //   vin:this.$store.state.vins,
-                //   operationType:'TRUNK',
-                //   operation:this.backnum
-                // }
-                // this.$http.post(Lovecar.Control,param,this.$store.state.getpin).then((res)=>{
-                //   if(res.data.returnSuccess){
-                //     this.getAsyReturn(res.data.operationId)
-                //   }else{
-                //     if (res.data.returnErrCode == 400) {
-                //         Toast({
-                //           message: "token验证失败",
-                //           position: "middle",
-                //           duration: 3000
-                //         });
-                //       } else {
-                //         Toast({
-                //           message: res.data.returnErrMsg,
-                //           position: "middle",
-                //           duration: 3000
-                //         });
-                //       }
-                //   }
-                // }).catch(err => {
-                // 	Toast({
-                //       message: '系统异常',
-                //       position: "middle",
-                //       duration: 3000
-                //     });
-                // });
+                // 后备箱接口
+                this.isTrues=!this.isTrues;
+                this.isTrues?this.backnum=1:this.isTrues=2
+                var param={
+                  vin:this.$store.state.vins,
+                  operationType:'TRUNK',
+                  operation:this.backnum
+                }
+                this.$http.post(Lovecar.Control,param,this.$store.state.getpin).then((res)=>{
+                  if(res.data.returnSuccess){
+                    this.getAsyReturn(res.data.operationId)
+                  }else{
+                    if (res.data.returnErrCode == 400) {
+                        Toast({
+                          message: "token验证失败",
+                          position: "middle",
+                          duration: 3000
+                        });
+                      } else {
+                        Toast({
+                          message: res.data.returnErrMsg,
+                          position: "middle",
+                          duration: 3000
+                        });
+                      }
+                  }
+                }).catch(err => {
+                	Toast({
+                      message: '系统异常',
+                      position: "middle",
+                      duration: 3000
+                    });
+                });
               } else if (this.type == 3) {
                 //引擎接口，熄火
                 this.isTruess = !this.isTruess;
