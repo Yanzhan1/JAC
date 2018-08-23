@@ -46,8 +46,7 @@
 		    this.$http.interceptors.response.use((response)=> {
 //		    	console.log(response.config.url)
 		    	if (response.config.url != 'http://test.jac.timanetwork.net/jvconnectedcar/vehicle/vehicle-async-results') {
-		    		   this.loadingnum--;
-		    		   
+		    		   this.loadingnum--;		    		   
 				      	if(this.loadingnum == 0){
 				        	this.loadingflag = false;
 				        	this.$forceUpdate();
