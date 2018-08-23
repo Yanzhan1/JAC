@@ -13,14 +13,14 @@
       <li class="bus-content flex-center-between" v-for="(item,index) in BusDetails" :key="index">
         <div class="bus-left">
           <div class="bus-name flex-align-center">
-            <label for="foot-check" class="input-label deft_0" :class="{active:item.isDefault==1}" @click="setOneDefault(item.no,item.isDefault)"> </label>
+            <label for="foot-check" class="input-label deft_0" :class="{active:item.def==1}" @click="setOneDefault(item.vin,item.def)"> </label>
             <!-- <span v-if="item.isDefault==1" style="color: #49BBFF">默认</span> -->
-            <span style="color: #49BBFF;">{{item.seriesName}}{{item.isDefault==1?'（默认）':''}}</span>
+            <span style="color: #49BBFF;">{{item.vehicleName}}{{item.def==1?'（默认）':''}}</span>
           </div>
           <img :src="'./static/images/my/car_ruifeng_s5@2x.png'" alt="" />
         </div>
         <div class="bus-right">
-          <p class="bus-untie" @click="unite(item.no)">解绑</p>
+          <p class="bus-untie" @click="unite(item.vin)">解绑</p>
           <div class="flex-align-center">
             <span style="color:#49BBFF;"> {{item.plateLicenseNo}}</span>
             <!-- <router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{no:item.no,plateLicenseNo:item.engineNo}}"></router-link> -->
@@ -51,35 +51,30 @@ export default {
     };
   },
   methods: {
-    //我的车辆  vehicle/find-vehicle-list  Wit.My_Bus
+    //我的车辆
     MyBus() {
-      var data={
-        userid:"c123"
-      }
-    this.$http
-        .post( My.My_Bus,data, this.$store.state.getpin)
+      this.$http
+        .post(My.My_Bus ,{}, this.$store.state.getpin)
         .then(res => {
-          if (res.data.code == 0) {
+         if (res.data.returnSuccess) {
             this.BusDetails = res.data.data;
           }
         });
     },
     //设为默认
-    setOneDefault(no, isDefault) {
-      var no = no;
-      var isDefault = isDefault;
-      if (isDefault == 1) {
+    setOneDefault(vin, def) {
+      var vin = vin;
+      var def = def;
+      if (def == 1) {
         return;
       }
       var param = {
-        vehicleNo: no,
-        isDefault: 1,
-        userNo: this.$store.state.no
+         vin: vin
       };
       this.$http
-        .post(My.SetOneDefault, param, this.$store.state.mytoken)
+        .post(My.SetOneDefault, param, this.$store.state.getpin)
         .then(res => {
-          if (res.data.code == 0) {
+          if (res.data.returnSuccess) {
             this.MyBus();
           }
         });
@@ -98,15 +93,18 @@ export default {
         confirmButtonHighlight: true,
         cancelButtonHighlight: true
       }).then(action => {
+        var vin =no
         if (action == "confirm") {
           var param = {
-            userNo: "UBS2018072410503423882",
-            vehicleNo: no
+            	vin:vin,
+            	extParams:{},
+               operationType:"CAR_BINDING",
+               	operation:0,
           };
           this.$http
-            .post(My.JFmybus, param, this.$store.state.mytoken)
+            .post(My.JFmybus, param, this.$store.state.getpin)
             .then(res => {
-              if (res.data.code == 0) {
+              if (res.data.returnSuccess) {
                 this.MyBus();
               } else {
                 Toast({
