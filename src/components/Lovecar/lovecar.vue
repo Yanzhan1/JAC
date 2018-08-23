@@ -558,7 +558,8 @@ export default {
               } else if (this.type == 2) {
                 // 后备箱接口
                 this.isTrues=!this.isTrues;
-                this.isTrues?this.backnum=1:this.isTrues=2
+                console.log(this.isTrues)
+                this.isTrues?this.backnum=1:this.backnum=2
                 var param={
                   vin:this.$store.state.vins,
                   operationType:'TRUNK',
@@ -681,7 +682,13 @@ export default {
     this.Condition = tai;
   },
   mounted() {
-    console.log(this.$store.state.vins);
+  // var sk=this.$store.state.getpin.headers.identityParam.split(",");
+  // var skarr=[];
+  // for(let i=0;i<sk.length;i++){
+  //   var arr=sk[i].split(':');
+  //   skarr.push({name:arr[1]})
+  // }
+  // console.log(skarr[2].name.replace(/^\{/gi,'').replace(/^\}/gi))
     //暴露方法给原生,登入判断
     window.getStatus = this.getStatus;
     this.$http
