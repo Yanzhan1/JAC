@@ -60,6 +60,7 @@ import AddBus from '..//components/My/AddBus' //添加车辆
 import TwoMa from '../components/My/TwoMa.vue' //二维码
 import Test_Result from '../components/Lovecar/Test_Reault.vue' //测试结果
 import WbRecode from '../components/My/WbRecode.vue' //维保记录
+import ScoreDetails from '../components/My/ScoreDetails.vue' //会员积分详情
 // 消息
 import News from '../components/news/News.vue' //消息
 import StyNews from '../components/news/StyNews.vue' //系统消息
@@ -404,6 +405,11 @@ const router = new Router({
                 name: '测试结果',
                 component: Test_Result
             },
+            {
+                path: "my/scoredetails",
+                name: '积分详情',
+                component: ScoreDetails
+            },
             // 消息
             {
                 path: "/news",
@@ -471,42 +477,42 @@ const router = new Router({
 const $http = axios;
 const $store = store
 router.beforeEach((to, from, next) => {
-  try {
-    if(!$http.defaults.headers.common['timaToken']){
-      var userInfo;
-    if (isMobile.iOS()) {
-      // TODO IOS方法待提供
-      // window.webkit.messageHandlers.goLogin.postMessage("");
-    } else if(isMobile.Android()) {
-      userInfo = js2android.getUserInfo()
-    }
-    // alert("原生传进来的值： "+JSON.stringify(userInfo))
-    if(userInfo && userInfo.no){
-      this.$store.dispatch('isLogin',true);
-      // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
-      this.$store.dispatch('userId',userInfo.no);
-      $store.dispatch('userInfo',userInfo);
-      // alert(
-      //   "store里面的值，" +
-      //   "vin: "+ $store.state.vin +
-      //   " userId: "+ $store.state.userId +
-      //   " no: "+ $store.state.no +
-      //   " token: "+ $store.state.token +
-      //   " mobile: "+ $store.state.mobile
-      // )
-    }else{
-      $store.dispatch('isLogin',false);
-      $store.dispatch('userId',null);
-      $store.dispatch('userInfo',null);
-      // TODO 跳转至登录页面 待处理
+    try {
+        if (!$http.defaults.headers.common['timaToken']) {
+            var userInfo;
+            if (isMobile.iOS()) {
+                // TODO IOS方法待提供
+                // window.webkit.messageHandlers.goLogin.postMessage("");
+            } else if (isMobile.Android()) {
+                userInfo = js2android.getUserInfo()
+            }
+            // alert("原生传进来的值： "+JSON.stringify(userInfo))
+            if (userInfo && userInfo.no) {
+                this.$store.dispatch('isLogin', true);
+                // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
+                this.$store.dispatch('userId', userInfo.no);
+                $store.dispatch('userInfo', userInfo);
+                // alert(
+                //   "store里面的值，" +
+                //   "vin: "+ $store.state.vin +
+                //   " userId: "+ $store.state.userId +
+                //   " no: "+ $store.state.no +
+                //   " token: "+ $store.state.token +
+                //   " mobile: "+ $store.state.mobile
+                // )
+            } else {
+                $store.dispatch('isLogin', false);
+                $store.dispatch('userId', null);
+                $store.dispatch('userInfo', null);
+                // TODO 跳转至登录页面 待处理
 
+            }
+            $http.defaults.headers.common['timaToken'] = $store.state.token;
+            // alert("axios里面的token值： "+$http.defaults.headers.common['timaToken'])
+        }
+        next()
+    } catch (e) {
+        next()
     }
-    $http.defaults.headers.common['timaToken'] = $store.state.token;
-    // alert("axios里面的token值： "+$http.defaults.headers.common['timaToken'])
-    }
-    next()
-  } catch (e) {
-    next()
-  }
 })
- export default router;
+export default router;
