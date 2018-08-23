@@ -181,9 +181,9 @@ export default {
       this.popupVisible = !this.popupVisible;
     },
     //路由跳转的时候清除轮询loading
-    goback () {
-    	this.$router.push('/lovecar');
-    	this.$store.dispatch('LOADINGFLAG', false)
+    goback() {
+      this.$router.push("/lovecar");
+      this.$store.dispatch("LOADINGFLAG", false);
     },
     //判断点击是左边还是右边
     changeState(val) {
@@ -462,8 +462,8 @@ export default {
         if (this.windNum[this.seatTemperSpace] == "高") {
           this.maincool = 3;
         }
-      }else{
-        this.maincool=0;
+      } else {
+        this.maincool = 0;
       }
       var param = {
         vin: this.$store.state.vins,
@@ -482,26 +482,26 @@ export default {
             this.getAsyReturn(res.data.operationId);
           } else {
             if (res.data.returnErrCode == 400) {
-          		Toast({
-	              message: "token验证失败",
-	              position: "middle",
-	              duration: 3000
-	            });
-          	} else {
-          		Toast({
-	              message: res.data.returnErrMsg,
-	              position: "middle",
-	              duration: 3000
-	            });
-          	}
+              Toast({
+                message: "token验证失败",
+                position: "middle",
+                duration: 3000
+              });
+            } else {
+              Toast({
+                message: res.data.returnErrMsg,
+                position: "middle",
+                duration: 3000
+              });
+            }
           }
         })
         .catch(err => {
-        	Toast({
-              message: '系统异常',
-              position: "middle",
-              duration: 3000
-            });
+          Toast({
+            message: "系统异常",
+            position: "middle",
+            duration: 3000
+          });
         });
     },
     //副驾通风接口
@@ -516,8 +516,8 @@ export default {
         if (this.fuWindNum[this.fuSeatTemperSpace] == "高") {
           this.nextcool = 3;
         }
-      }else{
-        this.nextcool=0;
+      } else {
+        this.nextcool = 0;
       }
       var param = {
         vin: this.$store.state.vins,
@@ -536,27 +536,23 @@ export default {
             this.getAsyReturn(res.data.operationId);
           } else {
             Toast({
-              message: "token验证失败",
+              message: res.data.returnErrMsg,
               position: "middle",
               duration: 3000
             });
           }
-          //   setTimeout(() => {
-          //     this.$http
-          //       .post(
-          //         Lovecar.OperationId,
-          //         { operationId: this.operationIdss },
-          //         this.$store.state.getpin
-          //       )
-          //       .then(res => {
-          //         console.log(res);
-          //       }, 1000);
-          //   });
+        })
+        .catch(err => {
+          Toast({
+            message: "系统异常",
+            position: "middle",
+            duration: 3000
+          });
         });
     }
   },
   mounted() {
-  	clearInterval(this.time)
+    clearInterval(this.time);
     this.produCurve();
     this.inputs();
     this.$http
@@ -567,7 +563,7 @@ export default {
       )
       .then(res => {
         if (res.data.returnSuccess) {
-       		// this.getAsyReturn(res.data.operationId);
+          // this.getAsyReturn(res.data.operationId);
         } else {
           Toast({
             message: res.data.returnErrMsg,
@@ -576,13 +572,13 @@ export default {
           });
         }
       })
-      .catch( err => {
-      	Toast({
-            message: '系统异常',
-            position: "middle",
-            duration: 3000
-          });
-      })
+      .catch(err => {
+        Toast({
+          message: "系统异常",
+          position: "middle",
+          duration: 3000
+        });
+      });
   },
   computed: {
     fullValue: {
