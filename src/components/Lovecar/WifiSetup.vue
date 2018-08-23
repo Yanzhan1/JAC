@@ -65,7 +65,7 @@ export default {
                 Toast({
                   message: "请求超时",
                   position: "middle",
-                  duration: 3000
+                  duration: 2000
                 });
                 this.$store.dispatch("LOADINGFLAG", false);
               } else {
@@ -87,7 +87,7 @@ export default {
                             Toast({
                               message: "请求超时",
                               position: "middle",
-                              duration: 3000
+                              duration: 2000
                             });
                             clearInterval(this.time);
                             this.$store.dispatch("LOADINGFLAG", false);
@@ -97,7 +97,7 @@ export default {
                           Toast({
                             message: "下达指令成功",
                             position: "middle",
-                            duration: 3000
+                            duration: 2000
                           });
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
@@ -106,7 +106,7 @@ export default {
                           Toast({
                             message: "指令下发成功，处理失败！",
                             position: "middle",
-                            duration: 3000
+                            duration: 2000
                           });
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
@@ -115,7 +115,7 @@ export default {
                         Toast({
                           message: "指令下发失败！",
                           position: "middle",
-                          duration: 3000
+                          duration: 2000
                         });
                         flag = false;
                         clearInterval(this.time);
@@ -129,14 +129,14 @@ export default {
               Toast({
                 message: "下达指令成功",
                 position: "middle",
-                duration: 3000
+                duration: 2000
               });
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
                 message: "指令下发成功，处理失败！",
                 position: "middle",
-                duration: 3000
+                duration: 2000
               });
               this.$store.dispatch("LOADINGFLAG", false);
             }
@@ -144,7 +144,7 @@ export default {
             Toast({
               message: "指令下发失败！",
               position: "middle",
-              duration: 3000
+              duration: 2000
             });
             flag = false;
             clearInterval(this.time);
@@ -191,13 +191,13 @@ export default {
                     Toast({
                       message: "token验证失败",
                       position: "middle",
-                      duration: 3000
+                      duration: 2000
                     });
                   } else {
                     Toast({
                       message: res.data.returnErrMsg,
                       position: "middle",
-                      duration: 3000
+                      duration: 2000
                     });
                   }
                 }
