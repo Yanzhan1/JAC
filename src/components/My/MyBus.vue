@@ -27,7 +27,7 @@
           </div>
           <div class="flex row cocenter">
             <span class="commonFontSize">车架号：{{item.engineNo}}</span>
-              <router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{no:item.no,plateLicenseNo:item.engineNo}}"></router-link>
+            <router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{no:item.no,plateLicenseNo:item.engineNo}}"></router-link>
           </div>
           <div>
             <span class="commonFontSize">发动机号：{{item.vin}}</span>
@@ -46,13 +46,45 @@ export default {
   name: "myBus",
   data() {
     return {
-      //汽车默认状态
-      carState: true,
+      carState: true,//汽车默认状态
       BusDetails: [] //我的车辆信息
     };
   },
   methods: {
-    //解绑
+    //我的车辆  vehicle/find-vehicle-list  Wit.My_Bus
+    MyBus() {
+      var data={
+        userid:"c123"
+      }
+    this.$http
+        .post( My.My_Bus,data, this.$store.state.getpin)
+        .then(res => {
+          if (res.data.code == 0) {
+            this.BusDetails = res.data.data;
+          }
+        });
+    },
+    //设为默认
+    setOneDefault(no, isDefault) {
+      var no = no;
+      var isDefault = isDefault;
+      if (isDefault == 1) {
+        return;
+      }
+      var param = {
+        vehicleNo: no,
+        isDefault: 1,
+        userNo: this.$store.state.no
+      };
+      this.$http
+        .post(My.SetOneDefault, param, this.$store.state.mytoken)
+        .then(res => {
+          if (res.data.code == 0) {
+            this.MyBus();
+          }
+        });
+    },
+     //解绑
     unite(no) {
       MessageBox.confirm("", {
         title: "提示",
@@ -71,50 +103,26 @@ export default {
             userNo: "UBS2018072410503423882",
             vehicleNo: no
           };
-          this.$http.post(Wit.JFmybus, param,this.$store.state.mytoken).then(res => {
-            if (res.data.code == 0) {
-              this.MyBus();
-            }else{
-               Toast({
-            message: "解绑失败，请稍后重试！",
-            duration: 1000,
-            position: "middle"
-		  });
-            }
-          });
+          this.$http
+            .post(My.JFmybus, param, this.$store.state.mytoken)
+            .then(res => {
+              if (res.data.code == 0) {
+                this.MyBus();
+              } else {
+                Toast({
+                  message: "解绑失败，请稍后重试！",
+                  duration: 1000,
+                  position: "middle"
+                });
+              }
+            });
         }
       });
     },
-    //我的车辆
-    MyBus() {
-      var no = this.$store.state.no;
-      this.$http.post(Wit.My_Bus, { userNo: no },this.$store.state.mytoken).then(res => {
-        if (res.data.code == 0) {
-          this.BusDetails = res.data.data;
-        }
-      });
-    },
-    //设为默认
-    setOneDefault(no, isDefault) {
-      var no = no;
-      var isDefault = isDefault;
-      if (isDefault == 1) {
-        return;
-      }
-      var param = {
-        vehicleNo: no,
-        isDefault: 1,
-        userNo: this.$store.state.no
-      };
-      this.$http.post(Wit.SetOneDefault, param,this.$store.state.mytoken).then(res => {
-        if (res.data.code == 0) {
-          this.MyBus();
-        }
-      });
-    }
   },
-  created() {
+    created() {
     this.MyBus();
+
   }
 };
 </script>

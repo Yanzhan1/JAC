@@ -53,7 +53,7 @@ export default {
       this.$router.push("/edictdress");
     },
     getaddress(){
-         this.$http.post(Wit.Address,{ userNo:"UBS2018072410463590813"},this.$store.state.mytoken).then((res)=>{
+         this.$http.post(My.Address,{ userNo:"UBS2018072410463590813"},this.$store.state.mytoken).then((res)=>{
          this.alladdress=res.data.data
       })
     },
@@ -72,7 +72,7 @@ export default {
       }).then(action => {
           if (action == "confirm") {
 
-              this.$http.post(Wit.RemoveAddress,{no:num},this.$store.state.mytoken).then((res)=>{
+              this.$http.post(My.RemoveAddress,{no:num},this.$store.state.mytoken).then((res)=>{
                   
                   this.getaddress()
               })

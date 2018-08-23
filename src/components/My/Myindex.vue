@@ -146,7 +146,7 @@
 				var param = {
 					no: "AD022018072505235135056",
 				}
-				this.$http.post(Wit.UserInfo, param,this.$store.state.mytoken).then(res => {
+				this.$http.post(My.UserInfo, param,this.$store.state.mytoken).then(res => {
 					if(res.data.code == 0) {
 						this.Personal = res.data.data
 					}

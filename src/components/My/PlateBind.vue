@@ -30,7 +30,7 @@
 				   plateLicenseNo:this.plate,
 				   modelNo:this.$route.query.no
 			   }
-			  this.$http.post(Wit.Edict,param,this.$store.state.mytoken).then(res=>{
+			  this.$http.post(My.Edict,param,this.$store.state.mytoken).then(res=>{
                 if(res.data.code==0){
 					this.$router.go(-1)
 				}

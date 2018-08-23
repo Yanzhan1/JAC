@@ -112,7 +112,7 @@ window.Wit = {
         searchVehicleSeriesList: mip + '/vehicleSeries/searchVehicleSeriesList', //车型
         Brand: mip + '/vehicleBrand/searchVehicleBrandList', //选择品牌
         System: mip + '/vehicleSeries/searchVehicleSeriesList', //选择车系
-        Area: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //选择地区
+        // Area: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //选择地区
         PreBus: mip + '/cluesOrderFrom/addCluesOrderFrom', //车辆预定提交
         Wbpre: mip + '/maintenanceReservationOrder/addMaintenanceReservationOrder', //维保预约
         Brand: mip + '/vehicleBrand/selectVehicleSeriesByBrand', //选择品牌
@@ -124,25 +124,27 @@ window.Wit = {
         searchComplaintsSuggestionsOne: rec + '/enjoyservice/complaintsSuggestions/searchComplaintsSuggestionsOne', //投诉建议详细信息
         searchComplaintsSuggestionsReplyOne: rec + '/enjoyservice/complaintsSuggestionsReply/searchComplaintsSuggestionsReplyOne', //投诉及建议回复查询详细信息
         updateUserPassword: mips + '/admin/userBaseInformation/updateUserPassword', //用户修改密码
-
-        ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromListPage', //线索订单
-        My_Bus: mip + '/userVehicle/searchUserVehicleList', //我的车辆
-        JFmybus: mip + '/userVehicle/deleteUserVehicle', //解绑我的车辆,
-        SetOneDefault: mip + '/userVehicle/setDefaultVehicle', //我的车辆设为默认
-        AddMyBus: mip + '/vehicle/addVehicle', //添加我的车辆
-        Edict: mip + '/vehicle/updateVehicle', //修改车辆信息
-        ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromListPage', //线索订单
-        Address: mips + '/admin/userAddress/searchUserAddressList', //my部分查询所有地址
-        RemoveAddress: mips + '/admin/userAddress/deleteUserAddress', //my部分删除当前地址
-        AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
-        ChangeAddress: mips + '/admin/userAddress/updateUserAddress', //my部分修改地址
-        Defaultaddress: mips + '/admin/userAddress/setDefaultAddress', //my部分设置默认地址
-        MyDealer: mip + '/dealerBaseInformation/selectSeriesDealerBaseInformation', //我的 我的经销商列表
-        UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
-        UpUserinfo: mips + '/admin/userBaseInformation/updateUserBaseInformation', //更改用户信息
         //      updateUserPassword: mips + '/admin/userBaseInformation/updateUserPassword',//用户修改密码
         getComAndSugDet: rec + '/enjoyservice/complaintsSuggestionsReply/getComAndSugDet', //反馈详情
 
+    }
+    //我的 部分
+window.My = {
+        UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
+        My_Bus: mipss + '/vehicle/find-vehicle-list', //我的车辆
+        SetOneDefault: mip + '/userVehicle/setDefaultVehicle', //我的车辆设为默认
+        JFmybus: mip + '/userVehicle/deleteUserVehicle', //解绑我的车辆,
+        AddMyBus: mip + '/vehicle/addVehicle', //添加我的车辆
+        Edict: mip + '/vehicle/updateVehicle', //修改车辆信息
+        ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromListPage', //线索订单
+        MyDealer: mip + '/dealerBaseInformation/selectSeriesDealerBaseInformation', //我的 我的经销商列表
+        UpUserinfo: mips + '/admin/userBaseInformation/updateUserBaseInformation', //更改用户信息
+        Address: mips + '/admin/userAddress/searchUserAddressList', //my部分查询所有地址
+        RemoveAddress: mips + '/admin/userAddress/deleteUserAddress', //my部分删除当前地址
+        ChangeAddress: mips + '/admin/userAddress/updateUserAddress', //my部分修改地址
+        Defaultaddress: mips + '/admin/userAddress/setDefaultAddress', //my部分设置默认地址
+        Area: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //选择地区
+        AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
     }
     //爱车
 window.Lovecar = {

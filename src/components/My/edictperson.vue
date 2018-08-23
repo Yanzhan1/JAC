@@ -131,7 +131,7 @@ export default {
         this.changeInfo.personalSignature = this.userInfo.personalSignature;
         this.changeInfo.sex = this.userInfo.sex;
         this.changeInfo.no= "AD022018072505235135056",
-       this.$http.post(Wit.UpUserinfo, this.changeInfo,{
+        this.$http.post(My.UpUserinfo, this.changeInfo,{
          headers: {
             "timaToken": "Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTUzMzg2NzA4NDAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6MjUsXCJpbml0VXNlclwiOjAsXCJsYXN0TW9kaWZpZWREYXRlXCI6MTUzNDI5NjYyMzAwMCxcIm5vXCI6XCJBRDAyMjAxODA4MTAxMDExMjQ2MTk0OFwiLFwicGFzc3dvcmRcIjpcIjEyMzQ1NnNcIixcInBob25lXCI6XCIxNTAyMTYwMDI4MVwiLFwidXNlclN0YXR1c1wiOjAsXCJ2ZXJzaW9uXCI6NH0iLCJjcmVhdGVkIjoxNTM0MzM0NDIyNjU1LCJ1c2VyTm8iOiJBRDAyMjAxODA4MTAxMDExMjQ2MTk0OCIsImV4cCI6MTUzNTE5ODQyMiwidXNlcklkIjoyNX0.ODi5uVNeIe7y8om_dUe1wjgmMeGd8vgT_IUWUJpLSRs"
          }
@@ -176,7 +176,7 @@ export default {
      var param={
         no: "AD022018072505235135056",
      }
-     this.$http.post(Wit.UserInfo,param,this.$store.state.mytoken).then(res=>{
+     this.$http.post(My.UserInfo,param,this.$store.state.mytoken).then(res=>{
      if(res.data.code==0){
        this.userInfo=res.data.data
         }

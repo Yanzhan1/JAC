@@ -40,7 +40,7 @@ export default {
         vin: "LJ1702345G8001011"
       };
       
-      this.$http.post(Wit.AddMyBus, param,this.$store.state.mytoken).then(res => {
+      this.$http.post(My.AddMyBus, param,this.$store.state.mytoken).then(res => {
         if (res.data.code == 0) {
           Toast({
             message: "添加成功！",

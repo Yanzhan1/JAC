@@ -65,7 +65,7 @@ export default {
            current:2,
            size:20
         }
-        this.$http.post(Wit.MyDealer,param,this.$store.state.mytoken).then(res=>{
+        this.$http.post(My.MyDealer,param,this.$store.state.mytoken).then(res=>{
          if(res.data.code==0){
              this.mydealer=res.data.data.records
           }
