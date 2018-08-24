@@ -31,12 +31,13 @@
             <router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{vin:item.vin}}"></router-link>
           </div>
           <div class="flex row cocenter">
-            <span class="commonFontSize">车架号：{{item.engineNo}}</span>
+            <span class="commonFontSize">车架号：{{item.dealerCode}}</span>
 
           </div>
           <div>
-            <span class="commonFontSize">发动机号：{{item.vin}}</span>
+            <span class="commonFontSize">发动机号：{{item.engineNo}}</span>
           </div>
+          <div>vin码:{{item.vin}}</div>
         </div>
       </li>
     </ul>
@@ -60,12 +61,21 @@ export default {
     MyBus() {
       this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
         if (res.data.returnSuccess) {
+          console.log(res.data.data)
+          for(let i=0;i<res.data.data.length;i++){
+            if(res.data.data[i].def==1){
+              this.$store.state.vins=res.data.data[i].vin
+              console.log( this.$store.state.vins )
+            }
+          }
           this.BusDetails = res.data.data;
         }
       });
     },
     //设为默认
     setOneDefault(vin, def) {
+      this.$store.state.vins=vin
+      console.log( this.$store.state.vins)
       var vin = vin;
       var def = def;
       if (def == 1) {

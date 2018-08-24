@@ -34,16 +34,17 @@ export default {
   methods: {
     AddMybus() {
       var param = {
-        vin: "LJ1702345G8001010",
+        vin: "LJ1702345G8001011",
         operationType: "CAR_BINDING",
         operation: 1,
         extParams: {
-          engineNo: "VJ00101"
+          engineNo: "VJ00102"
         }
       };
 
      var  getpin={
         headers: {
+            // identityParam: "{ \"userId\": \"c123\", \"token\": \"sdfasdfasdfasd\", \"phone\": \"15221794973\" }"
             identityParam: "{ \"userId\": \"c123\", \"token\": \"sdfasdfasdfasd\", \"phone\": \"15221794973\" }"
         }
       }
