@@ -2,7 +2,7 @@
 	<div class="flow-query">
 		<div class="bgMask" v-if="popupVisible" ></div>
 		<header class="header">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.push('/lovecar')">
 			<span class="header-title">流量查询</span>
 			<span class="header-right"></span>
 		</header>
@@ -161,7 +161,6 @@
 			},
 		},
 		mounted(){
-			
 		},
 		watch:{
 			pinNumber(newVal, oldVal) {

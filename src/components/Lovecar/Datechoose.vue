@@ -8,7 +8,7 @@
       <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
       <div class="header-title flex row cocenter">
         <span>{{this.times}}</span>
-        <img src="/static/images/Lovecar/zhankai@2x.png" alt="" @click="choose_times" style="width:.18rem;height:.1rem;margin-left:.1rem">
+        <img :src="'./static/images/Lovecar/zhankai@2x.png'" alt="" @click="choose_times" style="width:.18rem;height:.1rem;margin-left:.1rem">
       </div>
       <span class="header-right"></span>
     </header>
@@ -16,9 +16,9 @@
     <div style="margin-top:.95rem;height:11.16rem;width:100%;" class="nav">
       <div v-if="this.times=='年'">
         <div class="every_times">
-          <img src="/static/images/Lovecar/left-balck.png" alt="" class="img_l" @click="l_year">
+          <img :src="'./static/images/Lovecar/left-balck.png'" alt="" class="img_l" @click="l_year">
           <div class="center">{{this.leftnewsyear}}年~{{this.newsyear}}年</div>
-          <img src="/static/images/Lovecar/right-black.png" alt="" class="img_r" @click="r_year">
+          <img :src="'./static/images/Lovecar/right-black.png'" alt="" class="img_r" @click="r_year">
           <div class="year_main" style="position:absolute;width:100%;top:1rem">
             <div class="year_center" v-for="(item,index) in arrayyear" @click.stop="changecoloryear($event,index)" :class="{blue:current==index}" :key="index">{{item}}</div>
           </div>
@@ -26,9 +26,9 @@
       </div>
       <div v-if="this.times=='月'">
         <div class="every_times">
-          <img src="/static/images/Lovecar/left-balck.png" alt="" class="img_l" @click="turn_l">
+          <img :src="'./static/images/Lovecar/left-balck.png'" alt="" class="img_l" @click="turn_l">
           <div class="center">{{this.newdates.years}}年{{this.newdates.months}}月</div>
-          <img src="/static/images/Lovecar/right-black.png" alt="" class="img_r" @click="turn_r">
+          <img :src="'/static/images/Lovecar/right-black.png'" alt="" class="img_r" @click="turn_r">
           <div style="position:absolute" class="date_all">
             <div class="date_top">
               <div>一</div>
@@ -45,9 +45,9 @@
       </div>
       <div v-if="this.times=='周'">
         <div class="every_times">
-          <img src="/static/images/Lovecar/left-balck.png" alt="" class="img_l" @click="turn_l_week">
+          <img :src="'./static/images/Lovecar/left-balck.png'" alt="" class="img_l" @click="turn_l_week">
           <div class="center">{{this.newdates.years}}年{{this.newdates.months}}月,第{{this.showweek}}周</div>
-          <img src="/static/images/Lovecar/right-black.png" alt="" class="img_r" @click="turn_r_week">
+          <img :src="'./static/images/Lovecar/right-black.png'" alt="" class="img_r" @click="turn_r_week">
           <div style="position:absolute" class="date_all">
             <div class="date_top">
               <div>一</div>
@@ -64,9 +64,9 @@
       </div>
       <div v-if="this.times=='日'">
         <div class="every_times">
-          <img src="/static/images/Lovecar/left-balck.png" alt="" class="img_l" @click="turn_l">
+          <img :src="'./static/images/Lovecar/left-balck.png'" alt="" class="img_l" @click="turn_l">
           <div class="center">{{this.newdates.years}}年{{this.newdates.months}}月{{this.showdate}}日</div>
-          <img src="/static/images/Lovecar/right-black.png" alt="" class="img_r" @click="turn_r">
+          <img :src="'./static/images/Lovecar/right-black.png'" alt="" class="img_r" @click="turn_r">
           <div style="position:absolute" class="date_all">
             <div class="date_top">
               <div>一</div>
@@ -89,16 +89,16 @@
 
     </div>
     <div class="choose_date" v-show="this.opentime">
-      <img src="/static/images/Lovecar/delete@2x.png" alt="" @click="close_times">
+      <img :src="'./static/images/Lovecar/delete@2x.png'" alt="" @click="close_times">
       <div class="choose_data_t">
         <div @click="year">
-          <span>年</span><img src="/static/images/Lovecar/gou.png" alt="" class="img" v-show="this.showgou4"></div>
+          <span>年</span><img :src="'./static/images/Lovecar/gou.png'" alt="" class="img" v-show="this.showgou4"></div>
         <div @click="month">
-          <span>月</span><img src="/static/images/Lovecar/gou.png" alt="" class="img" v-show="this.showgou1"></div>
+          <span>月</span><img :src="'./static/images/Lovecar/gou.png'" alt="" class="img" v-show="this.showgou1"></div>
         <div @click="week">
-          <span>周</span><img src="/static/images/Lovecar/gou.png" alt="" class="img" v-show="this.showgou2"></div>
+          <span>周</span><img :src="'./static/images/Lovecar/gou.png'" alt="" class="img" v-show="this.showgou2"></div>
         <div @click="day">
-          <span>日</span><img src="/static/images/Lovecar/gou.png" alt="" class="img" v-show="this.showgou3"></div>
+          <span>日</span><img :src="'./static/images/Lovecar/gou.png'" alt="" class="img" v-show="this.showgou3"></div>
       </div>
     </div>
     <!-- 遮罩层 -->
