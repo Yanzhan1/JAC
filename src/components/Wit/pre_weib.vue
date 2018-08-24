@@ -331,15 +331,17 @@ export default {
   },
   mounted(){
         //选择经销商接口
-        this.$http.post(Wit.Distributor,{"dealerType":"01"},this.$store.state.mytoken).then((res)=>{
+        this.$http.post(Wit.Distributor,{"dealerType":"01"}).then((res)=>{
         this.chooseaddress= res.data.data.records
+        console.log(res.data.data.records)
         for(var i=0;i<this.chooseaddress.length;i++){
         this.slots[0].values.push(this.chooseaddress[i].dealerName)
             }
         })
         // 申请服务车型接口
-        this.$http.post(Wit.Brand,{},this.$store.state.mytoken).then((res)=>{
+        this.$http.post(Wit.Brand,{}).then((res)=>{
              this.choosecar=res.data.data
+             console.log(res.data)
             for(var i=0;i<this.choosecar.length;i++){
                 this.addressSlots[0].values.push(this.choosecar[i].seriesName)
             }
@@ -387,7 +389,7 @@ export default {
                 }
             }
             //选择车系接口
-              this.$http.post(Wit.System,{brandNo:this.Idchoosebrand},this.$store.state.mytoken).then((res)=>{
+              this.$http.post(Wit.System,{brandNo:this.Idchoosebrand}).then((res)=>{
                   this.choosebrands=res.data.data
                   this.addressSlots[2].values=[]
                       for(var i=0;i<this.choosebrands.length;i++){
@@ -463,7 +465,7 @@ export default {
             series:'ZK003',//车系
             model: 'ZKLJ004'//车型
         }       
-        this.$http.post(Wit.Wbpre,parmass,this.$store.state.mytoken).then((res)=>{
+        this.$http.post(Wit.Wbpre,parmass).then((res)=>{
            this.success=true,
            this.region=true
         })
