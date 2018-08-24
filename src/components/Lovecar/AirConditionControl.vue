@@ -713,7 +713,6 @@ export default {
               /*console.log(this.Compressors);
               console.log(this.temperNum[this.airSpace]);*/
             } else {
-              alert(1);
               //消失遮罩
               this.popupVisible = !this.popupVisible;
               //消失软键盘
