@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     isLogin(userInfo){
-//       alert("原生传进来的值： "+userInfo.token)
+      // alert("原生传进来的值： "+userInfo.token)
       if(userInfo && userInfo.no){
         this.$store.dispatch('isLogin',true);
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用

@@ -166,11 +166,12 @@ export default {
     },
     //获取我的基本信息
     getuserinfo() {
+      console.log(this.$store.state.no)
       var param = {
-        no: "AD022018072505235135056"
+        no: this.$store.state.no
       };
       this.$http
-        .post(My.UserInfo, param, this.$store.state.mytoken)
+        .post(My.UserInfo, param)
         .then(res => {
           if (res.data.code == 0) {
             this.Personal = res.data.data;

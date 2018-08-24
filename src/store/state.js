@@ -20,6 +20,6 @@ export default {
             "timaToken": ""
         }
     }, //除了爱车部分暂用的token
-    vins: 'LS5A3CJC9JF830020', //车辆的pin码暂时用，登入后拿到放这里 
+    vins: '', //车辆的pin码暂时用，登入后拿到放这里 
     loadingflag: false, //loading动画状态
 }

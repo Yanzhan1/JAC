@@ -101,7 +101,7 @@ export default {
                nos:this.gender
              };
           console.log(param)
-             this.$http.post(Wit.MainBus,param,this.$store.state.mytoken).then(res=>{
+             this.$http.post(Wit.MainBus,param).then(res=>{
               if (res.data.code == 0){
               this.mainbus={},
               this.mainbus=res.data.data
@@ -139,7 +139,7 @@ export default {
       var param = {
         highlyRecommend: this.highlyRecommend
       };
-      this.$http.post(Wit.MainBus, param,this.$store.state.mytoken).then(res => {
+      this.$http.post(Wit.MainBus, param).then(res => {
         if (res.data.code == 0) {
           this.mainbus = {};
           this.mainbus = res.data.data;
@@ -150,7 +150,7 @@ export default {
     choosemore() {
       var param = {};
       console.log(this.$store.state.mytoken)
-      this.$http.post(Wit.Switching,param,this.$store.state.mytoken)
+      this.$http.post(Wit.Switching,param)
         .then(res => {
           if (res.data.code == 0) {
              this.choosebus = res.data.data;

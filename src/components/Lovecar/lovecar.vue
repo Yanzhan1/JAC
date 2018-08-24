@@ -2,7 +2,7 @@
   <div class="tophead">
     <div class="nav">
       <img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
-      <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;瑞丰 R3</span>
+      <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;{{vinn}}</span>
       <span class="txt_r" @click="islogin()" v-if="this.LoginStatus">机车已登录</span>
       <span class="txt_r" v-else @click="login()">机车未登录</span>
     </div>
@@ -215,7 +215,9 @@ export default {
       Condition: {},
       LoginStatus: "", //机车登录状态
       time: "",
-      sjc: ""
+      sjc: "",
+
+      vinn:''
     };
   },
   methods: {
@@ -682,6 +684,7 @@ export default {
     this.Condition = tai;
   },
   mounted() {
+    this.vinn=this.$store.state.vins
     console.log(this.$store.state.mytoken.headers.timaToken)
     //暂时下载爱车页面取状态仓库中getpin的具体值
   // var sk=this.$store.state.getpin.headers.identityParam.split(",");
