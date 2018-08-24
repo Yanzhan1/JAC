@@ -41,8 +41,14 @@ export default {
           engineNo: "VJ00101"
         }
       };
+
+     var  getpin={
+        headers: {
+            identityParam: "{ \"userId\": \"c123\", \"token\": \"sdfasdfasdfasd\", \"phone\": \"15221794973\" }"
+        }
+      }
          this.$http
-        .post(My.JFmybus, param, this.$store.state.getpin)
+        .post(My.JFmybus, param ,getpin)
         .then(res => {
         if (res.data.returnSuccess) {
             Toast({

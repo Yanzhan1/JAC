@@ -132,14 +132,10 @@ window.Wit = {
     //我的 部分
 window.My = {
         UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
-        // My_Bus: mipss + '/vehicle/find-vehicle-list', //我的车辆
-        My_Bus: 'http://172.21.4.96:8084' + '/vehicle/find-vehicle-list', //我的车辆
-        // SetOneDefault: mip + '/vehicle/set-default-vehicle', //我的车辆设为默认
-        SetOneDefault: 'http://172.21.4.96:8084' + '/vehicle/set-default-vehicle', //我的车辆设为默认
-        // JFmybus: mip + '/userVehicle/deleteUserVehicle', //解绑我的车辆
-        JFmybus: 'http://172.21.4.96:8084/' + 'vehicle/set-vehicle-remoteset', //解绑我的车辆,,
-        // AddMyBus: mip + '/vehicle/addVehicle', //添加我的车辆
-        AddMyBus: 'http://172.21.4.96:8084/' + '/vehicle/addVehicle', //添加我的车辆
+        My_Bus: mipss + '/vehicle/find-vehicle-list', //我的车辆
+        SetOneDefault: mipss + '/vehicle/set-default-vehicle', //我的车辆设为默认
+        JFmybus: mipss + 'vehicle/set-vehicle-remoteset', //解绑我的车辆,绑定,
+        planbus: mipss + 'vehicle/set-vehicle-remoteset', //添加车牌 绑定车牌
         Edict: mip + '/vehicle/updateVehicle', //修改车辆信息
         ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromListPage', //线索订单
         MyDealer: mip + '/dealerBaseInformation/selectSeriesDealerBaseInformation', //我的 我的经销商列表

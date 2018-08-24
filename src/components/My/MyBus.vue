@@ -8,26 +8,31 @@
       </span>
     </header>
     <div style="height:0.88rem"></div>
-    <!--<div class="bus-wrap">-->
+   
     <ul class="bus-list">
       <li class="bus-content flex-center-between" v-for="(item,index) in BusDetails" :key="index">
         <div class="bus-left">
           <div class="bus-name flex-align-center">
             <label for="foot-check" class="input-label deft_0" :class="{active:item.def==1}" @click="setOneDefault(item.vin,item.def)"> </label>
-            <!-- <span v-if="item.isDefault==1" style="color: #49BBFF">默认</span> -->
             <span style="color: #49BBFF;">{{item.vehicleName}}{{item.def==1?'（默认）':''}}</span>
           </div>
           <img :src="'./static/images/my/car_ruifeng_s5@2x.png'" alt="" />
         </div>
         <div class="bus-right">
           <p class="bus-untie" @click="unite(item.vin)">解绑</p>
-          <div class="flex-align-center">
+          <!-- 若有车牌 解绑车牌 -->
+          <div class="flex-align-center" v-if="item.plateLicenseNo?'false':''"   @click="plate(item.vin,item.plateLicenseNo)">
             <span style="color:#49BBFF;"> {{item.plateLicenseNo}}</span>
-            <!-- <router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{no:item.no,plateLicenseNo:item.engineNo}}"></router-link> -->
+            <img :src="'./static/images/my/mycar_input@2x.png'" alt="" class="modify-num">
+          </div>
+          <!-- 若无车牌 添加车牌 -->
+          <div class="flex-align-center" v-else>
+            <span style="color:#49BBFF;">添加车牌</span>
+            <router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{vin:item.vin}}"></router-link>
           </div>
           <div class="flex row cocenter">
             <span class="commonFontSize">车架号：{{item.engineNo}}</span>
-            <router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{no:item.no,plateLicenseNo:item.engineNo}}"></router-link>
+
           </div>
           <div>
             <span class="commonFontSize">发动机号：{{item.vin}}</span>
@@ -35,7 +40,7 @@
         </div>
       </li>
     </ul>
-    <!--</div>-->
+    
   </div>
 </template>
 
@@ -46,20 +51,18 @@ export default {
   name: "myBus",
   data() {
     return {
-      carState: true,//汽车默认状态
+      carState: true, //汽车默认状态
       BusDetails: [] //我的车辆信息
     };
   },
   methods: {
     //我的车辆
     MyBus() {
-      this.$http
-        .post(My.My_Bus ,{}, this.$store.state.getpin)
-        .then(res => {
-         if (res.data.returnSuccess) {
-            this.BusDetails = res.data.data;
-          }
-        });
+      this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
+        if (res.data.returnSuccess) {
+          this.BusDetails = res.data.data;
+        }
+      });
     },
     //设为默认
     setOneDefault(vin, def) {
@@ -69,7 +72,7 @@ export default {
         return;
       }
       var param = {
-         vin: vin
+        vin: vin
       };
       this.$http
         .post(My.SetOneDefault, param, this.$store.state.getpin)
@@ -79,8 +82,50 @@ export default {
           }
         });
     },
-     //解绑
-    unite(no) {
+    //解绑车辆
+     unite(no) {
+      MessageBox.confirm("", {
+        title: "提示",
+        message: "您确定要解绑该车辆吗？",
+        showConfirmButton: true,
+        showCancelButton: true,
+        cancelButtonClass: "cancelButton",
+        confirmButtonClass: "confirmButton",
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        confirmButtonHighlight: true,
+        cancelButtonHighlight: true
+      }).then(action => {
+        var vin = no;
+        if (action == "confirm") {
+          var param = {
+            vin: vin,
+            extParams: {},
+            operationType: "CAR_BINDING",
+            operation: 0
+          };
+          var getpin = {
+            headers: {
+              identityParam:
+                '{ "userId": "c123", "token": "sdfasdfasdfasd", "phone": "15221794973" }'
+            }
+          };
+          this.$http.post(My.JFmybus, param, getpin).then(res => {
+            if (res.data.returnSuccess) {
+              this.MyBus();
+            } else {
+              Toast({
+                message: "解绑失败，请稍后重试！",
+                duration: 1000,
+                position: "middle"
+              });
+            }
+          });
+        }
+      });
+    },
+    //解绑车牌
+    plate(vin,plateLicenseNo) {
       MessageBox.confirm("", {
         title: "提示",
         message: "您确定要解绑该车牌吗？",
@@ -93,34 +138,37 @@ export default {
         confirmButtonHighlight: true,
         cancelButtonHighlight: true
       }).then(action => {
-        var vin =no
+         
         if (action == "confirm") {
           var param = {
-            	vin:vin,
-            	extParams:{},
-               operationType:"CAR_BINDING",
-               	operation:0,
+               vin:vin,
+            	extParams:{  plateLicenseNo:plateLicenseNo,},
+				      operationType:"PLATE_NO", 	 
+				    	operation:0, //解绑
           };
-          this.$http
-            .post(My.JFmybus, param, this.$store.state.getpin)
-            .then(res => {
-              if (res.data.returnSuccess) {
-                this.MyBus();
-              } else {
-                Toast({
-                  message: "解绑失败，请稍后重试！",
-                  duration: 1000,
-                  position: "middle"
-                });
-              }
-            });
+          var getpin = {
+            headers: {
+              identityParam:
+                '{ "userId": "c123", "token": "sdfasdfasdfasd", "phone": "15221794973" }'
+            }
+          };
+          this.$http.post(My.planbus,param,getpin).then(res => {
+            if (res.data.returnSuccess) {
+              this.MyBus();
+            } else {
+              Toast({
+                message: "解绑失败，请稍后重试！",
+                duration: 1000,
+                position: "middle"
+              });
+            }
+          });
         }
       });
     },
   },
-    created() {
+  created() {
     this.MyBus();
-
   }
 };
 </script>
