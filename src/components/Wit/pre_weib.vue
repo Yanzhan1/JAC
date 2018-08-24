@@ -475,8 +475,8 @@ export default {
            var param={
                userNo:'dealer1213'
            }
-           var url='http://172.21.4.180:8082/automobilemanage/maintenanceReservationOrder/toMaintenanceReservationOrder'
-           this.$http.post(url,param).then(res=>{
+          
+           this.$http.post(Wit.default_pre,param).then(res=>{
                console.log(res.data.data[0])
                if(res.data.msg=='success'){
                    var info=res.data.data[0]
