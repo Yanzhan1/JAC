@@ -103,22 +103,16 @@ export default {
     init() {},
     //图片更改
     changepicture(e) {
-      var _this = this;
-      var reader = new FileReader();
-      var img = new Image();
-      reader.onload = (function(file) {
-        return function(e) {
-              _this.userInfo.headUrl = this.result;//base64
-              img.src = e.target.result;
-             var res = _this.compress(img, 50,50,0.92);
-             console.log(res);
-          //  _this.$http.post('http:/_this/172.20.20.69:8762/fi/filestore/v1/picture',_this.userInfo.headUrl,this.$store.state.mytoken).then(res=>{
-
-          //  })
-          
-        };
-      })(e.target.files[0]);
-      reader.readAsDataURL(e.target.files[0]);
+      // var _this = this;
+      // var reader = new FileReader();
+      // var img = new Image();
+      // reader.readAsDataURL(e.target.files[0]);
+      //  reader.onload = function(e) {
+      //   img.src = e.target.result;
+      //   var res = _this.compress(img, 1000,1000,0.92);
+      //   console.log(res)
+      //   _this.userInfo.headUrl = res;
+      // };
    },
 //点击保存
     changemessage() {
