@@ -28,7 +28,7 @@
         <div class="every_times">
           <img :src="'./static/images/Lovecar/left-balck.png'" alt="" class="img_l" @click="turn_l">
           <div class="center">{{this.newdates.years}}年{{this.newdates.months}}月</div>
-          <img :src="'/static/images/Lovecar/right-black.png'" alt="" class="img_r" @click="turn_r">
+          <img :src="'./static/images/Lovecar/right-black.png'" alt="" class="img_r" @click="turn_r">
           <div style="position:absolute" class="date_all">
             <div class="date_top">
               <div>一</div>
