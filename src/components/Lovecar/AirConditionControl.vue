@@ -12,7 +12,7 @@
 					<span style="margin-right: 0.2rem;">开关</span>
 					<mt-switch v-model="value" @change="turn"><span></span></mt-switch>
 				</div>
-				
+
 				<div>
 					<span style="margin-right: 0.2rem;">压缩机</span>
 					<mt-switch v-model="compressor" @change="turnCompressor"><span></span></mt-switch>
@@ -143,13 +143,12 @@
 		</div>
 		</div>
 		<!--自定义软键盘End-->
-  
+
 	</div>
 </template>
 
 <script>
 import { Createarc } from "../../../static/js/drawarc.js";
-import Vconsole from "../../assets/util/vconsole.js";
 import { Toast } from "mint-ui";
 export default {
   name: "airconditionControl",
