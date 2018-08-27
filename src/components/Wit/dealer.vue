@@ -55,7 +55,7 @@
 				</div>
 				<div class="selection-list" v-if="cityDrop">
 					<ul>
-						<li v-for="(item,index) in cityList" :key="index" @click="chooseCityType(index, item.id)">{{item.name}}</li>
+						<li v-for="(item,index) in cityList" :key="index" @click="chooseCityType(index, item.id)">{{item.name,item.id}}</li>
 					</ul>
 				</div>
 			</div>
@@ -106,6 +106,7 @@
 				brandNo: null, //品牌Id
 				provinceId: null, //省份id
 				cityId: '', //城市id
+				city_id:null,//城市ID 
 				isDrop: false, //品牌下拉
 				carDrop: false, //车型下拉
 				provinceDrop: false, //省份下拉
@@ -194,9 +195,11 @@
 				 console.log(val)
 				 	 this.publicrequst()
 			},
-			chooseCityType (ind) {//选择城市
+			chooseCityType (ind,val) {//选择城市
+			     this.city_id=val
 				this.cityIndex = ind;
 				this.cityDrop = false;
+				 this.publicrequst()
 			},
 
 			//公共请求，
@@ -204,8 +207,8 @@
 				  var param={
 					brandNo:this.brandNo,//品牌no
 					vehicleSeridesNo:this.bustypeno,//车系
-				   dealerProvinceCode: this.provinceId,//省编码
-					// dealerCityCode:'2'//
+				  	 dealerProvinceCode: this.provinceId,//省编码
+					dealerCityCode:this.city_id//城市id
                 }
 			    this.$http.post(Wit.Dealer, param,this.$store.state.mytoken).then(res=>{
                       if(res.data.code == 0) {

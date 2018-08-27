@@ -105,13 +105,13 @@ window.DISCOVERMESSAGE = {
     // 智享
 window.Wit = {
         MainBus: mip + '/vehicleModel/searchVehicleModelList', //全部车型 主推车型
-        // Dealer: mip + '/dealerBaseInformation/searchDealerBaseInformationListPage', //经销列表商查询
-        Dealer: 'http://172.21.4.167:8082' + '/automobilemanage/dealerVehicleModel/searchDealerVehicleModelList', //经销列表商查询
+        Dealer: mip + '/automobilemanage/dealerVehicleModel/searchDealerVehicleModelList', //经销列表商查询
+        // Dealer: 'http://172.21.4.167:8082' + '/automobilemanage/dealerVehicleModel/searchDealerVehicleModelList', //经销列表商查询
         Switching: mip + '/vehicleBrand/searchVehicleBrandList', //频道选择
         Distributor: mip + '/dealerBaseInformation/searchDealerBaseInformationListPage', //选择经销商
         searchVehicleBrandList: mip + '/vehicleBrand/searchVehicleBrandList', //品牌
-        // searchVehicleSeriesList: mip + '/vehicleSeries/searchVehicleSeriesList', //车型
-        searchVehicleSeriesList: 'http://172.21.4.167:8082' + '/automobilemanage/vehicleBrand/selectVehicleSeriesByBrand', //车型
+        searchVehicleSeriesList: mip + '/automobilemanage/vehicleBrand/selectVehicleSeriesByBrand', //车型
+        // searchVehicleSeriesList: 'http://172.21.4.167:8082' + '/automobilemanage/vehicleBrand/selectVehicleSeriesByBrand', //车型
         Brand: mip + '/vehicleBrand/searchVehicleBrandList', //选择品牌
         System: mip + '/vehicleSeries/searchVehicleSeriesList', //选择车系
         PreBus: mip + '/cluesOrderFrom/addCluesOrderFrom', //车辆预定提交

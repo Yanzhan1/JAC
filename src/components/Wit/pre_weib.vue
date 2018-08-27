@@ -353,6 +353,7 @@ export default {
   methods: {
     onValuesChange(picker, values) {
         this.address=values
+        console.log(this.chooseaddress.length)
         for(var i=0;i<this.chooseaddress.length;i++){
             if(this.chooseaddress[i].dealerName==this.address[0]){
                 this.Idchooseaddress=this.chooseaddress[i].no
