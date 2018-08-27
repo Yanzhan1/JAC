@@ -66,7 +66,7 @@
 				<div class="ul_list flex cocenter"> <img class="pic" src="../../../static/images/Wit/bg-mine.png" alt=""></div>
 				<div class="flex column around  mid">
 					<span class="txt_top dian">{{item.dealerName}}</span>
-					<span class="txt_m">电话： 021-3324234</span>
+					<span class="txt_m">电话： </span>
 					<span class="flex row cocenter">
                         <img style="width:.25rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">
                         <span class="txt_m dian" style="margin-top:.1rem">{{item.dealerAddress}}</span>
@@ -124,7 +124,9 @@
 		},
 		methods: {
 			init() {
-				var param = {}
+				console.log(this.$store.state)
+				var param = {
+                    }
 				var data = {
 					"parentId": null,
 					"level": 1
@@ -137,9 +139,10 @@
 					}
 				})
 				//经销商
-				this.$http.post(Wit.Dealer, param,this.$store.state.mytoken).then(res => {
+				 this.$http.post(Wit.Dealer, param,this.$store.state.mytoken).then(res => {
+					console.log(res.data.data)
 						if(res.data.code == 0) {
-							this.mainbus = res.data.data.records
+							this.mainbus = res.data.data
 						}
 					}),
 				//请求省份列表
@@ -147,8 +150,7 @@
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchCountryAreaCodeListPage = data.data.records;
-//						console.log(this.searchCountryAreaCodeListPage)
-					}
+                   }
 				})
 			},
 			search() {
@@ -174,10 +176,10 @@
 				this.cityState = false;
 			},
 			chooseSelection (ind, val) {//选择品牌
-				 this.nowIndex = ind;
+			     this.nowIndex = ind;
                  this.isDrop = false;
-                 this.brandNo = val
-			},
+				 this.brandNo = val
+		  },
 			chooseCarType (ind) {//选择车型
 				this.carIndex = ind;
 				this.carDrop = false
@@ -190,7 +192,22 @@
 			chooseCityType (ind) {//选择城市
 				this.cityIndex = ind;
 				this.cityDrop = false;
-			}
+			},
+
+			//公共请求，
+			  publicrequst(){
+				  var param={
+					brandNo:"VB2018071807033548438",//品牌no
+					vehicleSeridesNo:"VS2018072204221783838",//车系
+					 dealerProvinceCode:"1",//省编码
+					// dealerCityCode:'2'//
+                }
+			    this.$http.post(Wit.Dealer, param,this.$store.state.mytoken).then(res=>{
+                      if(res.data.code == 0) {
+							this.mainbus = res.data.data
+						}
+				})
+			  }
 
 		},
 		mounted() {
@@ -198,10 +215,10 @@
 		},
 		watch: {
 			brandNo(newVal, oldVal) {//监听品牌id,获得车型列表
-				let data = {
-					brandNo: this.brandNo
+		  	let data = {
+					no: this.brandNo
 				}
-				//请求车型列表
+			  //请求车型列表
 				this.$http.post(Wit.searchVehicleSeriesList, data,this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {

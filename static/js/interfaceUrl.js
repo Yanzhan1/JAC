@@ -105,17 +105,17 @@ window.DISCOVERMESSAGE = {
     // 智享
 window.Wit = {
         MainBus: mip + '/vehicleModel/searchVehicleModelList', //全部车型 主推车型
-        Dealer: mip + '/dealerBaseInformation/searchDealerBaseInformationListPage', //经销商查询
+        // Dealer: mip + '/dealerBaseInformation/searchDealerBaseInformationListPage', //经销列表商查询
+        Dealer: 'http://172.21.4.167:8082' + '/automobilemanage/dealerVehicleModel/searchDealerVehicleModelList', //经销列表商查询
         Switching: mip + '/vehicleBrand/searchVehicleBrandList', //频道选择
         Distributor: mip + '/dealerBaseInformation/searchDealerBaseInformationListPage', //选择经销商
         searchVehicleBrandList: mip + '/vehicleBrand/searchVehicleBrandList', //品牌
-        searchVehicleSeriesList: mip + '/vehicleSeries/searchVehicleSeriesList', //车型
+        // searchVehicleSeriesList: mip + '/vehicleSeries/searchVehicleSeriesList', //车型
+        searchVehicleSeriesList: 'http://172.21.4.167:8082' + '/automobilemanage/vehicleBrand/selectVehicleSeriesByBrand', //车型
         Brand: mip + '/vehicleBrand/searchVehicleBrandList', //选择品牌
         System: mip + '/vehicleSeries/searchVehicleSeriesList', //选择车系
-        // Area: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //选择地区
         PreBus: mip + '/cluesOrderFrom/addCluesOrderFrom', //车辆预定提交
         Wbpre: mip + '/maintenanceReservationOrder/addMaintenanceReservationOrder', //维保预约下单
-        // Wbpre: 'http://172.21.4.180:8082' + '/maintenanceReservationOrder/addMaintenanceReservationOrder', //维保预约
         default_pre: mip + '/automobilemanage/maintenanceReservationOrder/toMaintenanceReservationOrder', //维保预约获取默认信息
         Brand: mip + '/vehicleBrand/selectVehicleSeriesByBrand', //选择品牌
         searchCountryAreaCodeListPage: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //省份
@@ -126,7 +126,6 @@ window.Wit = {
         searchComplaintsSuggestionsOne: rec + '/enjoyservice/complaintsSuggestions/searchComplaintsSuggestionsOne', //投诉建议详细信息
         searchComplaintsSuggestionsReplyOne: rec + '/enjoyservice/complaintsSuggestionsReply/searchComplaintsSuggestionsReplyOne', //投诉及建议回复查询详细信息
         updateUserPassword: mips + '/admin/userBaseInformation/updateUserPassword', //用户修改密码
-        //      updateUserPassword: mips + '/admin/userBaseInformation/updateUserPassword',//用户修改密码
         getComAndSugDet: rec + '/enjoyservice/complaintsSuggestionsReply/getComAndSugDet', //反馈详情
 
     }
