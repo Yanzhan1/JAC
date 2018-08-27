@@ -98,7 +98,13 @@
 			this.remaketime=this.years+'-'+this.months+'-'+'01'
 			console.log(this.turntimes())
 			//获取默认页面的请求从当月的1号到当月的当日
-			this.$http.post(Lovecar.Fuel,{vin: this.$store.state.vin,beginTime:this.turntimes(),endTime:newstimes,type:'1'},this.$store.state.getpin).then((res)=>{
+			var params={
+				vin:this.$store.state.vins,
+				beginTime:this.turntimes(),
+				endTime:newstimes,
+				type:'1'
+			}
+			this.$http.post(Lovecar.Fuel,params,this.$store.state.getpin).then((res)=>{
 				console.log(res.data.data)
 				this.count[0].monthMileage=res.data.data.totalMileage
 				this.count[0].oilConsumer=res.data.data.totalWear

@@ -157,7 +157,7 @@ window.Lovecar = {
     Getphonepin: mipss + '/vehicle//identify-code', //获取验证码
     Checkphonepin: mipss + '/vehicle/check-vehicle-pin', //验证pin码
     BusTest: mipss + 'vehicle/query-cyc-car-examination', //车辆体检
-    Fuel: mipss + '/vehicle/query-vehicle-fuel-Statistics', //燃油接口
+    Fuel: mipss + '/vehicle/query-vehicle-fuel-statistics', //燃油接口
     Flow: mipss + '/vehicle/query-vehicle-cyc-flow-query', //流量查询
     Longrange: mipss + '/vehicle/set-vehicle-remoteset', //车辆远程设置
     LoginOut: mipss + '/vehicle/remote-vehicle-login-or-logout', //退出登录
