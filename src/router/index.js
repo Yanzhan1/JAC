@@ -487,7 +487,6 @@ router.beforeEach((to, from, next) => {
                 userInfo = JSON.parse(js2android.getUserInfo())
             }
             if (userInfo && userInfo.no) {
-//          	alert(JSON.parse(userInfo).token);
                 $store.dispatch('isLogin', true);
                 // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
                 $store.dispatch('userId', userInfo.no);
@@ -507,6 +506,7 @@ router.beforeEach((to, from, next) => {
                 $store.dispatch('userInfo', null);
                 // TODO 跳转至登录页面 待处理
             }
+//          alert($store.state.token)
             $http.defaults.headers.common['timaToken'] = $store.state.token;
 //             alert("axios里面的token值： "+$http.defaults.headers.common['timaToken'])
         }

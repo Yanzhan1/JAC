@@ -32,7 +32,7 @@
 		name: '',
 		data () {
 			return {
-				condition: {
+				condition: { //用户信息
 					oldPassword: '',
 					newPassword: '',
 					no: this.$store.state.no
@@ -41,9 +41,29 @@
 		},
 		methods: {
 			modifyPwd () { //修改密码
-				this.$http.post(Wit.updateUserPassword, this.condition,this.$store.state.mytoken).then(res => {
+				var regPwd = /^((?=.*[0-9].*)(?=.*[A-Za-z].*))[0-9A-Za-z]{6,20}$/
+				if (this.condition.newPassword == null || this.condition.oldPassword == null) {
+						Toast({
+							message: '输入不能为空',
+							position: 'middle',
+							duration: 2000
+						});
+						return ;
+				} else if (!regPwd.test(this.condition.newPassword)) {
+						Toast({
+							message: '密码须包含数字和字母，且长度不少于6位',
+							position: 'middle',
+							duration: 2000
+						});
+						return ;
+				} else {
+					let data = {
+						oldPassword: this.$md5(this.condition.oldPassword), //对密码进行md5加密
+						newPassword: this.$md5(this.condition.newPassword),
+						no: this.$store.state.no
+					}
+					this.$http.post(Wit.updateUserPassword, data).then(res => {
 					const data = res.data;
-					console.log(data);
 					if(data.code == 0) {
 						this.$router.push('/myindex/reviousePwdSuccess')
 					} else {
@@ -60,7 +80,11 @@
 						duration: 2000
 					});
 				});
+				}	
 			}
+		},
+		created () {
+			this.$store.dispatch('NO', 'UBS2018072410503423882')
 		}
 	}
 </script>

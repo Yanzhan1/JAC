@@ -194,7 +194,6 @@ export default {
         //					alert(Iosno)
       }
     },
-
     recommended() {
       this.$router.push("/Recommended");
     }
@@ -203,7 +202,7 @@ export default {
     this.getuserinfo();
   },
   mounted() {
-    this.getTokenAndNo();
+//  this.getTokenAndNo();
   }
 };
 </script>

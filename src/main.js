@@ -11,8 +11,11 @@ import './../static/style/public.css'
 
 //导入axios
 import axios from 'axios'
+//导入md5加密
+import md5 from 'js-md5';
 
 Vue.prototype.$http = axios;
+Vue.prototype.$md5 = md5
 Vue.prototype.toLogin = function() {
   MessageBox({
     title: '提示',
