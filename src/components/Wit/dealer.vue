@@ -29,7 +29,7 @@
 				</div>
 				<div class="selection-list" v-if="carDrop">
 					<ul>
-						<li v-for="(item,index) in searchVehicleSeriesList" :key="index" @click="chooseCarType(index)">{{item.seriesName}}</li>
+						<li v-for="(item,index) in searchVehicleSeriesList" :key="index" @click="chooseCarType(index,item.no)">{{item.seriesName}}</li>
 					</ul>
 				</div>
 			</div>
@@ -101,9 +101,10 @@
 				searchVehicleSeriesList: [], //车型列表
 				searchCountryAreaCodeListPage: [], //省份列表
 				cityList: [], //城市列表
-				seriesNo: '', //车型Id
-				brandNo: '', //品牌Id
-				provinceId: '', //省份id
+				seriesNo: null, //车型Id
+				bustypeno:null,//车型no
+				brandNo: null, //品牌Id
+				provinceId: null, //省份id
 				cityId: '', //城市id
 				isDrop: false, //品牌下拉
 				carDrop: false, //车型下拉
@@ -140,8 +141,7 @@
 				})
 				//经销商
 				 this.$http.post(Wit.Dealer, param,this.$store.state.mytoken).then(res => {
-					console.log(res.data.data)
-						if(res.data.code == 0) {
+				  if(res.data.code == 0) {
 							this.mainbus = res.data.data
 						}
 					}),
@@ -179,15 +179,20 @@
 			     this.nowIndex = ind;
                  this.isDrop = false;
 				 this.brandNo = val
+				 this.publicrequst()
 		  },
-			chooseCarType (ind) {//选择车型
+			chooseCarType (ind,val) {//选择车型
+			this.bustypeno=val
 				this.carIndex = ind;
 				this.carDrop = false
+					 this.publicrequst()
 			},
 			chooseProvinType (ind, val) {//选择省份
 				 this.provinIndex = ind;
 				 this.provinceId = val;
 				 this.provinceDrop = false;
+				 console.log(val)
+				 	 this.publicrequst()
 			},
 			chooseCityType (ind) {//选择城市
 				this.cityIndex = ind;
@@ -197,13 +202,14 @@
 			//公共请求，
 			  publicrequst(){
 				  var param={
-					brandNo:"VB2018071807033548438",//品牌no
-					vehicleSeridesNo:"VS2018072204221783838",//车系
-					 dealerProvinceCode:"1",//省编码
+					brandNo:this.brandNo,//品牌no
+					vehicleSeridesNo:this.bustypeno,//车系
+				   dealerProvinceCode: this.provinceId,//省编码
 					// dealerCityCode:'2'//
                 }
 			    this.$http.post(Wit.Dealer, param,this.$store.state.mytoken).then(res=>{
                       if(res.data.code == 0) {
+						    this.mainbus=[]
 							this.mainbus = res.data.data
 						}
 				})
