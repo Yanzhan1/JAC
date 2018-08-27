@@ -216,8 +216,7 @@ export default {
       LoginStatus: "", //机车登录状态
       time: "",
       sjc: "",
-
-      vinn:''
+      vinn:'',
     };
   },
   methods: {
@@ -334,6 +333,21 @@ export default {
       } else {
       }
     },
+    //获取默认车辆vin码
+    // MyBus() {
+    //   this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
+    //     if (res.data.returnSuccess) {
+    //       this.BusDetails = res.data.data;
+    //       console.log(res.data.data)
+    //       for (let i = 0; i < res.data.data.length; i++) {
+    //         if (res.data.data[i].def == 1) {
+    //           this.vinn = res.data.data[i].vin;
+    //         }
+    //       }
+    //     }
+    //     console.log(this.$store.state.vins)
+    //   });
+    // },
     //跳转电子围栏
     turnPage() {
       //js判断手机操作系统(ios或者是Android)
@@ -353,6 +367,25 @@ export default {
       } else if (system == "IOS") {
         window.webkit.messageHandlers.goDDPaiiOS.postMessage({});
       }
+    },
+    Carquerry(){
+          this.$http
+      .post(
+        Lovecar.Carquery,
+        { vins: [this.$store.state.vins]},
+        this.$store.state.getpin
+      )
+      .then(res => {
+        if (res.data.returnSuccess) {
+          // this.getAsyReturn(res.data.operationId);
+        } else {
+          Toast({
+            message: res.data.returnErrMsg,
+            position: "middle",
+            duration: 2000
+          });
+        }
+      })
     },
     //跳转定位
     turnPosition() {
@@ -559,19 +592,21 @@ export default {
                   });
               } else if (this.type == 2) {
                 // 后备箱接口
-                this.isTrues=!this.isTrues;
-                console.log(this.isTrues)
-                this.isTrues?this.backnum=1:this.backnum=2
-                var param={
-                  vin:this.$store.state.vins,
-                  operationType:'TRUNK',
-                  operation:this.backnum
-                }
-                this.$http.post(Lovecar.Control,param,this.$store.state.getpin).then((res)=>{
-                  if(res.data.returnSuccess){
-                    this.getAsyReturn(res.data.operationId)
-                  }else{
-                    if (res.data.returnErrCode == 400) {
+                this.isTrues = !this.isTrues;
+                console.log(this.isTrues);
+                this.isTrues ? (this.backnum = 1) : (this.backnum = 2);
+                var param = {
+                  vin: this.$store.state.vins,
+                  operationType: "TRUNK",
+                  operation: this.backnum
+                };
+                this.$http
+                  .post(Lovecar.Control, param, this.$store.state.getpin)
+                  .then(res => {
+                    if (res.data.returnSuccess) {
+                      this.getAsyReturn(res.data.operationId);
+                    } else {
+                      if (res.data.returnErrCode == 400) {
                         Toast({
                           message: "token验证失败",
                           position: "middle",
@@ -584,14 +619,15 @@ export default {
                           duration: 2000
                         });
                       }
-                  }
-                }).catch(err => {
-                	Toast({
-                      message: '系统异常',
+                    }
+                  })
+                  .catch(err => {
+                    Toast({
+                      message: "系统异常",
                       position: "middle",
                       duration: 2000
                     });
-                });
+                  });
               } else if (this.type == 3) {
                 //引擎接口，熄火
                 this.isTruess = !this.isTruess;
@@ -684,40 +720,37 @@ export default {
     this.Condition = tai;
   },
   mounted() {
-    this.vinn=this.$store.state.vins
-    console.log(this.$store.state.mytoken.headers.timaToken)
+    // this.$nextTick(()=>{
+      this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
+    if (res.data.returnSuccess) {
+      this.BusDetails = res.data.data;
+      for (let i = 0; i < res.data.data.length; i++) {
+        if (res.data.data[i].def == 1) {
+          this.$store.state.vins = res.data.data[i].vin;
+        }
+      }
+      this.vinn = this.$store.state.vins;
+      this.Carquerry()
+       console.log(this.$store.state.vins)
+    console.log(this.$store.state.mytoken.headers.timaToken);
+    }
+  });
+// })       
     //暂时下载爱车页面取状态仓库中getpin的具体值
-  // var sk=this.$store.state.getpin.headers.identityParam.split(",");
-  // var skarr=[];
-  // for(let i=0;i<sk.length;i++){
-  //   var arr=sk[i].split(':');
-  //   skarr.push({name:arr[1]})
-  // }
-  // //拿到state里面的userID
-  // console.log(skarr[0].name.replace(/\{|}/g, '').replace(/\'/g,''))
-  // //拿到state里面的token
-  // console.log(skarr[1].name.replace(/\{|}/g, '').replace(/\'/g,''))
-  // //拿到token里面的phone
-  // console.log(skarr[2].name.replace(/\{|}/g, '').replace(/\'/g,''))
+    // var sk=this.$store.state.getpin.headers.identityParam.split(",");
+    // var skarr=[];
+    // for(let i=0;i<sk.length;i++){
+    //   var arr=sk[i].split(':');
+    //   skarr.push({name:arr[1]})
+    // }
+    // //拿到state里面的userID
+    // console.log(skarr[0].name.replace(/\{|}/g, '').replace(/\'/g,''))
+    // //拿到state里面的token
+    // console.log(skarr[1].name.replace(/\{|}/g, '').replace(/\'/g,''))
+    // //拿到token里面的phone
+    // console.log(skarr[2].name.replace(/\{|}/g, '').replace(/\'/g,''))
     //暴露方法给原生,登入判断
     window.getStatus = this.getStatus;
-    this.$http
-      .post(
-        Lovecar.Carquery,
-        { vins: [this.$store.state.vins] },
-        this.$store.state.getpin
-      )
-      .then(res => {
-        if (res.data.returnSuccess) {
-          // this.getAsyReturn(res.data.operationId);
-        } else {
-          Toast({
-            message: res.data.returnErrMsg,
-            position: "middle",
-            duration: 2000
-          });
-        }
-      }),
       //获取机车 登录登出状态
       this.$http.get(Lovecar.LogStatus, this.$store.state.getpin).then(res => {
         if (res.data.returnSuccess) {
