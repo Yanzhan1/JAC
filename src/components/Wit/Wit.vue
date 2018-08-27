@@ -148,7 +148,7 @@ export default {
       
     //获取主推车型，传{}表示全部车型
      var param={
-        
+     	
      }
      this.$http.post(Wit.MainBus,param).then(res=>{
         if(res.data.code==0){

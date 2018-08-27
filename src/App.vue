@@ -19,7 +19,7 @@ export default {
         this.$store.dispatch('isLogin',true);
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
         this.$store.dispatch('userId',userInfo.no);
-        this.$store.dispatch('TOKEN',userInfo.token);
+//      this.$store.dispatch('TOKEN',userInfo.token);
         // alert(
         //   "store里面的值，" +
         //   "vin: "+ this.$store.state.vin +
@@ -34,7 +34,7 @@ export default {
         this.$store.dispatch('userInfo',null);
       }
 //    alert('放到vuex中的token：'+this.$store.state.token)
-      this.$http.defaults.headers.timaToken =  this.$store.state.token
+      this.$http.defaults.headers.common['timaToken'] =  this.$store.state.token
 //    console.log("axios里面的token值： "+this.$http.defaults.headers.timaToken)
     },
   	getNo () { //调试使用的模拟no
