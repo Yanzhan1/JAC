@@ -37,7 +37,7 @@
 				<!-- 省份 -->
 				<div class="selection-show" @click="toggleProvin">
 					<span> {{searchCountryAreaCodeListPage[provinIndex] && searchCountryAreaCodeListPage[provinIndex].name}} </span>
-					<span v-if="provinceState">省份</span>
+					<span v-if="provinceState">安徽省</span>
 					<div class="arrow"></div>
 				</div>
 				<div class="selection-list" v-if="provinceDrop">
@@ -50,7 +50,7 @@
 				<!--城市-->
 				<div class="selection-show" @click="toggleCity">
 					<span> {{cityList[cityIndex] && cityList[cityIndex].name}} </span>
-					<span v-if="cityState">城市</span>
+					<span v-if="cityState">合肥市</span>
 					<div class="arrow"></div>
 				</div>
 				<div class="selection-list" v-if="cityDrop">
@@ -130,20 +130,20 @@
 					"level": 1
 				}
 				//请求品牌列表
-				this.$http.post(Wit.searchVehicleBrandList, data).then(res => {
+				this.$http.post(Wit.searchVehicleBrandList, data, this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchVehicleBrandList = data.data;
 					}
 				})
 				//经销商
-				this.$http.post(Wit.Dealer, param).then(res => {
+				this.$http.post(Wit.Dealer, param,this.$store.state.mytoken).then(res => {
 						if(res.data.code == 0) {
 							this.mainbus = res.data.data.records
 						}
 					}),
 				//请求省份列表
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data,this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchCountryAreaCodeListPage = data.data.records;
@@ -338,6 +338,9 @@
 		background: #fff;
 		text-align: center;
 		margin-left:.2rem;
+	    overflow: hidden;
+    	white-space: nowrap;
+    	text-overflow: ellipsis;
 	}
 	
 	.selection-show .arrow {
