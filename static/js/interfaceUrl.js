@@ -94,9 +94,7 @@ window.DISCOVERMESSAGE = {
         /*我的此刻*/
         addMoment: indexip + '/moment/add', //发布此刻
         issueMomentList: indexip + '/moment/issueMomentList', //此刻列表（发布列表新）
-        myFocusNum: indexip + '/mine/myFocusNum', //关注数量
-        myFansNum: indexip + '/mine/myFansNum', //粉丝数量
-        myLikeNum: indexip + '/mine/myLikeNum', //点赞数量
+        count: indexip + '/mine/count', //获赞、关注、发布、粉丝数量
         informOthers: indexip + '/userInform/inform', //举报他人
         deleteMoment: indexip + '/moment/deleteMoment', //删除我的此刻
         deleteComment: indexip + '/userComment/deleteComment', //删除评论
