@@ -224,41 +224,15 @@ export default {
         }
       })
     },
-    //我的关注数量
-    myFocusNum: function(){
+    //获赞、关注、发布、粉丝数量
+    myNum: function(){
       var _this = this;
-      this.$http.post(DISCOVERMESSAGE.myFocusNum,{"uid": _this.$store.state.userId}).then(function (res) {
+      this.$http.post(DISCOVERMESSAGE.count,{"uid": 1165864}).then(function (res) {
         if (res.data.status) {
-          _this.focsNum = res.data.data;
+          //_this.focsNum = res.data.data;
         } else {
           console.log(res.data.errorMsg);
           // MessageBox('提示', res.data.errorMsg);
-        }
-      });
-    },
-    //我的粉丝数量
-    myFansNum: function(){
-      var _this = this;
-      this.$http.post(DISCOVERMESSAGE.myFansNum,{"uid": _this.$store.state.userId}).then(function (res) {
-        if (res.data.status) {
-          _this.fansNum = res.data.data;
-        } else {
-          console.log(res.data.errorMsg);
-          //MessageBox('提示', res.data.errorMsg);
-        }
-      });
-    },
-    //我的点赞数量
-    myLikeNum: function(){
-      var _this = this;
-      this.$http.post(DISCOVERMESSAGE.myLikeNum,{"uid": _this.$store.state.userId}).then(function (res) {
-        if (res.data.status) {
-          //console.log("点赞"+res.data.data);
-          _this.likeNum = res.data.data;
-          //
-        } else {
-          console.log(res.data.errorMsg);
-          //MessageBox('提示', res.data.errorMsg);
         }
       });
     },
@@ -280,9 +254,7 @@ export default {
   },
   mounted() {
     this.getTokenAndNo();
-    this.myFocusNum();
-    this.myFansNum();
-    this.myLikeNum();
+    this.myNum();
   }
 };
 
