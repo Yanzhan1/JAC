@@ -129,6 +129,10 @@ export default {
       Personal: {}, //个人信息
 	  popupVisible: false,
 	  isShow:true,//今日未签到
+      likeNum:0,
+      fansNum:0,
+      focsNum:0,
+      myList:[],
     };
   },
   methods: {
@@ -196,152 +200,92 @@ export default {
     },
     recommended() {
       this.$router.push("/Recommended");
-    }
+    },
+    //粉丝
+    toFans: function () {
+      this.$router.push({path:"/fans"})
+    },
+    //关注
+    toFocus: function () {
+      this.$router.push({path:"/focus"})
+    },
+    //我的发布
+    mypublish: function () {
+      this.$router.push({path:"/myPublish"})
+    },
+    //获取我的基本信息
+    getuserinfo() {
+      var param = {
+        no: "AD022018072505235135056",
+      }
+      this.$http.post(Wit.UserInfo, param).then(res => {
+        if(res.data.code == 0) {
+          this.Personal = res.data.data
+        }
+      })
+    },
+    //我的关注数量
+    myFocusNum: function(){
+      var _this = this;
+      this.$http.post(DISCOVERMESSAGE.myFocusNum,{"uid": _this.$store.state.userId}).then(function (res) {
+        if (res.data.status) {
+          _this.focsNum = res.data.data;
+        } else {
+          console.log(res.data.errorMsg);
+          // MessageBox('提示', res.data.errorMsg);
+        }
+      });
+    },
+    //我的粉丝数量
+    myFansNum: function(){
+      var _this = this;
+      this.$http.post(DISCOVERMESSAGE.myFansNum,{"uid": _this.$store.state.userId}).then(function (res) {
+        if (res.data.status) {
+          _this.fansNum = res.data.data;
+        } else {
+          console.log(res.data.errorMsg);
+          //MessageBox('提示', res.data.errorMsg);
+        }
+      });
+    },
+    //我的点赞数量
+    myLikeNum: function(){
+      var _this = this;
+      this.$http.post(DISCOVERMESSAGE.myLikeNum,{"uid": _this.$store.state.userId}).then(function (res) {
+        if (res.data.status) {
+          //console.log("点赞"+res.data.data);
+          _this.likeNum = res.data.data;
+          //
+        } else {
+          console.log(res.data.errorMsg);
+          //MessageBox('提示', res.data.errorMsg);
+        }
+      });
+    },
+    //我的发布
+    getMineList: function(){
+      var _this = this;
+      this.$http.post(DISCOVERMESSAGE.issueMomentList,{"uid": _this.$store.state.userId,"hisUid":_this.$store.state.userId}).then(function (res) {
+        if (res.data.status) {
+          _this.myList = res.data.data;
+        } else {
+          console.log(res.data.errorMsg);
+          //MessageBox('提示', res.data.errorMsg);
+        }
+      });
+    },
   },
   created() {
     this.getuserinfo();
   },
   mounted() {
-//  this.getTokenAndNo();
+    this.getTokenAndNo();
+    this.myFocusNum();
+    this.myFansNum();
+    this.myLikeNum();
   }
 };
-	export default {
-		name: "Myindex",
-		data() {
-			return {
-				Personal: {}, //个人信息
-        likeNum:0,
-        fansNum:0,
-        focsNum:0,
-        myList:[],
-			};
-		},
-		methods: {
-			//编辑个人信息
-			edict() {
-				this.$router.push("/edictperson");
-			},
-			//消息
-			tonews() {
-				this.$router.push('/news')
-			},
-      //粉丝
-      toFans: function () {
-        this.$router.push({path:"/fans"})
-      },
-      //关注
-      toFocus: function () {
-        this.$router.push({path:"/focus"})
-      },
-      //我的发布
-      mypublish: function () {
-        this.$router.push({path:"/myPublish"})
-      },
-			//二维码
-			twoma() {
-				this.$router.push('/twoma')
-			},
-			//扫一扫
-			scan() {
-				if(isMobile.iOS()) {
-					var params = {};
-					window.webkit.messageHandlers.scan.postMessage(params);
-				} else if(isMobile.Android()) {
-					js2android.scan();
-				}
-			},
-			//获取我的基本信息
-			getuserinfo() {
-				var param = {
-					no: "AD022018072505235135056",
-				}
-				this.$http.post(Wit.UserInfo, param).then(res => {
-					if(res.data.code == 0) {
-						this.Personal = res.data.data
-					}
-				})
-			},
-			//获取原生的no和token
-			getTokenAndNo() {
-				//js判断手机操作系统(ios或者是Android)
-				var system = IOSAndAndroid.isIOSOrAndroid();
-				if(system == "Android") {
-					let tokenAndNo = window.js2android.getUserInfo()
-					let tokensandno = JSON.parse(tokenAndNo)
-					this.$store.dispatch('TOKEN', tokensandno)
-					//						alert(this.$store.state.token.no)
-				} else if(system == "IOS") {
-					let Iostoken = getCookie('token')
-					let Iosno = getCookie('no')
-//					alert(Iostoken)
-//					alert(Iosno)
-				}
-			},
 
-			recommended(){
-              this.$router.push('/Recommended')
-			},
-      //我的关注数量
-      myFocusNum: function(){
-        var _this = this;
-        this.$http.post(DISCOVERMESSAGE.myFocusNum,{"uid": _this.$store.state.userId}).then(function (res) {
-          if (res.data.status) {
-            _this.focsNum = res.data.data;
-          } else {
-            console.log(res.data.errorMsg);
-            // MessageBox('提示', res.data.errorMsg);
-          }
-        });
-      },
-      //我的粉丝数量
-      myFansNum: function(){
-        var _this = this;
-        this.$http.post(DISCOVERMESSAGE.myFansNum,{"uid": _this.$store.state.userId}).then(function (res) {
-          if (res.data.status) {
-            _this.fansNum = res.data.data;
-          } else {
-            console.log(res.data.errorMsg);
-            //MessageBox('提示', res.data.errorMsg);
-          }
-        });
-      },
-      //我的点赞数量
-      myLikeNum: function(){
-        var _this = this;
-        this.$http.post(DISCOVERMESSAGE.myLikeNum,{"uid": _this.$store.state.userId}).then(function (res) {
-          if (res.data.status) {
-            //console.log("点赞"+res.data.data);
-            _this.likeNum = res.data.data;
-            //
-          } else {
-            console.log(res.data.errorMsg);
-            //MessageBox('提示', res.data.errorMsg);
-          }
-        });
-      },
-      //我的发布
-      getMineList: function(){
-        var _this = this;
-        this.$http.post(DISCOVERMESSAGE.issueMomentList,{"uid": _this.$store.state.userId,"hisUid":_this.$store.state.userId}).then(function (res) {
-          if (res.data.status) {
-            _this.myList = res.data.data;
-          } else {
-            console.log(res.data.errorMsg);
-            //MessageBox('提示', res.data.errorMsg);
-          }
-        });
-      },
-		},
-		created() {
-			this.getuserinfo()
-		},
-		mounted() {
-			this.getTokenAndNo();
-      this.myFocusNum();
-      this.myFansNum();
-      this.myLikeNum();
-		}
-	};
 </script>
 <style scoped>
 .mint-popup {
