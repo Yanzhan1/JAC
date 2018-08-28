@@ -16,11 +16,11 @@
         <!--资讯列表S-->
         <div v-for="(item,index) in articleList">
           <div class="boxInfo">
-            <p class="listTitleInfo" @click="toDetail(item.manageId)">
+            <p class="listTitleInfo" @click="goDiscDetail(item.manageId)">
               {{item.manageTitle.slice(0,46)}}
               <span v-if="item.manageTitle.length>46">...</span>
             </p>
-            <img class="listPic312" @click="toDetail(item.manageId)" :src="item.imgUrl"/>
+            <img class="listPic312" @click="goDiscDetail(item.manageId)" :src="item.imgUrl"/>
             <div class="listIconInfo">
               <!--阅读数量-->
               <img src="../../../static/images/discover/eye.png" class="f_left"/>
@@ -33,65 +33,17 @@
           </div>
         </div>
         <!--资讯列表E-->
-    <!--    <div v-for="item in articleList" :key="item.id">
-          <div class="message-box" @click="goDiscDetail(item.manageId)">
-            <div class="message-content-left">
-              <img :src="item.imgUrl" alt="">
-              <p class="message-left-section">
-                <span>标签</span>
-                <span style="text-align:right;">{{item.issuedDate}}</span>
-              </p>
-            </div>
-            <div class="message-content-right">
-              <div class="message-right-title">
-                {{item.manageTitle}}
-              </div>
-              <div class="message-right-footer">
-                <p class="left-footer">
-                  <span  v-if="item.user">{{item.user.nick_name}}</span>
-                  <span  v-else>红星汽车</span>
-                </p>
-                <p class="right-footer">
-                  <img src="../../../static/images/discover/chakan.png">
-                  <span>{{item.readNum}}</span>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="intervalBg"></div>
-        </div>-->
       </div>
       <!--我收藏的活动-->
       <div v-else-if="contentchoose==2" >
-        <!--<div class="wrap">
-          <div class="box" v-for="item in activityList">
-            <img @click="goActivityDetail(item.activityId)" :src="item.imgUrl" class="headPic"/>
-            <p @click="goActivityDetail(item.activityId)">{{item.activityTitle}}</p>
-            <div class="date-box-left">
-              <img v-if="item.activityState==0" src="../../../static/images/discover/daojishi1@2x.png"/>
-              <img v-else-if="item.activityState==1" src="../../../static/images/discover/daojishi2@2x.png"/>
-              <img v-else-if="item.activityState==2" src="../../../static/images/discover/daojishi3@2x.png"/>
-              <span>{{item.planDate}}</span>
-            </div>
-            <div class="date-box-right">
-              <img v-if="item.activityState==0" src="../../../static/images/discover/huodong1@2x.png"/>
-              <img v-else-if="item.activityState==1" src="../../../static/images/discover/huodong2@2x.png"/>
-              <img v-else-if="item.activityState==2" src="../../../static/images/discover/huodong3@2x.png"/>
-              <span v-if="item.activityState==0">报名中</span>
-              <span v-if="item.activityState==1">进行中</span>
-              <span v-if="item.activityState==2">已结束</span>
-            </div>
-          </div>
-        </div>
-        <div class="liner"></div>-->
         <!--活动列表S-->
         <div v-for="(item) in activityList" :key="item.id">
           <div class="boxInfo">
-            <p class="listTitleInfo" @click="toDetail(item.manageId)">
+            <p class="listTitleInfo" @click="goActivityDetail(item.manageId)">
               {{item.activityTitle.slice(0,46)}}
               <span v-if="item.activityTitle.length>46">...</span>
             </p>
-            <img class="listPic312" @click="toDetail(item.activityId)" :src="item.imgUrl"/>
+            <img class="listPic312" @click="goActivityDetail(item.activityId)" :src="item.imgUrl"/>
             <div class="listIconActivity">
               <!--未开始-->
               <div v-if="item.activityState==0">
@@ -152,13 +104,16 @@
       // 进入资讯详情
       goDiscDetail: function(id) {
         this.$router.push({
-          path: "/discdetail",
+          path: "/information/informationDetail",
           query: { id: id }
         });
       },
       // 进入活动详情
       goActivityDetail: function (id) {
-        this.$router.push({path:"/activity/DetailActivity",query:{activityId:id}})
+        this.$router.push({
+          path:"/activity/activityDetail",
+          query:{activityId:id}
+        })
       },
       //资讯列表
       getArticleList: function(){
