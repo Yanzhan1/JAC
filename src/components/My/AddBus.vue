@@ -34,18 +34,17 @@ export default {
   methods: {
     AddMybus() {
       var param = {
-        vin: "LJ1702345G8001011",
+        vin:this.rame,
         operationType: "CAR_BINDING",
         operation: 1,
         extParams: {
-          engineNo: "VJ00102"
+          engineNo: this.engine
         }
       };
 
      var  getpin={
         headers: {
-            // identityParam: "{ \"userId\": \"c123\", \"token\": \"sdfasdfasdfasd\", \"phone\": \"15221794973\" }"
-            identityParam: "{ \"userId\": \"c123\", \"token\": \"sdfasdfasdfasd\", \"phone\": \"15221794973\" }"
+           identityParam: "{ \"userId\": \"c123\", \"token\": \"sdfasdfasdfasd\", \"phone\": \"15221794973\" }"
         }
       }
          this.$http
@@ -63,7 +62,7 @@ export default {
             }, 2000);
           } else {
             Toast({
-              message: "添加失败，系统维护中！",
+              message: "添加失败，输入有误！",
               duration: 1000,
               position: "middle"
             });

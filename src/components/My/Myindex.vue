@@ -11,7 +11,7 @@
 
 					<div class="flex column" style="margin-left: 0.2rem;">
 						<div class="flex cocenter" style="overflow: hidden">
-							<span style="color: #fff;font-size: 0.32rem;font-weight: bold">{{Personal.userRealName}}</span>
+							<span style="color: #fff;font-size: 0.32rem;font-weight: bold">{{Personal.phone}}</span>
 							<img v-if="Personal.sex==1" src="../../../static/images/my/gender_man@2x.png" alt="" style="width: 0.28rem;height: 0.28rem">
 							<img v-if="Personal.sex==2" src="../../../static/images/my/gender_woman.png" alt="" style="width: 0.28rem;height: 0.28rem">
 						</div>
@@ -171,7 +171,7 @@ export default {
     },
     //获取我的基本信息
     getuserinfo() {
-      console.log(this.$store.state.no)
+    // alert(this.$store.state.no)
       var param = {
         no: this.$store.state.no
       };
@@ -180,6 +180,7 @@ export default {
         .then(res => {
           if (res.data.code == 0) {
             this.Personal = res.data.data;
+            alert(JSON.stringify( this.Personal))
           }
         });
     },
@@ -215,6 +216,17 @@ export default {
       this.$router.push({path:"/myPublish"})
     },
     //获取我的基本信息
+    // getuserinfo() {
+    //   var param = {
+    //     no: "AD022018072505235135056",
+    //   }
+    //   this.$http.post(Wit.UserInfo, param).then(res => {
+    //     if(res.data.code == 0) {
+    //       this.Personal = res.data.data
+    //     }
+    //   })
+    // },
+    //获赞、关注、发布、粉丝数量
     getuserinfo() {
       var param = {
         no: "AD022018072505235135056",

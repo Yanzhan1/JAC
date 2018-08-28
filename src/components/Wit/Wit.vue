@@ -149,7 +149,7 @@ export default {
       
     //获取主推车型，传{}表示全部车型
      var param={ }
-     this.$http.post(Wit.MainBus,param).then(res=>{
+     this.$http.post(Wit.MainBus,param,this.$store.state.mytoken).then(res=>{
         if(res.data.code==0){
          var arr=res.data.data
           arr.splice(3)

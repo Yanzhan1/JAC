@@ -29,7 +29,7 @@
 				</div>
 				<div class="selection-list" v-if="carDrop">
 					<ul>
-						<li v-for="(item,index) in searchVehicleSeriesList" :key="index" @click="chooseCarType(index)">{{item.seriesName}}</li>
+						<li v-for="(item,index) in searchVehicleSeriesList" :key="index" @click="chooseCarType(index,item.no)">{{item.seriesName}}</li>
 					</ul>
 				</div>
 			</div>
@@ -37,7 +37,7 @@
 				<!-- 省份 -->
 				<div class="selection-show" @click="toggleProvin">
 					<span> {{searchCountryAreaCodeListPage[provinIndex] && searchCountryAreaCodeListPage[provinIndex].name}} </span>
-					<span v-if="provinceState">省份</span>
+					<span v-if="provinceState">安徽省</span>
 					<div class="arrow"></div>
 				</div>
 				<div class="selection-list" v-if="provinceDrop">
@@ -50,12 +50,12 @@
 				<!--城市-->
 				<div class="selection-show" @click="toggleCity">
 					<span> {{cityList[cityIndex] && cityList[cityIndex].name}} </span>
-					<span v-if="cityState">城市</span>
+					<span v-if="cityState">合肥市</span>
 					<div class="arrow"></div>
 				</div>
 				<div class="selection-list" v-if="cityDrop">
 					<ul>
-						<li v-for="(item,index) in cityList" :key="index" @click="chooseCityType(index, item.id)">{{item.name}}</li>
+						<li v-for="(item,index) in cityList" :key="index" @click="chooseCityType(index, item.id)">{{item.name,item.id}}</li>
 					</ul>
 				</div>
 			</div>
@@ -66,7 +66,7 @@
 				<div class="ul_list flex cocenter"> <img class="pic" src="../../../static/images/Wit/bg-mine.png" alt=""></div>
 				<div class="flex column around  mid">
 					<span class="txt_top dian">{{item.dealerName}}</span>
-					<span class="txt_m">电话： 021-3324234</span>
+					<span class="txt_m">电话： </span>
 					<span class="flex row cocenter">
                         <img style="width:.25rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">
                         <span class="txt_m dian" style="margin-top:.1rem">{{item.dealerAddress}}</span>
@@ -101,10 +101,12 @@
 				searchVehicleSeriesList: [], //车型列表
 				searchCountryAreaCodeListPage: [], //省份列表
 				cityList: [], //城市列表
-				seriesNo: '', //车型Id
-				brandNo: '', //品牌Id
-				provinceId: '', //省份id
+				seriesNo: null, //车型Id
+				bustypeno:null,//车型no
+				brandNo: null, //品牌Id
+				provinceId: null, //省份id
 				cityId: '', //城市id
+				city_id:null,//城市ID 
 				isDrop: false, //品牌下拉
 				carDrop: false, //车型下拉
 				provinceDrop: false, //省份下拉
@@ -124,31 +126,33 @@
 		},
 		methods: {
 			init() {
-				var param = {}
+				console.log(this.$store.state)
+				var param = {
+                    }
 				var data = {
 					"parentId": null,
 					"level": 1
 				}
 				//请求品牌列表
-				this.$http.post(Wit.searchVehicleBrandList, data).then(res => {
+				this.$http.post(Wit.searchVehicleBrandList, data,this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchVehicleBrandList = data.data;
 					}
 				})
 				//经销商
-				this.$http.post(Wit.Dealer, param).then(res => {
-						if(res.data.code == 0) {
-							this.mainbus = res.data.data.records
+			
+				 this.$http.post(Wit.Dealer, param,this.$store.state.mytoken).then(res => {
+				  if(res.data.code == 0) {
+							this.mainbus = res.data.data
 						}
 					}),
 				//请求省份列表
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data,this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchCountryAreaCodeListPage = data.data.records;
-//						console.log(this.searchCountryAreaCodeListPage)
-					}
+                   }
 				})
 			},
 			search() {
@@ -174,23 +178,46 @@
 				this.cityState = false;
 			},
 			chooseSelection (ind, val) {//选择品牌
-				 this.nowIndex = ind;
+			     this.nowIndex = ind;
                  this.isDrop = false;
-                 this.brandNo = val
-			},
-			chooseCarType (ind) {//选择车型
+				 this.brandNo = val
+				 this.publicrequst()
+		  },
+			chooseCarType (ind,val) {//选择车型
+			this.bustypeno=val
 				this.carIndex = ind;
 				this.carDrop = false
+					 this.publicrequst()
 			},
 			chooseProvinType (ind, val) {//选择省份
 				 this.provinIndex = ind;
 				 this.provinceId = val;
 				 this.provinceDrop = false;
+				 console.log(val)
+				 	 this.publicrequst()
 			},
-			chooseCityType (ind) {//选择城市
+			chooseCityType (ind,val) {//选择城市
+			     this.city_id=val
 				this.cityIndex = ind;
 				this.cityDrop = false;
-			}
+				 this.publicrequst()
+			},
+
+			//公共请求，
+			  publicrequst(){
+				  var param={
+					brandNo:this.brandNo,//品牌no
+					vehicleSeridesNo:this.bustypeno,//车系
+				  	 dealerProvinceCode: this.provinceId,//省编码
+					dealerCityCode:this.city_id//城市id
+                }
+			    this.$http.post(Wit.Dealer, param,this.$store.state.mytoken).then(res=>{
+                      if(res.data.code == 0) {
+						    this.mainbus=[]
+							this.mainbus = res.data.data
+						}
+				})
+			  }
 
 		},
 		mounted() {
@@ -198,11 +225,11 @@
 		},
 		watch: {
 			brandNo(newVal, oldVal) {//监听品牌id,获得车型列表
-				let data = {
-					brandNo: this.brandNo
+		  	let data = {
+					no: this.brandNo
 				}
-				//请求车型列表
-				this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
+			  //请求车型列表
+				this.$http.post(Wit.searchVehicleSeriesList, data,this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchVehicleSeriesList = data.data;
@@ -215,7 +242,7 @@
 					parentId: this.provinceId, //被检测的省份id 
 					level: 2
 				}
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data,this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.cityList = data.data.records;
@@ -338,6 +365,9 @@
 		background: #fff;
 		text-align: center;
 		margin-left:.2rem;
+	    overflow: hidden;
+    	white-space: nowrap;
+    	text-overflow: ellipsis;
 	}
 	
 	.selection-show .arrow {

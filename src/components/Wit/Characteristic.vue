@@ -6,7 +6,10 @@
             <p class="p2" @click="configure">配置参数</p>
         </div>
         <div class="main">
-            <img src="" alt="" class="nav">
+            <img src="./../../../static/images/Wit/1.jpg" alt="" class="nav">
+            <img src="./../../../static/images/Wit/2.jpg" alt="" class="nav">
+            <img src="./../../../static/images/Wit/3.jpg" alt="" class="nav">
+            <img src="./../../../static/images/Wit/4.jpg" alt="" class="nav">
            <h3 class="bottom-btn" @click="reserve">在线订车</h3>
         </div>
     </div>
@@ -59,12 +62,7 @@ export default {
 .main{
     position: relative;
     width: 100%;
-    height: 12.04rem;
     margin-top: 0.98rem;
-}
-.magin .nav{
-    height: 2.93rem;
-    background: green;
 }
 .main .comment{
     height:9.11rem;
@@ -88,5 +86,8 @@ export default {
     color: #fff;
     position: absolute;
     bottom: 0;
+}
+.main>img{
+    width: 100%;
 }
 </style>
