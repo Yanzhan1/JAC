@@ -22,19 +22,19 @@
 			</div>
 			<div class="mytopbottom flex around">
 				<div>
-					<span>176</span>
+					<span>{{likeNum}}</span>
 					<span>获赞</span>
 				</div>
-				<div>
-					<span>3</span>
+				<div @click="mypublish">
+					<span>{{myList.length}}</span>
 					<span>发布</span>
 				</div>
-				<div>
-					<span>0</span>
+				<div @click="toFocus">
+					<span>{{focsNum}}</span>
 					<span>关注</span>
 				</div>
-				<div>
-					<span>107</span>
+				<div @click="toFans">
+					<span>{{fansNum}}</span>
 					<span>粉丝</span>
 				</div>
 			</div>
@@ -61,20 +61,20 @@
 				</div>
 				<img src="../../../static/images/my/next@2x.png" alt="">
 			</router-link>
-			<div class="mylist">
+      <router-link to="/myCollect" tag="div" class="mylist">
 				<div class="flex cocenter">
 					<img src="../../../static/images/my/mine_collection@2x.png" alt="">
 					<span>我的收藏</span>
 				</div>
 				<img src="../../../static/images/my/next@2x.png" alt="">
-			</div>
-			<div class="mylist">
+      </router-link>
+      <router-link to="/myactivity" tag="div" class="mylist">
 				<div class="flex cocenter">
 					<img src="../../../static/images/my/mine_activity@2x.png" alt="">
 					<span>我的活动</span>
 				</div>
 				<img src="../../../static/images/my/next@2x.png" alt="">
-			</div>
+      </router-link>
 			<router-link to="/my_dealer" tag="div" class="mylist">
 				<div class="flex cocenter">
 					<img src="../../../static/images/my/mine_agency@2x.png" alt="">
@@ -116,7 +116,11 @@
 		name: "Myindex",
 		data() {
 			return {
-				Personal: {} //个人信息
+				Personal: {}, //个人信息
+        likeNum:0,
+        fansNum:0,
+        focsNum:0,
+        myList:[],
 			};
 		},
 		methods: {
@@ -128,6 +132,18 @@
 			tonews() {
 				this.$router.push('/news')
 			},
+      //粉丝
+      toFans: function () {
+        this.$router.push({path:"/fans"})
+      },
+      //关注
+      toFocus: function () {
+        this.$router.push({path:"/focus"})
+      },
+      //我的发布
+      mypublish: function () {
+        this.$router.push({path:"/myPublish"})
+      },
 			//二维码
 			twoma() {
 				this.$router.push('/twoma')
@@ -164,20 +180,73 @@
 				} else if(system == "IOS") {
 					let Iostoken = getCookie('token')
 					let Iosno = getCookie('no')
-//					alert(Iostoken)	
+//					alert(Iostoken)
 //					alert(Iosno)
 				}
 			},
 
 			recommended(){
               this.$router.push('/Recommended')
-			}
+			},
+      //我的关注数量
+      myFocusNum: function(){
+        var _this = this;
+        this.$http.post(DISCOVERMESSAGE.myFocusNum,{"uid": _this.$store.state.userId}).then(function (res) {
+          if (res.data.status) {
+            _this.focsNum = res.data.data;
+          } else {
+            console.log(res.data.errorMsg);
+            // MessageBox('提示', res.data.errorMsg);
+          }
+        });
+      },
+      //我的粉丝数量
+      myFansNum: function(){
+        var _this = this;
+        this.$http.post(DISCOVERMESSAGE.myFansNum,{"uid": _this.$store.state.userId}).then(function (res) {
+          if (res.data.status) {
+            _this.fansNum = res.data.data;
+          } else {
+            console.log(res.data.errorMsg);
+            //MessageBox('提示', res.data.errorMsg);
+          }
+        });
+      },
+      //我的点赞数量
+      myLikeNum: function(){
+        var _this = this;
+        this.$http.post(DISCOVERMESSAGE.myLikeNum,{"uid": _this.$store.state.userId}).then(function (res) {
+          if (res.data.status) {
+            //console.log("点赞"+res.data.data);
+            _this.likeNum = res.data.data;
+            //
+          } else {
+            console.log(res.data.errorMsg);
+            //MessageBox('提示', res.data.errorMsg);
+          }
+        });
+      },
+      //我的发布
+      getMineList: function(){
+        var _this = this;
+        this.$http.post(DISCOVERMESSAGE.issueMomentList,{"uid": _this.$store.state.userId,"hisUid":_this.$store.state.userId}).then(function (res) {
+          if (res.data.status) {
+            _this.myList = res.data.data;
+          } else {
+            console.log(res.data.errorMsg);
+            //MessageBox('提示', res.data.errorMsg);
+          }
+        });
+      },
 		},
 		created() {
 			this.getuserinfo()
 		},
 		mounted() {
-			this.getTokenAndNo()
+			this.getTokenAndNo();
+      this.myFocusNum();
+      this.myFansNum();
+      this.myLikeNum();
 		}
 	};
 </script>
@@ -189,20 +258,20 @@
 		background-size: 100% 100%;
 		position: relative;
 	}
-	
+
 	.mytopicon {
 		height: 0.88rem;
 	}
-	
+
 	.mytopicon>img {
 		width: 0.4rem;
 		height: 0.4rem;
 	}
-	
+
 	.mytophead {
 		margin-top: 0.1rem;
 	}
-	
+
 	.mytopbottom {
 		position: absolute;
 		bottom: 0;
@@ -210,27 +279,27 @@
 		padding: 0.3rem;
 		width: 100%;
 	}
-	
+
 	.mytopbottom>div {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		color: #fff;
 	}
-	
+
 	.mytopbottom>div>span:nth-child(1) {
 		font-size: 0.36rem;
 	}
-	
+
 	.mytopbottom>div>span:nth-child(2) {
 		font-size: 0.24rem;
 		color: #dcf5ff;
 	}
-	
+
 	.mybottom {
 		padding-top: 0.2rem;
 	}
-	
+
 	.mylist {
 		height: 1rem;
 		padding: 0 0.3rem;
@@ -239,12 +308,12 @@
 		align-items: center;
 		border-bottom: 1px solid #f1f1f1;
 	}
-	
+
 	.mylist img {
 		width: 0.4rem;
 		height: 0.4rem;
 	}
-	
+
 	.mylist span {
 		font-size: 0.28rem;
 		color: #555555;

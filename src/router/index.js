@@ -28,8 +28,11 @@ import AirEvoluor from "@/components/Lovecar/AirEvoluor" //空气进化器
 import My from '@/components/My/Myindex'
 import Mystart from '@/components/My/Mystart'
 import Userstart from '@/components/My/Userstart'
-import Fans from '@/components/My/Fans'
-import Focus from '@/components/My/Focus'
+import Fans from '@/components/My/Fans' //我的粉丝
+import Focus from '@/components/My/Focus'//我的关注
+import MyCollect from '@/components/My/MyCollect.vue' //我的收藏
+import Myactivity from '@/components/My/Myactivity.vue' //我的活动
+import MyPublish from '@/components/My/MyPublish.vue' //我的发布
 import FeedbackRecord from '@/components/My/FeedbackRecord' //反馈记录
 import FeedbackDetail from '@/components/My/FeedbackDetail' //反馈详情
 import ContactPerson from '@/components/My/ContactPerson' //紧急联系人
@@ -285,6 +288,22 @@ export default new Router({
             {
                 path: "/focus",
                 component: Focus
+            },
+            {
+              path: "/myCollect",
+              component: MyCollect
+            },
+            {
+              path: "/myactivity",
+              component: Myactivity
+            },
+            {
+              path: "/myPublish",
+              component: MyPublish
+            },
+            {
+              path: "/focus",
+              component: Focus
             },
             {
                 path: "/addmydress",
