@@ -1,7 +1,7 @@
 <template>
 	<div class="fuel-query">
 		<header class="header">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.push('/lovecar')">
 			<span class="header-title">燃油查询</span>
 			<span class="header-right"></span>
 		</header>
@@ -92,6 +92,7 @@
 			}
 		},
 		mounted(){
+			// console.log(this.$store.state.vins)
 			this.years=new Date().getFullYear();
 			this.months=new Date().getMonth()+1;
 			var newstimes=new Date().getTime();
