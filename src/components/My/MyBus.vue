@@ -58,7 +58,14 @@ export default {
   methods: {
     //我的车辆
     MyBus() {
-      this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
+    // alert(JSON.stringify(this.$store.state.getpin))
+     var getpin = {
+            headers: {
+              identityParam:
+                '{ "userId": "c123", "token": "sdfasdfasdfasd", "phone": "15221794973" }'
+            }
+          };
+      this.$http.post(My.My_Bus, {}, getpin).then(res => {
         if (res.data.returnSuccess) {
           this.BusDetails = res.data.data;
           for(let i=0;i< res.data.data.length;i++){
