@@ -183,7 +183,7 @@ export default {
   mounted() {
      //获取用户基本信息
      var param={
-        no: "AD022018072505235135056",
+        no: this.$store.state.no,
      }
      this.$http.post(My.UserInfo,param,this.$store.state.mytoken).then(res=>{
      if(res.data.code==0){

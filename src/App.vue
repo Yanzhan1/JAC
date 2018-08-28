@@ -16,6 +16,7 @@ export default {
     isLogin(userInfo){
 //		alert('原生:' + userInfo)
       if(userInfo && userInfo.no){
+        // alert(JSON.stringify(userInfo))
         this.$store.dispatch('isLogin',true);
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
         this.$store.dispatch('userId',userInfo.no);

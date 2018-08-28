@@ -726,13 +726,16 @@ export default {
       this.BusDetails = res.data.data;
       for (let i = 0; i < res.data.data.length; i++) {
         if (res.data.data[i].def == 1) {
-          this.$store.state.vins = res.data.data[i].vin;
+          console.log(res.data.data[i].vin)
+          var payload=res.data.data[i].vin
+          this.$store.dispatch("CARVINS",payload)
+          // this.$store.state.vins = res.data.data[i].vin;
         }
       }
       this.vinn = this.$store.state.vins;
       this.Carquerry()
-       console.log(this.$store.state.vins)
-    console.log(this.$store.state.mytoken.headers.timaToken);
+    //    console.log(this.$store.state.vins)
+    // console.log(this.$store.state.mytoken.headers.timaToken);
     }
   });
 // })       

@@ -551,8 +551,8 @@ export default {
       var dt = new Date(this.newdates.years, this.newdates.months - 1, 1);
       //m表示当月的1号是周几
       var m = dt.getDay();
-      console.log(this.newdates.years,this.newdates.months)
-      console.log(m);
+      // console.log(this.newdates.years,this.newdates.months)
+      // console.log(m);
       if(m==0){
         this.newarr=[]
         this.newarr.push('日','一','二','三','四','五','六')
@@ -581,8 +581,8 @@ export default {
         this.newarr=[]
         this.newarr.push('六','日','一','二','三','四','五')
       }
-      console.log(this.$refs.color)
-      console.log($('.addweeks').text)
+      // console.log(this.$refs.color)
+      // console.log($('.addweeks'))
     },
     //选择每个月的第几周的天数排列出来
     // week_choose() {
