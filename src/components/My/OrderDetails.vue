@@ -9,39 +9,39 @@
         <ul style="padding:0 .32rem;border-bottom:.2rem solid #F9F9F9">
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>预定车型</span>
-                <span>瑞风M5</span>
+                <span>{{userinfo.seriesName}}</span>
             </li>
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>选择经销商</span>
-                <span>上海大众汽车</span>
+                <span>{{userinfo.dealerName}}</span>
             </li>
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>推荐码</span>
-                <span>432432433</span>
+                <span>{{userinfo.model}}</span>
             </li>
         </ul>
         <ul style="padding:0 .32rem;border-bottom:.2rem solid #F9F9F9">
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>姓名</span>
-                <span>逍遥</span>
+                <span>{{userinfo.customerName}}</span>
             </li>
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>称谓</span>
-                <span>女士</span>
+                <span>{{userinfo.gender}}</span>
             </li>
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>手机号</span>
-                <span>15021015604</span>
+                <span>{{userinfo.mobile}}</span>
             </li>
         </ul>
         <ul style="padding:0 .32rem;border-bottom:.2rem solid #F9F9F9">
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>电子邮箱</span>
-                <span>342285154@qq.coM</span>
+                <span>{{userinfo.email}}</span>
             </li>
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>所在地区</span>
-                <span>上海闵行</span>
+                <span>{{userinfo.address}}</span>
             </li>
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>地址</span>
@@ -61,8 +61,14 @@
 <script>
 export default {
   data() {
-    return {};
-  }
+    return {
+        userinfo:{}//存放用户信息
+    };
+  },
+  created(){
+    this.userinfo=this.$route.query
+    console.log(this.userinfo)
+   }
 };
 </script>
 
