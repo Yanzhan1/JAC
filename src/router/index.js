@@ -37,6 +37,7 @@ import Fans from '@/components/My/Fans' //我的粉丝
 import Focus from '@/components/My/Focus'//我的关注
 import MyCollect from '@/components/My/MyCollect.vue' //我的收藏
 import Myactivity from '@/components/My/Myactivity.vue' //我的活动
+import RegistryInfo from '@/components/My/RegistryInfo.vue' //我的报名信息
 import MyPublish from '@/components/My/MyPublish.vue' //我的发布
 import FeedbackRecord from '@/components/My/FeedbackRecord' //反馈记录
 import FeedbackDetail from '@/components/My/FeedbackDetail' //反馈详情
@@ -302,6 +303,10 @@ const router = new Router({
             {
               path: "/myactivity",
               component: Myactivity
+            },
+            {
+              path: "/registryInfo",
+              component: RegistryInfo
             },
             {
               path: "/myPublish",

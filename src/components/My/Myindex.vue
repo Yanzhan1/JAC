@@ -28,11 +28,11 @@
 					<span>获赞</span>
 				</div>
 				<div @click="mypublish">
-					<span>{{myList.length}}</span>
+					<span>{{momentNum}}</span>
 					<span>发布</span>
 				</div>
 				<div @click="toFocus">
-					<span>{{focsNum}}</span>
+					<span>{{focusNum}}</span>
 					<span>关注</span>
 				</div>
 				<div @click="toFans">
@@ -131,7 +131,8 @@ export default {
 	  isShow:true,//今日未签到
       likeNum:0,
       fansNum:0,
-      focsNum:0,
+      focusNum:0,
+      momentNum:0,
       myList:[],
     };
   },
@@ -224,12 +225,15 @@ export default {
         }
       })
     },
-    //获赞、关注、发布、粉丝数量
+    //关注、粉丝、获赞、发布、数量
     myNum: function(){
       var _this = this;
       this.$http.post(DISCOVERMESSAGE.count,{"uid": 1165864}).then(function (res) {
         if (res.data.status) {
-          //_this.focsNum = res.data.data;
+          _this.focusNum = res.data.data.focusNum;
+          _this.fansNum = res.data.data.fansNum;
+          _this.likeNum = res.data.data.likeNum;
+          _this.momentNum = res.data.data.momentNum;
         } else {
           console.log(res.data.errorMsg);
           // MessageBox('提示', res.data.errorMsg);
