@@ -1,7 +1,7 @@
 <template>
     <div class="all">
       <div class="header">
-        <img class="header-left" src="../../../static/images/back@2x.png" alt="" @click="goList">
+        <img class="header-left" src="../../../static/images/back@2x.png" alt="" @click="$router.go(-1)">
         <span class="header-title">我的活动</span>
         <div class="header-right"></div>
       </div>
@@ -60,7 +60,6 @@
         return{
           myActivityList:[],
           imgTemp: '../../../../static/images/1.jpg',
-          userId:28
         }
       },
       methods:{
