@@ -1,47 +1,84 @@
 <template>
     <div class="all">
-      <header class="mui-bar mui-bar-nav">
-        <a class="mui-icon mui-icon-left-nav mui-pull-left" @click="$router.go(-1)"></a>
-        <h1 class="mui-title">我的发布</h1>
-      </header>
-
-<!--      <div class="mui-content" style="background-color: #FFFFFF;">
-        <div style="height: 0.4rem;"></div>
-        <div v-for="item in listNum" class="d_01">
-          <div class="d_02">
-            <div class="d_03">
-              <router-link to="/userstar">
-                <img src="../../../static/images/user-photo.png" style="width: 0.6rem;height: 0.6rem" />
-              </router-link>
+      <div class="header">
+        <img class="header-left" src="../../../static/images/back@2x.png" alt="" @click="$router.go(-1)">
+        <span class="header-title">我的发布</span>
+        <div class="header-right"></div>
+      </div>
+      <div style="height: 0.88rem;"></div>
+      <!--社区列表S-->
+      <div  v-for="(item,index) in myList">
+        <div class="boxInfo">
+          <!--发布者信息S-->
+          <div class="comment_userinfo">
+            <div class="user_head">
+              <div @click="changeUserStartId(item.user.user_id)">
+                <img v-if="item.user" :src="item.user.head_image" class="head_72"/>
+                <img v-else src="../../../static/images/discover/normalhead.png" class="head_72"/>
+              </div>
             </div>
-            <div class="d_04">
-              <span style="color: #333333;font-size: 0.3rem;"> 张一歌 </span>
-            </div>
-            <div class="d_05">
-              <span style="color: #333333;font-size: 0.3rem;">+ 关注</span>
+            <div class="user_info">
+              <div v-if="item.user" class="user_name">
+                {{item.user.nick_name}}
+              </div>
+              <div v-else class="user_name">
+                尚未设置昵称
+              </div>
+              <div class="guanzhu">
+                <div v-if="item.user && userId != item.user.user_id">
+                  <div v-if="item.focusStatus == 0">
+                    <img src="../../../static/images/discover/jgz.png">
+                    <span class="font_4" @click="addFoucs(item.user.user_id,index)">关注</span>
+                  </div>
+                  <div v-else-if="item.focusStatus == 1||item.focusStatus == 1">
+                    <img src="../../../static/images/discover/ygz.png">
+                    <span class="font_4" @click="removeFoucs(item.user.user_id,index)">已关注</span>
+                  </div>
+                </div>
+              </div>
+              <div class="user_date">
+                {{item.createDate}}
+              </div>
             </div>
           </div>
-
-          <div style="width: 100%; height: 3rem;">
-            <img src="../../../static/images/4.jpg" style="border-radius: 5px;width: 100%;height: 3rem"/>
-          </div>
-          <router-link tag="div" class="d_06" to="/discdetail">
-            <span style="color: #333333;font-size:0.3rem;">小马哥说车,告诉你想知道的。</span>
-          </router-link>
-          <div class="d_07">
-            <div class="d_08">
-              <span style="color: #999999;font-size: 0.3rem;">3-08</span>
+          <!--发布者信息E-->
+          <div @click="toDetail(item.id)" class="listTitleInfo">{{item.momentMessage}}</div>
+          <div class="pics" v-if="item.momentImgList">
+            <div v-if="item.momentImgList.length==1" v-for="imgItem in item.momentImgList">
+              <img @click="toDetail(item.id)" :src="imgItem" class="pic1"/>
             </div>
-            <div class="d_09">
-              <img src="../../../static/images/查看.png" style="width: 0.4rem;height: 0.4rem"/>
-              <span style="color: #999999;font-size: 0.3rem;">1006</span>
+            <div v-if="item.momentImgList.length==2">
+              <img @click="toDetail(item.id)" :src="item.momentImgList[0]" style="margin-right: 2%;" class="pic2_1"/>
+              <img @click="toDetail(item.id)" :src="item.momentImgList[1]" class="pic2_2"/>
+            </div>
+            <div v-if="item.momentImgList.length==3">
+              <img @click="toDetail(item.id)" :src="item.momentImgList[0]" style="margin-right: 2%;" class="pic3_1"/>
+              <img @click="toDetail(item.id)" :src="item.momentImgList[1]" class="pic3_2"/>
+              <img @click="toDetail(item.id)" :src="item.momentImgList[2]" class="pic3_3"/>
+            </div>
+            <div v-if="item.momentImgList.length>3">
+              <div  class="shequMore_box">
+                <div class="shequNum">
+                  {{item.momentImgList.length}}
+                </div>
+                <img @click="toDetail(item.id)" :src="item.momentImgList[0]" style="margin-right: 2%;" class="pic3_1"/>
+                <img @click="toDetail(item.id)" :src="item.momentImgList[1]" class="pic3_2"/>
+                <img @click="toDetail(item.id)" :src="item.momentImgList[2]" class="pic3_3"/>
+              </div>
             </div>
           </div>
-          <div class="d_12"></div>
-          <div style="height: 0.4rem;"></div>
+          <!--阅读数量,是否点赞以及点赞数量S-->
+          <div class="listIconInfo">
+            <img src="../../../static/images/discover/eye.png" class="f_left"/>
+            <span class="f_left">{{item.readNum}}</span>
+            <span class="f_right">{{item.likeNum}}</span>
+            <img v-if="item.likeStatus" src="../../../static/images/discover/nozan.png" class="f_right" @click="giveMomentLike(item.id,index)"/>
+            <img v-else src="../../../static/images/discover/zan.png" class="f_right" @click="removeMomentLike(item.id,index)"/>
+          </div>
+          <!--阅读数量,是否点赞以及点赞数量E-->
         </div>
-
-      </div>-->
+      </div>
+      <!--社区列表E-->
 
     </div>
 </template>
@@ -51,26 +88,86 @@
         name: "ugc",
       data(){
           return{
-            listNum:5
+            myList: [],
+            userId:this.$store.state.userId,
           }
       },
       methods:{
-          getList:function () {
-            console.log('进入列表渲染方法');
-            this.$http.get('../static/data/comment.json').then(function(res){
-              console.log(res.data.data[0].createBy);
-            },function(res){
-              console.log(res.status);
-            });
-            /*this.$http.post('http://172.18.31.43:8868/infoLabel/v1/likeStatusAndNum',{id:2},{emulateJSON:true}).then(function(res){
-              console.log(res.data.status);
-            },function(res){
-              console.log(res.status);
-            });*/
-          }
+        getmyList: function(){
+          var _this = this;
+          this.$http.post(DISCOVERMESSAGE.issueMomentList,{"uid": _this.$store.state.userId,"hisUid":_this.$store.state.UserStartId}).then(function (res) {
+            if (res.data.status) {
+              _this.myList = res.data.data;
+            } else {
+              console.log(res.data.errorMsg);
+            }
+          });
+        },
+        toDetail: function (id,userId) {
+          this.$store.state.UserStartId = userId;
+          this.$router.push({path:"/now/nowDetail",query:{id:id}})
+        },
+        //加关注
+        addFoucs: function (foucsId,index) {
+          var _this = this;
+          console.log(this.$store.state.userId)
+          this.$http.post(DISCOVERMESSAGE.focusOn, {"uid":_this.$store.state.userId,"focusId": foucsId}).then(function (res) {
+            if (res.data.status) {
+              _this.myList[index].focusStatus = res.data.data;
+              for(var i=0;i< _this.myList.length;i++){
+                if(_this.myList[i].user.user_id == foucsId){
+                  _this.myList[i].focusStatus=res.data.data;
+                }
+              }
+            } else {
+              _this.toLogin();
+            }
+          });
+        },
+        //取消关注
+        removeFoucs: function (foucsId,index) {
+          var _this = this;
+          this.$http.post(DISCOVERMESSAGE.unFocus, {"uid":_this.$store.state.userId,"focusId": foucsId}).then(function (res) {
+            if (res.data.status) {
+              _this.myList[index].focusStatus = res.data.data;
+              _this.myList[index].focusStatus = res.data.data;
+              for(var i=0;i< _this.myList.length;i++){
+                if(_this.myList[i].user.user_id == foucsId){
+                  _this.myList[i].focusStatus=res.data.data;
+                }
+              }
+            } else {
+              _this.toLogin();
+            }
+          });
+        },
+        //此刻点赞
+        giveMomentLike: function (manageId,index) {
+          var _this = this;
+          this.$http.post(DISCOVERMESSAGE.momentGiveLike, {"uid":_this.$store.state.userId,"lid": manageId}).then(function (res) {
+            if (res.data.status) {
+              _this.myList[index].likeNum = res.data.data.num;
+              _this.myList[index].likeStatus = false;
+            } else {
+              _this.toLogin();
+            }
+          });
+        },
+        //取消点赞
+        removeMomentLike: function (manageId,index) {
+          var _this = this;
+          this.$http.post(DISCOVERMESSAGE.momentRemoveLike, {"uid":_this.$store.state.userId,"lid": manageId}).then(function (res) {
+            if (res.data.status) {
+              _this.myList[index].likeNum = res.data.data.num;
+              _this.myList[index].likeStatus = true;
+            } else {
+              _this.toLogin();
+            }
+          });
+        },
       },
       mounted(){
-        this.getList();
+        this.getmyList();
       }
     }
 </script>
@@ -78,4 +175,7 @@
 <style scoped>
   @import "./../../../static/css/discover/all.css";
   @import "./../../../static/css/discover/detail.css";
+  .header{
+    margin-left: -0.3rem;
+  }
 </style>
