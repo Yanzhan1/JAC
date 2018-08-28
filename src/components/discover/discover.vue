@@ -13,13 +13,6 @@
     components:{
      Header
      },
-    mounted(){
-        // alert(this.$store.state.userId)
-      //获取taken
-      if(isMobile.Android()) {
-        var getToken = window.NativeJavaScriptInterface.getToken();
-      }
-    }
   }
 </script>
 

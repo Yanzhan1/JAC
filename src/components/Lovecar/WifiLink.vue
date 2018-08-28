@@ -30,10 +30,12 @@
 </template>
 
 <script>
+	import { Toast } from "mint-ui";
 export default {
   name: "wifiLink",
   data() {
     return {
+      time: "", //定时器命名
       //开关按钮状态
       value: true,
       //开关按钮title
@@ -44,61 +46,191 @@ export default {
       names: "",
       //密码输入框内容
       pwd: "",
-      nums: "" ,//床给后端的判断空调是否开启
-      operationIds:'',
+      nums: "", //床给后端的判断空调是否开启
+      operationIds: ""
     };
   },
   methods: {
-	turn(){
-	this.value?this.nums=1:this.nums=2;
-	console.log(this.value)
-  console.log(this.nums)
-    var param = {
-    vin:this.$store.state.vin,
-    operationType: "WIFI",
-    operation: this.nums, //操作项
-    extParams: {
-    userCategory: 1,//授权人
-    newAccount:this.names,
-    newPwd:this.pwd,
-      }
-    };
-    this.$http.post(Lovecar.Control, param, this.$store.state.getpin).then(res => {
-          this.$http.post(Lovecar.OperationId,{operationId:this.operationIds},this.$store.state.getpin).then((res)=>{
-          console.log(res)
-					})
-      });
-	},
-    wifisend() {
-
-	},
-  },
-  mounted() {
-		var param = {
-			vin:this.$store.state.vin,
-			operationType: "WIFI",
-			operation: 5, //操作项
-			extParams: {
-			userCategory: 1,//授权人
+    //重复调用异步接口
+    getAsyReturn(operationId) {
+      var flag = true;
+      this.sjc = new Date().getTime();
+      this.$http
+        .post(
+          Lovecar.OperationId,
+          { operationId: operationId },
+          this.$store.state.getpin
+        )
+        .then(res => {
+          var tS = new Date().getTime() - this.sjc; //时间戳 差
+          var tSS = parseInt((tS / 1000) % 60); // 时间差
+          if (res.data.returnSuccess == true) {
+            if (res.data.status == "IN_PROGRESS") {
+              //60s  后 清除定时器，不在发请求
+              console.log(tSS);
+              if (tSS >= 56) {
+                Toast({
+                  message: "请求超时",
+                  position: "middle",
+                  duration: 2000
+                });
+                this.$store.dispatch("LOADINGFLAG", false);
+              } else {
+                this.time = setInterval(() => {
+                  this.$http
+                    .post(
+                      Lovecar.OperationId,
+                      { operationId: operationId },
+                      this.$store.state.getpin
+                    )
+                    .then(res => {
+                      var tS = new Date().getTime() - this.sjc; //时间戳 差
+                      var tSS = parseInt((tS / 1000) % 60); // 时间差
+                      if (res.data.returnSuccess == true) {
+                        if (res.data.status == "IN_PROGRESS") {
+                          //60s  后 清除定时器，不在发请求
+                          console.log(tSS);
+                          if (tSS >= 56) {
+                            Toast({
+                              message: "请求超时",
+                              position: "middle",
+                              duration: 2000
+                            });
+                            clearInterval(this.time);
+                            this.$store.dispatch("LOADINGFLAG", false);
+                          }
+                        } else if (res.data.status == "SUCCEED") {
+                          flag = false;
+                          Toast({
+                            message: "下达指令成功",
+                            position: "middle",
+                            duration: 2000
+                          });
+                          clearInterval(this.time);
+                          this.$store.dispatch("LOADINGFLAG", false);
+                        } else if (res.data.status == "FAILED") {
+                          flag = false;
+                          Toast({
+                            message: "指令下发成功，处理失败！",
+                            position: "middle",
+                            duration: 2000
+                          });
+                          clearInterval(this.time);
+                          this.$store.dispatch("LOADINGFLAG", false);
+                        }
+                      } else {
+                        Toast({
+                          message: "指令下发失败！",
+                          position: "middle",
+                          duration: 2000
+                        });
+                        flag = false;
+                        clearInterval(this.time);
+                        this.$store.dispatch("LOADINGFLAG", false);
+                      }
+                    });
+                }, 4000);
+              }
+            } else if (res.data.status == "SUCCEED") {
+              flag = false;
+              Toast({
+                message: "下达指令成功",
+                position: "middle",
+                duration: 2000
+              });
+              this.$store.dispatch("LOADINGFLAG", false);
+            } else if (res.data.status == "FAILED") {
+              Toast({
+                message: "指令下发成功，处理失败！",
+                position: "middle",
+                duration: 2000
+              });
+              this.$store.dispatch("LOADINGFLAG", false);
+            }
+          } else {
+            Toast({
+              message: "指令下发失败！",
+              position: "middle",
+              duration: 2000
+            });
+            flag = false;
+            clearInterval(this.time);
+            this.$store.dispatch("LOADINGFLAG", false);
+          }
+        });
+    },
+    turn() {
+      this.value ? (this.nums = 1) : (this.nums = 2);
+      console.log(this.value);
+      console.log(this.nums);
+      var param = {
+        vin: this.$store.state.vins,
+        operationType: "WIFI",
+        operation: this.nums, //操作项
+        extParams: {
+          userCategory: 1, //授权人
+          newAccount: this.names,
+          newPwd: this.pwd
         }
       };
-      this.$http.post(Lovecar.Control, param, this.$store.state.getpin).then(res => {
-          console.log(res);
-          this.operationIds=res.data.operationId
-          setTimeout(()=>{
-            this.$http.post(Lovecar.OperationId,{operationId:this.operationIds},this.$store.state.getpin).then((res)=>{
-                  console.log(res)
-            },1000)
-          })
+      this.$http
+        .post(Lovecar.Control, param, this.$store.state.getpin)
+        .then(res => {
+          if (res.data.returnSuccess) {
+            this.getAsyReturn(res.data.operationId);
+          } else {
+            Toast({
+              message: "token验证失败",
+              position: "middle",
+              duration: 2000
+            });
+          }
         });
+    },
+    wifisend() {}
+  },
+  mounted() {
+    var param = {
+      vin: this.$store.state.vins,
+      operationType: "WIFI",
+      operation: 5, //操作项
+      extParams: {
+        userCategory: 1 //授权人
+      }
+    };
+    this.$http
+      .post(Lovecar.Control, param, this.$store.state.getpin)
+      .then(res => {
+        console.log(res);
+        this.operationIds = res.data.operationId;
+        if (res.data.returnSuccess) {
+          // this.getAsyReturn(res.data.operationId);
+        } else {
+          if (res.data.returnErrCode == 400) {
+            Toast({
+              message: "token验证失败",
+              position: "middle",
+              duration: 2000
+            });
+          } else {
+            Toast({
+              message: res.data.returnErrMsg,
+              position: "middle",
+              duration: 2000
+            });
+          }
+        }
+      })
+      .catch(err => {
+        Toast({
+          message: "系统异常",
+          position: "middle",
+          duration: 1000
+        });
+      });
     // console.log(this.$route.params.userCategory)
-    this.names=this.$route.params.wifiname
-    this.pwd=this.$route.params.wifipwd
-    // if(this.$route.params.userCategory==1){
-    // 	this.value=true
-    // }else{
-    // 	this.value=false
-    // }
+    this.names = this.$route.params.wifiname;
+    this.pwd = this.$route.params.wifipwd;
   }
 };
 </script>

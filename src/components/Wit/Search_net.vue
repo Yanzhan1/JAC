@@ -220,7 +220,7 @@
 					if(data.code == 0) {
 						this.cityList = data.data.records;
 					} else {
-						alert(data.msg)
+						// alert(data.msg)
 					}
 				})
 			}

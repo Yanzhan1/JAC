@@ -74,11 +74,12 @@
 				times:'',
 				remaketime:'',
 				count: [{
-					monthMileage: "100KM",
-					oilConsumer: "20L",
+					monthMileage: "",
+					oilConsumer: "",
 					weekOilConsumer: "7L",
 					dayOilConsumer: "1L"
 				}]
+
 			}
 		},
 		methods:{
@@ -97,24 +98,37 @@
 			this.remaketime=this.years+'-'+this.months+'-'+'01'
 			console.log(this.turntimes())
 			//获取默认页面的请求从当月的1号到当月的当日
-			this.$http.post(Lovecar.Fuel,{vin: this.$store.state.vin,beginTime:this.turntimes(),endTime:newstimes,type:'months'},this.$store.state.getpin).then((res)=>{
-				console.log(res)
+			var params={
+				vin:this.$store.state.vins,
+				beginTime:this.turntimes(),
+				endTime:newstimes,
+				type:'1'
+			}
+			this.$http.post(Lovecar.Fuel,params,this.$store.state.getpin).then((res)=>{
+				console.log(res.data.data)
+				this.count[0].monthMileage=res.data.data.totalMileage
+				this.count[0].oilConsumer=res.data.data.totalWear
 			})
+			console.log(this.$route.params)
 			if(this.$route.params.begintime){
 				var accpect=this.$route.params
 				console.log(accpect)
 				
 				this.years=accpect.showtop.years;
 				this.months=accpect.showtop.months;
+				console.log(accpect.times)
 				if(accpect.times=='月'){
-					this.times='months'
+					this.times='3'
 				}
 				if(accpect.times=='周'){
-					this.times='week'
+					this.times='2'
 				}
 				if(accpect.times=='日'){
-					this.times=='day'
+					this.times='1'
+					console.log(this.times)
+
 				}
+				console.log(this.times)
 				//路由传过来所选择的日期渲染页面
 				this.$http.post(Lovecar.Fuel,{vin: this.$store.state.vin,beginTime:accpect.begintime,endTime:accpect.endtime,type:this.times},this.$store.state.getpin).then((res)=>{
 					console.log(res)

@@ -9,7 +9,7 @@
 		<div class="revisePinCommon flex-center revise-pin-mes ">
 			<div class="">
 				<span>
-					您的手机号码是177********，请输入原PIN码和新PIN码，并点击“获取验证码”:
+					您的手机号码是{{phone ? phone : '' | toFormat()}}，请输入原PIN码和新PIN码。
 				</span>
 			</div>
 
@@ -42,13 +42,14 @@
 				<button class="btn" v-else >{{this.num}}秒后重发</button>
 			</div>
 		</div> -->
-		<router-link tag="p" class="forget-pinCode" to="/lovecar/forgetPinCode">忘记PIN码？</router-link>
+		<router-link tag="p" class="forget-pinCode" :to="{name:'忘记pin码', params: {userPhone: phone}}">忘记PIN码？</router-link>
 		<button class="bottom-btn" @click="confirmRevise">确认修改</button>
 	</div>
 </template>
 
 <script>
 	import { MessageBox } from 'mint-ui';
+	import { Toast } from 'mint-ui';
 	export default {
 		name: '',
 		data() {
@@ -59,10 +60,9 @@
 				Verification:'',
 				condition: {
 					oldPin: '',
-					newPin: '',
-					verificationCode: ''
+					newPin: ''
 				},
-				num:'60'
+				phone: null //用户号码
 			}
 		},
 		methods: {
@@ -93,9 +93,39 @@
 					}
 				});
 			},
-			mounted() {
-
-			},
+			init () { //请求用户基本信息进行展现
+				let data = {
+					no: this.$store.state.no
+				}
+				this.$http.post(Wit.searchUserBaseInformationOne, data, this.$store.state.mytoken).then(res => {
+						const data = res.data;
+						if(data.code == 0) {
+							this.phone = data.data.phone
+						} else {
+							let instance = Toast({
+								message: data.Msg,
+								position: 'middle',
+								duration: 1000
+							});
+						}
+					}).catch((error) => {
+						let instance = Toast({
+							message: '系统异常',
+							position: 'middle',
+							duration: 1000
+						});
+					});
+			}
+		},
+		filters: {
+			toFormat (val) {
+				let headPhone = val.slice(0,3)
+				let str1 = `${headPhone}********` 
+				return str1
+			}
+		},
+		mounted () {
+			this.init()
 		}
 	}
 </script>

@@ -157,7 +157,7 @@
           params: data,
           method:"get",
           formUrlencoded
-        }).then((res)=>{
+        },this.$store.state.mytoken).then((res)=>{
           if(res.data.success){
             this.userInfo = res.data.data;
 //            this.$store.state.userstartUuid = res.data.account.uuid;
@@ -179,7 +179,7 @@
       //我的关注数量
       myFocusNum: function(){
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.myFocusNum,{"uid": _this.$store.state.userId}).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.myFocusNum,{"uid": _this.$store.state.userId},this.$store.state.mytoken).then(function (res) {
           if (res.data.status) {
             _this.focsNum = res.data.data;
           } else {
@@ -191,7 +191,7 @@
       //我的粉丝数量
       myFansNum: function(){
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.myFansNum,{"uid": _this.$store.state.userId}).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.myFansNum,{"uid": _this.$store.state.userId},this.$store.state.mytoken).then(function (res) {
           if (res.data.status) {
             _this.fansNum = res.data.data;
           } else {
@@ -203,7 +203,7 @@
       //我的点赞数量
       myLikeNum: function(){
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.myLikeNum,{"uid": _this.$store.state.userId}).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.myLikeNum,{"uid": _this.$store.state.userId},this.$store.state.mytoken).then(function (res) {
           if (res.data.status) {
             _this.likeNum = res.data.data;
             //
@@ -214,7 +214,7 @@
       },
       getMineList: function(){
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.issueMomentList,{"uid": _this.$store.state.userId,"hisUid":_this.$store.state.userId}).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.issueMomentList,{"uid": _this.$store.state.userId,"hisUid":_this.$store.state.userId},this.$store.state.mytoken).then(function (res) {
           if (res.data.status) {
             for(let i = 0; i < res.data.data.length; i++) {
               res.data.data[i].createDate = _this.convert(res.data.data[i].createDate)
@@ -228,7 +228,7 @@
       //给此刻点赞
       giveNowLike: function (manageId,index) {
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.momentGiveLike, {"uid": _this.$store.state.userId,"lid": manageId}).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.momentGiveLike, {"uid": _this.$store.state.userId,"lid": manageId},this.$store.state.mytoken).then(function (res) {
           if (res.data.status) {
             _this.myList[index].likeNum = res.data.data.num;
             _this.myList[index].likeStatus = false;
@@ -240,7 +240,7 @@
       //给此刻取消点赞
       removeNowLike: function (manageId,index) {
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.momentRemoveLike, {"uid": _this.$store.state.userId,"lid": manageId}).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.momentRemoveLike, {"uid": _this.$store.state.userId,"lid": manageId},this.$store.state.mytoken).then(function (res) {
           if (res.data.status) {
             _this.myList[index].likeNum = res.data.data.num;
             _this.myList[index].likeStatus = true;

@@ -9,13 +9,29 @@ export default {
     [types.SOFTKEYBOARD]: (state, payload) => {
     	state.softkeyboard = payload;
     },
-    [types.TOKEN]: (state, payload) => {
-    	state.token = payload
-    },
     [types.USERID]: (state, payload) => {
       state.userId = payload
     },
     [types.UUID]: (state, payload) => {
       state.uuid = payload
+    },
+    [types.TOKEN]: (state, payload) => {
+      state.token = payload
+    },
+    [types.USERINFO]: (state, payload) => {
+      if(payload){
+        state.no = payload.no
+        state.mobile = payload.mobile
+        state.vin = payload.vin
+        state.token = payload.token
+      }else{
+        state.no = null
+        state.mobile = null
+        state.vin = null
+        state.token = null
+      }
+    },
+    [types.LOADINGFLAG]: (state, payload) => {
+    	state.loadingflag = payload
     }
 }

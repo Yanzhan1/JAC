@@ -7,18 +7,18 @@ var indexip = `${apiHost}/api/dk-dm-portal-api`
 var indexip = 'http://test.jac.timanetwork.net/api/dk-dm-portal-api'
 
 //服务器-智享
-var mip = 'http://172.20.20.70:8082/automobilemanage' //智享
-//服务器-admin(跟用户有关即我的)
-var mips = 'http://172.20.20.70:8081/' //地区
+var mip = 'http://test.jac.timanetwork.net/api/jac-automobile-manage/automobilemanage' //智享
+    //服务器-admin(跟用户有关即我的)
+var mips = 'http://test.jac.timanetwork.net/api/jac-admin/' //地区
 
-var mipss = 'http://172.20.20.70:8084/' //爱车
+var mipss = 'http://test.jac.timanetwork.net/jvconnectedcar' //爱车
 
 //服务器→反馈记录
-var rec = 'http://172.20.20.70:8083/'
+var rec = 'http://test.jac.timanetwork.net/api/jac-enjoy-service/'
 
 
-    //var indexip = 'http://172.18.31.40:8868'
-    //首页
+//var indexip = 'http://172.18.31.40:8868'
+//首页
 window.INDEXMESSAGE = {
     getRecommend: indexip + '/recommend/recommendList', //首页-推荐
     getInfomation: indexip + '/information/indexList', //首页-资讯
@@ -105,15 +105,18 @@ window.DISCOVERMESSAGE = {
     // 智享
 window.Wit = {
         MainBus: mip + '/vehicleModel/searchVehicleModelList', //全部车型 主推车型
-        Dealer: mip + '/dealerBaseInformation/searchDealerBaseInformationListPage', //经销商查询
+        Dealer: mip + '/automobilemanage/dealerVehicleModel/searchDealerVehicleModelList', //经销列表商查询
+        // Dealer: 'http://172.21.4.167:8082' + '/automobilemanage/dealerVehicleModel/searchDealerVehicleModelList', //经销列表商查询
         Switching: mip + '/vehicleBrand/searchVehicleBrandList', //频道选择
         Distributor: mip + '/dealerBaseInformation/searchDealerBaseInformationListPage', //选择经销商
         searchVehicleBrandList: mip + '/vehicleBrand/searchVehicleBrandList', //品牌
-        searchVehicleSeriesList: mip + '/vehicleSeries/searchVehicleSeriesList', //车型
+        searchVehicleSeriesList: mip + '/automobilemanage/vehicleBrand/selectVehicleSeriesByBrand', //车型
+        // searchVehicleSeriesList: 'http://172.21.4.167:8082' + '/automobilemanage/vehicleBrand/selectVehicleSeriesByBrand', //车型
         Brand: mip + '/vehicleBrand/searchVehicleBrandList', //选择品牌
         System: mip + '/vehicleSeries/searchVehicleSeriesList', //选择车系
-        Area: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //选择地区
         PreBus: mip + '/cluesOrderFrom/addCluesOrderFrom', //车辆预定提交
+        Wbpre: mip + '/maintenanceReservationOrder/addMaintenanceReservationOrder', //维保预约下单
+        default_pre: mip + '/automobilemanage/maintenanceReservationOrder/toMaintenanceReservationOrder', //维保预约获取默认信息
         Brand: mip + '/vehicleBrand/selectVehicleSeriesByBrand', //选择品牌
         searchCountryAreaCodeListPage: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //省份
         searchUserBaseInformationOne: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //用户基本信息详细查询
@@ -123,25 +126,26 @@ window.Wit = {
         searchComplaintsSuggestionsOne: rec + '/enjoyservice/complaintsSuggestions/searchComplaintsSuggestionsOne', //投诉建议详细信息
         searchComplaintsSuggestionsReplyOne: rec + '/enjoyservice/complaintsSuggestionsReply/searchComplaintsSuggestionsReplyOne', //投诉及建议回复查询详细信息
         updateUserPassword: mips + '/admin/userBaseInformation/updateUserPassword', //用户修改密码
-
-        ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromListPage', //线索订单
-        My_Bus: mip + '/userVehicle/searchUserVehicleList', //我的车辆
-        JFmybus: mip + '/userVehicle/deleteUserVehicle', //解绑我的车辆,
-        SetOneDefault: mip + '/userVehicle/setDefaultVehicle', //我的车辆设为默认
-        AddMyBus: mip + '/vehicle/addVehicle', //添加我的车辆
-        Edict: mip + '/vehicle/updateVehicle', //修改车辆信息
-        ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromListPage', //线索订单
-        Address: mips + '/admin/userAddress/searchUserAddressList', //my部分查询所有地址
-        RemoveAddress: mips + '/admin/userAddress/deleteUserAddress', //my部分删除当前地址
-        AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
-        ChangeAddress: mips + '/admin/userAddress/updateUserAddress', //my部分修改地址
-        Defaultaddress: mips + '/admin/userAddress/setDefaultAddress', //my部分设置默认地址
-        MyDealer: mip + '/dealerBaseInformation/selectSeriesDealerBaseInformation', //我的 我的经销商列表
-        UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
-        UpUserinfo: mips + '/admin/userBaseInformation/updateUserBaseInformation', //更改用户信息
-        //      updateUserPassword: mips + '/admin/userBaseInformation/updateUserPassword',//用户修改密码
         getComAndSugDet: rec + '/enjoyservice/complaintsSuggestionsReply/getComAndSugDet', //反馈详情
 
+    }
+    //我的 部分
+window.My = {
+        UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
+        My_Bus: mipss + '/vehicle/find-vehicle-list', //我的车辆
+        SetOneDefault: mipss + '/vehicle/set-default-vehicle', //我的车辆设为默认
+        JFmybus: mipss + 'vehicle/set-vehicle-remoteset', //解绑我的车辆,绑定,
+        planbus: mipss + 'vehicle/set-vehicle-remoteset', //添加车牌 绑定车牌
+        Edict: mip + '/vehicle/updateVehicle', //修改车辆信息
+        ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromListPage', //线索订单
+        MyDealer: mip + '/dealerBaseInformation/selectSeriesDealerBaseInformation', //我的 我的经销商列表
+        UpUserinfo: mips + '/admin/userBaseInformation/updateUserBaseInformation', //更改用户信息
+        Address: mips + '/admin/userAddress/searchUserAddressList', //my部分查询所有地址
+        RemoveAddress: mips + '/admin/userAddress/deleteUserAddress', //my部分删除当前地址
+        ChangeAddress: mips + '/admin/userAddress/updateUserAddress', //my部分修改地址
+        Defaultaddress: mips + '/admin/userAddress/setDefaultAddress', //my部分设置默认地址
+        Area: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //选择地区
+        AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
     }
     //爱车
 window.Lovecar = {
@@ -152,11 +156,11 @@ window.Lovecar = {
     Getphonepin: mipss + '/vehicle//identify-code', //获取验证码
     Checkphonepin: mipss + '/vehicle/check-vehicle-pin', //验证pin码
     BusTest: mipss + 'vehicle/query-cyc-car-examination', //车辆体检
-    Fuel: mipss + '/vehicle/query-vehicle-fuel-Statistics', //燃油接口
+    Fuel: mipss + '/vehicle/query-vehicle-fuel-statistics', //燃油接口
     Flow: mipss + '/vehicle/query-vehicle-cyc-flow-query', //流量查询
     Longrange: mipss + '/vehicle/set-vehicle-remoteset', //车辆远程设置
     LoginOut: mipss + '/vehicle/remote-vehicle-login-or-logout', //退出登录
     Findcode: mipss + '/vehicle/forget-vehicle-pin', //找回pin码
     Control: mipss + '/vehicle/remote-vehicle-control', //远程控制
-    LogStatus: mipss + '/vehicle/vehicle-logStatus' //获取机车登入状态
+    LogStatus: mipss + '/vehicle/vehicle-logstatus' //获取机车登入状态
 }

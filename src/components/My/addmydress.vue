@@ -82,7 +82,7 @@ export default {
     // this.getProvinceList();
     this.info = this.$route.query;
     $(".editPersonalDetails").height($(".editPersonalDetails").height());
-    this.$http.post(Wit.Area,{}).then((res)=>{
+    this.$http.post(My.Area,{},this.$store.state.mytoken).then((res)=>{
       this.allarea=res.data.data.records
       for(var i=0;i<this.allarea.length;i++){
         this.slots[0].values.push(this.allarea[i].name)
@@ -131,7 +131,7 @@ export default {
           provinceName: this.everycode,//所在地区的code
           address: this.address
         };
-        this.$http.post(Wit.AddAddress, param).then(res => {
+        this.$http.post(My.AddAddress, param,this.$store.state.mytoken).then(res => {
           if(res.data.code==0){
             this.$router.go(-1)
           }

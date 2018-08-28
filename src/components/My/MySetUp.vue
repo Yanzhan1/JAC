@@ -28,15 +28,15 @@
 	import { MessageBox } from 'mint-ui';
 	export default {
 		name: '',
-		data () {
+		data() {
 			return {
 				title: '软键盘',
 				value: true
 			}
 		},
 		methods: {
-			signOut () {
-				MessageBox.confirm('',{
+			signOut() {
+				MessageBox.confirm('', {
 					title: '提示',
 					message: '您确定要退出登录吗？',
 					showConfirmButton: true,
@@ -49,9 +49,15 @@
 					cancelButtonHighlight: true
 				}).then(action => {
 					if(action == 'confirm') {
-						//退出App
+
 						localStorage.removeItem('Tip')
-						window.js2android.logout()
+						var system = this.isIOSOrAndroid();
+						if(system == "Android") {
+							window.js2android.logout() //安卓退出App
+						} else if(system == "IOS") {
+							console.log(111)
+							window.webkit.messageHandlers.logout.postMessage({});
+						}
 					}
 				}).catch(err => {
 					if(err == 'cancel') {
@@ -59,8 +65,19 @@
 					}
 				});
 			},
-			turn () {
-				this.value ? this.$store.dispatch('SOFTKEYBOARD',true) : this.$store.dispatch('SOFTKEYBOARD',false)
+			turn() { //switch开关方法
+				this.value ? this.$store.dispatch('SOFTKEYBOARD', true) : this.$store.dispatch('SOFTKEYBOARD', false)
+			},
+			isIOSOrAndroid () {  //判断ios和安卓机型的方法
+				var u = navigator.userAgent,
+					app = navigator.appVersion;
+				var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+				var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+				if(isAndroid) {
+					return "Android"
+				} else if(isIOS) {
+					return "IOS"
+				}
 			}
 		}
 	}

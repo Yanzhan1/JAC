@@ -333,6 +333,7 @@ export default {
         //选择经销商接口
         this.$http.post(Wit.Distributor,{"dealerType":"01"}).then((res)=>{
         this.chooseaddress= res.data.data.records
+        console.log(res.data.data.records)
         for(var i=0;i<this.chooseaddress.length;i++){
         this.slots[0].values.push(this.chooseaddress[i].dealerName)
             }
@@ -340,6 +341,7 @@ export default {
         // 申请服务车型接口
         this.$http.post(Wit.Brand,{}).then((res)=>{
              this.choosecar=res.data.data
+             console.log(res.data)
             for(var i=0;i<this.choosecar.length;i++){
                 this.addressSlots[0].values.push(this.choosecar[i].seriesName)
             }
@@ -351,19 +353,16 @@ export default {
   methods: {
     onValuesChange(picker, values) {
         this.address=values
+        console.log(this.chooseaddress.length)
         for(var i=0;i<this.chooseaddress.length;i++){
             if(this.chooseaddress[i].dealerName==this.address[0]){
                 this.Idchooseaddress=this.chooseaddress[i].no
             }
         }
-        console.log(this.Idchooseaddress)
+      
    },
     onDateChange(picker,values){
-//  	let da = getValues()
-//  	console.log(da)
-//  	console.log(values)
-//  	console.log(picker)
-        this.allvalues=values;
+       this.allvalues=values;
         this.onDateChangevalue=values[1]
        
     },
@@ -464,15 +463,30 @@ export default {
             address:"上海市徐汇区田林路", 
             comments:this.Idchooseaddress, //商家
             province:"022", 
-            series:this.Idchoosesystem,//车系
-            model: this. Idchoosebrand//车型
-        }
-        this.$http.post(Wit.PreBus,parmass).then((res)=>{
+            series:'ZK003',//车系
+            model: 'ZKLJ004'//车型
+        }       
+        this.$http.post(Wit.Wbpre,parmass).then((res)=>{
            this.success=true,
            this.region=true
         })
         }
-    }
+    },
+     getpre_weib(){
+           var param={
+               userNo:'dealer1213'
+           }
+          
+           this.$http.post(Wit.default_pre,param).then(res=>{
+               console.log(res.data.data[0])
+               if(res.data.msg=='success'){
+                   var info=res.data.data[0]
+                 this.Names=info.maintenanceLinkman
+                 this.Phones=info.maintenanceTel
+                 this.Email=info.maintenanceEmail
+             }
+           })
+      }
   },
 //   watch:{
 //       onDateChangevalue(){
@@ -489,6 +503,10 @@ export default {
 //         }
 //     }
 //   },
+   created(){
+       //初始化 获取用户信息
+     this.getpre_weib() 
+ },
   watch:{
       onDateChangevalue(){
           if(this.allvalues[1]==1||this.allvalues[1]==3||this.allvalues[1]==5||this.allvalues[1]==7||this.allvalues[1]==8||this.allvalues[1]==10||this.allvalues[1]==12){

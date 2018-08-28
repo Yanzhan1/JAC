@@ -1,5 +1,5 @@
 <template>
-<div style="">
+<div style="height:100%;position:fixed;left:0;top:0;width:100%" class="gobottom">
         <div v-show="region" class="black" @click="choose2"></div> <!-- 遮罩层  -->
         <div class="bgcolor">
                 <header class="header">
@@ -83,9 +83,7 @@
                     <div class="look_r" @click="complete">完成</div>
                 </div>
             </div>
-             <div class="bottom">
-                    <h3 @click="sub" class="bottom-btn">提交</h3>
-            </div>
+
             </div>
             <div class="region" v-show="this.areas">
                 <h3>选择地区</h3>
@@ -97,7 +95,9 @@
                 <span @click="choose">确定</span>
                 <mt-picker :slots="slots2" @change="onValuesChange2" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
             </div>
-           
+            <div >
+                <h3 @click="sub" class="bottom-btn" style="position:absolute;bottom:0;left:0">提交</h3>
+            </div>
 </div>
 </template>
 
@@ -252,7 +252,7 @@ export default {
   },
   mounted(){
     //经销商
-    this.$http.post(Wit.Distributor,{"dealerType":"01"}).then((res)=>{
+    this.$http.post(Wit.Distributor,{"dealerType":"01"},this.$store.state.mytoken).then((res)=>{
       var chooseaddress= res.data.data.records
       for(var i=0;i<chooseaddress.length;i++){
         this.slots2[0].values.push(chooseaddress[i].dealerName)
@@ -260,13 +260,13 @@ export default {
       }
     })
     //地区
-    this.$http.post(Wit.Area,{}).then(res=>{
+    this.$http.post(Wit.Area,{},this.$store.state.mytoken).then(res=>{
        var address=res.data.data.records
      for(let i=0;i<address.length;i++){
        this.slots[0].values.push(address[i].name)
      }
    })
-
+    $('.gobottom').height($('.gobottom').height())
   }
 };
 </script>
@@ -404,17 +404,5 @@ textarea {
   margin-right: 0.49rem;
   font-size: 0.34rem;
 }
-.bottom{
-    width: 100%;
-    font-weight: Regular;
-    font-family: PingFangSC-Regular;
-    font-size: .32rem;
-    color: #fff;
-    position: absolute;
-    bottom: -1rem;
-    height: 0.97rem;
-    background: #49BBFF;
-    text-align: center;
-    line-height: 0.97rem;
-}
+
 </style>

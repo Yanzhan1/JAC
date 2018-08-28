@@ -149,6 +149,7 @@ export default {
     //切换频道 多选框
     choosemore() {
       var param = {};
+      console.log(this.$store.state.mytoken)
       this.$http.post(Wit.Switching,param)
         .then(res => {
           if (res.data.code == 0) {

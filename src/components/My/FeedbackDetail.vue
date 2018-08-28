@@ -37,7 +37,7 @@
 		methods: {
 			init() {
 				//请求投诉及建议回复查询详细信息
-				this.$http.post(Wit.getComAndSugDet, this.condition).then(res => {
+				this.$http.post(Wit.getComAndSugDet, this.condition,this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					console.log(data);
 					if(data.code == 0) {

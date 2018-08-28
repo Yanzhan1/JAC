@@ -1,22 +1,22 @@
 <template>
-	<div class="add-bus">
-		<header class="header">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-			<span class="header-title">添加车辆</span>
-			<span class="header-right"></span>
-		</header>
-		<div style="height:0.88rem"></div>
-		<div class="rame-number">
-			<span style="color: #555555;">车架号(VIN)</span>
-			<input type="text" placeholder="请输入VIN码后8位" v-model="rame" />
-		</div>
-		<div class="rame-number">
-			<span style="color: #555555;">发动机号</span>
-			<input type="text" placeholder="请输入完整发动机号" v-model="engine" />
-		</div>
-		<img class="driver-licence" :src="'./static/images/my/drivingcard.png'" alt="" />
-		<div class="bottom-btn " @click="AddMybus()">提交</div>
-	</div>
+  <div class="add-bus">
+    <header class="header">
+      <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+      <span class="header-title">添加车辆</span>
+      <span class="header-right"></span>
+    </header>
+    <div style="height:0.88rem"></div>
+    <div class="rame-number">
+      <span style="color: #555555;">车架号(VIN)</span>
+      <input type="text" placeholder="请输入VIN码后8位" v-model="rame" />
+    </div>
+    <div class="rame-number">
+      <span style="color: #555555;">发动机号</span>
+      <input type="text" placeholder="请输入完整发动机号" v-model="engine" />
+    </div>
+    <img class="driver-licence" :src="'./static/images/my/drivingcard.png'" alt="" />
+    <div class="bottom-btn " @click="AddMybus()">提交</div>
+  </div>
 </template>
 
 <script>
@@ -34,23 +34,41 @@ export default {
   methods: {
     AddMybus() {
       var param = {
-        userNo: this.$store.state.no,
-        engineNo: "VJ00102",
-        vin: "LJ1702345G8001011"
+        vin: "LJ1702345G8001011",
+        operationType: "CAR_BINDING",
+        operation: 1,
+        extParams: {
+          engineNo: "VJ00102"
+        }
       };
-      this.$http.post(Wit.AddMyBus, param).then(res => {
-        if (res.data.code == 0) {
-          Toast({
-            message: "添加成功！",
-            duration: 1000,
-            position: "middle"
-		  });
-		  var self=this
-		  setTimeout(function(){
-            self.$router.go(-1);
-		  },2000)
-     }
-      });
+
+     var  getpin={
+        headers: {
+            // identityParam: "{ \"userId\": \"c123\", \"token\": \"sdfasdfasdfasd\", \"phone\": \"15221794973\" }"
+            identityParam: "{ \"userId\": \"c123\", \"token\": \"sdfasdfasdfasd\", \"phone\": \"15221794973\" }"
+        }
+      }
+         this.$http
+        .post(My.JFmybus, param ,getpin)
+        .then(res => {
+        if (res.data.returnSuccess) {
+            Toast({
+              message: "添加成功！",
+              duration: 1000,
+              position: "middle"
+            });
+            var self = this;
+            setTimeout(function() {
+              self.$router.go(-1);
+            }, 2000);
+          } else {
+            Toast({
+              message: "添加失败，系统维护中！",
+              duration: 1000,
+              position: "middle"
+            });
+          }
+        });
     }
   }
 };

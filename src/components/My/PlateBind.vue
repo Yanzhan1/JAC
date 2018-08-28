@@ -21,16 +21,27 @@
 			return {
 				//车牌号
 				plate: '',
-				
+				//vin
+				vin:this.$route.query.vin
 			}
 		},
 		methods:{
+			// 添加车辆 
+		
            add(){
+			  
 			   var param={
-				   plateLicenseNo:this.plate,
-				   no:this.$route.query.no
-			   }
-			  this.$http.post(Wit.Edict,param).then(res=>{
+				    vin:this.vin,
+				   	extParams:{  plateLicenseNo:this.plate,},
+				    operationType:"PLATE_NO", 	 
+					operation:1, //绑定
+			  }
+			    var  getpin={
+      				  headers: {
+            			identityParam: "{ \"userId\": \"c123\", \"token\": \"sdfasdfasdfasd\", \"phone\": \"15221794973\" }"
+      					  }
+     		 }
+			  this.$http.post(My.planbus,param,getpin).then(res=>{
                 if(res.data.code==0){
 					this.$router.go(-1)
 				}
@@ -38,7 +49,7 @@
 		   }
 		},
 		created(){
-			this.plate=this.$route.query.plateLicenseNo
+		 
 		}
 	}
 </script>

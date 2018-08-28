@@ -189,17 +189,15 @@ export default {
     },
     //线索订单
       GetXorder(){
+          console.log(this.$store.state.userId)
           var no=this.$store.state.no
-          console.log(no)
-          this.$http.post(Wit.ClueOrder,{"userNo":no}).then(res=>{
+          this.$http.post(My.ClueOrder,{"userNo":no},this.$store.state.mytoken).then(res=>{
               if(res.data.code==0){
                   this.Xorder=res.data.data.records
                 for(let i =0;i<this.Xorder.length;i++){
                       this.Xorder[i].time= operationTime.getTime(  this.Xorder[i].createdDate, 1 );
                   }
-                 
-           }
-           
+             }
          })
       }
   },

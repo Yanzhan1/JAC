@@ -2,7 +2,7 @@
 	<div class="flow-query">
 		<div class="bgMask" v-if="popupVisible" ></div>
 		<header class="header">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.push('/lovecar')">
 			<span class="header-title">流量查询</span>
 			<span class="header-right"></span>
 		</header>
@@ -88,6 +88,7 @@
 		name: 'flowQuery',
 		data() {
 			return {
+				time:'',//定时器命名
 				//流量
 				num: '100G',
 				IsShow:false,//控制自定义键盘显示
@@ -160,7 +161,6 @@
 			},
 		},
 		mounted(){
-			
 		},
 		watch:{
 			pinNumber(newVal, oldVal) {
