@@ -9,7 +9,7 @@ export default {
     mobile: null, //用户手机号
     softkeyboard: true, //默认软键盘开启
     token: null, //用户token
-    userNo: 'AD022018081504171568405', //userNo
+    // userNo: 'AD022018081504171568405', //userNo
     getpin: {
         headers: {
             "identityParam": "{ userId: 'c123', token: 'sdfasdfasdfasd', phone: '15221794973' }",
