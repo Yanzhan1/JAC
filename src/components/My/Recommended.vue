@@ -46,7 +46,7 @@ import { Popup } from "mint-ui";
 export default {
   data() {
     return {
-      share: "329A87N2197",
+      share: "",
       popupVisible: false
     };
   },
@@ -80,6 +80,17 @@ export default {
 
      }
    
+  },
+  created(){
+    //获取推荐码
+    var param={
+        userNo:this.$store.state.userId
+        }
+     this.$http.post(My.RecomendCode,param,this.$store.state.mytoken).then(res=>{
+       if(res.data.code==0){
+         this.share=res.data.data.code
+        }
+     })
   }
 };
 </script>
