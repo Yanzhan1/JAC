@@ -193,7 +193,7 @@ export default {
     //线索订单
     GetXorder() {
         // alert()
-      var no = this.$store.state.no;
+      var no = this.$store.state.userId;
       this.$http
         .post(My.ClueOrder, { userNo: no })
         .then(res => {
