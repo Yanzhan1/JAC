@@ -7,7 +7,7 @@
 		</header>
 		<div style="height:0.88rem"></div>
 		<div v-for="(item,index) in questionContent" class="freeback-wrap flex-center" :key="index">
-			<router-link tag="div" class="question-content flex-column-align" to="/myindex/feedbackDetail">
+			<router-link tag="div" class="question-content flex-column-align" :to="{path:'/myindex/feedbackDetail', query:{no:item.no}}">
 				<div class="question">
 					<span>【{{questionTyep[item.complaintsType]}}】{{item.complaintsContent}}</span>
 					<span>{{getTime(item.createdDate)}}</span>
