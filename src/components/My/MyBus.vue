@@ -98,7 +98,7 @@ export default {
         .then(res => {
           if (res.data.returnSuccess) {
               this.$store.state.vins=vin
-            this.MyBus();
+              this.MyBus();
           }
         });
     },

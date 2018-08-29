@@ -124,9 +124,28 @@ export default {
     };
   },
   methods: {
-    confirmRevise(){
-     this.flag=true
-    },
+     confirmRevise(){
+ MessageBox.confirm("", {
+        title: "是否允许",
+        message: "发送当前手机定位到呼叫中心？",
+        showConfirmButton: true,
+        showCancelButton: true,
+        cancelButtonClass: "cancelButton",
+        confirmButtonClass: "confirmButton",
+        confirmButtonText: "允许",
+        cancelButtonText: "不允许",
+        confirmButtonHighlight: true,
+        cancelButtonHighlight: true
+      }).then(action => {
+           if (action == "confirm") {
+            this.flag=true
+           }
+      });
+     },
+    
+    // confirmRevise(){
+    // 
+    //  },
     cancel(){
       this.flag=false
     },
@@ -170,6 +189,9 @@ export default {
 * {
   padding: 0;
   margin: 0;
+}
+.cancelButton {
+    color: #ccc !important;
 }
 .mask {
   width: 100%;
