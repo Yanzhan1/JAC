@@ -92,15 +92,16 @@
 			}
 		},
 		mounted(){
-			// console.log(this.$store.state.vins)
+			console.log(this.$store.state.vins)
 			this.years=new Date().getFullYear();
 			this.months=new Date().getMonth()+1;
 			var newstimes=new Date().getTime();
 			this.remaketime=this.years+'-'+this.months+'-'+'01'
-			console.log(this.turntimes())
+			// console.log(this.turntimes())
 			//获取默认页面的请求从当月的1号到当月的当日
 			var params={
 				vin:this.$store.state.vins,
+				//UBS2018072410503423882
 				beginTime:this.turntimes(),
 				endTime:newstimes,
 				type:'1'
@@ -112,9 +113,7 @@
 			})
 			console.log(this.$route.params)
 			if(this.$route.params.begintime){
-				var accpect=this.$route.params
-				console.log(accpect)
-				
+				var accpect=this.$route.params			
 				this.years=accpect.showtop.years;
 				this.months=accpect.showtop.months;
 				console.log(accpect.times)

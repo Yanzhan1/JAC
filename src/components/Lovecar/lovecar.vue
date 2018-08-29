@@ -720,6 +720,7 @@ export default {
     this.Condition = tai;
   },
   mounted() {
+    console.log(this.$store.state.no)
     // this.$nextTick(()=>{
       this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
     if (res.data.returnSuccess) {

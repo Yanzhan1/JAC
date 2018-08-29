@@ -195,7 +195,7 @@ export default {
         // alert()
       var no = this.$store.state.no;
       this.$http
-        .post(My.ClueOrder, { userNo: no }, this.$store.state.mytoken)
+        .post(My.ClueOrder, { userNo: no })
         .then(res => {
           if (res.data.code == 0) {
             this.Xorder = res.data.data.records;
