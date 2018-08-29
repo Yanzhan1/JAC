@@ -11,7 +11,8 @@
         <span class="contentList-left">头像</span>
         <div class="contentList-right">
           <div style="width:.76rem;height:.76rem">
-            <img :src="userInfo.headUrl" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem">
+            <img v-if="userInfo.headUrl" :src="userInfo.headUrl" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem">
+             <img v-else src="headimg" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem">
           </div>
           <div class="inputfile">
             <img src="../../../static/images/my/next@2x.png" style="width: 0.4rem;height: 0.4rem;z-index: 1" />
@@ -23,7 +24,7 @@
       <div class="contentList nickname">
         <span class="contentList-left">昵称</span>
         <div class="contentList-right">
-          <input type="text" v-model="userInfo.userName" class="name" maxlength="16">
+          <input type="text" v-model="userInfo.userName" class="name" maxlength="16" placeholder="请输入昵称">
         </div>
       </div>
       <div class="gradientline"></div>
@@ -41,11 +42,11 @@
       <div class="gradientline"></div>
       <div class="personalSignature">
         <span class="contentList-left">性别:</span>
-        <div class="sex name" @click="userInfo.sex=1" style="margin-bottom: .2rem">
+        <div class="sex name" @click="selectSex(1)" style="margin-bottom: .2rem">
           <span>男</span>
           <img v-if="userInfo.sex==1" src="../../../static/images/my/yiguanzhu@3x.png" style="width: 0.42rem;height: 0.42rem">
         </div>
-        <div class="sex name" @click="userInfo.sex=2">
+        <div class="sex name" @click="selectSex(2)">
           <span>女</span>
           <img v-if="userInfo.sex==2" src="../../../static/images/my/yiguanzhu@3x.png" style="width: 0.42rem;height: 0.42rem">
         </div>
@@ -87,7 +88,8 @@ export default {
       sex: 1, //1男，0女
       userInfo: {}, //展示用户信息
       changeInfo: {},//更该用户信息传的参数
-      headUrl:''//图片地址
+       headUrl:'',//图片地址,
+       headimg:'../../../static/images/my/qq.png'
     };
   },
   methods: {
@@ -153,10 +155,10 @@ export default {
         this.changeInfo.personalSignature = this.userInfo.personalSignature;
         this.changeInfo.sex = this.userInfo.sex;
         this.changeInfo.no= "AD022018072505235135056",
-        this.changeInfo.headUrl = this.userInfo.headUrl.replace(
-          "data:image/jpeg;base64,",
-          ""
-        );
+        // this.changeInfo.headUrl = this.userInfo.headUrl.replace(
+        //   "data:image/jpeg;base64,",
+        //   ""
+        // );
         // alert(JSON.stringify( this.changeInfo))
         this.$http.post(My.UpUserinfo, this.changeInfo,{}).then(res => {
           if (res.data.code == 0) {
@@ -192,19 +194,23 @@ export default {
     },
     toaddress() {
        this.$router.push({ path: "/myaddress", query: {} });
+    },
+    selectSex(num){
+      this.userInfo.sex = num;
+      this.$forceUpdate();
     }
   },
   mounted() {
     window.getimgsrc = this.getimgsrc;
      //获取用户基本信息
      var param={
-        no: this.$store.state.no,
+        no: this.$store.state.userId,
      }
    this.$http.post(My.UserInfo,param).then(res=>{
      if(res.data.code==0){
-       this.userInfo=res.data.data
-        // alert(JSON.stringify( this.userInfo))
-        }
+       this.userInfo=res.data.data;
+       this.userInfo.sex = res.data.data.sex || 1;
+      }
     })
   }
  }
