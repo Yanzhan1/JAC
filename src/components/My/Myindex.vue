@@ -7,11 +7,15 @@
 			</div>
 			<div class="mytophead flex between cocenter">
 				<div style="padding-left: 0.3rem;padding-right: 0.2rem" class="flex cocenter">
-					<div  @click="edict()" style="width: 1.2rem;height: 1.2rem;border-radius:50%;overflow:hidden"> <img :src="Personal.headUrl" alt="" style="width:100%;height:100%"></div>
+					<div  @click="edict()" style="width: 1.2rem;height: 1.2rem;border-radius:50%;overflow:hidden">
+             <img v-if="Personal.headUrl" :src="Personal.headUrl" alt="" style="width:100%;height:100%"> 
+             <img v-else src="../../../static/images/my/qq.png" alt="" style="width:100%;height:100%"> 
+          </div>
 
 					<div class="flex column" style="margin-left: 0.2rem;">
 						<div class="flex cocenter" style="overflow: hidden">
-							<span style="color: #fff;font-size: 0.32rem;font-weight: bold">{{Personal.phone}}</span>
+							<span v-if="Personal.userName" style="color: #fff;font-size: 0.32rem;font-weight: bold">{{Personal.userName}}</span>
+              	<span  v-else style="color: #fff;font-size: 0.32rem;font-weight: bold">尚未设置昵称</span>
 							<img v-if="Personal.sex==1" src="../../../static/images/my/gender_man@2x.png" alt="" style="width: 0.28rem;height: 0.28rem">
 							<img v-if="Personal.sex==2" src="../../../static/images/my/gender_woman.png" alt="" style="width: 0.28rem;height: 0.28rem">
 						</div>
@@ -169,21 +173,7 @@ export default {
         js2android.scan();
       }
     },
-    //获取我的基本信息
-    getuserinfo() {
-    // alert(this.$store.state.no)
-      var param = {
-        no: this.$store.state.no
-      };
-      this.$http
-        .post(My.UserInfo, param)
-        .then(res => {
-          if (res.data.code == 0) {
-            this.Personal = res.data.data;
-            alert(JSON.stringify( this.Personal))
-          }
-        });
-    },
+    
     //获取原生的no和token
     getTokenAndNo() {
       //js判断手机操作系统(ios或者是Android)
@@ -215,10 +205,22 @@ export default {
     mypublish: function () {
       this.$router.push({path:"/myPublish"})
     },
-    //获取我的基本信息
+   // 获取我的基本信息
+    getuserinfo() {
+      var param = {
+        no: this.$store.state.userId,
+      }
+      this.$http.post(My.UserInfo, param).then(res => {
+        if(res.data.code == 0) {
+          this.Personal = res.data.data
+         console.log( this.Personal)
+        }
+      })
+    },
+    //获赞、关注、发布、粉丝数量
     // getuserinfo() {
     //   var param = {
-    //     no: "AD022018072505235135056",
+    //     no: this.$store.state.no,
     //   }
     //   this.$http.post(Wit.UserInfo, param).then(res => {
     //     if(res.data.code == 0) {
@@ -226,17 +228,6 @@ export default {
     //     }
     //   })
     // },
-    //获赞、关注、发布、粉丝数量
-    getuserinfo() {
-      var param = {
-        no: this.$store.state.no,
-      }
-      this.$http.post(Wit.UserInfo, param).then(res => {
-        if(res.data.code == 0) {
-          this.Personal = res.data.data
-        }
-      })
-    },
     //关注、粉丝、获赞、发布、数量
     myNum: function(){
       var _this = this;
