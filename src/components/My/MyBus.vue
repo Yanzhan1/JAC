@@ -92,7 +92,7 @@ export default {
               identityParam:
                 '{ "userId": "c123", "token": "sdfasdfasdfasd", "phone": "15221794973" }'
             }
-          };
+      };
       this.$http
         .post(My.SetOneDefault, param, getpin)
         .then(res => {

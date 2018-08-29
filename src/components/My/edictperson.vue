@@ -23,7 +23,7 @@
       <div class="contentList nickname">
         <span class="contentList-left">昵称</span>
         <div class="contentList-right">
-          <input type="text" v-model="userInfo.userRealName" class="name" maxlength="16">
+          <input type="text" v-model="userInfo.userName" class="name" maxlength="16">
         </div>
       </div>
       <div class="gradientline"></div>
@@ -49,6 +49,7 @@
           <span>女</span>
           <img v-if="userInfo.sex==2" src="../../../static/images/my/yiguanzhu@3x.png" style="width: 0.42rem;height: 0.42rem">
         </div>
+        
       </div>
       <div class="gradientline"></div>
       <div class="contentList nickname" @click="toaddress">
@@ -90,31 +91,43 @@ export default {
     };
   },
   methods: {
-    compress(img, width, height, ratio) { // img可以是dataURL或者图片url
-      var canvas, ctx, img64;
-      canvas = document.createElement('canvas');
-      canvas.width = width;
-      canvas.height = height;
-      ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0, width, height);
-      img64 = canvas.toDataURL("image/jpeg", ratio);
-      return img64; // 压缩后的base64串
-    },
+    // compress(img, width, height, ratio) { // img可以是dataURL或者图片url
+    //   var canvas, ctx, img64;
+    //   canvas = document.createElement('canvas');
+    //   canvas.width = width;
+    //   canvas.height = height;
+    //   ctx = canvas.getContext("2d");
+    //   ctx.drawImage(img, 0, 0, width, height);
+    //   img64 = canvas.toDataURL("image/jpeg", ratio);
+    //   return img64; // 压缩后的base64串
+    // },
     init() {},
     //图片更改
+     getimgsrc(src){
+        this.userInfo.headUrl = 'data:image/jpeg;base64,'+src
+        },
     changepicture(e) {
-      var _this = this;
-      var reader = new FileReader();
-      var img = new Image();
-      reader.readAsDataURL(e.target.files[0]);
-       reader.onload = function(e) {
-        img.src = e.target.result;
-        console.log(img.src)
-        var res = _this.compress(img, 100,100,1);
-        console.log(res)
-        _this.userInfo.headUrl = res;
-      };
-   },
+        var _this = this;
+        /*console.info(e.target.files[0]);//图片文件
+          console.info(e.target.value);//这个是文件的路径 C:\fakepath\icon (5).png*/
+        var reader = new FileReader();
+        reader.onload = (function(file) {
+          return function(e) {
+            if (isMobile.iOS()) {
+              var params = {
+                imgsrc:this.result.replace(
+                  "data:image/jpeg;base64,",
+                  ""
+                )
+              }
+              window.webkit.messageHandlers.changeHeadImage.postMessage(params);
+            } else{
+              _this.userInfo.headUrl = this.result;
+            }
+         };
+        })(e.target.files[0]);
+        reader.readAsDataURL(e.target.files[0]);
+      },
 //点击保存
     changemessage() {
       if(this.userInfo.userRealName == ""){
@@ -140,11 +153,12 @@ export default {
         this.changeInfo.personalSignature = this.userInfo.personalSignature;
         this.changeInfo.sex = this.userInfo.sex;
         this.changeInfo.no= "AD022018072505235135056",
-        this.$http.post(My.UpUserinfo, this.changeInfo,{
-         headers: {
-            "timaToken": "Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTUzMzg2NzA4NDAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6MjUsXCJpbml0VXNlclwiOjAsXCJsYXN0TW9kaWZpZWREYXRlXCI6MTUzNDI5NjYyMzAwMCxcIm5vXCI6XCJBRDAyMjAxODA4MTAxMDExMjQ2MTk0OFwiLFwicGFzc3dvcmRcIjpcIjEyMzQ1NnNcIixcInBob25lXCI6XCIxNTAyMTYwMDI4MVwiLFwidXNlclN0YXR1c1wiOjAsXCJ2ZXJzaW9uXCI6NH0iLCJjcmVhdGVkIjoxNTM0MzM0NDIyNjU1LCJ1c2VyTm8iOiJBRDAyMjAxODA4MTAxMDExMjQ2MTk0OCIsImV4cCI6MTUzNTE5ODQyMiwidXNlcklkIjoyNX0.ODi5uVNeIe7y8om_dUe1wjgmMeGd8vgT_IUWUJpLSRs"
-         }
-       }).then(res => {
+        this.changeInfo.headUrl = this.userInfo.headUrl.replace(
+          "data:image/jpeg;base64,",
+          ""
+        );
+        // alert(JSON.stringify( this.changeInfo))
+        this.$http.post(My.UpUserinfo, this.changeInfo,{}).then(res => {
           if (res.data.code == 0) {
                this.popupVisible = true;
               //   if(res.data.retobj){
@@ -163,7 +177,7 @@ export default {
               },2000)
              } else {
               let instance = Toast({
-                message: res.data.errmsg,
+                message: '保存失败',
                 position: "middle",
                 duration: 1000
               });
@@ -181,13 +195,15 @@ export default {
     }
   },
   mounted() {
+    window.getimgsrc = this.getimgsrc;
      //获取用户基本信息
      var param={
         no: this.$store.state.no,
      }
-     this.$http.post(My.UserInfo,param,this.$store.state.mytoken).then(res=>{
+   this.$http.post(My.UserInfo,param).then(res=>{
      if(res.data.code==0){
        this.userInfo=res.data.data
+        // alert(JSON.stringify( this.userInfo))
         }
     })
   }
