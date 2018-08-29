@@ -34,14 +34,15 @@
 					no: this.$store.state.no
 				},
 				userInfor: {
-					
+					emergencyContactName: '李白',
+					emergencyContactPhone: 18837420489
 				}
 			}
 		},
 		methods: {
 			init() {
 				//获取用户基本信息
-				this.$http.post(Wit.searchUserBaseInformationOne, this.condition,this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.searchUserBaseInformationOne, this.condition).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.userInfor = data.data

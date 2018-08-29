@@ -58,8 +58,8 @@
 						return ;
 				} else {
 					let data = {
-						oldPassword: this.$md5(this.condition.oldPassword), //对密码进行md5加密
-						newPassword: this.$md5(this.condition.newPassword),
+						oldPassword: this.$md5(this.condition.oldPassword).toUpperCase(), //对密码进行md5 32位大写加密
+						newPassword: this.$md5(this.condition.newPassword).toUpperCase(),
 						no: this.$store.state.no
 					}
 					this.$http.post(Wit.updateUserPassword, data).then(res => {
@@ -84,7 +84,8 @@
 			}
 		},
 		created () {
-			this.$store.dispatch('NO', 'UBS2018072410503423882')
+//			this.$store.dispatch('NO', 'UBS2018072410503423882')
+//			alert(this.$store.state.no)
 		}
 	}
 </script>
