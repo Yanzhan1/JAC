@@ -46,7 +46,7 @@ export default {
     window.isLogin = this.isLogin;
   },
   mounted () {
-  	this.getNo()
+  	// this.getNo()
   }
 }
 </script>
