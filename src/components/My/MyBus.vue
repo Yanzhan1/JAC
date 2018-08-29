@@ -58,7 +58,8 @@ export default {
   methods: {
     //我的车辆
     MyBus() {
-    // alert(JSON.stringify(this.$store.state.getpin))
+      // alert(JSON.stringify(this.$store.state.userId))
+    
      var getpin = {
             headers: {
               identityParam:

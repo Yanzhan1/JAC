@@ -85,10 +85,32 @@
       </div>
       <div class="know" @click="know()">我知道了</div>
       <div style="width:100%;">
-        <img @click="know()"  src="../../../static/images/Wit/mycar_check.png" alt="" style="width:.58rem;height:.58rem;margin:.75rem auto">
+        <img @click="know()"  :src="'../../../static/images/Wit/mycar_check.png'" alt="" style="width:.58rem;height:.58rem;margin:.75rem auto">
       </div>
     </mt-popup>
-  </div>
+     <div class="mask" v-if="flag"></div>
+     <ul class="ulList" v-if="flag" @click="cancel()">
+       <li class="cont flex column contentcenter" >
+           <span style="font-size:.32rem;color:#222">4008-889933</span>
+           <span style="font-size:.22rem;color:#888">(瑞风，和悦)</span>
+       </li>
+        <li class="cont flex column contentcenter" >
+           <span  style="font-size:.32rem;color:#222">4008-009933</span>
+           <span style="font-size:.22rem;color:#888">(帅铃，骏铃，康铃)</span>
+       </li>
+        <li class="cont flex column contentcenter" >
+           <span  style="font-size:.32rem;color:#222">4008-003366</span>
+           <span style="font-size:.22rem;color:#888">(星锐)</span>
+       </li>
+       <li class="cont flex column contentcenter" >
+           <span  style="font-size:.32rem;color:#222">4008-006633</span>
+           <span style="font-size:.22rem;color:#888">(格尔发)</span>
+       </li>
+       <li class="cont flex column contentcenter" style="border-bottom:none">
+           <span style="font-size:.32rem;color:#666">取消</span>
+     </li>
+     </ul>
+     </div>
 </template>
 <script>
 import { MessageBox } from "mint-ui";
@@ -97,33 +119,18 @@ export default {
     return {
       popupVisible: false,
       mainbus:{},//主推车型
+      sheetVisible:true,
+      flag:false
     };
   },
   methods: {
-    confirmRevise() {
-      MessageBox.confirm("", {
-        title: "是否允许",
-        message: "发送当前定位至呼叫中心？",
-        showConfirmButton: true,
-        showCancelButton: true,
-        cancelButtonClass: "cancelButton",
-        confirmButtonClass: "confirmButton",
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        confirmButtonHighlight: true,
-        cancelButtonHighlight: true
-      })
-        .then(action => {
-          if (action == "confirm") {
-          
-          }
-        })
-        .catch(err => {
-          if (err == "cancel") {
-          }
-        });
+    confirmRevise(){
+     this.flag=true
     },
-    fn() {
+    cancel(){
+      this.flag=false
+    },
+     fn() {
       this.$router.push("/wit/dealer");
     },
     tobus() {
@@ -164,6 +171,27 @@ export default {
   padding: 0;
   margin: 0;
 }
+.mask {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+   position: fixed;
+  top:0;
+  left:0;
+ }
+ .ulList{
+   width:100%;
+  
+   background-color: #fff;
+   position:fixed;
+   bottom:0;
+   left:0;
+   padding:.1rem
+ }
+ .cont{
+   height:1rem;
+   border-bottom:.01rem solid #f8f8f8;
+ }
 .know{
   line-height: .82rem;
   width:5.64rem;

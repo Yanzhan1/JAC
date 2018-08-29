@@ -21,7 +21,7 @@
                             <span class="times">{{item.time}}</span>
                             <span></span>
                         </p>
-                        <router-link to="/orderdetails" tag="div" class="flex row con">
+                        <div class="flex row con" @click="toDetauls(item)">
                             <div class="flex column bus_left">
                                 <img style="height:1.2rem;width:2.46rem" :src=item.imageUrl alt="">
                                 <span class="busname">{{item.model}}</span>
@@ -32,7 +32,7 @@
                                 <span class="bus_right">订单编号：{{item.fkDealerId}}</span>
                                 <span class="bus_right">基本型 {{item.carColor}}</span>
                             </div>
-                        </router-link>
+                        </div>
                         <div class="flex row between bt">
                             <span></span>
                             <span class="cancel" @click="confirmRevise()">取消订单</span>
@@ -155,10 +155,13 @@ export default {
   data() {
     return {
       selected: "one",
-      Xorder:{}//线索订单
+      Xorder: {} //线索订单
     };
   },
   methods: {
+    toDetauls(item) {
+      this.$router.push({ path: "/orderdetails", query: item });
+    },
     confirmRevise() {
       MessageBox.confirm("", {
         title: "提示",
@@ -184,25 +187,33 @@ export default {
     wul() {
       this.$router.push("/mywl");
     },
-    compontent(){
+    compontent() {
       this.$router.push("/compontent");
     },
     //线索订单
-      GetXorder(){
-          console.log(this.$store.state.userId)
-          var no=this.$store.state.no
-          this.$http.post(My.ClueOrder,{"userNo":no},this.$store.state.mytoken).then(res=>{
-              if(res.data.code==0){
-                  this.Xorder=res.data.data.records
-                for(let i =0;i<this.Xorder.length;i++){
-                      this.Xorder[i].time= operationTime.getTime(  this.Xorder[i].createdDate, 1 );
-                  }
-             }
-         })
-      }
+    GetXorder() {
+        // alert()
+      var no = this.$store.state.no;
+      this.$http
+        .post(My.ClueOrder, { userNo: no }, this.$store.state.mytoken)
+        .then(res => {
+          if (res.data.code == 0) {
+            this.Xorder = res.data.data.records;
+            for (let i = 0; i < this.Xorder.length; i++) {
+              this.Xorder[i].time = operationTime.getTime(this.Xorder[i].createdDate,1);
+             if (this.Xorder[i].gender == "1") {
+                this.Xorder[i].gender = "女";
+              } else {
+                this.Xorder[i].gender = "男";
+              }
+            }
+          }
+          console.log(this.Xorder);
+        });
+    }
   },
-  created(){
-    this.GetXorder()
+  created() {
+    this.GetXorder();
   }
 };
 </script>
