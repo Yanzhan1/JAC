@@ -15,6 +15,7 @@ var mipss = 'http://test.jac.timanetwork.net/jvconnectedcar' //爱车
 
 //服务器→反馈记录
 var rec = 'http://test.jac.timanetwork.net/api/jac-enjoy-service/'
+//var rec = 'http://172.21.4.167:8083' //杨毅飞本地
 
 
 //var indexip = 'http://172.18.31.40:8868'

@@ -10,8 +10,8 @@
 			<li>
 				<div class="question">【{{questionTyep[replyDetailSuggestions.complaintsType]}}】{{replyDetailSuggestions.complaintsContent}}</div>
 				<div class="question-time">{{getTime(replyDetailSuggestions.createdDate)}}</div>
-				<div class="answer-content">官方回复：{{replyDetailSuggestions.comSugRe.replyContent}}</div>
-				<div class="answer-time">{{getTime(replyDetailSuggestions.comSugRe.createdDate)}}</div>
+				<div class="answer-content">官方回复：{{ replyDetailSuggestions.replyContent ? replyDetailSuggestions.replyContent : '抱歉，暂时还没有官方回复'}}</div>
+				<div class="answer-time">{{}}</div>
 			</li>
 		</ul>
 	</div>
@@ -24,7 +24,7 @@
 		data () {
 			return {
 				condition: {
-					no: 'EN012018080306281087599'
+					complaintsNo: this.$route.query.no
 				},
 				detailSuggestions:{},//投诉建议详细查看
 				replyDetailSuggestions: {}, //回复投诉建议详细
@@ -39,9 +39,9 @@
 				//请求投诉及建议回复查询详细信息
 				this.$http.post(Wit.getComAndSugDet, this.condition,this.$store.state.mytoken).then(res => {
 					const data = res.data;
-					console.log(data);
 					if(data.code == 0) {
 						this.replyDetailSuggestions = data.data
+						console.log(this.replyDetailSuggestions)
 					} else {
 						let instance = Toast({
 							message: data.Msg,
