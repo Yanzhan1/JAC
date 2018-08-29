@@ -15,15 +15,15 @@
         <mt-popup v-model="popupVisible" position="bottom">
             <div style="height:2.5rem;width:100%;">
                 <ul class="search flex row around cocenter" style="height:2rem">
-                    <li class="flex column contentcenter uu ">
+                    <li class="flex column contentcenter uu " @click="wei('WEIXIN')">
                         <img src="../../../static/images/my/wei.png" alt="">
                         <span>微信</span>
                     </li>
-                    <li class="flex column contentcenter uu ">
+                    <li class="flex column contentcenter uu " @click="friendq('WEIXIN_CIRCLE')">
                         <img src="../../../static/images/my/friendquan.png" alt="">
                         <span>朋友圈</span>
                     </li>
-                    <li class="flex column contentcenter uu ">
+                    <li class="flex column contentcenter uu " @click="qq('QQ')">
                         <img src="../../../static/images/my/qq.png" alt="">
                         <span>QQ</span>
                     </li>
@@ -51,9 +51,35 @@ export default {
     };
   },
   methods:{
+      //点击分享
       enjoy(){
           this.popupVisible=true
-      }
+      },
+      //分享微信
+      wei(platform){
+       
+        let content = '1234567';
+       platform = platform;
+        if (isMobile.iOS()) {
+          var params = [
+            content,imageURL,title,description,platform
+          ];
+          alert(params.join(""));
+          window.webkit.messageHandlers.share.postMessage(params);
+        } else if(isMobile.Android()) {
+          // alert(platform)
+          js2android.share(content,platform);
+        }
+      },
+       //分享朋友圈
+      friendq(){
+
+      },
+     //分享qq
+     qq(){
+
+     }
+   
   }
 };
 </script>

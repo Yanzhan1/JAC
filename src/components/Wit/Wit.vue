@@ -92,19 +92,19 @@
     </mt-popup>
     <div class="mask" v-if="flag"></div>
     <ul class="ulList" v-if="flag" @click="cancel()">
-      <li class="cont flex column contentcenter">
+      <li class="cont flex column contentcenter" @click="call(1)">
         <span style="font-size:.32rem;color:#222">4008-889933</span>
         <span style="font-size:.22rem;color:#888">(瑞风，和悦)</span>
       </li>
-      <li class="cont flex column contentcenter">
+      <li class="cont flex column contentcenter" @click="call(2)">
         <span style="font-size:.32rem;color:#222">4008-009933</span>
         <span style="font-size:.22rem;color:#888">(帅铃，骏铃，康铃)</span>
       </li>
-      <li class="cont flex column contentcenter">
+      <li class="cont flex column contentcenter" @click="call(3)">
         <span style="font-size:.32rem;color:#222">4008-003366</span>
         <span style="font-size:.22rem;color:#888">(星锐)</span>
       </li>
-      <li class="cont flex column contentcenter">
+      <li class="cont flex column contentcenter" @click="call(4)">
         <span style="font-size:.32rem;color:#222">4008-006633</span>
         <span style="font-size:.22rem;color:#888">(格尔发)</span>
       </li>
@@ -148,6 +148,23 @@ export default {
     //取消
     cancel() {
       this.flag = false;
+    },
+    call(num) {
+      var tell = "";
+     if (num == 1) {
+        tell = "4008-889933";
+      } else if (num == 2) {
+        tell = "4008-009933";
+      } else if (num == 3) {
+        tell = "4008-003366";
+      } else if (num == 4) {
+        tell = "4008-006633";
+      } 
+      if (isMobile.iOS()) {
+        
+      } else if (isMobile.Android()) {
+        js2android.call(tell);
+      }
     },
     //经销商
     fn() {
