@@ -720,7 +720,6 @@ export default {
     this.Condition = tai;
   },
   mounted() {
-    console.log(this.$store.state.no)
     // this.$nextTick(()=>{
       this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
     if (res.data.returnSuccess) {
@@ -735,7 +734,7 @@ export default {
       }
       this.vinn = this.$store.state.vins;
       this.Carquerry()
-    //    console.log(this.$store.state.vins)
+       console.log(this.$store.state.vins)
     // console.log(this.$store.state.mytoken.headers.timaToken);
     }
   });

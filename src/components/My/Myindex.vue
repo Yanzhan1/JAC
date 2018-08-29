@@ -229,7 +229,7 @@ export default {
     //获赞、关注、发布、粉丝数量
     getuserinfo() {
       var param = {
-        no: "AD022018072505235135056",
+        no: this.$store.state.no,
       }
       this.$http.post(Wit.UserInfo, param).then(res => {
         if(res.data.code == 0) {
@@ -269,6 +269,7 @@ export default {
     this.getuserinfo();
   },
   mounted() {
+    // console.log(this.$store.state.no)
     this.getTokenAndNo();
     this.myNum();
   }

@@ -17,7 +17,7 @@ export default {
     }, //爱车发送请求时的token,暂用
     mytoken: {
         headers: {
-            "timaToken": "Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImlkXCI6NjcsXCJpbml0VXNlclwiOjAsXCJub1wiOlwiQUQwMjIwMTgwODI3MDE1OTUwMjAyOTNcIixcInBob25lXCI6XCIxNTM2Mjg1NjM0NVwiLFwidXNlclN0YXR1c1wiOjAsXCJ1c2VyVHlwZVwiOlwiMDFcIn0iLCJjcmVhdGVkIjoxNTM1MzQ5Njg4MjMyLCJ1c2VyTm8iOiJBRDAyMjAxODA4MjcwMTU5NTAyMDI5MyIsInVzZXJUeXBlIjoiMDEiLCJleHAiOjE1MzYyMTM2ODgsInVzZXJJZCI6Njd9.9VWyLG7c5fHw-nsxSEunHUVjDVu4kiw_9FE_0FMcmrA"
+            "timaToken": "Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImlkXCI6NzYsXCJpbml0VXNlclwiOjAsXCJub1wiOlwiQUQwMjIwMTgwODI5MDIyNjQwODMxOTJcIixcInBob25lXCI6XCIxMzkyNTIxNDEwNVwiLFwidXNlck5hbWVcIjpcIm5uXCIsXCJ1c2VyU3RhdHVzXCI6MCxcInVzZXJUeXBlXCI6XCIwMVwifSIsImNyZWF0ZWQiOjE1MzU1MjQwOTI0MjEsInVzZXJObyI6IkFEMDIyMDE4MDgyOTAyMjY0MDgzMTkyIiwidXNlclR5cGUiOiIwMSIsInVzZXJOYW1lIjoibm4iLCJleHAiOjE1MzYzODgwOTIsInVzZXJJZCI6NzZ9.uW2T2hkF0Lvq5zzxMPZx8A-9NaHjl_bVwRPBj9u7ng8"
         }
     }, //除了爱车部分暂用的token
     vins: '', //车辆的pin码暂时用，登入后拿到放这里
