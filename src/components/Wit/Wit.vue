@@ -143,7 +143,11 @@ export default {
         if (action == "confirm") {
           this.flag = true;
         }
-      });
+      }).catch(err => {
+					if(err == 'cancel') {
+							  this.flag = true;
+					}
+				});
     },
     //取消
     cancel() {

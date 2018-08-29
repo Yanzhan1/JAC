@@ -11,8 +11,7 @@
         <span class="contentList-left">头像</span>
         <div class="contentList-right">
           <div style="width:.76rem;height:.76rem">
-            <img v-if="userInfo.headUrl" :src="userInfo.headUrl" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem">
-             <img v-else src="headimg" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem">
+            <img  :src="userInfo.headUrl" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem">
           </div>
           <div class="inputfile">
             <img src="../../../static/images/my/next@2x.png" style="width: 0.4rem;height: 0.4rem;z-index: 1" />
@@ -107,6 +106,7 @@ export default {
     //图片更改
      getimgsrc(src){
         this.userInfo.headUrl = 'data:image/jpeg;base64,'+src
+        this.$forceUpdate()
         },
     changepicture(e) {
         var _this = this;
@@ -155,10 +155,10 @@ export default {
         this.changeInfo.personalSignature = this.userInfo.personalSignature;
         this.changeInfo.sex = this.userInfo.sex;
         this.changeInfo.no= "AD022018072505235135056",
-        // this.changeInfo.headUrl = this.userInfo.headUrl.replace(
-        //   "data:image/jpeg;base64,",
-        //   ""
-        // );
+        this.changeInfo.headUrl = this.userInfo.headUrl.replace(
+          "data:image/jpeg;base64,",
+          ""
+        );
         // alert(JSON.stringify( this.changeInfo))
         this.$http.post(My.UpUserinfo, this.changeInfo,{}).then(res => {
           if (res.data.code == 0) {
