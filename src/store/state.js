@@ -5,7 +5,8 @@ export default {
     userId: null,
     uuid: null,
     UserStartId: null,
-    no: '', //模拟使用的用户no
+    no: '',
+//  no: 'AD022018081605215216391', //模拟使用的用户no,本地调试用
     mobile: null, //用户手机号
     softkeyboard: true, //默认软键盘开启
     token: null, //用户token

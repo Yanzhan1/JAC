@@ -97,8 +97,8 @@
 			}
 		},
 		mounted() {
-			this.emergencyContactName = this.modifyinfo.emergencyContactName
-			this.emergencyContactPhone = this.modifyinfo.emergencyContactPhone
+			this.emergencyContactName = this.modifyinfo.initUser
+			this.emergencyContactPhone = this.modifyinfo.phone
 			this.getFocus()
 		}
 	}

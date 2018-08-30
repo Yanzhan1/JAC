@@ -103,7 +103,7 @@
 				</div>
 				<img src="../../../static/images/my/next@2x.png" alt="">
 			</div>
-			<router-link tag="div" class="mylist" to="/myindex/mySetUp">
+			<router-link tag="div" class="mylist" :to="{path:'/myindex/mySetUp', query:{no:$store.state.no}}">
 				<div class="flex cocenter">
 					<img src="../../../static/images/my/mine_set@2x.png" alt="">
 					<span>设置</span>
@@ -210,7 +210,7 @@ export default {
       var param = {
         no: this.$store.state.userId,
       }
-      this.$http.post(My.UserInfo, param).then(res => {
+      this.$http.post(My.UserInfo, param, this.$store.state.mytoken).then(res => {
         if(res.data.code == 0) {
           this.Personal = res.data.data
          console.log( this.Personal)

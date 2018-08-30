@@ -84,8 +84,6 @@
 			}
 		},
 		created () {
-//			this.$store.dispatch('NO', 'UBS2018072410503423882')
-//			alert(this.$store.state.no)
 		}
 	}
 </script>

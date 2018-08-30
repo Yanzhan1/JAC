@@ -2,7 +2,9 @@
     <div>
       <div class="backgroundimage"></div>
       <router-view/>
+      <!--轮询请求loading-->
       <loading-page ref="loadingPage" v-show="$store.state.loadingflag"></loading-page>
+      <!--全局loading-->
       <loading-page ref="loadingPageGlobal" v-show="loadingflag"></loading-page>
     </div>
 </template>

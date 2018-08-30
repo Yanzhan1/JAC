@@ -126,7 +126,6 @@
 		},
 		methods: {
 			init() {
-				console.log(this.$store.state)
 				var param = {
 					dealerType:"01"
 					}
@@ -166,18 +165,38 @@
 			toggleDrop() {//改变品牌下拉状态
 				this.isDrop = !this.isDrop;
 				this.brandState = false;
+				if (this.carDrop || this.provinceDrop || this.cityDrop) { //对其它下拉列表的判断
+					this.carDrop = false;
+					this.provinceDrop = false;
+					this.cityDrop = false ;
+				}
 			},
 			toggleCar () {//改变车型下拉状态
 				this.carDrop = !this.carDrop;
 				this.carState = false;
+				if (this.isDrop || this.provinceDrop || this.cityDrop) {  
+					this.isDrop = false;
+					this.provinceDrop = false;
+					this.cityDrop = false;
+				}
 			},
 			toggleProvin () { //改变省份下拉状态
 				this.provinceDrop = !this.provinceDrop;
 				this.provinceState = false;
+				if (this.cityDrop || this.carDrop || this.isDrop) {
+					this.cityDrop = false;
+					this.carDrop = false;
+					this.isDrop = false;
+				}
 			},
 			toggleCity () { //改变城市下拉装填
 				this.cityDrop = !this.cityDrop
 				this.cityState = false;
+				if (this.provinceDrop || this.isDrop || this.carDrop) {
+					this.provinceDrop = false;
+					this.isDrop = false;
+					this.carDrop = false;
+				}
 			},
 			chooseSelection (ind, val) {//选择品牌
 			     this.nowIndex = ind;
