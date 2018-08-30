@@ -139,15 +139,23 @@ export default {
         cancelButtonText: "不允许",
         confirmButtonHighlight: true,
         cancelButtonHighlight: true
-      }).then(action => {
-        if (action == "confirm") {
-          this.flag = true;
-        }
-      }).catch(err => {
-					if(err == 'cancel') {
-							  this.flag = true;
-					}
-				});
+      })
+        .then(action => {
+          if (action == "confirm") {
+            this.flag = true;
+
+            if (isMobile.iOS()) {
+            } else if (isMobile.Android()) {
+              js2android.getLocationInfo()
+              
+            }
+          }
+        })
+        .catch(err => {
+          if (err == "cancel") {
+            this.flag = true;
+          }
+        });
     },
     //取消
     cancel() {
@@ -155,7 +163,7 @@ export default {
     },
     call(num) {
       var tell = "";
-     if (num == 1) {
+      if (num == 1) {
         tell = "4008-889933";
       } else if (num == 2) {
         tell = "4008-009933";
@@ -163,9 +171,8 @@ export default {
         tell = "4008-003366";
       } else if (num == 4) {
         tell = "4008-006633";
-      } 
+      }
       if (isMobile.iOS()) {
-        
       } else if (isMobile.Android()) {
         js2android.call(tell);
       }
@@ -197,11 +204,11 @@ export default {
     //关闭保养查询
     know() {
       this.popupVisible = false;
-    },
-    Map_Positioning(cont){
-      // alert(cont)
     }
-
+    // Map_Positioning(cont){
+    //   alert(1)
+    //    alert(JSON.stringify(cont))
+    // }
   },
   created() {
     //获取主推车型，传{}表示全部车型
@@ -214,8 +221,8 @@ export default {
       }
     });
   },
-  mounted(){
-     window.Map_Positioning = this.Map_Positioning;
+  mounted() {
+    //  window.Map_Positioning= this.Map_Positioning;
   }
 };
 </script>

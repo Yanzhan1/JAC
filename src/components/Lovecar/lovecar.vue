@@ -2,7 +2,7 @@
   <div class="tophead">
     <div class="nav">
       <img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
-      <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;{{vinn}}</span>
+      <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;S7</span>
       <span class="txt_r" @click="islogin()" v-if="this.LoginStatus">机车已登录</span>
       <span class="txt_r" v-else @click="login()">机车未登录</span>
     </div>
