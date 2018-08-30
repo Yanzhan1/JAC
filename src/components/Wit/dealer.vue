@@ -128,7 +128,9 @@
 			init() {
 				console.log(this.$store.state)
 				var param = {
-                    }
+					dealerType:"01"
+					}
+					
 				var data = {
 					"parentId": null,
 					"level": 1
@@ -187,14 +189,13 @@
 			this.bustypeno=val
 				this.carIndex = ind;
 				this.carDrop = false
-					 this.publicrequst()
+				this.publicrequst()
 			},
 			chooseProvinType (ind, val) {//选择省份
 				 this.provinIndex = ind;
 				 this.provinceId = val;
 				 this.provinceDrop = false;
-				 console.log(val)
-				 	 this.publicrequst()
+				 this.publicrequst()
 			},
 			chooseCityType (ind,val) {//选择城市
 			     this.city_id=val

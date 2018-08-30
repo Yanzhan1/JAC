@@ -15,7 +15,7 @@
         </mt-navbar>
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="one">
-                <ul>
+                <ul v-if="flag">
                     <li class="flex column" v-for="(item,index)  in Xorder" :key="index">
                         <p class="flex row tim">
                             <span class="times">{{item.time}}</span>
@@ -38,6 +38,9 @@
                             <span class="cancel" @click="confirmRevise()">取消订单</span>
                         </div>
                     </li>
+                </ul>
+                <ul v-else>
+                    <div style="text-align:center;margin-top:.2rem">暂无线索订单</div>
                 </ul>
             </mt-tab-container-item>
             <mt-tab-container-item id="two">
@@ -155,7 +158,8 @@ export default {
   data() {
     return {
       selected: "one",
-      Xorder: {} //线索订单
+      Xorder: {} ,//线索订单
+      flag:true
     };
   },
   methods: {
@@ -198,6 +202,9 @@ export default {
         .post(My.ClueOrder, { userNo: no })
         .then(res => {
           if (res.data.code == 0) {
+              if(res.data.data.records.length==0){
+                 this.flag=false
+              }
             this.Xorder = res.data.data.records;
             for (let i = 0; i < this.Xorder.length; i++) {
               this.Xorder[i].time = operationTime.getTime(this.Xorder[i].createdDate,1);

@@ -128,7 +128,9 @@
 			init() {
 				console.log(this.$store.state)
 				var param = {
-                    }
+					dealerType:"02"
+					}
+					
 				var data = {
 					"parentId": null,
 					"level": 1
@@ -187,14 +189,13 @@
 			this.bustypeno=val
 				this.carIndex = ind;
 				this.carDrop = false
-					 this.publicrequst()
+				this.publicrequst()
 			},
 			chooseProvinType (ind, val) {//选择省份
 				 this.provinIndex = ind;
 				 this.provinceId = val;
 				 this.provinceDrop = false;
-				 console.log(val)
-				 	 this.publicrequst()
+				 this.publicrequst()
 			},
 			chooseCityType (ind,val) {//选择城市
 			     this.city_id=val
@@ -211,7 +212,7 @@
 				  	 dealerProvinceCode: this.provinceId,//省编码
 					dealerCityCode:this.city_id//城市id
                 }
-			    this.$http.post(Wit.Dealer, param,this.$store.state.mytoken).then(res=>{
+			    this.$http.post(Wit.Dealer, param).then(res=>{
                       if(res.data.code == 0) {
 						    this.mainbus=[]
 							this.mainbus = res.data.data
