@@ -122,7 +122,9 @@ export default {
       popupVisible: false,
       mainbus: {}, //主推车型
       sheetVisible: true,
-      flag: false
+      flag: false,
+      latitude:'',//精度
+      longitude:'',//维度
     };
   },
   methods: {
@@ -146,8 +148,20 @@ export default {
 
             if (isMobile.iOS()) {
             } else if (isMobile.Android()) {
-              js2android.getLocationInfo()
+               var position=js2android.getLocationInfo()
+               var positions= JSON.parse(position)
               
+               this.latitude=positions.latitude
+               this.longitude=positions.longitude
+               var param={
+                 latitude: this.latitude,
+                 longitude:this.longitude,
+                 NO:this.$store.state.userId
+               }
+               this.$http.post(Wit.Help,param).then(res=>{
+                 
+               })
+
             }
           }
         })

@@ -126,7 +126,7 @@ window.Wit = {
         searchComplaintsSuggestionsReplyOne: rec + '/enjoyservice/complaintsSuggestionsReply/searchComplaintsSuggestionsReplyOne', //投诉及建议回复查询详细信息
         updateUserPassword: mips + '/admin/userBaseInformation/updateUserPassword', //用户修改密码
         getComAndSugDet: rec + '/enjoyservice/complaintsSuggestionsReply/getComAndSugDet', //反馈详情
-        Help: '/enjoyservice/position/savePosition' //道路救援定位传给后端
+        Help: rec + '/enjoyservice/position/savePosition' //道路救援定位传给后端
     }
     //我的 部分
 window.My = {
