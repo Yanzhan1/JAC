@@ -37,7 +37,7 @@
 				<!-- 省份 -->
 				<div class="selection-show" @click="toggleProvin">
 					<span> {{searchCountryAreaCodeListPage[provinIndex] && searchCountryAreaCodeListPage[provinIndex].name}} </span>
-					<span v-if="provinceState">安徽省</span>
+					<span v-if="provinceState">{{cityname}}</span>
 					<div class="arrow"></div>
 				</div>
 				<div class="selection-list" v-if="provinceDrop">
@@ -50,7 +50,7 @@
 				<!--城市-->
 				<div class="selection-show" @click="toggleCity">
 					<span> {{cityList[cityIndex] && cityList[cityIndex].name}} </span>
-					<span v-if="cityState">合肥市</span>
+					<span v-if="cityState">{{citysi}}</span>
 					<div class="arrow"></div>
 				</div>
 				<div class="selection-list" v-if="cityDrop">
@@ -118,7 +118,9 @@
 				brandState: true, //品牌伪标题状态
 				carState: true, //车型伪标题状态 
 				provinceState: true, //省份伪标题状态
-				cityState: true //城市伪标题状态
+				cityState: true ,//城市伪标题状态
+				cityname:'',//默认省
+				citysi:''//默认市
 			};
 		},
 		components: {
@@ -242,6 +244,14 @@
 		},
 		mounted() {
 			this.init()
+		},
+		created(){
+			var Position=js2android.getLocationInfo()//获取定位信息
+			var NewPosition= JSON.parse(Position)
+			this.cityname=NewPosition.city
+			this.citysi=NewPosition.city
+			// alert(JSON.stringify(NewPosition))
+            //  alert(NewPosition.province)
 		},
 		watch: {
 			brandNo(newVal, oldVal) {//监听品牌id,获得车型列表
