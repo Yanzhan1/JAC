@@ -1047,7 +1047,7 @@ input:focus {
   color: #fff;
 }
 .bus_righgt {
-  width: 1.99rem;
+  /* width: 1.99rem; */
   height: 4.24rem;
   margin-right: 1.83rem;
 }
