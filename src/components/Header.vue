@@ -49,10 +49,6 @@
 </template>
 
 <script>
-  /*import Mine from "./publicmodule/Mine.vue";*/
-  import {mapState, mapMutations} from 'vuex'
-  import { Radio } from 'mint-ui';
-  import { Popup } from 'mint-ui';
   export default {
     data() {
       return {
@@ -153,6 +149,18 @@
           }
         });
       },
+    },
+    computed:{
+      loginState(){
+        return this.$store.state.islogin
+      }
+    },
+    watch:{
+      loginState(loginState){
+        if(loginState){
+          this.getLabels()
+        }
+      }
     },
     mounted:function() {
         this.isInformation = false
