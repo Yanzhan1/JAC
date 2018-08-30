@@ -197,7 +197,11 @@ export default {
     //关闭保养查询
     know() {
       this.popupVisible = false;
+    },
+    Map_Positioning(cont){
+      // alert(cont)
     }
+
   },
   created() {
     //获取主推车型，传{}表示全部车型
@@ -209,6 +213,9 @@ export default {
         this.mainbus = arr;
       }
     });
+  },
+  mounted(){
+     window.Map_Positioning = this.Map_Positioning;
   }
 };
 </script>

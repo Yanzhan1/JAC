@@ -11,11 +11,11 @@ var mip = 'http://test.jac.timanetwork.net/api/jac-automobile-manage/automobilem
     //服务器-admin(跟用户有关即我的)
 var mips = 'http://test.jac.timanetwork.net/api/jac-admin/' //地区
 
-var mipss = 'http://test.jac.timanetwork.net/jvconnectedcar' //爱车
+var love_car = 'http://test.jac.timanetwork.net/jvconnectedcar/' //爱车
 
 //服务器→反馈记录
 var rec = 'http://test.jac.timanetwork.net/api/jac-enjoy-service/'
-//var rec = 'http://172.21.4.167:8083' //杨毅飞本地
+    //var rec = 'http://172.21.4.167:8083' //杨毅飞本地
 
 
 //var indexip = 'http://172.18.31.40:8868'
@@ -126,15 +126,15 @@ window.Wit = {
         searchComplaintsSuggestionsReplyOne: rec + '/enjoyservice/complaintsSuggestionsReply/searchComplaintsSuggestionsReplyOne', //投诉及建议回复查询详细信息
         updateUserPassword: mips + '/admin/userBaseInformation/updateUserPassword', //用户修改密码
         getComAndSugDet: rec + '/enjoyservice/complaintsSuggestionsReply/getComAndSugDet', //反馈详情
-
+        Help: '/enjoyservice/position/savePosition' //道路救援定位传给后端
     }
     //我的 部分
 window.My = {
         UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
-        My_Bus: mipss + '/vehicle/find-vehicle-list', //我的车辆
-        SetOneDefault: mipss + '/vehicle/set-default-vehicle', //我的车辆设为默认
-        JFmybus: mipss + 'vehicle/set-vehicle-remoteset', //解绑我的车辆,绑定,
-        planbus: mipss + 'vehicle/set-vehicle-remoteset', //添加车牌 绑定车牌
+        My_Bus: love_car + '/vehicle/find-vehicle-list', //我的车辆
+        SetOneDefault: love_car + '/vehicle/set-default-vehicle', //我的车辆设为默认
+        JFmybus: love_car + 'vehicle/set-vehicle-remoteset', //解绑我的车辆,绑定,
+        planbus: love_car + 'vehicle/set-vehicle-remoteset', //添加车牌 绑定车牌
         Edict: mip + '/vehicle/updateVehicle', //修改车辆信息
         ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromListPage', //线索订单
         MyDealer: mip + '/dealerBaseInformation/selectSeriesDealerBaseInformation', //我的 我的经销商列表
@@ -149,18 +149,18 @@ window.My = {
     }
     //爱车
 window.Lovecar = {
-    Carquery: mipss + '/vehicle/query-vehicle-condition', //车辆车况查询
-    // OperationId: mipss + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
-    OperationId: mipss + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
-    Changepin: mipss + '/vehicle/update-vehicle-pin', //修改pin码
-    Getphonepin: mipss + '/vehicle//identify-code', //获取验证码
-    Checkphonepin: mipss + '/vehicle/check-vehicle-pin', //验证pin码
-    BusTest: mipss + 'vehicle/query-cyc-car-examination', //车辆体检
-    Fuel: mipss + '/vehicle/query-vehicle-fuel-statistics', //燃油接口
-    Flow: mipss + '/vehicle/query-vehicle-cyc-flow-query', //流量查询
-    Longrange: mipss + '/vehicle/set-vehicle-remoteset', //车辆远程设置
-    LoginOut: mipss + '/vehicle/remote-vehicle-login-or-logout', //退出登录
-    Findcode: mipss + '/vehicle/forget-vehicle-pin', //找回pin码
-    Control: mipss + '/vehicle/remote-vehicle-control', //远程控制
-    LogStatus: mipss + '/vehicle/vehicle-logstatus' //获取机车登入状态
+    Carquery: love_car + '/vehicle/query-vehicle-condition', //车辆车况查询
+    // OperationId: love_car + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
+    OperationId: love_car + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
+    Changepin: love_car + '/vehicle/update-vehicle-pin', //修改pin码
+    Getphonepin: love_car + '/vehicle//identify-code', //获取验证码
+    Checkphonepin: love_car + '/vehicle/check-vehicle-pin', //验证pin码
+    BusTest: love_car + 'vehicle/query-cyc-car-examination', //车辆体检
+    Fuel: love_car + '/vehicle/query-vehicle-fuel-statistics', //燃油接口
+    Flow: love_car + '/vehicle/query-vehicle-cyc-flow-query', //流量查询
+    Longrange: love_car + '/vehicle/set-vehicle-remoteset', //车辆远程设置
+    LoginOut: love_car + '/vehicle/remote-vehicle-login-or-logout', //退出登录
+    Findcode: love_car + '/vehicle/forget-vehicle-pin', //找回pin码
+    Control: love_car + '/vehicle/remote-vehicle-control', //远程控制
+    LogStatus: love_car + '/vehicle/vehicle-logstatus' //获取机车登入状态
 }
