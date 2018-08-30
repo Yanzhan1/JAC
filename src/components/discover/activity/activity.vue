@@ -43,26 +43,6 @@
       </div>
     </mt-loadmore>
     <p style="display: none; font-size: 0.3rem;margin: auto;text-align: center;visibility: hidden" id="showAll3">已加载全部</p>
-    <!-- <mt-popup
-        style="width:80%;border-radius:4px;"
-        v-model="popup"
-        :closeOnClickModal="false"
-        position="center">
-        <div class="channel">
-            切换频道
-        </div>
-        <p class="base-line"></p>
-        <div>
-          <mt-radio
-              v-model="value"
-              :options="labels">
-          </mt-radio>
-        </div>
-        <div class="btn">
-            <p @click="cancle">取消</p>  
-            <p @click="confirm">确定</p>
-        </div>          
-    </mt-popup>       -->
   </div>
 </template>
 
@@ -82,20 +62,15 @@
             activityList:[],
             list:3,
             topStatus: '',
-            value: null, 
-            labels: []               
+            value: null
           }
       },
      // props:['activityList'],
       // computed:{
-      //   ...mapState([
-      //     'isPopup',
-      //     'popup'
-      //   ]),
       //   getUserId(){
       //     return this.$store.state.userId
-      //   }               
-      // },     
+      //   }
+      // },
       methods:{
         confirm: function() {
           let _this = this
@@ -108,28 +83,11 @@
             } else {
               console.log(res.data.errorMsg);
             }
-          });        
+          });
         },
         cancle: function() {
           this.$store.dispatch("popupFalse")
-        },  
-        // 获取初始化标签列表
-        // getLabels: function() {
-        //   let _this = this
-        //   this.$http.post(DISCOVERMESSAGE.GetLabels, {labelState: "11"}).then(function (res) {
-        //     if (res.data.status) {
-        //       console.log("res.data.data",res.data.data)
-        //       for(let i = 0 ; i < res.data.data.length; i++) {
-        //         _this.labels.push({
-        //           label: res.data.data[i].labelName,
-        //           value: res.data.data[i].labelId
-        //         })
-        //       }
-        //     } else {
-        //       MessageBox('提示', res.data.errorMsg);
-        //     }
-        //   });          
-        // },              
+        },
         loadTop() {
           this.getRefreshList();
           this.$refs.loadmore.onTopLoaded();
@@ -196,9 +154,7 @@
         }
       },
       mounted(){
-        // this.getLabels()  
         this.getRefreshList();
-        // alert(this.$store.state.userId)
       },
     }
 </script>
@@ -232,5 +188,5 @@
   }
   .btn p:nth-child(1) {
       color:#49BBFF;;
-  }    
+  }
 </style>

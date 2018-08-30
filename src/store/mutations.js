@@ -31,15 +31,7 @@ export default {
     [types.CARVINS]: (state, payload) => {
         state.vins = payload
     },
-    [types.ISLOGIN]: (state) => {
-        state.islogin = true;
+    [types.SELECTLABELSTATE]: (state, payload) => {
+      state.selectLabelState = payload
     },
-    [types.POPUPTRUE]: (state) => {
-        state.isPopup = true
-        state.popup = true
-    },  
-    [types.POPUPFALSE]: (state) => {
-        state.isPopup = false
-        state.popup = false
-    },      
 }

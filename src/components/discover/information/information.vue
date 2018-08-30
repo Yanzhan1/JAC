@@ -30,33 +30,10 @@
       </div>
     </mt-loadmore>
     <!--<p id="showAll2" style="visibility: hidden">已加载全部</p>-->
-    <mt-popup
-        style="width:80%;border-radius:4px;"
-        v-model="popup"
-        :closeOnClickModal="false"
-        position="center">
-        <div class="channel">
-            切换频道
-        </div>
-        <p class="base-line"></p>
-        <div>
-          <mt-radio
-              v-model="value"
-              :options="labels">
-          </mt-radio>
-        </div>
-        <div class="btn">
-            <p @click="cancle">取消</p>  
-            <p @click="confirm">确定</p>
-        </div>          
-    </mt-popup>  
   </div>
 </template>
 
 <script>
-    import {mapState, mapMutations} from 'vuex'
-    import { Popup } from 'mint-ui';
-    import { Radio } from 'mint-ui';
     import { MessageBox } from 'mint-ui';
     import shareBox from '../component/shareBox.vue';
     import { Toast } from 'mint-ui';
@@ -71,34 +48,17 @@
             loadEnd:false,
             loading:false,
             informationList:[],
-            list:4,
+            list: 4,
             topStatus: '',
             flag: 'information',
             type: 'information',
-            value: null, 
-            labels: []            
+            value: null
           }
       },
       components: {
         shareBox,
       },
-      methods:{      
-        confirm: function() {
-          let _this = this
-          let pushLabes = []
-          pushLabes.push(_this.value)
-          _this.$store.dispatch("popupFalse")
-          _this.$http.post(INDEXMESSAGE.getInfomation, {"uid":_this.userId,"pageNo":1, "length":_this.list, labelIds: pushLabes}).then(function (res) {
-            if (res.data.status) {
-              _this.informationList = res.data.data;
-            } else {
-              console.log(res.data.errorMsg);
-            }
-          });        
-        },
-        cancle: function() {
-          this.$store.dispatch("popupFalse")
-        },        
+      methods:{
         toDetail: function (id) {
           this.$router.push({path:"/information/informationDetail",query:{id:id}})
         },
@@ -116,7 +76,7 @@
           let _this = this;
           this.loading=true;
           this.loadEnd=false;
-          this.$http.post(INDEXMESSAGE.getInfomation, {"uid": this.$store.state.userId,"pageNo":1, "length":_this.list}).then(function (res) {
+          this.$http.post(INDEXMESSAGE.getInfomation, {"uid": this.$store.state.userId,"pageNo":1, "length":_this.list,labelIds: this.$store.state.selectLabelState}).then(function (res) {
             if (res.data.status) {
               _this.pageNum=1;
               _this.loading=false;
@@ -138,7 +98,7 @@
           }
           this.loadEnd=true;
           this.pageNum++;
-          this.$http.post(INDEXMESSAGE.getInfomation, {"uid": this.$store.state.userId,"pageNo":_this.pageNum, "length":_this.list}).then(function (res) {
+          this.$http.post(INDEXMESSAGE.getInfomation, {"uid": this.$store.state.userId,"pageNo":_this.pageNum, "length":_this.list,labelIds: this.$store.state.selectLabelState}).then(function (res) {
             _this.loadEnd=false;
             if (res.data.status) {
                 _this.informationList = _this.informationList.concat(res.data.data);
@@ -220,23 +180,6 @@
             });
           });
         },
-        // 获取初始化标签列表
-        getLabels: function() {
-          let _this = this
-          this.$http.post(DISCOVERMESSAGE.getLabels, {labelState: this.$store.state.labelState}).then(function (res) {
-            if (res.data.status) {
-              console.log("res.data.data",res.data.data)
-              for(let i = 0 ; i < res.data.data.length; i++) {
-                _this.labels.push({
-                  label: res.data.data[i].labelName,
-                  value: res.data.data[i].labelId
-                })
-              }
-            } else {
-              MessageBox('提示', res.data.errorMsg);
-            }
-          });          
-        },
         //分享
         onShareClick: function (index) {
           this.indexNum = index;
@@ -251,16 +194,17 @@
         }
       },
       computed:{
-        ...mapState([
-          'isPopup',
-          'popup'
-        ])        
+        selectLabelState(){
+          return this.$store.state.selectLabelState
+        }
       },
-      watch:{      
+      watch:{
+        selectLabelState(){
+          this.getRefreshList()
+        }
       },
       mounted(){
         this.$nextTick(function () {
-          this.getLabels()          
           this.getRefreshList()
         })
       }
@@ -296,5 +240,5 @@
   }
   .btn p:nth-child(1) {
       color:#49BBFF;;
-  }  
+  }
 </style>

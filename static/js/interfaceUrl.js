@@ -28,6 +28,9 @@ window.INDEXMESSAGE = {
     getQuestion: indexip + '/question/indexList', //首页-问答
 }
 window.DISCOVERMESSAGE = {
+        /*标签*/
+        getLabels: indexip + '/label/getLabels', //获取标签
+
         /*资讯*/
         informationGiveLike: indexip + '/userLike/giveInformationLike', //资讯点赞
         informationRemoveLike: indexip + '/userLike/removeInformationLike', //资讯取消点赞
@@ -79,7 +82,7 @@ window.DISCOVERMESSAGE = {
         deleteQuestion: indexip + '/question/delete', //删除问答
         giveQuestionLike: indexip + '/userLike/giveQuestionLike', //问答点赞
         removeQuestionLike: indexip + '/userLike/removeQuestionLike', //问答取消点赞
-        getLabels: indexip + '/question/getLabels', //获取标签
+        getQuestionLabels: indexip + '/question/getLabels', //获取标签
         /*我的收藏*/
         myCollectArticle: indexip + '/mine/myCollection/article', //我收藏的资讯
         myCollectActivity: indexip + '/mine/myCollection/activity', //我收藏的活动

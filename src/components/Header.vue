@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div>
     <div>
       <div class="myheader">
         <div>
@@ -29,46 +29,14 @@
           </div>
           <p style="height:.02rem;background:#F1F1F1;width:100%;"></p>
           <div>
-            <div>
-              <table style="margin:0 auto;">
-                <tr>
-                  <td>
-                    <input type="radio" value="1" v-model="picked">
-                    <label for="one">全部</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="radio" value="2" v-model="picked">
-                    <label for="two">乘用车</label>
-                  </td>
-                  <td>
-                    <input type="radio" value="3" v-model="picked">
-                    <label for="two">新能源</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="radio" value="4" v-model="picked">
-                    <label for="two">商务车</label>
-                  </td>
-                  <td>
-                    <input type="radio" value="5" v-model="picked">
-                    <label for="two">轻卡</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="radio" value="6" v-model="picked">
-                    <label for="two">皮卡</label>
-                  </td>
-                  <td>
-                    <input type="radio" value="7" v-model="picked">
-                    <label for="two">重卡</label>
-                  </td>
-                </tr>
-              </table>
+            <div style="margin-left:10%;">
+              <input type="radio" id="picked"  v-model="picked" >
+              <label for="picked">全部</label>
             </div>
+           <div v-for="(item,index) in labels" style="margin-left:10%;width:40%;display:inline-block">
+             <input type="radio" :id="'picked_'+item.labelId" :value="item.labelId"  v-model="picked">
+             <label :for="'picked_'+item.labelId">{{item.labelName}}</label>
+           </div>
           </div>
           <div style="width:100%;display:flex;text-align:center;">
             <p style="felx:1;width:100%;font-size:.32rem;color:#888888;" @click="cancle">取消</p>
@@ -94,19 +62,17 @@
         isAllActivity: true,
         isNow: true,
         isQuestion: true,
-        popup: false,
-        picked: "1",
+        labels: [],
+        picked: this.$store.state.selectLabelState ? this.$store.state.selectLabelState[0]:null,
+        popup:false,
+        labelState: 11 //标签默认值为11
       }
     },
     components: {
       /*Mine*/
     },
     computed:{
-      ...mapState([
-        'isPopup',
-        'popup'
-      ])        
-    },    
+    },
     methods: {
       popupVisibleChange:function () {
         this.$refs.mine.popupVisibleChange()
@@ -169,24 +135,24 @@
       confirm: function() {
         console.log("this.picked",this.picked)
         this.popup = false
-        this.$http.post(INDEXMESSAGE.getRecommend, {"uid":this.userId,"pageNo":1, "length":4, labelIds: this.picked}).then(function (res) {
-          if (res.data.status) {
-            // _this.pageNum=1;
-            // _this.loading=false;
-            // _this.recommendList = res.data.data;
-            console.log(res.data.data)
-            // if(res.data.recordsTotal <= _this.list){
-            //   _this.loadEnd = true;
-            // }
-          } else {
-            console.log(res.data.errorMsg);
-          }
-        });
+        if(this.picked){
+          this.$store.dispatch('selectLabelState',[this.picked]);
+        }else{
+          this.$store.dispatch('selectLabelState',null);
+        }
       },
       cancle: function() {
         this.popup = false
-        this.$store.dispatch("popupTrue")
-      }
+      },
+      // 获取初始化标签列表
+      getLabels: function() {
+        let _this = this
+        this.$http.post(DISCOVERMESSAGE.getLabels, {labelState: this.labelState}).then(function (res) {
+          if (res.data.status) {
+            _this.labels = res.data.data
+          }
+        });
+      },
     },
     mounted:function() {
         this.isInformation = false
@@ -224,6 +190,7 @@
             }
         }
         this.$nextTick(function () {
+          this.getLabels()
           console.log("this.picked",this.picked)
         })
     }
