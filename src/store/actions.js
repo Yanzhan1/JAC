@@ -20,5 +20,12 @@ export default {
     },
     CARVINS: ({ commit, state }, payload) => {
         commit(types.CARVINS, payload)
-    }
+    },
+    popupTrue: ({ commit, state},payload) => {
+        commit(types.POPUPTRUE, payload)
+    },
+    popupFalse: ({ commit, state},payload) => {
+        commit(types.POPUPFALSE, payload)
+    },
+    
 }

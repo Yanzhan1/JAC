@@ -172,15 +172,15 @@
         </div>
       </mt-loadmore>
       <div style="height: 1rem;"></div>
-      <p style="display: none; font-size: 0.3rem;margin: auto;text-align: center;margin-bottom: 1rem;visibility: hidden" id="showAll1">已加载全部</p>
+      <p style="display: none; font-size: 0.3rem;margin: auto;text-align: center;margin-bottom: 1rem;visibility: hidden" id="showAll1">已加载全部</p> 
       </div>
 </template>
 
 <script>
   import { MessageBox } from 'mint-ui';
   import { Toast } from 'mint-ui';
+  import Header from '../../Header.vue';
   import shareBox from '../component/shareBox.vue';
-  import popUp from '../component/PopUp.vue'
     export default {
       name: "Recommend",
       data(){
@@ -202,7 +202,6 @@
       },
       components: {
         shareBox,
-        popUp
       },
       methods:{
         toDetailInfo: function (id) {

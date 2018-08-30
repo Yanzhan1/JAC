@@ -30,10 +30,33 @@
       </div>
     </mt-loadmore>
     <!--<p id="showAll2" style="visibility: hidden">已加载全部</p>-->
+    <mt-popup
+        style="width:80%;border-radius:4px;"
+        v-model="popup"
+        :closeOnClickModal="false"
+        position="center">
+        <div class="channel">
+            切换频道
+        </div>
+        <p class="base-line"></p>
+        <div>
+          <mt-radio
+              v-model="value"
+              :options="labels">
+          </mt-radio>
+        </div>
+        <div class="btn">
+            <p @click="cancle">取消</p>  
+            <p @click="confirm">确定</p>
+        </div>          
+    </mt-popup>  
   </div>
 </template>
 
 <script>
+    import {mapState, mapMutations} from 'vuex'
+    import { Popup } from 'mint-ui';
+    import { Radio } from 'mint-ui';
     import { MessageBox } from 'mint-ui';
     import shareBox from '../component/shareBox.vue';
     import { Toast } from 'mint-ui';
@@ -52,12 +75,30 @@
             topStatus: '',
             flag: 'information',
             type: 'information',
+            value: null, 
+            labels: []            
           }
       },
       components: {
-        shareBox
+        shareBox,
       },
-      methods:{
+      methods:{      
+        confirm: function() {
+          let _this = this
+          let pushLabes = []
+          pushLabes.push(_this.value)
+          _this.$store.dispatch("popupFalse")
+          _this.$http.post(INDEXMESSAGE.getInfomation, {"uid":_this.userId,"pageNo":1, "length":_this.list, labelIds: pushLabes}).then(function (res) {
+            if (res.data.status) {
+              _this.informationList = res.data.data;
+            } else {
+              console.log(res.data.errorMsg);
+            }
+          });        
+        },
+        cancle: function() {
+          this.$store.dispatch("popupFalse")
+        },        
         toDetail: function (id) {
           this.$router.push({path:"/information/informationDetail",query:{id:id}})
         },
@@ -179,6 +220,23 @@
             });
           });
         },
+        // 获取初始化标签列表
+        getLabels: function() {
+          let _this = this
+          this.$http.post(DISCOVERMESSAGE.getLabels, {labelState: this.$store.state.labelState}).then(function (res) {
+            if (res.data.status) {
+              console.log("res.data.data",res.data.data)
+              for(let i = 0 ; i < res.data.data.length; i++) {
+                _this.labels.push({
+                  label: res.data.data[i].labelName,
+                  value: res.data.data[i].labelId
+                })
+              }
+            } else {
+              MessageBox('提示', res.data.errorMsg);
+            }
+          });          
+        },
         //分享
         onShareClick: function (index) {
           this.indexNum = index;
@@ -193,15 +251,50 @@
         }
       },
       computed:{
+        ...mapState([
+          'isPopup',
+          'popup'
+        ])        
       },
-      watch:{
+      watch:{      
       },
       mounted(){
-        this.getRefreshList();
+        this.$nextTick(function () {
+          this.getLabels()          
+          this.getRefreshList()
+        })
       }
     }
 </script>
 
 <style scoped>
   @import "./../../../../static/css/discover/all.css";
+  .channel {
+      width:100%;
+      text-align:center;
+      box-sizing:border-box;
+      font-size:.36rem;
+      color:#555555;
+  }
+  .base-line {
+      height:.02rem;
+      background:#F1F1F1;
+      width:100%;
+  }
+  .btn {
+      width:100%;
+      display:flex;
+      text-align:center;
+  }
+  .btn p {
+      flex:1;
+      width:100%;
+      font-size:.32rem;
+  }
+  .btn p:nth-child(1) {
+      color:#888888;
+  }
+  .btn p:nth-child(1) {
+      color:#49BBFF;;
+  }  
 </style>

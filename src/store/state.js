@@ -23,4 +23,7 @@ export default {
     }, //除了爱车部分暂用的token
     vins: '', //车辆的pin码暂时用，登入后拿到放这里
     loadingflag: false, //loading动画状态
+    isPopup: false,
+    popup: false,
+    labelState: 11 //标签默认值为11
 }

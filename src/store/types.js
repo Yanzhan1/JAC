@@ -7,3 +7,5 @@ export const SOFTKEYBOARD = 'SOFTKEYBOARD'; //软键盘状态
 export const USERINFO = 'USERINFO'; //用户信息
 export const LOADINGFLAG = 'LOADINGFLAG'; //loading的状态
 export const CARVINS = 'CARVINS'; //vin车辆编码
+export const POPUPTRUE='POPUPTRUE';//点击header左侧图片弹出popup
+export const POPUPFALSE='POPUPFALSE';//关闭popup
