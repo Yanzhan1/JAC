@@ -33,41 +33,35 @@ export default {
   },
   methods: {
     AddMybus() {
+      if (this.rame == "") {
+      }
       var param = {
-        vin:this.rame,
+        vin: this.rame,
         operationType: "CAR_BINDING",
         operation: 1,
         extParams: {
           engineNo: this.engine
         }
       };
-
-     var  getpin={
-        headers: {
-           identityParam: "{ \"userId\": \"c123\", \"token\": \"sdfasdfasdfasd\", \"phone\": \"15221794973\" }"
-        }
-      }
-         this.$http
-        .post(My.JFmybus, param ,getpin)
-        .then(res => {
+      this.$http.post(My.JFmybus, param, this.$store.state.getpin).then(res => {
         if (res.data.returnSuccess) {
-            Toast({
-              message: "添加成功！",
-              duration: 1000,
-              position: "middle"
-            });
-            var self = this;
-            setTimeout(function() {
-              self.$router.go(-1);
-            }, 2000);
-          } else {
-            Toast({
-              message: "添加失败，输入有误！",
-              duration: 1000,
-              position: "middle"
-            });
-          }
-        });
+          Toast({
+            message: "添加成功！",
+            duration: 1000,
+            position: "middle"
+          });
+          var self = this;
+          setTimeout(function() {
+            self.$router.go(-1);
+          }, 2000);
+        } else {
+          Toast({
+            message: res.data.returnErrMsg,
+            duration: 1000,
+            position: "middle"
+          });
+        }
+      });
     }
   }
 };
