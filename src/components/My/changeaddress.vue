@@ -144,18 +144,20 @@ export default {
         address: this.address
       };
       
-      this.$http
+      await this.$http
         .post(My.Defaultaddress, param, this.$store.state.mytoken)
         .then(res => {});
-      setTimeout(() => {
-        this.$http
+      // setTimeout(() => {
+      await this.$http
         .post(My.ChangeAddress, param, this.$store.state.mytoken)
         .then(res => {
           if (res.data.code == 0) {
             this.$router.go(-1);
           }
         });
-      }, 100);
+      // }, 100);
+      
+      console.log(flag);
     },
     choosearea() {
       this.shows = true;
