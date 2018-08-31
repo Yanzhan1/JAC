@@ -250,7 +250,7 @@
 			var NewPosition= JSON.parse(Position)
 			this.cityname=NewPosition.city
 			this.citysi=NewPosition.city
-			// alert(JSON.stringify(NewPosition))
+			alert(JSON.stringify(NewPosition))
             //  alert(NewPosition.province)
 		},
 		watch: {
