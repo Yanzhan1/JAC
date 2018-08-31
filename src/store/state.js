@@ -2,11 +2,9 @@ export default {
     islogin: false, //判断是否登录 正式上线用
     // islogin: true, //判断是否登录 测试用
     //userId: 1165864, //用户userID 正式上线用
-    userId: null,
+    userId: 'AD022018081605215216391',
     uuid: null,
     UserStartId: null,
-    no: '',
-//  no: 'AD022018081605215216391', //模拟使用的用户no,本地调试用
     mobile: null, //用户手机号
     softkeyboard: true, //默认软键盘开启
     token: null, //用户token

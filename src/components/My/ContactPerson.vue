@@ -9,13 +9,13 @@
 		<router-link tag="div" class="comment conpson-name" to="">
 			<div class="name boxline flex-align-center">
 				<span style="padding-left: 0.1rem;color: #444444;font-size: 0.28rem;">姓名:</span>
-				<span style="color: #888888;font-size: 0.24rem;margin-left: 1.16rem;">{{userInfor.initUser}}</span>
+				<span style="color: #888888;font-size: 0.24rem;margin-left: 1.16rem;">{{userInfor.emergencyContactName ? userInfor.emergencyContactName : ''}}</span>
 			</div>
 		</router-link>
 		<router-link tag="div" class="comment conpson-mobile flex-align-center" to="">
 			<div class="telphone boxline flex-align-center">
 				<span style="padding-left: 0.1rem;color: #444444;font-size: 0.28rem;">电话号码:</span>
-				<span style="color: #888888;font-size: 0.24rem;margin-left: 0.6rem;">{{userInfor.phone}}</span>
+				<span style="color: #888888;font-size: 0.24rem;margin-left: 0.6rem;">{{userInfor.emergencyContactPhone ? userInfor.emergencyContactPhone : ''}}</span>
 			</div>
 		</router-link>
 		<router-link class="bottom-btn" tag='div' :to="{name: '修改联系人', params:{modify:userInfor}}">
@@ -31,11 +31,9 @@
 		data() {
 			return {
 				condition: {
-					no: this.$store.state.no
+					no: this.$store.state.userId
 				},
 				userInfor: {
-//					emergencyContactName: '李白',
-					initUser: '李白'
 				}
 			}
 		},

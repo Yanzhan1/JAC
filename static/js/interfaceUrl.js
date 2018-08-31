@@ -11,7 +11,7 @@ var mip = 'http://test.jac.timanetwork.net/api/jac-automobile-manage/automobilem
     //服务器-admin(跟用户有关即我的)
 var mips = 'http://test.jac.timanetwork.net/api/jac-admin/' //地区
 
-var love_car = 'http://test.jac.timanetwork.net/jvconnectedcar/' //爱车
+var love_car = 'http://test.jac.timanetwork.net/jvconnectedcar' //爱车
 
 //服务器→反馈记录
 var rec = 'http://test.jac.timanetwork.net/api/jac-enjoy-service/'
@@ -158,7 +158,7 @@ window.Lovecar = {
     Changepin: love_car + '/vehicle/update-vehicle-pin', //修改pin码
     Getphonepin: love_car + '/vehicle//identify-code', //获取验证码
     Checkphonepin: love_car + '/vehicle/check-vehicle-pin', //验证pin码
-    BusTest: love_car + 'vehicle/query-cyc-car-examination', //车辆体检
+    BusTest: love_car + '/vehicle/query-cyc-car-examination', //车辆体检
     Fuel: love_car + '/vehicle/query-vehicle-fuel-statistics', //燃油接口
     Flow: love_car + '/vehicle/query-vehicle-cyc-flow-query', //流量查询
     Longrange: love_car + '/vehicle/set-vehicle-remoteset', //车辆远程设置

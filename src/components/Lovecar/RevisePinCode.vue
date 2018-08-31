@@ -95,7 +95,7 @@
 			},
 			init () { //请求用户基本信息进行展现
 				let data = {
-					no: this.$store.state.no
+					no: this.$store.state.userId
 				}
 				this.$http.post(Wit.searchUserBaseInformationOne, data, this.$store.state.mytoken).then(res => {
 						const data = res.data;
