@@ -61,23 +61,29 @@
 			</div>
 		</div>
 		<div class="one" style="height:.1rem;"></div>
-		<ul class="" style="padding:.1rem .2rem">
-			<li class="ul_list flex row around " v-for="(item,index) in mainbus" :key="index" @click="search()">
-				<div class="ul_list flex cocenter"> <img class="pic" src="../../../static/images/Wit/bg-mine.png" alt=""></div>
-				<div class="flex column around  mid">
-					<span class="txt_top dian">{{item.dealerName}}</span>
-					<span class="txt_m">电话： </span>
-					<span class="flex row cocenter">
-                        <img style="width:.25rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">
-                        <span class="txt_m dian" style="margin-top:.1rem">{{item.dealerAddress}}</span>
-					</span>
-				</div>
-				<div class="flex column around cocenter">
-					<span class="txt_m">1.6km</span>
-					<img style="width:.42rem;" src="../../../static/images/Wit/nav_btn.png" alt="">
-				</div>
-			</li>
-		</ul>
+		<div :style="{'-webkit-overflow-scrolling': scrollMode}">
+			<mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="80">
+				<ul class="" style="padding:.1rem .2rem" v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
+					<li class="ul_list flex row around " v-for="(item,index) in mainbus" :key="index" @click="search()">
+						<div class="ul_list flex cocenter"> <img class="pic" src="../../../static/images/Wit/bg-mine.png" alt=""></div>
+						<div class="flex column around  mid">
+							<span class="txt_top dian">{{item.dealerName}}</span>
+							<span class="txt_m">电话： </span>
+							<span class="flex row cocenter">
+		                        <img style="width:.25rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">
+		                        <span class="txt_m dian" style="margin-top:.1rem">{{item.dealerAddress}}</span>
+							</span>
+						</div>
+						<div class="flex column around cocenter">
+							<span class="txt_m">1.6km</span>
+							<img style="width:.42rem;" src="../../../static/images/Wit/nav_btn.png" alt="">
+						</div>
+					</li>
+				</ul>
+			</mt-loadmore>
+		</div>
+		
+		
 		<mt-popup v-model="popupVisible" position="bottom">
 			<div style="height:2.5rem;width:100%;">
 				<ul class="search">
@@ -91,6 +97,7 @@
 </template>
 <script>
 	import { Popup } from "mint-ui";
+	import { Toast } from 'mint-ui';
 	import selectCompon from '../publicmodel/SelectCompon'
 	export default {
 		data() {
@@ -120,7 +127,14 @@
 				provinceState: true, //省份伪标题状态
 				cityState: true ,//城市伪标题状态
 				cityname:'',//默认省
-				citysi:''//默认市
+				citysi:'',//默认市
+				allLoaded: false, //为真，则 bottomMethod 不会被再次触发,为false会再次触发
+				scrollMode: "auto",
+				loading: false,  //false,触发无线滚动, true,不会触发无线滚动
+				loadEnd:false, //false,再次滚动会加载更多数据, true再次滚动不会加载更多数据
+				size: 10, //每页的数据长度
+				current: 1 //当前页码
+				
 			};
 		},
 		components: {
@@ -128,8 +142,12 @@
 		},
 		methods: {
 			init() {
+	          	this.loading=true;   //第一次加载数据,没有滚动的情况下,是不可以无线滚动的
+          		this.loadEnd=false;  //第一次加载数据,还可以继续加载
 				var param = {
-					dealerType:"01"
+					dealerType:"01",
+					size: 10,
+					current: 1
 					}
 					
 				var data = {
@@ -145,11 +163,31 @@
 				})
 				//经销商
 			
-				 this.$http.post(Wit.Dealer, param).then(res => {
-				  if(res.data.code == 0) {
-							this.mainbus = res.data.data
+				 this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
+				 	const data = res.data;
+				  		if(data.code == 0) {
+				  			this.current = 1, //当前页码
+				  			this.loading = false , //加载完数据可以无线滚动
+							this.mainbus = data.data.records
+							if (data.data.total <= this.size) { //如果总条数小于等于请求的数据条数,不在请求加载更多
+								this.loadEnd = true;
+							}
+						} else {
+							Toast({
+								message: '报错',
+								position: 'middle',
+								duration: 2000
+							});
 						}
-					}),
+					})
+				 	.catch( err => {
+				 		Toast({
+							message: '系统异常',
+							position: 'middle',
+							duration: 2000
+						});
+				 	})
+				 ,
 				//请求省份列表
 				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
 					const data = res.data;
@@ -224,7 +262,54 @@
 				this.cityDrop = false;
 				 this.publicrequst()
 			},
-
+			loadTop () { //列表顶部下拉刷新
+				
+			},
+			loadBottom () { //列表底部下拉刷新
+				
+			},
+			getNextList () { //上拉加载更多方法
+				if(this.loadEnd){
+		            this.loadBottom();
+		            return;
+		       }
+				this.loadEnd=true;
+          		this.current++;
+          		var data = {
+          			dealerType:"01",
+					size: 10,
+					current: this.current
+          		}
+				this.$http.post(Wit.Dealer, data, this.$store.state.mytoken).then(res => {
+				 	const data = res.data;
+				 	this.loadEnd=false;
+				  		if(data.code == 0) {
+				  			this.mainbus = this.mainbus.concat(data.data.records) 
+				  			var allpages = Math.ceil(data.data.total/this.size);
+//				  			console.log(allpages)
+							if (allpages <= this.current) {
+								this.loading = true;   //禁止无限滚动
+				                this.allLoaded = true; //不在触发方法
+				                this.loadEnd = true;  //不在请求数据
+//				                  $("#showAll2").show();
+							}
+						} else {
+							this.current = this.current -1;
+							Toast({
+								message: '报错',
+								position: 'middle',
+								duration: 2000
+							});
+						}
+					})
+				 	.catch( err => {
+				 		Toast({
+							message: '系统异常',
+							position: 'middle',
+							duration: 2000
+						});
+				 	})
+			},
 			//公共请求，
 			  publicrequst(){
 				  var param={
@@ -250,7 +335,7 @@
 			var NewPosition= JSON.parse(Position)
 			this.cityname=NewPosition.city
 			this.citysi=NewPosition.city
-			alert(JSON.stringify(NewPosition))
+//			alert(JSON.stringify(NewPosition))
             //  alert(NewPosition.province)
 		},
 		watch: {
