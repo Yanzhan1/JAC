@@ -71,7 +71,7 @@
                 </ul>
                 <span class='Remarks'>备注说明：</span>
                 <textarea placeholder="输入文本..." v-model="beizhu"></textarea>
-          
+                <div style="height:.88rem"></div>
             <div class="submit" v-show="success">
                 <img src="/static/images/Wit/gou@2x.png" alt="" style="width:.8rem;height:.8rem;" class="gou">
                 <h3>提交成功</h3>
@@ -95,9 +95,11 @@
                 <span @click="choose">确定</span>
                 <mt-picker :slots="slots2" @change="onValuesChange2" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
             </div>
+           
             <div >
                 <h3 @click="sub" class="bottom-btn" style="position:absolute;bottom:0;left:0">提交</h3>
             </div>
+
 </div>
 </template>
 
@@ -252,7 +254,11 @@ export default {
   },
   mounted(){
     //经销商
-    this.$http.post(Wit.Distributor,{"dealerType":"01"}).then((res)=>{
+    var param={
+       dealerType:"01"
+    }
+    this.$http.post(Wit.Distributor,param).then((res)=>{
+      alert(JSON.stringify(res))
       var chooseaddress= res.data.data.records
       for(var i=0;i<chooseaddress.length;i++){
         this.slots2[0].values.push(chooseaddress[i].dealerName)
@@ -331,11 +337,12 @@ textarea {
   height: 1.14rem;
   background: #f5f5f5;
   border: #f5f5f5 solid 0.01rem;
-  margin: 0.37rem 0.31rem;
+  margin: 0rem 0.31rem;
   font-size: 0.28rem;
   font-weight: Regular;
   font-family: PingFangSC-Regular;
   outline: none;
+  padding: .1rem;
 }
 .region {
   position: absolute;

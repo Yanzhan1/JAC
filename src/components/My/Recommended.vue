@@ -1,44 +1,44 @@
 <template>
-    <div>
-        <header class="header">
-            <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-            <span class="header-title">推荐码</span>
-            <span class="header-right"></span>
-        </header>
+  <div>
+    <header class="header">
+      <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+      <span class="header-title">推荐码</span>
+      <span class="header-right"></span>
+    </header>
 
-        <div class="center">
-            <div class="my">我的推荐码</div>
-            <img src="/static/images/my/icon_share@2x.png" alt="" @click="enjoy()">
-            <div class="num">{{this.share}}</div>
-        </div>
-        <div class="mask"></div>
-        <mt-popup v-model="popupVisible" position="bottom">
-            <div style="height:2.5rem;width:100%;">
-                <ul class="search flex row around cocenter" style="height:2rem">
-                    <li class="flex column contentcenter uu " @click="wei('WEIXIN')">
-                        <img src="../../../static/images/my/wei.png" alt="">
-                        <span>微信</span>
-                    </li>
-                    <li class="flex column contentcenter uu " @click="friendq('WEIXIN_CIRCLE')">
-                        <img src="../../../static/images/my/friendquan.png" alt="">
-                        <span>朋友圈</span>
-                    </li>
-                    <li class="flex column contentcenter uu " @click="qq('QQ')">
-                        <img src="../../../static/images/my/qq.png" alt="">
-                        <span>QQ</span>
-                    </li>
-                    <li class="flex column contentcenter uu ">
-                        <img src="../../../static/images/my/qqquan.png" alt="">
-                        <span>QQ空间</span>
-                    </li>
-                    <li class="flex column contentcenter uu ">
-                        <img src="../../../static/images/my/xinlang.png" alt="">
-                        <span>新浪微博</span>
-                    </li>
-                </ul>
-            </div>
-        </mt-popup>
+    <div class="center">
+      <div class="my">我的推荐码</div>
+      <img src="/static/images/my/icon_share@2x.png" alt="" @click="enjoy()">
+      <div class="num">{{this.share}}</div>
     </div>
+    <div class="mask"></div>
+    <mt-popup v-model="popupVisible" position="bottom">
+      <div style="height:2.5rem;width:100%;">
+        <ul class="search flex row around cocenter" style="height:2rem">
+          <li class="flex column contentcenter uu " @click="wei('WEIXIN')">
+            <img src="../../../static/images/my/wei.png" alt="">
+            <span>微信</span>
+          </li>
+          <li class="flex column contentcenter uu " @click="friendq('WEIXIN_CIRCLE')">
+            <img src="../../../static/images/my/friendquan.png" alt="">
+            <span>朋友圈</span>
+          </li>
+          <li class="flex column contentcenter uu " @click="qq('QQ')">
+            <img src="../../../static/images/my/qq.png" alt="">
+            <span>QQ</span>
+          </li>
+          <li class="flex column contentcenter uu ">
+            <img src="../../../static/images/my/qqquan.png" alt="">
+            <span>QQ空间</span>
+          </li>
+          <li class="flex column contentcenter uu ">
+            <img src="../../../static/images/my/xinlang.png" alt="">
+            <span>新浪微博</span>
+          </li>
+        </ul>
+      </div>
+    </mt-popup>
+  </div>
 </template>
 
 <script>
@@ -50,47 +50,55 @@ export default {
       popupVisible: false
     };
   },
-  methods:{
-      //点击分享
-      enjoy(){
-          this.popupVisible=true
-      },
-      //分享微信
-      wei(platform){
-       
-        let content = '1234567';
-       platform = platform;
-        if (isMobile.iOS()) {
-          var params = [
-            content,imageURL,title,description,platform
-          ];
-          alert(params.join(""));
-          window.webkit.messageHandlers.share.postMessage(params);
-        } else if(isMobile.Android()) {
-          // alert(platform)
-          js2android.share(content,platform);
-        }
-      },
-       //分享朋友圈
-      friendq(){
-
-      },
-     //分享qq
-     qq(){
-
-     }
-   
+  methods: {
+    //点击分享
+    enjoy() {
+      this.popupVisible = true;
+    },
+    //分享微信
+    wei(platform) {
+      let content = "1234567";
+      platform = platform;
+      if (isMobile.iOS()) {
+        var params = [content, platform];
+        window.webkit.messageHandlers.share.postMessage(params);
+      } else if (isMobile.Android()) {
+        js2android.share(content, platform);
+      }
+    },
+    //分享朋友圈
+    friendq(platform) {
+      let content = "1234567";
+      platform = platform;
+      if (isMobile.iOS()) {
+        var params = [content, platform];
+        window.webkit.messageHandlers.share.postMessage(params);
+      } else if (isMobile.Android()) {
+        js2android.share(content, platform);
+      }
+    },
+    //分享qq
+    qq(platform) {
+      let content = "1234567";
+      platform = platform;
+      if (isMobile.iOS()) {
+        var params = [content, platform];
+        window.webkit.messageHandlers.share.postMessage(params);
+      } else if (isMobile.Android()) {
+        js2android.share(content, platform);
+      }
+    }
   },
-  created(){
+  created() {
     //获取推荐码
-    var param={
-        userNo:this.$store.state.userId
-        }
-     this.$http.post(My.RecomendCode,param,this.$store.state.mytoken).then(res=>{
-       if(res.data.code==0){
-         this.share=res.data.data.code
-        }
-     })
+    var param = {
+      userNo: this.$store.state.userId
+    };
+    this.$http.post(My.RecomendCode, param).then(res => {
+      if (res.data.code == 0) {
+        this.share = res.data.data.code;
+      }
+    });
   }
 };
 </script>

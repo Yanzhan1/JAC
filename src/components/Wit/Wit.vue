@@ -187,6 +187,7 @@ export default {
         tell = "4008-006633";
       }
       if (isMobile.iOS()) {
+         window.webkit.messageHandlers.call.postMessage(tell);
       } else if (isMobile.Android()) {
         js2android.call(tell);
       }
