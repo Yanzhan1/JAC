@@ -9,10 +9,10 @@
             <div v-for="(item,index) in nav" class="talbs_next" @click="choose($event,index)" :class="{blue:current==index}" :key="index">{{item}}</div>
         </div>
         <div class="every_img">
-            <img src="./../../../static/images/Wit/1.jpg" alt="" v-show="this.current==0?true:false">
-            <img src="./../../../static/images/Wit/2.jpg" alt="" v-show="this.current==1?true:false">
-            <img src="./../../../static/images/Wit/3.jpg" alt="" v-show="this.current==2?true:false">
-            <img src="./../../../static/images/Wit/4.jpg" alt="" v-show="this.current==3?true:false">
+            <img style="width:23.8rem;height:9rem" src="./../../../static/images/Wit/ceshi.1.jpg" alt="" v-show="this.current==0?true:false">
+            <img style="width:23.8rem;height:9rem" src="./../../../static/images/Wit/ceshi.2.jpg" alt="" v-show="this.current==1?true:false">
+            <img style="width:23.8rem;height:9rem" src="./../../../static/images/Wit/ceshi.1.jpg" alt="" v-show="this.current==2?true:false">
+            <img style="width:23.8rem;height:9rem" src="./../../../static/images/Wit/ceshi.2.jpg" alt="" v-show="this.current==3?true:false">
         </div>
         <div class="bottom-btn" @click="reserve">在线订车</div>
     </div>
