@@ -11,7 +11,7 @@
         <span class="contentList-left">头像</span>
         <div class="contentList-right">
           <div style="width:.76rem;height:.76rem">
-            <img  :src="userInfo.headUrl" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem">
+            <img :src="userInfo.headUrl" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem">
           </div>
           <div class="inputfile">
             <img src="../../../static/images/my/next@2x.png" style="width: 0.4rem;height: 0.4rem;z-index: 1" />
@@ -49,12 +49,12 @@
           <span>女</span>
           <img v-if="userInfo.sex==2" src="../../../static/images/my/yiguanzhu@3x.png" style="width: 0.42rem;height: 0.42rem">
         </div>
-        
+
       </div>
       <div class="gradientline"></div>
       <div class="contentList nickname" @click="toaddress">
         <span class="contentList-left">我的地址</span>
-        <div class="contentList-right" >
+        <div class="contentList-right">
           <img src="../../../static/images/my/next@2x.png" style="width: 0.4rem;height: 0.4rem" />
         </div>
       </div>
@@ -86,9 +86,9 @@ export default {
       popupVisible: false,
       sex: 1, //1男，0女
       userInfo: {}, //展示用户信息
-      changeInfo: {},//更该用户信息传的参数
-       headUrl:'',//图片地址,
-       headimg:'../../../static/images/my/qq.png'
+      changeInfo: {}, //更该用户信息传的参数
+      headUrl: "", //图片地址,
+      headimg: "../../../static/images/my/qq.png"
     };
   },
   methods: {
@@ -104,65 +104,64 @@ export default {
     // },
     init() {},
     //图片更改
-     getimgsrc(src){
-        this.userInfo.headUrl = 'data:image/jpeg;base64,'+src
-        this.$forceUpdate()
-        },
+    getimgsrc(src) {
+      this.userInfo.headUrl = "data:image/jpeg;base64," + src;
+      this.$forceUpdate();
+    },
     changepicture(e) {
-        var _this = this;
-        /*console.info(e.target.files[0]);//图片文件
+      var _this = this;
+      /*console.info(e.target.files[0]);//图片文件
           console.info(e.target.value);//这个是文件的路径 C:\fakepath\icon (5).png*/
-        var reader = new FileReader();
-        reader.onload = (function(file) {
-          return function(e) {
-            if (isMobile.iOS()) {
-              var params = {
-                imgsrc:this.result.replace(
-                  "data:image/jpeg;base64,",
-                  ""
-                )
-              }
-              window.webkit.messageHandlers.changeHeadImage.postMessage(params);
-            } else{
-              _this.userInfo.headUrl = this.result;
-            }
-         };
-        })(e.target.files[0]);
-        reader.readAsDataURL(e.target.files[0]);
-      },
-//点击保存
+      var reader = new FileReader();
+      reader.onload = (function(file) {
+        return function(e) {
+          if (isMobile.iOS()) {
+            var params = {
+              imgsrc: this.result.replace("data:image/jpeg;base64,", "")
+            };
+            window.webkit.messageHandlers.changeHeadImage.postMessage(params);
+          } else {
+            _this.userInfo.headUrl = this.result;
+          }
+        };
+      })(e.target.files[0]);
+      reader.readAsDataURL(e.target.files[0]);
+    },
+    //点击保存
     changemessage() {
-      if(this.userInfo.userRealName == ""){
-          let instance = Toast({
-            message: "昵称不能为空",
-            position: "middle",
-            duration: 1000
-          });
-          return
-        }
-        this.changeInfo.userRealName = this.userInfo.userRealName; //赋值  参数 昵称
-        //验证表情
-        // var regRule = /\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g;
-        // if(this.changeInfo.userRealName.match(regRule)) {
-        //   this.changeInfo.userRealName = this.changeInfo.userRealName.replace(/\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g, "");
-        //   let instance = Toast({
-        //     message: "昵称不能输入表情",
-        //     position: "middle",
-        //     duration: 1000
-        //   });
-        //   return
-        // }
-        this.changeInfo.personalSignature = this.userInfo.personalSignature;
-        this.changeInfo.sex = this.userInfo.sex;
-        this.changeInfo.no= "AD022018072505235135056",
-        this.changeInfo.headUrl = this.userInfo.headUrl.replace(
-          "data:image/jpeg;base64,",
-          ""
-        );
+      if (this.userInfo.userName == "") {
+        let instance = Toast({
+          message: "昵称不能为空",
+          position: "middle",
+          duration: 1000
+        });
+        return;
+      }
+      this.changeInfo.userName = this.userInfo.userName; //赋值  参数 昵称
+      //验证表情
+      // var regRule = /\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g;
+      // if(this.changeInfo.userRealName.match(regRule)) {
+      //   this.changeInfo.userRealName = this.changeInfo.userRealName.replace(/\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g, "");
+      //   let instance = Toast({
+      //     message: "昵称不能输入表情",
+      //     position: "middle",
+      //     duration: 1000
+      //   });
+      //   return
+      // }
+      this.changeInfo.personalSignature = this.userInfo.personalSignature;
+      this.changeInfo.sex = this.userInfo.sex;
+      (this.changeInfo.no = this.$store.state.userId),
+        // this.changeInfo.headUrl = this.userInfo.headUrl.replace(
+        //   "data:image/jpeg;base64,",
+        //   ""
+        // );
         // alert(JSON.stringify( this.changeInfo))
-        this.$http.post(My.UpUserinfo, this.changeInfo,{}).then(res => {
-          if (res.data.code == 0) {
-               this.popupVisible = true;
+        this.$http
+          .post(My.UpUserinfo, this.changeInfo, {})
+          .then(res => {
+            if (res.data.code == 0) {
+              this.popupVisible = true;
               //   if(res.data.retobj){
               //   if (isMobile.iOS()) {
               //     var data = {
@@ -173,18 +172,19 @@ export default {
               //     js2android.changeImage(res.data.head_image);
               //   }
               // }
-              var self=this
-              setTimeout(function(){
-                 self.$router.go(-1);
-              },2000)
-             } else {
+              var self = this;
+              setTimeout(function() {
+                self.$router.go(-1);
+              }, 2000);
+            } else {
               let instance = Toast({
-                message: '保存失败',
+                message: "保存失败",
                 position: "middle",
                 duration: 1000
               });
             }
-          }).catch(() => {
+          })
+          .catch(() => {
             let instance = Toast({
               message: "系统出现问题",
               position: "middle",
@@ -193,27 +193,30 @@ export default {
           });
     },
     toaddress() {
-       this.$router.push({ path: "/myaddress", query: {} });
+      this.$router.push({ path: "/myaddress", query: {} });
     },
-    selectSex(num){
+    selectSex(num) {
       this.userInfo.sex = num;
       this.$forceUpdate();
     }
   },
   mounted() {
     window.getimgsrc = this.getimgsrc;
-     //获取用户基本信息
-     var param={
-        no: this.$store.state.userId,
-     }
-   this.$http.post(My.UserInfo,param).then(res=>{
-     if(res.data.code==0){
-       this.userInfo=res.data.data;
-       this.userInfo.sex = res.data.data.sex || 1;
+    //获取用户基本信息
+    var param = {
+      no: this.$store.state.userId
+      //no:'AD022018072505235135056'
+    };
+    this.$http.post(My.UserInfo, param).then(res => {
+      if (res.data.code == 0) {
+        this.userInfo = res.data.data;
+        this.userInfo.sex = res.data.data.sex || 1;
+        this.userInfo.personalSignature = res.data.data.personalSignature || "";
+        this.userInfo.userName = res.data.data.userName || "";
       }
-    })
+    });
   }
- }
+};
 </script>
 <style scoped>
 /*分割线*/
@@ -349,7 +352,7 @@ input {
   outline: none;
   border-radius: 5px;
 }
-textarea:hover{
-        border-color: #FF00FF;
-    }
+textarea:hover {
+  border-color: #ff00ff;
+}
 </style>

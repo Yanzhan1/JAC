@@ -19,7 +19,7 @@
 							<img v-if="Personal.sex==1" src="../../../static/images/my/gender_man@2x.png" alt="" style="width: 0.28rem;height: 0.28rem">
 							<img v-if="Personal.sex==2" src="../../../static/images/my/gender_woman.png" alt="" style="width: 0.28rem;height: 0.28rem">
 						</div>
-						<span @click="ToScore()" style="margin-top: 0.16rem;font-size: 0.22rem;color: #dcf5ff;">550&nbsp;积分&nbsp;>{{Personal.personalSignature}}</span>
+						<span @click="ToScore()" style="margin-top: 0.16rem;font-size: 0.22rem;color: #dcf5ff;">550&nbsp;积分&nbsp;></span>
 					</div>
 				</div>
 				<!-- <img @click="twoma()" src="../../../static/images/my/qr_code@2x.png" alt="" style="width: 0.4rem;height: 0.4rem"> -->
@@ -213,8 +213,7 @@ export default {
       this.$http.post(My.UserInfo, param, this.$store.state.mytoken).then(res => {
         if(res.data.code == 0) {
           this.Personal = res.data.data
-         console.log( this.Personal)
-        }
+       }
       })
     },
     //获赞、关注、发布、粉丝数量
