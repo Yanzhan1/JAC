@@ -210,7 +210,7 @@ export default {
       var param = {
         no: this.$store.state.userId,
       }
-      this.$http.post(My.UserInfo, param, this.$store.state.mytoken).then(res => {
+      this.$http.post(My.UserInfo, param).then(res => {
         if(res.data.code == 0) {
           this.Personal = res.data.data
        }
