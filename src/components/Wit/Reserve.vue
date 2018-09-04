@@ -116,7 +116,7 @@ export default {
       Distribution: "", //经销商
       Recommend: "", //推荐码
       name: "", //姓名
-      smallname: "", //称谓
+      smallname: "", //称谓 男女
       tell: "", //电话
       email: "", //邮箱
       area: [], //地区
@@ -178,7 +178,17 @@ export default {
       this.success = false;
       this.region = false;
     },
-    sub() {
+    // 提交前 先判断用户输入的推荐码是否正确
+     sub() {
+       var param = {
+       code: this.$store.state.userId
+       };
+      this.$http.post(My.RecomendCode, param).then(res => {
+      if (res.data.code == 0) {
+         
+       }
+      });
+      
       var name=this.name
       if (name == "") {
         Toast({
@@ -217,19 +227,23 @@ export default {
         });
         return false;
       }
+      var gender = this.smallname=='女'? 1:2;
+     
         var param=  {
             customerName:this.stylecar,//姓名
             fkDealerId:"N7650100",//经销商编号
-            gender:"1",//性别
+            gender:gender,//性别
             mobile:this.tell,//手机号 
-            email:"yi.wu@timanetworks.com",//email
+            email:this.email,//email
             address:this.address,//地址
             comments:this.beizhu, //商家备注
             province:"022" ,//省份ID
             series:"CY001" ,//意向车系
             model:"CYRF010" //意向车型
          }
-        this.$http.post(Wit.PreBus,param).then(res=>{
+         alert(JSON.stringify(param))
+       this.$http.post(Wit.PreBus,param).then(res=>{
+         alert(JSON.stringify(res))
         if(res.data.code==0){
           this.success = true;
           this.region = true;
@@ -258,16 +272,15 @@ export default {
        dealerType:"01"
     }
     this.$http.post(Wit.Distributor,param).then((res)=>{
-      alert(JSON.stringify(res))
-      var chooseaddress= res.data.data.records
+     var chooseaddress= res.data.data.records
       for(var i=0;i<chooseaddress.length;i++){
         this.slots2[0].values.push(chooseaddress[i].dealerName)
         this.Idchooseaddress.push(chooseaddress[i].no)
       }
     })
     //地区
-    this.$http.post(Wit.Area,{}).then(res=>{
-       var address=res.data.data.records
+    this.$http.post(My.Area,{}).then(res=>{
+      var address=res.data.data.records
      for(let i=0;i<address.length;i++){
        this.slots[0].values.push(address[i].name)
      }

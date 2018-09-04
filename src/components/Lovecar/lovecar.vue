@@ -763,6 +763,7 @@ export default {
       //获取机车 登录登出状态
       this.$http.get(Lovecar.LogStatus, this.$store.state.getpin).then(res => {
         if (res.data.returnSuccess) {
+          alert(JSON.stringify( res.data))
           this.LoginStatus = res.data.data[1] ? res.data.data[1].logStatus : [];
         }
       });
@@ -1049,7 +1050,7 @@ input:focus {
 .bus_righgt {
   /* width: 1.99rem; */
   height: 4.24rem;
-  margin-right: 1.83rem;
+  margin-right: 1rem;
 }
 .left_bus .pic1 {
   width: 0.4rem;

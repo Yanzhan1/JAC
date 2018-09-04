@@ -122,6 +122,7 @@ export default {
             window.webkit.messageHandlers.changeHeadImage.postMessage(params);
           } else {
             _this.userInfo.headUrl = this.result;
+           
           }
         };
       })(e.target.files[0]);
@@ -209,6 +210,7 @@ export default {
     };
     this.$http.post(My.UserInfo, param).then(res => {
       if (res.data.code == 0) {
+        // alert(JSON.stringify(res.data))
         this.userInfo = res.data.data;
         this.userInfo.sex = res.data.data.sex || 1;
         this.userInfo.personalSignature = res.data.data.personalSignature || "";
