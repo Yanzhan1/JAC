@@ -11,12 +11,12 @@
         <span class="contentList-left">头像</span>
         <div class="contentList-right">
           <div style="width:.76rem;height:.76rem">
-            <img :src="userInfo.headUrl" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem">
+            <img  id="img" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem">
           </div>
           <div class="inputfile">
             <img src="../../../static/images/my/next@2x.png" style="width: 0.4rem;height: 0.4rem;z-index: 1" />
           </div>
-          <input type="file" accept=".jpeg, .jpg, .png" name="upload_file" id="js-title-img-input" @change="changepicture($event)">
+          <input type="file" accept=".jpeg, .jpg, .png" name="upload_file" id="js-title-img-input" @change="selectImg($event)">
         </div>
       </div>
       <div class="gradientline"></div>
@@ -108,26 +108,36 @@ export default {
       this.userInfo.headUrl = "data:image/jpeg;base64," + src;
       this.$forceUpdate();
     },
-    changepicture(e) {
-      var _this = this;
-      /*console.info(e.target.files[0]);//图片文件
-          console.info(e.target.value);//这个是文件的路径 C:\fakepath\icon (5).png*/
-      var reader = new FileReader();
-      reader.onload = (function(file) {
-        return function(e) {
-          if (isMobile.iOS()) {
-            var params = {
-              imgsrc: this.result.replace("data:image/jpeg;base64,", "")
-            };
-            window.webkit.messageHandlers.changeHeadImage.postMessage(params);
-          } else {
-            _this.userInfo.headUrl = this.result;
-           
-          }
-        };
-      })(e.target.files[0]);
-      reader.readAsDataURL(e.target.files[0]);
-    },
+		selectImg($event){
+			this.getPic("js-title-img-input","img",$event.target.value);
+		},
+		getPic(piElementId,imgElementId,path){
+				var self = this;
+        var file = document.getElementById(piElementId).files[0];
+				var reads= new FileReader();
+				var img = new Image();
+				reads.readAsDataURL(file);
+				reads.onload = function(e){
+          img.src = e.target.result;
+					img.onload = function(){
+            var res = self.compress(img,100,100);
+            // console.log(res);
+            // self.userInfo.headUrl = res;
+            // self.$forceUpdate;
+            document.getElementById(imgElementId).src = res;
+            console.log(self.userInfo.headUrl);
+					}
+				}
+		},
+		compress(img,w,h){
+			var canvas = document.createElement("canvas");
+			var ctx = canvas.getContext("2d");
+			canvas.height = h;
+			canvas.width = w;
+			ctx.drawImage(img,0,0,w,h);
+			return canvas.toDataURL("image/jpeg",0.92);
+		},
+
     //点击保存
     changemessage() {
       if (this.userInfo.userName == "") {
@@ -205,8 +215,8 @@ export default {
     window.getimgsrc = this.getimgsrc;
     //获取用户基本信息
     var param = {
-      no: this.$store.state.userId
-      //no:'AD022018072505235135056'
+    no: this.$store.state.userId
+       // no:'AD022018072505235135056'
     };
     this.$http.post(My.UserInfo, param).then(res => {
       if (res.data.code == 0) {
@@ -215,6 +225,7 @@ export default {
         this.userInfo.sex = res.data.data.sex || 1;
         this.userInfo.personalSignature = res.data.data.personalSignature || "";
         this.userInfo.userName = res.data.data.userName || "";
+        this.userinfo.headUrl=  document.getElementById('#img').src
       }
     });
   }
