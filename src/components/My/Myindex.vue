@@ -193,7 +193,7 @@ export default {
     recommended() {
       this.$router.push("/Recommended");
     },
-    //粉丝
+    //粉丝  
     toFans: function () {
       this.$router.push({path:"/fans"})
     },
