@@ -5,14 +5,17 @@
             <p class="p1" @click="characteristic">车系特色</p>
             <p class="p2 active" @click="characteristic">配置参数</p>
         </div>
+        <!-- <div style="display:flex;flex:1;just-content:center">
+            <div v-for="(item,index) in Edition">{{item}}</div>
+        </div> -->
         <div class="talbs">
             <div v-for="(item,index) in nav" class="talbs_next" @click="choose($event,index)" :class="{blue:current==index}" :key="index">{{item}}</div>
         </div>
         <div class="every_img">
-            <img style="width:23.8rem;height:9rem" src="./../../../static/images/Wit/ceshi.1.jpg" alt="" v-show="this.current==0?true:false">
-            <img style="width:23.8rem;height:9rem" src="./../../../static/images/Wit/ceshi.2.jpg" alt="" v-show="this.current==1?true:false">
-            <img style="width:23.8rem;height:9rem" src="./../../../static/images/Wit/ceshi.1.jpg" alt="" v-show="this.current==2?true:false">
-            <img style="width:23.8rem;height:9rem" src="./../../../static/images/Wit/ceshi.2.jpg" alt="" v-show="this.current==3?true:false">
+            <img style="height:9rem" src="./../../../static/images/Wit/ceshi.1.jpg" alt="" v-show="this.current==0?true:false">
+            <img style="height:9rem" src="./../../../static/images/Wit/ceshi.2.jpg" alt="" v-show="this.current==1?true:false">
+            <img style="height:9rem" src="./../../../static/images/Wit/ceshi.1.jpg" alt="" v-show="this.current==2?true:false">
+            <img style="height:9rem" src="./../../../static/images/Wit/ceshi.2.jpg" alt="" v-show="this.current==3?true:false">
         </div>
         <div class="bottom-btn" @click="reserve">在线订车</div>
     </div>
@@ -24,6 +27,7 @@ export default {
         return{
             nav:['精致内观','时尚外观','主要性能指标','关键尺寸','啥玩意'],
             images:[],
+            Edition:['超级版','运动版','普通版'],
             current:0,//选择tablb中的index值
         }
     },

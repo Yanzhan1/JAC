@@ -11,7 +11,8 @@ var mip = 'http://test.jac.timanetwork.net/api/jac-automobile-manage/automobilem
     //服务器-admin(跟用户有关即我的)
 var mips = 'http://test.jac.timanetwork.net/api/jac-admin/' //地区
 
-var love_car = 'http://test.jac.timanetwork.net/jvconnectedcar' //爱车
+// var love_car = 'http://test.jac.timanetwork.net/jvconnectedcar' //爱车
+var love_car = 'http://test.jac.timanetwork.net/api/jac-car-control' //爱车
 
 //服务器→反馈记录
 var rec = 'http://test.jac.timanetwork.net/api/jac-enjoy-service/'
@@ -108,7 +109,7 @@ window.DISCOVERMESSAGE = {
 window.Wit = {
         MainBus: mip + '/vehicleModel/searchVehicleModelList', //全部车型 主推车型
         Dealer: mip + '/dealerVehicleModel/searchDealerBaseInformationListPage', //经销列表商查询
-//      Dealer: 'http://172.21.4.223:8082' + '/automobilemanage/dealerBaseInformation/searchDealerBaseInformationListPage', //经销列表商查询
+        //      Dealer: 'http://172.21.4.223:8082' + '/automobilemanage/dealerBaseInformation/searchDealerBaseInformationListPage', //经销列表商查询
         Switching: mip + '/vehicleBrand/searchVehicleBrandList', //频道选择
         Distributor: mip + '/dealerBaseInformation/searchDealerBaseInformationListPage', //选择经销商
         searchVehicleBrandList: mip + '/vehicleBrand/searchVehicleBrandList', //品牌
