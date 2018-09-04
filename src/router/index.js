@@ -528,7 +528,7 @@ router.beforeEach((to, from, next) => {
             } else {
                 $store.dispatch('isLogin', false);
                 $store.dispatch('userId', null);
-                $store.dispatch('userInfo', null);
+//              $store.dispatch('userInfo', null);
                 // TODO 跳转至登录页面 待处理
             }
 //          alert($store.state.token)

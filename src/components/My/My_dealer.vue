@@ -19,7 +19,7 @@
             <p class="mydelar" v-if="item.dealerType=='02'">维保经销商</p>
             <div class="flex row between" style="border-bottom:1px solid #f1f1f1;padding:.2rem 0">
               <div style="width:2.56rem;height:1.68rem;border-radius:6px;overflow:hidden">
-                <img style="width:100%;height:1.68rem" src="../../../static/images/Wit/bg-mine.png" alt="">
+                <img style="width:100%;height:1.68rem" v-lazy="imgSrc" alt="">
               </div>
               <div class="flex column around" style="width:3rem">
                 <span style="font-size:.29rem;color:#222;" class="mui-ellipsis-2">{{item.shortDealerName}}</span>
@@ -63,7 +63,8 @@ export default {
       loading: false,
       size: 10,
       current: 1,
-      topStatus: ""
+      topStatus: "",
+      imgSrc: '../../../static/images/Wit/bg-mine.png'
     };
   },
   methods: {
@@ -88,7 +89,7 @@ export default {
         current: 1,
         size: _this.size
       };
-      this.$http.post(My.MyDealer, param).then(res => {
+      this.$http.post(My.MyDealer, param, this.$store.state.mytoken).then(res => {
         if (res.data.code == 0) {
           _this.current = 1;
           _this.loading = false;
@@ -111,7 +112,7 @@ export default {
         current: _this.current,
         size: _this.size
       };
-      this.$http.post(My.MyDealer, param).then(function(res) {
+      this.$http.post(My.MyDealer, param, this.$store.state.mytoken).then(function(res) {
         _this.loadEnd = false;
         // alert(JSON.stringify(res))
         if (res.data.code == 0) {
@@ -173,6 +174,11 @@ export default {
   padding-left: 0.3rem;
   background-color: #49bbff;
   margin-top: 0.33rem;
+}
+img[lazy=loading] {
+  /*height: 100px;*/
+  /*margin: auto;*/
+  background: url("../../../static/images/Wit/ceshi.1.jpg") no-repeat fixed center;
 }
 </style>
 

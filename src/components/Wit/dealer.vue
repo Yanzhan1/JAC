@@ -62,7 +62,7 @@
 		</div>
 		<div class="one" style="height:.1rem;"></div>
 		<div :style="{'-webkit-overflow-scrolling': scrollMode}">
-			<mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="80">
+			<mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="80" :auto-fill="false">
 				<ul class="" style="padding:.1rem .2rem" v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
 					<li class="ul_list flex row around " v-for="(item,index) in mainbus" :key="index" @click="search()">
 						<div class="ul_list flex cocenter"> <img class="pic" src="../../../static/images/Wit/bg-mine.png" alt=""></div>
@@ -103,7 +103,7 @@
 		data() {
 			return {
 				popupVisible: false,
-				mainbus: {}, //存储展示的数据经销商列表
+				mainbus: [], //存储展示的数据经销商列表
 				searchVehicleBrandList: [], //品牌列表
 				searchVehicleSeriesList: [], //车型列表
 				searchCountryAreaCodeListPage: [], //省份列表
@@ -120,7 +120,7 @@
 				cityDrop: false, //城市下拉
 				nowIndex: 0,  //品牌index
 				carIndex: 0, //车型index
-				provinIndex: 0, //身份index
+				provinIndex: 0, //省份index
 				cityIndex: 0, //城市index
 				brandState: true, //品牌伪标题状态
 				carState: true, //车型伪标题状态 
@@ -155,7 +155,7 @@
 					"level": 1
 				}
 				//请求品牌列表
-				this.$http.post(Wit.searchVehicleBrandList, data).then(res => {
+				this.$http.post(Wit.searchVehicleBrandList, data, this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchVehicleBrandList = data.data;
@@ -189,7 +189,7 @@
 				 	})
 				 ,
 				//请求省份列表
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data, this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchCountryAreaCodeListPage = data.data.records;
@@ -205,7 +205,7 @@
 			toggleDrop() {//改变品牌下拉状态
 				this.isDrop = !this.isDrop;
 				this.brandState = false;
-				if (this.carDrop || this.provinceDrop || this.cityDrop) { //对其它下拉列表的判断
+				if (this.carDrop || this.provinceDrop || this.cityDrop) { //对其它下拉列表的判断,只显示一个下拉列表
 					this.carDrop = false;
 					this.provinceDrop = false;
 					this.cityDrop = false ;
@@ -243,7 +243,7 @@
                  this.isDrop = false;
 				 this.brandNo = val
 				 this.publicrequst()
-		  },
+		  	},
 			chooseCarType (ind,val) {//选择车型
 			this.bustypeno=val
 				this.carIndex = ind;
@@ -263,12 +263,43 @@
 				 this.publicrequst()
 			},
 			loadTop () { //列表顶部下拉刷新
-				
+				var param={
+					brandNo:this.brandNo,//品牌no
+					vehicleSeridesNo:this.bustypeno,//车系
+				  	 dealerProvinceCode: this.provinceId,//省编码
+					dealerCityCode:this.city_id//城市id
+                }
+				this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
+				 	const data = res.data;
+				  		if(data.code == 0) {
+				  			this.current = 1, //当前页码
+				  			this.loading = false , //加载完数据可以无线滚动
+							this.mainbus = data.data.records
+							if (data.data.total <= this.size) { //如果总条数小于等于请求的数据条数,不在请求加载更多
+								this.loadEnd = true;
+							}
+						} else {
+							Toast({
+								message: '报错',
+								position: 'middle',
+								duration: 2000
+							});
+						}
+					})
+				 	.catch( err => {
+				 		Toast({
+							message: '系统异常',
+							position: 'middle',
+							duration: 2000
+						});
+				 	})
+          		this.$refs.loadmore.onTopLoaded();
 			},
 			loadBottom () { //列表底部下拉刷新
 				
 			},
 			getNextList () { //上拉加载更多方法
+				
 				if(this.loadEnd){
 		            this.loadBottom();
 		            return;
@@ -276,6 +307,10 @@
 				this.loadEnd=true;
           		this.current++;
           		var data = {
+          			brandNo:this.brandNo,//品牌no
+					vehicleSeridesNo:this.bustypeno,//车系
+				  	dealerProvinceCode: this.provinceId,//省编码
+					dealerCityCode:this.city_id,//城市id
           			dealerType:"01",
 					size: 10,
 					current: this.current
@@ -284,7 +319,9 @@
 				 	const data = res.data;
 				 	this.loadEnd=false;
 				  		if(data.code == 0) {
+				  			console.log(this.mainbus)
 				  			this.mainbus = this.mainbus.concat(data.data.records) 
+				  			console.log(this.mainbus)
 				  			var allpages = Math.ceil(data.data.total/this.size);
 //				  			console.log(allpages)
 							if (allpages <= this.current) {
@@ -312,16 +349,20 @@
 			},
 			//公共请求，
 			  publicrequst(){
+			  	  this.current = 1;
 				  var param={
 					brandNo:this.brandNo,//品牌no
 					vehicleSeridesNo:this.bustypeno,//车系
-				  	 dealerProvinceCode: this.provinceId,//省编码
-					dealerCityCode:this.city_id//城市id
+				  	dealerProvinceCode: this.provinceId,//省编码
+					dealerCityCode:this.city_id,//城市id
+					dealerType:"01",
+					size: 10,
+					current: this.current
                 }
-			    this.$http.post(Wit.Dealer, param).then(res=>{
+			    this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res=>{
                       if(res.data.code == 0) {
 						    this.mainbus=[]
-							this.mainbus = res.data.data
+							this.mainbus = res.data.data.records
 						}
 				})
 			  }
@@ -344,7 +385,7 @@
 					no: this.brandNo
 				}
 			  //请求车型列表
-				this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
+				this.$http.post(Wit.searchVehicleSeriesList, data, this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchVehicleSeriesList = data.data;
@@ -357,7 +398,7 @@
 					parentId: this.provinceId, //被检测的省份id 
 					level: 2
 				}
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data, this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.cityList = data.data.records;
