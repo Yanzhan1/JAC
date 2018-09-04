@@ -105,7 +105,7 @@
           let _this = this;
           this.loading=true;
           this.loadEnd=false;
-          this.$http.post(INDEXMESSAGE.getActivity, {"uid":this.$store.state.userId,"pageNo":1, "length":_this.list}).then(function (res) {
+          this.$http.post(INDEXMESSAGE.getActivity, {"uid":this.$store.state.userId,"pageNo":1, "length":_this.list,labelIds: this.$store.state.selectLabelState}).then(function (res) {
             if (res.data.status) {
               _this.pageNum=1;
               _this.loading=false;
@@ -127,7 +127,7 @@
           }
           this.loadEnd=true;
           this.pageNum++;
-          this.$http.post(INDEXMESSAGE.getActivity, {"uid":this.$store.state.userId,"pageNo":_this.pageNum, "length":_this.list}).then(function (res) {
+          this.$http.post(INDEXMESSAGE.getActivity, {"uid":this.$store.state.userId,"pageNo":_this.pageNum, "length":_this.list,labelIds: this.$store.state.selectLabelState}).then(function (res) {
             _this.loadEnd=false;
             if (res.data.status) {
                 _this.activityList = _this.activityList.concat(res.data.data);
@@ -145,13 +145,21 @@
           });
         },
       },
+      computed:{
+        selectLabelState(){
+          return this.$store.state.selectLabelState
+        }
+      },      
       watch:{
         getUserId(val){
           this.getRefreshList()
           // if(val != null){
           //   alert(this.$store.state.userId)
           // }
-        }
+        },
+        selectLabelState(){
+          this.getRefreshList()
+        }        
       },
       mounted(){
         this.getRefreshList();
