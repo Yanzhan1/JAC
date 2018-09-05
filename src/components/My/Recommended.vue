@@ -47,7 +47,8 @@ export default {
   data() {
     return {
       share: "",
-      popupVisible: false
+      popupVisible: false,
+      
     };
   },
   methods: {
@@ -95,7 +96,7 @@ export default {
       userNo: this.$store.state.userId
     };
     this.$http.post(My.RecomendCode, param).then(res => {
-      if (res.data.code == 0) {
+     if (res.data.code == 0) {
         this.share = res.data.data.code;
       }
     });
