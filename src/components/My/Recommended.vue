@@ -8,7 +8,7 @@
 
     <div class="center">
       <div class="my">我的推荐码</div>
-      <img src="/static/images/my/icon_share@2x.png" alt="" @click="enjoy()">
+      <img src="../../../static/images/my/icon_share@2x.png" alt="" @click="enjoy()">
       <div class="num">{{this.share}}</div>
     </div>
     <div class="mask"></div>

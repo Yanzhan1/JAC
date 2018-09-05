@@ -11,7 +11,7 @@ export default {
     // userNo: 'AD022018081504171568405', //userNo
     getpin: {
         headers: {
-            "identityParam": "{ userId: 'c123', token: 'sdfasdfasdfasd', phone: '15221794973' }",
+            "identityParam": '{ userId: "c123", token: "sdfasdfasdfasd", phone: "15221794973" }',
         }
     }, //爱车发送请求时的token,暂用
     mytoken: {
