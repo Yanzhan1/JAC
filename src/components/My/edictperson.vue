@@ -11,19 +11,19 @@
         <span class="contentList-left">头像</span>
         <div class="contentList-right">
           <div style="width:.76rem;height:.76rem">
-            <img :src="userInfo.headUrl" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem">
+            <img  id="img" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem">
           </div>
           <div class="inputfile">
             <img src="../../../static/images/my/next@2x.png" style="width: 0.4rem;height: 0.4rem;z-index: 1" />
           </div>
-          <input type="file" accept=".jpeg, .jpg, .png" name="upload_file" id="js-title-img-input" @change="changepicture($event)">
+          <input type="file" accept=".jpeg, .jpg, .png" name="upload_file" id="js-title-img-input" @change="selectImg($event)">
         </div>
       </div>
       <div class="gradientline"></div>
       <div class="contentList nickname">
         <span class="contentList-left">昵称</span>
         <div class="contentList-right">
-          <input type="text" v-model="userInfo.userRealName" class="name" maxlength="16">
+          <input type="text" v-model="userInfo.userName" class="name" maxlength="16" placeholder="请输入昵称">
         </div>
       </div>
       <div class="gradientline"></div>
@@ -41,19 +41,20 @@
       <div class="gradientline"></div>
       <div class="personalSignature">
         <span class="contentList-left">性别:</span>
-        <div class="sex name" @click="userInfo.sex=1" style="margin-bottom: .2rem">
+        <div class="sex name" @click="selectSex(1)" style="margin-bottom: .2rem">
           <span>男</span>
           <img v-if="userInfo.sex==1" src="../../../static/images/my/yiguanzhu@3x.png" style="width: 0.42rem;height: 0.42rem">
         </div>
-        <div class="sex name" @click="userInfo.sex=2">
+        <div class="sex name" @click="selectSex(2)">
           <span>女</span>
           <img v-if="userInfo.sex==2" src="../../../static/images/my/yiguanzhu@3x.png" style="width: 0.42rem;height: 0.42rem">
         </div>
+
       </div>
       <div class="gradientline"></div>
       <div class="contentList nickname" @click="toaddress">
         <span class="contentList-left">我的地址</span>
-        <div class="contentList-right" >
+        <div class="contentList-right">
           <img src="../../../static/images/my/next@2x.png" style="width: 0.4rem;height: 0.4rem" />
         </div>
       </div>
@@ -85,68 +86,93 @@ export default {
       popupVisible: false,
       sex: 1, //1男，0女
       userInfo: {}, //展示用户信息
-      changeInfo: {},//更该用户信息传的参数
-      headUrl:''//图片地址
+      changeInfo: {}, //更该用户信息传的参数
+      headUrl: "", //图片地址,
+      headimg: "../../../static/images/my/qq.png"
     };
   },
   methods: {
-    compress(img, width, height, ratio) { // img可以是dataURL或者图片url
-      var canvas, ctx, img64;
-      canvas = document.createElement('canvas');
-      canvas.width = width;
-      canvas.height = height;
-      ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0, width, height);
-      img64 = canvas.toDataURL("image/jpeg", ratio);
-      return img64; // 压缩后的base64串
-    },
+    // compress(img, width, height, ratio) { // img可以是dataURL或者图片url
+    //   var canvas, ctx, img64;
+    //   canvas = document.createElement('canvas');
+    //   canvas.width = width;
+    //   canvas.height = height;
+    //   ctx = canvas.getContext("2d");
+    //   ctx.drawImage(img, 0, 0, width, height);
+    //   img64 = canvas.toDataURL("image/jpeg", ratio);
+    //   return img64; // 压缩后的base64串
+    // },
     init() {},
     //图片更改
-    changepicture(e) {
-      var _this = this;
-      var reader = new FileReader();
-      var img = new Image();
-      reader.readAsDataURL(e.target.files[0]);
-       reader.onload = function(e) {
-        img.src = e.target.result;
-        console.log(img.src)
-        var res = _this.compress(img, 100,100,1);
-        console.log(res)
-        _this.userInfo.headUrl = res;
-      };
-   },
-//点击保存
+    getimgsrc(src) {
+      this.userInfo.headUrl = "data:image/jpeg;base64," + src;
+      this.$forceUpdate();
+    },
+		selectImg($event){
+			this.getPic("js-title-img-input","img",$event.target.value);
+		},
+		getPic(piElementId,imgElementId,path){
+				var self = this;
+        var file = document.getElementById(piElementId).files[0];
+				var reads= new FileReader();
+				var img = new Image();
+				reads.readAsDataURL(file);
+				reads.onload = function(e){
+          img.src = e.target.result;
+					img.onload = function(){
+            var res = self.compress(img,100,100);
+            // console.log(res);
+            // self.userInfo.headUrl = res;
+            // self.$forceUpdate;
+            document.getElementById(imgElementId).src = res;
+            console.log(self.userInfo.headUrl);
+					}
+				}
+		},
+		compress(img,w,h){
+			var canvas = document.createElement("canvas");
+			var ctx = canvas.getContext("2d");
+			canvas.height = h;
+			canvas.width = w;
+			ctx.drawImage(img,0,0,w,h);
+			return canvas.toDataURL("image/jpeg",0.92);
+		},
+
+    //点击保存
     changemessage() {
-      if(this.userInfo.userRealName == ""){
-          let instance = Toast({
-            message: "昵称不能为空",
-            position: "middle",
-            duration: 1000
-          });
-          return
-        }
-        this.changeInfo.userRealName = this.userInfo.userRealName; //赋值  参数 昵称
-        //验证表情
-        // var regRule = /\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g;
-        // if(this.changeInfo.userRealName.match(regRule)) {
-        //   this.changeInfo.userRealName = this.changeInfo.userRealName.replace(/\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g, "");
-        //   let instance = Toast({
-        //     message: "昵称不能输入表情",
-        //     position: "middle",
-        //     duration: 1000
-        //   });
-        //   return
-        // }
-        this.changeInfo.personalSignature = this.userInfo.personalSignature;
-        this.changeInfo.sex = this.userInfo.sex;
-        this.changeInfo.no= "AD022018072505235135056",
-        this.$http.post(My.UpUserinfo, this.changeInfo,{
-         headers: {
-            "timaToken": "Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTUzMzg2NzA4NDAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6MjUsXCJpbml0VXNlclwiOjAsXCJsYXN0TW9kaWZpZWREYXRlXCI6MTUzNDI5NjYyMzAwMCxcIm5vXCI6XCJBRDAyMjAxODA4MTAxMDExMjQ2MTk0OFwiLFwicGFzc3dvcmRcIjpcIjEyMzQ1NnNcIixcInBob25lXCI6XCIxNTAyMTYwMDI4MVwiLFwidXNlclN0YXR1c1wiOjAsXCJ2ZXJzaW9uXCI6NH0iLCJjcmVhdGVkIjoxNTM0MzM0NDIyNjU1LCJ1c2VyTm8iOiJBRDAyMjAxODA4MTAxMDExMjQ2MTk0OCIsImV4cCI6MTUzNTE5ODQyMiwidXNlcklkIjoyNX0.ODi5uVNeIe7y8om_dUe1wjgmMeGd8vgT_IUWUJpLSRs"
-         }
-       }).then(res => {
-          if (res.data.code == 0) {
-               this.popupVisible = true;
+      if (this.userInfo.userName == "") {
+        let instance = Toast({
+          message: "昵称不能为空",
+          position: "middle",
+          duration: 1000
+        });
+        return;
+      }
+      this.changeInfo.userName = this.userInfo.userName; //赋值  参数 昵称
+      //验证表情
+      // var regRule = /\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g;
+      // if(this.changeInfo.userRealName.match(regRule)) {
+      //   this.changeInfo.userRealName = this.changeInfo.userRealName.replace(/\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g, "");
+      //   let instance = Toast({
+      //     message: "昵称不能输入表情",
+      //     position: "middle",
+      //     duration: 1000
+      //   });
+      //   return
+      // }
+      this.changeInfo.personalSignature = this.userInfo.personalSignature;
+      this.changeInfo.sex = this.userInfo.sex;
+      (this.changeInfo.no = this.$store.state.userId),
+        // this.changeInfo.headUrl = this.userInfo.headUrl.replace(
+        //   "data:image/jpeg;base64,",
+        //   ""
+        // );
+        // alert(JSON.stringify( this.changeInfo))
+        this.$http
+          .post(My.UpUserinfo, this.changeInfo, {})
+          .then(res => {
+            if (res.data.code == 0) {
+              this.popupVisible = true;
               //   if(res.data.retobj){
               //   if (isMobile.iOS()) {
               //     var data = {
@@ -157,18 +183,19 @@ export default {
               //     js2android.changeImage(res.data.head_image);
               //   }
               // }
-              var self=this
-              setTimeout(function(){
-                 self.$router.go(-1);
-              },2000)
-             } else {
+              var self = this;
+              setTimeout(function() {
+                self.$router.go(-1);
+              }, 2000);
+            } else {
               let instance = Toast({
-                message: res.data.errmsg,
+                message: "保存失败",
                 position: "middle",
                 duration: 1000
               });
             }
-          }).catch(() => {
+          })
+          .catch(() => {
             let instance = Toast({
               message: "系统出现问题",
               position: "middle",
@@ -177,21 +204,32 @@ export default {
           });
     },
     toaddress() {
-       this.$router.push({ path: "/myaddress", query: {} });
+      this.$router.push({ path: "/myaddress", query: {} });
+    },
+    selectSex(num) {
+      this.userInfo.sex = num;
+      this.$forceUpdate();
     }
   },
   mounted() {
-     //获取用户基本信息
-     var param={
-        no: this.$store.state.no,
-     }
-     this.$http.post(My.UserInfo,param,this.$store.state.mytoken).then(res=>{
-     if(res.data.code==0){
-       this.userInfo=res.data.data
-        }
-    })
+    window.getimgsrc = this.getimgsrc;
+    //获取用户基本信息
+    var param = {
+    no: this.$store.state.userId
+       // no:'AD022018072505235135056'
+    };
+    this.$http.post(My.UserInfo, param).then(res => {
+      if (res.data.code == 0) {
+        // alert(JSON.stringify(res.data))
+        this.userInfo = res.data.data;
+        this.userInfo.sex = res.data.data.sex || 1;
+        this.userInfo.personalSignature = res.data.data.personalSignature || "";
+        this.userInfo.userName = res.data.data.userName || "";
+        this.userinfo.headUrl=  document.getElementById('#img').src
+      }
+    });
   }
- }
+};
 </script>
 <style scoped>
 /*分割线*/
@@ -327,7 +365,7 @@ input {
   outline: none;
   border-radius: 5px;
 }
-textarea:hover{
-        border-color: #FF00FF;
-    }
+textarea:hover {
+  border-color: #ff00ff;
+}
 </style>

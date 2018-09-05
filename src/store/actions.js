@@ -3,12 +3,6 @@ export default {
     isLogin: ({ commit, state }, payload) => {
         commit(types.ISLOGIN, payload)
     },
-    NO: ({ commit, state }, payload) => {
-        commit(types.NO, payload)
-    },
-    TOKEN: ({ commit, state }, payload) => {
-        commit(types.TOKEN, payload)
-    },
     SOFTKEYBOARD: ({ commit, state }, payload) => {
         commit(types.SOFTKEYBOARD, payload)
     },
@@ -26,5 +20,8 @@ export default {
     },
     CARVINS: ({ commit, state }, payload) => {
         commit(types.CARVINS, payload)
-    }
+    },
+    selectLabelState: ({ commit, state},payload) => {
+      commit(types.SELECTLABELSTATE, payload)
+    },
 }

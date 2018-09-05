@@ -53,7 +53,7 @@
 					if(action == 'confirm') {
 						//跳转修改成功页面
 						let data = {
-							no: this.$store.state.no,
+							no: this.$store.state.userId,
 							emergencyContactName: this.emergencyContactName,
 							emergencyContactPhone: this.emergencyContactPhone
 						}

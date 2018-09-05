@@ -48,14 +48,15 @@
             loadEnd:false,
             loading:false,
             informationList:[],
-            list:4,
+            list: 4,
             topStatus: '',
             flag: 'information',
             type: 'information',
+            value: null
           }
       },
       components: {
-        shareBox
+        shareBox,
       },
       methods:{
         toDetail: function (id) {
@@ -75,7 +76,7 @@
           let _this = this;
           this.loading=true;
           this.loadEnd=false;
-          this.$http.post(INDEXMESSAGE.getInfomation, {"uid": this.$store.state.userId,"pageNo":1, "length":_this.list}).then(function (res) {
+          this.$http.post(INDEXMESSAGE.getInfomation, {"uid": this.$store.state.userId,"pageNo":1, "length":_this.list,labelIds: this.$store.state.selectLabelState}).then(function (res) {
             if (res.data.status) {
               _this.pageNum=1;
               _this.loading=false;
@@ -97,7 +98,7 @@
           }
           this.loadEnd=true;
           this.pageNum++;
-          this.$http.post(INDEXMESSAGE.getInfomation, {"uid": this.$store.state.userId,"pageNo":_this.pageNum, "length":_this.list}).then(function (res) {
+          this.$http.post(INDEXMESSAGE.getInfomation, {"uid": this.$store.state.userId,"pageNo":_this.pageNum, "length":_this.list,labelIds: this.$store.state.selectLabelState}).then(function (res) {
             _this.loadEnd=false;
             if (res.data.status) {
                 _this.informationList = _this.informationList.concat(res.data.data);
@@ -193,15 +194,52 @@
         }
       },
       computed:{
+        selectLabelState(){
+          return this.$store.state.selectLabelState
+        }
       },
       watch:{
+        selectLabelState(){
+          this.getRefreshList()
+        }
       },
       mounted(){
-        this.getRefreshList();
+//    	alert(11)
+        this.$nextTick(function () {
+          this.getRefreshList()
+        })
       }
     }
 </script>
 
 <style scoped>
   @import "./../../../../static/css/discover/all.css";
+  .channel {
+      width:100%;
+      text-align:center;
+      box-sizing:border-box;
+      font-size:.36rem;
+      color:#555555;
+  }
+  .base-line {
+      height:.02rem;
+      background:#F1F1F1;
+      width:100%;
+  }
+  .btn {
+      width:100%;
+      display:flex;
+      text-align:center;
+  }
+  .btn p {
+      flex:1;
+      width:100%;
+      font-size:.32rem;
+  }
+  .btn p:nth-child(1) {
+      color:#888888;
+  }
+  .btn p:nth-child(1) {
+      color:#49BBFF;;
+  }
 </style>

@@ -42,11 +42,9 @@
 export default {
   data() {
     return {};
-  }
-
-};
-$(function() {
-  $(".star>li").mouseover(function() {
+  },
+  mounted(){
+     $(".star>li").click(function() {
     $(this).text("★").prevAll("li").text("★").end().nextAll("li").text("☆");
     })
     .mouseout(function() {
@@ -56,7 +54,9 @@ $(function() {
     .click(function() {
       $(this).attr("index", "1").siblings("li").removeAttr("index");
     });
-});
+  }
+};
+
 </script>
 
 <style scoped>

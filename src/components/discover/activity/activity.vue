@@ -47,6 +47,9 @@
 </template>
 
 <script>
+    import {mapState, mapMutations} from 'vuex'
+    import { Popup } from 'mint-ui';
+    import { Toast } from 'mint-ui';
     export default {
       name: "ActivityIndex",
       data(){
@@ -59,10 +62,32 @@
             activityList:[],
             list:3,
             topStatus: '',
+            value: null
           }
       },
      // props:['activityList'],
+      // computed:{
+      //   getUserId(){
+      //     return this.$store.state.userId
+      //   }
+      // },
       methods:{
+        confirm: function() {
+          let _this = this
+          let pushLabes = []
+          pushLabes.push(_this.value)
+          // _this.$store.dispatch("popupFalse")
+          _this.$http.post(INDEXMESSAGE.getActivity, {"uid":this.$store.state.userId,"pageNo":1, "length":_this.list, labelIds: pushLabes}).then(function (res) {
+            if (res.data.status) {
+              _this.activityList = res.data.data;
+            } else {
+              console.log(res.data.errorMsg);
+            }
+          });
+        },
+        cancle: function() {
+          this.$store.dispatch("popupFalse")
+        },
         loadTop() {
           this.getRefreshList();
           this.$refs.loadmore.onTopLoaded();
@@ -80,7 +105,7 @@
           let _this = this;
           this.loading=true;
           this.loadEnd=false;
-          this.$http.post(INDEXMESSAGE.getActivity, {"uid":this.$store.state.userId,"pageNo":1, "length":_this.list}).then(function (res) {
+          this.$http.post(INDEXMESSAGE.getActivity, {"uid":this.$store.state.userId,"pageNo":1, "length":_this.list,labelIds: this.$store.state.selectLabelState}).then(function (res) {
             if (res.data.status) {
               _this.pageNum=1;
               _this.loading=false;
@@ -102,7 +127,7 @@
           }
           this.loadEnd=true;
           this.pageNum++;
-          this.$http.post(INDEXMESSAGE.getActivity, {"uid":this.$store.state.userId,"pageNo":_this.pageNum, "length":_this.list}).then(function (res) {
+          this.$http.post(INDEXMESSAGE.getActivity, {"uid":this.$store.state.userId,"pageNo":_this.pageNum, "length":_this.list,labelIds: this.$store.state.selectLabelState}).then(function (res) {
             _this.loadEnd=false;
             if (res.data.status) {
                 _this.activityList = _this.activityList.concat(res.data.data);
@@ -121,25 +146,55 @@
         },
       },
       computed:{
-        getUserId(){
-          return this.$store.state.userId
+        selectLabelState(){
+          return this.$store.state.selectLabelState
         }
-      },
+      },      
       watch:{
         getUserId(val){
           this.getRefreshList()
           // if(val != null){
           //   alert(this.$store.state.userId)
           // }
-        }
+        },
+        selectLabelState(){
+          this.getRefreshList()
+        }        
       },
       mounted(){
         this.getRefreshList();
-        // alert(this.$store.state.userId)
       },
     }
 </script>
 
 <style scoped>
   @import "./../../../../static/css/discover/all.css";
+  .channel {
+      width:100%;
+      text-align:center;
+      box-sizing:border-box;
+      font-size:.36rem;
+      color:#555555;
+  }
+  .base-line {
+      height:.02rem;
+      background:#F1F1F1;
+      width:100%;
+  }
+  .btn {
+      width:100%;
+      display:flex;
+      text-align:center;
+  }
+  .btn p {
+      flex:1;
+      width:100%;
+      font-size:.32rem;
+  }
+  .btn p:nth-child(1) {
+      color:#888888;
+  }
+  .btn p:nth-child(1) {
+      color:#49BBFF;;
+  }
 </style>

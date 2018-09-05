@@ -2,21 +2,21 @@
   <div class="tophead">
     <div class="nav">
       <img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
-      <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;{{vinn}}</span>
+      <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;s7</span>
       <span class="txt_r" @click="islogin()" v-if="this.LoginStatus">机车已登录</span>
       <span class="txt_r" v-else @click="login()">机车未登录</span>
     </div>
     <div class="navs navs_h">
       <div class="navs_t">
-        <span class="num">50</span>
+        <span class="num">{{this.carcontrol.fuelPercent}}</span>
         <span class="txt">剩余油量（%）</span>
       </div>
       <div class="navs_t">
-        <span class="num">1333</span>
+        <span class="num">{{this.carcontrol.totalDistance}}</span>
         <span class="txt">行驶里程（KM）</span>
       </div>
       <div class="navs_t">
-        <span class="num">133</span>
+        <span class="num">{{this.carcontrol.mileage}}</span>
         <span class="txt">续航里程（KM）</span>
       </div>
     </div>
@@ -49,9 +49,9 @@
         <span ref='open' class='busl_r  left_2'>{{Condition.right_top}}</span>
         <span ref='open' class='busl_r right_1'>{{Condition.left_bottom}}</span>
         <span ref='open' class='busl_r right_2'>{{Condition.right_top}}</span>
-        <span class='busl_r top_1'>未关</span>
-        <span class='busl_r bottom_1'>未关</span>
-        <span class='busl_r middle_1'>已关</span>
+        <span class='busl_r top_1'>{{this.engineHoodStsFront}}</span>
+        <span class='busl_r bottom_1'>{{this.doorStsTrunk}}</span>
+        <span class='busl_r middle_1'>{{this.skylightStatus}}</span>
       </div>
     </div>
     <div class="content lines">
@@ -217,6 +217,27 @@ export default {
       time: "",
       sjc: "",
       vinn:'',
+      carcontrol:{},//车控返回的东西
+      //车门的状态展示
+      doorStsFrontLeft:'',
+      doorStsFrontRight:'',
+      doorStsRearLeft:'',
+      doorStsRearRight:'',
+      //车窗的状态展示
+      windowStsFrontLeft:'',
+      windowStsFrontRight:'',
+      windowStsRearLeft:'',
+      windowStsRearRight:'',
+      //前车盖状态展示
+      engineHoodStsFront:'',
+      //空调初始状态
+      acStatus:'',
+      //天窗初始状态
+      skylightStatus:'',
+      //后备箱状态
+      doorStsTrunk:'',
+      //发动机状态
+      engineStatus:'',
     };
   },
   methods: {
@@ -227,22 +248,32 @@ export default {
     fn(type) {
       this.activeshow = type;
       var tai = {
-        left_top: "2.5bar",
-        right_top: "2.4bar",
-        left_bottom: "2bar",
-        right_bottom: "2bar"
+        left_top:this.carcontrol.tirePressureFrontLeft,
+        right_top: this.carcontrol.tirePressureFrontRight,
+        left_bottom:this.carcontrol.tirePressureRearLeft,
+        right_bottom: this.carcontrol.tirePressureRearRight
       };
+      //车门状态
+      this.carcontrol.doorStsFrontLeft?this.doorStsFrontLeft='已关闭':this.doorStsFrontLeft='已打开'
+      this.carcontrol.doorStsFrontRight?this.doorStsFrontRight='已关闭':this.doorStsFrontRight='已打开'
+      this.carcontrol.doorStsRearLeft?this.doorStsRearLeft='已关闭':this.doorStsRearLeft='已打开'
+      this.carcontrol.doorStsRearRight?this.doorStsRearRight='已关闭':this.doorStsRearRight='已打开'
+      //车窗状态
+      this.carcontrol.windowStsFrontLeft?this.windowStsFrontLeft='已关闭':this.windowStsFrontLeft='已打开'
+      this.carcontrol.windowStsFrontRight?this.windowStsFrontRight='已关闭':this.windowStsFrontRight='已打开'
+      this.carcontrol.windowStsRearLeft?this.windowStsRearLeft='已关闭':this.windowStsRearLeft='已打开'
+      this.carcontrol.windowStsRearRight?this.windowStsRearRight='已关闭':this.windowStsRearRight='已打开'
       var door = {
-        left_top: "已关闭",
-        right_top: "已打开",
-        left_bottom: "已关闭",
-        right_bottom: "已关闭"
+        left_top:this.doorStsFrontLeft,
+        right_top:this.doorStsFrontRight,
+        left_bottom:this.doorStsRearLeft,
+        right_bottom: this.doorStsRearRight
       };
       var window = {
-        left_top: "已打开",
-        right_top: "已关闭",
-        left_bottom: "已关闭",
-        right_bottom: "已打开"
+        left_top:this.windowStsFrontLeft,
+        right_top:this.windowStsFrontRight,
+        left_bottom:this.windowStsRearLeft,
+        right_bottom:this.windowStsRearRight
       };
       if (this.activeshow == 1) {
         this.Condition = tai;
@@ -368,7 +399,8 @@ export default {
         window.webkit.messageHandlers.goDDPaiiOS.postMessage({});
       }
     },
-    Carquerry(){
+    //调用车况接口
+     async Carquerry(){
           this.$http
       .post(
         Lovecar.Carquery,
@@ -377,7 +409,7 @@ export default {
       )
       .then(res => {
         if (res.data.returnSuccess) {
-          // this.getAsyReturn(res.data.operationId);
+          this.getAsyReturn(res.data.operationId);
         } else {
           Toast({
             message: res.data.returnErrMsg,
@@ -425,11 +457,10 @@ export default {
           }
         });
     },
-    //重复调用异步接口
+    //车况部分重复调用异步接口
     getAsyReturn(operationId) {
-      var flag = true;
       this.sjc = new Date().getTime();
-      this.$http
+       this.$http
         .post(
           Lovecar.OperationId,
           { operationId: operationId },
@@ -474,7 +505,15 @@ export default {
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
-                          flag = false;
+                          // console.log(res.data.data)
+                          this.carcontrol=res.data.data
+                          this.carcontrol.engineHoodStsFront?this.engineHoodStsFront='已开':this.engineHoodStsFront='未开'
+                          this.acStatus=this.carcontrol.acStatus//空调初始状态
+                          this.carcontrol.skylightStatus?this.skylightStatus='已开':this.skylightStatus='未开'//天窗初始状态
+                          this.backnum=this.carcontrol.doorStsTrunk
+                          this.backnum?this.doorStsTrunk='已开':this.doorStsTrunk='未开'//后备箱的初始状态
+                          this.engineStatus=this.carcontrol.engineStatus
+                                      // alert(JSON.stringify(this.carcontrol))
                           Toast({
                             message: "下达指令成功",
                             position: "middle",
@@ -506,7 +545,16 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              flag = false;
+              // console.log(res.data.data)
+              this.carcontrol=res.data.data
+              this.carcontrol.engineHoodStsFront?this.engineHoodStsFront='已开':this.engineHoodStsFront='未开'
+              this.acStatus=this.carcontrol.acStatus//空调初始状态
+              this.carcontrol.skylightStatus?this.skylightStatus='已开':this.skylightStatus='未开'//天窗初始状态
+              this.backnum=this.carcontrol.doorStsTrunk
+              this.backnum?this.doorStsTrunk='已开':this.doorStsTrunk='未开'//后备箱的初始状态
+              this.engineStatus=this.carcontrol.engineStatus
+              // alert(JSON.stringify(this.carcontrol))
+              // console.log(this.carcontrol)
               Toast({
                 message: "下达指令成功",
                 position: "middle",
@@ -532,7 +580,8 @@ export default {
             this.$store.dispatch("LOADINGFLAG", false);
           }
         });
-    }
+    },
+  
   },
   //检测输入框
   watch: {
@@ -721,7 +770,13 @@ export default {
   },
   mounted() {
     // this.$nextTick(()=>{
-      this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
+        var getpin = {
+        headers: {
+          identityParam:
+            '{ "userId": "c123", "token": "sdfasdfasdfasd", "phone": "15221794973" }'
+        }
+  };
+    this.$http.post(My.My_Bus, {}, getpin).then(res => {
     if (res.data.returnSuccess) {
       this.BusDetails = res.data.data;
       for (let i = 0; i < res.data.data.length; i++) {
@@ -734,8 +789,8 @@ export default {
       }
       this.vinn = this.$store.state.vins;
       this.Carquerry()
-    //    console.log(this.$store.state.vins)
     // console.log(this.$store.state.mytoken.headers.timaToken);
+      
     }
   });
 // })       
@@ -757,6 +812,7 @@ export default {
       //获取机车 登录登出状态
       this.$http.get(Lovecar.LogStatus, this.$store.state.getpin).then(res => {
         if (res.data.returnSuccess) {
+          // alert(JSON.stringify( res.data))
           this.LoginStatus = res.data.data[1] ? res.data.data[1].logStatus : [];
         }
       });
@@ -1041,9 +1097,9 @@ input:focus {
   color: #fff;
 }
 .bus_righgt {
-  width: 1.99rem;
+  /* width: 1.99rem; */
   height: 4.24rem;
-  margin-right: 1.83rem;
+  margin-right: 1rem;
 }
 .left_bus .pic1 {
   width: 0.4rem;

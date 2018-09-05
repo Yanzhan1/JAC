@@ -34,7 +34,7 @@
         <img src="../../../static/images/Wit/zhixiang_home_capacity_buy_car_btn.png" alt="">
         <span>智能选车</span>
       </li>
-      <li class="li_list_1"  @click="search()">
+      <li class="li_list_1" @click="search()">
         <img src="../../../static/images/Wit/zhixiang_home_maintaim_search_btn.png" alt="">
         <span>保养查询</span>
       </li>
@@ -70,24 +70,48 @@
         <div style="font-size:.25rem;color:#fff;text-align:center;margin-top:.2rem">车辆VIP码：84092184032840932</div>
       </div>
       <div class="flex row maincenter" style="margin-top:.54rem">
-        <div class="mt_l flex column" >
-           <span style="font-size:.46rem;color:#fff;">5000 <span style="font-size:.22rem;color:#fff;">km</span> </span>
-           <span style="font-size:.22rem;color:#fff;margin-top:.34rem">距离下次保养</span>
+        <div class="mt_l flex column">
+          <span style="font-size:.46rem;color:#fff;">5000
+            <span style="font-size:.22rem;color:#fff;">km</span>
+          </span>
+          <span style="font-size:.22rem;color:#fff;margin-top:.34rem">距离下次保养</span>
         </div>
         <div class="mt_m" style="font-size:.9rem;color:#f5f5f5;padding:0 .7rem">/</div>
         <div class="mt_r flex column ">
           <span>
-                <span style="font-size:.46rem;color:#fff;">06/26</span>
-                <span class="tim">2018</span>
+            <span style="font-size:.46rem;color:#fff;">06/26</span>
+            <span class="tim">2018</span>
           </span>
           <span style="font-size:.22rem;color:#fff;margin-top:.34rem">预计下次保养时间</span>
         </div>
       </div>
       <div class="know" @click="know()">我知道了</div>
       <div style="width:100%;">
-        <img @click="know()"  src="../../../static/images/Wit/mycar_check.png" alt="" style="width:.58rem;height:.58rem;margin:.75rem auto">
+        <img @click="know()" :src="'../../../static/images/Wit/mycar_check.png'" alt="" style="width:.58rem;height:.58rem;margin:.75rem auto">
       </div>
     </mt-popup>
+    <div class="mask" v-if="flag"></div>
+    <ul class="ulList" v-if="flag" @click="cancel()">
+      <li class="cont flex column contentcenter" @click="call(1)">
+        <span style="font-size:.32rem;color:#222">4008-889933</span>
+        <span style="font-size:.22rem;color:#888">(瑞风，和悦)</span>
+      </li>
+      <li class="cont flex column contentcenter" @click="call(2)">
+        <span style="font-size:.32rem;color:#222">4008-009933</span>
+        <span style="font-size:.22rem;color:#888">(帅铃，骏铃，康铃)</span>
+      </li>
+      <li class="cont flex column contentcenter" @click="call(3)">
+        <span style="font-size:.32rem;color:#222">4008-003366</span>
+        <span style="font-size:.22rem;color:#888">(星锐)</span>
+      </li>
+      <li class="cont flex column contentcenter" @click="call(4)">
+        <span style="font-size:.32rem;color:#222">4008-006633</span>
+        <span style="font-size:.22rem;color:#888">(格尔发)</span>
+      </li>
+      <li class="cont flex column contentcenter" style="border-bottom:none">
+        <span style="font-size:.32rem;color:#666">取消</span>
+      </li>
+    </ul>
   </div>
 </template>
 <script>
@@ -96,66 +120,124 @@ export default {
   data() {
     return {
       popupVisible: false,
-      mainbus:{},//主推车型
+      mainbus: {}, //主推车型
+      sheetVisible: true,
+      flag: false,
+      latitude:'',//精度
+      longitude:'',//维度
     };
   },
   methods: {
+    //道路救援
     confirmRevise() {
       MessageBox.confirm("", {
         title: "是否允许",
-        message: "发送当前定位至呼叫中心？",
+        message: "发送当前手机定位到呼叫中心？",
         showConfirmButton: true,
         showCancelButton: true,
         cancelButtonClass: "cancelButton",
         confirmButtonClass: "confirmButton",
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+        confirmButtonText: "允许",
+        cancelButtonText: "不允许",
         confirmButtonHighlight: true,
         cancelButtonHighlight: true
       })
         .then(action => {
           if (action == "confirm") {
-          
+            this.flag = true;
+
+            if (isMobile.iOS()) {
+            } else if (isMobile.Android()) {
+               var position=js2android.getLocationInfo()
+               var positions= JSON.parse(position)
+              
+               this.latitude=positions.latitude
+               this.longitude=positions.longitude
+               var param={
+                 latitude: this.latitude,
+                 longitude:this.longitude,
+                 NO:this.$store.state.userId
+               }
+               this.$http.post(Wit.Help,param).then(res=>{
+                 
+               })
+
+            }
           }
         })
         .catch(err => {
           if (err == "cancel") {
+            this.flag = true;
           }
         });
     },
+    //取消
+    cancel() {
+      this.flag = false;
+    },
+    call(num) {
+      var tell = "";
+      if (num == 1) {
+        tell = "4008-889933";
+      } else if (num == 2) {
+        tell = "4008-009933";
+      } else if (num == 3) {
+        tell = "4008-003366";
+      } else if (num == 4) {
+        tell = "4008-006633";
+      }
+      if (isMobile.iOS()) {
+         window.webkit.messageHandlers.call.postMessage(tell);
+      } else if (isMobile.Android()) {
+        js2android.call(tell);
+      }
+    },
+    //经销商
     fn() {
       this.$router.push("/wit/dealer");
     },
+    //全部车型，主推车型
     tobus() {
       this.$router.push("/wit/recoment_bus");
     },
+    //维保网点
     search_net() {
       this.$router.push("/wit/search_net");
     },
+    //维保预约
     pre_weib() {
       this.$router.push("/wit/pre_weib");
     },
+    //车系特色， 配置表
     specil() {
       this.$router.push("/wit/Characteristic");
     },
-    search(){
-      this.popupVisible=true
+    //保养查询
+    search() {
+      this.popupVisible = true;
     },
-    know(){
-      this.popupVisible=false
+    //关闭保养查询
+    know() {
+      this.popupVisible = false;
     }
+    // Map_Positioning(cont){
+    //   alert(1)
+    //    alert(JSON.stringify(cont))
+    // }
   },
-  created(){
-      
+  created() {
     //获取主推车型，传{}表示全部车型
-     var param={ }
-     this.$http.post(Wit.MainBus,param,this.$store.state.mytoken).then(res=>{
-        if(res.data.code==0){
-         var arr=res.data.data
-          arr.splice(3)
-          this.mainbus=arr
-       }
-     })
+    var param = {};
+    this.$http.post(Wit.MainBus, param).then(res => {
+      if (res.data.code == 0) {
+        var arr = res.data.data;
+        arr.splice(3);
+        this.mainbus = arr;
+      }
+    });
+  },
+  mounted() {
+    //  window.Map_Positioning= this.Map_Positioning;
   }
 };
 </script>
@@ -164,22 +246,46 @@ export default {
   padding: 0;
   margin: 0;
 }
-.know{
-  line-height: .82rem;
-  width:5.64rem;
-  background-color: #fff;
-  font-size:.32rem;
-  color:#4189FF;
-  text-align: center;
-  margin:.6rem auto;
-  border-radius: .2rem;
+.cancelButton {
+  color: #ccc !important;
 }
-.tim{
-  font-size:.14rem;
+.mask {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.ulList {
+  width: 100%;
+
   background-color: #fff;
-  color:#3B67FF;
-  line-height: .24rem;
-  padding:0 .1rem
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 0.1rem;
+}
+.cont {
+  height: 1rem;
+  border-bottom: 0.01rem solid #f8f8f8;
+}
+.know {
+  line-height: 0.82rem;
+  width: 5.64rem;
+  background-color: #fff;
+  font-size: 0.32rem;
+  color: #4189ff;
+  text-align: center;
+  margin: 0.6rem auto;
+  border-radius: 0.2rem;
+}
+.tim {
+  font-size: 0.14rem;
+  background-color: #fff;
+  color: #3b67ff;
+  line-height: 0.24rem;
+  padding: 0 0.1rem;
 }
 .mint-popup {
   width: 90%;
@@ -187,7 +293,7 @@ export default {
   background-image: url("../../../static/images/Wit/windows_maintain_search_bg.png");
   background-size: 100%;
   top: 42%;
-  border-radius: .2rem;
+  border-radius: 0.2rem;
 }
 .tophead {
   height: 3.8rem;

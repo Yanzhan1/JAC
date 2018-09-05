@@ -50,30 +50,30 @@
 <script>
 import { Toast } from "mint-ui";
 export default {
-  data(){
+  data() {
     return {
-      bgcolor:false,
-      shows:false,//控制选择地区显示
+      bgcolor: false,
+      shows: false, //控制选择地区显示
       selected: true,
       name: "",
       num: "",
       isShow: false,
-      everycode:'',//返回给后台的地区code
-      allarea:[],//所有的地区
-      choosedarea:'',//被选择的地区
+      everycode: "", //返回给后台的地区code
+      allarea: [], //所有的地区
+      choosedarea: "", //被选择的地区
       ishide: false, //控制城市的显示
       nowindex: 0, //默认显示上海
       provinceId: "100000",
       provinceName: "北京",
       address: "",
       options: [],
-      cityList: ['上海','北京'],
-       slots: [
+      cityList: ["上海", "北京"],
+      slots: [
         {
           flex: 1,
           values: [],
-          className: 'slot1',
-          textAlign: 'center'
+          className: "slot1",
+          textAlign: "center"
         }
       ]
     };
@@ -82,114 +82,118 @@ export default {
     // this.getProvinceList();
     this.info = this.$route.query;
     $(".editPersonalDetails").height($(".editPersonalDetails").height());
-    this.$http.post(My.Area,{},this.$store.state.mytoken).then((res)=>{
-      this.allarea=res.data.data.records
-      for(var i=0;i<this.allarea.length;i++){
-        this.slots[0].values.push(this.allarea[i].name)
+    this.$http.post(My.Area, {}).then(res => {
+      this.allarea = res.data.data.records;
+      for (var i = 0; i < this.allarea.length; i++) {
+        this.slots[0].values.push(this.allarea[i].name);
       }
-    })
+    });
   },
-    methods: {
-      handleSubmit() {
-        var self = this;
-        var flag = 0;
-        if (!self.selected) flag = 1;
-        var name = this.name;
-        if (name == "") {
-          Toast({
-            message: "姓名不能为空",
-            duration: 1000,
-            position: "bottom"
-          });
-          return false;
-        }
-        let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
-        var numFlag = reg.test(this.num);
-        if (!numFlag) {
-          Toast({
-            message: "手机号码格式不对！",
-            duration: 1000,
-            position: "bottom"
-          });
-          return false;
-        }
-         var address = this.address.trim();
-        if (address == "") {
-          Toast({
-            message: "收货地址不能为空",
-            duration: 1000,
-            position: "bottom"
-          });
-          return false;
-        }
-        var param = {
-          // customerId: this.$store.state.userId,
-          userNo:"UBS2018072410463590813",
-          receiveName: this.name,//姓名
-          receiveMobile: this.num,//手机号码
-          isDefalut: flag,//是否选定为默认2为选择默认
-          provinceName: this.everycode,//所在地区的code
-          address: this.address
-        };
-        this.$http.post(My.AddAddress, param,this.$store.state.mytoken).then(res => {
-          if(res.data.code==0){
-            this.$router.go(-1)
+  methods: {
+    async handleSubmit() {
+      var self = this;
+      var flag = 0;
+      if (!self.selected) flag = 1;
+      var name = this.name;
+      if (name == "") {
+        Toast({
+          message: "姓名不能为空",
+          duration: 1000,
+          position: "bottom"
+        });
+        return false;
+      }
+      let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+      var numFlag = reg.test(this.num);
+      if (!numFlag) {
+        Toast({
+          message: "手机号码格式不对！",
+          duration: 1000,
+          position: "bottom"
+        });
+        return false;
+      }
+      var address = this.address.trim();
+      if (address == "") {
+        Toast({
+          message: "收货地址不能为空",
+          duration: 1000,
+          position: "bottom"
+        });
+        return false;
+      }
+      var param = {
+         userNo: this.$store.state.userId,
+        receiveName: this.name, //姓名
+        receiveMobile: this.num, //手机号码
+        isDefalut: flag, //是否选定为默认2为选择默认
+        provinceName: this.everycode, //所在地区的code
+        address: this.address
+      };
+      // console.log(flag)
+      await this.$http
+        .post(My.Defaultaddress, param)
+        .then(res => {});
+      await this.$http
+        .post(My.AddAddress, param)
+        .then(res => {
+          if (res.data.code == 0) {
+            this.$router.go(-1);
           }
         });
+    },
 
-      },
+    // getProvinceList() {
+    //   var params={
+    //     address: "string",//收货人地址
+    //     cityId: 0,//城市id
+    //     cityName: "string",//城市名称
+    //     cityNo: "string",//城市编码
+    //     countryId: 0,//区域id
+    //     countryName: "string",//区域名称
+    //     countryNo: "string",//区域编码
+    //     current: 0,
+    //     id: 0,
+    //     isDefault: 0,
+    //     no: "string",//编码
+    //     provinceId: 0,//省份id
+    //     provinceName: "string",//省份名称
+    //     provinceNo: "string",//省份编码
+    //     receiveMobile: "string",//收货人联系电话
+    //     receiveName: "string",//收货人姓名
+    //     size: 0,
+    //     userId: 0,//用户id
+    //     userNo: "string",//用户编码
+    //     zipcode: "string"//邮编
+    //   }
+    // this.$http.post(Wit.AddAddress, {}).then(res => {
 
-      // getProvinceList() {
-      //   var params={
-      //     address: "string",//收货人地址
-      //     cityId: 0,//城市id
-      //     cityName: "string",//城市名称
-      //     cityNo: "string",//城市编码
-      //     countryId: 0,//区域id
-      //     countryName: "string",//区域名称
-      //     countryNo: "string",//区域编码
-      //     current: 0,
-      //     id: 0,
-      //     isDefault: 0,
-      //     no: "string",//编码
-      //     provinceId: 0,//省份id
-      //     provinceName: "string",//省份名称
-      //     provinceNo: "string",//省份编码
-      //     receiveMobile: "string",//收货人联系电话
-      //     receiveName: "string",//收货人姓名
-      //     size: 0,
-      //     userId: 0,//用户id
-      //     userNo: "string",//用户编码
-      //     zipcode: "string"//邮编
-      //   }
-        // this.$http.post(Wit.AddAddress, {}).then(res => {
-
-        // });
-      // },
-      choosearea(){
-        this.shows=true;
-        this.bgcolor=true;
-      },
-      hides(){
-        this.bgcolor=false;
-        this.shows=false;
-      },
-      hidess(){
-        this.bgcolor=false;
-        this.shows=false;
-      },
-      onValuesChange(picker, values) {
-        this.choosedarea=values[0]
-        for(var i=0;i<this.allarea.length;i++){
-          if(this.allarea[i].name==this.choosedarea){
-            this.everycode=this.allarea[i].code;
-          }
+    // });
+    // },
+    choosearea() {
+      this.shows = true;
+      this.bgcolor = true;
+    },
+    hides() {
+      this.bgcolor = false;
+      this.shows = false;
+    },
+    hidess() {
+      this.bgcolor = false;
+      this.shows = false;
+    },
+    onValuesChange(picker, values) {
+      this.choosedarea = values[0];
+      for (var i = 0; i < this.allarea.length; i++) {
+        if (this.allarea[i].name == this.choosedarea) {
+          this.everycode = this.allarea[i].code;
         }
+      }
       if (values[0] > values[1]) {
         picker.setSlotValue(1, values[0]);
       }
     }
-    }
+  }
 };
 // function getData(self, url, param) {
 //   self.$http
@@ -211,7 +215,7 @@ export default {
 // }
 </script>
 <style scoped>
-.bgcolor{
+.bgcolor {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -219,7 +223,7 @@ export default {
   left: 0;
   bottom: 0;
   right: 0;
-  background: rgba(0,0,0,.5);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
 .contentList {
@@ -299,10 +303,10 @@ input {
   border: 0;
   font-size: 0.3rem;
   width: 6.9rem;
-  height:1.6rem;
+  height: 1.6rem;
   line-height: 0.34rem;
-  padding:.2rem .4rem;
-  outline:none
+  padding: 0.2rem 0.4rem;
+  outline: none;
 }
 .city li {
   list-style: none;
@@ -329,7 +333,7 @@ input {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  margin-top:.33rem
+  margin-top: 0.33rem;
 }
 .ft_1 {
   width: 0.3rem;

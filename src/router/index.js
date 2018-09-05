@@ -72,6 +72,7 @@ import ActiveNew from '../components/news/ActiveNew.vue' //活动
 import Discuss from '../components/news/Discuss.vue' //评论
 //发现部分
 import Discover from '@/components/discover/discover'
+import Header from '@/components/Header' // 发现头部
 import Recommend from '@/components/discover/recommend/recommend' //推荐首页
 import Activity from '@/components/discover/activity/activity' //活动首页
 import Information from '@/components/discover/information/information' //资讯首页
@@ -527,7 +528,7 @@ router.beforeEach((to, from, next) => {
             } else {
                 $store.dispatch('isLogin', false);
                 $store.dispatch('userId', null);
-                $store.dispatch('userInfo', null);
+//              $store.dispatch('userInfo', null);
                 // TODO 跳转至登录页面 待处理
             }
 //          alert($store.state.token)

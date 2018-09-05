@@ -3,9 +3,6 @@ export default {
     [types.ISLOGIN]: (state, payload) => {
         state.islogin = payload;
     },
-    [types.NO]: (state, payload) => {
-        state.no = payload;
-    },
     [types.SOFTKEYBOARD]: (state, payload) => {
         state.softkeyboard = payload;
     },
@@ -14,9 +11,6 @@ export default {
     },
     [types.UUID]: (state, payload) => {
         state.uuid = payload
-    },
-    [types.TOKEN]: (state, payload) => {
-        state.token = payload
     },
     [types.USERINFO]: (state, payload) => {
         if (payload) {
@@ -36,5 +30,8 @@ export default {
     },
     [types.CARVINS]: (state, payload) => {
         state.vins = payload
+    },
+    [types.SELECTLABELSTATE]: (state, payload) => {
+      state.selectLabelState = payload
     },
 }

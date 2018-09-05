@@ -32,8 +32,7 @@
           </div>
           <div class="flex row cocenter">
             <span class="commonFontSize">车架号：{{item.engineNo}}</span>
-
-          </div>
+</div>
           <div>
             <span class="commonFontSize">发动机号：{{item.vin}}</span>
           </div>
@@ -58,14 +57,7 @@ export default {
   methods: {
     //我的车辆
     MyBus() {
-    // alert(JSON.stringify(this.$store.state.getpin))
-     var getpin = {
-            headers: {
-              identityParam:
-                '{ "userId": "c123", "token": "sdfasdfasdfasd", "phone": "15221794973" }'
-            }
-          };
-      this.$http.post(My.My_Bus, {}, getpin).then(res => {
+     this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
         if (res.data.returnSuccess) {
           this.BusDetails = res.data.data;
           for(let i=0;i< res.data.data.length;i++){
@@ -86,18 +78,12 @@ export default {
       var param = {
         vin: vin
       };
-      var getpin = {
-            headers: {
-              identityParam:
-                '{ "userId": "c123", "token": "sdfasdfasdfasd", "phone": "15221794973" }'
-            }
-          };
-      this.$http
-        .post(My.SetOneDefault, param, getpin)
+     this.$http
+        .post(My.SetOneDefault, param, this.$store.state.getpin)
         .then(res => {
           if (res.data.returnSuccess) {
               this.$store.state.vins=vin
-            this.MyBus();
+              this.MyBus();
           }
         });
     },
@@ -123,13 +109,8 @@ export default {
             operationType: "CAR_BINDING",
             operation: 0
           };
-          var getpin = {
-            headers: {
-              identityParam:
-                '{ "userId": "c123", "token": "sdfasdfasdfasd", "phone": "15221794973" }'
-            }
-          };
-          this.$http.post(My.JFmybus, param, getpin).then(res => {
+          
+          this.$http.post(My.JFmybus, param, this.$store.state.getpin).then(res => {
             if (res.data.returnSuccess) {
               this.MyBus();
             } else {
@@ -165,13 +146,8 @@ export default {
 				      operationType:"PLATE_NO", 	 
 				    	operation:0, //解绑
           };
-          var getpin = {
-            headers: {
-              identityParam:
-                '{ "userId": "c123", "token": "sdfasdfasdfasd", "phone": "15221794973" }'
-            }
-          };
-          this.$http.post(My.planbus,param,getpin).then(res => {
+          
+          this.$http.post(My.planbus,param,this.$store.state.getpin).then(res => {
             if (res.data.returnSuccess) {
               this.MyBus();
             } else {

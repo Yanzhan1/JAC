@@ -98,12 +98,12 @@
                       </div>
                     </div>
                     <div class="user_date">
-                      {{item.createDate}}
+                      {{item.issuedDate}}
                     </div>
                   </div>
                 </div>
                 <!--发布者信息E-->
-                <div @click="toDetail(item.id)" class="listTitleInfo">{{item.momentMessage}}</div>
+                <div @click="toDetail(item.id)" class="listTitleInfo">{{item.title}}</div>
                 <div class="pics" v-if="item.momentImgList">
                   <div v-if="item.momentImgList.length==1" v-for="imgItem in item.momentImgList">
                     <img @click="toNowDetail(item.id)" :src="imgItem" class="pic1"/>
@@ -172,15 +172,16 @@
         </div>
       </mt-loadmore>
       <div style="height: 1rem;"></div>
-      <p style="display: none; font-size: 0.3rem;margin: auto;text-align: center;margin-bottom: 1rem;visibility: hidden" id="showAll1">已加载全部</p>
+      <p style="display: none; font-size: 0.3rem;margin: auto;text-align: center;margin-bottom: 1rem;visibility: hidden" id="showAll1">已加载全部</p> 
       </div>
 </template>
 
 <script>
+  import moment from "moment";
   import { MessageBox } from 'mint-ui';
   import { Toast } from 'mint-ui';
+  import Header from '../../Header.vue';
   import shareBox from '../component/shareBox.vue';
-  import popUp from '../component/PopUp.vue'
     export default {
       name: "Recommend",
       data(){
@@ -202,7 +203,6 @@
       },
       components: {
         shareBox,
-        popUp
       },
       methods:{
         toDetailInfo: function (id) {
@@ -284,17 +284,43 @@
             }
           });
         },
+        //转换时间
+        convert: function(date) {
+          moment.locale('zh-cn');
+          let beforeDate = date
+          let newDate = moment(new Date()).valueOf()
+          date = moment(date).valueOf()
+          let twoDayDate = 172800000
+          let oneDayDate = 86400000
+          let oneMinute = 60000
+          if(newDate - date > twoDayDate) {
+            return beforeDate.substring(0,5)
+          }
+          if(newDate - date > oneDayDate || newDate - date <= twoDayDate) {
+            return beforeDate = '昨天'
+          }
+          if (newDate - date > oneMinute || newDate - date <= oneDayDate) {
+            let data = moment(beforeDate, "YYYYMMDD").fromNow();
+            return data
+          }
+          if(newDate - date < oneMinute){
+            return beforeDate = '刚刚'
+          }
+        },        
         getRefreshList: function () {
           //获取推荐列表第一页
           let _this = this;
           this.loading=true;
           this.loadEnd=false;
-          this.$http.post(INDEXMESSAGE.getRecommend, {"uid":this.$store.state.userId,"pageNo":1, "length":_this.list}).then(function (res) {
+          this.$http.post(INDEXMESSAGE.getRecommend, {"uid":this.$store.state.userId,"pageNo":1, "length":_this.list,labelIds: this.$store.state.selectLabelState}).then(function (res) {
             if (res.data.status) {
               _this.pageNum=1;
               _this.loading=false;
               _this.recommendList = res.data.data;
               //console.log(res.data.data)
+              for(let i = 0; i < _this.recommendList.length; i++) {
+                _this.recommendList[i].issuedDate = _this.convert(_this.recommendList[i].issuedDate)
+              }              
               if(res.data.recordsTotal <= _this.list){
                 _this.loadEnd = true;
               }
@@ -312,9 +338,12 @@
           }
           this.loadEnd=true;
           this.pageNum++;
-          this.$http.post(INDEXMESSAGE.getRecommend, {"uid":this.$store.state.userId,"pageNo":_this.pageNum, "length":_this.list}).then(function (res) {
+          this.$http.post(INDEXMESSAGE.getRecommend, {"uid":this.$store.state.userId,"pageNo":_this.pageNum, "length":_this.list,labelIds: this.$store.state.selectLabelState}).then(function (res) {
             _this.loadEnd=false;
             if (res.data.status) {
+                for(let i = 0; i < _this.recommendList.length; i++) {
+                  _this.recommendList[i].issuedDate = _this.convert(_this.recommendList[i].issuedDate)
+                }                
                 _this.recommendList = _this.recommendList.concat(res.data.data);
                 var allPages = Math.ceil(res.data.recordsTotal/_this.list);
                 if(allPages <= _this.pageNum){
@@ -468,14 +497,20 @@
       computed:{
         getUserId(){
           return this.$store.state.userId
-        }
+        },
+        selectLabelState(){
+          return this.$store.state.selectLabelState
+        }        
       },
       watch:{
         getUserId(val){
           if(val != null){
             this.getRefreshList()
           }
-        }
+        },
+        selectLabelState(){
+          this.getRefreshList()
+        }        
       },
       mounted(){
         this.getRefreshList();

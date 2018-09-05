@@ -37,7 +37,7 @@
 					complaintsContent: '', //反馈内容
 					contact: '', //反馈联系人
 					contactInformation: '', //反馈联系方式
-					userNo: this.$store.state.no
+					userNo: this.$store.state.userId
 				}
 			}
 		},
@@ -123,8 +123,10 @@
 			},
 
 		},
+		created () {
+//			this.$store.dispatch('NO', 'AD022018082705175247883')
+		},
 		mounted() {
-
 		}
 	}
 </script>
