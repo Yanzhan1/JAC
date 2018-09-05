@@ -41,9 +41,9 @@ export default {
           engineNo: this.engine
         }
       };
-      alert(JSON.stringify(param))
-      alert(My.JFmybus)
-      this.$http.post(My.JFmybus, param).then(res => {
+      // alert(JSON.stringify(param))
+      // alert(My.JFmybus)
+      this.$http.post(My.JFmybus, param,this.$store.state.getpin).then(res => {
         if (res.data.returnSuccess) {
           Toast({
             message: "添加成功！",
