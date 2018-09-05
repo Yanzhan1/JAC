@@ -155,7 +155,7 @@
 					"level": 1
 				}
 				//请求品牌列表
-				this.$http.post(Wit.searchVehicleBrandList, data, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.searchVehicleBrandList, data).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchVehicleBrandList = data.data;
@@ -163,7 +163,7 @@
 				})
 				//经销商
 			
-				 this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
+				 this.$http.post(Wit.Dealer, param).then(res => {
 				 	const data = res.data;
 				  		if(data.code == 0) {
 				  			this.current = 1, //当前页码
@@ -189,7 +189,7 @@
 				 	})
 				 ,
 				//请求省份列表
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchCountryAreaCodeListPage = data.data.records;
@@ -272,7 +272,7 @@
 					size: 10,
 					current: this.current
                 }
-				this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.Dealer, param).then(res => {
 				 	const data = res.data;
 				  		if(data.code == 0) {
 				  			this.current = 1, //当前页码
@@ -318,7 +318,7 @@
 					size: 10,
 					current: this.current
           		}
-				this.$http.post(Wit.Dealer, data, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.Dealer, data).then(res => {
 				 	const data = res.data;
 				 	this.loadEnd=false;
 				  		if(data.code == 0) {
@@ -362,7 +362,7 @@
 					size: 10,
 					current: this.current
                 }
-			    this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res=>{
+			    this.$http.post(Wit.Dealer, param).then(res=>{
                       if(res.data.code == 0) {
 						    this.mainbus=[]
 							this.mainbus = res.data.data.records
@@ -387,8 +387,9 @@
 		  	let data = {
 					no: this.brandNo
 				}
+//		  	this.mainbus=[]
 			  //请求车型列表
-				this.$http.post(Wit.searchVehicleSeriesList, data, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchVehicleSeriesList = data.data;
@@ -401,7 +402,7 @@
 					parentId: this.provinceId, //被检测的省份id 
 					level: 2
 				}
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.cityList = data.data.records;

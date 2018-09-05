@@ -11,7 +11,7 @@
 				<div class="question">【{{questionTyep[replyDetailSuggestions.complaintsType]}}】{{replyDetailSuggestions.complaintsContent}}</div>
 				<div class="question-time">{{getTime(replyDetailSuggestions.createdDate)}}</div>
 				<div class="answer-content">官方回复：{{ replyDetailSuggestions.replyContent ? replyDetailSuggestions.replyContent : '抱歉，暂时还没有官方回复'}}</div>
-				<div class="answer-time">{{}}</div>
+				<div class="answer-time">{{ replyDetailSuggestions.lastModifiedDate ?  replyDetailSuggestions.lastModifiedDate  : '暂无时间'}}</div>
 			</li>
 		</ul>
 	</div>
@@ -37,11 +37,11 @@
 		methods: {
 			init() {
 				//请求投诉及建议回复查询详细信息
-				this.$http.post(Wit.getComAndSugDet, this.condition,this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.getComAndSugDet, this.condition).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.replyDetailSuggestions = data.data
-						console.log(this.replyDetailSuggestions)
+						this.replyDetailSuggestions.lastModifiedDate = operationTime.getTime(this.replyDetailSuggestions.lastModifiedDate)
 					} else {
 						let instance = Toast({
 							message: data.Msg,
@@ -63,6 +63,8 @@
 		    },
 		},
 		mounted () {
+//			console.log(operationTime.getTime)
+//			var ss = operationTime.getTime(1533607757000, 2);
 			this.init()
 		}
 	}
