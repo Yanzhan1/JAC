@@ -2,7 +2,7 @@
   <div class="tophead">
     <div class="nav">
       <img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
-      <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;s7</span>
+      <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;{{this.carsysitem}}</span>
       <span class="txt_r" @click="islogin()" v-if="this.LoginStatus">机车已登录</span>
       <span class="txt_r" v-else @click="login()">机车未登录</span>
     </div>
@@ -53,7 +53,7 @@
         <span class='busl_r bottom_1'>{{this.doorStsTrunk}}</span>
         <span class='busl_r middle_1'>{{this.skylightStatus}}</span>
       </div>
-      <mt-button type='primary' size='small' @click.navtive="loading">刷新</mt-button>
+      <img style="width:.88rem;height:.88rem;margin-top:.2rem" src="../../../static/images/Lovecar/loading@2x.png" alt="" @click="loading">
     </div>
     <div class="content lines">
       <div class="content_1" @click="doors">
@@ -218,6 +218,7 @@ export default {
       time: "",
       sjc: "",
       vinn: "",
+      carsysitem:'',//返回的某人车系名
       carcontrol: {}, //车控返回的东西
       //车门的状态展示
       doorStsFrontLeft: "",
@@ -256,17 +257,17 @@ export default {
       };
       //车门状态
       this.carcontrol.doorStsFrontLeft
-        ? (this.doorStsFrontLeft = "已关闭")
-        : (this.doorStsFrontLeft = "已打开");
+        ? (this.doorStsFrontLeft = "已锁")
+        : (this.doorStsFrontLeft = "未锁");
       this.carcontrol.doorStsFrontRight
-        ? (this.doorStsFrontRight = "已关闭")
-        : (this.doorStsFrontRight = "已打开");
+        ? (this.doorStsFrontRight = "已锁")
+        : (this.doorStsFrontRight = "未锁");
       this.carcontrol.doorStsRearLeft
-        ? (this.doorStsRearLeft = "已关闭")
-        : (this.doorStsRearLeft = "已打开");
+        ? (this.doorStsRearLeft = "已锁")
+        : (this.doorStsRearLeft = "未锁");
       this.carcontrol.doorStsRearRight
-        ? (this.doorStsRearRight = "已关闭")
-        : (this.doorStsRearRight = "已打开");
+        ? (this.doorStsRearRight = "已锁")
+        : (this.doorStsRearRight = "未锁");
       //车窗状态
       this.carcontrol.windowStsFrontLeft
         ? (this.windowStsFrontLeft = "已关闭")
@@ -525,8 +526,8 @@ export default {
                           // console.log(res.data.data)
                           this.carcontrol = res.data.data;
                           this.carcontrol.engineHoodStsFront
-                            ? (this.engineHoodStsFront = "已锁")
-                            : (this.engineHoodStsFront = "未锁");
+                            ? (this.engineHoodStsFront = "已开")
+                            : (this.engineHoodStsFront = "未开");
                           this.acStatus = this.carcontrol.acStatus; //空调初始状态
                           this.carcontrol.skylightStatus
                             ? (this.skylightStatus = "已开")
@@ -578,8 +579,8 @@ export default {
               // console.log(res.data.data)
               this.carcontrol = res.data.data;
               this.carcontrol.engineHoodStsFront
-                ? (this.engineHoodStsFront = "已锁")
-                : (this.engineHoodStsFront = "未锁");
+                ? (this.engineHoodStsFront = "已开")
+                : (this.engineHoodStsFront = "未开");
               this.acStatus = this.carcontrol.acStatus; //空调初始状态
               this.carcontrol.skylightStatus
                 ? (this.skylightStatus = "已开")
@@ -624,6 +625,7 @@ export default {
           }
         });
     },
+    //手动刷新
     loading(){
       this.Carquerry()
     }
@@ -644,160 +646,173 @@ export default {
               this.$store.state.getpin
             )
             .then(res => {
-              console.log(res);
-              if (this.type == 1) {
-                //车辆锁定的接口
-                this.isTrue = !this.isTrue;
-                this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
-                var param = {
-                  vin: this.$store.state.vins,
-                  operationType: "LOCK",
-                  operation: this.locknum //操作项
-                };
-                this.$http
-                  .post(Lovecar.Control, param, this.$store.state.getpin)
-                  .then(res => {
-                    this.operationIds = res.data.operationId;
-                    if (res.data.returnSuccess) {
-                      this.getAsyReturn(res.data.operationId);
-                    } else {
-                      if (res.data.returnErrCode == 400) {
-                        Toast({
-                          message: "token验证失败",
-                          position: "middle",
-                          duration: 2000
-                        });
+              if(returnSuccess=='true'){
+                if (this.type == 1) {
+                  //车辆锁定的接口
+                  this.isTrue = !this.isTrue;
+                  this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
+                  var param = {
+                    vin: this.$store.state.vins,
+                    operationType: "LOCK",
+                    operation: this.locknum //操作项
+                  };
+                  this.$http
+                    .post(Lovecar.Control, param, this.$store.state.getpin)
+                    .then(res => {
+                      this.operationIds = res.data.operationId;
+                      if (res.data.returnSuccess) {
+                        this.getAsyReturn(res.data.operationId);
                       } else {
-                        Toast({
-                          message: res.data.returnErrMsg,
-                          position: "middle",
-                          duration: 2000
-                        });
+                        if (res.data.returnErrCode == 400) {
+                          Toast({
+                            message: "token验证失败",
+                            position: "middle",
+                            duration: 2000
+                          });
+                        } else {
+                          Toast({
+                            message: res.data.returnErrMsg,
+                            position: "middle",
+                            duration: 2000
+                          });
+                        }
                       }
-                    }
-                  })
-                  .catch(err => {
-                    Toast({
-                      message: "系统异常",
-                      position: "middle",
-                      duration: 2000
+                    })
+                    .catch(err => {
+                      Toast({
+                        message: "系统异常",
+                        position: "middle",
+                        duration: 2000
+                      });
                     });
-                  });
-              } else if (this.type == 2) {
-                // 后备箱接口
-                this.isTrues = !this.isTrues;
-                console.log(this.isTrues);
-                this.isTrues ? (this.backnum = 1) : (this.backnum = 2);
-                var param = {
-                  vin: this.$store.state.vins,
-                  operationType: "TRUNK",
-                  operation: this.backnum
-                };
-                this.$http
-                  .post(Lovecar.Control, param, this.$store.state.getpin)
-                  .then(res => {
-                    if (res.data.returnSuccess) {
-                      this.getAsyReturn(res.data.operationId);
-                    } else {
-                      if (res.data.returnErrCode == 400) {
-                        Toast({
-                          message: "token验证失败",
-                          position: "middle",
-                          duration: 2000
-                        });
+                } else if (this.type == 2) {
+                  // 后备箱接口
+                  this.isTrues = !this.isTrues;
+                  console.log(this.isTrues);
+                  this.isTrues ? (this.backnum = 1) : (this.backnum = 2);
+                  var param = {
+                    vin: this.$store.state.vins,
+                    operationType: "TRUNK",
+                    operation: this.backnum
+                  };
+                  this.$http
+                    .post(Lovecar.Control, param, this.$store.state.getpin)
+                    .then(res => {
+                      if (res.data.returnSuccess) {
+                        this.getAsyReturn(res.data.operationId);
                       } else {
-                        Toast({
-                          message: res.data.returnErrMsg,
-                          position: "middle",
-                          duration: 2000
-                        });
+                        if (res.data.returnErrCode == 400) {
+                          Toast({
+                            message: "token验证失败",
+                            position: "middle",
+                            duration: 2000
+                          });
+                        } else {
+                          Toast({
+                            message: res.data.returnErrMsg,
+                            position: "middle",
+                            duration: 2000
+                          });
+                        }
                       }
-                    }
-                  })
-                  .catch(err => {
-                    Toast({
-                      message: "系统异常",
-                      position: "middle",
-                      duration: 2000
+                    })
+                    .catch(err => {
+                      Toast({
+                        message: "系统异常",
+                        position: "middle",
+                        duration: 2000
+                      });
                     });
-                  });
-              } else if (this.type == 3) {
-                //引擎接口，熄火
-                this.isTruess = !this.isTruess;
-                this.isTruess ? (this.firenum = 1) : (this.firenum = 2);
-                var param = {
-                  vin: this.$store.state.vins,
-                  operationType: "ENGINE",
-                  operation: this.firenum //操作项
-                };
-                this.$http
-                  .post(Lovecar.Control, param, this.$store.state.getpin)
-                  .then(res => {
-                    this.operationIdss = res.data.operationId;
-                    if (res.data.returnSuccess) {
-                      this.getAsyReturn(res.data.operationId);
-                    } else {
-                      if (res.data.returnErrCode == 400) {
-                        Toast({
-                          message: "token验证失败",
-                          position: "middle",
-                          duration: 2000
-                        });
+                } else if (this.type == 3) {
+                  //引擎接口，熄火
+                  this.isTruess = !this.isTruess;
+                  this.isTruess ? (this.firenum = 1) : (this.firenum = 2);
+                  var param = {
+                    vin: this.$store.state.vins,
+                    operationType: "ENGINE",
+                    operation: this.firenum //操作项
+                  };
+                  this.$http
+                    .post(Lovecar.Control, param, this.$store.state.getpin)
+                    .then(res => {
+                      this.operationIdss = res.data.operationId;
+                      if (res.data.returnSuccess) {
+                        this.getAsyReturn(res.data.operationId);
                       } else {
-                        Toast({
-                          message: res.data.returnErrMsg,
-                          position: "middle",
-                          duration: 2000
-                        });
+                        if (res.data.returnErrCode == 400) {
+                          Toast({
+                            message: "token验证失败",
+                            position: "middle",
+                            duration: 2000
+                          });
+                        } else {
+                          Toast({
+                            message: res.data.returnErrMsg,
+                            position: "middle",
+                            duration: 2000
+                          });
+                        }
                       }
-                    }
-                  })
-                  .catch(err => {
-                    Toast({
-                      message: "系统异常",
-                      position: "middle",
-                      duration: 2000
+                    })
+                    .catch(err => {
+                      Toast({
+                        message: "系统异常",
+                        position: "middle",
+                        duration: 2000
+                      });
                     });
-                  });
-              } else if (this.type == 4) {
-                this.isTruesss = !this.isTruesss;
-                setTimeout(() => {
+                } else if (this.type == 4) {
                   this.isTruesss = !this.isTruesss;
-                }, 3000);
-                var param = {
-                  vin: this.$store.state.vins,
-                  operationType: "FIND_VEHICLE"
-                };
-                this.$http
-                  .post(Lovecar.Control, param, this.$store.state.getpin)
-                  .then(res => {
-                    this.operationIdses = res.data.operationId;
-                    if (res.data.returnSuccess) {
-                      this.getAsyReturn(res.data.operationId);
-                    } else {
-                      if (res.data.returnErrCode == 400) {
-                        Toast({
-                          message: "token验证失败",
-                          position: "middle",
-                          duration: 2000
-                        });
+                  setTimeout(() => {
+                    this.isTruesss = !this.isTruesss;
+                  }, 3000);
+                  var param = {
+                    vin: this.$store.state.vins,
+                    operationType: "FIND_VEHICLE"
+                  };
+                  this.$http
+                    .post(Lovecar.Control, param, this.$store.state.getpin)
+                    .then(res => {
+                      this.operationIdses = res.data.operationId;
+                      if (res.data.returnSuccess) {
+                        this.getAsyReturn(res.data.operationId);
                       } else {
-                        Toast({
-                          message: res.data.returnErrMsg,
-                          position: "middle",
-                          duration: 2000
-                        });
+                        if (res.data.returnErrCode == 400) {
+                          Toast({
+                            message: "token验证失败",
+                            position: "middle",
+                            duration: 2000
+                          });
+                        } else {
+                          Toast({
+                            message: res.data.returnErrMsg,
+                            position: "middle",
+                            duration: 2000
+                          });
+                        }
                       }
-                    }
-                  })
-                  .catch(err => {
-                    Toast({
-                      message: "系统异常",
-                      position: "middle",
-                      duration: 2000
+                    })
+                    .catch(err => {
+                      Toast({
+                        message:res.data.returnErrMsg,
+                        position: "middle",
+                        duration: 2000
+                      });
                     });
-                  });
+                }
+              }else{
+                  Toast({
+                    message: "输入的pin码有误",
+                    position: "middle",
+                    duration: 2000
+                  });              
               }
+            }).catch((req)=>{
+              Toast({
+                message: "系统异常",
+                position: "middle",
+                duration: 2000
+              });
             });
       }
     }
@@ -816,6 +831,7 @@ export default {
         this.BusDetails = res.data.data;
         for (let i = 0; i < res.data.data.length; i++) {
           if (res.data.data[i].def == 1) {
+            this.carsysitem=res.data.data[i].seriesName
             console.log(res.data.data[i].vin);
             var payload = res.data.data[i].vin;
             this.$store.dispatch("CARVINS", payload);
