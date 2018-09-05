@@ -11,7 +11,7 @@
         <span class="contentList-left">头像</span>
         <div class="contentList-right">
           <div style="width:.76rem;height:.76rem">
-            <img  id="img" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem">
+            <img   id="img" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem">
           </div>
           <div class="inputfile">
             <img src="../../../static/images/my/next@2x.png" style="width: 0.4rem;height: 0.4rem;z-index: 1" />
@@ -85,23 +85,18 @@ export default {
     return {
       popupVisible: false,
       sex: 1, //1男，0女
-      userInfo: {}, //展示用户信息
+      userInfo: {
+      //  headUrl: "../../../static/images/my/qq.png"
+      }, //展示用户信息
       changeInfo: {}, //更该用户信息传的参数
       headUrl: "", //图片地址,
-      headimg: "../../../static/images/my/qq.png"
+      picpath:'',//文件路径
+      picname:'',//文件名名称
+      base64:''
     };
   },
   methods: {
-    // compress(img, width, height, ratio) { // img可以是dataURL或者图片url
-    //   var canvas, ctx, img64;
-    //   canvas = document.createElement('canvas');
-    //   canvas.width = width;
-    //   canvas.height = height;
-    //   ctx = canvas.getContext("2d");
-    //   ctx.drawImage(img, 0, 0, width, height);
-    //   img64 = canvas.toDataURL("image/jpeg", ratio);
-    //   return img64; // 压缩后的base64串
-    // },
+   
     init() {},
     //图片更改
     getimgsrc(src) {
@@ -112,8 +107,12 @@ export default {
 			this.getPic("js-title-img-input","img",$event.target.value);
 		},
 		getPic(piElementId,imgElementId,path){
+       this.picpath=path//文件路径
+      // console.log(path) //文件路径
 				var self = this;
         var file = document.getElementById(piElementId).files[0];
+    //  console.log(file.name)//文件名字
+     this.picname=file.name //文件名
 				var reads= new FileReader();
 				var img = new Image();
 				reads.readAsDataURL(file);
@@ -121,12 +120,9 @@ export default {
           img.src = e.target.result;
 					img.onload = function(){
             var res = self.compress(img,100,100);
-            // console.log(res);
-            // self.userInfo.headUrl = res;
-            // self.$forceUpdate;
             document.getElementById(imgElementId).src = res;
-            console.log(self.userInfo.headUrl);
-					}
+            self.base64= img.src;//base64
+          	}
 				}
 		},
 		compress(img,w,h){
@@ -140,7 +136,19 @@ export default {
 
     //点击保存
     changemessage() {
-      if (this.userInfo.userName == "") {
+
+       var params={
+         fileOldName:this.picname,
+         filePjectPath:'DAS',
+         filePjectName:'jav',
+         base64:this.base64,
+         prj:'DM',
+         remark:'修改头像'
+       }
+        this.$http.post('http://172.20.20.75:8762/api/dk-filestore-svr/filestore/v1/picture',params,this.$store.state.mytoken).then(res=>{
+     })
+
+  if (this.userInfo.userName == "") {
         let instance = Toast({
           message: "昵称不能为空",
           position: "middle",
@@ -162,6 +170,7 @@ export default {
       // }
       this.changeInfo.personalSignature = this.userInfo.personalSignature;
       this.changeInfo.sex = this.userInfo.sex;
+     
       (this.changeInfo.no = this.$store.state.userId),
         // this.changeInfo.headUrl = this.userInfo.headUrl.replace(
         //   "data:image/jpeg;base64,",

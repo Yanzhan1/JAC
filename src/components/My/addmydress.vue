@@ -126,7 +126,7 @@ export default {
          userNo: this.$store.state.userId,
         receiveName: this.name, //姓名
         receiveMobile: this.num, //手机号码
-        isDefalut: flag, //是否选定为默认2为选择默认
+        isDefalut: flag, //是否选定为默认1为选择默认
         provinceName: this.everycode, //所在地区的code
         address: this.address
       };
