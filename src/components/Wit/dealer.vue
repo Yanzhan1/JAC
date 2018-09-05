@@ -145,6 +145,10 @@
 	          	this.loading=true;   //第一次加载数据,没有滚动的情况下,是不可以无线滚动的
           		this.loadEnd=false;  //第一次加载数据,还可以继续加载
 				var param = {
+					brandNo:this.brandNo,//品牌no
+					vehicleSeridesNo:this.bustypeno,//车系
+				  	dealerProvinceCode: this.provinceId,//省编码
+					dealerCityCode:this.city_id,//城市id
 					dealerType:"01",
 					size: 10,
 					current: 1
