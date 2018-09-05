@@ -60,6 +60,7 @@
       </div>
       <div class="gradientline"></div>
     </div>
+  
     <span class="submit" @click="changemessage">保存</span>
 
     <mt-popup v-model="popupVisible" position="middle">
@@ -74,6 +75,7 @@
       </div>
     </mt-popup>
   </div>
+ 
 </template>
 
 <script>
@@ -229,12 +231,14 @@ export default {
     };
     this.$http.post(My.UserInfo, param).then(res => {
       if (res.data.code == 0) {
-        // alert(JSON.stringify(res.data))
+       
         this.userInfo = res.data.data;
         this.userInfo.sex = res.data.data.sex || 1;
         this.userInfo.personalSignature = res.data.data.personalSignature || "";
         this.userInfo.userName = res.data.data.userName || "";
-        this.userinfo.headUrl=  document.getElementById('#img').src
+     
+        document.getElementById('img').src=this.userInfo.headUrl||'../../../static/images/my/qq.png'
+        
       }
     });
   }
