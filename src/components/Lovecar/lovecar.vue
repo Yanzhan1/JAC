@@ -545,11 +545,11 @@ export default {
                           };
                           this.Condition = tai;
                           // alert(JSON.stringify(this.carcontrol))
-                          Toast({
-                            message: "下达指令成功",
-                            position: "middle",
-                            duration: 2000
-                          });
+                          // Toast({
+                          //   message: "下达指令成功",
+                          //   position: "middle",
+                          //   duration: 2000
+                          // });
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
@@ -599,11 +599,11 @@ export default {
               this.Condition = tai;
               // alert(JSON.stringify(this.carcontrol))
               // console.log(this.carcontrol)
-              Toast({
-                message: "下达指令成功",
-                position: "middle",
-                duration: 2000
-              });
+              // Toast({
+              //   message: "下达指令成功",
+              //   position: "middle",
+              //   duration: 2000
+              // });
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
@@ -817,16 +817,9 @@ export default {
       }
     }
   },
-  created() {},
   mounted() {
     // this.$nextTick(()=>{
-    var getpin = {
-      headers: {
-        identityParam:
-          '{ "userId": "c123", "token": "sdfasdfasdfasd", "phone": "15221794973" }'
-      }
-    };
-    this.$http.post(My.My_Bus, {}, getpin).then(res => {
+    this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
       if (res.data.returnSuccess) {
         this.BusDetails = res.data.data;
         for (let i = 0; i < res.data.data.length; i++) {
@@ -846,18 +839,18 @@ export default {
 
     // })
     //暂时下载爱车页面取状态仓库中getpin的具体值
-    // var sk=this.$store.state.getpin.headers.identityParam.split(",");
-    // var skarr=[];
-    // for(let i=0;i<sk.length;i++){
-    //   var arr=sk[i].split(':');
-    //   skarr.push({name:arr[1]})
-    // }
-    // //拿到state里面的userID
-    // console.log(skarr[0].name.replace(/\{|}/g, '').replace(/\'/g,''))
-    // //拿到state里面的token
-    // console.log(skarr[1].name.replace(/\{|}/g, '').replace(/\'/g,''))
-    // //拿到token里面的phone
-    // console.log(skarr[2].name.replace(/\{|}/g, '').replace(/\'/g,''))
+    var sk=this.$store.state.getpin.headers.identityParam.split(",");
+    var skarr=[];
+    for(let i=0;i<sk.length;i++){
+      var arr=sk[i].split(':');
+      skarr.push({name:arr[1]})
+    }
+    //拿到state里面的userID
+    console.log(skarr[0].name.replace(/\{|}/g, '').replace(/\'/g,''))
+    //拿到state里面的token
+    console.log(skarr[1].name.replace(/\{|}/g, '').replace(/\'/g,''))
+    //拿到token里面的phone
+    console.log(skarr[2].name.replace(/\{|}/g, '').replace(/\'/g,''))
     //暴露方法给原生,登入判断
     window.getStatus = this.getStatus;
     //获取机车 登录登出状态
@@ -1066,19 +1059,19 @@ input:focus {
   color: #49bbff;
 }
 .left_1 {
-  left: 0rem;
+  left: -.6rem;
   top: 1.5rem;
 }
 .left_2 {
-  left: 0rem;
+  left: -.6rem;
   top: 3rem;
 }
 .right_1 {
-  right: -.3rem;
+  right: -1rem;
   top: 1.5rem;
 }
 .right_2 {
-  right: -.3rem;
+  right: -1rem;
   top: 3rem;
 }
 .top_1 {

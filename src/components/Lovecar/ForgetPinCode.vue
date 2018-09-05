@@ -82,7 +82,7 @@
 					if (data.returnSuccess) {
 						this.Verification=res.data.data;
 						this.timeStamp = session.getAttribute('firstTime')
-						console.log(this.timeStamp)
+						// console.log(this.timeStamp)
 					} else {
 						let instance = Toast({
 								message: data.returnErrMsg,
