@@ -86,7 +86,7 @@ export default {
   mounted() {
     this.info = this.$route.query;
     $(".editPersonalDetails").height($(".editPersonalDetails").height());
-    this.$http.post(My.Area, {}, this.$store.state.mytoken).then(res => {
+    this.$http.post(My.Area, {}).then(res => {
       this.allarea = res.data.data.records;
       // console.log(this.allarea)
       for (var i = 0; i < this.allarea.length; i++) {
@@ -135,7 +135,7 @@ export default {
       // }
       var param = {
         no: this.no,
-        userNo: "UBS2018072410463590813",
+        userNo: this.$store.state.userId,
         receiveName: this.name, //姓名
         receiveMobile: this.num, //手机号码
         isDefalut: flag, //是否选定为默认2为选择默认
@@ -145,11 +145,11 @@ export default {
       };
       
       await this.$http
-        .post(My.Defaultaddress, param, this.$store.state.mytoken)
+        .post(My.Defaultaddress, param)
         .then(res => {});
       // setTimeout(() => {
       await this.$http
-        .post(My.ChangeAddress, param, this.$store.state.mytoken)
+        .post(My.ChangeAddress, param)
         .then(res => {
           if (res.data.code == 0) {
             this.$router.go(-1);

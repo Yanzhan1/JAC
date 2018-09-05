@@ -123,8 +123,7 @@ export default {
         return false;
       }
       var param = {
-        // customerId: this.$store.state.userId,
-        userNo: "UBS2018072410463590813",
+         userNo: this.$store.state.userId,
         receiveName: this.name, //姓名
         receiveMobile: this.num, //手机号码
         isDefalut: flag, //是否选定为默认2为选择默认
@@ -133,10 +132,10 @@ export default {
       };
       // console.log(flag)
       await this.$http
-        .post(My.Defaultaddress, param, this.$store.state.mytoken)
+        .post(My.Defaultaddress, param)
         .then(res => {});
       await this.$http
-        .post(My.AddAddress, param, this.$store.state.mytoken)
+        .post(My.AddAddress, param)
         .then(res => {
           if (res.data.code == 0) {
             this.$router.go(-1);
