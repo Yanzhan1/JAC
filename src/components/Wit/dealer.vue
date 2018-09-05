@@ -266,8 +266,11 @@
 				var param={
 					brandNo:this.brandNo,//品牌no
 					vehicleSeridesNo:this.bustypeno,//车系
-				  	 dealerProvinceCode: this.provinceId,//省编码
-					dealerCityCode:this.city_id//城市id
+				  	dealerProvinceCode: this.provinceId,//省编码
+					dealerCityCode:this.city_id,//城市id
+          			dealerType:"01",
+					size: 10,
+					current: this.current
                 }
 				this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
 				 	const data = res.data;
