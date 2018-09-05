@@ -155,7 +155,7 @@
 					"level": 1
 				}
 				//请求品牌列表
-				this.$http.post(Wit.searchVehicleBrandList, data, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.searchVehicleBrandList, data).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchVehicleBrandList = data.data;
@@ -163,7 +163,7 @@
 				})
 				//经销商
 			
-				 this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
+				 this.$http.post(Wit.Dealer, param).then(res => {
 				 	const data = res.data;
 				  		if(data.code == 0) {
 				  			this.current = 1, //当前页码
@@ -189,7 +189,7 @@
 				 	})
 				 ,
 				//请求省份列表
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchCountryAreaCodeListPage = data.data.records;
@@ -272,7 +272,7 @@
 					size: 10,
 					current: this.current
                 }
-				this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.Dealer, param).then(res => {
 				 	const data = res.data;
 				  		if(data.code == 0) {
 				  			this.current = 1, //当前页码
@@ -318,15 +318,15 @@
 					size: 10,
 					current: this.current
           		}
-				this.$http.post(Wit.Dealer, data, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.Dealer, data).then(res => {
 				 	const data = res.data;
 				 	this.loadEnd=false;
 				  		if(data.code == 0) {
-				  			console.log(this.mainbus)
+//				  			console.log(this.mainbus)
+				  			console.log(data.data.records)
 				  			this.mainbus = this.mainbus.concat(data.data.records) 
-				  			console.log(this.mainbus)
+//				  			console.log(this.mainbus)
 				  			var allpages = Math.ceil(data.data.total/this.size);
-//				  			console.log(allpages)
 							if (allpages <= this.current) {
 								this.loading = true;   //禁止无限滚动
 				                this.allLoaded = true; //不在触发方法
@@ -362,7 +362,7 @@
 					size: 10,
 					current: this.current
                 }
-			    this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res=>{
+			    this.$http.post(Wit.Dealer, param).then(res=>{
                       if(res.data.code == 0) {
 						    this.mainbus=[]
 							this.mainbus = res.data.data.records
@@ -379,8 +379,6 @@
 			var NewPosition= JSON.parse(Position)
 			this.cityname=NewPosition.city
 			this.citysi=NewPosition.city
-//			alert(JSON.stringify(NewPosition))
-            //  alert(NewPosition.province)
 		},
 		watch: {
 			brandNo(newVal, oldVal) {//监听品牌id,获得车型列表
@@ -389,7 +387,7 @@
 				}
 //		  	this.mainbus=[]
 			  //请求车型列表
-				this.$http.post(Wit.searchVehicleSeriesList, data, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchVehicleSeriesList = data.data;
@@ -402,7 +400,7 @@
 					parentId: this.provinceId, //被检测的省份id 
 					level: 2
 				}
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.cityList = data.data.records;
