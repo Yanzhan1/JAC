@@ -3,13 +3,13 @@
     <div @click="bgHide" id="bgShare" style="position: fixed; width: 100%;height: 100%;background: #000000; display: none;opacity: 0.2"></div>
     <div>
       <header class="header0 header1" id="header1">
-        <img class="header_left" src="../../../../static/images/discover/backfff.png" @click="goBack">
-        <img class="header_right" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)"/>
+        <img class="header_left" src="../../../../static/images/discover/backfff.png">
+        <img class="header_right" src="../../../../static/images/discover/morefff.png"/>
       </header>
       <header class="header0 header2" id="header2" style="display: none">
-        <img class="header_left" src="../../../../static/images/discover/backblue.png" @click="goBack">
+        <img class="header_left" src="../../../../static/images/discover/backblue.png">
         <p class="header-title-fff">资讯详情</p>
-        <img class="header_right" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)"/>
+        <img class="header_right" src="../../../../static/images/discover/moreblue.png" />
       </header>
       <!--分享组件-->
       <shareBox :index="0" :item="content" :flag="flag" :type="type" :collectionStatus="content.collectionStatus" :isCenter="true"
@@ -32,8 +32,7 @@
           <span class="f_left">{{content.readNum}}</span>
           <!--是否点赞以及点赞数量-->
           <span class="f_right">{{content.likeNum}}</span>
-          <img v-if="content.likeStatus" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveArticleLike">
-          <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeArticleLike">
+          <img src="../../../../static/images/discover/nozan.png" class="f_right" >
         </div>
         <!--内容E-->
         <!--评论S-->
@@ -43,7 +42,7 @@
             <!--评论者信息S-->
             <div class="comment_userinfo">
               <div class="user_head">
-                <div @click="changeUserStartId(item.user.user_id)">
+                <div>
                   <img v-if="item.user" :src="item.user.head_image" />
                   <img v-else src="../../../../static/images/discover/normalhead.png" />
                 </div>
@@ -57,45 +56,38 @@
                 </div>
                 <div class="operation_comment">
                   <div>
-                    <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="w_04 mr_16 v_m f_left" @click="giveCommentLike(item.id,index)"/>
-                    <img v-else src="../../../../static/images/discover/zan.png" class="w_04 mr_16 v_m f_left" @click="removeCommentLike(item.id,index)"/>
+                    <img  src="../../../../static/images/discover/nozan.png" class="w_04 mr_16 v_m f_left" />
                     <span style="font-size: 0.28rem;">{{item.likeNum}}</span>
                   </div>
                 </div>
                 <div class="user_date">
                   {{item.commentTime}}
-                  <span v-if="item.user && userId == item.user.user_id">
-                    <span @click="deleteComment(item.id)" class="font_1">删除</span>
-                  </span>
                 </div>
               </div>
             </div>
             <!--评论者信息E-->
             <!--评论内容和回复内容S-->
             <div class="comment_content">
-              <p @click="commentbtnBack(item.id)">{{item.message}}</p>
+              <p>{{item.message}}</p>
                 <div v-if="item.reverts && item.reverts.length>0">
                   <div class="comment_msg">
                   <div v-for="(back,index) in item.reverts.slice(0,3)">
                     <span class="font_1">
                       <span>
-                        <span @click="changeUserStartId(back.user.user_id)">
+                        <span>
                           <span v-if="back.user.nick_name">{{back.user.nick_name}}</span>
                           <span v-else>尚未设置昵称:</span>
                         </span>
                       </span>
-                      <span v-if="index!=0 && back.beCommentUser" @click="changeUserStartId(back.beCommentUser.user_id)">
+                      <span v-if="index!=0 && back.beCommentUser">
                         &nbsp;&nbsp;回复&nbsp;&nbsp;
                         <span v-if="back.beCommentUser.nick_name">{{back.beCommentUser.nick_name}}</span>
                         <span>尚未设置昵称:</span><br>
                       </span>
                     </span>
-                    <span class="font_2" @click="commentbtnBack(item.id,back.id)">{{back.message}}</span>
-                    <span v-if="back.user && userId == back.user.user_id">
-                        <span @click="deleteComment(back.id)" class="font_1">删除</span>
-                    </span>
+                    <span class="font_2">{{back.message}}</span>
                   </div>
-                  <div class="allHideComment" v-if="item.reverts && item.reverts.length>3" @click="toCommentList(item.id)">
+                  <div class="allHideComment" v-if="item.reverts && item.reverts.length>3">
                     全部{{item.reverts.length}}条评论>
                   </div>
                 </div>
@@ -112,10 +104,10 @@
     <div style="height: 1rem;"></div>
     <!--评论输入框S-->
     <!--<DiscCommentBox ref="commentbox"></DiscCommentBox>-->
-    <div id="commentBg" @click="closeComment"/>
+    <div id="commentBg"/>
       <div class="flex contentcenter myInput" id="myInput">
-        <input autofocus="autofocus" ref="commentfocus" id="comment" type="text" v-model="commentMsg" @click="commentbtn" placeholder="写评论..."/>
-        <span class="send" @click="comment">发送</span>
+        <input autofocus="autofocus" ref="commentfocus" id="comment" type="text" v-model="commentMsg" placeholder="写评论..."/>
+        <span class="send" >发送</span>
       </div>
       <!--评论输入框E-->
     </div>

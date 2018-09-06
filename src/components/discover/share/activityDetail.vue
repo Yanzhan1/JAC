@@ -38,8 +38,7 @@
           <span class="f_left">{{content.readNum}}</span>
           <!--是否点赞以及点赞数量-->
           <span class="f_right">{{content.likeNum}}</span>
-          <img v-if="content.likeStatus" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveActivityLike">
-          <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeActivityLike">
+          <img src="../../../../static/images/discover/nozan.png" class="f_right" >
         </div>
       </div>
       <!--活动内容E-->
@@ -49,7 +48,7 @@
         <!--发布者信息S-->
         <div class="comment_userinfo">
           <div class="user_head">
-            <div @click="changeUserStartId(content.user.user_id)">
+            <div>
               <img v-if="content.user" :src="content.user.head_image"/>
               <img v-else src="../../../../static/images/discover/normalhead.png" />
             </div>
@@ -62,10 +61,9 @@
               尚未设置昵称
             </div>
             <div class="shaitu">
-              <img class="f_left" src="../../../../static/images/discover/comment.png" alt="" @click="toDetail(item.id)">
+              <img class="f_left" src="../../../../static/images/discover/comment.png" alt="" >
               <span class="num_28 f_left mr_32">{{item.commentNum}}</span>
-              <img v-if="item.likeStatus" class="f_left" src="../../../../static/images/discover/nozan.png" alt="" @click="giveShowPictureLike(index,item.id)">
-              <img v-else class="f_left" src="../../../../static/images/discover/zan.png" alt="" @click="removeShowPictureLike(index,item.id)">
+              <img class="f_left" src="../../../../static/images/discover/nozan.png" alt="" >
               <span class="num_28 f_left">{{item.likeNum}}</span>
             </div>
             <div class="user_date">
@@ -74,8 +72,7 @@
           </div>
         </div>
         <!--发布者信息E-->
-        <div class="picTitle"><span @click="toDetail(item.id)">{{item.message}}</span>
-        <span style="float: right;" v-if="item.user && self(item.user.user_id)" @click="deletePic(item.id)">删除</span></div>
+        <div class="picTitle"><span >{{item.message}}</span></div>
         <div v-if="item.showImgList && item.showImgList.length>0 && item.showImgList!=''" @click="toDetail(item.id)">
           <div v-if="item.showImgList.length==1">
             <img :src="item.showImgList[0]" class="shaitu1">
@@ -106,21 +103,21 @@
       <div style="height: 0.88rem;"></div>
       <!--按钮控制S-->
       <div v-if="userId">
-        <div class="sign_btn" v-if="content.activityState==2 || content.activityState==1" @click="toPic(content.activityId)">
+        <div class="sign_btn" v-if="content.activityState==2 || content.activityState==1" >
           晒&nbsp;图
         </div>
-        <div class="sign_btn" v-else-if="content.activityState==0 && content.joinStatus" @click="toSign(content.activityId)">
+        <div class="sign_btn" v-else-if="content.activityState==0 && content.joinStatus" >
           报&nbsp;名
         </div>
-        <div class="sign_btn" v-else-if="content.activityState==0 && !content.joinStatus" @click="toPic(content.activityId)">
+        <div class="sign_btn" v-else-if="content.activityState==0 && !content.joinStatus" >
           已报名
         </div>
       </div>
-      <div class="sign_btn" v-else  @click="cantWantGo">
+      <div class="sign_btn" v-else>
         报&nbsp;名
       </div>
       <!--按钮控制E-->
-      <div id="bg1" @click="bgbtn1" style="display: none;  position:fixed;  top: 0;  left: 0;  width: 100%;  height: 100%;  background-color: black;  z-index:1; opacity: 0;"/>
+      <div id="bg1"  style="display: none;  position:fixed;  top: 0;  left: 0;  width: 100%;  height: 100%;  background-color: black;  z-index:1; opacity: 0;"/>
     </div>
 </template>
 
