@@ -113,7 +113,8 @@ export default {
       // console.log(path) //文件路径
 				var self = this;
         var file = document.getElementById(piElementId).files[0];
-    //  console.log(file.name)//文件名字
+//      console.log(file)//文件
+//      console.log(file.name)//文件名字
      this.picname=file.name //文件名
 				var reads= new FileReader();
 				var img = new Image();
