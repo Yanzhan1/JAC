@@ -21,7 +21,10 @@ export default {
     CARVINS: ({ commit, state }, payload) => {
         commit(types.CARVINS, payload)
     },
-    selectLabelState: ({ commit, state},payload) => {
-      commit(types.SELECTLABELSTATE, payload)
+    selectLabelState: ({ commit, state }, payload) => {
+        commit(types.SELECTLABELSTATE, payload)
+    },
+    TSPID: ({ commit, state }, payload) => {
+        commit(types.TSPID, payload)
     },
 }

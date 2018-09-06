@@ -232,13 +232,12 @@ export default {
     this.$http.post(Wit.MainBus, param).then(res => {
       if (res.data.code == 0) {
         var arr = res.data.data;
-        
-        this.mainbus = arr;
-      }
+         this.mainbus = arr;
+     }
     });
   },
   mounted() {
-    //  window.Map_Positioning= this.Map_Positioning;
+ 
   }
 };
 </script>

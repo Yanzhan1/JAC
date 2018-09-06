@@ -630,6 +630,11 @@ export default {
       this.Carquerry()
     }
   },
+  computed:{
+      userId(){
+        return  JSON.parse(this.$store.state.getpin.headers.identityParam).userId
+      }
+  },
   //检测输入框
   watch: {
     pinNumber(newVal, oldVal) {
@@ -815,51 +820,78 @@ export default {
               });
             });
       }
+    },
+    userId(newVal,oldVal){
+    
+          alert(this.$store.state.getpin.headers.identityParam)
+    alert(12)
+        this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
+    if (res.data.returnSuccess) {
+      this.BusDetails = res.data.data;
+      for (let i = 0; i < res.data.data.length; i++) {
+        if (res.data.data[i].def == 1) {
+          this.carsysitem=res.data.data[i].seriesName
+          console.log(res.data.data[i].vin);
+          var payload = res.data.data[i].vin;
+          this.$store.dispatch("CARVINS", payload);
+          // this.$store.state.vins = res.data.data[i].vin;
+        }
+      }
+      this.vinn = this.$store.state.vins;
+      this.Carquerry();
+      // console.log(this.$store.state.mytoken.headers.timaToken);
+    }
+  });
+    
     }
   },
-  mounted() {
-    // this.$nextTick(()=>{
-    this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
-      if (res.data.returnSuccess) {
-        this.BusDetails = res.data.data;
-        for (let i = 0; i < res.data.data.length; i++) {
-          if (res.data.data[i].def == 1) {
-            this.carsysitem=res.data.data[i].seriesName
-            console.log(res.data.data[i].vin);
-            var payload = res.data.data[i].vin;
-            this.$store.dispatch("CARVINS", payload);
-            // this.$store.state.vins = res.data.data[i].vin;
-          }
-        }
-        this.vinn = this.$store.state.vins;
-        this.Carquerry();
-        // console.log(this.$store.state.mytoken.headers.timaToken);
-      }
-    });
 
-    // })
-    //暂时下载爱车页面取状态仓库中getpin的具体值
-    var sk=this.$store.state.getpin.headers.identityParam.split(",");
-    var skarr=[];
-    for(let i=0;i<sk.length;i++){
-      var arr=sk[i].split(':');
-      skarr.push({name:arr[1]})
+  mounted() {
+    // console.log(JSON.stringify(this.$store.state.getpin.headers.identityParam))
+    // this.$nextTick(()=>{
+  // this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
+  //   if (res.data.returnSuccess) {
+  //     this.BusDetails = res.data.data;
+  //     for (let i = 0; i < res.data.data.length; i++) {
+  //       if (res.data.data[i].def == 1) {
+  //         this.carsysitem=res.data.data[i].seriesName
+  //         console.log(res.data.data[i].vin);
+  //         var payload = res.data.data[i].vin;
+  //         this.$store.dispatch("CARVINS", payload);
+  //         // this.$store.state.vins = res.data.data[i].vin;
+  //       }
+  //     }
+  //     this.vinn = this.$store.state.vins;
+  //     this.Carquerry();
+  //     // console.log(this.$store.state.mytoken.headers.timaToken);
+  //   }
+  // });
+
+
+  // })
+  //暂时下载爱车页面取状态仓库中getpin的具体值
+  // var sk=this.$store.state.getpin.headers.identityParam.split(",");
+  // var skarr=[];
+  // for(let i=0;i<sk.length;i++){
+  //   var arr=sk[i].split(':');
+  //   skarr.push({name:arr[1]})
+  // }
+  // //拿到state里面的userID
+  // console.log(skarr[0].name.replace(/\{|}/g, '').replace(/\'/g,''))
+  // //拿到state里面的token
+  // console.log(skarr[1].name.replace(/\{|}/g, '').replace(/\'/g,''))
+  // //拿到token里面的phone
+  // console.log(skarr[2].name.replace(/\{|}/g, '').replace(/\'/g,''))
+  //暴露方法给原生,登入判断
+  window.getStatus = this.getStatus;
+  //获取机车 登录登出状态
+  this.$http.get(Lovecar.LogStatus, this.$store.state.getpin).then(res => {
+    if (res.data.returnSuccess) {
+      // alert(JSON.stringify( res.data))
+      this.LoginStatus = res.data.data[1] ? res.data.data[1].logStatus : [];
     }
-    //拿到state里面的userID
-    console.log(skarr[0].name.replace(/\{|}/g, '').replace(/\'/g,''))
-    //拿到state里面的token
-    console.log(skarr[1].name.replace(/\{|}/g, '').replace(/\'/g,''))
-    //拿到token里面的phone
-    console.log(skarr[2].name.replace(/\{|}/g, '').replace(/\'/g,''))
-    //暴露方法给原生,登入判断
-    window.getStatus = this.getStatus;
-    //获取机车 登录登出状态
-    this.$http.get(Lovecar.LogStatus, this.$store.state.getpin).then(res => {
-      if (res.data.returnSuccess) {
-        // alert(JSON.stringify( res.data))
-        this.LoginStatus = res.data.data[1] ? res.data.data[1].logStatus : [];
-      }
-    });
+  });
+
   }
 };
 </script>
