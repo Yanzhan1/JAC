@@ -69,8 +69,9 @@
         let imageURL = '';
         let title = '';
         let description = '描述';
+        let waiwangip = 'http://test.jac.timanetwork.net/JACH5/#/';
         if(this.type=='now'){
-          content = waiwangip+'discover/nowDetail?id='+item.id;
+          content = waiwangip+'/now/nowDetail?id='+item.id;
           if(item.momentImgList == null){
             imageURL = null
           }else{
@@ -81,24 +82,24 @@
           description = item.momentMessage?item.momentMessage:item.title;
           platform = platform;
         }else if(this.type=='information'){
-          content = waiwangip+'discdetail?id='+(item.manageId?item.manageId:item.id);
+          content = waiwangip+'share/informationDetail?id='+(item.manageId?item.manageId:item.id);
           imageURL = item.pictureUrl?item.pictureUrl:item.imgUrl;
           title = "";
           description = item.title?item.title:item.manageTitle;
           platform = platform;
         }else if(this.type=='activity'){
-          content = waiwangip+'activity/DetailActivity?activityId='+(item.activityId?item.activityId:item.id);
+          content = waiwangip+'share/activityDetail?activityId='+(item.activityId?item.activityId:item.id);
           imageURL = item.imgUrl?item.imgUrl:item.pictureUrl;
           title = "";
           description = item.activityTitle?item.activityTitle:item.title;
           platform = platform;
-        }else if(this.type=='question'){
+        }/*else if(this.type=='question'){
           content = waiwangip+'discover/questionDetail?id='+item.id;
           imageURL = '';
           title = "";
           description = item.questionTitle;
           platform = platform;
-        }
+        }*/
         var platformType = "";
         switch (platform){
           case "WEIXIN":
@@ -116,7 +117,7 @@
           default:
             break;
         }
-        //console.log('类型:'+this.type +"  "+"内容:"+content +"  "+"图片:"+imageURL +"  "+"标题:"+title +"  "+"描述:"+description +"  "+"平台:"+platform)
+        console.log('类型:'+this.type +"  "+"内容:"+content +"  "+"图片:"+imageURL +"  "+"标题:"+title +"  "+"描述:"+description +"  "+"平台:"+platform)
         if (isMobile.iOS()) {
           var params = {
             content,imageURL,title,description,platform

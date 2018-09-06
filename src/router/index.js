@@ -80,6 +80,9 @@ import Now from '@/components/discover/now/now' //此刻首页
 import ActivityDetail from '@/components/discover/activity/activityDetail' //活动详情
 import InformationDetail from '@/components/discover/information/informationDetail' //资讯详情
 import NowDetail from '@/components/discover/now/nowDetail' //此刻详情
+import ActivityDetailStatic from '@/components/discover/share/activityDetail' //分享出去的活动详情
+import InformationDetailStatic from '@/components/discover/share/informationDetail' //分享出去的资讯详情
+import NowDetailStatic from '@/components/discover/share/nowDetail' //分享出去的此刻详情
 import PictureDetail from '@/components/discover/activity/pictureDetail' //晒图详情
 import CommentList from '@/components/discover/component/commentList' //超过4条的评论列表(公共)
 import AddPic from '@/components/discover/now/addPic' //新增此刻
@@ -150,6 +153,16 @@ const router = new Router({
             }, {
                 path: "/now/nowDetail",
                 component: NowDetail
+            },
+            {
+              path: "/share/activityDetail",
+              component: ActivityDetailStatic
+            }, {
+              path: "/share/informationDetail",
+              component: InformationDetailStatic
+            }, {
+              path: "/share/nowDetail",
+              component: NowDetailStatic
             },
             {
                 path: "/activity/pictureDetail",
