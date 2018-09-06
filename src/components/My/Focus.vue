@@ -35,11 +35,7 @@
         },
         methods:{
           goBack:function () {
-            if (isMobile.iOS()) {
-              window.webkit.messageHandlers.back.postMessage({ back:0 });
-            } else if(isMobile.Android()) {
-              window.NativeJavaScriptInterface.back({back:1});
-            }
+            this.$router.go(-1);
           },
           getFocusList: function () {
             var _this = this;
