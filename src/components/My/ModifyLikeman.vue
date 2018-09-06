@@ -67,7 +67,7 @@
 									duration: 2000
 								});
 								setTimeout(() => {
-									this.$router.push('/myindex/contactPerson')
+									this.$router.replace('/myindex/contactPerson')
 								}, 2000)
 							} else {
 								let instance = Toast({
