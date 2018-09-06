@@ -82,7 +82,11 @@
 				</ul>
 			</mt-loadmore>
 		</div>
-		
+		<p id="showAll2" style="visibility: hidden">已加载全部</p>
+		<!--没有数据时,对用户进行提示-->
+		<div class="dataInfo" v-if="mainbus.length == 0">
+			没有符合该条件的经销商
+		</div>
 		
 		<mt-popup v-model="popupVisible" position="bottom">
 			<div style="height:2.5rem;width:100%;">
@@ -159,7 +163,7 @@
 					"level": 1
 				}
 				//请求品牌列表
-				this.$http.post(Wit.searchVehicleBrandList, data).then(res => {
+				this.$http.post(Wit.searchVehicleBrandList, data, this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchVehicleBrandList = data.data;
@@ -167,7 +171,7 @@
 				})
 				//经销商
 			
-				 this.$http.post(Wit.Dealer, param).then(res => {
+				 this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
 				 	const data = res.data;
 				  		if(data.code == 0) {
 				  			this.current = 1, //当前页码
@@ -193,7 +197,7 @@
 				 	})
 				 ,
 				//请求省份列表
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data, this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchCountryAreaCodeListPage = data.data.records;
@@ -276,7 +280,7 @@
 					size: 10,
 					current: this.current
                 }
-				this.$http.post(Wit.Dealer, param).then(res => {
+				this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
 				 	const data = res.data;
 				  		if(data.code == 0) {
 				  			this.current = 1, //当前页码
@@ -322,16 +326,13 @@
 					size: 10,
 					current: this.current
           		}
-				this.$http.post(Wit.Dealer, data).then(res => {
+				this.$http.post(Wit.Dealer, data, this.$store.state.mytoken).then(res => {
 				 	const data = res.data;
 				 	this.loadEnd=false;
 				  		if(data.code == 0) {
-//				  			console.log(this.mainbus)
-				  			console.log(data.data.records)
 				  			this.mainbus = this.mainbus.concat(data.data.records) 
-//				  			console.log(this.mainbus)
 				  			var allpages = Math.ceil(data.data.total/this.size);
-							if (allpages <= this.current) {
+							if (allpages <= this.current) { //总页数小于等于已经加载过的页数时
 								this.loading = true;   //禁止无限滚动
 				                this.allLoaded = true; //不在触发方法
 				                this.loadEnd = true;  //不在请求数据
@@ -366,9 +367,10 @@
 					size: 10,
 					current: this.current
                 }
-			    this.$http.post(Wit.Dealer, param).then(res=>{
+			    this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res=>{
                       if(res.data.code == 0) {
 						    this.mainbus=[]
+						    console.log(this.mainbus.length)
 							this.mainbus = res.data.data.records
 						}
 				})
@@ -391,7 +393,7 @@
 				}
 //		  	this.mainbus=[]
 			  //请求车型列表
-				this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
+				this.$http.post(Wit.searchVehicleSeriesList, data, this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchVehicleSeriesList = data.data;
@@ -404,7 +406,7 @@
 					parentId: this.provinceId, //被检测的省份id 
 					level: 2
 				}
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data, this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.cityList = data.data.records;
@@ -569,5 +571,14 @@
 	
 	.selection-list li:hover {
 		background: #e3e3e3;
+	}
+	/*没有数据时,提示样式*/
+	.dataInfo {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: 0.34rem;
+		color: #555555;
 	}
 </style>
