@@ -40,7 +40,7 @@
 			confirm() { //更改用户信息→修改紧急联系人
 				MessageBox.confirm('', {
 					title: '提示',
-					message: '您确定要修改PIN吗？',
+					message: '请再次确定联系人信息',
 					showConfirmButton: true,
 					showCancelButton: true,
 					cancelButtonClass: 'cancelButton',

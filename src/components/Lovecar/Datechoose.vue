@@ -1,10 +1,6 @@
 <template>
   <div>
     <header class="header">
-      <!-- <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-      <span class="header-title">{{this.times}}</span>
-      <span class="header-right"><img src="/static/images/Lovecar/zhankai@2x.png" alt="" @click="choose_times"></span> -->
-
       <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
       <div class="header-title flex row cocenter">
         <span>{{this.times}}</span>
@@ -52,13 +48,6 @@
             <div class="addweek">
               <div class="date_top addweeks" v-for="(item,index) in newarr" ref="color">
                 {{item}}
-                <!-- <div>一</div>
-                <div>二</div>
-                <div>三</div>
-                <div>四</div>
-                <div>五</div>
-                <div style="color:#FF3366">六</div>
-                <div style="color:#FF3366">日</div> -->
               </div>
             </div>
             <div class="date_center" v-for="(item,index) in newarraynum" :key="index">{{item}}</div>
