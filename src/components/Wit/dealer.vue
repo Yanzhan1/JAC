@@ -137,8 +137,9 @@
 				loading: false,  //false,触发无线滚动, true,不会触发无线滚动
 				loadEnd:false, //false,再次滚动会加载更多数据, true再次滚动不会加载更多数据
 				size: 10, //每页的数据长度
-				current: 1 //当前页码
-				
+				current: 1, //当前页码
+				latitude: null, //维度
+				longitude: null //经度
 			};
 		},
 		components: {
@@ -153,11 +154,12 @@
 					vehicleSeridesNo:this.bustypeno,//车系
 				  	dealerProvinceCode: this.provinceId,//省编码
 					dealerCityCode:this.city_id,//城市id
+					longitude: this.longitude, //经度
+					latitude: this.latitude, //维度
 					dealerType:"01",
 					size: 10,
 					current: 1
-					}
-					
+				}
 				var data = {
 					"parentId": null,
 					"level": 1
@@ -249,7 +251,9 @@
 			chooseSelection (ind, val) {//选择品牌
 			     this.nowIndex = ind;
                  this.isDrop = false;
-				 this.brandNo = val
+				 this.brandNo = val;
+				 this.carState = false;
+				 this.carIndex = 0
 				 this.publicrequst()
 		  	},
 			chooseCarType (ind,val) {//选择车型
@@ -258,15 +262,18 @@
 				this.carDrop = false
 				this.publicrequst()
 			},
-			chooseProvinType (ind, val) {//选择省份
-				 this.provinIndex = ind;
-				 this.provinceId = val;
+			chooseProvinType (ind, val) {//选择省份, ind参数一个是省份数组的下标,val一个是省份的id
+				 this.provinIndex = ind;  //头部显示
+				 this.provinceId = val; //省份id变动请求城市列表
 				 this.provinceDrop = false;
+				 this.cityState = false;
+				 this.cityIndex = 0;
+//				 this.cityDrop = false
 				 this.publicrequst()
 			},
 			chooseCityType (ind,val) {//选择城市
-			     this.city_id=val
-				this.cityIndex = ind;
+			     this.city_id=val   //城市id
+				this.cityIndex = ind; //城市头部显示
 				this.cityDrop = false;
 				 this.publicrequst()
 			},
@@ -276,6 +283,8 @@
 					vehicleSeridesNo:this.bustypeno,//车系
 				  	dealerProvinceCode: this.provinceId,//省编码
 					dealerCityCode:this.city_id,//城市id
+					longitude: this.longitude, //经度
+					latitude: this.latitude, //维度
           			dealerType:"01",
 					size: 10,
 					current: this.current
@@ -322,6 +331,8 @@
 					vehicleSeridesNo:this.bustypeno,//车系
 				  	dealerProvinceCode: this.provinceId,//省编码
 					dealerCityCode:this.city_id,//城市id
+					longitude: this.longitude, //经度
+					latitude: this.latitude, //维度
           			dealerType:"01",
 					size: 10,
 					current: this.current
@@ -363,6 +374,8 @@
 					vehicleSeridesNo:this.bustypeno,//车系
 				  	dealerProvinceCode: this.provinceId,//省编码
 					dealerCityCode:this.city_id,//城市id
+					longitude: this.longitude, //经度
+					latitude: this.latitude, //维度
 					dealerType:"01",
 					size: 10,
 					current: this.current
@@ -370,7 +383,6 @@
 			    this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res=>{
                       if(res.data.code == 0) {
 						    this.mainbus=[]
-						    console.log(this.mainbus.length)
 							this.mainbus = res.data.data.records
 						}
 				})
@@ -383,8 +395,10 @@
 		created(){
 			var Position=js2android.getLocationInfo()//获取定位信息
 			var NewPosition= JSON.parse(Position)
-			this.cityname=NewPosition.city
+			this.cityname=NewPosition.province
 			this.citysi=NewPosition.city
+			this.latitude = NewPosition.latitude
+			this.longitude = NewPosition.longitude
 		},
 		watch: {
 			brandNo(newVal, oldVal) {//监听品牌id,获得车型列表
