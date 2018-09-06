@@ -35,7 +35,7 @@
 		},
 		methods: {
 			init() {
-				this.$http.post(Wit.searchComplaintsSuggestionsList, this.condition,this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.searchComplaintsSuggestionsList, this.condition).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.questionContent = data.data
@@ -83,7 +83,7 @@
 	/*反馈内容*/
 	
 	.freedback-record {
-		height: 100vh;
+		min-height: 100%;
 		background: #F5F5F5;
 	}
 	

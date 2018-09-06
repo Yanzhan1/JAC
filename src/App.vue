@@ -23,7 +23,7 @@ export default {
 
         this.$store.dispatch('isLogin',false);
         this.$store.dispatch('userId',null);
-        this.$store.dispatch('userInfo',null);
+//      this.$store.dispatch('userInfo',null);
       }
 //    alert('放到vuex中的token：'+this.$store.state.token)
       this.$http.defaults.headers.common['timaToken'] =  this.$store.state.token

@@ -1,26 +1,28 @@
 <template>
 <div :id="'share_'+flag+index" class="shareHide">
-  <div class="contentWrap">
-    <div class="contentShare">
-      <div class="shareBox">
-        <img src="../../../../static/images/discover/wx.png" class="shareIcon" @click="toShare(item,'WEIXIN')"/>
-        <span style="color: #222222;">微信</span>
-      </div>
-      <div class="shareBox">
-        <img src="../../../../static/images/discover/pyq.png" class="shareIcon" @click="toShare(item,'WEIXIN_CIRCLE')"/>
-        <span style="color: #222222;">朋友圈</span>
-      </div>
-      <div class="shareBox">
-        <img src="../../../../static/images/discover/qq.png" class="shareIcon" @click="toShare(item,'QQ')"/>
-        <span style="color: #222222;">QQ</span>
-      </div>
-      <div class="shareBox">
-        <img src="../../../../static/images/discover/qqkongjian.png" class="shareIcon" @click="toShare(item,'QQ')"/>
-        <span style="color: #222222;">QQ空间</span>
-      </div>
-      <div class="shareBox">
-        <img src="../../../../static/images/discover/weibo.png" class="shareIcon" @click="toShare(item,'SELF')"/>
-        <span style="color: #222222;">微博</span>
+  <div :class="flag == 'person'?'personWrap':'contentWrap'">
+    <div :class="flag == 'person'?'personShare':'contentShare'">
+      <div v-if="flag != 'person'">
+        <div class="shareBox">
+          <img src="../../../../static/images/discover/wx.png" class="shareIcon" @click="toShare(item,'WEIXIN')"/>
+          <span style="color: #222222;">微信</span>
+        </div>
+        <div class="shareBox">
+          <img src="../../../../static/images/discover/pyq.png" class="shareIcon" @click="toShare(item,'WEIXIN_CIRCLE')"/>
+          <span style="color: #222222;">朋友圈</span>
+        </div>
+        <div class="shareBox">
+          <img src="../../../../static/images/discover/qq.png" class="shareIcon" @click="toShare(item,'QQ')"/>
+          <span style="color: #222222;">QQ</span>
+        </div>
+        <div class="shareBox">
+          <img src="../../../../static/images/discover/qqkongjian.png" class="shareIcon" @click="toShare(item,'QQ')"/>
+          <span style="color: #222222;">QQ空间</span>
+        </div>
+        <div class="shareBox">
+          <img src="../../../../static/images/discover/weibo.png" class="shareIcon" @click="toShare(item,'SELF')"/>
+          <span style="color: #222222;">微博</span>
+        </div>
       </div>
       <!--此刻（举报）-->
       <div  v-if="isCenter && flag=='person'">
@@ -227,10 +229,25 @@
     position: fixed;
     bottom: 1.24rem;
   }
+  .personWrap{
+    width: 92%;
+    padding: 0.2rem;
+    height: 16%;
+    z-index: 999666;
+    background: #fdfdfd;
+    border-radius: 0.08rem;
+    margin-left:4%;
+    position: fixed;
+    bottom: 1.24rem;
+  }
   .contentShare{
     height: 48%;
     width: 100%;
     border-bottom: 0.02rem solid #f1f1f1;
+  }
+  .personShare{
+    height: 48%;
+    width: 100%;
   }
   .mt_4{
     margin-top: 0.4rem;

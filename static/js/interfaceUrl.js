@@ -11,7 +11,8 @@ var mip = 'http://test.jac.timanetwork.net/api/jac-automobile-manage/automobilem
     //服务器-admin(跟用户有关即我的)
 var mips = 'http://test.jac.timanetwork.net/api/jac-admin/' //地区
 
-var love_car = 'http://test.jac.timanetwork.net/jvconnectedcar' //爱车
+// var love_car = 'http://test.jac.timanetwork.net/jvconnectedcar' //爱车
+var love_car = 'http://test.jac.timanetwork.net/api/jac-car-control' //爱车
 
 //服务器→反馈记录
 var rec = 'http://test.jac.timanetwork.net/api/jac-enjoy-service/'
@@ -107,8 +108,8 @@ window.DISCOVERMESSAGE = {
     // 智享
 window.Wit = {
         MainBus: mip + '/vehicleModel/searchVehicleModelList', //全部车型 主推车型
-        Dealer: mip + '/dealerVehicleModel/searchDealerBaseInformationListPage', //经销列表商查询
-//      Dealer: 'http://172.21.4.223:8082' + '/automobilemanage/dealerBaseInformation/searchDealerBaseInformationListPage', //经销列表商查询
+        Dealer: mip + '/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询
+        //      Dealer: 'http://172.21.4.223:8082' + '/automobilemanage/dealerBaseInformation/searchDealerBaseInformationListPage', //经销列表商查询
         Switching: mip + '/vehicleBrand/searchVehicleBrandList', //频道选择
         Distributor: mip + '/dealerBaseInformation/searchDealerBaseInformationListPage', //选择经销商
         searchVehicleBrandList: mip + '/vehicleBrand/searchVehicleBrandList', //品牌
@@ -136,8 +137,8 @@ window.My = {
         UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
         My_Bus: love_car + '/vehicle/find-vehicle-list', //我的车辆
         SetOneDefault: love_car + '/vehicle/set-default-vehicle', //我的车辆设为默认
-        JFmybus: love_car + 'vehicle/set-vehicle-remoteset', //解绑我的车辆,绑定,
-        planbus: love_car + 'vehicle/set-vehicle-remoteset', //添加车牌 绑定车牌
+        JFmybus: love_car + '/vehicle/set-vehicle-remoteset', //解绑我的车辆,绑定,
+        planbus: love_car + '/vehicle/set-vehicle-remoteset', //添加车牌 绑定车牌
         Edict: mip + '/vehicle/updateVehicle', //修改车辆信息
         ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromListPage', //线索订单
         MyDealer: mip + '/dealerBaseInformation/selectSeriesDealerBaseInformation', //我的 我的经销商列表
@@ -148,7 +149,7 @@ window.My = {
         Defaultaddress: mips + '/admin/userAddress/setDefaultAddress', //my部分设置默认地址
         Area: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //选择地区
         AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
-        RecomendCode: mips + 'admin/recommendedCode/searchRecommendedCodeOne' //获取推荐码
+        RecomendCode: mips + '/admin/recommendedCode/searchRecommendedCodeOne' //获取推荐码
     }
     //爱车
 window.Lovecar = {

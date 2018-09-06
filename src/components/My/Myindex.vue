@@ -88,7 +88,7 @@
 				</div>
 				<img src="../../../static/images/my/next@2x.png" alt="">
 			</router-link>
-			<div class="mylist" @click="recommended">
+			<div class="mylist" @click="recommended" v-if="flag">
 
 				<div class="flex cocenter">
 					<img src="../../../static/images/my/mine_recommend@2x.png" alt="">
@@ -138,6 +138,7 @@ export default {
       focusNum:0,
       momentNum:0,
       myList:[],
+      flag:false//隐藏推荐码
     };
   },
   methods: {
@@ -193,7 +194,7 @@ export default {
     recommended() {
       this.$router.push("/Recommended");
     },
-    //粉丝
+    //粉丝  
     toFans: function () {
       this.$router.push({path:"/fans"})
     },
@@ -254,9 +255,23 @@ export default {
         }
       });
     },
+    //获取推荐码 如没有  推荐码 栏不显示
+      RecomendCode(){
+        var param = {
+         userNo: this.$store.state.userId
+     };
+    this.$http.post(My.RecomendCode, param).then(res => {
+     if (res.data.code == 0) {
+        this.share = res.data.data.code;
+         this.flag=true
+      }
+    });
+      }
+     
   },
   created() {
     this.getuserinfo();
+    this.RecomendCode()//获取推荐码
   },
   mounted() {
     // console.log(this.$store.state.no)

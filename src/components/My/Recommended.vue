@@ -8,7 +8,7 @@
 
     <div class="center">
       <div class="my">我的推荐码</div>
-      <img src="/static/images/my/icon_share@2x.png" alt="" @click="enjoy()">
+      <img src="../../../static/images/my/icon_share@2x.png" alt="" @click="enjoy()">
       <div class="num">{{this.share}}</div>
     </div>
     <div class="mask"></div>
@@ -47,7 +47,8 @@ export default {
   data() {
     return {
       share: "",
-      popupVisible: false
+      popupVisible: false,
+      
     };
   },
   methods: {
@@ -95,7 +96,7 @@ export default {
       userNo: this.$store.state.userId
     };
     this.$http.post(My.RecomendCode, param).then(res => {
-      if (res.data.code == 0) {
+     if (res.data.code == 0) {
         this.share = res.data.data.code;
       }
     });
