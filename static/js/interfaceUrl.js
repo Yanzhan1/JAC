@@ -109,7 +109,7 @@ window.DISCOVERMESSAGE = {
 window.Wit = {
         MainBus: mip + '/vehicleModel/searchVehicleModelList', //全部车型 主推车型
         Dealer: mip + '/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询
-        //      Dealer: 'http://172.21.4.223:8082' + '/automobilemanage/dealerBaseInformation/searchDealerBaseInformationListPage', //经销列表商查询
+//      Dealer: 'http://172.21.4.235:8082' + '/automobilemanage/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询
         Switching: mip + '/vehicleBrand/searchVehicleBrandList', //频道选择
         Distributor: mip + '/dealerBaseInformation/searchDealerBaseInformationListPage', //选择经销商
         searchVehicleBrandList: mip + '/vehicleBrand/searchVehicleBrandList', //品牌

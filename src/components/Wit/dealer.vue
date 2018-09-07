@@ -154,8 +154,8 @@
 					vehicleSeridesNo:this.bustypeno,//车系
 				  	dealerProvinceCode: this.provinceId,//省编码
 					dealerCityCode:this.city_id,//城市id
-					longitude: this.longitude, //经度
-					latitude: this.latitude, //维度
+					longitude: 121.45, //经度
+					latitude: 34.64, //维度
 					dealerType:"01",
 					size: 10,
 					current: 1
@@ -170,9 +170,9 @@
 					if(data.code == 0) {
 						this.searchVehicleBrandList = data.data;
 					}
-				})
+				}),
 				//经销商
-			
+//				console.log(111)
 				 this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
 				 	const data = res.data;
 				  		if(data.code == 0) {
@@ -197,7 +197,6 @@
 							duration: 2000
 						});
 				 	})
-				 ,
 				//请求省份列表
 				this.$http.post(Wit.searchCountryAreaCodeListPage, data, this.$store.state.mytoken).then(res => {
 					const data = res.data;
@@ -393,12 +392,12 @@
 			this.init()
 		},
 		created(){
-			var Position=js2android.getLocationInfo()//获取定位信息
-			var NewPosition= JSON.parse(Position)
-			this.cityname=NewPosition.province
-			this.citysi=NewPosition.city
-			this.latitude = NewPosition.latitude
-			this.longitude = NewPosition.longitude
+//			var Position=js2android.getLocationInfo()//获取定位信息
+//			var NewPosition= JSON.parse(Position)
+//			this.cityname=NewPosition.province
+//			this.citysi=NewPosition.city
+//			this.latitude = NewPosition.latitude
+//			this.longitude = NewPosition.longitude
 		},
 		watch: {
 			brandNo(newVal, oldVal) {//监听品牌id,获得车型列表
