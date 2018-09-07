@@ -8,10 +8,11 @@ export default {
     mobile: null, //用户手机号
     softkeyboard: true, //默认软键盘开启
     token: null, //用户token
+    refreshToken: '',
     // userNo: 'AD022018081504171568405', //userNo
     getpin: {
         headers: {
-            "identityParam": '{ "userId": "", "token": "sdfasdfasdfasd", "phone": "15221794973" }',
+            "identityParam": '{ "userId": "", "token": "", "phone": "12104931802" }',
         }
     }, //爱车发送请求时的token,暂用
     mytoken: {
