@@ -19,7 +19,6 @@ export default {
         this.$store.dispatch('userId',userInfo.no);
         this.$store.dispatch('userInfo',userInfo);
       }else{
-
         this.$store.dispatch('isLogin',false);
         this.$store.dispatch('userId',null);
 //      this.$store.dispatch('userInfo',null);
@@ -37,11 +36,13 @@ export default {
             let params = {
                 userNo: this.$store.state.userId
             }
-            this.$http.post('http://test.jac.timanetwork.net/api/jac-admin/admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne', params).then((res) => {
+            this.$http.post(Lovecar.TSP, params).then((res) => {
                 // alert(res.data.data.tspId)
                 // alert(JSON.stringify(res))
-                var tspId = res.data.data.tspId
-                this.$store.dispatch('TSPID', tspId)
+                if(res.data.data.msg=='success'){
+                  var tsp = res.data.data
+                  this.$store.dispatch('TSP', tsp)
+                }
                     // alert(JSON.parse(this.$store.state.getpin.headers.identityParam).userId)
                     // alert(res.data.data.tspId)
                     // JSON.parse(this.$store.state.getpin.headers.identityParam).userId=res.data.data.tspId		

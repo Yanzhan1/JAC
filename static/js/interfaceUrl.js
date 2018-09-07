@@ -139,7 +139,8 @@ window.My = {
         SignIn: mips + '/pluto-membership/integral-gather/integral-gather', //签到 
         Credit: mips + '', //获取用户积分  
         CreditDetail: mips + '', //积分记录
-        My_Bus: love_car + '/vehicle/find-vehicle-list', //我的车辆
+        // My_Bus: love_car + '/vehicle/find-vehicle-list', //我的车辆
+        My_Bus: 'http://172.21.4.116:8084/vehicle/find-vehicle-list', //我的车辆yys本地
         SetOneDefault: love_car + '/vehicle/set-default-vehicle', //我的车辆设为默认
         JFmybus: love_car + '/vehicle/set-vehicle-remoteset', //解绑我的车辆,绑定,
         planbus: love_car + '/vehicle/set-vehicle-remoteset', //添加车牌 绑定车牌
@@ -156,7 +157,9 @@ window.My = {
         RecomendCode: mips + '/admin/recommendedCode/searchRecommendedCodeOne' //获取推荐码
     }
     //爱车
+
 window.Lovecar = {
+    TSP: mips + 'admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne', //获取tsp用户
     Carquery: love_car + '/vehicle/query-vehicle-condition', //车辆车况查询
     // OperationId: love_car + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
     OperationId: love_car + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端

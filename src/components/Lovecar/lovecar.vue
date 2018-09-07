@@ -523,7 +523,7 @@ export default {
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
-                          // console.log(res.data.data)
+                          console.log(res.data.data)
                           this.carcontrol = res.data.data;
                           this.carcontrol.engineHoodStsFront
                             ? (this.engineHoodStsFront = "已开")
@@ -576,7 +576,7 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              // console.log(res.data.data)
+              console.log(res.data.data)
               this.carcontrol = res.data.data;
               this.carcontrol.engineHoodStsFront
                 ? (this.engineHoodStsFront = "已开")
@@ -823,8 +823,9 @@ export default {
     },
     userId(newVal,oldVal){
     
-          alert(this.$store.state.getpin.headers.identityParam)
-    alert(12)
+          // alert(this.$store.state.getpin.headers.identityParam)
+    // alert(My.My_Bus)
+    // console.log(newVal,oldVal)
         this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
     if (res.data.returnSuccess) {
       this.BusDetails = res.data.data;
