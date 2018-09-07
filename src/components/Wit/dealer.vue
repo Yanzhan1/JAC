@@ -42,7 +42,7 @@
 				</div>
 				<div class="selection-list" v-if="provinceDrop">
 					<ul>
-						<li v-for="(item,index) in searchCountryAreaCodeListPage" :key="index" @click="chooseProvinType(index, item.id)">{{item.name}}</li>
+						<li v-for="(item,index) in searchCountryAreaCodeListPage" :key="index" @click="chooseProvinType(index, item.code)">{{item.name}}</li>
 					</ul>
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 				</div>
 				<div class="selection-list" v-if="cityDrop">
 					<ul>
-						<li v-for="(item,index) in cityList" :key="index" @click="chooseCityType(index, item.id)">{{item.name,item.id}}</li>
+						<li v-for="(item,index) in cityList" :key="index" @click="chooseCityType(index, item.code)">{{item.name,item.id}}</li>
 					</ul>
 				</div>
 			</div>
@@ -149,17 +149,6 @@
 			init() {
 	          	this.loading=true;   //第一次加载数据,没有滚动的情况下,是不可以无线滚动的
           		this.loadEnd=false;  //第一次加载数据,还可以继续加载
-				var param = {
-					brandNo:this.brandNo,//品牌no
-					vehicleSeridesNo:this.bustypeno,//车系
-				  	dealerProvinceCode: this.provinceId,//省编码
-					dealerCityCode:this.city_id,//城市id
-					longitude: 121.45, //经度
-					latitude: 34.64, //维度
-					dealerType:"01",
-					size: 10,
-					current: 1
-				}
 				var data = {
 					"parentId": null,
 					"level": 1
@@ -171,16 +160,50 @@
 						this.searchVehicleBrandList = data.data;
 					}
 				}),
-				//经销商
-//				console.log(111)
-				 this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
-				 	const data = res.data;
+				//请求省份列表   原生拿到的省份name  去对比省份列表 找到对应的省份code
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data, this.$store.state.mytoken).then(res => {
+					const data = res.data;
+					if(data.code == 0) {
+						this.searchCountryAreaCodeListPage = data.data.records;
+						for(let i=0;i<this.searchCountryAreaCodeListPage.length;i++){
+							if(this.searchCountryAreaCodeListPage[i].name==this.cityname){
+								this.provinceId=this.searchCountryAreaCodeListPage[i].code
+								if(this.provinceId){
+							      this.mydeler()  //省份code 赋值成功后 调用获取经销商列表
+								}
+							}
+						}
+				    }
+				})
+				
+				 },
+			search() {
+				this.popupVisible = true;
+			},
+			cancel() {
+				this.popupVisible = false;
+			},
+			//获取经销商列表
+			mydeler(){
+             var param = {
+					brandNo:this.brandNo,//品牌no
+					vehicleSeridesNo:this.bustypeno,//车系
+				  	dealerProvinceCode: this.provinceId,//省编码
+					dealerCityCode:this.city_id,//城市id
+					longitude: this.longitude, //经度
+					latitude: this.latitude, //维度
+					dealerType:"01",
+					size: 10,
+					current: 1
+				}
+				   this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
+					  const data = res.data;
 				  		if(data.code == 0) {
 				  			this.current = 1, //当前页码
 				  			this.loading = false , //加载完数据可以无线滚动
 							this.mainbus = data.data.records
-						   
-							if (data.data.total <= this.size) { //如果总条数小于等于请求的数据条数,不在请求加载更多
+						
+						if (data.data.total <= this.size) { //如果总条数小于等于请求的数据条数,不在请求加载更多
 								this.loadEnd = true;
 							}
 						} else {
@@ -191,26 +214,6 @@
 							});
 						}
 					})
-				 	.catch( err => {
-				 		Toast({
-							message: '系统异常',
-							position: 'middle',
-							duration: 2000
-						});
-				 	})
-				//请求省份列表
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data, this.$store.state.mytoken).then(res => {
-					const data = res.data;
-					if(data.code == 0) {
-						this.searchCountryAreaCodeListPage = data.data.records;
-                   }
-				})
-			},
-			search() {
-				this.popupVisible = true;
-			},
-			cancel() {
-				this.popupVisible = false;
 			},
 			toggleDrop() {//改变品牌下拉状态
 				this.isDrop = !this.isDrop;
@@ -268,8 +271,7 @@
 				 this.provinceDrop = false;
 				 this.cityState = false;
 				 this.cityIndex = 0;
-//				 this.cityDrop = false
-				 this.publicrequst()
+                 this.publicrequst()
 			},
 			chooseCityType (ind,val) {//选择城市
 			     this.city_id=val   //城市id
@@ -391,15 +393,23 @@
 		},
 		mounted() {
 			this.init()
+			this.provinceId=null
 		},
 		created(){
 			var Position=js2android.getLocationInfo()//获取定位信息
 			var NewPosition= JSON.parse(Position)
-			this.cityname=NewPosition.province
-			this.citysi=NewPosition.city
-			this.latitude = NewPosition.latitude
-			this.longitude = NewPosition.longitude
+			this.cityname=NewPosition.province//省
+			this.citysi=NewPosition.city//市
+			this.latitude = NewPosition.latitude//精
+			this.longitude = NewPosition.longitude//韦
+		
 		},
+		// computed:{
+		// 	provinceId(){
+		// 		return  this.provinceId
+		// 	}
+		// },
+		
 		filters:{
          keepTwo: function(value){
 			 var res="";
@@ -408,6 +418,11 @@
 		 }
 		},
 		watch: {
+			provinceId(newVal,oldVal){
+
+				alert(1)
+				
+			},
 			brandNo(newVal, oldVal) {//监听品牌id,获得车型列表
 		  	let data = {
 					no: this.brandNo
@@ -432,7 +447,7 @@
 					if(data.code == 0) {
 						this.cityList = data.data.records;
 					} else {
-						// alert(data.msg)
+					
 					}
 				})
 			}
