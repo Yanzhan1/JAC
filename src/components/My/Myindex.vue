@@ -8,8 +8,8 @@
 			<div class="mytophead flex between cocenter">
 				<div style="padding-left: 0.3rem;padding-right: 0.2rem" class="flex cocenter">
 					<div  @click="edict()" style="width: 1.2rem;height: 1.2rem;border-radius:50%;overflow:hidden">
-             <img v-if="Personal.headUrl" :src="Personal.headUrl" alt="" style="width:100%;height:100%"> 
-             <img v-else src="../../../static/images/my/qq.png" alt="" style="width:100%;height:100%"> 
+             <img v-if="Personal.headUrl" :src="Personal.headUrl" alt="" style="width:100%;height:100%">
+             <img v-else src="../../../static/images/my/qq.png" alt="" style="width:100%;height:100%">
           </div>
 
 					<div class="flex column" style="margin-left: 0.2rem;">
@@ -174,7 +174,7 @@ export default {
         js2android.scan();
       }
     },
-    
+
     //获取原生的no和token
     getTokenAndNo() {
       //js判断手机操作系统(ios或者是Android)
@@ -194,7 +194,7 @@ export default {
     recommended() {
       this.$router.push("/Recommended");
     },
-    //粉丝  
+    //粉丝
     toFans: function () {
       this.$router.push({path:"/fans"})
     },
@@ -231,7 +231,7 @@ export default {
     //关注、粉丝、获赞、发布、数量
     myNum: function(){
       var _this = this;
-      this.$http.post(DISCOVERMESSAGE.count,{"uid": 1165864}).then(function (res) {
+      this.$http.post(DISCOVERMESSAGE.count,{"uid": _this.$store.state.userId}).then(function (res) {
         if (res.data.status) {
           _this.focusNum = res.data.data.focusNum;
           _this.fansNum = res.data.data.fansNum;
@@ -267,7 +267,7 @@ export default {
       }
     });
       }
-     
+
   },
   created() {
     this.getuserinfo();
