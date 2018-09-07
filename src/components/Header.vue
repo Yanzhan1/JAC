@@ -122,7 +122,7 @@
           }
           window.webkit.messageHandlers.send.postMessage(params);
         } else if (isMobile.Android()) {
-          js2android.send("圈子", this.$store.state.uuid, null);
+          js2android.send("社区", this.$store.state.uuid, null);
         }
       },
       open: function() {
