@@ -39,7 +39,7 @@ export default {
             this.$http.post(Lovecar.TSP, params).then((res) => {
                 // alert(res.data.data.tspId)
                 // alert(JSON.stringify(res))
-                if(res.data.data.msg=='success'){
+                if(res.data.msg=='success'){
                   var tsp = res.data.data
                   this.$store.dispatch('TSP', tsp)
                 }

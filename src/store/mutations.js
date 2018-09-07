@@ -17,7 +17,7 @@ export default {
         if (payload) {
             state.no = payload.no
             state.mobile = payload.mobile
-            state.vins = payload.vin
+                // state.vins = payload.vin
             state.token = payload.token
             var str = JSON.parse(state.getpin.headers.identityParam)
             str.phone = payload.mobile
@@ -26,7 +26,7 @@ export default {
         } else {
             state.no = null
             state.mobile = null
-            state.vin = null
+                // state.vinst = null
             state.token = null
         }
     },
