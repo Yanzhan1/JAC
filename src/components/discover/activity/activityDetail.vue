@@ -106,14 +106,17 @@
       <div style="height: 0.88rem;"></div>
       <!--按钮控制S-->
       <div v-if="userId">
-        <div class="sign_btn" v-if="content.activityState==2 || content.activityState==1" @click="toPic(content.activityId)">
+        <div class="sign_btn" v-if="(content.activityState==2 || content.activityState==1)&& !content.joinStatus" @click="toPic(content.activityId)">
           晒&nbsp;图
         </div>
         <div class="sign_btn" v-else-if="content.activityState==0 && content.joinStatus" @click="toSign(content.activityId)">
           报&nbsp;名
         </div>
-        <div class="sign_btn" v-else-if="content.activityState==0 && !content.joinStatus" @click="toPic(content.activityId)">
+       <!-- <div class="sign_btn" v-else-if="content.activityState==0 && !content.joinStatus" @click="toPic(content.activityId)">
           已报名
+        </div>-->
+        <div class="sign_btn" v-else-if="content.activityState!=2 && !content.joinStatus" @click="removeWant">
+          取消报名
         </div>
       </div>
       <div class="sign_btn" v-else  @click="cantWantGo">

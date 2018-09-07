@@ -150,11 +150,11 @@ export default {
         typeStr: "TYPE_RETAIN",
         no: "AD022018090502003904986"
       };
-      
+
       var param=JSON.stringify(data)
       this.$http.post("http://172.21.4.219:8381/pluto-membership/integral-gather/integral-gather",param)
         .then(res => {});
-     
+
       this.popupVisible = true;
       setTimeout(() => {
         this.popupVisible = false;
@@ -244,7 +244,7 @@ export default {
     myNum: function() {
       var _this = this;
       this.$http
-        .post(DISCOVERMESSAGE.count, { uid: 1165864 })
+        .post(DISCOVERMESSAGE.count, { uid: _this.$store.state.userId })
         .then(function(res) {
           if (res.data.status) {
             _this.focusNum = res.data.data.focusNum;
