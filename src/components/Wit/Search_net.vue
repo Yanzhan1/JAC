@@ -403,7 +403,7 @@
 		filters:{
          keepTwo: function(value){
 			 var res="";
-			 res=parseInt(value)
+			 res=value.toFixed(1)
 			 return res
 		 }
 		},
