@@ -204,6 +204,7 @@
         }
       },
       mounted(){
+//    	alert(11)
         this.$nextTick(function () {
           this.getRefreshList()
         })

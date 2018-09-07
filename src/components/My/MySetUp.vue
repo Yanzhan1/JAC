@@ -6,9 +6,9 @@
 			<span class="header-right"></span>
 		</header>
 		<div style="height:0.88rem"></div>
-		<mt-cell :title="title">
+		<!--<mt-cell :title="title">
 			<mt-switch @change="turn" v-model="value"><span></span></mt-switch>
-		</mt-cell>
+		</mt-cell>-->
 		<router-link tag="div" class="setup-ctcperson" to="/myindex/contactPerson">
 			<mt-cell title="紧急联系人" is-link></mt-cell>
 		</router-link>

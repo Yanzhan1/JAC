@@ -34,7 +34,7 @@ import My from '@/components/My/Myindex'
 import Mystart from '@/components/My/Mystart'
 import Userstart from '@/components/My/Userstart'
 import Fans from '@/components/My/Fans' //我的粉丝
-import Focus from '@/components/My/Focus'//我的关注
+import Focus from '@/components/My/Focus' //我的关注
 import MyCollect from '@/components/My/MyCollect.vue' //我的收藏
 import Myactivity from '@/components/My/Myactivity.vue' //我的活动
 import RegistryInfo from '@/components/My/RegistryInfo.vue' //我的报名信息
@@ -80,6 +80,9 @@ import Now from '@/components/discover/now/now' //此刻首页
 import ActivityDetail from '@/components/discover/activity/activityDetail' //活动详情
 import InformationDetail from '@/components/discover/information/informationDetail' //资讯详情
 import NowDetail from '@/components/discover/now/nowDetail' //此刻详情
+import ActivityDetailStatic from '@/components/discover/share/activityDetail' //分享出去的活动详情
+import InformationDetailStatic from '@/components/discover/share/informationDetail' //分享出去的资讯详情
+import NowDetailStatic from '@/components/discover/share/nowDetail' //分享出去的此刻详情
 import PictureDetail from '@/components/discover/activity/pictureDetail' //晒图详情
 import CommentList from '@/components/discover/component/commentList' //超过4条的评论列表(公共)
 import AddPic from '@/components/discover/now/addPic' //新增此刻
@@ -150,6 +153,16 @@ const router = new Router({
             }, {
                 path: "/now/nowDetail",
                 component: NowDetail
+            },
+            {
+                path: "/share/activityDetail",
+                component: ActivityDetailStatic
+            }, {
+                path: "/share/informationDetail",
+                component: InformationDetailStatic
+            }, {
+                path: "/share/nowDetail",
+                component: NowDetailStatic
             },
             {
                 path: "/activity/pictureDetail",
@@ -298,24 +311,24 @@ const router = new Router({
                 component: Focus
             },
             {
-              path: "/myCollect",
-              component: MyCollect
+                path: "/myCollect",
+                component: MyCollect
             },
             {
-              path: "/myactivity",
-              component: Myactivity
+                path: "/myactivity",
+                component: Myactivity
             },
             {
-              path: "/registryInfo",
-              component: RegistryInfo
+                path: "/registryInfo",
+                component: RegistryInfo
             },
             {
-              path: "/myPublish",
-              component: MyPublish
+                path: "/myPublish",
+                component: MyPublish
             },
             {
-              path: "/focus",
-              component: Focus
+                path: "/focus",
+                component: Focus
             },
             {
                 path: "/addmydress",
@@ -516,7 +529,7 @@ router.beforeEach((to, from, next) => {
                 // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
                 $store.dispatch('userId', userInfo.no);
                 $store.dispatch('userInfo', userInfo);
-//              alert('原生传过来的token:'+ $store.state.token)
+                //              alert('原生传过来的token:'+ $store.state.token)
                 // alert(
                 //   "store里面的值，" +
                 //   "vin: "+ $store.state.vin +
@@ -528,12 +541,12 @@ router.beforeEach((to, from, next) => {
             } else {
                 $store.dispatch('isLogin', false);
                 $store.dispatch('userId', null);
-                $store.dispatch('userInfo', null);
+                //              $store.dispatch('userInfo', null);
                 // TODO 跳转至登录页面 待处理
             }
-//          alert($store.state.token)
+            //          alert($store.state.token)
             $http.defaults.headers.common['timaToken'] = $store.state.token;
-//             alert("axios里面的token值： "+$http.defaults.headers.common['timaToken'])
+            //             alert("axios里面的token值： "+$http.defaults.headers.common['timaToken'])
         }
         next()
     } catch (e) {
@@ -541,4 +554,3 @@ router.beforeEach((to, from, next) => {
     }
 })
 export default router;
-

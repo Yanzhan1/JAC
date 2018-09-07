@@ -191,7 +191,9 @@
 
 <style scoped>
 	/*flex*/
-	
+	.mint-popup {
+		border-radius: 0.1rem;
+	}
 	.flex-center-between {
 		display: flex;
 		justify-content: space-between;
@@ -366,6 +368,7 @@
 		outline: none;
 		background: url(../../../static/images/Lovecar/border@2x.png) no-repeat center;
 		background-size: 100%;
+		margin: 0;
 	}
 	.pin-code>.pin {
 	    display: flex;

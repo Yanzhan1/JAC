@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="tophead">
-      <div class="search">
+    <div class="tophead" >
+    <!-- <div class="search">
         <input class="ipt" type="text" placeholder="搜索服务">
-        <img class="pic" src="../../../static/images/Wit/zhixiang_home_search_service_icon.png" alt="">
-      </div>
+        <img class="pic" src="../../../static/images/Wit/zhixiang_home_search_service_icon.png" alt=""> 
+      </div> -->
 
       <ul class="ul_list">
         <li class="li_list" @click="fn()">
@@ -25,11 +25,11 @@
         </li>
       </ul>
     </div>
-    <div class="bustype">
+    <!-- <div class="bustype">
       <img src="../../../static/images/Wit/zhixiang_home_service_title_point.png" alt="">
       <span>智享服务</span>
-    </div>
-    <ul class="ul_list_1">
+    </div> -->
+    <!-- <ul class="ul_list_1">
       <li class="li_list_1">
         <img src="../../../static/images/Wit/zhixiang_home_capacity_buy_car_btn.png" alt="">
         <span>智能选车</span>
@@ -46,7 +46,8 @@
         <img src="../../../static/images/Wit/zhixiang_home_violation_search_btn.png" alt="">
         <span>违章查询</span>
       </li>
-    </ul>
+    </ul> -->
+    <div style="height:2.58rem"></div>
     <div style="height:.1rem;background-color:#f5f5f5"></div>
     <div class="bustypes" @click="tobus()">
       <div class="bustypes_1">
@@ -187,6 +188,7 @@ export default {
         tell = "4008-006633";
       }
       if (isMobile.iOS()) {
+         window.webkit.messageHandlers.call.postMessage(tell);
       } else if (isMobile.Android()) {
         js2android.call(tell);
       }
@@ -230,13 +232,12 @@ export default {
     this.$http.post(Wit.MainBus, param).then(res => {
       if (res.data.code == 0) {
         var arr = res.data.data;
-        arr.splice(3);
-        this.mainbus = arr;
-      }
+         this.mainbus = arr;
+     }
     });
   },
   mounted() {
-    //  window.Map_Positioning= this.Map_Positioning;
+ 
   }
 };
 </script>
@@ -295,11 +296,15 @@ export default {
   border-radius: 0.2rem;
 }
 .tophead {
-  height: 3.8rem;
+  height:2.58rem;
   background-image: url("../../../static/images/Wit/bg-mine.png");
   width: 100%;
   display: block;
   background-size: content;
+  position: fixed;
+  top:0;
+  left:0;
+  overflow: hidden;
 }
 .ipt {
   height: 0.78rem;
@@ -330,6 +335,7 @@ textarea::-webkit-input-placeholder {
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  margin-top: .6rem;
 }
 .ul_list_1 {
   display: flex;
@@ -341,6 +347,7 @@ textarea::-webkit-input-placeholder {
   display: flex;
   flex-direction: column;
   width: 1.02rem;
+
 }
 .li_list img {
   width: 1.02rem;

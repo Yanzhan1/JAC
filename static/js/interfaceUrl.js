@@ -11,7 +11,8 @@ var mip = 'http://test.jac.timanetwork.net/api/jac-automobile-manage/automobilem
     //服务器-admin(跟用户有关即我的)
 var mips = 'http://test.jac.timanetwork.net/api/jac-admin/' //地区
 
-var love_car = 'http://test.jac.timanetwork.net/jvconnectedcar/' //爱车
+// var love_car = 'http://test.jac.timanetwork.net/jvconnectedcar' //爱车
+var love_car = 'http://test.jac.timanetwork.net/api/jac-car-control' //爱车
 
 //服务器→反馈记录
 var rec = 'http://test.jac.timanetwork.net/api/jac-enjoy-service/'
@@ -107,8 +108,8 @@ window.DISCOVERMESSAGE = {
     // 智享
 window.Wit = {
         MainBus: mip + '/vehicleModel/searchVehicleModelList', //全部车型 主推车型
-        Dealer: mip + '/dealerVehicleModel/searchDealerVehicleModelList', //经销列表商查询
-        // Dealer: 'http://172.21.4.167:8082' + '/automobilemanage/dealerVehicleModel/searchDealerVehicleModelList', //经销列表商查询
+        Dealer: mip + '/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询
+        //      Dealer: 'http://172.21.4.235:8082' + '/automobilemanage/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询
         Switching: mip + '/vehicleBrand/searchVehicleBrandList', //频道选择
         Distributor: mip + '/dealerBaseInformation/searchDealerBaseInformationListPage', //选择经销商
         searchVehicleBrandList: mip + '/vehicleBrand/searchVehicleBrandList', //品牌
@@ -134,10 +135,16 @@ window.Wit = {
     //我的 部分
 window.My = {
         UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
+        IsSignIn: mips + '', //判断用户今天是否签到 
+        SignIn: mips + '/pluto-membership/integral-gather/integral-gather', //签到 
+        Credit: mips + '', //获取用户积分  
+        CreditDetail: mips + '', //积分记录
         My_Bus: love_car + '/vehicle/find-vehicle-list', //我的车辆
+        // My_Bus: 'http://172.21.4.116:8084/vehicle/find-vehicle-list', //我的车辆yys本地
+        // SetOneDefault: 'http://172.21.4.116:8084/vehicle/set-default-vehicle', //我的车辆设为默认
         SetOneDefault: love_car + '/vehicle/set-default-vehicle', //我的车辆设为默认
-        JFmybus: love_car + 'vehicle/set-vehicle-remoteset', //解绑我的车辆,绑定,
-        planbus: love_car + 'vehicle/set-vehicle-remoteset', //添加车牌 绑定车牌
+        JFmybus: love_car + '/vehicle/set-vehicle-remoteset', //解绑我的车辆,绑定,
+        planbus: love_car + '/vehicle/set-vehicle-remoteset', //添加车牌 绑定车牌
         Edict: mip + '/vehicle/updateVehicle', //修改车辆信息
         ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromListPage', //线索订单
         MyDealer: mip + '/dealerBaseInformation/selectSeriesDealerBaseInformation', //我的 我的经销商列表
@@ -148,17 +155,20 @@ window.My = {
         Defaultaddress: mips + '/admin/userAddress/setDefaultAddress', //my部分设置默认地址
         Area: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //选择地区
         AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
-        RecomendCode: mips + 'admin/recommendedCode/searchRecommendedCodeOne' //获取推荐码
+        RecomendCode: mips + '/admin/recommendedCode/searchRecommendedCodeOne' //获取推荐码
     }
     //爱车
+
 window.Lovecar = {
+    TSP: mips + 'admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne', //获取tsp用户
     Carquery: love_car + '/vehicle/query-vehicle-condition', //车辆车况查询
-    // OperationId: love_car + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
+    // Carquery: 'http://172.21.4.116:8084/vehicle/query-vehicle-condition', //车辆车况查询
     OperationId: love_car + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
+    // OperationId: 'http://172.21.4.116:8084/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
     Changepin: love_car + '/vehicle/update-vehicle-pin', //修改pin码
     Getphonepin: love_car + '/vehicle//identify-code', //获取验证码
     Checkphonepin: love_car + '/vehicle/check-vehicle-pin', //验证pin码
-    BusTest: love_car + 'vehicle/query-cyc-car-examination', //车辆体检
+    BusTest: love_car + '/vehicle/query-cyc-car-examination', //车辆体检
     Fuel: love_car + '/vehicle/query-vehicle-fuel-statistics', //燃油接口
     Flow: love_car + '/vehicle/query-vehicle-cyc-flow-query', //流量查询
     Longrange: love_car + '/vehicle/set-vehicle-remoteset', //车辆远程设置

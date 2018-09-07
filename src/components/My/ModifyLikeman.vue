@@ -40,7 +40,7 @@
 			confirm() { //更改用户信息→修改紧急联系人
 				MessageBox.confirm('', {
 					title: '提示',
-					message: '您确定要修改PIN吗？',
+					message: '请再次确定联系人信息',
 					showConfirmButton: true,
 					showCancelButton: true,
 					cancelButtonClass: 'cancelButton',
@@ -53,7 +53,7 @@
 					if(action == 'confirm') {
 						//跳转修改成功页面
 						let data = {
-							no: this.$store.state.no,
+							no: this.$store.state.userId,
 							emergencyContactName: this.emergencyContactName,
 							emergencyContactPhone: this.emergencyContactPhone
 						}
@@ -67,7 +67,7 @@
 									duration: 2000
 								});
 								setTimeout(() => {
-									this.$router.push('/myindex/contactPerson')
+									this.$router.replace('/myindex/contactPerson')
 								}, 2000)
 							} else {
 								let instance = Toast({
@@ -97,8 +97,8 @@
 			}
 		},
 		mounted() {
-			this.emergencyContactName = this.modifyinfo.initUser
-			this.emergencyContactPhone = this.modifyinfo.phone
+			this.emergencyContactName = this.modifyinfo.emergencyContactName
+			this.emergencyContactPhone = this.modifyinfo.emergencyContactPhone
 			this.getFocus()
 		}
 	}

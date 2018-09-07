@@ -156,23 +156,24 @@
         convert: function(date) {
           moment.locale('zh-cn');
           let beforeDate = date
-          let newDate = moment(new Date()).valueOf()
+          let newDate = moment().valueOf()
           date = moment(date).valueOf()
-          let twoDayDate = 172800000
-          let oneDayDate = 86400000
-          let oneMinute = 60000
-          if(newDate - date > twoDayDate) {
+          let twoDayDate = 172800000 // 两天的时间戳
+          let oneDayDate = 86400000 // 一天的时间戳
+          let oneMinute = 60000 // 一分钟的时间戳
+          let courseDate = newDate - date // 现在时间的时间戳减去发布时间得到的时间段
+          if(courseDate > twoDayDate) {
             return beforeDate.substring(0,10).substr(5,6)
           }
-          if(newDate - date > oneDayDate || newDate - date <= twoDayDate) {
-            return beforeDate = '昨天'
+          if(courseDate > oneDayDate && courseDate <= twoDayDate) {
+            return '昨天'
           }
-          if (newDate - date > oneMinute || newDate - date <= oneDayDate) {
-            let data = moment(beforeDate.substring(0,10), "YYYYMMDD").fromNow();
+          if (courseDate > oneMinute && courseDate <= oneDayDate) {
+            let data =  moment(beforeDate).startOf('minute').fromNow();
             return data
           }
-          if(newDate - date < oneMinute){
-            return beforeDate = '刚刚'
+          if(courseDate < oneMinute){
+            return '刚刚'
           }
         },
         getRefreshList: function () {

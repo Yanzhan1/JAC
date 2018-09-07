@@ -35,7 +35,7 @@
 				condition: { //用户信息
 					oldPassword: '',
 					newPassword: '',
-					no: this.$store.state.no
+					no: this.$store.state.userId
 				}
 			}
 		},
@@ -58,9 +58,9 @@
 						return ;
 				} else {
 					let data = {
-						oldPassword: this.$md5(this.condition.oldPassword).toUpperCase(), //对密码进行md5 32位大写加密
-						newPassword: this.$md5(this.condition.newPassword).toUpperCase(),
-						no: this.$store.state.no
+						oldPassword: this.$md5(this.condition.oldPassword), //对密码进行md5 32位小写加密
+						newPassword: this.$md5(this.condition.newPassword),
+						no: this.$store.state.userId
 					}
 					this.$http.post(Wit.updateUserPassword, data).then(res => {
 					const data = res.data;

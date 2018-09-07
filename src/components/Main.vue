@@ -25,7 +25,7 @@
 	  	created(){
 		    this.$http.interceptors.request.use((config)=> {
 		      // 在发送请求之前做些什么
-		      if (config.url == 'http://test.jac.timanetwork.net/jvconnectedcar/vehicle/vehicle-async-results') {
+		      if (config.url == 'http://test.jac.timanetwork.net/api/jac-car-control/vehicle/vehicle-async-results'){
 		      	this.$store.dispatch('LOADINGFLAG', true)
 		      } 
 		      if(this.loadingnum == 0){
@@ -47,14 +47,6 @@
 		// 添加响应拦截器
 		    this.$http.interceptors.response.use((response)=> {
 //		    	console.log(response.config.url)
-		    	if (response.config.url != 'http://test.jac.timanetwork.net/jvconnectedcar/vehicle/vehicle-async-results') {
-		    		   this.loadingnum--;		    		   
-				      	if(this.loadingnum == 0){
-				        	this.loadingflag = false;
-				        	this.$forceUpdate();
-				        	this.$refs.loadingPage.closeLoading();
-				     	} 
-		    	}
 	    		this.loadingnum--;	    		   
 		      	if(this.loadingnum == 0){
 		        	this.loadingflag = false;
@@ -71,7 +63,14 @@
 		      this.$store.dispatch('LOADINGFLAG', false)
 		      this.$refs.loadingPage.closeLoading();
 		      return Promise.reject(error);
-		    });
+				});
+/*				//获取用户
+				let params={
+					userNo:this.$store.state.userId
+				}
+				this.$http.post('http://test.jac.timanetwork.net/api/jac-admin/admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne',params).then((res)=>{
+					console.log(res)
+				})*/
 		  }
     }
 </script>
