@@ -26,17 +26,19 @@
       name: "infrom",
       data(){
           return{
-            value:'色情低俗'
+            value:'色情低俗',
+            manageId:''
           }
       },
       created(){
-        this.$store.state.UserStartId = this.$store.state.UserStartId;
+        //this.$store.state.UserStartId = this.$store.state.UserStartId;
+        this.manageId = this.$route.query.id;
       },
       methods:{
         send: function () {
           MessageBox.confirm('确定提交举报?').then(action => {
             var _this = this;
-            this.$http.post(DISCOVERMESSAGE.informOthers, {"uid": _this.$store.state.userId,"lid":_this.$store.state.UserStartId,"informStatus":_this.value}).then(function (res) {
+            this.$http.post(DISCOVERMESSAGE.informOthers, {"uid": _this.$store.state.userId,"lid":_this.manageId,"informStatus":_this.value}).then(function (res) {
               if (res.data.status) {
                 Toast('举报成功');
                 _this.$router.go(-1);
