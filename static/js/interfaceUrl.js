@@ -109,7 +109,7 @@ window.DISCOVERMESSAGE = {
 window.Wit = {
         MainBus: mip + '/vehicleModel/searchVehicleModelList', //全部车型 主推车型
         Dealer: mip + '/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询
-//      Dealer: 'http://172.21.4.235:8082' + '/automobilemanage/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询
+        //      Dealer: 'http://172.21.4.235:8082' + '/automobilemanage/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询
         Switching: mip + '/vehicleBrand/searchVehicleBrandList', //频道选择
         Distributor: mip + '/dealerBaseInformation/searchDealerBaseInformationListPage', //选择经销商
         searchVehicleBrandList: mip + '/vehicleBrand/searchVehicleBrandList', //品牌
@@ -135,6 +135,10 @@ window.Wit = {
     //我的 部分
 window.My = {
         UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
+        IsSignIn: mips + '', //判断用户今天是否签到 
+        SignIn: mips + '/pluto-membership/integral-gather/integral-gather', //签到 
+        Credit: mips + '', //获取用户积分  
+        CreditDetail: mips + '', //积分记录
         My_Bus: love_car + '/vehicle/find-vehicle-list', //我的车辆
         SetOneDefault: love_car + '/vehicle/set-default-vehicle', //我的车辆设为默认
         JFmybus: love_car + '/vehicle/set-vehicle-remoteset', //解绑我的车辆,绑定,
