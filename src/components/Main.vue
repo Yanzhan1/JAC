@@ -64,13 +64,13 @@
 		      this.$refs.loadingPage.closeLoading();
 		      return Promise.reject(error);
 				});
-				//获取用户
+/*				//获取用户
 				let params={
 					userNo:this.$store.state.userId
 				}
 				this.$http.post('http://test.jac.timanetwork.net/api/jac-admin/admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne',params).then((res)=>{
 					console.log(res)
-				})
+				})*/
 		  }
     }
 </script>

@@ -9,7 +9,6 @@ export default {
   name: 'App',
   data () {
   	 return{
-
      }
   },
   methods: {
@@ -34,6 +33,21 @@ export default {
     window.isLogin = this.isLogin;
   },
   mounted () {
+            //获取用户
+            let params = {
+                userNo: this.$store.state.userId
+            }
+            this.$http.post('http://test.jac.timanetwork.net/api/jac-admin/admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne', params).then((res) => {
+                // alert(res.data.data.tspId)
+                // alert(JSON.stringify(res))
+                var tspId = res.data.data.tspId
+                this.$store.dispatch('TSPID', tspId)
+                    // alert(JSON.parse(this.$store.state.getpin.headers.identityParam).userId)
+                    // alert(res.data.data.tspId)
+                    // JSON.parse(this.$store.state.getpin.headers.identityParam).userId=res.data.data.tspId		
+                    // alert(JSON.parse(this.$store.state.getpin.headers.identityParam).userId)
+                    // alert(2)
+            })
   	// this.getNo()
   }
 }

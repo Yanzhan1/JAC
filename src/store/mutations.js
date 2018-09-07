@@ -32,6 +32,18 @@ export default {
         state.vins = payload
     },
     [types.SELECTLABELSTATE]: (state, payload) => {
-      state.selectLabelState = payload
+        state.selectLabelState = payload
+    },
+    [types.TSPID]: (state, payload) => {
+        var str = JSON.parse(state.getpin.headers.identityParam)
+        alert(payload)
+        var payloads = payload + ''
+        str.userId = payloads;
+        // console.log(str)
+        state.getpin.headers.identityParam = JSON.stringify(str)
+            // console.log(state.getpin.headers.identityParam)
+            // alert(JSON.parse(state.getpin.headers.identityParam).userId)
+            // alert(25)
+
     },
 }
