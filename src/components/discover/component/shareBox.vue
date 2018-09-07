@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="shareBox" v-if="isCenter && flag=='person'">
-        <img src="../../../../static/images/discover/yijubao.png" class="shareIcon" @click="inform(item.user.user_id,'SELF')"/>
+        <img src="../../../../static/images/discover/yijubao.png" class="shareIcon" @click="inform(item.id)"/>
         <span style="color: #222222;">举报</span>
       </div>
 
@@ -158,9 +158,9 @@
         }
       },
       //跳转到举报页面
-      inform: function (userId) {
-        this.$store.state.UserStartId = userId;
-        this.$router.push('/component/inform');
+      inform: function (manageId) {
+        debugger
+        this.$router.push({ path: '/component/inform', query: {'manageId':manageId} });
       },
       back:function () {
         this.$emit('closeShare')
