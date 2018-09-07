@@ -190,22 +190,20 @@ export default {
       }
     },
 
-    //获取原生的no和token
-    getTokenAndNo() {
-      //js判断手机操作系统(ios或者是Android)
-      var system = IOSAndAndroid.isIOSOrAndroid();
-      if (system == "Android") {
-        let tokenAndNo = window.js2android.getUserInfo();
-        let tokensandno = JSON.parse(tokenAndNo);
-        this.$store.dispatch("TOKEN", tokensandno);
-        //						alert(this.$store.state.token.no)
-      } else if (system == "IOS") {
-        let Iostoken = getCookie("token");
-        let Iosno = getCookie("no");
-        //					alert(Iostoken)
-        //					alert(Iosno)
-      }
-    },
+    // //获取原生的no和token
+    // getTokenAndNo() {
+    //   //js判断手机操作系统(ios或者是Android)
+    //   var system = IOSAndAndroid.isIOSOrAndroid();
+    //   if (system == "Android") {
+    //     let tokenAndNo = js2android.getUserInfo();
+    //     let tokensandno = JSON.parse(tokenAndNo);
+    //     this.$store.dispatch("TOKEN", tokensandno);
+    //     //						alert(this.$store.state.token.no)
+    //   } else if (system == "IOS") {
+    //     let Iostoken = getCookie("token");
+    //     let Iosno = getCookie("no");
+    //   }
+    // },
     recommended() {
       this.$router.push("/Recommended");
     },
@@ -296,7 +294,7 @@ export default {
   },
   mounted() {
     // console.log(this.$store.state.no)
-    this.getTokenAndNo();
+    // this.getTokenAndNo();
     this.myNum();
   }
 };

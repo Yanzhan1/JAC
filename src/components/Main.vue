@@ -27,7 +27,7 @@
 		      // 在发送请求之前做些什么
 		      if (config.url == 'http://test.jac.timanetwork.net/api/jac-car-control/vehicle/vehicle-async-results'){
 		      	this.$store.dispatch('LOADINGFLAG', true)
-		      } 
+		      }
 		      if(this.loadingnum == 0){
 		        this.loadingflag = true;
 		      }
@@ -43,16 +43,17 @@
 		      this.$refs.loadingPage.closeLoading();
 		      return Promise.reject(error);
 		    });
-		
+
 		// 添加响应拦截器
+        let _this = this;
 		    this.$http.interceptors.response.use((response)=> {
 //		    	console.log(response.config.url)
-	    		this.loadingnum--;	    		   
-		      	if(this.loadingnum == 0){
-		        	this.loadingflag = false;
-		        	this.$forceUpdate();
-		        	this.$refs.loadingPage.closeLoading();
-		     	} 		    	
+          _this.loadingnum--;
+		      	if(_this.loadingnum == 0){
+              _this.loadingflag = false;
+              _this.$forceUpdate();
+              _this.$refs.loadingPage.closeLoading();
+		     	}
 		      return response;
 		    },(error)=> {
 		       this.loadingnum--;
