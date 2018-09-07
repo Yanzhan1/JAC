@@ -24,7 +24,7 @@ export default {
     selectLabelState: ({ commit, state }, payload) => {
         commit(types.SELECTLABELSTATE, payload)
     },
-    TSPID: ({ commit, state }, payload) => {
-        commit(types.TSPID, payload)
-    },
+    TSP: ({ commit, state }, payload) => {
+        commit(types.TSP, payload)
+    }
 }

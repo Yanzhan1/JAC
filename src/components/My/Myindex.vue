@@ -2,7 +2,7 @@
   <div>
     <div class="mytop">
       <div class="flex between mytopicon cocenter">
-        <img src="../../../static/images/my/mine_service@2x.png" alt="">
+        <img src="../../../static/images/my/mine_service@2x.png" alt=""  @click="ton()">
         <img src="../../../static/images/my/mine_message@2x.png" alt="" @click="tonews()">
       </div>
       <div class="mytophead flex between cocenter">
@@ -172,6 +172,9 @@ export default {
     //消息
     tonews() {
       this.$router.push("/news");
+    },
+    ton(){
+     location.href="http://220.178.49.215:8888/webchat/jsp/common/visitorMobileEnter4.html"
     },
     //二维码
     twoma() {

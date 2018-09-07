@@ -75,7 +75,7 @@
 							</span>
 						</div>
 						<div class="flex column around cocenter">
-							<span class="txt_m">1.6km</span>
+							<span class="txt_m">{{item.juli|keepTwo}}km</span>
 							<img style="width:.42rem;" src="../../../static/images/Wit/nav_btn.png" alt="">
 						</div>
 					</li>
@@ -179,6 +179,7 @@
 				  			this.current = 1, //当前页码
 				  			this.loading = false , //加载完数据可以无线滚动
 							this.mainbus = data.data.records
+						   
 							if (data.data.total <= this.size) { //如果总条数小于等于请求的数据条数,不在请求加载更多
 								this.loadEnd = true;
 							}
@@ -392,12 +393,19 @@
 			this.init()
 		},
 		created(){
-//			var Position=js2android.getLocationInfo()//获取定位信息
-//			var NewPosition= JSON.parse(Position)
-//			this.cityname=NewPosition.province
-//			this.citysi=NewPosition.city
-//			this.latitude = NewPosition.latitude
-//			this.longitude = NewPosition.longitude
+			var Position=js2android.getLocationInfo()//获取定位信息
+			var NewPosition= JSON.parse(Position)
+			this.cityname=NewPosition.province
+			this.citysi=NewPosition.city
+			this.latitude = NewPosition.latitude
+			this.longitude = NewPosition.longitude
+		},
+		filters:{
+         keepTwo: function(value){
+			 var res="";
+			 res=value.toFixed(1)
+			 return res
+		 }
 		},
 		watch: {
 			brandNo(newVal, oldVal) {//监听品牌id,获得车型列表
