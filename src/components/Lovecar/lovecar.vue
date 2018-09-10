@@ -3,8 +3,8 @@
     <div class="nav">
       <img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
       <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;{{this.carsysitem}}</span>
-      <span class="txt_r" @click="islogin()" v-if="this.LoginStatus">机车已登录</span>
-      <span class="txt_r" v-else @click="login()">机车未登录</span>
+      <span class="txt_r" @click="islogin()" v-if="this.LoginStatus">车机已登录</span>
+      <span class="txt_r" v-else @click="login()">车机未登录</span>
     </div>
     <div class="navs navs_h">
       <div class="navs_t">
@@ -549,12 +549,6 @@ export default {
                             right_bottom: this.carcontrol.tirePressureRearRight
                           };
                           this.Condition = tai;
-                          // alert(JSON.stringify(this.carcontrol))
-                          // Toast({
-                          //   message: "下达指令成功",
-                          //   position: "middle",
-                          //   duration: 2000
-                          // });
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
@@ -602,13 +596,6 @@ export default {
                 right_bottom: this.carcontrol.tirePressureRearRight
               };
               this.Condition = tai;
-              // alert(JSON.stringify(this.carcontrol))
-              // console.log(this.carcontrol)
-              // Toast({
-              //   message: "下达指令成功",
-              //   position: "middle",
-              //   duration: 2000
-              // });
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({

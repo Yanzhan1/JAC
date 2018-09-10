@@ -272,6 +272,7 @@ export default {
        dealerType:"01"
     }
     this.$http.post(Wit.Distributor,param).then((res)=>{
+      console.log(res)
      var chooseaddress= res.data.data.records
       for(var i=0;i<chooseaddress.length;i++){
         this.slots2[0].values.push(chooseaddress[i].dealerName)
@@ -280,6 +281,7 @@ export default {
     })
     //地区
     this.$http.post(My.Area,{}).then(res=>{
+      console.log(res)
       var address=res.data.data.records
      for(let i=0;i<address.length;i++){
        this.slots[0].values.push(address[i].name)

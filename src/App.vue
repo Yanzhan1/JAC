@@ -49,9 +49,9 @@ export default {
                   // console.log(this.$store.state.tspId)
                   // console.log(this.$store.state.getpin)
 
-                  // this.$http.post(Lovecar.vehicle,params,this.$store.state.getpin).then((res)=>{
-                  //   console.log(res)
-                  // })
+                  this.$http.post(Lovecar.vehicle,params,this.$store.state.getpin).then((res)=>{
+                    console.log(res)
+                  })
                 }
                     // alert(JSON.parse(this.$store.state.getpin.headers.identityParam).userId)
                     // alert(res.data.data.tspId)
