@@ -24,9 +24,11 @@
                   <span style="font-size:.23rem;color:#888;" class="mui-ellipsis-2">{{item.dealerAddress}}</span>
                 </span>
               </div>
-              <div class="flex column between cocenter" style="padding:.1rem 0">
-                <span style="font-size:.19rem;color:#888;">0.3km</span>
-                <img @click="search()" style="width:.42rem;" src="../../../static/images/Wit/nav_btn.png" alt="">
+              <div class="cocenter flex-center" style="padding:.1rem 0">
+              	<div class="flex-column-align">
+              		<img @click="search()" style="width:.42rem;" src="../../../static/images/Wit/nav_btn.png" alt="">
+              		<span style="font-size:.19rem;color:#888;">0.3km</span>
+              	</div>               
               </div>
             </div>
           </li>
@@ -80,6 +82,16 @@ export default {
 };
 </script>
 <style scoped>
+	.flex-center{/*水平垂直居中*/
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	}
+	.flex-column-align{/*竖直方向水平居中*/
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	}
 .mui-ellipsis-2 {
   display: -webkit-box;
   overflow: hidden;

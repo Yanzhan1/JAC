@@ -73,3 +73,7 @@
 .picker-slot.picker-slot-right {
     text-align: center;
 }
+body.dialog-open {
+    position: fixed;
+    width: 100%;
+}

@@ -32,6 +32,7 @@
 		        this.loadingflag = true;
 		      }
 		      this.loadingnum++;
+		      ModalHelper.afterOpen();
 		      return config;
 		    }, (error)=> {
 		      this.loadingnum--;
@@ -54,6 +55,7 @@
               _this.$forceUpdate();
               _this.$refs.loadingPage.closeLoading();
 		     	}
+		      	ModalHelper.beforeClose()
 		      return response;
 		    },(error)=> {
 		       this.loadingnum--;

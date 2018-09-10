@@ -65,7 +65,7 @@
 			<mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="80" :auto-fill="false">
 				<ul class="" style="padding:.1rem .2rem" v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
 					<li class="ul_list flex row around " v-for="(item,index) in mainbus" :key="index" @click="search()">
-						<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>
+						<!--<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>-->
 						<div class="flex column around  mid">
 							<span class="txt_top dian">{{item.dealerName}}</span>
 							<span class="txt_m">电话： </span>
@@ -74,9 +74,11 @@
 		                        <span class="txt_m dian" style="margin-top:.1rem">{{item.dealerAddress}}</span>
 							</span>
 						</div>
-						<div class="flex column around cocenter">
-							<span class="txt_m">{{item.juli|keepTwo}}km</span>
-							<img style="width:.42rem;" src="../../../static/images/Wit/nav_btn.png" alt="">
+						<div class="cocenter flex-center">
+							<div class="flex-column-align">
+								<img style="width:.42rem;text-align: center;" src="../../../static/images/Wit/nav_btn.png" alt="">
+								<span class="txt_m">{{item.juli|keepTwo}}km</span>
+							</div>							
 						</div>
 					</li>
 				</ul>
@@ -133,7 +135,7 @@
 				cityname:'',//默认省
 				citysi:'',//默认市
 				allLoaded: false, //为真，则 bottomMethod 不会被再次触发,为false会再次触发
-				scrollMode: "auto",
+				scrollMode: "touch",
 				loading: false,  //false,触发无线滚动, true,不会触发无线滚动
 				loadEnd:false, //false,再次滚动会加载更多数据, true再次滚动不会加载更多数据
 				size: 10, //每页的数据长度
@@ -172,6 +174,7 @@
 							if(this.searchCountryAreaCodeListPage[i].name==this.cityname){
 								this.provinceCode=this.searchCountryAreaCodeListPage[i].code
 								if(this.provinceCode){
+															
 							      this.mydeler()  //省份code 赋值成功后 调用获取经销商列表
 								}
 							}
@@ -455,6 +458,16 @@
 	};
 </script>
 <style scoped>
+	.flex-center{/*水平垂直居中*/
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	}
+	.flex-column-align{/*竖直方向水平居中*/
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	}
 	.row {
 		flex-direction: row;
 	}
