@@ -657,11 +657,10 @@ export default {
               this.$store.state.tsppin
             )
             .then(res => {
-              console.log(res)
+              // alert(1)
+              console.log(res.data.returnSuccess)
               if(res.data.returnSuccess=='true'){
-                alert(2)
                 if (this.type == 1) {
-                  alert(3)
                   //车辆锁定的接口
                   this.isTrue = !this.isTrue;
                   this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
@@ -815,6 +814,7 @@ export default {
                     });
                 }
               }else{
+                // alert(2)
                   Toast({
                     message: "输入的pin码有误",
                     position: "middle",
@@ -831,8 +831,8 @@ export default {
       }
     },
     userId(newVal,oldVal){
-          alert(this.$store.state.getpin.headers.identityParam)
-          alert(this.$store.state.tsppin.headers.identityParam)
+          // alert(this.$store.state.getpin.headers.identityParam)
+          // alert(this.$store.state.tsppin.headers.identityParam)
         this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
     if (res.data.returnSuccess) {
       // if(res.data==[]){
