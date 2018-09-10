@@ -135,10 +135,10 @@ window.Wit = {
     //我的 部分
 window.My = {
         UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
-        IsSignIn: mips + '', //判断用户今天是否签到 
+        IsSignIn: mips + '/pluto-membership/integral-gather/is-sign', //判断用户今天是否签到 
         SignIn: mips + '/pluto-membership/integral-gather/integral-gather', //签到 
         Credit: mips + '', //获取用户积分  
-        CreditDetail: mips + '', //积分记录
+        CreditDetail: mips + '/plutomembership/integralRecord/searchIntegralRecordList', //积分记录
         My_Bus: love_car + '/vehicle/find-vehicle-list', //我的车辆
         // My_Bus: 'http://172.21.4.116:8084/vehicle/find-vehicle-list', //我的车辆yys本地
         // SetOneDefault: 'http://172.21.4.116:8084/vehicle/set-default-vehicle', //我的车辆设为默认

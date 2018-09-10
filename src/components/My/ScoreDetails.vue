@@ -19,7 +19,7 @@
                 </div>
                 <div style="color:#49BBFF;font-size:.36rem;margin-right:.3rem">+20</div>
             </li>
-             <li class="flex  row between cont cocenter">
+            <li class="flex  row between cont cocenter">
                 <div class="flex column xan">
                     <span style="color:#444;font-size:.28rem">每日签到</span>
                     <span style="color:#888;font-size:.22rem">2018-2-12</span>
@@ -38,6 +38,27 @@
 </template>
 
 <script>
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    scoredetails() {
+      var data = {
+        ruleStr: "SIGN_IN",
+        serviceTypeStr: "SERVICE_FIXED",
+        typeStr: "TYPE_RETAIN",
+        no: this.$store.state.userid
+      };
+      this.$http.post(My.CreditDetail,data).then(res=>{
+
+      })
+    }
+  },
+  created() {
+      this.scoredetails()
+  }
+};
 </script>
 
 <style scoped>
@@ -68,7 +89,7 @@
 }
 .scoreY {
 }
-.xan{
-    margin-left:.3rem
+.xan {
+  margin-left: 0.3rem;
 }
 </style>

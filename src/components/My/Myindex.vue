@@ -143,24 +143,37 @@ export default {
     };
   },
   methods: {
+    // 签到
     sign() {
       var data = {
         ruleStr: "SIGN_IN",
         serviceTypeStr: "SERVICE_FIXED",
         typeStr: "TYPE_RETAIN",
-        no: "AD022018090502003904986"
-      };
-
-      var param=JSON.stringify(data)
-      this.$http.post("http://172.21.4.219:8381/pluto-membership/integral-gather/integral-gather",param)
-        .then(res => {});
-
+        no:this.$store.state.userid
+      }
+     var param=JSON.stringify(data)
+      this.$http.post(My.SignIn,param).then(res => {
+        
+      });
       this.popupVisible = true;
       setTimeout(() => {
         this.popupVisible = false;
         this.isShow = false;
       }, 1000);
     },
+    // 判断是否签到
+    IsSign(){
+     var data = {
+        ruleStr: "SIGN_IN",
+        serviceTypeStr: "SERVICE_FIXED",
+        typeStr: "TYPE_RETAIN",
+        no: this.$store.state.userid
+      }
+       this.$http.post(My.IsSignIn,param).then(res => {
+
+       });
+    },
+   
     //积分详情
     ToScore() {
       this.$router.push("/my/scoredetails");
