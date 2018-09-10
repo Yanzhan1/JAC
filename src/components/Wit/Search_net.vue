@@ -42,7 +42,7 @@
 				</div>
 				<div class="selection-list" v-if="provinceDrop">
 					<ul>
-						<li v-for="(item,index) in searchCountryAreaCodeListPage" :key="index" @click="chooseProvinType(index, item.code)">{{item.name}}</li>
+						<li v-for="(item,index) in searchCountryAreaCodeListPage" :key="index" @click="chooseProvinType(index, item.code,item.id)">{{item.name}}</li>
 					</ul>
 				</div>
 			</div>
@@ -139,7 +139,8 @@
 				size: 10, //每页的数据长度
 				current: 1, //当前页码
 				latitude: null, //维度
-				longitude: null //经度
+				longitude: null ,//经度,
+				provinceCode:null//   省份coed
 			};
 		},
 		components: {
@@ -165,10 +166,11 @@
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchCountryAreaCodeListPage = data.data.records;
+						//  alert(JSON.stringify(this.searchCountryAreaCodeListPage))
 						for(let i=0;i<this.searchCountryAreaCodeListPage.length;i++){
 							if(this.searchCountryAreaCodeListPage[i].name==this.cityname){
-								this.provinceId=this.searchCountryAreaCodeListPage[i].code
-								if(this.provinceId){
+								this.provinceCode=this.searchCountryAreaCodeListPage[i].code
+								if(this.provinceCode){
 							      this.mydeler()  //省份code 赋值成功后 调用获取经销商列表
 								}
 							}
@@ -188,7 +190,7 @@
              var param = {
 					brandNo:this.brandNo,//品牌no
 					vehicleSeridesNo:this.bustypeno,//车系
-				  	dealerProvinceCode: this.provinceId,//省编码
+				  	dealerProvinceCode: this.provinceCode,//省编码
 					dealerCityCode:this.city_id,//城市id
 					longitude: this.longitude, //经度
 					latitude: this.latitude, //维度
@@ -265,9 +267,10 @@
 				this.carDrop = false
 				this.publicrequst()
 			},
-			chooseProvinType (ind, val) {//选择省份, ind参数一个是省份数组的下标,val一个是省份的id
-				 this.provinIndex = ind;  //头部显示
-				 this.provinceId = val; //省份id变动请求城市列表
+			chooseProvinType (ind, val,id) {//选择省份, ind参数一个是省份数组的下标,val一个是省份的code  ID是id
+			    this.provinIndex = ind;  //头部显示
+				  this.provinceCode=val;//省份code
+				 this.provinceId = id; //省份id变动请求城市列表
 				 this.provinceDrop = false;
 				 this.cityState = false;
 				 this.cityIndex = 0;
@@ -374,7 +377,7 @@
 				  var param={
 					brandNo:this.brandNo,//品牌no
 					vehicleSeridesNo:this.bustypeno,//车系
-				  	dealerProvinceCode: this.provinceId,//省编码
+				  	dealerProvinceCode: this.provinceCode,//省编码
 					dealerCityCode:this.city_id,//城市id
 					longitude: this.longitude, //经度
 					latitude: this.latitude, //维度
@@ -418,12 +421,7 @@
 		 }
 		},
 		watch: {
-			provinceId(newVal,oldVal){
-
-				alert(1)
-				
-			},
-			brandNo(newVal, oldVal) {//监听品牌id,获得车型列表
+		brandNo(newVal, oldVal) {//监听品牌id,获得车型列表
 		  	let data = {
 					no: this.brandNo
 				}
@@ -446,6 +444,7 @@
 					const data = res.data;
 					if(data.code == 0) {
 						this.cityList = data.data.records;
+						// alert(JSON.stringify(this.cityList))
 					} else {
 					
 					}
