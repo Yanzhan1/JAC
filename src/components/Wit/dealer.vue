@@ -65,7 +65,7 @@
 			<mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="80" :auto-fill="false">
 				<ul class="" style="padding:.1rem .2rem" v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
 					<li class="ul_list flex row around " v-for="(item,index) in mainbus" :key="index" @click="search()">
-						<div class="ul_list flex cocenter"> <img class="pic" src="../../../static/images/Wit/bg-mine.png" alt=""></div>
+						<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>
 						<div class="flex column around  mid">
 							<span class="txt_top dian">{{item.dealerName}}</span>
 							<span class="txt_m">电话： </span>
@@ -140,7 +140,8 @@
 				current: 1, //当前页码
 				latitude: null, //维度
 				longitude: null ,//经度,
-				provinceCode:null//   省份coed
+				provinceCode:null,//   省份coed
+				imgSrc: '../../../static/images/Wit/bg-mine.png'
 			};
 		},
 		components: {
