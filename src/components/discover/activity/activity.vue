@@ -42,7 +42,6 @@
         <!--活动列表E-->
       </div>
     </mt-loadmore>
-    <p style="display: none; font-size: 0.3rem;margin: auto;text-align: center;visibility: hidden" id="showAll3">已加载全部</p>
   </div>
 </template>
 
@@ -136,7 +135,6 @@
                   _this.loading = true;
                   _this.allLoaded = true;
                   _this.loadEnd = true;
-                  //$("#showAll3").show();
                 }
             } else {
               _this.pageNum = _this.pageNum -1;
@@ -149,7 +147,7 @@
         selectLabelState(){
           return this.$store.state.selectLabelState
         }
-      },      
+      },
       watch:{
         getUserId(val){
           this.getRefreshList()
@@ -159,7 +157,7 @@
         },
         selectLabelState(){
           this.getRefreshList()
-        }        
+        }
       },
       mounted(){
         this.getRefreshList();
