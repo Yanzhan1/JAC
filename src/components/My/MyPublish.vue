@@ -42,7 +42,10 @@
             </div>
           </div>
           <!--发布者信息E-->
-          <div @click="toDetail(item.id)" class="listTitleInfo">{{item.momentMessage}}</div>
+          <div @click="toDetail(item.id)" class="listTitleInfo">
+            {{item.momentMessage}}
+            <p style="float: right;" @click="deleteNow(item.id)">删除</p>
+          </div>
           <div class="pics" v-if="item.momentImgList">
             <div v-if="item.momentImgList.length==1" v-for="imgItem in item.momentImgList">
               <img @click="toDetail(item.id)" :src="imgItem" class="pic1"/>
@@ -93,6 +96,25 @@
           }
       },
       methods:{
+        //删除此刻
+        deleteNow: function (manageId) {
+          console.log(manageId)
+          var _this = this;
+          if(!_this.$store.state.userId){
+            _this.toLogin();
+            return false;
+          }
+          MessageBox.confirm('确定删除?').then(action => {
+            this.$http.post(DISCOVERMESSAGE.deleteMoment, {"id": manageId}).then(function (res) {
+              if (res.data.status) {
+                Toast('删除成功');
+                _this.getList();
+              } else {
+                MessageBox('提示', res.data.errorMsg);
+              }
+            });
+          });
+        },
         getmyList: function(){
           var _this = this;
           this.$http.post(DISCOVERMESSAGE.issueMomentList,{"uid": _this.$store.state.userId,"hisUid":_this.$store.state.UserStartId}).then(function (res) {
