@@ -42,8 +42,8 @@
             </div>
           </div>
           <!--发布者信息E-->
-          <div @click="toDetail(item.id)" class="listTitleInfo">
-            {{item.momentMessage}}
+          <div class="listTitleInfo">
+            <span @click="toDetail(item.id)" >{{item.momentMessage}}</span>
             <p style="float: right;" @click="deleteNow(item.id)">删除</p>
           </div>
           <div class="pics" v-if="item.momentImgList">
