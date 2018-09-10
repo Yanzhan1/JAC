@@ -6,12 +6,7 @@
       <span class="header-right"></span>
     </header>
     <div style="height:.88rem"></div>
-    <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="80">
-      <div slot="top" class="mint-loadmore-top">
-        <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }" style="font-size: 0.3rem">下拉刷新</span>
-        <span v-show="topStatus === 'loading'">Loading...</span>
-      </div>
-      <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
+   
         <ul v-for="(item,index) in mydealer" :key="index" class="flex column " style="padding:.3rem;border-bottom:.1rem solid #f5f5f5">
           <div class="titles">{{item.seriesName}}</div>
           <li class="flex column" v-for="(item,index) in item.departmentDeforeAndAfterSales" :key="index">
@@ -37,18 +32,7 @@
           </li>
 
         </ul>
-      </div>
-    </mt-loadmore>
-
-    <mt-popup v-model="popupVisible" position="bottom">
-      <div style="height:2.5rem;width:100%;">
-        <ul class="search">
-          <li>高德导航</li>
-          <li>百度地图</li>
-          <li class="cancel" @click="cancel()">取消</li>
-        </ul>
-      </div>
-    </mt-popup>
+      
   </div>
 </template>
 <script>
@@ -58,9 +42,6 @@ export default {
     return {
       popupVisible: false,
       mydealer: {}, //我的经销
-      allLoaded: true,
-      loadEnd: false,
-      loading: false,
       size: 10,
       current: 1,
       topStatus: "",
@@ -68,66 +49,30 @@ export default {
     };
   },
   methods: {
-    loadTop() {
-      this.GetMyDealer();
-      this.$refs.loadmore.onTopLoaded();
-    },
-    search() {
+     search() {
       this.popupVisible = true;
     },
     cancel() {
       this.popupVisible = false;
     },
-    loadBottom() {},
+  
     //我的经销商列表
     GetMyDealer() {
-      //获取此刻列表第一页
-      let _this = this;
+     
       this.loading = true;
       this.loadEnd = false;
       var param = {
-        current: 1,
-        size: _this.size
+        // current: 1,
+        // size: this.size,
+        userNo:this.$store.state.userId
       };
       this.$http.post(My.MyDealer, param, this.$store.state.mytoken).then(res => {
         if (res.data.code == 0) {
-          _this.current = 1;
-          _this.loading = false;
-          _this.mydealer = res.data.data.records;
-         if (res.data.data.pages <= _this.size) {
-            _this.loadEnd = true;
-          }
-        }
+           this.mydealer = res.data.data;
+       }
       });
     },
- getNextList() {
-      let _this = this;
-      if (this.loadEnd) {
-        this.loadBottom();
-        return;
-      }
-      this.loadEnd = true;
-      this.current++;
-      var param = {
-        current: _this.current,
-        size: _this.size
-      };
-      this.$http.post(My.MyDealer, param, this.$store.state.mytoken).then(function(res) {
-        _this.loadEnd = false;
-        // alert(JSON.stringify(res))
-        if (res.data.code == 0) {
-          _this.mydealer = _this.mydealer.concat(res.data.data.records);
-           var allPages = Math.ceil(res.data.data.pages / _this.size);
-         if (allPages <= _this.current) {
-            _this.loading = true;
-            _this.allLoaded = true;
-            _this.loadEnd = true;
-          }
-        } else {
-          _this.current = _this.current - 1;
-        }
-      });
-    }
+ 
   },
   mounted() {
     this.GetMyDealer();
