@@ -183,7 +183,16 @@ const router = new Router({
             },
             {
                 path: "/lovecar",
-                component: Lovecar
+                component: Lovecar,
+                // beforeEnter: (to, from, next) => {
+                //     alert(1)
+                //     next((vm) => {
+                //         alert(vm)
+                //             // next({ path: '/component/inform' })
+                //             // alert(this.$store.state.tsppin.headers.identityParam)
+
+                //     })
+                // }
             },
             {
                 path: "/Bus_test",

@@ -106,7 +106,7 @@
 				endTime:newstimes,
 				type:'1'
 			}
-			this.$http.post(Lovecar.Fuel,params,this.$store.state.getpin).then((res)=>{
+			this.$http.post(Lovecar.Fuel,params,this.$store.state.tsppin).then((res)=>{
 				console.log(res.data.data)
 				this.count[0].monthMileage=res.data.data.totalMileage
 				this.count[0].oilConsumer=res.data.data.totalWear
@@ -130,7 +130,7 @@
 				}
 				console.log(this.times)
 				//路由传过来所选择的日期渲染页面
-				this.$http.post(Lovecar.Fuel,{vin: this.$store.state.vin,beginTime:accpect.begintime,endTime:accpect.endtime,type:this.times},this.$store.state.getpin).then((res)=>{
+				this.$http.post(Lovecar.Fuel,{vin: this.$store.state.vin,beginTime:accpect.begintime,endTime:accpect.endtime,type:this.times},this.$store.state.tsppin).then((res)=>{
 					console.log(res)
 				})
 			}

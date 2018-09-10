@@ -192,7 +192,7 @@ export default {
                     endTime: xia,
                 }
             }
-        this.$http.post(Lovecar.Longrange,param,this.$store.state.getpin).then((res)=>{
+        this.$http.post(Lovecar.Longrange,param,this.$store.state.tsppin).then((res)=>{
             console.log(res)
             if(res.data.returnSuccess){
                 this.$router.push({

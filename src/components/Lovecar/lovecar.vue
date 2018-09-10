@@ -658,10 +658,11 @@ export default {
             )
             .then(res => {
               // alert(1)
-              console.log(res.data.returnSuccess)
-              if(res.data.returnSuccess=='true'){
+              // alert(res.data.returnSuccess)
+              if(res.data.returnSuccess){
                 if (this.type == 1) {
                   //车辆锁定的接口
+                  // alert(this.$store.state.vins)
                   this.isTrue = !this.isTrue;
                   this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
                   var params = {
@@ -814,7 +815,6 @@ export default {
                     });
                 }
               }else{
-                // alert(2)
                   Toast({
                     message: "输入的pin码有误",
                     position: "middle",
@@ -842,6 +842,8 @@ export default {
       //     duration:2000
       //   })
       // }else{
+        // alert(1)
+        console.log(res)
         this.BusDetails = res.data.data;
         for (let i = 0; i < res.data.data.length; i++) {
           if (res.data.data[i].def == 1) {
@@ -854,6 +856,7 @@ export default {
         // }
       }
       this.vinn = this.$store.state.vins;
+      console.log(this.vinn)
       this.Carquerry();
       // console.log(this.$store.state.mytoken.headers.timaToken);
     }

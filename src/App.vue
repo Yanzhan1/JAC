@@ -45,9 +45,10 @@ export default {
                   params={
                     tspUserId:this.$store.state.tspId
                   }
-                  console.log(Lovecar.vehicle)
-                  console.log(this.$store.state.tspId)
-                  console.log(this.$store.state.getpin)
+                  // console.log(Lovecar.vehicle)
+                  // console.log(this.$store.state.tspId)
+                  // console.log(this.$store.state.getpin)
+
                   // this.$http.post(Lovecar.vehicle,params,this.$store.state.getpin).then((res)=>{
                   //   console.log(res)
                   // })

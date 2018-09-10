@@ -41,7 +41,7 @@ export default {
       vin: this.$store.state.vins
     };
     this.$http
-      .post(Lovecar.BusTest, param, this.$store.state.getpin)
+      .post(Lovecar.BusTest, param, this.$store.state.tsppin)
       .then(res => {
         if (res.data.returnSuccess) {
           this.getAsyReturn(res.data.operationId);
@@ -79,7 +79,7 @@ export default {
         .post(
           Lovecar.OperationId,
           { operationId: operationId },
-          this.$store.state.getpin
+          this.$store.state.tsppin
         )
         .then(res => {
           var tS = new Date().getTime() - this.sjc; //时间戳 差
@@ -101,7 +101,7 @@ export default {
                     .post(
                       Lovecar.OperationId,
                       { operationId: operationId },
-                      this.$store.state.getpin
+                      this.$store.state.tsppin
                     )
                     .then(res => {
                       var tS = new Date().getTime() - this.sjc; //时间戳 差
