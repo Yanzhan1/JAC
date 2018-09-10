@@ -181,4 +181,8 @@
   .mint-popup-4{
     height: 3.4rem;
   }
+  input:focus {
+    outline:none;
+    border: 0.02rem solid #49BBFF;
+  }
 </style>
