@@ -147,7 +147,7 @@ window.My = {
         planbus: love_car + '/vehicle/set-vehicle-remoteset', //添加车牌 绑定车牌
         Edict: mip + '/vehicle/updateVehicle', //修改车辆信息
         ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromListPage', //线索订单
-        MyDealer: mip + '/dealerBaseInformation/selectSeriesDealerBaseInformation', //我的 我的经销商列表
+        MyDealer: mip + '/userDealer/searchUserDealerList', //我的 我的经销商列表
         UpUserinfo: mips + '/admin/userBaseInformation/updateUserBaseInformation', //更改用户信息
         Address: mips + '/admin/userAddress/searchUserAddressList', //my部分查询所有地址
         RemoveAddress: mips + '/admin/userAddress/deleteUserAddress', //my部分删除当前地址
@@ -160,8 +160,6 @@ window.My = {
     //爱车
 
 window.Lovecar = {
-    // vehicle: love_car + '/vehicle/sync-tsp-vehicle', //同步tsp车辆到本地库
-    vehicle: 'http://172.21.4.50:8084/vehicle/sync-tsp-vehicle', //同步tsp车辆到本地库
     TSP: mips + 'admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne', //获取tsp用户
     Carquery: love_car + '/vehicle/query-vehicle-condition', //车辆车况查询
     // Carquery: 'http://172.21.4.116:8084/vehicle/query-vehicle-condition', //车辆车况查询
