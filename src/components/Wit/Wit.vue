@@ -60,7 +60,7 @@
       <li class="bus_li" @click="specil" v-for="(item,index) in this.mainbus" :key="index">
         <img src="../../../static/images/Wit/bg-mine.png" alt="">
         <div class="bus_1">
-          <span class="bus_2">{{item.modelName}}</span>
+          <span class="bus_2">{{item.seriesName}}</span>
           <span class="bus_3">官方指导价：{{item.guidancePrice}}万起</span>
         </div>
       </li>

@@ -13,7 +13,7 @@
       <li class="bus_li" v-for="(item,index) in this.mainbus" :key="index">
         <img src="../../../static/images/Wit/bg-mine.png" alt="">
         <div class="bus_1">
-          <span class="bus_2">{{item.modelName}}</span>
+          <span class="bus_2">{{item.seriesName}}</span>
           <span class="bus_3">
             <span style="color:#a5a5a5;font-size:.22rem"> 官方指导价</span> ：{{item.guidancePrice}}万起</span>
         </div>
@@ -98,7 +98,7 @@ export default {
           var arr=this.arr
             var param = {
               'highlyRecommend': this.highlyRecommend,
-               nos:this.gender
+               no:this.gender
              };
           console.log(param)
              this.$http.post(Wit.MainBus,param).then(res=>{

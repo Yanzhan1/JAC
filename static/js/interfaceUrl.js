@@ -107,7 +107,7 @@ window.DISCOVERMESSAGE = {
     }
     // 智享
 window.Wit = {
-        MainBus: mip + '/vehicleModel/searchVehicleModelList', //全部车型 主推车型
+        MainBus: mip + '/vehicleBrand/selectVehicleSeriesByBrand', //全部车型 主推车型
         Dealer: mip + '/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询
         //      Dealer: 'http://172.21.4.235:8082' + '/automobilemanage/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询
         Switching: mip + '/vehicleBrand/searchVehicleBrandList', //频道选择
