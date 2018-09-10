@@ -42,6 +42,15 @@ export default {
                 if(res.data.msg=='success'){
                   var tsp = res.data.data
                   this.$store.dispatch('TSP', tsp)
+                  params={
+                    tspUserId:this.$store.state.tspId
+                  }
+                  console.log(Lovecar.vehicle)
+                  console.log(this.$store.state.tspId)
+                  console.log(this.$store.state.getpin)
+                  this.$http.post(Lovecar.vehicle,params,this.$store.state.getpin).then((res)=>{
+                    console.log(res)
+                  })
                 }
                     // alert(JSON.parse(this.$store.state.getpin.headers.identityParam).userId)
                     // alert(res.data.data.tspId)
@@ -49,6 +58,7 @@ export default {
                     // alert(JSON.parse(this.$store.state.getpin.headers.identityParam).userId)
                     // alert(2)
             })
+
   	// this.getNo()
   }
 }

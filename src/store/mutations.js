@@ -19,10 +19,15 @@ export default {
             state.mobile = payload.mobile
                 // state.vins = payload.vin
             state.token = payload.token
-            var str = JSON.parse(state.getpin.headers.identityParam)
+            var str = JSON.parse(state.tsppin.headers.identityParam)
             str.phone = payload.mobile
-            state.getpin.headers.identityParam = JSON.stringify(str)
+            state.tsppin.headers.identityParam = JSON.stringify(str)
                 // alert(JSON.stringify(str))
+            var strr = JSON.parse(state.getpin.headers.identityParam)
+            strr.phone = payload.mobile
+            strr.token = payload.token
+            strr.userId = payload.userId
+            state.getpin.headers.identityParam = JSON.stringify(strr)
         } else {
             state.no = null
             state.mobile = null
@@ -40,14 +45,15 @@ export default {
         state.selectLabelState = payload
     },
     [types.TSP]: (state, payload) => {
-        var str = JSON.parse(state.getpin.headers.identityParam)
+        var str = JSON.parse(state.tsppin.headers.identityParam)
             // alert(JSON.stringify(payload))
             // alert(typeof payload.token)
         str.userId = payload.tspId + '';
         str.token = payload.token;
         state.refreshToken = payload.refreshToken
             // console.log(str)
-        state.getpin.headers.identityParam = JSON.stringify(str)
+        state.tsppin.headers.identityParam = JSON.stringify(str)
+        state.tspId = payload.tspId
             // alert(JSON.stringify(str))
             // console.log(state.getpin.headers.identityParam)
             // alert(JSON.parse(state.getpin.headers.identityParam).userId)

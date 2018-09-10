@@ -525,6 +525,7 @@ router.beforeEach((to, from, next) => {
                 userInfo = JSON.parse(js2android.getUserInfo())
             }
             if (userInfo && userInfo.no) {
+                // alert(JSON.stringify(userInfo))
                 $store.dispatch('isLogin', true);
                 // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
                 $store.dispatch('userId', userInfo.no);
@@ -546,7 +547,10 @@ router.beforeEach((to, from, next) => {
             }
             //          alert($store.state.token)
             $http.defaults.headers.common['timaToken'] = $store.state.token;
-            //             alert("axios里面的token值： "+$http.defaults.headers.common['timaToken'])
+            this.$http.post(Lovecar.vehicle, {}).then((res) => {
+                    console.log(res)
+                })
+                //             alert("axios里面的token值： "+$http.defaults.headers.common['timaToken'])
         }
         next()
     } catch (e) {
