@@ -141,7 +141,7 @@
 				latitude: null, //维度
 				longitude: null ,//经度,
 				provinceCode:null,//   省份coed
-				imgSrc: '../../../static/images/Wit/bg-mine.png'
+				imgSrc: './static/images/Wit/bg-mine.png'
 			};
 		},
 		components: {
@@ -284,7 +284,7 @@
 				 this.publicrequst()
 			},
 			loadTop () { //列表顶部下拉刷新
-				var param={
+				/*var param={
 					brandNo:this.brandNo,//品牌no
 					vehicleSeridesNo:this.bustypeno,//车系
 				  	dealerProvinceCode: this.provinceId,//省编码
@@ -318,7 +318,7 @@
 							position: 'middle',
 							duration: 2000
 						});
-				 	})
+				 	})*/
           		this.$refs.loadmore.onTopLoaded();
 			},
 			loadBottom () { //列表底部下拉刷新
