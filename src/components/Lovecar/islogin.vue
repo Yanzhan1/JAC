@@ -39,7 +39,7 @@ export default {
               vin:this.$store.state.vin,
               operation: "0"
             };
-            this.$http.post(Lovecar.LoginOut,param,this.$store.state.getpin).then(res => {
+            this.$http.post(Lovecar.LoginOut,param,this.$store.state.tsppin).then(res => {
               if(res.status==200){
                  this.$router.go(-1)
               }

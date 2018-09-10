@@ -160,6 +160,7 @@ window.My = {
     //爱车
 
 window.Lovecar = {
+    vehicle: love_car + '/vehicle/sync-tsp-vehicle', //给后端同步车辆接口
     TSP: mips + 'admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne', //获取tsp用户
     Carquery: love_car + '/vehicle/query-vehicle-condition', //车辆车况查询
     // Carquery: 'http://172.21.4.116:8084/vehicle/query-vehicle-condition', //车辆车况查询
