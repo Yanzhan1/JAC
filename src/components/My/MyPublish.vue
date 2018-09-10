@@ -101,15 +101,11 @@
         deleteNow: function (manageId) {
           console.log(manageId)
           var _this = this;
-          if(!_this.$store.state.userId){
-            _this.toLogin();
-            return false;
-          }
           MessageBox.confirm('确定删除?').then(action => {
             this.$http.post(DISCOVERMESSAGE.deleteMoment, {"id": manageId}).then(function (res) {
               if (res.data.status) {
                 Toast('删除成功');
-                _this.getList();
+                _this.getmyList();
               } else {
                 MessageBox('提示', res.data.errorMsg);
               }
