@@ -8,7 +8,7 @@
     <div style="height:0.88rem"></div>
     <div class="rame-number">
       <span style="color: #555555;">车架号(VIN)</span>
-      <input type="text" placeholder="请输入VIN码后8位" v-model="rame" />
+      <input type="text" placeholder="请输入VIN码后8位"  v-model="rame" style="text-transform:uppercase" />
     </div>
     <div class="rame-number">
       <span style="color: #555555;">发动机号</span>
