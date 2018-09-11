@@ -48,15 +48,15 @@
 			this.$http.interceptors.response.use((response) => {
 				const data = response.data;
 				var system = this.isIOSOrAndroid();
-					switch (data.code) { //判断接口状态,403  token失效,重新登录
-						case 403: 
-							if (system == 'Android') {
-								window.js2android.logout() //安卓退出App
-							} else if (system == "IOS") {
-								window.webkit.messageHandlers.logout.postMessage({}); //IOS退出app
-							}
-							break;
-					}
+					// switch (data.code) { //判断接口状态,403  token失效,重新登录
+					// 	case 403: 
+					// 		if (system == 'Android') {
+					// 			window.js2android.logout() //安卓退出App
+					// 		} else if (system == "IOS") {
+					// 			window.webkit.messageHandlers.logout.postMessage({}); //IOS退出app
+					// 		}
+					// 		break;
+					// }
 				_this.loadingnum--;
 				if(_this.loadingnum == 0) {
 					_this.loadingflag = false;
