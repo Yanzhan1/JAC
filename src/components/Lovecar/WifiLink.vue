@@ -190,7 +190,7 @@ export default {
     wifisend() {}
   },
   mounted() {
-    alert('link'+this.$store.state.vins)
+    // alert('link'+this.$store.state.vins)
     var param = {
       vin: this.$store.state.vins,
       operationType: "WIFI",
