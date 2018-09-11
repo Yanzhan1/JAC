@@ -201,12 +201,12 @@ export default {
     this.$http
       .post(Lovecar.Control, param, this.$store.state.tsppin)
       .then(res => {
-        console.log(res);
         this.operationIds = res.data.operationId;
         if (res.data.returnSuccess) {
           // this.getAsyReturn(res.data.operationId);
         } else {
-          if (res.data.returnErrCode == 400) {
+//        console.log(this.$store.state.vins)
+          if (res.data.returnErrCode == 403) {
             Toast({
               message: "token验证失败",
               position: "middle",

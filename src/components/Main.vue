@@ -52,10 +52,10 @@
 						case 403: 
 							if (system == 'Android') {
 								window.js2android.logout() //安卓退出App
-							} else if (IOSAndAndroid.isIOSOrAndroid == 'Android') {
+							} else if (system == "IOS") {
 								window.webkit.messageHandlers.logout.postMessage({}); //IOS退出app
 							}
-						break;
+							break;
 					}
 				_this.loadingnum--;
 				if(_this.loadingnum == 0) {

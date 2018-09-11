@@ -287,41 +287,6 @@
 				 this.publicrequst()
 			},
 			loadTop () { //列表顶部下拉刷新
-				/*var param={
-					brandNo:this.brandNo,//品牌no
-					vehicleSeridesNo:this.bustypeno,//车系
-				  	dealerProvinceCode: this.provinceId,//省编码
-					dealerCityCode:this.city_id,//城市id
-					longitude: this.longitude, //经度
-					latitude: this.latitude, //维度
-          			dealerType:"01",
-					size: 10,
-					current: this.current
-                }
-				this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
-				 	const data = res.data;
-				  		if(data.code == 0) {
-				  			this.current = 1, //当前页码
-				  			this.loading = false , //加载完数据可以无线滚动
-							this.mainbus = data.data.records
-							if (data.data.total <= this.size) { //如果总条数小于等于请求的数据条数,不在请求加载更多
-								this.loadEnd = true;
-							}
-						} else {
-							Toast({
-								message: '报错',
-								position: 'middle',
-								duration: 2000
-							});
-						}
-					})
-				 	.catch( err => {
-				 		Toast({
-							message: '系统异常',
-							position: 'middle',
-							duration: 2000
-						});
-				 	})*/
           		this.$refs.loadmore.onTopLoaded();
 			},
 			loadBottom () { //列表底部下拉刷新
@@ -410,13 +375,7 @@
 			this.latitude = NewPosition.latitude//精
 			this.longitude = NewPosition.longitude//韦
 		
-		},
-		// computed:{
-		// 	provinceId(){
-		// 		return  this.provinceId
-		// 	}
-		// },
-		
+		},		
 		filters:{
          keepTwo: function(value){
 			 var res="";
@@ -429,7 +388,6 @@
 		  	let data = {
 					no: this.brandNo
 				}
-//		  	this.mainbus=[]
 			  //请求车型列表
 				this.$http.post(Wit.searchVehicleSeriesList, data, this.$store.state.mytoken).then(res => {
 					const data = res.data;
@@ -448,7 +406,6 @@
 					const data = res.data;
 					if(data.code == 0) {
 						this.cityList = data.data.records;
-						// alert(JSON.stringify(this.cityList))
 					} else {
 					
 					}

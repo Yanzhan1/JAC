@@ -15,7 +15,7 @@
                                         <li @click="regions" class="all">
                         <span>所在地区</span>
                         <div class="allflex">
-                            <input type="text" name="" id="" placeholder="点击选择地区" v-model="area">
+                            <input type="text" name="" id="" placeholder="点击选择地区" v-model="area" readonly>
                             <img src="/static/images/next@2x.png" alt="">
                         </div>
                     </li>
@@ -99,16 +99,16 @@
             </div>
 
             </div>
-            <div class="region" v-show="this.areas">
+            <mt-popup class="region" v-show="areas" position="bottom">
                 <h3>选择地区</h3>
                 <span @click="choose">确定</span>
                 <mt-picker :slots="slots" @change="onValuesChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
-            </div>
-            <div class="region" v-show="this.distributors">
+            </mt-popup>
+            <mt-popup class="region" v-show="distributors" position="bottom">
                 <h3>选择经销商</h3>
                 <span @click="choose">确定</span>
                 <mt-picker :slots="slots2" @change="onValuesChange2" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
-            </div>
+            </mt-popup>
            
             <div >
                 <h3 @click="sub" class="bottom-btn" style="position:absolute;bottom:0;left:0">提交</h3>
@@ -119,6 +119,7 @@
 
 <script>
 import { Toast } from "mint-ui";
+import { Popup } from "mint-ui";
 export default {
   data() {
     return {
@@ -141,6 +142,8 @@ export default {
       everycode:'',//动态存贮每一个地区
       thanks:
         "感谢您对江淮汽车的关注与支持，我们专业的服务员会第一时间与您联系!",
+      province: [], //地区省份
+      provinceCode: null, //省份code
       slots: [
         {
           flex: 1,
@@ -266,16 +269,26 @@ export default {
     //所在地区
     onValuesChange(picker, values) {
       this.area = values;
-      if (values[0] > values[1]) {
-        picker.setSlotValue(1, values[0]);
-      }
+      this.province.forEach((item, index) => {
+      	if (item.name == values) {
+      		this.everycode  = item.code; //拿到省份code,请求经销商列表
+      	}
+      })
+      var param = {
+      	dealerType: "01",
+      	dealerCityCode:this.everycode
+      };
+      this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => { //经销商列表请求
+      	this.slots2[0].values = [] //清除已经选择的经销商
+      var chooseaddress = res.data.data.records;
+      chooseaddress.forEach((item, index) => {
+      	this.slots2[0].values.push(chooseaddress[index].dealerName)
+      })
+    });
     },
     //选择经销商
     onValuesChange2(picker, values) {
       this.Distribution = values[0];
-      if (values[0] > values[1]) {
-        picker.setSlotValue(1, values[0]);
-      }
     }
   },
   mounted() {
@@ -285,32 +298,13 @@ export default {
         parentId: null,
         level: 1,
         size: 100
-      })
+      }, this.$store.state.mytoken)
       .then(res => {
-        var address = res.data.data.records;
-        console.log(address);
-        for (let i = 0; i < address.length; i++) {
-          this.slots[0].values.push(address[i].name);
-          this.code.push(address[i].code)
-        }
+        this.province = res.data.data.records;
+		this.province.forEach((item,index) => {
+			this.slots[0].values.push(this.province[index].name);
+		});
       });
-    //经销商
-    for(var i=0;i<this.code.length;i++){
-        this.everycode=this.code[i]
-    }
-    var param = {
-      dealerType: "01",
-      dealerCityCode:this.everycode
-    };
-    this.$http.post(Wit.Dealer, param).then(res => {
-      console.log(res);
-      var chooseaddress = res.data.data.records;
-      for (var i = 0; i < chooseaddress.length; i++) {
-        this.slots2[0].values.push(chooseaddress[i].dealerName);
-        this.Idchooseaddress.push(chooseaddress[i].no);
-      }
-    });
-
     $(".gobottom").height($(".gobottom").height());
   }
 };

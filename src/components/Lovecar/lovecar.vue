@@ -818,8 +818,6 @@ export default {
       }
     },
     userId(newVal,oldVal){
-          // alert(this.$store.state.getpin.headers.identityParam)
-          // alert(this.$store.state.tsppin.headers.identityParam)
         this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
     if (res.data.returnSuccess) {
       // if(res.data==[]){
@@ -830,7 +828,6 @@ export default {
       //   })
       // }else{
         // alert(1)
-        console.log(res)
         this.BusDetails = res.data.data;
         for (let i = 0; i < res.data.data.length; i++) {
           if (res.data.data[i].def == 1) {
