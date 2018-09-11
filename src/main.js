@@ -86,9 +86,9 @@ import store from './store'
 
 //导入jquery
 import $ from 'jquery'
-//手机端调试工具
+//手机端调试工具,发布时必须注释掉
 // require('./assets/util/vconsole.js')
-// import vConsole from './assets/util/vconsole'
+import vConsole from './assets/util/vconsole'
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

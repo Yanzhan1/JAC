@@ -849,28 +849,6 @@ export default {
     }
   },
   mounted() {
-    // this.$nextTick(()=>{
-  // this.$http.post(My.My_Bus, {}, this.$store.state.tsppin).then(res => {
-  //   if (res.data.returnSuccess) {
-  //     this.BusDetails = res.data.data;
-  //     for (let i = 0; i < res.data.data.length; i++) {
-  //       if (res.data.data[i].def == 1) {
-  //         this.carsysitem=res.data.data[i].seriesName
-  //         console.log(res.data.data[i].vin);
-  //         var payload = res.data.data[i].vin;
-  //         this.$store.dispatch("CARVINS", payload);
-  //         // this.$store.state.vins = res.data.data[i].vin;
-  //       }
-  //     }
-  //     this.vinn = this.$store.state.vins;
-  //     this.Carquerry();
-  //     // console.log(this.$store.state.mytoken.headers.timaToken);
-  //   }
-  // });
-
-
-  // })
-
   //暴露方法给原生,登入判断
   window.getStatus = this.getStatus;
   //获取机车 登录登出状态

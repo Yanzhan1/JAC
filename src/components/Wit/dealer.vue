@@ -3,7 +3,7 @@
 		<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">查询经销商</span>
-			<span class="header-right"><img src="../../../static/images/Wit/map_icon.png" alt="" style="width:.4rem"></span>
+			<span class="header-right"><img  alt="" style="width:.4rem"></span>
 		</header>
 		<div style="height:.88rem"></div>
 		<div class="flex row around con cocenter">
