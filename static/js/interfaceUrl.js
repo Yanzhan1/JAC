@@ -140,7 +140,7 @@ window.My = {
         Credit: mips + '', //获取用户积分  
         CreditDetail: mips + '/plutomembership/integralRecord/searchIntegralRecordList', //积分记录
         My_Bus: love_car + '/vehicle/find-vehicle-list', //我的车辆
-        // My_Bus: 'http://172.21.4.116:8084/vehicle/find-vehicle-list', //我的车辆yys本地
+        // My_Bus: 'http://172.21.4.50:8084/vehicle/find-vehicle-list', //我的车辆yys本地
         // SetOneDefault: 'http://172.21.4.116:8084/vehicle/set-default-vehicle', //我的车辆设为默认
         SetOneDefault: love_car + '/vehicle/set-default-vehicle', //我的车辆设为默认
         JFmybus: love_car + '/vehicle/set-vehicle-remoteset', //解绑我的车辆,绑定,
@@ -161,6 +161,7 @@ window.My = {
 
 window.Lovecar = {
     vehicle: love_car + '/vehicle/sync-tsp-vehicle', //给后端同步车辆接口
+    // vehicle: 'http://172.21.4.50:8084/vehicle/sync-tsp-vehicle', //给后端同步车辆接口
     TSP: mips + 'admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne', //获取tsp用户
     Carquery: love_car + '/vehicle/query-vehicle-condition', //车辆车况查询
     // Carquery: 'http://172.21.4.116:8084/vehicle/query-vehicle-condition', //车辆车况查询

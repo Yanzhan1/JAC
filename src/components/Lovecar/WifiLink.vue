@@ -190,6 +190,7 @@ export default {
     wifisend() {}
   },
   mounted() {
+    alert('link'+this.$store.state.vins)
     var param = {
       vin: this.$store.state.vins,
       operationType: "WIFI",
@@ -203,9 +204,8 @@ export default {
       .then(res => {
         this.operationIds = res.data.operationId;
         if (res.data.returnSuccess) {
-          // this.getAsyReturn(res.data.operationId);
+          this.getAsyReturn(res.data.operationId);
         } else {
-//        console.log(this.$store.state.vins)
           if (res.data.returnErrCode == 403) {
             Toast({
               message: "token验证失败",

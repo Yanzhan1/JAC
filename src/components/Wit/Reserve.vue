@@ -138,8 +138,8 @@ export default {
       address: "", //地址
       beizhu: "", //备注
       Idchooseaddress: [], //返回选择经销商的no
-      code:[],//存贮所有的地区
-      everycode:'',//动态存贮每一个地区
+      myaddress:{},
+      everycode:'',
       thanks:
         "感谢您对江淮汽车的关注与支持，我们专业的服务员会第一时间与您联系!",
       province: [], //地区省份
@@ -257,9 +257,9 @@ export default {
         series: "CY001", //意向车系
         model: "CYRF010" //意向车型
       };
-      alert(JSON.stringify(param));
+      // alert(JSON.stringify(param));
       this.$http.post(Wit.PreBus, param).then(res => {
-        alert(JSON.stringify(res));
+        // alert(JSON.stringify(res));
         if (res.data.code == 0) {
           this.success = true;
           this.region = true;
@@ -284,6 +284,29 @@ export default {
       chooseaddress.forEach((item, index) => {
       	this.slots2[0].values.push(chooseaddress[index].dealerName)
       })
+
+    //   console.log(this.area)
+    //   for(var i=0;i<this.myaddress.length;i++){
+    //     if(this.area[0]==this.myaddress[i].name){
+    //       this.everycode=this.myaddress[i].code
+    //       console.log(this.everycode)
+    //     }
+    //   }
+    //       //经销商
+    // var param = {
+    //   dealerType: "01",
+    //   dealerCityCode:this.everycode
+    // };
+    // this.$http.post(Wit.Dealer, param).then(res => {
+    //   // console.log(res);
+    //   var chooseaddress = res.data.data.records;
+    //     this.slots2[0].values=[]
+    //   for (var i = 0; i < chooseaddress.length; i++) {
+    //     this.slots2[0].values.push(chooseaddress[i].dealerName);
+    //     this.Idchooseaddress.push(chooseaddress[i].no);
+    //   }
+      // alert(this.slots2[0].values)
+
     });
     },
     //选择经销商
@@ -300,11 +323,20 @@ export default {
         size: 100
       }, this.$store.state.mytoken)
       .then(res => {
+
         this.province = res.data.data.records;
 		this.province.forEach((item,index) => {
 			this.slots[0].values.push(this.province[index].name);
 		});
       });
+
+      //   this.myaddress = res.data.data.records;
+      //   console.log(this.myaddress);
+      //   for (let i = 0; i < this.myaddress.length; i++) {
+      //     this.slots[0].values.push(this.myaddress[i].name);
+      //   }
+      // });
+
     $(".gobottom").height($(".gobottom").height());
   }
 };
