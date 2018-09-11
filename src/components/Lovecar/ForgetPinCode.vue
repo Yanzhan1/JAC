@@ -110,7 +110,7 @@
 					return false;
 				} else {
 					if(this.pin.verificationCode==this.Verification){
-						this.$http.post(Lovecar.Findcode,{newPin:this.pin.newPin},this.$store.state.tsppin).then((res)=>{
+						this.$http.post(Lovecar.Findcode,{newPin:this.pin.newPin,phoneNum:this.pin.phone,phoneIdentifyCode:this.pin.verificationCode,},this.$store.state.tsppin).then((res)=>{
 							console.log(res)
 							this.$router.push('/lovecar/reviseSuccess')
 							})
