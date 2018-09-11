@@ -1,20 +1,20 @@
 <template>
   <div class="add-bus">
     <header class="header">
-      <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+      <img class="header-left" :src="'../../../static/images/back@2x.png'" @click="$router.go(-1)">
       <span class="header-title">添加车辆</span>
       <span class="header-right"></span>
     </header>
     <div style="height:0.88rem"></div>
     <div class="rame-number">
       <span style="color: #555555;">车架号(VIN)</span>
-      <input type="text" placeholder="请输入VIN码后8位"  v-model="rame" style="text-transform:uppercase" />
+      <input type="text" placeholder="请输入VIN码"  v-model="rame" style="text-transform:uppercase" />
     </div>
     <div class="rame-number">
       <span style="color: #555555;">发动机号</span>
-      <input type="text" placeholder="请输入完整发动机号" v-model="engine" />
+      <input type="text" placeholder="请输入发动机号" v-model="engine"  style="text-transform:uppercase" />
     </div>
-    <img class="driver-licence" :src="'./static/images/my/drivingcard.png'" alt="" />
+    <img class="driver-licence" :src="'../../../static/images/my/drivingcard.png'" alt="" />
     <div class="bottom-btn " @click="AddMybus()">提交</div>
   </div>
 </template>
@@ -34,11 +34,11 @@ export default {
   methods: {
     AddMybus() {
      var param = {
-        vin: this.rame,
+        vin: this.rame.toUpperCase(),
         operationType: "CAR_BINDING",
         operation: 1,
         extParams: {
-          engineNo: this.engine
+          engineNo: this.engine.toUpperCase()
         }
       };
       // alert(JSON.stringify(param))
@@ -78,9 +78,10 @@ export default {
   border-bottom: 1px solid #f1f1f1;
 }
 input {
-  width: 2.6rem;
+  width: 3rem;
   border: none;
   outline: none;
+  margin-right:.4rem
 }
 .driver-licence {
   width: 84%;

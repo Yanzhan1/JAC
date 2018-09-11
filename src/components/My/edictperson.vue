@@ -122,9 +122,11 @@ export default {
 				reads.onload = function(e){
           img.src = e.target.result;
 					img.onload = function(){
+            console.log(img.src);
             var res = self.compress(img,100,100);
+            console.log(res);
             document.getElementById(imgElementId).src = res;
-            self.base64= img.src;//base64
+            self.base64=res;//base64
           	}
 				}
 		},
@@ -144,11 +146,13 @@ export default {
          fileOldName:this.picname,
          filePjectPath:'DAS',
          filePjectName:'jav',
-         base64:this.base64,
          prj:'DM',
-         remark:'修改头像'
+         remark:'修改头像',
+         base64:this.base64,
        }
+        console.log(params.base64)
         this.$http.post('http://172.20.20.75:8762/api/dk-filestore-svr/filestore/v1/picture',params,this.$store.state.mytoken).then(res=>{
+          console.log(res)
      })
 
   if (this.userInfo.userName == "") {
