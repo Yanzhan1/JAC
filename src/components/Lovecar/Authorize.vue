@@ -183,7 +183,7 @@ export default {
           }
           else{
               var param={
-                    vin: this.$store.state.vin, 
+                    vin: this.$store.state.vins, 
                     operationType: "CONTROL_AUTH", 
                     operation: 1, 
                     extParams: {
@@ -202,6 +202,12 @@ export default {
                         b:this.xia
             }
          })
+            }else{
+                Toast({
+                    message:res.data.returnErrMsg,
+                    position:'middle',
+                    duration:2000,
+                })
             }
         })
           }
@@ -239,7 +245,7 @@ export default {
     }
   },
   mounted(){
-
+    //   alert(this.$store.state.vins)
   }
 };
 </script>

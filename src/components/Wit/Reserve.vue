@@ -137,8 +137,8 @@ export default {
       address: "", //地址
       beizhu: "", //备注
       Idchooseaddress: [], //返回选择经销商的no
-      code:[],//存贮所有的地区
-      everycode:'',//动态存贮每一个地区
+      myaddress:{},
+      everycode:'',
       thanks:
         "感谢您对江淮汽车的关注与支持，我们专业的服务员会第一时间与您联系!",
       slots: [
@@ -254,9 +254,9 @@ export default {
         series: "CY001", //意向车系
         model: "CYRF010" //意向车型
       };
-      alert(JSON.stringify(param));
+      // alert(JSON.stringify(param));
       this.$http.post(Wit.PreBus, param).then(res => {
-        alert(JSON.stringify(res));
+        // alert(JSON.stringify(res));
         if (res.data.code == 0) {
           this.success = true;
           this.region = true;
@@ -266,9 +266,28 @@ export default {
     //所在地区
     onValuesChange(picker, values) {
       this.area = values;
-      if (values[0] > values[1]) {
-        picker.setSlotValue(1, values[0]);
+      console.log(this.area)
+      for(var i=0;i<this.myaddress.length;i++){
+        if(this.area[0]==this.myaddress[i].name){
+          this.everycode=this.myaddress[i].code
+          console.log(this.everycode)
+        }
       }
+          //经销商
+    var param = {
+      dealerType: "01",
+      dealerCityCode:this.everycode
+    };
+    this.$http.post(Wit.Dealer, param).then(res => {
+      // console.log(res);
+      var chooseaddress = res.data.data.records;
+        this.slots2[0].values=[]
+      for (var i = 0; i < chooseaddress.length; i++) {
+        this.slots2[0].values.push(chooseaddress[i].dealerName);
+        this.Idchooseaddress.push(chooseaddress[i].no);
+      }
+      // alert(this.slots2[0].values)
+    });
     },
     //选择经销商
     onValuesChange2(picker, values) {
@@ -287,29 +306,25 @@ export default {
         size: 100
       })
       .then(res => {
-        var address = res.data.data.records;
-        console.log(address);
-        for (let i = 0; i < address.length; i++) {
-          this.slots[0].values.push(address[i].name);
-          this.code.push(address[i].code)
+        this.myaddress = res.data.data.records;
+        console.log(this.myaddress);
+        for (let i = 0; i < this.myaddress.length; i++) {
+          this.slots[0].values.push(this.myaddress[i].name);
         }
       });
-    //经销商
-    for(var i=0;i<this.code.length;i++){
-        this.everycode=this.code[i]
-    }
-    var param = {
-      dealerType: "01",
-      dealerCityCode:this.everycode
-    };
-    this.$http.post(Wit.Dealer, param).then(res => {
-      console.log(res);
-      var chooseaddress = res.data.data.records;
-      for (var i = 0; i < chooseaddress.length; i++) {
-        this.slots2[0].values.push(chooseaddress[i].dealerName);
-        this.Idchooseaddress.push(chooseaddress[i].no);
-      }
-    });
+    // //经销商
+    // var param = {
+    //   dealerType: "01",
+    //   dealerCityCode:this.everycode
+    // };
+    // this.$http.post(Wit.Dealer, param).then(res => {
+    //   // console.log(res);
+    //   var chooseaddress = res.data.data.records;
+    //   for (var i = 0; i < chooseaddress.length; i++) {
+    //     this.slots2[0].values.push(chooseaddress[i].dealerName);
+    //     this.Idchooseaddress.push(chooseaddress[i].no);
+    //   }
+    // });
 
     $(".gobottom").height($(".gobottom").height());
   }
