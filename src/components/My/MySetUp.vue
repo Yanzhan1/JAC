@@ -55,7 +55,6 @@
 						if(system == "Android") {
 							window.js2android.logout() //安卓退出App
 						} else if(system == "IOS") {
-							console.log(111)
 							window.webkit.messageHandlers.logout.postMessage({});
 						}
 					}

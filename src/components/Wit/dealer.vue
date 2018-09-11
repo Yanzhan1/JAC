@@ -158,14 +158,14 @@
 					"level": 1
 				}
 				//请求品牌列表
-				this.$http.post(Wit.searchVehicleBrandList, data, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.searchVehicleBrandList, data).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchVehicleBrandList = data.data;
 					}
 				}),
 				//请求省份列表   原生拿到的省份name  去对比省份列表 找到对应的省份code
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchCountryAreaCodeListPage = data.data.records;
