@@ -26,8 +26,8 @@
       </div>
       <div class="flex row cocenter roe">
         <!-- <label class="input-label" :class="{active: selected_all}" @click="slect_all"></label> -->
-         <label><input type="radio" v-model="gender" :value="null"/></label>
-        <span class="txt" style="margin-left:.1rem">全选</span>
+         <label ><input type="radio" v-model="gender" :value="null" /></label>
+         <span class="txt" style="margin-left:.1rem">全选</span>
       </div>
       <ul class="flex row wrap between">
         <li class="flex row cocenter list_li" v-for="(item,index) in good_list" :key="index">
@@ -58,6 +58,7 @@ export default {
       arr:[],
       gender:'',
       good_list: [],
+      gender:"null" //全选默认选中
     };
   },
   methods: {
