@@ -57,14 +57,7 @@ export default {
       choosebus: {}, //选择频道
       arr:[],
       gender:'',
-      good_list: [
-        // { brandName: "乘用车", is_selected: false },
-        // { brandName: "新能源", is_selected: false },
-        // { brandName: "商务车", is_selected: false },
-        // { brandName: "轻卡", is_selected: false },
-        // { brandName: "皮卡", is_selected: false },
-        // { brandName: "重卡", is_selected: false }
-      ]
+      good_list: [],
     };
   },
   methods: {
@@ -100,11 +93,12 @@ export default {
               'highlyRecommend': this.highlyRecommend,
                no:this.gender
              };
-          console.log(param)
+            
              this.$http.post(Wit.MainBus,param).then(res=>{
               if (res.data.code == 0){
               this.mainbus={},
               this.mainbus=res.data.data
+              
             }
              })
          // for(let i=0;i<this.good_list.length;i++){
@@ -143,15 +137,15 @@ export default {
         if (res.data.code == 0) {
           this.mainbus = {};
           this.mainbus = res.data.data;
-        }
+          }
       });
     },
     //切换频道 多选框
     choosemore() {
       var param = {};
-      console.log(this.$store.state.mytoken)
-      this.$http.post(Wit.Switching,param)
+     this.$http.post(Wit.Switching,param)
         .then(res => {
+          // alert(JSON.stringify(res.data))
           if (res.data.code == 0) {
              this.choosebus = res.data.data;
              for(let i=0;i<this.choosebus.length;i++){
