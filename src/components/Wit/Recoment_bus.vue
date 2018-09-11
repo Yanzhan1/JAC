@@ -26,7 +26,7 @@
       </div>
       <div class="flex row cocenter roe">
         <!-- <label class="input-label" :class="{active: selected_all}" @click="slect_all"></label> -->
-         <label><input type="radio" v-model="gender" :value="'null'"/></label>
+         <label><input type="radio" v-model="gender" :value="null"/></label>
         <span class="txt" style="margin-left:.1rem">全选</span>
       </div>
       <ul class="flex row wrap between">
@@ -64,30 +64,30 @@ export default {
     shai() {
       this.popupVisible = true;
     },
-    select_one(index) {
+    // select_one(index) {
     
-      if (this.good_list[index].is_selected == true) {
-        this.good_list[index].is_selected = false;
-      } else {
-        this.good_list[index].is_selected = true;
-      }
-    },
-    slect_all() {
-      if (this.selected_all) {
-        for (var i = 0; i < this.good_list.length; i++) {
-          this.good_list[i].is_selected = false;
-        }
-        this.selected_all = false;
-      } else {
-        for (var i = 0; i < this.good_list.length; i++) {
-          this.good_list[i].is_selected = true;
-        }
-        this.selected_all = true;
-      }
-    },
+    //   if (this.good_list[index].is_selected == true) {
+    //     this.good_list[index].is_selected = false;
+    //   } else {
+    //     this.good_list[index].is_selected = true;
+    //   }
+    // },
+    // slect_all() {
+    //   if (this.selected_all) {
+    //     for (var i = 0; i < this.good_list.length; i++) {
+    //       this.good_list[i].is_selected = false;
+    //     }
+    //     this.selected_all = false;
+    //   } else {
+    //     for (var i = 0; i < this.good_list.length; i++) {
+    //       this.good_list[i].is_selected = true;
+    //     }
+    //     this.selected_all = true;
+    //   }
+    // },
     //切换频道
     fn(num) {
-      if(num=2){
+      if(num==2){
           var arr=this.arr
             var param = {
               'highlyRecommend': this.highlyRecommend,
@@ -118,16 +118,18 @@ export default {
         //     })
         //   }
         // }
+      }else{
+       
       }
       this.popupVisible = false;
     },
-    //渲染列表
+    //渲染列表   1
     getcarbus(num) {
-      if (num == 1) {
+      if (num == 1) {  //等于1 传“” 。 获取全部车型
         this.type = 1;
         this.highlyRecommend = "";
       } else {
-        this.type = 2;
+        this.type = 2; //等于2 传“1” 。 获取主推车型
         this.highlyRecommend = "1";
       }
       var param = {
@@ -145,7 +147,6 @@ export default {
       var param = {};
      this.$http.post(Wit.Switching,param)
         .then(res => {
-          // alert(JSON.stringify(res.data))
           if (res.data.code == 0) {
              this.choosebus = res.data.data;
              for(let i=0;i<this.choosebus.length;i++){
