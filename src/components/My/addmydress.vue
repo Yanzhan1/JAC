@@ -27,16 +27,7 @@
                 </div>
             </div>
             
-            <!-- 市 -->
-            <div class="city">
-                <div class="contentList nickname areas">
-                    <span class="contentList-left" style="float:left">所在市</span>
-                    <div class="contentList-right" style="float:right">
-                      <input type="text" name="" id="" class="place" @click="choosearea()" placeholder="请选择地区" v-model=" choose_si">
-                       <img class="pic" src="../../../static/images/my/next@2x.png" />
-                    </div>
-                </div>
-            </div>
+            
             <div class="inputcontent">
                 <div class="peop">详细地址：</div>
                 <textarea maxlength='40' class="textare" placeholder="点击输入详细地址" form="usrform" v-model="address">
@@ -50,17 +41,12 @@
             </div>
         </div>
         <!-- 省 -->
-        <div style="position:absolute;z-index:1000;bottom:0;width:100%;background:#fff;" v-show="this.shows">
+        <div style="position:absolute;z-index:1000;bottom:-.5rem;width:100%;background:#fff;" v-show="this.shows">
           <div style="text-align:center;line-height:.8rem;font-size:.4rem">选择市</div>
           <div style="text-align: right;color: #49BBFF;margin-right:.2rem;" @click="hides()">确定</div>
           <mt-picker :slots="slots" @change="onValuesChange" ></mt-picker>
         </div>
-        <!-- 市 -->
-        <div style="position:absolute;z-index:1000;bottom:0;width:100%;background:#fff;" v-show="this.shows">
-          <div style="text-align:center;line-height:.8rem;font-size:.4rem">选择市</div>
-          <div style="text-align: right;color: #49BBFF;margin-right:.2rem;" @click="hides()">确定</div>
-          <mt-picker :slots="slots1" @change="onValuesChange1" ></mt-picker>
-        </div>
+       
         <div style="height:10rem"></div>
         <span class="bottom-btn" @click="handleSubmit">保存</span>
     </div>
@@ -220,25 +206,7 @@ export default {
       }
     }
   },
-  watch:{
-   everyid(newVal,oldVal){
   
-    this.everyid=newVal
-    let data = {
-					parentId: this.everyid, //被检测的省份id 
-					level: 2
-				}
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data, this.$store.state.mytoken).then(res => {
-          const data = res.data;
-        
-					if(data.code == 0) {
-					 this.city = data.data.records; //对应的市
-				  } else {
-					
-					}
-				})
-   }
-  }
 };
 // function getData(self, url, param) {
 //   self.$http

@@ -12,13 +12,20 @@
                         <span>预定车型</span>
                         <div>{{this.stylecar}}</div>
                     </li>
-                    <li class="all">
+                                        <li @click="regions" class="all">
+                        <span>所在地区</span>
+                        <div class="allflex">
+                            <input type="text" name="" id="" placeholder="点击选择地区" v-model="area">
+                            <img src="/static/images/next@2x.png" alt="">
+                        </div>
+                    </li>
+                    <!-- <li class="all">
                         <span>选择经销商</span>
                         <div class="allflex" @click="Distributor">
                             <span class="shows">{{this.Distribution}}</span>
                             <img src="/static/images/next@2x.png" alt="" >
                         </div>        
-                    </li>
+                    </li> -->
                     <li class="all">
                         <span>推荐码</span>
                         <div class="allflex">
@@ -54,12 +61,19 @@
                             <img src="/static/images/next@2x.png" alt="">
                         </div>
                     </li>
-                    <li @click="regions" class="all">
+                    <!-- <li @click="regions" class="all">
                         <span>所在地区</span>
                         <div class="allflex">
                             <input type="text" name="" id="" placeholder="点击选择地区" v-model="area">
                             <img src="/static/images/next@2x.png" alt="">
                         </div>
+                    </li> -->
+                     <li class="all">
+                        <span>选择经销商</span>
+                        <div class="allflex" @click="Distributor">
+                            <span class="shows">{{this.Distribution}}</span>
+                            <img src="/static/images/next@2x.png" alt="" >
+                        </div>        
                     </li>
                     <li class="all">
                         <span>地址</span>
@@ -104,11 +118,11 @@
 </template>
 
 <script>
-import { Toast } from 'mint-ui';
+import { Toast } from "mint-ui";
 export default {
   data() {
     return {
-      stylecar: "瑞风M6",//车系
+      stylecar: "瑞风M6", //车系
       region: false,
       distributors: false,
       success: false,
@@ -121,16 +135,16 @@ export default {
       email: "", //邮箱
       area: [], //地区
       address: "", //地址
-      beizhu:"",//备注
-      Idchooseaddress:[],//返回选择经销商的no     
+      beizhu: "", //备注
+      Idchooseaddress: [], //返回选择经销商的no
+      code:[],//存贮所有的地区
+      everycode:'',//动态存贮每一个地区
       thanks:
         "感谢您对江淮汽车的关注与支持，我们专业的服务员会第一时间与您联系!",
       slots: [
         {
           flex: 1,
-          values: [
-           
-          ],
+          values: [],
           className: "slot1",
           textAlign: "center"
         },
@@ -139,8 +153,8 @@ export default {
           content: "",
           itemHieight: 74,
           className: "slot2"
-        },
-       ],
+        }
+      ],
       slots2: [
         {
           values: [],
@@ -179,17 +193,16 @@ export default {
       this.region = false;
     },
     // 提交前 先判断用户输入的推荐码是否正确
-     sub() {
-       var param = {
-       code: this.$store.state.userId
-       };
+    sub() {
+      var param = {
+        code: this.$store.state.userId
+      };
       this.$http.post(My.RecomendCode, param).then(res => {
-      if (res.data.code == 0) {
-         
-       }
+        if (res.data.code == 0) {
+        }
       });
-      
-      var name=this.name
+
+      var name = this.name;
       if (name == "") {
         Toast({
           message: "姓名不能为空",
@@ -198,8 +211,8 @@ export default {
         });
         return false;
       }
-       var tell=this.tell//手机号
-        let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+      var tell = this.tell; //手机号
+      let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
       var numFlag = reg.test(tell);
       if (!numFlag) {
         Toast({
@@ -209,7 +222,7 @@ export default {
         });
         return false;
       }
-       var address=this.address
+      var address = this.address;
       if (address == "") {
         Toast({
           message: "地址不能为空",
@@ -218,8 +231,8 @@ export default {
         });
         return false;
       }
-      var beizhu=this.beizhu 
-       if (beizhu == "") {
+      var beizhu = this.beizhu;
+      if (beizhu == "") {
         Toast({
           message: "备注不能为空",
           duration: 1000,
@@ -227,29 +240,28 @@ export default {
         });
         return false;
       }
-      var gender = this.smallname=='女'? 1:2;
-     
-        var param=  {
-            customerName:this.stylecar,//姓名
-            fkDealerId:"N7650100",//经销商编号
-            gender:gender,//性别
-            mobile:this.tell,//手机号 
-            email:this.email,//email
-            address:this.address,//地址
-            comments:this.beizhu, //商家备注
-            province:"022" ,//省份ID
-            series:"CY001" ,//意向车系
-            model:"CYRF010" //意向车型
-         }
-         alert(JSON.stringify(param))
-       this.$http.post(Wit.PreBus,param).then(res=>{
-         alert(JSON.stringify(res))
-        if(res.data.code==0){
+      var gender = this.smallname == "女" ? 1 : 2;
+
+      var param = {
+        customerName: this.stylecar, //姓名
+        fkDealerId: "N7650100", //经销商编号
+        gender: gender, //性别
+        mobile: this.tell, //手机号
+        email: this.email, //email
+        address: this.address, //地址
+        comments: this.beizhu, //商家备注
+        province: "022", //省份ID
+        series: "CY001", //意向车系
+        model: "CYRF010" //意向车型
+      };
+      alert(JSON.stringify(param));
+      this.$http.post(Wit.PreBus, param).then(res => {
+        alert(JSON.stringify(res));
+        if (res.data.code == 0) {
           this.success = true;
           this.region = true;
-       }
-     }) 
-     
+        }
+      });
     },
     //所在地区
     onValuesChange(picker, values) {
@@ -264,30 +276,42 @@ export default {
       if (values[0] > values[1]) {
         picker.setSlotValue(1, values[0]);
       }
-    },
-  },
-  mounted(){
-    //经销商
-    var param={
-       dealerType:"01"
     }
-    this.$http.post(Wit.Distributor,param).then((res)=>{
-      console.log(res)
-     var chooseaddress= res.data.data.records
-      for(var i=0;i<chooseaddress.length;i++){
-        this.slots2[0].values.push(chooseaddress[i].dealerName)
-        this.Idchooseaddress.push(chooseaddress[i].no)
-      }
-    })
+  },
+  mounted() {
     //地区
-    this.$http.post(My.Area,{}).then(res=>{
-      console.log(res)
-      var address=res.data.data.records
-     for(let i=0;i<address.length;i++){
-       this.slots[0].values.push(address[i].name)
-     }
-   })
-    $('.gobottom').height($('.gobottom').height())
+    this.$http
+      .post(Wit.searchCountryAreaCodeListPage, {
+        parentId: null,
+        level: 1,
+        size: 100
+      })
+      .then(res => {
+        var address = res.data.data.records;
+        console.log(address);
+        for (let i = 0; i < address.length; i++) {
+          this.slots[0].values.push(address[i].name);
+          this.code.push(address[i].code)
+        }
+      });
+    //经销商
+    for(var i=0;i<this.code.length;i++){
+        this.everycode=this.code[i]
+    }
+    var param = {
+      dealerType: "01",
+      dealerCityCode:this.everycode
+    };
+    this.$http.post(Wit.Dealer, param).then(res => {
+      console.log(res);
+      var chooseaddress = res.data.data.records;
+      for (var i = 0; i < chooseaddress.length; i++) {
+        this.slots2[0].values.push(chooseaddress[i].dealerName);
+        this.Idchooseaddress.push(chooseaddress[i].no);
+      }
+    });
+
+    $(".gobottom").height($(".gobottom").height());
   }
 };
 </script>
@@ -296,7 +320,7 @@ export default {
 .bgcolor {
   position: relative;
   width: 100%;
-  height:100%;
+  height: 100%;
   background: #fff;
   font-weight: Regular;
   font-family: PingFangSC-Regular;
@@ -357,7 +381,7 @@ textarea {
   font-weight: Regular;
   font-family: PingFangSC-Regular;
   outline: none;
-  padding: .1rem;
+  padding: 0.1rem;
 }
 .region {
   position: absolute;
@@ -426,5 +450,4 @@ textarea {
   margin-right: 0.49rem;
   font-size: 0.34rem;
 }
-
 </style>
