@@ -1,10 +1,10 @@
 <template>
   <div class="my-bus">
     <header class="header">
-      <img class="header-left" :src="'../../../static/images/back@2x.png'" @click="$router.go(-1)">
+      <img class="header-left" :src="'/static/images/back@2x.png'" @click="$router.go(-1)">
       <span class="header-title">我的车辆</span>
       <span class="header-right">
-        <router-link tag="img" to="/myindex/addBus" style="width: 0.36rem;height: 0.36rem;" :src="'../../../static/images/my/mycar_add.png'"></router-link>
+        <router-link tag="img" to="/myindex/addBus" style="width: 0.36rem;height: 0.36rem;" :src="'/static/images/my/mycar_add.png'"></router-link>
       </span>
     </header>
     <div style="height:0.88rem"></div>

@@ -10,7 +10,7 @@
     </header>
     <div style="height:.88rem"></div>
     <ul>
-      <li class="bus_li" v-for="(item,index) in this.mainbus" :key="index">
+      <li class="bus_li" v-for="(item,index) in this.mainbus" :key="index" @click="tode()">
         <img src="../../../static/images/Wit/bg-mine.png" alt="">
         <div class="bus_1">
           <span class="bus_2">{{item.seriesName}}</span>
@@ -65,8 +65,11 @@ export default {
     shai() {
       this.popupVisible = true;
     },
-    // select_one(index) {
+    tode(){
+  this.$router.push("/wit/Characteristic");
+    },
     
+    // select_one(index) {
     //   if (this.good_list[index].is_selected == true) {
     //     this.good_list[index].is_selected = false;
     //   } else {

@@ -94,7 +94,8 @@ export default {
       headUrl: "", //图片地址,
       picpath:'',//文件路径
       picname:'',//文件名名称
-      base64:''
+      base64:'',
+     
     };
   },
   methods: {
@@ -106,29 +107,38 @@ export default {
       this.$forceUpdate();
     },
 		selectImg($event){
-			this.getPic("js-title-img-input","img",$event.target.value);
+     this.getPic("js-title-img-input","img",$event.target.value);
 		},
 		getPic(piElementId,imgElementId,path){
        this.picpath=path//文件路径
-      // console.log(path) //文件路径
-				var self = this;
+      	var self = this;
         var file = document.getElementById(piElementId).files[0];
-//      console.log(file)//文件
-//      console.log(file.name)//文件名字
-     this.picname=file.name //文件名
+         this.picname=file.name //文件名
 				var reads= new FileReader();
 				var img = new Image();
 				reads.readAsDataURL(file);
 				reads.onload = function(e){
           img.src = e.target.result;
 					img.onload = function(){
-            console.log(img.src);
             var res = self.compress(img,100,100);
-            console.log(res);
             document.getElementById(imgElementId).src = res;
             self.base64=res;//base64
+             var params={
+         fileOldName:self.picname,
+         filePjectPath:'DAS',
+         filePjectName:'jav',
+          base64:self.base64.split(',')[1],
+         prj:'DM',
+         remark:'修改头像'
+        }
+       self.$http.post('http://172.20.20.75:8762/api/dk-filestore-svr/filestore/v1/picture',params,self.$store.state.mytoken).then(res=>{
+          if(res.data.status==1){
+             self.changeInfo.imageUrl=res.data.data.fileUrl+res.data.data.fileNewName
+           }
+       })
           	}
-				}
+        }
+        
 		},
 		compress(img,w,h){
 			var canvas = document.createElement("canvas");
@@ -141,21 +151,8 @@ export default {
 
     //点击保存
     changemessage() {
-
-       var params={
-         fileOldName:this.picname,
-         filePjectPath:'DAS',
-         filePjectName:'jav',
-         prj:'DM',
-         remark:'修改头像',
-         base64:this.base64,
-       }
-        console.log(params.base64)
-        this.$http.post('http://172.20.20.75:8762/api/dk-filestore-svr/filestore/v1/picture',params,this.$store.state.mytoken).then(res=>{
-          console.log(res)
-     })
-
-  if (this.userInfo.userName == "") {
+      //  alert( this.changeInfo.imageUrl)
+       if (this.userInfo.userName == "") {
         let instance = Toast({
           message: "昵称不能为空",
           position: "middle",
@@ -164,44 +161,16 @@ export default {
         return;
       }
       this.changeInfo.userName = this.userInfo.userName; //赋值  参数 昵称
-      //验证表情
-      // var regRule = /\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g;
-      // if(this.changeInfo.userRealName.match(regRule)) {
-      //   this.changeInfo.userRealName = this.changeInfo.userRealName.replace(/\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g, "");
-      //   let instance = Toast({
-      //     message: "昵称不能输入表情",
-      //     position: "middle",
-      //     duration: 1000
-      //   });
-      //   return
-      // }
       this.changeInfo.personalSignature = this.userInfo.personalSignature;
       this.changeInfo.sex = this.userInfo.sex;
-     
-      (this.changeInfo.no = this.$store.state.userId),
-        // this.changeInfo.headUrl = this.userInfo.headUrl.replace(
-        //   "data:image/jpeg;base64,",
-        //   ""
-        // );
-        // alert(JSON.stringify( this.changeInfo))
-        this.$http
-          .post(My.UpUserinfo, this.changeInfo, {})
-          .then(res => {
+      this.changeInfo.no = this.$store.state.userId,
+       this.changeInfo.imageUrl= this.changeInfo.imageUrl
+      this.$http.post(My.UpUserinfo, this.changeInfo, {}).then(res => {
             if (res.data.code == 0) {
               this.popupVisible = true;
-              //   if(res.data.retobj){
-              //   if (isMobile.iOS()) {
-              //     var data = {
-              //       head_image:res.data.head_image
-              //     }
-              //     window.webkit.messageHandlers.changeImage.postMessage(data);
-              //   } else if(isMobile.Android()) {
-              //     js2android.changeImage(res.data.head_image);
-              //   }
-              // }
               var self = this;
               setTimeout(function() {
-                self.$router.go(-1);
+               self.$router.go(-1);
               }, 2000);
             } else {
               let instance = Toast({
