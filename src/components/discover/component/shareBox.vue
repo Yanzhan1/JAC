@@ -153,7 +153,7 @@
             "contentType":"3"
           }
           var param = JSON.stringify(obj);
-          NativeJavaScriptInterface.share(param);
+          js2andriod.share(param);
           //NativeJavaScriptInterface.share(content,imageURL,title,description,platform);
         }
       },
