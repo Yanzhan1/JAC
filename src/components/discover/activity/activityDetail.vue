@@ -119,7 +119,7 @@
           晒&nbsp;图
         </div>
         <div class="sign_btn" v-else>
-           已结束
+           报名已结束
         </div>
       </div>
       <div class="sign_btn" v-else  @click="cantWantGo">
