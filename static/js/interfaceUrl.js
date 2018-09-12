@@ -10,8 +10,8 @@ var indexip = 'http://test.jac.timanetwork.net/api/dk-dm-portal-api'
 var mip = 'http://test.jac.timanetwork.net/api/jac-automobile-manage/automobilemanage' //智享
     //服务器-admin(跟用户有关即我的)
 var mips = 'http://test.jac.timanetwork.net/api/jac-admin/' //地区
-
-// var love_car = 'http://test.jac.timanetwork.net/jvconnectedcar' //爱车
+var jf = 'http://test.jac.timanetwork.net/' //跟积分有关的
+    // var love_car = 'http://test.jac.timanetwork.net/jvconnectedcar' //爱车
 var love_car = 'http://test.jac.timanetwork.net/api/jac-car-control' //爱车
 
 //服务器→反馈记录
@@ -135,13 +135,11 @@ window.Wit = {
     //我的 部分
 window.My = {
         UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
-        IsSignIn: mips + '/pluto-membership/integral-gather/is-sign', //判断用户今天是否签到 
-        SignIn: mips + '/pluto-membership/integral-gather/integral-gather', //签到 
-        Credit: mips + '', //获取用户积分  
-        CreditDetail: mips + '/plutomembership/integralRecord/searchIntegralRecordList', //积分记录
+        IsSignIn: jf + '/pluto-membership/integral-gather/is-sign', //判断用户今天是否签到 
+        SignIn: jf + '/pluto-membership/integral-gather/integral-gather', //签到 
+        Credit: jf + '/plutomembership/integralCount/searchIntegralCountList', //获取用户积分
+        CreditDetail: jf + '/plutomembership/integralRecord/searchIntegralRecordList', //积分记录
         My_Bus: love_car + '/vehicle/find-vehicle-list', //我的车辆
-        // My_Bus: 'http://172.21.4.50:8084/vehicle/find-vehicle-list', //我的车辆yys本地
-        // SetOneDefault: 'http://172.21.4.116:8084/vehicle/set-default-vehicle', //我的车辆设为默认
         SetOneDefault: love_car + '/vehicle/set-default-vehicle', //我的车辆设为默认
         JFmybus: love_car + '/vehicle/set-vehicle-remoteset', //解绑我的车辆,绑定,
         planbus: love_car + '/vehicle/set-vehicle-remoteset', //添加车牌 绑定车牌

@@ -31,10 +31,10 @@
             <img src="../../../static/images/my/qqquan.png" alt="">
             <span>QQ空间</span>
           </li>
-          <li class="flex column contentcenter uu ">
+          <!-- <li class="flex column contentcenter uu ">
             <img src="../../../static/images/my/xinlang.png" alt="">
             <span>新浪微博</span>
-          </li>
+          </li> -->
         </ul>
       </div>
     </mt-popup>
@@ -58,35 +58,44 @@ export default {
     },
     //分享微信
     wei(platform) {
-      let content = "1234567";
-      platform = platform;
+        let content = '1234567';
+        let imageURL = '';
+        let title = '';
+        let description = '描述';
+        platform = platform;
       if (isMobile.iOS()) {
         var params = [content, platform];
         window.webkit.messageHandlers.share.postMessage(params);
       } else if (isMobile.Android()) {
-        js2android.share(content, platform);
+        js2android.share(content,imageURL,title,description,platform);
       }
     },
     //分享朋友圈
     friendq(platform) {
-      let content = "1234567";
-      platform = platform;
+        let content = '1234567';
+        let imageURL = '';
+        let title = '';
+        let description = '描述';
+        platform = platform;
       if (isMobile.iOS()) {
         var params = [content, platform];
         window.webkit.messageHandlers.share.postMessage(params);
       } else if (isMobile.Android()) {
-        js2android.share(content, platform);
+        js2android.share(content,imageURL,title,description,platform);
       }
     },
     //分享qq
     qq(platform) {
-      let content = "1234567";
-      platform = platform;
+       let content = '1234567';
+        let imageURL = '';
+        let title = '';
+        let description = '描述';
+        platform = platform;
       if (isMobile.iOS()) {
         var params = [content, platform];
         window.webkit.messageHandlers.share.postMessage(params);
       } else if (isMobile.Android()) {
-        js2android.share(content, platform);
+       js2android.share(content,imageURL,title,description,platform);
       }
     }
   },
