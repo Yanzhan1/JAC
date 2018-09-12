@@ -6,15 +6,17 @@
     <header class="headerUser" id="header2" style="display: none">
       <img class="f_left" src="../../../static/images/discover/backblue.png" @click="goBack">
       <img class="f_left head_4" src="../../../static/images/discover/normalhead.png">
-      <p class="header-title-fff" style="margin-left: 30%;"><!--{{this.userInfo.nickName}}-->用户名</p>
+      <p class="header-title-fff" style="margin-left: 30%;">
+        <!--{{this.userInfo.nickName}}-->用户名</p>
     </header>
     <div class="startbg">
       <div class="wrapbg">
-        <img src="../../../static/images/discover/normalhead.png"/>
+        <img src="../../../static/images/discover/normalhead.png" />
         <!--<img :src="this.userInfo.headImgurl" alt="">-->
       </div>
       <div class="user_info">
-        <p class="font_36 mb_16"><!--{{this.userInfo.nickName}}-->用户名</p>
+        <p class="font_36 mb_16">
+          <!--{{this.userInfo.nickName}}-->用户名</p>
         <p class="font_24fff">千秋无绝色！悦目是佳人！倾国倾城貌！惊为天下人！</p>
         <div class="mytopbottom flex around">
           <div>
@@ -37,14 +39,14 @@
       <p class="font_5 f_left">我的发布</p>
       <p class="font_6 f_right">共{{myList.length}}条发布</p>
     </div>
-    <div  v-for="(item,index) in myList">
+    <div v-for="(item,index) in myList">
       <div class="boxInfo wrap_92 pt_4">
         <!--发布者信息S-->
         <div class="comment_userinfo">
           <div class="user_head">
             <div @click="changeUserStartId(item.user.user_id)">
-              <img v-if="item.user" :src="item.user.head_image" class="head_72"/>
-              <img v-else src="../../../static/images/discover/normalhead.png" class="head_72"/>
+              <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="head_72" />
+              <img v-else src="../../../static/images/discover/normalhead.png" class="head_72" />
             </div>
           </div>
           <div class="user_info">
@@ -63,31 +65,31 @@
         <div @click="toDetail(item.id)" class="listTitleInfo">{{item.momentMessage}}</div>
         <div class="pics" v-if="item.momentImgList">
           <div v-if="item.momentImgList.length==1" v-for="imgItem in item.momentImgList">
-            <img @click="toDetail(item.id)" :src="imgItem" class="pic1"/>
+            <img @click="toDetail(item.id)" :src="imgItem" class="pic1" />
           </div>
           <div v-if="item.momentImgList.length==2">
-            <img @click="toDetail(item.id)" :src="item.momentImgList[0]" style="margin-right: 2%;" class="pic2_1"/>
-            <img @click="toDetail(item.id)" :src="item.momentImgList[1]" class="pic2_2"/>
+            <img @click="toDetail(item.id)" :src="item.momentImgList[0]" style="margin-right: 2%;" class="pic2_1" />
+            <img @click="toDetail(item.id)" :src="item.momentImgList[1]" class="pic2_2" />
           </div>
           <div v-if="item.momentImgList.length==3">
-            <img @click="toDetail(item.id)" :src="item.momentImgList[0]" style="margin-right: 2%;" class="pic3_1"/>
-            <img @click="toDetail(item.id)" :src="item.momentImgList[1]" class="pic3_2"/>
-            <img @click="toDetail(item.id)" :src="item.momentImgList[2]" class="pic3_3"/>
+            <img @click="toDetail(item.id)" :src="item.momentImgList[0]" style="margin-right: 2%;" class="pic3_1" />
+            <img @click="toDetail(item.id)" :src="item.momentImgList[1]" class="pic3_2" />
+            <img @click="toDetail(item.id)" :src="item.momentImgList[2]" class="pic3_3" />
           </div>
           <div v-if="item.momentImgList.length>3">
-            <div  class="shequMore_box">
+            <div class="shequMore_box">
               <div class="shequNum">
                 {{item.momentImgList.length}}
               </div>
-              <img @click="toDetail(item.id)" :src="item.momentImgList[0]" style="margin-right: 2%;" class="pic3_1"/>
-              <img @click="toDetail(item.id)" :src="item.momentImgList[1]" class="pic3_2"/>
-              <img @click="toDetail(item.id)" :src="item.momentImgList[2]" class="pic3_3"/>
+              <img @click="toDetail(item.id)" :src="item.momentImgList[0]" style="margin-right: 2%;" class="pic3_1" />
+              <img @click="toDetail(item.id)" :src="item.momentImgList[1]" class="pic3_2" />
+              <img @click="toDetail(item.id)" :src="item.momentImgList[2]" class="pic3_3" />
             </div>
           </div>
         </div>
         <!--阅读数量,是否点赞以及点赞数量S-->
         <div class="listIconInfo">
-          <img src="../../../static/images/discover/eye.png" class="f_left"/>
+          <img src="../../../static/images/discover/eye.png" class="f_left" />
           <span class="f_left">{{item.readNum}}</span>
           <span class="f_right">{{item.likeNum}}</span>
           <img v-if="item.likeStatus" src="../../../static/images/discover/nozan.png" class="f_right" @click="giveNowLike(item.id,index)">
@@ -111,34 +113,49 @@
 
 <script>
   import moment from "moment";
-  import { Toast } from 'mint-ui';
-  import { MessageBox } from 'mint-ui';
+  import {
+    Toast
+  } from 'mint-ui';
+  import {
+    MessageBox
+  } from 'mint-ui';
   export default {
     name: "user-start",
-    data(){
-      return{
-        sheetVisible:false,
-        popupVisible:false,
-        delfriendVisible:false,
-        verifycontent:"",
-        userInfo:{},
-        focusStatu:0,
-        actions:[
-          {name:"关注",method:this.removeFoucs},
-          {name:"加好友",method:this.addfriend},
-          {name:"修改备注",method:this.changeremark},
+    data() {
+      return {
+        sheetVisible: false,
+        popupVisible: false,
+        delfriendVisible: false,
+        verifycontent: "",
+        userInfo: {},
+        focusStatu: 0,
+        actions: [{
+            name: "关注",
+            method: this.removeFoucs
+          },
+          {
+            name: "加好友",
+            method: this.addfriend
+          },
+          {
+            name: "修改备注",
+            method: this.changeremark
+          },
           /*{name:"发消息",method:function () {
               console.log(222)
             }},*/
-          {name:"删除好友",method:this.delfriend},
+          {
+            name: "删除好友",
+            method: this.delfriend
+          },
           // {name:"举报",method:this.inform}
         ],
         myList: [],
-        likeNum:0,
-        fansNum:0,
-        focsNum:0,
-        user:this.$store.state.UserId,
-        showImg:false,
+        likeNum: 0,
+        fansNum: 0,
+        focsNum: 0,
+        user: this.$store.state.UserId,
+        showImg: false,
         imgSrc: '',
         flag: 'person',
         type: 'person',
@@ -147,93 +164,101 @@
     components: {
       /*shareBox*/
     },
-    methods:{
+    methods: {
       //转换时间
-      convert: function(date) {
-        date = date.substring(0,10)
+      convert: function (date) {
+        date = date.substring(0, 10)
         moment.lang('zh-cn');
         let data = moment(date, "YYYYMMDD").fromNow();
         return data
       },
-      toDetail: function (id,userId) {
+      toDetail: function (id, userId) {
         this.$store.state.UserStartId = userId;
-        this.$router.push({path:"/now/nowDetail",query:{id:id}})
+        this.$router.push({
+          path: "/now/nowDetail",
+          query: {
+            id: id
+          }
+        })
       },
       clickImg(e) {
         this.showImg = true;
         this.imgSrc = e.currentTarget.src;;
       },
-      viewImg(){
+      viewImg() {
         this.showImg = false;
       },
-      CommentBoxchange(){
+      CommentBoxchange() {
         this.$store.dispatch('showcommentBox')
         this.$refs.commentbox.boxfocus();
       },
-      init(){
+      init() {
         //获取用户信息
-        var data={
-          userid:this.$store.state.UserStartId
+        var data = {
+          userid: this.$store.state.UserStartId
         }
         var url = USERMESSAGE.getuser
-        this.$http({url: url,
+        this.$http({
+          url: url,
           params: data,
-          method:"get",
+          method: "get",
           formUrlencoded
-        },this.$store.state.mytoken).then((res)=>{
-          if(res.data.success){
+        }, this.$store.state.mytoken).then((res) => {
+          if (res.data.success) {
             this.userInfo = res.data.data;
-//            this.$store.state.userstartUuid = res.data.account.uuid;
+            //            this.$store.state.userstartUuid = res.data.account.uuid;
           }
-        }).catch(()=>{
+        }).catch(() => {
 
         })
       },
-      collect(){
+      collect() {
 
       },
       //电咖没有好友功能
-//      getfriendconnect(){
-//        //获取是否是好友关系
-//        var checkfriend={
-//          from_account:this.$store.state.userId,
-//          to_account:this.$store.state.UserStartId
-//        }
-//        this.$http({url: FRIENDMESSAGE.checkFriend,
-//          params: checkfriend,
-//          method:"post",
-//          formUrlencoded
-//        }).then((res)=>{
-//          console.log(res)
-//          if(!res.data.runflag){
-//            this.actions.splice(2,2)
-//          }else{
-//            this.actions.splice(1,1)
-//          }
-//        }).catch(()=>{
-//
-//        })
-//      },
-      changeremark(){
-        this.$router.push({path:'/friend/changeremark'})
+      //      getfriendconnect(){
+      //        //获取是否是好友关系
+      //        var checkfriend={
+      //          from_account:this.$store.state.userId,
+      //          to_account:this.$store.state.UserStartId
+      //        }
+      //        this.$http({url: FRIENDMESSAGE.checkFriend,
+      //          params: checkfriend,
+      //          method:"post",
+      //          formUrlencoded
+      //        }).then((res)=>{
+      //          console.log(res)
+      //          if(!res.data.runflag){
+      //            this.actions.splice(2,2)
+      //          }else{
+      //            this.actions.splice(1,1)
+      //          }
+      //        }).catch(()=>{
+      //
+      //        })
+      //      },
+      changeremark() {
+        this.$router.push({
+          path: '/friend/changeremark'
+        })
       },
-      addfriend(){
+      addfriend() {
         this.popupVisible = true;
       },
-      addfriendtrue(){
+      addfriendtrue() {
         /*var userid = this.$store.state.userId;
         var UserStartId = this.$store.state.UserStartId;
         var add_type = 'Add_Type_Both';*/
-        if(isMobile.iOS()){
+        if (isMobile.iOS()) {
           var params = {
-            uuid:this.$store.state.userstartUuid,
-            content:this.verifycontent
+            uuid: this.$store.state.userstartUuid,
+            content: this.verifycontent
           }
           window.webkit.messageHandlers.addFriend.postMessage(params);
-        }else if(isMobile.Android()){
-          js2android.addFriend(this.$store.state.userstartUuid,this.verifycontent);
+        } else if (isMobile.Android()) {
+          js2android.addFriend(this.$store.state.userstartUuid, this.verifycontent);
         }
-          this.popupVisible = false;
+        this.popupVisible = false;
         /*if (isMobile.iOS()) {
           var add_source = 'AddSource_Type_ios'
         } else if(isMobile.Android()) {
@@ -271,16 +296,16 @@
 
         })*/
       },
-      delfriend(){
+      delfriend() {
         this.delfriendVisible = true
       },
-      delfriendtrue(){
-        if(isMobile.iOS()){
+      delfriendtrue() {
+        if (isMobile.iOS()) {
           var params = {
-            uuid:this.$store.state.userstartUuid
+            uuid: this.$store.state.userstartUuid
           }
           window.webkit.messageHandlers.delFriend.postMessage(params);
-        }else if(isMobile.Android()){
+        } else if (isMobile.Android()) {
           js2android.delFriend(this.$store.state.userstartUuid);
         }
         this.delfriendVisible = false;
@@ -291,9 +316,12 @@
         this.$router.push('/inform');
       },
       //获取我和他人的关注状态
-      focusStatus: function(){
+      focusStatus: function () {
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.focusStatu,{"uid": _this.$store.state.userId,"focusId": _this.$store.state.UserStartId},this.$store.state.mytoken).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.focusStatu, {
+          "uid": _this.$store.state.userId,
+          "focusId": _this.$store.state.UserStartId
+        }, this.$store.state.mytoken).then(function (res) {
           if (res.data.status) {
             _this.focusStatu = res.data.data;
           } else {
@@ -304,15 +332,18 @@
       //加关注
       addFoucs: function () {
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.focusOn, {"uid": _this.$store.state.userId,"focusId": _this.$store.state.UserStartId}).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.focusOn, {
+          "uid": _this.$store.state.userId,
+          "focusId": _this.$store.state.UserStartId
+        }).then(function (res) {
           if (res.data.status) {
             _this.focusStatus();
             _this.focusStatu = res.data.data;
             Toast('关注成功');
           } else {
-            if(_this.$store.state.userId == null){
+            if (_this.$store.state.userId == null) {
               _this.toLogin();
-            }else{
+            } else {
               MessageBox('提示', res.data.errorMsg);
             }
           }
@@ -323,25 +354,51 @@
         var _this = this;
         MessageBox.confirm('确定取消关注?').then(action => {
           var _this = this;
-          this.$http.post(DISCOVERMESSAGE.unFocus, {"uid": _this.$store.state.userId,"focusId": _this.$store.state.UserStartId},this.$store.state.mytoken).then(function (res) {
+          this.$http.post(DISCOVERMESSAGE.unFocus, {
+            "uid": _this.$store.state.userId,
+            "focusId": _this.$store.state.UserStartId
+          }, this.$store.state.mytoken).then(function (res) {
             if (res.data.status) {
               _this.focusStatus();
               _this.focusStatu = res.data.data;
               Toast('取消成功');
             } else {
-              if(_this.$store.state.userId == null){
+              if (_this.$store.state.userId == null) {
                 _this.toLogin();
-              }else{
+              } else {
                 MessageBox('提示', res.data.errorMsg);
               }
             }
           });
         });
       },
-      //他的关注数量
-      myFocusNum: function(){
+      //关注、粉丝、获赞、发布、数量
+      myNum: function () {
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.myFocusNum,{"uid": _this.$store.state.UserStartId},this.$store.state.mytoken).then(function (res) {
+        const uid = this.$route.query.id
+
+        this.$http
+          .post(DISCOVERMESSAGE.count, {
+            uid
+          })
+          .then(function (res) {
+            if (res.data.status) {
+              _this.focusNum = res.data.data.focusNum;
+              _this.fansNum = res.data.data.fansNum;
+              _this.likeNum = res.data.data.likeNum;
+              // _this.momentNum = res.data.data.momentNum;
+            } else {
+              console.log(res.data.errorMsg);
+              // MessageBox('提示', res.data.errorMsg);
+            }
+          });
+      },
+      //他的关注数量
+      myFocusNum: function () {
+        var _this = this;
+        this.$http.post(DISCOVERMESSAGE.myFocusNum, {
+          "uid": _this.$store.state.UserStartId
+        }).then(function (res) {
           if (res.data.status) {
             _this.focsNum = res.data.data;
           } else {
@@ -350,9 +407,11 @@
         });
       },
       //他的粉丝数量
-      myFansNum: function(){
+      myFansNum: function () {
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.myFansNum,{"uid": _this.$store.state.UserStartId},this.$store.state.mytoken).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.myFansNum, {
+          "uid": _this.$store.state.UserStartId
+        }, this.$store.state.mytoken).then(function (res) {
           if (res.data.status) {
             _this.fansNum = res.data.data;
           } else {
@@ -361,9 +420,11 @@
         });
       },
       //他的点赞数量
-      myLikeNum: function(){
+      myLikeNum: function () {
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.myLikeNum,{"uid": _this.$store.state.UserStartId},this.$store.state.mytoken).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.myLikeNum, {
+          "uid": _this.$store.state.UserStartId
+        }, this.$store.state.mytoken).then(function (res) {
           if (res.data.status) {
             _this.likeNum = res.data.data;
           } else {
@@ -371,11 +432,14 @@
           }
         });
       },
-      getUserList: function(){
+      getUserList: function () {
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.issueMomentList,{"uid": _this.$store.state.userId,"hisUid":_this.$store.state.UserStartId}).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.issueMomentList, {
+          "uid": _this.$store.state.userId,
+          "hisUid": _this.$store.state.UserStartId
+        }).then(function (res) {
           if (res.data.status) {
-            for(let i = 0; i < res.data.data.length; i++) {
+            for (let i = 0; i < res.data.data.length; i++) {
               res.data.data[i].createDate = _this.convert(res.data.data[i].createDate)
             }
             _this.myList = res.data.data;
@@ -385,71 +449,77 @@
         });
       },
       //给此刻点赞
-      giveNowLike: function (manageId,index) {
+      giveNowLike: function (manageId, index) {
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.momentGiveLike, {"uid": _this.$store.state.UserStartId,"lid": manageId},this.$store.state.mytoken).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.momentGiveLike, {
+          "uid": _this.$store.state.UserStartId,
+          "lid": manageId
+        }, this.$store.state.mytoken).then(function (res) {
           if (res.data.status) {
             _this.myList[index].likeNum = res.data.data.num;
             _this.myList[index].likeStatus = false;
           } else {
-            if(_this.$store.state.userId == null){
+            if (_this.$store.state.userId == null) {
               _this.toLogin();
-            }else{
+            } else {
               MessageBox('提示', res.data.errorMsg);
             }
           }
         });
       },
       //给此刻取消点赞
-      removeNowLike: function (manageId,index) {
+      removeNowLike: function (manageId, index) {
         var _this = this;
-        this.$http.post(DISCOVERMESSAGE.momentRemoveLike, {"uid": _this.userId,"lid": manageId},this.$store.state.mytoken).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.momentRemoveLike, {
+          "uid": _this.userId,
+          "lid": manageId
+        }, this.$store.state.mytoken).then(function (res) {
           if (res.data.status) {
             _this.myList[index].likeNum = res.data.data.num;
             _this.myList[index].likeStatus = true;
           } else {
-            if(_this.$store.state.userId == null){
+            if (_this.$store.state.userId == null) {
               _this.toLogin();
-            }else{
+            } else {
               MessageBox('提示', res.data.errorMsg);
             }
           }
         });
       },
-      addfriendfalse(){
+      addfriendfalse() {
         this.popupVisible = false;
       },
       //返回上一级
-      goBack:function () {
+      goBack: function () {
         this.$router.go(-1);
         this.$store.dispatch("showFoot")
       },
       //分享
       onShareClick: function (index) {
         this.indexNum = index;
-        var showId = '#share_person'+index;
+        var showId = '#share_person' + index;
         $(showId).show();
         $("#bgShare").show();
         this.bgbtn1();
       },
-      bgbtn1(){
+      bgbtn1() {
         $("#mess").hide();
         $("#bg1").hide();
       },
       bgHide: function () {
-        var showId = '#share_person'+this.indexNum;
+        var showId = '#share_person' + this.indexNum;
         $(showId).hide();
         $("#bgShare").hide();
       },
     },
-    mounted(){
+    mounted() {
       this.$store.dispatch('hideFoot');
       /*悬浮,更换头部背景透明度和文字*/
-      $(window).scroll(()=> {
-        if($("html,body").scrollTop() <= 300){
+      $(window).scroll(() => {
+        if ($("html,body").scrollTop() <= 300) {
           $("#header1").show();
           $("#header2").hide();
-        }else{
+        } else {
           $("#header1").hide();
           $("#header2").show();
         }
@@ -458,15 +528,18 @@
       //获取好友关系 电咖没有好友功能
       // this.getfriendconnect();
       this.getUserList();
-      this.myFocusNum();
-      this.myFansNum();
-      this.myLikeNum();
+      // this.myFocusNum();
+      // this.myFansNum();
+      // this.myLikeNum();
+      this.myNum()
       this.focusStatus();
     }
   }
+
 </script>
 
 <style scoped>
   @import "./../../../static/css/discover/all.css";
   @import "./../../../static/css/discover/detail.css";
+
 </style>

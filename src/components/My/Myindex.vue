@@ -257,8 +257,11 @@ export default {
     //关注、粉丝、获赞、发布、数量
     myNum: function() {
       var _this = this;
+      // const uid = this.$route.query.id
+
       this.$http
         .post(DISCOVERMESSAGE.count, { uid: _this.$store.state.userId })
+        // .post(DISCOVERMESSAGE.count, { uid })
         .then(function(res) {
           if (res.data.status) {
             _this.focusNum = res.data.data.focusNum;
