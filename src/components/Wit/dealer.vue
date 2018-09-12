@@ -9,7 +9,7 @@
 		<div class="flex row around con cocenter">
 			<div class="flex row cocenter">
 				<!-- 品牌 -->
-				<div class="selection-show" @click="toggleDrop">
+				<div class="selection-show " @click="toggleDrop">
 					<span> {{searchVehicleBrandList[nowIndex] && searchVehicleBrandList[nowIndex].brandName}} </span>
 					<span v-if="brandState">品牌</span>
 					<div class="arrow"></div>
@@ -40,7 +40,7 @@
 					<span v-if="provinceState">{{cityname}}</span>
 					<div class="arrow"></div>
 				</div>
-				<div class="selection-list" v-if="provinceDrop">
+				<div class="province-list" v-if="provinceDrop">
 					<ul>
 						<li v-for="(item,index) in searchCountryAreaCodeListPage" :key="index" @click="chooseProvinType(index, item.code,item.id)">{{item.name}}</li>
 					</ul>
@@ -86,7 +86,7 @@
 		</div>
 		<p id="showAll2" style="visibility: hidden">已加载全部</p>
 		<!--没有数据时,对用户进行提示-->
-		<div class="dataInfo" v-if="mainbus.length == 0">
+		<div class="dataInfo" v-if="mainbus.length == 0" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);font-size: 0.34rem;color: #555555;">
 			没有符合该条件的经销商
 		</div>
 		
@@ -155,7 +155,8 @@
           		this.loadEnd=false;  //第一次加载数据,还可以继续加载
 				var data = {
 					"parentId": null,
-					"level": 1
+					"level": 1,
+					"size": 50
 				}
 				//请求品牌列表
 				this.$http.post(Wit.searchVehicleBrandList, data).then(res => {
@@ -415,6 +416,15 @@
 	};
 </script>
 <style scoped>
+			/*没有数据时,提示样式*/
+	.dataInfo {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: 0.34rem;
+		color: #555555;
+	}
 	.flex-center{/*水平垂直居中*/
 	  display: flex;
 	  justify-content: center;
@@ -425,11 +435,15 @@
 	  flex-direction: column;
 	  align-items: center;
 	}
+	.flex-between{/*两边对齐*/
+	  display: flex;
+	  justify-content: space-between;
+	}
 	.row {
 		flex-direction: row;
 	}
 	
-	.con div {
+	.con>div {
 		position: relative;
 		height: 0.88rem;
 		width:1.5rem
@@ -518,10 +532,11 @@
 	.selection-show {
 		/*position: relative;*/
 		display: inline-block;
-		padding: 0 20px 0 10px;
+		/*padding: 0 20px 0 10px;*/
 		cursor: pointer;
 		height: 100%;
-		line-height: 0.84rem;
+		width: 100%;
+		line-height: 0.88rem;
 		border-radius: 3px;
 		background: #fff;
 	}
@@ -530,42 +545,41 @@
 		position: absolute;
 		top: 0;
 		left: 0;
-		width: 1.4rem;
-		height: 100%;
+		width: 1.5rem;
 		background: #fff;
 		text-align: center;
-		margin-left:.2rem;
+		/*margin-left:.2rem;*/
 	    overflow: hidden;
     	white-space: nowrap;
     	text-overflow: ellipsis;
 	}
 	
 	.selection-show .arrow {
+		position: absolute;
+    	left: 10%;
+    	top: 40%;
 		display: inline-block;
+		width: 0;
+		height: 0;
 		border-left: 4px solid transparent;
 		border-right: 4px solid transparent;
 		border-top: 5px solid #e3e3e3;
-		width: 0;
-		height: 0;
-		margin-top: -1px;
-		margin-left: 0;
-		margin-right: -14px;
-		vertical-align: middle;
 	}
 	
-	.selection-list {
+	.con .selection-list {
 		display: inline-block;
 		position: absolute;
-		left: -0.5rem;
+		/*left: -0.5rem;*/
 		top: 0.8rem;
 		background: #fff;
 		border-top: 1px solid #e3e3e3;
 		border-bottom: 1px solid #e3e3e3;
+		overflow-y: auto;
 		z-index: 5;
 	}
 	
-	.selection-list li {
-		padding: 5px 15px 5px 10px;
+	.con .selection-list li {
+		padding: 0.05rem 0.15rem 0.05rem 0.1rem;
 		border-left: 1px solid #e3e3e3;
 		border-right: 1px solid #e3e3e3;
 		cursor: pointer;
@@ -574,17 +588,39 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-	
-	.selection-list li:hover {
-		background: #e3e3e3;
-	}
-	/*没有数据时,提示样式*/
-	.dataInfo {
+	.con .province-list .arrow {
 		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		font-size: 0.34rem;
-		color: #555555;
+    	left: 10%;
+    	top: 40%;
+		display: inline-block;
+		width: 0;
+		height: 0;
+		border-left: 4px solid transparent;
+		border-right: 4px solid transparent;
+		border-top: 5px solid #e3e3e3;
 	}
+	.con .province-list {
+		display: inline-block;
+		position: absolute;
+		/*left: -0.5rem;*/
+		top: 0.8rem;
+		background: #fff;
+		border-top: 1px solid #e3e3e3;
+		border-bottom: 1px solid #e3e3e3;
+		height: 3rem;
+		overflow-y: auto;
+		z-index: 5;
+	}
+	.con .cocenter .province-list li {
+		background: skyblue;
+		padding: 0.05rem 0.15rem 0.05rem 0.1rem;
+		border-left: 1px solid #e3e3e3;
+		border-right: 1px solid #e3e3e3;
+		cursor: pointer;
+		background: #fff;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
 </style>

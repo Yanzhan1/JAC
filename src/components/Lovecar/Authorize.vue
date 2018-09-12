@@ -59,7 +59,7 @@ export default {
          slotsone: [
             {
             flex: 1,
-            values: ['2010', '2011', '2012', '2013', '2014', '2015'],
+            values: [],
             className: 'slot1',
             textAlign: 'center'
             }, {
@@ -91,37 +91,6 @@ export default {
             }, {
             flex: 1,
             values:[
-                "01",
-                "02",
-                "03",
-                "04",
-                "05",
-                "06",
-                "07",
-                "08",
-                "09",
-                "10",
-                "11",
-                "12",
-                "13",
-                "14",
-                "15",
-                "16",
-                "17",
-                "18",
-                "19",
-                "20",
-                "21",
-                "22",
-                "23",
-                "24",
-                "25",
-                "26",
-                "27",
-                "28",
-                "29",
-                "30",
-                "31"
             ],
             className: 'slot5',
             textAlign: 'center'
@@ -242,10 +211,38 @@ export default {
             this.end=values
             this.xia=this.$refs.endd.innerHTML
             this.shang=this.$refs.startt.innerHTML
-    }
+    },
+    getYear () { //当前年份的后20年
+    	var myDate= new Date();
+		var startYear=myDate.getFullYear();//起始年份
+		var endYear=myDate.getFullYear()+20;//结束年份
+		for (var i=startYear;i<=endYear;i++)
+		{
+			this.slotsone[0].values.push(i)
+		}
+    },
+    getDayTimes () { //js获取当月的天数
+    	 var curDate = new Date();
+    	 var dayTime = null;
+        /* 获取当前月份 */
+          var curMonth = curDate.getMonth();
+        /*  生成实际的月份: 由于curMonth会比实际月份小1, 故需加1 */
+        curDate.setMonth(curMonth + 1);
+        /* 将日期设置为0, 这里为什么要这样设置, 我不知道原因, 这是从网上学来的 */
+        curDate.setDate(0);
+        /* 返回当月的天数 */
+//      console.log(curDate.getDate())
+		dayTime = curDate.getDate()
+		for(var i=1; i<=dayTime; i++) {
+			this.slotsone[4].values.push(i)
+		}
+		console.log(this.slotsone[4].values)
+        return curDate.getDate();
+  	}
   },
   mounted(){
-    //   alert(this.$store.state.vins)
+    this.getYear();
+    this.getDayTimes()
   }
 };
 </script>
