@@ -183,6 +183,6 @@
   }
   input:focus {
     outline:none;
-    border: 0.02rem solid #49BBFF;
+    /* border: 0.02rem solid #49BBFF; */
   }
 </style>
