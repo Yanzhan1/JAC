@@ -213,10 +213,11 @@
         })
       },
       toPic: function (id) {
+        console.log("晒图", this.$store.state.userId, this.content.activityId)
         if (isMobile.iOS()) {
           window.webkit.messageHandlers.toPic.postMessage("");
         } else if (isMobile.Android()) {
-          NativeJavaScriptInterface.send("晒图");
+          NativeJavaScriptInterface.send("晒图", this.$store.state.userId, this.content.activityId);
         }
       },
       self(id) {
