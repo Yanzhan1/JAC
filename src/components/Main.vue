@@ -49,20 +49,20 @@
 				const data = response.data;
 				var system = this.isIOSOrAndroid();
 				switch (data.code) { //判断接口状态,403  token失效,重新登录
-				 	case 403: 
-				 		if (system == 'Android') {
+				 	case 403:
+				 		if (system == 'Android' && window.js2android) {
 				 			window.js2android.logout() //安卓退出App
-				 		} else if (system == "IOS") {
+				 		} else if (system == "IOS" && window.webkit) {
 				 			window.webkit.messageHandlers.logout.postMessage({}); //IOS退出app
 				 		}
 				 		break;
 				}
-				if (response.config.url != 'http://test.jac.timanetwork.net/api/jac-car-control/vehicle/vehicle-async-results') {	
-					this.loadingnum--;  
-                    if(this.loadingnum == 0){
-                        this.loadingflag = false;
-                        this.$forceUpdate();                                  
-                    }
+				if (response.config.url != 'http://test.jac.timanetwork.net/api/jac-car-control/vehicle/vehicle-async-results') {
+					this.loadingnum--;
+          if(this.loadingnum == 0){
+              this.loadingflag = false;
+              this.$forceUpdate();
+          }
 				} else {
 					 this.loadingflag = false;
 				}
