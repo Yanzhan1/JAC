@@ -297,8 +297,10 @@ export default {
         userNo: this.$store.state.userId
       };
       this.$http.post(My.RecomendCode, param).then(res => {
-        if (res.data.code == 0) {
+      
+        if (res.data.code == 0) {  
           this.share = res.data.data.code;
+       
           this.flag = true;
         }
       });
