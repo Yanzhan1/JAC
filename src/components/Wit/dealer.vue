@@ -574,8 +574,15 @@
 		background: #fff;
 		border-top: 1px solid #e3e3e3;
 		border-bottom: 1px solid #e3e3e3;
-		overflow-y: auto;
+		overflow: hidden;		
+		white-space: nowrap;
+		text-overflow: ellipsis;
 		z-index: 5;
+	}
+	.con .selection-list ul {
+		overflow: hidden;		
+		white-space: nowrap;
+		text-overflow: ellipsis;
 	}
 	
 	.con .selection-list li {

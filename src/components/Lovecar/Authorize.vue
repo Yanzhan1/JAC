@@ -17,7 +17,7 @@
                 </div>
                 <div class="starttimes" @click="endrights">
                     <div style="width:2rem;" >结束时间</div>
-                    <span style="margin-left:2rem;" ref="endd">{{this.end[0]}}{{this.end[1]?'-':''}}{{this.end[2]?'-':''}}{{this.end[1]}}{{this.end[2]}} {{this.end[3]}}</span>
+                    <span style="margin-left:2rem;" ref="endd">{{this.end[0]}}{{this.end[1]?'-':''}}{{this.end[1]}}{{this.end[2]?'-':''}}{{this.end[2]}} {{this.end[3]}}</span>
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem" >
                 </div>
             </div>
