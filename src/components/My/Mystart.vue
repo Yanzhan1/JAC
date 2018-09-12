@@ -25,7 +25,7 @@
           </div>
           <div @click="toFocus">
             <span>关注</span>
-            <span>{{focsNum}}</span>
+            <span>{{focusNum}}</span>
           </div>
           <div @click="toFans">
             <span>粉丝</span>
