@@ -27,8 +27,8 @@
                   <span class="f_left">{{item.readNum}}</span>
                   <!--是否点赞以及点赞数量-->
                   <span class="f_right">{{item.likeNum}}</span>
-                  <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveInformationLike(item.manageId,index)"/>
-                  <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeInformationLike(item.manageId,index)"/>
+                  <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveInformationLike(item.id, index, 2)"/>
+                  <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeInformationLike(item.id, index, 2)"/>
                 </div>
               </div>
             </div>
@@ -133,7 +133,7 @@
                   <img src="../../../../static/images/discover/eye.png" class="f_left"/>
                   <span class="f_left">{{item.readNum}}</span>
                   <span class="f_right">{{item.likeNum}}</span>
-                  <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveMomentLike(item.id,index,2)"/>
+                  <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveMomentLike(item.id, index, 2)"/>
                   <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeMomentLike(item.id,index,2)"/>
                 </div>
                 <!--阅读数量,是否点赞以及点赞数量E-->
