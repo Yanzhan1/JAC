@@ -12,12 +12,12 @@
             <div class="">
                 <div class="starttimes" @click="startlefts">
                     <div style="width:2rem;">起始时间</div>
-                    <span style="margin-left:2rem;" ref="startt">{{this.start[0]}}-{{this.start[1]}}-{{this.start[2]}} {{this.start[3]}}</span>
+                    <span style="margin-left:2rem;" ref="startt">{{this.start[0]}}{{this.start[1]?'-':''}}{{this.start[1]}}{{this.start[2]?'-':''}}{{this.start[2]}} {{this.start[3]}}</span>
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem" >
                 </div>
                 <div class="starttimes" @click="endrights">
                     <div style="width:2rem;" >结束时间</div>
-                    <span style="margin-left:2rem;" ref="endd">{{this.end[0]}}-{{this.end[1]}}-{{this.end[2]}} {{this.end[3]}}</span>
+                    <span style="margin-left:2rem;" ref="endd">{{this.end[0]}}{{this.end[1]?'-':''}}{{this.end[2]?'-':''}}{{this.end[1]}}{{this.end[2]}} {{this.end[3]}}</span>
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem" >
                 </div>
             </div>
@@ -35,7 +35,7 @@
         <div v-show="this.endright" class="starts">
             <div style="text-align:center;line-height:1rem;font-size:.3rem;">选择结束时间</div>
             <div style="float:right;margin-right:.3rem;color:#49BBFF;" @click="hided2">确定</div>
-            <mt-picker :slots="slotsone" @change="onValuesChangend" style="height:4rem;margin-top:1rem;"></mt-picker>
+            <mt-picker :slots="slotstwo" @change="onValuesChangend" style="height:4rem;margin-top:1rem;"></mt-picker>
         </div>
         <!-- <router-link :to="{name:'Authorize_next',params:{a:this.shang,b:this.xia}}" tag="button" class="bottom-btn" @click.native="next">发送授权</router-link> -->
         <button class="bottom-btn" @click='next'>发送授权</button>
@@ -57,6 +57,80 @@ export default {
         end:[],//起始时间
         Account:'',
          slotsone: [
+            {
+            flex: 1,
+            values: [],
+            className: 'slot1',
+            textAlign: 'center'
+            }, {
+            divider: true,
+            content: '-',
+            className: 'slot2'
+            }, {
+            flex: 1,
+            values:[
+                "01",
+                "02",
+                "03",
+                "04",
+                "05",
+                "06",
+                "07",
+                "08",
+                "09",
+                "10",
+                "11",
+                "12"
+            ],
+            className: 'slot3',
+            textAlign: 'center'
+            },{
+            divider: true,
+            content: '-',
+            className: 'slot4'
+            }, {
+            flex: 1,
+            values:[
+            ],
+            className: 'slot5',
+            textAlign: 'center'
+            }, {
+            divider: true,
+            content: ' ',
+            className: 'slot6'
+            },{
+            flex: 1,
+            values: [
+                '00:00',
+                "01:00",
+                "02:00",
+                "03:00",
+                "04:00",
+                "05:00",
+                "06:00",
+                "07:00",
+                "08:00",
+                "09:00",
+                "10:00",
+                "11:00",
+                "12:00",
+                "13:00",
+                "14:00",
+                "15:00",
+                "16:00",
+                "17:00",
+                "18:00",
+                "19:00",
+                "20:00",
+                "21:00",
+                "22:00",
+                "23:00",
+            ],
+            className: 'slot7',
+            textAlign: 'center'
+            }
+        ],
+        slotstwo: [
             {
             flex: 1,
             values: [],
@@ -204,13 +278,37 @@ export default {
       },
        onValuesChange(picker, values) {
            this.start=values
-           this.shang=this.$refs.startt.innerHTML
-           this.xia=this.$refs.endd.innerHTML
+           var curDate = new Date();
+	    	 var dayTime = null;
+	        /* 获取当前月份 */
+	          var curMonth = curDate.getMonth();
+	        /*  生成实际的月份: 由于curMonth会比实际月份小1, 故需加1 */
+	        curDate.setMonth(Number(this.start[1]));
+	        /* 将日期设置为0, 这里为什么要这样设置, 我不知道原因, 这是从网上学来的 */
+	        curDate.setDate(0);
+	        /* 返回当月的天数 */
+			dayTime = curDate.getDate()
+			this.slotsone[4].values = []
+			for(var i=1; i<=dayTime; i++) {
+				this.slotsone[4].values.push(i)
+			}
     },
         onValuesChangend(picker, values) {
             this.end=values
-            this.xia=this.$refs.endd.innerHTML
-            this.shang=this.$refs.startt.innerHTML
+            var curDate = new Date();
+            var dayTime = null;
+	        /* 获取当前月份 */
+	          var curMonth = curDate.getMonth();
+	        /*  生成实际的月份: 由于curMonth会比实际月份小1, 故需加1 */
+	        curDate.setMonth(Number(this.end[1]));
+	        /* 将日期设置为0, 这里为什么要这样设置, 我不知道原因, 这是从网上学来的 */
+	        curDate.setDate(0);
+	        /* 返回当月的天数 */
+			dayTime = curDate.getDate()
+			this.slotstwo[4].values = []
+			for(var i=1; i<=dayTime; i++) {
+				this.slotstwo[4].values.push(i)
+			}
     },
     getYear () { //当前年份的后20年
     	var myDate= new Date();
@@ -219,30 +317,17 @@ export default {
 		for (var i=startYear;i<=endYear;i++)
 		{
 			this.slotsone[0].values.push(i)
+			this.slotstwo[0].values.push(i)
 		}
     },
     getDayTimes () { //js获取当月的天数
-    	 var curDate = new Date();
-    	 var dayTime = null;
-        /* 获取当前月份 */
-          var curMonth = curDate.getMonth();
-        /*  生成实际的月份: 由于curMonth会比实际月份小1, 故需加1 */
-        curDate.setMonth(curMonth + 1);
-        /* 将日期设置为0, 这里为什么要这样设置, 我不知道原因, 这是从网上学来的 */
-        curDate.setDate(0);
-        /* 返回当月的天数 */
-//      console.log(curDate.getDate())
-		dayTime = curDate.getDate()
-		for(var i=1; i<=dayTime; i++) {
-			this.slotsone[4].values.push(i)
-		}
-		console.log(this.slotsone[4].values)
-        return curDate.getDate();
+    	 
+//      return curDate.getDate();
   	}
   },
   mounted(){
     this.getYear();
-    this.getDayTimes()
+//  this.getDayTimes()
   }
 };
 </script>
