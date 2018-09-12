@@ -28,6 +28,7 @@
 
 <script>
 import { MessageBox } from "mint-ui";
+import { Toast } from "mint-ui";
 export default {
   name: "wifiSetup",
   data() {
@@ -154,7 +155,21 @@ export default {
     },
 
     confirm() {
-      MessageBox.confirm("", {
+      var regNum =  /^[x00-x7f]{8,16}$/;
+      if (this.wifiData.name == '' || this.wifiData.pwd == '') {
+  			Toast({
+              message: "输入不能为空",
+              position: "middle",
+              duration: 2000
+            });
+      } else if (!regNum.test(this.wifiData.name) || !regNum.test(this.wifiData.pwd)) {
+      		Toast({
+              message: "请输入8-16位数字或字母wifi名称和密码",
+              position: "middle",
+              duration: 2000
+            });
+      } else {
+      	MessageBox.confirm("", {
         title: "提示",
         message: "您确定保存当前WiFi信息吗？？",
         showConfirmButton: true,
@@ -187,7 +202,7 @@ export default {
                 if (res.data.returnSuccess) {
                   this.getAsyReturn(res.data.operationId);
                 } else {
-                  if (res.data.returnErrCode == 400) {
+                  if (res.data.returnErrCode == 403) {
                     Toast({
                       message: "token验证失败",
                       position: "middle",
@@ -226,6 +241,7 @@ export default {
             console.log("cancel");
           }
         });
+      }     
     }
   },
   mounted() {
