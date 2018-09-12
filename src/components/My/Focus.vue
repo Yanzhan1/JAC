@@ -8,7 +8,7 @@
       <div style="margin-top: 1.2rem;"></div>
       <ul class="wrap_92" v-for="item in list">
           <li>
-            <img v-if="item.user" :src="item.user.head_image" class="headPic">
+            <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="headPic">
             <img v-else src="../../../static/images/discover/normalhead.png" class="headPic">
             <div class="nameBox">
               <span v-if="item.user" class="name">{{item.user.nick_name}}</span>
