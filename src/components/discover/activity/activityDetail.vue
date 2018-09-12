@@ -217,7 +217,7 @@
         if (isMobile.iOS()) {
           window.webkit.messageHandlers.toPic.postMessage("");
         } else if (isMobile.Android()) {
-          NativeJavaScriptInterface.send("晒图", this.$store.state.userId, this.content.activityId);
+          js2android.send("晒图", this.$store.state.userId, this.content.activityId);
         }
       },
       self(id) {
