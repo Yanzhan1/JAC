@@ -90,7 +90,7 @@
                       <span v-if="index!=0 && back.beCommentUser" @click="changeUserStartId(back.beCommentUser.user_id)">
                         &nbsp;&nbsp;回复&nbsp;&nbsp;
                         <span v-if="back.beCommentUser.nick_name">{{back.beCommentUser.nick_name}}</span>
-                        <span>尚未设置昵称:</span><br>
+                        <span v-else>尚未设置昵称:</span><br>
                       </span>
                     </span>
                     <span class="font_2" @click="commentbtnBack(item.id,back.id)">{{back.message}}</span>
