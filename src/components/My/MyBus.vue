@@ -1,10 +1,10 @@
 <template>
   <div class="my-bus">
     <header class="header">
-      <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+      <img class="header-left" :src="'/static/images/back@2x.png'" @click="$router.go(-1)">
       <span class="header-title">我的车辆</span>
       <span class="header-right">
-        <router-link tag="img" to="/myindex/addBus" style="width: 0.36rem;height: 0.36rem;" :src="'./static/images/my/mycar_add.png'"></router-link>
+        <router-link tag="img" to="/myindex/addBus" style="width: 0.36rem;height: 0.36rem;" :src="'/static/images/my/mycar_add.png'"></router-link>
       </span>
     </header>
     <div style="height:0.88rem"></div>
@@ -31,10 +31,10 @@
             <router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{vin:item.vin}}"></router-link>
           </div>
           <div class="flex row cocenter">
-            <span class="commonFontSize">车架号：{{item.engineNo}}</span>
+            <span class="commonFontSize">车架号：{{item.vin}}</span>
 </div>
           <div>
-            <span class="commonFontSize">发动机号：{{item.vin}}</span>
+            <span class="commonFontSize">发动机号：{{item.engineNo}}</span>
           </div>
         </div>
       </li>
@@ -57,7 +57,8 @@ export default {
   methods: {
     //我的车辆
     MyBus() {
-     this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
+      //  alert(JSON.stringify(this.$store.state.getpin))
+      this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
         if (res.data.returnSuccess) {
           this.BusDetails = res.data.data;
           for(let i=0;i< res.data.data.length;i++){
@@ -162,9 +163,22 @@ export default {
       });
     },
   },
-  created() {
+  mounted(){
     this.MyBus();
-  }
+  },
+  created() {
+    
+  },
+  //  computed:{
+  //     userId(){
+  //       return  JSON.parse(this.$store.state.getpin.headers.identityParam).userId
+  //     }
+  // },
+  // watch:{
+  //     userId(newVal,oldVal){
+  //       alert(1)
+  //     }
+  // }
 };
 </script>
 

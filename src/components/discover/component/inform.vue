@@ -20,40 +20,37 @@
 
 <script>
   import { MessageBox } from 'mint-ui';
-  import { Radio } from 'mint-ui';
   import { Toast } from 'mint-ui';
-    export default {
-      name: "infrom",
-      data(){
-          return{
-            value:'色情低俗'
-          }
-      },
-      created(){
-        this.$store.state.UserStartId = this.$store.state.UserStartId;
-      },
-      methods:{
-        send: function () {
-          MessageBox.confirm('确定提交举报?').then(action => {
-            var _this = this;
-            this.$http.post(DISCOVERMESSAGE.informOthers, {"uid": _this.$store.state.userId,"lid":_this.$store.state.UserStartId,"informStatus":_this.value}).then(function (res) {
-              if (res.data.status) {
-                Toast('举报成功');
-                _this.$router.go(-1);
-              } else {
-                if(_this.$store.state.userId == null){
-                  _this.toLogin();
-                }else{
-                  MessageBox('提示', res.data.errorMsg);
-                }
-              }
-            });
-          });
+  export default {
+    name: "infrom",
+    data(){
+        return{
+          value:'色情低俗',
+          manageId:this.$route.query.manageId
         }
-      },
-      mounted(){
+    },
+    methods:{
+      send: function () {
+        var _this = this;
+        MessageBox.confirm('确定提交举报?').then(action => {
+          this.$http.post(DISCOVERMESSAGE.informOthers, {"uid": _this.$store.state.userId,"lid":_this.manageId,"informStatus":_this.value}).then(function (res) {
+            if (res.data.status) {
+              Toast('举报成功');
+              _this.$router.go(-1);
+            } else {
+              if(_this.$store.state.userId == null){
+                _this.toLogin();
+              }else{
+                MessageBox('提示', res.data.errorMsg);
+              }
+            }
+          });
+        });
       }
+    },
+    mounted(){
     }
+  }
 </script>
 
 <style scoped>

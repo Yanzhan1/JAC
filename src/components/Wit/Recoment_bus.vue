@@ -10,10 +10,10 @@
     </header>
     <div style="height:.88rem"></div>
     <ul>
-      <li class="bus_li" v-for="(item,index) in this.mainbus" :key="index">
+      <li class="bus_li" v-for="(item,index) in this.mainbus" :key="index" @click="tode()">
         <img src="../../../static/images/Wit/bg-mine.png" alt="">
         <div class="bus_1">
-          <span class="bus_2">{{item.modelName}}</span>
+          <span class="bus_2">{{item.seriesName}}</span>
           <span class="bus_3">
             <span style="color:#a5a5a5;font-size:.22rem"> 官方指导价</span> ：{{item.guidancePrice}}万起</span>
         </div>
@@ -26,8 +26,8 @@
       </div>
       <div class="flex row cocenter roe">
         <!-- <label class="input-label" :class="{active: selected_all}" @click="slect_all"></label> -->
-         <label><input type="radio" v-model="gender" :value="'null'"/></label>
-        <span class="txt" style="margin-left:.1rem">全选</span>
+         <label ><input type="radio" v-model="gender" :value="null" /></label>
+         <span class="txt" style="margin-left:.1rem">全选</span>
       </div>
       <ul class="flex row wrap between">
         <li class="flex row cocenter list_li" v-for="(item,index) in good_list" :key="index">
@@ -57,54 +57,52 @@ export default {
       choosebus: {}, //选择频道
       arr:[],
       gender:'',
-      good_list: [
-        // { brandName: "乘用车", is_selected: false },
-        // { brandName: "新能源", is_selected: false },
-        // { brandName: "商务车", is_selected: false },
-        // { brandName: "轻卡", is_selected: false },
-        // { brandName: "皮卡", is_selected: false },
-        // { brandName: "重卡", is_selected: false }
-      ]
+      good_list: [],
+      gender:"null" //全选默认选中
     };
   },
   methods: {
     shai() {
       this.popupVisible = true;
     },
-    select_one(index) {
+    tode(){
+  this.$router.push("/wit/Characteristic");
+    },
     
-      if (this.good_list[index].is_selected == true) {
-        this.good_list[index].is_selected = false;
-      } else {
-        this.good_list[index].is_selected = true;
-      }
-    },
-    slect_all() {
-      if (this.selected_all) {
-        for (var i = 0; i < this.good_list.length; i++) {
-          this.good_list[i].is_selected = false;
-        }
-        this.selected_all = false;
-      } else {
-        for (var i = 0; i < this.good_list.length; i++) {
-          this.good_list[i].is_selected = true;
-        }
-        this.selected_all = true;
-      }
-    },
+    // select_one(index) {
+    //   if (this.good_list[index].is_selected == true) {
+    //     this.good_list[index].is_selected = false;
+    //   } else {
+    //     this.good_list[index].is_selected = true;
+    //   }
+    // },
+    // slect_all() {
+    //   if (this.selected_all) {
+    //     for (var i = 0; i < this.good_list.length; i++) {
+    //       this.good_list[i].is_selected = false;
+    //     }
+    //     this.selected_all = false;
+    //   } else {
+    //     for (var i = 0; i < this.good_list.length; i++) {
+    //       this.good_list[i].is_selected = true;
+    //     }
+    //     this.selected_all = true;
+    //   }
+    // },
     //切换频道
     fn(num) {
-      if(num=2){
+      if(num==2){
           var arr=this.arr
             var param = {
               'highlyRecommend': this.highlyRecommend,
-               nos:this.gender
+               no:this.gender
              };
-          console.log(param)
+            
              this.$http.post(Wit.MainBus,param).then(res=>{
               if (res.data.code == 0){
               this.mainbus={},
               this.mainbus=res.data.data
+              
             }
              })
          // for(let i=0;i<this.good_list.length;i++){
@@ -124,16 +122,18 @@ export default {
         //     })
         //   }
         // }
+      }else{
+       
       }
       this.popupVisible = false;
     },
-    //渲染列表
+    //渲染列表   1
     getcarbus(num) {
-      if (num == 1) {
+      if (num == 1) {  //等于1 传“” 。 获取全部车型
         this.type = 1;
         this.highlyRecommend = "";
       } else {
-        this.type = 2;
+        this.type = 2; //等于2 传“1” 。 获取主推车型
         this.highlyRecommend = "1";
       }
       var param = {
@@ -143,14 +143,13 @@ export default {
         if (res.data.code == 0) {
           this.mainbus = {};
           this.mainbus = res.data.data;
-        }
+          }
       });
     },
     //切换频道 多选框
     choosemore() {
       var param = {};
-      console.log(this.$store.state.mytoken)
-      this.$http.post(Wit.Switching,param)
+     this.$http.post(Wit.Switching,param)
         .then(res => {
           if (res.data.code == 0) {
              this.choosebus = res.data.data;

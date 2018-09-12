@@ -19,22 +19,23 @@
           <img src="../../../../static/images/discover/qqkongjian.png" class="shareIcon" @click="toShare(item,'QQ')"/>
           <span style="color: #222222;">QQ空间</span>
         </div>
-        <div class="shareBox">
-          <img src="../../../../static/images/discover/weibo.png" class="shareIcon" @click="toShare(item,'SELF')"/>
-          <span style="color: #222222;">微博</span>
-        </div>
       </div>
+      <div class="shareBox" v-if="isCenter && flag=='person'">
+        <img src="../../../../static/images/discover/yijubao.png" class="shareIcon" @click="inform(item.id)"/>
+        <span style="color: #222222;">举报</span>
+      </div>
+
       <!--此刻（举报）-->
-      <div  v-if="isCenter && flag=='person'">
+      <!--<div  v-if="isCenter && flag=='person'">
         <div class="shareBox mt_4">
           <img src="../../../../static/images/discover/yijubao.png" class="shareIcon" @click="inform(item.user.user_id,'SELF')"/>
           <span style="color: #222222;">举报</span>
         </div>
-        <!--<div class="shareBox mt_4">
+        &lt;!&ndash;<div class="shareBox mt_4">
           <img src="../../../../static/images/discover/jubao.png" class="shareIcon" @click="inform(item.user.user_id,'SELF')"/>
           <span style="color: #222222;">已举报</span>
-        </div>-->
-      </div>
+        </div>&ndash;&gt;
+      </div>-->
       <!--资讯、活动（收藏）-->
       <div v-else>
         <div class="shareBox mt_4" v-if="collectionStatus" @click="collection">
@@ -157,9 +158,9 @@
         }
       },
       //跳转到举报页面
-      inform: function (userId) {
-        this.$store.state.UserStartId = userId;
-        this.$router.push('/component/inform');
+      inform: function (manageId) {
+        debugger
+        this.$router.push({ path: '/component/inform', query: {'manageId':manageId} });
       },
       back:function () {
         this.$emit('closeShare')
@@ -222,7 +223,7 @@
   .contentWrap{
     width: 92%;
     padding: 0.4rem;
-    height: 28%;
+    height: 14%;
     z-index: 999666;
     background: #fdfdfd;
     border-radius: 0.08rem;
@@ -233,7 +234,7 @@
   .personWrap{
     width: 92%;
     padding: 0.2rem;
-    height: 16%;
+    height: 11%;
     z-index: 999666;
     background: #fdfdfd;
     border-radius: 0.08rem;
@@ -244,13 +245,12 @@
   .contentShare{
     height: 48%;
     width: 100%;
-    border-bottom: 0.02rem solid #f1f1f1;
   }
   .personShare{
     height: 48%;
     width: 100%;
   }
   .mt_4{
-    margin-top: 0.4rem;
+    //margin-top: 0.4rem;
   }
 </style>

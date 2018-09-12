@@ -76,7 +76,7 @@
 //				localStorage.setItem('check', true)
 				this.countDown();
 				var phone=this.pin.phone
-				this.$http.post(Lovecar.Getphonepin,{phoneNum: phone}, this.$store.state.getPin)
+				this.$http.post(Lovecar.Getphonepin,{phoneNum: phone}, this.$store.state.tsppin)
 				.then((res)=>{
 					const data = res.data;
 					if (data.returnSuccess) {
@@ -110,7 +110,7 @@
 					return false;
 				} else {
 					if(this.pin.verificationCode==this.Verification){
-						this.$http.post(Lovecar.Findcode,{newPin:this.pin.newPin},this.$store.state.getpin).then((res)=>{
+						this.$http.post(Lovecar.Findcode,{newPin:this.pin.newPin,phoneNum:this.pin.phone,phoneIdentifyCode:this.pin.verificationCode,},this.$store.state.tsppin).then((res)=>{
 							console.log(res)
 							this.$router.push('/lovecar/reviseSuccess')
 							})

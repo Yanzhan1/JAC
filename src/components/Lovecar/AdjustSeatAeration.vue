@@ -79,7 +79,7 @@
 		<!--座椅主体End-->
 		<!--pin码弹出框Start-->
 		<div class="bgMask" v-if="popupVisible" @click="removeMask"></div>
-		<mt-popup v-model="popupVisible" :modal="false">
+		<mt-popup v-model="popupVisible" :modal="false" popup-transition="popup-fade">
 			<div class="pin-remain">
 				<div class="flex-center-between">
 					<img @click="removeMask" :src="'./static/images/Wit/delete@3x.png'" alt="" style="width:.28rem">
@@ -103,11 +103,11 @@
 		</mt-popup>
 		<!--pin码弹出框End-->
 		<!--自定义软键盘Start-->
-		<div class="typer" v-show="showTyper!=0">
+		<mt-popup class="typer" v-show="showTyper!=0" position="bottom">
 			<ul v-show="showTyper==2">
 				<li class="typer-num" v-for="item in keyNums" :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}" @click="input(item)">{{item}}</li>
 			</ul>
-		</div>
+		</mt-popup>
 		<!--自定义软键盘End-->
 	</div>
 </template>
@@ -115,6 +115,7 @@
 <script>
 import { Createarc } from "../../../static/js/drawarc.js";
 import { Toast } from "mint-ui";
+import { Popup } from "mint-ui";
 export default {
   name: "adjustSeatAeration",
   data() {
@@ -344,7 +345,7 @@ export default {
         .post(
           Lovecar.OperationId,
           { operationId: operationId },
-          this.$store.state.getpin
+          this.$store.state.tsppin
         )
         .then(res => {
           var tS = new Date().getTime() - this.sjc; //时间戳 差
@@ -366,7 +367,7 @@ export default {
                     .post(
                       Lovecar.OperationId,
                       { operationId: operationId },
-                      this.$store.state.getpin
+                      this.$store.state.tsppin
                     )
                     .then(res => {
                       var tS = new Date().getTime() - this.sjc; //时间戳 差
@@ -474,7 +475,7 @@ export default {
         }
       };
       this.$http
-        .post(Lovecar.Control, param, this.$store.state.getpin)
+        .post(Lovecar.Control, param, this.$store.state.tsppin)
         .then(res => {
           this.operationIds = res.data.operationId;
           console.log(this.operationIds);
@@ -528,7 +529,7 @@ export default {
         }
       };
       this.$http
-        .post(Lovecar.Control, param, this.$store.state.getpin)
+        .post(Lovecar.Control, param, this.$store.state.tsppin)
         .then(res => {
           this.operationIdss = res.data.operationId;
           console.log(this.operationIdss);
@@ -546,7 +547,7 @@ export default {
           //       .post(
           //         Lovecar.OperationId,
           //         { operationId: this.operationIdss },
-          //         this.$store.state.getpin
+          //         this.$store.state.tsppin
           //       )
           //       .then(res => {
           //         console.log(res);
@@ -563,7 +564,7 @@ export default {
       .post(
         Lovecar.Carquery,
         { vins: [this.$store.state.vins] },
-        this.$store.state.getpin
+        this.$store.state.tsppin
       )
       .then(res => {
         if (res.data.returnSuccess) {
@@ -618,7 +619,7 @@ export default {
             {
               pin: nums
             },
-            this.$store.state.getpin
+            this.$store.state.tsppin
           )
           .then(res => {
             const data = res.data;
@@ -681,7 +682,7 @@ export default {
             {
               pin: nums
             },
-            this.$store.state.getpin
+            this.$store.state.tsppin
           )
           .then(res => {
             const data = res.data;

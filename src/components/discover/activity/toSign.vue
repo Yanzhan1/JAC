@@ -44,7 +44,7 @@
       </div>
     </div>
     <mt-popup v-model="popupVisible">
-      <p style="padding: 0.2rem 0.4rem;font-size: 0.28rem;color: #222222;">您已成功报名</p>
+      <p style="padding: 0.2rem 0.4rem;font-size: 0.28rem;color: #222222;">您已报名成功</p>
     </mt-popup>
   </div>
 </template>
@@ -116,15 +116,17 @@
         //手机号正则
         var phoneReg = /(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/;
         //大于0的正整数正则
-        var peopleReg = /^[1-9]{1,}[\d]*$/;
+        var peopleReg = /^([1-9]|10)$/;
         //电话
         var phone = $.trim(_this.phoneNum);
         if (!phoneReg.test(phone)) {
           MessageBox('提示', "请输入有效的手机号码");
           return false;
         }
-        if (!peopleReg.test(this.peopleNumber)) {
-          MessageBox('提示', "请输入有效预约人数");
+        console.log(_this.peopleNumber)
+        if (!peopleReg.test(_this.peopleNumber)) {
+          console.log(_this.peopleNumber)
+          MessageBox('提示', "报名人数最多10人");
           return false;
         }
         var joinInfo = {"uid": _this.userId,"aid": _this.activityId,"reservationNum":_this.peopleNumber,"childFlag":child,"name":_this.user,"phone":_this.phoneNum};
@@ -178,5 +180,9 @@
   }
   .mint-popup-4{
     height: 3.4rem;
+  }
+  input:focus {
+    outline:none;
+    border: 0.02rem solid #49BBFF;
   }
 </style>

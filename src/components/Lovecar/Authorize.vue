@@ -183,7 +183,7 @@ export default {
           }
           else{
               var param={
-                    vin: this.$store.state.vin, 
+                    vin: this.$store.state.vins, 
                     operationType: "CONTROL_AUTH", 
                     operation: 1, 
                     extParams: {
@@ -192,7 +192,7 @@ export default {
                     endTime: xia,
                 }
             }
-        this.$http.post(Lovecar.Longrange,param,this.$store.state.getpin).then((res)=>{
+        this.$http.post(Lovecar.Longrange,param,this.$store.state.tsppin).then((res)=>{
             console.log(res)
             if(res.data.returnSuccess){
                 this.$router.push({
@@ -202,6 +202,12 @@ export default {
                         b:this.xia
             }
          })
+            }else{
+                Toast({
+                    message:res.data.returnErrMsg,
+                    position:'middle',
+                    duration:2000,
+                })
             }
         })
           }
@@ -239,7 +245,7 @@ export default {
     }
   },
   mounted(){
-
+    //   alert(this.$store.state.vins)
   }
 };
 </script>

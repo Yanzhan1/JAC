@@ -3,8 +3,8 @@
     <div class="nav">
       <img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
       <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;{{this.carsysitem}}</span>
-      <span class="txt_r" @click="islogin()" v-if="this.LoginStatus">机车已登录</span>
-      <span class="txt_r" v-else @click="login()">机车未登录</span>
+      <span class="txt_r" @click="islogin()" v-if="this.LoginStatus">车机已登录</span>
+      <span class="txt_r" v-else @click="login()">车机未登录</span>
     </div>
     <div class="navs navs_h">
       <div class="navs_t">
@@ -242,6 +242,11 @@ export default {
       engineStatus: ""
     };
   },
+  //  beforeRouteEnter :(to, from, next)=> {
+  //   next(vm=>{
+  //     alert(vm.$store.state.tsppin.headers.identityParam)
+  //   })
+  // },
   methods: {
     // shows(){
     //   popupVisible: true
@@ -384,7 +389,7 @@ export default {
     },
     //获取默认车辆vin码
     // MyBus() {
-    //   this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
+    //   this.$http.post(My.My_Bus, {}, this.$store.state.tsppin).then(res => {
     //     if (res.data.returnSuccess) {
     //       this.BusDetails = res.data.data;
     //       console.log(res.data.data)
@@ -423,7 +428,7 @@ export default {
         .post(
           Lovecar.Carquery,
           { vins: [this.$store.state.vins] },
-          this.$store.state.getpin
+          this.$store.state.tsppin
         )
         .then(res => {
           if (res.data.returnSuccess) {
@@ -463,7 +468,7 @@ export default {
         operation: "1"
       };
       this.$http
-        .post(Lovecar.LoginOut, param, this.$store.state.getpin)
+        .post(Lovecar.LoginOut, param, this.$store.state.tsppin)
         .then(res => {
           if (res.status == 200) {
             Toast({
@@ -482,7 +487,7 @@ export default {
         .post(
           Lovecar.OperationId,
           { operationId: operationId },
-          this.$store.state.getpin
+          this.$store.state.tsppin
         )
         .then(res => {
           var tS = new Date().getTime() - this.sjc; //时间戳 差
@@ -504,7 +509,7 @@ export default {
                     .post(
                       Lovecar.OperationId,
                       { operationId: operationId },
-                      this.$store.state.getpin
+                      this.$store.state.tsppin
                     )
                     .then(res => {
                       var tS = new Date().getTime() - this.sjc; //时间戳 差
@@ -523,7 +528,7 @@ export default {
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
-                          // console.log(res.data.data)
+                          console.log(res.data.data)
                           this.carcontrol = res.data.data;
                           this.carcontrol.engineHoodStsFront
                             ? (this.engineHoodStsFront = "已开")
@@ -544,12 +549,6 @@ export default {
                             right_bottom: this.carcontrol.tirePressureRearRight
                           };
                           this.Condition = tai;
-                          // alert(JSON.stringify(this.carcontrol))
-                          // Toast({
-                          //   message: "下达指令成功",
-                          //   position: "middle",
-                          //   duration: 2000
-                          // });
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
@@ -576,7 +575,7 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              // console.log(res.data.data)
+              console.log(res.data.data)
               this.carcontrol = res.data.data;
               this.carcontrol.engineHoodStsFront
                 ? (this.engineHoodStsFront = "已开")
@@ -597,13 +596,6 @@ export default {
                 right_bottom: this.carcontrol.tirePressureRearRight
               };
               this.Condition = tai;
-              // alert(JSON.stringify(this.carcontrol))
-              // console.log(this.carcontrol)
-              // Toast({
-              //   message: "下达指令成功",
-              //   position: "middle",
-              //   duration: 2000
-              // });
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
@@ -628,7 +620,13 @@ export default {
     //手动刷新
     loading(){
       this.Carquerry()
+      this.activeshow=1
     }
+  },
+  computed:{
+      userId(){
+        return  JSON.parse(this.$store.state.tsppin.headers.identityParam).userId
+      }
   },
   //检测输入框
   watch: {
@@ -643,21 +641,24 @@ export default {
               {
                 pin: PIN
               },
-              this.$store.state.getpin
+              this.$store.state.tsppin
             )
             .then(res => {
-              if(returnSuccess=='true'){
+              // alert(1)
+              // alert(res.data.returnSuccess)
+              if(res.data.returnSuccess){
                 if (this.type == 1) {
                   //车辆锁定的接口
+                  // alert(this.$store.state.vins)
                   this.isTrue = !this.isTrue;
                   this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
-                  var param = {
+                  var params = {
                     vin: this.$store.state.vins,
                     operationType: "LOCK",
                     operation: this.locknum //操作项
                   };
                   this.$http
-                    .post(Lovecar.Control, param, this.$store.state.getpin)
+                    .post(Lovecar.Control, params, this.$store.state.tsppin)
                     .then(res => {
                       this.operationIds = res.data.operationId;
                       if (res.data.returnSuccess) {
@@ -696,7 +697,7 @@ export default {
                     operation: this.backnum
                   };
                   this.$http
-                    .post(Lovecar.Control, param, this.$store.state.getpin)
+                    .post(Lovecar.Control, param, this.$store.state.tsppin)
                     .then(res => {
                       if (res.data.returnSuccess) {
                         this.getAsyReturn(res.data.operationId);
@@ -733,7 +734,7 @@ export default {
                     operation: this.firenum //操作项
                   };
                   this.$http
-                    .post(Lovecar.Control, param, this.$store.state.getpin)
+                    .post(Lovecar.Control, param, this.$store.state.tsppin)
                     .then(res => {
                       this.operationIdss = res.data.operationId;
                       if (res.data.returnSuccess) {
@@ -771,7 +772,7 @@ export default {
                     operationType: "FIND_VEHICLE"
                   };
                   this.$http
-                    .post(Lovecar.Control, param, this.$store.state.getpin)
+                    .post(Lovecar.Control, param, this.$store.state.tsppin)
                     .then(res => {
                       this.operationIdses = res.data.operationId;
                       if (res.data.returnSuccess) {
@@ -815,12 +816,18 @@ export default {
               });
             });
       }
-    }
-  },
-  mounted() {
-    // this.$nextTick(()=>{
-    this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
-      if (res.data.returnSuccess) {
+    },
+    userId(newVal,oldVal){
+        this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
+    if (res.data.returnSuccess) {
+      // if(res.data==[]){
+      //   Toast({
+      //     message:'请先绑定车辆',
+      //     position:'middle',
+      //     duration:2000
+      //   })
+      // }else{
+        // alert(1)
         this.BusDetails = res.data.data;
         for (let i = 0; i < res.data.data.length; i++) {
           if (res.data.data[i].def == 1) {
@@ -830,36 +837,28 @@ export default {
             this.$store.dispatch("CARVINS", payload);
             // this.$store.state.vins = res.data.data[i].vin;
           }
-        }
-        this.vinn = this.$store.state.vins;
-        this.Carquerry();
-        // console.log(this.$store.state.mytoken.headers.timaToken);
+        // }
       }
-    });
-
-    // })
-    //暂时下载爱车页面取状态仓库中getpin的具体值
-    var sk=this.$store.state.getpin.headers.identityParam.split(",");
-    var skarr=[];
-    for(let i=0;i<sk.length;i++){
-      var arr=sk[i].split(':');
-      skarr.push({name:arr[1]})
+      this.vinn = this.$store.state.vins;
+      console.log(this.vinn)
+      this.Carquerry();
+      // console.log(this.$store.state.mytoken.headers.timaToken);
     }
-    //拿到state里面的userID
-    console.log(skarr[0].name.replace(/\{|}/g, '').replace(/\'/g,''))
-    //拿到state里面的token
-    console.log(skarr[1].name.replace(/\{|}/g, '').replace(/\'/g,''))
-    //拿到token里面的phone
-    console.log(skarr[2].name.replace(/\{|}/g, '').replace(/\'/g,''))
-    //暴露方法给原生,登入判断
-    window.getStatus = this.getStatus;
-    //获取机车 登录登出状态
-    this.$http.get(Lovecar.LogStatus, this.$store.state.getpin).then(res => {
-      if (res.data.returnSuccess) {
-        // alert(JSON.stringify( res.data))
-        this.LoginStatus = res.data.data[1] ? res.data.data[1].logStatus : [];
-      }
-    });
+  });
+    
+    }
+  },
+  mounted() {
+  //暴露方法给原生,登入判断
+  window.getStatus = this.getStatus;
+  //获取机车 登录登出状态
+  this.$http.get(Lovecar.LogStatus, this.$store.state.tsppin).then(res => {
+    if (res.data.returnSuccess) {
+      // alert(JSON.stringify( res.data))
+      this.LoginStatus = res.data.data[1] ? res.data.data[1].logStatus : [];
+    }
+  });
+
   }
 };
 </script>

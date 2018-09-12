@@ -24,7 +24,7 @@
 		data() {
 			return {
 				condition: { //后台需要传参
-					
+					userNo: this.$store.state.userId
 				},
 				questionContent: [], //意见内容
 				questionTyep: { //意见种类

@@ -59,7 +59,7 @@ export default {
         .post(
           Lovecar.OperationId,
           { operationId: operationId },
-          this.$store.state.getpin
+          this.$store.state.tsppin
         )
         .then(res => {
           var tS = new Date().getTime() - this.sjc; //时间戳 差
@@ -81,7 +81,7 @@ export default {
                     .post(
                       Lovecar.OperationId,
                       { operationId: operationId },
-                      this.$store.state.getpin
+                      this.$store.state.tsppin
                     )
                     .then(res => {
                       var tS = new Date().getTime() - this.sjc; //时间戳 差
@@ -174,7 +174,7 @@ export default {
         }
       };
       this.$http
-        .post(Lovecar.Control, param, this.$store.state.getpin)
+        .post(Lovecar.Control, param, this.$store.state.tsppin)
         .then(res => {
           if (res.data.returnSuccess) {
             this.getAsyReturn(res.data.operationId);
@@ -190,6 +190,7 @@ export default {
     wifisend() {}
   },
   mounted() {
+    // alert('link'+this.$store.state.vins)
     var param = {
       vin: this.$store.state.vins,
       operationType: "WIFI",
@@ -199,14 +200,13 @@ export default {
       }
     };
     this.$http
-      .post(Lovecar.Control, param, this.$store.state.getpin)
+      .post(Lovecar.Control, param, this.$store.state.tsppin)
       .then(res => {
-        console.log(res);
         this.operationIds = res.data.operationId;
         if (res.data.returnSuccess) {
-          // this.getAsyReturn(res.data.operationId);
+          this.getAsyReturn(res.data.operationId);
         } else {
-          if (res.data.returnErrCode == 400) {
+          if (res.data.returnErrCode == 403) {
             Toast({
               message: "token验证失败",
               position: "middle",

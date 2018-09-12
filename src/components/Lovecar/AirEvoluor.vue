@@ -89,7 +89,7 @@
 		</div>
 		<!--pin码弹出框Start-->
 		<div class="bgMask" v-if="popupVisible" @click="removeMask"></div>
-		<mt-popup v-model="popupVisible" :modal="false">
+		<mt-popup v-model="popupVisible" :modal="false" popup-transition="popup-fade">
 			<div class="pin-remain">
 				<div class="flex-center-between">
 					<img @click="removeMask" :src="'./static/images/Wit/delete@3x.png'" alt="" style="width:.28rem">
@@ -114,11 +114,11 @@
 		<!--pin码弹出框结束-->
 
 		<!--自定义软键盘Start-->
-		<div class="typer" v-show="showTyper!=0">
+		<mt-popup class="typer" v-show="showTyper!=0" position="bottom">
 			<ul v-show="showTyper==2">
 				<li class="typer-num" v-for="item in keyNums" :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}" @click="input(item)">{{item}}</li>
 			</ul>
-		</div>
+		</mt-popup>
 		<!--自定义软键盘End-->
 	</div>
 </template>
@@ -126,6 +126,7 @@
 <script>
 import { Createarc } from "../../../static/js/drawarc.js";
 import { Toast } from "mint-ui";
+import { Popup } from "mint-ui";
 export default {
   name: "skylightControl",
   data() {
@@ -185,7 +186,7 @@ export default {
         .post(
           Lovecar.OperationId,
           { operationId: operationId },
-          this.$store.state.getpin
+          this.$store.state.tsppin
         )
         .then(res => {
           var tS = new Date().getTime() - this.sjc; //时间戳 差
@@ -207,7 +208,7 @@ export default {
                     .post(
                       Lovecar.OperationId,
                       { operationId: operationId },
-                      this.$store.state.getpin
+                      this.$store.state.tsppin
                     )
                     .then(res => {
                       var tS = new Date().getTime() - this.sjc; //时间戳 差
@@ -305,7 +306,7 @@ export default {
         }
       };
       this.$http
-        .post(Lovecar.Control, param, this.$store.state.getpin)
+        .post(Lovecar.Control, param, this.$store.state.tsppin)
         .then(res => {
           this.operationIds = res.data.operationId;
           if (res.data.returnSuccess) {
@@ -521,30 +522,31 @@ export default {
   	clearInterval(this.time)
     this.produCurve();
     this.inputs();
-    this.$http
-      .post(
-        Lovecar.Carquery,
-        { vins: [this.$store.state.vins] },
-        this.$store.state.getpin
-      )
-      .then(res => {
-        if (res.data.returnSuccess) {
-       		// this.getAsyReturn(res.data.operationId);
-        } else {
-          Toast({
-            message: res.data.returnErrMsg,
-            position: "middle",
-            duration: 2000
-          });
-        }
-      })
-      .catch( err => {
-      	Toast({
-            message: '系统异常',
-            position: "middle",
-            duration: 2000
-          });
-      })
+    //调取车况
+    // this.$http
+    //   .post(
+    //     Lovecar.Carquery,
+    //     { vins: [this.$store.state.vins] },
+    //     this.$store.state.tsppin
+    //   )
+    //   .then(res => {
+    //     if (res.data.returnSuccess) {
+    //    		// this.getAsyReturn(res.data.operationId);
+    //     } else {
+    //       Toast({
+    //         message: res.data.returnErrMsg,
+    //         position: "middle",
+    //         duration: 2000
+    //       });
+    //     }
+    //   })
+    //   .catch( err => {
+    //   	Toast({
+    //         message: '系统异常',
+    //         position: "middle",
+    //         duration: 2000
+    //       });
+    //   })
   },
   computed: {
     fullValue: {
@@ -580,7 +582,7 @@ export default {
             {
               pin: nums
             },
-            this.$store.state.getpin
+            this.$store.state.tsppin
           )
           .then(res => {
             if (res.data.returnSuccess) {
@@ -628,7 +630,7 @@ export default {
             {
               pin: nums
             },
-            this.$store.state.getpin
+            this.$store.state.tsppin
           )
           .then(res => {
             console.log(res.data.returnSuccess);

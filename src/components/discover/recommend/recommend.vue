@@ -172,7 +172,6 @@
         </div>
       </mt-loadmore>
       <div style="height: 1rem;"></div>
-      <p style="display: none; font-size: 0.3rem;margin: auto;text-align: center;margin-bottom: 1rem;visibility: hidden" id="showAll1">已加载全部</p> 
       </div>
 </template>
 
@@ -306,7 +305,7 @@
           if(newDate - date < oneMinute){
             return beforeDate = '刚刚'
           }
-        },        
+        },
         getRefreshList: function () {
           //获取推荐列表第一页
           let _this = this;
@@ -320,7 +319,7 @@
               //console.log(res.data.data)
               for(let i = 0; i < _this.recommendList.length; i++) {
                 _this.recommendList[i].issuedDate = _this.convert(_this.recommendList[i].issuedDate)
-              }              
+              }
               if(res.data.recordsTotal <= _this.list){
                 _this.loadEnd = true;
               }
@@ -343,14 +342,13 @@
             if (res.data.status) {
                 for(let i = 0; i < _this.recommendList.length; i++) {
                   _this.recommendList[i].issuedDate = _this.convert(_this.recommendList[i].issuedDate)
-                }                
+                }
                 _this.recommendList = _this.recommendList.concat(res.data.data);
                 var allPages = Math.ceil(res.data.recordsTotal/_this.list);
                 if(allPages <= _this.pageNum){
                   _this.loading = true;
                   _this.allLoaded = true;
                   _this.loadEnd = true;
-                  //$("#showAll1").show();
                 }
             } else {
               _this.pageNum = _this.pageNum -1;
@@ -500,7 +498,7 @@
         },
         selectLabelState(){
           return this.$store.state.selectLabelState
-        }        
+        }
       },
       watch:{
         getUserId(val){
@@ -510,7 +508,7 @@
         },
         selectLabelState(){
           this.getRefreshList()
-        }        
+        }
       },
       mounted(){
         this.getRefreshList();

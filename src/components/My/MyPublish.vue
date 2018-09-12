@@ -42,7 +42,10 @@
             </div>
           </div>
           <!--发布者信息E-->
-          <div @click="toDetail(item.id)" class="listTitleInfo">{{item.momentMessage}}</div>
+          <div class="listTitleInfo">
+            <span @click="toDetail(item.id)" >{{item.momentMessage}}</span>
+            <p style="float: right;" @click="deleteNow(item.id)">删除</p>
+          </div>
           <div class="pics" v-if="item.momentImgList">
             <div v-if="item.momentImgList.length==1" v-for="imgItem in item.momentImgList">
               <img @click="toDetail(item.id)" :src="imgItem" class="pic1"/>
@@ -84,6 +87,7 @@
 </template>
 
 <script>
+    import { MessageBox } from 'mint-ui';
     export default {
         name: "ugc",
       data(){
@@ -93,6 +97,21 @@
           }
       },
       methods:{
+        //删除此刻
+        deleteNow: function (manageId) {
+          console.log(manageId)
+          var _this = this;
+          MessageBox.confirm('确定删除?').then(action => {
+            this.$http.post(DISCOVERMESSAGE.deleteMoment, {"id": manageId}).then(function (res) {
+              if (res.data.status) {
+                Toast('删除成功');
+                _this.getmyList();
+              } else {
+                MessageBox('提示', res.data.errorMsg);
+              }
+            });
+          });
+        },
         getmyList: function(){
           var _this = this;
           this.$http.post(DISCOVERMESSAGE.issueMomentList,{"uid": _this.$store.state.userId,"hisUid":_this.$store.state.UserStartId}).then(function (res) {

@@ -29,7 +29,6 @@
         <!--资讯列表E-->
       </div>
     </mt-loadmore>
-    <!--<p id="showAll2" style="visibility: hidden">已加载全部</p>-->
   </div>
 </template>
 
@@ -107,7 +106,6 @@
                   _this.loading = true;
                   _this.allLoaded = true;
                   _this.loadEnd = true;
-                  $("#showAll2").show();
                 }
             } else {
               _this.pageNum = _this.pageNum -1;

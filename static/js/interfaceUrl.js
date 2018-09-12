@@ -107,9 +107,9 @@ window.DISCOVERMESSAGE = {
     }
     // 智享
 window.Wit = {
-        MainBus: mip + '/vehicleModel/searchVehicleModelList', //全部车型 主推车型
+        MainBus: mip + '/vehicleBrand/selectVehicleSeriesByBrand', //全部车型 主推车型
         Dealer: mip + '/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询
-        //      Dealer: 'http://172.21.4.223:8082' + '/automobilemanage/dealerBaseInformation/searchDealerBaseInformationListPage', //经销列表商查询
+        //      Dealer: 'http://172.21.4.235:8082' + '/automobilemanage/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询
         Switching: mip + '/vehicleBrand/searchVehicleBrandList', //频道选择
         Distributor: mip + '/dealerBaseInformation/searchDealerBaseInformationListPage', //选择经销商
         searchVehicleBrandList: mip + '/vehicleBrand/searchVehicleBrandList', //品牌
@@ -135,13 +135,19 @@ window.Wit = {
     //我的 部分
 window.My = {
         UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
+        IsSignIn: mips + '/pluto-membership/integral-gather/is-sign', //判断用户今天是否签到 
+        SignIn: mips + '/pluto-membership/integral-gather/integral-gather', //签到 
+        Credit: mips + '', //获取用户积分  
+        CreditDetail: mips + '/plutomembership/integralRecord/searchIntegralRecordList', //积分记录
         My_Bus: love_car + '/vehicle/find-vehicle-list', //我的车辆
+        // My_Bus: 'http://172.21.4.50:8084/vehicle/find-vehicle-list', //我的车辆yys本地
+        // SetOneDefault: 'http://172.21.4.116:8084/vehicle/set-default-vehicle', //我的车辆设为默认
         SetOneDefault: love_car + '/vehicle/set-default-vehicle', //我的车辆设为默认
         JFmybus: love_car + '/vehicle/set-vehicle-remoteset', //解绑我的车辆,绑定,
         planbus: love_car + '/vehicle/set-vehicle-remoteset', //添加车牌 绑定车牌
         Edict: mip + '/vehicle/updateVehicle', //修改车辆信息
         ClueOrder: mip + '/cluesOrderFrom/searchCluesOrderFromListPage', //线索订单
-        MyDealer: mip + '/dealerBaseInformation/selectSeriesDealerBaseInformation', //我的 我的经销商列表
+        MyDealer: mip + '/userDealer/searchUserDealerList', //我的 我的经销商列表
         UpUserinfo: mips + '/admin/userBaseInformation/updateUserBaseInformation', //更改用户信息
         Address: mips + '/admin/userAddress/searchUserAddressList', //my部分查询所有地址
         RemoveAddress: mips + '/admin/userAddress/deleteUserAddress', //my部分删除当前地址
@@ -152,10 +158,15 @@ window.My = {
         RecomendCode: mips + '/admin/recommendedCode/searchRecommendedCodeOne' //获取推荐码
     }
     //爱车
+
 window.Lovecar = {
+    vehicle: love_car + '/vehicle/sync-tsp-vehicle', //给后端同步车辆接口
+    // vehicle: 'http://172.21.4.50:8084/vehicle/sync-tsp-vehicle', //给后端同步车辆接口
+    TSP: mips + 'admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne', //获取tsp用户
     Carquery: love_car + '/vehicle/query-vehicle-condition', //车辆车况查询
-    // OperationId: love_car + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
+    // Carquery: 'http://172.21.4.116:8084/vehicle/query-vehicle-condition', //车辆车况查询
     OperationId: love_car + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
+    // OperationId: 'http://172.21.4.116:8084/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
     Changepin: love_car + '/vehicle/update-vehicle-pin', //修改pin码
     Getphonepin: love_car + '/vehicle//identify-code', //获取验证码
     Checkphonepin: love_car + '/vehicle/check-vehicle-pin', //验证pin码

@@ -218,7 +218,6 @@
                   _this.loading = true;
                   _this.allLoaded = true;
                   _this.loadEnd = true;
-                  //$("#showAll4").show();
                 }
             } else {
               _this.pageNum = _this.pageNum -1;

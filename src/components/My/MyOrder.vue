@@ -9,8 +9,8 @@
         <mt-navbar v-model="selected">
             <mt-tab-item id="one">线索</mt-tab-item>
             <mt-tab-item id="two">商城</mt-tab-item>
-            <mt-tab-item id="three">维保</mt-tab-item>
-            <mt-tab-item id="four">停车</mt-tab-item>
+            <!-- <mt-tab-item id="three">维保</mt-tab-item>
+            <mt-tab-item id="four">停车</mt-tab-item> -->
             <mt-tab-item id="five">流量</mt-tab-item>
         </mt-navbar>
         <mt-tab-container v-model="selected">
@@ -100,7 +100,7 @@
 
                 </ul>
             </mt-tab-container-item>
-            <mt-tab-container-item id="three">
+            <!-- <mt-tab-container-item id="three">
                 <ul>
                     <li class="flex column">
                         <p class="flex row tim between">
@@ -148,7 +148,7 @@
                         </div>
                     </li>
                 </ul>
-            </mt-tab-container-item>
+            </mt-tab-container-item> -->
         </mt-tab-container>
     </div>
 </template>

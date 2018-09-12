@@ -52,7 +52,7 @@ export default {
         .post(
           Lovecar.OperationId,
           { operationId: operationId },
-          this.$store.state.getpin
+          this.$store.state.tsppin
         )
         .then(res => {
           var tS = new Date().getTime() - this.sjc; //时间戳 差
@@ -74,7 +74,7 @@ export default {
                     .post(
                       Lovecar.OperationId,
                       { operationId: operationId },
-                      this.$store.state.getpin
+                      this.$store.state.tsppin
                     )
                     .then(res => {
                       var tS = new Date().getTime() - this.sjc; //时间戳 差
@@ -179,7 +179,7 @@ export default {
               }
             };
             this.$http
-              .post(Lovecar.Control, param, this.$store.state.getpin)
+              .post(Lovecar.Control, param, this.$store.state.tsppin)
               .then(res => {
                 console.log(res);
                 this.operationIds = res.data.operationId;

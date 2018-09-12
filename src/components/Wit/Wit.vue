@@ -15,10 +15,10 @@
           <img src="../../../static/images/Wit/zhixiang_home_maintenance_outlets_btn.png" alt="">
           <span>维保网点</span>
         </li>
-        <li class="li_list" @click="pre_weib()">
+        <!-- <li class="li_list" @click="pre_weib()">
           <img src="../../../static/images/Wit/zhixiang_home_maintenance_appointment_btn.png" alt="">
           <span>维保预约</span>
-        </li>
+        </li> -->
         <li class="li_list" @click="confirmRevise">
           <img src="../../../static/images/Wit/zhixiang_home_road_rescue_btn.png" alt="">
           <span>道路救援</span>
@@ -60,7 +60,7 @@
       <li class="bus_li" @click="specil" v-for="(item,index) in this.mainbus" :key="index">
         <img src="../../../static/images/Wit/bg-mine.png" alt="">
         <div class="bus_1">
-          <span class="bus_2">{{item.modelName}}</span>
+          <span class="bus_2">{{item.seriesName}}</span>
           <span class="bus_3">官方指导价：{{item.guidancePrice}}万起</span>
         </div>
       </li>
@@ -228,17 +228,16 @@ export default {
   },
   created() {
     //获取主推车型，传{}表示全部车型
-    var param = {};
+    var param = {highlyRecommend :"1"};
     this.$http.post(Wit.MainBus, param).then(res => {
       if (res.data.code == 0) {
         var arr = res.data.data;
-        
-        this.mainbus = arr;
-      }
+         this.mainbus = arr;
+     }
     });
   },
   mounted() {
-    //  window.Map_Positioning= this.Map_Positioning;
+ 
   }
 };
 </script>

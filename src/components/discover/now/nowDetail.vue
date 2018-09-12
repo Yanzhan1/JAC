@@ -302,8 +302,10 @@
       },
       //跳转到举报页面
       inform: function () {
-        this.$store.state.UserStartId = _this.manageId;
-        this.$router.push('/inform');
+        /*this.$store.state.UserStartId = _this.manageId;
+        this.$router.push('/inform');*/
+        this.$store.state.UserStartId = userId;
+        this.$router.push({path:"/inform",query:{id:this.manageId}})
       },
       //给此刻点赞
       giveArticleLike: function () {
