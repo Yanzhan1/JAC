@@ -11,11 +11,11 @@
     <div style="height:.88rem"></div>
     <ul>
       <li class="bus_li" v-for="(item,index) in this.mainbus" :key="index" @click="tode()">
-        <img src="../../../static/images/Wit/bg-mine.png" alt="">
+        <img :src="item.imageUrl" alt="">
         <div class="bus_1">
           <span class="bus_2">{{item.seriesName}}</span>
           <span class="bus_3">
-            <span style="color:#a5a5a5;font-size:.22rem"> 官方指导价</span> ：{{item.guidancePrice}}万起</span>
+            <span style="color:#a5a5a5;font-size:.22rem"> 官方指导价</span> ：{{item.guidancePriceStart}}万起</span>
         </div>
         <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
       </li>
