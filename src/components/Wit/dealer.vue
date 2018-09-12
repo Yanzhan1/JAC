@@ -64,7 +64,7 @@
 		<div :style="{'-webkit-overflow-scrolling': scrollMode}">
 			<mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="80" :auto-fill="false">
 				<ul class="" style="padding:.1rem .2rem" v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
-					<li class="ul_list flex row around " v-for="(item,index) in mainbus" :key="index" @click="search()">
+					<li ref="dataCon" class="ul_list flex row around " v-for="(item,index) in mainbus" :key="index" @click="setUpMap(item.latitude, item.longitude, item.dealerName, item.dealerAddress)">
 						<!--<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>-->
 						<div class="flex column around  mid">
 							<span class="txt_top dian">{{item.dealerName}}</span>
@@ -94,7 +94,7 @@
 			<div style="height:2.5rem;width:100%;">
 				<ul class="search">
 					<li>高德导航</li>
-					<li>百度地图</li>
+					<!--<li>百度地图</li>-->
 					<li class="cancel" @click="cancel()">取消</li>
 				</ul>
 			</div>
@@ -185,7 +185,7 @@
 				
 				 },
 			search() {
-				this.popupVisible = true;
+//				this.popupVisible = true;
 			},
 			cancel() {
 				this.popupVisible = false;
@@ -361,8 +361,27 @@
 							this.mainbus = res.data.data.records
 						}
 				})
-			  }
-
+			  },
+			  isIOSOrAndroid () {  //判断ios和安卓机型的方法
+				var u = navigator.userAgent,
+					app = navigator.appVersion;
+				var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+				var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+				if(isAndroid) {
+					return "Android"
+				} else if(isIOS) {
+					return "IOS"
+				}
+			},
+		    setUpMap (latitude, longitude, adress, des) {//唤起原生地图
+				var system = this.isIOSOrAndroid();
+				if (system == 'Android') {					
+		 			window.js2android.sendLocation2Map(latitude,longitude,adress,des)
+//		 			console.log(11)
+		 		} else if (system == "IOS") {
+		 			
+		 		}
+		    }
 		},
 		mounted() {
 			this.init()
@@ -510,16 +529,6 @@
 		font-size: 0.3rem;
 		color: #888;
 		border: 0;
-	}
-	
-	select {
-		/*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
-		border: none;
-		/*很关键：将默认的select选择框样式清除*/
-		appearance: none;
-		-moz-appearance: none;
-		-webkit-appearance: none;
-		outline: none;
 	}
 	
 	.title {}
