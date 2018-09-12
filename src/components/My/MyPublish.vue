@@ -87,7 +87,7 @@
 </template>
 
 <script>
-    import { MessageBox } from 'mint-ui';
+    import { MessageBox, Toast } from 'mint-ui';
     export default {
         name: "ugc",
       data(){
