@@ -439,7 +439,8 @@
       getUserList: function () {
         var _this = this;
         this.$http.post(DISCOVERMESSAGE.issueMomentList, {
-          "uid": _this.$store.state.userId,
+          // "uid": _this.$store.state.userId,
+          "uid": _this.$route.query.id,
           "hisUid": _this.$store.state.UserStartId
         }).then(function (res) {
           if (res.data.status) {
