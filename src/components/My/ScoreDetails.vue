@@ -12,27 +12,14 @@
         </div>
         <ul>
             <div class="scoredeatails">积分明细</div>
-            <li class="flex  row between cont cocenter">
+            <li class="flex  row between cont cocenter" v-for="(item,index) in details" :key="index">
                 <div class="flex column xan">
-                    <span style="color:#444;font-size:.28rem">每日签到</span>
-                    <span style="color:#888;font-size:.22rem">2018-2-12</span>
+                    <span style="color:#444;font-size:.28rem">{{item.changeDescription}}</span>
+                    <span style="color:#888;font-size:.22rem">{{item.times}}</span>
                 </div>
-                <div style="color:#49BBFF;font-size:.36rem;margin-right:.3rem">+20</div>
+                <div style="color:#49BBFF;font-size:.36rem;margin-right:.3rem">+{{item.ruleId}}</div>
             </li>
-            <li class="flex  row between cont cocenter">
-                <div class="flex column xan">
-                    <span style="color:#444;font-size:.28rem">每日签到</span>
-                    <span style="color:#888;font-size:.22rem">2018-2-12</span>
-                </div>
-                <div style="color:#49BBFF;font-size:.36rem;margin-right:.3rem">+20</div>
-            </li>
-            <li class="flex  row between cont cocenter">
-                <div class="flex column xan">
-                    <span style="color:#444;font-size:.28rem">每日签到</span>
-                    <span style="color:#888;font-size:.22rem">2018-2-12</span>
-                </div>
-                <div style="color:#49BBFF;font-size:.36rem;margin-right:.3rem">+20</div>
-            </li>
+            
         </ul>
     </div>
 </template>
@@ -40,7 +27,10 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+        details:{},
+        integral:''
+    };
   },
   methods: {
     scoredetails() {
@@ -48,10 +38,17 @@ export default {
         ruleStr: "SIGN_IN",
         serviceTypeStr: "SERVICE_FIXED",
         typeStr: "TYPE_RETAIN",
-        no: this.$store.state.userid
+        no:'AD022018090502444422707'
       };
-      this.$http.post(My.CreditDetail,data).then(res=>{
+     this.$http.post(My.CreditDetail,data).then(res=>{
+       if(res.data.code==0){
+            this.details=res.data.data
 
+           for(let i=0;i<this.details.length;i++){
+               this.details[0].times=operationTime.getTime( this.details[i].time, 2  )
+           }
+        }
+        console.log(this.details)
       })
     }
   },
