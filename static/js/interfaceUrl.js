@@ -106,7 +106,10 @@ window.DISCOVERMESSAGE = {
         getOneComment: indexip + '/userComment/getOneComment', //进入评论页获取当前评论所有回复
     }
     // 智享
+
+
 window.Wit = {
+        searchVehicleSeriesOne: mip + '/vehicleSeries/searchVehicleSeriesOne', //车系和配置参数查询
         MainBus: mip + '/vehicleBrand/selectVehicleSeriesByBrand', //全部车型 主推车型
         Dealer: mip + '/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询
         //      Dealer: 'http://172.21.4.235:8082' + '/automobilemanage/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询

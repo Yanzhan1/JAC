@@ -6,10 +6,9 @@
             <p class="p2" @click="configure">配置参数</p>
         </div>
         <div class="main">
-            <img src="./../../../static/images/Wit/1.jpg" alt="" class="nav">
-            <img src="./../../../static/images/Wit/2.jpg" alt="" class="nav">
-            <img src="./../../../static/images/Wit/3.jpg" alt="" class="nav">
-            <img src="./../../../static/images/Wit/4.jpg" alt="" class="nav">
+            <div v-for="(item,index) in this.everyimage" :key="index">
+                <img class="nav" :src="item" alt="">
+            </div>
            <h3 class="bottom-btn" @click="reserve">在线订车</h3>
         </div>
     </div>
@@ -19,16 +18,39 @@
 export default {
     data(){
         return{
-
+            everyno:'',
+            everyimage:[],
         }
     },
     methods:{
         configure(){
-            this.$router.push('/wit/Configure')
+            this.$router.push({
+                name:'配置参数',
+                params:{
+                    everyno:this.everyno
+                }
+            })
         },
         reserve(){
             this.$router.push('/wit/Reserve')
         }
+    },
+    mounted(){
+        // console.log(this.$route.params.everyno)
+        this.everyno=this.$route.params.everyno
+        let params={
+            no:this.$route.params.everyno
+        }
+        this.$http.post(Wit.searchVehicleSeriesOne,params).then((res)=>{
+            let allimage=res.data.data.imageRelationVO
+            // console.log(res.data.data)
+            for(let i=0;i<allimage.length;i++){
+                if(allimage[i].imageType==4){
+                    this.everyimage.push(allimage[i].imageUrl)
+                }
+            }
+            console.log(this.everyimage)
+        })
     }
 }
 </script>
