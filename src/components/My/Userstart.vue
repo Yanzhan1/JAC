@@ -193,26 +193,15 @@
         this.$refs.commentbox.boxfocus();
       },
       init() {
-        //获取用户信息
-        var data = {
-          no: this.$store.state.UserStartId
-        }
-        var url = My.UserInfo
-        this.$http({
-          url: url,
-          params: data,
-          method: "post",
-        }, this.$store.state.mytoken).then((res) => {
-          if (res.data.success) {
+        let _this = this;
+        _this.$http.post(My.UserInfo, {
+          "no": _this.$store.state.UserStartId
+        }).then(function (res) {
+          debugger
+          if (res.data.code == 0) {
             this.userInfo = res.data.data;
-            //            this.$store.state.userstartUuid = res.data.account.uuid;
           }
-        }).catch(() => {
-
-        })
-      },
-      collect() {
-
+        });
       },
       //电咖没有好友功能
       //      getfriendconnect(){
