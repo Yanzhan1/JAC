@@ -55,14 +55,14 @@
       <!--发布者信息S-->
       <div class="comment_userinfo">
         <div class="user_head">
-          <div @click="changeUserStartId(content.user.user_id)">
-            <img v-if="content.user && content.user.head_image" :src="content.user.head_image" />
+          <div @click="changeUserStartId(item.user.user_id)">
+            <img v-if="item.user && item.user.head_image" :src="item.user.head_image" />
             <img v-else src="../../../../static/images/discover/normalhead.png" />
           </div>
         </div>
         <div class="user_info">
-          <div v-if="content.user" class="user_name">
-            {{content.user.nick_name}}
+          <div v-if="item.user" class="user_name">
+            {{item.user.nick_name}}
           </div>
           <div v-else class="user_name">
             尚未设置昵称
@@ -80,8 +80,10 @@
         </div>
       </div>
       <!--发布者信息E-->
-      <div class="picTitle"><span @click="toDetail(item.id)">{{item.message}}</span>
-        <span style="float: right;" v-if="item.user && self(item.user.user_id)" @click="deletePic(item.id)">删除</span></div>
+      <div class="picTitle">
+        <span @click="toDetail(item.id)">{{item.message}}</span>
+        <span style="float: right;" v-if="item.user && self(item.user.user_id)" @click="deletePic(item.id)">删除</span>
+      </div>
       <div v-if="item.showImgList && item.showImgList.length>0 && item.showImgList!=''" @click="toDetail(item.id)">
         <div v-if="item.showImgList.length==1">
           <img :src="item.showImgList[0]" class="shaitu1">
