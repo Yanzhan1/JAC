@@ -105,7 +105,7 @@
         }
         this.$http.post(DISCOVERMESSAGE.addMoment, {"uid": _this.userId,"message":_this.message, "img":_this.imgs}).then(function (res) {
           if (res.data.status) {
-            _this.$router.push({path:"/my/mystart"});
+            _this.$router.push({path:"/mystart"});
           } else {
             console.log(res.data.errorMsg);
           }
