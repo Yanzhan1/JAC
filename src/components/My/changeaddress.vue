@@ -86,10 +86,10 @@ export default {
   mounted() {
     this.info = this.$route.query;
     $(".editPersonalDetails").height($(".editPersonalDetails").height());
-    this.$http.post(My.Area, {}).then(res => {
+    this.$http.post(My.Area, {size:1000}).then(res => {
       this.allarea = res.data.data.records;
-      // console.log(this.allarea)
-      for (var i = 0; i < this.allarea.length; i++) {
+      // alert(JSON.stringify( this.allarea))
+       for (var i = 0; i < this.allarea.length; i++) {
         this.slots[0].values.push(this.allarea[i].name);
       }
     });
@@ -143,10 +143,12 @@ export default {
         provinceName: this.provinceName, //所在的地区的名字
         address: this.address
       };
-      
-      await this.$http
+      if(flag==1){
+      await  this.$http
         .post(My.Defaultaddress, param)
         .then(res => {});
+      }
+      
       // setTimeout(() => {
       await this.$http
         .post(My.ChangeAddress, param)

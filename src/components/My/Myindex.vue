@@ -149,7 +149,7 @@ export default {
         ruleStr: "SIGN_IN",
         serviceTypeStr: "SERVICE_FIXED",
         typeStr: "TYPE_RETAIN",
-        no:this.$store.state.userid
+        no:'AD022018090502444422707'
       }
      var param=JSON.stringify(data)
       this.$http.post(My.SignIn,param).then(res => {
@@ -167,12 +167,21 @@ export default {
         ruleStr: "SIGN_IN",
         serviceTypeStr: "SERVICE_FIXED",
         typeStr: "TYPE_RETAIN",
-        no: this.$store.state.userid
+         no:'AD022018090502444422707'
       }
-       this.$http.post(My.IsSignIn,param).then(res => {
+       this.$http.post(My.IsSignIn,data).then(res => {
 
        });
     },
+    // 获取用户总积分
+      total(){
+        var data = {
+          no:'AD022018090502444422707'
+      }
+       this.$http.post(My.Credit,data).then(res => {
+
+       });
+      },
    
     //积分详情
     ToScore() {
@@ -309,11 +318,14 @@ export default {
   created() {
     this.getuserinfo();
     this.RecomendCode(); //获取推荐码
+    
   },
   mounted() {
     // console.log(this.$store.state.no)
     // this.getTokenAndNo();
     this.myNum();
+    this.IsSign(); //判断是否签到
+     this.total()//h获取用户总积分
   }
 };
 </script>
