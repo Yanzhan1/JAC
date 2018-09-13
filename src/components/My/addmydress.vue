@@ -26,6 +26,16 @@
                     </div>
                 </div>
             </div>
+            <!-- 市 -->
+            <div class="city">
+                <div class="contentList nickname areas">
+                    <span class="contentList-left" style="float:left">选择市</span>
+                    <div class="contentList-right" style="float:right">
+                      <input type="text" name="" id="" class="place" @click="choosecitys()"  v-model="this.choosecity">
+                       <img class="pic" src="../../../static/images/my/next@2x.png" />
+                    </div>
+                </div>
+            </div>
             
             
             <div class="inputcontent">
@@ -42,9 +52,15 @@
         </div>
         <!-- 省 -->
         <div style="position:absolute;z-index:1000;bottom:-.5rem;width:100%;background:#fff;" v-show="this.shows">
-          <div style="text-align:center;line-height:.8rem;font-size:.4rem">选择市</div>
+          <div style="text-align:center;line-height:.8rem;font-size:.4rem">选择省</div>
           <div style="text-align: right;color: #49BBFF;margin-right:.2rem;" @click="hides()">确定</div>
           <mt-picker :slots="slots" @change="onValuesChange" ></mt-picker>
+        </div>
+        <!-- 市 -->
+        <div style="position:absolute;z-index:1000;bottom:-.5rem;width:100%;background:#fff;" v-show="this.showss">
+          <div style="text-align:center;line-height:.8rem;font-size:.4rem">选择市</div>
+          <div style="text-align: right;color: #49BBFF;margin-right:.2rem;" @click="hideses()">确定</div>
+          <mt-picker :slots="slots1" @change="onValuesChanges" ></mt-picker>
         </div>
        
         <div style="height:10rem"></div>
@@ -58,6 +74,7 @@ export default {
     return {
       bgcolor: false,
       shows: false, //控制选择地区显示
+      showss:false,//控制选择城市显示
       selected: true,
       name: "",
       num: "",
@@ -67,6 +84,7 @@ export default {
       allarea: [], //所有的地区
       city:[],
       choosedarea: "", //被选择的地区
+      choosecity:'',//被选择的城市
       choose_si:"",
       ishide: false, //控制城市的显示
       nowindex: 0, //默认显示上海
@@ -98,6 +116,8 @@ export default {
     $(".editPersonalDetails").height($(".editPersonalDetails").height());
     this.$http.post(My.Area, {size:1000,parentId: null,level: 1}).then(res => {
       this.allarea = res.data.data.records;
+      // console.log(this.allarea)
+      this.slots[0].values=[]
      for (var i = 0; i < this.allarea.length; i++) {
         this.slots[0].values.push(this.allarea[i].name);
       }
@@ -188,13 +208,22 @@ export default {
       this.shows = true;
       this.bgcolor = true;
     },
+    choosecitys(){
+      this.showss = true;
+      this.bgcolor = true;
+    },
     hides() {
       this.bgcolor = false;
       this.shows = false;
     },
+    hideses() {
+      this.bgcolor = false;
+      this.showss = false;
+    },
     hidess() {
       this.bgcolor = false;
       this.shows = false;
+      this.showss=false;
     },
     onValuesChange(picker, values) {
       this.choosedarea = values[0];
@@ -202,8 +231,24 @@ export default {
        if (this.allarea[i].name == this.choosedarea) {
           this.everycode = this.allarea[i].code;
           this.everyid=this.allarea[i].id; 
+          // alert(this.everyid)
         }
       }
+      let data = {
+          parentId: this.everyid, //被检测的省份id 
+          level: 2
+        }
+      this.$http.post(Wit.searchCountryAreaCodeListPage,data).then((res)=>{
+        console.log(res.data.data.records)
+        var city=res.data.data.records
+        this.slots1[0].values=[]
+        for (var i = 0; i < this.allarea.length; i++) {
+            this.slots1[0].values.push(city[i].name);
+          }
+      })
+    },
+    onValuesChanges(picker,values){
+      this.choosecity=values[0]
     }
   },
   
