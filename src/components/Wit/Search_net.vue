@@ -78,7 +78,7 @@
 							<div class="flex-column-align">
 								<img style="width:.42rem;text-align: center;" src="../../../static/images/Wit/nav_btn.png" alt="">
 								<span class="txt_m">{{item.juli|keepTwo}}km</span>
-							</div>							
+							</div>
 						</div>
 					</li>
 				</ul>
@@ -89,11 +89,11 @@
 		<div class="dataInfo" v-if="mainbus.length == 0">
 			没有符合该条件的经销商
 		</div>
-		
+
 		<mt-popup v-model="popupVisible" position="bottom">
 			<div style="height:2.5rem;width:100%;">
 				<ul class="search">
-					<li >高德导航</li>
+					<li>高德导航</li>
 					<!--<li>百度地图</li>-->
 					<li class="cancel" @click="cancel()">取消</li>
 				</ul>
@@ -115,34 +115,34 @@
 				searchCountryAreaCodeListPage: [], //省份列表
 				cityList: [], //城市列表
 				seriesNo: null, //车型Id
-				bustypeno:null,//车型no
+				bustypeno: null, //车型no
 				brandNo: null, //品牌Id
 				provinceId: null, //省份id
 				cityId: '', //城市id
-				city_id:null,//城市ID 
+				city_id: null, //城市ID 
 				isDrop: false, //品牌下拉
 				carDrop: false, //车型下拉
 				provinceDrop: false, //省份下拉
 				cityDrop: false, //城市下拉
-				nowIndex: 0,  //品牌index
+				nowIndex: 0, //品牌index
 				carIndex: 0, //车型index
 				provinIndex: 0, //省份index
 				cityIndex: 0, //城市index
 				brandState: true, //品牌伪标题状态
 				carState: true, //车型伪标题状态 
 				provinceState: true, //省份伪标题状态
-				cityState: true ,//城市伪标题状态
-				cityname:'',//默认省
-				citysi:'',//默认市
+				cityState: true, //城市伪标题状态
+				cityname: '', //默认省
+				citysi: '', //默认市
 				allLoaded: false, //为真，则 bottomMethod 不会被再次触发,为false会再次触发
 				scrollMode: "touch",
-				loading: false,  //false,触发无线滚动, true,不会触发无线滚动
-				loadEnd:false, //false,再次滚动会加载更多数据, true再次滚动不会加载更多数据
+				loading: false, //false,触发无线滚动, true,不会触发无线滚动
+				loadEnd: false, //false,再次滚动会加载更多数据, true再次滚动不会加载更多数据
 				size: 10, //每页的数据长度
 				current: 1, //当前页码
 				latitude: null, //维度
-				longitude: null ,//经度,
-				provinceCode:null,//   省份coed
+				longitude: null, //经度,
+				provinceCode: null, //   省份coed
 				imgSrc: './static/images/Wit/bg-mine.png'
 			};
 		},
@@ -151,180 +151,180 @@
 		},
 		methods: {
 			init() {
-	          	this.loading=true;   //第一次加载数据,没有滚动的情况下,是不可以无线滚动的
-          		this.loadEnd=false;  //第一次加载数据,还可以继续加载
+				this.loading = true; //第一次加载数据,没有滚动的情况下,是不可以无线滚动的
+				this.loadEnd = false; //第一次加载数据,还可以继续加载
 				var data = {
 					"parentId": null,
 					"level": 1
 				}
 				//请求品牌列表
 				this.$http.post(Wit.searchVehicleBrandList, data).then(res => {
-					const data = res.data;
-					if(data.code == 0) {
-						this.searchVehicleBrandList = data.data;
-					}
-				}),
-				//请求省份列表   原生拿到的省份name  去对比省份列表 找到对应的省份code
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
-					const data = res.data;
-					if(data.code == 0) {
-						this.searchCountryAreaCodeListPage = data.data.records;
-						//  alert(JSON.stringify(this.searchCountryAreaCodeListPage))
-						for(let i=0;i<this.searchCountryAreaCodeListPage.length;i++){
-							if(this.searchCountryAreaCodeListPage[i].name==this.cityname){
-								this.provinceCode=this.searchCountryAreaCodeListPage[i].code
-								if(this.provinceCode){
-															
-							      this.mydeler()  //省份code 赋值成功后 调用获取经销商列表
+						const data = res.data;
+						if(data.code == 0) {
+							this.searchVehicleBrandList = data.data;
+						}
+					}),
+					//请求省份列表   原生拿到的省份name  去对比省份列表 找到对应的省份code
+					this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+						const data = res.data;
+						if(data.code == 0) {
+							this.searchCountryAreaCodeListPage = data.data.records;
+							//  alert(JSON.stringify(this.searchCountryAreaCodeListPage))
+							for(let i = 0; i < this.searchCountryAreaCodeListPage.length; i++) {
+								if(this.searchCountryAreaCodeListPage[i].name == this.cityname) {
+									this.provinceCode = this.searchCountryAreaCodeListPage[i].code
+									if(this.provinceCode) {
+
+										this.mydeler() //省份code 赋值成功后 调用获取经销商列表
+									}
 								}
 							}
 						}
-				    }
-				})
-				
-				 },
+					})
+
+			},
 			search() {
-//				this.popupVisible = true;
+				//				this.popupVisible = true;
 			},
 			cancel() {
 				this.popupVisible = false;
 			},
 			//获取经销商列表
-			mydeler(){
-             var param = {
-					brandNo:this.brandNo,//品牌no
-					vehicleSeridesNo:this.bustypeno,//车系
-				  	dealerProvinceCode: this.provinceCode,//省编码
-					dealerCityCode:this.city_id,//城市id
+			mydeler() {
+				var param = {
+					brandNo: this.brandNo, //品牌no
+					vehicleSeridesNo: this.bustypeno, //车系
+					dealerProvinceCode: this.provinceCode, //省编码
+					dealerCityCode: this.city_id, //城市id
 					longitude: this.longitude, //经度
 					latitude: this.latitude, //维度
-					dealerType:"02",
+					dealerType: "02",
 					size: 10,
 					current: 1
 				}
-				   this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
-					  const data = res.data;
-				  		if(data.code == 0) {
-				  			this.current = 1, //当前页码
-				  			this.loading = false , //加载完数据可以无线滚动
+				this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
+					const data = res.data;
+					if(data.code == 0) {
+						this.current = 1, //当前页码
+							this.loading = false, //加载完数据可以无线滚动
 							this.mainbus = data.data.records
-						
-						if (data.data.total <= this.size) { //如果总条数小于等于请求的数据条数,不在请求加载更多
-								this.loadEnd = true;
-							}
-						} else {
-							Toast({
-								message: '报错',
-								position: 'middle',
-								duration: 2000
-							});
+
+						if(data.data.total <= this.size) { //如果总条数小于等于请求的数据条数,不在请求加载更多
+							this.loadEnd = true;
 						}
-					})
+					} else {
+						Toast({
+							message: '报错',
+							position: 'middle',
+							duration: 2000
+						});
+					}
+				})
 			},
-			toggleDrop() {//改变品牌下拉状态
+			toggleDrop() { //改变品牌下拉状态
 				this.isDrop = !this.isDrop;
 				this.brandState = false;
-				if (this.carDrop || this.provinceDrop || this.cityDrop) { //对其它下拉列表的判断,只显示一个下拉列表
+				if(this.carDrop || this.provinceDrop || this.cityDrop) { //对其它下拉列表的判断,只显示一个下拉列表
 					this.carDrop = false;
 					this.provinceDrop = false;
-					this.cityDrop = false ;
+					this.cityDrop = false;
 				}
 			},
-			toggleCar () {//改变车型下拉状态
+			toggleCar() { //改变车型下拉状态
 				this.carDrop = !this.carDrop;
 				this.carState = false;
-				if (this.isDrop || this.provinceDrop || this.cityDrop) {  
+				if(this.isDrop || this.provinceDrop || this.cityDrop) {
 					this.isDrop = false;
 					this.provinceDrop = false;
 					this.cityDrop = false;
 				}
 			},
-			toggleProvin () { //改变省份下拉状态
+			toggleProvin() { //改变省份下拉状态
 				this.provinceDrop = !this.provinceDrop;
 				this.provinceState = false;
-				if (this.cityDrop || this.carDrop || this.isDrop) {
+				if(this.cityDrop || this.carDrop || this.isDrop) {
 					this.cityDrop = false;
 					this.carDrop = false;
 					this.isDrop = false;
 				}
 			},
-			toggleCity () { //改变城市下拉装填
+			toggleCity() { //改变城市下拉装填
 				this.cityDrop = !this.cityDrop
 				this.cityState = false;
-				if (this.provinceDrop || this.isDrop || this.carDrop) {
+				if(this.provinceDrop || this.isDrop || this.carDrop) {
 					this.provinceDrop = false;
 					this.isDrop = false;
 					this.carDrop = false;
 				}
 			},
-			chooseSelection (ind, val) {//选择品牌
-			     this.nowIndex = ind;
-                 this.isDrop = false;
-				 this.brandNo = val;
-				 this.carState = false;
-				 this.carIndex = 0
-				 this.publicrequst()
-		  	},
-			chooseCarType (ind,val) {//选择车型
-			this.bustypeno=val
+			chooseSelection(ind, val) { //选择品牌
+				this.nowIndex = ind;
+				this.isDrop = false;
+				this.brandNo = val;
+				this.carState = false;
+				this.carIndex = 0
+				this.publicrequst()
+			},
+			chooseCarType(ind, val) { //选择车型
+				this.bustypeno = val
 				this.carIndex = ind;
 				this.carDrop = false
 				this.publicrequst()
 			},
-			chooseProvinType (ind, val,id) {//选择省份, ind参数一个是省份数组的下标,val一个是省份的code  ID是id
-			    this.provinIndex = ind;  //头部显示
-				  this.provinceCode=val;//省份code
-				 this.provinceId = id; //省份id变动请求城市列表
-				 this.provinceDrop = false;
-				 this.cityState = false;
-				 this.cityIndex = 0;
-                 this.publicrequst()
+			chooseProvinType(ind, val, id) { //选择省份, ind参数一个是省份数组的下标,val一个是省份的code  ID是id
+				this.provinIndex = ind; //头部显示
+				this.provinceCode = val; //省份code
+				this.provinceId = id; //省份id变动请求城市列表
+				this.provinceDrop = false;
+				this.cityState = false;
+				this.cityIndex = 0;
+				this.publicrequst()
 			},
-			chooseCityType (ind,val) {//选择城市
-			     this.city_id=val   //城市id
+			chooseCityType(ind, val) { //选择城市
+				this.city_id = val //城市id
 				this.cityIndex = ind; //城市头部显示
 				this.cityDrop = false;
-				 this.publicrequst()
+				this.publicrequst()
 			},
-			loadTop () { //列表顶部下拉刷新
-          		this.$refs.loadmore.onTopLoaded();
+			loadTop() { //列表顶部下拉刷新
+				this.$refs.loadmore.onTopLoaded();
 			},
-			loadBottom () { //列表底部下拉刷新
-				
+			loadBottom() { //列表底部下拉刷新
+
 			},
-			getNextList () { //上拉加载更多方法
-				
-				if(this.loadEnd){
-		            this.loadBottom();
-		            return;
-		       }
-				this.loadEnd=true;
-          		this.current++;
-          		var data = {
-          			brandNo:this.brandNo,//品牌no
-					vehicleSeridesNo:this.bustypeno,//车系
-				  	dealerProvinceCode: this.provinceId,//省编码
-					dealerCityCode:this.city_id,//城市id
+			getNextList() { //上拉加载更多方法
+
+				if(this.loadEnd) {
+					this.loadBottom();
+					return;
+				}
+				this.loadEnd = true;
+				this.current++;
+				var data = {
+					brandNo: this.brandNo, //品牌no
+					vehicleSeridesNo: this.bustypeno, //车系
+					dealerProvinceCode: this.provinceId, //省编码
+					dealerCityCode: this.city_id, //城市id
 					longitude: this.longitude, //经度
 					latitude: this.latitude, //维度
-          			dealerType:"02",
+					dealerType: "02",
 					size: 10,
 					current: this.current
-          		}
+				}
 				this.$http.post(Wit.Dealer, data, this.$store.state.mytoken).then(res => {
-				 	const data = res.data;
-				 	this.loadEnd=false;
-				  		if(data.code == 0) {
-				  			this.mainbus = this.mainbus.concat(data.data.records) 
-				  			var allpages = Math.ceil(data.data.total/this.size);
-							if (allpages <= this.current) { //总页数小于等于已经加载过的页数时
-								this.loading = true;   //禁止无限滚动
-				                this.allLoaded = true; //不在触发方法
-				                this.loadEnd = true;  //不在请求数据
-//				                  $("#showAll2").show();
+						const data = res.data;
+						this.loadEnd = false;
+						if(data.code == 0) {
+							this.mainbus = this.mainbus.concat(data.data.records)
+							var allpages = Math.ceil(data.data.total / this.size);
+							if(allpages <= this.current) { //总页数小于等于已经加载过的页数时
+								this.loading = true; //禁止无限滚动
+								this.allLoaded = true; //不在触发方法
+								this.loadEnd = true; //不在请求数据
+								//				                  $("#showAll2").show();
 							}
 						} else {
-							this.current = this.current -1;
+							this.current = this.current - 1;
 							Toast({
 								message: '报错',
 								position: 'middle',
@@ -332,36 +332,36 @@
 							});
 						}
 					})
-				 	.catch( err => {
-				 		Toast({
+					.catch(err => {
+						Toast({
 							message: '系统异常',
 							position: 'middle',
 							duration: 2000
 						});
-				 	})
+					})
 			},
 			//公共请求，
-			  publicrequst(){
-			  	  this.current = 1;
-				  var param={
-					brandNo:this.brandNo,//品牌no
-					vehicleSeridesNo:this.bustypeno,//车系
-				  	dealerProvinceCode: this.provinceCode,//省编码
-					dealerCityCode:this.city_id,//城市id
+			publicrequst() {
+				this.current = 1;
+				var param = {
+					brandNo: this.brandNo, //品牌no
+					vehicleSeridesNo: this.bustypeno, //车系
+					dealerProvinceCode: this.provinceCode, //省编码
+					dealerCityCode: this.city_id, //城市id
 					longitude: this.longitude, //经度
 					latitude: this.latitude, //维度
-					dealerType:"02",
+					dealerType: "02",
 					size: 10,
 					current: this.current
-                }
-			    this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res=>{
-                      if(res.data.code == 0) {
-						    this.mainbus=[]
-							this.mainbus = res.data.data.records
-						}
+				}
+				this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
+					if(res.data.code == 0) {
+						this.mainbus = []
+						this.mainbus = res.data.data.records
+					}
 				})
-			  },
-			  isIOSOrAndroid () {  //判断ios和安卓机型的方法
+			},
+			isIOSOrAndroid() { //判断ios和安卓机型的方法
 				var u = navigator.userAgent,
 					app = navigator.appVersion;
 				var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
@@ -372,41 +372,41 @@
 					return "IOS"
 				}
 			},
-		    setUpMap (latitude, longitude, adress, des) {//唤起原生地图
+			setUpMap(latitude, longitude, adress, des) { //唤起原生地图
 				var system = this.isIOSOrAndroid();
-				if (system == 'Android') {
-		 			window.js2android.sendLocation2Map(latitude,longitude,adress,des)
-		 		} else if (system == "IOS") {
-		 			
-		 		}
-		    }
+				if(system == 'Android') {
+					window.js2android.sendLocation2Map(latitude, longitude, adress, des)
+				} else if(system == "IOS") {
+
+				}
+			}
 		},
 		mounted() {
 			this.init()
-			this.provinceId=null
+			this.provinceId = null
 		},
-		created(){
-			var Position=js2android.getLocationInfo()//获取定位信息
-			var NewPosition= JSON.parse(Position)
-			this.cityname=NewPosition.province//省
-			this.citysi=NewPosition.city//市
-			this.latitude = NewPosition.latitude//精
-			this.longitude = NewPosition.longitude//韦
-		
-		},		
-		filters:{
-         keepTwo: function(value){
-			 var res="";
-			 res=value.toFixed(1)
-			 return res
-		 }
+		created() {
+			var Position = js2android.getLocationInfo() //获取定位信息
+			var NewPosition = JSON.parse(Position)
+			this.cityname = NewPosition.province //省
+			this.citysi = NewPosition.city //市
+			this.latitude = NewPosition.latitude //精
+			this.longitude = NewPosition.longitude //韦
+
+		},
+		filters: {
+			keepTwo: function(value) {
+				var res = "";
+				res = value.toFixed(1)
+				return res
+			}
 		},
 		watch: {
-		brandNo(newVal, oldVal) {//监听品牌id,获得车型列表
-		  	let data = {
+			brandNo(newVal, oldVal) { //监听品牌id,获得车型列表
+				let data = {
 					no: this.brandNo
 				}
-			  //请求车型列表
+				//请求车型列表
 				this.$http.post(Wit.searchVehicleSeriesList, data, this.$store.state.mytoken).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
@@ -425,7 +425,7 @@
 					if(data.code == 0) {
 						this.cityList = data.data.records;
 					} else {
-					
+
 					}
 				})
 			}
@@ -433,16 +433,20 @@
 	};
 </script>
 <style scoped>
-	.flex-center{/*水平垂直居中*/
-	  display: flex;
-	  justify-content: center;
-	  align-items: center;
+	.flex-center {
+		/*水平垂直居中*/
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
-	.flex-column-align{/*竖直方向水平居中*/
-	  display: flex;
-	  flex-direction: column;
-	  align-items: center;
+	
+	.flex-column-align {
+		/*竖直方向水平居中*/
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
+	
 	.row {
 		flex-direction: row;
 	}
@@ -450,7 +454,7 @@
 	.con div {
 		position: relative;
 		height: 0.88rem;
-		width:1.5rem
+		width: 1.5rem
 	}
 	
 	.con div img {
@@ -552,10 +556,10 @@
 		height: 100%;
 		background: #fff;
 		text-align: center;
-		margin-left:.2rem;
-	    overflow: hidden;
-    	white-space: nowrap;
-    	text-overflow: ellipsis;
+		margin-left: .2rem;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 	}
 	
 	.selection-show .arrow {
@@ -597,6 +601,7 @@
 		background: #e3e3e3;
 	}
 	/*没有数据时,提示样式*/
+	
 	.dataInfo {
 		position: absolute;
 		top: 50%;

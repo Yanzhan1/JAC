@@ -100,8 +100,11 @@ window.DISCOVERMESSAGE = {
         getOneComment: indexip + '/userComment/getOneComment', //进入评论页获取当前评论所有回复
     }
     // 智享
+
+
 window.Wit = {
-        MainBus: mips + '/vehicleBrand/selectVehicleSeriesByBrand', //全部车型 主推车型
+        searchVehicleSeriesOne: mip + '/vehicleSeries/searchVehicleSeriesOne', //车系和配置参数查询
+        MainBus: mip + '/vehicleBrand/selectVehicleSeriesByBrand', //全部车型 主推车型
         Dealer: mip + '/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询
         Switching: mip + '/vehicleBrand/searchVehicleBrandList', //频道选择
         Distributor: mip + '/dealerBaseInformation/searchDealerBaseInformationListPage', //选择经销商
@@ -164,4 +167,13 @@ window.Lovecar = {
     Findcode: love_car + '/vehicle/forget-vehicle-pin', //找回pin码
     Control: love_car + '/vehicle/remote-vehicle-control', //远程控制
     LogStatus: love_car + '/vehicle/vehicle-logstatus' //获取机车登入状态
+}
+//消息接口
+window.IMFORMATION = {
+  getList:indexip+'/sendMessageController/getList',//通知list
+  commentRequest:indexip+'/userComment/commentRequest',//获取评论列表lid与类型进行跳转
+  read:indexip+'/sendMessageController/read',//通知已读
+  notificationPushDetail:love_car+'/notificationPush/notificationPushDetail',//通知详情
+  notificationPushList:love_car+'/notificationPush/notificationPushList',//通知list
+  changeReadStatus:love_car+'/notificationPush/changeReadStatus',//通知已读
 }

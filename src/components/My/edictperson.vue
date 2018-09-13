@@ -112,7 +112,7 @@ export default {
 		getPic(piElementId,imgElementId,path){
        this.picpath=path//文件路径
       	var self = this;
-        var file = document.getElementById(piElementId).files[0];
+        var file = document.getElementById(piElementId).files[0]; //文件
          this.picname=file.name //文件名
 				var reads= new FileReader();
 				var img = new Image();
@@ -131,7 +131,7 @@ export default {
          prj:'DM',
          remark:'修改头像'
         }
-       self.$http.post('http://172.20.20.75:8762/api/dk-filestore-svr/filestore/v1/picture',params,self.$store.state.mytoken).then(res=>{
+       self.$http.post('http://test.jac.timanetwork.net/api/dk-filestore-svr/filestore/v1/picture',params,self.$store.state.mytoken).then(res=>{
           if(res.data.status==1){
              self.changeInfo.imageUrl=res.data.data.fileUrl+res.data.data.fileNewName
            }

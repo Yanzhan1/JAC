@@ -70,6 +70,12 @@ import News from '../components/news/News.vue' //消息
 import StyNews from '../components/news/StyNews.vue' //系统消息
 import ActiveNew from '../components/news/ActiveNew.vue' //活动
 import Discuss from '../components/news/Discuss.vue' //评论
+
+// 消息
+import Informations from '../components/news/information.vue'
+import Info_details from '../components/news/info_details.vue'
+import Activitys from '../components/news/activitys.vue'
+import Comments from '../components/news/comments.vue'
 //发现部分
 import Discover from '@/components/discover/discover'
 import Header from '@/components/Header' // 发现头部
@@ -460,7 +466,28 @@ const router = new Router({
                 path: "/news",
                 name: '消息',
                 component: News
-            }, {
+            },
+            {
+              path: '/info/information',
+              name: '系统通知',
+              component: Informations
+            },
+            {
+              path: '/info/info_details',
+              name: 'info_details',
+              component: Info_details
+            },
+            {
+              path: '/info/activitys',
+              name: '活动',
+              component: Activitys
+            },
+            {
+              path: '/info/comments',
+              name: '评论',
+              component: Comments
+            },
+            {
                 path: "/stynew",
                 name: '系统消息',
                 component: StyNews

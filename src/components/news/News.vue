@@ -8,6 +8,7 @@
         <div style="height:.88rem"></div>
         <ul style="padding:0 .32rem" class="ulList">
             <router-link to="/stynew" tag="li" class="flex row cocenter between" style="height:.97rem;border-bottom:.01rem solid #f1f1f1">
+            <!--<router-link to="/info/information" tag="li" class="flex row cocenter between" style="height:.97rem;border-bottom:.01rem solid #f1f1f1">-->
                 <div class="flex row cocenter">
                     <img src="../../../static/images/my/icon_message_system.png" alt="" style="width:.36rem;height:.36rem">
                     <span style="font-size:.27rem;color:#555;margin-left:.2rem" class="active">消息</span>
@@ -15,14 +16,16 @@
                 <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
             </router-link>
 
-            <router-link to="/discuss" tag="li" class="flex row cocenter between" style="height:.97rem;border-bottom:.01rem solid #f1f1f1">
+            <!--<router-link to="/discuss" tag="li" class="flex row cocenter between" style="height:.97rem;border-bottom:.01rem solid #f1f1f1">-->
+            <router-link to="/info/comments" tag="li" class="flex row cocenter between" style="height:.97rem;border-bottom:.01rem solid #f1f1f1">
                 <div class="flex row cocenter">
                     <img src="../../../static/images/my/icon_message_commernt.png" alt="" style="width:.32rem;height:.36rem">
                     <span style="font-size:.27rem;color:#555;margin-left:.2rem" class="active">评论</span>
                 </div>
                 <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
             </router-link>
-            <router-link to="/activenew" tag="li" class="flex row cocenter between" style="height:.97rem;border-bottom:.01rem solid #f1f1f1">
+            <!--<router-link to="/activenew" tag="li" class="flex row cocenter between" style="height:.97rem;border-bottom:.01rem solid #f1f1f1">-->
+            <router-link to="/info/activitys" tag="li" class="flex row cocenter between" style="height:.97rem;border-bottom:.01rem solid #f1f1f1">
                 <div class="flex row cocenter">
                     <img src="../../../static/images/my/icon_message_activity.png" alt="" style="width:.32rem;height:.36rem">
                     <span style="font-size:.27rem;color:#555;margin-left:.2rem">活动</span>
