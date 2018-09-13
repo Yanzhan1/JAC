@@ -26,17 +26,17 @@
       </div>
       <div class="flex row cocenter roe">
         <!-- <label class="input-label" :class="{active: selected_all}" @click="slect_all"></label> -->
-         <label ><input type="radio" v-model="gender" :value="null" /></label>
-         <span class="txt" style="margin-left:.1rem">全选</span>
+        <label><input type="radio" v-model="gender" :value="null" /></label>
+        <span class="txt" style="margin-left:.1rem">全选</span>
       </div>
       <ul class="flex row wrap between">
         <li class="flex row cocenter list_li" v-for="(item,index) in good_list" :key="index">
           <!-- <label class="input-label" :class="{active: item.is_selected}" @click="select_one(index)"></label> -->
-           <label><input type="radio" v-model="gender" :value="item.no"/></label>
+          <label><input type="radio" v-model="gender" :value="item.no" /></label>
           <span class="txt" style="margin-left:.1rem">{{item.brandName}}</span>
         </li>
       </ul>
-       <div class="fot">
+      <div class="fot">
         <p class="pp" style="" @click="fn(1)">取消</p>
         <p class="sure" style="" @click="fn(2)">确定</p>
       </div>
@@ -55,20 +55,20 @@ export default {
       highlyRecommend: "", //全部车型 传1 主推车型
       mainbus: {}, //存储展示的数据 主推车型 全部车型
       choosebus: {}, //选择频道
-      arr:[],
-      gender:'',
+      arr: [],
+      gender: "",
       good_list: [],
-      gender:"null" //全选默认选中
+      gender: null //全选默认选中
     };
   },
   methods: {
     shai() {
       this.popupVisible = true;
     },
-    tode(){
-  this.$router.push("/wit/Characteristic");
+    tode() {
+      this.$router.push("/wit/Characteristic");
     },
-    
+
     // select_one(index) {
     //   if (this.good_list[index].is_selected == true) {
     //     this.good_list[index].is_selected = false;
@@ -91,21 +91,28 @@ export default {
     // },
     //切换频道
     fn(num) {
-      if(num==2){
-          var arr=this.arr
-            var param = {
-              'highlyRecommend': this.highlyRecommend,
-               no:this.gender
-             };
-            
-             this.$http.post(Wit.MainBus,param).then(res=>{
-              if (res.data.code == 0){
-              this.mainbus={},
-              this.mainbus=res.data.data
-              
+      if (num == 2) {
+        var arr = this.arr;
+        var param = {
+          highlyRecommend: this.highlyRecommend,
+          no: this.gender
+        };
+
+        this.$http.post(Wit.MainBus, param).then(res => {
+          if (res.data.code == 0) {
+            var arr = res.data.data;
+            for (let i = 0; i < arr.length; i++) {
+              if (arr[i].imageRelationVO.length > 0) {
+                arr[i].imgUrl = arr[i].imageRelationVO[0].imageUrl;
+              } else {
+                arr[i].imgUrl = "";
+              }
             }
-             })
-         // for(let i=0;i<this.good_list.length;i++){
+            this.mainbus = {};
+            this.mainbus = arr;
+          }
+        });
+        // for(let i=0;i<this.good_list.length;i++){
         //   if(this.good_list[i].is_selected){
         //     this.arr.push(this.good_list[i].no)
         //     var arr=this.arr
@@ -122,14 +129,14 @@ export default {
         //     })
         //   }
         // }
-      }else{
-       
+      } else {
       }
       this.popupVisible = false;
     },
     //渲染列表   1
     getcarbus(num) {
-      if (num == 1) {  //等于1 传“” 。 获取全部车型
+      if (num == 1) {
+        //等于1 传“” 。 获取全部车型
         this.type = 1;
         this.highlyRecommend = "";
       } else {
@@ -141,35 +148,32 @@ export default {
       };
       this.$http.post(Wit.MainBus, param).then(res => {
         if (res.data.code == 0) {
-         
-         var arr = res.data.data;
-          for(let i = 0 ; i < arr.length;i++){
-          if(arr[i].imageRelationVO.length>0){
-            arr[i].imgUrl = arr[i].imageRelationVO[0].imageUrl;
-          }else{
-            arr[i].imgUrl = "";
+          var arr = res.data.data;
+          for (let i = 0; i < arr.length; i++) {
+            if (arr[i].imageRelationVO.length > 0) {
+              arr[i].imgUrl = arr[i].imageRelationVO[0].imageUrl;
+            } else {
+              arr[i].imgUrl = "";
+            }
           }
+          this.mainbus = {};
+          this.mainbus = arr;
         }
-         this.mainbus = {};
-         this.mainbus = arr;
-
-          }
       });
     },
     //切换频道 多选框
     choosemore() {
       var param = {};
-     this.$http.post(Wit.Switching,param)
-        .then(res => {
-          if (res.data.code == 0) {
-             this.choosebus = res.data.data;
-             for(let i=0;i<this.choosebus.length;i++){
-               this.choosebus[i].is_selected=false
-             }
+      this.$http.post(Wit.Switching, param).then(res => {
+        if (res.data.code == 0) {
+          this.choosebus = res.data.data;
+          for (let i = 0; i < this.choosebus.length; i++) {
+            this.choosebus[i].is_selected = false;
           }
-          this.good_list=this.choosebus
-          });
-       }
+        }
+        this.good_list = this.choosebus;
+      });
+    }
   },
   created() {
     //获取全部车型，主推车型
