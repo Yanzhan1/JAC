@@ -7,17 +7,17 @@
       <img class="f_left" src="../../../static/images/discover/backblue.png" @click="goBack">
       <img class="f_left head_4" src="../../../static/images/discover/normalhead.png">
       <p class="header-title-fff" style="margin-left: 30%;">
-        <!--{{userInfo.nickName}}-->用户名</p>
+        {{userInfo.userName}}</p>
     </header>
     <div class="startbg">
       <div class="wrapbg">
-        <img src="../../../static/images/discover/normalhead.png" />
-        <!--<img :src="userInfo.headImgurl" alt="">-->
+        <img v-if="userInfo && userInfo.headUrl" :src="userInfo.headUrl" alt="">
+        <img v-else src="../../../static/images/discover/normalhead.png" />
       </div>
       <div class="user_info">
         <p class="font_36 mb_16">
-          <!--{{userInfo.nickName}}-->用户名</p>
-        <p class="font_24fff">千秋无绝色！悦目是佳人！倾国倾城貌！惊为天下人！</p>
+          {{userInfo.userName}}</p>
+        <p class="font_24fff">{{userInfo.personalSignature}}</p>
         <div class="mytopbottom flex around">
           <div>
             <span>获赞</span>
@@ -156,6 +156,16 @@
       },
       viewImg() {
         this.showImg = false;
+      },
+      init() {
+        let _this = this;
+        _this.$http.post(My.UserInfo, {
+          "no": _this.$store.state.userId
+        }).then(function (res) {
+          if (res.data.code == 0) {
+            _this.userInfo = res.data.data;
+          }
+        });
       },
       getuserMessage() {
         var data = {
@@ -334,6 +344,7 @@
           $("#header2").show();
         }
       })
+      this.init();
       this.myNum()
       this.getMineList();
       this.getuserMessage();
