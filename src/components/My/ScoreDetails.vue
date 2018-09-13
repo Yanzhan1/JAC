@@ -8,7 +8,7 @@
         <div style="height:.88rem"></div>
         <div class="flex column arounds">
             <span class="mycore">我的积分</span>
-            <span class="score">180</span>
+            <span class="score">{{integral}}</span>
         </div>
         <ul>
             <div class="scoredeatails">积分明细</div>
@@ -29,7 +29,7 @@ export default {
   data() {
     return {
         details:{},
-        integral:''
+        integral:this.$store.state.integral
     };
   },
   methods: {
@@ -38,7 +38,8 @@ export default {
         ruleStr: "SIGN_IN",
         serviceTypeStr: "SERVICE_FIXED",
         typeStr: "TYPE_RETAIN",
-        no:'AD022018090502444422707'
+        // no:'AD022018090502444422707'
+        no:this.$store.state.userId
       };
      this.$http.post(My.CreditDetail,data).then(res=>{
        if(res.data.code==0){

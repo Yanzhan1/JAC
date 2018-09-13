@@ -19,7 +19,7 @@
               <img v-if="Personal.sex==1" src="../../../static/images/my/gender_man@2x.png" alt="" style="width: 0.28rem;height: 0.28rem">
               <img v-if="Personal.sex==2" src="../../../static/images/my/gender_woman.png" alt="" style="width: 0.28rem;height: 0.28rem">
             </div>
-            <span @click="ToScore()" style="margin-top: 0.16rem;font-size: 0.22rem;color: #dcf5ff;">550&nbsp;积分&nbsp;></span>
+            <span @click="ToScore()" style="margin-top: 0.16rem;font-size: 0.22rem;color: #dcf5ff;">{{integral}}&nbsp;积分&nbsp;></span>
           </div>
         </div>
         <!-- <img @click="twoma()" src="../../../static/images/my/qr_code@2x.png" alt="" style="width: 0.4rem;height: 0.4rem"> -->
@@ -134,6 +134,7 @@ export default {
       Personal: {}, //个人信息
       popupVisible: false,
       isShow: true, //今日未签到
+      integral:'',//用户总积分
       likeNum: 0,
       fansNum: 0,
       focusNum: 0,
@@ -149,7 +150,7 @@ export default {
         ruleStr: "SIGN_IN",
         serviceTypeStr: "SERVICE_FIXED",
         typeStr: "TYPE_RETAIN",
-        no:'AD022018090502444422707'
+        no:this.$store.state.userId
       }
      var param=JSON.stringify(data)
       this.$http.post(My.SignIn,param).then(res => {
@@ -167,19 +168,26 @@ export default {
         ruleStr: "SIGN_IN",
         serviceTypeStr: "SERVICE_FIXED",
         typeStr: "TYPE_RETAIN",
-         no:'AD022018090502444422707'
+         no:this.$store.state.userId
       }
        this.$http.post(My.IsSignIn,data).then(res => {
-
+         if(res.data.code==50004){
+           this.isShow=false
+         }
+      
        });
     },
     // 获取用户总积分
       total(){
         var data = {
-          no:'AD022018090502444422707'
+          no:this.$store.state.userId
       }
        this.$http.post(My.Credit,data).then(res => {
-
+         if(res.data.code==0){
+           this.integral=res.data.data.records[0].count
+           this.$store.state.integral=res.data.data.records[0].count
+         }
+         
        });
       },
    

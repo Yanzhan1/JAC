@@ -129,7 +129,7 @@ window.My = {
         UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
         IsSignIn: jf + '/pluto-membership/integral-gather/is-sign', //判断用户今天是否签到 
         SignIn: jf + '/pluto-membership/integral-gather/integral-gather', //签到 
-        Credit: jf + '/plutomembership/integralCount/searchIntegralCountList', //获取用户积分
+        Credit: jf + '/plutomembership/integralCount/searchIntegralCountListPage', //获取用户积分
         CreditDetail: jf + '/plutomembership/integralRecord/searchIntegralRecordList', //积分记录
         My_Bus: love_car + '/vehicle/find-vehicle-list', //我的车辆
         SetOneDefault: love_car + '/vehicle/set-default-vehicle', //我的车辆设为默认

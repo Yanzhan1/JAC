@@ -10,6 +10,7 @@ export default {
     softkeyboard: true, //默认软键盘开启
     token: null, //用户token
     refreshToken: '',
+    integral: '', //用户总积分
     // userNo: 'AD022018081504171568405', //userNo
     tsppin: {
         headers: {
