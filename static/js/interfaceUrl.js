@@ -5,22 +5,16 @@ console.log(`执行环境${apiHost}`)
 var indexip = `${apiHost}/api/dk-dm-portal-api`
 
 var indexip = 'http://test.jac.timanetwork.net/api/dk-dm-portal-api'
-
-//服务器-智享
+    //服务器-智享
 var mip = 'http://test.jac.timanetwork.net/api/jac-automobile-manage/automobilemanage' //智享
     //服务器-admin(跟用户有关即我的)
 var mips = 'http://test.jac.timanetwork.net/api/jac-admin/' //地区
 var jf = 'http://test.jac.timanetwork.net/' //跟积分有关的
     // var love_car = 'http://test.jac.timanetwork.net/jvconnectedcar' //爱车
 var love_car = 'http://test.jac.timanetwork.net/api/jac-car-control' //爱车
-
-//服务器→反馈记录
+    //服务器→反馈记录
 var rec = 'http://test.jac.timanetwork.net/api/jac-enjoy-service/'
-    //var rec = 'http://172.21.4.167:8083' //杨毅飞本地
-
-
-//var indexip = 'http://172.18.31.40:8868'
-//首页
+    //首页
 window.INDEXMESSAGE = {
     getRecommend: indexip + '/recommend/recommendList', //首页-推荐
     getInfomation: indexip + '/information/indexList', //首页-资讯
@@ -109,12 +103,10 @@ window.DISCOVERMESSAGE = {
 window.Wit = {
         MainBus: mip + '/vehicleBrand/selectVehicleSeriesByBrand', //全部车型 主推车型
         Dealer: mip + '/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询
-        //      Dealer: 'http://172.21.4.235:8082' + '/automobilemanage/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询
         Switching: mip + '/vehicleBrand/searchVehicleBrandList', //频道选择
         Distributor: mip + '/dealerBaseInformation/searchDealerBaseInformationListPage', //选择经销商
         searchVehicleBrandList: mip + '/vehicleBrand/searchVehicleBrandList', //品牌
         searchVehicleSeriesList: mip + '/vehicleBrand/selectVehicleSeriesByBrand', //车型
-        //searchVehicleSeriesList: 'http://172.21.4.167:8082' + '/automobilemanage/vehicleBrand/selectVehicleSeriesByBrand', //车型
         Brand: mip + '/vehicleBrand/searchVehicleBrandList', //选择品牌
         System: mip + '/vehicleSeries/searchVehicleSeriesList', //选择车系
         PreBus: mip + '/cluesOrderFrom/addCluesOrderFrom', //车辆预定提交
@@ -156,15 +148,11 @@ window.My = {
         RecomendCode: mips + '/admin/recommendedCode/searchRecommendedCodeOne' //获取推荐码
     }
     //爱车
-
 window.Lovecar = {
     vehicle: love_car + '/vehicle/sync-tsp-vehicle', //给后端同步车辆接口
-    // vehicle: 'http://172.21.4.50:8084/vehicle/sync-tsp-vehicle', //给后端同步车辆接口
     TSP: mips + 'admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne', //获取tsp用户
     Carquery: love_car + '/vehicle/query-vehicle-condition', //车辆车况查询
-    // Carquery: 'http://172.21.4.116:8084/vehicle/query-vehicle-condition', //车辆车况查询
     OperationId: love_car + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
-    // OperationId: 'http://172.21.4.116:8084/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
     Changepin: love_car + '/vehicle/update-vehicle-pin', //修改pin码
     Getphonepin: love_car + '/vehicle//identify-code', //获取验证码
     Checkphonepin: love_car + '/vehicle/check-vehicle-pin', //验证pin码
