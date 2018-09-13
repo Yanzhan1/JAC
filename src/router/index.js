@@ -526,8 +526,7 @@ router.beforeEach((to, from, next) => {
         if (!$http.defaults.headers.common['timaToken']) {
             var userInfo;
             if (isMobile.iOS()) {
-                // TODO IOS方法待提供
-                // window.webkit.messageHandlers.goLogin.postMessage("");
+                window.webkit.messageHandlers.isLogin.postMessage("");
             } else if (isMobile.Android()) {
                 userInfo = JSON.parse(js2android.getUserInfo())
             }
