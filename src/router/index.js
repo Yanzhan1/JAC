@@ -549,11 +549,13 @@ const router = new Router({
 const $http = axios;
 const $store = store
 router.beforeEach((to, from, next) => {
+	
     try {
+    	
         if (!$http.defaults.headers.common['timaToken']) {
             var userInfo;
             if (isMobile.iOS()) {
-                window.webkit.messageHandlers.isLogin.postMessage("");
+                userInfo = JSON.parse(getCookie('userInfo')) 
             } else if (isMobile.Android()) {
                 userInfo = JSON.parse(js2android.getUserInfo())
             }

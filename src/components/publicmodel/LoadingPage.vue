@@ -1,7 +1,7 @@
 <template>
   <div class="loadingPage flex-center">
     <div class="flex-center loadingBackground">
-      <img  id="img" :src="'./static/images/Lovecar/loading.png'">
+      <img  id="img" :src="'/static/images/Lovecar/loading.png'">
       <p>加载数据中...</p>
     </div>
   </div>
