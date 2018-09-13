@@ -149,7 +149,7 @@
           });
           // this.$router.push({path:'/myIndex'});
         } else {
-          // this.$store.state.UserStartId = id;
+          this.$store.state.UserStartId = id;
           this.$router.push({
             path: '/userstart',
             query: {

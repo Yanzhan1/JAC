@@ -284,7 +284,7 @@ export default {
 	          var curMonth = curDate.getMonth();
 	        /*  生成实际的月份: 由于curMonth会比实际月份小1, 故需加1 */
 	        curDate.setMonth(Number(this.start[1]));
-	        /* 将日期设置为0, 这里为什么要这样设置, 我不知道原因, 这是从网上学来的 */
+	        /* 将日期设置为0 */
 	        curDate.setDate(0);
 	        /* 返回当月的天数 */
 			dayTime = curDate.getDate()
@@ -301,8 +301,8 @@ export default {
 	          var curMonth = curDate.getMonth();
 	        /*  生成实际的月份: 由于curMonth会比实际月份小1, 故需加1 */
 	        curDate.setMonth(Number(this.end[1]));
-	        /* 将日期设置为0, 这里为什么要这样设置, 我不知道原因, 这是从网上学来的 */
-	        curDate.setDate(0);
+	        /* 将日期设置为0 */
+	        curDate.setDate(0) //0 为上一个月的最后一天;
 	        /* 返回当月的天数 */
 			dayTime = curDate.getDate()
 			this.slotstwo[4].values = []
@@ -319,11 +319,7 @@ export default {
 			this.slotsone[0].values.push(i)
 			this.slotstwo[0].values.push(i)
 		}
-    },
-    getDayTimes () { //js获取当月的天数
-    	 
-//      return curDate.getDate();
-  	}
+    }
   },
   mounted(){
     this.getYear();

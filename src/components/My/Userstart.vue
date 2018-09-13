@@ -36,7 +36,7 @@
     </div>
     <!--社区列表S-->
     <div style="padding: 0.4rem 0.32rem;">
-      <p class="font_5 f_left">我的发布</p>
+      <p class="font_5 f_left">他的发布</p>
       <p class="font_6 f_right">共{{myList.length}}条发布</p>
     </div>
     <div v-for="(item,index) in myList">

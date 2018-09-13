@@ -23,7 +23,13 @@
         <span class="font_4">{{content.planDate}}</span>
       </div>
       <div style="margin-top: 0.4rem;margin-bottom: 0.4rem;margin-left: 0.2rem;">
-        <img v-for="item in showJoinList.slice(0,10)" :src="item" class="sign_head" />
+        <template v-if="showJoinList.length > 0">
+          <template v-for="item in showJoinList.slice(0,10)">
+            <img v-if="item" :src="item" class="sign_head" />
+            <img v-else src="../../../../static/images/discover/normalhead.png" class="sign_head" />
+          </template>
+        </template>
+        <img v-else src="../../../../static/images/discover/normalhead.png" class="sign_head" />
         <span v-if="content.joinList" class="blue_28 ml_2">
           {{content.joinList.length}}人想参加
         </span>
@@ -50,7 +56,7 @@
       <div class="comment_userinfo">
         <div class="user_head">
           <div @click="changeUserStartId(content.user.user_id)">
-            <img v-if="content.user" :src="content.user.head_image" />
+            <img v-if="content.user && content.user.head_image" :src="content.user.head_image" />
             <img v-else src="../../../../static/images/discover/normalhead.png" />
           </div>
         </div>

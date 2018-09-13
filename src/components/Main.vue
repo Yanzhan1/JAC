@@ -48,7 +48,7 @@
 			this.$http.interceptors.response.use((response) => {
 				const data = response.data;
 				var system = this.isIOSOrAndroid();
-				switch (data.code) { //判断接口状态,403  token失效,重新登录
+				switch (data.code) { //判断接口状态,403  token失效,重新登录,本地调试可注释掉,发布提交时必须解开
 				 	case 403:
 				 		if (system == 'Android' && window.js2android) {
 				 			window.js2android.logout() //安卓退出App

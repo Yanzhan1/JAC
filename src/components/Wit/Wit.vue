@@ -58,10 +58,12 @@
     </div>
     <ul class="bus">
       <li class="bus_li" @click="specil" v-for="(item,index) in this.mainbus" :key="index">
-        <img src="../../../static/images/Wit/bg-mine.png" alt="">
-        <div class="bus_1">
+          <div> 
+            <img :src="item.imgUrl"  alt="">
+          </div>
+       <div class="bus_1">
           <span class="bus_2">{{item.seriesName}}</span>
-          <span class="bus_3">官方指导价：{{item.guidancePrice}}万起</span>
+          <span class="bus_3">官方指导价：{{item.guidancePriceStart}}万起</span>
         </div>
       </li>
     </ul>
@@ -126,6 +128,7 @@ export default {
       flag: false,
       latitude:'',//精度
       longitude:'',//维度
+      tt:{}
     };
   },
   methods: {
@@ -232,8 +235,15 @@ export default {
     this.$http.post(Wit.MainBus, param).then(res => {
       if (res.data.code == 0) {
         var arr = res.data.data;
+         for(let i = 0 ; i < arr.length;i++){
+          if(arr[i].imageRelationVO.length>0){
+            arr[i].imgUrl = arr[i].imageRelationVO[0].imageUrl;
+          }else{
+            arr[i].imgUrl = "";
+          }
+        }
          this.mainbus = arr;
-     }
+        }
     });
   },
   mounted() {
