@@ -1,7 +1,7 @@
 <template>
   <div>
     <header class="header">
-      <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+      <img class="header-left" :src="'/static/images/back@2x.png'" @click="$router.go(-1)">
       <span class="header-title">我的经销商</span>
       <span class="header-right"></span>
     </header>
