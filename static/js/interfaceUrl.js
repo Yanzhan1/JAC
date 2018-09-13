@@ -135,8 +135,8 @@ window.Wit = {
     //我的 部分
 window.My = {
         UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
-        IsSignIn: jf + '/pluto-membership/integral-gather/is-sign', //判断用户今天是否签到 
-        SignIn: jf + '/pluto-membership/integral-gather/integral-gather', //签到 
+        IsSignIn: jf + '/pluto-membership/integral-gather/is-sign', //判断用户今天是否签到
+        SignIn: jf + '/pluto-membership/integral-gather/integral-gather', //签到
         Credit: jf + '/plutomembership/integralCount/searchIntegralCountList', //获取用户积分
         CreditDetail: jf + '/plutomembership/integralRecord/searchIntegralRecordList', //积分记录
         My_Bus: love_car + '/vehicle/find-vehicle-list', //我的车辆
@@ -176,4 +176,13 @@ window.Lovecar = {
     Findcode: love_car + '/vehicle/forget-vehicle-pin', //找回pin码
     Control: love_car + '/vehicle/remote-vehicle-control', //远程控制
     LogStatus: love_car + '/vehicle/vehicle-logstatus' //获取机车登入状态
+}
+//消息接口
+window.IMFORMATION = {
+  getList:indexip+'/sendMessageController/getList',//通知list
+  commentRequest:indexip+'/userComment/commentRequest',//获取评论列表lid与类型进行跳转
+  read:indexip+'/sendMessageController/read',//通知已读
+  notificationPushDetail:love_car+'/notificationPush/notificationPushDetail',//通知详情
+  notificationPushList:love_car+'/notificationPush/notificationPushList',//通知list
+  changeReadStatus:love_car+'/notificationPush/changeReadStatus',//通知已读
 }

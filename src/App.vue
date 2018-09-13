@@ -32,6 +32,8 @@ export default {
     window.isLogin = this.isLogin;
   },
   mounted () {
+    // this.isLogin({name:'',no:'AD022018091002132068203'})
+    // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImlkXCI6MTM3LFwiaW5pdFVzZXJcIjowLFwibm9cIjpcIkFEMDIyMDE4MDkxMDAyMTMyMDY4MjAzXCIsXCJwZXJzb25hbFNpZ25hdHVyZVwiOlwiXCIsXCJzZXhcIjoxLFwidXNlckNvZGVcIjpcIjE4ODU2OTEzMDc0XCIsXCJ1c2VyTmFtZVwiOlwi5ZKq5ZKqXCIsXCJ1c2VyU3RhdHVzXCI6MCxcInVzZXJUeXBlXCI6XCIwMVwifSIsImNyZWF0ZWQiOjE1MzY4MjUzNTgzODQsInVzZXJObyI6IkFEMDIyMDE4MDkxMDAyMTMyMDY4MjAzIiwidXNlclR5cGUiOiIwMSIsInVzZXJOYW1lIjoi5ZKq5ZKqIiwiZXhwIjoxNTM3Njg5MzU4LCJ1c2VySWQiOjEzN30.yjdhQYIHK4Pg0H4DrpI1A3jWNoV5XXjbXCydgwuH2HY'
             //获取用户
             let params = {
                 userNo: this.$store.state.userId
