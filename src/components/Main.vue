@@ -48,23 +48,23 @@
 			this.$http.interceptors.response.use((response) => {
 				const data = response.data;
 				var system = this.isIOSOrAndroid();
-				switch (data.code) { //判断接口状态,403  token失效,重新登录,本地调试可注释掉,发布提交时必须解开
-				 	case 403:
-				 		if (system == 'Android' && window.js2android) {
-				 			window.js2android.logout() //安卓退出App
-				 		} else if (system == "IOS" && window.webkit) {
-				 			window.webkit.messageHandlers.logout.postMessage({}); //IOS退出app
-				 		}
-				 		break;
+				switch(data.code) { //判断接口状态,403  token失效,重新登录,本地调试可注释掉,发布提交时必须解开
+					case 403:
+						if(system == 'Android' && window.js2android) {
+							window.js2android.login() //安卓退出App
+						} else if(system == "IOS" && window.webkit) {
+							window.webkit.messageHandlers.logout.postMessage({}); //IOS退出app
+						}
+						break;
 				}
-				if (response.config.url != 'http://test.jac.timanetwork.net/api/jac-car-control/vehicle/vehicle-async-results') {
+				if(response.config.url != 'http://test.jac.timanetwork.net/api/jac-car-control/vehicle/vehicle-async-results') {
 					this.loadingnum--;
-          if(this.loadingnum == 0){
-              this.loadingflag = false;
-              this.$forceUpdate();
-          }
+					if(this.loadingnum == 0) {
+						this.loadingflag = false;
+						this.$forceUpdate();
+					}
 				} else {
-					 this.loadingflag = false;
+					this.loadingflag = false;
 				}
 				ModalHelper.beforeClose() //解决遮罩层穿透
 				return response;
@@ -78,7 +78,7 @@
 			});
 		},
 		methods: {
-			isIOSOrAndroid () {  //判断ios和安卓机型的方法
+			isIOSOrAndroid() { //判断ios和安卓机型的方法
 				var u = navigator.userAgent,
 					app = navigator.appVersion;
 				var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g

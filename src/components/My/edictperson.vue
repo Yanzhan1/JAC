@@ -112,7 +112,7 @@ export default {
 		getPic(piElementId,imgElementId,path){
        this.picpath=path//文件路径
       	var self = this;
-        var file = document.getElementById(piElementId).files[0];
+        var file = document.getElementById(piElementId).files[0]; //文件
          this.picname=file.name //文件名
 				var reads= new FileReader();
 				var img = new Image();
