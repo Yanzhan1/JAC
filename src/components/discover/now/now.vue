@@ -38,7 +38,7 @@
                     </div>
                     <div v-else="content.focusStatus == 2">
                       <img src="../../../../static/images/discover/ygz.png">
-                      <span class="font_4" @click="removeFoucs(content.user.user_id)">相互关注</span>
+                      <span class="font_4" @click="removeFoucs(content.user.user_id,index)">相互关注</span>
                     </div>
                   </div>
                 </div>
