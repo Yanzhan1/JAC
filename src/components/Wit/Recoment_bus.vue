@@ -10,7 +10,7 @@
     </header>
     <div style="height:.88rem"></div>
     <ul>
-      <li class="bus_li" v-for="(item,index) in this.mainbus" :key="index" @click="tode()">
+      <li class="bus_li" v-for="(item,index) in this.mainbus" :key="index" @click="tode(item)">
         <img :src="item.imgUrl" alt="">
         <div class="bus_1">
           <span class="bus_2">{{item.seriesName}}</span>
@@ -65,8 +65,14 @@ export default {
     shai() {
       this.popupVisible = true;
     },
-    tode() {
-      this.$router.push("/wit/Characteristic");
+    tode(item) {
+      alert(item.no)
+      this.$router.push({
+        name:'车系特色',
+        params:{
+          everyno:item.no
+        }
+      });
     },
 
     // select_one(index) {
