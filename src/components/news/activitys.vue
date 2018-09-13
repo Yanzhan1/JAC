@@ -64,7 +64,7 @@ export default {
       }).catch((err)=>{
 
       })
-      this.$router.push({path:'/activity/DetailActivity',query: {activityId:lid}})
+      this.$router.push({path:'/activity/activityDetail',query: {activityId:lid}})
     },
     fn() {
 

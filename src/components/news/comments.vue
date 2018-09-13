@@ -69,9 +69,9 @@ export default {
       this.$http.get(IMFORMATION.commentRequest+'?id='+lid).then((res)=>{
           if(res.data.status){
            if(res.data.data.commentType == 1){
-             this.$router.push({path:"/discdetail",query:{id:res.data.data.lid}})
+             this.$router.push({path:"/information/informationDetail",query:{id:res.data.data.lid}})
            }else if(res.data.data.commentType == 2){
-             this.$router.push({path:"/discover/nowDetail",query:{id:res.data.data.lid}})
+             this.$router.push({path:"/now/nowDetail",query:{id:res.data.data.lid}})
            }
           }else{
             let instance = Toast({
