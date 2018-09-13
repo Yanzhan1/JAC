@@ -26,7 +26,7 @@
           </div>
           <div>
             <span>关注</span>
-            <span>{{focsNum}}</span>
+            <span>{{focusNum}}</span>
           </div>
           <div>
             <span>粉丝</span>
@@ -154,7 +154,7 @@
         myList: [],
         likeNum: 0,
         fansNum: 0,
-        focsNum: 0,
+        focusNum: 0,
         user: this.$store.state.UserId,
         showImg: false,
         imgSrc: '',
@@ -392,7 +392,7 @@
           "uid": _this.$store.state.UserStartId
         }).then(function (res) {
           if (res.data.status) {
-            _this.focsNum = res.data.data;
+            _this.focusNum = res.data.data;
           } else {
             console.log(res.data.errorMsg);
           }
