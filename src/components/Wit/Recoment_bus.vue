@@ -11,7 +11,7 @@
     <div style="height:.88rem"></div>
     <ul>
       <li class="bus_li" v-for="(item,index) in this.mainbus" :key="index" @click="tode()">
-        <img :src="item.imageUrl" alt="">
+        <img :src="item.imgUrl" alt="">
         <div class="bus_1">
           <span class="bus_2">{{item.seriesName}}</span>
           <span class="bus_3">
@@ -141,8 +141,18 @@ export default {
       };
       this.$http.post(Wit.MainBus, param).then(res => {
         if (res.data.code == 0) {
-          this.mainbus = {};
-          this.mainbus = res.data.data;
+         
+         var arr = res.data.data;
+          for(let i = 0 ; i < arr.length;i++){
+          if(arr[i].imageRelationVO.length>0){
+            arr[i].imgUrl = arr[i].imageRelationVO[0].imageUrl;
+          }else{
+            arr[i].imgUrl = "";
+          }
+        }
+         this.mainbus = {};
+         this.mainbus = arr;
+
           }
       });
     },
