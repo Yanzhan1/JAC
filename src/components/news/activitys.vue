@@ -108,13 +108,16 @@ export default {
       this.$http.post(IMFORMATION.getList, {"uid": this.$store.state.userId,"pageNo":_this.pageNum, "length":_this.length,type:3}).then(function (res) {
         _this.loadEnd=false;
         if (res.data.status) {
-          _this.List = _this.List.concat(res.data.data);
+          // _this.List = _this.List.concat(res.data.data);
           var allPages = Math.ceil(res.data.recordsTotal/_this.length);
           if(allPages <= _this.pageNum){
             _this.loading = true;
             _this.allLoaded = true;
             _this.loadEnd = true;
             $("#showAll2").show();
+          }
+          if(allPages >= _this.pageNum){
+            _this.List = _this.List.concat(res.data.data);
           }
         } else {
           _this.pageNum = _this.pageNum -1;
