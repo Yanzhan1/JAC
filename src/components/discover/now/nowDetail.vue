@@ -26,17 +26,17 @@
                 </div>
                 <div class="guanzhu">
                   <div v-if="content.user && userId != content.user.user_id">
-                    <div v-if="content.focusStatus == 0">
+                    <div v-if="content.focusStatus == 0"  @click="addFoucs(content.user.user_id)">
                       <img src="../../../../static/images/discover/jgz.png">
-                      <span class="font_4" @click="addFoucs(content.user.user_id)">关注</span>
+                      <span class="font_4">关注</span>
                     </div>
-                    <div v-else-if="content.focusStatus == 1">
+                    <div v-else-if="content.focusStatus == 1"  @click="removeFoucs(content.user.user_id)">
                       <img src="../../../../static/images/discover/ygz.png">
-                      <span class="font_4" @click="removeFoucs(content.user.user_id)">已关注</span>
+                      <span class="font_4">已关注</span>
                     </div>
-                    <div v-else="content.focusStatus == 2">
+                    <div v-else="content.focusStatus == 2" @click="removeFoucs(content.user.user_id)">
                       <img src="../../../../static/images/discover/ygz.png">
-                      <span class="font_4" @click="removeFoucs(content.user.user_id)">相互关注</span>
+                      <span class="font_4">相互关注</span>
                     </div>
                   </div>
                 </div>
