@@ -5,19 +5,20 @@
     </header>
     <header class="headerUser" id="header2" style="display: none">
       <img class="f_left" src="../../../static/images/discover/backblue.png" @click="goBack">
-      <img class="f_left head_4" src="../../../static/images/discover/normalhead.png">
+      <img v-if="userInfo && userInfo.headUrl" class="f_left head_4" :src="userInfo.headUrl" alt="">
+      <img v-else class="f_left head_4" src="../../../static/images/discover/normalhead.png" />
       <p class="header-title-fff" style="margin-left: 30%;">
-        <!--{{this.userInfo.nickName}}-->用户名</p>
+        {{userInfo.userName}}</p>
     </header>
     <div class="startbg">
       <div class="wrapbg">
-        <img src="../../../static/images/discover/normalhead.png" />
-        <!--<img :src="this.userInfo.headImgurl" alt="">-->
+        <img v-if="userInfo && userInfo.headUrl" :src="userInfo.headUrl" alt="">
+        <img v-else src="../../../static/images/discover/normalhead.png" />
       </div>
       <div class="user_info">
         <p class="font_36 mb_16">
-          {{this.userInfo.nickName}}用户名</p>
-        <p class="font_24fff">千秋无绝色！悦目是佳人！倾国倾城貌！惊为天下人！</p>
+          {{userInfo.userName}}</p>
+        <p class="font_24fff">{{userInfo.personalSignature}}</p>
         <div class="mytopbottom flex around">
           <div>
             <span>获赞</span>
@@ -197,9 +198,8 @@
         _this.$http.post(My.UserInfo, {
           "no": _this.$store.state.UserStartId
         }).then(function (res) {
-          debugger
           if (res.data.code == 0) {
-            this.userInfo = res.data.data;
+            _this.userInfo = res.data.data;
           }
         });
       },
