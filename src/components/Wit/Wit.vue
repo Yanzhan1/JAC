@@ -57,7 +57,7 @@
       <img src="../../../static/images/Wit/next.png" alt="">
     </div>
     <ul class="bus">
-      <li class="bus_li" @click="specil" v-for="(item,index) in this.mainbus" :key="index">
+      <li class="bus_li" @click="specil($event,index)" v-for="(item,index) in this.mainbus" :key="index">
           <div> 
             <img :src="item.imgUrl"  alt="">
           </div>
@@ -128,7 +128,8 @@ export default {
       flag: false,
       latitude:'',//精度
       longitude:'',//维度
-      tt:{}
+      tt:{},
+      allno:[],//储存所有接受到的no
     };
   },
   methods: {
@@ -213,8 +214,13 @@ export default {
       this.$router.push("/wit/pre_weib");
     },
     //车系特色， 配置表
-    specil() {
-      this.$router.push("/wit/Characteristic");
+    specil(el,index) {
+      this.$router.push({
+        name:'车系特色',
+        params:{
+          everyno:this.allno[index]
+        }
+      });
     },
     //保养查询
     search() {
@@ -235,13 +241,17 @@ export default {
     this.$http.post(Wit.MainBus, param).then(res => {
       if (res.data.code == 0) {
         var arr = res.data.data;
-         for(let i = 0 ; i < arr.length;i++){
+        // console.log(arr)
+         for(var i = 0 ; i < arr.length;i++){
+            // this.allno.push(arr[i].no)
           if(arr[i].imageRelationVO.length>0){
             arr[i].imgUrl = arr[i].imageRelationVO[0].imageUrl;
+            this.allno.push(arr[i].no)
           }else{
             arr[i].imgUrl = "";
           }
         }
+        // console.log(this.allno)
          this.mainbus = arr;
         }
     });

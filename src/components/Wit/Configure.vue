@@ -11,11 +11,8 @@
         <div class="talbs">
             <div v-for="(item,index) in nav" class="talbs_next" @click="choose($event,index)" :class="{blue:current==index}" :key="index">{{item}}</div>
         </div>
-        <div class="every_img">
-            <img style="height:9rem" src="./../../../static/images/Wit/ceshi.1.jpg" alt="" v-show="this.current==0?true:false">
-            <img style="height:9rem" src="./../../../static/images/Wit/ceshi.2.jpg" alt="" v-show="this.current==1?true:false">
-            <img style="height:9rem" src="./../../../static/images/Wit/ceshi.1.jpg" alt="" v-show="this.current==2?true:false">
-            <img style="height:9rem" src="./../../../static/images/Wit/ceshi.2.jpg" alt="" v-show="this.current==3?true:false">
+        <div class="every_img" >
+            <img style="height:9rem;" class="nav" :src="this.allimage[this.current]" alt="">
         </div>
         <div class="bottom-btn" @click="reserve">在线订车</div>
     </div>
@@ -25,15 +22,22 @@
 export default {
     data(){
         return{
-            nav:['精致内观','时尚外观','主要性能指标','关键尺寸','啥玩意'],
+            nav:[],
             images:[],
             Edition:['超级版','运动版','普通版'],
             current:0,//选择tablb中的index值
+            allimage:[],
+
         }
     },
     methods:{
         characteristic(){
-            this.$router.push('/wit/Characteristic')
+            this.$router.push({
+                name:'车系特色',
+                params:{
+                    everyno:this.everyno
+                }
+            })
         },
         reserve(){
             this.$router.push('/wit/Reserve')
@@ -42,6 +46,25 @@ export default {
             this.current=index;
         }
     },
+    mounted(){
+        this.everyno=this.$route.params.everyno
+        let params={
+            no:this.$route.params.everyno
+        }
+        this.$http.post(Wit.searchVehicleSeriesOne,params).then((res)=>{
+            let allimage=res.data.data.imageRelationVO
+            // console.log(res.data.data)
+            this.nav=[]
+            for(let i=0;i<allimage.length;i++){
+                if(allimage[i].imageType==5&&allimage[i].imageTitle!=''){
+                    this.allimage.push(allimage[i].imageUrl)
+                    this.nav.push(allimage[i].imageTitle)
+                }
+            }
+            console.log(this.nav)
+            console.log(this.allimage)
+        })
+    }
 }
 </script>
 
