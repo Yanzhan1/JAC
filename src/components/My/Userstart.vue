@@ -16,7 +16,7 @@
       </div>
       <div class="user_info">
         <p class="font_36 mb_16">
-          <!--{{this.userInfo.nickName}}-->用户名</p>
+          {{this.userInfo.nickName}}用户名</p>
         <p class="font_24fff">千秋无绝色！悦目是佳人！倾国倾城貌！惊为天下人！</p>
         <div class="mytopbottom flex around">
           <div>
@@ -195,14 +195,13 @@
       init() {
         //获取用户信息
         var data = {
-          userid: this.$store.state.UserStartId
+          no: this.$store.state.UserStartId
         }
-        var url = USERMESSAGE.getuser
+        var url = My.UserInfo
         this.$http({
           url: url,
           params: data,
-          method: "get",
-          formUrlencoded
+          method: "post",
         }, this.$store.state.mytoken).then((res) => {
           if (res.data.success) {
             this.userInfo = res.data.data;
@@ -529,7 +528,7 @@
           $("#header2").show();
         }
       })
-      //this.init();
+      this.init();
       //获取好友关系 电咖没有好友功能
       // this.getfriendconnect();
       this.getUserList();

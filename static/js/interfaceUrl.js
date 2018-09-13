@@ -101,7 +101,7 @@ window.DISCOVERMESSAGE = {
     }
     // 智享
 window.Wit = {
-        MainBus: mip + '/vehicleBrand/selectVehicleSeriesByBrand', //全部车型 主推车型
+        MainBus: mips + '/vehicleBrand/selectVehicleSeriesByBrand', //全部车型 主推车型
         Dealer: mip + '/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询
         Switching: mip + '/vehicleBrand/searchVehicleBrandList', //频道选择
         Distributor: mip + '/dealerBaseInformation/searchDealerBaseInformationListPage', //选择经销商
@@ -127,8 +127,8 @@ window.Wit = {
     //我的 部分
 window.My = {
         UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
-        IsSignIn: jf + '/pluto-membership/integral-gather/is-sign', //判断用户今天是否签到 
-        SignIn: jf + '/pluto-membership/integral-gather/integral-gather', //签到 
+        IsSignIn: jf + '/pluto-membership/integral-gather/is-sign', //判断用户今天是否签到
+        SignIn: jf + '/pluto-membership/integral-gather/integral-gather', //签到
         Credit: jf + '/plutomembership/integralCount/searchIntegralCountListPage', //获取用户积分
         CreditDetail: jf + '/plutomembership/integralRecord/searchIntegralRecordList', //积分记录
         My_Bus: love_car + '/vehicle/find-vehicle-list', //我的车辆
