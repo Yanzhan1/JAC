@@ -13,6 +13,9 @@ export default {
   },
   methods: {
     isLogin(userInfo){
+      if (isMobile.iOS()) {
+       alert('iOS 调用'+ userInfo.toString())
+      }
       if(userInfo && userInfo.no){
         this.$store.dispatch('isLogin',true);
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
@@ -23,9 +26,7 @@ export default {
         this.$store.dispatch('userId',null);
 //      this.$store.dispatch('userInfo',null);
       }
-//    alert('放到vuex中的token：'+this.$store.state.token)
       this.$http.defaults.headers.common['timaToken'] =  this.$store.state.token
-//    console.log("axios里面的token值： "+this.$http.defaults.headers.timaToken)
     }
   },
   created(){
@@ -55,7 +56,7 @@ export default {
                 }
                     // alert(JSON.parse(this.$store.state.getpin.headers.identityParam).userId)
                     // alert(res.data.data.tspId)
-                    // JSON.parse(this.$store.state.getpin.headers.identityParam).userId=res.data.data.tspId		
+                    // JSON.parse(this.$store.state.getpin.headers.identityParam).userId=res.data.data.tspId
                     // alert(JSON.parse(this.$store.state.getpin.headers.identityParam).userId)
                     // alert(2)
             })
