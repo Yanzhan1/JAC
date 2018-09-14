@@ -1,7 +1,7 @@
 <template>
     <div>
         <header class="header">
-            <img @click="$router.go(-1)" class="header-left" :src="'./static/images/back@2x.png'" style="margin-left:.4rem">
+            <img @click="$router.go(-1)" class="header-left" :src="'./static/images/back@2x.png'" style="margin-left:.3rem">
             <span class='header-title'>评论</span>
             <span></span>
         </header>
@@ -28,7 +28,7 @@
               </h5>
               <div class="teyu">
                 <span class="look">点击查看</span>
-                <span><img src="../../../static/images/next@2x.png" alt=""></span>
+                <span><img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem"></span>
               </div>
             </li>
 
@@ -174,7 +174,7 @@ li {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 0.4rem;
+  padding: 0.2rem;
 }
 .content_t {
   font-size: 0.35rem;
@@ -196,7 +196,7 @@ li {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 0.4rem;
+  padding: 0.4rem .2rem;
   border-top: 1px solid #ccc;
   height: 0.62rem;
 }
