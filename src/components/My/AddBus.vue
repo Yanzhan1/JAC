@@ -1,7 +1,7 @@
 <template>
   <div class="add-bus">
     <header class="header">
-      <img class="header-left" :src="'/../../../static/images/back@2x.png'" @click="$router.go(-1)">
+      <img class="header-left" :src="'./../../../static/images/back@2x.png'" @click="$router.go(-1)">
       <span class="header-title">添加车辆</span>
       <span class="header-right"></span>
     </header>
@@ -14,7 +14,7 @@
       <span style="color: #555555;">发动机号</span>
       <input type="text" placeholder="请输入发动机号" v-model="engine"  style="text-transform:uppercase" />
     </div>
-    <img class="driver-licence" :src="'../../../static/images/my/drivingcard.png'" alt="" />
+    <img class="driver-licence" :src="'./../../../static/images/my/drivingcard.png'" alt="" />
     <div class="bottom-btn " @click="AddMybus()">提交</div>
   </div>
 </template>
@@ -42,7 +42,7 @@ export default {
         }
       };
       // alert(JSON.stringify(param))
-       alert(JSON.stringify(this.$store.state.getpin))
+      //  alert(JSON.stringify(this.$store.state.getpin))
       this.$http.post(My.JFmybus, param,this.$store.state.getpin).then(res => {
         if (res.data.returnSuccess) {
           Toast({
