@@ -26,7 +26,7 @@
               </div>
               <div class="cocenter flex-center" style="padding:.1rem 0">
               	<div class="flex-column-align">
-              		<img @click="search()" style="width:.42rem;" src="../../../static/images/Wit/nav_btn.png" alt="">
+              		<img @click="search(item.latitude, item.longitude, item.dealerName, item.dealerAddress)" style="width:.42rem;" src="../../../static/images/Wit/nav_btn.png" alt="">
               		<span style="font-size:.19rem;color:#888;margin-top:.3rem">0.3km</span>
               	</div>               
               </div>
@@ -51,9 +51,25 @@ export default {
     };
   },
   methods: {
-     search() {
-      this.popupVisible = true;
+     search(latitude, longitude, adress, des) {
+      var system = this.isIOSOrAndroid();
+          if(system == 'Android') {
+					window.js2android.sendLocation2Map(latitude, longitude, adress, des)
+					} else if(system == "IOS") {
+
+				}
     },
+    isIOSOrAndroid() { //判断ios和安卓机型的方法
+				var u = navigator.userAgent,
+					app = navigator.appVersion;
+				var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+				var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+				if(isAndroid) {
+					return "Android"
+				} else if(isIOS) {
+					return "IOS"
+				}
+			},
     cancel() {
       this.popupVisible = false;
     },
