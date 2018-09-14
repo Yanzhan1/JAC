@@ -528,7 +528,7 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		/* width: 3rem; */
+		width: 4rem;
 	}
 	
 	.txt_m {
