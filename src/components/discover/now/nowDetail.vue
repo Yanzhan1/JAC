@@ -205,10 +205,10 @@
         if(id == this.$store.state.userId){
           this.$router.push({path:'/mystart'});
         }else{
-          // this.$store.state.UserStartId = id;
-          this.$router.push({path:'/userstart', query: {
-            id
-          }});
+          this.$store.state.UserStartId = id;
+          this.$router.push({
+            path: '/userstart'
+          });
         }
       },
       clickImg(e) {
