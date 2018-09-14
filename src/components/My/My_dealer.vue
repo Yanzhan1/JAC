@@ -68,7 +68,7 @@ export default {
         // size: this.size,
         userNo:this.$store.state.userId
       };
-      this.$http.post(My.MyDealer, param, this.$store.state.mytoken).then(res => {
+      this.$http.post(My.MyDealer, param).then(res => {
         if (res.data.code == 0) {
            this.mydealer = res.data.data;
        }
