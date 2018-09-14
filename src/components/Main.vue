@@ -53,7 +53,7 @@
 						if(system == 'Android' && window.js2android) {
 							window.js2android.login() //安卓退出App
 						} else if(system == "IOS" && window.webkit) {
-							window.webkit.messageHandlers.logout.postMessage({}); //IOS退出app
+							window.webkit.messageHandlers.logout403.postMessage({}); //IOS退出app
 						}
 						break;
 				}

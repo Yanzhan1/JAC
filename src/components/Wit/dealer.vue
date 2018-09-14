@@ -203,7 +203,7 @@
 					size: 10,
 					current: 1
 				}
-				this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.Dealer, param).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.current = 1, //当前页码
