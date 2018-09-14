@@ -7,7 +7,7 @@
         </header>
         <div style="height:.88rem"></div>
         <ul style="padding:.3rem">
-            <li class="list">
+            <!-- <li class="list">
                 <div class="flex row between" style="padding:.2rem">
                     <span style="font-size:.31rem;color:#222;">订单已发货</span>
                     <span style="font-size:.21rem;color:#888;">今天12:40</span>
@@ -32,7 +32,8 @@
                         <p style="font-size:.22rem;color:#888;">订单编号：5435435</p>
                     </div>
                 </div>
-            </li>
+            </li> -->
+            <div style="margin:.4rem">暂无物流信息</div>
         </ul>
     </div>
 </template>

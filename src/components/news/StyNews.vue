@@ -7,7 +7,7 @@
         </header>
         <div style="height:.88rem"></div>
         <ul style="padding:0 .3rem">
-            <li style="margin-top:.3rem">
+            <!-- <li style="margin-top:.3rem">
                 <p style="font-size:.22rem;color:#888;text-align:center">2018 03-21 18:20</p>
                   <div style="height:2.3rem;width:100%;background-color:#f1f1f1;margin-top:.2rem">
                       <p style="font-size:.32rem;color:#222;padding:.2rem;font-weight:700">这是一条系统消息的标题</p>
@@ -26,7 +26,8 @@
                       </div>
                       
                  </div>
-            </li>
+            </li> -->
+            <div  style="margin:.4rem"> 暂无任何消息</div>
         </ul>
     </div>
 </template>

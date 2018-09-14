@@ -5,7 +5,9 @@
             <span class='header-title'>活动</span>
             <span></span>
         </header>
-      <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="20">
+
+        <div style="margin:.4rem;margin-top:1.5rem">暂无活动信息</div>
+      <!-- <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="20">
         <div slot="top" class="mint-loadmore-top">
           <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }" style="font-size: 0.3rem">下拉刷新</span>
           <span v-show="topStatus === 'loading'">Loading...</span>
@@ -15,9 +17,6 @@
           v-infinite-scroll="getNextList"
           infinite-scroll-disabled="loading"
           infinite-scroll-distance="10">
-          <!--<div v-if="List.length==0">
-            <div style="height: 8rem;"></div>
-          </div>-->
           <ul class="content">
             <li class="area" v-for="(item,index) in List" @click="toactivity(item.lid,item.id)" style="">
               <div class="content_p">
@@ -34,11 +33,8 @@
             </li>
 
           </ul>
-          <!--<div v-for="(item,index) in List">
-
-          </div>-->
-        </div>
-      </mt-loadmore>
+         </div>
+      </mt-loadmore> -->
       <div style="height: 2rem;"></div>
       <p id="showAll2">已加载全部</p>
     </div>
