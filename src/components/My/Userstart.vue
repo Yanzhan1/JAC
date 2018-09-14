@@ -446,7 +446,7 @@
       giveNowLike: function (manageId, index) {
         var _this = this;
         this.$http.post(DISCOVERMESSAGE.momentGiveLike, {
-          "uid": _this.$store.state.UserStartId,
+          "uid": _this.$store.state.userId,
           "lid": manageId
         }, this.$store.state.mytoken).then(function (res) {
           if (res.data.status) {
