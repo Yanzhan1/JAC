@@ -92,7 +92,8 @@
                 <div class="success_bt">{{this.thanks}}</div>
                 <div style="width:5.68rem;height:.02rem;background:#f1f1f1;margin:.2rem auto;"></div>
                 <div class="look">
-                    <div class="look_l">查看订单</div>
+                    <!-- <div class="look_l"></div> -->
+                    <router-link tag="div" to="/myorder" class="look_l"> 查看订单</router-link>
                     <div style="width:.02rem;height:.6rem;background:#f1f1f1;"></div>
                     <div class="look_r" @click="complete">完成</div>
                 </div>
@@ -268,6 +269,13 @@ export default {
         if (res.data.code == 0) {
           this.success = true;
           this.region = true;
+        }else{
+           Toast({
+          message: '系统异常，请稍后重试',
+          duration: 1000,
+          position: "middle"
+        });
+        return false;
         }
       });
     },
