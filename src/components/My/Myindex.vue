@@ -140,7 +140,7 @@ export default {
       focusNum: 0,
       momentNum: 0,
       myList: [],
-      flag: false //隐藏推荐码
+     flag: false //隐藏推荐码
     };
   },
   methods: {
@@ -169,12 +169,14 @@ export default {
         ruleStr: "SIGN_IN",
         serviceTypeStr: "SERVICE_FIXED",
         typeStr: "TYPE_RETAIN",
-          // no:this.$store.state.userId
-             no:'AD112018090402110693811'
+           no:this.$store.state.userId
+             //no:'AD112018090402110693811'
       }
        this.$http.post(My.IsSignIn,data).then(res => {
          if(res.data.code==50004){
            this.isShow=false
+         }else if(res.data.code==50002){
+           this.AllIsShow=true
          }
       
        });
