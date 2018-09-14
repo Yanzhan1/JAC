@@ -18,19 +18,30 @@
                 <span class="contentList-left">手机号码</span>
                 <input type="text" placeholder="点击输入手机号" v-model="num">
             </div>
+            <!-- 选择省份 -->
             <div class="city">
                 <div class="contentList nickname areas">
                     <span class="contentList-left" style="float:left">所在地区</span>
                     <div class="contentList-right" style="float:right">
                       <input type="text" name="" id="" class="place" @click="choosearea()" placeholder="请选择地区" v-model="this.choosedarea">
-                        <!-- <span class="place" @click="choosearea()">{{this.beforechoosedarea}}</span> -->
                         <img class="pic" src="../../../static/images/my/next@2x.png" />
                     </div>
                 </div>
             </div>
+            <!-- 市 -->
+            <div class="city">
+                <div class="contentList nickname areas">
+                    <span class="contentList-left" style="float:left">选择市</span>
+                    <div class="contentList-right" style="float:right">
+                      <input type="text" name="" id="" class="place" @click="choosecitys()"  v-model="this.choosecity">
+                       <img class="pic" src="../../../static/images/my/next@2x.png" />
+                    </div>
+                </div>
+            </div>
+
             <div class="inputcontent">
                 <div class="peop">详细地址：</div>
-                <textarea maxlength='40' class="textare" placeholder="点击输入详细地址" form="usrform" v-model="address">
+                <textarea maxlength='40' class="textare" placeholder="点击输入详细地址" form="usrform" v-model="this.address">
                 </textarea>
             </div>
             <div class="ft">
@@ -40,12 +51,19 @@
                 <span class="ft_2">&nbsp;设为默认地址</span>
             </div>
         </div>
+        <!-- 选择省份 -->
         <div style="position:absolute;z-index:1000;bottom:0;width:100%;background:#fff;" v-show="this.shows">
           <div style="text-align:center;line-height:.8rem;font-size:.4rem">选择地区</div>
           <div style="text-align: right;color: #49BBFF;margin-right:.2rem;" @click="hides()">确定</div>
           <mt-picker :slots="slots" @change="onValuesChange" ></mt-picker>
         </div>
-        
+        <!-- 市 -->
+        <div style="position:absolute;z-index:1000;bottom:-.5rem;width:100%;background:#fff;" v-show="this.showss">
+          <div style="text-align:center;line-height:.8rem;font-size:.4rem">选择市</div>
+          <div style="text-align: right;color: #49BBFF;margin-right:.2rem;" @click="hideses()">确定</div>
+          <mt-picker :slots="slots1" @change="onValuesChanges" ></mt-picker>
+        </div>
+       
         <span class="bottom-btn" @click="handleSubmit">保存</span>
     </div>
 </template>
@@ -57,16 +75,20 @@ export default {
     return {
       bgcolor: false,
       shows: false, //控制选择地区显示
+      showss: false, //控制选择城市显示
       selected: true,
       name: "",
       num: "",
       isShow: false,
+      everyid:'',
+      i:'',
       Originaladdress: {},
       provinceNo: "", //返回给后端的code
       provinceName: "", //返回给后端的name
       everycode: "", //返回给后台的地区code
       allarea: [], //所有的地区
       choosedarea: "", //被选择的地区
+      choosecity:'',//被选择的城市
       ishide: false, //控制城市的显示
       nowindex: 0, //默认显示上海
       provinceId: "100000",
@@ -80,25 +102,42 @@ export default {
           className: "slot1",
           textAlign: "center"
         }
+      ],
+      slots1: [
+        {
+          flex: 1,
+          values: [],
+          className: "slot1",
+          textAlign: "center"
+        }
       ]
     };
   },
   mounted() {
+
     this.info = this.$route.query;
-    $(".editPersonalDetails").height($(".editPersonalDetails").height());
-    this.$http.post(My.Area, {size:1000}).then(res => {
-      this.allarea = res.data.data.records;
-      // alert(JSON.stringify( this.allarea))
-       for (var i = 0; i < this.allarea.length; i++) {
-        this.slots[0].values.push(this.allarea[i].name);
-      }
-    });
     this.Originaladdress = this.$route.params;
     this.name = this.Originaladdress.receiveName;
     this.num = this.Originaladdress.receiveMobile;
     this.address = this.Originaladdress.address;
     this.choosedarea = this.Originaladdress.provinceName;
     this.no = this.Originaladdress.no;
+    // $(".editPersonalDetails").height($(".editPersonalDetails").height());
+    this.$http.post(My.Area, {size:1000,parentId: null,level: 1}).then(res => {
+      this.allarea = res.data.data.records;
+      // alert(JSON.stringify( this.allarea))
+      this.slots[0].values=[]
+       for (var i = 0; i < this.allarea.length; i++) {
+        this.slots[0].values.push(this.allarea[i].name);
+      }
+    // console.log(this.slots[0].values)
+    // for(var i=0;i<this.slots[0].values.length;i++){
+    //   if(this.choosedarea==this.slots[0].values[i]){
+    //     this.i=i
+    //   }
+    // }
+    });
+
   },
   methods: {
     async handleSubmit() {
@@ -159,32 +198,55 @@ export default {
         });
       // }, 100);
       
-      console.log(flag);
+      // console.log(flag);
     },
     choosearea() {
       this.shows = true;
+      this.bgcolor = true;
+    },
+    choosecitys(){
+      this.showss = true;
       this.bgcolor = true;
     },
     hides() {
       this.bgcolor = false;
       this.shows = false;
     },
+    hideses() {
+      this.bgcolor = false;
+      this.showss = false;
+    },
     hidess() {
       this.bgcolor = false;
       this.shows = false;
+      this.showss=false;
     },
     onValuesChange(picker, values) {
+      // console.log(values)
       this.choosedarea = values[0];
       for (var i = 0; i < this.allarea.length; i++) {
         if (this.choosedarea == this.allarea[i].name) {
           this.provinceName = this.allarea[i].name;
           this.everycode = this.allarea[i].code;
+          this.everyid=this.allarea[i].id;
         }
       }
-      if (values[0] > values[1]) {
-        picker.setSlotValue(1, values[0]);
-      }
-    }
+      let data = {
+          parentId: this.everyid, //被检测的省份id 
+          level: 2
+        }
+      this.$http.post(Wit.searchCountryAreaCodeListPage,data).then((res)=>{
+        // console.log(res.data.data.records)
+        var city=res.data.data.records
+        this.slots1[0].values=[]
+        for (var i = 0; i < this.allarea.length; i++) {
+            this.slots1[0].values.push(city[i].name);
+          }
+      })      
+    },
+      onValuesChanges(picker,values){
+      this.choosecity=values[0]
+    } 
   }
 };
 </script>

@@ -61,8 +61,8 @@ export default {
                     this.nav.push(allimage[i].imageTitle)
                 }
             }
-            console.log(this.nav)
-            console.log(this.allimage)
+            // console.log(this.nav)
+            // console.log(this.allimage)
         })
     }
 }

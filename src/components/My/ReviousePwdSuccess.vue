@@ -9,9 +9,9 @@
 		<div class="revise-success">
 			<img :src="'./static/images/Lovecar/finish@2x.png'" />
 			<p>修改成功</p>
-			<router-link class="btn" tag="button" to="/myindex/mySetUp">
+			<div @click="returnLevel" class="btn" tag="button">
 				返回上一页面
-			</router-link>
+			</div>
 		</div>
 	</div>
 </template>
@@ -22,6 +22,11 @@
 		data() {
 			return {
 
+			}
+		},
+		methods: {
+			returnLevel () {
+				this.$router.replace('/myindex/mySetUp')
 			}
 		}
 	}
@@ -56,7 +61,8 @@
 	.revise-success>.btn {
 		width: 5rem;
 		height: 1.18rem;
-		line-height: 0.58rem;
+		line-height: 1.18rem;
+		text-align: center;
 		color: #fff;
 		background-color: #49BBFF;
 		border: none;

@@ -65,7 +65,7 @@
 					this.$http.post(Wit.updateUserPassword, data).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
-						this.$router.push('/myindex/reviousePwdSuccess')
+						this.$router.replace('/myindex/reviousePwdSuccess')
 					} else {
 						let instance = Toast({
 							message: data.msg,

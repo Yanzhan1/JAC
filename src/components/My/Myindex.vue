@@ -150,7 +150,8 @@ export default {
         ruleStr: "SIGN_IN",
         serviceTypeStr: "SERVICE_FIXED",
         typeStr: "TYPE_RETAIN",
-        no:this.$store.state.userId
+        // no:this.$store.state.userId
+         no:'AD112018090303203532667'
       }
      var param=JSON.stringify(data)
       this.$http.post(My.SignIn,param).then(res => {
@@ -168,7 +169,8 @@ export default {
         ruleStr: "SIGN_IN",
         serviceTypeStr: "SERVICE_FIXED",
         typeStr: "TYPE_RETAIN",
-         no:this.$store.state.userId
+          // no:this.$store.state.userId
+             no:'AD112018090402110693811'
       }
        this.$http.post(My.IsSignIn,data).then(res => {
          if(res.data.code==50004){
@@ -181,11 +183,13 @@ export default {
       total(){
         var data = {
           no:this.$store.state.userId
-      }
+            // no:'AD022018090502444422707'
+         }
        this.$http.post(My.Credit,data).then(res => {
-         if(res.data.code==0){
-           this.integral=res.data.data.records[0].count
-           this.$store.state.integral=res.data.data.records[0].count
+        if(res.data.code==0){
+           this.integral=res.data.data[0].count
+           this.$store.state.integral=res.data.data[0].count
+           
          }
          
        });

@@ -312,7 +312,7 @@
 					size: 10,
 					current: this.current
 				}
-				this.$http.post(Wit.Dealer, data, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.Dealer, data).then(res => {
 						const data = res.data;
 						this.loadEnd = false;
 						if(data.code == 0) {
@@ -355,7 +355,7 @@
 					size: 10,
 					current: this.current
 				}
-				this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.Dealer, param).then(res => {
 					if(res.data.code == 0) {
 						this.mainbus = []
 						this.mainbus = res.data.data.records
