@@ -278,7 +278,7 @@ export default {
       	dealerType: "01",
       	dealerCityCode:this.everycode
       };
-      this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => { //经销商列表请求
+      this.$http.post(Wit.Dealer, param).then(res => { //经销商列表请求
       	this.slots2[0].values = [] //清除已经选择的经销商
       var chooseaddress = res.data.data.records;
       chooseaddress.forEach((item, index) => {
@@ -321,7 +321,7 @@ export default {
         parentId: null,
         level: 1,
         size: 100
-      }, this.$store.state.mytoken)
+      })
       .then(res => {
 
         this.province = res.data.data.records;
