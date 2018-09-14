@@ -66,7 +66,7 @@ export default {
       this.popupVisible = true;
     },
     tode(item) {
-      alert(item.no)
+      // alert(item.no)
       this.$router.push({
         name:'车系特色',
         params:{

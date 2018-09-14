@@ -49,7 +49,7 @@ export default {
                     this.everyimage.push(allimage[i].imageUrl)
                 }
             }
-            console.log(this.everyimage)
+            // console.log(this.everyimage)
         })
     }
 }
