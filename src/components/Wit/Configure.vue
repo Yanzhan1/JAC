@@ -14,7 +14,7 @@
         <div class="every_img" >
             <img style="height:9rem;" class="nav" :src="this.allimage[this.current]" alt="">
         </div>
-        <div class="bottom-btn" @click="reserve">在线订车</div>
+        <!-- <div class="bottom-btn" @click="reserve">在线订车</div> -->
     </div>
 </template>
 
@@ -41,15 +41,15 @@ export default {
                 }
             })
         },
-        reserve(){
-            this.$router.push({
-                name:'车辆预定',
-                params:{
-                    everyno:this.everyno,
-                    seriesName:this.seriesName
-                }
-            })
-        },
+        // reserve(){
+        //     this.$router.push({
+        //         name:'车辆预定',
+        //         params:{
+        //             everyno:this.everyno,
+        //             seriesName:this.seriesName
+        //         }
+        //     })
+        // },
         choose(el,index){
             this.current=index;
         }

@@ -12,11 +12,11 @@
           <li class="flex column" v-for="(item,index) in item.departmentDeforeAndAfterSales" :key="index">
             <p class="mydelar" v-if="item.dealerType=='01'">购车经销商</p>
             <p class="mydelar" v-if="item.dealerType=='02'">维保经销商</p>
-            <div class="flex row between" style="border-bottom:1px solid #f1f1f1;padding:.2rem 0">
+            <div class="flex row between" style="border-bottom:1px solid #f1f1f1;padding:.2rem .2rem">
               <!-- <div style="width:2.56rem;height:1.68rem;border-radius:6px;overflow:hidden">
                 <img style="width:100%;height:1.68rem" v-lazy="imgSrc" alt="">
               </div> -->
-              <div class="flex column around" style="width:3rem;height:1.5rem">
+              <div class="flex column around" style="height:1.5rem">
                 <span style="font-size:.29rem;color:#222;" class="mui-ellipsis-2">{{item.dealerName}}</span>
                 <span style="font-size:.23rem;color:#888;">电话：{{item.receiveMessagePhone}}</span>
                 <span class="flex row cocenter">
