@@ -195,6 +195,7 @@
       },
       init() {
         let _this = this;
+        console.log(_this.$store.state.UserStartId)
         _this.$http.post(My.UserInfo, {
           "no": _this.$store.state.UserStartId
         }).then(function (res) {
