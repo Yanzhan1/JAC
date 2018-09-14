@@ -137,13 +137,16 @@ export default {
       area: [], //地区
       address: "", //地址
       beizhu: "", //备注
+      chooseaddress:[],
       Idchooseaddress: [], //返回选择经销商的no
       myaddress:{},
       everycode:'',
       thanks:
         "感谢您对江淮汽车的关注与支持，我们专业的服务员会第一时间与您联系!",
       province: [], //地区省份
+      business:'',//经销商的所有id
       provinceCode: null, //省份code
+      provinceid:'',
       slots: [
         {
           flex: 1,
@@ -247,15 +250,17 @@ export default {
 
       var param = {
         customerName: this.stylecar, //姓名
-        fkDealerId: "N7650100", //经销商编号
+        fkDealerId: this.business, //经销商编号
         gender: gender, //性别
         mobile: this.tell, //手机号
         email: this.email, //email
         address: this.address, //地址
         comments: this.beizhu, //商家备注
-        province: "022", //省份ID
-        series: "CY001", //意向车系
-        model: "CYRF010" //意向车型
+        province: this.provinceid, //省份ID
+        series:this.$route.params.levelCode, //意向车系
+        model: this.$route.params.srouceNo,//意向车型
+        // code:'',
+        userNo:this.$store.state.userId,
       };
       // alert(JSON.stringify(param));
       this.$http.post(Wit.PreBus, param).then(res => {
@@ -299,7 +304,7 @@ export default {
       for(var i=0;i<this.myaddress.length;i++){
         if(this.area[0]==this.myaddress[i].name){
           this.everycode=this.myaddress[i].code
-          console.log(this.everycode)
+          this.provinceid=this.myaddress[i].id
         }
       }
           //经销商
@@ -309,11 +314,11 @@ export default {
     };
     this.$http.post(Wit.Dealer, param,this.$store.state.getpin).then(res => {
       // console.log(res);
-      var chooseaddress = res.data.data.records;
+      this.chooseaddress = res.data.data.records;
         this.slots2[0].values=[]
-      for (var i = 0; i < chooseaddress.length; i++) {
-        this.slots2[0].values.push(chooseaddress[i].dealerName);
-        this.Idchooseaddress.push(chooseaddress[i].no);
+      for (var i = 0; i < this.chooseaddress.length; i++) {
+        this.slots2[0].values.push(this.chooseaddress[i].dealerName);
+        this.Idchooseaddress.push(this.chooseaddress[i].no);
       }
       // alert(this.slots2[0].values)
 
@@ -322,10 +327,17 @@ export default {
     //选择经销商
     onValuesChange2(picker, values) {
       this.Distribution = values[0];
+      for(var i=0;i<this.slots2[0].values.length;i++){
+        if(this.Distribution==this.slots2[0].values[i]){
+          this.business=this.chooseaddress[i].dealerCodeDms
+          // alert(this.business)
+        }
+      }
     }
   },
   mounted() {
     this.stylecar=this.$route.params.seriesName
+    // alert(this.$route.params.srouceNo)
     // alert(this.$route.params.seriesName)
     //地区
     this.$http

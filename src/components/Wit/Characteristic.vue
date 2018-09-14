@@ -21,6 +21,8 @@ export default {
             everyno:'',
             everyimage:[],
             seriesName:'',
+            srouceNo:'',//车辆预定中的model
+            levelCode:'',//车辆预定中的series
         }
     },
     methods:{
@@ -37,8 +39,10 @@ export default {
             this.$router.push({
                 name:'车辆预定',
                 params:{
+                    srouceNo:this.srouceNo,
                     everyno:this.everyno,
-                    seriesName:this.seriesName
+                    seriesName:this.seriesName,
+                    levelCode:this.levelCode
                 }
             })
         }
@@ -53,7 +57,9 @@ export default {
         }
         this.$http.post(Wit.searchVehicleSeriesOne,params).then((res)=>{
             let allimage=res.data.data.imageRelationVO
-            // console.log(res.data.data)
+            console.log(res.data.data.srouceNo)
+            this.srouceNo=res.data.data.srouceNo
+            this.levelCode=res.data.data.levelCode
             for(let i=0;i<allimage.length;i++){
                 if(allimage[i].imageType==4){
                     this.everyimage.push(allimage[i].imageUrl)
