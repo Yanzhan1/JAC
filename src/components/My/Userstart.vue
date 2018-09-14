@@ -45,7 +45,7 @@
         <!--发布者信息S-->
         <div class="comment_userinfo">
           <div class="user_head">
-            <div @click="changeUserStartId(item.user.user_id)">
+            <div>
               <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="head_72" />
               <img v-else src="../../../static/images/discover/normalhead.png" class="head_72" />
             </div>
@@ -446,7 +446,7 @@
       giveNowLike: function (manageId, index) {
         var _this = this;
         this.$http.post(DISCOVERMESSAGE.momentGiveLike, {
-          "uid": _this.$store.state.UserStartId,
+          "uid": _this.$store.state.userId,
           "lid": manageId
         }).then(function (res) {
           if (res.data.status) {
