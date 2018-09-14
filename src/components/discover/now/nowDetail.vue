@@ -2,7 +2,7 @@
   <div>
     <div @click="bgHide" id="bgShare" style="position: fixed; width: 100%;height: 100%;background: #000000; display: none;opacity: 0.2;top: 0;"></div>
     <header class="header header2">
-      <img class="header-left" src="../../../../static/images/discover/backblue.png" @click="goBack">
+      <img class="header-left" src="../../../../static/images/discover/backblue.png" @click="goBack(content.user.user_id)">
       <p class="header-title-fff">社区详情</p>
       <img src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)"/>
     </header>
@@ -503,7 +503,10 @@
         $("#myInput").show();
       },
       //返回上一级
-      goBack:function () {
+      goBack:function (id) {
+        if(id != this.$store.state.userId){
+          this.$store.state.UserStartId = id;
+        }
         this.$router.go(-1);
         this.$store.dispatch("showFoot")
       }
