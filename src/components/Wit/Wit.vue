@@ -57,7 +57,7 @@
       <img src="../../../static/images/Wit/next.png" alt="">
     </div>
     <ul class="bus">
-      <li class="bus_li" @click="specil($event,index)" v-for="(item,index) in this.mainbus" :key="index">
+      <li class="bus_li" @click="specil(item)" v-for="(item,index) in this.mainbus" :key="index">
           <div> 
             <img :src="item.imgUrl"  alt="">
           </div>
@@ -214,11 +214,13 @@ export default {
       this.$router.push("/wit/pre_weib");
     },
     //车系特色， 配置表
-    specil(el,index) {
+    specil(item) {
+      console.log(item)
       this.$router.push({
         name:'车系特色',
         params:{
-          everyno:this.allno[index]
+          everyno:item.no,
+          seriesName:item.seriesName
         }
       });
     },

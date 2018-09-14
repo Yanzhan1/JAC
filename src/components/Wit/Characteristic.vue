@@ -20,6 +20,7 @@ export default {
         return{
             everyno:'',
             everyimage:[],
+            seriesName:'',
         }
     },
     methods:{
@@ -27,17 +28,26 @@ export default {
             this.$router.push({
                 name:'配置参数',
                 params:{
-                    everyno:this.everyno
+                    everyno:this.everyno,
+                    seriesName:this.seriesName
                 }
             })
         },
         reserve(){
-            this.$router.push('/wit/Reserve')
+            this.$router.push({
+                name:'车辆预定',
+                params:{
+                    everyno:this.everyno,
+                    seriesName:this.seriesName
+                }
+            })
         }
     },
     mounted(){
         // console.log(this.$route.params.everyno)
         this.everyno=this.$route.params.everyno
+        this.seriesName=this.$route.params.seriesName
+        // alert(this.seriesName)
         let params={
             no:this.$route.params.everyno
         }

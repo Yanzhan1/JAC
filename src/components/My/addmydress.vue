@@ -239,7 +239,7 @@ export default {
           level: 2
         }
       this.$http.post(Wit.searchCountryAreaCodeListPage,data).then((res)=>{
-        console.log(res.data.data.records)
+        // console.log(res.data.data.records)
         var city=res.data.data.records
         this.slots1[0].values=[]
         for (var i = 0; i < this.allarea.length; i++) {
