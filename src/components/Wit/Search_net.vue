@@ -377,7 +377,13 @@
 				if(system == 'Android') {
 					window.js2android.sendLocation2Map(latitude, longitude, adress, des)
 				} else if(system == "IOS") {
-
+					var data = {
+						latitude,
+						longitude,
+						adress,
+						des
+					}
+					window.webkit.messageHandlers.sendLocation2Map.postMessage(data);
 				}
 			}
 		},
