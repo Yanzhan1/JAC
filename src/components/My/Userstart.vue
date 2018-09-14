@@ -312,7 +312,7 @@
           "uid": _this.$store.state.userId,
           // "focusId": _this.$store.state.UserStartId
           "focusId": _this.$route.query.id
-        }, this.$store.state.mytoken).then(function (res) {
+        }).then(function (res) {
           if (res.data.status) {
             _this.focusStatu = res.data.data;
           } else {
@@ -350,7 +350,7 @@
             "uid": _this.$store.state.userId,
             // "focusId": _this.$store.state.UserStartId
             "focusId": _this.$route.query.id
-          }, this.$store.state.mytoken).then(function (res) {
+          }).then(function (res) {
             if (res.data.status) {
               _this.focusStatus();
               _this.focusStatu = res.data.data;
@@ -448,7 +448,7 @@
         this.$http.post(DISCOVERMESSAGE.momentGiveLike, {
           "uid": _this.$store.state.UserStartId,
           "lid": manageId
-        }, this.$store.state.mytoken).then(function (res) {
+        }).then(function (res) {
           if (res.data.status) {
             _this.myList[index].likeNum = res.data.data.num;
             _this.myList[index].likeStatus = false;
@@ -467,7 +467,7 @@
         this.$http.post(DISCOVERMESSAGE.momentRemoveLike, {
           "uid": _this.userId,
           "lid": manageId
-        }, this.$store.state.mytoken).then(function (res) {
+        }).then(function (res) {
           if (res.data.status) {
             _this.myList[index].likeNum = res.data.data.num;
             _this.myList[index].likeStatus = true;
