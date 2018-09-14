@@ -1,10 +1,10 @@
 <template>
   <div class="my-bus">
     <header class="header">
-      <img class="header-left" :src="'/static/images/back@2x.png'" @click="$router.go(-1)">
+      <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
       <span class="header-title">我的车辆</span>
       <span class="header-right">
-        <router-link tag="img" to="/myindex/addBus" style="width: 0.36rem;height: 0.36rem;" :src="'/static/images/my/mycar_add.png'"></router-link>
+        <router-link tag="img" to="/myindex/addBus" style="width: 0.36rem;height: 0.36rem;" :src="'./static/images/my/mycar_add.png'"></router-link>
       </span>
     </header>
     <div style="height:0.88rem"></div>
@@ -15,19 +15,19 @@
             <label for="foot-check" class="input-label deft_0" :class="{active:item.def==1}" @click="setOneDefault(item.vin,item.def)"> </label>
             <span style="color: #49BBFF;">{{item.vehicleName}}{{item.def==1?'（默认）':''}}</span>
           </div>
-          <img :src="'/static/images/my/car_ruifeng_s5@2x.png'" alt="" />
+          <img :src="'./static/images/my/car_ruifeng_s5@2x.png'" alt="" />
         </div>
         <div class="bus-right">
           <p class="bus-untie" @click="unite(item.vin)">解绑</p>
           <!-- 若有车牌 解绑车牌 -->
           <div class="flex-align-center" v-if="item.plateLicenseNo?'false':''"   @click="plate(item.vin,item.plateLicenseNo)">
             <span style="color:#49BBFF;"> {{item.plateLicenseNo}}</span>
-            <img :src="'./../../static/images/my/mycar_input@2x.png'" alt="" class="modify-num">
+            <img :src="'./static/images/my/mycar_input@2x.png'" alt="" class="modify-num">
           </div>
           <!-- 若无车牌 添加车牌 -->
           <div class="flex-align-center" v-else>
             <span style="color:#49BBFF;">添加车牌</span>
-            <router-link tag="img" class="modify-num" :src="'./../../static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{vin:item.vin}}"></router-link>
+            <router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{vin:item.vin}}"></router-link>
           </div>
           <div class="flex row cocenter">
             <span class="commonFontSize">车架号：{{item.vin}}</span>
