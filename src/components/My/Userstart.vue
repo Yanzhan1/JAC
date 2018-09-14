@@ -371,7 +371,7 @@
 
         this.$http
           .post(DISCOVERMESSAGE.count, {
-            uid
+            uid: this.$store.state.UserStartId
           })
           .then(function (res) {
             if (res.data.status) {
@@ -518,12 +518,7 @@
         }
       })
       this.init();
-      //获取好友关系 电咖没有好友功能
-      // this.getfriendconnect();
       this.getUserList();
-      // this.myFocusNum();
-      // this.myFansNum();
-      // this.myLikeNum();
       this.myNum()
       this.focusStatus();
     }
