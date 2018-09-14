@@ -27,6 +27,7 @@ export default {
             Edition:['超级版','运动版','普通版'],
             current:0,//选择tablb中的index值
             allimage:[],
+            seriesName:''
 
         }
     },
@@ -35,12 +36,19 @@ export default {
             this.$router.push({
                 name:'车系特色',
                 params:{
-                    everyno:this.everyno
+                    everyno:this.everyno,
+                    seriesName:this.seriesName
                 }
             })
         },
         reserve(){
-            this.$router.push('/wit/Reserve')
+            this.$router.push({
+                name:'车辆预定',
+                params:{
+                    everyno:this.everyno,
+                    seriesName:this.seriesName
+                }
+            })
         },
         choose(el,index){
             this.current=index;
@@ -48,6 +56,7 @@ export default {
     },
     mounted(){
         this.everyno=this.$route.params.everyno
+        this.seriesName=this.$route.params.seriesName
         let params={
             no:this.$route.params.everyno
         }
@@ -56,7 +65,7 @@ export default {
             // console.log(res.data.data)
             this.nav=[]
             for(let i=0;i<allimage.length;i++){
-                if(allimage[i].imageType==5&&allimage[i].imageTitle!=''){
+                if(allimage[i].imageType==5&&allimage[i].imageTitle!=undefined){
                     this.allimage.push(allimage[i].imageUrl)
                     this.nav.push(allimage[i].imageTitle)
                 }
@@ -82,6 +91,7 @@ export default {
     height: .7rem;
     position: relative;
     display: flex;
+    flex: 1;
     flex-shrink: 0;
     width: 1.9rem;
     justify-content: center;

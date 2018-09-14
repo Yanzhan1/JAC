@@ -3,7 +3,7 @@
         <div v-show="region" class="black" @click="choose2"></div> <!-- 遮罩层  -->
         <div class="bgcolor">
                 <header class="header">
-                <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+                <img class="header-left" :src="'./static/images/back@2x.png'" @click="backs">
                 <span class="header-title">车辆预定</span>
                 <span class="header-right"></span>
                 </header>
@@ -123,7 +123,7 @@ import { Popup } from "mint-ui";
 export default {
   data() {
     return {
-      stylecar: "瑞风M6", //车系
+      stylecar: "", //车系
       region: false,
       distributors: false,
       success: false,
@@ -266,45 +266,55 @@ export default {
         }
       });
     },
+    backs(){
+            this.$router.push({
+                name:'车系特色',
+                params:{
+                    everyno:this.$route.params.everyno,
+                    seriesName:this.$route.params.seriesName
+                }
+            })
+    },
     //所在地区
     onValuesChange(picker, values) {
       this.area = values;
-      this.province.forEach((item, index) => {
-      	if (item.name == values) {
-      		this.everycode  = item.code; //拿到省份code,请求经销商列表
-      	}
-      })
-      var param = {
-      	dealerType: "01",
-      	dealerCityCode:this.everycode
-      };
-      this.$http.post(Wit.Dealer, param).then(res => { //经销商列表请求
-      	this.slots2[0].values = [] //清除已经选择的经销商
-      var chooseaddress = res.data.data.records;
-      chooseaddress.forEach((item, index) => {
-      	this.slots2[0].values.push(chooseaddress[index].dealerName)
-      })
+      // this.province.forEach((item, index) => {
+      // 	if (item.name == values) {
+      // 		this.everycode  = item.code; //拿到省份code,请求经销商列表
+      // 	}
+      // })
+      // alert(this.everycode)
+      // var param = {
+      // 	dealerType: "01",
+      // 	dealerCityCode:this.everycode
+      // };
+      // this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => { //经销商列表请求
+      // 	this.slots2[0].values = [] //清除已经选择的经销商
+      // var chooseaddress = res.data.data.records;
+      // chooseaddress.forEach((item, index) => {
+      // 	this.slots2[0].values.push(chooseaddress[index].dealerName)
+      // })
 
     //   console.log(this.area)
-    //   for(var i=0;i<this.myaddress.length;i++){
-    //     if(this.area[0]==this.myaddress[i].name){
-    //       this.everycode=this.myaddress[i].code
-    //       console.log(this.everycode)
-    //     }
-    //   }
-    //       //经销商
-    // var param = {
-    //   dealerType: "01",
-    //   dealerCityCode:this.everycode
-    // };
-    // this.$http.post(Wit.Dealer, param).then(res => {
-    //   // console.log(res);
-    //   var chooseaddress = res.data.data.records;
-    //     this.slots2[0].values=[]
-    //   for (var i = 0; i < chooseaddress.length; i++) {
-    //     this.slots2[0].values.push(chooseaddress[i].dealerName);
-    //     this.Idchooseaddress.push(chooseaddress[i].no);
-    //   }
+      for(var i=0;i<this.myaddress.length;i++){
+        if(this.area[0]==this.myaddress[i].name){
+          this.everycode=this.myaddress[i].code
+          console.log(this.everycode)
+        }
+      }
+          //经销商
+    var param = {
+      dealerType: "01",
+      dealerCityCode:this.everycode
+    };
+    this.$http.post(Wit.Dealer, param,this.$store.state.getpin).then(res => {
+      // console.log(res);
+      var chooseaddress = res.data.data.records;
+        this.slots2[0].values=[]
+      for (var i = 0; i < chooseaddress.length; i++) {
+        this.slots2[0].values.push(chooseaddress[i].dealerName);
+        this.Idchooseaddress.push(chooseaddress[i].no);
+      }
       // alert(this.slots2[0].values)
 
     });
@@ -315,27 +325,29 @@ export default {
     }
   },
   mounted() {
+    this.stylecar=this.$route.params.seriesName
+    // alert(this.$route.params.seriesName)
     //地区
     this.$http
       .post(Wit.searchCountryAreaCodeListPage, {
         parentId: null,
         level: 1,
         size: 100
-      })
+      }, this.$store.state.getpin)
       .then(res => {
 
         this.province = res.data.data.records;
 		this.province.forEach((item,index) => {
 			this.slots[0].values.push(this.province[index].name);
 		});
+        this.myaddress = res.data.data.records;
+        // console.log(this.myaddress);
+        for (let i = 0; i < this.myaddress.length; i++) {
+          this.slots[0].values.push(this.myaddress[i].name);
+        }
       });
 
-      //   this.myaddress = res.data.data.records;
-      //   console.log(this.myaddress);
-      //   for (let i = 0; i < this.myaddress.length; i++) {
-      //     this.slots[0].values.push(this.myaddress[i].name);
-      //   }
-      // });
+
 
     $(".gobottom").height($(".gobottom").height());
   }

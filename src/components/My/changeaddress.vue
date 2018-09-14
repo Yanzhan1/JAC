@@ -223,6 +223,7 @@ export default {
     },
     onValuesChange(picker, values) {
       // console.log(values)
+      console.log(picker)
       this.choosedarea = values[0];
       for (var i = 0; i < this.allarea.length; i++) {
         if (this.choosedarea == this.allarea[i].name) {
