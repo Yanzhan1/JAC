@@ -56,8 +56,7 @@ export default {
   methods: {
     //我的车辆
     MyBus() {
-      //  alert(JSON.stringify(this.$store.state.getpin))
-      this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
+  this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
         if (res.data.returnSuccess) {
           this.BusDetails = res.data.data;
           for(let i=0;i< res.data.data.length;i++){
@@ -112,7 +111,9 @@ export default {
           
           this.$http.post(My.JFmybus, param, this.$store.state.getpin).then(res => {
             if (res.data.returnSuccess) {
+                 this.BusDetails=[]
               this.MyBus();
+              this.$forceUpdate()
             } else {
               Toast({
                 message: "解绑失败，请稍后重试！",

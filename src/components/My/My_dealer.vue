@@ -52,7 +52,7 @@ export default {
   },
   methods: {
      search(latitude, longitude, adress, des) {
-      var system = this.isIOSOrAndroid();
+     var system = this.isIOSOrAndroid();
           if(system == 'Android') {
 					window.js2android.sendLocation2Map(latitude, longitude, adress, des)
 					} else if(system == "IOS") {
@@ -115,13 +115,13 @@ export default {
 	  align-items: center;
 	}
 .mui-ellipsis-2 {
-  display: -webkit-box;
+  /* display: -webkit-box;
   overflow: hidden;
   white-space: normal !important;
   text-overflow: ellipsis;
   word-wrap: break-word;
   -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: vertical; */
 }
 .mint-popup {
   width: 100%;

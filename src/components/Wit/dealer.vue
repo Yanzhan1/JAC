@@ -77,7 +77,7 @@
 						<div class="cocenter flex-center">
 							<div class="flex-column-align">
 								<img style="width:.42rem;text-align: center;" src="../../../static/images/Wit/nav_btn.png" alt="">
-								<span class="txt_m">{{ Number(item.juli) | toFixed(2)}}km</span>
+								<span class="txt_m" style="margin-top:.2rem">{{ Number(item.juli) | toFixed(2)}}km</span>
 							</div>
 						</div>
 					</li>
@@ -528,7 +528,7 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		width: 3rem;
+		/* width: 3rem; */
 	}
 	
 	.txt_m {

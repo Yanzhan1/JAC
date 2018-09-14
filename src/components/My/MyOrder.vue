@@ -198,8 +198,9 @@ export default {
     GetXorder() {
         // alert()
       var no = this.$store.state.userId;
+      var dealerType="01"
       this.$http
-        .post(My.ClueOrder, { userNo: no })
+        .post(My.ClueOrder, { userNo: no, dealerType:dealerType})
         .then(res => {
           if (res.data.code == 0) {
               if(res.data.data.records.length==0){
