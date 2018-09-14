@@ -29,7 +29,7 @@ export default {
       },
       questionContent: [], //意见内容
       questionTyep: {
-        //意见种类
+        //意见种类 
         "1": "问题	",
         "2": "意见"
       }
