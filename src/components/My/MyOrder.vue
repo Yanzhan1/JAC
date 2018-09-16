@@ -23,14 +23,16 @@
                         </p>
                         <div class="flex row con" @click="toDetauls(item)">
                             <div class="flex column bus_left">
-                                <img style="height:1.2rem;width:2.46rem" :src=item.imageUrl alt="">
+                                <img style="height:1.2rem;width:2.46rem" :src="item.img" alt="">
                                 <span class="busname">{{item.model}}</span>
                             </div>
                             <div class="flex column tp">
+                                 <span class="bus_right">品牌: {{item.customerName}}</span>
                                 <span class="bus_right">经销商：{{item.dealerName}}</span>
                                 <span class="bus_right">地址：{{item.address}}</span>
                                 <span class="bus_right">订单编号：{{item.fkDealerId}}</span>
-                                <span class="bus_right">基本型 {{item.carColor}}</span>
+                                <span class="bus_right">备注：{{item.comments}}</span>
+                               
                             </div>
                         </div>
                         <div class="flex row between bt">
@@ -209,6 +211,7 @@ export default {
             this.Xorder = res.data.data.records;
             for (let i = 0; i < this.Xorder.length; i++) {
               this.Xorder[i].time = operationTime.getTime(this.Xorder[i].createdDate,1);
+              this.Xorder[i].img=this.Xorder[i].imageRelationVO[0].imageUrl
              if (this.Xorder[i].gender == "1") {
                 this.Xorder[i].gender = "女";
               } else {
@@ -216,7 +219,7 @@ export default {
               }
             }
           }
-          console.log(this.Xorder);
+      
         });
     }
   },

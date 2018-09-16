@@ -239,8 +239,9 @@ export default {
           level: 2
         }
       this.$http.post(Wit.searchCountryAreaCodeListPage,data).then((res)=>{
-        // console.log(res.data.data.records)
+     
         var city=res.data.data.records
+      
         this.slots1[0].values=[]
         for (var i = 0; i < this.allarea.length; i++) {
             this.slots1[0].values.push(city[i].name);
@@ -248,7 +249,13 @@ export default {
       })
     },
     onValuesChanges(picker,values){
-      this.choosecity=values[0]
+    this.choosecity=values[0]
+     
+      for(var i = 0; i < this.allarea.length; i++){
+         if(this.choosecity==this.allarea[i].name){
+          
+         }
+      }
     }
   },
   

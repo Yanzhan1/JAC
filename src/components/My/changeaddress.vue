@@ -41,7 +41,7 @@
 
             <div class="inputcontent">
                 <div class="peop">详细地址：</div>
-                <textarea maxlength='40' class="textare" placeholder="点击输入详细地址" form="usrform" v-model="this.address">
+                <textarea maxlength='40' class="textare"  ref="text" placeholder="点击输入详细地址" form="usrform" v-model="this.address">
                 </textarea>
             </div>
             <div class="ft">
@@ -141,37 +141,38 @@ export default {
   },
   methods: {
     async handleSubmit() {
+      
       var self = this;
       var flag = 0;
       if (!self.selected) flag = 1;
-      // var name = this.name;
-      // if (name == "") {
-      //   Toast({
-      //     message: "姓名不能为空",
-      //     duration: 1000,
-      //     position: "bottom"
-      //   });
-      //   return false;
-      // }
-      // let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
-      // var numFlag = reg.test(this.num);
-      // if (!numFlag) {
-      //   Toast({
-      //     message: "手机号码格式不对！",
-      //     duration: 1000,
-      //     position: "bottom"
-      //   });
-      //   return false;
-      // }
-      //  var address = this.address.trim();
-      // if (address == "") {
-      //   Toast({
-      //     message: "收货地址不能为空",
-      //     duration: 1000,
-      //     position: "bottom"
-      //   });
-      //   return false;
-      // }
+      var name = this.name;
+      if (name == "") {
+        Toast({
+          message: "姓名不能为空",
+          duration: 1000,
+          position: "bottom"
+        });
+        return false;
+      }
+      let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+      var numFlag = reg.test(this.num);
+      if (!numFlag) {
+        Toast({
+          message: "手机号码格式不对！",
+          duration: 1000,
+          position: "bottom"
+        });
+        return false;
+      }
+       var address = this.address.trim();
+      if (address == "") {
+        Toast({
+          message: "收货地址不能为空",
+          duration: 1000,
+          position: "bottom"
+        });
+        return false;
+      }
       var param = {
         no: this.no,
         userNo: this.$store.state.userId,
@@ -180,15 +181,18 @@ export default {
         isDefalut: flag, //是否选定为默认2为选择默认
         provinceNo: this.everycode, //所在地区的code
         provinceName: this.provinceName, //所在的地区的名字
-        address: this.address
+        address:  this.$refs.text.value
+      
       };
+     
+    
       if(flag==1){
-      await  this.$http
+      this.$http
         .post(My.Defaultaddress, param)
         .then(res => {});
       }
       
-      // setTimeout(() => {
+   
       await this.$http
         .post(My.ChangeAddress, param)
         .then(res => {
@@ -196,9 +200,7 @@ export default {
             this.$router.go(-1);
           }
         });
-      // }, 100);
-      
-      // console.log(flag);
+     
     },
     choosearea() {
       this.shows = true;
