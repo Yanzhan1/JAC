@@ -229,24 +229,24 @@ export default {
         });
         return false;
       }
-      var address = this.address;
-      if (address == "") {
-        Toast({
-          message: "地址不能为空",
-          duration: 1000,
-          position: "middle"
-        });
-        return false;
-      }
-      var beizhu = this.beizhu;
-      if (beizhu == "") {
-        Toast({
-          message: "备注不能为空",
-          duration: 1000,
-          position: "middle"
-        });
-        return false;
-      }
+      // var address = this.address;
+      // if (address == "") {
+      //   Toast({
+      //     message: "地址不能为空",
+      //     duration: 1000,
+      //     position: "middle"
+      //   });
+      //   return false;
+      // }
+      // var beizhu = this.beizhu;
+      // if (beizhu == "") {
+      //   Toast({
+      //     message: "备注不能为空",
+      //     duration: 1000,
+      //     position: "middle"
+      //   });
+      //   return false;
+      // }
       var gender = this.smallname == "女" ? 1 : 2;
 
       var param = {
