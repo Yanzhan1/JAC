@@ -140,6 +140,7 @@ export default {
       city:[],//市
       address: "", //地址
       beizhu: "", //备注
+      codecity:'',//市的code
       chooseaddress:[],
       Idchooseaddress: [], //返回选择经销商的no
       myaddress:{},
@@ -281,7 +282,7 @@ export default {
         province: this.provinceid, //省份ID
         series:this.$route.params.levelCode, //意向车系
         model: this.$store.state.srouceNo,//意向车型
-        // code:'',
+        city:this.codecity,//城市ID
         userNo:this.$store.state.userId,
       };
       // alert(JSON.stringify(param));
@@ -331,6 +332,7 @@ export default {
 				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
             this.data = res.data.data.records;
             this.slots3[0].values=[]
+            console.log(this.data)
           for(var i=0;i<this.data.length;i++){
             // alert(JSON.stringify(this.data))
             this.slots3[0].values.push(this.data[i].name)
@@ -368,6 +370,11 @@ export default {
     //选择经销市
     onValuesChange3(picker, values) {
         this.city=values
+        for(var i=0;i<this.data.length;i++){
+          if(this.city==this.data[i].name){
+            this.codecity=this.data[i].id
+          }
+        }
       
     },
   },

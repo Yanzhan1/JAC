@@ -172,7 +172,7 @@
 							this.searchCountryAreaCodeListPage = data.data.records;
 							for(let i = 0; i < this.searchCountryAreaCodeListPage.length; i++) {
 								if(this.searchCountryAreaCodeListPage[i].name == this.cityname) {
-									console.log(11)
+									// console.log(11)
 									this.provinceCode = this.searchCountryAreaCodeListPage[i].code
 									if(this.provinceCode) {
 										this.mydeler() //省份code 赋值成功后 调用获取经销商列表
