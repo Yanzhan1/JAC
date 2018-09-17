@@ -221,8 +221,10 @@ export default {
       if (isMobile.iOS()) {
         var params = {};
         window.webkit.messageHandlers.scan.postMessage(params);
+       
       } else if (isMobile.Android()) {
         js2android.scan();
+       
       }
     },
 

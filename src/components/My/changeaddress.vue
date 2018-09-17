@@ -185,14 +185,6 @@ export default {
       
       };
      
-    
-      if(flag==1){
-      this.$http
-        .post(My.Defaultaddress, param)
-        .then(res => {});
-      }
-      
-   
       await this.$http
         .post(My.ChangeAddress, param)
         .then(res => {
@@ -200,8 +192,12 @@ export default {
             this.$router.go(-1);
           }
         });
-     
-    },
+      if(flag==1){
+      this.$http
+        .post(My.Defaultaddress, param)
+        .then(res => {});
+      }
+      },
     choosearea() {
       this.shows = true;
       this.bgcolor = true;

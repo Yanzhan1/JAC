@@ -11,14 +11,22 @@
                 <span>预定车型</span>
                 <span>{{userinfo.seriesName}}</span>
             </li>
+             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
+                <span>省</span>
+                <span>{{userinfo.address}}</span>
+            </li>
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
-                <span>选择经销商</span>
+                <span>市</span>
+                <span>{{userinfo.address}}</span>
+            </li>
+            <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
+                <span>经销商</span>
                 <span>{{userinfo.dealerName}}</span>
             </li>
-            <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
+            <!-- <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>推荐码</span>
                 <span>{{userinfo.model}}</span>
-            </li>
+            </li> -->
         </ul>
         <ul style="padding:0 .32rem;border-bottom:.2rem solid #F9F9F9">
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
@@ -39,10 +47,7 @@
                 <span>电子邮箱</span>
                 <span>{{userinfo.email}}</span>
             </li>
-            <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
-                <span>所在地区</span>
-                <span>{{userinfo.address}}</span>
-            </li>
+           
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>地址</span>
                 <span>徐汇田林</span>
@@ -67,7 +72,7 @@ export default {
   },
   created(){
     this.userinfo=this.$route.query
-    console.log(this.userinfo)
+ alert(JSON.stringify(this.userinfo))
    }
 };
 </script>
