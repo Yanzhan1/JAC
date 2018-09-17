@@ -12,27 +12,35 @@
                         <span>预定车型</span>
                         <div>{{this.$store.state.seriesName}}</div>
                     </li>
-                                        <li @click="regions" class="all">
-                        <span>所在地区</span>
+                    <li @click="regions" class="all">
+                        <span>省</span>
                         <div class="allflex">
                             <input type="text" name="" id="" placeholder="点击选择地区" v-model="area" readonly>
                             <img src="/static/images/next@2x.png" alt="">
                         </div>
                     </li>
-                    <!-- <li class="all">
-                        <span>选择经销商</span>
+                    <li @click="cityes" class="all">
+                        <span>市</span>
+                        <div class="allflex" >
+                            <input type="text" name="" id="" placeholder="点击选择地区" v-model="city" readonly>
+                            <img src="/static/images/next@2x.png" alt="">
+                        </div>
+                    </li>
+                    
+                     <li class="all">
+                        <span style="width:2rem">选择经销商</span>
                         <div class="allflex" @click="Distributor">
-                            <span class="shows">{{this.Distribution}}</span>
+                            <span>{{this.Distribution}}</span>
                             <img src="/static/images/next@2x.png" alt="" >
                         </div>        
-                    </li> -->
-                    <li class="all">
+                    </li>
+                    <!-- <li class="all">
                         <span>推荐码</span>
                         <div class="allflex">
                             <input type="text" name="" id="" placeholder='点击输入推荐码' v-model="Recommend">
                             <img src="/static/images/next@2x.png" alt="">
                         </div>
-                    </li>
+                    </li> -->
                     <li class="name all">
                         <span>姓名</span>
                         <div class="allflex">
@@ -41,10 +49,12 @@
                         </div>
                     </li>
                     <li class="sixname all">
-                        <span>称谓</span>
-                        <div class="allflex">
-                            <input type="text" name="" id="" placeholder="点击输入称谓" v-model="smallname">
-                            <img src="/static/images/next@2x.png" alt="">
+                        <span>性别</span>
+                        <div class="specilflex">
+                            <!-- <input type="text" name="" id="" placeholder="点击输入称谓" v-model="smallname">
+                            <img src="/static/images/next@2x.png" alt=""> -->
+                              <input type="radio" name="choosea" value="男" checked @click="choosesex"><span>男</span>
+                              <input type="radio" name="choosea" value="女" @click="choosesex"><span>女</span>
                         </div>
                     </li>
                     <li class="phone all">
@@ -60,20 +70,6 @@
                             <input type="text" name="" id="" placeholder="点击输入邮箱" v-model="email">
                             <img src="/static/images/next@2x.png" alt="">
                         </div>
-                    </li>
-                    <!-- <li @click="regions" class="all">
-                        <span>所在地区</span>
-                        <div class="allflex">
-                            <input type="text" name="" id="" placeholder="点击选择地区" v-model="area">
-                            <img src="/static/images/next@2x.png" alt="">
-                        </div>
-                    </li> -->
-                     <li class="all">
-                        <span>选择经销商</span>
-                        <div class="allflex" @click="Distributor">
-                            <span class="shows">{{this.Distribution}}</span>
-                            <img src="/static/images/next@2x.png" alt="" >
-                        </div>        
                     </li>
                     <li class="all">
                         <span>地址</span>
@@ -101,9 +97,14 @@
 
             </div>
             <mt-popup class="region" v-show="areas" position="bottom">
-                <h3>选择地区</h3>
+                <h3>选择省</h3>
                 <span @click="choose">确定</span>
                 <mt-picker :slots="slots" @change="onValuesChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
+            </mt-popup>
+            <mt-popup class="region" v-show="citys" position="bottom">
+                <h3>选择市</h3>
+                <span @click="choose">确定</span>
+                <mt-picker :slots="slots3" @change="onValuesChange3" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
             </mt-popup>
             <mt-popup class="region" v-show="distributors" position="bottom">
                 <h3>选择经销商</h3>
@@ -126,6 +127,7 @@ export default {
     return {
       region: false,
       distributors: false,
+      citys:false,
       success: false,
       areas: false,
       Distribution: "", //经销商
@@ -134,7 +136,8 @@ export default {
       smallname: "", //称谓 男女
       tell: "", //电话
       email: "", //邮箱
-      area: [], //地区
+      area: [], //省
+      city:[],//市
       address: "", //地址
       beizhu: "", //备注
       chooseaddress:[],
@@ -147,6 +150,8 @@ export default {
       business:'',//经销商的所有id
       provinceCode: null, //省份code
       provinceid:'',
+      parentId:[],
+      data:[],
       slots: [
         {
           flex: 1,
@@ -171,6 +176,17 @@ export default {
           divider: true,
           itemHieight: 74
         }
+      ],
+      slots3: [
+        {
+          values: [],
+          className: "slot1",
+          textAlign: "center"
+        },
+        {
+          divider: true,
+          itemHieight: 74
+        }
       ]
     };
   },
@@ -179,16 +195,22 @@ export default {
       this.region = true;
       this.areas = true;
     },
+    cityes(){
+      this.citys=true;
+      this.region=true;
+    },
     choose() {
       this.region = false;
       this.distributors = false;
       this.areas = false;
+      this.citys=false;
     },
     choose2() {
       this.region = false;
       this.distributors = false;
       this.areas = false;
       this.success = false;
+      this.citys=false;
     },
     Distributor() {
       this.distributors = true;
@@ -278,6 +300,11 @@ export default {
         }
       });
     },
+    //选择性别
+    choosesex(){
+      this.smallname=$('input:radio:checked').val()
+      // alert(this.smallname)
+    },
     backs(){
             this.$router.push({
                 name:'车系特色',
@@ -287,33 +314,30 @@ export default {
                 }
             })
     },
-    //所在地区
+    //选择省
     onValuesChange(picker, values) {
       this.area = values;
-      // this.province.forEach((item, index) => {
-      // 	if (item.name == values) {
-      // 		this.everycode  = item.code; //拿到省份code,请求经销商列表
-      // 	}
-      // })
-      // alert(this.everycode)
-      // var param = {
-      // 	dealerType: "01",
-      // 	dealerCityCode:this.everycode
-      // };
-      // this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => { //经销商列表请求
-      // 	this.slots2[0].values = [] //清除已经选择的经销商
-      // var chooseaddress = res.data.data.records;
-      // chooseaddress.forEach((item, index) => {
-      // 	this.slots2[0].values.push(chooseaddress[index].dealerName)
-      // })
-
-    //   console.log(this.area)
       for(var i=0;i<this.myaddress.length;i++){
         if(this.area[0]==this.myaddress[i].name){
           this.everycode=this.myaddress[i].code
           this.provinceid=this.myaddress[i].id
         }
       }
+      //选择市
+      var data={
+        parentId:this.provinceid,
+        level:2,
+      }
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+            this.data = res.data.data.records;
+            this.slots3[0].values=[]
+          for(var i=0;i<this.data.length;i++){
+            // alert(JSON.stringify(this.data))
+            this.slots3[0].values.push(this.data[i].name)
+           
+          }
+				})
+
           //经销商
     var param = {
       dealerType: "01",
@@ -340,7 +364,12 @@ export default {
           // alert(this.business)
         }
       }
-    }
+    },
+    //选择经销市
+    onValuesChange3(picker, values) {
+        this.city=values
+      
+    },
   },
   mounted() {
     // alert(this.$route.params.levelCode)
@@ -354,11 +383,12 @@ export default {
         size: 100
       }, this.$store.state.getpin)
       .then(res => {
-
         this.province = res.data.data.records;
 		this.province.forEach((item,index) => {
-			this.slots[0].values.push(this.province[index].name);
-		});
+      this.slots[0].values.push(this.province[index].name);
+      this.parentId.push(this.province[index].id)
+    });
+    // console.log(this.parentId)
         this.myaddress = res.data.data.records;
         // console.log(this.myaddress);
         for (let i = 0; i < this.myaddress.length; i++) {
@@ -506,5 +536,14 @@ textarea {
 .look .look_r {
   margin-right: 0.49rem;
   font-size: 0.34rem;
+}
+.specilflex{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1;
+}
+.specilflex>input{
+  width: 1rem;
 }
 </style>
