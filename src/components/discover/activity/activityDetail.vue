@@ -503,6 +503,7 @@
         this.getReadNum();
         this.getPictureList();
       })
+      window.getPictureList = this.getPictureList
     }
   }
 
