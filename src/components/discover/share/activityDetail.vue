@@ -397,7 +397,7 @@
         this.$nextTick(function () {
           this.getActivity();
           this.getReadNum();
-          this.getPictureList();
+          // this.getPictureList();
         })
       }
     }

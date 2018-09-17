@@ -35,70 +35,70 @@
           <img src="../../../../static/images/discover/nozan.png" class="f_right" >
         </div>
         <!--内容E-->
-        <!--评论S-->
-        <div class="comment" id="commentTop">
-          <p class="all_comment">全部评论 ({{conmmentsList.length}})</p>
-          <div class="comment_wrap" v-for="(item,index) in conmmentsList">
-            <!--评论者信息S-->
-            <div class="comment_userinfo">
-              <div class="user_head">
-                <div>
-                  <img v-if="item.user" :src="item.user.head_image" />
-                  <img v-else src="../../../../static/images/discover/normalhead.png" />
-                </div>
-              </div>
-              <div class="user_info">
-                <div v-if="item.user" class="user_name">
-                  {{item.user.nick_name}}
-                </div>
-                <div v-else class="user_name">
-                  尚未设置昵称
-                </div>
-                <div class="operation_comment">
-                  <div>
-                    <img  src="../../../../static/images/discover/nozan.png" class="w_04 mr_16 v_m f_left" />
-                    <span style="font-size: 0.28rem;">{{item.likeNum}}</span>
-                  </div>
-                </div>
-                <div class="user_date">
-                  {{item.commentTime}}
-                </div>
-              </div>
-            </div>
-            <!--评论者信息E-->
-            <!--评论内容和回复内容S-->
-            <div class="comment_content">
-              <p>{{item.message}}</p>
-                <div v-if="item.reverts && item.reverts.length>0">
-                  <div class="comment_msg">
-                  <div v-for="(back,index) in item.reverts.slice(0,3)">
-                    <span class="font_1">
-                      <span>
-                        <span>
-                          <span v-if="back.user.nick_name">{{back.user.nick_name}}</span>
-                          <span v-else>尚未设置昵称:</span>
-                        </span>
-                      </span>
-                      <span v-if="index!=0 && back.beCommentUser">
-                        &nbsp;&nbsp;回复&nbsp;&nbsp;
-                        <span v-if="back.beCommentUser.nick_name">{{back.beCommentUser.nick_name}}</span>
-                        <span>尚未设置昵称:</span><br>
-                      </span>
-                    </span>
-                    <span class="font_2">{{back.message}}</span>
-                  </div>
-                  <div class="allHideComment" v-if="item.reverts && item.reverts.length>3">
-                    全部{{item.reverts.length}}条评论>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--评论内容和回复内容E-->
-            <div class="interval_002"></div>
-          </div>
-        </div>
-        <!--评论E-->
-      </div>
+        <!--&lt;!&ndash;评论S&ndash;&gt;-->
+        <!--<div class="comment" id="commentTop">-->
+          <!--<p class="all_comment">全部评论 ({{conmmentsList.length}})</p>-->
+          <!--<div class="comment_wrap" v-for="(item,index) in conmmentsList">-->
+            <!--&lt;!&ndash;评论者信息S&ndash;&gt;-->
+            <!--<div class="comment_userinfo">-->
+              <!--<div class="user_head">-->
+                <!--<div>-->
+                  <!--<img v-if="item.user" :src="item.user.head_image" />-->
+                  <!--<img v-else src="../../../../static/images/discover/normalhead.png" />-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="user_info">-->
+                <!--<div v-if="item.user" class="user_name">-->
+                  <!--{{item.user.nick_name}}-->
+                <!--</div>-->
+                <!--<div v-else class="user_name">-->
+                  <!--尚未设置昵称-->
+                <!--</div>-->
+                <!--<div class="operation_comment">-->
+                  <!--<div>-->
+                    <!--<img  src="../../../../static/images/discover/nozan.png" class="w_04 mr_16 v_m f_left" />-->
+                    <!--<span style="font-size: 0.28rem;">{{item.likeNum}}</span>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="user_date">-->
+                  <!--{{item.commentTime}}-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;评论者信息E&ndash;&gt;-->
+            <!--&lt;!&ndash;评论内容和回复内容S&ndash;&gt;-->
+            <!--<div class="comment_content">-->
+              <!--<p>{{item.message}}</p>-->
+                <!--<div v-if="item.reverts && item.reverts.length>0">-->
+                  <!--<div class="comment_msg">-->
+                  <!--<div v-for="(back,index) in item.reverts.slice(0,3)">-->
+                    <!--<span class="font_1">-->
+                      <!--<span>-->
+                        <!--<span>-->
+                          <!--<span v-if="back.user.nick_name">{{back.user.nick_name}}</span>-->
+                          <!--<span v-else>尚未设置昵称:</span>-->
+                        <!--</span>-->
+                      <!--</span>-->
+                      <!--<span v-if="index!=0 && back.beCommentUser">-->
+                        <!--&nbsp;&nbsp;回复&nbsp;&nbsp;-->
+                        <!--<span v-if="back.beCommentUser.nick_name">{{back.beCommentUser.nick_name}}</span>-->
+                        <!--<span>尚未设置昵称:</span><br>-->
+                      <!--</span>-->
+                    <!--</span>-->
+                    <!--<span class="font_2">{{back.message}}</span>-->
+                  <!--</div>-->
+                  <!--<div class="allHideComment" v-if="item.reverts && item.reverts.length>3">-->
+                    <!--全部{{item.reverts.length}}条评论>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;评论内容和回复内容E&ndash;&gt;-->
+            <!--<div class="interval_002"></div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;评论E&ndash;&gt;-->
+      <!--</div>-->
       <!--资讯详情E-->
     </div>
     <div style="height: 1rem;"></div>
@@ -416,7 +416,7 @@
         this.$nextTick(function () {
           this.getDetail();
           this.getReadNum();
-          this.getComments();
+          // this.getComments();
           //this.$store.state.commentboxflag = true;
         })
     }
