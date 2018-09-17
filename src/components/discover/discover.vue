@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header @goIsNow="goIsNow"></Header>
+    <Header @refresh="refresh"></Header>
     <div style="height: 0.88rem"></div>
     <router-view v-if="flag" />
   </div>
@@ -16,7 +16,7 @@
       }
     },
     methods: {
-      goIsNow(){
+      refresh(){
         this.flag = false
         setTimeout(()=>{
           this.flag = true
