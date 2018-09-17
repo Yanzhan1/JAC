@@ -97,7 +97,7 @@
 				let data = {
 					no: this.$store.state.userId
 				}
-				this.$http.post(Wit.searchUserBaseInformationOne, data, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.searchUserBaseInformationOne, data).then(res => {
 						const data = res.data;
 						if(data.code == 0) {
 							this.phone = data.data.phone

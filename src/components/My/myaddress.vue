@@ -12,7 +12,7 @@
                     <span class="names">{{item.receiveName}}</span>
                     <span class="tell">{{item.receiveMobile}}</span>
                 </div>
-                <div class="address">{{item.provinceName}}{{item.address}}</div>
+                <div class="address">{{item.provinceName}} {{item.address}}</div>
                 <div class="flex row between">
                     <div>
                         <span class="mor" v-if="item.isDefault==1">默认</span>

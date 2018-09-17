@@ -7,10 +7,10 @@
 			<span class="header-right"></span>
 		</header>
 		<div style="height:0.88rem"></div>
-		<div class="flow-title">
+		<!-- <div class="flow-title">
 			<span>截止日期</span>
 			<span>{{this.Closingdate}}</span>
-		</div>
+		</div> -->
 		<div class="line"></div>
 		<div class="flow-title">
 			<span>流量包名称</span>
@@ -19,10 +19,10 @@
 		<div class="line"></div>
 		<div class="flow-wrap">
 
-			<div v-for="(item,index) in 2" class="flow-apnone">
-				<div class="apn-title">
+			<div v-for="(item,index) in 1" class="flow-apnone">
+				<!-- <div class="apn-title">
 					<span>APN1</span>
-				</div>
+				</div> -->
 				<div class="origin-pin">
 					<div class="flex-align-center revisePinCommon">
 						<span style="font-size: 0.26rem;color: #444444;">

@@ -86,7 +86,7 @@
       </div>
       <div v-if="item.showImgList && item.showImgList.length>0 && item.showImgList!=''" @click="toDetail(item.id)">
         <div v-if="item.showImgList.length==1">
-          <img :src="item.showImgList[0]" class="shaitu1">
+          <img :src="item.showImgList[0]" class="shaitu1" style="height: auto;">
         </div>
         <div v-if="item.showImgList.length==2" class="shaitu2_box">
           <img :src="item.showImgList[0]" class="shaitu2_1 mr_2">
@@ -503,6 +503,7 @@
         this.getReadNum();
         this.getPictureList();
       })
+      window.getPictureList = this.getPictureList
     }
   }
 

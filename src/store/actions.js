@@ -26,5 +26,8 @@ export default {
     },
     TSP: ({ commit, state }, payload) => {
         commit(types.TSP, payload)
+    },
+    NONAME: ({ commit, state }, payload) => {
+        commit(types.NONAME, payload)
     }
 }

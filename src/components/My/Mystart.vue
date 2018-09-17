@@ -247,7 +247,7 @@
         this.$http.post(DISCOVERMESSAGE.issueMomentList, {
           "uid": _this.$store.state.userId,
           "hisUid": _this.$store.state.userId
-        }, this.$store.state.mytoken).then(function (res) {
+        }).then(function (res) {
           if (res.data.status) {
             for (let i = 0; i < res.data.data.length; i++) {
               res.data.data[i].createDate = _this.convert(res.data.data[i].createDate)

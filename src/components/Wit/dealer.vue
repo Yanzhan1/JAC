@@ -77,7 +77,7 @@
 						<div class="cocenter flex-center">
 							<div class="flex-column-align">
 								<img style="width:.42rem;text-align: center;" src="../../../static/images/Wit/nav_btn.png" alt="">
-								<span class="txt_m">{{item.juli|keepTwo}}km</span>
+								<span class="txt_m" style="margin-top:.2rem">{{ Number(item.juli) | toFixed(2)}}km</span>
 							</div>
 						</div>
 					</li>
@@ -143,7 +143,7 @@
 				latitude: null, //维度
 				longitude: null, //经度,
 				provinceCode: null, //   省份coed
-				imgSrc: './static/images/Wit/bg-mine.png'
+
 			};
 		},
 		components: {
@@ -170,22 +170,19 @@
 						const data = res.data;
 						if(data.code == 0) {
 							this.searchCountryAreaCodeListPage = data.data.records;
-							//  alert(JSON.stringify(this.searchCountryAreaCodeListPage))
 							for(let i = 0; i < this.searchCountryAreaCodeListPage.length; i++) {
 								if(this.searchCountryAreaCodeListPage[i].name == this.cityname) {
+									console.log(11)
 									this.provinceCode = this.searchCountryAreaCodeListPage[i].code
 									if(this.provinceCode) {
-
 										this.mydeler() //省份code 赋值成功后 调用获取经销商列表
 									}
 								}
 							}
+
 						}
 					})
 
-			},
-			search() {
-				//				this.popupVisible = true;
 			},
 			cancel() {
 				this.popupVisible = false;
@@ -203,7 +200,7 @@
 					size: 10,
 					current: 1
 				}
-				this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.Dealer, param).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.current = 1, //当前页码
@@ -294,7 +291,6 @@
 
 			},
 			getNextList() { //上拉加载更多方法
-
 				if(this.loadEnd) {
 					this.loadBottom();
 					return;
@@ -312,7 +308,7 @@
 					size: 10,
 					current: this.current
 				}
-				this.$http.post(Wit.Dealer, data, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.Dealer, data).then(res => {
 						const data = res.data;
 						this.loadEnd = false;
 						if(data.code == 0) {
@@ -322,7 +318,6 @@
 								this.loading = true; //禁止无限滚动
 								this.allLoaded = true; //不在触发方法
 								this.loadEnd = true; //不在请求数据
-								//				                  $("#showAll2").show();
 							}
 						} else {
 							this.current = this.current - 1;
@@ -355,7 +350,7 @@
 					size: 10,
 					current: this.current
 				}
-				this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.Dealer, param).then(res => {
 					if(res.data.code == 0) {
 						this.mainbus = []
 						this.mainbus = res.data.data.records
@@ -379,8 +374,20 @@
 					window.js2android.sendLocation2Map(latitude, longitude, adress, des)
 					//		 			console.log(11)
 				} else if(system == "IOS") {
-
+					var data = {
+						latitude,
+						longitude,
+						adress,
+						des
+					}
+					window.webkit.messageHandlers.sendLocation2Map.postMessage(data);
 				}
+			},
+			getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
+				this.cityname = JSON.parse(locationMes).province
+				this.citysi = JSON.parse(locationMes).city
+				this.latitude = JSON.parse(locationMes).latitude //精
+				this.longitude = JSON.parse(locationMes).longitude //韦
 			}
 		},
 		mounted() {
@@ -388,19 +395,22 @@
 			this.provinceId = null
 		},
 		created() {
-			var Position = js2android.getLocationInfo() //获取定位信息
-			var NewPosition = JSON.parse(Position)
-			this.cityname = NewPosition.province //省
-			this.citysi = NewPosition.city //市
-			this.latitude = NewPosition.latitude //精
-			this.longitude = NewPosition.longitude //韦
-
+			window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
+			var system = this.isIOSOrAndroid();
+			if(system == 'Android') {
+				var Position = js2android.getLocationInfo() //获取安卓定位信息
+				var NewPosition = JSON.parse(Position)
+				this.cityname = NewPosition.province //省
+				this.citysi = NewPosition.city //市
+				this.latitude = NewPosition.latitude //精
+				this.longitude = NewPosition.longitude //韦
+			} else if(system == "IOS") {
+				window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
+			}
 		},
 		filters: {
-			keepTwo: function(value) {
-				var res = "";
-				res = value.toFixed(1)
-				return res
+			toFixed(input, param1) { //可以有好多的自定义过滤器，这里的this指向的是window
+				return input.toFixed(param1)
 			}
 		},
 		watch: {
@@ -508,7 +518,7 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		width: 3rem;
+		width: 4rem;
 	}
 	
 	.txt_m {

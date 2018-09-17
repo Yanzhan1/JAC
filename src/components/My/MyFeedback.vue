@@ -74,7 +74,7 @@
 					});
 					return false;
 				} else {
-					this.$http.post(Wit.addComplaintsSuggestions, this.condition,this.$store.state.mytoken).then(res => {
+					this.$http.post(Wit.addComplaintsSuggestions, this.condition).then(res => {
 						const data = res.data;
 						if(data.code == 0) {
 								Toast({

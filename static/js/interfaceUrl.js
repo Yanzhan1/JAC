@@ -131,8 +131,8 @@ window.Wit = {
 window.My = {
         UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
         IsSignIn: jf + '/pluto-membership/integral-gather/is-sign', //判断用户今天是否签到
-        SignIn: jf + '/pluto-membership/integral-gather/integral-gather', //签到
-        Credit: jf + '/plutomembership/integralCount/searchIntegralCountListPage', //获取用户积分
+        SignIn: jf + 'pluto-membership/integral-gather/integral-gather', //签到
+        Credit: jf + '/plutomembership/integralCount/searchIntegralCountList', //获取用户积分
         CreditDetail: jf + '/plutomembership/integralRecord/searchIntegralRecordList', //积分记录
         My_Bus: love_car + '/vehicle/find-vehicle-list', //我的车辆
         SetOneDefault: love_car + '/vehicle/set-default-vehicle', //我的车辆设为默认
@@ -152,28 +152,28 @@ window.My = {
     }
     //爱车
 window.Lovecar = {
-    vehicle: love_car + '/vehicle/sync-tsp-vehicle', //给后端同步车辆接口
-    TSP: mips + 'admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne', //获取tsp用户
-    Carquery: love_car + '/vehicle/query-vehicle-condition', //车辆车况查询
-    OperationId: love_car + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
-    Changepin: love_car + '/vehicle/update-vehicle-pin', //修改pin码
-    Getphonepin: love_car + '/vehicle//identify-code', //获取验证码
-    Checkphonepin: love_car + '/vehicle/check-vehicle-pin', //验证pin码
-    BusTest: love_car + '/vehicle/query-cyc-car-examination', //车辆体检
-    Fuel: love_car + '/vehicle/query-vehicle-fuel-statistics', //燃油接口
-    Flow: love_car + '/vehicle/query-vehicle-cyc-flow-query', //流量查询
-    Longrange: love_car + '/vehicle/set-vehicle-remoteset', //车辆远程设置
-    LoginOut: love_car + '/vehicle/remote-vehicle-login-or-logout', //退出登录
-    Findcode: love_car + '/vehicle/forget-vehicle-pin', //找回pin码
-    Control: love_car + '/vehicle/remote-vehicle-control', //远程控制
-    LogStatus: love_car + '/vehicle/vehicle-logstatus' //获取机车登入状态
-}
-//消息接口
+        vehicle: love_car + '/vehicle/sync-tsp-vehicle', //给后端同步车辆接口
+        TSP: mips + 'admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne', //获取tsp用户
+        Carquery: love_car + '/vehicle/query-vehicle-condition', //车辆车况查询
+        OperationId: love_car + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
+        Changepin: love_car + '/vehicle/update-vehicle-pin', //修改pin码
+        Getphonepin: love_car + '/vehicle//identify-code', //获取验证码
+        Checkphonepin: love_car + '/vehicle/check-vehicle-pin', //验证pin码
+        BusTest: love_car + '/vehicle/query-cyc-car-examination', //车辆体检
+        Fuel: love_car + '/vehicle/query-vehicle-fuel-statistics', //燃油接口
+        Flow: love_car + '/vehicle/query-vehicle-cyc-flow-query', //流量查询
+        Longrange: love_car + '/vehicle/set-vehicle-remoteset', //车辆远程设置
+        LoginOut: love_car + '/vehicle/remote-vehicle-login-or-logout', //退出登录
+        Findcode: love_car + '/vehicle/forget-vehicle-pin', //找回pin码
+        Control: love_car + '/vehicle/remote-vehicle-control', //远程控制
+        LogStatus: love_car + '/vehicle/vehicle-logstatus' //获取机车登入状态
+    }
+    //消息接口
 window.IMFORMATION = {
-  getList:indexip+'/sendMessageController/getList',//通知list
-  commentRequest:indexip+'/userComment/commentRequest',//获取评论列表lid与类型进行跳转
-  read:indexip+'/sendMessageController/read',//通知已读
-  notificationPushDetail:love_car+'/notificationPush/notificationPushDetail',//通知详情
-  notificationPushList:love_car+'/notificationPush/notificationPushList',//通知list
-  changeReadStatus:love_car+'/notificationPush/changeReadStatus',//通知已读
+    getList: indexip + '/sendMessageController/getList', //通知list
+    commentRequest: indexip + '/userComment/commentRequest', //获取评论列表lid与类型进行跳转
+    read: indexip + '/sendMessageController/read', //通知已读
+    notificationPushDetail: love_car + '/notificationPush/notificationPushDetail', //通知详情
+    notificationPushList: love_car + '/notificationPush/notificationPushList', //通知list
+    changeReadStatus: love_car + '/notificationPush/changeReadStatus', //通知已读
 }

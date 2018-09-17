@@ -77,7 +77,7 @@
 						<div class="cocenter flex-center">
 							<div class="flex-column-align">
 								<img style="width:.42rem;text-align: center;" src="../../../static/images/Wit/nav_btn.png" alt="">
-								<span class="txt_m">{{item.juli|keepTwo}}km</span>
+								<span class="txt_m">{{Number(item.juli) | toFixed(2)}}km</span>
 							</div>
 						</div>
 					</li>
@@ -202,13 +202,13 @@
 					size: 10,
 					current: 1
 				}
-				this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.Dealer, param).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.current = 1, //当前页码
 							this.loading = false, //加载完数据可以无线滚动
 							this.mainbus = data.data.records
-
+							console.log(this.mainbus)
 						if(data.data.total <= this.size) { //如果总条数小于等于请求的数据条数,不在请求加载更多
 							this.loadEnd = true;
 						}
@@ -311,7 +311,7 @@
 					size: 10,
 					current: this.current
 				}
-				this.$http.post(Wit.Dealer, data, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.Dealer, data).then(res => {
 						const data = res.data;
 						this.loadEnd = false;
 						if(data.code == 0) {
@@ -354,7 +354,7 @@
 					size: 10,
 					current: this.current
 				}
-				this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.Dealer, param).then(res => {
 					if(res.data.code == 0) {
 						this.mainbus = []
 						this.mainbus = res.data.data.records
@@ -377,7 +377,13 @@
 				if(system == 'Android') {
 					window.js2android.sendLocation2Map(latitude, longitude, adress, des)
 				} else if(system == "IOS") {
-
+					var data = {
+						latitude,
+						longitude,
+						adress,
+						des
+					}
+					window.webkit.messageHandlers.sendLocation2Map.postMessage(data);
 				}
 			}
 		},
@@ -395,11 +401,9 @@
 
 		},
 		filters: {
-			keepTwo: function(value) {
-				var res = "";
-				res = value.toFixed(1)
-				return res
-			}
+			toFixed (input, param1) {
+                return input.toFixed(param1)
+            }
 		},
 		watch: {
 			brandNo(newVal, oldVal) { //监听品牌id,获得车型列表
@@ -407,7 +411,7 @@
 					no: this.brandNo
 				}
 				//请求车型列表
-				this.$http.post(Wit.searchVehicleSeriesList, data, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.searchVehicleSeriesList = data.data;
@@ -420,7 +424,7 @@
 					parentId: this.provinceId, //被检测的省份id 
 					level: 2
 				}
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data, this.$store.state.mytoken).then(res => {
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
 						this.cityList = data.data.records;

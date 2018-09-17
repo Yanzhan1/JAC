@@ -57,7 +57,7 @@
 							emergencyContactName: this.emergencyContactName,
 							emergencyContactPhone: this.emergencyContactPhone
 						}
-						this.$http.post(Wit.updateUserBaseInformation, data,this.$store.state.mytoken).then(res => {
+						this.$http.post(Wit.updateUserBaseInformation, data).then(res => {
 							const data = res.data;
 							if(data.code == 0) {
 								this.userInfor = data.data,

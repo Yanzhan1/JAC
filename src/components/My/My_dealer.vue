@@ -1,7 +1,7 @@
 <template>
   <div>
     <header class="header">
-      <img class="header-left" :src="'/static/images/back@2x.png'" @click="$router.go(-1)">
+      <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
       <span class="header-title">我的经销商</span>
       <span class="header-right"></span>
     </header>
@@ -12,12 +12,12 @@
           <li class="flex column" v-for="(item,index) in item.departmentDeforeAndAfterSales" :key="index">
             <p class="mydelar" v-if="item.dealerType=='01'">购车经销商</p>
             <p class="mydelar" v-if="item.dealerType=='02'">维保经销商</p>
-            <div class="flex row between" style="border-bottom:1px solid #f1f1f1;padding:.2rem 0">
+            <div class="flex row between" style="border-bottom:1px solid #f1f1f1;padding:.2rem .2rem">
               <!-- <div style="width:2.56rem;height:1.68rem;border-radius:6px;overflow:hidden">
                 <img style="width:100%;height:1.68rem" v-lazy="imgSrc" alt="">
               </div> -->
-              <div class="flex column around" style="width:3rem;height:1.5rem">
-                <span style="font-size:.29rem;color:#222;" class="mui-ellipsis-2">{{item.shortDealerName}}</span>
+              <div class="flex column around" style="height:1.5rem">
+                <span style="font-size:.29rem;color:#222;" class="mui-ellipsis-2">{{item.dealerName}}</span>
                 <span style="font-size:.23rem;color:#888;">电话：{{item.receiveMessagePhone}}</span>
                 <span class="flex row cocenter">
                   <img style="width:.19rem;height:.22rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">
@@ -26,7 +26,7 @@
               </div>
               <div class="cocenter flex-center" style="padding:.1rem 0">
               	<div class="flex-column-align">
-              		<img @click="search()" style="width:.42rem;" src="../../../static/images/Wit/nav_btn.png" alt="">
+              		<img @click="search(item.latitude, item.longitude, item.dealerName, item.dealerAddress)" style="width:.42rem;" src="../../../static/images/Wit/nav_btn.png" alt="">
               		<span style="font-size:.19rem;color:#888;margin-top:.3rem">0.3km</span>
               	</div>               
               </div>
@@ -51,9 +51,31 @@ export default {
     };
   },
   methods: {
-     search() {
-      this.popupVisible = true;
+     search(latitude, longitude, adress, des) {
+     var system = this.isIOSOrAndroid();
+          if(system == 'Android') {
+					window.js2android.sendLocation2Map(latitude, longitude, adress, des)
+					} else if(system == "IOS") {
+           var data = {
+						latitude,
+						longitude,
+						adress,
+						des
+					}
+					window.webkit.messageHandlers.sendLocation2Map.postMessage(data);
+				}
     },
+    isIOSOrAndroid() { //判断ios和安卓机型的方法
+				var u = navigator.userAgent,
+					app = navigator.appVersion;
+				var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+				var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+				if(isAndroid) {
+					return "Android"
+				} else if(isIOS) {
+					return "IOS"
+				}
+			},
     cancel() {
       this.popupVisible = false;
     },
@@ -68,7 +90,7 @@ export default {
         // size: this.size,
         userNo:this.$store.state.userId
       };
-      this.$http.post(My.MyDealer, param, this.$store.state.mytoken).then(res => {
+      this.$http.post(My.MyDealer, param).then(res => {
         if (res.data.code == 0) {
            this.mydealer = res.data.data;
        }
@@ -93,13 +115,13 @@ export default {
 	  align-items: center;
 	}
 .mui-ellipsis-2 {
-  display: -webkit-box;
+  /* display: -webkit-box;
   overflow: hidden;
   white-space: normal !important;
   text-overflow: ellipsis;
   word-wrap: break-word;
   -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: vertical; */
 }
 .mint-popup {
   width: 100%;

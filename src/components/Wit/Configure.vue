@@ -1,7 +1,7 @@
 <template>
     <div class="all">
         <div class="specil">
-            <router-link to="/wit" tag="div"><img src="./../../../static/images/back@2x.png" alt="" style="width:.4rem;height:.4rem"></router-link>
+            <router-link to="/wit" tag="div"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem"></router-link>
             <p class="p1" @click="characteristic">车系特色</p>
             <p class="p2 active" @click="characteristic">配置参数</p>
         </div>
@@ -14,7 +14,7 @@
         <div class="every_img" >
             <img style="height:9rem;" class="nav" :src="this.allimage[this.current]" alt="">
         </div>
-        <div class="bottom-btn" @click="reserve">在线订车</div>
+        <!-- <div class="bottom-btn" @click="reserve">在线订车</div> -->
     </div>
 </template>
 
@@ -27,6 +27,7 @@ export default {
             Edition:['超级版','运动版','普通版'],
             current:0,//选择tablb中的index值
             allimage:[],
+            seriesName:''
 
         }
     },
@@ -35,34 +36,40 @@ export default {
             this.$router.push({
                 name:'车系特色',
                 params:{
-                    everyno:this.everyno
+                    // everyno:this.everyno,
+                    // seriesName:this.seriesName
                 }
             })
         },
         reserve(){
-            this.$router.push('/wit/Reserve')
+            this.$router.push({
+                name:'车辆预定',
+                params:{
+                    // everyno:this.everyno,
+                    // seriesName:this.seriesName
+                }
+            })
         },
         choose(el,index){
             this.current=index;
         }
     },
     mounted(){
-        this.everyno=this.$route.params.everyno
         let params={
-            no:this.$route.params.everyno
+            no:this.$store.state.everyno
         }
         this.$http.post(Wit.searchVehicleSeriesOne,params).then((res)=>{
             let allimage=res.data.data.imageRelationVO
             // console.log(res.data.data)
             this.nav=[]
             for(let i=0;i<allimage.length;i++){
-                if(allimage[i].imageType==5&&allimage[i].imageTitle!=''){
+                if(allimage[i].imageType==5&&allimage[i].imageTitle!=undefined){
                     this.allimage.push(allimage[i].imageUrl)
                     this.nav.push(allimage[i].imageTitle)
                 }
             }
-            console.log(this.nav)
-            console.log(this.allimage)
+            // console.log(this.nav)
+            // console.log(this.allimage)
         })
     }
 }
@@ -82,6 +89,7 @@ export default {
     height: .7rem;
     position: relative;
     display: flex;
+    flex: 1;
     flex-shrink: 0;
     width: 1.9rem;
     justify-content: center;

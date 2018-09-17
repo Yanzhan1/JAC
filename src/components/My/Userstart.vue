@@ -45,7 +45,7 @@
         <!--发布者信息S-->
         <div class="comment_userinfo">
           <div class="user_head">
-            <div @click="changeUserStartId(item.user.user_id)">
+            <div>
               <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="head_72" />
               <img v-else src="../../../static/images/discover/normalhead.png" class="head_72" />
             </div>
@@ -195,6 +195,7 @@
       },
       init() {
         let _this = this;
+        console.log(_this.$store.state.UserStartId)
         _this.$http.post(My.UserInfo, {
           "no": _this.$store.state.UserStartId
         }).then(function (res) {
@@ -311,7 +312,7 @@
           "uid": _this.$store.state.userId,
           // "focusId": _this.$store.state.UserStartId
           "focusId": _this.$route.query.id
-        }, this.$store.state.mytoken).then(function (res) {
+        }).then(function (res) {
           if (res.data.status) {
             _this.focusStatu = res.data.data;
           } else {
@@ -349,7 +350,7 @@
             "uid": _this.$store.state.userId,
             // "focusId": _this.$store.state.UserStartId
             "focusId": _this.$route.query.id
-          }, this.$store.state.mytoken).then(function (res) {
+          }).then(function (res) {
             if (res.data.status) {
               _this.focusStatus();
               _this.focusStatu = res.data.data;
@@ -371,7 +372,7 @@
 
         this.$http
           .post(DISCOVERMESSAGE.count, {
-            uid
+            uid: this.$store.state.UserStartId
           })
           .then(function (res) {
             if (res.data.status) {
@@ -445,9 +446,9 @@
       giveNowLike: function (manageId, index) {
         var _this = this;
         this.$http.post(DISCOVERMESSAGE.momentGiveLike, {
-          "uid": _this.$store.state.UserStartId,
+          "uid": _this.$store.state.userId,
           "lid": manageId
-        }, this.$store.state.mytoken).then(function (res) {
+        }).then(function (res) {
           if (res.data.status) {
             _this.myList[index].likeNum = res.data.data.num;
             _this.myList[index].likeStatus = false;
@@ -466,7 +467,7 @@
         this.$http.post(DISCOVERMESSAGE.momentRemoveLike, {
           "uid": _this.userId,
           "lid": manageId
-        }, this.$store.state.mytoken).then(function (res) {
+        }).then(function (res) {
           if (res.data.status) {
             _this.myList[index].likeNum = res.data.data.num;
             _this.myList[index].likeStatus = true;
@@ -518,12 +519,7 @@
         }
       })
       this.init();
-      //获取好友关系 电咖没有好友功能
-      // this.getfriendconnect();
       this.getUserList();
-      // this.myFocusNum();
-      // this.myFansNum();
-      // this.myLikeNum();
       this.myNum()
       this.focusStatus();
     }

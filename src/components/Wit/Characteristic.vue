@@ -20,6 +20,9 @@ export default {
         return{
             everyno:'',
             everyimage:[],
+            seriesName:'',
+            srouceNo:'',//车辆预定中的model
+            levelCode:'',//车辆预定中的series
         }
     },
     methods:{
@@ -27,29 +30,37 @@ export default {
             this.$router.push({
                 name:'配置参数',
                 params:{
-                    everyno:this.everyno
+                    // everyno:this.everyno,
+                    // seriesName:this.seriesName
                 }
             })
         },
         reserve(){
-            this.$router.push('/wit/Reserve')
+            this.$router.push({
+                name:'车辆预定',
+                params:{
+                    levelCode:this.levelCode
+                }
+            })
         }
     },
     mounted(){
         // console.log(this.$route.params.everyno)
-        this.everyno=this.$route.params.everyno
+        // alert(this.seriesName)
         let params={
-            no:this.$route.params.everyno
+            no:this.$store.state.everyno
         }
         this.$http.post(Wit.searchVehicleSeriesOne,params).then((res)=>{
             let allimage=res.data.data.imageRelationVO
-            // console.log(res.data.data)
+            console.log(res.data.data.srouceNo)
+            this.srouceNo=res.data.data.srouceNo
+            this.levelCode=res.data.data.levelCode
             for(let i=0;i<allimage.length;i++){
                 if(allimage[i].imageType==4){
                     this.everyimage.push(allimage[i].imageUrl)
                 }
             }
-            console.log(this.everyimage)
+            // console.log(this.everyimage)
         })
     }
 }

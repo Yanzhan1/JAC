@@ -3,14 +3,14 @@
         <div v-show="region" class="black" @click="choose2"></div> <!-- 遮罩层  -->
         <div class="bgcolor">
                 <header class="header">
-                <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+                <img class="header-left" :src="'./static/images/back@2x.png'" @click="backs">
                 <span class="header-title">车辆预定</span>
                 <span class="header-right"></span>
                 </header>
                 <ul style="margin-top:.88rem">
                     <li class="all">
                         <span>预定车型</span>
-                        <div>{{this.stylecar}}</div>
+                        <div>{{this.$store.state.seriesName}}</div>
                     </li>
                                         <li @click="regions" class="all">
                         <span>所在地区</span>
@@ -92,7 +92,8 @@
                 <div class="success_bt">{{this.thanks}}</div>
                 <div style="width:5.68rem;height:.02rem;background:#f1f1f1;margin:.2rem auto;"></div>
                 <div class="look">
-                    <div class="look_l">查看订单</div>
+                    <!-- <div class="look_l"></div> -->
+                    <router-link tag="div" to="/myorder" class="look_l"> 查看订单</router-link>
                     <div style="width:.02rem;height:.6rem;background:#f1f1f1;"></div>
                     <div class="look_r" @click="complete">完成</div>
                 </div>
@@ -123,7 +124,6 @@ import { Popup } from "mint-ui";
 export default {
   data() {
     return {
-      stylecar: "瑞风M6", //车系
       region: false,
       distributors: false,
       success: false,
@@ -137,13 +137,16 @@ export default {
       area: [], //地区
       address: "", //地址
       beizhu: "", //备注
+      chooseaddress:[],
       Idchooseaddress: [], //返回选择经销商的no
       myaddress:{},
       everycode:'',
       thanks:
         "感谢您对江淮汽车的关注与支持，我们专业的服务员会第一时间与您联系!",
       province: [], //地区省份
+      business:'',//经销商的所有id
       provinceCode: null, //省份code
+      provinceid:'',
       slots: [
         {
           flex: 1,
@@ -225,37 +228,39 @@ export default {
         });
         return false;
       }
-      var address = this.address;
-      if (address == "") {
-        Toast({
-          message: "地址不能为空",
-          duration: 1000,
-          position: "middle"
-        });
-        return false;
-      }
-      var beizhu = this.beizhu;
-      if (beizhu == "") {
-        Toast({
-          message: "备注不能为空",
-          duration: 1000,
-          position: "middle"
-        });
-        return false;
-      }
+      // var address = this.address;
+      // if (address == "") {
+      //   Toast({
+      //     message: "地址不能为空",
+      //     duration: 1000,
+      //     position: "middle"
+      //   });
+      //   return false;
+      // }
+      // var beizhu = this.beizhu;
+      // if (beizhu == "") {
+      //   Toast({
+      //     message: "备注不能为空",
+      //     duration: 1000,
+      //     position: "middle"
+      //   });
+      //   return false;
+      // }
       var gender = this.smallname == "女" ? 1 : 2;
 
       var param = {
-        customerName: this.stylecar, //姓名
-        fkDealerId: "N7650100", //经销商编号
+        customerName: this.$store.state.seriesName, //姓名
+        fkDealerId: this.business, //经销商编号
         gender: gender, //性别
         mobile: this.tell, //手机号
         email: this.email, //email
         address: this.address, //地址
         comments: this.beizhu, //商家备注
-        province: "022", //省份ID
-        series: "CY001", //意向车系
-        model: "CYRF010" //意向车型
+        province: this.provinceid, //省份ID
+        series:this.$route.params.levelCode, //意向车系
+        model: this.$store.state.srouceNo,//意向车型
+        // code:'',
+        userNo:this.$store.state.userId,
       };
       // alert(JSON.stringify(param));
       this.$http.post(Wit.PreBus, param).then(res => {
@@ -263,48 +268,65 @@ export default {
         if (res.data.code == 0) {
           this.success = true;
           this.region = true;
+        }else{
+           Toast({
+          message: '系统异常，请稍后重试',
+          duration: 1000,
+          position: "middle"
+        });
+        return false;
         }
       });
+    },
+    backs(){
+            this.$router.push({
+                name:'车系特色',
+                params:{
+                    // everyno:this.$route.params.everyno,
+                    // seriesName:this.$route.params.seriesName
+                }
+            })
     },
     //所在地区
     onValuesChange(picker, values) {
       this.area = values;
-      this.province.forEach((item, index) => {
-      	if (item.name == values) {
-      		this.everycode  = item.code; //拿到省份code,请求经销商列表
-      	}
-      })
-      var param = {
-      	dealerType: "01",
-      	dealerCityCode:this.everycode
-      };
-      this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => { //经销商列表请求
-      	this.slots2[0].values = [] //清除已经选择的经销商
-      var chooseaddress = res.data.data.records;
-      chooseaddress.forEach((item, index) => {
-      	this.slots2[0].values.push(chooseaddress[index].dealerName)
-      })
+      // this.province.forEach((item, index) => {
+      // 	if (item.name == values) {
+      // 		this.everycode  = item.code; //拿到省份code,请求经销商列表
+      // 	}
+      // })
+      // alert(this.everycode)
+      // var param = {
+      // 	dealerType: "01",
+      // 	dealerCityCode:this.everycode
+      // };
+      // this.$http.post(Wit.Dealer, param, this.$store.state.mytoken).then(res => { //经销商列表请求
+      // 	this.slots2[0].values = [] //清除已经选择的经销商
+      // var chooseaddress = res.data.data.records;
+      // chooseaddress.forEach((item, index) => {
+      // 	this.slots2[0].values.push(chooseaddress[index].dealerName)
+      // })
 
     //   console.log(this.area)
-    //   for(var i=0;i<this.myaddress.length;i++){
-    //     if(this.area[0]==this.myaddress[i].name){
-    //       this.everycode=this.myaddress[i].code
-    //       console.log(this.everycode)
-    //     }
-    //   }
-    //       //经销商
-    // var param = {
-    //   dealerType: "01",
-    //   dealerCityCode:this.everycode
-    // };
-    // this.$http.post(Wit.Dealer, param).then(res => {
-    //   // console.log(res);
-    //   var chooseaddress = res.data.data.records;
-    //     this.slots2[0].values=[]
-    //   for (var i = 0; i < chooseaddress.length; i++) {
-    //     this.slots2[0].values.push(chooseaddress[i].dealerName);
-    //     this.Idchooseaddress.push(chooseaddress[i].no);
-    //   }
+      for(var i=0;i<this.myaddress.length;i++){
+        if(this.area[0]==this.myaddress[i].name){
+          this.everycode=this.myaddress[i].code
+          this.provinceid=this.myaddress[i].id
+        }
+      }
+          //经销商
+    var param = {
+      dealerType: "01",
+      dealerCityCode:this.everycode
+    };
+    this.$http.post(Wit.Dealer, param,this.$store.state.getpin).then(res => {
+      // console.log(res);
+      this.chooseaddress = res.data.data.records;
+        this.slots2[0].values=[]
+      for (var i = 0; i < this.chooseaddress.length; i++) {
+        this.slots2[0].values.push(this.chooseaddress[i].dealerName);
+        this.Idchooseaddress.push(this.chooseaddress[i].no);
+      }
       // alert(this.slots2[0].values)
 
     });
@@ -312,30 +334,39 @@ export default {
     //选择经销商
     onValuesChange2(picker, values) {
       this.Distribution = values[0];
+      for(var i=0;i<this.slots2[0].values.length;i++){
+        if(this.Distribution==this.slots2[0].values[i]){
+          this.business=this.chooseaddress[i].dealerCodeDms
+          // alert(this.business)
+        }
+      }
     }
   },
   mounted() {
+    // alert(this.$route.params.levelCode)
+    // alert(this.$route.params.srouceNo)
+    // alert(this.$route.params.seriesName)
     //地区
     this.$http
       .post(Wit.searchCountryAreaCodeListPage, {
         parentId: null,
         level: 1,
         size: 100
-      }, this.$store.state.mytoken)
+      }, this.$store.state.getpin)
       .then(res => {
 
         this.province = res.data.data.records;
 		this.province.forEach((item,index) => {
 			this.slots[0].values.push(this.province[index].name);
 		});
+        this.myaddress = res.data.data.records;
+        // console.log(this.myaddress);
+        for (let i = 0; i < this.myaddress.length; i++) {
+          this.slots[0].values.push(this.myaddress[i].name);
+        }
       });
 
-      //   this.myaddress = res.data.data.records;
-      //   console.log(this.myaddress);
-      //   for (let i = 0; i < this.myaddress.length; i++) {
-      //     this.slots[0].values.push(this.myaddress[i].name);
-      //   }
-      // });
+
 
     $(".gobottom").height($(".gobottom").height());
   }
