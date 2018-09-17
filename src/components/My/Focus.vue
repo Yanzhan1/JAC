@@ -39,7 +39,7 @@
           },
           getFocusList: function () {
             var _this = this;
-            this.$http.post(DISCOVERMESSAGE.focusOnList, {"uid": this.userId},this.$store.state.mytoken).then(function (res) {
+            this.$http.post(DISCOVERMESSAGE.focusOnList, {"uid": this.userId}).then(function (res) {
               if (res.data.status) {
                 //console.log(res.data.data);
                 _this.list = res.data.data;
