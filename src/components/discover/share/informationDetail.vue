@@ -474,7 +474,9 @@
         const spans = content.querySelectorAll('span')
         const imgs = content.querySelectorAll('img')
 
-        h1.style['line-height'] = h1.style['font-size']
+        if (h1) {
+          h1.style['line-height'] = h1.style['font-size']
+        }
         for (let span of spans) {
           span.style['white-space'] = 'normal'
         }
