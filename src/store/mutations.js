@@ -41,6 +41,12 @@ export default {
     [types.CARVINS]: (state, payload) => {
         state.vins = payload
     },
+    [types.NONAME]: (state, payload) => {
+        console.log(JSON.stringify(payload))
+        state.seriesName = payload.seriesName
+        state.everyno = payload.no
+        state.srouceNo = payload.srouceNo
+    },
     [types.SELECTLABELSTATE]: (state, payload) => {
         state.selectLabelState = payload
     },

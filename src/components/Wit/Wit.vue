@@ -216,11 +216,12 @@ export default {
     //车系特色， 配置表
     specil(item) {
       console.log(item)
+      this.$store.dispatch('NONAME',item)
       this.$router.push({
         name:'车系特色',
         params:{
-          everyno:item.no,
-          seriesName:item.seriesName
+          // everyno:item.no,
+          // seriesName:item.seriesName,
         }
       });
     },

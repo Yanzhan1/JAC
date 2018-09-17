@@ -11,6 +11,9 @@ export default {
     token: null, //用户token
     refreshToken: '',
     integral: '', //用户总积分
+    everyno: '', //智享主页点击时候每个车的no
+    seriesName: '', //智享主页点击时候车的每一个seriesName
+    srouceNo: '', //智享主页点击时候车的每一个srouceNo
     // userNo: 'AD022018081504171568405', //userNo
     tsppin: {
         headers: {
