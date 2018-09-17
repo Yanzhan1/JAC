@@ -15,14 +15,14 @@
                     <li @click="regions" class="all">
                         <span>省</span>
                         <div class="allflex">
-                            <input type="text" name="" id="" placeholder="点击选择地区" v-model="area" readonly>
+                            <input type="text" name="" id="" placeholder="点击选择地区" v-model="area" readonly style="text-align:right">
                             <img src="/static/images/next@2x.png" alt="">
                         </div>
                     </li>
                     <li @click="cityes" class="all">
                         <span>市</span>
                         <div class="allflex" >
-                            <input type="text" name="" id="" placeholder="点击选择地区" v-model="city" readonly>
+                            <input type="text" name="" id="" placeholder="点击选择地区" v-model="city" readonly style="text-align:right">
                             <img src="/static/images/next@2x.png" alt="">
                         </div>
                     </li>
