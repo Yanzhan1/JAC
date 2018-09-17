@@ -72,7 +72,7 @@
         <div class="comment_userinfo">
           <div class="user_head">
             <div @click="changeUserStartId(item.user.user_id)">
-              <img v-if="item.user" :src="item.user.head_image" />
+              <img v-if="item.user && item.user.head_image" :src="item.user.head_image" />
               <img v-else src="../../../../static/images/discover/normalhead.png" />
             </div>
           </div>
