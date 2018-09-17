@@ -201,6 +201,10 @@
           this.getLabels()
           console.log("this.picked",this.picked)
         })
+        window.goIsNow = () => {
+          this.goIsNow()
+          this.$emit('goIsNow')
+        }
     }
   }
 </script>
