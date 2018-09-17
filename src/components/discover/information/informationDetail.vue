@@ -24,7 +24,7 @@
         <p class="date_info">
           {{content.issuedDate}}
         </p>
-        <p class="content" v-html="content.manageBody">
+        <p ref="content" class="content" v-html="content.manageBody">
         </p>
         <div class="contentIconInfo">
           <!--阅读数量-->
@@ -478,6 +478,18 @@
         this.getReadNum();
         this.getComments();
         //this.$store.state.commentboxflag = true;
+      })
+    },
+    updated(){
+      this.$nextTick(()=>{
+        const content = this.$refs.content
+        const h1 = content.querySelector('h1')
+        const spans = content.querySelectorAll('span')
+
+        h1.style['line-height'] = h1.style['font-size']
+        for(let span of spans){
+          span.style['white-space'] = 'normal'
+        }
       })
     }
   }
