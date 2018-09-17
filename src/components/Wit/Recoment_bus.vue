@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     shai() {
-    	console.log(11)
+    	// console.log(11)
       this.popupVisible = true;
     },
     tode(item) {

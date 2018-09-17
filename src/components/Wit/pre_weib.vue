@@ -337,7 +337,7 @@
 				"dealerType": "01"
 			}).then((res) => {
 				this.chooseaddress = res.data.data.records
-				console.log(res.data.data.records)
+				// console.log(res.data.data.records)
 				for(var i = 0; i < this.chooseaddress.length; i++) {
 					this.slots[0].values.push(this.chooseaddress[i].dealerName)
 				}
@@ -345,7 +345,7 @@
 			// 申请服务车型接口
 			this.$http.post(Wit.Brand, {}).then((res) => {
 				this.choosecar = res.data.data
-				console.log(res.data)
+				// console.log(res.data)
 				for(var i = 0; i < this.choosecar.length; i++) {
 					this.addressSlots[0].values.push(this.choosecar[i].seriesName)
 				}
@@ -357,7 +357,7 @@
 		methods: {
 			onValuesChange(picker, values) {
 				this.address = values
-				console.log(this.chooseaddress.length)
+				// console.log(this.chooseaddress.length)
 				for(var i = 0; i < this.chooseaddress.length; i++) {
 					if(this.chooseaddress[i].dealerName == this.address[0]) {
 						this.Idchooseaddress = this.chooseaddress[i].no
@@ -371,7 +371,7 @@
 
 			},
 			onServicesChange(picker, values) {
-				console.log(values)
+				// console.log(values)
 				this.services = values
 			},
 			times(type) {
@@ -437,7 +437,7 @@
 
 				}
 				var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
-				console.log(reg.test(this.Phones))
+				// console.log(reg.test(this.Phones))
 				if(!reg.test(this.Phones)) {
 					Toast('请输入正确的手机号')
 					return false
@@ -451,7 +451,7 @@
 
 			},
 			submitt(el) {
-				console.log(this.$refs.Gettimes.innerHTML)
+				// console.log(this.$refs.Gettimes.innerHTML)
 				this.timesstamp = (new Date(this.$refs.Gettimes.innerHTML)).getTime()
 				this.choose_color()
 				var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
@@ -484,7 +484,7 @@
 				}
 
 				this.$http.post(Wit.default_pre, param).then(res => {
-					console.log(res.data.data[0])
+					// console.log(res.data.data[0])
 					if(res.data.msg == 'success') {
 						var info = res.data.data[0]
 						this.Names = info.maintenanceLinkman
