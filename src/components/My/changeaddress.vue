@@ -87,6 +87,8 @@ export default {
       provinceName: "", //返回给后端的name
       everycode: "", //返回给后台的地区code
       allarea: [], //所有的地区
+      	// city: [],
+        cityCode :'',
       choosedarea: "", //被选择的地区
       choosecity:'',//被选择的城市
       ishide: false, //控制城市的显示
@@ -94,7 +96,7 @@ export default {
       provinceId: "100000",
       address: "",
       options: [],
-      cityList: ["上海", "北京"],
+      cityList: [],
       slots: [
         {
           flex: 1,
@@ -125,17 +127,11 @@ export default {
     // $(".editPersonalDetails").height($(".editPersonalDetails").height());
     this.$http.post(My.Area, {size:1000,parentId: null,level: 1}).then(res => {
       this.allarea = res.data.data.records;
-      // alert(JSON.stringify( this.allarea))
       this.slots[0].values=[]
        for (var i = 0; i < this.allarea.length; i++) {
         this.slots[0].values.push(this.allarea[i].name);
       }
-    // console.log(this.slots[0].values)
-    // for(var i=0;i<this.slots[0].values.length;i++){
-    //   if(this.choosedarea==this.slots[0].values[i]){
-    //     this.i=i
-    //   }
-    // }
+    
     });
 
   },
@@ -179,12 +175,12 @@ export default {
         receiveName: this.name, //姓名
         receiveMobile: this.num, //手机号码
         isDefalut: flag, //是否选定为默认2为选择默认
-        provinceNo: this.everycode, //所在地区的code
+        provinceCode: this.everycode, //所在地区的code
         provinceName: this.provinceName, //所在的地区的名字
-        address:  this.$refs.text.value
-      
+        address:  this.$refs.text.value,
+      	cityCode: this.cityCode, //城市code
       };
-     
+    
       await this.$http
         .post(My.ChangeAddress, param)
         .then(res => {
@@ -220,8 +216,6 @@ export default {
       this.showss=false;
     },
     onValuesChange(picker, values) {
-      // console.log(values)
-      console.log(picker)
       this.choosedarea = values[0];
       for (var i = 0; i < this.allarea.length; i++) {
         if (this.choosedarea == this.allarea[i].name) {
@@ -235,8 +229,8 @@ export default {
           level: 2
         }
       this.$http.post(Wit.searchCountryAreaCodeListPage,data).then((res)=>{
-        // console.log(res.data.data.records)
-        var city=res.data.data.records
+      var city=res.data.data.records
+      this.cityList=city
         this.slots1[0].values=[]
         for (var i = 0; i < this.allarea.length; i++) {
             this.slots1[0].values.push(city[i].name);
@@ -245,6 +239,12 @@ export default {
     },
       onValuesChanges(picker,values){
       this.choosecity=values[0]
+      this.cityList.forEach((item, index) => {
+					if(item.name == this.choosecity) {
+						this.cityCode = item.code //获取城市code
+						
+					}
+				})
     } 
   }
 };

@@ -110,7 +110,11 @@ export default {
             var arr = res.data.data;
             for (let i = 0; i < arr.length; i++) {
               if (arr[i].imageRelationVO.length > 0) {
-                arr[i].imgUrl = arr[i].imageRelationVO[0].imageUrl;
+               for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
+                    if (arr[i].imageRelationVO[j].imageType == "4") {
+                      arr[i].imgUrl = arr[i].imageRelationVO[0].imageUrl;
+                    }
+                  }
               } else {
                 arr[i].imgUrl = "";
               }
@@ -119,6 +123,10 @@ export default {
             this.mainbus = arr;
           }
         });
+
+
+             
+                
         // for(let i=0;i<this.good_list.length;i++){
         //   if(this.good_list[i].is_selected){
         //     this.arr.push(this.good_list[i].no)
@@ -158,7 +166,11 @@ export default {
           var arr = res.data.data;
           for (let i = 0; i < arr.length; i++) {
             if (arr[i].imageRelationVO.length > 0) {
-              arr[i].imgUrl = arr[i].imageRelationVO[0].imageUrl;
+            for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
+                    if (arr[i].imageRelationVO[j].imageType == "4") {
+                      arr[i].imgUrl = arr[i].imageRelationVO[0].imageUrl;
+                    }
+                  }
             } else {
               arr[i].imgUrl = "";
             }
