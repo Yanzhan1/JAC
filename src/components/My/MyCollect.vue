@@ -39,7 +39,7 @@
         <!--活动列表S-->
         <div v-for="(item) in activityList" :key="item.id">
           <div class="boxInfo">
-            <p class="listTitleInfo" @click="goActivityDetail(item.manageId)">
+            <p class="listTitleInfo" @click="goActivityDetail(item.activityId)">
               {{item.activityTitle.slice(0,46)}}
               <span v-if="item.activityTitle.length>46">...</span>
             </p>
