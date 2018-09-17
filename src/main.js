@@ -47,6 +47,7 @@ import {
     Checklist,
     Switch,
     Picker,
+    DatetimePicker,
     Navbar,
     TabItem,
     MessageBox,
@@ -69,6 +70,7 @@ Vue.component(Actionsheet.name, Actionsheet);
 Vue.component(Switch.name, Switch);
 Vue.component(Popup.name, Popup);
 Vue.component(Picker.name, Picker);
+Vue.component(DatetimePicker.name, DatetimePicker)
 Vue.component(Navbar.name, Navbar);
 Vue.component(TabItem.name, TabItem);
 Vue.component(Toast.name, Toast);
@@ -76,6 +78,7 @@ Vue.component(TabContainer.name, TabContainer);
 Vue.component(TabContainerItem.name, TabContainerItem);
 Vue.component(Spinner.name, Spinner);
 Vue.component(Radio.name, Radio);
+
 //导入mint-ui
 import mintui from 'mint-ui'
 import 'mint-ui/lib/style.css'
@@ -89,7 +92,7 @@ import store from './store'
 import $ from 'jquery'
 //手机端调试工具,发布提交时必须注释掉
 // require('./assets/util/vconsole.js')
-// import vConsole from './assets/util/vconsole'
+   import vConsole from './assets/util/vconsole'
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

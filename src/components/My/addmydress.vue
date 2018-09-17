@@ -21,7 +21,7 @@
 				<div class="contentList nickname areas">
 					<span class="contentList-left" style="float:left">所在地区</span>
 					<div class="contentList-right" style="float:right">
-						<input type="text" name="" id="" class="place" @click="choosearea()" placeholder="请选择地区" v-model="this.choosedarea" readonly>
+						<input type="text" name="" id="" class="place" @click="choosearea()" placeholder="请选择地区" v-model="this.choosedarea" readonly="readonly">
 						<img class="pic" src="../../../static/images/my/next@2x.png" />
 					</div>
 				</div>
@@ -31,7 +31,7 @@
 				<div class="contentList nickname areas">
 					<span class="contentList-left" style="float:left">选择市</span>
 					<div class="contentList-right" style="float:right">
-						<input type="text" name="" id="" class="place" @click="choosecitys()" v-model="this.choosecity" readonly>
+						<input type="text" name="" id="" class="place" @click="choosecitys()" v-model="this.choosecity" readonly="readonly">
 						<img class="pic" src="../../../static/images/my/next@2x.png" />
 					</div>
 				</div>
