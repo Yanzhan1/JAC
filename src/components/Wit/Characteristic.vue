@@ -1,7 +1,7 @@
 <template>
     <div>  
         <div class="specil">
-            <router-link class="header-left" to="/wit" tag="div"><img src="/static/images/back@2x.png" alt="" style="width:.4rem;height:.4rem;"></router-link>
+            <router-link class="header-left" to="/wit" tag="div"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem;"></router-link>
             <p class="active p1">车系特色</p>
             <p class="p2" @click="configure">配置参数</p>
         </div>
