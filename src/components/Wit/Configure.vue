@@ -60,6 +60,7 @@ export default {
         let params={
             no:this.$store.state.everyno
         }
+        // alert(this.$store.state.everyno)
         this.$http.post(Wit.searchVehicleSeriesOne,params).then((res)=>{
             let allimage=res.data.data.imageRelationVO
             // console.log(res.data.data)
@@ -91,7 +92,7 @@ export default {
     height: .7rem;
     position: relative;
     display: flex;
-    flex: 1;
+    /* flex: 1; */
     flex-shrink: 0;
     width: 1.9rem;
     justify-content: center;

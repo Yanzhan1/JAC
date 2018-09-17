@@ -68,10 +68,11 @@ export default {
     },
     tode(item) {
       // alert(item.no)
+      this.$store.dispatch('NONAME',item)
       this.$router.push({
         name:'车系特色',
         params:{
-          everyno:item.no
+          // everyno:item.no
         }
       });
     },
