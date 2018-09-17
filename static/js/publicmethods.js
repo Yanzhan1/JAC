@@ -5,6 +5,7 @@ var operationTime = {
      * type=2:将时间戳转换成datetime格式返回 2000-01-01 10:00
      * type=3:将时间戳转换成time格式返回 10:00:00
      * type=4:将时间戳转换成date格式返回 2000-01-01
+     * type=5:将时间戳转换成date格式返回 2000-01-01 10
      * !type:将时间戳转换成datetime格式返回 2000-01-01 10:00
      * */
     getTime: function(ns, type) {
@@ -29,6 +30,7 @@ var operationTime = {
         }
         var dateTime1 = year + "-" + plusZero(month) + "-" + plusZero(date) + " " + plusZero(hour) + ":" + plusZero(minute) + ":" + plusZero(secont);
         var dateTime2 = year + "-" + plusZero(month) + "-" + plusZero(date) + " " + plusZero(hour) + ":" + plusZero(minute);
+        var dateTime3 = year + "-" + plusZero(month) + "-" + plusZero(date) + " " + plusZero(hour);
         var time = plusZero(hour) + ":" + plusZero(minute) + ":" + plusZero(secont);
         var date = year + "-" + plusZero(month) + "-" + plusZero(date);
         if (type == 1) {
@@ -39,6 +41,8 @@ var operationTime = {
             return time;
         } else if (type == 4) {
             return date;
+        } else if (type == 5) {
+            return dateTime3;
         } else if (!type) {
             return dateTime2;
         }

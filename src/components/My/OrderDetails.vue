@@ -13,11 +13,11 @@
             </li>
              <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>省</span>
-                <span>{{userinfo.address}}</span>
+                <span>{{userinfo.provinceName}}</span>
             </li>
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>市</span>
-                <span>{{userinfo.address}}</span>
+                <span>{{userinfo.cityName}}</span>
             </li>
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>经销商</span>
@@ -31,7 +31,7 @@
         <ul style="padding:0 .32rem;border-bottom:.2rem solid #F9F9F9">
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>姓名</span>
-                <span>{{userinfo.customerName}}</span>
+                <span>{{userinfo.userName}}</span>
             </li>
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>称谓</span>
@@ -50,13 +50,13 @@
            
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>地址</span>
-                <span>徐汇田林</span>
+                <span>{{userinfo.address}}</span>
             </li>
         </ul>
         <div style="padding:0 .3rem">
             <p style="font-size:.27rem;color:#222;padding:.3rem 0">备注说明</p>
              <div class="content">
-                中午12点取，记得把车洗好！
+               {{userinfo.comments}}
             </div>
         </div>
 
@@ -72,8 +72,7 @@ export default {
   },
   created(){
     this.userinfo=this.$route.query
- alert(JSON.stringify(this.userinfo))
-   }
+  }
 };
 </script>
 

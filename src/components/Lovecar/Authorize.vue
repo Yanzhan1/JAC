@@ -1,6 +1,6 @@
 <template>
     <div class="my-setup">
-        <div class="bgblack" v-show="this.bgblack" @click="bgblacks"></div>
+        <!--<div class="bgblack" v-show="this.bgblack" @click="bgblacks"></div>-->
         <header class="header">
             <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
             <span class="header-title">远程授权</span>
@@ -12,12 +12,12 @@
             <div class="">
                 <div class="starttimes" @click="startlefts">
                     <div style="width:2rem;">起始时间</div>
-                    <span style="margin-left:2rem;" ref="startt">{{this.start[0]}}{{this.start[1]?'-':''}}{{this.start[1]}}{{this.start[2]?'-':''}}{{this.start[2]}} {{this.start[3]}}</span>
+                    <span style="margin-left:2rem;" ref="startt" v-text="start"></span>
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem" >
                 </div>
                 <div class="starttimes" @click="endrights">
                     <div style="width:2rem;" >结束时间</div>
-                    <span style="margin-left:2rem;" ref="endd">{{this.end[0]}}{{this.end[1]?'-':''}}{{this.end[1]}}{{this.end[2]?'-':''}}{{this.end[2]}} {{this.end[3]}}</span>
+                    <span style="margin-left:2rem;" ref="endd">{{end}}</span>
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem" >
                 </div>
             </div>
@@ -27,17 +27,30 @@
                 <input maxlength="" type="text" class="ipt" style="margin-left:.5rem;outline:none" v-model="Account">
             </div>
         </div>
-        <div v-show="this.startleft" class="starts">
-            <div style="text-align:center;line-height:1rem;font-size:.3rem;">选择起始时间</div>
-            <div style="float:right;margin-right:.3rem;color:#49BBFF;" @click="hided1">确定</div>
-            <mt-picker :slots="slotsone" @change="onValuesChange" style="height:4rem;margin-top:1rem;"></mt-picker>
+        <div  class="starts">
+            <!--<div style="text-align:center;line-height:1rem;font-size:.3rem;">选择起始时间</div>-->
+            <!--<div style="float:right;margin-right:.3rem;color:#49BBFF;" @click="hided1">确定</div>-->
+            <!--<mt-picker :slots="slotsone" @change="onValuesChange" style="height:4rem;margin-top:1rem;"></mt-picker>-->
+            <mt-datetime-picker 
+            	v-show="startleft"
+            	type="datetime" 
+            	ref="picker" 
+				@confirm="handleStartConfirm" 
+				:start-date = "startDate">
+            </mt-datetime-picker>
         </div>
-        <div v-show="this.endright" class="starts">
-            <div style="text-align:center;line-height:1rem;font-size:.3rem;">选择结束时间</div>
-            <div style="float:right;margin-right:.3rem;color:#49BBFF;" @click="hided2">确定</div>
-            <mt-picker :slots="slotstwo" @change="onValuesChangend" style="height:4rem;margin-top:1rem;"></mt-picker>
+        <div  class="ends">
+            <!--<div style="text-align:center;line-height:1rem;font-size:.3rem;">选择结束时间</div>
+            <div style="float:right;margin-right:.3rem;color:#49BBFF;" @click="hided2">确定</div>-->
+            <!--<mt-picker :slots="slotstwo" @change="onValuesChangend" style="height:4rem;margin-top:1rem;"></mt-picker>-->
+            <mt-datetime-picker 
+            	v-show="endright"
+            	type="datetime" 
+            	ref="pickerEnd" 
+				@confirm="handleEndConfirm" 
+				:start-date = "startDate">
+            </mt-datetime-picker>
         </div>
-        <!-- <router-link :to="{name:'Authorize_next',params:{a:this.shang,b:this.xia}}" tag="button" class="bottom-btn" @click.native="next">发送授权</router-link> -->
         <button class="bottom-btn" @click='next'>发送授权</button>
        </div>
 </template>
@@ -48,172 +61,28 @@ export default {
   name: "",
   data() {
     return {
-        bgblack:false,//遮罩层
         startleft:false,//控制起始时间选择
         endright:false,//控制结束时间选择
         shang:'',//起始时间
         xia:'',//结束时间
-        start:[],
-        end:[],//起始时间
+        start:null, //开始时间
+        end:null,//结束时间
         Account:'',
-         slotsone: [
-            {
-            flex: 1,
-            values: [],
-            className: 'slot1',
-            textAlign: 'center'
-            }, {
-            divider: true,
-            content: '-',
-            className: 'slot2'
-            }, {
-            flex: 1,
-            values:[
-                "01",
-                "02",
-                "03",
-                "04",
-                "05",
-                "06",
-                "07",
-                "08",
-                "09",
-                "10",
-                "11",
-                "12"
-            ],
-            className: 'slot3',
-            textAlign: 'center'
-            },{
-            divider: true,
-            content: '-',
-            className: 'slot4'
-            }, {
-            flex: 1,
-            values:[
-            ],
-            className: 'slot5',
-            textAlign: 'center'
-            }, {
-            divider: true,
-            content: ' ',
-            className: 'slot6'
-            },{
-            flex: 1,
-            values: [
-                '00:00',
-                "01:00",
-                "02:00",
-                "03:00",
-                "04:00",
-                "05:00",
-                "06:00",
-                "07:00",
-                "08:00",
-                "09:00",
-                "10:00",
-                "11:00",
-                "12:00",
-                "13:00",
-                "14:00",
-                "15:00",
-                "16:00",
-                "17:00",
-                "18:00",
-                "19:00",
-                "20:00",
-                "21:00",
-                "22:00",
-                "23:00",
-            ],
-            className: 'slot7',
-            textAlign: 'center'
-            }
-        ],
-        slotstwo: [
-            {
-            flex: 1,
-            values: [],
-            className: 'slot1',
-            textAlign: 'center'
-            }, {
-            divider: true,
-            content: '-',
-            className: 'slot2'
-            }, {
-            flex: 1,
-            values:[
-                "01",
-                "02",
-                "03",
-                "04",
-                "05",
-                "06",
-                "07",
-                "08",
-                "09",
-                "10",
-                "11",
-                "12"
-            ],
-            className: 'slot3',
-            textAlign: 'center'
-            },{
-            divider: true,
-            content: '-',
-            className: 'slot4'
-            }, {
-            flex: 1,
-            values:[
-            ],
-            className: 'slot5',
-            textAlign: 'center'
-            }, {
-            divider: true,
-            content: ' ',
-            className: 'slot6'
-            },{
-            flex: 1,
-            values: [
-                '00:00',
-                "01:00",
-                "02:00",
-                "03:00",
-                "04:00",
-                "05:00",
-                "06:00",
-                "07:00",
-                "08:00",
-                "09:00",
-                "10:00",
-                "11:00",
-                "12:00",
-                "13:00",
-                "14:00",
-                "15:00",
-                "16:00",
-                "17:00",
-                "18:00",
-                "19:00",
-                "20:00",
-                "21:00",
-                "22:00",
-                "23:00",
-            ],
-            className: 'slot7',
-            textAlign: 'center'
-            }
-        ]
+        startDate: new Date(),
     };
   },
   methods:{
       next(){
           //获得时间戳
-          var shang=new Date(this.shang).getTime()
-          var xia=new Date(this.xia).getTime()
+          var shang = this.start.split(' ').slice(0, 1).join() //截取日期
+          var xia = this.end.split(' ').slice(0, 1).join()
+          console.log(shang)
+          console.log(xia)
+          shang = operationTime.toTimeStamp(shang)
+          xia = operationTime.toTimeStamp(xia)
           if(shang>xia){
               Toast({
-                  message:'输入时间不能大于结束时间',
+                  message:'起始时间不能大于结束时间',
                   position:'middle',
                   duration:2000,
               })
@@ -255,75 +124,27 @@ export default {
         })
           }
         },
-      bgblacks(){
-          this.bgblack=false;
-          this.endright=false;
-          this.startleft=false;
-      },
       startlefts(){
-          this.bgblack=true;
           this.startleft=true;
+          $('.picker-slot.picker-slot-center')[4].style.display = 'none'
+          this.$refs.picker.open()
       },
       endrights(){
-          this.bgblack=true;
           this.endright=true;
+          $('.picker-slot.picker-slot-center')[9].style.display = 'none'
+          this.$refs.pickerEnd.open()
       },
-      hided1(){
-          this.bgblack=false;
-          this.startleft=false;
-      },
-      hided2(){
-          this.bgblack=false;
-          this.endright=false;
-      },
-       onValuesChange(picker, values) {
-           this.start=values
-           var curDate = new Date();
-	    	 var dayTime = null;
-	        /* 获取当前月份 */
-	          var curMonth = curDate.getMonth();
-	        /*  生成实际的月份: 由于curMonth会比实际月份小1, 故需加1 */
-	        curDate.setMonth(Number(this.start[1]));
-	        /* 将日期设置为0 */
-	        curDate.setDate(0);
-	        /* 返回当月的天数 */
-			dayTime = curDate.getDate()
-			this.slotsone[4].values = []
-			for(var i=1; i<=dayTime; i++) {
-				this.slotsone[4].values.push(i)
-			}
+    handleStartConfirm (value) {
+    	this.start = operationTime.getTime(value, 5)
+    	console.log(this.start)
     },
-        onValuesChangend(picker, values) {
-            this.end=values
-            var curDate = new Date();
-            var dayTime = null;
-	        /* 获取当前月份 */
-	          var curMonth = curDate.getMonth();
-	        /*  生成实际的月份: 由于curMonth会比实际月份小1, 故需加1 */
-	        curDate.setMonth(Number(this.end[1]));
-	        /* 将日期设置为0 */
-	        curDate.setDate(0) //0 为上一个月的最后一天;
-	        /* 返回当月的天数 */
-			dayTime = curDate.getDate()
-			this.slotstwo[4].values = []
-			for(var i=1; i<=dayTime; i++) {
-				this.slotstwo[4].values.push(i)
-			}
-    },
-    getYear () { //当前年份的后20年
-    	var myDate= new Date();
-		var startYear=myDate.getFullYear();//起始年份
-		var endYear=myDate.getFullYear()+20;//结束年份
-		for (var i=startYear;i<=endYear;i++)
-		{
-			this.slotsone[0].values.push(i)
-			this.slotstwo[0].values.push(i)
-		}
+    handleEndConfirm (value) {
+    	this.end = operationTime.getTime(value, 5)
+    	console.log(this.end)
     }
   },
   mounted(){
-    this.getYear();
-//  this.getDayTimes()
+	
   }
 };
 </script>
@@ -381,23 +202,13 @@ export default {
     height: 1rem;
     border-bottom: .01rem solid #f5f5f5;
 }
-.bgblack{
-    width: 100%;
-    height: 100%;
-    position:absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: rgba(0, 0, 0, .5);
-    z-index:1000;
-}
+
 .starts{
-    position: absolute;
+    /*position: absolute;
     bottom: 0rem;
     background: #fff;
     width: 100%;
     height: 6rem;
-    z-index: 1001;
+    z-index: 1001;*/
 }
 </style>

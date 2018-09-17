@@ -23,7 +23,7 @@
                 <div class="contentList nickname areas">
                     <span class="contentList-left" style="float:left">所在地区</span>
                     <div class="contentList-right" style="float:right">
-                      <input type="text" name="" id="" class="place" @click="choosearea()" placeholder="请选择地区" v-model="this.choosedarea">
+                      <span class="place" @click="choosearea">{{choosedarea}}</span>
                         <img class="pic" src="../../../static/images/my/next@2x.png" />
                     </div>
                 </div>
@@ -85,10 +85,10 @@ export default {
       Originaladdress: {},
       provinceNo: "", //返回给后端的code
       provinceName: "", //返回给后端的name
-      everycode: "", //返回给后台的地区code
+      everycode: this.$route.params.provinceCode, //返回给后台的地区code
       allarea: [], //所有的地区
       	// city: [],
-        cityCode :'',
+        cityCode :this.$route.params.cityCode,
       choosedarea: "", //被选择的地区
       choosecity:'',//被选择的城市
       ishide: false, //控制城市的显示
@@ -116,16 +116,15 @@ export default {
     };
   },
   mounted() {
-
     this.info = this.$route.query;
     this.Originaladdress = this.$route.params;
+    // alert(JSON.stringify(this.Originaladdress))
     this.name = this.Originaladdress.receiveName;
     this.num = this.Originaladdress.receiveMobile;
     this.address = this.Originaladdress.address;
     this.choosedarea = this.Originaladdress.provinceName;
     this.no = this.Originaladdress.no;
-    // $(".editPersonalDetails").height($(".editPersonalDetails").height());
-    this.$http.post(My.Area, {size:1000,parentId: null,level: 1}).then(res => {
+     this.$http.post(My.Area, {size:1000,parentId: null,level: 1}).then(res => {
       this.allarea = res.data.data.records;
       this.slots[0].values=[]
        for (var i = 0; i < this.allarea.length; i++) {
@@ -216,13 +215,18 @@ export default {
       this.showss=false;
     },
     onValuesChange(picker, values) {
-      this.choosedarea = values[0];
-      for (var i = 0; i < this.allarea.length; i++) {
+      if (values == '北京市') {
+          this.choosedarea = this.$route.params.provinceName
+          // this.provinceCode=this.$route.params.provinceCode
+       } else {
+        this.choosedarea = values[0]
+        for (var i = 0; i < this.allarea.length; i++) {
         if (this.choosedarea == this.allarea[i].name) {
           this.provinceName = this.allarea[i].name;
           this.everycode = this.allarea[i].code;
           this.everyid=this.allarea[i].id;
         }
+      }
       }
       let data = {
           parentId: this.everyid, //被检测的省份id 
@@ -238,13 +242,19 @@ export default {
       })      
     },
       onValuesChanges(picker,values){
-      this.choosecity=values[0]
+        if(values == '市辖区'){
+            this.choosecity=this.$route.params.cityName
+            // this.cityCode=this.$route.params.cityCode
+            // alert( this.cityCode)
+        }else{
+            this.choosecity=values[0]
       this.cityList.forEach((item, index) => {
 					if(item.name == this.choosecity) {
 						this.cityCode = item.code //获取城市code
-						
 					}
 				})
+        }
+     
     } 
   }
 };
