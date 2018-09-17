@@ -36,29 +36,27 @@ export default {
             this.$router.push({
                 name:'车系特色',
                 params:{
-                    everyno:this.everyno,
-                    seriesName:this.seriesName
+                    // everyno:this.everyno,
+                    // seriesName:this.seriesName
                 }
             })
         },
-        // reserve(){
-        //     this.$router.push({
-        //         name:'车辆预定',
-        //         params:{
-        //             everyno:this.everyno,
-        //             seriesName:this.seriesName
-        //         }
-        //     })
-        // },
+        reserve(){
+            this.$router.push({
+                name:'车辆预定',
+                params:{
+                    // everyno:this.everyno,
+                    // seriesName:this.seriesName
+                }
+            })
+        },
         choose(el,index){
             this.current=index;
         }
     },
     mounted(){
-        this.everyno=this.$route.params.everyno
-        this.seriesName=this.$route.params.seriesName
         let params={
-            no:this.$route.params.everyno
+            no:this.$store.state.everyno
         }
         this.$http.post(Wit.searchVehicleSeriesOne,params).then((res)=>{
             let allimage=res.data.data.imageRelationVO

@@ -10,7 +10,7 @@
                 <ul style="margin-top:.88rem">
                     <li class="all">
                         <span>预定车型</span>
-                        <div>{{this.stylecar}}</div>
+                        <div>{{this.$store.state.seriesName}}</div>
                     </li>
                                         <li @click="regions" class="all">
                         <span>所在地区</span>
@@ -124,7 +124,6 @@ import { Popup } from "mint-ui";
 export default {
   data() {
     return {
-      stylecar: "", //车系
       region: false,
       distributors: false,
       success: false,
@@ -250,7 +249,7 @@ export default {
       var gender = this.smallname == "女" ? 1 : 2;
 
       var param = {
-        customerName: this.stylecar, //姓名
+        customerName: this.$store.state.seriesName, //姓名
         fkDealerId: this.business, //经销商编号
         gender: gender, //性别
         mobile: this.tell, //手机号
@@ -259,7 +258,7 @@ export default {
         comments: this.beizhu, //商家备注
         province: this.provinceid, //省份ID
         series:this.$route.params.levelCode, //意向车系
-        model: this.$route.params.srouceNo,//意向车型
+        model: this.$store.state.srouceNo,//意向车型
         // code:'',
         userNo:this.$store.state.userId,
       };
@@ -283,8 +282,8 @@ export default {
             this.$router.push({
                 name:'车系特色',
                 params:{
-                    everyno:this.$route.params.everyno,
-                    seriesName:this.$route.params.seriesName
+                    // everyno:this.$route.params.everyno,
+                    // seriesName:this.$route.params.seriesName
                 }
             })
     },
@@ -344,7 +343,7 @@ export default {
     }
   },
   mounted() {
-    this.stylecar=this.$route.params.seriesName
+    // alert(this.$route.params.levelCode)
     // alert(this.$route.params.srouceNo)
     // alert(this.$route.params.seriesName)
     //地区

@@ -30,8 +30,8 @@ export default {
             this.$router.push({
                 name:'配置参数',
                 params:{
-                    everyno:this.everyno,
-                    seriesName:this.seriesName
+                    // everyno:this.everyno,
+                    // seriesName:this.seriesName
                 }
             })
         },
@@ -39,9 +39,6 @@ export default {
             this.$router.push({
                 name:'车辆预定',
                 params:{
-                    srouceNo:this.srouceNo,
-                    everyno:this.everyno,
-                    seriesName:this.seriesName,
                     levelCode:this.levelCode
                 }
             })
@@ -49,11 +46,9 @@ export default {
     },
     mounted(){
         // console.log(this.$route.params.everyno)
-        this.everyno=this.$route.params.everyno
-        this.seriesName=this.$route.params.seriesName
         // alert(this.seriesName)
         let params={
-            no:this.$route.params.everyno
+            no:this.$store.state.everyno
         }
         this.$http.post(Wit.searchVehicleSeriesOne,params).then((res)=>{
             let allimage=res.data.data.imageRelationVO
