@@ -104,12 +104,12 @@
     <div style="height: 1rem;"></div>
     <!--评论输入框S-->
     <!--<DiscCommentBox ref="commentbox"></DiscCommentBox>-->
-    <div id="commentBg"/>
-      <div class="flex contentcenter myInput" id="myInput">
-        <input autofocus="autofocus" ref="commentfocus" id="comment" type="text" v-model="commentMsg" placeholder="写评论..."/>
-        <span class="send" >发送</span>
-      </div>
-      <!--评论输入框E-->
+    <!--<div id="commentBg"/>-->
+      <!--<div class="flex contentcenter myInput" id="myInput">-->
+        <!--<input autofocus="autofocus" ref="commentfocus" id="comment" type="text" v-model="commentMsg" placeholder="写评论..."/>-->
+        <!--<span class="send" >发送</span>-->
+      <!--</div>-->
+      <!--&lt;!&ndash;评论输入框E&ndash;&gt;-->
     </div>
 </template>
 
