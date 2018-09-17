@@ -150,8 +150,17 @@ export default {
         .then(action => {
           if (action == "confirm") {
             this.flag = true;
-
+    
             if (isMobile.iOS()) {
+             window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
+                var param={
+                 latitude: this.latitude,
+                 longitude:this.longitude,
+                 positionTypeNo:this.$store.state.userId
+               }
+               this.$http.post(Wit.Help,param).then(res=>{
+                 
+               })
             } else if (isMobile.Android()) {
                var position=js2android.getLocationInfo()
                var positions= JSON.parse(position)
@@ -161,7 +170,7 @@ export default {
                var param={
                  latitude: this.latitude,
                  longitude:this.longitude,
-                 NO:this.$store.state.userId
+                 positionTypeNo:this.$store.state.userId
                }
                this.$http.post(Wit.Help,param).then(res=>{
                  
@@ -232,13 +241,14 @@ export default {
     //关闭保养查询
     know() {
       this.popupVisible = false;
-    }
-    // Map_Positioning(cont){
-    //   alert(1)
-    //    alert(JSON.stringify(cont))
-    // }
+    },
+  getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
+			this.latitude = JSON.parse(locationMes).latitude //精
+				this.longitude = JSON.parse(locationMes).longitude //韦
+			}
   },
   created() {
+    	window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用
     //获取主推车型，传{}表示全部车型
     var param = {highlyRecommend :"1"};
     this.$http.post(Wit.MainBus, param).then(res => {
