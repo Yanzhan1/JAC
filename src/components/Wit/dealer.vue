@@ -169,16 +169,12 @@
 					this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
 						const data = res.data;
 						if(data.code == 0) {
-							
 							this.searchCountryAreaCodeListPage = data.data.records;
-							//  alert(JSON.stringify(this.searchCountryAreaCodeListPage))
-							
 							for(let i = 0; i < this.searchCountryAreaCodeListPage.length; i++) {
 								if(this.searchCountryAreaCodeListPage[i].name == this.cityname) {
 									console.log(11)
 									this.provinceCode = this.searchCountryAreaCodeListPage[i].code
 									if(this.provinceCode) {
-
 										this.mydeler() //省份code 赋值成功后 调用获取经销商列表
 									}
 								}
@@ -187,9 +183,6 @@
 						}
 					})
 
-			},
-			search() {
-				//				this.popupVisible = true;
 			},
 			cancel() {
 				this.popupVisible = false;
@@ -298,7 +291,6 @@
 
 			},
 			getNextList() { //上拉加载更多方法
-
 				if(this.loadEnd) {
 					this.loadBottom();
 					return;
@@ -326,7 +318,6 @@
 								this.loading = true; //禁止无限滚动
 								this.allLoaded = true; //不在触发方法
 								this.loadEnd = true; //不在请求数据
-								//				                  $("#showAll2").show();
 							}
 						} else {
 							this.current = this.current - 1;
@@ -392,7 +383,7 @@
 					window.webkit.messageHandlers.sendLocation2Map.postMessage(data);
 				}
 			},
-			getIosLocation (locationMes) {  //IOS调用,H5获取ios定位信息
+			getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
 				this.cityname = JSON.parse(locationMes).province
 				this.citysi = JSON.parse(locationMes).city
 				this.latitude = JSON.parse(locationMes).latitude //精
@@ -414,14 +405,13 @@
 				this.latitude = NewPosition.latitude //精
 				this.longitude = NewPosition.longitude //韦
 			} else if(system == "IOS") {
-				window.webkit.messageHandlers.iOSLocationNotice.postMessage({});  //调用ios方法发送通知ios调用H5方法传
+				window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
 			}
 		},
 		filters: {
-			toFixed (input, param1) {//可以有好多的自定义过滤器，这里的this指向的是window
-//                          console.log(arguments.length);
-                            return input.toFixed(param1)
-                        }
+			toFixed(input, param1) { //可以有好多的自定义过滤器，这里的this指向的是window
+				return input.toFixed(param1)
+			}
 		},
 		watch: {
 			brandNo(newVal, oldVal) { //监听品牌id,获得车型列表

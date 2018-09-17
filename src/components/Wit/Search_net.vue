@@ -77,7 +77,7 @@
 						<div class="cocenter flex-center">
 							<div class="flex-column-align">
 								<img style="width:.42rem;text-align: center;" src="../../../static/images/Wit/nav_btn.png" alt="">
-								<span class="txt_m">{{item.juli|keepTwo}}km</span>
+								<span class="txt_m">{{Number(item.juli) | toFixed(2)}}km</span>
 							</div>
 						</div>
 					</li>
@@ -208,7 +208,7 @@
 						this.current = 1, //当前页码
 							this.loading = false, //加载完数据可以无线滚动
 							this.mainbus = data.data.records
-
+							console.log(this.mainbus)
 						if(data.data.total <= this.size) { //如果总条数小于等于请求的数据条数,不在请求加载更多
 							this.loadEnd = true;
 						}
@@ -401,11 +401,9 @@
 
 		},
 		filters: {
-			keepTwo: function(value) {
-				var res = "";
-				res = value.toFixed(1)
-				return res
-			}
+			toFixed (input, param1) {
+                return input.toFixed(param1)
+            }
 		},
 		watch: {
 			brandNo(newVal, oldVal) { //监听品牌id,获得车型列表
