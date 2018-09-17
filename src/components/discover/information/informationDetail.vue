@@ -480,15 +480,19 @@
         //this.$store.state.commentboxflag = true;
       })
     },
-    updated(){
-      this.$nextTick(()=>{
+    updated() {
+      this.$nextTick(() => {
         const content = this.$refs.content
         const h1 = content.querySelector('h1')
         const spans = content.querySelectorAll('span')
+        const imgs = content.querySelectorAll('img')
 
         h1.style['line-height'] = h1.style['font-size']
-        for(let span of spans){
+        for (let span of spans) {
           span.style['white-space'] = 'normal'
+        }
+        for (let img of imgs) {
+          img.style['width'] = '100%'
         }
       })
     }
