@@ -7,7 +7,7 @@
         </div>
         <div class="main">
             <div v-for="(item,index) in this.everyimage" :key="index">
-                <img class="nav" :src="item" alt="">
+                <img style="height:100%;width:100%" :src="item" alt="">
             </div>
            <h3 class="bottom-btn" @click="reserve">在线订车</h3>
         </div>

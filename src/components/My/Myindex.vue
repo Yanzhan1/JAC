@@ -9,7 +9,7 @@
         <div style="padding-left: 0.3rem;padding-right: 0.2rem" class="flex cocenter">
           <div @click="edict()" style="width: 1.2rem;height: 1.2rem;border-radius:50%;overflow:hidden">
             <img v-if="Personal.headUrl" :src="Personal.headUrl" alt="" style="width:100%;height:100%">
-            <img v-else src="../../../static/images/my/qq.png" alt="" style="width:100%;height:100%">
+            <img v-else src="../../../static/images/discover/normalhead.png" alt="" style="width:100%;height:100%">
           </div>
 
           <div class="flex column" style="margin-left: 0.2rem;">

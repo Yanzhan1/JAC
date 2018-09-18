@@ -552,5 +552,6 @@ textarea {
 }
 .specilflex>input{
   width: 1rem;
+  margin:0 0 .02rem 0;
 }
 </style>
