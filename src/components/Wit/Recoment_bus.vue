@@ -113,7 +113,9 @@ export default {
               if (arr[i].imageRelationVO.length > 0) {
                for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
                     if (arr[i].imageRelationVO[j].imageType == "4") {
-                      arr[i].imgUrl = arr[i].imageRelationVO[0].imageUrl;
+                      arr[i].imgUrl = arr[i].imageRelationVO[j].imageUrl;
+                    }else{
+                        arr[i].imgUrl = "";
                     }
                   }
               } else {
@@ -169,7 +171,9 @@ export default {
             if (arr[i].imageRelationVO.length > 0) {
             for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
                     if (arr[i].imageRelationVO[j].imageType == "4") {
-                      arr[i].imgUrl = arr[i].imageRelationVO[0].imageUrl;
+                      arr[i].imgUrl = arr[i].imageRelationVO[j].imageUrl;
+                    }else{
+                      arr[i].imgUrl = "";
                     }
                   }
             } else {

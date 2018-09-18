@@ -74,13 +74,11 @@ export default {
   methods:{
       next(){
           //获得时间戳
-          var shang = this.start.split(' ').slice(0, 1).join() //截取日期
-          var xia = this.end.split(' ').slice(0, 1).join()
-          console.log(shang)
-          console.log(xia)
-          shang = operationTime.toTimeStamp(shang)
-          xia = operationTime.toTimeStamp(xia)
-          if(shang>xia){
+          this.shang = this.start.split(' ').slice(0, 1).join() //截取日期转换时间戳
+          this.xia = this.end.split(' ').slice(0, 1).join()
+          this.shang = operationTime.toTimeStamp(this.shang)
+          this.xia = operationTime.toTimeStamp(this.xia)
+          if(this.shang>this.xia){
               Toast({
                   message:'起始时间不能大于结束时间',
                   position:'middle',
@@ -105,7 +103,7 @@ export default {
                 }
             }
         this.$http.post(Lovecar.Longrange,param,this.$store.state.tsppin).then((res)=>{
-            console.log(res)
+            // console.log(res)
             if(res.data.returnSuccess){
                 this.$router.push({
                 name:'Authorize_next',
@@ -136,15 +134,28 @@ export default {
       },
     handleStartConfirm (value) {
     	this.start = operationTime.getTime(value, 5)
-    	console.log(this.start)
+    	// console.log(this.start)
     },
     handleEndConfirm (value) {
     	this.end = operationTime.getTime(value, 5)
-    	console.log(this.end)
+    	// console.log(this.end)
     }
   },
   mounted(){
-	
+    let oDate=new Date()
+    let year =oDate.getFullYear();
+    let month =oDate.getMonth()+1;
+    month = month<10?"0"+month:month
+    let date=oDate.getDate()
+    let time=oDate.getHours()
+    this.start=year+'-'+month+'-'+date+' '+time
+
+    let end=year+'-'+month+'-'+date+' '+(time+4)
+    if(end>=24){
+        this.end=year+'-'+month+'-'+date+1+' '+(time-20)
+    }else{
+        this.end=year+'-'+month+'-'+date+' '+(time+4)
+    }
   }
 };
 </script>
