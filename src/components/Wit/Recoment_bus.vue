@@ -140,7 +140,7 @@ export default {
             for (let i = 0; i < arr.length; i++) {
               if (arr[i].imageRelationVO.length > 0) {
                 for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
-                  if (arr[i].imageRelationVO[j].imageType == "4") {
+                  if (arr[i].imageRelationVO[j].isDefault == 1) {
                     arr[i].imgUrl = arr[i].imageRelationVO[j].imageUrl;
 
                    } 
@@ -201,10 +201,12 @@ export default {
           for (let i = 0; i < arr.length; i++) {
             if (arr[i].imageRelationVO.length > 0) {
               for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
-                if (arr[i].imageRelationVO[j].imageType == "4") {
+                if (arr[i].imageRelationVO[j].isDefault == 1) {
                   arr[i].imgUrl = arr[i].imageRelationVO[j].imageUrl;
+                  console.log(arr[i].imgUrl)
                 } 
-              }
+               }
+              console.log(arr)
             } else {
               arr[i].imgUrl = "";
             }
