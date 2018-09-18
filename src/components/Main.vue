@@ -25,7 +25,7 @@
 		created() {
 			this.$http.interceptors.request.use((config) => {
 				// 在发送请求之前做些什么
-				if(config.url == 'http://test.jac.timanetwork.net/api/jac-car-control/vehicle/vehicle-async-results') {
+				if(config.url == Lovecar.OperationId) {
 					this.$store.dispatch('LOADINGFLAG', true)
 				}
 				if(this.loadingnum == 0) {
@@ -51,13 +51,13 @@
 				switch(data.code) { //判断接口状态,403  token失效,重新登录,本地调试可注释掉,发布提交时必须解开
 					case 403:
 						if(system == 'Android' && window.js2android) {
-							// window.js2android.login() //安卓退出App
+							 window.js2android.login() //安卓退出App
 						} else if(system == "IOS" && window.webkit) {
 							window.webkit.messageHandlers.logout403.postMessage({}); //IOS退出app
 						}
 						break;
 				}
-				if(response.config.url != 'http://test.jac.timanetwork.net/api/jac-car-control/vehicle/vehicle-async-results') {
+				if(response.config.url != Lovecar.OperationId) {
 					this.loadingnum--;
 					if(this.loadingnum == 0) {
 						this.loadingflag = false;
