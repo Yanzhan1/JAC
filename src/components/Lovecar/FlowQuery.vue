@@ -167,18 +167,18 @@ export default {
     pinNumber(newVal, oldVal) {
       //				console.log(this.pinNumber.length)
       if (this.pinNumber.length == 6) {
-        let nums = this.pinNumber;
-        this.http
-          .post(Lovecar.Checkphonepin, { pin: nums }, this.$store.state.tsppin)
-          .then(res => {
-            if (res.data.data.returnSuccess == true) {
-              this.value = !this.value;
-              //消失遮罩
-              this.popupVisible = !this.popupVisible;
-              //消失软键盘
-              (this.showTyper = 0),
-                //清空pin码
-                (this.pinNumber = "");
+		let nums = this.pinNumber;
+        // this.http
+        //   .post(Lovecar.Checkphonepin, { pin: nums }, this.$store.state.tsppin)
+        //   .then(res => {
+        //     if (res.data.data.returnSuccess == true) {
+        //       this.value = !this.value;
+        //       //消失遮罩
+        //       this.popupVisible = !this.popupVisible;
+        //       //消失软键盘
+        //       (this.showTyper = 0),
+        //         //清空pin码
+        //         (this.pinNumber = "");
               this.$http
                 .post(
                   Lovecar.Flow,
@@ -191,29 +191,37 @@ export default {
                   this.$store.state.tsppin
                 )
                 .then(res => {
-                  console.log(res);
-                });
-            } else {
-              //消失遮罩
-              this.popupVisible = !this.popupVisible;
-              //消失软键盘
-              (this.showTyper = 0),
-                //清空pin码
-                (this.fullValue = "");
-              Toast({
-                message: data.returnErrMsg,
-                position: "middle",
-                duration: 1000
-              });
-            }
-          })
-          .catch(err => {
-            let instance = Toast({
-              message: "系统异常",
-              position: "middle",
-              duration: 1000
-            });
-          });
+				  console.log(res);
+					this.value = !this.value;
+					//消失遮罩
+					this.popupVisible = !this.popupVisible;
+					//消失软键盘
+					(this.showTyper = 0),
+					//清空pin码
+					(this.pinNumber = "");
+				});
+
+        //     } else {
+        //       //消失遮罩
+        //       this.popupVisible = !this.popupVisible;
+        //       //消失软键盘
+        //       (this.showTyper = 0),
+        //         //清空pin码
+        //         (this.fullValue = "");
+        //       Toast({
+        //         message: data.returnErrMsg,
+        //         position: "middle",
+        //         duration: 1000
+        //       });
+        //     }
+        //   })
+        //   .catch(err => {
+        //     let instance = Toast({
+        //       message: "系统异常",
+        //       position: "middle",
+        //       duration: 1000
+        //     });
+        //   });
       }
     }
   }
