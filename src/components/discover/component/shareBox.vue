@@ -16,7 +16,7 @@
           <span style="color: #222222;">QQ</span>
         </div>
         <div class="shareBox">
-          <img src="../../../../static/images/discover/qqkongjian.png" class="shareIcon" @click="toShare(item,'QQ')"/>
+          <img src="../../../../static/images/discover/qqkongjian.png" class="shareIcon" @click="toShare(item,'QZONE ')"/>
           <span style="color: #222222;">QQ空间</span>
         </div>
       </div>
@@ -118,6 +118,7 @@
           default:
             break;
         }
+        title = item.manageTitle
         console.log('类型:'+this.type +"  "+"内容:"+content +"  "+"图片:"+imageURL +"  "+"标题:"+title +"  "+"描述:"+description +"  "+"平台:"+platform)
         if (isMobile.iOS()) {
           var params = {

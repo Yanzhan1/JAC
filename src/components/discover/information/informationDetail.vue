@@ -117,7 +117,7 @@
     <!--<DiscCommentBox ref="commentbox"></DiscCommentBox>-->
     <div id="commentBg" @click="closeComment" />
     <div class="flex contentcenter myInput" id="myInput">
-      <input autofocus="autofocus" ref="commentfocus" id="comment" type="text" v-model="commentMsg" @click="commentbtn"
+      <input ref="commentfocus" id="comment" type="text" v-model="commentMsg" @click="commentbtn"
         placeholder="写评论..." />
       <span class="send" @click="comment">发送</span>
     </div>
