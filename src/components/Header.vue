@@ -145,7 +145,10 @@
         let _this = this
         this.$http.post(DISCOVERMESSAGE.getLabels, {labelState: this.labelState}).then(function (res) {
           if (res.data.status) {
-            _this.labels = res.data.data
+            const [zero, one, two, three, four, fives] = res.data.data
+            const arr = [one, three, zero, fives, two, four]
+          
+            _this.labels = arr
           }
         });
       },
