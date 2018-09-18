@@ -21,24 +21,44 @@
       </li>
     </ul>
     <mt-popup v-model="popupVisible" position="middle">
-      <div style="width:100%;text-align:center;line-height:.88rem;font-size:.36rem;color:#555555;border-bottom:1px solid #f1f1f1">
-        切换频道
+      <!-- type=1代表全部  type=2代表主推 -->
+      <div v-if="this.type==1">
+        <div style="width:100%;text-align:center;line-height:.88rem;font-size:.36rem;color:#555555;border-bottom:1px solid #f1f1f1">
+          切换频道
+        </div>
+        <div class="flex row cocenter roe">
+          <label><input type="radio" v-model="genders" :value="null" /></label>
+          <span class="txt" style="margin-left:.1rem">全选</span>
+        </div>
+        <ul class="flex row wrap between">
+          <li class="flex row cocenter list_li" v-for="(item,index) in good_list" :key="index">
+            <label><input type="radio" v-model="genders" :value="item.no" /></label>
+            <span class="txt" style="margin-left:.1rem">{{item.brandName}}</span>
+          </li>
+        </ul>
+        <div class="fot">
+          <p class="pp" style="" @click="fn(1)">取消</p>
+          <p class="sure" style="" @click="fn(2)">确定</p>
+        </div>
       </div>
-      <div class="flex row cocenter roe">
-        <!-- <label class="input-label" :class="{active: selected_all}" @click="slect_all"></label> -->
-        <label><input type="radio" v-model="gender" :value="null" /></label>
-        <span class="txt" style="margin-left:.1rem">全选</span>
-      </div>
-      <ul class="flex row wrap between">
-        <li class="flex row cocenter list_li" v-for="(item,index) in good_list" :key="index">
-          <!-- <label class="input-label" :class="{active: item.is_selected}" @click="select_one(index)"></label> -->
-          <label><input type="radio" v-model="gender" :value="item.no" /></label>
-          <span class="txt" style="margin-left:.1rem">{{item.brandName}}</span>
-        </li>
-      </ul>
-      <div class="fot">
-        <p class="pp" style="" @click="fn(1)">取消</p>
-        <p class="sure" style="" @click="fn(2)">确定</p>
+       <div v-else>
+        <div style="width:100%;text-align:center;line-height:.88rem;font-size:.36rem;color:#555555;border-bottom:1px solid #f1f1f1">
+          切换频道
+        </div>
+        <div class="flex row cocenter roe">
+          <label><input type="radio" v-model="gender" :value="null" /></label>
+          <span class="txt" style="margin-left:.1rem">全选</span>
+        </div>
+        <ul class="flex row wrap between">
+          <li class="flex row cocenter list_li" v-for="(item,index) in good_list" :key="index">
+            <label><input type="radio" v-model="gender" :value="item.no" /></label>
+            <span class="txt" style="margin-left:.1rem">{{item.brandName}}</span>
+          </li>
+        </ul>
+        <div class="fot">
+          <p class="pp" style="" @click="fn(1)">取消</p>
+          <p class="sure" style="" @click="fn(2)">确定</p>
+        </div>
       </div>
     </mt-popup>
   </div>
@@ -56,24 +76,24 @@ export default {
       mainbus: {}, //存储展示的数据 主推车型 全部车型
       choosebus: {}, //选择频道
       arr: [],
-      gender: "",
+      gender: "", //主推车型 选中的No
+      genders:'', //全部车型 选中的No
+      genders:null,//全部车型全选默认选中
       good_list: [],
-      gender: null //全选默认选中
+      gender: null, //主推车型全选默认选中，
+      no:''
     };
   },
   methods: {
     shai() {
-    	// console.log(11)
       this.popupVisible = true;
     },
     tode(item) {
-      // alert(item.no)
-      this.$store.dispatch('NONAME',item)
+     this.$store.dispatch("NONAME", item);
       this.$router.push({
-        name:'车系特色',
-        params:{
-          // everyno:item.no
-        }
+        name: "车系特色",
+        params: {
+          }
       });
     },
 
@@ -100,24 +120,31 @@ export default {
     //切换频道
     fn(num) {
       if (num == 2) {
+       
         var arr = this.arr;
-        var param = {
+       if(this.type==1){
+          var param = {
           highlyRecommend: this.highlyRecommend,
-          no: this.gender
-        };
-
-        this.$http.post(Wit.MainBus, param).then(res => {
+          no: this.genders //全部车型
+        };   
+       }else{
+          var param = {
+          highlyRecommend: this.highlyRecommend,
+          no: this.gender//主推车型
+        };   
+       }
+       this.$http.post(Wit.MainBus, param).then(res => {
           if (res.data.code == 0) {
             var arr = res.data.data;
             for (let i = 0; i < arr.length; i++) {
               if (arr[i].imageRelationVO.length > 0) {
-               for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
-                    if (arr[i].imageRelationVO[j].imageType == "4") {
-                      arr[i].imgUrl = arr[i].imageRelationVO[j].imageUrl;
-                    }else{
-                        arr[i].imgUrl = "";
-                    }
+                for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
+                  if (arr[i].imageRelationVO[j].imageType == "4") {
+                    arr[i].imgUrl = arr[i].imageRelationVO[j].imageUrl;
+                  } else {
+                    arr[i].imgUrl = "";
                   }
+                }
               } else {
                 arr[i].imgUrl = "";
               }
@@ -126,10 +153,6 @@ export default {
             this.mainbus = arr;
           }
         });
-
-
-             
-                
         // for(let i=0;i<this.good_list.length;i++){
         //   if(this.good_list[i].is_selected){
         //     this.arr.push(this.good_list[i].no)
@@ -148,6 +171,7 @@ export default {
         //   }
         // }
       } else {
+         this.popupVisible = false;
       }
       this.popupVisible = false;
     },
@@ -157,25 +181,28 @@ export default {
         //等于1 传“” 。 获取全部车型
         this.type = 1;
         this.highlyRecommend = "";
+        this.no=this.genders
       } else {
         this.type = 2; //等于2 传“1” 。 获取主推车型
         this.highlyRecommend = "1";
+        this.no=this.gender
       }
       var param = {
-        highlyRecommend: this.highlyRecommend
+        highlyRecommend: this.highlyRecommend,
+        no:this.no
       };
-      this.$http.post(Wit.MainBus, param).then(res => {
+   this.$http.post(Wit.MainBus, param).then(res => {
         if (res.data.code == 0) {
           var arr = res.data.data;
           for (let i = 0; i < arr.length; i++) {
             if (arr[i].imageRelationVO.length > 0) {
-            for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
-                    if (arr[i].imageRelationVO[j].imageType == "4") {
-                      arr[i].imgUrl = arr[i].imageRelationVO[j].imageUrl;
-                    }else{
-                      arr[i].imgUrl = "";
-                    }
-                  }
+              for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
+                if (arr[i].imageRelationVO[j].imageType == "4") {
+                  arr[i].imgUrl = arr[i].imageRelationVO[j].imageUrl;
+                } else {
+                  arr[i].imgUrl = "";
+                }
+              }
             } else {
               arr[i].imgUrl = "";
             }
