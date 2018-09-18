@@ -105,7 +105,7 @@ export default {
                 }
             }
         this.$http.post(Lovecar.Longrange,param,this.$store.state.tsppin).then((res)=>{
-            console.log(res)
+            // console.log(res)
             if(res.data.returnSuccess){
                 this.$router.push({
                 name:'Authorize_next',
@@ -136,15 +136,28 @@ export default {
       },
     handleStartConfirm (value) {
     	this.start = operationTime.getTime(value, 5)
-    	console.log(this.start)
+    	// console.log(this.start)
     },
     handleEndConfirm (value) {
     	this.end = operationTime.getTime(value, 5)
-    	console.log(this.end)
+    	// console.log(this.end)
     }
   },
   mounted(){
-	
+    let oDate=new Date()
+    let year =oDate.getFullYear();
+    let month =oDate.getMonth()+1;
+    month = month<10?"0"+month:month
+    let date=oDate.getDate()
+    let time=oDate.getHours()
+    this.start=year+'-'+month+'-'+date+' '+time
+
+    let end=year+'-'+month+'-'+date+' '+(time+4)
+    if(end>=24){
+        this.end=year+'-'+month+'-'+date+1+' '+(time-20)
+    }else{
+        this.end=year+'-'+month+'-'+date+' '+(time+4)
+    }
   }
 };
 </script>
