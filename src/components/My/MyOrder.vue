@@ -211,19 +211,19 @@ export default {
             this.Xorder = res.data.data.records;
             for (let i = 0; i < this.Xorder.length; i++) {
               this.Xorder[i].time = operationTime.getTime(this.Xorder[i].createdDate,1);
-              for(let j=0;j<this.Xorder[i].imageRelationVO.length;j++){
-                if(this.Xorder[i].imageRelationVO[j].imageType==4){
-                     this.Xorder[i].img=this.Xorder[i].imageRelationVO[j].imageUrl
-                }else{
-                     this.Xorder[i].img=""
-                }
+              if(this.Xorder[i].imageRelationVO.length>0){
+                    for( let j=0;j<this.Xorder[i].imageRelationVO.length;j++){
+               if(this.Xorder[i].imageRelationVO[j].imageType==4){
+                   this.Xorder[i].img=this.Xorder[i].imageRelationVO[j].imageUrl
+               }else{
+                    this.Xorder[i].img=""
+               }
               }
-           if (this.Xorder[i].gender == "1") {
-                this.Xorder[i].gender = "女";
-              } else {
-                this.Xorder[i].gender = "男";
+              }else{
+                   this.Xorder[i].img=""
               }
-            }
+             
+         }
           }
       
         });
