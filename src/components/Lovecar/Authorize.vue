@@ -74,13 +74,11 @@ export default {
   methods:{
       next(){
           //获得时间戳
-          var shang = this.start.split(' ').slice(0, 1).join() //截取日期
-          var xia = this.end.split(' ').slice(0, 1).join()
-          console.log(shang)
-          console.log(xia)
-          shang = operationTime.toTimeStamp(shang)
-          xia = operationTime.toTimeStamp(xia)
-          if(shang>xia){
+          this.shang = this.start.split(' ').slice(0, 1).join() //截取日期转换时间戳
+          this.xia = this.end.split(' ').slice(0, 1).join()
+          this.shang = operationTime.toTimeStamp(this.shang)
+          this.xia = operationTime.toTimeStamp(this.xia)
+          if(this.shang>this.xia){
               Toast({
                   message:'起始时间不能大于结束时间',
                   position:'middle',
@@ -136,11 +134,9 @@ export default {
       },
     handleStartConfirm (value) {
     	this.start = operationTime.getTime(value, 5)
-    	console.log(this.start)
     },
     handleEndConfirm (value) {
     	this.end = operationTime.getTime(value, 5)
-    	console.log(this.end)
     }
   },
   mounted(){

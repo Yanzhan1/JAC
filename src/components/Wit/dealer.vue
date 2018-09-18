@@ -515,10 +515,10 @@
 	}
 	
 	.dian {
-		overflow: hidden;
+		/*overflow: hidden;
 		text-overflow: ellipsis;
-		white-space: nowrap;
-		width: 4rem;
+		white-space: nowrap;*/
+		width: 5rem;
 	}
 	
 	.txt_m {
