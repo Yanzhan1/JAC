@@ -114,6 +114,8 @@ export default {
                for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
                     if (arr[i].imageRelationVO[j].imageType == "4") {
                       arr[i].imgUrl = arr[i].imageRelationVO[0].imageUrl;
+                    }else{
+                        arr[i].imgUrl = "";
                     }
                   }
               } else {
@@ -170,6 +172,8 @@ export default {
             for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
                     if (arr[i].imageRelationVO[j].imageType == "4") {
                       arr[i].imgUrl = arr[i].imageRelationVO[0].imageUrl;
+                    }else{
+                      arr[i].imgUrl = "";
                     }
                   }
             } else {

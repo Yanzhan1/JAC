@@ -258,7 +258,13 @@ export default {
          for(var i = 0 ; i < arr.length;i++){
             // this.allno.push(arr[i].no)
           if(arr[i].imageRelationVO.length>0){
-            arr[i].imgUrl = arr[i].imageRelationVO[0].imageUrl;
+           for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
+                    if (arr[i].imageRelationVO[j].imageType == "4") {
+                      arr[i].imgUrl = arr[i].imageRelationVO[0].imageUrl;
+                    }else{
+                        arr[i].imgUrl = "";
+                    }
+                  }
             this.allno.push(arr[i].no)
           }else{
             arr[i].imgUrl = "";
