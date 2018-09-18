@@ -23,10 +23,7 @@
                 <span>经销商</span>
                 <span>{{userinfo.dealerName}}</span>
             </li>
-            <!-- <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
-                <span>推荐码</span>
-                <span>{{userinfo.model}}</span>
-            </li> -->
+            
         </ul>
         <ul style="padding:0 .32rem;border-bottom:.2rem solid #F9F9F9">
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
@@ -72,6 +69,11 @@ export default {
   },
   created(){
     this.userinfo=this.$route.query
+    if(this.userinfo.gender==1){
+        this.userinfo.gender='女'
+    }else{
+        this.userinfo.gender='男'
+    }
   }
 };
 </script>

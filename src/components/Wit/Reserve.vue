@@ -13,14 +13,14 @@
                         <div>{{this.$store.state.seriesName}}</div>
                     </li>
                     <li @click="regions" class="all">
-                        <span>省</span>
+                        <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>省</span>
                         <div class="allflex">
                             <input type="text" name="" id="" placeholder="点击选择地区" v-model="area" readonly style="text-align:right">
                             <img src="/static/images/next@2x.png" alt="">
                         </div>
                     </li>
                     <li @click="cityes" class="all">
-                        <span>市</span>
+                        <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>市</span>
                         <div class="allflex" >
                             <input type="text" name="" id="" placeholder="点击选择地区" v-model="city" readonly style="text-align:right">
                             <img src="/static/images/next@2x.png" alt="">
@@ -28,7 +28,7 @@
                     </li>
                     
                      <li class="all">
-                        <span style="width:2rem">选择经销商</span>
+                        <span style="width:2rem"><span style="display:inline-block;font-size:.31rem;color:red">*</span>经销商</span>
                         <div class="allflex" @click="Distributor">
                             <span>{{this.Distribution}}</span>
                             <img src="/static/images/next@2x.png" alt="" >
@@ -42,14 +42,14 @@
                         </div>
                     </li> -->
                     <li class="name all">
-                        <span>姓名</span>
+                        <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>姓名</span>
                         <div class="allflex">
                             <input placeholder="点击输入姓名" v-model="name">
                             <img src="/static/images/next@2x.png" alt="">
                         </div>
                     </li>
                     <li class="sixname all">
-                        <span>性别</span>
+                        <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>性别</span>
                         <div class="specilflex">
                             <!-- <input type="text" name="" id="" placeholder="点击输入称谓" v-model="smallname">
                             <img src="/static/images/next@2x.png" alt=""> -->
@@ -58,7 +58,7 @@
                         </div>
                     </li>
                     <li class="phone all">
-                        <span>手机</span>
+                        <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>手机</span>
                         <div class="allflex">
                             <input placeholder="点击输入手机号" v-model="tell">
                             <img src="/static/images/next@2x.png" alt="">
@@ -171,7 +171,7 @@ export default {
         {
           values: [],
           className: "slot1",
-          textAlign: "right"
+          textAlign: "center"
         },
         {
           divider: true,
@@ -272,7 +272,7 @@ export default {
       var gender = this.smallname == "女" ? 1 : 2;
 
       var param = {
-        customerName: this.$store.state.seriesName, //姓名
+        customerName: this.name, //姓名
         fkDealerId: this.business, //经销商编号
         gender: gender, //性别
         mobile: this.tell, //手机号
