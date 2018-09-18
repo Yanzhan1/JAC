@@ -84,6 +84,7 @@
 </template>
 
 <script>
+import {Toast} from 'mint-ui'
 export default {
   name: "flowQuery",
   data() {
@@ -168,17 +169,19 @@ export default {
       //				console.log(this.pinNumber.length)
       if (this.pinNumber.length == 6) {
 		let nums = this.pinNumber;
-        // this.http
-        //   .post(Lovecar.Checkphonepin, { pin: nums }, this.$store.state.tsppin)
-        //   .then(res => {
-        //     if (res.data.data.returnSuccess == true) {
-        //       this.value = !this.value;
-        //       //消失遮罩
-        //       this.popupVisible = !this.popupVisible;
-        //       //消失软键盘
-        //       (this.showTyper = 0),
-        //         //清空pin码
-        //         (this.pinNumber = "");
+		console.log(Lovecar.Checkphonepin,nums,this.$store.state.tsppin)
+        this.$http
+          .post(Lovecar.Checkphonepin, { pin: nums }, this.$store.state.tsppin)
+          .then(res => {
+            if (res.data.returnSuccess == true) {
+				alert('成功')
+              this.value = !this.value;
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
+              //消失软键盘
+              (this.showTyper = 0),
+                //清空pin码
+		        (this.pinNumber = "");
               this.$http
                 .post(
                   Lovecar.Flow,
@@ -191,37 +194,33 @@ export default {
                   this.$store.state.tsppin
                 )
                 .then(res => {
-				  console.log(res);
-					this.value = !this.value;
-					//消失遮罩
-					this.popupVisible = !this.popupVisible;
-					//消失软键盘
-					(this.showTyper = 0),
-					//清空pin码
-					(this.pinNumber = "");
+	
 				});
 
-        //     } else {
-        //       //消失遮罩
-        //       this.popupVisible = !this.popupVisible;
-        //       //消失软键盘
-        //       (this.showTyper = 0),
-        //         //清空pin码
-        //         (this.fullValue = "");
-        //       Toast({
-        //         message: data.returnErrMsg,
-        //         position: "middle",
-        //         duration: 1000
-        //       });
-        //     }
-        //   })
-        //   .catch(err => {
-        //     let instance = Toast({
-        //       message: "系统异常",
-        //       position: "middle",
-        //       duration: 1000
-        //     });
-        //   });
+            } else {
+				Toast({
+					message: res.data.returnErrMsg,
+					position: "middle",
+					duration: 1000
+				});
+				this.value = !this.value;
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
+              //消失软键盘
+              (this.showTyper = 0),
+                //清空pin码
+				(this.fullValue = "");
+				this.$router.go(-1)
+            
+            }
+          })
+          .catch(err => {
+            let instance = Toast({
+              message: "系统异常",
+              position: "middle",
+              duration: 1000
+            });
+          });
       }
     }
   }
