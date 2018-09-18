@@ -34,14 +34,14 @@ export default {
   methods: {
     AddMybus() {
      var param = {
-        vin: this.rame.toUpperCase(),
+        vin: this.rame.toUpperCase().replace(/\s*/g,""),
         operationType: "CAR_BINDING",
         operation: 1,
         extParams: {
-          engineNo: this.engine.toUpperCase()
+          engineNo: this.engine.toUpperCase().replace(/\s*/g,"")
         }
       };
-      // alert(JSON.stringify(param))
+      alert(JSON.stringify(param))
       //  alert(JSON.stringify(this.$store.state.getpin))
       this.$http.post(My.JFmybus, param,this.$store.state.getpin).then(res => {
         if (res.data.returnSuccess) {
