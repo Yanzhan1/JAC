@@ -11,11 +11,11 @@
 			<span>截止日期</span>
 			<span>{{this.Closingdate}}</span>
 		</div> -->
-		<div class="line"></div>
+		<!-- <div class="line"></div>
 		<div class="flow-title">
 			<span>流量包名称</span>
 			<span>{{this.Flowpacket}}</span>
-		</div>
+		</div> -->
 		<div class="line"></div>
 		<div class="flow-wrap">
 
@@ -84,317 +84,357 @@
 </template>
 
 <script>
-	export default {
-		name: 'flowQuery',
-		data() {
-			return {
-				time:'',//定时器命名
-				//流量
-				num: '100G',
-				IsShow:false,//控制自定义键盘显示
-				popupVisible:true,//控制pin码框显示
-				pinNumber:'',//输入的pin码值
-				showTyper: 0,//自定义软键盘状态 0 消失 2 键盘开启			
-				keyNums: [],//软键盘内容12位随机数组				
-				disabled: true,//展示作用，不能输入
-				Closingdate:'2020-07-12',//截止日期
-				Flowpacket:'至尊黄金套餐',//流量包名称
-				//移动端键盘值
-				ownKeyBoard:{
-					first:'',
-					second: '',
-					third: '',
-					fourth: '',
-					fifth: '',
-					sixth: ''
-				},
-			}
-		},
-		methods:{
-			//产生随机数
-			randomnum(min, max) {
-				var num = Math.floor(Math.random() * (max - min) + min);
-				return num;
-			},
-			//键盘点击事件，传入键盘本身的值
-			input(item) {
-				if(item == '关闭') { //判断是否点击了关闭按钮
-					this.showTyper = 0;
-					return;
-				}
-				if(item == 'Del') { //判断是否点击了删除按钮
-					this.pinNumber = this.pinNumber.slice(0, -1);
-					return;
-				}
-				if(this.pinNumber.length < 6) { //判断位数，还未超出6位则可继续输入
-					this.pinNumber = this.pinNumber + item;
-				} else {
-
-				}
-			},
-			//点击pin码验证框时，弹出自定义键盘
-			onTypewriting() {
-				this.showTyper = 2;
-				this.produceArray()
-			},
-			//产生软键盘12位随机数组
-			produceArray() {
-				var that = this
-				var arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-				var arr2 = []
-				for(var i = 0; i < 12; i++) {
-					var randomnumber = that.randomnum(0, arr.length);
-					if(i == 9) {
-						arr2.push('关闭')
-					} else if(i == 11) {
-						arr2.push('Del')
-					} else {
-						arr2.push(arr[randomnumber]);
-						arr.splice(randomnumber, 1);
-					}
-				}
-				that.keyNums = arr2
-			},
-			removeMask() {
-				this.popupVisible = !this.popupVisible
-				this.showTyper = 0;
-			},
-		},
-		mounted(){
-		},
-		watch:{
-			pinNumber(newVal, oldVal) {
-				//				console.log(this.pinNumber.length)
-				if(this.pinNumber.length == 6) {
-							this.$http.post(Lovecar.Flow,{ 
-							vin: this.pinNumber,//车辆vin码
-							simNum:"12",//Tbox中的sim卡号
-							imei:"1",//sim卡中的imei卡号
-							iccid:"12"//sim卡中的iccid卡号
-						},this.$store.state.tsppin).then((res)=>{
-						console.log(res)
-			})
-					setTimeout(() => {
-						this.value = !this.value
-						//消失遮罩
-						this.popupVisible = !this.popupVisible
-						//消失软键盘
-						this.showTyper = 0,
-						//清空pin码
-						this.pinNumber = ''
-					}, 1000)
-				}
-			},
-		}
-	}
+export default {
+  name: "flowQuery",
+  data() {
+    return {
+      time: "", //定时器命名
+      //流量
+      num: "100G",
+      IsShow: false, //控制自定义键盘显示
+      popupVisible: true, //控制pin码框显示
+      pinNumber: "", //输入的pin码值
+      showTyper: 0, //自定义软键盘状态 0 消失 2 键盘开启
+      keyNums: [], //软键盘内容12位随机数组
+      disabled: true, //展示作用，不能输入
+      Closingdate: "2020-07-12", //截止日期
+      Flowpacket: "至尊黄金套餐", //流量包名称
+      //移动端键盘值
+      ownKeyBoard: {
+        first: "",
+        second: "",
+        third: "",
+        fourth: "",
+        fifth: "",
+        sixth: ""
+      }
+    };
+  },
+  methods: {
+    //产生随机数
+    randomnum(min, max) {
+      var num = Math.floor(Math.random() * (max - min) + min);
+      return num;
+    },
+    //键盘点击事件，传入键盘本身的值
+    input(item) {
+      if (item == "关闭") {
+        //判断是否点击了关闭按钮
+        this.showTyper = 0;
+        return;
+      }
+      if (item == "Del") {
+        //判断是否点击了删除按钮
+        this.pinNumber = this.pinNumber.slice(0, -1);
+        return;
+      }
+      if (this.pinNumber.length < 6) {
+        //判断位数，还未超出6位则可继续输入
+        this.pinNumber = this.pinNumber + item;
+      } else {
+      }
+    },
+    //点击pin码验证框时，弹出自定义键盘
+    onTypewriting() {
+      this.showTyper = 2;
+      this.produceArray();
+    },
+    //产生软键盘12位随机数组
+    produceArray() {
+      var that = this;
+      var arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+      var arr2 = [];
+      for (var i = 0; i < 12; i++) {
+        var randomnumber = that.randomnum(0, arr.length);
+        if (i == 9) {
+          arr2.push("关闭");
+        } else if (i == 11) {
+          arr2.push("Del");
+        } else {
+          arr2.push(arr[randomnumber]);
+          arr.splice(randomnumber, 1);
+        }
+      }
+      that.keyNums = arr2;
+    },
+    removeMask() {
+      this.popupVisible = !this.popupVisible;
+      this.showTyper = 0;
+    }
+  },
+  mounted() {},
+  watch: {
+    pinNumber(newVal, oldVal) {
+      //				console.log(this.pinNumber.length)
+      if (this.pinNumber.length == 6) {
+        let nums = this.pinNumber;
+        this.http
+          .post(Lovecar.Checkphonepin, { pin: nums }, this.$store.state.tsppin)
+          .then(res => {
+            if (res.data.data.returnSuccess == true) {
+              this.value = !this.value;
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
+              //消失软键盘
+              (this.showTyper = 0),
+                //清空pin码
+                (this.pinNumber = "");
+              this.$http
+                .post(
+                  Lovecar.Flow,
+                  {
+                    vin: this.pinNumber, //车辆vin码
+                    simNum: "12", //Tbox中的sim卡号
+                    imei: "1", //sim卡中的imei卡号
+                    iccid: "12" //sim卡中的iccid卡号
+                  },
+                  this.$store.state.tsppin
+                )
+                .then(res => {
+                  console.log(res);
+                });
+            } else {
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
+              //消失软键盘
+              (this.showTyper = 0),
+                //清空pin码
+                (this.fullValue = "");
+              Toast({
+                message: data.returnErrMsg,
+                position: "middle",
+                duration: 1000
+              });
+            }
+          })
+          .catch(err => {
+            let instance = Toast({
+              message: "系统异常",
+              position: "middle",
+              duration: 1000
+            });
+          });
+      }
+    }
+  }
+};
 </script>
 
 <style scoped>
-	/*flex*/
-	.mint-popup {
-		border-radius: 0.1rem;
-	}
-	.flex-center-between {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-	
-	.flex-center {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-	
-	.flex-align-center{/*垂直居中*/
-	  display: flex;
-	  align-items: center;
-	}
-	/*公共样式*/
-	
-	.revisePinCommon {
-		height: 1rem;
-		border-bottom: 1px solid #EFEFEF;
-	}
-	
-	input {
-		outline: none;
-		border: none;
-		background: none;
-		margin-left: 0.46rem;
-	}
-	/*头部*/
-	
-	.flow-title {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-around;
-		height: 1.5rem;
-		padding: 0 0.3rem;
-		font-family: PingFang-SC-Medium;
-		font-weight: Medium;
-		color: #222;
-		font-size: .26rem;
-		line-height: .28rem;
-	}
-	
-	.flow-title>span:nth-of-type(1) {
-		color: #49BBFF;
-		font-size: 0.32rem;
-	}
-	
-	.flow-title>span:nth-of-type(2) {
-		color: #222222;
-	}
-	/*灰色间隔*/
-	
-	.line {
-		height: 0.1rem;
-		background: #F1F1F1;
-	}
-	/*apn*/
-	
-	.flow-wrap {
-		padding: 0 0.3rem;
-	}
-	
-	.apn-title {
-		height: 0.86rem;
-		line-height: 1.16rem;
-		font-size: 0.32rem;
-		color: #3A5CFF;
-	}
-	
-	.origin-pin>div {
-		margin: 0 auto;
-	}
-	/*自定义软键盘*/
-	
-	ul {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		align-items: center;
-		height: 100%;
-	}
-	
-	ul>li {
-		width: 33.3%;
-	}
-	
-	.typer {
-		position: fixed;
-		bottom: 0;
-		background-color: #fff;
-		height: 4rem;
-		width: 100%;
-		z-index: 3000;
-	}
-	
-	.typer li {
-		float: left;
-		height: .7rem;
-		margin: .1rem .05rem 0;
-		color: #333;
-		text-align: center;
-		font-size: .32rem;
-		line-height: .7rem;
-		background-color: #ccc;
-		-webkit-border-radius: .1rem;
-		-moz-border-radius: .1rem;
-		border-radius: .1rem;
-	}
-	
-	.typer li.typer-pro {
-		width: 31%;
-		padding: 0 .15rem;
-	}
-	
-	.typer li.typer-pro.is-closeType {
-		width: 1.2rem;
-		float: right;
-	}
-	
-	.typer li.typer-num {
-		width: 31%;
-		/*padding: 0.8rem .1rem;*/
-		background-image: -webkit-linear-gradient(125deg, #147B96, #E6D205 25%, #147B96 50%, #E6D205 75%, #147B96);
-		-webkit-text-fill-color: transparent;
-		-webkit-background-clip: text;
-		-webkit-background-size: 200% 100%;
-		-webkit-animation: masked-animation 4s infinite linear;
-	}
-	
-	.typer li.typer-num.is-A {
-		margin-left: .31rem;
-	}
-	
-	.typer li.typer-num.is-OK {
-		width: .8rem;
-		margin-left: .1rem;
-	}
-	
-	@-webkit-keyframes masked-animation {
-		0% {
-			background-position: 0 0;
-		}
-		100% {
-			background-position: -100% 0;
-		}
-	}
-	/*pin码提示框*/
-	
-	.pin-remain {
-		width: 6.3rem;
-		height: 3.3rem;
-		padding: 0.2rem 0.4rem;
-	}
-	
-	.pin-code {
-		height: 2rem;
-		width: 100%;
-	}
-	
-	.pin-code>div {}
-	
-	.pin-code>div>.pin-input {
-		display: block;
-		width: 5.6rem;
-		height: 0.94rem;
-		text-indent: 0.4rem;
-		letter-spacing: 0.77rem;
-		/*text-align: center;*/
-		border: none;
-		outline: none;
-		background: url(../../../static/images/Lovecar/border@2x.png) no-repeat center;
-		background-size: 100%;
-		margin: 0;
-	}
-	.pin-code>.pin {
-	    display: flex;
-    	align-items: center;
-    	border: 1px solid #ccc;
-	}
-	.pin-code>.pin>input:not(:last-child) {
-    	border-right: 1px solid #ccc;
-	}
-	.pin-code>.pin>input {
-		width: 0.93rem;
-    	height: 0.94rem;
-    	text-align: center;
-	    border: none;
-    	outline: none;
-	}
-	.bgMask {
-		position: absolute;
-		left: 0;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		width: 100%;
-		height: 100%;
-		opacity: 0.5;
-		background: #000;
-		z-index: 1000;
-	}
+/*flex*/
+.mint-popup {
+  border-radius: 0.1rem;
+}
+.flex-center-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-align-center {
+  /*垂直居中*/
+  display: flex;
+  align-items: center;
+}
+/*公共样式*/
+
+.revisePinCommon {
+  height: 1rem;
+  border-bottom: 1px solid #efefef;
+}
+
+input {
+  outline: none;
+  border: none;
+  background: none;
+  margin-left: 0.46rem;
+}
+/*头部*/
+
+.flow-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 1.5rem;
+  padding: 0 0.3rem;
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #222;
+  font-size: 0.26rem;
+  line-height: 0.28rem;
+}
+
+.flow-title > span:nth-of-type(1) {
+  color: #49bbff;
+  font-size: 0.32rem;
+}
+
+.flow-title > span:nth-of-type(2) {
+  color: #222222;
+}
+/*灰色间隔*/
+
+.line {
+  height: 0.1rem;
+  background: #f1f1f1;
+}
+/*apn*/
+
+.flow-wrap {
+  padding: 0 0.3rem;
+}
+
+.apn-title {
+  height: 0.86rem;
+  line-height: 1.16rem;
+  font-size: 0.32rem;
+  color: #3a5cff;
+}
+
+.origin-pin > div {
+  margin: 0 auto;
+}
+/*自定义软键盘*/
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+ul > li {
+  width: 33.3%;
+}
+
+.typer {
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+  height: 4rem;
+  width: 100%;
+  z-index: 3000;
+}
+
+.typer li {
+  float: left;
+  height: 0.7rem;
+  margin: 0.1rem 0.05rem 0;
+  color: #333;
+  text-align: center;
+  font-size: 0.32rem;
+  line-height: 0.7rem;
+  background-color: #ccc;
+  -webkit-border-radius: 0.1rem;
+  -moz-border-radius: 0.1rem;
+  border-radius: 0.1rem;
+}
+
+.typer li.typer-pro {
+  width: 31%;
+  padding: 0 0.15rem;
+}
+
+.typer li.typer-pro.is-closeType {
+  width: 1.2rem;
+  float: right;
+}
+
+.typer li.typer-num {
+  width: 31%;
+  /*padding: 0.8rem .1rem;*/
+  background-image: -webkit-linear-gradient(
+    125deg,
+    #147b96,
+    #e6d205 25%,
+    #147b96 50%,
+    #e6d205 75%,
+    #147b96
+  );
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-background-size: 200% 100%;
+  -webkit-animation: masked-animation 4s infinite linear;
+}
+
+.typer li.typer-num.is-A {
+  margin-left: 0.31rem;
+}
+
+.typer li.typer-num.is-OK {
+  width: 0.8rem;
+  margin-left: 0.1rem;
+}
+
+@-webkit-keyframes masked-animation {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+/*pin码提示框*/
+
+.pin-remain {
+  width: 6.3rem;
+  height: 3.3rem;
+  padding: 0.2rem 0.4rem;
+}
+
+.pin-code {
+  height: 2rem;
+  width: 100%;
+}
+
+.pin-code > div {
+}
+
+.pin-code > div > .pin-input {
+  display: block;
+  width: 5.6rem;
+  height: 0.94rem;
+  text-indent: 0.4rem;
+  letter-spacing: 0.77rem;
+  /*text-align: center;*/
+  border: none;
+  outline: none;
+  background: url(../../../static/images/Lovecar/border@2x.png) no-repeat center;
+  background-size: 100%;
+  margin: 0;
+}
+.pin-code > .pin {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+}
+.pin-code > .pin > input:not(:last-child) {
+  border-right: 1px solid #ccc;
+}
+.pin-code > .pin > input {
+  width: 0.93rem;
+  height: 0.94rem;
+  text-align: center;
+  border: none;
+  outline: none;
+}
+.bgMask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  background: #000;
+  z-index: 1000;
+}
 </style>
