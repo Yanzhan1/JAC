@@ -136,21 +136,25 @@ export default {
        this.$http.post(Wit.MainBus, param).then(res => {
           if (res.data.code == 0) {
             var arr = res.data.data;
+           
             for (let i = 0; i < arr.length; i++) {
               if (arr[i].imageRelationVO.length > 0) {
                 for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
                   if (arr[i].imageRelationVO[j].imageType == "4") {
                     arr[i].imgUrl = arr[i].imageRelationVO[j].imageUrl;
-                  } else {
-                    arr[i].imgUrl = "";
-                  }
+
+                   } 
                 }
+                console.log(arr)
+               
               } else {
                 arr[i].imgUrl = "";
               }
             }
             this.mainbus = {};
+             
             this.mainbus = arr;
+            console.log(  this.mainbus)
           }
         });
         // for(let i=0;i<this.good_list.length;i++){
@@ -177,7 +181,7 @@ export default {
     },
     //渲染列表   1
     getcarbus(num) {
-      if (num == 1) {
+    if (num == 1) {
         //等于1 传“” 。 获取全部车型
         this.type = 1;
         this.highlyRecommend = "";
@@ -199,9 +203,7 @@ export default {
               for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
                 if (arr[i].imageRelationVO[j].imageType == "4") {
                   arr[i].imgUrl = arr[i].imageRelationVO[j].imageUrl;
-                } else {
-                  arr[i].imgUrl = "";
-                }
+                } 
               }
             } else {
               arr[i].imgUrl = "";
