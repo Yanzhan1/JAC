@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="tophead" >
-    <!-- <div class="search">
+    <div class="tophead">
+      <!-- <div class="search">
         <input class="ipt" type="text" placeholder="搜索服务">
         <img class="pic" src="../../../static/images/Wit/zhixiang_home_search_service_icon.png" alt=""> 
       </div> -->
@@ -58,10 +58,10 @@
     </div>
     <ul class="bus">
       <li class="bus_li" @click="specil(item)" v-for="(item,index) in this.mainbus" :key="index">
-          <div> 
-            <img :src="item.imgUrl"  alt="">
-          </div>
-       <div class="bus_1">
+        <div>
+          <img :src="item.imgUrl" alt="">
+        </div>
+        <div class="bus_1">
           <span class="bus_2">{{item.seriesName}}</span>
           <span class="bus_3">官方指导价：{{item.guidancePriceStart}}万起</span>
         </div>
@@ -126,10 +126,10 @@ export default {
       mainbus: {}, //主推车型
       sheetVisible: true,
       flag: false,
-      latitude:'',//精度
-      longitude:'',//维度
-      tt:{},
-      allno:[],//储存所有接受到的no
+      latitude: "", //精度
+      longitude: "", //维度
+      tt: {},
+      allno: [] //储存所有接受到的no
     };
   },
   methods: {
@@ -150,32 +150,27 @@ export default {
         .then(action => {
           if (action == "confirm") {
             this.flag = true;
-    
-            if (isMobile.iOS()) {
-             window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
-                var param={
-                 latitude: this.latitude,
-                 longitude:this.longitude,
-                 positionTypeNo:this.$store.state.userId
-               }
-               this.$http.post(Wit.Help,param).then(res=>{
-                 
-               })
-            } else if (isMobile.Android()) {
-               var position=js2android.getLocationInfo()
-               var positions= JSON.parse(position)
-              
-               this.latitude=positions.latitude
-               this.longitude=positions.longitude
-               var param={
-                 latitude: this.latitude,
-                 longitude:this.longitude,
-                 positionTypeNo:this.$store.state.userId
-               }
-               this.$http.post(Wit.Help,param).then(res=>{
-                 
-               })
 
+            if (isMobile.iOS()) {
+              window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
+              var param = {
+                latitude: this.latitude,
+                longitude: this.longitude,
+                positionTypeNo: this.$store.state.userId
+              };
+              this.$http.post(Wit.Help, param).then(res => {});
+            } else if (isMobile.Android()) {
+              var position = js2android.getLocationInfo();
+              var positions = JSON.parse(position);
+
+              this.latitude = positions.latitude;
+              this.longitude = positions.longitude;
+              var param = {
+                latitude: this.latitude,
+                longitude: this.longitude,
+                positionTypeNo: this.$store.state.userId
+              };
+              this.$http.post(Wit.Help, param).then(res => {});
             }
           }
         })
@@ -201,7 +196,7 @@ export default {
         tell = "4008-006633";
       }
       if (isMobile.iOS()) {
-         window.webkit.messageHandlers.call.postMessage(tell);
+        window.webkit.messageHandlers.call.postMessage(tell);
       } else if (isMobile.Android()) {
         js2android.call(tell);
       }
@@ -224,11 +219,11 @@ export default {
     },
     //车系特色， 配置表
     specil(item) {
-      console.log(item)
-      this.$store.dispatch('NONAME',item)
+      console.log(item);
+      this.$store.dispatch("NONAME", item);
       this.$router.push({
-        name:'车系特色',
-        params:{
+        name: "车系特色",
+        params: {
           // everyno:item.no,
           // seriesName:item.seriesName,
         }
@@ -242,42 +237,40 @@ export default {
     know() {
       this.popupVisible = false;
     },
-  getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
-			this.latitude = JSON.parse(locationMes).latitude //精
-				this.longitude = JSON.parse(locationMes).longitude //韦
-			}
+    getIosLocation(locationMes) {
+      //IOS调用,H5获取ios定位信息
+      this.latitude = JSON.parse(locationMes).latitude; //精
+      this.longitude = JSON.parse(locationMes).longitude; //韦
+    }
   },
   created() {
-    	window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用
+    window.getIosLocation = this.getIosLocation; //ios获取定位信息,放到window对象供ios调用
     //获取主推车型，传{}表示全部车型
-    var param = {highlyRecommend :"1"};
+    var param = { highlyRecommend: "1" };
     this.$http.post(Wit.MainBus, param).then(res => {
       if (res.data.code == 0) {
         var arr = res.data.data;
         // console.log(arr)
-         for(var i = 0 ; i < arr.length;i++){
-            // this.allno.push(arr[i].no)
-          if(arr[i].imageRelationVO.length>0){
-           for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
-                    if (arr[i].imageRelationVO[j].imageType == "4") {
-                      arr[i].imgUrl = arr[i].imageRelationVO[0].imageUrl;
-                    }else{
-                        arr[i].imgUrl = "";
-                    }
-                  }
-            this.allno.push(arr[i].no)
-          }else{
+        for (var i = 0; i < arr.length; i++) {
+          if (arr[i].imageRelationVO.length > 0) {
+            for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
+              if (arr[i].imageRelationVO[j].imageType == "4") {
+                arr[i].imgUrl = arr[i].imageRelationVO[j].imageUrl;
+              } else {
+                arr[i].imgUrl = "";
+              }
+            }
+            this.allno.push(arr[i].no);
+          } else {
             arr[i].imgUrl = "";
           }
         }
         // console.log(this.allno)
-         this.mainbus = arr;
-        }
+        this.mainbus = arr;
+      }
     });
   },
-  mounted() {
- 
-  }
+  mounted() {}
 };
 </script>
 <style scoped>
@@ -335,14 +328,14 @@ export default {
   border-radius: 0.2rem;
 }
 .tophead {
-  height:2.58rem;
+  height: 2.58rem;
   background-image: url("../../../static/images/Wit/bg-mine.png");
   width: 100%;
   display: block;
   background-size: content;
   position: fixed;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   overflow: hidden;
 }
 .ipt {
@@ -374,7 +367,7 @@ textarea::-webkit-input-placeholder {
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  margin-top: .6rem;
+  margin-top: 0.6rem;
 }
 .ul_list_1 {
   display: flex;
@@ -386,7 +379,6 @@ textarea::-webkit-input-placeholder {
   display: flex;
   flex-direction: column;
   width: 1.02rem;
-
 }
 .li_list img {
   width: 1.02rem;

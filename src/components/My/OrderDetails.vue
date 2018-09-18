@@ -28,7 +28,7 @@
         <ul style="padding:0 .32rem;border-bottom:.2rem solid #F9F9F9">
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>姓名</span>
-                <span>{{userinfo.userName}}</span>
+                <span>{{userinfo.customerName}}</span>
             </li>
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>称谓</span>

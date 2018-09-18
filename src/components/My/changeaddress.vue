@@ -33,7 +33,7 @@
                 <div class="contentList nickname areas">
                     <span class="contentList-left" style="float:left">选择市</span>
                     <div class="contentList-right" style="float:right">
-                      <input type="text" name="" id="" class="place" @click="choosecitys()"  v-model="this.choosecity">
+                      <span  class="place" @click="choosecitys()"  >{{choosecity}}</span>
                        <img class="pic" src="../../../static/images/my/next@2x.png" />
                     </div>
                 </div>

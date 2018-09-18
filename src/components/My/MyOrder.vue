@@ -27,7 +27,7 @@
                                 <span class="busname">{{item.model}}</span>
                             </div>
                             <div class="flex column tp">
-                                 <span class="bus_right">品牌: {{item.customerName}}</span>
+                                 <span class="bus_right">品牌: {{item.seriesName}}</span>
                                 <span class="bus_right">经销商：{{item.dealerName}}</span>
                                 <span class="bus_right">地址：{{item.address}}</span>
                                 <span class="bus_right">订单编号：{{item.fkDealerId}}</span>
@@ -211,8 +211,14 @@ export default {
             this.Xorder = res.data.data.records;
             for (let i = 0; i < this.Xorder.length; i++) {
               this.Xorder[i].time = operationTime.getTime(this.Xorder[i].createdDate,1);
-              this.Xorder[i].img=this.Xorder[i].imageRelationVO[0].imageUrl
-             if (this.Xorder[i].gender == "1") {
+              for(let j=0;j<this.Xorder[i].imageRelationVO.length;j++){
+                if(this.Xorder[i].imageRelationVO[j].imageType==4){
+                     this.Xorder[i].img=this.Xorder[i].imageRelationVO[j].imageUrl
+                }else{
+                     this.Xorder[i].img=""
+                }
+              }
+           if (this.Xorder[i].gender == "1") {
                 this.Xorder[i].gender = "女";
               } else {
                 this.Xorder[i].gender = "男";
