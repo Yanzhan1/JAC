@@ -11,7 +11,7 @@
         <span class="contentList-left">头像</span>
         <div class="contentList-right">
           <div style="width:.76rem;height:.76rem">
-            <img   id="img" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem">
+            <img   id="img" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem;border-radius:50%">
           </div>
           <div class="inputfile">
             <img src="../../../static/images/my/next@2x.png" style="width: 0.4rem;height: 0.4rem;z-index: 1" />
@@ -211,7 +211,7 @@ export default {
         this.userInfo.personalSignature = res.data.data.personalSignature || "";
         this.userInfo.userName = res.data.data.userName || "";
      
-        document.getElementById('img').src=this.userInfo.headUrl||'../../../static/images/my/qq.png'
+        document.getElementById('img').src=this.userInfo.headUrl||'../../../static/images/discover/normalhead.png'
         
       }
     });
