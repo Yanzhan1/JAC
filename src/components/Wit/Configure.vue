@@ -103,7 +103,7 @@ export default {
     display: flex;
     /* flex: 1; */
     flex-shrink: 0;
-    width: 1.9rem;
+    padding: 0 .2rem;
     justify-content: center;
 }
 .every_img{
