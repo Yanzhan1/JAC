@@ -3,6 +3,7 @@ export default {
     // islogin: true, //判断是否登录 测试用
     //userId: 1165864, //用户userID 正式上线用
     userId: '',
+    trueuserId: '', //原生传过来的userid
     tspId: '',
     uuid: null,
     UserStartId: null,

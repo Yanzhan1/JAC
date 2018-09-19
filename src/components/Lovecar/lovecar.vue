@@ -818,7 +818,10 @@ export default {
       }
     },
     userId(newVal,oldVal){
-        this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
+        this.$http.post(My.My_Bus, {
+          userId:this.$store.state.trueuserId,
+          phone:this.$store.state.mobile
+        }, this.$store.state.getpin).then(res => {
     if (res.data.returnSuccess) {
       // if(res.data==[]){
       //   Toast({
