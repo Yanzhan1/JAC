@@ -47,7 +47,9 @@ export default {
                   var tsp = res.data.data
                   this.$store.dispatch('TSP', tsp)
                   params={
-                    tspUserId:this.$store.state.tspId
+                    tspUserId:this.$store.state.tspId,
+                    userId:this.$store.state.trueuserId,
+                    phone:this.$store.state.mobile,
                   }
                   // console.log(Lovecar.vehicle)
                   // console.log(this.$store.state.tspId)
