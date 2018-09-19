@@ -56,13 +56,13 @@
 			<mt-picker :slots="slots" @change="onValuesChange"></mt-picker>
 		</mt-popup>
 		<!-- 市 -->
-		<mt-popup style="position:absolute;z-index:1000;bottom:-.5rem;width:100%;background:#fff;" v-show="this.showss" position="bottom">
+		<mt-popup style="position:absolute;z-index:1001;bottom:-.5rem;width:100%;background:#fff;" v-show="this.showss" position="bottom">
 			<div style="text-align:center;line-height:.8rem;font-size:.4rem">选择市</div>
 			<div style="text-align: right;color: #49BBFF;margin-right:.2rem;" @click="hideses()">确定</div>
 			<mt-picker :slots="slots1" @change="onValuesChanges"></mt-picker>
 		</mt-popup>
 
-		<div style="height:10rem"></div>
+		<div style="height:7.1rem"></div>
 		<span class="bottom-btn" @click="handleSubmit">保存</span>
 	</div>
 </template>
@@ -204,6 +204,7 @@ export default {
     hides() {
       this.bgcolor = false;
       this.shows = false;
+      this.showss = false;
     },
     hideses() {
       this.bgcolor = false;

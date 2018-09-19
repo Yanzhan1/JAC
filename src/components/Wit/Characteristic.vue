@@ -37,7 +37,7 @@ export default {
             })
         },
         reserve(){
-            this.$router.push({
+            this.$router.replace({
                 name:'车辆预定',
                 params:{
                     levelCode:this.levelCode
