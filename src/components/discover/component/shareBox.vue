@@ -85,13 +85,13 @@
         }else if(this.type=='information'){
           content = waiwangip+'share/informationDetail?id='+(item.manageId?item.manageId:item.id);
           imageURL = item.pictureUrl?item.pictureUrl:item.imgUrl;
-          title = "";
+          title = item.manageTitle || '江淮汽车';
           description = item.title?item.title:item.manageTitle;
           platform = platform;
         }else if(this.type=='activity'){
           content = waiwangip+'share/activityDetail?activityId='+(item.activityId?item.activityId:item.id);
           imageURL = item.imgUrl?item.imgUrl:item.pictureUrl;
-          title = "";
+          title = item.activityTitle || '江淮汽车';
           description = item.activityTitle?item.activityTitle:item.title;
           platform = platform;
         }/*else if(this.type=='question'){
@@ -118,7 +118,6 @@
           default:
             break;
         }
-        title = item.manageTitle
         console.log('类型:'+this.type +"  "+"内容:"+content +"  "+"图片:"+imageURL +"  "+"标题:"+title +"  "+"描述:"+description +"  "+"平台:"+platform)
         if (isMobile.iOS()) {
           var params = {

@@ -1,8 +1,8 @@
-const constants = require('@constants/index.js')
-const { apiHost } = constants
+// const constants = require('@constants/index.js')
+// const { apiHost } = constants
 
-console.log(`执行环境${apiHost}`)
-var indexip = `${apiHost}/api/dk-dm-portal-api`
+// console.log(`执行环境${apiHost}`)
+// var indexip = `${apiHost}/api/dk-dm-portal-api`
 
 var indexip = 'http://test.jac.timanetwork.net/api/dk-dm-portal-api'
     //服务器-智享
