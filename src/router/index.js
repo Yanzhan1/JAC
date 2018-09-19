@@ -553,11 +553,15 @@ router.beforeEach((to, from, next) => {
     try {
 
         if (!$http.defaults.headers.common['timaToken']) {
-            var userInfo;
+            var userInfo, 
+            	mobileStatusBar;
             if (isMobile.iOS()) {
-                userInfo = JSON.parse(getCookie('userInfo'))
+                userInfo = getCookie('userInfo')
+                alert(userInfo)
             } else if (isMobile.Android()) {
                 userInfo = JSON.parse(js2android.getUserInfo())
+                mobileStatusBar = js2android.getStatusBarHeight()
+                $store.dispatch('MOBILESTATUSBAR', mobileStatusBar)
             }
             if (userInfo && userInfo.no) {
                 // alert(JSON.stringify(userInfo))

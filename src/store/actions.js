@@ -29,5 +29,8 @@ export default {
     },
     NONAME: ({ commit, state }, payload) => {
         commit(types.NONAME, payload)
+    },
+    MOBILESTATUSBAR: ({ commit, state }, payload) => {
+        commit(types.MOBILESTATUSBAR, payload)
     }
 }

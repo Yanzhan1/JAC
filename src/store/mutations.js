@@ -65,5 +65,8 @@ export default {
             // alert(JSON.parse(state.getpin.headers.identityParam).userId)
             // alert(25)
 
+    },
+    [types.MOBILESTATUSBAR]: (state, payload) => {
+    	state.mobileStatusBar = payload/4
     }
 }

@@ -8,15 +8,15 @@
     </div>
     <div class="navs navs_h">
       <div class="navs_t">
-        <span class="num">{{this.carcontrol.fuelPercent}}</span>
+        <span class="num">{{carcontrol.fuelPercent}}</span>
         <span class="txt">剩余油量（%）</span>
       </div>
       <div class="navs_t">
-        <span class="num">{{this.carcontrol.totalDistance}}</span>
+        <span class="num">{{carcontrol.totalDistance}}</span>
         <span class="txt">行驶里程（KM）</span>
       </div>
       <div class="navs_t">
-        <span class="num">{{this.carcontrol.mileage}}</span>
+        <span class="num">{{carcontrol.mileage}}</span>
         <span class="txt">续航里程（KM）</span>
       </div>
     </div>
