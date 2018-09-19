@@ -20,7 +20,7 @@
             <router-link to="/info/comments" tag="li" class="flex row cocenter between" style="height:.97rem;border-bottom:.01rem solid #f1f1f1">
                 <div class="flex row cocenter rela">
                     <img src="../../../static/images/my/icon_message_commernt.png" alt="" style="width:.32rem;height:.36rem">
-                    <span style="font-size:.27rem;color:#555;margin-left:.2rem" class="active">评论</span><span class="infos" v-if="allstatus.comment"></span>
+                    <span style="font-size:.27rem;color:#555;margin-left:.2rem" class="active">评论</span><span class="infos" v-if="!allstatus.commentReadFlag"></span>
                 </div>
                 <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
             </router-link>
@@ -28,7 +28,7 @@
             <router-link to="/info/activitys" tag="li" class="flex row cocenter between" style="height:.97rem;border-bottom:.01rem solid #f1f1f1">
                 <div class="flex row cocenter rela">
                     <img src="../../../static/images/my/icon_message_activity.png" alt="" style="width:.32rem;height:.36rem">
-                    <span style="font-size:.27rem;color:#555;margin-left:.2rem">活动</span><span class="infos" v-if="allstatus.activity"></span>
+                    <span style="font-size:.27rem;color:#555;margin-left:.2rem">活动</span><span class="infos" v-if="!allstatus.activityReadFlag"></span>
                 </div>
                 <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
             </router-link>
@@ -54,11 +54,9 @@ export default {
   },
   methods: {
     init(){
-      if (isMobile.iOS()) {
-        window.webkit.messageHandlers.getMsgState.postMessage({});
-      } else if(isMobile.Android()) {
-        js2android.getMsgState();
-      }
+      this.$http.post(IMFORMATION.unRead,{uid:this.$store.state.userId}).then((res)=>{
+          this.allstatus = res.data.data
+      })
     },
     setMsgState(res){
       this.allstatus = res;

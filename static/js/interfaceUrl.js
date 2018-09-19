@@ -176,4 +176,5 @@ window.IMFORMATION = {
     notificationPushDetail: love_car + '/notificationPush/notificationPushDetail', //通知详情
     notificationPushList: love_car + '/notificationPush/notificationPushList', //通知list
     changeReadStatus: love_car + '/notificationPush/changeReadStatus', //通知已读
+    unRead: indexip + '/sendMessageController/unRead', //通知已读
 }

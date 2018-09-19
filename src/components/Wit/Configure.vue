@@ -1,7 +1,8 @@
 <template>
     <div class="all">
         <div class="specil">
-            <router-link to="/wit" tag="div"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem"></router-link>
+            <!-- <router-link to="/wit" tag="div"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem"></router-link> -->
+            <div @click="$router.go(-1)"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem"></div>
             <p class="p1" @click="characteristic">车系特色</p>
             <p class="p2 active" @click="characteristic">配置参数</p>
         </div>

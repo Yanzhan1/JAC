@@ -468,24 +468,24 @@ const router = new Router({
                 component: News
             },
             {
-              path: '/info/information',
-              name: '系统通知',
-              component: Informations
+                path: '/info/information',
+                name: '系统通知',
+                component: Informations
             },
             {
-              path: '/info/info_details',
-              name: 'info_details',
-              component: Info_details
+                path: '/info/info_details',
+                name: 'info_details',
+                component: Info_details
             },
             {
-              path: '/info/activitys',
-              name: '活动',
-              component: Activitys
+                path: '/info/activitys',
+                name: '活动',
+                component: Activitys
             },
             {
-              path: '/info/comments',
-              name: '评论',
-              component: Comments
+                path: '/info/comments',
+                name: '评论',
+                component: Comments
             },
             {
                 path: "/stynew",
@@ -549,15 +549,18 @@ const router = new Router({
 const $http = axios;
 const $store = store
 router.beforeEach((to, from, next) => {
-	
+
     try {
-    	
+
         if (!$http.defaults.headers.common['timaToken']) {
-            var userInfo;
+            var userInfo, 
+            	mobileStatusBar;
             if (isMobile.iOS()) {
                 userInfo = JSON.parse(getCookie('userInfo')) 
             } else if (isMobile.Android()) {
                 userInfo = JSON.parse(js2android.getUserInfo())
+                mobileStatusBar = js2android.getStatusBarHeight()
+                $store.dispatch('MOBILESTATUSBAR', mobileStatusBar)
             }
             if (userInfo && userInfo.no) {
                 // alert(JSON.stringify(userInfo))

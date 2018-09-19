@@ -1,11 +1,11 @@
 <template>
 	<div class="aircondition-control">
-		<header class="header">
+		<header class="header MobileHeight">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
 			<span class="header-title">空调控制</span>
 			<span class="header-right"></span>
 		</header>
-		<div style="height:0.88rem"></div>
+		<div style="height:0.88rem" class="MobileHeight"></div>
 		<div class="air-header">
 			<div class="air-btn">
 				<div>
@@ -216,7 +216,9 @@ export default {
       nums: 2,
       loop: 0, //传给后台循环的index
       compressors: 0, //传给后台的控制压缩机数值
-      operationIds: ""
+      operationIds: "",
+      marginTop: this.$store.state.mobileStatusBar
+
     };
   },
   methods: {
@@ -626,6 +628,9 @@ export default {
     }
   },
   mounted() {
+	$(".MobileHeight").css("marginTop", this.marginTop)
+//	alert(this.marginTop)
+  	//
     clearInterval(this.time);
     this.produCurve();
     this.inputs();

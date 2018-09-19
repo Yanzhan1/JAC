@@ -15,6 +15,7 @@ export default {
     [types.USERINFO]: (state, payload) => {
         // alert(JSON.stringify(payload))
         if (payload) {
+            state.trueuserId = payload.userId
             state.no = payload.no
             state.mobile = payload.mobile
                 // state.vins = payload.vin
@@ -51,6 +52,7 @@ export default {
         state.selectLabelState = payload
     },
     [types.TSP]: (state, payload) => {
+
         var str = JSON.parse(state.tsppin.headers.identityParam)
             // alert(JSON.stringify(payload))
             // alert(typeof payload.token)
@@ -65,5 +67,8 @@ export default {
             // alert(JSON.parse(state.getpin.headers.identityParam).userId)
             // alert(25)
 
+    },
+    [types.MOBILESTATUSBAR]: (state, payload) => {
+    	state.mobileStatusBar = payload/4
     }
 }

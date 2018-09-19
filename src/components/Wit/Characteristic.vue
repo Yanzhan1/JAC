@@ -1,13 +1,14 @@
 <template>
     <div>  
         <div class="specil">
-            <router-link class="header-left" to="/wit" tag="div"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem;"></router-link>
+            <!-- <router-link class="header-left" to="/wit" tag="div"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem;"></router-link> -->
+            <div class="header-left" @click="$router.go(-1)"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem;"></div>
             <p class="active p1">车系特色</p>
             <p class="p2" @click="configure">配置参数</p>
         </div>
         <div class="main">
             <div v-for="(item,index) in this.everyimage" :key="index">
-                <img style="height:100%;width:100%" :src="item" alt="">
+                <img style="width:100%;height:100%" :src="item" alt="">
             </div>
            <h3 class="bottom-btn" @click="reserve">在线订车</h3>
         </div>
