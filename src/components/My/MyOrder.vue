@@ -213,10 +213,9 @@ export default {
               this.Xorder[i].time = operationTime.getTime(this.Xorder[i].createdDate,1);
               if(this.Xorder[i].imageRelationVO.length>0){
                     for( let j=0;j<this.Xorder[i].imageRelationVO.length;j++){
-               if(this.Xorder[i].imageRelationVO[j].imageType==4){
+               if(this.Xorder[i].imageRelationVO[j].imageType=="6"){
+                 
                    this.Xorder[i].img=this.Xorder[i].imageRelationVO[j].imageUrl
-               }else{
-                    this.Xorder[i].img=""
                }
               }
               }else{
