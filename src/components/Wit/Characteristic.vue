@@ -31,13 +31,14 @@ export default {
             this.$router.push({
                 name:'配置参数',
                 params:{
+                    levelCode:this.levelCode
                     // everyno:this.everyno,
                     // seriesName:this.seriesName
                 }
             })
         },
         reserve(){
-            this.$router.replace({
+            this.$router.push({
                 name:'车辆预定',
                 params:{
                     levelCode:this.levelCode
@@ -45,7 +46,8 @@ export default {
             })
         },
         goback(){
-            if(this.$route.params.num==1){
+            // alert(this.$store.state.shownum)
+            if(this.$store.state.shownum==1){
                 this.$router.push('/wit')
             }else{
                 this.$router.push('/wit/recoment_bus')

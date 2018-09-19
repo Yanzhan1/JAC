@@ -90,10 +90,10 @@ export default {
     },
     tode(item) {
      this.$store.dispatch("NONAME", item);
+     this.$store.state.shownum=2
       this.$router.push({
         name: "车系特色",
         params: {
-          num:2
           }
       });
     },
