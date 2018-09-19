@@ -8,8 +8,8 @@
     <div style="height:.88rem"></div>
    
         <ul v-for="(item,index) in mydealer" :key="index" class="flex column " style="padding:.3rem;border-bottom:.1rem solid #f5f5f5">
-          <div class="titles">{{item.seriesName}}</div>
-          <li class="flex column" v-for="(item,index) in item.departmentDeforeAndAfterSales" :key="index">
+          
+          <li class="flex column">
             <p class="mydelar" v-if="item.dealerType=='01'">购车经销商</p>
             <p class="mydelar" v-if="item.dealerType=='02'">维保经销商</p>
             <div class="flex row between" style="border-bottom:1px solid #f1f1f1;padding:.2rem .2rem">
