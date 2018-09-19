@@ -1,122 +1,122 @@
 <template>
-<div style="height:100%;position:fixed;left:0;top:0;width:100%" class="gobottom">
-        <div v-show="region" class="black" @click="choose2"></div> <!-- 遮罩层  -->
-        <div class="bgcolor">
-                <header class="header">
-                <img class="header-left" :src="'./static/images/back@2x.png'" @click="backs">
-                <span class="header-title">车辆预定</span>
-                <span class="header-right"></span>
-                </header>
-                <ul style="margin-top:.88rem">
-                    <li class="all">
-                        <span>预定车型</span>
-                        <div>{{this.$store.state.seriesName}}</div>
-                    </li>
-                    <li @click="regions" class="all">
-                        <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>省</span>
-                        <div class="allflex">
-                            <input type="text" name="" id="" placeholder="点击选择地区" v-model="area" readonly style="text-align:right">
-                            <img src="/static/images/next@2x.png" alt="">
-                        </div>
-                    </li>
-                    <li @click="cityes" class="all">
-                        <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>市</span>
-                        <div class="allflex" >
-                            <input type="text" name="" id="" placeholder="点击选择地区" v-model="city" readonly style="text-align:right">
-                            <img src="/static/images/next@2x.png" alt="">
-                        </div>
-                    </li>
-                    
-                     <li class="all">
-                        <span style="width:2rem"><span style="display:inline-block;font-size:.31rem;color:red">*</span>经销商</span>
-                        <div class="allflex" @click="Distributor">
-                            <span>{{this.Distribution}}</span>
-                            <img src="/static/images/next@2x.png" alt="" >
-                        </div>        
-                    </li>
-                    <!-- <li class="all">
-                        <span>推荐码</span>
-                        <div class="allflex">
-                            <input type="text" name="" id="" placeholder='点击输入推荐码' v-model="Recommend">
-                            <img src="/static/images/next@2x.png" alt="">
-                        </div>
-                    </li> -->
-                    <li class="name all">
-                        <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>姓名</span>
-                        <div class="allflex">
-                            <input placeholder="点击输入姓名" v-model="name">
-                            <img src="/static/images/next@2x.png" alt="">
-                        </div>
-                    </li>
-                    <li class="sixname all">
-                        <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>性别</span>
-                        <div class="specilflex">
-                            <!-- <input type="text" name="" id="" placeholder="点击输入称谓" v-model="smallname">
-                            <img src="/static/images/next@2x.png" alt=""> -->
-                              <input type="radio" name="choosea" value="男" checked @click="choosesex"><span>男</span>
-                              <input type="radio" name="choosea" value="女" @click="choosesex"><span>女</span>
-                        </div>
-                    </li>
-                    <li class="phone all">
-                        <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>手机</span>
-                        <div class="allflex">
-                            <input placeholder="点击输入手机号" v-model="tell">
-                            <img src="/static/images/next@2x.png" alt="">
-                        </div>
-                    </li>
-                    <li class="all">
-                        <span>电子邮箱</span>
-                        <div class="allflex">
-                            <input type="text" name="" id="" placeholder="点击输入邮箱" v-model="email">
-                            <img src="/static/images/next@2x.png" alt="">
-                        </div>
-                    </li>
-                    <li class="all">
-                        <span>地址</span>
-                        <div class="allflex">
-                            <input type="text" name="" id="" placeholder="点击输入地址" v-model="address">
-                            <img src="/static/images/next@2x.png" alt="">
-                        </div>
-                    </li>
-                </ul>
-                <span class='Remarks'>备注说明：</span>
-                <textarea placeholder="输入文本..." v-model="beizhu"></textarea>
-                <div style="height:.88rem"></div>
-            <div class="submit" v-show="success">
-                <img src="/static/images/Wit/gou@2x.png" alt="" style="width:.8rem;height:.8rem;" class="gou">
-                <h3>提交成功</h3>
-                <div class="success_bt">{{this.thanks}}</div>
-                <div style="width:5.68rem;height:.02rem;background:#f1f1f1;margin:.2rem auto;"></div>
-                <div class="look">
-                    <!-- <div class="look_l"></div> -->
-                    <router-link tag="div" to="/myorder" class="look_l"> 查看订单</router-link>
-                    <div style="width:.02rem;height:.6rem;background:#f1f1f1;"></div>
-                    <div class="look_r" @click="complete">完成</div>
-                </div>
-            </div>
+  <div style="height:100%;position:absolute;left:0;top:0;width:100%" class="gobottom">
+          <div v-show="region" class="black" @click="choose2"></div> <!-- 遮罩层  -->
+          <div class="bgcolor">
+                  <header class="header">
+                    <img class="header-left" :src="'./static/images/back@2x.png'" @click="backs">
+                    <span class="header-title">车辆预定</span>
+                    <span class="header-right"></span>
+                  </header>
+                  <ul style="margin-top:.88rem">
+                      <li class="all">
+                          <span>预定车型</span>
+                          <div>{{this.$store.state.seriesName}}</div>
+                      </li>
+                      <li @click="regions" class="all">
+                          <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>省</span>
+                          <div class="allflex">
+                              <input type="text" name="" id="" placeholder="点击选择地区" v-model="area" readonly style="text-align:right">
+                              <img src="/static/images/next@2x.png" alt="">
+                          </div>
+                      </li>
+                      <li @click="cityes" class="all">
+                          <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>市</span>
+                          <div class="allflex" >
+                              <input type="text" name="" id="" placeholder="点击选择地区" v-model="city" readonly style="text-align:right">
+                              <img src="/static/images/next@2x.png" alt="">
+                          </div>
+                      </li>
+                      
+                      <li class="all">
+                          <span style="width:2rem"><span style="display:inline-block;font-size:.31rem;color:red">*</span>经销商</span>
+                          <div class="allflex" @click="Distributor">
+                              <span>{{this.Distribution}}</span>
+                              <img src="/static/images/next@2x.png" alt="" >
+                          </div>        
+                      </li>
+                      <!-- <li class="all">
+                          <span>推荐码</span>
+                          <div class="allflex">
+                              <input type="text" name="" id="" placeholder='点击输入推荐码' v-model="Recommend">
+                              <img src="/static/images/next@2x.png" alt="">
+                          </div>
+                      </li> -->
+                      <li class="name all">
+                          <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>姓名</span>
+                          <div class="allflex">
+                              <input placeholder="点击输入姓名" v-model="name">
+                              <img src="/static/images/next@2x.png" alt="">
+                          </div>
+                      </li>
+                      <li class="sixname all">
+                          <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>性别</span>
+                          <div class="specilflex">
+                              <!-- <input type="text" name="" id="" placeholder="点击输入称谓" v-model="smallname">
+                              <img src="/static/images/next@2x.png" alt=""> -->
+                                <input type="radio" name="choosea" value="男" checked @click="choosesex"><span>男</span>
+                                <input type="radio" name="choosea" value="女" @click="choosesex"><span>女</span>
+                          </div>
+                      </li>
+                      <li class="phone all">
+                          <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>手机</span>
+                          <div class="allflex">
+                              <input placeholder="点击输入手机号" v-model="tell">
+                              <img src="/static/images/next@2x.png" alt="">
+                          </div>
+                      </li>
+                      <li class="all">
+                          <span>电子邮箱</span>
+                          <div class="allflex">
+                              <input type="text" name="" id="" placeholder="点击输入邮箱" v-model="email">
+                              <img src="/static/images/next@2x.png" alt="">
+                          </div>
+                      </li>
+                      <li class="all">
+                          <span>地址</span>
+                          <div class="allflex">
+                              <input type="text" name="" id="" placeholder="点击输入地址" v-model="address">
+                              <img src="/static/images/next@2x.png" alt="">
+                          </div>
+                      </li>
+                  </ul>
+                  <span class='Remarks'>备注说明：</span>
+                  <textarea placeholder="输入文本..." v-model="beizhu"></textarea>
+                  <div style="height:2rem;"></div>
+              <div class="submit" v-show="success">
+                  <img src="/static/images/Wit/gou@2x.png" alt="" style="width:.8rem;height:.8rem;" class="gou">
+                  <h3>提交成功</h3>
+                  <div class="success_bt">{{this.thanks}}</div>
+                  <div style="width:5.68rem;height:.02rem;background:#f1f1f1;margin:.2rem auto;"></div>
+                  <div class="look">
+                      <!-- <div class="look_l"></div> -->
+                      <router-link tag="div" to="/myorder" class="look_l"> 查看订单</router-link>
+                      <div style="width:.02rem;height:.6rem;background:#f1f1f1;"></div>
+                      <div class="look_r" @click="complete">完成</div>
+                  </div>
+              </div>
 
-            </div>
-            <mt-popup class="region" v-show="areas" position="bottom">
-                <h3>选择省</h3>
-                <span @click="choose">确定</span>
-                <mt-picker :slots="slots" @change="onValuesChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
-            </mt-popup>
-            <mt-popup class="region" v-show="citys" position="bottom">
-                <h3>选择市</h3>
-                <span @click="choose">确定</span>
-                <mt-picker :slots="slots3" @change="onValuesChange3" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
-            </mt-popup>
-            <mt-popup class="region" v-show="distributors" position="bottom">
-                <h3>选择经销商</h3>
-                <span @click="choose">确定</span>
-                <mt-picker :slots="slots2" @change="onValuesChange2" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
-            </mt-popup>
-           
-            <div >
-                <h3 @click="sub" class="bottom-btn" style="position:absolute;bottom:0;left:0">提交</h3>
-            </div>
+              </div>
+              <mt-popup class="region" v-show="areas" position="bottom">
+                  <h3>选择省</h3>
+                  <span @click="choose">确定</span>
+                  <mt-picker :slots="slots" @change="onValuesChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
+              </mt-popup>
+              <mt-popup class="region" v-show="citys" position="bottom">
+                  <h3>选择市</h3>
+                  <span @click="choose">确定</span>
+                  <mt-picker :slots="slots3" @change="onValuesChange3" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
+              </mt-popup>
+              <mt-popup class="region" v-show="distributors" position="bottom">
+                  <h3>选择经销商</h3>
+                  <span @click="choose">确定</span>
+                  <mt-picker :slots="slots2" @change="onValuesChange2" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
+              </mt-popup>
+            
+              
+                  <h3 @click="sub" class="bottom-btn" style="position:fixed;bottom:0;left:0">提交</h3>
+              
 
-</div>
+  </div>
 </template>
 
 <script>
@@ -127,7 +127,7 @@ export default {
     return {
       region: false,
       distributors: false,
-      citys:false,
+      citys: false,
       success: false,
       areas: false,
       Distribution: "", //经销商
@@ -137,22 +137,22 @@ export default {
       tell: "", //电话
       email: "", //邮箱
       area: [], //省
-      city:[],//市
+      city: [], //市
       address: "", //地址
       beizhu: "", //备注
-      codecity:'',//市的code
-      chooseaddress:[],
+      codecity: "", //市的code
+      chooseaddress: [],
       Idchooseaddress: [], //返回选择经销商的no
-      myaddress:{},
-      everycode:'',
+      myaddress: {},
+      everycode: "",
       thanks:
         "感谢您对江淮汽车的关注与支持，我们专业的服务员会第一时间与您联系!",
       province: [], //地区省份
-      business:'',//经销商的所有id
+      business: "", //经销商的所有id
       provinceCode: null, //省份code
-      provinceid:'',
-      parentId:[],
-      data:[],
+      provinceid: "",
+      parentId: [],
+      data: [],
       slots: [
         {
           flex: 1,
@@ -196,22 +196,22 @@ export default {
       this.region = true;
       this.areas = true;
     },
-    cityes(){
-      this.citys=true;
-      this.region=true;
+    cityes() {
+      this.citys = true;
+      this.region = true;
     },
     choose() {
       this.region = false;
       this.distributors = false;
       this.areas = false;
-      this.citys=false;
+      this.citys = false;
     },
     choose2() {
       this.region = false;
       this.distributors = false;
       this.areas = false;
       this.success = false;
-      this.citys=false;
+      this.citys = false;
     },
     Distributor() {
       this.distributors = true;
@@ -280,10 +280,10 @@ export default {
         address: this.address, //地址
         comments: this.beizhu, //商家备注
         province: this.provinceid, //省份ID
-        series:this.$route.params.levelCode, //意向车系
-        model: this.$store.state.srouceNo,//意向车型
-        city:this.codecity,//城市ID
-        userNo:this.$store.state.userId,
+        series: this.$route.params.levelCode, //意向车系
+        model: this.$store.state.srouceNo, //意向车型
+        city: this.codecity, //城市ID
+        userNo: this.$store.state.userId
       };
       // alert(JSON.stringify(param));
       this.$http.post(Wit.PreBus, param).then(res => {
@@ -291,92 +291,89 @@ export default {
         if (res.data.code == 0) {
           this.success = true;
           this.region = true;
-        }else{
-           Toast({
-          message: '系统异常，请稍后重试',
-          duration: 1000,
-          position: "middle"
-        });
-        return false;
+        } else {
+          Toast({
+            message: "系统异常，请稍后重试",
+            duration: 1000,
+            position: "middle"
+          });
+          return false;
         }
       });
     },
     //选择性别
-    choosesex(){
-      this.smallname=$('input:radio:checked').val()
+    choosesex() {
+      this.smallname = $("input:radio:checked").val();
       // alert(this.smallname)
     },
-    backs(){
-            this.$router.push({
-                name:'车系特色',
-                params:{
-                    // everyno:this.$route.params.everyno,
-                    // seriesName:this.$route.params.seriesName
-                }
-            })
+    backs() {
+      this.$router.push({
+        name: "车系特色",
+        params: {
+          // everyno:this.$route.params.everyno,
+          // seriesName:this.$route.params.seriesName
+        }
+      });
     },
     //选择省
     onValuesChange(picker, values) {
       this.area = values;
-      for(var i=0;i<this.myaddress.length;i++){
-        if(this.area[0]==this.myaddress[i].name){
-          this.everycode=this.myaddress[i].code
-          this.provinceid=this.myaddress[i].id
+      for (var i = 0; i < this.myaddress.length; i++) {
+        if (this.area[0] == this.myaddress[i].name) {
+          this.everycode = this.myaddress[i].code;
+          this.provinceid = this.myaddress[i].id;
         }
       }
       //选择市
-      var data={
-        parentId:this.provinceid,
-        level:2,
-      }
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
-            this.data = res.data.data.records;
-            this.slots3[0].values=[]
-            console.log(this.data)
-          for(var i=0;i<this.data.length;i++){
-            // alert(JSON.stringify(this.data))
-            this.slots3[0].values.push(this.data[i].name)
-           
-          }
-				})
+      var data = {
+        parentId: this.provinceid,
+        level: 2
+      };
+      this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+        this.data = res.data.data.records;
+        this.slots3[0].values = [];
+        console.log(this.data);
+        for (var i = 0; i < this.data.length; i++) {
+          // alert(JSON.stringify(this.data))
+          this.slots3[0].values.push(this.data[i].name);
+        }
+      });
 
-          //经销商
-    var param = {
-      dealerType: "01",
-      dealerCityCode:this.everycode
-    };
-    this.$http.post(Wit.Dealer, param,this.$store.state.getpin).then(res => {
-      // console.log(res);
-      this.chooseaddress = res.data.data.records;
-        this.slots2[0].values=[]
-      for (var i = 0; i < this.chooseaddress.length; i++) {
-        this.slots2[0].values.push(this.chooseaddress[i].dealerName);
-        this.Idchooseaddress.push(this.chooseaddress[i].no);
-      }
-      // alert(this.slots2[0].values)
-
-    });
+      //经销商
+      var param = {
+        dealerType: "01",
+        dealerCityCode: this.everycode
+      };
+      this.$http.post(Wit.Dealer, param, this.$store.state.getpin).then(res => {
+        // console.log(res);
+        this.chooseaddress = res.data.data.records;
+        this.slots2[0].values = [];
+        for (var i = 0; i < this.chooseaddress.length; i++) {
+          this.slots2[0].values.push(this.chooseaddress[i].dealerName);
+          this.Idchooseaddress.push(this.chooseaddress[i].no);
+        }
+        // alert(this.slots2[0].values)
+      });
     },
     //选择经销商
     onValuesChange2(picker, values) {
       this.Distribution = values[0];
-      for(var i=0;i<this.slots2[0].values.length;i++){
-        if(this.Distribution==this.slots2[0].values[i]){
-          this.business=this.chooseaddress[i].dealerCodeDms
+      for (var i = 0; i < this.slots2[0].values.length; i++) {
+        if (this.Distribution == this.slots2[0].values[i]) {
+          this.business = this.chooseaddress[i].dealerCodeDms;
           // alert(this.business)
         }
       }
     },
     //选择经销市
     onValuesChange3(picker, values) {
-        this.city=values
-        for(var i=0;i<this.data.length;i++){
-          if(this.city==this.data[i].name){
-            this.codecity=this.data[i].id
-          }
+      this.city = values;
+      for (var i = 0; i < this.data.length; i++) {
+        if (this.city == this.data[i].name) {
+          this.codecity = this.data[i].id;
         }
-      
-    },
+      }
+    }
   },
   mounted() {
     // alert(this.$route.params.levelCode)
@@ -384,26 +381,28 @@ export default {
     // alert(this.$route.params.seriesName)
     //地区
     this.$http
-      .post(Wit.searchCountryAreaCodeListPage, {
-        parentId: null,
-        level: 1,
-        size: 100
-      }, this.$store.state.getpin)
+      .post(
+        Wit.searchCountryAreaCodeListPage,
+        {
+          parentId: null,
+          level: 1,
+          size: 100
+        },
+        this.$store.state.getpin
+      )
       .then(res => {
         this.province = res.data.data.records;
-		this.province.forEach((item,index) => {
-      this.slots[0].values.push(this.province[index].name);
-      this.parentId.push(this.province[index].id)
-    });
-    // console.log(this.parentId)
+        this.province.forEach((item, index) => {
+          this.slots[0].values.push(this.province[index].name);
+          this.parentId.push(this.province[index].id);
+        });
+        // console.log(this.parentId)
         this.myaddress = res.data.data.records;
         // console.log(this.myaddress);
         for (let i = 0; i < this.myaddress.length; i++) {
           this.slots[0].values.push(this.myaddress[i].name);
         }
       });
-
-
 
     $(".gobottom").height($(".gobottom").height());
   }
@@ -544,14 +543,14 @@ textarea {
   margin-right: 0.49rem;
   font-size: 0.34rem;
 }
-.specilflex{
+.specilflex {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   flex: 1;
 }
-.specilflex>input{
+.specilflex > input {
   width: 1rem;
-  margin:0 0 .02rem 0;
+  margin: 0 0 0.02rem 0;
 }
 </style>

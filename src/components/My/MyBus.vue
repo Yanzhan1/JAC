@@ -56,7 +56,10 @@ export default {
   methods: {
     //我的车辆
     MyBus() {
-  this.$http.post(My.My_Bus, {}, this.$store.state.getpin).then(res => {
+  this.$http.post(My.My_Bus, {
+     userId:this.$store.state.trueuserId,
+     phone:this.$store.state.mobile
+  }, this.$store.state.getpin).then(res => {
         if (res.data.returnSuccess) {
           this.BusDetails = res.data.data;
           for(let i=0;i< res.data.data.length;i++){

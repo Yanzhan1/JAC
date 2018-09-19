@@ -843,7 +843,7 @@ export default {
         // }
       }
       this.vinn = this.$store.state.vins;
-      console.log(this.vinn)
+      // console.log(this.vinn)
       this.Carquerry();
       // console.log(this.$store.state.mytoken.headers.timaToken);
     }
