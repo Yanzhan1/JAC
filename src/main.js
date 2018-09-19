@@ -4,7 +4,6 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
-import '../static/js/interfaceUrl.js'
 //import '../static/js/IOSAndAndroid.js'
 
 //css 导入

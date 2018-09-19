@@ -60,7 +60,7 @@
       </div>
       <div class="gradientline"></div>
     </div>
-  
+
     <span class="submit" @click="changemessage">保存</span>
 
     <mt-popup v-model="popupVisible" position="middle">
@@ -75,7 +75,7 @@
       </div>
     </mt-popup>
   </div>
- 
+
 </template>
 
 <script>
@@ -95,11 +95,11 @@ export default {
       picpath:'',//文件路径
       picname:'',//文件名名称
       base64:'',
-     
+
     };
   },
   methods: {
-   
+
     init() {},
     //图片更改
     getimgsrc(src) {
@@ -131,14 +131,14 @@ export default {
          prj:'DM',
          remark:'修改头像'
         }
-       self.$http.post('http://test.jac.timanetwork.net/api/dk-filestore-svr/filestore/v1/picture',params).then(res=>{
+       self.$http.post(FILESTORE.uploadPicture,params).then(res=>{
           if(res.data.status==1){
              self.changeInfo.imageUrl=res.data.data.fileUrl+res.data.data.fileNewName
            }
        })
           	}
         }
-        
+
 		},
 		compress(img,w,h){
 			var canvas = document.createElement("canvas");
@@ -205,14 +205,14 @@ export default {
     };
     this.$http.post(My.UserInfo, param).then(res => {
       if (res.data.code == 0) {
-       
+
         this.userInfo = res.data.data;
         this.userInfo.sex = res.data.data.sex || 1;
         this.userInfo.personalSignature = res.data.data.personalSignature || "";
         this.userInfo.userName = res.data.data.userName || "";
-     
+
         document.getElementById('img').src=this.userInfo.headUrl||'../../../static/images/discover/normalhead.png'
-        
+
       }
     });
   }

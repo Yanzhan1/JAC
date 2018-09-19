@@ -70,7 +70,6 @@
         let imageURL = '';
         let title = '';
         let description = '描述';
-        let waiwangip = 'http://test.jac.timanetwork.net/JACH5/#/';
         if(this.type=='now'){
           content = waiwangip+'/now/nowDetail?id='+item.id;
           if(item.momentImgList == null){
