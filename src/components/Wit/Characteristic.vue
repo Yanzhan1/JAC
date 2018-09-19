@@ -2,7 +2,7 @@
     <div>  
         <div class="specil">
             <!-- <router-link class="header-left" to="/wit" tag="div"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem;"></router-link> -->
-            <div class="header-left" @click="$router.go(-1)"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem;"></div>
+            <div class="header-left" @click="goback"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem;"></div>
             <p class="active p1">车系特色</p>
             <p class="p2" @click="configure">配置参数</p>
         </div>
@@ -43,6 +43,13 @@ export default {
                     levelCode:this.levelCode
                 }
             })
+        },
+        goback(){
+            if(this.$route.params.num==1){
+                this.$router.push('/wit')
+            }else{
+                this.$router.push('/wit/recoment_bus')
+            }
         }
     },
     mounted(){

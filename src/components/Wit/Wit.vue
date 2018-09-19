@@ -224,6 +224,7 @@ export default {
       this.$router.push({
         name: "车系特色",
         params: {
+          num:1
           // everyno:item.no,
           // seriesName:item.seriesName,
         }
