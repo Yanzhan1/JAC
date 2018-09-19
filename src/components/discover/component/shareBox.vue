@@ -16,7 +16,7 @@
           <span style="color: #222222;">QQ</span>
         </div>
         <div class="shareBox">
-          <img src="../../../../static/images/discover/qqkongjian.png" class="shareIcon" @click="toShare(item,'QZONE ')"/>
+          <img src="../../../../static/images/discover/qqkongjian.png" class="shareIcon" @click="toShare(item,'QZONE')"/>
           <span style="color: #222222;">QQ空间</span>
         </div>
       </div>
