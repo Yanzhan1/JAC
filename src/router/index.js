@@ -556,8 +556,8 @@ router.beforeEach((to, from, next) => {
             var userInfo, 
             	mobileStatusBar;
             if (isMobile.iOS()) {
-                userInfo = getCookie('userInfo')
-                alert(userInfo)
+                userInfo = JSON.parse(getCookie('userInfo')) 
+                alert(JSON.stringify(userInfo))
             } else if (isMobile.Android()) {
                 userInfo = JSON.parse(js2android.getUserInfo())
                 mobileStatusBar = js2android.getStatusBarHeight()
