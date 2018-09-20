@@ -86,7 +86,7 @@
 		</div>
 		<p id="showAll2" style="visibility: hidden">已加载全部</p>
 		<!--没有数据时,对用户进行提示-->
-		<div class="dataInfo" v-if="mainbus.length == 0" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);font-size: 0.34rem;color: #555555;">
+		<div class="dataInfo" v-if="flag" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);font-size: 0.34rem;color: #555555;">
 			没有符合该条件的经销商
 		</div>
 
@@ -143,7 +143,7 @@
 				latitude: null, //维度
 				longitude: null, //经度,
 				provinceCode: null, //   省份coed
-
+                flag:false
 			};
 		},
 		components: {
@@ -206,7 +206,9 @@
 						this.current = 1, //当前页码
 							this.loading = false, //加载完数据可以无线滚动
 							this.mainbus = data.data.records
-
+                             if(this.mainbus.length==0){
+                               this.flag=true
+						}
 						if(data.data.total <= this.size) { //如果总条数小于等于请求的数据条数,不在请求加载更多
 							this.loadEnd = true;
 						}
@@ -354,6 +356,9 @@
 					if(res.data.code == 0) {
 						this.mainbus = []
 						this.mainbus = res.data.data.records
+						if(this.mainbus.length==0){
+                            this.flag=true
+						}
 					}
 				})
 			},

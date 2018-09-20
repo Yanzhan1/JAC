@@ -2,7 +2,7 @@
     <div class="all">
         <div class="specil">
             <!-- <router-link to="/wit" tag="div"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem"></router-link> -->
-            <div @click="$router.go(-1)"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem"></div>
+            <div @click="goback"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem"></div>
             <p class="p1" @click="characteristic">车系特色</p>
             <p class="p2 active" @click="characteristic">配置参数</p>
         </div>
@@ -17,7 +17,7 @@
             <!-- <img src="./../../../static/images/Wit/170598437859803375.jpg" alt="">
             <img src="./../../../static/images/Wit/25470446938143313.jpg" alt=""> -->
         </div>
-        <!-- <div class="bottom-btn" @click="reserve">在线订车</div> -->
+        <div class="bottom-btn" @click="reserve">在线订车</div>
     </div>
 </template>
 
@@ -44,10 +44,18 @@ export default {
                 }
             })
         },
+        goback(){
+           if(this.$store.state.shownum==1){
+               this.$router.push('/wit')
+           }else{
+               this.$router.push('/wit/recoment_bus')
+           }
+        },
         reserve(){
             this.$router.push({
                 name:'车辆预定',
                 params:{
+                    levelCode:this.$route.params.levelCode
                     // everyno:this.everyno,
                     // seriesName:this.seriesName
                 }
@@ -95,7 +103,7 @@ export default {
     display: flex;
     /* flex: 1; */
     flex-shrink: 0;
-    width: 1.9rem;
+    padding: 0 .2rem;
     justify-content: center;
 }
 .every_img{

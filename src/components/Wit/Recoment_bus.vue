@@ -1,7 +1,7 @@
 <template>
   <div>
     <header class="header">
-      <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+      <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.push('/wit')">
       <div id="tip">
         <span class="header-title" :class="type==1?'active':''" style="margin-right:.2rem" @click="getcarbus(1)">全部车型</span>
         <span class="header-title" :class="type==2?'active':''" @click="getcarbus(2)">主推车型</span>
@@ -90,6 +90,7 @@ export default {
     },
     tode(item) {
      this.$store.dispatch("NONAME", item);
+     this.$store.state.shownum=2
       this.$router.push({
         name: "车系特色",
         params: {

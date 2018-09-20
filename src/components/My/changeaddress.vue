@@ -1,7 +1,7 @@
 <template>
 
 
-    <div>
+    <div style="height:100%;position:fixed;left:0;top:0;width:100%">
       <div v-show="bgcolor" class="bgcolor" @click="hidess"></div>
         <header class="header">
             <img class="header-left" src="../../../static/images/back@2x.png" @click="$route.meta.keepAlive = false;$router.go(-1)">
@@ -63,7 +63,7 @@
           <div style="text-align: right;color: #49BBFF;margin-right:.2rem;" @click="hideses()">确定</div>
           <mt-picker :slots="slots1" @change="onValuesChanges" ></mt-picker>
         </div>
-       
+        <!-- <div style="height:7.1rem"></div> -->
         <span class="bottom-btn" @click="handleSubmit">保存</span>
     </div>
 </template>
@@ -204,6 +204,18 @@ export default {
     hides() {
       this.bgcolor = false;
       this.shows = false;
+        let data = {
+          parentId: this.everyid, //被检测的省份id 
+          level: 2
+        }
+      this.$http.post(Wit.searchCountryAreaCodeListPage,data).then((res)=>{
+      var city=res.data.data.records
+      this.cityList=city
+        this.slots1[0].values=[]
+        for (var i = 0; i < this.allarea.length; i++) {
+            this.slots1[0].values.push(city[i].name);
+          }
+      })     
     },
     hideses() {
       this.bgcolor = false;
@@ -217,29 +229,18 @@ export default {
     onValuesChange(picker, values) {
       if (values == '北京市') {
           this.choosedarea = this.$route.params.provinceName
-          // this.provinceCode=this.$route.params.provinceCode
-       } else {
+        } else {
         this.choosedarea = values[0]
         for (var i = 0; i < this.allarea.length; i++) {
         if (this.choosedarea == this.allarea[i].name) {
           this.provinceName = this.allarea[i].name;
           this.everycode = this.allarea[i].code;
           this.everyid=this.allarea[i].id;
+
         }
       }
       }
-      let data = {
-          parentId: this.everyid, //被检测的省份id 
-          level: 2
-        }
-      this.$http.post(Wit.searchCountryAreaCodeListPage,data).then((res)=>{
-      var city=res.data.data.records
-      this.cityList=city
-        this.slots1[0].values=[]
-        for (var i = 0; i < this.allarea.length; i++) {
-            this.slots1[0].values.push(city[i].name);
-          }
-      })      
+     
     },
       onValuesChanges(picker,values){
         if(values == '市辖区'){

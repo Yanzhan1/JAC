@@ -221,9 +221,11 @@ export default {
     specil(item) {
       console.log(item);
       this.$store.dispatch("NONAME", item);
+      this.$store.state.shownum=1
       this.$router.push({
         name: "车系特色",
         params: {
+          // num:1
           // everyno:item.no,
           // seriesName:item.seriesName,
         }

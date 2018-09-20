@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="height:100%;position:fixed;left:0;top:0;width:100%" class="gobottom">
 		<div v-show="bgcolor" class="bgcolor" @click="hidess"></div>
 		<header class="header">
 			<img class="header-left" src="../../../static/images/back@2x.png" @click="$route.meta.keepAlive = false;$router.go(-1)">
@@ -56,13 +56,13 @@
 			<mt-picker :slots="slots" @change="onValuesChange"></mt-picker>
 		</mt-popup>
 		<!-- 市 -->
-		<mt-popup style="position:absolute;z-index:1000;bottom:-.5rem;width:100%;background:#fff;" v-show="this.showss" position="bottom">
+		<mt-popup style="position:absolute;z-index:1001;bottom:-.5rem;width:100%;background:#fff;" v-show="this.showss" position="bottom">
 			<div style="text-align:center;line-height:.8rem;font-size:.4rem">选择市</div>
 			<div style="text-align: right;color: #49BBFF;margin-right:.2rem;" @click="hideses()">确定</div>
 			<mt-picker :slots="slots1" @change="onValuesChanges"></mt-picker>
 		</mt-popup>
 
-		<div style="height:10rem"></div>
+		<!-- <div style="height:7.1rem"></div> -->
 		<span class="bottom-btn" @click="handleSubmit">保存</span>
 	</div>
 </template>
@@ -93,8 +93,8 @@ export default {
       address: "",
       options: [],
 	  no:'',
-      cityList: [], //城市列表
-      cityCode: null, //城市code
+      cityList: [''], //城市列表
+      cityCode: 110100000000, //城市code
       slots: [
         {
           flex: 1,
@@ -106,7 +106,7 @@ export default {
       slots1: [
         {
           flex: 1,
-          values: [],
+          values: ['市辖区'],
           className: "slots",
           textAlign: "center"
         }
@@ -204,6 +204,18 @@ export default {
     hides() {
       this.bgcolor = false;
       this.shows = false;
+      this.showss = false;
+      let data = {
+        parentId:this.everyid, //被检测的省份id
+        level: 2
+      };
+      this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+        this.city = res.data.data.records; //获取的城市列表
+        this.slots1[0].values = []; //清除上一次选择的城市列表
+        for (var i = 0; i < this.allarea.length; i++) {
+          this.slots1[0].values.push(this.city[i].name);
+        }
+      });
     },
     hideses() {
       this.bgcolor = false;
@@ -222,17 +234,17 @@ export default {
           this.everyid = this.allarea[i].id;
         }
       }
-      let data = {
-        parentId: this.everyid, //被检测的省份id
-        level: 2
-      };
-      this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
-        this.city = res.data.data.records; //获取的城市列表
-        this.slots1[0].values = []; //清除上一次选择的城市列表
-        for (var i = 0; i < this.allarea.length; i++) {
-          this.slots1[0].values.push(this.city[i].name);
-        }
-      });
+      // let data = {
+      //   parentId: this.everyid, //被检测的省份id
+      //   level: 2
+      // };
+      // this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+      //   this.city = res.data.data.records; //获取的城市列表
+      //   this.slots1[0].values = []; //清除上一次选择的城市列表
+      //   for (var i = 0; i < this.allarea.length; i++) {
+      //     this.slots1[0].values.push(this.city[i].name);
+      //   }
+      // });
     },
     onValuesChanges(picker, values) {
       this.choosecity = values[0];

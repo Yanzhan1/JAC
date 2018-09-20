@@ -37,7 +37,7 @@
                         </div>
                         <div class="flex row between bt">
                             <span></span>
-                            <span class="cancel" @click="confirmRevise()">取消订单</span>
+                            <!-- <span class="cancel" @click="confirmRevise()">取消订单</span> -->
                         </div>
                     </li>
                 </ul>
@@ -168,28 +168,28 @@ export default {
     toDetauls(item) {
       this.$router.push({ path: "/orderdetails", query: item });
     },
-    confirmRevise() {
-      MessageBox.confirm("", {
-        title: "提示",
-        message: "您确定要取消吗？",
-        showConfirmButton: true,
-        showCancelButton: true,
-        cancelButtonClass: "cancelButton",
-        confirmButtonClass: "confirmButton",
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        confirmButtonHighlight: true,
-        cancelButtonHighlight: true
-      })
-        .then(action => {
-          if (action == "confirm") {
-          }
-        })
-        .catch(err => {
-          if (err == "cancel") {
-          }
-        });
-    },
+    // confirmRevise() {
+    //   MessageBox.confirm("", {
+    //     title: "提示",
+    //     message: "您确定要取消吗？",
+    //     showConfirmButton: true,
+    //     showCancelButton: true,
+    //     cancelButtonClass: "cancelButton",
+    //     confirmButtonClass: "confirmButton",
+    //     confirmButtonText: "确定",
+    //     cancelButtonText: "取消",
+    //     confirmButtonHighlight: true,
+    //     cancelButtonHighlight: true
+    //   })
+    //     .then(action => {
+    //       if (action == "confirm") {
+    //       }
+    //     })
+    //     .catch(err => {
+    //       if (err == "cancel") {
+    //       }
+    //     });
+    // },
     wul() {
       this.$router.push("/mywl");
     },
@@ -213,10 +213,9 @@ export default {
               this.Xorder[i].time = operationTime.getTime(this.Xorder[i].createdDate,1);
               if(this.Xorder[i].imageRelationVO.length>0){
                     for( let j=0;j<this.Xorder[i].imageRelationVO.length;j++){
-               if(this.Xorder[i].imageRelationVO[j].imageType==4){
+               if(this.Xorder[i].imageRelationVO[j].imageType=="6"){
+                 
                    this.Xorder[i].img=this.Xorder[i].imageRelationVO[j].imageUrl
-               }else{
-                    this.Xorder[i].img=""
                }
               }
               }else{

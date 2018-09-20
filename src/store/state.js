@@ -34,5 +34,6 @@ export default {
     vins: '', //车辆的pin码暂时用，登入后拿到放这里
     loadingflag: false, //loading动画状态
     selectLabelState: null, //选择的频道
-    mobileStatusBar: '' //手机适配,原生提供状态栏高度
+    mobileStatusBar: '', //手机适配,原生提供状态栏高度
+    shownum: '', //车系特色判断返回的路由
 }
