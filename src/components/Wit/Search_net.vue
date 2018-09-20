@@ -661,7 +661,7 @@
 		border-top: 1px solid #e3e3e3;
 		border-bottom: 1px solid #e3e3e3;
 		border-radius: 0.1rem;
-		height: 5rem;
+		height: 3.5rem;
 		overflow-y: scroll;
 		z-index: 5;
 	}
