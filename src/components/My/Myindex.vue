@@ -109,7 +109,7 @@
           <span>设置</span>
         </div>
         <div style="display: flex;align-items: center;">
-          <span>2.3</span>
+          <span>2.4</span>
           <img src="../../../static/images/my/next@2x.png" alt="">
         </div>
       </router-link>
@@ -386,6 +386,7 @@ export default {
 
 .mytopicon {
   height: 0.88rem;
+   /* margin-top:.3rem */
 }
 
 .mytopicon > img {
