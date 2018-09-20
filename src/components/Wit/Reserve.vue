@@ -15,14 +15,14 @@
                       <li @click="regions" class="all">
                           <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>省</span>
                           <div class="allflex">
-                              <input type="text" name="" id="" placeholder="点击选择地区" v-model="area" readonly style="text-align:right">
+                              <input type="text" name="" id="" v-model="area" readonly style="text-align:right">
                               <img src="/static/images/next@2x.png" alt="">
                           </div>
                       </li>
                       <li @click="cityes" class="all">
                           <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>市</span>
                           <div class="allflex" >
-                              <input type="text" name="" id="" placeholder="点击选择地区" v-model="city" readonly style="text-align:right">
+                              <input type="text" name="" id="" v-model="city" readonly style="text-align:right">
                               <img src="/static/images/next@2x.png" alt="">
                           </div>
                       </li>
@@ -111,8 +111,6 @@
                   <span @click="choose">确定</span>
                   <mt-picker :slots="slots2" @change="onValuesChange2" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
               </mt-popup>
-            
-              
                   <h3 @click="sub" class="bottom-btn" style="position:fixed;bottom:0;left:0">提交</h3>
               
 
@@ -342,7 +340,8 @@ export default {
       //经销商
       var param = {
         dealerType: "01",
-        dealerCityCode: this.everycode
+        dealerCityCode: this.everycode,
+        vehicleSeridesNo:this.$store.state.everyno
       };
       this.$http.post(Wit.Dealer, param, this.$store.state.getpin).then(res => {
         // console.log(res);
@@ -478,7 +477,7 @@ textarea {
 }
 .region {
   position: absolute;
-  bottom: -1.4rem;
+  bottom: -1rem;
   width: 100%;
   height: 6rem;
   color: #222;

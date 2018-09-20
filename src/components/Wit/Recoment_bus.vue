@@ -21,27 +21,8 @@
       </li>
     </ul>
     <mt-popup v-model="popupVisible" position="middle">
-      <!-- type=1代表全部  type=2代表主推 -->
-      <div v-if="this.type==1">
-        <div style="width:100%;text-align:center;line-height:.88rem;font-size:.36rem;color:#555555;border-bottom:1px solid #f1f1f1">
-          切换频道
-        </div>
-        <div class="flex row cocenter roe">
-          <label><input type="radio" v-model="genders" :value="null" /></label>
-          <span class="txt" style="margin-left:.1rem">全选</span>
-        </div>
-        <ul class="flex row wrap between">
-          <li class="flex row cocenter list_li" v-for="(item,index) in good_list" :key="index">
-            <label><input type="radio" v-model="genders" :value="item.no" /></label>
-            <span class="txt" style="margin-left:.1rem">{{item.brandName}}</span>
-          </li>
-        </ul>
-        <div class="fot">
-          <p class="pp" style="" @click="fn(1)">取消</p>
-          <p class="sure" style="" @click="fn(2)">确定</p>
-        </div>
-      </div>
-       <div v-else>
+     
+       <div >
         <div style="width:100%;text-align:center;line-height:.88rem;font-size:.36rem;color:#555555;border-bottom:1px solid #f1f1f1">
           切换频道
         </div>
@@ -77,12 +58,10 @@ export default {
       choosebus: {}, //选择频道
       arr: [],
       gender: "", //主推车型 选中的No
-      genders:'', //全部车型 选中的No
-      genders:null,//全部车型全选默认选中
       good_list: [],
-      gender: null, //主推车型全选默认选中，
+      gender: this.$store.state.busNo, //主推车型全选默认选中，
       no:''
-    };
+     };
   },
   methods: {
     shai() {
@@ -97,42 +76,22 @@ export default {
           }
       });
     },
-
-    // select_one(index) {
-    //   if (this.good_list[index].is_selected == true) {
-    //     this.good_list[index].is_selected = false;
-    //   } else {
-    //     this.good_list[index].is_selected = true;
-    //   }
-    // },
-    // slect_all() {
-    //   if (this.selected_all) {
-    //     for (var i = 0; i < this.good_list.length; i++) {
-    //       this.good_list[i].is_selected = false;
-    //     }
-    //     this.selected_all = false;
-    //   } else {
-    //     for (var i = 0; i < this.good_list.length; i++) {
-    //       this.good_list[i].is_selected = true;
-    //     }
-    //     this.selected_all = true;
-    //   }
-    // },
-    //切换频道
+//切换频道
     fn(num) {
       if (num == 2) {
-       
-        var arr = this.arr;
+       var arr = this.arr;
        if(this.type==1){
           var param = {
           highlyRecommend: this.highlyRecommend,
-          no: this.genders //全部车型
-        };   
+          no: this.gender ,//全部车型
+          };   
+          this.$store.state.busNo=this.gender
        }else{
           var param = {
           highlyRecommend: this.highlyRecommend,
           no: this.gender//主推车型
         };   
+        this.$store.state.busNo=this.gender
        }
        this.$http.post(Wit.MainBus, param).then(res => {
           if (res.data.code == 0) {
@@ -146,35 +105,16 @@ export default {
 
                    } 
                 }
-                console.log(arr)
-               
-              } else {
+             } else {
                 arr[i].imgUrl = "";
               }
             }
             this.mainbus = {};
              
             this.mainbus = arr;
-            console.log(  this.mainbus)
           }
         });
-        // for(let i=0;i<this.good_list.length;i++){
-        //   if(this.good_list[i].is_selected){
-        //     this.arr.push(this.good_list[i].no)
-        //     var arr=this.arr
-        //     var param = {
-        //       'highlyRecommend': this.highlyRecommend,
-        //        nos:arr
-        //      };
-        //     this.$http.post(Wit.MainBus,param).then(res=>{
-        //     if (res.data.code == 0){
-        //       this.arr=[]
-        //       this.mainbus={},
-        //       this.mainbus=res.data.data
-        //     }
-        //     })
-        //   }
-        // }
+      
       } else {
          this.popupVisible = false;
       }
@@ -186,7 +126,7 @@ export default {
         //等于1 传“” 。 获取全部车型
         this.type = 1;
         this.highlyRecommend = "";
-        this.no=this.genders
+        this.no=this.gender
       } else {
         this.type = 2; //等于2 传“1” 。 获取主推车型
         this.highlyRecommend = "1";
@@ -204,11 +144,9 @@ export default {
               for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
                 if (arr[i].imageRelationVO[j].isDefault == 1) {
                   arr[i].imgUrl = arr[i].imageRelationVO[j].imageUrl;
-                  console.log(arr[i].imgUrl)
-                } 
+                  } 
                }
-              console.log(arr)
-            } else {
+             } else {
               arr[i].imgUrl = "";
             }
           }
@@ -235,6 +173,10 @@ export default {
     //获取全部车型，主推车型
     this.getcarbus();
     this.choosemore();
+   
+  },
+  mounted(){
+     
   }
 };
 </script>
