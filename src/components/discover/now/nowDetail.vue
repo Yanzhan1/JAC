@@ -115,7 +115,7 @@
                       <span v-if="index!=0 && back.beCommentUser" @click="changeUserStartId(back.beCommentUser.user_id)">
                         &nbsp;&nbsp;回复&nbsp;&nbsp;
                         <span v-if="back.beCommentUser.nick_name">{{back.beCommentUser.nick_name}}</span>
-                        <span>尚未设置昵称:</span><br>
+                        <span v-else>尚未设置昵称:</span><br>
                       </span>
                     </span>
                 <span class="font_2" @click="commentbtnBack(item.id,back.id)">{{back.message}}</span>
@@ -140,7 +140,7 @@
   <!--<DiscCommentBox ref="commentbox"></DiscCommentBox>-->
   <div id="commentBg" @click="closeComment" />
   <div class="flex contentcenter myInput" id="myInput">
-    <input autofocus="autofocus" ref="commentfocus" id="comment" type="text" v-model="commentMsg" @click="commentbtn" placeholder="写评论..."/>
+    <input ref="commentfocus" id="comment" type="text" v-model="commentMsg" @click="commentbtn" placeholder="写评论..."/>
     <span class="send" @click="comment">发送</span>
   </div>
   <!--评论输入框E-->
