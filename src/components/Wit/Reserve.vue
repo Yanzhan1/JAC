@@ -343,7 +343,7 @@ export default {
       var param = {
         dealerType: "01",
         dealerCityCode: this.everycode,
-        
+        vehicleSeridesNo:this.$store.state.everyno
       };
       this.$http.post(Wit.Dealer, param, this.$store.state.getpin).then(res => {
         // console.log(res);
