@@ -80,17 +80,18 @@ export default {
       name: "",
       num: "",
       isShow: false,
-      everyid:'',
-      i:'',
+      everyid: "",
+      i: "",
+      isChange: false, //检测是change事件是否第一次触发
       Originaladdress: {},
       provinceNo: "", //返回给后端的code
       provinceName: "", //返回给后端的name
       everycode: this.$route.params.provinceCode, //返回给后台的地区code
       allarea: [], //所有的地区
-      	// city: [],
-        cityCode :this.$route.params.cityCode,
+      // city: [],
+      cityCode: this.$route.params.cityCode,
       choosedarea: "", //被选择的地区
-      choosecity:'',//被选择的城市
+      choosecity: "", //被选择的城市
       ishide: false, //控制城市的显示
       nowindex: 0, //默认显示上海
       provinceId: "100000",
@@ -102,13 +103,14 @@ export default {
           flex: 1,
           values: [],
           className: "slot1",
-          textAlign: "center"
+          textAlign: "center",
+          defaultIndex: 2
         }
       ],
       slots1: [
         {
           flex: 1,
-          values: [],
+          values: ["市辖区"],
           className: "slot1",
           textAlign: "center"
         }
@@ -116,6 +118,8 @@ export default {
     };
   },
   mounted() {
+    // alert(this.$route.params.provinceName)
+    // this.choosedarea = this.$route.params.provinceName
     this.info = this.$route.query;
     this.Originaladdress = this.$route.params;
     // alert(JSON.stringify(this.Originaladdress))
@@ -124,19 +128,23 @@ export default {
     this.address = this.Originaladdress.address;
     this.choosedarea = this.Originaladdress.provinceName;
     this.no = this.Originaladdress.no;
-     this.$http.post(My.Area, {size:1000,parentId: null,level: 1}).then(res => {
-      this.allarea = res.data.data.records;
-      this.slots[0].values=[]
-       for (var i = 0; i < this.allarea.length; i++) {
-        this.slots[0].values.push(this.allarea[i].name);
-      }
-    
-    });
-
+    this.$http
+      .post(My.Area, { size: 1000, parentId: null, level: 1 })
+      .then(res => {
+        this.allarea = res.data.data.records;
+        this.slots[0].values = [];
+        for (var i = 0; i < this.allarea.length; i++) {
+          this.slots[0].values.push(this.allarea[i].name);
+        }
+      });
+  },
+  created() {
+    this.choosedarea = this.$route.params.provinceName;
+    this.choosecity = this.$route.params.cityName;
+    this.cityCode = this.$route.params.cityCode;
   },
   methods: {
     async handleSubmit() {
-      
       var self = this;
       var flag = 0;
       if (!self.selected) flag = 1;
@@ -159,7 +167,7 @@ export default {
         });
         return false;
       }
-       var address = this.address.trim();
+      var address = this.address.trim();
       if (address == "") {
         Toast({
           message: "收货地址不能为空",
@@ -176,46 +184,42 @@ export default {
         isDefalut: flag, //是否选定为默认2为选择默认
         provinceCode: this.everycode, //所在地区的code
         provinceName: this.provinceName, //所在的地区的名字
-        address:  this.$refs.text.value,
-      	cityCode: this.cityCode, //城市code
+        address: this.$refs.text.value,
+        cityCode: this.cityCode //城市code
       };
-    
-      await this.$http
-        .post(My.ChangeAddress, param)
-        .then(res => {
-          if (res.data.code == 0) {
-            this.$router.go(-1);
-          }
-        });
-      if(flag==1){
-      this.$http
-        .post(My.Defaultaddress, param)
-        .then(res => {});
+
+      await this.$http.post(My.ChangeAddress, param).then(res => {
+        if (res.data.code == 0) {
+          this.$router.go(-1);
+        }
+      });
+      if (flag == 1) {
+        this.$http.post(My.Defaultaddress, param).then(res => {});
       }
-      },
+    },
     choosearea() {
       this.shows = true;
       this.bgcolor = true;
     },
-    choosecitys(){
+    choosecitys() {
       this.showss = true;
       this.bgcolor = true;
     },
     hides() {
       this.bgcolor = false;
       this.shows = false;
-        let data = {
-          parentId: this.everyid, //被检测的省份id 
-          level: 2
-        }
-      this.$http.post(Wit.searchCountryAreaCodeListPage,data).then((res)=>{
-      var city=res.data.data.records
-      this.cityList=city
-        this.slots1[0].values=[]
-        for (var i = 0; i < this.allarea.length; i++) {
-            this.slots1[0].values.push(city[i].name);
-          }
-      })     
+      let data = {
+        parentId: this.everyid, //被检测的省份id
+        level: 2
+      };
+      this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+        var city = res.data.data.records;
+        this.cityList = city;
+        this.slots1[0].values = [];
+        for (var i = 0; i < city.length; i++) {
+          this.slots1[0].values.push(city[i].name);
+        }
+      });
     },
     hideses() {
       this.bgcolor = false;
@@ -224,39 +228,37 @@ export default {
     hidess() {
       this.bgcolor = false;
       this.shows = false;
-      this.showss=false;
+      this.showss = false;
     },
     onValuesChange(picker, values) {
-      if (values == '北京市') {
-          this.choosedarea = this.$route.params.provinceName
-        } else {
-        this.choosedarea = values[0]
-        for (var i = 0; i < this.allarea.length; i++) {
-        if (this.choosedarea == this.allarea[i].name) {
-          this.provinceName = this.allarea[i].name;
-          this.everycode = this.allarea[i].code;
-          this.everyid=this.allarea[i].id;
-
+      var vlus = values[0];
+      if (vlus) {
+        if (this.isChange) {
+          this.choosedarea = values[0];
+          for (var i = 0; i < this.allarea.length; i++) {
+            if (this.choosedarea == this.allarea[i].name) {
+              this.provinceName = this.allarea[i].name;
+              this.everycode = this.allarea[i].code;
+              this.everyid = this.allarea[i].id;
+            }
+          }
         }
+        this.isChange = true;
       }
-      }
-     
     },
-      onValuesChanges(picker,values){
-        if(values == '市辖区'){
-            this.choosecity=this.$route.params.cityName
-            // this.cityCode=this.$route.params.cityCode
-            // alert( this.cityCode)
-        }else{
-            this.choosecity=values[0]
-      this.cityList.forEach((item, index) => {
-					if(item.name == this.choosecity) {
-						this.cityCode = item.code //获取城市code
-					}
-				})
+    onValuesChanges(picker, values) {
+      if (this.choosecity) {
+        if (this.isChange) {
+          this.choosecity = values[0];
+          this.cityList.forEach((item, index) => {
+            if (item.name == this.choosecity) {
+              this.cityCode = item.code; //获取城市code
+            }
+          });
         }
-     
-    } 
+      }
+
+    }
   }
 };
 </script>

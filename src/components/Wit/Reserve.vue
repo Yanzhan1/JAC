@@ -283,7 +283,7 @@ export default {
         series: this.$route.params.levelCode, //意向车系
         model: this.$store.state.srouceNo, //意向车型
         city: this.codecity, //城市ID
-        userNo: this.$store.state.userId
+        userNo: this.$store.state.userId,
       };
       // alert(JSON.stringify(param));
       this.$http.post(Wit.PreBus, param).then(res => {
@@ -342,7 +342,8 @@ export default {
       //经销商
       var param = {
         dealerType: "01",
-        dealerCityCode: this.everycode
+        dealerCityCode: this.everycode,
+        
       };
       this.$http.post(Wit.Dealer, param, this.$store.state.getpin).then(res => {
         // console.log(res);
