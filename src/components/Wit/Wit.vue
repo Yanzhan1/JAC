@@ -248,7 +248,9 @@ export default {
   created() {
     window.getIosLocation = this.getIosLocation; //ios获取定位信息,放到window对象供ios调用
     //获取主推车型，传{}表示全部车型
-    var param = { highlyRecommend: "1" };
+    var param = {
+       highlyRecommend: "1",
+       no:this.$store.state.busNo };
     this.$http.post(Wit.MainBus, param).then(res => {
       if (res.data.code == 0) {
         var arr = res.data.data;

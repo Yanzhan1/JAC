@@ -59,9 +59,9 @@ export default {
       arr: [],
       gender: "", //主推车型 选中的No
       good_list: [],
-      gender: null, //主推车型全选默认选中，
+      gender: this.$store.state.busNo, //主推车型全选默认选中，
       no:''
-    };
+     };
   },
   methods: {
     shai() {
@@ -76,23 +76,22 @@ export default {
           }
       });
     },
-
-    
-    //切换频道
+//切换频道
     fn(num) {
       if (num == 2) {
-       
-        var arr = this.arr;
+       var arr = this.arr;
        if(this.type==1){
           var param = {
           highlyRecommend: this.highlyRecommend,
-          no: this.gender //全部车型
-        };   
+          no: this.gender ,//全部车型
+          };   
+          this.$store.state.busNo=this.gender
        }else{
           var param = {
           highlyRecommend: this.highlyRecommend,
           no: this.gender//主推车型
         };   
+        this.$store.state.busNo=this.gender
        }
        this.$http.post(Wit.MainBus, param).then(res => {
           if (res.data.code == 0) {
@@ -106,16 +105,13 @@ export default {
 
                    } 
                 }
-                console.log(arr)
-               
-              } else {
+             } else {
                 arr[i].imgUrl = "";
               }
             }
             this.mainbus = {};
              
             this.mainbus = arr;
-            console.log(  this.mainbus)
           }
         });
       
@@ -148,11 +144,9 @@ export default {
               for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
                 if (arr[i].imageRelationVO[j].isDefault == 1) {
                   arr[i].imgUrl = arr[i].imageRelationVO[j].imageUrl;
-                  console.log(arr[i].imgUrl)
-                } 
+                  } 
                }
-              console.log(arr)
-            } else {
+             } else {
               arr[i].imgUrl = "";
             }
           }
@@ -179,6 +173,10 @@ export default {
     //获取全部车型，主推车型
     this.getcarbus();
     this.choosemore();
+   
+  },
+  mounted(){
+     
   }
 };
 </script>
