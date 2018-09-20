@@ -42,7 +42,6 @@
 				this.$store.dispatch('LOADINGFLAG', false)
 				return Promise.reject(error);
 			});
-
 			// 添加响应拦截器
 			let _this = this;
 			this.$http.interceptors.response.use((response) => {

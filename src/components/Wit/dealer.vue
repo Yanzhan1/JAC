@@ -10,8 +10,10 @@
 			<div class="flex row cocenter">
 				<!-- 品牌 -->
 				<div class="selection-show " @click="toggleDrop">
-					<span> {{searchVehicleBrandList[nowIndex] && searchVehicleBrandList[nowIndex].brandName}} </span>
-					<span v-if="brandState">品牌</span>
+					<div class="headlines">
+						<div> {{searchVehicleBrandList[nowIndex] && searchVehicleBrandList[nowIndex].brandName}} </div>
+						<div v-if="brandState">品牌</div>
+					</div>					
 					<div class="arrow"></div>
 				</div>
 				<div class="selection-list" v-if="isDrop">
@@ -23,8 +25,10 @@
 			<div class="flex row cocenter">
 				<!-- 车型 -->
 				<div class="selection-show" @click="toggleCar">
-					<span> {{searchVehicleSeriesList[carIndex] && searchVehicleSeriesList[carIndex].seriesName}} </span>
-					<span v-if="carState">车型</span>
+					<div class="headlines">						
+						<div> {{searchVehicleSeriesList[carIndex] && searchVehicleSeriesList[carIndex].seriesName}} </div>
+						<div v-if="carState">车型</div>					
+					</div>					
 					<div class="arrow"></div>
 				</div>
 				<div class="province-list" v-if="carDrop">
@@ -36,8 +40,10 @@
 			<div class="flex row cocenter">
 				<!-- 省份 -->
 				<div class="selection-show" @click="toggleProvin">
-					<span> {{searchCountryAreaCodeListPage[provinIndex] && searchCountryAreaCodeListPage[provinIndex].name}} </span>
-					<span v-if="provinceState">{{cityname}}</span>
+					<div class="headlines">
+						<div> {{searchCountryAreaCodeListPage[provinIndex] && searchCountryAreaCodeListPage[provinIndex].name}} </div>
+						<div v-if="provinceState">{{cityname}}</div>
+					</div>					
 					<div class="arrow"></div>
 				</div>
 				<div class="province-list" v-if="provinceDrop">
@@ -49,8 +55,11 @@
 			<div class="flex row cocenter">
 				<!--城市-->
 				<div class="selection-show" @click="toggleCity">
-					<span> {{cityList[cityIndex] && cityList[cityIndex].name}} </span>
-					<span v-if="cityState">{{citysi}}</span>
+					<div class="headlines">
+						<div> {{cityList[cityIndex] && cityList[cityIndex].name}} </div>
+						<div v-if="cityState">{{citysi}}</div>
+					</div>
+					
 					<div class="arrow"></div>
 				</div>
 				<div class="selection-list" v-if="cityDrop">
@@ -554,42 +563,42 @@
 		border: 0;
 	}
 	
-	.title {}
-	
 	.selection-component {
 		position: relative;
 		display: inline-block;
 	}
 	
-	.selection-show {
-		/*position: relative;*/
-		display: inline-block;
-		/*padding: 0 20px 0 10px;*/
+	.selection-show {	
+		position: relative;	
 		cursor: pointer;
 		height: 100%;
 		width: 100%;
 		line-height: 0.88rem;
-		border-radius: 3px;
 		background: #fff;
 	}
-	
-	.selection-show span {
+	.selection-show>.headlines {
 		position: absolute;
-		top: 0;
-		left: 0;
+		left: 50%;
+		width: 70%;
+		height: 100%;
+		line-height: 0.88rem;
+		margin-left: -35%;
+		z-index: 100;
+	}
+	
+	
+	.selection-show>.headlines>div {
+		position: absolute;
+		/*display: block;*/
 		width: 1.5rem;
+		height: 90%;
 		background: #fff;
-		text-align: center;
-		/*margin-left:.2rem;*/
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
 	
-	.selection-show .arrow {
-		position: absolute;
-		left: 10%;
-		top: 40%;
+	.selection-show>.arrow {
 		display: inline-block;
 		width: 0;
 		height: 0;
@@ -601,10 +610,12 @@
 	.con .selection-list {
 		display: inline-block;
 		position: absolute;
-		top: 0.8rem;
+		top: 1rem;
+		left: 0.1rem;
 		background: #fff;
 		border-top: 1px solid #e3e3e3;
 		border-bottom: 1px solid #e3e3e3;
+		border-radius: 0.1rem !important;
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
@@ -645,9 +656,11 @@
 		display: inline-block;
 		position: absolute;
 		top: 0.8rem;
+		left: 0.1rem;
 		background: #fff;
 		border-top: 1px solid #e3e3e3;
 		border-bottom: 1px solid #e3e3e3;
+		border-radius: 0.1rem;
 		height: 5rem;
 		overflow-y: scroll;
 		z-index: 5;

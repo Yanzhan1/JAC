@@ -2,16 +2,18 @@
 	<div>
 		<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-			<span class="header-title">查询维保网点</span>
+			<span class="header-title">查询经销商</span>
 			<span class="header-right"><img  alt="" style="width:.4rem"></span>
 		</header>
 		<div style="height:.88rem"></div>
 		<div class="flex row around con cocenter">
 			<div class="flex row cocenter">
 				<!-- 品牌 -->
-				<div class="selection-show" @click="toggleDrop">
-					<span> {{searchVehicleBrandList[nowIndex] && searchVehicleBrandList[nowIndex].brandName}} </span>
-					<span v-if="brandState">品牌</span>
+				<div class="selection-show " @click="toggleDrop">
+					<div class="headlines">
+						<div> {{searchVehicleBrandList[nowIndex] && searchVehicleBrandList[nowIndex].brandName}} </div>
+						<div v-if="brandState">品牌</div>
+					</div>					
 					<div class="arrow"></div>
 				</div>
 				<div class="selection-list" v-if="isDrop">
@@ -23,11 +25,13 @@
 			<div class="flex row cocenter">
 				<!-- 车型 -->
 				<div class="selection-show" @click="toggleCar">
-					<span> {{searchVehicleSeriesList[carIndex] && searchVehicleSeriesList[carIndex].seriesName}} </span>
-					<span v-if="carState">车型</span>
+					<div class="headlines">						
+						<div> {{searchVehicleSeriesList[carIndex] && searchVehicleSeriesList[carIndex].seriesName}} </div>
+						<div v-if="carState">车型</div>					
+					</div>					
 					<div class="arrow"></div>
 				</div>
-				<div class="selection-list" v-if="carDrop">
+				<div class="province-list" v-if="carDrop">
 					<ul>
 						<li v-for="(item,index) in searchVehicleSeriesList" :key="index" @click="chooseCarType(index,item.no)">{{item.seriesName}}</li>
 					</ul>
@@ -36,11 +40,13 @@
 			<div class="flex row cocenter">
 				<!-- 省份 -->
 				<div class="selection-show" @click="toggleProvin">
-					<span> {{searchCountryAreaCodeListPage[provinIndex] && searchCountryAreaCodeListPage[provinIndex].name}} </span>
-					<span v-if="provinceState">{{cityname}}</span>
+					<div class="headlines">
+						<div> {{searchCountryAreaCodeListPage[provinIndex] && searchCountryAreaCodeListPage[provinIndex].name}} </div>
+						<div v-if="provinceState">{{cityname}}</div>
+					</div>					
 					<div class="arrow"></div>
 				</div>
-				<div class="selection-list" v-if="provinceDrop">
+				<div class="province-list" v-if="provinceDrop">
 					<ul>
 						<li v-for="(item,index) in searchCountryAreaCodeListPage" :key="index" @click="chooseProvinType(index, item.code,item.id)">{{item.name}}</li>
 					</ul>
@@ -49,8 +55,11 @@
 			<div class="flex row cocenter">
 				<!--城市-->
 				<div class="selection-show" @click="toggleCity">
-					<span> {{cityList[cityIndex] && cityList[cityIndex].name}} </span>
-					<span v-if="cityState">{{citysi}}</span>
+					<div class="headlines">
+						<div> {{cityList[cityIndex] && cityList[cityIndex].name}} </div>
+						<div v-if="cityState">{{citysi}}</div>
+					</div>
+					
 					<div class="arrow"></div>
 				</div>
 				<div class="selection-list" v-if="cityDrop">
@@ -64,7 +73,7 @@
 		<div :style="{'-webkit-overflow-scrolling': scrollMode}">
 			<mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="80" :auto-fill="false">
 				<ul class="" style="padding:.1rem .2rem" v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
-					<li class="ul_list flex row around " v-for="(item,index) in mainbus" :key="index" @click="setUpMap(item.latitude, item.longitude, item.dealerName, item.dealerAddress)">
+					<li ref="dataCon" class="ul_list flex row around " v-for="(item,index) in mainbus" :key="index" @click="setUpMap(item.latitude, item.longitude, item.dealerName, item.dealerAddress)">
 						<!--<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>-->
 						<div class="flex column around  mid">
 							<span class="txt_top dian">{{item.dealerName}}</span>
@@ -77,7 +86,7 @@
 						<div class="cocenter flex-center">
 							<div class="flex-column-align">
 								<img style="width:.42rem;text-align: center;" src="../../../static/images/Wit/nav_btn.png" alt="">
-								<span class="txt_m">{{Number(item.juli) | toFixed(2)}}km</span>
+								<span class="txt_m" style="margin-top:.2rem">{{ Number(item.juli) | toFixed(2)}}km</span>
 							</div>
 						</div>
 					</li>
@@ -86,8 +95,8 @@
 		</div>
 		<p id="showAll2" style="visibility: hidden">已加载全部</p>
 		<!--没有数据时,对用户进行提示-->
-		<div class="dataInfo" v-if="mainbus.length == 0">
-			没有符合该条件的经销商
+		<div class="dataInfo" v-if="flag" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);font-size: 0.34rem;color: #555555;">
+			没有符合该条件的网点
 		</div>
 
 		<mt-popup v-model="popupVisible" position="bottom">
@@ -143,7 +152,7 @@
 				latitude: null, //维度
 				longitude: null, //经度,
 				provinceCode: null, //   省份coed
-				imgSrc: './static/images/Wit/bg-mine.png'
+                flag:false
 			};
 		},
 		components: {
@@ -155,7 +164,8 @@
 				this.loadEnd = false; //第一次加载数据,还可以继续加载
 				var data = {
 					"parentId": null,
-					"level": 1
+					"level": 1,
+					"size": 50
 				}
 				//请求品牌列表
 				this.$http.post(Wit.searchVehicleBrandList, data).then(res => {
@@ -169,22 +179,19 @@
 						const data = res.data;
 						if(data.code == 0) {
 							this.searchCountryAreaCodeListPage = data.data.records;
-							//  alert(JSON.stringify(this.searchCountryAreaCodeListPage))
 							for(let i = 0; i < this.searchCountryAreaCodeListPage.length; i++) {
 								if(this.searchCountryAreaCodeListPage[i].name == this.cityname) {
+									// console.log(11)
 									this.provinceCode = this.searchCountryAreaCodeListPage[i].code
 									if(this.provinceCode) {
-
 										this.mydeler() //省份code 赋值成功后 调用获取经销商列表
 									}
 								}
 							}
+
 						}
 					})
 
-			},
-			search() {
-				//				this.popupVisible = true;
 			},
 			cancel() {
 				this.popupVisible = false;
@@ -208,7 +215,9 @@
 						this.current = 1, //当前页码
 							this.loading = false, //加载完数据可以无线滚动
 							this.mainbus = data.data.records
-							console.log(this.mainbus)
+                             if(this.mainbus.length==0){
+                               this.flag=true
+						}
 						if(data.data.total <= this.size) { //如果总条数小于等于请求的数据条数,不在请求加载更多
 							this.loadEnd = true;
 						}
@@ -293,7 +302,6 @@
 
 			},
 			getNextList() { //上拉加载更多方法
-
 				if(this.loadEnd) {
 					this.loadBottom();
 					return;
@@ -321,7 +329,6 @@
 								this.loading = true; //禁止无限滚动
 								this.allLoaded = true; //不在触发方法
 								this.loadEnd = true; //不在请求数据
-								//				                  $("#showAll2").show();
 							}
 						} else {
 							this.current = this.current - 1;
@@ -358,6 +365,9 @@
 					if(res.data.code == 0) {
 						this.mainbus = []
 						this.mainbus = res.data.data.records
+						if(this.mainbus.length==0){
+                            this.flag=true
+						}
 					}
 				})
 			},
@@ -376,6 +386,7 @@
 				var system = this.isIOSOrAndroid();
 				if(system == 'Android') {
 					window.js2android.sendLocation2Map(latitude, longitude, adress, des)
+					//		 			console.log(11)
 				} else if(system == "IOS") {
 					var data = {
 						latitude,
@@ -385,6 +396,12 @@
 					}
 					window.webkit.messageHandlers.sendLocation2Map.postMessage(data);
 				}
+			},
+			getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
+				this.cityname = JSON.parse(locationMes).province
+				this.citysi = JSON.parse(locationMes).city
+				this.latitude = JSON.parse(locationMes).latitude //精
+				this.longitude = JSON.parse(locationMes).longitude //韦
 			}
 		},
 		mounted() {
@@ -392,18 +409,23 @@
 			this.provinceId = null
 		},
 		created() {
-			var Position = js2android.getLocationInfo() //获取定位信息
-			var NewPosition = JSON.parse(Position)
-			this.cityname = NewPosition.province //省
-			this.citysi = NewPosition.city //市
-			this.latitude = NewPosition.latitude //精
-			this.longitude = NewPosition.longitude //韦
-
+			window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
+			var system = this.isIOSOrAndroid();
+			if(system == 'Android') {
+				var Position = js2android.getLocationInfo() //获取安卓定位信息
+				var NewPosition = JSON.parse(Position)
+				this.cityname = NewPosition.province //省
+				this.citysi = NewPosition.city //市
+				this.latitude = NewPosition.latitude //精
+				this.longitude = NewPosition.longitude //韦
+			} else if(system == "IOS") {
+				window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
+			}
 		},
 		filters: {
-			toFixed (input, param1) {
-                return input.toFixed(param1)
-            }
+			toFixed(input, param1) { //可以有好多的自定义过滤器，这里的this指向的是window
+				return input.toFixed(param1)
+			}
 		},
 		watch: {
 			brandNo(newVal, oldVal) { //监听品牌id,获得车型列表
@@ -437,6 +459,17 @@
 	};
 </script>
 <style scoped>
+	/*没有数据时,提示样式*/
+	
+	.dataInfo {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: 0.34rem;
+		color: #555555;
+	}
+	
 	.flex-center {
 		/*水平垂直居中*/
 		display: flex;
@@ -451,11 +484,17 @@
 		align-items: center;
 	}
 	
+	.flex-between {
+		/*两边对齐*/
+		display: flex;
+		justify-content: space-between;
+	}
+	
 	.row {
 		flex-direction: row;
 	}
 	
-	.con div {
+	.con>div {
 		position: relative;
 		height: 0.88rem;
 		width: 1.5rem
@@ -524,74 +563,74 @@
 		border: 0;
 	}
 	
-	select {
-		/*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
-		border: none;
-		/*很关键：将默认的select选择框样式清除*/
-		appearance: none;
-		-moz-appearance: none;
-		-webkit-appearance: none;
-		outline: none;
-	}
-	
-	.title {}
-	
 	.selection-component {
 		position: relative;
 		display: inline-block;
 	}
 	
-	.selection-show {
-		/*position: relative;*/
-		display: inline-block;
-		padding: 0 20px 0 10px;
+	.selection-show {	
+		position: relative;	
 		cursor: pointer;
 		height: 100%;
-		line-height: 0.84rem;
-		border-radius: 3px;
+		width: 100%;
+		line-height: 0.88rem;
 		background: #fff;
 	}
-	
-	.selection-show span {
+	.selection-show>.headlines {
 		position: absolute;
-		top: 0;
-		left: 0;
-		width: 1.4rem;
+		left: 50%;
+		width: 70%;
 		height: 100%;
+		line-height: 0.88rem;
+		margin-left: -35%;
+		z-index: 100;
+	}
+	
+	
+	.selection-show>.headlines>div {
+		position: absolute;
+		/*display: block;*/
+		width: 1.5rem;
+		height: 90%;
 		background: #fff;
-		text-align: center;
-		margin-left: .2rem;
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
 	
-	.selection-show .arrow {
+	.selection-show>.arrow {
 		display: inline-block;
+		width: 0;
+		height: 0;
 		border-left: 4px solid transparent;
 		border-right: 4px solid transparent;
 		border-top: 5px solid #e3e3e3;
-		width: 0;
-		height: 0;
-		margin-top: -1px;
-		margin-left: 0;
-		margin-right: -14px;
-		vertical-align: middle;
 	}
 	
-	.selection-list {
+	.con .selection-list {
 		display: inline-block;
 		position: absolute;
-		left: -0.5rem;
-		top: 0.8rem;
+		top: 1rem;
+		left: 0.1rem;
 		background: #fff;
 		border-top: 1px solid #e3e3e3;
 		border-bottom: 1px solid #e3e3e3;
+		border-radius: 0.1rem !important;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 		z-index: 5;
 	}
 	
-	.selection-list li {
-		padding: 5px 15px 5px 10px;
+	.con .selection-list ul {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+	
+	.con .selection-list li {
+		width: 1.5rem;
+		padding: 0.05rem 0.15rem 0.05rem 0.1rem;
 		border-left: 1px solid #e3e3e3;
 		border-right: 1px solid #e3e3e3;
 		cursor: pointer;
@@ -601,17 +640,41 @@
 		text-overflow: ellipsis;
 	}
 	
-	.selection-list li:hover {
-		background: #e3e3e3;
-	}
-	/*没有数据时,提示样式*/
-	
-	.dataInfo {
+	.con .province-list .arrow {
 		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		font-size: 0.34rem;
-		color: #555555;
+		left: 10%;
+		top: 40%;
+		display: inline-block;
+		width: 0;
+		height: 0;
+		border-left: 4px solid transparent;
+		border-right: 4px solid transparent;
+		border-top: 5px solid #e3e3e3;
+	}
+	
+	.con .province-list {
+		display: inline-block;
+		position: absolute;
+		top: 0.8rem;
+		left: 0.1rem;
+		background: #fff;
+		border-top: 1px solid #e3e3e3;
+		border-bottom: 1px solid #e3e3e3;
+		border-radius: 0.1rem;
+		height: 5rem;
+		overflow-y: scroll;
+		z-index: 5;
+	}
+	
+	.con .cocenter .province-list li {
+		width: 1.5rem;
+		padding: 0.05rem 0.15rem 0.05rem 0.1rem;
+		border-left: 1px solid #e3e3e3;
+		border-right: 1px solid #e3e3e3;
+		cursor: pointer;
+		background: #fff;
+		overflow: hidden !important;
+		white-space: nowrap !important;
+		text-overflow: ellipsis !important;
 	}
 </style>
