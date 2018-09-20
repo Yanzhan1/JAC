@@ -174,29 +174,33 @@ export default {
           .post(Lovecar.Checkphonepin, { pin: nums }, this.$store.state.tsppin)
           .then(res => {
             if (res.data.returnSuccess == true) {
-				alert('成功')
-              this.value = !this.value;
+              let oDate=new Date()
+              let year=oDate.getFullYear()
+              let month=oDate.getMonth()+1
+              month=month<10?'0'+month:month;
+              let totime=year+month
+              this.$http
+                .post(
+                  Lovecar.Flow,
+                  {
+                    vin: this.$store.state.vins, //车辆vin码
+                    queryDate:totime//传给后台的查询时间
+                    // simNum: "12", //Tbox中的sim卡号
+                    // imei: "1", //sim卡中的imei卡号
+                    // iccid: "12" //sim卡中的iccid卡号
+                  },
+                  this.$store.state.tsppin
+                )
+                .then(res => {
+                  console.log(res)
+				});
+                            this.value = !this.value;
               //消失遮罩
               this.popupVisible = !this.popupVisible;
               //消失软键盘
               (this.showTyper = 0),
                 //清空pin码
 		        (this.pinNumber = "");
-              this.$http
-                .post(
-                  Lovecar.Flow,
-                  {
-                    vin: this.pinNumber, //车辆vin码
-                    simNum: "12", //Tbox中的sim卡号
-                    imei: "1", //sim卡中的imei卡号
-                    iccid: "12" //sim卡中的iccid卡号
-                  },
-                  this.$store.state.tsppin
-                )
-                .then(res => {
-	
-				});
-
             } else {
 				Toast({
 					message: res.data.returnErrMsg,
