@@ -861,7 +861,38 @@ export default {
       this.LoginStatus = res.data.data[1] ? res.data.data[1].logStatus : [];
     }
   });
-
+  // alert(JSON.parse(this.$store.state.tsppin.headers.identityParam).userId)
+    this.$http.post(My.My_Bus, {
+          userId:this.$store.state.trueuserId,
+          phone:this.$store.state.mobile
+        }, this.$store.state.getpin).then(res => {
+    if (res.data.returnSuccess) {
+      // if(res.data==[]){
+      //   Toast({
+      //     message:'请先绑定车辆',
+      //     position:'middle',
+      //     duration:2000
+      //   })
+      // }else{
+        // alert(1)
+        this.BusDetails = res.data.data;
+        for (let i = 0; i < res.data.data.length; i++) {
+          if (res.data.data[i].def == 1) {
+            this.carsysitem=res.data.data[i].seriesName
+            console.log(res.data.data[i].vin);
+            var payload = res.data.data[i].vin;
+            this.$store.dispatch("CARVINS", payload);
+            // this.$store.state.vins = res.data.data[i].vin;
+          }
+        // }
+      }
+      this.vinn = this.$store.state.vins;
+      // console.log(this.vinn)
+      this.Carquerry();
+      // console.log(this.$store.state.mytoken.headers.timaToken);
+    }
+  });
+  
   }
 };
 </script>

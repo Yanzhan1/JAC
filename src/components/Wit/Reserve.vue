@@ -111,9 +111,7 @@
                   <span @click="choose">确定</span>
                   <mt-picker :slots="slots2" @change="onValuesChange2" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
               </mt-popup>
-                  <h3 @click="sub" class="bottom-btn" style="position:fixed;bottom:0;left:0">提交</h3>
-              
-
+            <h3 @click="sub" class="bottom-btn" style="position:fixed;bottom:0;left:0">提交</h3>
   </div>
 </template>
 
@@ -167,7 +165,7 @@ export default {
       ],
       slots2: [
         {
-          values: [],
+          values: ['G4北京鑫格尔发汽车贸易有限公司'],
           className: "slot1",
           textAlign: "center"
         },
@@ -178,7 +176,7 @@ export default {
       ],
       slots3: [
         {
-          values: [],
+          values: ['市辖区'],
           className: "slot1",
           textAlign: "center"
         },
@@ -203,6 +201,37 @@ export default {
       this.distributors = false;
       this.areas = false;
       this.citys = false;
+      //选择市
+      var data = {
+        parentId: this.provinceid,
+        level: 2
+      };
+      this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+        this.data = res.data.data.records;
+        this.slots3[0].values = [];
+        console.log(this.data);
+        for (var i = 0; i < this.data.length; i++) {
+          // alert(JSON.stringify(this.data))
+          this.slots3[0].values.push(this.data[i].name);
+        }
+      });
+
+      //经销商
+      var param = {
+        dealerType: "01",
+        dealerCityCode: this.everycode,
+        vehicleSeridesNo:this.$store.state.everyno
+      };
+      this.$http.post(Wit.Dealer, param, this.$store.state.getpin).then(res => {
+        // console.log(res);
+        this.chooseaddress = res.data.data.records;
+        this.slots2[0].values = [];
+        for (var i = 0; i < this.chooseaddress.length; i++) {
+          this.slots2[0].values.push(this.chooseaddress[i].dealerName);
+          this.Idchooseaddress.push(this.chooseaddress[i].no);
+        }
+        // alert(this.slots2[0].values)
+      });
     },
     choose2() {
       this.region = false;
@@ -322,37 +351,7 @@ export default {
           this.provinceid = this.myaddress[i].id;
         }
       }
-      //选择市
-      var data = {
-        parentId: this.provinceid,
-        level: 2
-      };
-      this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
-        this.data = res.data.data.records;
-        this.slots3[0].values = [];
-        console.log(this.data);
-        for (var i = 0; i < this.data.length; i++) {
-          // alert(JSON.stringify(this.data))
-          this.slots3[0].values.push(this.data[i].name);
-        }
-      });
-
-      //经销商
-      var param = {
-        dealerType: "01",
-        dealerCityCode: this.everycode,
-        vehicleSeridesNo:this.$store.state.everyno
-      };
-      this.$http.post(Wit.Dealer, param, this.$store.state.getpin).then(res => {
-        // console.log(res);
-        this.chooseaddress = res.data.data.records;
-        this.slots2[0].values = [];
-        for (var i = 0; i < this.chooseaddress.length; i++) {
-          this.slots2[0].values.push(this.chooseaddress[i].dealerName);
-          this.Idchooseaddress.push(this.chooseaddress[i].no);
-        }
-        // alert(this.slots2[0].values)
-      });
+      
     },
     //选择经销商
     onValuesChange2(picker, values) {
@@ -375,6 +374,7 @@ export default {
     }
   },
   mounted() {
+    this.tell=this.$store.state.mobile
     // alert(this.$route.params.levelCode)
     // alert(this.$route.params.srouceNo)
     // alert(this.$route.params.seriesName)
@@ -477,7 +477,7 @@ textarea {
 }
 .region {
   position: absolute;
-  bottom: -1rem;
+  bottom: -1.5rem;
   width: 100%;
   height: 6rem;
   color: #222;
