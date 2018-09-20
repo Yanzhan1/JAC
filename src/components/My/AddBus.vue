@@ -41,7 +41,7 @@ export default {
           engineNo: this.engine.toUpperCase().replace(/\s*/g,"")
         }
       };
-      alert(JSON.stringify(param))
+      // alert(JSON.stringify(param))
       //  alert(JSON.stringify(this.$store.state.getpin))
       this.$http.post(My.JFmybus, param,this.$store.state.getpin).then(res => {
         if (res.data.returnSuccess) {
