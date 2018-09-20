@@ -107,6 +107,17 @@ Vue.use(Router)
 
 const router = new Router({
     mode: 'hash',
+    scrollBehavior(to, from, savedPosition) { //商品列表进去详情，返回时回到原来的高度
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            if (from.meta.keepAlive) {
+                from.meta.savedPosition = document.body.scrollTop
+            }
+            return { x: 0, y: to.meta.savedPosition || 0 }
+        }
+    },
+    // mode: 'hash',
     routes: [{
         path: '/',
         component: Main,
@@ -517,7 +528,10 @@ const router = new Router({
 
                 path: '/wit/recoment_bus',
                 name: '主推车型',
-                component: Recoment_bus
+                component: Recoment_bus,
+                meta: {
+                    keepAlive: true
+                }
             }, {
                 path: '/wit/search_net',
                 name: '网点查询',
@@ -553,10 +567,10 @@ router.beforeEach((to, from, next) => {
     try {
 
         if (!$http.defaults.headers.common['timaToken']) {
-            var userInfo, 
-            	mobileStatusBar;
+            var userInfo,
+                mobileStatusBar;
             if (isMobile.iOS()) {
-                userInfo = JSON.parse(getCookie('userInfo')) 
+                userInfo = JSON.parse(getCookie('userInfo'))
             } else if (isMobile.Android()) {
                 userInfo = JSON.parse(js2android.getUserInfo())
                 mobileStatusBar = js2android.getStatusBarHeight()
