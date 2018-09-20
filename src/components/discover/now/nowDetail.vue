@@ -188,7 +188,7 @@
     },
     methods:{
       toCommentList: function(id){
-        this.$router.push({path:"/commentList",query:{id:id}})
+        this.$router.push({path:"/component/commentList",query:{id:id}})
       },
       getUserList: function(){
         var _this = this;
