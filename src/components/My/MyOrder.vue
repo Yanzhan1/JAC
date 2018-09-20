@@ -24,7 +24,7 @@
                         <div class="flex row con" @click="toDetauls(item)">
                             <div class="flex column bus_left">
                                 <img style="height:1.2rem;width:2.46rem" :src="item.img" alt="">
-                                <span class="busname">{{item.model}}</span>
+                                <!-- <span class="busname">{{item.model}}</span> -->
                             </div>
                             <div class="flex column tp">
                                  <span class="bus_right">品牌: {{item.seriesName}}</span>
