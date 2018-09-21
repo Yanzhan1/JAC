@@ -17,8 +17,9 @@
         <div style="" class="head-tab" :class="{ now: isNow }" @click.stop.prevent="goIsNow">
           <span>社区</span>
         </div>
-        <div>
-          <img src="../../static/images/discover/camera.png" @click="publish" style="width: 0.4rem;margin-top: 0.1rem;" id='id_publish' />
+        <div style="position: relative;">
+          <div style="position: absolute;top: 0;left: 0;z-index: 1;width: 100%;height: 100%;" @click="publish"></div>
+          <img src="../../static/images/discover/camera.png" style="width: 0.4rem;margin-top: 0.1rem;" id='id_publish' />
         </div>
         <mt-popup
           style="width:80%;border-radius:4px;"
