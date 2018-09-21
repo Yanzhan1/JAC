@@ -11,11 +11,13 @@
         <!--资讯列表S-->
         <div v-for="(item,index) in informationList">
           <div class="boxInfo">
-            <p class="listTitleInfo" @click="toDetail(item.manageId)">
-              {{item.manageTitle.slice(0,46)}}
-              <span v-if="item.manageTitle.length>46">...</span>
-            </p>
-            <img class="listPic312" @click="toDetail(item.manageId)" :src="item.imgUrl" />
+            <div @click="toDetail(item.manageId, index)">
+              <p class="listTitleInfo">
+                {{item.manageTitle.slice(0,46)}}
+                <span v-if="item.manageTitle.length>46">...</span>
+              </p>
+              <img class="listPic312" :src="item.imgUrl" />
+            </div>
             <div class="listIconInfo">
               <!--阅读数量-->
               <img src="../../../../static/images/discover/eye.png" class="f_left" />
@@ -56,14 +58,16 @@
         topStatus: '',
         flag: 'information',
         type: 'information',
-        value: null
+        value: null,
+        _index: null
       }
     },
     components: {
       shareBox,
     },
     methods: {
-      toDetail: function (id) {
+      toDetail: function (id, index) {
+        this._index = index
         this.$router.push({
           path: "/information/informationDetail",
           query: {
@@ -233,6 +237,35 @@
     watch: {
       selectLabelState() {
         this.getRefreshList()
+      },
+      ['$route'](to, from) {
+        if (this._index === null || !from.query.id) {
+          return
+        }
+        if (from.path == '/information/informationDetail') {
+          this.$http.post(DISCOVERMESSAGE.informationDetail, {
+            "uid": this.$store.state.userId,
+            "id": from.query.id
+          }).then((res) => {
+            if (res.data.status) {
+              const {
+                data: {
+                  data: {
+                    readNum,
+                    likeStatus,
+                    likeNum
+                  }
+                }
+              } = res
+
+              this.informationList[this._index].readNum = readNum
+              this.informationList[this._index].likeStatus = likeStatus
+              this.informationList[this._index].likeNum = likeNum
+            } else {
+              console.log(res.data.errorMsg);
+            }
+          });
+        }
       }
     },
     mounted() {
