@@ -2,7 +2,9 @@
   <div>
     <Header @refresh="refresh"></Header>
     <div style="height: 0.88rem"></div>
-    <router-view v-if="flag" />
+    <!-- <keep-alive v-if="flag"> -->
+      <router-view v-if="flag"/>
+    <!-- </keep-alive> -->
   </div>
 </template>
 
@@ -10,23 +12,24 @@
   import Header from '../Header'
   export default {
     name: "discover",
-    data(){
+    data() {
       return {
         flag: true
       }
     },
     methods: {
-      refresh(){
+      refresh() {
         this.flag = false
-        setTimeout(()=>{
+        setTimeout(() => {
           this.flag = true
         })
       }
     },
-    components:{
-     Header
-     },
+    components: {
+      Header
+    },
   }
+
 </script>
 
 <style scoped>
