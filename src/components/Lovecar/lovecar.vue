@@ -427,7 +427,7 @@ export default {
       this.$http
         .post(
           Lovecar.Carquery,
-          { vins: [this.$store.state.vins] },
+          { vins: this.$store.state.vins },
           this.$store.state.tsppin
         )
         .then(res => {
