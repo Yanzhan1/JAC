@@ -596,6 +596,7 @@ export default {
                 right_bottom: this.carcontrol.tirePressureRearRight
               };
               this.Condition = tai;
+              clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
@@ -603,6 +604,7 @@ export default {
                 position: "middle",
                 duration: 2000
               });
+               clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             }
           } else {
@@ -651,7 +653,7 @@ export default {
                 //车辆锁定的接口
                 // alert(this.$store.state.vins)
                 this.isTrue = !this.isTrue;
-                this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
+                // this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
                 var params = {
                   vin: this.$store.state.vins,
                   operationType: "LOCK",
@@ -663,6 +665,7 @@ export default {
                     this.operationIds = res.data.operationId;
                     if (res.data.returnSuccess) {
                       this.getAsyReturn(res.data.operationId);
+                      this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
                     } else {
                       if (res.data.returnErrCode == 400) {
                         Toast({
