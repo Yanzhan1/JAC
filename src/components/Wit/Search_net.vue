@@ -13,7 +13,7 @@
 					<div class="headlines">
 						<div> {{searchVehicleBrandList[nowIndex] && searchVehicleBrandList[nowIndex].brandName}} </div>
 						<div v-if="brandState">品牌</div>
-					</div>					
+					</div>
 					<div class="arrow"></div>
 				</div>
 				<div class="selection-list" v-if="isDrop">
@@ -25,10 +25,10 @@
 			<div class="flex row cocenter">
 				<!-- 车型 -->
 				<div class="selection-show" @click="toggleCar">
-					<div class="headlines">						
+					<div class="headlines">
 						<div> {{searchVehicleSeriesList[carIndex] && searchVehicleSeriesList[carIndex].seriesName}} </div>
-						<div v-if="carState">车型</div>					
-					</div>					
+						<div v-if="carState">车型</div>
+					</div>
 					<div class="arrow"></div>
 				</div>
 				<div class="province-list scroll-bar" v-if="carDrop">
@@ -43,9 +43,9 @@
 					<div class="headlines">
 						<div> {{searchCountryAreaCodeListPage[provinIndex] && searchCountryAreaCodeListPage[provinIndex].name}} </div>
 						<div v-if="provinceState">{{cityname}}</div>
-					</div>					
+					</div>
 					<div class="arrow"></div>
-				</div> 
+				</div>
 				<div class="province-list scroll-bar" v-if="provinceDrop">
 					<ul>
 						<li v-for="(item,index) in searchCountryAreaCodeListPage" :key="index" @click="chooseProvinType(index, item.code,item.id)">{{item.name}}</li>
@@ -59,7 +59,7 @@
 						<div> {{cityList[cityIndex] && cityList[cityIndex].name}} </div>
 						<div v-if="cityState">{{citysi}}</div>
 					</div>
-					
+
 					<div class="arrow"></div>
 				</div>
 				<div class="selection-list" v-if="cityDrop">
@@ -152,7 +152,7 @@
 				latitude: null, //维度
 				longitude: null, //经度,
 				provinceCode: null, //   省份coed
-                flag:false
+				flag: false
 			};
 		},
 		components: {
@@ -215,8 +215,10 @@
 						this.current = 1, //当前页码
 							this.loading = false, //加载完数据可以无线滚动
 							this.mainbus = data.data.records
-                             if(this.mainbus.length==0){
-                               this.flag=true
+						if(this.mainbus.length == 0) {
+							this.flag = true
+						} else {
+							this.flag = false
 						}
 						if(data.data.total <= this.size) { //如果总条数小于等于请求的数据条数,不在请求加载更多
 							this.loadEnd = true;
@@ -241,8 +243,8 @@
 			},
 			toggleCar() { //改变车型下拉状态
 				this.carDrop = !this.carDrop;
-				if(this.searchVehicleSeriesList>=0){
-					this.carDrop=false;
+				if(this.searchVehicleSeriesList >= 0) {
+					this.carDrop = false;
 				}
 				this.carState = false;
 				if(this.isDrop || this.provinceDrop || this.cityDrop) {
@@ -253,7 +255,7 @@
 			},
 			toggleProvin() { //改变省份下拉状态
 				this.provinceDrop = !this.provinceDrop;
-				if (this.searchCountryAreaCodeListPage >= 0) {
+				if(this.searchCountryAreaCodeListPage >= 0) {
 					this.provinceDrop = false
 				}
 				this.provinceState = false;
@@ -371,8 +373,10 @@
 					if(res.data.code == 0) {
 						this.mainbus = []
 						this.mainbus = res.data.data.records
-						if(this.mainbus.length==0){
-                            this.flag=true
+						if(this.mainbus.length == 0) {
+							this.flag = true
+						} else {
+							this.flag = false
 						}
 					}
 				})
@@ -461,14 +465,14 @@
 					}
 				})
 			},
-			searchVehicleSeriesList (newVal, oldVal) {
-				
-				if (this.searchVehicleSeriesList.length == 0) {
+			searchVehicleSeriesList(newVal, oldVal) {
+
+				if(this.searchVehicleSeriesList.length == 0) {
 					this.carDrop = false
 				}
 			},
-			searchCountryAreaCodeListPage (newVal, oldVal) {
-				if (this.searchCountryAreaCodeListPage.length == 0) {
+			searchCountryAreaCodeListPage(newVal, oldVal) {
+				if(this.searchCountryAreaCodeListPage.length == 0) {
 					this.provinceDrop = false
 				}
 			}
@@ -585,14 +589,15 @@
 		display: inline-block;
 	}
 	
-	.selection-show {	
-		position: relative;	
+	.selection-show {
+		position: relative;
 		cursor: pointer;
 		height: 100%;
 		width: 100%;
 		line-height: 0.88rem;
 		background: #fff;
 	}
+	
 	.selection-show>.headlines {
 		position: absolute;
 		left: 50%;
@@ -602,7 +607,6 @@
 		margin-left: -35%;
 		z-index: 100;
 	}
-	
 	
 	.selection-show>.headlines>div {
 		position: absolute;
@@ -694,18 +698,24 @@
 		white-space: nowrap !important;
 		text-overflow: ellipsis !important;
 	}
+	
 	.con .cocenter .scroll-bar::-webkit-scrollbar {
-		 width: 0.05rem;     /*高宽分别对应横竖滚动条的尺寸*/
-         /*height: 1px;*/
+		width: 0.05rem;
+		/*高宽分别对应横竖滚动条的尺寸*/
+		/*height: 1px;*/
 	}
-	.con .cocenter .scroll-bar::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
-		    border-radius: 0.05rem;
-		    background-color: #3366ff;
-		    background-image: -webkit-gradient(linear, 40% 0%, 75% 84%, from(rgba(0,0,0,0.9)), to(rgba(0,0,0,0.9)), color-stop(.6,#f5f5f5))
+	
+	.con .cocenter .scroll-bar::-webkit-scrollbar-thumb {
+		/*滚动条里面小方块*/
+		border-radius: 0.05rem;
+		background-color: #3366ff;
+		background-image: -webkit-gradient(linear, 40% 0%, 75% 84%, from(rgba(0, 0, 0, 0.9)), to(rgba(0, 0, 0, 0.9)), color-stop(.6, #f5f5f5))
 	}
-	.con .cocenter .scroll-bar::-webkit-scrollbar-track {/*滚动条里面轨道*/
-		-webkit-box-shadow: inset 0 0 0.05rem rgba(0,0,0,0.2);
-        border-radius: 0.05rem;
-        background: #F5F5F5;
+	
+	.con .cocenter .scroll-bar::-webkit-scrollbar-track {
+		/*滚动条里面轨道*/
+		-webkit-box-shadow: inset 0 0 0.05rem rgba(0, 0, 0, 0.2);
+		border-radius: 0.05rem;
+		background: #F5F5F5;
 	}
 </style>
