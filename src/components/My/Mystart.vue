@@ -127,6 +127,7 @@
         likeNum: 0,
         fansNum: 0,
         focsNum: 0,
+        focusNum: 0,
         giveId: 0,
         showImg: false,
         imgSrc: ''
@@ -177,7 +178,7 @@
           params: data,
           method: "get",
           formUrlencoded
-        }, this.$store.state.mytoken).then((res) => {
+        }).then((res) => {
           if (res.data.success) {
             this.userInfo = res.data.data;
             //            this.$store.state.userstartUuid = res.data.account.uuid;
@@ -205,7 +206,7 @@
         var _this = this;
         this.$http.post(DISCOVERMESSAGE.myFocusNum, {
           "uid": _this.$store.state.userId
-        }, this.$store.state.mytoken).then(function (res) {
+        }).then(function (res) {
           if (res.data.status) {
             _this.focsNum = res.data.data;
           } else {
@@ -219,7 +220,7 @@
         var _this = this;
         this.$http.post(DISCOVERMESSAGE.myFansNum, {
           "uid": _this.$store.state.userId
-        }, this.$store.state.mytoken).then(function (res) {
+        }).then(function (res) {
           if (res.data.status) {
             _this.fansNum = res.data.data;
           } else {
@@ -233,7 +234,7 @@
         var _this = this;
         this.$http.post(DISCOVERMESSAGE.myLikeNum, {
           "uid": _this.$store.state.userId
-        }, this.$store.state.mytoken).then(function (res) {
+        }).then(function (res) {
           if (res.data.status) {
             _this.likeNum = res.data.data;
             //
@@ -264,7 +265,7 @@
         this.$http.post(DISCOVERMESSAGE.momentGiveLike, {
           "uid": _this.$store.state.userId,
           "lid": manageId
-        }, this.$store.state.mytoken).then(function (res) {
+        }).then(function (res) {
           if (res.data.status) {
             _this.myList[index].likeNum = res.data.data.num;
             _this.myList[index].likeStatus = false;
@@ -279,7 +280,7 @@
         this.$http.post(DISCOVERMESSAGE.momentRemoveLike, {
           "uid": _this.$store.state.userId,
           "lid": manageId
-        }, this.$store.state.mytoken).then(function (res) {
+        }).then(function (res) {
           if (res.data.status) {
             _this.myList[index].likeNum = res.data.data.num;
             _this.myList[index].likeStatus = true;
