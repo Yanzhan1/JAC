@@ -78,4 +78,15 @@ export default {
 .picker-item.picker-selected {
   color: #222;
 }
+.picker-center-highlight:before, .picker-center-highlight:after {
+  content: '';
+  position: absolute;
+  height: .03rem;
+  width: 100%;
+  background-color: #eaeaea;
+  display: block;
+  z-index: 15;
+  -webkit-transform: scaleY(0.5);
+          transform: scaleY(0.5);
+}
 </style>
