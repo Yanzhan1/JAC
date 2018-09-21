@@ -31,7 +31,7 @@
 					</div>					
 					<div class="arrow"></div>
 				</div>
-				<div class="province-list" v-if="carDrop">
+				<div id="carScroll-bar" class="province-list scroll-bar" v-if="carDrop">
 					<ul>
 						<li v-for="(item,index) in searchVehicleSeriesList" :key="index" @click="chooseCarType(index,item.no)">{{item.seriesName}}</li>
 					</ul>
@@ -46,7 +46,7 @@
 					</div>					
 					<div class="arrow"></div>
 				</div>
-				<div class="province-list" v-if="provinceDrop">
+				<div class="province-list scroll-bar" v-if="provinceDrop">
 					<ul>
 						<li v-for="(item,index) in searchCountryAreaCodeListPage" :key="index" @click="chooseProvinType(index, item.code,item.id)">{{item.name}}</li>
 					</ul>
@@ -241,6 +241,9 @@
 			},
 			toggleCar() { //改变车型下拉状态
 				this.carDrop = !this.carDrop;
+				if(this.searchVehicleSeriesList>=0){
+					this.carDrop=false;
+				}
 				this.carState = false;
 				if(this.isDrop || this.provinceDrop || this.cityDrop) {
 					this.isDrop = false;
@@ -250,6 +253,9 @@
 			},
 			toggleProvin() { //改变省份下拉状态
 				this.provinceDrop = !this.provinceDrop;
+				if (this.searchCountryAreaCodeListPage >= 0) {
+					this.provinceDrop = false
+				}
 				this.provinceState = false;
 				if(this.cityDrop || this.carDrop || this.isDrop) {
 					this.cityDrop = false;
@@ -454,6 +460,17 @@
 
 					}
 				})
+			},
+			searchVehicleSeriesList (newVal, oldVal) {
+				
+				if (this.searchVehicleSeriesList.length == 0) {
+					this.carDrop = false
+				}
+			},
+			searchCountryAreaCodeListPage (newVal, oldVal) {
+				if (this.searchCountryAreaCodeListPage.length == 0) {
+					this.provinceDrop = false
+				}
 			}
 		}
 	};
@@ -676,5 +693,19 @@
 		overflow: hidden !important;
 		white-space: nowrap !important;
 		text-overflow: ellipsis !important;
+	}
+	.con .cocenter .scroll-bar::-webkit-scrollbar {
+		 width: 0.05rem;     /*高宽分别对应横竖滚动条的尺寸*/
+         /*height: 1px;*/
+	}
+	.con .cocenter .scroll-bar::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+		    border-radius: 0.05rem;
+		    background-color: #3366ff;
+		    background-image: -webkit-gradient(linear, 40% 0%, 75% 84%, from(rgba(0,0,0,0.9)), to(rgba(0,0,0,0.9)), color-stop(.6,#f5f5f5))
+	}
+	.con .cocenter .scroll-bar::-webkit-scrollbar-track {/*滚动条里面轨道*/
+		-webkit-box-shadow: inset 0 0 0.05rem rgba(0,0,0,0.2);
+        border-radius: 0.05rem;
+        background: #F5F5F5;
 	}
 </style>
