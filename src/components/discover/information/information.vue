@@ -238,35 +238,35 @@
       selectLabelState() {
         this.getRefreshList()
       },
-      ['$route'](to, from) {
-        if (this._index === null || !from.query.id) {
-          return
-        }
-        if (from.path == '/information/informationDetail') {
-          this.$http.post(DISCOVERMESSAGE.informationDetail, {
-            "uid": this.$store.state.userId,
-            "id": from.query.id
-          }).then((res) => {
-            if (res.data.status) {
-              const {
-                data: {
-                  data: {
-                    readNum,
-                    likeStatus,
-                    likeNum
-                  }
-                }
-              } = res
+      // ['$route'](to, from) {
+      //   if (this._index === null || !from.query.id) {
+      //     return
+      //   }
+      //   if (from.path == '/information/informationDetail') {
+      //     this.$http.post(DISCOVERMESSAGE.informationDetail, {
+      //       "uid": this.$store.state.userId,
+      //       "id": from.query.id
+      //     }).then((res) => {
+      //       if (res.data.status) {
+      //         const {
+      //           data: {
+      //             data: {
+      //               readNum,
+      //               likeStatus,
+      //               likeNum
+      //             }
+      //           }
+      //         } = res
 
-              this.informationList[this._index].readNum = readNum
-              this.informationList[this._index].likeStatus = likeStatus
-              this.informationList[this._index].likeNum = likeNum
-            } else {
-              console.log(res.data.errorMsg);
-            }
-          });
-        }
-      }
+      //         // this.informationList[this._index].readNum = readNum
+      //         // this.informationList[this._index].likeStatus = likeStatus
+      //         // this.informationList[this._index].likeNum = likeNum
+      //       } else {
+      //         console.log(res.data.errorMsg);
+      //       }
+      //     });
+      //   }
+      // }
     },
     mounted() {
       //    	alert(11)
