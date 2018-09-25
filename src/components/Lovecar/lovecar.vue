@@ -434,11 +434,11 @@ export default {
           if (res.data.returnSuccess) {
             this.getAsyReturn(res.data.operationId);
           } else {
-            Toast({
-              message: res.data.returnErrMsg,
-              position: "middle",
-              duration: 2000
-            });
+            // Toast({
+            //   message: res.data.returnErrMsg,
+            //   position: "middle",
+            //   duration: 2000
+            // });
           }
         });
     },
@@ -822,6 +822,7 @@ export default {
       }
     },
     userId(newVal, oldVal) {
+      //获取车辆的vin码
       this.$http
         .post(
           My.My_Bus,

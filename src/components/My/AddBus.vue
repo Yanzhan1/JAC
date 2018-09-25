@@ -34,6 +34,7 @@ export default {
   methods: {
     AddMybus() {
      var param = {
+       no:this.$store.state.userId,
         vin: this.rame.toUpperCase().replace(/\s*/g,""),
         operationType: "CAR_BINDING",
         operation: 1,
