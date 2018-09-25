@@ -13,7 +13,7 @@
             <div v-for="(item,index) in nav" class="talbs_next" @click="choose($event,index)" :class="{blue:current==index}" :key="index">{{item}}</div>
         </div>
         <div class="every_img" >
-            <img style="height:80%" class="nav" :src="this.allimage[this.current]" alt="">
+            <img style="display:block;height:100%;" class="nav" :src="this.allimage[this.current]" alt="">
             <!-- <img src="./../../../static/images/Wit/170598437859803375.jpg" alt="">
             <img src="./../../../static/images/Wit/25470446938143313.jpg" alt=""> -->
         </div>
