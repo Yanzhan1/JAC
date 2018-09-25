@@ -132,6 +132,7 @@ export default {
                 position: "middle",
                 duration: 2000
               });
+               clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
@@ -139,6 +140,7 @@ export default {
                 position: "middle",
                 duration: 2000
               });
+               clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             }
           } else {

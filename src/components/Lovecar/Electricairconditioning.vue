@@ -1,82 +1,115 @@
 <template>
-	<div class="adjust-seat-temper">
-		<header class="header">
+	<div class="aircondition-control">
+		<header class="header MobileHeight">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
-			<router-link tag='span' class="seatAeration active" to="/lovecar/adjustSeatAeration">座椅通风<span></span></router-link>
-			<router-link tag='span' class="seatHeating" style="margin-right: 1.3rem;" to="/lovecar/adjustSeatTemper">座椅加热<span></span></router-link>
+			<span class="header-title">空调控制</span>
+			<span class="header-right"></span>
 		</header>
-		<div style="height:0.88rem"></div>
-		<div class="seat-header">
-			<div class="seat-btn">
-				<div class="seat-warm flex-center-between" style="width: 2.2rem;">
-					<span>主驾</span>
-					<mt-switch id="mainDri" @click.native="changeState('主驾')" v-model="value" @change="turn"><span></span></mt-switch>
-				</div>
-				<div class="car-aeration flex-center-between" style="width: 2.2rem;">
-					<span>副驾</span>
-					<mt-switch id="viceDri" @click.native="changeState('副驾')" data-index="2" v-model="aeraValue" @change="ventilatingSwitch"><span></span></mt-switch>
+		<div style="height:0.88rem" class="MobileHeight"></div>
+		<div class="air-header">
+			<div class="air-btn">
+				<div>
+					<span style="margin-right: 0.2rem;">开关</span>
+					<mt-switch v-model="value" @change="turn"><span></span></mt-switch>
 				</div>
 
+				<div>
+					<span style="margin-right: 0.2rem;">压缩机</span>
+					<mt-switch v-model="compressor" @change="turnCompressor"><span></span></mt-switch>
+				</div>
+				<div v-if="!value" class="switch-mask"></div>
 			</div>
-			<div class="seat-sign flex-column">
-				<span class="seat-ch">座椅通风</span>
-				<span class="seat-en">CHAIRAERATION</span>
+			<div class="air-sign flex-column">
+				<span class="air-ch">空调</span>
+				<span class="air-en">conditioners</span>
 				<span style="width: 0.54rem;height: 1px; background: rgba(153,153,153,1);margin-bottom: 0.4rem;"></span>
 			</div>
 		</div>
-		<!--主副驾驶位温度展示Start-->
-		<div class="seat-remind">
-			<span :class="activeShowImgLeft?'fontActive':'loseActives'">{{windNum[seatTemperSpace]}}</span>
-			<span :class="activeShowImgRight?'fontActive':'loseActives'">{{fuWindNum[fuSeatTemperSpace]}}</span>
-		</div>
-		<!--主副驾驶位温度展示End-->
-
 		<!--曲线Start-->
 		<div class="curve">
 			<div class="cureve-text">
-				<span style="left: 1.8rem;top: -0.3rem;">高</span>
-				<span style="left: 2.5rem;top: -0.3rem;">高</span>
-				<span style="left: 0.2rem;top: 0.4rem;">中</span>
-				<span style="left: 4.1rem;top: 0.4rem;">中</span>
-				<span style="left: -0.3rem;top: 1.7rem;">低</span>
-				<span style="left: 4.6rem;top: 1.7rem;">低</span>
+				<span style="left: 3.1rem;top: 2.6rem;">1</span>
+				<span style="left: 2.6rem;top: 0.9rem;">5</span>
+				<span style="left: 1.6rem;top: -0.1rem;">10</span>
+				<span style="left: 0rem;top: -0.3rem;">15</span>
 			</div>
-			<div class="curveActive" style="z-index: 100;">
-				<canvas :style="{visibility:value?'visible':'hidden'}" id="leftColorful" @touchend='endleft'></canvas>
-				<canvas :style="{visibility:aeraValue?'visible':'hidden'}"  id="rightColorful" @touchend='endright'></canvas>
+			<div @touchend="end" class="curveActive" v-show="curveState">
+				<canvas id="rightColorful"></canvas>
 			</div>
-			<div class="curveLoseActive" style="z-index: 50;">
-				<canvas :style="{visibility:value?'hidden':'visible'}" id="leftGray"></canvas>
-				<canvas :style="{visibility:aeraValue?'hidden':'visible'}" id="rightGray"></canvas>
+			<div class="curveLoseActive" v-show="!curveState">
+				<canvas id="rightGray"></canvas>
 			</div>
-		</div>
 
+		</div>
 		<!--曲线End-->
 
-		<!--座椅主体Start-->
-		<div class="seat-wrap flex-column-align">
-			<div class="wind-blows">
-				<div class="seat-text">
-					<div style="display: flex;justify-content: space-around;">
-						<span  style="color: #666666;font-size:0.26rem;left: 0.3rem;">主驾驶</span>
-						<span  style="color: #666666;font-size:0.26rem;left: 1.6rem;">副驾驶</span>
+		<!--空调主体Start-->
+		<div class="air-wrap flex-column-align">
+			<div class="air-content flex-center-between">
+				<!--温度计数器Start-->
+				<div class="temperature">
+					<span style="display:block;margin-bottom: 0.4rem;">温度</span>
+					<div class="temper-inputcoun flex-center">
+						<div class="counter">
+							<button class="conmmon-style" :disabled="!value" @click="add" style="transform: rotateZ(-90deg);">></button>
+							<button class="conmmon-style" :disabled="!value" @click="reduce" style="transform: rotateZ(-90deg);"><</button>
+						</div>
 					</div>
 				</div>
-				<div class="seat-active" >
-					<div style="display: flex;margin-bottom: 0.23rem;justify-content: space-around;">
-						<img :style="{visibility:value?'visible':'hidden'}" :src="'./static/images/Lovecar/Chair2@2x.png'" alt="" />
-						<img :style="{visibility:aeraValue?'visible':'hidden'}" :src="'./static/images/Lovecar/Chair2@2x.png'" alt="" />					
+				<!--温度计数器End-->
+
+				<!--空调图Start-->
+				<div class="wind-blows">
+					<div  v-if="activeShowImg">
+						<img class="color-fan" :class="{rotateActive: rotateState}" :src="'./static/images/Lovecar/ariss@2x.png'" alt="" />
+						<img class="small-fan" :class="{rotateActive: rotateState}" :src="'./static/images/Lovecar/airs@2x.png'" alt="" />
 					</div>
-				</div>
-				<div class="seat-loseactive">
-					<div style="display: flex;margin-bottom: 0.23rem;justify-content: space-around;">
-						<img :style="{visibility:value?'hidden':'visible'}" style="width: 1.34rem;" :src="'./static/images/Lovecar/Chair3@2x.png'" alt="" />
-						<img :style="{visibility:aeraValue?'hidden':'visible'}" style="width: 1.34rem;" :src="'./static/images/Lovecar/Chair3@2x.png'" alt="" />
+					<div v-else style="margin-left: 0.4rem;">
+						<img class="gray-fan" :src="'./static/images/Lovecar/air1@2x.png'" alt="" />
 					</div>
+					<!--<img :class="{rotateActive: rotateState}" :src="'./static/images/Lovecar/air@2x.png'" alt="" />
+					<img v-else :src="'./static/images/Lovecar/air1@2x.png'" alt="" />-->
 				</div>
+				<!--空调End-->
+
+				<!--温度数值Start-->
+				<div class="num">
+					<span :class="activeShowImg?'fontActive':'loseActives'" ref="temperature">{{temperNum[airSpace]}}档</span>
+				</div>
+				<!--温度数值End-->
 			</div>
+			<!--风量计数器Start-->
+			<div class="air-change flex-center">
+				<img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
+				<div class="wind-count">
+					<button  @click=" windReduce" class="addWind conmmon-style"><</button>
+					<input class="wind-input" ref="Air" type="text" v-model="windNum[winIndex]" readonly />
+					<button  @click="windAdd" class="reduceWind conmmon-style">></button>
+				</div>
+				<img :src="'./static/images/Lovecar/right@2x.png'" alt="" />
+			</div>
+			<!--风量计数器End-->
 		</div>
-		<!--座椅主体End-->
+		<!--空调主体End-->
+		<div class="sing-line"></div>
+		<!--底部导航Start-->
+		<div class="air-footer flex-center-between">
+			<button :disabled="!value" class="tabar flex-column-align" @click="change(1)">
+				<img v-if="activeShowImg == 1" :src="'./static/images/Lovecar/no-off@2x.png'" />
+				<img v-else :src="'./static/images/Lovecar/no-off2@2x.png'" />
+			</button>
+			<button :disabled="!value" class="tabar flex-column-align" @click="change(2)">
+				<img v-if="activeShowImg == 2" :src="'./static/images/Lovecar/off-left@2x.png'" />
+				<img v-else :src="'./static/images/Lovecar/off-left2@2x.png'" />
+				<span :class="activeShowImg==2?'active':'actives'">内循环</span>
+			</button>
+			<button :disabled="!value" class="tabar flex-column-align" @click="change(3)">
+				<img v-if="activeShowImg == 3" :src="'./static/images/Lovecar/off-right@2x.png'" />
+				<img v-else :src="'./static/images/Lovecar/off-right2@2x.png'" />
+				<span :class="activeShowImg==3?'active':'actives'">外循环</span>
+			</button>
+			<!--底部导航End-->
+		</div>
 		<!--pin码弹出框Start-->
 		<div class="bgMask" v-if="popupVisible" @click="removeMask"></div>
 		<mt-popup v-model="popupVisible" :modal="false" popup-transition="popup-fade">
@@ -87,7 +120,7 @@
 					<span></span>
 				</div>
 				<div class="pin-code flex-center">
-					<div v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
+					<div  v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
 						<input class="pin-input" maxlength="6" type="text" v-model="pinNumber" readonly/>
 					</div>
 					<div v-else class="pin">
@@ -101,14 +134,16 @@
 				</div>
 			</div>
 		</mt-popup>
-		<!--pin码弹出框End-->
+		<!--pin码弹出框结束-->
 		<!--自定义软键盘Start-->
 		<mt-popup class="typer" v-show="showTyper!=0" position="bottom">
 			<ul v-show="showTyper==2">
 				<li class="typer-num" v-for="item in keyNums" :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}" @click="input(item)">{{item}}</li>
 			</ul>
 		</mt-popup>
+		</div>
 		<!--自定义软键盘End-->
+
 	</div>
 </template>
 
@@ -117,9 +152,10 @@ import { Createarc } from "../../../static/js/drawarc.js";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
 export default {
-  name: "adjustSeatAeration",
+  name: "airconditionControl",
   data() {
     return {
+      time: "", //定时器命名
       //移动端键盘值
       ownKeyBoard: {
         first: "",
@@ -129,66 +165,182 @@ export default {
         fifth: "",
         sixth: ""
       },
-      //主驾通风开关
+      //开关switch按钮激活变量
       value: false,
-      //副驾通风开关
-      aeraValue: false,
-      //图片激活变量左
-      activeShowImgLeft: 0,
-      //图片激活变量右
-      activeShowImgRight: 0,
-      //主驾展示
-      windNum: ["低", "中", "高"],
-      //副驾展示
-      fuWindNum: ["低", "中", "高"],
+      //压缩机switch按钮激活变量
+      compressor: false,
+      //图片激活变量
+      activeShowImg: 0,
+      //温度调节最大值
+      max: 14,
+      //温度调节最小值
+      min: 0,
+      //温度展示值,通过空调默认点控制
+      temperNum: [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      //风量展示
+      windNum: [1, 2, 3, 4, 5, 6, 7],
+      winMin: 0,
+      //风量控制变量
+      winIndex: 0,
       //pin码弹出框控制变量
       popupVisible: false,
-      time: "", //定时器命名
       //pin码值
       pinNumber: "",
       //自定义软键盘状态 0 消失 2 键盘开启
       showTyper: 0,
-      //软键盘内容-12位随机数组
+      //软键盘内容12位随机数组
       keyNums: [],
-      //主驾座椅弧线温度默认点
-      seatTemperSpace: 0,
-      //副驾座椅弧线温度默认点
-      fuSeatTemperSpace: 0,
-      //左右按钮
-      btnContent: "",
-      maincool: 0,
+      //曲线状态
+      curveState: false,
+      //空调默认点
+      airSpace: 0,
+      //空调图旋转状态
+      rotateState: false,
+      nums: 2,
+      loop: 0, //传给后台循环的index
+      compressors: 0, //传给后台的控制压缩机数值
       operationIds: "",
-      nextcool: 0,
-      operationIdss: ""
+      marginTop: this.$store.state.mobileStatusBar
+
     };
   },
   methods: {
-    //主驾座椅通风开关方法
+    //空调控制开关方法
     turn() {
-      if (this.activeShowImgLeft) {
+      if (this.activeShowImg) {
         this.value = true;
       } else {
         this.value = false;
       }
+      this.value ? (this.nums = 2) : (this.nums = 1);
       this.popupVisible = !this.popupVisible;
     },
-    //副驾座椅通风开关方法
-    ventilatingSwitch() {
-      if (this.activeShowImgRight) {
-        this.aeraValue = true;
+    //压缩机控制开关
+    turnCompressor() {
+      if (this.activeShowImg) {
+        this.compressor = this.compressor;
       } else {
-        this.aeraValue = false;
+        this.compressor = false;
       }
-      this.popupVisible = !this.popupVisible;
+      // console.log(this.compressor)
+      this.compressor ? (this.compressors = 2) : (this.compressors = 1);
+      this.httpair();
+    },
+    //激活底部图标方法
+    change(val) {
+      if (val == 1) {
+        this.loop = 0;
+      }
+      if (val == 2) {
+        this.loop = 1;
+      }
+      if (val == 3) {
+        this.loop = 2;
+      }
+      this.activeShowImg
+        ? (this.activeShowImg = val)
+        : (this.activeShowImg = 0);
+      this.httpair();
     },
     //路由跳转的时候清除轮询loading
-    goback () {
-    	this.$router.push('/lovecar');
-    	this.$store.dispatch('LOADINGFLAG', false)
+    goback() {
+      this.$router.go(-1);
+      this.$store.dispatch("LOADINGFLAG", false);
     },
-    //判断点击是左边还是右边
-    changeState(val) {
-      this.btnContent = val;
+    //温度增加
+    add() {
+      if (this.activeShowImg && this.airSpace < this.temperNum.length-1) {
+        this.airSpace++;
+        //计数器控制曲线
+        new Createarc({
+          el: "rightColorful", //canvas id
+          vuethis: this, //使用位置的this指向
+          num: "airSpace", //data数值
+          type: "right", //圆弧方向  left right
+          tempdel: 15, //总差值
+          ratio: 0.4, //宽度比例
+          iscontrol: true, //控制是否能滑动，可以滑动
+          color: {
+            start: "#e22e10", //圆弧下边颜色
+            center: "#f39310", //圆弧中间颜色
+            end: "#04e8db", //圆弧上边颜色
+            num: 3
+          }
+        });
+      } else if (this.airSpace >= this.temperNum.length-1) {
+        this.airSpace = this.temperNum.length-1;
+        return;
+      }
+      this.httpair();
+    },
+    //温度减少
+    reduce() {
+      if (this.activeShowImg && this.airSpace > this.min) {
+        this.airSpace--;
+        //计数器控制曲线
+        new Createarc({
+          el: "rightColorful", //canvas id
+          vuethis: this, //使用位置的this指向
+          num: "airSpace", //data数值
+          type: "right", //圆弧方向  left right
+          tempdel: 15, //总差值
+          ratio: 0.4, //宽度比例
+          iscontrol: true, //控制是否能滑动，可以滑动
+          color: {
+            start: "#e22e10", //圆弧下边颜色
+            center: "#f39310", //圆弧中间颜色
+            end: "#04e8db", //圆弧上边颜色
+            num: 3
+          }
+        });
+      } else if (this.airSpace <= this.min) {
+        this.airSpace = this.min;
+        return;
+      }
+      this.httpair();
+    },
+    //风量增加
+    windAdd() {
+      if (this.activeShowImg) {
+        if (this.winIndex >= this.windNum.length - 1) {
+          this.winIndex = this.windNum.length - 1;
+        } else {
+          this.winIndex++;
+        }
+      } else {
+        return;
+      }
+      this.httpair();
+    },
+    //风量减少
+    windReduce() {
+      if (this.activeShowImg) {
+        if (this.winIndex <= this.winMin) {
+          this.winIndex = this.winMin;
+        } else {
+          this.winIndex--;
+        }
+      } else {
+        return;
+      }
+      this.Air = this.$refs.Air.value;
+      this.httpair();
     },
     //点击遮罩或者'x'移除popup
     removeMask() {
@@ -243,30 +395,14 @@ export default {
     },
     //产生曲线
     produCurve() {
-      //主驾激活弧线
-      new Createarc({
-        el: "leftColorful", //canvas id
-        vuethis: this, //使用位置的this指向
-        num: "seatTemperSpace", //data数值
-        type: "left", //圆弧方向  left right
-        tempdel: 3, //总差值
-        ratio: 0.3, //宽度比例
-        iscontrol: true, //控制是否能滑动，可以滑动
-        color: {
-          start: "#e22e10", //圆弧下边颜色
-          center: "#f39310",
-          end: "#04e8db", //圆弧上边颜色
-          num: 3
-        }
-      });
-      //副驾激活弧线
+      //温度激活弧线
       new Createarc({
         el: "rightColorful", //canvas id
         vuethis: this, //使用位置的this指向
-        num: "fuSeatTemperSpace", //data数值
+        num: "airSpace", //data数值
         type: "right", //圆弧方向  left right
-        tempdel: 3, //总差值
-        ratio: 0.3, //宽度比例
+        tempdel: 15, //总差值
+        ratio: 0.4, //宽度比例
         iscontrol: true, //控制是否能滑动，可以滑动
         color: {
           start: "#e22e10", //圆弧下边颜色
@@ -275,38 +411,38 @@ export default {
           num: 3
         }
       });
-      //主驾未激活弧线
-      new Createarc({
-        el: "leftGray", //canvas id
-        vuethis: this, //使用位置的this指向
-        num: "seatTemperSpace", //data数值
-        type: "left", //圆弧方向  left right
-        tempdel: 3, //总差值
-        ratio: 0.3, //宽度比例
-        iscontrol: false, //控制是否能滑动，禁止滑动
-        color: {
-          start: "#EEEEEE", //圆弧下边颜色
-          end: "#EEEEEE" //圆弧上边颜色
-        }
-      });
-      //副驾未激活弧线
+      //温度未激活弧线
       new Createarc({
         el: "rightGray", //canvas id
         vuethis: this, //使用位置的this指向
-        num: "fuSeatTemperSpace", //data数值
+        num: "airSpace", //data数值
         type: "right", //圆弧方向  left right
-        tempdel: 3, //总差值
-        ratio: 0.3, //宽度比例
+        tempdel: 15, //总差值
+        ratio: 0.4, //宽度比例
         iscontrol: false, //控制是否能滑动，禁止滑动
         color: {
           start: "#EEEEEE", //圆弧下边颜色
-          end: "#EEEEEE" //圆弧上边颜色
+          center: "#EEEEEE",
+          end: "#EEEEEE", //圆弧上边颜色
+          num: 3
         }
       });
     },
+    //用户停止滑动触发移动端事件,发送后端请求
+    end() {
+      //				var start = $('#rightColorful').on('touchstart)
+      this.httpair();
+      console.log(this.temperNum[this.airSpace]);
+    },
+    //激活空调图,进行旋转
+    refreshPmData() {
+      this.rotateState = true;
+      setTimeout(() => {
+        this.rotateState = false;
+      }, 1000);
+    },
     //执行判定
     inputs() {
-      console.log(111);
       var _this = this;
       $(".pin input").on("input propertychange", function() {
         _this.inputFun($(this));
@@ -386,6 +522,7 @@ export default {
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
+                          flag = false;
                           Toast({
                             message: "下达指令成功",
                             position: "middle",
@@ -394,6 +531,7 @@ export default {
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
+                          flag = false;
                           Toast({
                             message: "指令下发成功，处理失败！",
                             position: "middle",
@@ -422,7 +560,6 @@ export default {
                 position: "middle",
                 duration: 2000
               });
-               clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
@@ -430,7 +567,6 @@ export default {
                 position: "middle",
                 duration: 2000
               });
-               clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             }
           } else {
@@ -445,145 +581,87 @@ export default {
           }
         });
     },
-    endleft() {
-      this.httpcoolmain();
-    },
-    endright() {
-      this.httpcoolnext();
-    },
-    //主驾通风接口
-    httpcoolmain() {
-      if (this.value) {
-        if (this.windNum[this.seatTemperSpace] == "低") {
-          this.maincool = 1;
-        }
-        if (this.windNum[this.seatTemperSpace] == "中") {
-          this.maincool = 2;
-        }
-        if (this.windNum[this.seatTemperSpace] == "高") {
-          this.maincool = 3;
-        }
-      }else{
-        this.maincool=0;
-      }
+    //每次改变请求的方法
+    httpair() {
       var param = {
         vin: this.$store.state.vins,
-        operationType: "HOSTSEAT_HEAT",
-        operation: 1, //操作项
+        operationType: "AIRCONDITIONER",
+        operation: this.nums, //操作项
         extParams: {
-          windOper: this.maincool
+          airQuantity: this.windNum[this.winIndex],
+          loop: this.loop,
+          temperature: this.temperNum[this.airSpace],
+          airType: 0,
+          ac: this.compressors
         }
       };
+      // console.log(this.compressors);
       this.$http
         .post(Lovecar.Control, param, this.$store.state.tsppin)
         .then(res => {
-          this.operationIds = res.data.operationId;
-          console.log(this.operationIds);
           if (res.data.returnSuccess) {
             this.getAsyReturn(res.data.operationId);
           } else {
             if (res.data.returnErrCode == 400) {
-          		Toast({
-	              message: "token验证失败",
-	              position: "middle",
-	              duration: 2000
-	            });
-          	} else {
-          		Toast({
-	              message: res.data.returnErrMsg,
-	              position: "middle",
-	              duration: 2000
-	            });
-          	}
+              Toast({
+                message: "token验证失败",
+                position: "middle",
+                duration: 2000
+              });
+            } else {
+              Toast({
+                message: res.data.returnErrMsg,
+                position: "middle",
+                duration: 2000
+              });
+            }
           }
         })
         .catch(err => {
-        	Toast({
-              message: '系统异常',
-              position: "middle",
-              duration: 2000
-            });
-        });
-    },
-    //副驾通风接口
-    httpcoolnext() {
-      if (this.aeraValue) {
-        if (this.fuWindNum[this.fuSeatTemperSpace] == "低") {
-          this.nextcool = 1;
-        }
-        if (this.fuWindNum[this.fuSeatTemperSpace] == "中") {
-          this.nextcool = 2;
-        }
-        if (this.fuWindNum[this.fuSeatTemperSpace] == "高") {
-          this.nextcool = 3;
-        }
-      }else{
-        this.nextcool=0;
-      }
-      var param = {
-        vin: this.$store.state.vins,
-        operationType: "VICESEAT_HEAT",
-        operation: 1, //操作项
-        extParams: {
-          windOper: this.nextcool
-        }
-      };
-      this.$http
-        .post(Lovecar.Control, param, this.$store.state.tsppin)
-        .then(res => {
-          this.operationIdss = res.data.operationId;
-          console.log(this.operationIdss);
-          if (res.data.returnSuccess) {
-            this.getAsyReturn(res.data.operationId);
-          } else {
-            Toast({
-              message: "token验证失败",
-              position: "middle",
-              duration: 2000
-            });
-          }
-          //   setTimeout(() => {
-          //     this.$http
-          //       .post(
-          //         Lovecar.OperationId,
-          //         { operationId: this.operationIdss },
-          //         this.$store.state.tsppin
-          //       )
-          //       .then(res => {
-          //         console.log(res);
-          //       }, 1000);
-          //   });
+          Toast({
+            message: "系统异常",
+            position: "middle",
+            duration: 2000
+          });
         });
     }
   },
   mounted() {
-  	clearInterval(this.time)
+	$(".MobileHeight").css("marginTop", this.marginTop)
+//	alert(this.marginTop)
+  	//
+    clearInterval(this.time);
     this.produCurve();
     this.inputs();
-    this.$http
-      .post(
-        Lovecar.Carquery,
-        { vins: [this.$store.state.vins] },
-        this.$store.state.tsppin
-      )
-      .then(res => {
-        if (res.data.returnSuccess) {
-       		// this.getAsyReturn(res.data.operationId);
-        } else {
-          Toast({
-            message: res.data.returnErrMsg,
-            position: "middle",
-            duration: 2000
-          });
-        }
-      })
-      .catch( err => {
-      	Toast({
-            message: '系统异常',
-            position: "middle",
-            duration: 2000
-          });
-      })
+    //调取车况
+    // this.$http
+    //   .post(
+    //     Lovecar.Carquery,
+    //     { vins: [this.$store.state.vins] },
+    //     this.$store.state.tsppin
+    //   )
+    //   .then(res => {
+    //     if (res.data.returnSuccess) {
+    //       // this.getAsyReturn(res.data.operationId);
+    //     } else {
+    //       Toast({
+    //         message: res.data.returnErrMsg,
+    //         position: "middle",
+    //         duration: 2000
+    //       });
+    //     }
+    //   })
+    //   .catch(err => {
+    //     Toast({
+    //       message: "系统异常",
+    //       position: "middle",
+    //       duration: 2000
+    //     });
+    //   });
+  },
+  beforeRouteLeave(to, from, next) {
+    clearInterval(this.time);
+    next();
   },
   computed: {
     fullValue: {
@@ -610,45 +688,87 @@ export default {
   },
   watch: {
     pinNumber(newVal, oldVal) {
-      //监听一个input输入值(与自定义软键盘配合)，激活对应状态
       if (this.pinNumber.length == 6) {
-        var nums = this.pinNumber;
+        var PIN = this.pinNumber;
         this.$http
           .post(
             Lovecar.Checkphonepin,
             {
-              pin: nums
+              pin: PIN
             },
             this.$store.state.tsppin
           )
           .then(res => {
-            const data = res.data;
-            if (data.returnSuccess == true) {
-              if (this.btnContent == "主驾") {
-                //主驾通风激活
-                this.value = !this.value;
-                this.httpcoolmain();
-                //pin码正确激活主驾座椅图
-                (this.activeShowImgLeft = !this.activeShowImgLeft),
-                  //消失遮罩
-                  (this.popupVisible = !this.popupVisible);
-                //消失软键盘
-                (this.showTyper = 0),
-                  //清空pin码
-                  (this.pinNumber = "");
-              } else {
-                //副驾通风激活
-                this.aeraValue = !this.aeraValue;
-                this.httpcoolnext();
-                //pin码正确激活座椅图
-                (this.activeShowImgRight = !this.activeShowImgRight),
-                  //消失遮罩
-                  (this.popupVisible = !this.popupVisible);
-                //消失软键盘
-                (this.showTyper = 0),
-                  //清空pin码
-                  (this.pinNumber = "");
-              }
+            res.data.returnSuccess ? (this.num = 1) : (this.num = 2);
+            if (res.data.returnSuccess) {
+              this.value = !this.value;
+              this.httpair();
+              //pin码正确激活弧线
+              this.curveState = !this.curveState;
+              //pin码正确激活空调图
+              (this.activeShowImg = !this.activeShowImg),
+                this.refreshPmData(),
+                //消失遮罩
+                (this.popupVisible = !this.popupVisible);
+              //消失软键盘
+              (this.showTyper = 0),
+                //清空pin码
+                (this.pinNumber = "");
+              /*console.log(this.Compressors);
+              console.log(this.temperNum[this.airSpace]);*/
+            } else {
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
+              //消失软键盘
+              (this.showTyper = 0),
+                //清空pin码
+                (this.pinNumber = "");
+              Toast({
+                message: data.returnErrMsg,
+                position: "middle",
+                duration: 1000
+              });
+            }
+          })
+          .catch(err => {
+            Toast({
+              message: "系统异常",
+              position: "middle",
+              duration: 1000
+            });
+          });
+      }
+    },
+    fullValue(newVal, oldVal) {
+      if (this.fullValue.length == 6) {
+        var PIN = this.fullValue;
+        this.$http
+          .post(
+            Lovecar.Checkphonepin,
+            {
+              pin: PIN
+            },
+            this.$store.state.tsppin
+          )
+          .then(res => {
+            console.log(res.data.returnSuccess);
+            res.data.returnSuccess ? (this.num = 1) : (this.num = 2);
+            if (res.data.returnSuccess) {
+              this.value = !this.value;
+              this.httpair();
+              //pin码正确激活弧线
+              this.curveState = !this.curveState;
+              //pin码正确激活空调图
+              (this.activeShowImg = !this.activeShowImg),
+                this.refreshPmData(),
+                //消失遮罩
+                (this.popupVisible = !this.popupVisible);
+              //消失软键盘
+              (this.showTyper = 0),
+                //清空pin码
+                (this.fullValue = "");
+              console.log(this.Compressors);
+              console.log(this.temperNum[this.airSpace]);
             } else {
               //消失遮罩
               this.popupVisible = !this.popupVisible;
@@ -664,7 +784,7 @@ export default {
             }
           })
           .catch(err => {
-            let instance = Toast({
+            Toast({
               message: "系统异常",
               position: "middle",
               duration: 1000
@@ -672,65 +792,7 @@ export default {
           });
       }
     },
-    fullValue(newVal, oldVal) {
-      //监听拼接后的input输入框值(与手机自带键盘配合)，激活对应的状态
-      if (this.fullValue.length == 6) {
-        var nums = this.fullValue;
-        this.$http
-          .post(
-            Lovecar.Checkphonepin,
-            {
-              pin: nums
-            },
-            this.$store.state.tsppin
-          )
-          .then(res => {
-            const data = res.data;
-            if (data.returnSuccess == true) {
-              if (this.btnContent == "主驾") {
-                this.value = !this.value;
-                //pin码正确激活主驾座椅图
-                (this.activeShowImgLeft = !this.activeShowImgLeft),
-                  //消失遮罩
-                  (this.popupVisible = !this.popupVisible);
-                //消失软键盘
-                (this.showTyper = 0),
-                  //清空pin码
-                  (this.fullValue = "");
-              } else {
-                this.aeraValue = !this.aeraValue;
-                //pin码正确激活座椅图
-                (this.activeShowImgRight = !this.activeShowImgRight),
-                  //消失遮罩
-                  (this.popupVisible = !this.popupVisible);
-                //消失软键盘
-                (this.showTyper = 0),
-                  //清空pin码
-                  (this.fullValue = "");
-              }
-            } else {
-              //消失遮罩
-              this.popupVisible = !this.popupVisible;
-              //消失软键盘
-              (this.showTyper = 0),
-                //清空pin码
-                (this.fullValue = "");
-              let instance = Toast({
-                message: data.returnErrMsg,
-                position: "middle",
-                duration: 1000
-              });
-            }
-          })
-          .catch(err => {
-            let instance = Toast({
-              message: "系统异常",
-              position: "middle",
-              duration: 1000
-            });
-          });
-      }
-    }
+    updated() {}
   }
 };
 </script>
@@ -745,24 +807,10 @@ export default {
   align-items: center;
 }
 
-.flex-center-around {
-  /*水平垂直居中-平均对齐*/
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
 .flex-center-between {
   /*水平垂直居中-两边对齐*/
   display: flex;
   justify-content: space-between;
-  align-items: center;
-}
-
-.flex-center {
-  /*水平垂直居中*/
-  display: flex;
-  justify-content: center;
   align-items: center;
 }
 
@@ -772,45 +820,51 @@ export default {
   flex-direction: column;
 }
 
+.flex-center {
+  /*水平垂直居中*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .mint-popup {
   border-radius: 0.1rem;
 }
-/*座椅头部*/
-.header {
-  line-height: 0.78rem;
+.conmmon-style {
+	border: none;
+	outline: none;
+	appearance: none;
+	-webkit-appearance: none;
+	background: none;
 }
-.header > span {
-  position: relative;
-  font-size: 0.34rem;
-}
-.header > span.active {
-  color: #49bbff;
-}
-.header > span.active > span {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  width: 0.46rem;
-  height: 0.88rem;
-  border-bottom: 0.06rem solid #49bbff;
-}
-.seat-header {
+/*空调头部*/
+
+.air-header {
   padding: 0.4rem 0.64rem 0 0.68rem;
 }
-/*座椅开关按钮*/
+/*空调开关按钮*/
 
-.seat-btn {
+.air-btn {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
   margin-bottom: 0.47rem;
 }
-/*座椅标志*/
+.air-btn > div {
+  display: flex;
+  align-items: center;
+}
+.air-btn>.switch-mask {
+    position: absolute;
+    left: 54%;
+    width: 38%;
+    height: 100%;
+    background-color:transparent ;
+}
+/*空调标志*/
 
-.seat-ch {
+.air-ch {
   height: 0.31rem;
   margin-bottom: 0.17rem;
   line-height: 0.31rem;
@@ -818,7 +872,7 @@ export default {
   font-size: 0.32rem;
 }
 
-.seat-en {
+.air-en {
   height: 0.18rem;
   margin-bottom: 0.36rem;
   line-height: 0.18rem;
@@ -826,24 +880,10 @@ export default {
   font-family: PingFang-SC-Regular;
   color: rgba(34, 34, 34, 1);
 }
-/*主副驾温度*/
-
-.seat-remind {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 0.5rem;
-}
-
-.seat-remind > span {
-  color: #222222;
-  font-size: 0.68rem;
-}
 /*曲线*/
 
 .curve {
   position: relative;
-  height: 2.1rem;
 }
 
 .curve > .cureve-text > span {
@@ -855,37 +895,101 @@ export default {
 .curve > div {
   position: absolute;
   left: 50%;
-  top: 0.7rem;
-  margin-left: -31%;
+  top: 0.9rem;
+  margin-left: -7%;
 }
-/*座椅主体*/
+/*空调主体*/
 
-.seat-wrap {
-  height: 4.8rem;
+.air-wrap {
+  height: 6.3rem;
+  padding: 0 0.68rem;
 }
+
+.air-content {
+  width: 100%;
+}
+
+.temperature {
+}
+
+.temper-inputcoun {
+  height: 3.4rem;
+  background: url("../../../static/images/Lovecar/line5@2x_21.png") no-repeat
+    center;
+  background-size: contain;
+}
+/*温度计数器*/
+
+.counter {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 0.6rem;
+  height: 1.8rem;
+  border: 1px solid #999999;
+  border-radius: 0.3rem;
+  background: #fff;
+}
+.count>button {
+	border: none
+}
+/*风扇部分*/
+
 .wind-blows {
-  position: relative;
-  height: 1.6rem;
-  width: 3.35rem;
+  margin-left: 0.5rem;
+  align-self: flex-end;
 }
 .wind-blows > div {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wind-blows > div > .color-fan {
+  width: 1.8rem;
+  height: 1.89rem;
+}
+.wind-blows > div > .gray-fan {
+  width: 2.35rem;
+  height: 1.89rem;
+}
+.wind-blows > div > .small-fan {
   position: absolute;
-  top: 0.2rem;
-  left: 0.3rem;
+  top: 0.7rem;
+  left: 1.6rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  z-index: -1;
 }
-.wind-blows > .seat-text > div > span {
-  position: absolute;
-  top: 1.5rem;
-  width: 0.8rem;
-}
-.wind-blows img {
-  width: 1.34rem;
-  height: 1.57rem;
-}
-/*计数器*/
+/*温度部分*/
 
-.seat-change {
+.num {
+  align-self: flex-start;
+}
+/*温度激活字体*/
+
+.fontActive {
+  font-size: 0.68rem;
+  color: #222222;
+}
+/*温度未激活字体*/
+
+.loseActives {
+  font-size: 0.68rem;
+  color: #999999;
+}
+/*风量计数器*/
+
+.air-change {
   width: 3.7rem;
+  /*background: url('../../../static/images/Lovecar/line4@2x.png') no-repeat center;*/
+  background-size: contain;
+}
+
+.air-change > img {
+  width: 0.8rem;
+  height: 1px;
 }
 
 .wind-count {
@@ -898,16 +1002,12 @@ export default {
   border-radius: 0.3rem;
 }
 
-.seat-change .wind-input {
+.air-change .wind-input {
   width: 0.9rem;
   height: 0.6rem;
   outline: none;
   border: none;
   text-align: center;
-}
-
-.input-count {
-  width: 90%;
 }
 
 .addWind {
@@ -927,16 +1027,48 @@ export default {
   text-align: center;
   border-left: 1px solid #999999;
 }
+/*分割线*/
 
-.fontActive {
-  color: #222222;
-  font-size: 0.68rem;
+.sing-line {
+  width: 6.18rem;
+  height: 1px;
+  margin: 1rem auto 0.4rem auto;
+  background: rgba(153, 153, 153, 0.3);
 }
-/*座椅温度展示未激活字体*/
+/*空调底部*/
 
-.loseActives {
-  color: #666666;
-  font-size: 0.68rem;
+.air-footer {
+  width: 71%;
+  margin: 0.36rem auto 0 auto;
+}
+.tabar {
+  height: 1.24rem;
+  background: none;
+  appearance: none;
+  border: none;
+  -webkit-appearance: none;
+  outline: none;
+}
+.tabar > img {
+  width: 0.88rem;
+  height: 0.88rem;
+  margin-bottom: 0.13rem;
+}
+
+.tabar > span {
+  font-size: 0.22rem;
+}
+/*底部激活字体*/
+
+.active {
+  display: block;
+  color: #49bbff;
+}
+/*底部未激活字体*/
+
+.actives {
+  display: none;
+  color: #999999;
 }
 /*pin码提示框*/
 
@@ -1070,6 +1202,49 @@ ul > li {
   height: 100%;
   opacity: 0.5;
   background: #000;
-  z-index: 1000;
+}
+.rotateActive {
+  transform-origin: (center, center);
+  animation: rotate 1s ease-in-out infinite;
+}
+@-webkit-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-ms-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

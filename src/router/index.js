@@ -22,12 +22,13 @@ import Islogin from '../components/Lovecar/islogin.vue'
 import IntelligenceParking from "@/components/Lovecar/IntelligenceParking" //智能停车G1
 import IntelligentParkingInfo from "@/components/Lovecar/IntelligentParkingInfo" //智能停车G2
 import IntelligentParkingUninfo from "@/components/Lovecar/IntelligentParkingUninfo" //智能停车G3
-import AirConditionControl from "@/components/Lovecar/AirConditionControl" //空调控制
+import AirConditionControl from "@/components/Lovecar/AirConditionControl" //自动空调控制
 import AdjustSeatTemper from "@/components/Lovecar/AdjustSeatTemper" //座椅调温
 import AdjustSeatAeration from "@/components/Lovecar/AdjustSeatAeration" //座椅通风
 import WindowControl from "@/components/Lovecar/WindowControl" //车窗控制
 import SkylightControl from "@/components/Lovecar/SkylightControl" //天窗控制
 import AirEvoluor from "@/components/Lovecar/AirEvoluor" //空气进化器
+import Electricairconditioning from '@/components/lovecar/Electricairconditioning' //电动空调调控
 
 //我的部分
 import My from '@/components/My/Myindex'
@@ -286,6 +287,11 @@ const router = new Router({
                 path: "/lovecar/airConditionControl",
                 name: '空调控制',
                 component: AirConditionControl
+            },
+            {
+                path: "/lovecar/Electricairconditioning",
+                name: '电动空调控制',
+                component: Electricairconditioning
             },
             {
                 path: "/lovecar/adjustSeatTemper",
