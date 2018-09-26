@@ -1,13 +1,9 @@
 <template>
   <div style="height:100%;position:absolute;left:0;top:0;width:100%" class="gobottom">
           <div v-show="region" class="black" @click="choose2"></div> <!-- 遮罩层  -->
-          <div class="bgcolor">
-                  <header class="header">
-                    <img class="header-left" :src="'./static/images/back@2x.png'" @click="backs">
-                    <span class="header-title">车辆预定</span>
-                    <span class="header-right"></span>
-                  </header>
-                  <ul style="margin-top:.88rem">
+          <div class="bgcolor">                 
+                  <mhead currentTitle="车辆预定"></mhead>
+                  <ul>
                       <li class="all">
                           <span>预定车型</span>
                           <div>{{this.$store.state.seriesName}}</div>
@@ -118,7 +114,12 @@
 <script>
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
+import PublicHead from '../publicmodel/PublicHead';
 export default {
+	name: 'reserve',
+	components: {
+  	mhead:PublicHead
+  },
   data() {
     return {
       region: false,

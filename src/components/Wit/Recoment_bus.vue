@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="header">
+    <header class="header MobileHeight">
       <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.push('/wit')">
       <div id="tip">
         <span class="header-title" :class="type==1?'active':''" style="margin-right:.2rem" @click="getcarbus(1)">全部车型</span>
@@ -8,7 +8,7 @@
       </div>
       <span @click="shai()" class="header-right"><img src="../../../static/images/Wit/shaixuan1@3x.png" alt="" style="width:.4rem"></span>
     </header>
-    <div style="height:.88rem"></div>
+    <div style="height:.88rem" class="MobileHeight"></div>
     <ul>
       <li class="bus_li" v-for="(item,index) in this.mainbus" :key="index" @click="tode(item)">
         <img :src="item.imgUrl" alt="">
@@ -176,7 +176,7 @@ export default {
    
   },
   mounted(){
-     
+     $(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar}) //头部挤出一定高度,配合原生做沉浸式开发
   }
 };
 </script>
