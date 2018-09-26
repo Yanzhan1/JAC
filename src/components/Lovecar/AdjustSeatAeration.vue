@@ -1,11 +1,11 @@
 <template>
 	<div class="adjust-seat-temper">
-		<header class="header">
+		<header class="header MobileHeight">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
 			<router-link tag='span' class="seatAeration active" to="/lovecar/adjustSeatAeration">座椅通风<span></span></router-link>
 			<router-link tag='span' class="seatHeating" style="margin-right: 1.3rem;" to="/lovecar/adjustSeatTemper">座椅加热<span></span></router-link>
 		</header>
-		<div style="height:0.88rem"></div>
+		<div style="height:0.88rem" class="MobileHeight"></div>
 		<div class="seat-header">
 			<div class="seat-btn">
 				<div class="seat-warm flex-center-between" style="width: 2.2rem;">
@@ -556,6 +556,7 @@ export default {
     }
   },
   mounted() {
+  	$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar}) //头部挤出一定高度,配合原生做沉浸式开发
   	clearInterval(this.time)
     this.produCurve();
     this.inputs();
