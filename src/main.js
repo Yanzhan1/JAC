@@ -24,12 +24,12 @@ try {
     }
   } else if (isMobile.Android()) {
     Vue.prototype.$statusBarHeightObj = {
-      paddingTop: js2android.getStatusBarHeight() + 'px',
+      paddingTop: js2android.getStatusBarHeight()
     }
   }
 } catch (e) {
   Vue.prototype.$statusBarHeightObj = {
-    paddingTop: 0 + 'px',
+    paddingTop: 0
   }
 }
 
