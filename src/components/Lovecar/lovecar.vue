@@ -210,6 +210,7 @@ export default {
       operationIds: "", //lock传给后台的
       operationIdss: "", //熄火传给后台的
       operationIdses: "", //寻车传给后台的
+      operationIdcar:'',//查询车况的id
       msg: "车机已登录",
       pinNumber: "",
       type: "", //判断点击事件
@@ -432,6 +433,7 @@ export default {
         )
         .then(res => {
           if (res.data.returnSuccess) {
+            this.operationIdcar=res.data.operationId
             this.getAsyReturn(res.data.operationId);
           } else {
             // Toast({
@@ -665,7 +667,7 @@ export default {
                   .then(res => {
                     this.operationIds = res.data.operationId;
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(res.data.operationId);
+                      this.getAsyReturn(this.operationIdcar);
                       this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
                     } else {
                       if (res.data.returnErrCode == 400) {
@@ -704,7 +706,7 @@ export default {
                   .post(Lovecar.Control, param, this.$store.state.tsppin)
                   .then(res => {
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(res.data.operationId);
+                      this.getAsyReturn(this.operationIdcar);
                     } else {
                       if (res.data.returnErrCode == 400) {
                         Toast({
@@ -742,7 +744,7 @@ export default {
                   .then(res => {
                     this.operationIdss = res.data.operationId;
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(res.data.operationId);
+                      this.getAsyReturn(this.operationIdcar);
                     } else {
                       if (res.data.returnErrCode == 400) {
                         Toast({
@@ -780,7 +782,7 @@ export default {
                   .then(res => {
                     this.operationIdses = res.data.operationId;
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(res.data.operationId);
+                      this.getAsyReturn(this.operationIdcar);
                     } else {
                       if (res.data.returnErrCode == 400) {
                         Toast({
