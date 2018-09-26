@@ -1,6 +1,6 @@
 <template>
-  <div class="tophead">
-    <div class="nav">
+  <div class="tophead" style="border-top:.01rem solid #49bbff">
+    <div class="nav" style="margin-top:0.2rem">
       <img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
       <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;{{this.carsysitem}}</span>
       <span class="txt_r" @click="islogin()" v-if="this.LoginStatus">车机已登录</span>
