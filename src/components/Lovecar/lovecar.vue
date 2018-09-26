@@ -528,7 +528,6 @@ export default {
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
-                          alert(1)
                          clearInterval(this.time);                          
                           this.carcontrol = res.data.data;
                           console.log(res.data.data);
