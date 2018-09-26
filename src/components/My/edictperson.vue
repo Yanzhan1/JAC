@@ -124,10 +124,10 @@ export default {
             document.getElementById(imgElementId).src = res;
             self.base64=res;//base64
              var params={
-         fileOldName:self.picname,
-         filePjectPath:'DAS',
+         fileOldName:self.picname, //文件名
+         filePjectPath:'DAS', //
          filePjectName:'jav',
-          base64:self.base64.split(',')[1],
+          base64:self.base64.split(',')[1], //base64数据
          prj:'DM',
          remark:'修改头像'
         }

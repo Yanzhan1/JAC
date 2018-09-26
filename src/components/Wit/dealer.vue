@@ -1,78 +1,54 @@
 <template>
 	<div>
-		<header class="header">
+		<header class="header" style="z-index: 100!important;">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">查询经销商</span>
 			<span class="header-right"><img  alt="" style="width:.4rem"></span>
 		</header>
 		<div style="height:.88rem"></div>
-		<div class="flex row around con cocenter">
+		<div class="flex row around con cocenter title">
 			<div class="flex row cocenter">
 				<!-- 品牌 -->
-				<div class="selection-show " @click="toggleDrop">
+				<div class="selection-show " @click="bottomPicker(1)">
 					<div class="headlines">
-						<div> {{searchVehicleBrandList[nowIndex] && searchVehicleBrandList[nowIndex].brandName}} </div>
-						<div v-if="brandState">品牌</div>
+						<div> {{brandName}} </div>
 					</div>
 					<div class="arrow"></div>
-				</div>
-				<div class="selection-list" v-if="isDrop">
-					<ul>
-						<li v-for="(item,index) in searchVehicleBrandList" :key="index" @click="chooseSelection(index, item.no)">{{item.brandName}}</li>
-					</ul>
 				</div>
 			</div>
 			<div class="flex row cocenter">
 				<!-- 车型 -->
-				<div class="selection-show" @click="toggleCar">
+				<div class="selection-show" @click="bottomPicker(2)">
 					<div class="headlines">
-						<div> {{searchVehicleSeriesList[carIndex] && searchVehicleSeriesList[carIndex].seriesName}} </div>
-						<div v-if="carState">车型</div>
+						<div> {{carName}} </div>
 					</div>
 					<div class="arrow"></div>
-				</div>
-				<div id="carScroll-bar" class="province-list scroll-bar" v-if="carDrop">
-					<ul>
-						<li v-for="(item,index) in searchVehicleSeriesList" :key="index" @click="chooseCarType(index,item.no)">{{item.seriesName}}</li>
-					</ul>
 				</div>
 			</div>
 			<div class="flex row cocenter">
 				<!-- 省份 -->
-				<div class="selection-show" @click="toggleProvin">
+				<div class="selection-show" @click="bottomPicker(3)">
 					<div class="headlines">
-						<div> {{searchCountryAreaCodeListPage[provinIndex] && searchCountryAreaCodeListPage[provinIndex].name}} </div>
-						<div v-if="provinceState">{{cityname}}</div>
+						<div> {{provinceName}} </div>
 					</div>
 					<div class="arrow"></div>
-				</div>
-				<div class="province-list scroll-bar" v-if="provinceDrop">
-					<ul>
-						<li v-for="(item,index) in searchCountryAreaCodeListPage" :key="index" @click="chooseProvinType(index, item.code,item.id)">{{item.name}}</li>
-					</ul>
 				</div>
 			</div>
 			<div class="flex row cocenter">
 				<!--城市-->
-				<div class="selection-show" @click="toggleCity">
+				<div class="selection-show" @click="bottomPicker(4)">
 					<div class="headlines">
-						<div> {{cityList[cityIndex] && cityList[cityIndex].name}} </div>
-						<div v-if="cityState">{{citysi}}</div>
+						<div> {{cityName}} </div>
 					</div>
 
 					<div class="arrow"></div>
 				</div>
-				<div class="selection-list" v-if="cityDrop">
-					<ul>
-						<li v-for="(item,index) in cityList" :key="index" @click="chooseCityType(index, item.code)">{{item.name,item.id}}</li>
-					</ul>
-				</div>
 			</div>
 		</div>
 		<div class="one" style="height:.1rem;"></div>
-		<div :style="{'-webkit-overflow-scrolling': scrollMode}">
+		<div class="dealer-wrapper" :style="{'-webkit-overflow-scrolling': scrollMode}">
 			<mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="80" :auto-fill="false">
-				<ul class="" style="padding:.1rem .2rem" v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
+				<ul style="padding:.1rem .2rem" v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
 					<li ref="dataCon" class="ul_list flex row around " v-for="(item,index) in mainbus" :key="index" @click="setUpMap(item.latitude, item.longitude, item.dealerName, item.dealerAddress)">
 						<!--<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>-->
 						<div class="flex column around  mid">
@@ -99,13 +75,41 @@
 			没有符合该条件的经销商
 		</div>
 
-		<mt-popup v-model="popupVisible" position="bottom">
-			<div style="height:2.5rem;width:100%;">
-				<ul class="search">
-					<li>高德导航</li>
-					<!--<li>百度地图</li>-->
-					<li class="cancel" @click="cancel()">取消</li>
-				</ul>
+		<mt-popup v-model="popupVisible" position="bottom" class="region">
+			<div v-show="type == 1">
+				<div class="flex-center-around">
+					<span></span>
+					<h3 style="margin-left: 0.5rem;">选择品牌</h3>
+					<span @click="confirmBrand">确定</span>
+				</div>				
+				<mt-picker :slots="brandSlot" @change="chooseBrand" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
+			</div>
+			<div v-show="type == 2">
+				<div class="flex-center-around">
+					<span></span>
+					<h3 style="margin-left: 0.5rem;">选择车型</h3>
+					<span @click="confirmCarType">确定</span>
+				</div>
+				
+				<mt-picker :slots="carSlot" @change="chooseCar" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
+			</div>
+
+			<div v-show="type == 3">
+				<div class="flex-center-around">
+					<span></span>
+					<h3 style="margin-left: 0.5rem;">选择省</h3>
+					<span @click="confirmProvince">确定</span>
+				</div>				
+				<mt-picker :slots="provinceSlot" @change="chooseProvince" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
+			</div>
+			<div v-show="type == 4">
+				<div class="flex-center-around">
+					<span></span>
+					<h3 style="margin-left: 0.5rem;">选择市</h3>
+					<span @click="confirmCity">确定</span>
+				</div>
+				
+				<mt-picker :slots="citySlot" @change="chooseCity" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
 			</div>
 		</mt-popup>
 	</div>
@@ -113,36 +117,18 @@
 <script>
 	import { Popup } from "mint-ui";
 	import { Toast } from 'mint-ui';
-	import selectCompon from '../publicmodel/SelectCompon'
 	export default {
 		data() {
 			return {
-				popupVisible: false,
+				popupVisible: false, //popup状态, false=>消失, true=>展现
 				mainbus: [], //存储展示的数据经销商列表
 				searchVehicleBrandList: [], //品牌列表
 				searchVehicleSeriesList: [], //车型列表
 				searchCountryAreaCodeListPage: [], //省份列表
 				cityList: [], //城市列表
-				seriesNo: null, //车型Id
 				bustypeno: null, //车型no
 				brandNo: null, //品牌Id
-				provinceId: null, //省份id
-				cityId: '', //城市id
 				city_id: null, //城市ID 
-				isDrop: false, //品牌下拉
-				carDrop: false, //车型下拉
-				provinceDrop: false, //省份下拉
-				cityDrop: false, //城市下拉
-				nowIndex: 0, //品牌index
-				carIndex: 0, //车型index
-				provinIndex: 0, //省份index
-				cityIndex: 0, //城市index
-				brandState: true, //品牌伪标题状态
-				carState: true, //车型伪标题状态 
-				provinceState: true, //省份伪标题状态
-				cityState: true, //城市伪标题状态
-				cityname: '', //默认省
-				citysi: '', //默认市
 				allLoaded: false, //为真，则 bottomMethod 不会被再次触发,为false会再次触发
 				scrollMode: "touch",
 				loading: false, //false,触发无线滚动, true,不会触发无线滚动
@@ -152,11 +138,47 @@
 				latitude: null, //维度
 				longitude: null, //经度,
 				provinceCode: null, //   省份coed
-				flag: false
+				flag: false, //没有数据提示状态
+				provinceName: '', //原生给出用户所在位置的省份
+				cityName: '', //原生给出用户所在位置的城市
+				brandName: '品牌', //品牌标题默认展示title
+				carName: '车型', //车型标题默认展示title
+				provinceId: null, //省份id
+				proid: null, //第三方变量为了拿到省份id,在popup的确定按钮的回调事件中,赋值给ProvinceId,不改变逻辑
+				proCode: null, //第三方变量为了拿到省份code,在popup的确定按钮的回调事件中,赋值给省份code,不改变逻辑
+				cyId: null, //第三方变量为了拿到城市code,在popup的确定按钮的回调事件中,赋值给城市code,不改变逻辑
+				bno: null, //第三方变量拿到品牌no
+				serino: null, //第三方变量拿到车系no
+				paramsProvinceName: null, //picker选中的省份名字
+				paramsCityName: null, //picker选中城市名字
+				paramsBrandName: null, //picker选中品牌名字
+				paramsCarName: null, //picker选中车型名字
+				type: 1, //唤起对应picker, 1=>品牌, 2=>车型, 3=>省份, 4=>城市
+				brandSlot: [{ //品牌picker的数据
+					flex: 1,
+					values: [],
+					className: "brandSlot",
+					textAlign: "center"
+				}],
+				carSlot: [{ //车系picker的数据
+					flex: 1,
+					values: [],
+					className: "carSlot",
+					textAlign: "center"
+				}],
+				provinceSlot: [{ //省份picker的数据
+					flex: 1,
+					values: [],
+					className: "provinceSlot",
+					textAlign: "center"
+				}],
+				citySlot: [{ //城市picker的数据
+					flex: 1,
+					values: [],
+					className: "citySlot",
+					textAlign: "center"
+				}]
 			};
-		},
-		components: {
-			selectCompon
 		},
 		methods: {
 			init() {
@@ -172,6 +194,10 @@
 						const data = res.data;
 						if(data.code == 0) {
 							this.searchVehicleBrandList = data.data;
+							this.searchVehicleBrandList.forEach((item, index) => {
+								this.brandSlot[0].values.push(item.brandName)
+							})
+
 						}
 					}),
 					//请求省份列表   原生拿到的省份name  去对比省份列表 找到对应的省份code
@@ -180,8 +206,8 @@
 						if(data.code == 0) {
 							this.searchCountryAreaCodeListPage = data.data.records;
 							for(let i = 0; i < this.searchCountryAreaCodeListPage.length; i++) {
-								if(this.searchCountryAreaCodeListPage[i].name == this.cityname) {
-									// console.log(11)
+								this.provinceSlot[0].values.push(this.searchCountryAreaCodeListPage[i].name)
+								if(this.searchCountryAreaCodeListPage[i].name == this.provinceName) {
 									this.provinceCode = this.searchCountryAreaCodeListPage[i].code
 									if(this.provinceCode) {
 										this.mydeler() //省份code 赋值成功后 调用获取经销商列表
@@ -192,9 +218,6 @@
 						}
 					})
 
-			},
-			cancel() {
-				this.popupVisible = false;
 			},
 			//获取经销商列表
 			mydeler() {
@@ -231,77 +254,6 @@
 						});
 					}
 				})
-			},
-			toggleDrop() { //改变品牌下拉状态
-				this.isDrop = !this.isDrop;
-				this.brandState = false;
-				if(this.carDrop || this.provinceDrop || this.cityDrop) { //对其它下拉列表的判断,只显示一个下拉列表
-					this.carDrop = false;
-					this.provinceDrop = false;
-					this.cityDrop = false;
-				}
-			},
-			toggleCar() { //改变车型下拉状态
-				this.carDrop = !this.carDrop;
-				if(this.searchVehicleSeriesList >= 0) {
-					this.carDrop = false;
-				}
-				this.carState = false;
-				if(this.isDrop || this.provinceDrop || this.cityDrop) {
-					this.isDrop = false;
-					this.provinceDrop = false;
-					this.cityDrop = false;
-				}
-			},
-			toggleProvin() { //改变省份下拉状态
-				this.provinceDrop = !this.provinceDrop;
-				if(this.searchCountryAreaCodeListPage >= 0) {
-					this.provinceDrop = false
-				}
-				this.provinceState = false;
-				if(this.cityDrop || this.carDrop || this.isDrop) {
-					this.cityDrop = false;
-					this.carDrop = false;
-					this.isDrop = false;
-				}
-			},
-			toggleCity() { //改变城市下拉装填
-				this.cityDrop = !this.cityDrop
-				this.cityState = false;
-				if(this.provinceDrop || this.isDrop || this.carDrop) {
-					this.provinceDrop = false;
-					this.isDrop = false;
-					this.carDrop = false;
-				}
-			},
-			chooseSelection(ind, val) { //选择品牌
-				this.nowIndex = ind;
-				this.isDrop = false;
-				this.brandNo = val;
-				this.carState = false;
-				this.carIndex = 0
-				this.publicrequst()
-			},
-			chooseCarType(ind, val) { //选择车型
-				this.bustypeno = val
-				this.carIndex = ind;
-				this.carDrop = false
-				this.publicrequst()
-			},
-			chooseProvinType(ind, val, id) { //选择省份, ind参数一个是省份数组的下标,val一个是省份的code  ID是id
-				this.provinIndex = ind; //头部显示
-				this.provinceCode = val; //省份code
-				this.provinceId = id; //省份id变动请求城市列表
-				this.provinceDrop = false;
-				this.cityState = false;
-				this.cityIndex = 0;
-				this.publicrequst()
-			},
-			chooseCityType(ind, val) { //选择城市
-				this.city_id = val //城市id
-				this.cityIndex = ind; //城市头部显示
-				this.cityDrop = false;
-				this.publicrequst()
 			},
 			loadTop() { //列表顶部下拉刷新
 				this.$refs.loadmore.onTopLoaded();
@@ -373,7 +325,6 @@
 					if(res.data.code == 0) {
 						this.mainbus = []
 						this.mainbus = res.data.data.records
-						console.log(this.mainbus)
 						if(this.mainbus.length == 0) {
 							this.flag = true
 						} else {
@@ -397,7 +348,6 @@
 				var system = this.isIOSOrAndroid();
 				if(system == 'Android') {
 					window.js2android.sendLocation2Map(latitude, longitude, adress, des)
-					//		 			console.log(11)
 				} else if(system == "IOS") {
 					var data = {
 						latitude,
@@ -409,15 +359,111 @@
 				}
 			},
 			getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
-				this.cityname = JSON.parse(locationMes).province
-				this.citysi = JSON.parse(locationMes).city
+				this.provinceName = JSON.parse(locationMes).province
+				this.cityName = JSON.parse(locationMes).city
 				this.latitude = JSON.parse(locationMes).latitude //精
 				this.longitude = JSON.parse(locationMes).longitude //韦
+			},
+			bottomPicker(type) { //激活pupop
+				this.popupVisible = true
+				this.type = type
+			},
+			chooseBrand(picker, values) {
+				this.paramsBrandName = values.join('')
+				this.searchVehicleBrandList.forEach((item, index) => {
+					if(item.brandName == this.paramsBrandName) {
+						this.bno = item.no
+					}
+				})
+
+			},
+			chooseCar(picker, values) {
+				this.paramsCarName = values.join('')
+				this.searchVehicleSeriesList.forEach((item, index) => {
+					if(item.seriesName == this.paramsCarName) {
+						this.serino = item.no
+					}
+				})
+			},
+			chooseProvince(picker, values) {
+				this.paramsProvinceName = values.join('')
+				this.searchCountryAreaCodeListPage.forEach((item, index) => {
+					if(item.name == this.paramsProvinceName) {
+						this.proid = item.id //获取当前省份的id,以便获取市列表
+						this.proCode = item.code
+					}
+				})
+
+			},
+			chooseCity(picker, values) {
+				this.paramsCityName = values.join('')
+				this.cityList.forEach((item, index) => {
+					if(item.name == this.paramsCityName) {
+						this.cyId = item.code
+					}
+				})
+			},
+			confirmBrand() { //确定品牌
+				this.popupVisible = false; //隐藏popup
+				this.brandName = this.paramsBrandName //品牌标题替换为picker选择的品牌
+				this.brandNo = this.bno
+
+				this.publicrequst();
+
+				let data = {
+					no: this.bno
+				}
+				//请求车型列表
+				this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
+					const data = res.data;
+					if(data.code == 0) {
+						this.searchVehicleSeriesList = data.data;
+						this.carSlot[0].values = []
+						this.searchVehicleSeriesList.forEach((item, index) => {
+							this.carSlot[0].values.push(item.seriesName)
+							this.carName = this.searchVehicleSeriesList[0].seriesName
+						})
+					}
+				})
+			},
+			confirmCarType() {
+				this.popupVisible = false; //隐藏popup
+				this.carName = this.paramsCarName
+				this.bustypeno = this.serino
+				this.publicrequst()
+			},
+			confirmProvince() {
+				this.popupVisible = false; //隐藏popup
+				this.provinceName = this.paramsProvinceName //省份标题替换为picker选择的省份
+				this.provinceCode = this.proCode //改变省份重新请求身份的经销商列表
+				let data = {
+					parentId: this.proid, //传参省份的id,请求该省份的城市列表 
+					level: 2
+				}
+				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => { //请求城市列表
+					const data = res.data;
+					if(data.code == 0) {
+						this.cityList = data.data.records;
+						this.citySlot[0].values = []; //清除上一次城市的选择
+						this.cityList.forEach((item, index) => {
+							this.citySlot[0].values.push(item.name)
+							this.cityName = this.cityList[0].name
+						})
+					} else {
+
+					}
+				})
+				this.publicrequst() //请求该省份的经销商列表
+			},
+			confirmCity() {
+				this.popupVisible = false; //隐藏popup
+				this.cityName = this.paramsCityName
+				this.city_id = this.cyId
+				this.publicrequst() //请求该省份的经销商列表
 			}
 		},
 		mounted() {
 			this.init()
-			this.provinceId = null
 		},
 		created() {
 			window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
@@ -425,10 +471,10 @@
 			if(system == 'Android') {
 				var Position = js2android.getLocationInfo() //获取安卓定位信息
 				var NewPosition = JSON.parse(Position)
-				this.cityname = NewPosition.province //省
-				this.citysi = NewPosition.city //市
-				this.latitude = NewPosition.latitude //精
-				this.longitude = NewPosition.longitude //韦
+				this.provinceName = NewPosition.province //省
+				this.cityName = NewPosition.city //市
+				this.latitude = NewPosition.latitude //经度
+				this.longitude = NewPosition.longitude //纬度
 			} else if(system == "IOS") {
 				window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
 			}
@@ -436,46 +482,6 @@
 		filters: {
 			toFixed(input, param1) { //可以有好多的自定义过滤器，这里的this指向的是window
 				return input.toFixed(param1)
-			}
-		},
-		watch: {
-			brandNo(newVal, oldVal) { //监听品牌id,获得车型列表
-				let data = {
-					no: this.brandNo
-				}
-				//请求车型列表
-				this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
-					const data = res.data;
-					if(data.code == 0) {
-						this.searchVehicleSeriesList = data.data;
-					}
-				})
-
-			},
-			provinceId(newVal, oldVal) { //监听省,获取市列表
-				let data = {
-					parentId: this.provinceId, //被检测的省份id 
-					level: 2
-				}
-				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
-					const data = res.data;
-					if(data.code == 0) {
-						this.cityList = data.data.records;
-					} else {
-
-					}
-				})
-			},
-			searchVehicleSeriesList(newVal, oldVal) {
-
-				if(this.searchVehicleSeriesList.length == 0) {
-					this.carDrop = false
-				}
-			},
-			searchCountryAreaCodeListPage(newVal, oldVal) {
-				if(this.searchCountryAreaCodeListPage.length == 0) {
-					this.provinceDrop = false
-				}
 			}
 		}
 	};
@@ -511,15 +517,24 @@
 		display: flex;
 		justify-content: space-between;
 	}
-	
+	.flex-center-around{/*水平垂直居中-平均对齐*/
+	  display: flex;
+	  justify-content: space-around;
+	  align-items: center;
+	  padding-top: 0.2rem;
+	}
 	.row {
 		flex-direction: row;
 	}
-	
+	.title {
+		/*position: fixed;
+		height: 0.88rem;
+		line-height: 0.88rem;*/
+	}
 	.con>div {
 		position: relative;
 		height: 0.88rem;
-		width: 1.5rem
+		width: 1.5rem;
 	}
 	
 	.con div img {
@@ -529,6 +544,10 @@
 	
 	.one {
 		background: linear-gradient(#f7f7f7, #f9f9f9);
+	}
+	
+	.dealer-wrapper {
+		min-height: 100%;
 	}
 	
 	.ul_list {
@@ -606,15 +625,13 @@
 		height: 100%;
 		line-height: 0.88rem;
 		margin-left: -35%;
-		z-index: 100;
 	}
 	
 	.selection-show>.headlines>div {
 		position: absolute;
 		/*display: block;*/
-		width: 1.5rem;
+		width: 1.1rem;
 		height: 90%;
-		background: #fff;
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
@@ -629,94 +646,28 @@
 		border-top: 5px solid #e3e3e3;
 	}
 	
-	.con .selection-list {
-		display: inline-block;
-		position: absolute;
-		top: 1rem;
-		left: 0.1rem;
+	.region {
+		/*position: relative;*/
+		/*bottom: -1.5rem;*/
+		width: 100%;
+		height: 6rem;
+		color: #222;
 		background: #fff;
-		border-top: 1px solid #e3e3e3;
-		border-bottom: 1px solid #e3e3e3;
-		border-radius: 0.1rem !important;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-		z-index: 5;
+		font-weight: Regular;
+		font-family: PingFangSC-Regular;
+		z-index: 1001;
 	}
 	
-	.con .selection-list ul {
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
+	.region .flex-center-around h3 {
+		text-align: center;
+		/*margin-top: 0.42rem;*/
+		font-size: 0.36rem;
+		color: #222;
+		/*background: yellowgreen;*/
 	}
 	
-	.con .selection-list li {
-		width: 1.5rem;
-		padding: 0.05rem 0.15rem 0.05rem 0.1rem;
-		border-left: 1px solid #e3e3e3;
-		border-right: 1px solid #e3e3e3;
-		cursor: pointer;
-		background: #fff;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-	
-	.con .province-list .arrow {
-		position: absolute;
-		left: 10%;
-		top: 40%;
-		display: inline-block;
-		width: 0;
-		height: 0;
-		border-left: 4px solid transparent;
-		border-right: 4px solid transparent;
-		border-top: 5px solid #e3e3e3;
-	}
-	
-	.con .province-list {
-		display: inline-block;
-		position: absolute;
-		top: 0.8rem;
-		left: 0.1rem;
-		background: #fff;
-		border-top: 1px solid #e3e3e3;
-		border-bottom: 1px solid #e3e3e3;
-		border-radius: 0.1rem;
-		height: 3.5rem;
-		overflow-y: scroll;
-		z-index: 5;
-	}
-	
-	.con .cocenter .province-list li {
-		width: 1.5rem;
-		padding: 0.05rem 0.15rem 0.05rem 0.1rem;
-		border-left: 1px solid #e3e3e3;
-		border-right: 1px solid #e3e3e3;
-		cursor: pointer;
-		background: #fff;
-		overflow: hidden !important;
-		white-space: nowrap !important;
-		text-overflow: ellipsis !important;
-	}
-	
-	.con .cocenter .scroll-bar::-webkit-scrollbar {
-		width: 0.05rem;
-		/*高宽分别对应横竖滚动条的尺寸*/
-		/*height: 1px;*/
-	}
-	
-	.con .cocenter .scroll-bar::-webkit-scrollbar-thumb {
-		/*滚动条里面小方块*/
-		border-radius: 0.05rem;
-		background-color: #3366ff;
-		background-image: -webkit-gradient(linear, 40% 0%, 75% 84%, from(rgba(0, 0, 0, 0.9)), to(rgba(0, 0, 0, 0.9)), color-stop(.6, #f5f5f5))
-	}
-	
-	.con .cocenter .scroll-bar::-webkit-scrollbar-track {
-		/*滚动条里面轨道*/
-		-webkit-box-shadow: inset 0 0 0.05rem rgba(0, 0, 0, 0.2);
-		border-radius: 0.05rem;
-		background: #F5F5F5;
+	.region .flex-center-around span {
+		color: #49bbff;
+		font-size: 0.28rem;
 	}
 </style>

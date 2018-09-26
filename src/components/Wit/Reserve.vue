@@ -155,13 +155,13 @@ export default {
           values: [],
           className: "slot1",
           textAlign: "center"
-        },
-        {
+        }
+       /* {
           divider: true,
           content: "",
           itemHieight: 74,
           className: "slot2"
-        }
+        }*/
       ],
       slots2: [
         {
@@ -209,7 +209,6 @@ export default {
       this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
         this.data = res.data.data.records;
         this.slots3[0].values = [];
-        console.log(this.data);
         for (var i = 0; i < this.data.length; i++) {
           // alert(JSON.stringify(this.data))
           this.slots3[0].values.push(this.data[i].name);
