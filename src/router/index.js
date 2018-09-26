@@ -28,7 +28,7 @@ import AdjustSeatAeration from "@/components/Lovecar/AdjustSeatAeration" //座�
 import WindowControl from "@/components/Lovecar/WindowControl" //车窗控制
 import SkylightControl from "@/components/Lovecar/SkylightControl" //天窗控制
 import AirEvoluor from "@/components/Lovecar/AirEvoluor" //空气进化器
-import Electricairconditioning from '@/components/lovecar/Electricairconditioning' //电动空调调控
+import Electricairconditioning from '@/components/Lovecar/Electricairconditioning' //电动空调调控
 
 //我的部分
 import My from '@/components/My/Myindex'
