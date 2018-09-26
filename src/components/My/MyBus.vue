@@ -15,7 +15,7 @@
             <label for="foot-check" class="input-label deft_0" :class="{active:item.def==1}" @click="setOneDefault(item.vin,item.def)"> </label>
             <span style="color: #49BBFF;">{{item.vehicleName}}{{item.def==1?'（默认）':''}}</span>
           </div>
-          <img :src="'./static/images/my/car_ruifeng_s5@2x.png'" alt="" />
+          <img :src="item.imageUrl" alt="" />
         </div>
         <div class="bus-right">
           <p class="bus-untie" @click="unite(item.vin)">解绑</p>
