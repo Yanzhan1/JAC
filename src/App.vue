@@ -72,16 +72,39 @@ export default {
 };
 </script>
 <style>
-.picker-item {
+/* .picker-item {
   color: #ccc;
 }
 .picker-item.picker-selected {
   color: #222;
+} */
+.picker-item.picker-selected {
+    color: #000;
+    -webkit-transform: translate3d(0, 0, 0) rotateX(0);
+    transform: translate3d(0, 0, 0) rotateX(0);
+}
+.picker-item {
+    height: 36px;
+    line-height: 36px;
+    padding: 0 10px;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #ccc;
+    left: 0;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 .picker-center-highlight:before, .picker-center-highlight:after {
   content: '';
   position: absolute;
-  height: .03rem;
+  height: .07rem;
   width: 100%;
   background-color: #eaeaea;
   display: block;

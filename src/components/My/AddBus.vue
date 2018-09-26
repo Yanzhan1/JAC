@@ -31,6 +31,11 @@ export default {
       engine: ""
     };
   },
+  mounted(){
+    // alert(this.$store.state.mobile)
+    // alert(this.$store.state.userId)
+    // alert(this.$store.state.trueuserId)
+  },
   methods: {
     AddMybus() {
      var param = {

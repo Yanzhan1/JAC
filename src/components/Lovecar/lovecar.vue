@@ -462,7 +462,7 @@ export default {
       }
     },
     getStatus(status) {
-      console.log(status);
+      // console.log(status);
       var param = {
         vin: this.$store.state.vins,
         operation: "1"
@@ -495,7 +495,7 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              console.log(tSS);
+              // console.log(tSS);
               if (tSS >= 56) {
                 Toast({
                   message: "请求超时",
@@ -517,7 +517,7 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          console.log(tSS);
+                          // console.log(tSS);
                           if (tSS >= 56) {
                             Toast({
                               message: "请求超时",
@@ -528,13 +528,15 @@ export default {
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
-                          console.log(res.data.data);
+                          alert(1)
+                         clearInterval(this.time);                          
                           this.carcontrol = res.data.data;
-                          this.carcontrol.engineHoodStsFront
+                          console.log(res.data.data);
+                          this.engineHoodStsFront=this.carcontrol.engineHoodStsFront
                             ? (this.engineHoodStsFront = "已开")
                             : (this.engineHoodStsFront = "未开");
                           this.acStatus = this.carcontrol.acStatus; //空调初始状态
-                          this.carcontrol.skylightStatus
+                          this.skylightStatus=this.carcontrol.skylightStatus
                             ? (this.skylightStatus = "已开")
                             : (this.skylightStatus = "未开"); //天窗初始状态
                           this.backnum = this.carcontrol.doorStsTrunk;
@@ -549,7 +551,7 @@ export default {
                             right_bottom: this.carcontrol.tirePressureRearRight
                           };
                           this.Condition = tai;
-                          clearInterval(this.time);
+ 
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
                           flag = false;
@@ -575,7 +577,7 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              console.log(res.data.data);
+              // console.log(res.data.data);
               this.carcontrol = res.data.data;
               this.carcontrol.engineHoodStsFront
                 ? (this.engineHoodStsFront = "已开")
@@ -692,7 +694,7 @@ export default {
               } else if (this.type == 2) {
                 // 后备箱接口
                 this.isTrues = !this.isTrues;
-                console.log(this.isTrues);
+                // console.log(this.isTrues);
                 this.isTrues ? (this.backnum = 1) : (this.backnum = 2);
                 var param = {
                   vin: this.$store.state.vins,
@@ -822,7 +824,6 @@ export default {
       }
     },
     userId(newVal, oldVal) {
-      //获取车辆的vin码
       this.$http
         .post(
           My.My_Bus,
@@ -846,7 +847,7 @@ export default {
             for (let i = 0; i < res.data.data.length; i++) {
               if (res.data.data[i].def == 1) {
                 this.carsysitem = res.data.data[i].seriesName;
-                console.log(res.data.data[i].vin);
+                // console.log(res.data.data[i].vin);
                 var payload = res.data.data[i].vin;
                 this.$store.dispatch("CARVINS", payload);
                 // this.$store.state.vins = res.data.data[i].vin;
@@ -895,7 +896,7 @@ export default {
           for (let i = 0; i < res.data.data.length; i++) {
             if (res.data.data[i].def == 1) {
               this.carsysitem = res.data.data[i].seriesName;
-              console.log(res.data.data[i].vin);
+              // console.log(res.data.data[i].vin);
               var payload = res.data.data[i].vin;
               this.$store.dispatch("CARVINS", payload);
               // this.$store.state.vins = res.data.data[i].vin;
