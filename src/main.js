@@ -17,21 +17,21 @@ import md5 from 'js-md5';
 /**
  * 获取手机上方状态栏高度
  */
-// try {
-//   if (isMobile.iOS()) {
-//     Vue.prototype.$statusBarHeightObj = {
-//       paddingTop: '20px',
-//     }
-//   } else if (isMobile.Android()) {
-//     Vue.prototype.$statusBarHeightObj = {
-//       paddingTop: js2android.getStatusBarHeight() + 'px'
-//     }
-//   }
-// } catch (e) {
-//   Vue.prototype.$statusBarHeightObj = {
-//     paddingTop: 0
-//   }
-// }
+try {
+  if (isMobile.iOS()) {
+    Vue.prototype.$statusBarHeightObj = {
+      paddingTop: 0,
+    }
+  } else if (isMobile.Android()) {
+    Vue.prototype.$statusBarHeightObj = {
+      paddingTop: js2android.getStatusBarHeight() / 4 + 'px'
+    }
+  }
+} catch (e) {
+  Vue.prototype.$statusBarHeightObj = {
+    paddingTop: 0
+  }
+}
 
 Vue.prototype.$http = axios;
 Vue.prototype.$md5 = md5
