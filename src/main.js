@@ -20,16 +20,16 @@ import md5 from 'js-md5';
 try {
   if (isMobile.iOS()) {
     Vue.prototype.$statusBarHeightObj = {
-      paddingTop: js2android.getStatusBarHeight() / parseInt(document.documentElement.style.fontSize) + 'rem',
+      paddingTop: 0,
     }
   } else if (isMobile.Android()) {
     Vue.prototype.$statusBarHeightObj = {
-      paddingTop: js2android.getStatusBarHeight() / parseInt(document.documentElement.style.fontSize) + 'rem',
+      paddingTop: js2android.getStatusBarHeight() + 'px',
     }
   }
 } catch (e) {
   Vue.prototype.$statusBarHeightObj = {
-    paddingTop: 30 / parseInt(document.documentElement.style.fontSize) + 'rem',
+    paddingTop: 0 + 'px',
   }
 }
 
