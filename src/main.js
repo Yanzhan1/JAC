@@ -24,7 +24,7 @@ try {
     }
   } else if (isMobile.Android()) {
     Vue.prototype.$statusBarHeightObj = {
-      paddingTop: js2android.getStatusBarHeight()
+      paddingTop: js2android.getStatusBarHeight() + 'px'
     }
   }
 } catch (e) {
