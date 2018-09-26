@@ -24,18 +24,18 @@
     },
     created() {
       this.$http.interceptors.request.use((config) => {
-        // const params = config.data
-        // if (!params.pageNo || params.pageNo == 1) {
-          // 在发送请求之前做些什么
-          if (config.url == Lovecar.OperationId) {
-            this.$store.dispatch('LOADINGFLAG', true)
-          }
-          if (this.loadingnum == 0) {
+        const params = config.data
+        // 在发送请求之前做些什么
+        if (config.url == Lovecar.OperationId) {
+          this.$store.dispatch('LOADINGFLAG', true)
+        }
+        if (this.loadingnum == 0) {
+          if (!(params.pageNo && params.pageNo > 1)) {
             this.loadingflag = true;
           }
-          this.loadingnum++;
-          ModalHelper.afterOpen(); //解决遮罩层穿透
-        // }
+        }
+        this.loadingnum++;
+        ModalHelper.afterOpen(); //解决遮罩层穿透
         return config;
       }, (error) => {
         this.loadingnum--;
@@ -59,19 +59,16 @@
             }
             break;
         }
-        // const params = JSON.parse(response.config.data)
-        // if (!params.pageNo || params.pageNo == 1) {
-          if (response.config.url != Lovecar.OperationId) {
-            this.loadingnum--;
-            if (this.loadingnum == 0) {
-              this.loadingflag = false;
-              this.$forceUpdate();
-            }
-          } else {
+        if (response.config.url != Lovecar.OperationId) {
+          this.loadingnum--;
+          if (this.loadingnum == 0) {
             this.loadingflag = false;
+            this.$forceUpdate();
           }
-          ModalHelper.beforeClose() //解决遮罩层穿透
-        // }
+        } else {
+          this.loadingflag = false;
+        }
+        ModalHelper.beforeClose() //解决遮罩层穿透
         return response;
       }, (error) => {
         this.loadingnum--;
