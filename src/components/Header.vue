@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <div class="myheader" style="height: auto;" :style="$statusBarHeightObj">
+      <div class="myheader" style="height: auto;" :style="{paddingTop: $store.state.mobileStatusBar}">
         <div>
           <img src="../../static/images/discover/shaixuan.png" @click="open" style="width: 0.4rem;margin-top: 0.1rem;" />
         </div>

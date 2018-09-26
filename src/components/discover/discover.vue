@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header @refresh="refresh"></Header>
-    <div style="height: 0.88rem;box-sizing: content-box;" :style="$statusBarHeightObj"></div>
+    <div style="height: 0.88rem;box-sizing: content-box;" :style="{paddingTop: $store.state.mobileStatusBar}"></div>
     <!-- <keep-alive v-if="flag"> -->
     <router-view v-if="flag" />
     <!-- </keep-alive> -->
