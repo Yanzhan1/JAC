@@ -14,48 +14,67 @@ import axios from 'axios'
 //导入md5加密
 import md5 from 'js-md5';
 
+/**
+ * 获取手机上方状态栏高度
+ */
+try {
+  if (isMobile.iOS()) {
+    Vue.prototype.$statusBarHeightObj = {
+      paddingTop: js2android.getStatusBarHeight() / parseInt(document.documentElement.style.fontSize) + 'rem',
+    }
+  } else if (isMobile.Android()) {
+    Vue.prototype.$statusBarHeightObj = {
+      paddingTop: js2android.getStatusBarHeight() / parseInt(document.documentElement.style.fontSize) + 'rem',
+    }
+  }
+} catch (e) {
+  Vue.prototype.$statusBarHeightObj = {
+    paddingTop: 30 / parseInt(document.documentElement.style.fontSize) + 'rem',
+  }
+}
+
 Vue.prototype.$http = axios;
 Vue.prototype.$md5 = md5
-Vue.prototype.toLogin = function() {
-    MessageBox({
-        title: '提示',
-        message: '请登录',
-        confirmButtonText: '确定'
-    }).then(action => {
-        console.log("跳转登录");
-        if (isMobile.iOS()) {
-            window.webkit.messageHandlers.goLogin.postMessage("");
-        } else if (isMobile.Android()) {
-            NativeJavaScriptInterface.goLogin();
-        }
-    });
+Vue.prototype.toLogin = function () {
+  MessageBox({
+    title: '提示',
+    message: '请登录',
+    confirmButtonText: '确定'
+  }).then(action => {
+    console.log("跳转登录");
+    if (isMobile.iOS()) {
+      window.webkit.messageHandlers.goLogin.postMessage("");
+    } else if (isMobile.Android()) {
+      NativeJavaScriptInterface.goLogin();
+    }
+  });
 }
 
 // mint-ui插件
 import {
-    Search,
-    PaletteButton,
-    IndexList,
-    IndexSection,
-    Cell,
-    Swipe,
-    SwipeItem,
-    CellSwipe,
-    Actionsheet,
-    Popup,
-    Checklist,
-    Switch,
-    Picker,
-    DatetimePicker,
-    Navbar,
-    TabItem,
-    MessageBox,
-    Toast,
-    TabContainer,
-    TabContainerItem,
-    Spinner,
-    Radio,
-    Lazyload
+  Search,
+  PaletteButton,
+  IndexList,
+  IndexSection,
+  Cell,
+  Swipe,
+  SwipeItem,
+  CellSwipe,
+  Actionsheet,
+  Popup,
+  Checklist,
+  Switch,
+  Picker,
+  DatetimePicker,
+  Navbar,
+  TabItem,
+  MessageBox,
+  Toast,
+  TabContainer,
+  TabContainerItem,
+  Spinner,
+  Radio,
+  Lazyload
 } from 'mint-ui'; //按需引入部分组件
 Vue.component(Search.name, Search);
 Vue.component(PaletteButton.name, PaletteButton);
@@ -84,7 +103,7 @@ import 'mint-ui/lib/style.css'
 import '../static/style/mint-ui.css'
 Vue.use(mintui)
 Vue.use(Lazyload)
-    //状态管理
+//状态管理
 import store from './store'
 
 //导入jquery
@@ -96,9 +115,11 @@ Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-    el: '#app',
-    router,
-    store,
-    components: { App },
-    template: '<App/>'
+  el: '#app',
+  router,
+  store,
+  components: {
+    App
+  },
+  template: '<App/>'
 })

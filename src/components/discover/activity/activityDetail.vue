@@ -1,7 +1,7 @@
 <template>
   <div>
     <div @click="bgHide" id="bgShare"></div>
-    <header class="header0 header1" id="header1">
+    <header class="header0 header1" id="header1" style="height: auto;padding-bottom: 0.4rem;" :style="{paddingTop: `calc(0.4rem + ${$statusBarHeightObj.paddingTop})`}">
       <img class="header_left" src="../../../../static/images/discover/backfff.png" @click="goBack">
       <img class="header_right" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
     </header>
