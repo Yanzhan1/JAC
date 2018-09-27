@@ -444,7 +444,7 @@ textarea::-webkit-input-placeholder {
   margin-left: 0.14rem;
 }
 .bustypes_1 span {
-  font-size: 0.21rem;
+  font-size: 0.28rem;
   color: #222;
 }
 .bus {
