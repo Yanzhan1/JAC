@@ -1,5 +1,5 @@
 <template>
-  <div class="all">
+  <div>
     <!--<div class="header" style="background: #fff">
       <img class="header-left" src="../../../static/images/back@2x.png" alt="" @click="$router.go(-1)">
       <span class="header-title">我的收藏</span>
