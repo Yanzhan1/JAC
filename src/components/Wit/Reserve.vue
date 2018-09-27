@@ -92,7 +92,7 @@
               </div>
 
               </div>
-              <mt-popup v-show="areas" position="bottom">
+              <mt-popup class="region" v-show="areas" position="bottom">
                   <h3>选择省</h3>
                   <span @click="choose">确定</span>
                   <mt-picker :slots="slots" @change="onValuesChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
@@ -524,8 +524,8 @@ textarea {
   line-height: 0.36rem;
 }
 .region > span {
-  /*position: absolute;
-  bottom: 5.32rem;*/
+  position: absolute;
+  bottom: 5.32rem;
   right: 0.35rem;
   color: #49bbff;
   font-size: 0.28rem;
