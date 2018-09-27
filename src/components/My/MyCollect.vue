@@ -6,9 +6,10 @@
       <span class="header-title">我的收藏</span>
       <div class="header-right"></div>
     </div> -->
+    <div style="height: 0.88rem;box-sizing: content-box;" :style="$statusBarHeightObj"></div>
     <div class="flex choose">
-      <div class="flex contentcenter" :class="{'contentchoose':contentchoose==1}" @click="contentchoose = 1">资讯</div>
-      <div class="flex contentcenter" :class="{'contentchoose':contentchoose==2}" @click="contentchoose = 2">活动</div>
+      <div style="margin-top: 0;" class="flex contentcenter" :class="{'contentchoose':contentchoose==1}" @click="contentchoose = 1">资讯</div>
+      <div style="margin-top: 0;" class="flex contentcenter" :class="{'contentchoose':contentchoose==2}" @click="contentchoose = 2">活动</div>
 
     </div>
     <div style="padding: 0.16rem 0;">
