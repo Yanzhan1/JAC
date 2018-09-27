@@ -1,11 +1,12 @@
 <template>
   <div class="add-bus">
-    <header class="header">
+    <!--<header class="header">
       <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
       <span class="header-title">添加车辆</span>
       <span class="header-right"></span>
     </header>
-    <div style="height:0.88rem"></div>
+    <div style="height:0.88rem"></div>-->
+    <mhead currentTitle="添加车辆"></mhead>
     <div class="rame-number">
       <span style="color: #555555;">车架号(VIN)</span>
       <input type="text" placeholder="请输入VIN码"  v-model="rame" style="text-transform:uppercase" />
@@ -21,8 +22,12 @@
 
 <script>
 import { Toast } from "mint-ui";
+import PublicHead from '../publicmodel/PublicHead';
 export default {
   name: "addBus",
+  components: {
+  	mhead:PublicHead
+  },
   data() {
     return {
       //pin码

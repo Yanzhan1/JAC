@@ -1,11 +1,12 @@
 <template>
     <div>
-        <header class="header">
+        <!--<header class="header">
             <img class="header-left" src="../../../static/images/back@2x.png" @click="$route.meta.keepAlive = false;$router.go(-1)">
             <span class="header-title">地址管理</span>
             <div></div>
         </header>
-        <div style="height:.88rem"></div>
+        <div style="height:.88rem"></div>-->
+        <mhead currentTitle="地址管理"></mhead>
         <ul style="padding:.2rem .4rem">
             <li class="flex column maincenter" v-for='(item,index) in this.alladdress' :key='index' style="height:2.21rem;border-bottom:1px solid #f1f1f1;">
                 <div class="flex row between">
@@ -39,7 +40,12 @@
 </template>
 <script>
 import { MessageBox } from "mint-ui";
+import PublicHead from '../publicmodel/PublicHead';
 export default {
+	name: 'myaddress',
+	components: {
+	  	mhead:PublicHead
+    },
   data() {
     return {
         alladdress:{}

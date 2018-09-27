@@ -1,11 +1,12 @@
 <template>
 	<div class="my-setup">
-		<header class="header">
+		<!--<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">设置</span>
 			<span class="header-right"></span>
 		</header>
-		<div style="height:0.88rem"></div>
+		<div style="height:0.88rem"></div>-->
+		<mhead currentTitle="设置"></mhead>
 		<!--<mt-cell :title="title">
 			<mt-switch @change="turn" v-model="value"><span></span></mt-switch>
 		</mt-cell>-->
@@ -25,9 +26,13 @@
 </template>
 
 <script>
+	import PublicHead from '../publicmodel/PublicHead';
 	import { MessageBox } from 'mint-ui';
 	export default {
-		name: '',
+		name: 'mySetup',
+		components: {
+		  mhead:PublicHead
+	    },
 		data() {
 			return {
 				title: '软键盘',

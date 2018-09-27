@@ -1,12 +1,12 @@
 <template>
   <div>
-    <header class="header">
+    <!--<header class="header">
       <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
       <span class="header-title">我的经销商</span>
       <span class="header-right"></span>
     </header>
-    <div style="height:.88rem"></div>
-   
+    <div style="height:.88rem"></div>-->
+   	<mhead currentTitle="我的经销商"></mhead>
         <ul v-for="(item,index) in mydealer" :key="index" class="flex column " style="padding:.3rem;border-bottom:.1rem solid #f5f5f5">
           
           <li class="flex column">
@@ -39,7 +39,12 @@
 </template>
 <script>
 import { Popup } from "mint-ui";
+import PublicHead from '../publicmodel/PublicHead';
 export default {
+	name: 'myDealer',
+	components: {
+  	mhead:PublicHead
+  },
   data() {
     return {
       popupVisible: false,

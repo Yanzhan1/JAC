@@ -1,11 +1,12 @@
 <template>
 	<div class="freedback-record">
-		<header class="header">
+		<!--<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">反馈记录</span>
 			<span class="header-right"></span>
 		</header>
-		<div style="height:0.88rem"></div>
+		<div style="height:0.88rem"></div>-->
+		<mhead currentTitle="反馈记录"></mhead>
 		<div v-for="(item,index) in questionContent" class="freeback-wrap flex-center" :key="index">
 			<router-link tag="div" class="question-content flex-column-align" :to="{path:'/myindex/feedbackDetail', query:{no:item.no}}">
 				<div class="question">
@@ -19,8 +20,12 @@
 
 <script>
 import { Toast } from "mint-ui";
+import PublicHead from '../publicmodel/PublicHead';
 export default {
   name: "feedbackRecord",
+  components: {
+  	mhead:PublicHead
+  },
   data() {
     return {
       condition: {

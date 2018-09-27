@@ -1,11 +1,12 @@
 <template>
   <div class="editPersonalDetails">
-    <header class="header">
+    <!--<header class="header">
       <img class="header-left" src="../../../static/images/back@2x.png" @click="$route.meta.keepAlive = false;$router.go(-1)">
       <span class="header-title">个人信息</span>
       <div></div>
     </header>
-    <div style="height:.88rem"></div>
+    <div style="height:.88rem"></div>-->
+    <mhead currentTitle="个人信息"></mhead>
     <div class="content">
       <div class="contentList">
         <span class="contentList-left">头像</span>
@@ -82,7 +83,12 @@
 import { MessageBox } from "mint-ui";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
+import PublicHead from '../publicmodel/PublicHead';
 export default {
+	name: 'edictPerson',
+	components: {
+  	mhead:PublicHead
+  },
   data() {
     return {
       popupVisible: false,

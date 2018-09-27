@@ -1,11 +1,12 @@
 <template>
 	<div>
-		<header class="header">
+		<!--<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">维保预约</span>
 			<span class="header-right"></span>
 		</header>
-		<div style="height:.88rem"></div>
+		<div style="height:.88rem"></div>-->
+		<mhead currentTitle="维保预约"></mhead>
 		<ul style="padding:0 .33rem">
 			<li class="flex row li_st between cocenter" @click="times(3)">
 				<p style="font-size:.27rem;color:#555">申请服务车型</p>
@@ -125,8 +126,12 @@
 <script>
 	import { Picker } from "mint-ui";
 	import { Toast } from 'mint-ui';
+	import PublicHead from '../publicmodel/PublicHead';
 	export default {
-
+		name: 'preWeib',
+		components: {
+		  mhead:PublicHead
+		},
 		data() {
 			return {
 				popupVisible: false,
