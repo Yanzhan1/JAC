@@ -2,10 +2,13 @@
   <div>
     <div @click="bgHide" id="bgShare" style="position: fixed; width: 100%;height: 100%;background: #000000; display: none;opacity: 0.2"></div>
     <div>
-      <header class="header0 header1" id="header1">
+      <my-header>
+        <img slot="share" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
+      </my-header>
+      <!-- <header class="header0 header1" id="header1">
         <img class="header_left" src="../../../../static/images/discover/backfff.png" @click="goBack">
         <img class="header_right" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
-      </header>
+      </header> -->
       <header class="header0 header2" id="header2" style="display: none">
         <img class="header_left" src="../../../../static/images/discover/backblue.png" @click="goBack">
         <p class="header-title-fff">资讯详情</p>
