@@ -1,11 +1,15 @@
 <template>
     <div>  
-        <div class="specil">
-            <!-- <router-link class="header-left" to="/wit" tag="div"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem;"></router-link> -->
+        <!-- <div class="specil">
             <div class="header-left" @click="goback"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem;"></div>
             <p class="active p1">车系特色</p>
             <p class="p2" @click="configure">配置参数</p>
-        </div>
+        </div> -->
+        <header class="specil MobileHeight header">
+			<div  @click="goback"><img style="width:.4rem;height:.4rem;" :src="'./static/images/back@2x.png'"></div>
+			<router-link tag='p' class="active p1" to="/wit/Characteristic">车系特色<span></span></router-link>
+			<router-link tag='p' class="p2" style="margin-right: 1.3rem;" to="/wit/Configure">配置参数<span></span></router-link>
+		</header>
         <div class="main">
             <div v-for="(item,index) in this.everyimage" :key="index">
                 <img style="display:block;width:100%;height:100%" :src="item" alt="">
@@ -56,6 +60,7 @@ export default {
         }
     },
     mounted(){
+        $(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar}) //头部挤出一定高度,配合原生做沉浸式开发
         // console.log(this.$route.params.everyno)
         // alert(this.seriesName)
         let params={
@@ -82,10 +87,9 @@ export default {
     width: 100%;
     display: flex;
     height: 1.18rem;
-    justify-content: center;
     align-items: center;
     position: fixed;
-    top:0
+    top:0;
 }
 .specil>p{
     padding: .25rem;
