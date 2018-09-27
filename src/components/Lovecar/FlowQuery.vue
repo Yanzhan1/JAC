@@ -28,7 +28,7 @@
 						<span style="font-size: 0.26rem;color: #444444;">
 					本月总流量:
 				</span>
-						<input :disabled="disabled" type="text" v-model="num" />
+						<input :disabled="disabled" type="text" v-model="packageTotalFlow" />
 					</div>
 				</div>
 				<div class="origin-pin">
@@ -36,7 +36,7 @@
 						<span style="font-size: 0.26rem;color: #444444;">
 					已使用流量:
 				</span>
-						<input :disabled="disabled" type="text" v-model="num" />
+						<input :disabled="disabled" type="text" v-model="usedFlow" />
 					</div>
 				</div>
 				<div class="origin-pin">
@@ -44,7 +44,7 @@
 						<span style="font-size: 0.26rem;color: #444444;">
 					剩余流量:
 				</span>
-						<input :disabled="disabled" type="text" v-model="num" />
+						<input :disabled="disabled" type="text" v-model="surplusFlow" />
 					</div>
 				</div>
 			</div>
@@ -91,7 +91,6 @@ export default {
     return {
       time: "", //定时器命名
       //流量
-      num: "100G",
       IsShow: false, //控制自定义键盘显示
       popupVisible: true, //控制pin码框显示
       pinNumber: "", //输入的pin码值
@@ -100,6 +99,9 @@ export default {
       disabled: true, //展示作用，不能输入
       Closingdate: "2020-07-12", //截止日期
       Flowpacket: "至尊黄金套餐", //流量包名称
+      packageTotalFlow:'',//总流量
+      usedFlow:'',//已使用流量
+      surplusFlow:'',//剩余流量
       //移动端键盘值
       ownKeyBoard: {
         first: "",
@@ -192,7 +194,10 @@ export default {
                   this.$store.state.tsppin
                 )
                 .then(res => {
-                  console.log(res)
+                  console.log(res.data)
+                  this.packageTotalFlow=res.data.packageTotalFlow;
+                  this.usedFlow=res.data.usedFlow;
+                  this.surplusFlow=res.data.surplusFlow
 				});
                             this.value = !this.value;
               //消失遮罩
