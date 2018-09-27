@@ -347,7 +347,6 @@ export default {
       this.area = values;
       for (var i = 0; i < this.myaddress.length; i++) {
         if (this.area[0] == this.myaddress[i].name) {
-          this.everycode = this.myaddress[i].code;
           this.provinceid = this.myaddress[i].id;
         }
       }
@@ -366,9 +365,11 @@ export default {
     //选择经销市
     onValuesChange3(picker, values) {
       this.city = values;
+      console.log(this.data)
       for (var i = 0; i < this.data.length; i++) {
         if (this.city == this.data[i].name) {
           this.codecity = this.data[i].id;
+          this.everycode = this.data[i].code;
         }
       }
     }
@@ -419,7 +420,7 @@ export default {
       //经销商
       var param = {
         dealerType: "01",
-        dealerCityCode: this.everycode,
+        dealerCityCode: '0001',
         vehicleSeridesNo:this.$store.state.everyno
       };
       this.$http.post(Wit.Dealer, param, this.$store.state.getpin).then(res => {
