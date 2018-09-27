@@ -240,7 +240,8 @@ export default {
       //后备箱状态
       doorStsTrunk: "",
       //发动机状态
-      engineStatus: ""
+      engineStatus: "",
+      defaultvin:''//默认车辆的vin
     };
   },
   //  beforeRouteEnter :(to, from, next)=> {
@@ -866,15 +867,8 @@ export default {
   mounted() {
     //暴露方法给原生,登入判断
     window.getStatus = this.getStatus;
-    //获取机车 登录登出状态
-    this.$http.get(Lovecar.LogStatus, this.$store.state.tsppin).then(res => {
-      if (res.data.returnSuccess) {
-        // alert(JSON.stringify( res.data))
-        this.LoginStatus = res.data.data[1] ? res.data.data[1].logStatus : [];
-      }
-    });
-    // alert(JSON.parse(this.$store.state.tsppin.headers.identityParam).userId)
-    this.$http
+   
+   this.$http
       .post(
         My.My_Bus,
         {
@@ -896,20 +890,29 @@ export default {
           this.BusDetails = res.data.data;
           for (let i = 0; i < res.data.data.length; i++) {
             if (res.data.data[i].def == 1) {
+              
               this.carsysitem = res.data.data[i].seriesName;
-              // console.log(res.data.data[i].vin);
               var payload = res.data.data[i].vin;
+              this.defaultvin=res.data.data[i].vin;
+              // alert( this.defaultvin)
               this.$store.dispatch("CARVINS", payload);
-              // this.$store.state.vins = res.data.data[i].vin;
+             }
             }
-            // }
-          }
           this.vinn = this.$store.state.vins;
-          // console.log(this.vinn)
           this.Carquerry();
-          // console.log(this.$store.state.mytoken.headers.timaToken);
         }
       });
+       //获取机车 登录登出状态
+    this.$http.get(Lovecar.LogStatus, this.$store.state.tsppin).then(res => {
+     if (res.data.returnSuccess) { 
+        for(let i=0;i<res.data.data.length;i++){
+          if(this.defaultvin==res.data.data[i].vin){
+          this.LoginStatus = res.data.data[i].logStatus //true 代表机车已经登录
+          // alert(  this.LoginStatus)
+         }
+        }
+     }
+    });
   }
 };
 </script>

@@ -36,9 +36,9 @@ export default {
         .then(action => {
           if (action == "confirm") {
             var param = {
-              vin:this.$store.state.vin,
-              operation: "0"
-            };
+              vin:this.$store.state.vins,
+         };
+          
             this.$http.post(Lovecar.LoginOut,param,this.$store.state.tsppin).then(res => {
               if(res.status==200){
                  this.$router.go(-1)
