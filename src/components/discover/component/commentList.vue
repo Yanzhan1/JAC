@@ -5,7 +5,7 @@
       <img class="header-left" src="../../../../static/images/discover/backblue.png" @click="goBack">
       <p class="header-title-fff" style="width: 100%;text-align: center">评论详情</p>
     </header> -->
-    <div style="margin-bottom: 1rem;margin-top: 1.2rem;">
+    <div style="margin-bottom: 1rem;margin-top: 0.32rem;">
       <div id="pinglun_item01" class="dd_02 detail" v-for="(item,index) in conmmentsList">
         <!--评论者信息S-->
         <div class="comment_userinfo">

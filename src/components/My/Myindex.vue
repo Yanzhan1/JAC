@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mytop">
+    <div class="mytop" :style="$statusBarHeightObj">
       <div class="flex between mytopicon cocenter">
         <img src="../../../static/images/my/mine_service@2x.png" alt=""  @click="ton()">
         <img src="../../../static/images/my/mine_message@2x.png" alt="" @click="tonews()">

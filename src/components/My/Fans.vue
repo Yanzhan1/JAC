@@ -6,7 +6,7 @@
         <span class="header-title-fff">粉丝列表</span>
         <div class="header-right"></div>
       </header> -->
-    <div style="margin-top: 1.2rem;"></div>
+    <div style="margin-top: 0.32rem;"></div>
     <ul class="wrap_92" v-for="item in list">
       <li>
         <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="headPic">

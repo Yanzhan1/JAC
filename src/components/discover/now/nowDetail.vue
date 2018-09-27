@@ -11,7 +11,7 @@
     </header> -->
     <shareBox :index="0" :item="content" :flag="flag" :type="type" :isCenter="true" @closeShare="bgHide"></shareBox>
     <div class="wrap_92">
-      <div class="top_14">
+      <div class="top_14" style="margin-top: 0.52rem;">
         <!--发布者信息S-->
         <div class="comment_userinfo">
           <div class="user_head">

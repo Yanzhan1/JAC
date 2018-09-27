@@ -6,7 +6,7 @@
         <span class="header-title">我的活动</span>
         <div class="header-right"></div>
       </div> -->
-    <div style="padding: 0.16rem 0;margin-top: 0.88rem">
+    <div style="padding: 0.16rem 0;">
       <!--活动列表S-->
       <div v-for="(item) in myActivityList" :key="item.id">
         <div class="boxInfo">

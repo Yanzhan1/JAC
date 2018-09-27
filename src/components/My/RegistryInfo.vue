@@ -6,7 +6,7 @@
       <span class="header-title">报名信息</span>
       <div></div>
     </header> -->
-    <div class="line"></div>
+    <div class="line" style="margin-top: 0.04rem;"></div>
     <div class="content">
       <div class="activityInfo">
         <h3 class="activityTittle">活动信息</h3>

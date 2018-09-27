@@ -1,25 +1,28 @@
 <template>
-  <header :class="title ? 'header2' : 'header1'">
-    <div class="top" :style="$statusBarHeightObj"></div>
-    <div class="bottom">
+  <div>
+    <header :class="title ? 'header2' : 'header1'">
+      <div class="top" :style="$statusBarHeightObj"></div>
+      <div class="bottom">
 
-      <div class="btn-wrapper left">
-        <span class="btn" @click="goBack">
-          <img v-if="title" src="../../../../static/images/discover/backblue.png" />
-          <img v-else src="../../../../static/images/discover/backfff.png" />
-        </span>
+        <div class="btn-wrapper left">
+          <span class="btn" @click="goBack">
+            <img v-if="title" src="../../../../static/images/discover/backblue.png" />
+            <img v-else src="../../../../static/images/discover/backfff.png" />
+          </span>
+        </div>
+
+        <p class="title">{{title}}</p>
+
+        <div class="btn-wrapper right">
+          <span class="btn">
+            <slot name="share"></slot>
+          </span>
+        </div>
+
       </div>
-
-      <p class="title">{{title}}</p>
-
-      <div class="btn-wrapper right">
-        <span class="btn">
-          <slot name="share"></slot>
-        </span>
-      </div>
-
-    </div>
-  </header>
+    </header>
+    <div v-if="title" class="box" style="box-sizing: content-box;" :style="$statusBarHeightObj"></div>
+  </div>
 </template>
 
 <script>
@@ -95,6 +98,10 @@
     display: block;
     width: 100%;
     height: 100%;
+  }
+
+  .box {
+    height: 0.88rem;
   }
 
 </style>

@@ -6,7 +6,7 @@
         <span class="header-title">我的发布</span>
         <div class="header-right"></div>
       </div> -->
-    <div style="height: 0.88rem;"></div>
+    <!-- <div style="height: 0.88rem;"></div> -->
     <!--社区列表S-->
     <div v-for="(item,index) in myList">
       <div class="boxInfo">
