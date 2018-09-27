@@ -1,16 +1,15 @@
 <template>
     <div class="all">
-        <div class="specil">
-            <!-- <router-link to="/wit" tag="div"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem"></router-link> -->
-            <div @click="goback"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem"></div>
-            <p class="p1" @click="characteristic">车系特色</p>
-            <p class="p2 active" @click="characteristic">配置参数</p>
-        </div>
+        <header class="specil MobileHeight header">
+			<div  @click="goback"><img style="width:.4rem;height:.4rem;" :src="'./static/images/back@2x.png'"></div>
+			<router-link tag='p' class="p1" to="/wit/Characteristic">车系特色<span></span></router-link>
+			<router-link tag='p' class="p2 active" style="margin-right: 1.3rem;" to="/wit/Configure">配置参数<span></span></router-link>
+		</header>
         <div class="talbs">
             <div v-for="(item,index) in nav" class="talbs_next" @click="choose($event,index)" :class="{blue:current==index}" :key="index">{{item}}</div>
         </div>
         <div class="every_img" >
-            <img style="display:block;" class="nav" :src="this.allimage[this.current]" alt="">
+            <img style="display:block;width:100%;height:100%;" class="nav" :src="this.allimage[this.current]" alt="">
             <!-- <img src="./../../../static/images/Wit/170598437859803375.jpg" alt="">
             <img src="./../../../static/images/Wit/25470446938143313.jpg" alt=""> -->
         </div>
@@ -63,6 +62,7 @@ export default {
         }
     },
     mounted(){
+        $(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar}) //头部挤出一定高度,配合原生做沉浸式开发
         let params={
             no:this.$store.state.everyno
         }
@@ -117,9 +117,9 @@ export default {
 .specil{
     display: flex;
     height: 1.18rem;
-    justify-content: center;
     align-items: center;
     position: relative;
+    margin-bottom: .3rem;
 }
 .specil>p{
     padding: .25rem;
