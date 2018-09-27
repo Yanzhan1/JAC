@@ -166,7 +166,7 @@ export default {
       ],
       slots2: [
         {
-          values: ['G4北京鑫格尔发汽车贸易有限公司'],
+          values: [],
           className: "slot1",
           textAlign: "center"
         },
@@ -177,7 +177,7 @@ export default {
       ],
       slots3: [
         {
-          values: ['市辖区'],
+          values: [],
           className: "slot1",
           textAlign: "center"
         },
@@ -402,7 +402,36 @@ export default {
           this.slots[0].values.push(this.myaddress[i].name);
         }
       });
+//选择市
+      var data = {
+        parentId:1,
+        level: 2
+      };
+      this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+        this.data = res.data.data.records;
+        this.slots3[0].values = [];
+        for (var i = 0; i < this.data.length; i++) {
+          // alert(JSON.stringify(this.data))
+          this.slots3[0].values.push(this.data[i].name);
+        }
+      });
 
+      //经销商
+      var param = {
+        dealerType: "01",
+        dealerCityCode: this.everycode,
+        vehicleSeridesNo:this.$store.state.everyno
+      };
+      this.$http.post(Wit.Dealer, param, this.$store.state.getpin).then(res => {
+        // console.log(res);
+        this.chooseaddress = res.data.data.records;
+        this.slots2[0].values = [];
+        for (var i = 0; i < this.chooseaddress.length; i++) {
+          this.slots2[0].values.push(this.chooseaddress[i].dealerName);
+          this.Idchooseaddress.push(this.chooseaddress[i].no);
+        }
+        // alert(this.slots2[0].values)
+      });
     $(".gobottom").height($(".gobottom").height());
   }
 };

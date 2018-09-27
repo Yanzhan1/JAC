@@ -772,7 +772,7 @@ export default {
                 this.isTruesss = !this.isTruesss;
                 setTimeout(() => {
                   this.isTruesss = !this.isTruesss;
-                }, 3000);
+                }, 5000);
                 var param = {
                   vin: this.$store.state.vins,
                   operationType: "FIND_VEHICLE"

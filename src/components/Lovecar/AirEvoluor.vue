@@ -1,6 +1,6 @@
 <template>
 	<div class="skylight-control">
-		<mhead currentTitle="空气进化器"></mhead>
+		<mhead currentTitle="空气净化器"></mhead>
 		<div class="window-header">
 			<div class="window-btn">
 				<mt-switch v-model="value" @change="turn"><span></span></mt-switch>
