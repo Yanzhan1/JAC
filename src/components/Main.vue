@@ -16,7 +16,8 @@
     data() {
       return {
         loadingflag: false,
-        loadingnum: 0
+        loadingnum: 0,
+        reg: /\/api\/(.*?)\//
       }
     },
     components: {
@@ -25,14 +26,26 @@
     created() {
       this.$http.interceptors.request.use((config) => {
         const params = config.data
+        const arr = config.url.match(this.reg)
+
         // 在发送请求之前做些什么
         if (config.url == Lovecar.OperationId) {
           this.$store.dispatch('LOADINGFLAG', true)
         }
         if (this.loadingnum == 0) {
-          // if (!(params.pageNo && params.pageNo > 1)) {
+          if (arr) {
+            switch (arr[1]) {
+              case 'dk-dm-portal-api': // 发现
+                if (!(params.pageNo && params.pageNo > 1)) {
+                  this.loadingflag = true;
+                }
+                break
+              default:
+                this.loadingflag = true;
+            }
+          } else {
             this.loadingflag = true;
-          // }
+          }
         }
         this.loadingnum++;
         ModalHelper.afterOpen(); //解决遮罩层穿透
