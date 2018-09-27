@@ -6,14 +6,11 @@
             <p class="p1" @click="characteristic">车系特色</p>
             <p class="p2 active" @click="characteristic">配置参数</p>
         </div>
-        <!-- <div style="display:flex;flex:1;just-content:center">
-            <div v-for="(item,index) in Edition">{{item}}</div>
-        </div> -->
         <div class="talbs">
             <div v-for="(item,index) in nav" class="talbs_next" @click="choose($event,index)" :class="{blue:current==index}" :key="index">{{item}}</div>
         </div>
         <div class="every_img" >
-            <img style="display:block;width:100%" class="nav" :src="this.allimage[this.current]" alt="">
+            <img style="display:block;" class="nav" :src="this.allimage[this.current]" alt="">
             <!-- <img src="./../../../static/images/Wit/170598437859803375.jpg" alt="">
             <img src="./../../../static/images/Wit/25470446938143313.jpg" alt=""> -->
         </div>
@@ -109,7 +106,7 @@ export default {
 .every_img{
     width: 100%;
     overflow-x: auto;
-    height: 100%;
+    height: 10.3rem;
 }
 .every::-webkit-scrollbar{
     /* display: none; */

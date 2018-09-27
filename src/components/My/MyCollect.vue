@@ -1,10 +1,11 @@
 <template>
   <div class="all">
-    <div class="header" style="background: #fff">
+    <!--<div class="header" style="background: #fff">
       <img class="header-left" src="../../../static/images/back@2x.png" alt="" @click="$router.go(-1)">
       <span class="header-title">我的收藏</span>
       <div class="header-right"></div>
-    </div>
+    </div>-->
+    <mhead currentTitle="我的收藏"></mhead>
     <div class="flex choose">
       <div class="flex contentcenter" :class="{'contentchoose':contentchoose==1}" @click="contentchoose = 1">资讯</div>
       <div class="flex contentcenter" :class="{'contentchoose':contentchoose==2}" @click="contentchoose = 2">活动</div>
@@ -78,8 +79,12 @@
 
 <script>
   import { MessageBox } from 'mint-ui';
+  import PublicHead from '../publicmodel/PublicHead';
   export default {
     name: "MyCollect",
+    components: {
+  		mhead:PublicHead
+  	},
     data(){
       return{
         list:[0,1,2,3,4,5,6,7,8,9],
@@ -189,7 +194,7 @@
   @import "./../../../static/css/discover/all.css";
   .choose>div{
     flex: 1;
-    margin-top: 0.88rem;
+    /*margin-top: 0.88rem;*/
     height: 0.88rem;
     font-size: 0.28rem;
     color: #555555;

@@ -75,7 +75,7 @@
 			没有符合该条件的网点
 		</div>
 
-		<mt-popup v-model="popupVisible" position="bottom" class="region">
+		<mt-popup v-model="popupVisible" position="bottom">
 			<div v-show="type == 1">
 				<div class="flex-center-around">
 					<span></span>
@@ -359,7 +359,7 @@
 				}
 			},
 			getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
-				this.provinceName = JSON.parse(locationMes).province
+				this.provinceName = JSON.parse(locationMes).province.replace('市', '')
 				this.cityName = JSON.parse(locationMes).city
 				this.latitude = JSON.parse(locationMes).latitude //精
 				this.longitude = JSON.parse(locationMes).longitude //韦
@@ -475,7 +475,7 @@
 			if(system == 'Android') {
 				var Position = js2android.getLocationInfo() //获取安卓定位信息
 				var NewPosition = JSON.parse(Position)
-				this.provinceName = NewPosition.province //省
+				this.provinceName = NewPosition.province.replace('市', '') //省
 				this.cityName = NewPosition.city //市
 				this.latitude = NewPosition.latitude //经度
 				this.longitude = NewPosition.longitude //纬度
@@ -666,7 +666,7 @@
 		z-index: 1001;
 	}
 	
-	.region .flex-center-around h3 {
+	.flex-center-around h3 {
 		text-align: center;
 		/*margin-top: 0.42rem;*/
 		font-size: 0.36rem;
@@ -674,7 +674,7 @@
 		/*background: yellowgreen;*/
 	}
 	
-	.region .flex-center-around span {
+	.flex-center-around span {
 		color: #49bbff;
 		font-size: 0.28rem;
 	}

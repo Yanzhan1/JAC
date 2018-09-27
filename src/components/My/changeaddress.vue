@@ -3,12 +3,13 @@
 
     <div style="height:100%;position:fixed;left:0;top:0;width:100%">
       <div v-show="bgcolor" class="bgcolor" @click="hidess"></div>
-        <header class="header">
+        <!--<header class="header">
             <img class="header-left" src="../../../static/images/back@2x.png" @click="$route.meta.keepAlive = false;$router.go(-1)">
             <span class="header-title">编辑地址</span>
             <div></div>
         </header>
-        <div style="height:.88rem"></div>
+        <div style="height:.88rem"></div>-->
+        <mhead currentTitle="编辑地址"></mhead>
         <div style="padding:0 .3rem">
             <div class="contentList">
                 <span class="contentList-left">姓名</span>
@@ -70,7 +71,12 @@
 
 <script>
 import { Toast } from "mint-ui";
+import PublicHead from '../publicmodel/PublicHead';
 export default {
+	name: 'changeaddress',
+	components: {
+  		mhead:PublicHead
+    },
   data() {
     return {
       bgcolor: false,

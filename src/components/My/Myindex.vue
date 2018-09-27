@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mytop">
-      <div class="flex between mytopicon cocenter">
+      <div class="flex between mytopicon cocenter MobileHeight">
         <img src="../../../static/images/my/mine_service@2x.png" alt=""  @click="ton()">
         <img src="../../../static/images/my/mine_message@2x.png" alt="" @click="tonews()">
       </div>
@@ -337,8 +337,10 @@ export default {
     
   },
   mounted() {
-    // console.log(this.$store.state.no)
-    // this.getTokenAndNo();
+		$(".MobileHeight").css({
+				"borderTopWidth": this.$store.state.mobileStatusBar,
+				"borderTopColor": "transparent",
+			})
     this.myNum();
     this.IsSign(); //判断是否签到
      this.total()//h获取用户总积分
@@ -346,6 +348,10 @@ export default {
 };
 </script>
 <style scoped>
+	.MobileHeight {  
+		border-top-style: solid;
+		box-sizing: content-box;
+	} 
 .mint-popup {
   width: 80%;
   height: 3.33rem;

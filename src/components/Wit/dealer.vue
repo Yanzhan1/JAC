@@ -75,7 +75,7 @@
 			没有符合该条件的经销商
 		</div>
 
-		<mt-popup v-model="popupVisible" position="bottom" class="region">
+		<mt-popup v-model="popupVisible" position="bottom" >
 			<div v-show="type == 1">
 				<div class="flex-center-around">
 					<span></span>
@@ -204,8 +204,9 @@
 					this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
 						const data = res.data;
 						if(data.code == 0) {
-							this.searchCountryAreaCodeListPage = data.data.records;
-							for(let i = 0; i < this.searchCountryAreaCodeListPage.length; i++) {
+							this.searchCountryAreaCodeListPage = data.data.records;	
+							console.log(this.searchCountryAreaCodeListPage)
+							for(let i = 0; i < this.searchCountryAreaCodeListPage.length; i++) {								
 								this.provinceSlot[0].values.push(this.searchCountryAreaCodeListPage[i].name)
 								if(this.searchCountryAreaCodeListPage[i].name == this.provinceName) {
 									this.provinceCode = this.searchCountryAreaCodeListPage[i].code
@@ -359,10 +360,11 @@
 				}
 			},
 			getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
-				this.provinceName = JSON.parse(locationMes).province
+				this.provinceName = JSON.parse(locationMes).province.replace('市', '')
 				this.cityName = JSON.parse(locationMes).city
 				this.latitude = JSON.parse(locationMes).latitude //精
 				this.longitude = JSON.parse(locationMes).longitude //韦
+				
 			},
 			bottomPicker(type) { //激活pupop
 				this.popupVisible = true
@@ -475,7 +477,7 @@
 			if(system == 'Android') {
 				var Position = js2android.getLocationInfo() //获取安卓定位信息
 				var NewPosition = JSON.parse(Position)
-				this.provinceName = NewPosition.province //省
+				this.provinceName = NewPosition.province.replace('市','') //省
 				this.cityName = NewPosition.city //市
 				this.latitude = NewPosition.latitude //经度
 				this.longitude = NewPosition.longitude //纬度
@@ -653,28 +655,13 @@
 		border-right: 4px solid transparent;
 		border-top: 5px solid #e3e3e3;
 	}
-	
-	.region {
-		/*position: relative;*/
-		/*bottom: -1.5rem;*/
-		width: 100%;
-		height: 6rem;
-		color: #222;
-		background: #fff;
-		font-weight: Regular;
-		font-family: PingFangSC-Regular;
-		z-index: 1001;
-	}
-	
-	.region .flex-center-around h3 {
+	.flex-center-around h3 {
 		text-align: center;
-		/*margin-top: 0.42rem;*/
 		font-size: 0.36rem;
 		color: #222;
-		/*background: yellowgreen;*/
 	}
 	
-	.region .flex-center-around span {
+	.flex-center-around span {
 		color: #49bbff;
 		font-size: 0.28rem;
 	}
