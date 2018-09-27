@@ -1,10 +1,4 @@
 <template>
-  <!-- <header :class="[title ? 'header header2' : 'header0 header1']" id="header1" style="height: auto;" :style="$statusBarHeightObj">
-    <img v-if="title" class="header_left" src="../../../../static/images/discover/backblue.png" @click="goBack">
-    <img v-else class="header_left" src="../../../../static/images/discover/backfff.png" @click="goBack">
-    <p class="header-title-fff">&nbsp;{{title}}&nbsp;</p>
-    <slot></slot>
-  </header> -->
   <header :class="title ? 'header2' : 'header1'">
     <div class="top" :style="$statusBarHeightObj"></div>
     <div class="bottom">

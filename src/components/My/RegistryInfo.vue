@@ -1,10 +1,11 @@
 <template>
   <div class="all">
-    <header class="header">
+    <my-header :title="'报名信息'"></my-header>
+    <!-- <header class="header">
       <img class="header-left" src="../../../static/images/back@2x.png" @click="$router.go(-1)">
       <span class="header-title">报名信息</span>
       <div></div>
-    </header>
+    </header> -->
     <div class="line"></div>
     <div class="content">
       <div class="activityInfo">
@@ -32,23 +33,26 @@
 
 <script>
   export default {
-    data(){
+    data() {
       return {
-        popupVisible:false,
-        info:'',
-        userId:this.$store.state.userId,
+        popupVisible: false,
+        info: '',
+        userId: this.$store.state.userId,
       }
     },
-    created(){
+    created() {
       this.activityId = this.$route.query.activityId;
     },
-    methods:{
+    methods: {
       //报名信息
       getList: function () {
         var _this = this;
         console.log(_this.$store.state.userId)
         console.log(_this.activityId)
-        this.$http.post(DISCOVERMESSAGE.myRegistrationInfo, {"uid": _this.$store.state.userId,"lid":_this.activityId}).then(function (res) {
+        this.$http.post(DISCOVERMESSAGE.myRegistrationInfo, {
+          "uid": _this.$store.state.userId,
+          "lid": _this.activityId
+        }).then(function (res) {
           if (res.data.status) {
             _this.info = res.data.data;
             //console.log(res.data.data)
@@ -58,42 +62,47 @@
         });
       }
     },
-    mounted(){
+    mounted() {
       this.$nextTick(function () {
-        //初始化数据
-        this.getList();
-      }),
+          //初始化数据
+          this.getList();
+        }),
         this.$store.dispatch('hideFoot');
     }
   }
+
 </script>
 
 
 <style scoped>
   /*分割线*/
-  ul li{
+  ul li {
     list-style: none;
   }
-  .line{
+
+  .line {
     height: 0;
     margin-top: .92rem;
   }
-  .content{
 
-  }
-  .activityInfo{
+  .content {}
+
+  .activityInfo {
     padding: .4rem;
     margin-bottom: .1rem;
   }
-  .activityTittle{
+
+  .activityTittle {
     font-size: .3rem;
     color: #555555;
     font-weight: bolder;
     padding: .2rem 0;
   }
-  .activityInfo li{
+
+  .activityInfo li {
     font-size: .22rem;
     color: #888888;
     padding: .1rem 0;
   }
+
 </style>
