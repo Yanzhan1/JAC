@@ -48,7 +48,9 @@
           }
         }
         this.loadingnum++;
-        ModalHelper.afterOpen(); //解决遮罩层穿透
+        if (config.url.indexOf('dk-dm-portal-api') == -1) {
+          ModalHelper.afterOpen(); //解决遮罩层穿透
+        }
         return config;
       }, (error) => {
         this.loadingnum--;
