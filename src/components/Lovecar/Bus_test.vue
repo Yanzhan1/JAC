@@ -120,16 +120,14 @@ export default {
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
-                          flag = false;
-                          Toast({
-                            message: "下达指令成功",
-                            position: "middle",
-                            duration: 3000
-                          });
+                          // Toast({
+                          //   message: "下达指令成功",
+                          //   position: "middle",
+                          //   duration: 3000
+                          // });
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
-                          flag = false;
                           Toast({
                             message: "指令下发成功，处理失败！",
                             position: "middle",
@@ -144,7 +142,6 @@ export default {
                           position: "middle",
                           duration: 3000
                         });
-                        flag = false;
                         clearInterval(this.time);
                         this.$store.dispatch("LOADINGFLAG", false);
                       }
@@ -152,12 +149,11 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              flag = false;
-              Toast({
-                message: "下达指令成功",
-                position: "middle",
-                duration: 3000
-              });
+              // Toast({
+              //   message: "下达指令成功",
+              //   position: "middle",
+              //   duration: 3000
+              // });
                clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {

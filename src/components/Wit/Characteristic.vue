@@ -10,6 +10,7 @@
             <div v-for="(item,index) in this.everyimage" :key="index">
                 <img style="display:block;width:100%;height:100%" :src="item" alt="">
             </div>
+            <div style="height:1rem;"></div>
            <h3 class="bottom-btn" @click="reserve">在线订车</h3>
         </div>
     </div>

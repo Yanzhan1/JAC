@@ -1,11 +1,11 @@
 <template>
 	<div>
-		<header class="header" style="z-index: 100!important;">
+		<header class="header MobileHeight" style="z-index: 100!important;">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-			<span class="header-title">查询经销商</span>
-			<span class="header-right"><img  alt="" style="width:.4rem"></span>
+			<span class="header-title" style="margin-right: 0.65rem;">查询经销商</span>
+			<span class="header-right"></span>
 		</header>
-		<div style="height:.88rem"></div>
+		<div style="height:.88rem" class="MobileHeight"></div>
 		<div class="flex row around con cocenter title">
 			<div class="flex row cocenter">
 				<!-- 品牌 -->
@@ -463,6 +463,10 @@
 			}
 		},
 		mounted() {
+			$(".MobileHeight").css({
+				"borderTopWidth": this.$store.state.mobileStatusBar,
+				"borderTopColor": "#fff",
+			})
 			this.init()
 		},
 		created() {
@@ -487,8 +491,12 @@
 	};
 </script>
 <style scoped>
+	/*配合原生做沉浸式开发设置border-top*/
+	.MobileHeight {  
+		border-top-style: solid;
+		box-sizing: content-box;
+	}
 	/*没有数据时,提示样式*/
-	
 	.dataInfo {
 		position: absolute;
 		top: 50%;

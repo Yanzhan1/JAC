@@ -1,11 +1,6 @@
 <template>
 	<div class="skylight-control">
-		<header class="header">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
-			<span class="header-title">空气进化器</span>
-			<span class="header-right"></span>
-		</header>
-		<div style="height:0.88rem"></div>
+		<mhead currentTitle="空气净化器"></mhead>
 		<div class="window-header">
 			<div class="window-btn">
 				<mt-switch v-model="value" @change="turn"><span></span></mt-switch>
@@ -127,8 +122,12 @@
 import { Createarc } from "../../../static/js/drawarc.js";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
+import PublicHead from '../publicmodel/PublicHead';
 export default {
   name: "skylightControl",
+  components: {
+  	mhead:PublicHead
+  },
   data() {
     return {
       sjc:'',
@@ -227,12 +226,11 @@ export default {
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
-                          flag = false;
-                          Toast({
-                            message: "下达指令成功",
-                            position: "middle",
-                            duration: 2000
-                          });
+                          // Toast({
+                          //   message: "下达指令成功",
+                          //   position: "middle",
+                          //   duration: 2000
+                          // });
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
@@ -259,12 +257,11 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              flag = false;
-              Toast({
-                message: "下达指令成功",
-                position: "middle",
-                duration: 2000
-              });
+              // Toast({
+              //   message: "下达指令成功",
+              //   position: "middle",
+              //   duration: 2000
+              // });
                clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
