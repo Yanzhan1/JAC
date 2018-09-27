@@ -97,6 +97,9 @@ Vue.component(TabContainerItem.name, TabContainerItem);
 Vue.component(Spinner.name, Spinner);
 Vue.component(Radio.name, Radio);
 
+import MyHeader from '@/components/components/MyHeader'
+Vue.use(MyHeader)
+
 //导入mint-ui
 import mintui from 'mint-ui'
 import 'mint-ui/lib/style.css'

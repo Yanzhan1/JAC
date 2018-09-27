@@ -1,8 +1,9 @@
 <template>
   <div>
-    <header class="header header1" id="header1" style="border: none;">
+    <my-header></my-header>
+    <!-- <header class="header header1" id="header1" style="border: none;">
       <img class="header_left" src="../../../static/images/discover/backfff.png" @click="goBack">
-    </header>
+    </header> -->
     <header class="headerUser" id="header2" style="display: none">
       <img class="f_left" src="../../../static/images/discover/backblue.png" @click="goBack">
       <img v-if="userInfo && userInfo.headUrl" class="f_left head_4" :src="userInfo.headUrl" alt="">

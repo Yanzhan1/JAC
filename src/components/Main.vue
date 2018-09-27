@@ -30,9 +30,9 @@
           this.$store.dispatch('LOADINGFLAG', true)
         }
         if (this.loadingnum == 0) {
-          if (!(params.pageNo && params.pageNo > 1)) {
+          // if (!(params.pageNo && params.pageNo > 1)) {
             this.loadingflag = true;
-          }
+          // }
         }
         this.loadingnum++;
         ModalHelper.afterOpen(); //解决遮罩层穿透
