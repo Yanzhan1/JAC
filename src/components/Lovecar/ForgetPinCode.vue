@@ -1,11 +1,12 @@
 <template>
 	<div class="revise-pin-code">
-		<header class="header">
+		<!--<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goBack">
 			<span class="header-title">忘记pin码</span>
 			<span class="header-right"></span>
 		</header>
-		<div style="height:0.88rem"></div>
+		<div style="height:0.88rem"></div>-->
+		<mhead currentTitle="忘记pin码"></mhead>
 		<div class="revisePinCommon flex-center revise-pin-mes ">
 			<div class="">
 				<span>
@@ -45,9 +46,13 @@
 </template>
 
 <script>
-	import {Toast} from 'mint-ui'
+	import {Toast} from 'mint-ui';
+	import PublicHead from '../publicmodel/PublicHead';
 	export default {
 		name: 'forgetPinCode',
+		components: {
+			mhead:PublicHead
+		},
 		data() {
 			return {
 				//倒计时按钮状态

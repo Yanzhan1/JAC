@@ -2,7 +2,7 @@
 	<div class="my-feedback">
 		<header class="header MobileHeight">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-			<span class="header-title">我的反馈</span>
+			<span class="header-title" style="margin-left: .3rem;">我的反馈</span>
 			<router-link class="header-right" tag="span"  to="/myindex/feedbackRecord">记录</router-link>
 		</header>
 		<div style="height:0.88rem" class="MobileHeight"></div>

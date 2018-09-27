@@ -1,12 +1,13 @@
 <template>
     <div class="my-setup">
         <!--<div class="bgblack" v-show="this.bgblack" @click="bgblacks"></div>-->
-        <header class="header">
+        <!--<header class="header">
             <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
             <span class="header-title">远程授权</span>
             <span class="header-right"></span>
         </header>
-        <div style="height:.88rem"></div>
+        <div style="height:.88rem"></div>-->
+        <mhead currentTitle="远程授权"></mhead>
         <div class="autime flex column around">
             <div class="aut" style="color:#49BBFF;font-size:.31rem;line-height:.32rem;">授权时间</div>
             <div class="">
@@ -57,8 +58,12 @@
 
 <script>
 import {Toast} from 'mint-ui'
+import PublicHead from '../publicmodel/PublicHead';
 export default {
-  name: "",
+  name: "authorize",
+  components: {
+  	mhead:PublicHead
+  },
   data() {
     return {
         startleft:false,//控制起始时间选择

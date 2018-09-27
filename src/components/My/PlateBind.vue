@@ -1,11 +1,12 @@
 <template>
 	<div class="plate-bind">
-		<header class="header">
+		<!--<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">车牌绑定</span>
 			<span class="header-right"></span>
 		</header>
-		<div style="height:0.88rem"></div>
+		<div style="height:0.88rem"></div>-->
+		<mhead currentTitle="车牌绑定"></mhead>
 		<div class="rame-number">
 			<span style="color: #555555;">车牌号码</span>
 			<input type="text" placeholder="请输入车牌号" v-model="plate" />
@@ -16,8 +17,12 @@
 
 <script>
 import { Toast } from "mint-ui";
+import PublicHead from '../publicmodel/PublicHead';
 export default {
   name: "plateBind",
+  components: {
+  	mhead:PublicHead
+  },
   data() {
     return {
       //车牌号

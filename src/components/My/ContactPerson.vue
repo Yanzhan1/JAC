@@ -1,11 +1,5 @@
 <template>
 	<div class="contact-person">
-		<!--<header class="header">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-			<span class="header-title">紧急联系人</span>
-			<span class="header-right"></span>
-		</header>
-		<div style="height:0.88rem"></div>-->
 		<mhead currentTitle="紧急联系人"></mhead>
 		<router-link tag="div" class="comment conpson-name" to="">
 			<div class="name boxline flex-align-center">

@@ -1,11 +1,12 @@
 <template>
     <div>
-        <header class="header">
+        <!--<header class="header">
             <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
             <span class="header-title">订单详情</span>
             <span class="header-right"></span>
         </header>
-        <div style="height:.88rem"></div>
+        <div style="height:.88rem"></div>-->
+        <mhead currentTitle="订单详情"></mhead>
         <ul style="padding:0 .32rem;border-bottom:.2rem solid #F9F9F9">
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
                 <span>预定车型</span>
@@ -61,7 +62,11 @@
 </template>
 
 <script>
+	import PublicHead from '../publicmodel/PublicHead';
 export default {
+	components: {
+  	mhead:PublicHead
+  },
   data() {
     return {
         userinfo:{}//存放用户信息

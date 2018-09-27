@@ -1,12 +1,13 @@
 <template>
 	<div class="flow-query">
 		<div class="bgMask" v-if="popupVisible" ></div>
-		<header class="header">
+		<!--<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.push('/lovecar')">
 			<span class="header-title">流量查询</span>
 			<span class="header-right"></span>
 		</header>
-		<div style="height:0.88rem"></div>
+		<div style="height:0.88rem"></div>-->
+		<mhead currentTitle="流量查询"></mhead>
 		<!-- <div class="flow-title">
 			<span>截止日期</span>
 			<span>{{this.Closingdate}}</span>
@@ -85,8 +86,12 @@
 
 <script>
 import {Toast} from 'mint-ui'
+import PublicHead from '../publicmodel/PublicHead';
 export default {
   name: "flowQuery",
+  components: {
+  	mhead:PublicHead
+  },
   data() {
     return {
       time: "", //定时器命名

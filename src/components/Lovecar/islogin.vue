@@ -1,11 +1,12 @@
 <template>
   <div>
-    <header class="header">
+    <!--<header class="header">
       <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
       <span class="header-title">登录状态</span>
       <span class="header-right"></span>
     </header>
-    <div style="height:.88rem"></div>
+    <div style="height:.88rem"></div>-->
+    <mhead currentTitle="登录状态"></mhead>
     <div style="text-align: center; width: 100%;"><img style="margin: 0 auto;width:2rem;display:block;margin-top:2.8rem" src="../../../static/images/Lovecar/qiche.png" alt=""></div>
     <div style="font-size:.3rem;color:#222;text-align:center;margin-top:1rem;">瑞丰R3 车机已登录</div>
     <div style="font-size:.28rem;color:#888;text-align:center;margin-top:.31rem">如果不是本人操作，可以立即退出</div>
@@ -14,8 +15,12 @@
 </template>
  <script>
 import { MessageBox } from "mint-ui";
-
+import PublicHead from '../publicmodel/PublicHead';
 export default {
+	name: 'islogin',
+	components: {
+  	mhead:PublicHead
+  },
   data() {
     return {};
   },

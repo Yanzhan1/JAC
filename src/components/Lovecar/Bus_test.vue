@@ -1,11 +1,12 @@
 <template>
   <div>
-    <header class="header">
+    <!--<header class="header">
       <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
       <span class="header-title">车辆体检</span>
       <span class="header-right"></span>
     </header>
-    <div style="height:.88rem"></div>
+    <div style="height:.88rem"></div>-->
+    <mhead currentTitle="车辆体检"></mhead>
     <h2>诊断时间：06-29 17:33</h2>
     <ul class="ul_content">
       <li class="flex row between cocenter">
@@ -28,7 +29,12 @@
   </div>
 </template>
 <script>
+		import PublicHead from '../publicmodel/PublicHead';
 export default {
+	name: 'busTest',
+	components: {
+  	mhead:PublicHead
+  },
   data() {
     return {
       time: "",

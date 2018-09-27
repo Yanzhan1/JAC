@@ -1,11 +1,12 @@
 <template>
 	<div class="wifi-setup">
-		<header class="header">
+		<!--<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">设置账户密码</span>
 			<span class="header-right"></span>
 		</header>
-		<div style="height:0.88rem"></div>
+		<div style="height:0.88rem"></div>-->
+		<mhead currentTitle="设置账户密码"></mhead>
 		<div class="origin-pin">
 			<div class="flex-align-center revisePinCommon">
 				<span style="font-size: 0.26rem;color: #444444;">
@@ -29,8 +30,12 @@
 <script>
 import { MessageBox } from "mint-ui";
 import { Toast } from "mint-ui";
+import PublicHead from '../publicmodel/PublicHead';
 export default {
   name: "wifiSetup",
+  components: {
+  	mhead:PublicHead
+  },
   data() {
     return {
       time: "", //定时器命名
