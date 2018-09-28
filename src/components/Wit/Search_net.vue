@@ -240,7 +240,7 @@
 												this.citySlot[0].values = []; //清除上一次城市的选择
 												this.cityList.forEach((item, index) => {
 													this.citySlot[0].values.push(item.name)
-													this.cityName = this.cityList[0].name
+//													this.cityName = this.cityList[0].name
 												})
 											} else {
 
