@@ -13,7 +13,8 @@
             <!-- <img src="./../../../static/images/Wit/170598437859803375.jpg" alt="">
             <img src="./../../../static/images/Wit/25470446938143313.jpg" alt=""> -->
         </div>
-        <div class="bottom-btn" @click="reserve">在线订车</div>
+        <div style="height:.88rem"></div>
+        <div class="bottom-btn" @click="reserve" >在线订车</div>
     </div>
 </template>
 
@@ -106,7 +107,6 @@ export default {
 .every_img{
     width: 100%;
     overflow-x: auto;
-    height: 10.3rem;
 }
 .every::-webkit-scrollbar{
     /* display: none; */
@@ -199,5 +199,9 @@ export default {
     font-size: .26rem;
     font-family: PingFangSC-Regular;
     font-weight: Regular;
+}
+.bottom-btn{
+    position: fixed;
+    bottom: 0;
 }
 </style>
