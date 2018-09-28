@@ -14,8 +14,8 @@
         <img :src="item.imgUrl" alt="">
         <div class="bus_1">
           <span class="bus_2">{{item.seriesName}}</span>
-          <span class="bus_3">
-            <span style="color:#a5a5a5;font-size:.22rem"> 官方指导价</span> ：{{item.guidancePriceStart}}万起</span>
+          <span class="bus_3"  v-if="item.guidancePriceStart>0">
+            <span style="color:#a5a5a5;font-size:.22rem" > 官方指导价</span> ：{{item.guidancePriceStart}}万起</span>
         </div>
         <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
       </li>
