@@ -154,6 +154,7 @@
 				paramsBrandName: null, //picker选中品牌名字
 				paramsCarName: null, //picker选中车型名字
 				type: 1, //唤起对应picker, 1=>品牌, 2=>车型, 3=>省份, 4=>城市
+				firstcode:'',//第一次通过iso获取到的省份拿到的code
 				brandSlot: [{ //品牌picker的数据
 					flex: 1,
 					values: [],
@@ -205,18 +206,37 @@
 						const data = res.data;
 						if(data.code == 0) {
 							this.searchCountryAreaCodeListPage = data.data.records;	
-							console.log(this.searchCountryAreaCodeListPage)
+							// console.log(this.searchCountryAreaCodeListPage)
 							for(let i = 0; i < this.searchCountryAreaCodeListPage.length; i++) {								
 								this.provinceSlot[0].values.push(this.searchCountryAreaCodeListPage[i].name)
 								if(this.searchCountryAreaCodeListPage[i].name == this.provinceName) {
 									this.provinceCode = this.searchCountryAreaCodeListPage[i].code
+									this.proid=this.searchCountryAreaCodeListPage[i].id
 									if(this.provinceCode) {
+										let data = {
+												parentId: this.proid, //传参省份的id,请求该省份的城市列表 
+												level: 2
+											}
+											this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => { //请求城市列表
+												const data = res.data;
+												if(data.code == 0) {
+													this.cityList = data.data.records;
+													this.citySlot[0].values = []; //清除上一次城市的选择
+													this.cityList.forEach((item, index) => {
+														this.citySlot[0].values.push(item.name)
+														this.cityName = this.cityList[0].name
+													})
+												} else {
+
+												}
+											})
 										this.mydeler() //省份code 赋值成功后 调用获取经销商列表
 									}
 								}
 							}
 
 						}
+
 					})
 
 			},
@@ -470,6 +490,7 @@
 				"borderTopColor": "#fff",
 			})
 			this.init()
+			
 		},
 		created() {
 			window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
