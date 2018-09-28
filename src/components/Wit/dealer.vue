@@ -155,6 +155,7 @@
 				paramsCarName: null, //picker选中车型名字
 				type: 1, //唤起对应picker, 1=>品牌, 2=>车型, 3=>省份, 4=>城市
 				firstcode:'',//第一次通过iso获取到的省份拿到的code
+				firstno:'',//第一次默认品牌的第一个获取的到no
 				brandSlot: [{ //品牌picker的数据
 					flex: 1,
 					values: [],
@@ -193,10 +194,26 @@
 				//请求品牌列表
 				this.$http.post(Wit.searchVehicleBrandList, data).then(res => {
 						const data = res.data;
+						this.firstno=data.data[0].no
 						if(data.code == 0) {
 							this.searchVehicleBrandList = data.data;
 							this.searchVehicleBrandList.forEach((item, index) => {
 								this.brandSlot[0].values.push(item.brandName)
+								let data = {
+										no: this.firstno
+									}
+									//请求车型列表
+									this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
+										const data = res.data;
+										if(data.code == 0) {
+											this.searchVehicleSeriesList = data.data;
+											this.carSlot[0].values = []
+											this.searchVehicleSeriesList.forEach((item, index) => {
+												this.carSlot[0].values.push(item.seriesName)
+												this.carName = this.searchVehicleSeriesList[0].seriesName
+											})
+										}
+									})
 							})
 
 						}

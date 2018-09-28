@@ -63,7 +63,7 @@
         </div>
         <div class="bus_1">
           <span class="bus_2">{{item.seriesName}}</span>
-          <span class="bus_3">官方指导价：{{item.guidancePriceStart}}万起</span>
+          <span class="bus_3" v-if="item.guidancePriceStart>0">官方指导价：{{item.guidancePriceStart}}万起</span>
         </div>
       </li>
     </ul>
