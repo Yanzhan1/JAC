@@ -204,8 +204,11 @@
 					//请求省份列表   原生拿到的省份name  去对比省份列表 找到对应的省份code
 					this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
 						const data = res.data;
+						
 						if(data.code == 0) {
+//							console.log(this.searchCountryAreaCodeListPage)
 							this.searchCountryAreaCodeListPage = data.data.records;
+							console.log(this.searchCountryAreaCodeListPage)
 							for(let i = 0; i < this.searchCountryAreaCodeListPage.length; i++) {
 								this.provinceSlot[0].values.push(this.searchCountryAreaCodeListPage[i].name)
 								if(this.searchCountryAreaCodeListPage[i].name == this.provinceName) {
@@ -380,7 +383,7 @@
 				}
 			},
 			getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
-				this.provinceName = JSON.parse(locationMes).province.replace('市', '')
+				this.provinceName = JSON.parse(locationMes).province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '')
 				this.cityName = JSON.parse(locationMes).city
 				this.latitude = JSON.parse(locationMes).latitude //精
 				this.longitude = JSON.parse(locationMes).longitude //韦
@@ -415,7 +418,6 @@
 						this.proCode = item.code
 					}
 				})
-
 			},
 			chooseCity(picker, values) {
 				this.paramsCityName = values.join('')
@@ -429,7 +431,6 @@
 				this.popupVisible = false; //隐藏popup
 				this.brandName = this.paramsBrandName //品牌标题替换为picker选择的品牌
 				this.brandNo = this.bno
-
 				this.publicrequst();
 
 				let data = {
@@ -485,11 +486,11 @@
 			}
 		},
 		mounted() {
+			this.init()
 			$(".MobileHeight").css({
 				"borderTopWidth": this.$store.state.mobileStatusBar,
 				"borderTopColor": "#fff",
 			})
-			this.init()
 		},
 		created() {
 			window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
@@ -497,7 +498,7 @@
 			if(system == 'Android') {
 				var Position = js2android.getLocationInfo() //获取安卓定位信息
 				var NewPosition = JSON.parse(Position)
-				this.provinceName = NewPosition.province.replace('市', '') //省
+				this.provinceName = NewPosition.province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '') //省
 				this.cityName = NewPosition.city //市
 				this.latitude = NewPosition.latitude //经度
 				this.longitude = NewPosition.longitude //纬度
