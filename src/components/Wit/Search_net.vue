@@ -271,7 +271,7 @@
 				var data = {
 					brandNo: this.brandNo, //品牌no
 					vehicleSeridesNo: this.bustypeno, //车系
-					dealerProvinceCode: this.provinceId, //省编码
+					dealerProvinceCode: this.provinceCode, //省编码
 					dealerCityCode: this.city_id, //城市id
 					longitude: this.longitude, //经度
 					latitude: this.latitude, //维度

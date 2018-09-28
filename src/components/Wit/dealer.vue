@@ -212,11 +212,11 @@
 									this.provinceCode = this.searchCountryAreaCodeListPage[i].code
 									this.proid=this.searchCountryAreaCodeListPage[i].id
 									if(this.provinceCode) {
-										let data = {
+										let datas = {
 												parentId: this.proid, //传参省份的id,请求该省份的城市列表 
 												level: 2
 											}
-											this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => { //请求城市列表
+											this.$http.post(Wit.searchCountryAreaCodeListPage, datas).then(res => { //请求城市列表
 												const data = res.data;
 												if(data.code == 0) {
 													this.cityList = data.data.records;
@@ -258,7 +258,6 @@
 						this.current = 1, //当前页码
 							this.loading = false, //加载完数据可以无线滚动
 							this.mainbus = data.data.records
-							console.log(this.mainbus)
 						if(this.mainbus.length == 0) {
 							this.flag = true
 						} else {
@@ -292,7 +291,7 @@
 				var data = {
 					brandNo: this.brandNo, //品牌no
 					vehicleSeridesNo: this.bustypeno, //车系
-					dealerProvinceCode: this.provinceId, //省编码
+					dealerProvinceCode: this.provinceCode, //省编码
 					dealerCityCode: this.city_id, //城市id
 					longitude: this.longitude, //经度
 					latitude: this.latitude, //维度
