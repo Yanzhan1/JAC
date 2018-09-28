@@ -71,7 +71,8 @@ export default {
         }
         this.$http.post(Wit.searchVehicleSeriesOne,params).then((res)=>{
             let allimage=res.data.data.imageRelationVO
-            console.log(res.data.data.srouceNo)
+            // console.log(res.data.data.srouceNo)
+            console.log(allimage)
             this.srouceNo=res.data.data.srouceNo
             this.levelCode=res.data.data.levelCode
             for(let i=0;i<allimage.length;i++){

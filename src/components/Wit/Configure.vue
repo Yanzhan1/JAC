@@ -70,16 +70,19 @@ export default {
         // alert(this.$store.state.everyno)
         this.$http.post(Wit.searchVehicleSeriesOne,params).then((res)=>{
             let allimage=res.data.data.imageRelationVO
-            // console.log(res.data.data)
             this.nav=[]
             for(let i=0;i<allimage.length;i++){
                 if(allimage[i].imageType==5&&allimage[i].imageTitle!=undefined){
-                    this.allimage.push(allimage[i].imageUrl)
+                    // console.log(allimage[i].imgUrls)
+                    for(let j=0;j<allimage[i].imgUrls.length;j++){
+                        // console.log(allimage[i].imgUrls[j].imageUrl)
+                        this.allimage.push(allimage[i].imgUrls[j].imageUrl)
+                    }
+                    console.log(this.allimage)
+                    // this.allimage.push(allimage[i].imgUrls)
                     this.nav.push(allimage[i].imageTitle)
                 }
             }
-            // console.log(this.nav)
-            // console.log(this.allimage)
         })
     }
 }
@@ -99,6 +102,7 @@ export default {
     height: .7rem;
     position: relative;
     display: flex;
+    line-height: .5rem;
     /* flex: 1; */
     flex-shrink: 0;
     padding: 0 .2rem;
