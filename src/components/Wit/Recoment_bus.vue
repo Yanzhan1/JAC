@@ -6,7 +6,7 @@
         <span class="header-title" :class="type==1?'active':''" style="margin-right:.2rem" @click="getcarbus(1)">全部车型</span>
         <span class="header-title" :class="type==2?'active':''" @click="getcarbus(2)">主推车型</span>
       </div>
-      <span @click="shai()" class="header-right"><img src="../../../static/images/Wit/shaixuan1@3x.png" alt="" style="width:.4rem"></span>
+      <span @click="shai()" class="header-right" style="margin-right: .65rem;"><img src="../../../static/images/Wit/shaixuan1@3x.png" alt="" style="width:.4rem"></span>
     </header>
     <div style="height:.88rem" class="MobileHeight"></div>
     <ul>
@@ -176,11 +176,19 @@ export default {
    
   },
   mounted(){
-     $(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar}) //头部挤出一定高度,配合原生做沉浸式开发
+  	
+     $(".MobileHeight").css({
+				"borderTopWidth": this.$store.state.mobileStatusBar,
+				"borderTopColor": "#fff",
+			})
   }
 };
 </script>
  <style scoped>
+ 	.MobileHeight {  
+		border-top-style: solid;
+		box-sizing: content-box;
+	}
 .mint-popup {
   width: 80%;
 }
