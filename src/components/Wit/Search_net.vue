@@ -82,7 +82,7 @@
 					<h3 style="margin-left: 0.5rem;">选择品牌</h3>
 					<span @click="confirmBrand">确定</span>
 				</div>				
-				<mt-picker :slots="brandSlot" @change="chooseBrand" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
+				<mt-picker :slots="brandSlot" @change="chooseBrand" :visible-item-count="5" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
 			</div>
 			<div v-show="type == 2">
 				<div class="flex-center-around">
@@ -91,7 +91,7 @@
 					<span @click="confirmCarType">确定</span>
 				</div>
 				
-				<mt-picker :slots="carSlot" @change="chooseCar" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
+				<mt-picker :slots="carSlot" @change="chooseCar" :visible-item-count="5" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
 			</div>
 
 			<div v-show="type == 3">
@@ -100,7 +100,7 @@
 					<h3 style="margin-left: 0.5rem;">选择省</h3>
 					<span @click="confirmProvince">确定</span>
 				</div>				
-				<mt-picker :slots="provinceSlot" @change="chooseProvince" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
+				<mt-picker :slots="provinceSlot" @change="chooseProvince" :visible-item-count="5" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
 			</div>
 			<div v-show="type == 4">
 				<div class="flex-center-around">
@@ -109,7 +109,7 @@
 					<span @click="confirmCity">确定</span>
 				</div>
 				
-				<mt-picker :slots="citySlot" @change="chooseCity" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
+				<mt-picker :slots="citySlot" @change="chooseCity" :visible-item-count="5" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
 			</div>
 		</mt-popup>
 	</div>

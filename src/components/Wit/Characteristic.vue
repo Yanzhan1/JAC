@@ -60,7 +60,10 @@ export default {
         }
     },
     mounted(){
-        $(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar}) //头部挤出一定高度,配合原生做沉浸式开发
+        $(".MobileHeight").css({
+				"borderTopWidth": this.$store.state.mobileStatusBar,
+				"borderTopColor": "#fff",
+			})
         // console.log(this.$route.params.everyno)
         // alert(this.seriesName)
         let params={
@@ -83,6 +86,10 @@ export default {
 </script>
 
 <style scoped>
+	.MobileHeight {  
+		border-top-style: solid;
+		box-sizing: content-box;
+	}
 .specil{
     width: 100%;
     display: flex;

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<header class="header MobileHeight" style="z-index: 100!important;">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+			<img class="header-left" src="../../../static/images/back@2x.png" @click="$router.go(-1)">
 			<span class="header-title" style="margin-right: 0.65rem;">查询经销商</span>
 			<span class="header-right"></span>
 		</header>
@@ -82,7 +82,7 @@
 					<h3 style="margin-left: 0.5rem;">选择品牌</h3>
 					<span @click="confirmBrand">确定</span>
 				</div>				
-				<mt-picker :slots="brandSlot" @change="chooseBrand" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
+				<mt-picker :slots="brandSlot" @change="chooseBrand" :visible-item-count="5" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
 			</div>
 			<div v-show="type == 2">
 				<div class="flex-center-around">
@@ -91,7 +91,7 @@
 					<span @click="confirmCarType">确定</span>
 				</div>
 				
-				<mt-picker :slots="carSlot" @change="chooseCar" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
+				<mt-picker :slots="carSlot" @change="chooseCar" :visible-item-count="5" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
 			</div>
 
 			<div v-show="type == 3">
@@ -100,7 +100,7 @@
 					<h3 style="margin-left: 0.5rem;">选择省</h3>
 					<span @click="confirmProvince">确定</span>
 				</div>				
-				<mt-picker :slots="provinceSlot" @change="chooseProvince" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
+				<mt-picker :slots="provinceSlot" @change="chooseProvince" :visible-item-count="5" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
 			</div>
 			<div v-show="type == 4">
 				<div class="flex-center-around">
@@ -109,7 +109,7 @@
 					<span @click="confirmCity">确定</span>
 				</div>
 				
-				<mt-picker :slots="citySlot" @change="chooseCity" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
+				<mt-picker :slots="citySlot" @change="chooseCity" :visible-item-count="5" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
 			</div>
 		</mt-popup>
 	</div>
@@ -205,7 +205,7 @@
 						const data = res.data;
 						if(data.code == 0) {
 							this.searchCountryAreaCodeListPage = data.data.records;	
-							console.log(this.searchCountryAreaCodeListPage)
+//							console.log(this.searchCountryAreaCodeListPage)
 							for(let i = 0; i < this.searchCountryAreaCodeListPage.length; i++) {								
 								this.provinceSlot[0].values.push(this.searchCountryAreaCodeListPage[i].name)
 								if(this.searchCountryAreaCodeListPage[i].name == this.provinceName) {
@@ -239,6 +239,7 @@
 						this.current = 1, //当前页码
 							this.loading = false, //加载完数据可以无线滚动
 							this.mainbus = data.data.records
+							console.log(this.mainbus)
 						if(this.mainbus.length == 0) {
 							this.flag = true
 						} else {
@@ -346,6 +347,7 @@
 				}
 			},
 			setUpMap(latitude, longitude, adress, des) { //唤起原生地图
+//				console.log(latitude, longitude, adress, des)
 				var system = this.isIOSOrAndroid();
 				if(system == 'Android') {
 					window.js2android.sendLocation2Map(latitude, longitude, adress, des)
