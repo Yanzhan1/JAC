@@ -199,21 +199,21 @@
 							this.searchVehicleBrandList = data.data;
 							this.searchVehicleBrandList.forEach((item, index) => {
 								this.brandSlot[0].values.push(item.brandName)
-								let data = {
-										no: this.firstno
-									}
-									//请求车型列表
-									this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
-										const data = res.data;
-										if(data.code == 0) {
-											this.searchVehicleSeriesList = data.data;
-											this.carSlot[0].values = []
-											this.searchVehicleSeriesList.forEach((item, index) => {
-												this.carSlot[0].values.push(item.seriesName)
-												this.carName = this.searchVehicleSeriesList[0].seriesName
-											})
-										}
-									})
+								// let data = {
+								// 		no: this.firstno
+								// 	}
+								// 	//请求车型列表
+								// 	this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
+								// 		const data = res.data;
+								// 		if(data.code == 0) {
+								// 			this.searchVehicleSeriesList = data.data;
+								// 			this.carSlot[0].values = []
+								// 			this.searchVehicleSeriesList.forEach((item, index) => {
+								// 				this.carSlot[0].values.push(item.seriesName)
+								// 				this.carName = this.searchVehicleSeriesList[0].seriesName
+								// 			})
+								// 		}
+								// 	})
 							})
 
 						}
@@ -363,6 +363,7 @@
 				}
 				this.$http.post(Wit.Dealer, param).then(res => {
 					if(res.data.code == 0) {
+						// console.log(res.data)
 						this.mainbus = []
 						this.mainbus = res.data.data.records
 						if(this.mainbus.length == 0) {
