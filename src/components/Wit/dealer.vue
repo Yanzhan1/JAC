@@ -220,12 +220,9 @@
 					}),
 					//请求省份列表   原生拿到的省份name  去对比省份列表 找到对应的省份code
 					this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
-						const data = res.data;
-						
+						const data = res.data;						
 						if(data.code == 0) {
-//							console.log(this.searchCountryAreaCodeListPage)
 							this.searchCountryAreaCodeListPage = data.data.records;
-							console.log(this.searchCountryAreaCodeListPage)
 							for(let i = 0; i < this.searchCountryAreaCodeListPage.length; i++) {
 								this.provinceSlot[0].values.push(this.searchCountryAreaCodeListPage[i].name)
 								if(this.searchCountryAreaCodeListPage[i].name == this.provinceName) {
@@ -448,8 +445,7 @@
 			confirmBrand() { //确定品牌
 				this.popupVisible = false; //隐藏popup
 				this.brandName = this.paramsBrandName //品牌标题替换为picker选择的品牌
-				this.brandNo = this.bno
-				this.publicrequst();
+				this.brandNo = this.bno  //改变经销商列表请求 品牌参数brandNo
 
 				let data = {
 					no: this.bno
@@ -458,11 +454,13 @@
 				this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
-						this.searchVehicleSeriesList = data.data;
-						this.carSlot[0].values = []
+						this.searchVehicleSeriesList = data.data; //车型数据
+						this.carSlot[0].values = []  //清空上一次picker的数据
 						this.searchVehicleSeriesList.forEach((item, index) => {
-							this.carSlot[0].values.push(item.seriesName)
-							this.carName = this.searchVehicleSeriesList[0].seriesName
+							this.carSlot[0].values.push(item.seriesName) //车型数据放入到车型picker中
+							this.carName = this.searchVehicleSeriesList[0].seriesName  //车型标题替换为车型第一个
+							this.bustypeno = this.searchVehicleSeriesList[0].no //改变经销商列表请求 车系参数bustypeno 
+							this.publicrequst(); //请求该品牌第一个车型经销商列表
 						})
 					}
 				})
@@ -476,7 +474,7 @@
 			confirmProvince() {
 				this.popupVisible = false; //隐藏popup
 				this.provinceName = this.paramsProvinceName //省份标题替换为picker选择的省份
-				this.provinceCode = this.proCode //改变省份重新请求身份的经销商列表
+				this.provinceCode = this.proCode //改变经销商列表请求 省份参数provinceCode
 				let data = {
 					parentId: this.proid, //传参省份的id,请求该省份的城市列表 
 					level: 2
@@ -487,14 +485,16 @@
 						this.cityList = data.data.records;
 						this.citySlot[0].values = []; //清除上一次城市的选择
 						this.cityList.forEach((item, index) => {
-							this.citySlot[0].values.push(item.name)
-							this.cityName = this.cityList[0].name
+							this.citySlot[0].values.push(item.name)  //城市数据放入picker中
+							this.cityName = this.cityList[0].name //替换为城市数据的第一个数据
+							this.city_id = this.cityList[0].code //改变经销商列表请求 城市参数city_id
+							this.publicrequst() //请求该省份第一个城市的经销商列表
 						})
 					} else {
 
 					}
 				})
-				this.publicrequst() //请求该省份的经销商列表
+				
 			},
 			confirmCity() {
 				this.popupVisible = false; //隐藏popup

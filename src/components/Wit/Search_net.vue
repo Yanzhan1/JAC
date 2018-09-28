@@ -1,9 +1,9 @@
 <template>
 	<div>
 		<header class="header MobileHeight" style="z-index: 100!important;">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+			<img class="header-left" src="../../../static/images/back@2x.png" @click="$router.go(-1)">
 			<span class="header-title" style="margin-right: 0.65rem;">查询维保网点</span>
-			<span class="header-right"><img  alt="" style="width:.4rem"></span>
+			<span class="header-right"></span>
 		</header>
 		<div style="height:.88rem" class="MobileHeight"></div>
 		<div class="flex row around con cocenter title">
@@ -81,7 +81,7 @@
 					<span></span>
 					<h3 style="margin-left: 0.5rem;">选择品牌</h3>
 					<span @click="confirmBrand">确定</span>
-				</div>				
+				</div>
 				<mt-picker :slots="brandSlot" @change="chooseBrand" :visible-item-count="5" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
 			</div>
 			<div v-show="type == 2">
@@ -90,7 +90,7 @@
 					<h3 style="margin-left: 0.5rem;">选择车型</h3>
 					<span @click="confirmCarType">确定</span>
 				</div>
-				
+
 				<mt-picker :slots="carSlot" @change="chooseCar" :visible-item-count="5" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
 			</div>
 
@@ -99,7 +99,7 @@
 					<span></span>
 					<h3 style="margin-left: 0.5rem;">选择省</h3>
 					<span @click="confirmProvince">确定</span>
-				</div>				
+				</div>
 				<mt-picker :slots="provinceSlot" @change="chooseProvince" :visible-item-count="5" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
 			</div>
 			<div v-show="type == 4">
@@ -108,7 +108,7 @@
 					<h3 style="margin-left: 0.5rem;">选择市</h3>
 					<span @click="confirmCity">确定</span>
 				</div>
-				
+
 				<mt-picker :slots="citySlot" @change="chooseCity" :visible-item-count="5" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
 			</div>
 		</mt-popup>
@@ -121,7 +121,7 @@
 		data() {
 			return {
 				popupVisible: false, //popup状态, false=>消失, true=>展现
-				mainbus: [], //存储展示的数据经销商列表
+				mainbus: [], //存储展示的数据维保网点列表
 				searchVehicleBrandList: [], //品牌列表
 				searchVehicleSeriesList: [], //车型列表
 				searchCountryAreaCodeListPage: [], //省份列表
@@ -154,6 +154,8 @@
 				paramsBrandName: null, //picker选中品牌名字
 				paramsCarName: null, //picker选中车型名字
 				type: 1, //唤起对应picker, 1=>品牌, 2=>车型, 3=>省份, 4=>城市
+				firstcode:'',//第一次通过iso获取到的省份拿到的code
+				firstno:'',//第一次默认品牌的第一个获取的到no
 				brandSlot: [{ //品牌picker的数据
 					flex: 1,
 					values: [],
@@ -192,34 +194,69 @@
 				//请求品牌列表
 				this.$http.post(Wit.searchVehicleBrandList, data).then(res => {
 						const data = res.data;
+						this.firstno=data.data[0].no
 						if(data.code == 0) {
 							this.searchVehicleBrandList = data.data;
 							this.searchVehicleBrandList.forEach((item, index) => {
 								this.brandSlot[0].values.push(item.brandName)
+								// let data = {
+								// 		no: this.firstno
+								// 	}
+								// 	//请求车型列表
+								// 	this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
+								// 		const data = res.data;
+								// 		if(data.code == 0) {
+								// 			this.searchVehicleSeriesList = data.data;
+								// 			this.carSlot[0].values = []
+								// 			this.searchVehicleSeriesList.forEach((item, index) => {
+								// 				this.carSlot[0].values.push(item.seriesName)
+								// 				this.carName = this.searchVehicleSeriesList[0].seriesName
+								// 			})
+								// 		}
+								// 	})
 							})
 
 						}
 					}),
 					//请求省份列表   原生拿到的省份name  去对比省份列表 找到对应的省份code
 					this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
-						const data = res.data;
+						const data = res.data;						
 						if(data.code == 0) {
 							this.searchCountryAreaCodeListPage = data.data.records;
 							for(let i = 0; i < this.searchCountryAreaCodeListPage.length; i++) {
 								this.provinceSlot[0].values.push(this.searchCountryAreaCodeListPage[i].name)
 								if(this.searchCountryAreaCodeListPage[i].name == this.provinceName) {
 									this.provinceCode = this.searchCountryAreaCodeListPage[i].code
+									this.proid = this.searchCountryAreaCodeListPage[i].id
 									if(this.provinceCode) {
-										this.mydeler() //省份code 赋值成功后 调用获取经销商列表
+										let datas = {
+											parentId: this.proid, //传参省份的id,请求该省份的城市列表 
+											level: 2
+										}
+										this.$http.post(Wit.searchCountryAreaCodeListPage, datas).then(res => { //请求城市列表
+											const data = res.data;
+											if(data.code == 0) {
+												this.cityList = data.data.records;
+												this.citySlot[0].values = []; //清除上一次城市的选择
+												this.cityList.forEach((item, index) => {
+													this.citySlot[0].values.push(item.name)
+													this.cityName = this.cityList[0].name
+												})
+											} else {
+
+											}
+										})
+										this.mydeler() //省份code 赋值成功后 调用获取维保网点列表
 									}
 								}
 							}
 
 						}
+
 					})
 
 			},
-			//获取经销商列表
+			//获取维保网点列表
 			mydeler() {
 				var param = {
 					brandNo: this.brandNo, //品牌no
@@ -323,6 +360,7 @@
 				}
 				this.$http.post(Wit.Dealer, param).then(res => {
 					if(res.data.code == 0) {
+						// console.log(res.data)
 						this.mainbus = []
 						this.mainbus = res.data.data.records
 						if(this.mainbus.length == 0) {
@@ -345,6 +383,7 @@
 				}
 			},
 			setUpMap(latitude, longitude, adress, des) { //唤起原生地图
+				//				console.log(latitude, longitude, adress, des)
 				var system = this.isIOSOrAndroid();
 				if(system == 'Android') {
 					window.js2android.sendLocation2Map(latitude, longitude, adress, des)
@@ -359,10 +398,11 @@
 				}
 			},
 			getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
-				this.provinceName = JSON.parse(locationMes).province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '') //匹配甲方所给的省市数据
+				this.provinceName = JSON.parse(locationMes).province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '')
 				this.cityName = JSON.parse(locationMes).city
 				this.latitude = JSON.parse(locationMes).latitude //精
 				this.longitude = JSON.parse(locationMes).longitude //韦
+
 			},
 			bottomPicker(type) { //激活pupop
 				this.popupVisible = true
@@ -393,7 +433,6 @@
 						this.proCode = item.code
 					}
 				})
-
 			},
 			chooseCity(picker, values) {
 				this.paramsCityName = values.join('')
@@ -406,9 +445,7 @@
 			confirmBrand() { //确定品牌
 				this.popupVisible = false; //隐藏popup
 				this.brandName = this.paramsBrandName //品牌标题替换为picker选择的品牌
-				this.brandNo = this.bno
-
-				this.publicrequst();
+				this.brandNo = this.bno  //改变维保网点列表请求 品牌参数brandNo
 
 				let data = {
 					no: this.bno
@@ -417,11 +454,13 @@
 				this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
 					const data = res.data;
 					if(data.code == 0) {
-						this.searchVehicleSeriesList = data.data;
-						this.carSlot[0].values = []
+						this.searchVehicleSeriesList = data.data; //车型数据
+						this.carSlot[0].values = []  //清空上一次picker的数据
 						this.searchVehicleSeriesList.forEach((item, index) => {
-							this.carSlot[0].values.push(item.seriesName)
-							this.carName = this.searchVehicleSeriesList[0].seriesName
+							this.carSlot[0].values.push(item.seriesName) //车型数据放入到车型picker中
+							this.carName = this.searchVehicleSeriesList[0].seriesName  //车型标题替换为车型第一个
+							this.bustypeno = this.searchVehicleSeriesList[0].no //改变维保网点列表请求 车系参数bustypeno 
+							this.publicrequst(); //请求该品牌第一个车型维保网点列表
 						})
 					}
 				})
@@ -435,7 +474,7 @@
 			confirmProvince() {
 				this.popupVisible = false; //隐藏popup
 				this.provinceName = this.paramsProvinceName //省份标题替换为picker选择的省份
-				this.provinceCode = this.proCode //改变省份重新请求身份的经销商列表
+				this.provinceCode = this.proCode //改变维保网点列表请求 省份参数provinceCode
 				let data = {
 					parentId: this.proid, //传参省份的id,请求该省份的城市列表 
 					level: 2
@@ -444,30 +483,33 @@
 					const data = res.data;
 					if(data.code == 0) {
 						this.cityList = data.data.records;
+						console.log(this.cityList)
 						this.citySlot[0].values = []; //清除上一次城市的选择
 						this.cityList.forEach((item, index) => {
-							this.citySlot[0].values.push(item.name)
-							this.cityName = this.cityList[0].name
+							this.citySlot[0].values.push(item.name)  //城市数据放入picker中
+							this.cityName = this.cityList[0].name //替换为城市数据的第一个数据
+							this.city_id = this.cityList[0].code //改变维保网点列表请求 城市参数city_id
+							this.publicrequst() //请求该省份第一个城市的维保网点列表
 						})
 					} else {
 
 					}
 				})
-				this.publicrequst() //请求该省份的经销商列表
+				
 			},
 			confirmCity() {
 				this.popupVisible = false; //隐藏popup
 				this.cityName = this.paramsCityName
 				this.city_id = this.cyId
-				this.publicrequst() //请求该省份的经销商列表
+				this.publicrequst() //请求该省份的维保网点列表
 			}
 		},
 		mounted() {
+			this.init()
 			$(".MobileHeight").css({
 				"borderTopWidth": this.$store.state.mobileStatusBar,
 				"borderTopColor": "#fff",
 			})
-			this.init()
 		},
 		created() {
 			window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
@@ -475,7 +517,7 @@
 			if(system == 'Android') {
 				var Position = js2android.getLocationInfo() //获取安卓定位信息
 				var NewPosition = JSON.parse(Position)
-				this.provinceName = NewPosition.province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '') //匹配甲方所给的省市数据
+				this.provinceName = NewPosition.province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '') //省
 				this.cityName = NewPosition.city //市
 				this.latitude = NewPosition.latitude //经度
 				this.longitude = NewPosition.longitude //纬度
@@ -492,11 +534,13 @@
 </script>
 <style scoped>
 	/*配合原生做沉浸式开发设置border-top*/
-	.MobileHeight {  
+	
+	.MobileHeight {
 		border-top-style: solid;
 		box-sizing: content-box;
 	}
-	/*没有数据时,提示样式*/	
+	/*没有数据时,提示样式*/
+	
 	.dataInfo {
 		position: absolute;
 		top: 50%;
@@ -525,20 +569,25 @@
 		display: flex;
 		justify-content: space-between;
 	}
-	.flex-center-around{/*水平垂直居中-平均对齐*/
-	  display: flex;
-	  justify-content: space-around;
-	  align-items: center;
-	  padding-top: 0.2rem;
+	
+	.flex-center-around {
+		/*水平垂直居中-平均对齐*/
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		padding-top: 0.2rem;
 	}
+	
 	.row {
 		flex-direction: row;
 	}
+	
 	.title {
 		/*position: fixed;
 		height: 0.88rem;
 		line-height: 0.88rem;*/
 	}
+	
 	.con>div {
 		position: relative;
 		height: 0.88rem;
@@ -654,24 +703,10 @@
 		border-top: 5px solid #e3e3e3;
 	}
 	
-	.region {
-		/*position: relative;*/
-		/*bottom: -1.5rem;*/
-		width: 100%;
-		height: 6rem;
-		color: #222;
-		background: #fff;
-		font-weight: Regular;
-		font-family: PingFangSC-Regular;
-		z-index: 1001;
-	}
-	
 	.flex-center-around h3 {
 		text-align: center;
-		/*margin-top: 0.42rem;*/
 		font-size: 0.36rem;
 		color: #222;
-		/*background: yellowgreen;*/
 	}
 	
 	.flex-center-around span {

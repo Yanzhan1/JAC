@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="tophead">
+    <div class="tophead" :style="$statusBarHeightObj">
       <!-- <div class="search">
         <input class="ipt" type="text" placeholder="搜索服务">
         <img class="pic" src="../../../static/images/Wit/zhixiang_home_search_service_icon.png" alt=""> 
