@@ -75,13 +75,13 @@
 			没有符合该条件的经销商
 		</div>
 
-		<mt-popup v-model="popupVisible" position="bottom" >
+		<mt-popup v-model="popupVisible" position="bottom">
 			<div v-show="type == 1">
 				<div class="flex-center-around">
 					<span></span>
 					<h3 style="margin-left: 0.5rem;">选择品牌</h3>
 					<span @click="confirmBrand">确定</span>
-				</div>				
+				</div>
 				<mt-picker :slots="brandSlot" @change="chooseBrand" :visible-item-count="5" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
 			</div>
 			<div v-show="type == 2">
@@ -90,7 +90,7 @@
 					<h3 style="margin-left: 0.5rem;">选择车型</h3>
 					<span @click="confirmCarType">确定</span>
 				</div>
-				
+
 				<mt-picker :slots="carSlot" @change="chooseCar" :visible-item-count="5" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
 			</div>
 
@@ -99,7 +99,7 @@
 					<span></span>
 					<h3 style="margin-left: 0.5rem;">选择省</h3>
 					<span @click="confirmProvince">确定</span>
-				</div>				
+				</div>
 				<mt-picker :slots="provinceSlot" @change="chooseProvince" :visible-item-count="5" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
 			</div>
 			<div v-show="type == 4">
@@ -108,7 +108,7 @@
 					<h3 style="margin-left: 0.5rem;">选择市</h3>
 					<span @click="confirmCity">确定</span>
 				</div>
-				
+
 				<mt-picker :slots="citySlot" @change="chooseCity" :visible-item-count="5" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
 			</div>
 		</mt-popup>
@@ -154,7 +154,7 @@
 				paramsBrandName: null, //picker选中品牌名字
 				paramsCarName: null, //picker选中车型名字
 				type: 1, //唤起对应picker, 1=>品牌, 2=>车型, 3=>省份, 4=>城市
-				firstcode:'',//第一次通过iso获取到的省份拿到的code
+				firstcode: '', //第一次通过iso获取到的省份拿到的code
 				brandSlot: [{ //品牌picker的数据
 					flex: 1,
 					values: [],
@@ -205,30 +205,30 @@
 					this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
 						const data = res.data;
 						if(data.code == 0) {
-							this.searchCountryAreaCodeListPage = data.data.records;	
-							for(let i = 0; i < this.searchCountryAreaCodeListPage.length; i++) {								
+							this.searchCountryAreaCodeListPage = data.data.records;
+							for(let i = 0; i < this.searchCountryAreaCodeListPage.length; i++) {
 								this.provinceSlot[0].values.push(this.searchCountryAreaCodeListPage[i].name)
 								if(this.searchCountryAreaCodeListPage[i].name == this.provinceName) {
 									this.provinceCode = this.searchCountryAreaCodeListPage[i].code
-									this.proid=this.searchCountryAreaCodeListPage[i].id
+									this.proid = this.searchCountryAreaCodeListPage[i].id
 									if(this.provinceCode) {
 										let datas = {
-												parentId: this.proid, //传参省份的id,请求该省份的城市列表 
-												level: 2
-											}
-											this.$http.post(Wit.searchCountryAreaCodeListPage, datas).then(res => { //请求城市列表
-												const data = res.data;
-												if(data.code == 0) {
-													this.cityList = data.data.records;
-													this.citySlot[0].values = []; //清除上一次城市的选择
-													this.cityList.forEach((item, index) => {
-														this.citySlot[0].values.push(item.name)
-														this.cityName = this.cityList[0].name
-													})
-												} else {
+											parentId: this.proid, //传参省份的id,请求该省份的城市列表 
+											level: 2
+										}
+										this.$http.post(Wit.searchCountryAreaCodeListPage, datas).then(res => { //请求城市列表
+											const data = res.data;
+											if(data.code == 0) {
+												this.cityList = data.data.records;
+												this.citySlot[0].values = []; //清除上一次城市的选择
+												this.cityList.forEach((item, index) => {
+													this.citySlot[0].values.push(item.name)
+													this.cityName = this.cityList[0].name
+												})
+											} else {
 
-												}
-											})
+											}
+										})
 										this.mydeler() //省份code 赋值成功后 调用获取经销商列表
 									}
 								}
@@ -365,7 +365,7 @@
 				}
 			},
 			setUpMap(latitude, longitude, adress, des) { //唤起原生地图
-//				console.log(latitude, longitude, adress, des)
+				//				console.log(latitude, longitude, adress, des)
 				var system = this.isIOSOrAndroid();
 				if(system == 'Android') {
 					window.js2android.sendLocation2Map(latitude, longitude, adress, des)
@@ -384,7 +384,7 @@
 				this.cityName = JSON.parse(locationMes).city
 				this.latitude = JSON.parse(locationMes).latitude //精
 				this.longitude = JSON.parse(locationMes).longitude //韦
-				
+
 			},
 			bottomPicker(type) { //激活pupop
 				this.popupVisible = true
@@ -490,7 +490,6 @@
 				"borderTopColor": "#fff",
 			})
 			this.init()
-			
 		},
 		created() {
 			window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
@@ -498,7 +497,7 @@
 			if(system == 'Android') {
 				var Position = js2android.getLocationInfo() //获取安卓定位信息
 				var NewPosition = JSON.parse(Position)
-				this.provinceName = NewPosition.province.replace('市','') //省
+				this.provinceName = NewPosition.province.replace('市', '') //省
 				this.cityName = NewPosition.city //市
 				this.latitude = NewPosition.latitude //经度
 				this.longitude = NewPosition.longitude //纬度
@@ -515,11 +514,13 @@
 </script>
 <style scoped>
 	/*配合原生做沉浸式开发设置border-top*/
-	.MobileHeight {  
+	
+	.MobileHeight {
 		border-top-style: solid;
 		box-sizing: content-box;
 	}
 	/*没有数据时,提示样式*/
+	
 	.dataInfo {
 		position: absolute;
 		top: 50%;
@@ -548,20 +549,25 @@
 		display: flex;
 		justify-content: space-between;
 	}
-	.flex-center-around{/*水平垂直居中-平均对齐*/
-	  display: flex;
-	  justify-content: space-around;
-	  align-items: center;
-	  padding-top: 0.2rem;
+	
+	.flex-center-around {
+		/*水平垂直居中-平均对齐*/
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		padding-top: 0.2rem;
 	}
+	
 	.row {
 		flex-direction: row;
 	}
+	
 	.title {
 		/*position: fixed;
 		height: 0.88rem;
 		line-height: 0.88rem;*/
 	}
+	
 	.con>div {
 		position: relative;
 		height: 0.88rem;
@@ -676,6 +682,7 @@
 		border-right: 4px solid transparent;
 		border-top: 5px solid #e3e3e3;
 	}
+	
 	.flex-center-around h3 {
 		text-align: center;
 		font-size: 0.36rem;
