@@ -240,21 +240,43 @@
 												this.citySlot[0].values = []; //清除上一次城市的选择
 												this.cityList.forEach((item, index) => {
 													this.citySlot[0].values.push(item.name)
-//													this.cityName = this.cityList[0].name
+													this.city_id = this.cityList[0].code
+													this.mydeler() //省份code 赋值成功后 调用获取经销商列表
 												})
 											} else {
-
+													Toast({
+                               message: '初始化城市列表报错',
+                               position: 'middle',
+                               duration: 2000
+                         	});
 											}
 										})
-										this.mydeler() //省份code 赋值成功后 调用获取经销商列表
+										.catch(err => {
+													Toast({
+                               message: '系统异常',
+                               position: 'middle',
+                               duration: 2000
+                         	});
+										})
 									}
 								}
 							}
 
+						} else {
+							Toast({
+                   message: '初始化省份列表报错',
+                   position: 'middle',
+                   duration: 2000
+             	});
 						}
-
 					})
-
+					.catch( err => {
+						Toast({
+                   message: '系统异常',
+                   position: 'middle',
+                   duration: 2000
+             	});
+					})
 			},
 			//获取经销商列表
 			mydeler() {
@@ -460,8 +482,8 @@
 							this.carSlot[0].values.push(item.seriesName) //车型数据放入到车型picker中
 							this.carName = this.searchVehicleSeriesList[0].seriesName  //车型标题替换为车型第一个
 							this.bustypeno = this.searchVehicleSeriesList[0].no //改变经销商列表请求 车系参数bustypeno 
-							this.publicrequst(); //请求该品牌第一个车型经销商列表
 						})
+						this.publicrequst(); //请求该品牌第一个车型经销商列表
 					}
 				})
 			},
@@ -488,8 +510,8 @@
 							this.citySlot[0].values.push(item.name)  //城市数据放入picker中
 							this.cityName = this.cityList[0].name //替换为城市数据的第一个数据
 							this.city_id = this.cityList[0].code //改变经销商列表请求 城市参数city_id
-							this.publicrequst() //请求该省份第一个城市的经销商列表
 						})
+						this.publicrequst() //请求该省份第一个城市的经销商列表
 					} else {
 
 					}

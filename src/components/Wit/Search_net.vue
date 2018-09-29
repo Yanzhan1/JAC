@@ -121,7 +121,7 @@
 		data() {
 			return {
 				popupVisible: false, //popup状态, false=>消失, true=>展现
-				mainbus: [], //存储展示的数据维保网点列表
+				mainbus: [], //存储展示的数据经销商列表
 				searchVehicleBrandList: [], //品牌列表
 				searchVehicleSeriesList: [], //车型列表
 				searchCountryAreaCodeListPage: [], //省份列表
@@ -240,23 +240,45 @@
 												this.citySlot[0].values = []; //清除上一次城市的选择
 												this.cityList.forEach((item, index) => {
 													this.citySlot[0].values.push(item.name)
-//													this.cityName = this.cityList[0].name
+													this.city_id = this.cityList[0].code
+													this.mydeler() //省份code 赋值成功后 调用获取经销商列表
 												})
 											} else {
-
+													Toast({
+                               message: '初始化城市列表报错',
+                               position: 'middle',
+                               duration: 2000
+                         	});
 											}
 										})
-										this.mydeler() //省份code 赋值成功后 调用获取维保网点列表
+										.catch(err => {
+													Toast({
+                               message: '系统异常',
+                               position: 'middle',
+                               duration: 2000
+                         	});
+										})
 									}
 								}
 							}
 
+						} else {
+							Toast({
+                   message: '初始化省份列表报错',
+                   position: 'middle',
+                   duration: 2000
+             	});
 						}
-
 					})
-
+					.catch( err => {
+						Toast({
+                   message: '系统异常',
+                   position: 'middle',
+                   duration: 2000
+             	});
+					})
 			},
-			//获取维保网点列表
+			//获取经销商列表
 			mydeler() {
 				var param = {
 					brandNo: this.brandNo, //品牌no
@@ -445,7 +467,7 @@
 			confirmBrand() { //确定品牌
 				this.popupVisible = false; //隐藏popup
 				this.brandName = this.paramsBrandName //品牌标题替换为picker选择的品牌
-				this.brandNo = this.bno  //改变维保网点列表请求 品牌参数brandNo
+				this.brandNo = this.bno  //改变经销商列表请求 品牌参数brandNo
 
 				let data = {
 					no: this.bno
@@ -459,9 +481,9 @@
 						this.searchVehicleSeriesList.forEach((item, index) => {
 							this.carSlot[0].values.push(item.seriesName) //车型数据放入到车型picker中
 							this.carName = this.searchVehicleSeriesList[0].seriesName  //车型标题替换为车型第一个
-							this.bustypeno = this.searchVehicleSeriesList[0].no //改变维保网点列表请求 车系参数bustypeno 
-							this.publicrequst(); //请求该品牌第一个车型维保网点列表
+							this.bustypeno = this.searchVehicleSeriesList[0].no //改变经销商列表请求 车系参数bustypeno 
 						})
+						this.publicrequst(); //请求该品牌第一个车型经销商列表
 					}
 				})
 			},
@@ -474,7 +496,7 @@
 			confirmProvince() {
 				this.popupVisible = false; //隐藏popup
 				this.provinceName = this.paramsProvinceName //省份标题替换为picker选择的省份
-				this.provinceCode = this.proCode //改变维保网点列表请求 省份参数provinceCode
+				this.provinceCode = this.proCode //改变经销商列表请求 省份参数provinceCode
 				let data = {
 					parentId: this.proid, //传参省份的id,请求该省份的城市列表 
 					level: 2
@@ -483,14 +505,13 @@
 					const data = res.data;
 					if(data.code == 0) {
 						this.cityList = data.data.records;
-						console.log(this.cityList)
 						this.citySlot[0].values = []; //清除上一次城市的选择
 						this.cityList.forEach((item, index) => {
 							this.citySlot[0].values.push(item.name)  //城市数据放入picker中
 							this.cityName = this.cityList[0].name //替换为城市数据的第一个数据
-							this.city_id = this.cityList[0].code //改变维保网点列表请求 城市参数city_id
-							this.publicrequst() //请求该省份第一个城市的维保网点列表
+							this.city_id = this.cityList[0].code //改变经销商列表请求 城市参数city_id
 						})
+						this.publicrequst() //请求该省份第一个城市的经销商列表
 					} else {
 
 					}
@@ -501,7 +522,7 @@
 				this.popupVisible = false; //隐藏popup
 				this.cityName = this.paramsCityName
 				this.city_id = this.cyId
-				this.publicrequst() //请求该省份的维保网点列表
+				this.publicrequst() //请求该省份的经销商列表
 			}
 		},
 		mounted() {
