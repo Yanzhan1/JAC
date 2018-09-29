@@ -74,16 +74,13 @@ export default {
         // alert(this.$store.state.everyno)
         this.$http.post(Wit.searchVehicleSeriesOne,params).then((res)=>{
             let allimage=res.data.data.imageRelationVO
+            console.log(res.data.data)
             this.nav=[]
             for(let i=0;i<allimage.length;i++){
                 if(allimage[i].imageType==5&&allimage[i].imageTitle!=undefined){
-                    // console.log(allimage[i].imgUrls)
                     for(let j=0;j<allimage[i].imgUrls.length;j++){
-                        // console.log(allimage[i].imgUrls[j].imageUrl)
-                        this.allimage.push(allimage[i].imgUrls[j].imageUrl)
+                        this.allimage.push(allimage[i].imgUrls[j])
                     }
-                    console.log(this.allimage)
-                    // this.allimage.push(allimage[i].imgUrls)
                     this.nav.push(allimage[i].imageTitle)
                 }
             }
@@ -102,6 +99,7 @@ export default {
     display: flex;
     overflow-x: auto;
     flex: 1;
+    margin-top:.66rem;
 }
 .talbs::-webkit-scrollbar{
     display: none;
