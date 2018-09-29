@@ -5,7 +5,7 @@
 			<router-link tag='p' class="p1" to="/wit/Characteristic">车系特色<span></span></router-link>
 			<router-link tag='p' class="p2 active" style="margin-right: 1.3rem;" to="/wit/Configure">配置参数<span></span></router-link>
 		</header>
-        <div style="height:.88rem"></div>
+        <div style="height:.88rem" class="MobileHeight"></div>
         <div class="talbs">
             <div v-for="(item,index) in nav" class="talbs_next" @click="choose($event,index)" :class="{blue:current==index}" :key="index">{{item}}</div>
         </div>
@@ -64,7 +64,10 @@ export default {
         }
     },
     mounted(){
-        $(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar}) //头部挤出一定高度,配合原生做沉浸式开发
+        $(".MobileHeight").css({
+				"borderTopWidth": this.$store.state.mobileStatusBar,
+				"borderTopColor": "#fff",
+			})
         let params={
             no:this.$store.state.everyno
         }
@@ -90,6 +93,10 @@ export default {
 </script>
 
 <style scoped>
+	.MobileHeight {  
+		border-top-style: solid;
+		box-sizing: content-box;
+	}
 .talbs{
     width:100%;
     display: flex;
