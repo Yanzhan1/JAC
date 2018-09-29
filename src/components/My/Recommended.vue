@@ -1,16 +1,16 @@
 <template>
   <div>
-    <header class="header MobileHeight">
-      <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-      <span class="header-title">推荐码</span>
-      <span class="header-right"></span>
-    </header>
-      <div style="height:.88rem" class="MobileHeight"></div>
-    <div class="center">
-      <div class="my">我的推荐码</div>
-      <img src="../../../static/images/my/icon_share@2x.png" alt="" @click="enjoy()">
-      <div class="num">{{this.share}}</div>
-    </div>
+    <div style="width:100%;height:.7rem;background:#fff;position:fixed;top:0;z-index:99999"></div>
+      <header class="header MobileHeight">
+        <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+        <span class="header-title">推荐码</span>
+        <span class="header-right"></span>
+      </header>
+      <div class="center">
+        <div class="my">我的推荐码</div>
+        <img src="../../../static/images/my/icon_share@2x.png" alt="" @click="enjoy()">
+        <div class="num">{{this.share}}</div>
+      </div>
     <div class="mask"></div>
     <mt-popup v-model="popupVisible" position="bottom">
       <div style="height:2.5rem;width:100%;">
@@ -127,9 +127,9 @@ export default {
   },
   mounted(){
     $(".MobileHeight").css({
-				"borderTopWidth": this.$store.state.mobileStatusBar,
-				"borderTopColor": "#fff",
-			})
+            "borderTopWidth": this.$store.state.mobileStatusBar,
+            "borderTopColor": "#fff",
+          })
   }
 };
 </script>
@@ -147,6 +147,7 @@ export default {
 }
 .header {
   z-index: 999;
+  margin-top:.68rem;
 }
 .center {
   z-index: 998;
@@ -157,7 +158,7 @@ export default {
   height: 2.9rem;
   background: #fff;
   font-weight: Medium;
-  font-family: PingFang-SC-Medium;
+  font-family: 'PingFang-SC-Medium';
   border-radius: 0.08rem;
 }
 .center .my {
