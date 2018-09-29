@@ -399,7 +399,7 @@
 			},
 			getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
 				this.provinceName = JSON.parse(locationMes).province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '')
-				this.cityName = JSON.parse(locationMes).city
+				this.cityName = JSON.parse(locationMes).city.replace('市', '')
 				this.latitude = JSON.parse(locationMes).latitude //精
 				this.longitude = JSON.parse(locationMes).longitude //韦
 
@@ -518,7 +518,7 @@
 				var Position = js2android.getLocationInfo() //获取安卓定位信息
 				var NewPosition = JSON.parse(Position)
 				this.provinceName = NewPosition.province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '') //省
-				this.cityName = NewPosition.city //市
+				this.cityName = NewPosition.city.replace('市', '') //市
 				this.latitude = NewPosition.latitude //经度
 				this.longitude = NewPosition.longitude //纬度
 			} else if(system == "IOS") {
