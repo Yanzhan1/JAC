@@ -78,7 +78,7 @@
       </div>
     </div>
     <ul style="padding:0 .2rem">
-      <router-link to="/lovecar/airConditionControl" tag="li" class="navs air">
+      <router-link to="/lovecar/Electricairconditioning" tag="li" class="navs air">
         <div class="navs">
           <img class="picc" src="../../../static/images/Wit/ari.png" alt="">
           <span class="pic_txt">空调温度</span>

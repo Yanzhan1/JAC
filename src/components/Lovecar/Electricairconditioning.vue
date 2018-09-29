@@ -596,7 +596,7 @@ export default {
           airQuantity: this.windNum[this.winIndex],
           loop: this.loop,
           temperature: this.temperNum[this.airSpace],
-          airType: 0,
+          airType: 1,
           ac: this.compressors
         }
       };
