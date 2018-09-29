@@ -25,7 +25,7 @@
     },
     created() {
       this.$http.interceptors.request.use((config) => {
-        const params = config.data
+        const params = config.method == 'post' ? config.data : config.params
         const arr = config.url.match(this.reg)
 
         // 在发送请求之前做些什么

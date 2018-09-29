@@ -1,12 +1,12 @@
 <template>
-    <div>
+    <div style="">
       <!--<div class="header">
         <img class="header-left" src="../../../static/images/back@2x.png" alt="" @click="$router.go(-1)">
         <span class="header-title">我的活动</span>
         <div class="header-right"></div>
       </div>-->
       <mhead currentTitle="我的活动"></mhead>
-      <div style="padding: 0.16rem 0;">
+      <div style="padding: 0.16rem 4%;">
         <!--活动列表S-->
         <div v-for="(item) in myActivityList" :key="item.id">
           <div class="boxInfo">
