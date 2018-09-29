@@ -5,6 +5,7 @@
 			<router-link tag='p' class="p1" to="/wit/Characteristic">车系特色<span></span></router-link>
 			<router-link tag='p' class="p2 active" style="margin-right: 1.3rem;" to="/wit/Configure">配置参数<span></span></router-link>
 		</header>
+        <div style="height:.88rem"></div>
         <div class="talbs">
             <div v-for="(item,index) in nav" class="talbs_next" @click="choose($event,index)" :class="{blue:current==index}" :key="index">{{item}}</div>
         </div>
@@ -122,7 +123,7 @@ export default {
     display: flex;
     height: 1.18rem;
     align-items: center;
-    position: relative;
+    position: fixed;
     margin-bottom: .3rem;
 }
 .specil>p{

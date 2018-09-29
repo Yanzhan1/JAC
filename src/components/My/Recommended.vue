@@ -1,11 +1,11 @@
 <template>
   <div>
-    <header class="header">
+    <header class="header MobileHeight">
       <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
       <span class="header-title">推荐码</span>
       <span class="header-right"></span>
     </header>
-
+      <div style="height:.88rem" class="MobileHeight"></div>
     <div class="center">
       <div class="my">我的推荐码</div>
       <img src="../../../static/images/my/icon_share@2x.png" alt="" @click="enjoy()">
@@ -124,6 +124,12 @@ export default {
         this.share = res.data.data.code;
       }
     });
+  },
+  mounted(){
+    $(".MobileHeight").css({
+				"borderTopWidth": this.$store.state.mobileStatusBar,
+				"borderTopColor": "#fff",
+			})
   }
 };
 </script>
