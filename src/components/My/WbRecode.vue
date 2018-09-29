@@ -1,11 +1,12 @@
 <template>
     <div>
-        <header class="header">
+        <!--<header class="header">
             <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
             <span class="header-title">维保记录</span>
             <span class="header-right"></span>
         </header>
-        <div style="height:.88rem"></div>
+        <div style="height:.88rem"></div>-->
+        <mhead currentTitle="维保记录"></mhead>
         <ul>
             <li v-for="(item,index) in 2" :key="index">
                 <span class="tim">2017.04.03</span>
@@ -27,7 +28,11 @@
 </template>
 <script>
 import { Popup } from "mint-ui";
+import PublicHead from '../publicmodel/PublicHead';
 export default {
+	components: {
+  	mhead:PublicHead
+  },
   data() {
     return {};
   },

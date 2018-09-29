@@ -1,11 +1,12 @@
 <template>
 	<div class="feedback-detail">
-		<header class="header">
+		<!--<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">反馈详情</span>
 			<span class="header-right"></span>
 		</header>
-		<div style="height:0.88rem"></div>
+		<div style="height:0.88rem"></div>-->
+		<mhead currentTitle="反馈详情"></mhead>
 		<ul class="feedback-wrap">
 			<li>
 				<div class="question">【{{questionTyep[replyDetailSuggestions.complaintsType]}}】{{replyDetailSuggestions.complaintsContent}}</div>
@@ -19,8 +20,12 @@
 
 <script>
 	import { Toast } from 'mint-ui';
+	import PublicHead from '../publicmodel/PublicHead';
 	export default {
 		name: 'feedbackDetail',
+		components: {
+		  mhead:PublicHead
+		},
 		data () {
 			return {
 				condition: {

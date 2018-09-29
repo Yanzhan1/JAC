@@ -1,11 +1,12 @@
 <template>
     <div>
-        <header class="header">
+        <!--<header class="header">
             <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
             <span class="header-title">消息</span>
             <span class="header-right"></span>
         </header>
-        <div style="height:.88rem"></div>
+        <div style="height:.88rem"></div>-->
+        <mhead currentTitle="消息"></mhead>
         <ul style="padding:0 .32rem" class="ulList">
             <router-link to="/stynew" tag="li" class="flex row cocenter between" style="height:.97rem;border-bottom:.01rem solid #f1f1f1">
             <!--<router-link to="/info/information" tag="li" class="flex row cocenter between" style="height:.97rem;border-bottom:.01rem solid #f1f1f1">-->
@@ -44,7 +45,12 @@
 </template>
 
 <script>
+	import PublicHead from '../publicmodel/PublicHead';
 export default {
+	name: 'news',
+	components: {
+	  mhead:PublicHead
+    },
   data() {
     return {
       allstatus:{

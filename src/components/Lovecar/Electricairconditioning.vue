@@ -1,11 +1,12 @@
 <template>
 	<div class="aircondition-control">
-		<header class="header MobileHeight">
+		<!--<header class="header MobileHeight">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
 			<span class="header-title">空调控制</span>
 			<span class="header-right"></span>
 		</header>
-		<div style="height:0.88rem" class="MobileHeight"></div>
+		<div style="height:0.88rem" class="MobileHeight"></div>-->
+		<mhead currentTitle="空调控制"></mhead>
 		<div class="air-header">
 			<div class="air-btn">
 				<div>
@@ -151,8 +152,12 @@
 import { Createarc } from "../../../static/js/drawarc.js";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
+import PublicHead from '../publicmodel/PublicHead';
 export default {
-  name: "airconditionControl",
+  name: "electricairconditioning",
+  components: {
+  	mhead:PublicHead
+  },
   data() {
     return {
       time: "", //定时器命名

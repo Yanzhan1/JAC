@@ -1,11 +1,11 @@
 <template>
   <div>
-    <header class="header">
+    <header class="header MobileHeight">
       <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
       <span class="header-title">评价晒单</span>
       <span class="comit">提交</span>
     </header>
-    <div style="height:.88rem"></div>
+    <div style="height:.88rem" class="MobileHeight"></div>
     <ul>
       <li class="buycity flex row cocenter between" style="border-bottom:1px solid #f1f1f1;padding:0 .2rem">
         <div class="flex row">
@@ -44,6 +44,7 @@ export default {
     return {};
   },
   mounted(){
+  	$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
      $(".star>li").click(function() {
     $(this).text("★").prevAll("li").text("★").end().nextAll("li").text("☆");
     })

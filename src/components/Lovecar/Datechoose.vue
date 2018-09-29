@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="header">
+    <header class="header MobileHeight">
       <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
       <div class="header-title flex row cocenter">
         <span>{{this.times}}</span>
@@ -259,6 +259,11 @@ export default {
 
   },
   mounted() {
+  	$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
+  	$(".nav").css({
+				"borderTopWidth": this.$store.state.mobileStatusBar,
+				"borderTopColor": "#fff",
+			})
     var date = new Date();
     var year = date.getFullYear();
     var month = date.getMonth() + 1;
@@ -570,245 +575,7 @@ export default {
         this.newarr=[]
         this.newarr.push('六','日','一','二','三','四','五')
       }
-      // console.log(this.$refs.color)
-      // console.log($('.addweeks'))
     },
-    //选择每个月的第几周的天数排列出来
-    // week_choose() {
-    //   var dt = new Date(this.newdates.years, this.newdates.months - 1, 1);
-    //   //m表示当月的1号是周几
-    //   var m = dt.getDay();
-    //   console.log(m);
-    //   if (this.showweek == 1) {
-    //     if (m == 0) {
-    //       m = 7;
-    //     }
-    //     if (
-    //       this.newdates.months == 1 ||
-    //       this.newdates.months == 3 ||
-    //       this.newdates.months == 5 ||
-    //       this.newdates.months == 7 ||
-    //       this.newdates.months == 8 ||
-    //       this.newdates.months == 10 ||
-    //       this.newdates.months == 12
-    //     ) {
-    //       this.newarray1 = this.array1.slice(0, 7 - m);
-    //       this.newarraynum = this.newarray1;
-    //     }
-    //     if (
-    //       this.newdates.months == 4 ||
-    //       this.newdates.months == 6 ||
-    //       this.newdates.months == 9 ||
-    //       this.newdates.months == 11
-    //     ) {
-    //       this.newarray2 = this.array2.slice(0, 7 - m);
-    //       this.newarraynum = this.newarray2;
-    //     }
-    //     if (this.newdates.months == 2) {
-    //       if (
-    //         this.newdates.years % 4 == 0 ||
-    //         (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
-    //       ) {
-    //         this.newarray3 = this.array3.slice(0, 7 - m);
-    //         console.log(this.newarray3);
-    //         this.newarraynum = this.newarray3;
-    //       } else {
-    //         this.newarray4 = this.array4.slice(0, 7 - m);
-    //         this.newarraynum = this.newarray4;
-    //       }
-    //     }
-    //   }
-    //   if (this.showweek == 2) {
-    //     if (m == 0) {
-    //       m = 7;
-    //     }
-    //     if (
-    //       this.newdates.months == 1 ||
-    //       this.newdates.months == 3 ||
-    //       this.newdates.months == 5 ||
-    //       this.newdates.months == 7 ||
-    //       this.newdates.months == 8 ||
-    //       this.newdates.months == 10 ||
-    //       this.newdates.months == 12
-    //     ) {
-    //       this.newarray1 = this.array1.slice(7 - m, 14 - m);
-    //       this.newarraynum = this.newarray1;
-    //     }
-    //     if (
-    //       this.newdates.months == 4 ||
-    //       this.newdates.months == 6 ||
-    //       this.newdates.months == 9 ||
-    //       this.newdates.months == 11
-    //     ) {
-    //       this.newarray2 = this.array2.slice(7 - m, 14 - m);
-    //       this.newarraynum = this.newarray2;
-    //     }
-    //     if (this.newdates.months == 2) {
-    //       if (
-    //         this.newdates.years % 4 == 0 ||
-    //         (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
-    //       ) {
-    //         this.newarray4 = this.array4.slice(7 - m, 14 - m);
-    //         this.newarraynum = this.newarray4;
-    //       } else {
-    //         this.newarray3 = this.array3.slice(7 - m, 14 - m);
-    //         this.newarraynum = this.newarray3;
-    //       }
-    //     }
-    //   }
-    //   if (this.showweek == 3) {
-    //     if (m == 0) {
-    //       m = 7;
-    //     }
-    //     if (
-    //       this.newdates.months == 1 ||
-    //       this.newdates.months == 3 ||
-    //       this.newdates.months == 5 ||
-    //       this.newdates.months == 7 ||
-    //       this.newdates.months == 8 ||
-    //       this.newdates.months == 10 ||
-    //       this.newdates.months == 12
-    //     ) {
-    //       this.newarray1 = this.array1.slice(14 - m, 21 - m);
-    //       this.newarraynum = this.newarray1;
-    //     }
-    //     if (
-    //       this.newdates.months == 4 ||
-    //       this.newdates.months == 6 ||
-    //       this.newdates.months == 9 ||
-    //       this.newdates.months == 11
-    //     ) {
-    //       this.newarray2 = this.array2.slice(14 - m, 21 - m);
-    //       this.newarraynum = this.newarray2;
-    //     }
-    //     if (this.newdates.months == 2) {
-    //       if (
-    //         this.newdates.years % 4 == 0 ||
-    //         (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
-    //       ) {
-    //         this.newarray4 = this.array4.slice(14 - m, 21 - m);
-    //         this.newarraynum = this.newarray4;
-    //       } else {
-    //         this.newarray3 = this.array3.slice(14 - m, 21 - m);
-    //         this.newarraynum = this.newarray3;
-    //       }
-    //     }
-    //   }
-    //   if (this.showweek == 4) {
-    //     if (m == 0) {
-    //       m = 7;
-    //     }
-    //     if (
-    //       this.newdates.months == 1 ||
-    //       this.newdates.months == 3 ||
-    //       this.newdates.months == 5 ||
-    //       this.newdates.months == 7 ||
-    //       this.newdates.months == 8 ||
-    //       this.newdates.months == 10 ||
-    //       this.newdates.months == 12
-    //     ) {
-    //       this.newarray1 = this.array1.slice(21 - m, 28 - m);
-    //       this.newarraynum = this.newarray1;
-    //     }
-    //     if (
-    //       this.newdates.months == 4 ||
-    //       this.newdates.months == 6 ||
-    //       this.newdates.months == 9 ||
-    //       this.newdates.months == 11
-    //     ) {
-    //       this.newarray2 = this.array2.slice(21 - m, 28 - m);
-    //       this.newarraynum = this.newarray2;
-    //     }
-    //     if (this.newdates.months == 2) {
-    //       if (
-    //         this.newdates.years % 4 == 0 ||
-    //         (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
-    //       ) {
-    //         this.newarraynum = this.newarray4;
-    //         this.newarray4 = this.array4.slice(21 - m, 28 - m);
-    //       } else {
-    //         this.newarray3 = this.array3.slice(21 - m, 28 - m);
-    //         this.newarraynum = this.newarray3;
-    //       }
-    //     }
-    //   }
-    //   if (this.showweek == 5) {
-    //     if (m == 0) {
-    //       m = 7;
-    //     }
-    //     if (
-    //       this.newdates.months == 1 ||
-    //       this.newdates.months == 3 ||
-    //       this.newdates.months == 5 ||
-    //       this.newdates.months == 7 ||
-    //       this.newdates.months == 8 ||
-    //       this.newdates.months == 10 ||
-    //       this.newdates.months == 12
-    //     ) {
-    //       this.newarray1 = this.array1.slice(28 - m, 35 - m);
-    //       this.newarraynum = this.newarray1;
-    //     }
-    //     if (
-    //       this.newdates.months == 4 ||
-    //       this.newdates.months == 6 ||
-    //       this.newdates.months == 9 ||
-    //       this.newdates.months == 11
-    //     ) {
-    //       this.newarray2 = this.array2.slice(28 - m, 35 - m);
-    //       this.newarraynum = this.newarray2;
-    //     }
-    //     if (this.newdates.months == 2) {
-    //       if (
-    //         this.newdates.years % 4 == 0 ||
-    //         (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
-    //       ) {
-    //         this.newarraynum = this.newarray4;
-    //         this.newarray4 = this.array4.slice(28 - m, 35 - m);
-    //       } else {
-    //         this.newarray3 = this.array3.slice(28 - m, 35 - m);
-    //         this.newarraynum = this.newarray3;
-    //       }
-    //     }
-    //   }
-    //   if (this.showweek == 6) {
-    //     if (m == 0) {
-    //       m = 7;
-    //     }
-    //     if (
-    //       this.newdates.months == 1 ||
-    //       this.newdates.months == 3 ||
-    //       this.newdates.months == 5 ||
-    //       this.newdates.months == 7 ||
-    //       this.newdates.months == 8 ||
-    //       this.newdates.months == 10 ||
-    //       this.newdates.months == 12
-    //     ) {
-    //       this.newarray1 = this.array1.slice(35 - m, 38 - m);
-    //       this.newarraynum = this.newarray1;
-    //     }
-    //     if (
-    //       this.newdates.months == 4 ||
-    //       this.newdates.months == 6 ||
-    //       this.newdates.months == 9 ||
-    //       this.newdates.months == 11
-    //     ) {
-    //       this.newarray2 = this.array2.slice(35 - m, 38 - m);
-    //       this.newarraynum = this.newarray2;
-    //     }
-    //     if (this.newdates.months == 2) {
-    //       if (
-    //         this.newdates.years % 4 == 0 ||
-    //         (this.newdates.years % 100 == 0 && this.newdates.years % 400 == 0)
-    //       ) {
-    //         this.newarray4 = this.array4.slice(35 - m, 38 - m);
-    //         this.newarraynum = this.newarray4;
-    //       } else {
-    //         this.newarray3 = this.array3.slice(35 - m, 38 - m);
-    //         this.newarraynum = this.newarray3;
-    //       }
-    //     }
-    //   }
-    // },
     //点击切换周左按钮
     turn_l_week() {
       if (this.showweek > 1 && this.showweek <= 5) {
@@ -1112,6 +879,10 @@ export default {
 </script>
 
 <style scoped>
+	.nav {  
+		border-top-style: solid;
+		box-sizing: content-box;
+	}
 .header-right > img {
   position: absolute;
   width: 0.18rem;

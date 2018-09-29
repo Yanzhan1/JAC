@@ -506,8 +506,8 @@ textarea {
   padding: 0.1rem;
 }
 .region {
-  position: absolute;
-  bottom: -1.5rem;
+ /* position: absolute;
+  bottom: -1.5rem;*/
   width: 100%;
   height: 6rem;
   color: #222;

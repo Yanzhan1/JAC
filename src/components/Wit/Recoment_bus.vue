@@ -6,7 +6,7 @@
         <span class="header-title" :class="type==1?'active':''" style="margin-right:.2rem" @click="getcarbus(1)">全部车型</span>
         <span class="header-title" :class="type==2?'active':''" @click="getcarbus(2)">主推车型</span>
       </div>
-      <span @click="shai()" class="header-right"><img src="../../../static/images/Wit/shaixuan1@3x.png" alt="" style="width:.4rem"></span>
+      <span @click="shai()" class="header-right" style="margin-right: .65rem;"><img src="../../../static/images/Wit/shaixuan1@3x.png" alt="" style="width:.4rem"></span>
     </header>
     <div style="height:.88rem" class="MobileHeight"></div>
     <ul>
@@ -14,8 +14,8 @@
         <img :src="item.imgUrl" alt="">
         <div class="bus_1">
           <span class="bus_2">{{item.seriesName}}</span>
-          <span class="bus_3">
-            <span style="color:#a5a5a5;font-size:.22rem"> 官方指导价</span> ：{{item.guidancePriceStart}}万起</span>
+          <span class="bus_3"  v-if="item.guidancePriceStart>0">
+            <span style="color:#a5a5a5;font-size:.22rem" > 官方指导价</span> ：{{item.guidancePriceStart}}万起</span>
         </div>
         <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
       </li>
@@ -176,11 +176,19 @@ export default {
    
   },
   mounted(){
-     $(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar}) //头部挤出一定高度,配合原生做沉浸式开发
+  	
+     $(".MobileHeight").css({
+				"borderTopWidth": this.$store.state.mobileStatusBar,
+				"borderTopColor": "#fff",
+			})
   }
 };
 </script>
  <style scoped>
+ 	.MobileHeight {  
+		border-top-style: solid;
+		box-sizing: content-box;
+	}
 .mint-popup {
   width: 80%;
 }

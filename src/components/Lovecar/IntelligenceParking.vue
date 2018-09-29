@@ -1,11 +1,12 @@
 <template>
 	<div class="intelligent-parking">
-		<header class="header">
+		<!--<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">智能停车</span>
 			<span class="header-right"></span>
 		</header>
-		<div style="height:0.88rem"></div>
+		<div style="height:0.88rem"></div>-->
+		<mhead currentTitle="智能停车"></mhead>
 		<div class="intelligent-body flex-center">
 			<img :src="'./static/images/Lovecar/car-right@2x.png'" alt="" />
 			<div class="add flex-center">
@@ -21,8 +22,12 @@
 </template>
 
 <script>
+	import PublicHead from '../publicmodel/PublicHead';
 	export default {
 		name: 'intelligentParking',
+		components: {
+			mhead:PublicHead
+		},
 		data () {
 			return {
 				

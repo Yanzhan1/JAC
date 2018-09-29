@@ -1,11 +1,11 @@
 <template>
 	<div class="wifi-link">
-		<header class="header">
+		<header class="header MobileHeight">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">WIFI直连</span>
 			<span class="header-right"><router-link tag="img" :to="{name:'wifi设置',params:{names:this.names,pwd:this.pwd}}" @click.native="wifisend" style="width: 0.36rem;height: 0.36rem;" :src="'./static/images/Lovecar/Set@2x.png'"></router-link></span>
 		</header>
-		<div style="height:0.88rem"></div>
+		<div style="height:0.88rem" class="MobileHeight"></div>
 		<mt-cell :title="title">
 			<mt-switch  v-model="value" @change="turn"></mt-switch>
 		</mt-cell>
@@ -192,7 +192,7 @@ export default {
     wifisend() {}
   },
   mounted() {
-    // alert('link'+this.$store.state.vins)
+    $(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
     var param = {
       vin: this.$store.state.vins,
       operationType: "WIFI",

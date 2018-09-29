@@ -1,11 +1,12 @@
 <template>
 	<div class="reviousPwd-success">
-		<header class="header">
+		<!--<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">修改密码成功</span>
 			<span class="header-right"></span>
 		</header>
-		<div style="height:0.88rem"></div>
+		<div style="height:0.88rem"></div>-->
+		<mhead currentTitle="修改密码成功"></mhead>
 		<div class="revise-success">
 			<img :src="'./static/images/Lovecar/finish@2x.png'" />
 			<p>修改成功</p>
@@ -17,8 +18,12 @@
 </template>
 
 <script>
+	import PublicHead from '../publicmodel/PublicHead';
 	export default {
-		name: '',
+		name: 'reviousePwdSuccess',
+		components: {
+		  mhead:PublicHead
+		},
 		data() {
 			return {
 

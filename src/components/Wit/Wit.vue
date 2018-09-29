@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="tophead">
+    <div class="tophead" :style="$statusBarHeightObj">
       <!-- <div class="search">
         <input class="ipt" type="text" placeholder="搜索服务">
         <img class="pic" src="../../../static/images/Wit/zhixiang_home_search_service_icon.png" alt=""> 
@@ -63,7 +63,7 @@
         </div>
         <div class="bus_1">
           <span class="bus_2">{{item.seriesName}}</span>
-          <span class="bus_3">官方指导价：{{item.guidancePriceStart}}万起</span>
+          <span class="bus_3" v-if="item.guidancePriceStart>0">官方指导价：{{item.guidancePriceStart}}万起</span>
         </div>
       </li>
     </ul>
@@ -444,7 +444,7 @@ textarea::-webkit-input-placeholder {
   margin-left: 0.14rem;
 }
 .bustypes_1 span {
-  font-size: 0.21rem;
+  font-size: 0.28rem;
   color: #222;
 }
 .bus {

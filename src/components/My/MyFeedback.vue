@@ -1,11 +1,11 @@
 <template>
 	<div class="my-feedback">
-		<header class="header">
+		<header class="header MobileHeight">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-			<span class="header-title">我的反馈</span>
-			<router-link tag="span" class="header-right" to="/myindex/feedbackRecord">记录</router-link>
+			<span class="header-title" style="margin-left: .3rem;">我的反馈</span>
+			<router-link class="header-right" tag="span"  to="/myindex/feedbackRecord">记录</router-link>
 		</header>
-		<div style="height:0.88rem"></div>
+		<div style="height:0.88rem" class="MobileHeight"></div>
 		<div class="freedback-wrap">
 			<div class="freedback-type">
 				<span :class="{active:1==condition.complaintsType}" @click="change(1)">问题</span>
@@ -123,10 +123,8 @@
 			},
 
 		},
-		created () {
-//			this.$store.dispatch('NO', 'AD022018082705175247883')
-		},
 		mounted() {
+			$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
 		}
 	}
 </script>

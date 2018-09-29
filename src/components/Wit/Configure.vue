@@ -1,24 +1,21 @@
 <template>
     <div class="all">
-        <div class="specil">
-            <!-- <router-link to="/wit" tag="div"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem"></router-link> -->
-            <div @click="goback"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem"></div>
-            <p class="p1" @click="characteristic">车系特色</p>
-            <p class="p2 active" @click="characteristic">配置参数</p>
-        </div>
-        <!-- <div style="display:flex;flex:1;just-content:center">
-            <div v-for="(item,index) in Edition">{{item}}</div>
-        </div> -->
+        <header class="specil MobileHeight header">
+			<div  @click="goback"><img style="width:.4rem;height:.4rem;" :src="'./static/images/back@2x.png'"></div>
+			<router-link tag='p' class="p1" to="/wit/Characteristic">车系特色<span></span></router-link>
+			<router-link tag='p' class="p2 active" style="margin-right: 1.3rem;" to="/wit/Configure">配置参数<span></span></router-link>
+		</header>
+        <div style="height:.88rem" class="MobileHeight"></div>
         <div class="talbs">
             <div v-for="(item,index) in nav" class="talbs_next" @click="choose($event,index)" :class="{blue:current==index}" :key="index">{{item}}</div>
         </div>
         <div class="every_img" >
-            <img style="display:block;width:100%" class="nav" :src="this.allimage[this.current]" alt="">
+            <img style="display:block;width:100%;" class="nav" :src="this.allimage[this.current]" alt="">
             <!-- <img src="./../../../static/images/Wit/170598437859803375.jpg" alt="">
             <img src="./../../../static/images/Wit/25470446938143313.jpg" alt=""> -->
         </div>
-        <div style="height:1rem"></div>
-        <div class="bottom-btn" @click="reserve">在线订车</div>
+        <div style="height:.88rem"></div>
+        <div class="bottom-btn" @click="reserve" >在线订车</div>
     </div>
 </template>
 
@@ -67,28 +64,39 @@ export default {
         }
     },
     mounted(){
+        $(".MobileHeight").css({
+				"borderTopWidth": this.$store.state.mobileStatusBar,
+				"borderTopColor": "#fff",
+			})
         let params={
             no:this.$store.state.everyno
         }
         // alert(this.$store.state.everyno)
         this.$http.post(Wit.searchVehicleSeriesOne,params).then((res)=>{
             let allimage=res.data.data.imageRelationVO
-            // console.log(res.data.data)
             this.nav=[]
             for(let i=0;i<allimage.length;i++){
                 if(allimage[i].imageType==5&&allimage[i].imageTitle!=undefined){
-                    this.allimage.push(allimage[i].imageUrl)
+                    // console.log(allimage[i].imgUrls)
+                    for(let j=0;j<allimage[i].imgUrls.length;j++){
+                        // console.log(allimage[i].imgUrls[j].imageUrl)
+                        this.allimage.push(allimage[i].imgUrls[j].imageUrl)
+                    }
+                    console.log(this.allimage)
+                    // this.allimage.push(allimage[i].imgUrls)
                     this.nav.push(allimage[i].imageTitle)
                 }
             }
-            // console.log(this.nav)
-            // console.log(this.allimage)
         })
     }
 }
 </script>
 
 <style scoped>
+	.MobileHeight {  
+		border-top-style: solid;
+		box-sizing: content-box;
+	}
 .talbs{
     width:100%;
     display: flex;
@@ -102,6 +110,7 @@ export default {
     height: .7rem;
     position: relative;
     display: flex;
+    line-height: .5rem;
     /* flex: 1; */
     flex-shrink: 0;
     padding: 0 .2rem;
@@ -110,7 +119,6 @@ export default {
 .every_img{
     width: 100%;
     overflow-x: auto;
-    height: 100%;
 }
 .every::-webkit-scrollbar{
     /* display: none; */
@@ -121,9 +129,9 @@ export default {
 .specil{
     display: flex;
     height: 1.18rem;
-    justify-content: center;
     align-items: center;
-    position: relative;
+    position: fixed;
+    margin-bottom: .3rem;
 }
 .specil>p{
     padding: .25rem;
@@ -203,5 +211,9 @@ export default {
     font-size: .26rem;
     font-family: PingFangSC-Regular;
     font-weight: Regular;
+}
+.bottom-btn{
+    position: fixed;
+    bottom: 0;
 }
 </style>

@@ -1,11 +1,12 @@
 <template>
     <div>
-        <header class="header">
+        <!--<header class="header">
             <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
             <span class="header-title">会员积分</span>
             <span class="header-right"></span>
         </header>
-        <div style="height:.88rem"></div>
+        <div style="height:.88rem"></div>-->
+        <mhead currentTitle="会员积分"></mhead>
         <div class="flex column arounds">
             <span class="mycore">我的积分</span>
             <span class="score">{{integral}}</span>
@@ -25,7 +26,11 @@
 </template>
 
 <script>
+	import PublicHead from '../publicmodel/PublicHead';
 export default {
+	components: {
+  	mhead:PublicHead
+  },
   data() {
     return {
         details:{},

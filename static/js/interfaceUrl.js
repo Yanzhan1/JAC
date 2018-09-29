@@ -166,7 +166,7 @@ window.Lovecar = {
         Flow: love_car + '/vehicle/vehicle-cyc-flow-query', //流量查询
         Flowpackage: love_car + '/vehicle/cyc-flow-package-query', //流量包查询
         Longrange: love_car + '/vehicle/set-vehicle-remoteset', //车辆远程设置
-        LoginOut: love_car + '/vehicle/remote-vehicle-login-or-logout', //退出登录
+        LoginOut: love_car + '/vehicle/remote-vehicle-loginOut', //退出登录
         Findcode: love_car + '/vehicle/forget-vehicle-pin', //找回pin码
         Control: love_car + '/vehicle/remote-vehicle-control', //远程控制
         LogStatus: love_car + '/vehicle/vehicle-logstatus' //获取机车登入状态
