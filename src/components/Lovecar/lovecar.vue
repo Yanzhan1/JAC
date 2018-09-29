@@ -78,6 +78,7 @@
       </div>
     </div>
     <ul style="padding:0 .2rem">
+      <!-- 暂时跳转到电动空调 -->
       <router-link to="/lovecar/Electricairconditioning" tag="li" class="navs air">
         <div class="navs">
           <img class="picc" src="../../../static/images/Wit/ari.png" alt="">
