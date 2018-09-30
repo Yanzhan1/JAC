@@ -492,6 +492,10 @@
     width: 100%;
   }
 
+  .content >>> img {
+    width:100%;
+  }
+
   #bgShare {
     position: fixed;
     width: 100%;
