@@ -240,7 +240,7 @@
 												this.citySlot[0].values = []; //清除上一次城市的选择
 												this.cityList.forEach((item, index) => {
 													this.citySlot[0].values.push(item.name)
-													this.city_id = this.cityList[0].code
+//													this.city_id = this.cityList[0].code
 													this.mydeler() //省份code 赋值成功后 调用获取经销商列表
 												})
 											} else {
@@ -382,7 +382,6 @@
 				}
 				this.$http.post(Wit.Dealer, param).then(res => {
 					if(res.data.code == 0) {
-						// console.log(res.data)
 						this.mainbus = []
 						this.mainbus = res.data.data.records
 						if(this.mainbus.length == 0) {
@@ -424,7 +423,6 @@
 				this.cityName = JSON.parse(locationMes).city.replace('市', '')
 				this.latitude = JSON.parse(locationMes).latitude //精
 				this.longitude = JSON.parse(locationMes).longitude //韦
-
 			},
 			bottomPicker(type) { //激活pupop
 				this.popupVisible = true
