@@ -240,7 +240,7 @@
 												this.citySlot[0].values = []; //清除上一次城市的选择
 												this.cityList.forEach((item, index) => {
 													this.citySlot[0].values.push(item.name)
-													this.city_id = this.cityList[0].code
+//													this.city_id = this.cityList[0].code
 													this.mydeler() //省份code 赋值成功后 调用获取经销商列表
 												})
 											} else {
