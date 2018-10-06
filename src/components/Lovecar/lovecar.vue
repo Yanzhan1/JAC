@@ -613,14 +613,14 @@ export default {
               this.$store.dispatch("LOADINGFLAG", false);
             }
           } else {
+            // alert(4)
             Toast({
               message: "指令下发失败！",
               position: "middle",
               duration: 2000
             });
-            flag = false;
-            clearInterval(this.time);
-            this.$store.dispatch("LOADINGFLAG", false);
+             clearInterval(this.time);
+             this.$store.dispatch("LOADINGFLAG", false);
           }
         });
     },
