@@ -6,6 +6,7 @@
 			<span class="header-right"></span>
 		</header>
 		<div style="height:0.88rem" class="MobileHeight"></div>-->
+		
 		<mhead currentTitle="空调控制"></mhead>
 		<div class="air-header">
 			<div class="air-btn">
@@ -80,6 +81,8 @@
 				<!--温度数值End-->
 			</div>
 			<!--风量计数器Start-->
+      <div style="margin-top:1rem;"
+      >空调风量</div>
 			<div class="air-change flex-center">
 				<img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
 				<div class="wind-count">
@@ -95,10 +98,10 @@
 		<div class="sing-line"></div>
 		<!--底部导航Start-->
 		<div class="air-footer flex-center-between">
-			<button :disabled="!value" class="tabar flex-column-align" @click="change(1)">
-				<img v-if="activeShowImg == 1" :src="'./static/images/Lovecar/no-off@2x.png'" />
-				<img v-else :src="'./static/images/Lovecar/no-off2@2x.png'" />
-			</button>
+			<!--<button :disabled="!value" class="tabar flex-column-align" @click="change(1)">-->
+				<!--<img v-if="activeShowImg == 1" :src="'./static/images/Lovecar/no-off@2x.png'" />-->
+				<!--&lt;!&ndash;<img v-else :src="'./static/images/Lovecar/no-off2@2x.png'" />&ndash;&gt;-->
+			<!--</button>-->
 			<button :disabled="!value" class="tabar flex-column-align" @click="change(2)">
 				<img v-if="activeShowImg == 2" :src="'./static/images/Lovecar/off-left@2x.png'" />
 				<img v-else :src="'./static/images/Lovecar/off-left2@2x.png'" />
@@ -815,7 +818,7 @@ export default {
 .flex-center-between {
   /*水平垂直居中-两边对齐*/
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 
