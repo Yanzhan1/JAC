@@ -547,13 +547,64 @@ export default {
                             ? (this.doorStsTrunk = "已开")
                             : (this.doorStsTrunk = "未开"); //后备箱的初始状态
                           this.engineStatus = this.carcontrol.engineStatus;
-                          var tai = {
-                            left_top: this.carcontrol.tirePressureFrontLeft,
-                            right_top: this.carcontrol.tirePressureFrontRight,
-                            left_bottom: this.carcontrol.tirePressureRearLeft,
-                            right_bottom: this.carcontrol.tirePressureRearRight
-                          };
-                          this.Condition = tai;
+                          // var tai = {
+                          //   left_top: this.carcontrol.tirePressureFrontLeft,
+                          //   right_top: this.carcontrol.tirePressureFrontRight,
+                          //   left_bottom: this.carcontrol.tirePressureRearLeft,
+                          //   right_bottom: this.carcontrol.tirePressureRearRight
+                          // };
+                          // this.Condition = tai;
+                           var tai = {
+                              left_top: this.carcontrol.tirePressureFrontLeft,
+                              right_top: this.carcontrol.tirePressureFrontRight,
+                              left_bottom: this.carcontrol.tirePressureRearLeft,
+                              right_bottom: this.carcontrol.tirePressureRearRight
+                            };
+                            //车门状态
+                            this.carcontrol.doorStsFrontLeft = this.carcontrol.doorStsFrontLeft
+                              ? (this.doorStsFrontLeft = "已锁")
+                              : (this.doorStsFrontLeft = "未锁");
+                            this.carcontrol.doorStsFrontRight = this.carcontrol.doorStsFrontRight
+                              ? (this.doorStsFrontRight = "已锁")
+                              : (this.doorStsFrontRight = "未锁");
+                            this.carcontrol.doorStsRearLeft = this.carcontrol.doorStsRearLeft
+                              ? (this.doorStsRearLeft = "已锁")
+                              : (this.doorStsRearLeft = "未锁");
+                            this.carcontrol.doorStsRearRight = this.carcontrol.doorStsRearRight
+                              ? (this.doorStsRearRight = "已锁")
+                              : (this.doorStsRearRight = "未锁");
+                            //车窗状态
+                            this.carcontrol.windowStsFrontLeft = this.carcontrol.windowStsFrontLeft
+                              ? (this.windowStsFrontLeft = "已关闭")
+                              : (this.windowStsFrontLeft = "已打开");
+                            this.carcontrol.windowStsFrontRight = this.carcontrol.windowStsFrontRight
+                              ? (this.windowStsFrontRight = "已关闭")
+                              : (this.windowStsFrontRight = "已打开");
+                            this.carcontrol.windowStsRearLeft = this.carcontrol.windowStsRearLeft
+                              ? (this.windowStsRearLeft = "已关闭")
+                              : (this.windowStsRearLeft = "已打开");
+                            this.carcontrol.windowStsRearRight = this.carcontrol.windowStsRearRight
+                              ? (this.windowStsRearRight = "已关闭")
+                              : (this.windowStsRearRight = "已打开");
+                            var door = {
+                              left_top: this.doorStsFrontLeft,
+                              right_top: this.doorStsFrontRight,
+                              left_bottom: this.doorStsRearLeft,
+                              right_bottom: this.doorStsRearRight
+                            };
+                            var window = {
+                              left_top: this.windowStsFrontLeft,
+                              right_top: this.windowStsFrontRight,
+                              left_bottom: this.windowStsRearLeft,
+                              right_bottom: this.windowStsRearRight
+                            };
+                            if (this.activeshow == 1) {
+                              this.Condition = tai;
+                            } else if (this.activeshow == 2) {
+                              this.Condition = door;
+                            } else if (this.activeshow == 3) {
+                              this.Condition = window;
+                            }
  
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
@@ -572,7 +623,6 @@ export default {
                           position: "middle",
                           duration: 2000
                         });
-                        flag = false;
                         clearInterval(this.time);
                         this.$store.dispatch("LOADINGFLAG", false);
                       }
@@ -594,13 +644,64 @@ export default {
                 ? (this.doorStsTrunk = "已开")
                 : (this.doorStsTrunk = "未开"); //后备箱的初始状态
               this.engineStatus = this.carcontrol.engineStatus;
-              var tai = {
-                left_top: this.carcontrol.tirePressureFrontLeft,
-                right_top: this.carcontrol.tirePressureFrontRight,
-                left_bottom: this.carcontrol.tirePressureRearLeft,
-                right_bottom: this.carcontrol.tirePressureRearRight
-              };
-              this.Condition = tai;
+              // var tai = {
+              //   left_top: this.carcontrol.tirePressureFrontLeft,
+              //   right_top: this.carcontrol.tirePressureFrontRight,
+              //   left_bottom: this.carcontrol.tirePressureRearLeft,
+              //   right_bottom: this.carcontrol.tirePressureRearRight
+              // };
+              // this.Condition = tai;
+               var tai = {
+                  left_top: this.carcontrol.tirePressureFrontLeft,
+                  right_top: this.carcontrol.tirePressureFrontRight,
+                  left_bottom: this.carcontrol.tirePressureRearLeft,
+                  right_bottom: this.carcontrol.tirePressureRearRight
+                };
+                //车门状态
+                this.carcontrol.doorStsFrontLeft = this.carcontrol.doorStsFrontLeft
+                  ? (this.doorStsFrontLeft = "已锁")
+                  : (this.doorStsFrontLeft = "未锁");
+                this.carcontrol.doorStsFrontRight = this.carcontrol.doorStsFrontRight
+                  ? (this.doorStsFrontRight = "已锁")
+                  : (this.doorStsFrontRight = "未锁");
+                this.carcontrol.doorStsRearLeft = this.carcontrol.doorStsRearLeft
+                  ? (this.doorStsRearLeft = "已锁")
+                  : (this.doorStsRearLeft = "未锁");
+                this.carcontrol.doorStsRearRight = this.carcontrol.doorStsRearRight
+                  ? (this.doorStsRearRight = "已锁")
+                  : (this.doorStsRearRight = "未锁");
+                //车窗状态
+                this.carcontrol.windowStsFrontLeft = this.carcontrol.windowStsFrontLeft
+                  ? (this.windowStsFrontLeft = "已关闭")
+                  : (this.windowStsFrontLeft = "已打开");
+                this.carcontrol.windowStsFrontRight = this.carcontrol.windowStsFrontRight
+                  ? (this.windowStsFrontRight = "已关闭")
+                  : (this.windowStsFrontRight = "已打开");
+                this.carcontrol.windowStsRearLeft = this.carcontrol.windowStsRearLeft
+                  ? (this.windowStsRearLeft = "已关闭")
+                  : (this.windowStsRearLeft = "已打开");
+                this.carcontrol.windowStsRearRight = this.carcontrol.windowStsRearRight
+                  ? (this.windowStsRearRight = "已关闭")
+                  : (this.windowStsRearRight = "已打开");
+                var door = {
+                  left_top: this.doorStsFrontLeft,
+                  right_top: this.doorStsFrontRight,
+                  left_bottom: this.doorStsRearLeft,
+                  right_bottom: this.doorStsRearRight
+                };
+                var window = {
+                  left_top: this.windowStsFrontLeft,
+                  right_top: this.windowStsFrontRight,
+                  left_bottom: this.windowStsRearLeft,
+                  right_bottom: this.windowStsRearRight
+                };
+                if (this.activeshow == 1) {
+                  this.Condition = tai;
+                } else if (this.activeshow == 2) {
+                  this.Condition = door;
+                } else if (this.activeshow == 3) {
+                  this.Condition = window;
+                }
               clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
@@ -618,7 +719,6 @@ export default {
               position: "middle",
               duration: 2000
             });
-            flag = false;
             clearInterval(this.time);
             this.$store.dispatch("LOADINGFLAG", false);
           }
