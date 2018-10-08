@@ -13,7 +13,7 @@
             <div class="">
                 <div class="starttimes" @click="startlefts">
                     <div style="width:2rem;">起始时间</div>
-                    <span style="margin-left:2rem;" ref="startt" v-text="start"></span>
+                    <span style="margin-left:2rem;" ref="startt">{{start}}</span>
                     <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem" >
                 </div>
                 <div class="starttimes" @click="endrights">
@@ -79,10 +79,16 @@ export default {
   methods:{
       next(){
           //获得时间戳
-          this.shang = this.start.split(' ').slice(0, 1).join() //截取日期转换时间戳
-          this.xia = this.end.split(' ').slice(0, 1).join()
-          this.shang = operationTime.toTimeStamp(this.shang)
-          this.xia = operationTime.toTimeStamp(this.xia)
+          /*console.log(this.start)
+          console.log(this.end)*/
+          this.start = this.start + ':00:00'
+          this.end = this.end + ':00:00'
+          this.shang = this.start.replace(/\-/g, '/')
+          this.xia = this.end.replace(/\-/g, '/')
+          this.shang = new Date(this.shang)
+          this.xia = new Date(this.xia)
+          this.shang = this.shang.getTime()
+          this.xia = this.xia.getTime()
           if(this.shang>this.xia){
               Toast({
                   message:'起始时间不能大于结束时间',
@@ -95,16 +101,16 @@ export default {
                   position:'middle',
                   duration:2000,
               })
-          }
-          else{
+          } else{
+//        						console.log(11)
               var param={
                     vin: this.$store.state.vins, 
                     operationType: "CONTROL_AUTH", 
                     operation: 1, 
                     extParams: {
                     childNum: this.Account, 
-                    beginTime: shang, 
-                    endTime: xia,
+                    beginTime: this.shang, 
+                    endTime: this.xia,
                 }
             }
         this.$http.post(Lovecar.Longrange,param,this.$store.state.tsppin).then((res)=>{
@@ -113,8 +119,8 @@ export default {
                 this.$router.push({
                 name:'Authorize_next',
                 params:{
-                        a:this.shang,
-                        b:this.xia
+                        a:operationTime.getTime(this.shang),
+                        b:operationTime.getTime(this.xia)
             }
          })
             }else{
@@ -147,6 +153,7 @@ export default {
     }
   },
   mounted(){
+//	console.log(operationTime.toTimeStamp('2018-10-8'))
     let oDate=new Date()
     let year =oDate.getFullYear();
     let month =oDate.getMonth()+1;
@@ -155,8 +162,8 @@ export default {
     let time=oDate.getHours()
     this.start=year+'-'+month+'-'+date+' '+time
 
-    let end=year+'-'+month+'-'+date+' '+(time+4)
-    if(end>=24){
+//  let end=year+'-'+month+'-'+date+' '+(time+4)
+    if(time>=24){
         this.end=year+'-'+month+'-'+date+1+' '+(time-20)
     }else{
         this.end=year+'-'+month+'-'+date+' '+(time+4)

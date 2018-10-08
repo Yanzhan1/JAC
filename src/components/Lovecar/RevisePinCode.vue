@@ -5,7 +5,7 @@
 			<span class="header-title">修改pin码</span>
 			<span class="header-right"></span>
 		</header>
-		<div style="height:0.88rem"></div>
+		<div style="height:0.88rem" class="MobileHeight"></div>
 		<div class="revisePinCommon flex-center revise-pin-mes ">
 			<div class="">
 				<span>
