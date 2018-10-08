@@ -118,7 +118,7 @@ export default {
 .main{
     position: relative;
     width: 100%;
-    margin-top: 0.98rem;
+    margin-top: 1.5rem;
 }
 .main .comment{
     height:9.11rem;

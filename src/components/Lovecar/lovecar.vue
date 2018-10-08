@@ -608,7 +608,6 @@ export default {
  
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
-                          flag = false;
                           Toast({
                             message: "指令下发成功，处理失败！",
                             position: "middle",

@@ -10,9 +10,8 @@
             <div v-for="(item,index) in nav" class="talbs_next" @click="choose($event,index)" :class="{blue:current==index}" :key="index">{{item}}</div>
         </div>
         <div class="every_img" >
-            <img style="display:block;width:100%;" class="nav" :src="this.allimage[this.current]" alt="">
-            <!-- <img src="./../../../static/images/Wit/170598437859803375.jpg" alt="">
-            <img src="./../../../static/images/Wit/25470446938143313.jpg" alt=""> -->
+            <!-- <img style="display:block;width:100%;" class="nav" :src="this.allimage[this.current]" alt=""> -->
+            <img v-for="(item,index) in this.arr[this.current]" style="display:block;width:100%;" class="nav" :src="item" alt="">
         </div>
         <div style="height:.88rem"></div>
         <div class="bottom-btn" @click="reserve" >在线订车</div>
@@ -28,8 +27,9 @@ export default {
             Edition:['超级版','运动版','普通版'],
             current:0,//选择tablb中的index值
             allimage:[],
-            seriesName:''
-
+            seriesName:'',
+            arr:[],
+            arrr:[],
         }
     },
     methods:{
@@ -73,13 +73,16 @@ export default {
         }
         this.$http.post(Wit.searchVehicleSeriesOne,params).then((res)=>{
             let allimage=res.data.data.imageRelationVO
-            console.log(res.data.data)
+            // console.log(allimage)
             this.nav=[]
             for(let i=0;i<allimage.length;i++){
                 if(allimage[i].imageType==5&&allimage[i].imageTitle!=undefined){
-                    for(let j=0;j<allimage[i].imgUrls.length;j++){
-                        this.allimage.push(allimage[i].imgUrls[j])
-                    }
+                    // this.arrr=allimage[i].imgUrls
+                    this.arr.push(allimage[i].imgUrls)
+                    // console.log(this.arr)
+                    // for(let j=0;j<allimage[i].imgUrls.length;j++){
+                    //     this.allimage.push(allimage[i].imgUrls[j])
+                    // }
                     this.nav.push(allimage[i].imageTitle)
                 }
             }
