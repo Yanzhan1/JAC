@@ -96,13 +96,6 @@
 						});
 					}					
 				})
-				.catch((err) => {
-					let instance = Toast({
-								message: err.returnErrMsg,
-								position: 'middle',
-								duration: 1000
-					});
-				})
 			},
 			//底部确认提交
 			confirmSub () {

@@ -74,33 +74,6 @@
 							<span class="cancel">待付款</span>
 						</div>
 					</li>
-					<li class="flex column">
-						<p class="flex row tim between">
-							<span class="times">2018 09-21 18:34</span>
-							<span class="times">待评价</span>
-						</p>
-						<div class="buycity flex row cocenter between">
-							<div class="flex row">
-								<img class="pictu" src="../../../static/images/test/my/car_ruifeng_s5.png" alt="" style="height:1.2rem;width:1.14rem;">
-								<div class="flex column cocenter maincenter">
-									<p style="font-size:.31rem;color:#222;">马克华杯</p>
-									<p style="font-size:.22rem;color:#888;">白色 400ml</p>
-								</div>
-							</div>
-							<div class="flex row cocenter" style="margin-right:.3rem">
-								<span style="font-size:.2rem;color:#222;">X 1</span>
-								<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
-							</div>
-						</div>
-						<div class="flex row  bts">
-							<span class="cancels" v-if="3>4">取消订单</span>
-							<span class="cancels">退款申请</span>
-							<span class="cancels" @click="wul()">查看物流</span>
-							<span class="cancel" @click="compontent()">评价晒单</span>
-							<span class="cancel" v-if="3>4">待付款</span>
-						</div>
-					</li>
-
 				</ul>
 			</mt-tab-container-item>
 			<!-- <mt-tab-container-item id="three">

@@ -176,7 +176,6 @@ export default {
       //				console.log(this.pinNumber.length)
       if (this.pinNumber.length == 6) {
 		let nums = this.pinNumber;
-		console.log(Lovecar.Checkphonepin,nums,this.$store.state.tsppin)
         this.$http
           .post(Lovecar.Checkphonepin, { pin: nums }, this.$store.state.tsppin)
           .then(res => {
@@ -184,7 +183,7 @@ export default {
               let oDate=new Date()
               let year=oDate.getFullYear()
               let month=oDate.getMonth()+1
-              month=month<10?'0'+month:month;
+              month=month<10?'0'+month:''+month;
               let totime=year+month
               this.$http
                 .post(
