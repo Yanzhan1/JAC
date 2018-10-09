@@ -142,6 +142,8 @@ export default {
       Idchooseaddress: [], //返回选择经销商的no
       myaddress: {},
       everycode: "",
+      latitude:'',//经度
+      longitude:'',//纬度
       thanks:
         "感谢您对江淮汽车的关注与支持，我们专业的服务员会第一时间与您联系!",
       province: [], //地区省份
@@ -220,7 +222,9 @@ export default {
       var param = {
         dealerType: "01",
         dealerCityCode: this.everycode,
-        vehicleSeridesNo:this.$store.state.everyno
+        vehicleSeridesNo:this.$store.state.everyno,
+        longitude:this.longitude,//经度
+        latitude:this.latitude,//纬度
       };
       this.$http.post(Wit.Dealer, param, this.$store.state.getpin).then(res => {
         // console.log(res);
@@ -310,7 +314,7 @@ export default {
         series: this.$route.params.levelCode, //意向车系
         model: this.$store.state.srouceNo, //意向车型
         city: this.codecity, //城市ID
-        userNo: this.$store.state.userId
+        userNo: this.$store.state.userId,
       };
       // alert(JSON.stringify(param));
       this.$http.post(Wit.PreBus, param).then(res => {
@@ -328,6 +332,17 @@ export default {
         }
       });
     },
+    	isIOSOrAndroid() { //判断ios和安卓机型的方法
+				var u = navigator.userAgent,
+					app = navigator.appVersion;
+				var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+				var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+				if(isAndroid) {
+					return "Android"
+				} else if(isIOS) {
+					return "IOS"
+				}
+			},
     //选择性别
     choosesex() {
       this.smallname = $("input:radio:checked").val();
@@ -373,6 +388,18 @@ export default {
         }
       }
     }
+  },
+  created(){
+    		window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
+      var system = this.isIOSOrAndroid();
+			if(system == 'Android') {
+				var Position = js2android.getLocationInfo() //获取安卓定位信息
+				var NewPosition = JSON.parse(Position)
+				this.latitude = NewPosition.latitude //经度
+				this.longitude = NewPosition.longitude //纬度
+			} else if(system == "IOS") {
+				window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
+      }
   },
   mounted() {
     this.tell=this.$store.state.mobile
@@ -421,7 +448,9 @@ export default {
       var param = {
         dealerType: "01",
         dealerCityCode: '0001',
-        vehicleSeridesNo:this.$store.state.everyno
+        vehicleSeridesNo:this.$store.state.everyno,
+        longitude:this.longitude,//经度
+        latitude:this.latitude,//纬度
       };
       this.$http.post(Wit.Dealer, param, this.$store.state.getpin).then(res => {
         // console.log(res);

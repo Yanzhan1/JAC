@@ -11,14 +11,14 @@
     <div style="width:100%;height:.01rem;background:#f1f1f1"></div>
     <div style="margin-top:.95rem;height:11.16rem;width:100%;" class="nav">
       <div v-if="this.times=='年'">
-        <div class="every_times">
-          <img :src="'./static/images/Lovecar/left-balck.png'" alt="" class="img_l" @click="l_year">
-          <div class="center">{{this.leftnewsyear}}年~{{this.newsyear}}年</div>
-          <img :src="'./static/images/Lovecar/right-black.png'" alt="" class="img_r" @click="r_year">
-          <div class="year_main" style="position:absolute;width:100%;top:1rem">
-            <div class="year_center" v-for="(item,index) in arrayyear" @click.stop="changecoloryear($event,index)" :class="{blue:current==index}" :key="index">{{item}}</div>
+          <div class="every_times">
+            <img :src="'./static/images/Lovecar/left-balck.png'" alt="" class="img_l" @click="l_year">
+            <div class="center">{{this.leftnewsyear}}年~{{this.newsyear}}年</div>
+            <img :src="'./static/images/Lovecar/right-black.png'" alt="" class="img_r" @click="r_year">
+            <div class="year_main" style="position:absolute;width:100%;top:1rem">
+              <div class="year_center" v-for="(item,index) in arrayyear" @click.stop="changecoloryear($event,index)" :class="{blue:current==index}" :key="index">{{item}}</div>
+            </div>
           </div>
-        </div>
       </div>
       <div v-if="this.times=='月'">
         <div class="every_times">
@@ -335,7 +335,7 @@ export default {
         break;
     }
     this.weeknew();
-    this.topweek()
+    this.topweek();
   },
   updated() {
     if (this.times != "周") {
@@ -725,7 +725,6 @@ export default {
         this.monthsstart = this.Changetimestamp()[1];
         this.monthsend = this.Changetimestamp()[0];
       }
-      console.log(this.Changetimestamp());
       this.$router.push({
         name: "燃油查询",
         params: {
@@ -733,7 +732,8 @@ export default {
           endtime: this.monthsend, //传过去的结束时间戳
           times: this.times, //传过去的顶部显示的年月日
           showtop: this.newdates, //传过去的具体年和月是个对象
-          showtopdate: this.showdate //传过去的具体日
+          showtopdate: this.showdate ,//传过去的具体日
+          showyear:this.showyear,//传过去的具体的年
         }
       });
     },

@@ -963,12 +963,22 @@ export default {
             // console.log(this.$store.state.mytoken.headers.timaToken);
           }
         });
+      //获取机车 登录登出状态
+    this.$http.get(Lovecar.LogStatus, this.$store.state.tsppin).then(res => {
+     if (res.data.returnSuccess) { 
+        for(let i=0;i<res.data.data.length;i++){
+          if(this.defaultvin==res.data.data[i].vin){
+          this.LoginStatus = res.data.data[i].logStatus //true 代表机车已经登录
+          // alert(  this.LoginStatus)
+         }
+        }
+     }
+    });
     }
   },
   mounted() {
     //暴露方法给原生,登入判断
     window.getStatus = this.getStatus;
-   
    this.$http
       .post(
         My.My_Bus,
@@ -1003,7 +1013,7 @@ export default {
           this.Carquerry();
         }
       });
-       //获取机车 登录登出状态
+            //获取机车 登录登出状态
     this.$http.get(Lovecar.LogStatus, this.$store.state.tsppin).then(res => {
      if (res.data.returnSuccess) { 
         for(let i=0;i<res.data.data.length;i++){

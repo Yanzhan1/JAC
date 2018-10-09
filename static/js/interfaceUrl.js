@@ -16,7 +16,7 @@ var love_car = host + '/api/jac-car-control' //爱车
     //服务器→反馈记录
 var rec = host + '/api/jac-enjoy-service/'
     // H5外网地址，分享用
-var waiwangip = window.location.protocol +  host + '/JACH5/#/';
+var waiwangip = window.location.protocol + host + '/JACH5/#/';
 
 var filestore = host + '/api/dk-filestore-svr'
     //首页
@@ -164,6 +164,7 @@ window.Lovecar = {
         BusTest: love_car + '/vehicle/query-cyc-car-examination', //车辆体检
         Fuel: love_car + '/vehicle/query-vehicle-fuel-statistics', //燃油接口
         Flow: love_car + '/vehicle/vehicle-cyc-flow-query', //流量查询
+        Getoederlist: love_car + '/flow/get-order-list', //流量订单查询
         Flowpackage: love_car + '/vehicle/cyc-flow-package-query', //流量包查询
         Longrange: love_car + '/vehicle/set-vehicle-remoteset', //车辆远程设置
         LoginOut: love_car + '/vehicle/remote-vehicle-loginOut', //退出登录

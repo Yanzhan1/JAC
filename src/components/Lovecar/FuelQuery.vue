@@ -10,7 +10,7 @@
 		<div class="fuel-title">
 			<span>统计周期</span>
 			<div>
-				<div @click="date_choose">{{this.years}}年{{this.months}}月</div>
+				<div @click="date_choose">{{this.years}}{{this.months}}{{this.date}}</div>
 				<img :src="'./static/images/next@2x.png'" alt="" />
 			</div>
 		</div>
@@ -76,6 +76,7 @@
 				disabled: true,
 				years:'',
 				months:'',
+				date:'',
 				times:'',
 				remaketime:'',
 				count: [{
@@ -97,12 +98,10 @@
 			}
 		},
 		mounted(){
-			console.log(this.$store.state.vins)
-			this.years=new Date().getFullYear();
-			this.months=new Date().getMonth()+1;
+			this.years=new Date().getFullYear()+'年';
+			this.months=new Date().getMonth()+1+'月';
 			var newstimes=new Date().getTime();
 			this.remaketime=this.years+'-'+this.months+'-'+'01'
-			// console.log(this.turntimes())
 			//获取默认页面的请求从当月的1号到当月的当日
 			var params={
 				vin:this.$store.state.vins,
@@ -112,31 +111,33 @@
 				type:'1'
 			}
 			this.$http.post(Lovecar.Fuel,params,this.$store.state.tsppin).then((res)=>{
-				console.log(res.data.data)
 				this.count[0].monthMileage=res.data.data.totalMileage
 				this.count[0].oilConsumer=res.data.data.totalWear
 			})
 			console.log(this.$route.params)
 			if(this.$route.params.begintime){
-				var accpect=this.$route.params			
-				this.years=accpect.showtop.years;
-				this.months=accpect.showtop.months;
-				console.log(accpect.times)
+				var accpect=this.$route.params		
 				if(accpect.times=='月'){
 					this.times='3'
+					this.years=accpect.showtop.years+'年';
+					this.months=accpect.showtop.months+'月';
 				}
 				if(accpect.times=='周'){
 					this.times='2'
 				}
 				if(accpect.times=='日'){
 					this.times='1'
-					console.log(this.times)
-
+					this.years=accpect.showtop.years+'年';
+					this.months=accpect.showtop.months+'月';
+					this.date=accpect.showtopdate+'日';
 				}
-				console.log(this.times)
+				if(accpect.times=='年'){
+					this.years=accpect.showyear+'年';
+					this.months=''
+				}
 				//路由传过来所选择的日期渲染页面
 				this.$http.post(Lovecar.Fuel,{vin: this.$store.state.vin,beginTime:accpect.begintime,endTime:accpect.endtime,type:this.times},this.$store.state.tsppin).then((res)=>{
-					console.log(res)
+					// console.log(res)
 				})
 			}
 		}

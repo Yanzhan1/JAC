@@ -211,6 +211,14 @@
 						}
 
 					});
+			},
+			Getoederlist(){
+				let params={
+					vin:this.$store.state.vins
+				}
+				this.$http.post(Lovecar.Getoederlist,params).then((res)=>{
+					console.log(res)
+				})
 			}
 		},
 		created() {
