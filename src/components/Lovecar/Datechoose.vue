@@ -336,6 +336,7 @@ export default {
     }
     this.weeknew();
     this.topweek();
+    this.week_left();
   },
   updated() {
     if (this.times != "周") {
@@ -428,6 +429,10 @@ export default {
         switch (n) {
           case 0: //一号是星期天
             center_l[0].style.marginLeft = "85.59%";
+            center_l[0].style.borderLeft = ".01rem solid #eee";
+            break;
+          case 1: //一号是星期天
+            center_l[0].style.marginLeft = "0%";
             center_l[0].style.borderLeft = ".01rem solid #eee";
             break;
           case 2: //一号是星期二

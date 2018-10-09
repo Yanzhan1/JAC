@@ -124,6 +124,8 @@
 				}
 				if(accpect.times=='周'){
 					this.times='2'
+					this.years=accpect.showtop.years+'年';
+					this.months=accpect.showtop.months+'月';
 				}
 				if(accpect.times=='日'){
 					this.times='1'
