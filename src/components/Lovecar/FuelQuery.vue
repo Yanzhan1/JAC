@@ -134,8 +134,13 @@
 					this.date=accpect.showtopdate+'日';
 				}
 				if(accpect.times=='年'){
-					this.years=accpect.showyear+'年';
-					this.months=''
+					if(accpect.showyear==''){
+						this.years=new Date().getFullYear()+'年'
+						this.months=''
+					}else{
+						this.years=accpect.showyear+'年';
+						this.months=''
+					}
 				}
 				//路由传过来所选择的日期渲染页面
 				this.$http.post(Lovecar.Fuel,{vin: this.$store.state.vin,beginTime:accpect.begintime,endTime:accpect.endtime,type:this.times},this.$store.state.tsppin).then((res)=>{
