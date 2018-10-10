@@ -36,5 +36,6 @@ export default {
     selectLabelState: null, //选择的频道
     mobileStatusBar: '', //手机适配,原生提供状态栏高度
     shownum: '', //车系特色判断返回的路由
-    busNo: null //主推车型，全部车型 选择的no
+    busNo: null, //主推车型，全部车型 选择的no
+    qrCodeDate: null //扫描二维码给出信息
 }

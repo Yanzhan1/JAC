@@ -70,5 +70,8 @@ export default {
     },
     [types.MOBILESTATUSBAR]: (state, payload) => {
     	state.mobileStatusBar = payload/4
+    },
+    [types.QRCODEPIN]: (state, payload) => {
+    	state.qrCodeDate = payload
     }
 }

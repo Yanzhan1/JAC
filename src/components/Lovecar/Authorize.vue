@@ -79,8 +79,6 @@ export default {
   methods:{
       next(){
           //获得时间戳
-          /*console.log(this.start)
-          console.log(this.end)*/
           this.start = this.start + ':00:00'
           this.end = this.end + ':00:00'
           this.shang = this.start.replace(/\-/g, '/')
