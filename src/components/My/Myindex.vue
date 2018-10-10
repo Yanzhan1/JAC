@@ -150,8 +150,8 @@ export default {
         ruleStr: "SIGN_IN",
         serviceTypeStr: "SERVICE_FIXED",
        
-        // no:this.$store.state.userId
-         no:'AD11201809030320353266'
+        no:this.$store.state.userId
+         // no:'AD11201809030320353266'
       }
      var param=JSON.stringify(data)
       this.$http.post(My.SignIn,param).then(res => {

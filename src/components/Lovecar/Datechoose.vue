@@ -790,6 +790,16 @@ export default {
             ) //结束
           ];
         }
+        if (this.showweek == 5) {
+          return [
+            operationTime.toTimeStamp(
+              this.getInfo(this.newdates.years, this.newdates.months).arrfrom[4]
+            ), //起始
+            operationTime.toTimeStamp(
+              this.getInfo(this.newdates.years, this.newdates.months).arrto[4]
+            ) //结束
+          ];
+        }
       }
       if (this.times == "月") {
         if (this.times == "年" && this.showyear == new Date().getFullYear()) {
