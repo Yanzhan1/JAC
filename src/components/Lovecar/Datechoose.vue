@@ -69,7 +69,7 @@
               <div style="color:#FF3366">六</div>
               <div style="color:#FF3366">日</div>
             </div>
-            <div class="date_center" v-for="(item,index) in arraynum" @click.stop="changecolor($event,index)" :class="{blue:current==index}" :key="index">{{item}}</div>
+            <div class="date_center" v-for="(item,index) in arraynum" @click.stop="changecolor($event,index)" :class="{blue:currents==index}" :key="index">{{item}}</div>
           </div>
         </div>
       </div>
@@ -103,6 +103,7 @@ import { MessageBox } from "mint-ui";
 export default {
   data() {
     return {
+      currents:0,
       current: 11, //用来判断日的时候具体选择哪一个的index
       times: "月", //默认选择月
       opentime: false, //遮罩层
@@ -259,6 +260,8 @@ export default {
 
   },
   mounted() {
+    this.showdate=new Date().getDate()
+    this.currents=new Date().getDate()-1
   	$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
   	$(".nav").css({
 				"borderTopWidth": this.$store.state.mobileStatusBar,
@@ -701,7 +704,7 @@ export default {
           showCanceButton: true
         });
       } else {
-        this.current = index;
+        this.currents = index;
         // el.target.style.backgroundColor='#49bbff';
         this.showdate = el.target.innerHTML;
       }
