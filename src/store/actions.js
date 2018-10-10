@@ -32,5 +32,8 @@ export default {
     },
     MOBILESTATUSBAR: ({ commit, state }, payload) => {
         commit(types.MOBILESTATUSBAR, payload)
+    },
+    QRCODEPIN: ({commit, state}, payload) => {
+    	commit(types.QRCODEPIN, payload)
     }
 }
