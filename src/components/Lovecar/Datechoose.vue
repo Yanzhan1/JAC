@@ -739,6 +739,7 @@ export default {
           showtop: this.newdates, //传过去的具体年和月是个对象
           showtopdate: this.showdate ,//传过去的具体日
           showyear:this.showyear,//传过去的具体的年
+          showweek:this.showweek,//传过去的周
         }
       });
     },

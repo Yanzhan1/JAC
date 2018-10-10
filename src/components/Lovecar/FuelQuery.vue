@@ -10,7 +10,7 @@
 		<div class="fuel-title">
 			<span>统计周期</span>
 			<div>
-				<div @click="date_choose">{{this.years}}{{this.months}}{{this.date}}</div>
+				<div @click="date_choose">{{this.years}}{{this.months}}{{this.date}}{{this.showweek}}</div>
 				<img :src="'./static/images/next@2x.png'" alt="" />
 			</div>
 		</div>
@@ -76,6 +76,7 @@
 				disabled: true,
 				years:'',
 				months:'',
+				showweek:'',
 				date:'',
 				times:'',
 				remaketime:'',
@@ -126,6 +127,7 @@
 					this.times='2'
 					this.years=accpect.showtop.years+'年';
 					this.months=accpect.showtop.months+'月';
+					this.showweek='第'+accpect.showweek+'周'
 				}
 				if(accpect.times=='日'){
 					this.times='1'
