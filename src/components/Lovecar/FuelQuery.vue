@@ -131,9 +131,15 @@
 				}
 				if(accpect.times=='日'){
 					this.times='1'
-					this.years=accpect.showtop.years+'年';
-					this.months=accpect.showtop.months+'月';
-					this.date=accpect.showtopdate+'日';
+					if(accpect.showtopdate==''){
+						this.years=accpect.showtop.years+'年';
+						this.months=accpect.showtop.months+'月';
+						this.date=new Date().getDate()+'日'
+					}else{
+						this.years=accpect.showtop.years+'年';
+						this.months=accpect.showtop.months+'月';
+						this.date=accpect.showtopdate+'日';
+					}
 				}
 				if(accpect.times=='年'){
 					if(accpect.showyear==''){

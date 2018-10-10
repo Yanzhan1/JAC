@@ -46,9 +46,9 @@
       <div class="bus_l">
         <img src="../../../static/images/Wit/bus.png" alt="" class="bus_righgt">
         <span ref='open' class='busl_r left_1'>{{Condition.left_top}}</span>
-        <span ref='open' class='busl_r  left_2'>{{Condition.right_top}}</span>
-        <span ref='open' class='busl_r right_1'>{{Condition.left_bottom}}</span>
-        <span ref='open' class='busl_r right_2'>{{Condition.right_top}}</span>
+        <span ref='open' class='busl_r  left_2'>{{Condition.left_bottom}}</span>
+        <span ref='open' class='busl_r right_1'>{{Condition.right_top}}</span>
+        <span ref='open' class='busl_r right_2'>{{Condition.right_bottom}}</span>
         <span class='busl_r top_1'>{{this.engineHoodStsFront}}</span>
         <span class='busl_r bottom_1'>{{this.doorStsTrunk}}</span>
         <span class='busl_r middle_1'>{{this.skylightStatus}}</span>
@@ -264,31 +264,31 @@ export default {
         right_bottom: this.carcontrol.tirePressureRearRight
       };
       //车门状态
-      this.carcontrol.doorStsFrontLeft = this.carcontrol.doorStsFrontLeft
-        ? (this.doorStsFrontLeft = "已锁")
-        : (this.doorStsFrontLeft = "未锁");
-      this.carcontrol.doorStsFrontRight = this.carcontrol.doorStsFrontRight
-        ? (this.doorStsFrontRight = "已锁")
-        : (this.doorStsFrontRight = "未锁");
-      this.carcontrol.doorStsRearLeft = this.carcontrol.doorStsRearLeft
-        ? (this.doorStsRearLeft = "已锁")
-        : (this.doorStsRearLeft = "未锁");
-      this.carcontrol.doorStsRearRight = this.carcontrol.doorStsRearRight
+      this.doorStsFrontLeft = this.carcontrol.doorStsFrontLeft
+        ? (this.doorStsFrontLeft = "未锁")
+        : (this.doorStsFrontLeft = "已锁");
+      this.doorStsFrontRight = this.carcontrol.doorStsFrontRight
+        ? (this.doorStsFrontRight = "未锁")
+        : (this.doorStsFrontRight = "已锁");
+      this.doorStsRearLeft = this.carcontrol.doorStsRearLeft
+        ? (this.doorStsRearLeft = "未锁")
+        : (this.doorStsRearLeft = "已锁");
+      this.doorStsRearRight = this.carcontrol.doorStsRearRight
         ? (this.doorStsRearRight = "已锁")
-        : (this.doorStsRearRight = "未锁");
+        : (this.doorStsRearRight = "已锁");
       //车窗状态
-      this.carcontrol.windowStsFrontLeft = this.carcontrol.windowStsFrontLeft
-        ? (this.windowStsFrontLeft = "已关闭")
-        : (this.windowStsFrontLeft = "已打开");
-      this.carcontrol.windowStsFrontRight = this.carcontrol.windowStsFrontRight
-        ? (this.windowStsFrontRight = "已关闭")
-        : (this.windowStsFrontRight = "已打开");
-      this.carcontrol.windowStsRearLeft = this.carcontrol.windowStsRearLeft
-        ? (this.windowStsRearLeft = "已关闭")
-        : (this.windowStsRearLeft = "已打开");
-      this.carcontrol.windowStsRearRight = this.carcontrol.windowStsRearRight
-        ? (this.windowStsRearRight = "已关闭")
-        : (this.windowStsRearRight = "已打开");
+      this.windowStsFrontLeft = this.carcontrol.windowStsFrontLeft
+        ? (this.windowStsFrontLeft = "已打开")
+        : (this.windowStsFrontLeft = "已关闭");
+      this.windowStsFrontRight = this.carcontrol.windowStsFrontRight
+        ? (this.windowStsFrontRight = "已打开")
+        : (this.windowStsFrontRight = "已关闭");
+      this.windowStsRearLeft = this.carcontrol.windowStsRearLeft
+        ? (this.windowStsRearLeft = "已打开")
+        : (this.windowStsRearLeft = "已关闭");
+      this.windowStsRearRight = this.carcontrol.windowStsRearRight
+        ? (this.windowStsRearRight = "已打开")
+        : (this.windowStsRearRight = "已关闭");
       var door = {
         left_top: this.doorStsFrontLeft,
         right_top: this.doorStsFrontRight,
@@ -561,31 +561,31 @@ export default {
                               right_bottom: this.carcontrol.tirePressureRearRight
                             };
                             //车门状态
-                            this.carcontrol.doorStsFrontLeft = this.carcontrol.doorStsFrontLeft
-                              ? (this.doorStsFrontLeft = "已锁")
-                              : (this.doorStsFrontLeft = "未锁");
-                            this.carcontrol.doorStsFrontRight = this.carcontrol.doorStsFrontRight
-                              ? (this.doorStsFrontRight = "已锁")
-                              : (this.doorStsFrontRight = "未锁");
-                            this.carcontrol.doorStsRearLeft = this.carcontrol.doorStsRearLeft
-                              ? (this.doorStsRearLeft = "已锁")
-                              : (this.doorStsRearLeft = "未锁");
-                            this.carcontrol.doorStsRearRight = this.carcontrol.doorStsRearRight
-                              ? (this.doorStsRearRight = "已锁")
-                              : (this.doorStsRearRight = "未锁");
+                            this.doorStsFrontLeft = this.carcontrol.doorStsFrontLeft
+                              ? (this.doorStsFrontLeft = "未锁")
+                              : (this.doorStsFrontLeft = "已锁");
+                            this.doorStsFrontRight = this.carcontrol.doorStsFrontRight
+                              ? (this.doorStsFrontRight = "未锁")
+                              : (this.doorStsFrontRight = "已锁");
+                            this.doorStsRearLeft = this.carcontrol.doorStsRearLeft
+                              ? (this.doorStsRearLeft = "未锁")
+                              : (this.doorStsRearLeft = "已锁");
+                            this.doorStsRearRight = this.carcontrol.doorStsRearRight
+                              ? (this.doorStsRearRight = "未锁")
+                              : (this.doorStsRearRight = "已锁");
                             //车窗状态
-                            this.carcontrol.windowStsFrontLeft = this.carcontrol.windowStsFrontLeft
-                              ? (this.windowStsFrontLeft = "已关闭")
-                              : (this.windowStsFrontLeft = "已打开");
-                            this.carcontrol.windowStsFrontRight = this.carcontrol.windowStsFrontRight
-                              ? (this.windowStsFrontRight = "已关闭")
-                              : (this.windowStsFrontRight = "已打开");
-                            this.carcontrol.windowStsRearLeft = this.carcontrol.windowStsRearLeft
-                              ? (this.windowStsRearLeft = "已关闭")
-                              : (this.windowStsRearLeft = "已打开");
-                            this.carcontrol.windowStsRearRight = this.carcontrol.windowStsRearRight
-                              ? (this.windowStsRearRight = "已关闭")
-                              : (this.windowStsRearRight = "已打开");
+                            this.windowStsFrontLeft = this.carcontrol.windowStsFrontLeft
+                              ? (this.windowStsFrontLeft = "已打开")
+                              : (this.windowStsFrontLeft = "已关闭");
+                            this.windowStsFrontRight = this.carcontrol.windowStsFrontRight
+                              ? (this.windowStsFrontRight = "已打开")
+                              : (this.windowStsFrontRight = "已关闭");
+                            this.windowStsRearLeft = this.carcontrol.windowStsRearLeft
+                              ? (this.windowStsRearLeft = "已打开")
+                              : (this.windowStsRearLeft = "已关闭");
+                            this.windowStsRearRight = this.carcontrol.windowStsRearRight
+                              ? (this.windowStsRearRight = "已打开")
+                              : (this.windowStsRearRight = "已关闭");
                             var door = {
                               left_top: this.doorStsFrontLeft,
                               right_top: this.doorStsFrontRight,
@@ -656,32 +656,32 @@ export default {
                   left_bottom: this.carcontrol.tirePressureRearLeft,
                   right_bottom: this.carcontrol.tirePressureRearRight
                 };
-                //车门状态
-                this.carcontrol.doorStsFrontLeft = this.carcontrol.doorStsFrontLeft
-                  ? (this.doorStsFrontLeft = "已锁")
-                  : (this.doorStsFrontLeft = "未锁");
-                this.carcontrol.doorStsFrontRight = this.carcontrol.doorStsFrontRight
-                  ? (this.doorStsFrontRight = "已锁")
-                  : (this.doorStsFrontRight = "未锁");
-                this.carcontrol.doorStsRearLeft = this.carcontrol.doorStsRearLeft
-                  ? (this.doorStsRearLeft = "已锁")
-                  : (this.doorStsRearLeft = "未锁");
-                this.carcontrol.doorStsRearRight = this.carcontrol.doorStsRearRight
-                  ? (this.doorStsRearRight = "已锁")
-                  : (this.doorStsRearRight = "未锁");
+                //车门状态t
+                  this.doorStsFrontLeft = this.carcontrol.doorStsFrontLeft
+                    ? (this.doorStsFrontLeft = "未锁")
+                    : (this.doorStsFrontLeft = "已锁");
+                  this.doorStsFrontRight = this.carcontrol.doorStsFrontRight
+                    ? (this.doorStsFrontRight = "未锁")
+                    : (this.doorStsFrontRight = "已锁");
+                  this.doorStsRearLeft = this.carcontrol.doorStsRearLeft
+                    ? (this.doorStsRearLeft = "未锁")
+                    : (this.doorStsRearLeft = "已锁");
+                  this.doorStsRearRight = this.carcontrol.doorStsRearRight
+                    ? (this.doorStsRearRight = "未锁")
+                    : (this.doorStsRearRight = "已锁");
                 //车窗状态
-                this.carcontrol.windowStsFrontLeft = this.carcontrol.windowStsFrontLeft
-                  ? (this.windowStsFrontLeft = "已关闭")
-                  : (this.windowStsFrontLeft = "已打开");
-                this.carcontrol.windowStsFrontRight = this.carcontrol.windowStsFrontRight
-                  ? (this.windowStsFrontRight = "已关闭")
-                  : (this.windowStsFrontRight = "已打开");
-                this.carcontrol.windowStsRearLeft = this.carcontrol.windowStsRearLeft
-                  ? (this.windowStsRearLeft = "已关闭")
-                  : (this.windowStsRearLeft = "已打开");
-                this.carcontrol.windowStsRearRight = this.carcontrol.windowStsRearRight
-                  ? (this.windowStsRearRight = "已关闭")
-                  : (this.windowStsRearRight = "已打开");
+                  this.windowStsFrontLeft = this.carcontrol.windowStsFrontLeft
+                    ? (this.windowStsFrontLeft = "已打开")
+                    : (this.windowStsFrontLeft = "已关闭");
+                  this.windowStsFrontRight = this.carcontrol.windowStsFrontRight
+                    ? (this.windowStsFrontRight = "已打开")
+                    : (this.windowStsFrontRight = "已关闭");
+                  this.windowStsRearLeft = this.carcontrol.windowStsRearLeft
+                    ? (this.windowStsRearLeft = "已打开")
+                    : (this.windowStsRearLeft = "已关闭");
+                  this.windowStsRearRight = this.carcontrol.windowStsRearRight
+                    ? (this.windowStsRearRight = "已打开")
+                    : (this.windowStsRearRight = "已关闭");
                 var door = {
                   left_top: this.doorStsFrontLeft,
                   right_top: this.doorStsFrontRight,
