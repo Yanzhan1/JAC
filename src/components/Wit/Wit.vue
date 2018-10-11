@@ -49,24 +49,29 @@
     </ul> -->
     <div style="height:2.58rem"></div>
     <div style="height:.1rem;background-color:#f5f5f5"></div>
-    <div class="bustypes" @click="tobus()">
-      <div class="bustypes_1">
-        <img src="../../../static/images/Wit/zhixiang_home_service_title_point.png" alt="">
-        <span>主推车型</span>
-      </div>
-      <img src="../../../static/images/Wit/next.png" alt="">
-    </div>
-    <ul class="bus">
-      <li class="bus_li" @click="specil(item)" v-for="(item,index) in this.mainbus" :key="index">
-        <div>
-          <img :src="item.imgUrl" alt="">
-        </div>
-        <div class="bus_1">
-          <span class="bus_2">{{item.seriesName}}</span>
-          <span class="bus_3" v-if="item.guidancePriceStart>0">官方指导价：{{item.guidancePriceStart}}万起</span>
-        </div>
-      </li>
-    </ul>
+    <div class="wrapper" ref="wrapper">
+    	<div>
+    		<div class="bustypes" @click="tobus">
+					<div class="bustypes_1">
+						<img src="../../../static/images/Wit/zhixiang_home_service_title_point.png" alt="">
+						<span>主推车型</span>
+					</div>
+					<img src="../../../static/images/Wit/next.png" alt="">
+				</div>
+				<ul class="bus">
+					<li class="bus_li" @click="specil(item)" v-for="(item,index) in this.mainbus" :key="index">
+						<div>
+							<img :src="item.imgUrl" alt="">
+						</div>
+						<div class="bus_1">
+							<span class="bus_2">{{item.seriesName}}</span>
+							<span class="bus_3" v-if="item.guidancePriceStart>0">官方指导价：{{item.guidancePriceStart}}万起</span>
+						</div>
+					</li>
+				</ul>
+	    </div>			
+		</div>
+ 
 
     <mt-popup v-model="popupVisible" position="center">
       <div class="bgc">
@@ -119,6 +124,7 @@
 </template>
 <script>
 import { MessageBox } from "mint-ui";
+import Bscroll from 'better-scroll'
 export default {
   data() {
     return {
@@ -272,7 +278,12 @@ export default {
       }
     });
   },
-  mounted() {}
+  mounted() {
+  	this.scroll = new Bscroll(this.$refs.wrapper,{
+  		click:true,
+  		momentum: true
+  	})
+  }
 };
 </script>
 <style scoped>
@@ -391,7 +402,15 @@ textarea::-webkit-input-placeholder {
   font-size: 0.22rem;
   color: #fff;
 }
-.bustype {
+.wrapper {
+	position: absolute;
+	top: 2.58rem;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+}
+/*.bustype {
   height: 0.75rem;
   border-bottom: 1px solid #f5f5f5;
   display: flex;
@@ -406,7 +425,7 @@ textarea::-webkit-input-placeholder {
 .bustype span {
   font-size: 0.21rem;
   color: #222;
-}
+}*/
 .li_list_1 {
   display: flex;
   flex-direction: column;

@@ -352,6 +352,11 @@
 								this.loading = true; //禁止无限滚动
 								this.allLoaded = true; //不在触发方法
 								this.loadEnd = true; //不在请求数据
+								Toast({
+									message: '已到最后一页',
+									position: 'middle',
+									duration: 2000
+								})
 							}
 						} else {
 							this.current = this.current - 1;

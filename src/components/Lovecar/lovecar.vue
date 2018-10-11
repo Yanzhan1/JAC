@@ -1382,6 +1382,9 @@ export default {
 	
 	.nav {
 		display: flex;
+		/*position: fixed;
+		top: 0;
+		left: 0;*/
 		flex-direction: row;
 		align-items: center;
 		height: 0.88rem;
