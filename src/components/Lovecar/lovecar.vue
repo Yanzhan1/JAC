@@ -1,6 +1,6 @@
 <template>
   <div class="tophead" style="border-top:.01rem solid #49bbff">
-    <div class="nav" style="margin-top:0.2rem">
+    <div class="nav MobileHeight">
       <img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
       <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;{{this.carsysitem}}</span>
       <span class="txt_r" @click="islogin()" v-if="this.LoginStatus">车机已登录</span>
@@ -173,7 +173,6 @@
           <img src="../../../static/images/Lovecar/dianzi.png" alt="">
           <span>电子围栏</span>
         </li>
-
 				<router-link tag='li' to="/lovecar/wifiLink">
 					<img src="../../../static/images/Lovecar/wifi.png" alt="">
 					<span>wifi直连</span>
@@ -242,7 +241,9 @@ export default {
       doorStsTrunk: "",
       //发动机状态
       engineStatus: "",
-      defaultvin:''//默认车辆的vin
+      defaultvin:'',//默认车辆的vin
+			qrCodePin: '', //扫一扫二维码pin
+			firstTips: true //车机状态第一次提示,true不提示,改变为false的时候,Toast进行提示
     };
   },
   //  beforeRouteEnter :(to, from, next)=> {
@@ -455,34 +456,6 @@ export default {
       } else if (system == "IOS") {
         window.webkit.messageHandlers.goCarLocationiOS.postMessage({});
       }
-    },
-    // 机车未登录 点击 扫一扫
-    login() {
-      if (isMobile.iOS()) {
-        var params = {};
-        window.webkit.messageHandlers.scan.postMessage(params);
-      } else if (isMobile.Android()) {
-        js2android.scan();
-      }
-    },
-    getStatus(status) {
-      // console.log(status);
-      var param = {
-        vin: this.$store.state.vins,
-        operation: "1"
-      };
-      this.$http
-        .post(Lovecar.LoginOut, param, this.$store.state.tsppin)
-        .then(res => {
-          if (res.status == 200) {
-            Toast({
-              message: "登入成功",
-              position: "middle",
-              duration: 3001
-            });
-            this.LoginStatus = true;
-          }
-        });
     },
     //车况部分重复调用异步接口
     getAsyReturn(operationId) {
@@ -728,12 +701,61 @@ export default {
     loading() {
       this.Carquerry();
       this.activeshow = 1;
-    }
+    },
+		getStatus(status) {
+				console.log(status)
+				this.$store.dispatch('QRCODEPIN', JSON.parse(status))
+			},
+			// 机车未登录 点击 扫一扫
+		login() {
+				if(isMobile.iOS()) {
+					var params = {};
+					window.webkit.messageHandlers.scan.postMessage(params);
+				} else if(isMobile.Android()) {
+					js2android.scan();
+				}
+			},
+			getCarLoginState() { //获取机车 登录登出状态
+				this.$http.get(Lovecar.LogStatus, this.$store.state.tsppin).then(res => {
+						const data = res.data
+						console.log('defaultvin:' + this.defaultvin)
+						console.log(data.data)
+						if(data.returnSuccess) {
+							for(let i = 0; i < data.data.length; i++) {
+								if(this.defaultvin == data.data[i].vin) {
+									this.LoginStatus = data.data[i].logStatus //true 代表机车已经登录
+									this.firstTips = false
+									console.log('机车登录状态:' + this.LoginStatus)
+									console.log('提示状态:' + this.firstTips)
+								}
+							}
+						} else {
+							if (this.firstTips) {
+							} else {
+								Toast({
+									message: data.returnErrMsg,
+									position: "middle",
+									duration: 2001
+								});
+							}							
+						}
+					})
+					.catch(err => {
+						Toast({
+							message: '系统异常',
+							position: "middle",
+							duration: 2001
+						});
+					});
+			}
   },
   computed: {
     userId() {
       return JSON.parse(this.$store.state.tsppin.headers.identityParam).userId;
-    }
+    },
+		qrCode() {
+			return this.$store.state.qrCodeDate
+		}
   },
   //检测输入框
   watch: {
@@ -964,19 +986,29 @@ export default {
           }
         });
       //获取机车 登录登出状态
-    this.$http.get(Lovecar.LogStatus, this.$store.state.tsppin).then(res => {
-     if (res.data.returnSuccess) { 
-        for(let i=0;i<res.data.data.length;i++){
-          if(this.defaultvin==res.data.data[i].vin){
-          this.LoginStatus = res.data.data[i].logStatus //true 代表机车已经登录
-          // alert(  this.LoginStatus)
-         }
-        }
-     }
-    });
-    }
+//			this.getCarLoginState();
+    },
+		qrCode(newVal, oldVal) { //解决扫一扫无法及时获取二维码信息的异步问题
+				if(this.qrCode) {
+					let data = {
+						vin: this.$store.state.vins,
+						userName: this.$store.state.mobile
+					}
+					this.$http.post(Lovecar.RemoteVehicleLogin, data, this.$store.state.tsppin).then(res => {
+							const data = res.data
+							//							console.log('扫一扫登入接口状态: '+data.returnSuccess)
+							if(data.returnSuccess) {
+								this.LoginStatus = data.returnSuccess
+							}
+						})
+						.catch(err => {
+
+						})
+				}
+			}
   },
   mounted() {
+  	$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
     //暴露方法给原生,登入判断
     window.getStatus = this.getStatus;
    this.$http
@@ -990,42 +1022,26 @@ export default {
       )
       .then(res => {
         if (res.data.returnSuccess) {
-          // if(res.data==[]){
-          //   Toast({
-          //     message:'请先绑定车辆',
-          //     position:'middle',
-          //     duration:2000
-          //   })
-          // }else{
-          // alert(1)
           this.BusDetails = res.data.data;
           for (let i = 0; i < res.data.data.length; i++) {
-            if (res.data.data[i].def == 1) {
-              
-              this.carsysitem = res.data.data[i].seriesName;
+            if (res.data.data[i].def == 1) {            
+              this.carsysitem = res.data.data[i].seriesName || null;
               var payload = res.data.data[i].vin;
               this.defaultvin=res.data.data[i].vin;
-              // alert( this.defaultvin)
+              console.log('获取默认车辆vin码:'+ this.defaultvin)
               this.$store.dispatch("CARVINS", payload);
+              //获取机车 登录登出状态
+    	       this.getCarLoginState()
              }
             }
           this.vinn = this.$store.state.vins;
           this.Carquerry();
         }
       });
-            //获取机车 登录登出状态
-    this.$http.get(Lovecar.LogStatus, this.$store.state.tsppin).then(res => {
-     if (res.data.returnSuccess) { 
-        for(let i=0;i<res.data.data.length;i++){
-          if(this.defaultvin==res.data.data[i].vin){
-          this.LoginStatus = res.data.data[i].logStatus //true 代表机车已经登录
-          // alert(  this.LoginStatus)
-         }
-        }
-     }
-    });
+      
   }
 };
+
 </script>
 <style scoped>
 	.mint-popup {
@@ -1296,7 +1312,7 @@ export default {
 		align-items: center;
 		height: 0.88rem;
 		justify-content: space-between;
-		padding: 0.5rem 0.28rem;
+		padding: 0 0.5rem;
 	}
 	
 	.left_bus {

@@ -12,14 +12,14 @@
                           <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>省</span>
                           <div class="allflex">
                               <input type="text" name="" id="" v-model="area" readonly style="text-align:right">
-                              <img src="/static/images/next@2x.png" alt="">
+                              <img src="../../../static/images/next@2x.png" alt="">
                           </div>
                       </li>
                       <li @click="cityes" class="all">
                           <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>市</span>
                           <div class="allflex" >
                               <input type="text" name="" id="" v-model="city" readonly style="text-align:right">
-                              <img src="/static/images/next@2x.png" alt="">
+                              <img src="../../../static/images/next@2x.png" alt="">
                           </div>
                       </li>
                       
@@ -27,7 +27,7 @@
                           <span style="width:2rem"><span style="display:inline-block;font-size:.31rem;color:red">*</span>经销商</span>
                           <div class="allflex" @click="Distributor">
                               <span>{{this.Distribution}}</span>
-                              <img src="/static/images/next@2x.png" alt="" >
+                              <img src="../../../static/images/next@2x.png" alt="" >
                           </div>        
                       </li>
                       <!-- <li class="all">
@@ -41,7 +41,7 @@
                           <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>姓名</span>
                           <div class="allflex">
                               <input placeholder="点击输入姓名" v-model="name">
-                              <img src="/static/images/next@2x.png" alt="">
+                              <img src="../../../static/images/next@2x.png" alt="">
                           </div>
                       </li>
                       <li class="sixname all">
@@ -57,21 +57,21 @@
                           <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>手机</span>
                           <div class="allflex">
                               <input placeholder="点击输入手机号" v-model="tell">
-                              <img src="/static/images/next@2x.png" alt="">
+                              <img src="../../../static/images/next@2x.png" alt="">
                           </div>
                       </li>
                       <li class="all">
                           <span>电子邮箱</span>
                           <div class="allflex">
                               <input type="text" name="" id="" placeholder="点击输入邮箱" v-model="email">
-                              <img src="/static/images/next@2x.png" alt="">
+                              <img src="../../../static/images/next@2x.png" alt="">
                           </div>
                       </li>
                       <li class="all">
                           <span>地址</span>
                           <div class="allflex">
                               <input type="text" name="" id="" placeholder="点击输入地址" v-model="address">
-                              <img src="/static/images/next@2x.png" alt="">
+                              <img src="../../../static/images/next@2x.png" alt="">
                           </div>
                       </li>
                   </ul>
@@ -79,7 +79,7 @@
                   <textarea placeholder="输入文本..." v-model="beizhu"></textarea>
                   <div style="height:2rem;"></div>
               <div class="submit" v-show="success">
-                  <img src="/static/images/Wit/gou@2x.png" alt="" style="width:.8rem;height:.8rem;" class="gou">
+                  <img src="../../../static/images/Wit/gou@2x.png" alt="" style="width:.8rem;height:.8rem;" class="gou">
                   <h3>提交成功</h3>
                   <div class="success_bt">{{this.thanks}}</div>
                   <div style="width:5.68rem;height:.02rem;background:#f1f1f1;margin:.2rem auto;"></div>
