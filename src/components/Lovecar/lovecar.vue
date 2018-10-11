@@ -1,6 +1,6 @@
 <template>
 	<div class="tophead" style="border-top:.01rem solid #49bbff">
-		<div class="nav" style="margin-top:0.2rem">
+		<div class="nav MobileHeight" >
 			<img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
 			<span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;{{this.carsysitem}}</span>
 			<span class="txt_r" @click="islogin()" v-if="this.LoginStatus">车机已登录</span>
@@ -243,7 +243,8 @@
 				//发动机状态
 				engineStatus: "",
 				defaultvin: '', //默认车辆的vin
-				qrCodePin: '' //扫一扫二维码pin
+				qrCodePin: '', //扫一扫二维码pin
+				firstTips: true //车机状态第一次提示,true不提示,改变为false的时候,Toast进行提示
 			};
 		},
 		//  beforeRouteEnter :(to, from, next)=> {
@@ -447,31 +448,6 @@
 						}
 					});
 			},
-			getCarLoginState() { //获取机车 登录登出状态
-			this.$http.get(Lovecar.LogStatus, this.$store.state.tsppin).then(res => {
-					const data = res.data
-					if(data.returnSuccess) {
-						for(let i = 0; i < res.data.data.length; i++) {
-							if(this.defaultvin == res.data.data[i].vin) {
-								this.LoginStatus = res.data.data[i].logStatus //true 代表机车已经登录
-							}
-						}
-					} else {
-						Toast({
-							message: data.returnErrMsg,
-							position: "middle",
-							duration: 2001
-						});
-					}
-				})
-				.catch(err => {
-					Toast({
-						message: '系统异常',
-						position: "middle",
-						duration: 2001
-					});
-				});
-			},
 			//跳转定位
 			turnPosition() {
 				//js判断手机操作系统(ios或者是Android)
@@ -480,19 +456,6 @@
 					window.js2android.goCarLocation(); //定位
 				} else if(system == "IOS") {
 					window.webkit.messageHandlers.goCarLocationiOS.postMessage({});
-				}
-			},
-			getStatus(status) {	
-				this.$store.dispatch('QRCODEPIN', JSON.parse(status))	
-			},
-			// 机车未登录 点击 扫一扫
-			login() {
-				if(isMobile.iOS()) {
-					var params = {};
-					window.webkit.messageHandlers.scan.postMessage(params);
-				} else if(isMobile.Android()) {
-					js2android.scan();
-//						alert(this.$store.state.qrCodeDate)					
 				}
 			},
 			//车况部分重复调用异步接口
@@ -741,13 +704,60 @@
 			loading() {
 				this.Carquerry();
 				this.activeshow = 1;
-			}
+			},
+			getStatus(status) {
+				console.log(status)
+				this.$store.dispatch('QRCODEPIN', JSON.parse(status))
+			},
+			// 机车未登录 点击 扫一扫
+			login() {
+				if(isMobile.iOS()) {
+					var params = {};
+					window.webkit.messageHandlers.scan.postMessage(params);
+				} else if(isMobile.Android()) {
+					js2android.scan();
+				}
+			},
+			getCarLoginState() { //获取机车 登录登出状态
+				this.$http.get(Lovecar.LogStatus, this.$store.state.tsppin).then(res => {
+						const data = res.data
+						console.log('defaultvin:' + this.defaultvin)
+						console.log(data.data)
+						if(data.returnSuccess) {
+							for(let i = 0; i < data.data.length; i++) {
+								if(this.defaultvin == data.data[i].vin) {
+									this.LoginStatus = data.data[i].logStatus //true 代表机车已经登录
+									this.firstTips = false
+									console.log('机车登录状态:' + this.LoginStatus)
+									console.log('提示状态:' + this.firstTips)
+								}
+							}
+						} else {
+							if (this.firstTips) {
+								console.log(222)
+							} else {
+								Toast({
+									message: data.returnErrMsg,
+									position: "middle",
+									duration: 2001
+								});
+							}							
+						}
+					})
+					.catch(err => {
+						Toast({
+							message: '系统异常',
+							position: "middle",
+							duration: 2001
+						});
+					});
+			},
 		},
 		computed: {
 			userId() {
 				return JSON.parse(this.$store.state.tsppin.headers.identityParam).userId;
 			},
-			qrCode () {
+			qrCode() {
 				return this.$store.state.qrCodeDate
 			}
 		},
@@ -976,29 +986,31 @@
 							this.Carquerry();
 						}
 					});
-					this.getCarLoginState();
+				this.getCarLoginState();
 			},
-			qrCode (newVal, oldVal) {
-				if (this.qrCode) {
-//					  console.log('监听vuex中数据: '+ JSON.stringify(this.qrCode))
+			qrCode(newVal, oldVal) { //解决扫一扫无法及时获取二维码信息的异步问题
+				if(this.qrCode) {
 					let data = {
-						vin:this.$store.state.vins,
+						vin: this.$store.state.vins,
 						userName: this.$store.state.mobile
 					}
 					this.$http.post(Lovecar.RemoteVehicleLogin, data, this.$store.state.tsppin).then(res => {
-						const data = res.data
-						console.log(data)
-					})
-					.catch(err => {
-						
-					})
+							const data = res.data
+							//							console.log('扫一扫登入接口状态: '+data.returnSuccess)
+							if(data.returnSuccess) {
+								this.LoginStatus = data.returnSuccess
+							}
+						})
+						.catch(err => {
+
+						})
 				}
 			}
 		},
 		mounted() {
+			$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})	
 			//暴露方法给原生,登入判断
 			window.getStatus = this.getStatus;
-			this.getCarLoginState();
 			this.$http
 				.post(
 					My.My_Bus, {
@@ -1012,7 +1024,8 @@
 						this.BusDetails = res.data.data;
 						for(let i = 0; i < res.data.data.length; i++) {
 							if(res.data.data[i].def == 1) {
-								this.carsysitem = res.data.data[i].seriesName;
+								this.carsysitem = res.data.data[i].seriesName || null;
+								console.log(res.data.data[i].seriesName)
 								var payload = res.data.data[i].vin;
 								this.defaultvin = res.data.data[i].vin;
 								this.$store.dispatch("CARVINS", payload);
@@ -1022,6 +1035,36 @@
 						this.Carquerry();
 					}
 				});
+				this.getCarLoginState()
+			/*this.$http.get(Lovecar.LogStatus, this.$store.state.tsppin).then(res => {
+					const data = res.data
+					if(data.returnSuccess) {
+						for(let i = 0; i < data.data.length; i++) {
+							if(this.defaultvin == res.data.data[i].vin) {
+								this.LoginStatus = res.data.data[i].logStatus //true 代表机车已经登录
+								console.log('进入页面发起车机登录状态请求的车机状态(第一次进入页面不会进入改判断,看到该log证明最起码是第二次进入该页面): ' + this.LoginStatus)
+							}
+						}
+					} else {
+						console.log(this.firstTips)
+						if(this.firstTips) {
+
+						} else {
+							Toast({
+								message: data.returnErrMsg,
+								position: "middle",
+								duration: 2001
+							});
+						}
+					}
+				})
+				.catch(err => {
+					//					Toast({
+					//						message: '系统异常',
+					//						position: "middle",
+					//						duration: 2001
+					//					});
+				});*/
 		}
 	};
 </script>
@@ -1294,7 +1337,7 @@
 		align-items: center;
 		height: 0.88rem;
 		justify-content: space-between;
-		padding: 0.5rem 0.28rem;
+		padding: 0 0.5rem;
 	}
 	
 	.left_bus {
