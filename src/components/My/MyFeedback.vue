@@ -50,9 +50,25 @@
 			submitFeedback() {
 				let regMobile = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
 				let checkName = /^[\u4e00-\u9fa5]{2,4}$/
-				if(this.condition.complaintsContent == '' || this.condition.contact == '' || this.condition.contactInformation == '') {
+				if(this.condition.complaintsContent == '' && this.condition.contact == '' && this.condition.contactInformation == '') {
 					Toast({
-						message: '输入不能为空',
+						message: '请输入您的问题或意见',
+						position: 'middle',
+						duration: 2000
+					});
+					return false;
+				}
+				if (this.condition.contact == '') {
+					Toast({
+						message: '请输入您的姓名',
+						position: 'middle',
+						duration: 2000
+					});
+					return false;
+				}
+				if (this.condition.contactInformation == '') {
+					Toast({
+						message: '请输入您的联系方式',
 						position: 'middle',
 						duration: 2000
 					});
