@@ -111,6 +111,7 @@ import store from './store'
 
 //导入jquery
 import $ from 'jquery'
+//
 //手机端调试工具,发布提交时必须注释掉
 // import vConsole from './assets/util/vconsole'
 Vue.config.productionTip = false
