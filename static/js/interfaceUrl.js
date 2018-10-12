@@ -132,10 +132,10 @@ window.Wit = {
     //我的 部分
 window.My = {
         UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
-        IsSignIn: jf + '/pluto-membership/integral-gather/is-sign', //判断用户今天是否签到
-        SignIn: jf + 'pluto-membership/integral-gather/integral-gather', //签到
-        Credit: jf + '/plutomembership/integralCount/searchIntegralCountList', //获取用户积分
-        CreditDetail: jf + '/plutomembership/integralRecord/searchIntegralRecordList', //积分记录
+        IsSignIn: jf + 'api/pluto-membership/pluto-membership/integral-gather/is-sign', //判断用户今天是否签到
+        SignIn: jf + '/api/pluto-membership/pluto-membership/integral-gather/addintegral-signIn', //签到
+        Credit: jf + 'api/pluto-membership/plutomembership/integralCount/searchIntegralCountList', //获取用户积分
+        CreditDetail: jf + 'api/pluto-membership/plutomembership/integralRecord/searchIntegralRecordList', //积分记录
         My_Bus: love_car + '/vehicle/find-vehicle-list', //我的车辆
         SetOneDefault: love_car + '/vehicle/set-default-vehicle', //我的车辆设为默认
         JFmybus: love_car + '/vehicle/set-vehicle-remoteset', //解绑我的车辆,绑定,

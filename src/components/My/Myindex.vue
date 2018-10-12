@@ -153,8 +153,9 @@ export default {
         no:this.$store.state.userId
          // no:'AD11201809030320353266'
       }
-     var param=JSON.stringify(data)
-      this.$http.post(My.SignIn,param).then(res => {
+    //  var param=JSON.stringify(data)
+    //  console.log(My.SignIn)
+      this.$http.post(My.SignIn,data).then(res => {
         
       });
       this.popupVisible = true;
@@ -166,9 +167,6 @@ export default {
     // 判断是否签到
     IsSign(){
      var data = {
-        ruleStr: "SIGN_IN",
-        serviceTypeStr: "SERVICE_FIXED",
-        typeStr: "TYPE_RETAIN",
            no:this.$store.state.userId
              //no:'AD112018090402110693811'
       }
@@ -339,6 +337,7 @@ export default {
   mounted() {
     // console.log(this.$store.state.no)
     // this.getTokenAndNo();
+    console.log()
     this.myNum();
     this.IsSign(); //判断是否签到
      this.total()//h获取用户总积分

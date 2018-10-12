@@ -122,11 +122,17 @@ export default {
   },
   data() {
     return {
+      num:0,
       region: false,
       distributors: false,
+      localprovince:'',
+      localcity:'',
+      localparentId:'',
+      localdealercitycode:'',
       citys: false,
       success: false,
       areas: false,
+      ischange:false,
       Distribution: "", //经销商
       Recommend: "", //推荐码
       name: "", //姓名
@@ -205,6 +211,9 @@ export default {
       this.areas = false;
       this.citys = false;
       //选择市
+      // if(this.provinceid==''){
+      //   this.provinceid=this.localparentId
+      // }
       var data = {
         parentId: this.provinceid,
         level: 2
@@ -213,11 +222,9 @@ export default {
         this.data = res.data.data.records;
         this.slots3[0].values = [];
         for (var i = 0; i < this.data.length; i++) {
-          // alert(JSON.stringify(this.data))
           this.slots3[0].values.push(this.data[i].name);
         }
       });
-
       //经销商
       var param = {
         dealerType: "01",
@@ -234,7 +241,6 @@ export default {
           this.slots2[0].values.push(this.chooseaddress[i].dealerName);
           this.Idchooseaddress.push(this.chooseaddress[i].no);
         }
-        // alert(this.slots2[0].values)
       });
     },
     choose2() {
@@ -316,9 +322,7 @@ export default {
         city: this.codecity, //城市ID
         userNo: this.$store.state.userId,
       };
-      // alert(JSON.stringify(param));
       this.$http.post(Wit.PreBus, param).then(res => {
-        // alert(JSON.stringify(res));
         if (res.data.code == 0) {
           this.success = true;
           this.region = true;
@@ -346,7 +350,6 @@ export default {
     //选择性别
     choosesex() {
       this.smallname = $("input:radio:checked").val();
-      // alert(this.smallname)
     },
     backs() {
       this.$router.push({
@@ -359,27 +362,47 @@ export default {
     },
     //选择省
     onValuesChange(picker, values) {
-      this.area = values;
-      for (var i = 0; i < this.myaddress.length; i++) {
-        if (this.area[0] == this.myaddress[i].name) {
-          this.provinceid = this.myaddress[i].id;
-        }
+      this.num++;
+      // alert('sheng'+this.num)
+      if(this.num == 4){
+        this.area = this.localprovince
+      }else{
+        this.area=values
+      }  
+          for (var i = 0; i < this.myaddress.length; i++) {
+                if (this.area[0] == this.myaddress[i].name) {
+                  this.provinceid = this.myaddress[i].id;
+                }
+
+
       }
+
       
     },
     //选择经销商
     onValuesChange2(picker, values) {
-      this.Distribution = values[0];
-      for (var i = 0; i < this.slots2[0].values.length; i++) {
-        if (this.Distribution == this.slots2[0].values[i]) {
-          this.business = this.chooseaddress[i].dealerCodeDms;
-          // alert(this.business)
-        }
+      this.num++;
+      // alert('jingxiao'+this.num)
+      if(this.num == 3){
+        
+      }else{
+        this.Distribution = values[0];
+      }  
+        for (var i = 0; i < this.slots2[0].values.length; i++) {
+          if (this.Distribution == this.slots2[0].values[i]) {
+            this.business = this.chooseaddress[i].dealerCodeDms;
+          }
       }
     },
     //选择经销市
     onValuesChange3(picker, values) {
-      this.city = values;
+      this.num++
+      // alert('shi'+this.num)
+      if(this.num == 2){
+        this.city = this.localcity
+      }else{
+        this.city = values;
+      }  
       console.log(this.data)
       for (var i = 0; i < this.data.length; i++) {
         if (this.city == this.data[i].name) {
@@ -387,27 +410,9 @@ export default {
           this.everycode = this.data[i].code;
         }
       }
-    }
-  },
-  created(){
-    		window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
-      var system = this.isIOSOrAndroid();
-			if(system == 'Android') {
-				var Position = js2android.getLocationInfo() //获取安卓定位信息
-				var NewPosition = JSON.parse(Position)
-				this.latitude = NewPosition.latitude //经度
-				this.longitude = NewPosition.longitude //纬度
-			} else if(system == "IOS") {
-				window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
-      }
-  },
-  mounted() {
-    this.tell=this.$store.state.mobile
-    // alert(this.$route.params.levelCode)
-    // alert(this.$route.params.srouceNo)
-    // alert(this.$route.params.seriesName)
-    //地区
-    this.$http
+    },
+    getcity(){
+      this.$http
       .post(
         Wit.searchCountryAreaCodeListPage,
         {
@@ -419,7 +424,11 @@ export default {
       )
       .then(res => {
         this.province = res.data.data.records;
+        this.area=this.localprovince
         this.province.forEach((item, index) => {
+          if(this.localprovince==this.province[index].name){
+            this.localparentId=this.province[index].id
+          }
           this.slots[0].values.push(this.province[index].name);
           this.parentId.push(this.province[index].id);
         });
@@ -429,40 +438,63 @@ export default {
         for (let i = 0; i < this.myaddress.length; i++) {
           this.slots[0].values.push(this.myaddress[i].name);
         }
-      });
-//选择市
-      var data = {
-        parentId:1,
-        level: 2
-      };
-      this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
-        this.data = res.data.data.records;
-        this.slots3[0].values = [];
-        for (var i = 0; i < this.data.length; i++) {
-          // alert(JSON.stringify(this.data))
-          this.slots3[0].values.push(this.data[i].name);
-        }
+        //选择市
+          var data = {
+            parentId: this.localparentId,
+            level: 2
+          };
+          this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+            this.data = res.data.data.records;
+            this.slots3[0].values = [];
+            for (var i = 0; i < this.data.length; i++) {
+              if(this.localcity==this.data[i].name){
+                this.localdealercitycode=this.data[i].code
+              }
+              this.slots3[0].values.push(this.data[i].name);
+            }
+            //经销商
+            var param = {
+              dealerType: "01",
+              dealerCityCode: this.localdealercitycode,
+              vehicleSeridesNo:this.$store.state.everyno,
+              longitude:this.longitude,//经度
+              latitude:this.latitude,//纬度
+            };
+            this.$http.post(Wit.Dealer, param, this.$store.state.getpin).then(res => {
+              this.chooseaddress = res.data.data.records;
+              this.slots2[0].values = [];
+              for (var i = 0; i < this.chooseaddress.length; i++) {
+                this.slots2[0].values.push(this.chooseaddress[i].dealerName);
+                this.Idchooseaddress.push(this.chooseaddress[i].no);
+              }
+            });
+          });
       });
 
-      //经销商
-      var param = {
-        dealerType: "01",
-        dealerCityCode: '0001',
-        vehicleSeridesNo:this.$store.state.everyno,
-        longitude:this.longitude,//经度
-        latitude:this.latitude,//纬度
-      };
-      this.$http.post(Wit.Dealer, param, this.$store.state.getpin).then(res => {
-        // console.log(res);
-        this.chooseaddress = res.data.data.records;
-        this.slots2[0].values = [];
-        for (var i = 0; i < this.chooseaddress.length; i++) {
-          this.slots2[0].values.push(this.chooseaddress[i].dealerName);
-          this.Idchooseaddress.push(this.chooseaddress[i].no);
-        }
-        // alert(this.slots2[0].values)
-      });
-    $(".gobottom").height($(".gobottom").height());
+
+      
+ 
+    }
+  },
+  created(){
+    		window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
+      var system = this.isIOSOrAndroid();
+			if(system == 'Android') {
+				var Position = js2android.getLocationInfo() //获取安卓定位信息
+        var NewPosition = JSON.parse(Position)
+        this.localprovince=NewPosition.province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '')//当地的省
+        this.localcity= NewPosition.city.replace('市', '')//当地的市
+				this.latitude = NewPosition.latitude //经度
+        this.longitude = NewPosition.longitude //纬度
+        this.getcity()
+			} else if(system == "IOS") {
+				window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
+      }
+  },
+  mounted() {
+    this.tell=this.$store.state.mobile
+    //地区
+       $(".gobottom").height($(".gobottom").height());
   }
 };
 </script>

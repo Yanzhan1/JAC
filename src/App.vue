@@ -33,8 +33,8 @@ export default {
     window.isLogin = this.isLogin;
   },
   mounted() {
-    // this.isLogin({name:'',no:'AD022018091002132068203'})
-    // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImlkXCI6MTM3LFwiaW5pdFVzZXJcIjowLFwibm9cIjpcIkFEMDIyMDE4MDkxMDAyMTMyMDY4MjAzXCIsXCJwZXJzb25hbFNpZ25hdHVyZVwiOlwiXCIsXCJzZXhcIjoxLFwidXNlckNvZGVcIjpcIjE4ODU2OTEzMDc0XCIsXCJ1c2VyTmFtZVwiOlwi5ZKq5ZKqXCIsXCJ1c2VyU3RhdHVzXCI6MCxcInVzZXJUeXBlXCI6XCIwMVwifSIsImNyZWF0ZWQiOjE1MzY4MjUzNTgzODQsInVzZXJObyI6IkFEMDIyMDE4MDkxMDAyMTMyMDY4MjAzIiwidXNlclR5cGUiOiIwMSIsInVzZXJOYW1lIjoi5ZKq5ZKqIiwiZXhwIjoxNTM3Njg5MzU4LCJ1c2VySWQiOjEzN30.yjdhQYIHK4Pg0H4DrpI1A3jWNoV5XXjbXCydgwuH2HY'
+    // this.isLogin({name:'',no:'AD022018091802395260173'})
+    // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImlkXCI6MTc3LFwiaW5pdFVzZXJcIjowLFwibm9cIjpcIkFEMDIyMDE4MDkxODAyMzk1MjYwMTczXCIsXCJwaG9uZVwiOlwiMTc2ODExMDgzMThcIixcInVzZXJDb2RlXCI6XCIxNzY4MTEwODMxOFwiLFwidXNlclN0YXR1c1wiOjAsXCJ1c2VyVHlwZVwiOlwiMDFcIn0iLCJjcmVhdGVkIjoxNTM5MTU2MDY1MDcyLCJ1c2VyTm8iOiJBRDAyMjAxODA5MTgwMjM5NTI2MDE3MyIsInVzZXJUeXBlIjoiMDEiLCJleHAiOjE1NDAwMjAwNjUsInVzZXJJZCI6MTc3fQ.DhJGKo93jkJ4e-3wK0GCHoysvmN0jJXyVqRgzD1zfEM'
     //获取用户
     let params = {
       userNo: this.$store.state.userId

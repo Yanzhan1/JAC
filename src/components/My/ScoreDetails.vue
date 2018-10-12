@@ -40,9 +40,6 @@ export default {
   methods: {
     scoredetails() {
       var data = {
-        ruleStr: "SIGN_IN",
-        serviceTypeStr: "SERVICE_FIXED",
-        typeStr: "TYPE_RETAIN",
         // no:'AD022018090502444422707'
         no:this.$store.state.userId
       };
