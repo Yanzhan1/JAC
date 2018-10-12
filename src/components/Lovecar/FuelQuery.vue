@@ -116,7 +116,7 @@
 				this.count[0].oilConsumer=res.data.data.totalWear
 			})
 			console.log(this.$route.params)
-			if(this.$route.params.begintime){
+			// if(this.$route.params.begintime){
 				var accpect=this.$route.params		
 				if(accpect.times=='月'){
 					this.times='3'
@@ -154,7 +154,7 @@
 				this.$http.post(Lovecar.Fuel,{vin: this.$store.state.vin,beginTime:accpect.begintime,endTime:accpect.endtime,type:this.times},this.$store.state.tsppin).then((res)=>{
 					// console.log(res)
 				})
-			}
+			// }
 		}
 	}
 </script>
