@@ -18,6 +18,7 @@ import WifiSetup from "@/components/Lovecar/WifiSetup" //wifi设置
 import FuelQuery from "@/components/Lovecar/FuelQuery" //燃油查询
 import Datechoose from '@/components/Lovecar/Datechoose' //日期选择
 import FlowQuery from "@/components/Lovecar/FlowQuery" //流量查询
+import FlowBuy from "@/components/lovecar/FlowBuy.vue" //流量购买
 import Islogin from '../components/Lovecar/islogin.vue'
 import IntelligenceParking from "@/components/Lovecar/IntelligenceParking" //智能停车G1
 import IntelligentParkingInfo from "@/components/Lovecar/IntelligentParkingInfo" //智能停车G2
@@ -267,6 +268,11 @@ const router = new Router({
                 path: "/lovecar/flowQuery",
                 name: '流量查询',
                 component: FlowQuery
+            },
+            {
+                path: "/lovecar/FlowBuy",
+                name: '流量购买',
+                component: FlowBuy
             },
             {
                 path: "/lovecar/intelligenceParking",

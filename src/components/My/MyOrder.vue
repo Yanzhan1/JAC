@@ -201,10 +201,9 @@
                     </li>
                 </ul>-->
 			</mt-tab-container-item>
-
 			<mt-tab-container-item id="five">
 				<ul>
-					<li class="flex column">
+					<li class="flex column" v-for="(item,index) in allflowbuy" :key="index">
 						<p class="flex row tim between">
 							<span class="times">2018 09-21 18:34</span>
 							<span class="times">已预约</span>
@@ -226,29 +225,6 @@
 							<span class="cancel">取消订单</span>
 						</div>
 					</li>
-					<li class="flex column">
-						<p class="flex row tim between">
-							<span class="times">2018 09-21 18:34</span>
-							<span class="times">已完成</span>
-						</p>
-						<div class="flex row cont">
-							<div class="flex column bus_left">
-								<img style="height:1.68rem;width:2.56rem" src="../../../static/images/test/my/car_ruifeng_s5.png" alt="">
-								<span class="busname"></span>
-							</div>
-							<div class="flex column tp">
-								<span class="bus_right">预约网点：上海天马汽车销售有限</span>
-								<span class="bus_right">地址：上海市徐汇区田林路200号</span>
-								<span class="bus_right">预约时间：08509859043589</span>
-								<span class="bus_right">预约项目:维修</span>
-							</div>
-						</div>
-						<div class="flex row between bt">
-							<span></span>
-							<span class="cancel" v-if="3>4">取消订单</span>
-							<span class="cancel">评价晒单</span>
-						</div>
-					</li>
 				</ul>
 			</mt-tab-container-item>
 		</mt-tab-container>
@@ -266,7 +242,8 @@
 			return {
 				selected: "one",
 				Xorder: {}, //线索订单
-				flag: true
+				flag: true,
+				allflowbuy:[]
 			};
 		},
 		methods: {
@@ -301,6 +278,15 @@
 			},
 			compontent() {
 				this.$router.push("/compontent");
+			},
+			//流量订单
+			flowbuy(){
+				var params={
+					phone:this.$store.state.mobile
+				}
+				this.$http.post(Lovecar.Getoederlistapp,params,this.$store.state.tsppin).then((res)=>{
+					this.allflowbuy=res.data.data
+				})
 			},
 			//线索订单
 			GetXorder() {
@@ -347,6 +333,7 @@
 		},
 		created() {
 			this.GetXorder();
+			this.flowbuy();
 		},
 		mounted() {
 			$(".MobileHeight").css({

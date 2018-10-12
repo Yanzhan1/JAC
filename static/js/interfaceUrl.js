@@ -164,7 +164,9 @@ window.Lovecar = {
         BusTest: love_car + '/vehicle/query-cyc-car-examination', //车辆体检
         Fuel: love_car + '/vehicle/query-vehicle-fuel-statistics', //燃油接口
         Flow: love_car + '/vehicle/vehicle-cyc-flow-query', //流量查询
-        Getoederlist: love_car + '/flow/get-order-list', //流量订单查询
+        FlowBuy: love_car + '/vehicle/cyc-flow-package-query', //流量购买查询
+        Getoederlist: love_car + '/flow/get-order-list', //后台从tsp同步流量订单查询数据
+        Getoederlistapp: love_car + '/flow/get-order-list-app', //流量订单查询
         Flowpackage: love_car + '/vehicle/cyc-flow-package-query', //流量包查询
         Longrange: love_car + '/vehicle/set-vehicle-remoteset', //车辆远程设置
         LoginOut: love_car + '/vehicle/remote-vehicle-loginOut', //退出登录

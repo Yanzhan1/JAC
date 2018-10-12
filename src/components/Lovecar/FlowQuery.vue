@@ -80,7 +80,7 @@
 				<li class="typer-num" v-for="item in keyNums" :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}" @click="input(item)">{{item}}</li>
 			</ul>
 		</div>
-		<button class="bottom-btn">流量购买</button>
+		<button class="bottom-btn" @click="flowbuy">流量购买</button>
 	</div>
 </template>
 
@@ -168,6 +168,9 @@ export default {
     removeMask() {
       this.popupVisible = !this.popupVisible;
       this.showTyper = 0;
+    },
+    flowbuy(){
+        this.$router.push('/lovecar/FlowBuy')
     }
   },
   mounted() {},
