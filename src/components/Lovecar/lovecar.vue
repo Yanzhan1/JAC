@@ -1354,14 +1354,12 @@ export default {
 	.top_1 {
 		top: 0.8rem;
 		left: 0.8rem;
-		color: #fc3b46;
 		font-size: 0.24rem;
 	}
 	
 	.bottom_1 {
 		bottom: 1.1rem;
 		left: 0.8rem;
-		color: #fc3b46;
 		font-size: 0.24rem;
 	}
 	

@@ -6,7 +6,7 @@
 			<span class="header-right"></span>
 		</header>
 		<div style="height:0.88rem"></div>-->
-		<mhead currentTitle="忘记pin码"></mhead>
+		<mhead currentTitle="忘记PIN码"></mhead>
 		<div class="revisePinCommon flex-center revise-pin-mes ">
 			<div class="">
 				<span>
@@ -26,7 +26,7 @@
 		<div class="origin-pin">
 			<div class="flex-align-center revisePinCommon">
 				<span style="font-size: 0.26rem;color: #444444;">
-					新pin码:
+					新PIN码:
 				</span>
 				<input class="newpinInput" placeholder="请输入新PIN码" type="text" v-model="pin.newPin" />
 			</div>

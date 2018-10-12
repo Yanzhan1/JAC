@@ -2,7 +2,7 @@
 	<div class="revise-pin-code">
 		<header class="header MobileHeight header ">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-			<span class="header-title">修改pin码</span>
+			<span class="header-title">修改PIN码</span>
 			<span class="header-right"></span>
 		</header>
 		<div style="height:0.88rem" class="MobileHeight"></div>
@@ -17,7 +17,7 @@
 		<div class="origin-pin">
 			<div class="flex-align-center revisePinCommon">
 				<span style="font-size: 0.26rem;color: #444444;width: 1.1rem;">
-					原pin码:
+					原PIN码:
 				</span>
 				<input class="pinInput" placeholder="请输入原PIN码" type="text" v-model="condition.oldPin" />
 			</div>
@@ -25,7 +25,7 @@
 		<div class="origin-pin">
 			<div class="flex-align-center revisePinCommon">
 				<span style="font-size: 0.26rem;color: #444444;width: 1.1rem;">
-					新pin码:
+					新PIN码:
 				</span>
 				<input class="pinInput" placeholder="请输入新PIN码" type="text" v-model="condition.newPin" />
 			</div>
