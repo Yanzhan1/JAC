@@ -211,9 +211,10 @@ export default {
       this.areas = false;
       this.citys = false;
       //选择市
-      // if(this.provinceid==''){
-      //   this.provinceid=this.localparentId
-      // }
+      if(this.provinceid==''){
+        this.provinceid=1
+        this.area = '四川'
+      }
       var data = {
         parentId: this.provinceid,
         level: 2
@@ -267,7 +268,14 @@ export default {
         if (res.data.code == 0) {
         }
       });
-
+      if(this.Distribution==''){
+         Toast({
+          message: "经销商不能为空",
+          duration: 1000,
+          position: "middle"
+        });
+        return false;
+      }
       var name = this.name;
       if (name == "") {
         Toast({
@@ -364,15 +372,18 @@ export default {
     onValuesChange(picker, values) {
       this.num++;
       // alert('sheng'+this.num)
+      alert('进入')
       if(this.num == 4){
+        alert('触发')
         this.area = this.localprovince
       }else{
+        alert(values)
         this.area=values
-      }  
           for (var i = 0; i < this.myaddress.length; i++) {
                 if (this.area[0] == this.myaddress[i].name) {
                   this.provinceid = this.myaddress[i].id;
                 }
+      }  
 
 
       }
@@ -386,7 +397,11 @@ export default {
       if(this.num == 3){
         
       }else{
-        this.Distribution = values[0];
+        if(values==''){
+          this.Distribution='此地区暂无经销商'
+        }else{
+          this.Distribution = values[0];
+        }
       }  
         for (var i = 0; i < this.slots2[0].values.length; i++) {
           if (this.Distribution == this.slots2[0].values[i]) {
@@ -402,14 +417,13 @@ export default {
         this.city = this.localcity
       }else{
         this.city = values;
-      }  
-      console.log(this.data)
       for (var i = 0; i < this.data.length; i++) {
         if (this.city == this.data[i].name) {
           this.codecity = this.data[i].id;
           this.everycode = this.data[i].code;
         }
       }
+      }  
     },
     getcity(){
       this.$http

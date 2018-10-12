@@ -104,7 +104,7 @@ export default {
 .picker-center-highlight:before, .picker-center-highlight:after {
   content: '';
   position: absolute;
-  height: .07rem;
+  height: .1rem;
   width: 100%;
   background-color: #eaeaea;
   display: block;
