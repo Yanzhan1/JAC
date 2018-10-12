@@ -372,12 +372,12 @@ export default {
     onValuesChange(picker, values) {
       this.num++;
       // alert('sheng'+this.num)
-      alert('进入')
+      // alert('进入')
       if(this.num == 4){
-        alert('触发')
+        // alert('触发')
         this.area = this.localprovince
       }else{
-        alert(values)
+        // alert(values)
         this.area=values
           for (var i = 0; i < this.myaddress.length; i++) {
                 if (this.area[0] == this.myaddress[i].name) {
