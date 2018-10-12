@@ -99,12 +99,12 @@
               </mt-popup>
               <mt-popup class="region" v-show="citys" position="bottom">
                   <h3>选择市</h3>
-                  <span @click="choose">确定</span>
+                  <span @click="choose3">确定</span>
                   <mt-picker :slots="slots3" @change="onValuesChange3" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
               </mt-popup>
               <mt-popup class="region" v-show="distributors" position="bottom">
                   <h3>选择经销商</h3>
-                  <span @click="choose">确定</span>
+                  <span @click="choose2">确定</span>
                   <mt-picker :slots="slots2" @change="onValuesChange2" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
               </mt-popup>
             <h3 @click="sub" class="bottom-btn" style="position:fixed;bottom:0;left:0">提交</h3>
@@ -227,6 +227,30 @@ export default {
         }
       });
       //经销商
+      var param = {
+        dealerType: "01",
+        dealerCityCode: this.everycode,
+        vehicleSeridesNo:this.$store.state.everyno,
+        longitude:this.longitude,//经度
+        latitude:this.latitude,//纬度
+      };
+      this.$http.post(Wit.Dealer, param, this.$store.state.getpin).then(res => {
+        // console.log(res);
+        this.chooseaddress = res.data.data.records;
+        this.slots2[0].values = [];
+        for (var i = 0; i < this.chooseaddress.length; i++) {
+          this.slots2[0].values.push(this.chooseaddress[i].dealerName);
+          this.Idchooseaddress.push(this.chooseaddress[i].no);
+        }
+      });
+    },
+    choose3(){
+      this.region = false;
+      this.distributors = false;
+      this.areas = false;
+      this.citys = false;
+          //经销商
+          // alert(this.everycode)
       var param = {
         dealerType: "01",
         dealerCityCode: this.everycode,
