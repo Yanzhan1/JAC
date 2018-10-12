@@ -292,9 +292,9 @@ export default {
         if (res.data.code == 0) {
         }
       });
-      if(this.Distribution==''){
+      if(this.Distribution=='此地区暂无经销商'){
          Toast({
-          message: "经销商不能为空",
+          message: "此地区暂无经销商",
           duration: 1000,
           position: "middle"
         });
