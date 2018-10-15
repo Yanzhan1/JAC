@@ -21,7 +21,7 @@
             <router-link to="/info/comments" tag="li" class="flex row cocenter between" style="height:.97rem;border-bottom:.01rem solid #f1f1f1">
                 <div class="flex row cocenter rela">
                     <img src="../../../static/images/my/icon_message_commernt.png" alt="" style="width:.32rem;height:.36rem">
-                    <span style="font-size:.27rem;color:#555;margin-left:.2rem" class="active">评论</span><span class="infos" v-if="!allstatus.commentReadFlag"></span>
+                    <span style="font-size:.27rem;color:#555;margin-left:.2rem" class="active">评论</span><span class="infos" v-if="this.talk"></span>
                 </div>
                 <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
             </router-link>
@@ -29,7 +29,7 @@
             <router-link to="/info/activitys" tag="li" class="flex row cocenter between" style="height:.97rem;border-bottom:.01rem solid #f1f1f1">
                 <div class="flex row cocenter rela">
                     <img src="../../../static/images/my/icon_message_activity.png" alt="" style="width:.32rem;height:.36rem">
-                    <span style="font-size:.27rem;color:#555;margin-left:.2rem">活动</span><span class="infos" v-if="!allstatus.activityReadFlag"></span>
+                    <span style="font-size:.27rem;color:#555;margin-left:.2rem">活动</span><span class="infos" v-if="this.activity"></span>
                 </div>
                 <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
             </router-link>
@@ -55,20 +55,13 @@ export default {
     return {
       allstatus:{
 
-      }
+      },
+      talk:false,
+      activity:false,
+      statuschoose:[]
     };
   },
   methods: {
-    init(){
-      // this.$http.post(IMFORMATION.unRead,{uid:this.$store.state.userId}).then((res)=>{
-      //     this.allstatus = res.data.data
-      // })
-      this.$http.post(IMFORMATION.getReadFlag,{
-        uid:this.$store.state.userId
-      }).then((res)=>{
-          console.log(res.data)
-      })
-    },
     setMsgState(res){
       this.allstatus = res;
     },
@@ -80,6 +73,17 @@ export default {
       }
     }
   },
+  created(){
+        this.$http.post(IMFORMATION.getReadFlag,{
+        uid:this.$store.state.userId
+      }).then((res)=>{
+          this.statuschoose=res.data.data
+          this.statuschoose[0].count>0?this.talk=true:this.talk=false
+          this.statuschoose[1].count>0?this.activity=true:this.acticity=false
+          // console.log(this.statuschoose)
+          // alert(this.statuschoose[1].count)
+      })
+  },
   mounted(){
     /*var falg = this.checkLogin();
     if (!falg){
@@ -90,7 +94,6 @@ export default {
       }
     }*/
     window.setMsgState = this.setMsgState;
-    this.init()
   }
 };
 </script>
