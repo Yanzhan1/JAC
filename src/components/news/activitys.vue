@@ -1,11 +1,11 @@
 <template>
     <div>
-        <header class="header">
+        <!--<header class="header">
             <img @click="$router.go(-1)" class="header-left" :src="'./static/images/back@2x.png'" style="margin-left:.4rem">
             <span class='header-title'>活动</span>
             <span></span>
-        </header>
-
+        </header>-->
+				<mhead currentTitle="活动"></mhead>
         <div style="margin:.4rem;margin-top:1.5rem">暂无活动信息</div>
       <!-- <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="20">
         <div slot="top" class="mint-loadmore-top">
@@ -40,7 +40,11 @@
     </div>
 </template>
 <script>
+	import PublicHead from '../publicmodel/PublicHead';
 export default {
+	components: {
+	  mhead:PublicHead
+  },
   data(){
     return{
       allLoaded: false,

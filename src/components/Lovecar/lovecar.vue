@@ -3,8 +3,9 @@
     <div class="nav MobileHeight">
       <img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
       <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;{{this.carsysitem}}</span>
-      <span class="txt_r" @click="islogin()" v-if="this.LoginStatus">车机已登录</span>
-      <span class="txt_r" v-else @click="login()">车机未登录</span>
+      <!--<span class="txt_r" @click="islogin()" v-if="this.LoginStatus">车机已登录</span>
+      <span class="txt_r" v-else @click="login()">车机未登录</span>-->
+      <span class="txt_r"></span>
     </div>
     <div class="navs navs_h">
       <div class="navs_t">
@@ -775,61 +776,12 @@ export default {
     loading() {
       this.Carquerry();
       this.activeshow = 1;
-    },
-		getStatus(status) {
-				console.log(status)
-				this.$store.dispatch('QRCODEPIN', JSON.parse(status))
-			},
-			// 机车未登录 点击 扫一扫
-		login() {
-				if(isMobile.iOS()) {
-					var params = {};
-					window.webkit.messageHandlers.scan.postMessage(params);
-				} else if(isMobile.Android()) {
-					js2android.scan();
-				}
-			},
-			getCarLoginState() { //获取机车 登录登出状态
-				this.$http.get(Lovecar.LogStatus, this.$store.state.tsppin).then(res => {
-						const data = res.data
-						console.log('defaultvin:' + this.defaultvin)
-						console.log(data.data)
-						if(data.returnSuccess) {
-							for(let i = 0; i < data.data.length; i++) {
-								if(this.defaultvin == data.data[i].vin) {
-									this.LoginStatus = data.data[i].logStatus //true 代表机车已经登录
-									this.firstTips = false
-									console.log('机车登录状态:' + this.LoginStatus)
-									console.log('提示状态:' + this.firstTips)
-								}
-							}
-						} else {
-							if (this.firstTips) {
-							} else {
-								Toast({
-									message: data.returnErrMsg,
-									position: "middle",
-									duration: 2001
-								});
-							}							
-						}
-					})
-					.catch(err => {
-						Toast({
-							message: '系统异常',
-							position: "middle",
-							duration: 2001
-						});
-					});
-			}
+    }
   },
   computed: {
     userId() {
       return JSON.parse(this.$store.state.tsppin.headers.identityParam).userId;
-    },
-		qrCode() {
-			return this.$store.state.qrCodeDate
-		}
+    }
   },
   //检测输入框
   watch: {
@@ -1059,32 +1011,10 @@ export default {
             // console.log(this.$store.state.mytoken.headers.timaToken);
           }
         });
-      //获取机车 登录登出状态
-//			this.getCarLoginState();
-    },
-		qrCode(newVal, oldVal) { //解决扫一扫无法及时获取二维码信息的异步问题
-				if(this.qrCode) {
-					let data = {
-						vin: this.$store.state.vins,
-						userName: this.$store.state.mobile
-					}
-					this.$http.post(Lovecar.RemoteVehicleLogin, data, this.$store.state.tsppin).then(res => {
-							const data = res.data
-							//							console.log('扫一扫登入接口状态: '+data.returnSuccess)
-							if(data.returnSuccess) {
-								this.LoginStatus = data.returnSuccess
-							}
-						})
-						.catch(err => {
-
-						})
-				}
-			}
+    }
   },
   mounted() {
   	$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
-    //暴露方法给原生,登入判断
-    window.getStatus = this.getStatus;
    this.$http
       .post(
         My.My_Bus,
@@ -1105,7 +1035,7 @@ export default {
               console.log('获取默认车辆vin码:'+ this.defaultvin)
               this.$store.dispatch("CARVINS", payload);
               //获取机车 登录登出状态
-    	       this.getCarLoginState()
+//  	       this.getCarLoginState()
              }
             }
           this.vinn = this.$store.state.vins;
