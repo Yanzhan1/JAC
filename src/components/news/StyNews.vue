@@ -1,7 +1,12 @@
 <template>
     <div>
+        <!--<header class="header">
+            <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+            <span class="header-title">系统消息</span>
+            <span class="header-right"></span>
+        </header>
+        <div style="height:.88rem"></div>-->
         <mhead currentTitle="系统消息"></mhead>
-        <div style="height:.48rem"></div>
         <ul style="padding:0 .3rem">
             <li style="margin-top:.3rem">
                 <p style="font-size:.22rem;color:#888;text-align:center">2018 03-21 18:20</p>
@@ -19,8 +24,11 @@
 </template>
 
 <script>
-import PublicHead from '../publicmodel/PublicHead';
+	import PublicHead from '../publicmodel/PublicHead';
 export default {
+	components: {
+	  mhead:PublicHead
+  },
   data() {
     return {};
   },

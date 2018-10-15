@@ -19,6 +19,12 @@
 		<router-link tag="div" class="setup-modifypwd" to="/myindex/modifyPassword">
 			<mt-cell title="修改密码" is-link></mt-cell>
 		</router-link>
+		<router-link v-if="vehicleState" tag="div" class="setup-vehiclestate" to="/myindex/loginVehicleState">
+			<mt-cell title="车机登录状态" is-link></mt-cell>
+		</router-link>
+		<router-link v-else tag="div" class="setup-vehiclestate" to="/myindex/logoutVehicleState">
+			<mt-cell title="车机登录状态" is-link></mt-cell>
+		</router-link>
 		<router-link tag="div" class="setup-loginout" to="">
 			<mt-cell @click.native="signOut" title="退出登录" is-link></mt-cell>
 		</router-link>
@@ -36,7 +42,9 @@
 		data() {
 			return {
 				title: '软键盘',
-				value: true
+				value: true,
+				vehicleState: null, //车机登录状态,true代表登录, false代表未登录
+				firstTips: true //车机状态第一次提示,true不提示,改变为false的时候,Toast进行提示
 			}
 		},
 		methods: {
@@ -82,7 +90,33 @@
 				} else if(isIOS) {
 					return "IOS"
 				}
+			},
+			getCarLoginState() { //获取机车 登录登出状态
+				this.$http.get(Lovecar.LogStatus, this.$store.state.tsppin).then(res => {
+						const data = res.data
+						if(data.returnSuccess) {		
+								//字段缺乏,等待接口完成之后添加判断
+								this.vehicleState = data.data[0].logStatus //true 代表机车已经登录	
+//								this.vehicleState = false
+						} else {
+								Toast({
+									message: data.returnErrMsg,
+									position: "middle",
+									duration: 2001
+								});						
+						}
+					})
+					.catch(err => {
+						Toast({
+							message: '系统异常',
+							position: "middle",
+							duration: 2001
+						});
+					});
 			}
+		},
+		mounted () {
+				this.getCarLoginState()		
 		}
 	}
 </script>

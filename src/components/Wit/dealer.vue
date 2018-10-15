@@ -132,7 +132,7 @@
 				allLoaded: false, //为真，则 bottomMethod 不会被再次触发,为false会再次触发
 				scrollMode: "touch",
 				loading: false, //false,触发无线滚动, true,不会触发无线滚动
-				loadEnd: false, //false,再次滚动会加载更多数据, true再次滚动不会加载更多数据
+				loadEnd: false, //标识位,false,再次滚动会加载更多数据, true再次滚动不会加载更多数据
 				size: 10, //每页的数据长度
 				current: 1, //当前页码
 				latitude: null, //维度

@@ -1,15 +1,16 @@
 <template>
     <div>
-        <header class="header">
+        <header class="header MobileHeight">
             <img @click="$router.go(-1)" class="header-left" :src="'./static/images/back@2x.png'" style="margin-left:.3rem">
-            <span class='header-title'>评论</span>
+            <span class='header-title' style="margin-right: .75rem;">评论</span>
             <span></span>
         </header>
+        <!--<mhead currentTitle="评论"></mhead>-->
       <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :bottomLoadingText="loadingText" ref="loadmore" :topDistance="20">
-        <div slot="top" class="mint-loadmore-top">
+        <!--<div slot="top" class="mint-loadmore-top">
           <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }" style="font-size: 0.3rem">下拉刷新</span>
           <span v-show="topStatus === 'loading'">Loading...</span>
-        </div>
+        </div>-->
         <div
           v-infinite-scroll="getNextList"
           infinite-scroll-disabled="loading"
@@ -44,7 +45,11 @@
 </template>
 <script>
   import {Toast} from 'mint-ui'
+  import PublicHead from '../publicmodel/PublicHead';
 export default {
+	components: {
+	  mhead:PublicHead
+  },
   data(){
     return{
       loadingText: "",
@@ -145,6 +150,7 @@ export default {
     },
   },
   mounted(){
+  	$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
     this.init()
   }
 };
@@ -205,7 +211,10 @@ li {
   color: rgba(252, 87, 31);
 }
 #showAll2{
-  display: none; font-size: 0.3rem;margin: auto;text-align: center
+  display: none; 
+  font-size: 0.3rem;
+  margin: auto;
+  text-align: center
 }
 </style>
 

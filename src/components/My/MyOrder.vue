@@ -11,7 +11,7 @@
 			<mt-tab-item id="one">线索</mt-tab-item>
 			<mt-tab-item id="two">商城</mt-tab-item>
 			<!--<mt-tab-item id="three">维保</mt-tab-item>
-             <mt-tab-item id="four">停车</mt-tab-item>-->
+      <mt-tab-item id="four">停车</mt-tab-item>-->
 			<mt-tab-item id="five">流量</mt-tab-item>
 		</mt-navbar>
 		<mt-tab-container v-model="selected">
@@ -100,7 +100,6 @@
 							<span class="cancel" v-if="3>4">待付款</span>
 						</div>
 					</li>
-
 				</ul>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="three">
@@ -203,28 +202,34 @@
 			</mt-tab-container-item>
 			<mt-tab-container-item id="five">
 				<ul>
-					<li class="flex column" v-for="(item,index) in allflowbuy" :key="index">
+					<router-link tag="li" class="flex column" v-for="item in allflowbuy" :to="{path:'/myindex/flowOrderDetails', query: {flowDetail: item}}">
 						<p class="flex row tim between">
-							<span class="times">2018 09-21 18:34</span>
-							<span class="times">已预约</span>
+							<span class="times">{{item.purchaseTime}}</span>
+							<span class="times" :class=" true ? 'order': ''">{{trafficOrder[item.paymentStatus]}}</span>
 						</p>
-						<div class="flex row cont">
-							<div class="flex column bus_left">
-								<img style="height:1.68rem;width:2.56rem" src="../../../static/images/test/my/car_ruifeng_s5.png" alt="">
-								<span class="busname"></span>
-							</div>
+						<div class="cont">
 							<div class="flex column tp">
-								<span class="bus_right">预约网点：上海天马汽车销售有限</span>
-								<span class="bus_right">地址：上海市徐汇区田林路200号</span>
-								<span class="bus_right">预约时间：08509859043589</span>
-								<span class="bus_right">预约项目</span>
+								<!--<span class="bus_right">地址：上海市徐汇区田林路200号</span>-->
+								<span class="flowPacket-title">{{item.packetName}}</span>
+								<span class="bus_right">订单编号：{{item.orderId}}</span>
+								<span class="bus_right">流量价格：{{item.price}}元</span>
+							</div>
+							<div class="flex column bus_left">
+								<img src="../../../static/images/next@2x.png" alt="">
 							</div>
 						</div>
 						<div class="flex row between bt">
 							<span></span>
-							<span class="cancel">取消订单</span>
+							<div v-if="item.paymentStatus">
+								<span class="cancel" :class=" item.paymentStatus == 1 ? 'active' : ''">付款</span>
+								<span class="cancel">取消订单</span>
+							</div>
+							<div v-else>
+								<span class="cancel">再次充值</span>
+								<span class="cancel">删除订单</span>
+							</div>							
 						</div>
-					</li>
+					</router-link >
 				</ul>
 			</mt-tab-container-item>
 		</mt-tab-container>
@@ -243,7 +248,11 @@
 				selected: "one",
 				Xorder: {}, //线索订单
 				flag: true,
-				allflowbuy:[]
+				allflowbuy:[],
+				trafficOrder:{
+					'0': '已完成',
+					'1': '待付款'
+				}
 			};
 		},
 		methods: {
@@ -285,7 +294,7 @@
 					phone:this.$store.state.mobile
 				}
 				this.$http.post(Lovecar.Getoederlistapp,params,this.$store.state.tsppin).then((res)=>{
-					this.allflowbuy=res.data.data
+					this.allflowbuy = res.data.data
 				})
 			},
 			//线索订单
@@ -365,15 +374,20 @@
 		font-size: 0.24rem;
 		color: #888;
 	}
+	.order {
+		color: #FF802F;
+	}
 	
 	.tim {
 		border-bottom: 0.01rem solid #f1f1f1;
 		padding: 0 0.4rem;
 	}
-	
 	.bus_left {
-		margin-top: 0.4rem;
-		margin-left: 0.4rem;
+    justify-content: center
+	}
+	.bus_left>img{
+		width: .4rem;
+		height: .4rem;
 	}
 	
 	.busname {
@@ -391,13 +405,17 @@
 	}
 	
 	.tp {
-		margin-top: 0.15rem;
-		margin-left: 0.4rem;
+		/*margin-top: 0.15rem;
+		margin-left: 0.4rem;*/
 	}
-	
+	.tp>.flowPacket-title {
+		font-weight: bold;
+	}
 	.bt {
 		border-top: 1px solid #f1f1f1;
 		border-bottom: 0.2rem solid #f5f5f5;
+		line-height: .9rem;
+		padding: 0 0.4rem
 	}
 	
 	.bts {
@@ -405,31 +423,20 @@
 		border-bottom: 0.2rem solid #f5f5f5;
 		justify-content: flex-end;
 	}
-	
-	.cancel {
-		text-align: center;
-		line-height: 0.5rem;
-		width: 1.4rem;
-		color: #49bbff;
-		border: 1px solid #49bbff;
-		border-radius: 0.3rem;
-		font-size: 0.24rem;
-		margin-top: 0.2rem;
-		margin-right: 0.4rem;
-		margin-bottom: 0.2rem;
+	.bt div {
+
 	}
-	
-	.cancels {
+	.bt div>.cancel {
+    display: inline-block;
+		padding: 0 0.2rem;
+		height: .5rem;
+		line-height: .5rem;
+		min-width: 1.1rem;
+		color: #888888;
+		border: 1px solid #CCCCCC;
+		font-size: 0.22rem;
 		text-align: center;
-		line-height: 0.5rem;
-		width: 1.4rem;
-		color: #555;
-		border: 1px solid #555;
 		border-radius: 0.3rem;
-		font-size: 0.24rem;
-		margin-top: 0.2rem;
-		margin-right: 0.4rem;
-		margin-bottom: 0.2rem;
 	}
 	
 	.con {
@@ -437,7 +444,9 @@
 	}
 	
 	.cont {
-		padding: 0.3rem 0;
+		display: flex;
+		justify-content: space-between;
+		padding: 0.3rem 0.3rem 0.3rem 0.9rem;
 	}
 	
 	.buycity {
@@ -446,5 +455,9 @@
 	
 	.pictu {
 		margin: 0 0.5rem;
+	}
+	.bt div .active {
+		color: #49bbff;
+		border: 1px solid #49BBFF;
 	}
 </style>

@@ -14,11 +14,11 @@
 			<textarea class="freedback-content" placeholder="请输入您的问题或意见" name="" rows="" cols="" v-model="condition.complaintsContent"></textarea>
 			<div class="flex-column person-info">
 				<span>姓名</span>
-				<input @focus="focus" ref="input" v-model="condition.contact" type="text" />
+				<input class="nameInput" @focus="focus" ref="input" v-model="condition.contact" type="text" />
 			</div>
 			<div class="flex-column person-info">
-				<span>联系方式</span>
-				<input @focus="focus" v-model="condition.contactInformation" type="text" />
+				<span>手机号</span>
+				<input class="phoneInput" @focus="focus" v-model="condition.contactInformation" type="text" />
 			</div>
 
 		</div>
@@ -58,6 +58,14 @@
 					});
 					return false;
 				}
+				if (this.condition.complaintsContent == '' ) {
+					Toast({
+						message: '请输入您的问题或意见',
+						position: 'middle',
+						duration: 2000
+					});
+					return false;
+				}
 				if (this.condition.contact == '') {
 					Toast({
 						message: '请输入您的姓名',
@@ -68,7 +76,7 @@
 				}
 				if (this.condition.contactInformation == '') {
 					Toast({
-						message: '请输入您的联系方式',
+						message: '请输入您的手机号',
 						position: 'middle',
 						duration: 2000
 					});
@@ -221,7 +229,7 @@
 		outline: none;
 		-webkit-appearance: none;
 		border: none;
-		font-size: 0.4rem;
+		font-size: 0.28rem;
 		text-indent: 0.1rem;
 		background: #f5f5f5;
 		border-radius: 0.08rem;

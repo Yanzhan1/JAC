@@ -49,6 +49,8 @@ import ModifyPassword from '@/components/My/ModifyPassword' //修改密码
 import ReviousePwdSuccess from '@/components/My/ReviousePwdSuccess' //修改密码成功
 import MyFeedback from '@/components/My/MyFeedback' //我的反馈
 import MySetUp from '@/components/My/MySetUp' //我的设置
+import LoginVehicleState from '@/components/My/LoginVehicleState' //机车登录状态-登入
+import LogoutVehicleState from '@/components/My/LogoutVehicleState' //机车登录状态-登出
 import Bus_test from '@/components/Lovecar/Bus_test.vue'
 import Edictperson from '@/components/My/edictperson.vue' //编辑个人信息
 import Myaddress from '@/components/My/myaddress.vue' //我的地址管理
@@ -56,6 +58,7 @@ import Addmydress from '@/components/My/addmydress.vue' //新增地址
 import Changeaddress from '@/components/My/changeaddress.vue' //新增地址
 import My_dealer from '../components/My/My_dealer.vue' //我的经销商列表
 import MyOrder from '../components/My/MyOrder.vue' //我的订单
+import FlowOrderDetails from '../components/My/FlowOrderDetails.vue' //流量订单详情
 import MyWl from '../components/My/MyWl.vue' //我的物流
 import Compontent from '../components/My/Compontent.vue' //评价
 import Recommended from '../components/My/Recommended' //推荐码
@@ -417,6 +420,16 @@ const router = new Router({
                 component: MyFeedback
             },
             {
+                path: "/myindex/loginVehicleState",
+                name: '机车登入',
+                component: LoginVehicleState
+            },
+            {
+                path: "/myindex/logoutVehicleState",
+                name: '机车登出',
+                component: LogoutVehicleState
+            },
+            {
                 path: "/myindex/mySetUp",
                 name: '设置',
                 component: MySetUp
@@ -438,6 +451,10 @@ const router = new Router({
                 path: "/myorder",
                 name: '我的订单',
                 component: MyOrder
+            },{
+                path: "/myindex/flowOrderDetails",
+                name: '流量订单详情',
+                component: FlowOrderDetails
             }, {
                 path: "/mywl",
                 name: '我的物流',
