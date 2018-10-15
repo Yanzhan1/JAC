@@ -108,7 +108,7 @@ export default {
   width: 100%;
   background-color: #eaeaea;
   display: block;
-  z-index: 15;
+  z-index: 1200;
   -webkit-transform: scaleY(0.5);
           transform: scaleY(0.5);
 }

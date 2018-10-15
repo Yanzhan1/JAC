@@ -151,6 +151,7 @@ window.My = {
         Area: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //选择地区
         AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
         RecomendCode: mips + '/admin/recommendedCode/searchRecommendedCodeOne' //获取推荐码
+
     }
     //爱车
 window.Lovecar = {
@@ -184,6 +185,7 @@ window.IMFORMATION = {
         notificationPushList: love_car + '/notificationPush/notificationPushList', //通知list
         changeReadStatus: love_car + '/notificationPush/changeReadStatus', //通知已读
         unRead: indexip + '/sendMessageController/unRead', //通知已读
+        getReadFlag: indexip + '/sendMessageController/getReadFlag' //大连部分判断红点有无的接口
     }
     //文件服务器接口
 window.FILESTORE = {

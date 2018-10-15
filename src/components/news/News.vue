@@ -60,8 +60,13 @@ export default {
   },
   methods: {
     init(){
-      this.$http.post(IMFORMATION.unRead,{uid:this.$store.state.userId}).then((res)=>{
-          this.allstatus = res.data.data
+      // this.$http.post(IMFORMATION.unRead,{uid:this.$store.state.userId}).then((res)=>{
+      //     this.allstatus = res.data.data
+      // })
+      this.$http.post(IMFORMATION.getReadFlag,{
+        uid:this.$store.state.userId
+      }).then((res)=>{
+          console.log(res.data)
       })
     },
     setMsgState(res){

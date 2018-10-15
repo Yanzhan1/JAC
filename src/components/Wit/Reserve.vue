@@ -95,12 +95,12 @@
               <mt-popup class="region" v-show="areas" position="bottom">
                   <h3>选择省</h3>
                   <span @click="choose">确定</span>
-                  <mt-picker :slots="slots" @change="onValuesChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
+                  <mt-picker :slots="slots" @change="onValuesChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
               </mt-popup>
               <mt-popup class="region" v-show="citys" position="bottom">
                   <h3>选择市</h3>
                   <span @click="choose3">确定</span>
-                  <mt-picker :slots="slots3" @change="onValuesChange3" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem"></mt-picker>
+                  <mt-picker :slots="slots3" @change="onValuesChange3" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
               </mt-popup>
               <mt-popup class="region" v-show="distributors" position="bottom">
                   <h3>选择经销商</h3>
@@ -419,7 +419,7 @@ export default {
       this.num++;
       // alert('jingxiao'+this.num)
       if(this.num == 3){
-        
+        this.Distribution='此地区暂无经销商'
       }else{
         if(values==''){
           this.Distribution='此地区暂无经销商'
