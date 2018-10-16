@@ -202,7 +202,7 @@
 			</mt-tab-container-item>
 			<mt-tab-container-item id="five">
 				<ul>
-					<router-link tag="li" class="flex column" v-for="item in allflowbuy" :to="{path:'/myindex/flowOrderDetails', query: {flowDetail: item}}">
+					<router-link tag="li" class="flex column" v-for="(item,index) in allflowbuy" :key="index"  :to="{path:'/myindex/flowOrderDetails', query: {flowDetail: item}}">
 						<p class="flex row tim between">
 							<span class="times">{{item.purchaseTime}}</span>
 							<span class="times" :class=" true ? 'order': ''">{{trafficOrder[item.paymentStatus]}}</span>

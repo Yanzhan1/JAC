@@ -87,9 +87,8 @@ export default {
         uid:this.$store.state.userId
       }).then((res)=>{
           this.statuschoose=res.data.data
-          console.log(this.statuschoose)
           this.statuschoose[0].count>0 ? this.talk=true : this.talk=false
-          this.statuschoose[1].count>0?this.activity=true:this.acticity=false
+          // this.statuschoose[1].count>0?this.activity=true:this.acticity=false
           // console.log(this.statuschoose)
           // alert(this.statuschoose[1].count)
       })

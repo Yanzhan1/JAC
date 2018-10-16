@@ -1,6 +1,6 @@
 <template>
 	<div class="flow-query">
-		<div class="bgMask" v-if="popupVisible" ></div>
+		<!-- <div class="bgMask" v-if="popupVisible" ></div> -->
 		<!--<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.push('/lovecar')">
 			<span class="header-title">流量查询</span>
@@ -51,7 +51,7 @@
 			</div>
 		</div>
 		<!--pin码弹出框Start-->
-		<mt-popup v-model="popupVisible" :modal="false">
+		<!-- <mt-popup v-model="popupVisible" :modal="false">
 			<div class="pin-remain">
 				<div class="flex-center-between">
 					<img @click="removeMask" :src="'./static/images/Wit/delete@3x.png'" alt="" style="width:.28rem">
@@ -72,14 +72,14 @@
 					</div>
 				</div>
 			</div>
-		</mt-popup>
+		</mt-popup> -->
 		<!--pin码弹出框结束-->
 		<!--自定义软键盘Start-->
-		<div class="typer" v-show="showTyper!=0">
+		<!-- <div class="typer" v-show="showTyper!=0">
 			<ul v-show="showTyper==2">
 				<li class="typer-num" v-for="item in keyNums" :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}" @click="input(item)">{{item}}</li>
 			</ul>
-		</div>
+		</div> -->
 		<button class="bottom-btn" @click="flowbuy">流量购买</button>
 	</div>
 </template>
@@ -125,46 +125,46 @@ export default {
       return num;
     },
     //键盘点击事件，传入键盘本身的值
-    input(item) {
-      if (item == "关闭") {
-        //判断是否点击了关闭按钮
-        this.showTyper = 0;
-        return;
-      }
-      if (item == "Del") {
-        //判断是否点击了删除按钮
-        this.pinNumber = this.pinNumber.slice(0, -1);
-        return;
-      }
-      if (this.pinNumber.length < 6) {
-        //判断位数，还未超出6位则可继续输入
-        this.pinNumber = this.pinNumber + item;
-      } else {
-      }
-    },
+    // input(item) {
+    //   if (item == "关闭") {
+    //     //判断是否点击了关闭按钮
+    //     this.showTyper = 0;
+    //     return;
+    //   }
+    //   if (item == "Del") {
+    //     //判断是否点击了删除按钮
+    //     this.pinNumber = this.pinNumber.slice(0, -1);
+    //     return;
+    //   }
+    //   if (this.pinNumber.length < 6) {
+    //     //判断位数，还未超出6位则可继续输入
+    //     this.pinNumber = this.pinNumber + item;
+    //   } else {
+    //   }
+    // },
     //点击pin码验证框时，弹出自定义键盘
-    onTypewriting() {
-      this.showTyper = 2;
-      this.produceArray();
-    },
+    // onTypewriting() {
+    //   this.showTyper = 2;
+    //   this.produceArray();
+    // },
     //产生软键盘12位随机数组
-    produceArray() {
-      var that = this;
-      var arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-      var arr2 = [];
-      for (var i = 0; i < 12; i++) {
-        var randomnumber = that.randomnum(0, arr.length);
-        if (i == 9) {
-          arr2.push("关闭");
-        } else if (i == 11) {
-          arr2.push("Del");
-        } else {
-          arr2.push(arr[randomnumber]);
-          arr.splice(randomnumber, 1);
-        }
-      }
-      that.keyNums = arr2;
-    },
+    // produceArray() {
+    //   var that = this;
+    //   var arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    //   var arr2 = [];
+    //   for (var i = 0; i < 12; i++) {
+    //     var randomnumber = that.randomnum(0, arr.length);
+    //     if (i == 9) {
+    //       arr2.push("关闭");
+    //     } else if (i == 11) {
+    //       arr2.push("Del");
+    //     } else {
+    //       arr2.push(arr[randomnumber]);
+    //       arr.splice(randomnumber, 1);
+    //     }
+    //   }
+    //   that.keyNums = arr2;
+    // },
     removeMask() {
       this.popupVisible = !this.popupVisible;
       this.showTyper = 0;
@@ -173,17 +173,8 @@ export default {
         this.$router.push('/lovecar/FlowBuy')
     }
   },
-  mounted() {},
-  watch: {
-    pinNumber(newVal, oldVal) {
-      //				console.log(this.pinNumber.length)
-      if (this.pinNumber.length == 6) {
-		let nums = this.pinNumber;
-        this.$http
-          .post(Lovecar.Checkphonepin, { pin: nums }, this.$store.state.tsppin)
-          .then(res => {
-            if (res.data.returnSuccess == true) {
-              let oDate=new Date()
+  mounted() {
+    let oDate=new Date()
               let year=oDate.getFullYear()
               let month=oDate.getMonth()+1
               month=month<10?'0'+month:''+month;
@@ -201,45 +192,86 @@ export default {
                   this.$store.state.tsppin
                 )
                 .then(res => {
-                  console.log(res.data)
-                  this.packageTotalFlow=res.data.packageTotalFlow;
-                  this.usedFlow=res.data.usedFlow;
-                  this.surplusFlow=res.data.surplusFlow
+                  if(res.data.returnSuccess){      
+                    console.log(res.data)
+                    this.packageTotalFlow=res.data.packageTotalFlow;
+                    this.usedFlow=res.data.usedFlow;
+                    this.surplusFlow=res.data.surplusFlow
+                  }else{
+                    	Toast({
+                        message: res.data.returnErrMsg,
+                        position: "middle",
+                        duration: 1000
+                      });
+                  }
 				});
-                            this.value = !this.value;
-              //消失遮罩
-              this.popupVisible = !this.popupVisible;
-              //消失软键盘
-              (this.showTyper = 0),
-                //清空pin码
-		        (this.pinNumber = "");
-            } else {
-				Toast({
-					message: res.data.returnErrMsg,
-					position: "middle",
-					duration: 1000
-				});
-				this.value = !this.value;
-              //消失遮罩
-              this.popupVisible = !this.popupVisible;
-              //消失软键盘
-              (this.showTyper = 0),
-                //清空pin码
-				(this.fullValue = "");
-				this.$router.go(-1)
+  },
+  // watch: {
+  //   pinNumber(newVal, oldVal) {
+  //     //				console.log(this.pinNumber.length)
+  //     if (this.pinNumber.length == 6) {
+	// 	let nums = this.pinNumber;
+  //       this.$http
+  //         .post(Lovecar.Checkphonepin, { pin: nums }, this.$store.state.tsppin)
+  //         .then(res => {
+  //           if (res.data.returnSuccess == true) {
+  //             let oDate=new Date()
+  //             let year=oDate.getFullYear()
+  //             let month=oDate.getMonth()+1
+  //             month=month<10?'0'+month:''+month;
+  //             let totime=year+month
+  //             this.$http
+  //               .post(
+  //                 Lovecar.Flow,
+  //                 {
+  //                   vin: this.$store.state.vins, //车辆vin码
+  //                   queryDate:totime//传给后台的查询时间
+  //                   // simNum: "12", //Tbox中的sim卡号
+  //                   // imei: "1", //sim卡中的imei卡号
+  //                   // iccid: "12" //sim卡中的iccid卡号
+  //                 },
+  //                 this.$store.state.tsppin
+  //               )
+  //               .then(res => {
+  //                 console.log(res.data)
+  //                 this.packageTotalFlow=res.data.packageTotalFlow;
+  //                 this.usedFlow=res.data.usedFlow;
+  //                 this.surplusFlow=res.data.surplusFlow
+	// 			});
+  //                           this.value = !this.value;
+  //             //消失遮罩
+  //             this.popupVisible = !this.popupVisible;
+  //             //消失软键盘
+  //             (this.showTyper = 0),
+  //               //清空pin码
+	// 	        (this.pinNumber = "");
+  //           } else {
+	// 			Toast({
+	// 				message: res.data.returnErrMsg,
+	// 				position: "middle",
+	// 				duration: 1000
+	// 			});
+	// 			this.value = !this.value;
+  //             //消失遮罩
+  //             this.popupVisible = !this.popupVisible;
+  //             //消失软键盘
+  //             (this.showTyper = 0),
+  //               //清空pin码
+	// 			(this.fullValue = "");
+	// 			this.$router.go(-1)
             
-            }
-          })
-          .catch(err => {
-            let instance = Toast({
-              message: "系统异常",
-              position: "middle",
-              duration: 1000
-            });
-          });
-      }
-    }
-  }
+  //           }
+  //         })
+  //         .catch(err => {
+  //           let instance = Toast({
+  //             message: "系统异常",
+  //             position: "middle",
+  //             duration: 1000
+  //           });
+  //         });
+  //     }
+  //   }
+  // }
 };
 </script>
 
