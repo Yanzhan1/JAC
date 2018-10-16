@@ -73,8 +73,8 @@ export default {
             let allimage=res.data.data.imageRelationVO
             // console.log(res.data.data.srouceNo)
             console.log(allimage)
-            this.srouceNo=res.data.data.srouceNo
-            this.levelCode=res.data.data.levelCode
+            this.srouceNo=res.data.data.lmscode
+            this.levelCode=res.data.data.lmslevelCode
             for(let i=0;i<allimage.length;i++){
                 if(allimage[i].imageType==4){
                     this.everyimage.push(allimage[i].imageUrl)
