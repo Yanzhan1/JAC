@@ -295,6 +295,7 @@
 				}
 				this.$http.post(Lovecar.Getoederlistapp,params,this.$store.state.tsppin).then((res)=>{
 					this.allflowbuy = res.data.data
+					console.log(this.allflowbuy)
 				})
 			},
 			//线索订单

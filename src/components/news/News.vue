@@ -12,7 +12,7 @@
             <!--<router-link to="/info/information" tag="li" class="flex row cocenter between" style="height:.97rem;border-bottom:.01rem solid #f1f1f1">-->
                 <div class="flex row cocenter rela">
                     <img src="../../../static/images/my/icon_message_system.png" alt="" style="width:.36rem;height:.36rem">
-                    <span style="font-size:.27rem;color:#555;margin-left:.2rem" class="active">消息</span><span class="infos" v-if="allstatus.inform"></span>
+                    <span style="font-size:.27rem;color:#555;margin-left:.2rem" class="active">消息</span><span class="infos" v-if="this.systemstatus"></span>
                 </div>
                 <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
             </router-link>
@@ -56,6 +56,7 @@ export default {
       allstatus:{
 
       },
+      systemstatus:false,
       talk:false,
       activity:false,
       statuschoose:[]
@@ -71,20 +72,30 @@ export default {
       }else{
         return true;
       }
+    },
+  init () {
+    var params={
+      userId:this.$store.state.userId
     }
+    this.$http.post(IMFORMATION.systemmessagenew,params).then((res)=>{
+       this.systemstatus= res.data.returnSuccess
+       alert(this.systemstatus)
+    })
+  }
   },
-  created(){
+  created () {
         this.$http.post(IMFORMATION.getReadFlag,{
         uid:this.$store.state.userId
       }).then((res)=>{
           this.statuschoose=res.data.data
-          this.statuschoose[0].count>0?this.talk=true:this.talk=false
+          console.log(this.statuschoose)
+          this.statuschoose[0].count>0 ? this.talk=true : this.talk=false
           this.statuschoose[1].count>0?this.activity=true:this.acticity=false
           // console.log(this.statuschoose)
           // alert(this.statuschoose[1].count)
       })
   },
-  mounted(){
+  mounted () {   
     /*var falg = this.checkLogin();
     if (!falg){
       if (isMobile.iOS()) {
@@ -93,6 +104,7 @@ export default {
         js2android.login();
       }
     }*/
+    this.init()
     window.setMsgState = this.setMsgState;
   }
 };

@@ -182,6 +182,7 @@ window.IMFORMATION = {
         commentRequest: indexip + '/userComment/commentRequest', //获取评论列表lid与类型进行跳转
         read: indexip + '/sendMessageController/read', //通知已读
         notificationPushDetail: love_car + '/notificationPush/notificationPushDetail', //通知详情
+        systemmessagenew: love_car + '/sys-message/system-message-new', //获取未读红点状态
         notificationPushList: love_car + '/notificationPush/notificationPushList', //通知list
         changeReadStatus: love_car + '/notificationPush/changeReadStatus', //通知已读
         unRead: indexip + '/sendMessageController/unRead', //通知已读
