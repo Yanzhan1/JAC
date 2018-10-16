@@ -164,7 +164,6 @@
 						this.showTime = true;
 						window.clearInterval(this.setTime)
 					}
-					console.log(111)
 				}, 1000)
 			},
 			goBack() {
@@ -188,15 +187,12 @@
 			startTime = localStorage.getItem('startTime')
 			if(startTime) {
 				this.remainingTime = 60 - Math.floor([this.enterPageTime - startTime] / 1000) //剩余时间	
-				if(this.remainingTime <= 0) {
-					//					this.remainingTime = 60					
+				if(this.remainingTime <= 0) {			
 					this.showTime = true
 				} else {
 					this.showTime = false
 					this.countDown()
 				}
-			} else {
-//				this.countDown()
 			}
 
 		}

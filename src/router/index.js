@@ -240,7 +240,10 @@ const router = new Router({
             {
                 path: "/lovecar/forgetPinCode",
                 name: '忘记pin码',
-                component: ForgetPinCode
+                component: ForgetPinCode,
+                meta: {
+                	keepAlive: true
+                }
             },
             {
                 path: "/lovecar/reviseSuccess",

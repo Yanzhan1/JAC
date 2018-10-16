@@ -36,6 +36,10 @@
             	v-show="startleft"
             	type="datetime" 
             	ref="picker" 
+            	year-format="{value} 年"
+            	month-format="{value} 月"
+            	date-format="{value} 日"
+            	hour-format="{value}时"
 				@confirm="handleStartConfirm" 
 				:start-date = "startDate">
             </mt-datetime-picker>
@@ -47,7 +51,11 @@
             <mt-datetime-picker 
             	v-show="endright"
             	type="datetime" 
-            	ref="pickerEnd" 
+            	ref="pickerEnd"
+            	year-format="{value} 年"
+            	month-format="{value} 月"
+            	date-format="{value} 日"
+            	hour-format="{value}时"
 				@confirm="handleEndConfirm" 
 				:start-date = "startDate">
             </mt-datetime-picker>
