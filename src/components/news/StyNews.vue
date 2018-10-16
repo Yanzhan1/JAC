@@ -8,12 +8,12 @@
         <div style="height:.88rem"></div>-->
         <mhead currentTitle="系统消息"></mhead>
         <ul style="padding:0 .3rem">
-            <li style="margin-top:.3rem">
-                <p style="font-size:.22rem;color:#888;text-align:center">2018 03-21 18:20</p>
+            <li style="margin-top:.3rem" v-for="(item,index) in allsystem" :key="index">
+                <p style="font-size:.22rem;color:#888;text-align:center">{{item.sendTime}}</p>
                   <div style="height:2.3rem;width:100%;background-color:#f1f1f1;margin-top:.2rem">
-                      <p style="font-size:.32rem;color:#222;padding:.2rem;font-weight:700">这是一条系统消息的标题</p>
+                      <p style="font-size:.32rem;color:#222;padding:.2rem;font-weight:700">{{item.title}}</p>
                       <div style="padding:0 .2rem">
-                       <span style="display:block;font-size:.3rem;color:#555;text-indent:2em;">挥一挥衣袖，不带走一片云彩</span>
+                       <span style="display:block;font-size:.3rem;color:#555;text-indent:2em;">{{item.text}}</span>
                       </div>
                       
                  </div>
@@ -30,7 +30,21 @@ export default {
 	  mhead:PublicHead
   },
   data() {
-    return {};
+    return {
+        allsystem:[]
+    };
+  },
+  methods:{
+      systemmessagelist(){
+          this.$http.post(IMFORMATION.systemmessagelist,{
+              userId:this.$store.state.userId
+          }).then((res)=>{
+             this.allsystem= res.data.data
+          })
+      }
+  },
+  mounted(){
+      this.systemmessagelist()
   },
   components: {
 	  mhead:PublicHead

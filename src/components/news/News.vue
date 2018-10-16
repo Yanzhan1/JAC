@@ -79,7 +79,6 @@ export default {
     }
     this.$http.post(IMFORMATION.systemmessagenew,params).then((res)=>{
        this.systemstatus= res.data.returnSuccess
-       alert(this.systemstatus)
     })
   }
   },

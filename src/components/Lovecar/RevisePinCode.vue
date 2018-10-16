@@ -68,6 +68,22 @@
 		methods: {
 			//确认修改,messagebox弹出框
 			confirmRevise() {
+				if(this.condition.oldPin==''){
+					Toast({
+							message: '请输入原PIN码',
+							position: 'middle',
+							duration: 1000
+						});
+						return false
+				}
+				if(this.condition.newPin==''){
+					Toast({
+							message: '请输入新PIN码',
+							position: 'middle',
+							duration: 1000
+						});
+						return false
+				}
 				MessageBox.confirm('',{
 					title: '提示',
 					message: '您确定要修改PIN吗？',
@@ -82,14 +98,27 @@
 				}).then(action => {
 					if(action == 'confirm') {
 						//跳转修改成功页面
-						console.log(Lovecar.Changepin)
+						// console.log(Lovecar.Changepin)
 						this.$http.post(Lovecar.Changepin,{newPin:this.condition.newPin,oldPin:this.condition.oldPin},this.$store.state.tsppin).then((res)=>{
 							console.log(res)
+							if(res.data.returnSuccess){
+								Toast({
+									message: '修改成功',
+									position: 'middle',
+									duration: 1000
+								});
+							}else{
+								Toast({
+									message: res.data.returnErrMsg,
+									position: 'middle',
+									duration: 1000
+								});
+							}
 						})
 					}
 				}).catch(err => {
 					if(err == 'cancel') {
-						console.log('123');
+						// console.log('123');
 					}
 				});
 			},
