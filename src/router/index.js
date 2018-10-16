@@ -546,7 +546,10 @@ const router = new Router({
             {
                 path: '/wit',
                 name: '智享首页',
-                component: Wit
+                component: Wit,
+                meet: {
+                	keepAlive: true
+                }
             },
             {
                 path: '/wit/dealer',

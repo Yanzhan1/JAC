@@ -61,18 +61,14 @@ export default {
     },
     mounted(){
         $(".MobileHeight").css({
-				"borderTopWidth": this.$store.state.mobileStatusBar,
-				"borderTopColor": "#fff",
-			})
-        // console.log(this.$route.params.everyno)
-        // alert(this.seriesName)
+					"borderTopWidth": this.$store.state.mobileStatusBar,
+					"borderTopColor": "#fff",
+				})
         let params={
             no:this.$store.state.everyno
         }
         this.$http.post(Wit.searchVehicleSeriesOne,params).then((res)=>{
             let allimage=res.data.data.imageRelationVO
-            // console.log(res.data.data.srouceNo)
-            console.log(allimage)
             this.srouceNo=res.data.data.srouceNo
             this.levelCode=res.data.data.levelCode
             for(let i=0;i<allimage.length;i++){
@@ -80,7 +76,6 @@ export default {
                     this.everyimage.push(allimage[i].imageUrl)
                 }
             }
-            // console.log(this.everyimage)
         })
     }
 }
