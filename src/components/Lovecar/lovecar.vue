@@ -816,8 +816,11 @@ export default {
                   .post(Lovecar.Control, params, this.$store.state.tsppin)
                   .then(res => {
                     this.operationIds = res.data.operationId;
+                    // alert(res.data.operationId)
+                    // alert(this.operationIdcar)
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(this.operationIdcar);
+                      this.getAsyReturn(res.data.operationId);
+                      // alert(this.isTrue)
                       this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
                     } else {
                       if (res.data.returnErrCode == 400) {
@@ -856,7 +859,7 @@ export default {
                   .post(Lovecar.Control, param, this.$store.state.tsppin)
                   .then(res => {
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(this.operationIdcar);
+                      this.getAsyReturn(res.data.operationId);
                     } else {
                       if (res.data.returnErrCode == 400) {
                         Toast({
@@ -894,7 +897,7 @@ export default {
                   .then(res => {
                     this.operationIdss = res.data.operationId;
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(this.operationIdcar);
+                      this.getAsyReturn(res.data.operationId);
                     } else {
                       if (res.data.returnErrCode == 400) {
                         Toast({
@@ -932,7 +935,7 @@ export default {
                   .then(res => {
                     this.operationIdses = res.data.operationId;
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(this.operationIdcar);
+                      this.getAsyReturn(res.data.operationId);
                     } else {
                       if (res.data.returnErrCode == 400) {
                         Toast({
@@ -959,7 +962,7 @@ export default {
               }
             } else {
               Toast({
-                message: "输入的pin码有误",
+                message: res.data.returnErrMsg,
                 position: "middle",
                 duration: 2000
               });
@@ -980,7 +983,8 @@ export default {
           My.My_Bus,
           {
             userId: this.$store.state.trueuserId,
-            phone: this.$store.state.mobile
+            phone: this.$store.state.mobile,
+            tspUserId:this.$store.state.tspId
           },
           this.$store.state.getpin
         )
@@ -1014,13 +1018,15 @@ export default {
     }
   },
   mounted() {
+    // alert(this.$store.state.tspId)
   	$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
    this.$http
       .post(
         My.My_Bus,
         {
           userId: this.$store.state.trueuserId,
-          phone: this.$store.state.mobile
+          phone: this.$store.state.mobile,
+          tspUserId:this.$store.state.tspId
         },
         this.$store.state.getpin
       )

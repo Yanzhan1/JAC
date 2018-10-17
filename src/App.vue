@@ -35,6 +35,7 @@ export default {
     window.isLogin = this.isLogin;
   },
   mounted() {
+    // alert(JSON.parse(this.$store.state.getpin.headers.identityParam).userId)
     // this.isLogin({name:'',no:'AD022018091802395260173'})
     // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImlkXCI6MTc3LFwiaW5pdFVzZXJcIjowLFwibm9cIjpcIkFEMDIyMDE4MDkxODAyMzk1MjYwMTczXCIsXCJwaG9uZVwiOlwiMTc2ODExMDgzMThcIixcInVzZXJDb2RlXCI6XCIxNzY4MTEwODMxOFwiLFwidXNlclN0YXR1c1wiOjAsXCJ1c2VyVHlwZVwiOlwiMDFcIn0iLCJjcmVhdGVkIjoxNTM5MTU2MDY1MDcyLCJ1c2VyTm8iOiJBRDAyMjAxODA5MTgwMjM5NTI2MDE3MyIsInVzZXJUeXBlIjoiMDEiLCJleHAiOjE1NDAwMjAwNjUsInVzZXJJZCI6MTc3fQ.DhJGKo93jkJ4e-3wK0GCHoysvmN0jJXyVqRgzD1zfEM'
     //获取用户
@@ -47,20 +48,19 @@ export default {
       if (res.data.msg == "success") {
         var tsp = res.data.data;
         this.$store.dispatch("TSP", tsp);
-        params = {
-          tspUserId: this.$store.state.tspId,
-          userId: this.$store.state.trueuserId,
-          phone: this.$store.state.mobile
-        };
-        // console.log(Lovecar.vehicle)
-        // console.log(this.$store.state.tspId)
-        // console.log(this.$store.state.getpin)
-
-        this.$http
-          .post(Lovecar.vehicle, params, this.$store.state.getpin)
-          .then(res => {
-            // console.log(res)
-          });
+        console.log(tsp)
+        if(tsp.tspid!=undefined){
+          params = {
+            tspUserId: this.$store.state.tspId,
+            userId: this.$store.state.trueuserId,
+            phone: this.$store.state.mobile
+          };
+          this.$http
+            .post(Lovecar.vehicle, params, this.$store.state.getpin)
+            .then(res => {
+              // console.log(res)
+            });
+        }
       }
       // alert(JSON.parse(this.$store.state.getpin.headers.identityParam).userId)
       // alert(res.data.data.tspId)

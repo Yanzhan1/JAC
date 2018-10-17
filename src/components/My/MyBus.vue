@@ -50,15 +50,22 @@ export default {
   data() {
     return {
       carState: true, //汽车默认状态
-      BusDetails: [] //我的车辆信息
+      BusDetails: [] ,//我的车辆信息
+      tspid:'',
     };
   },
   methods: {
     //我的车辆
     MyBus() {
+      this.tspid=this.$store.state.tspId
+      if(this.$store.state.tspId==undefined){
+        this.tspid=0
+      }
   this.$http.post(My.My_Bus, {
      userId:this.$store.state.trueuserId,
-     phone:this.$store.state.mobile
+     phone:this.$store.state.mobile,
+     tspUserId:this.tspid
+
   }, this.$store.state.getpin).then(res => {
         if (res.data.returnSuccess) {
           this.BusDetails = res.data.data;
@@ -167,6 +174,7 @@ export default {
     },
   },
   mounted(){
+    // alert(this.$store.state.tspId)
   	$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
     this.MyBus();
   },
