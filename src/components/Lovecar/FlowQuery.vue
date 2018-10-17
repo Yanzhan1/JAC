@@ -12,14 +12,13 @@
 			<span>截止日期</span>
 			<span>{{this.Closingdate}}</span>
 		</div> -->
-		<!-- <div class="line"></div>
+		<div class="line"></div>
 		<div class="flow-title">
 			<span>流量包名称</span>
 			<span>{{this.Flowpacket}}</span>
-		</div> -->
+		</div>
 		<div class="line"></div>
 		<div class="flow-wrap">
-
 			<div v-for="(item,index) in 1" class="flow-apnone">
 				<!-- <div class="apn-title">
 					<span>APN1</span>
@@ -193,10 +192,11 @@ export default {
                 )
                 .then(res => {
                   if(res.data.returnSuccess){      
-                    console.log(res.data)
-                    this.packageTotalFlow=res.data.packageTotalFlow;
-                    this.usedFlow=res.data.usedFlow;
-                    this.surplusFlow=res.data.surplusFlow
+                    console.log(res.data.data)
+                    this.packageTotalFlow=res.data.data[0].packageTotalFlow;
+                    this.usedFlow=res.data.data[0].usedFlow;
+                    this.surplusFlow=res.data.data[0].surplusFlow;
+                    this.Flowpacket=res.data.data[0].packageName;
                   }else{
                     	Toast({
                         message: res.data.returnErrMsg,
