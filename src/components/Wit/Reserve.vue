@@ -30,13 +30,6 @@
                               <img src="../../../static/images/next@2x.png" alt="" >
                           </div>        
                       </li>
-                      <!-- <li class="all">
-                          <span>推荐码</span>
-                          <div class="allflex">
-                              <input type="text" name="" id="" placeholder='点击输入推荐码' v-model="Recommend">
-                              <img src="/static/images/next@2x.png" alt="">
-                          </div>
-                      </li> -->
                       <li class="name all">
                           <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>姓名</span>
                           <div class="allflex">
@@ -58,6 +51,13 @@
                           <div class="allflex">
                               <input placeholder="点击输入手机号" v-model="tell">
                               <img src="../../../static/images/next@2x.png" alt="">
+                          </div>
+                      </li>
+                      <li class="all">
+                          <span>推荐码</span>
+                          <div class="allflex">
+                              <input type="text" name="" id="" placeholder='点击输入推荐码' v-model="Recommend">
+                              <img src="/static/images/next@2x.png" alt="">
                           </div>
                       </li>
                       <li class="all">
@@ -353,6 +353,7 @@ export default {
         model: this.$store.state.srouceNo, //意向车型
         city: this.codecity, //城市ID
         userNo: this.$store.state.userId,
+        code:this.Recommend//推荐码
       };
       this.$http.post(Wit.PreBus, param).then(res => {
         if (res.data.code == 0) {

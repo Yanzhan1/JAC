@@ -174,7 +174,8 @@ window.Lovecar = {
         RemoteVehicleLogin: love_car + '/vehicle/remote-vehicle-login', //机车登入
         Findcode: love_car + '/vehicle/forget-vehicle-pin', //找回pin码
         Control: love_car + '/vehicle/remote-vehicle-control', //远程控制
-        LogStatus: love_car + '/vehicle/vehicle-logstatus' //获取机车登入状态
+        LogStatus: love_car + '/vehicle/vehicle-logstatus', //获取机车登入状态
+        vehiclestatus: love_car + '/vehicle/vehicle-status' //车辆授权状态查询
     }
     //消息接口
 window.IMFORMATION = {
