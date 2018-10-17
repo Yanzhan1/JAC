@@ -57,6 +57,7 @@
 			return {
 				//倒计时按钮状态
 				showTime: true,
+				body:'',
 				//忘记pin码数据
 				Verification: '', //后端返回的验证码
 				pin: {
@@ -112,6 +113,7 @@
 							const data = res.data;
 							if(data.returnSuccess) {
 								this.Verification = res.data.data;
+								this.body=res.data.body
 								this.timeStamp = session.getAttribute('firstTime')
 								// console.log(this.timeStamp)
 							} else {
@@ -139,6 +141,7 @@
 						this.$http.post(Lovecar.Findcode, {
 							newPin: this.pin.newPin,
 							phoneNum: this.pin.phone,
+							requestId:this.body,
 							phoneIdentifyCode: this.pin.verificationCode,
 						}, this.$store.state.tsppin).then((res) => {
 							console.log(res)
