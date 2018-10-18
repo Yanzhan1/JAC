@@ -14,7 +14,7 @@
         <div class="nameBox">
           <span v-if="item.user" class="name">{{item.user.nick_name}}</span>
           <span v-else class="name">尚未设置昵称</span>
-          <div class="line"></div>
+          <!-- <div class="line"></div> -->
         </div>
       </li>
     </ul>
