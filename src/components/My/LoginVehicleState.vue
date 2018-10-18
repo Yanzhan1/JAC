@@ -6,7 +6,7 @@
 			<div>
 				<h5 class="car-title">您已登录账号到车机</h5>
 				<div class="car-info">
-					<span style="font-size: .26rem;color: #999999;margin-right: .3rem;">车辆VIN:</span><span style="font-size: .32rem;color: #49BBFF;">12345678</span>
+					<span style="font-size: .26rem;color: #999999;margin-right: .3rem;">车辆VIN:</span><span style="font-size: .32rem;color: #49BBFF;">{{vin}}</span>
 				</div>			
 			</div>
 		</div>
@@ -22,7 +22,7 @@
 	  },
 		data () {
 			return {
-				
+				vin: this.$route.query.vin
 			}
 		}
 	}
@@ -48,8 +48,13 @@
 		margin-bottom: .39rem;
 		color: #444444;
 		font-size: .36rem;
+		text-align: center
 	}
 	.car-info {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 5rem;
 		text-align: center;
 	}
 </style>

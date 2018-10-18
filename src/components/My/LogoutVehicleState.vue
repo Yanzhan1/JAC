@@ -58,7 +58,7 @@
 				qrCode (newVal, oldVal) { //解决扫一扫无法及时获取二维码信息的异步问题
 				if(this.qrCode) {
 					let data = {
-						vin: this.$store.state.vins,
+						vin: this.qrCode.vin,
 						userName: this.$store.state.mobile
 					}
 					this.$http.post(Lovecar.RemoteVehicleLogin, data, this.$store.state.tsppin).then(res => {
@@ -71,7 +71,7 @@
         					  duration: 2000
 									})
 									setTimeout(() => {
-										this.$router.push({path: '/myindex/loginVehicleState'})
+										this.$router.replace({path: '/myindex/loginVehicleState', query:{vin: this.qrCode.vin}})
 									}, 2000)
 							}
 						})
