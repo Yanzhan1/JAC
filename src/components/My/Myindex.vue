@@ -120,7 +120,7 @@
       </div>
       <span style="font-size:.32rem;color:#222;margin-top:.4rem;text-align:center;display:block">签到成功</span>
       <span style="font-size:.24rem;color:#444;margin-top:.3rem;text-align:center;display:block">获得
-        <span style="color:#49BBFF">20</span> 积分可兑换会员商品</span>
+        <span style="color:#49BBFF"> {{this.num}}</span> 积分可兑换会员商品</span>
     </mt-popup>
   </div>
 </template>
@@ -140,6 +140,7 @@ export default {
       focusNum: 0,
       momentNum: 0,
       myList: [],
+      num:'',//添加的积分量
      flag: false //隐藏推荐码
     };
   },
@@ -171,10 +172,11 @@ export default {
              //no:'AD112018090402110693811'
       }
        this.$http.post(My.IsSignIn,data).then(res => {
+         if(res.data.code==0){
+          this.num= res.data.num
+         }
          if(res.data.code==50004){
            this.isShow=false
-         }else if(res.data.code==50002){
-           this.AllIsShow=true
          }
       
        });
