@@ -551,7 +551,24 @@ export default {
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
-                         clearInterval(this.time);                          
+                         clearInterval(this.time);
+                         if(this.type==1){
+                            this.isTrue = !this.isTrue;
+                            this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
+                         }
+                         if(this.type==2){
+                            this.isTrues = !this.isTrues;
+                         }                          
+                         if(this.type==3){
+                            this.isTruess = !this.isTruess;
+                            this.isTruess ? (this.firenum = 1) : (this.firenum = 2);
+                         }                          
+                         if(this.type==4){
+                            this.isTruesss = !this.isTruesss;
+                            setTimeout(() => {
+                              this.isTruesss = !this.isTruesss;
+                            }, 5000);
+                         }                          
                           this.carcontrol = res.data.data;
                           console.log(res.data.data);
                           this.engineHoodStsFront=this.carcontrol.engineHoodStsFront
@@ -566,13 +583,6 @@ export default {
                             ? (this.doorStsTrunk = "已开")
                             : (this.doorStsTrunk = "未开"); //后备箱的初始状态
                           this.engineStatus = this.carcontrol.engineStatus;
-                          // var tai = {
-                          //   left_top: this.carcontrol.tirePressureFrontLeft,
-                          //   right_top: this.carcontrol.tirePressureFrontRight,
-                          //   left_bottom: this.carcontrol.tirePressureRearLeft,
-                          //   right_bottom: this.carcontrol.tirePressureRearRight
-                          // };
-                          // this.Condition = tai;
                            var tai = {
                               left_top: this.carcontrol.tirePressureFrontLeft,
                               right_top: this.carcontrol.tirePressureFrontRight,
@@ -752,6 +762,23 @@ export default {
                 } else if (this.activeshow == 3) {
                   this.Condition = window;
                 }
+                  if(this.type==1){
+                              this.isTrue = !this.isTrue;
+                              this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
+                          }
+                          if(this.type==2){
+                              this.isTrues = !this.isTrues;
+                          }                          
+                          if(this.type==3){
+                              this.isTruess = !this.isTruess;
+                              this.isTruess ? (this.firenum = 1) : (this.firenum = 2);
+                          }                          
+                          if(this.type==4){
+                              this.isTruesss = !this.isTruesss;
+                              setTimeout(() => {
+                                this.isTruesss = !this.isTruesss;
+                              }, 5000);
+                      }
               clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
@@ -814,7 +841,6 @@ export default {
               if (this.type == 1) {
                 //车辆锁定的接口
                 // alert(this.$store.state.vins)
-                this.isTrue = !this.isTrue;
                 // this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
                 var params = {
                   vin: this.$store.state.vins,
@@ -828,9 +854,8 @@ export default {
                     // alert(res.data.operationId)
                     // alert(this.operationIdcar)
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(res.data.operationId);
+                      this.getAsyReturn(this.operationIdcar);
                       // alert(this.isTrue)
-                      this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
                     } else {
                       if (res.data.returnErrCode == 400) {
                         Toast({
@@ -856,7 +881,6 @@ export default {
                   });
               } else if (this.type == 2) {
                 // 后备箱接口
-                this.isTrues = !this.isTrues;
                 // console.log(this.isTrues);
                 this.isTrues ? (this.backnum = 1) : (this.backnum = 2);
                 var param = {
@@ -868,7 +892,7 @@ export default {
                   .post(Lovecar.Control, param, this.$store.state.tsppin)
                   .then(res => {
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(res.data.operationId);
+                      this.getAsyReturn(this.operationIdcar);
                     } else {
                       if (res.data.returnErrCode == 400) {
                         Toast({
@@ -894,8 +918,6 @@ export default {
                   });
               } else if (this.type == 3) {
                 //引擎接口，熄火
-                this.isTruess = !this.isTruess;
-                this.isTruess ? (this.firenum = 1) : (this.firenum = 2);
                 var param = {
                   vin: this.$store.state.vins,
                   operationType: "ENGINE",
@@ -906,7 +928,7 @@ export default {
                   .then(res => {
                     this.operationIdss = res.data.operationId;
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(res.data.operationId);
+                      this.getAsyReturn(this.operationIdcar);
                     } else {
                       if (res.data.returnErrCode == 400) {
                         Toast({
@@ -931,10 +953,6 @@ export default {
                     });
                   });
               } else if (this.type == 4) {
-                this.isTruesss = !this.isTruesss;
-                setTimeout(() => {
-                  this.isTruesss = !this.isTruesss;
-                }, 5000);
                 var param = {
                   vin: this.$store.state.vins,
                   operationType: "FIND_VEHICLE"
@@ -944,7 +962,7 @@ export default {
                   .then(res => {
                     this.operationIdses = res.data.operationId;
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(res.data.operationId);
+                      this.getAsyReturn(this.operationIdcar);
                     } else {
                       if (res.data.returnErrCode == 400) {
                         Toast({

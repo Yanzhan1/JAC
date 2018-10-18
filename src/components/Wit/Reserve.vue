@@ -2,7 +2,7 @@
   <div style="height:100%;position:absolute;left:0;top:0;width:100%" class="gobottom">
           <div v-show="region" class="black" @click="choose2"></div> <!-- 遮罩层  -->
           <div class="bgcolor">                 
-                  <mhead currentTitle="车辆预定"></mhead>
+                  <mhead currentTitle="在线订车"></mhead>
                   <ul>
                       <li class="all">
                           <span>预定车型</span>
@@ -56,7 +56,7 @@
                       <li class="all">
                           <span>推荐码</span>
                           <div class="allflex">
-                              <input type="text" name="" id="" placeholder='点击输入推荐码' v-model="Recommend">
+                              <input type="text" name="" id="" placeholder='点击输入推荐码' v-model="Recommend" @blur="Codigo">
                               <img src="/static/images/next@2x.png" alt="">
                           </div>
                       </li>
@@ -205,6 +205,26 @@ export default {
       this.citys = true;
       this.region = true;
     },
+    Codigo(){
+      alert(2)
+      this.$http.post(Wit.ValidateCode,{
+        code:this.Recommend
+      }).then((res)=>{
+          if(res.data.code==0){
+              Toast({
+                message: '该验证码正确',
+                duration: 1000,
+                position: "middle"
+              });
+          }else{
+            Toast({
+                message: res.data.msg,
+                duration: 1000,
+                position: "middle"
+              });
+          }
+      })
+    },
     choose() {
       this.region = false;
       this.distributors = false;
@@ -235,7 +255,6 @@ export default {
         latitude:this.latitude,//纬度
       };
       this.$http.post(Wit.Dealer, param, this.$store.state.getpin).then(res => {
-        // console.log(res);
         this.chooseaddress = res.data.data.records;
         this.slots2[0].values = [];
         for (var i = 0; i < this.chooseaddress.length; i++) {
@@ -259,7 +278,6 @@ export default {
         latitude:this.latitude,//纬度
       };
       this.$http.post(Wit.Dealer, param, this.$store.state.getpin).then(res => {
-        // console.log(res);
         this.chooseaddress = res.data.data.records;
         this.slots2[0].values = [];
         for (var i = 0; i < this.chooseaddress.length; i++) {
@@ -464,6 +482,7 @@ export default {
       .then(res => {
         this.province = res.data.data.records;
         this.area=this.localprovince
+        this.city=this.localcity
         this.province.forEach((item, index) => {
           if(this.localprovince==this.province[index].name){
             this.localparentId=this.province[index].id
@@ -471,9 +490,7 @@ export default {
           this.slots[0].values.push(this.province[index].name);
           this.parentId.push(this.province[index].id);
         });
-        // console.log(this.parentId)
         this.myaddress = res.data.data.records;
-        // console.log(this.myaddress);
         for (let i = 0; i < this.myaddress.length; i++) {
           this.slots[0].values.push(this.myaddress[i].name);
         }
