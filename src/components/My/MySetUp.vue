@@ -97,7 +97,7 @@
 						if(data.returnSuccess) {		
 								//字段缺乏,等待接口完成之后添加判断
 								this.vehicleState = data.data[0].logStatus //true 代表机车已经登录	
-//								this.vehicleState = false
+								this.vehicleState = false
 						} else {
 								Toast({
 									message: data.returnErrMsg,

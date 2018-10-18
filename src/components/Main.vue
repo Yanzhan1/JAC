@@ -108,7 +108,18 @@
           return "IOS"
         }
       }
-    }
+    },
+		watch: {
+			'$route' (to, from) {
+//				alert(to.name)
+				if(to.name == '智享首页') {
+					let recruitScrollY = this.$store.state.changeScrollY
+//						alert(this.$store.state.changeScrollY)
+//					window.scroll(0, recruitScrollY)
+						this.scroll.scrollTo(0, recruitScrollY)
+				}
+			}
+		}
   }
 
 </script>

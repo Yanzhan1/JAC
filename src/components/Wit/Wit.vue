@@ -139,20 +139,11 @@
 			};
 		},
 		beforeRouteLeave(to, from, next) {
+//			alert(this.positions)
 			if(this.positions == null) this.positions = 0
 			this.$store.commit('changeScrollY', this.positions)
+//			alert(this.$store.state.changeScrollY)
 			next()
-		},
-		watch: {
-			'$route' (to, from) {
-				alert(to.name)
-				if(to.name == '智享首页') {
-					let recruitScrollY = this.$store.state.changeScrollY
-						alert(this.$store.state.changeScrollY)
-//					window.scroll(0, recruitScrollY)
-						this.scroll.scrollTo(0, recruitScrollY)
-				}
-			}
 		},
 		methods: {
 			//道路救援
@@ -241,7 +232,7 @@
 			},
 			//车系特色， 配置表
 			specil(item) {
-				console.log(item);
+//				console.log(item);
 				this.$store.dispatch("NONAME", item);
 				this.$store.state.shownum = 1
 				this.$router.push({
@@ -298,6 +289,7 @@
 			move() {
 				this.scroll.on('scrollEnd', (pos) => {
 						this.positions = pos.y
+						//alert(this.positions)
 				})
 			}
 		},
