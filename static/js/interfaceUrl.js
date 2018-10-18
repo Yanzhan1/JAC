@@ -152,7 +152,7 @@ window.My = {
         Area: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //选择地区
         AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
         RecomendCode: mips + '/admin/recommendedCode/searchRecommendedCodeOne', //获取推荐码
-       	List: 'http://14.21.46.171:8707/api/order/list' //商城订单列表
+        List: 'http://14.21.46.171:8707/api/order/list' //商城订单列表
 
     }
     //爱车
@@ -184,7 +184,7 @@ window.IMFORMATION = {
         getList: indexip + '/sendMessageController/getList', //通知list
         commentRequest: indexip + '/userComment/commentRequest', //获取评论列表lid与类型进行跳转
         read: indexip + '/sendMessageController/read', //通知已读
-        systemmessageread: indexip + '/sys-message/system-message-read',
+        systemmessageread: love_car + '/sys-message/system-message-read', //获取已读消息状态
         systemmessagelist: love_car + '/sys-message/system-message-list', //系统消息列表
         notificationPushDetail: love_car + '/notificationPush/notificationPushDetail', //通知详情
         systemmessagenew: love_car + '/sys-message/system-message-new', //获取未读红点状态
