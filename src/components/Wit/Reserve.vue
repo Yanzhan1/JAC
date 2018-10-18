@@ -2,7 +2,7 @@
   <div style="height:100%;position:absolute;left:0;top:0;width:100%" class="gobottom">
           <div v-show="region" class="black" @click="choose2"></div> <!-- 遮罩层  -->
           <div class="bgcolor">                 
-                  <mhead currentTitle="车辆预定"></mhead>
+                  <mhead currentTitle="在线订车"></mhead>
                   <ul>
                       <li class="all">
                           <span>预定车型</span>
