@@ -464,6 +464,7 @@ export default {
       .then(res => {
         this.province = res.data.data.records;
         this.area=this.localprovince
+        this.city=this.localcity
         this.province.forEach((item, index) => {
           if(this.localprovince==this.province[index].name){
             this.localparentId=this.province[index].id

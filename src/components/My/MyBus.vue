@@ -69,6 +69,7 @@ export default {
   }, this.$store.state.getpin).then(res => {
         if (res.data.returnSuccess) {
           this.BusDetails = res.data.data;
+          console.log(this.BusDetails)
           for(let i=0;i< res.data.data.length;i++){
             if(res.data.data[i].def==1){
               this.$store.state.vins=res.data.data[i].vin
