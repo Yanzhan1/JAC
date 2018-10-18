@@ -157,13 +157,15 @@ export default {
     //  var param=JSON.stringify(data)
     //  console.log(My.SignIn)
       this.$http.post(My.SignIn,data).then(res => {
-        
+        if(res.data.code==0){
+          this.num= res.data.num
+         }
+        this.popupVisible = true;
+        setTimeout(() => {
+          this.popupVisible = false;
+          this.isShow = false;
+        }, 1000);
       });
-      this.popupVisible = true;
-      setTimeout(() => {
-        this.popupVisible = false;
-        this.isShow = false;
-      }, 1000);
     },
     // 判断是否签到
     IsSign(){
@@ -172,9 +174,6 @@ export default {
              //no:'AD112018090402110693811'
       }
        this.$http.post(My.IsSignIn,data).then(res => {
-         if(res.data.code==0){
-          this.num= res.data.num
-         }
          if(res.data.code==50004){
            this.isShow=false
          }
@@ -189,8 +188,13 @@ export default {
          }
        this.$http.post(My.Credit,data).then(res => {
         if(res.data.code==0){
-           this.integral=res.data.data[0].count
-           this.$store.state.integral=res.data.data[0].count
+          if(res.data.data==''){
+            this.integral=0
+            this.$store.state.integral=res.data.data[0].count
+          }else{
+            this.integral=res.data.data[0].count
+            this.$store.state.integral=res.data.data[0].count
+          }
            
          }
          

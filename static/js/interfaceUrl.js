@@ -183,6 +183,7 @@ window.IMFORMATION = {
         getList: indexip + '/sendMessageController/getList', //通知list
         commentRequest: indexip + '/userComment/commentRequest', //获取评论列表lid与类型进行跳转
         read: indexip + '/sendMessageController/read', //通知已读
+        systemmessageread: indexip + '/sys-message/system-message-read',
         systemmessagelist: love_car + '/sys-message/system-message-list', //系统消息列表
         notificationPushDetail: love_car + '/notificationPush/notificationPushDetail', //通知详情
         systemmessagenew: love_car + '/sys-message/system-message-new', //获取未读红点状态

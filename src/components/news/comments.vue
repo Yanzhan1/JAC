@@ -73,6 +73,13 @@ export default {
       })
       this.$http.get(IMFORMATION.commentRequest+'?id='+lid).then((res)=>{
           if(res.data.status){
+            if(res.data.data.commentType==null){
+              Toast({
+              message: res.data.errorMsg,
+              position: 'middle',
+              duration: 1000
+            })
+            }
            if(res.data.data.commentType == 1){
              this.$router.push({path:"/information/informationDetail",query:{id:res.data.data.lid}})
            }else if(res.data.data.commentType == 2){

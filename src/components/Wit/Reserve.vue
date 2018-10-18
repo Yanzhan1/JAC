@@ -206,7 +206,6 @@ export default {
       this.region = true;
     },
     Codigo(){
-      alert(2)
       this.$http.post(Wit.ValidateCode,{
         code:this.Recommend
       }).then((res)=>{
@@ -237,7 +236,8 @@ export default {
       }
       var data = {
         parentId: this.provinceid,
-        level: 2
+        level: 2,
+        size:100,
       };
       this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
         this.data = res.data.data.records;
@@ -497,7 +497,8 @@ export default {
         //选择市
           var data = {
             parentId: this.localparentId,
-            level: 2
+            level: 2,
+            size:100,
           };
           this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
             this.data = res.data.data.records;
