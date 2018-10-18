@@ -67,9 +67,9 @@
 							</div>
 						</router-link>
 						<div class="flex row between bts">
-							<span class="cancels" v-if="3<4">申请退款</span>
-							<span class="cancels" v-if="3>4">查看物流</span>
-							<span class="cancels" @click="confirmRevise()">取消订单</span>
+							<span class="cancel" v-if="3<4">申请退款</span>
+							<span class="cancel" v-if="3>4">查看物流</span>
+							<span class="cancel" @click="confirmRevise()">取消订单</span>
 							<span class="cancel" v-if="3>4">评价晒单</span>
 							<span class="cancel">待付款</span>
 						</div>
@@ -93,9 +93,9 @@
 							</div>
 						</div>
 						<div class="flex row  bts">
-							<span class="cancels" v-if="3>4">取消订单</span>
-							<span class="cancels">申请退款</span>
-							<span class="cancels" @click="wul()">查看物流</span>
+							<span class="cancel" v-if="3>4">取消订单</span>
+							<span class="cancel">申请退款</span>
+							<span class="cancel" @click="wul()">查看物流</span>
 							<span class="cancel" @click="compontent()">评价晒单</span>
 							<span class="cancel" v-if="3>4">待付款</span>
 						</div>
@@ -288,6 +288,14 @@
 			compontent() {
 				this.$router.push("/compontent");
 			},
+			getShoppingMall () { //商城订单
+				/*this.$http.get(My.List,).then((res) => {
+					
+				})
+				.catch(err => {
+					
+				})*/
+			},
 			//流量订单
 			flowbuy(){
 				var params={
@@ -423,9 +431,21 @@
 		border-top: 1px solid #f1f1f1;
 		border-bottom: 0.2rem solid #f5f5f5;
 		justify-content: flex-end;
+    align-items: center;
+    height: .9rem;
+    line-height: .9rem;
 	}
-	.bt div {
-
+	.bts>.cancel {
+		display: inline-block;
+		padding: 0 0.2rem;
+		height: .5rem;
+		line-height: .5rem;
+		min-width: 1.1rem;
+		color: #888888;
+		border: 1px solid #CCCCCC;
+		font-size: 0.22rem;
+		text-align: center;
+		border-radius: 0.3rem;
 	}
 	.bt div>.cancel {
     display: inline-block;

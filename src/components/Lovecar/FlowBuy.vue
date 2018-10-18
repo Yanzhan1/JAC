@@ -5,13 +5,13 @@
 				<img :src="'./static/images/back@2x.png'" style="width: 0.4rem;height: 0.4rem;">
 			</div>
 			<span class="header-title">流量购买</span>
-			<router-link tag="div" class="header-right" to="/lovecar/purchaseRecord">
+			<router-link tag="div" class="header-right" to="/myorder">
 				购买记录
 			</router-link>
 		</header>
 		<div style="height:0.88rem" class="MobileHeight"></div>
 		<div class="wrapper">
-				<router-link tag="div" to="/lovecar/placeOrder" class="content" id="content" v-for="item in flowData" >
+				<router-link tag="div" class="content" id="content" v-for="item in flowData" :to="{path:'/lovecar/placeOrder',query:{flow: item}}">
 					<div class="flow-info" ref="flow">
 						<div class="flow-content">
 							<h6>{{item.packageName}}</h6>
@@ -95,6 +95,7 @@
 </script>
 
 <style scoped>
+	/*头部*/
 	.header{
     display: flex;
     width: 100%;
@@ -120,6 +121,7 @@
     line-height: .88rem;
     color: #444444;
   }
+  /*整体*/
   .wrapper {
   	display: flex;
   	flex-wrap: wrap;
@@ -158,6 +160,7 @@
   .flow-content>div {
   	margin-bottom: .7rem;
   }
+  /*渐变颜色数字*/
   .flow-content .flow-num {
   	font-size: .6rem;
   	background: linear-gradient(180deg, #2099FF, #79BFF9, #0F46F9);
@@ -170,45 +173,9 @@
   	-webkit-background-clip: text;
     color: transparent;
   }
+  /*价格*/
   .flow-content p {
   	font-size: .3rem;
   	color: #222222;
   }
-  /*.content {
-  	width: 50%;
-  	padding: .2rem;
-  }
-  .content:nth-of-type(2n+1) {
-  	border-right: .01rem solid #DCDCDC;
-  }
-  .flow-info {
-  	display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .flow-info>h6 {
-  	margin-bottom: .8rem;
-  	color: #666666;
-  	font-size: .28rem;
-  }
-  .flow-info>div {
-  	margin-bottom: .7rem;
-  }
-  .flow-info .flow-num {
-  	font-size: .6rem;
-  	background: linear-gradient(180deg, #2099FF, #79BFF9, #0F46F9);
-  	-webkit-background-clip: text;
-    color: transparent;
-  }
-  .flow-info .flow-zhao {
-  	font-size: .34rem;
-  	background: linear-gradient(180deg, #2099FF, #79BFF9, #0F46F9);
-  	-webkit-background-clip: text;
-    color: transparent;
-  }
-  .flow-info>p {
-  	font-size: .3rem;
-  	color: #222222;
-  }*/
 </style>

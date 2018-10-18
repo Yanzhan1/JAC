@@ -231,7 +231,8 @@
 									if(this.provinceCode) {
 										let datas = {
 											parentId: this.proid, //传参省份的id,请求该省份的城市列表 
-											level: 2
+											level: 2,
+											size: 100
 										}
 										this.$http.post(Wit.searchCountryAreaCodeListPage, datas).then(res => { //请求城市列表
 											const data = res.data;
@@ -507,7 +508,8 @@
 				this.provinceCode = this.proCode //改变经销商列表请求 省份参数provinceCode
 				let data = {
 					parentId: this.proid, //传参省份的id,请求该省份的城市列表 
-					level: 2
+					level: 2,
+					size: 100
 				}
 				this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => { //请求城市列表
 					const data = res.data;
