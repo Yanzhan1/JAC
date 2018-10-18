@@ -151,7 +151,8 @@ window.My = {
         Defaultaddress: mips + '/admin/userAddress/setDefaultAddress', //my部分设置默认地址
         Area: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //选择地区
         AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
-        RecomendCode: mips + '/admin/recommendedCode/searchRecommendedCodeOne' //获取推荐码
+        RecomendCode: mips + '/admin/recommendedCode/searchRecommendedCodeOne', //获取推荐码
+       	List: 'http://14.21.46.171:8707/api/order/list' //商城订单列表
 
     }
     //爱车

@@ -3,17 +3,17 @@
 		<mhead currentTitle="提交订单"></mhead>
 		<div class="order-header">
 			<h5>瑞风S7</h5>
-			<p>汽车VIN：52779000</p>
+			<p>汽车VIN：{{this.$store.state.vins}}</p>
 		</div>
 		<div class="lines"></div>
 		<div class="order-detail">
 			<div class="order-num">
-				<span class="num">200</span>
+				<span class="num">{{placeOrder.size}}</span>
 				<span class="unit">MB</span>
 			</div>
 			<div class="order-info">
-				<h5>套餐A</h5>
-				<span>￥<span>2</span>.00元</span>
+				<h5>{{placeOrder.packageName}}</h5>
+				<span>￥<span style="font-size: .48rem;">{{placeOrder.prize}}</span>.00元</span>
 			</div>
 		</div>
 		<div class="linetwo"></div>
@@ -21,6 +21,15 @@
 			<p>支付方式</p>
 			<button class="money-way">微信支付</button>
 		</div>
+		<div class="bottomBtn">
+			<div class="package-price">
+				<span style="font-size: .26rem;color: #666666;">套餐价格:</span><span style="font-size: .38rem;color: #49BBFF;"><span style="font-size: .48rem;color: #49BBFF;">2</span>.00元</span>
+			</div>
+			<div class="submit" style="background: #49BBFF;color: #FFFFFF;">
+				<span>提交订单</span>
+			</div>
+		</div>
+		
 	</div>
 </template>
 
@@ -33,13 +42,17 @@
 	  },
 		data () {
 			return {
-				
+				placeOrder: this.$route.query.flow
 			}
+		},
+		mounted () {
+			console.log(this.placeOrder)
 		}
 	}
 </script>
 
 <style scoped>
+	/*订单title*/
 	.order-header {
 		display: flex;
 		flex-direction: column;
@@ -55,6 +68,7 @@
 		height: .01rem;
 		margin: 0 auto
 	}
+	/*订单介绍*/
 	.order-detail {
 		display: flex;
 		padding: .5rem .7rem
@@ -66,6 +80,7 @@
 		border-right: .01rem solid #F1F1F1;
 	}
 	.num {
+		font-size: .6rem;
 		background: linear-gradient(180deg, #2099FF, #79BFF9, #0F46F9);
   	-webkit-background-clip: text;
     color: transparent;
@@ -111,6 +126,22 @@
 		outline: none;
 		background: none;
 		background: url('../../../static/images/Lovecar/background@2x.png') no-repeat center center;
-		background-size: 100% 100%;
+		background-size: 99% 99%;
 	}
+	.bottomBtn {
+		position: fixed;
+		display: flex;
+		bottom: 0;
+		width: 100%;
+		height: .98rem;
+		box-shadow:0px 0px .1rem 0px rgba(68,68,68,0.2)
+	}
+	.package-price, .submit {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 50%;
+		text-align: center;
+	}
+
 </style>

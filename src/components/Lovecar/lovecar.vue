@@ -1,26 +1,29 @@
 <template>
-  <div class="tophead" style="border-top:.01rem solid #49bbff">
-    <div class="nav MobileHeight">
-      <img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
-      <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;{{this.carsysitem}}</span>
-      <!--<span class="txt_r" @click="islogin()" v-if="this.LoginStatus">车机已登录</span>
-      <span class="txt_r" v-else @click="login()">车机未登录</span>-->
-      <span class="txt_r"></span>
-    </div>
-    <div class="navs navs_h">
-      <div class="navs_t">
-        <span class="num">{{carcontrol.fuelPercent}}</span>
-        <span class="txt">剩余油量（%）</span>
-      </div>
-      <div class="navs_t">
-        <span class="num">{{carcontrol.totalDistance}}</span>
-        <span class="txt">行驶里程（KM）</span>
-      </div>
-      <div class="navs_t">
-        <span class="num">{{carcontrol.mileage}}</span>
-        <span class="txt">续航里程（KM）</span>
-      </div>
-    </div>
+  <div style="border-top:.01rem solid #49bbff">
+  	<div class="lovecar tophead">
+	    <div class="nav MobileHeight">
+	      <img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block">
+	      <span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;{{this.carsysitem}}</span>
+	      <!--<span class="txt_r" @click="islogin()" v-if="this.LoginStatus">车机已登录</span>
+	      <span class="txt_r" v-else @click="login()">车机未登录</span>-->
+	      <span class="txt_r"></span>
+	    </div>
+	    <div class="navs navs_h">
+	      <div class="navs_t">
+	        <span class="num">{{carcontrol.fuelPercent}}</span>
+	        <span class="txt">剩余油量（%）</span>
+	      </div>
+	      <div class="navs_t">
+	        <span class="num">{{carcontrol.totalDistance}}</span>
+	        <span class="txt">行驶里程（KM）</span>
+	      </div>
+	      <div class="navs_t">
+	        <span class="num">{{carcontrol.mileage}}</span>
+	        <span class="txt">续航里程（KM）</span>
+	      </div>
+	    </div>
+  	</div>
+		<div class="lovecar-hei" style="height: 3rem;"></div>
     <div style="height:4.75rem;" class="content">
       <div class="content">
         <div class="left_bus1">
@@ -1082,7 +1085,11 @@ export default {
 	.mint-popup {
 		border-radius: 0.1rem;
 	}
-	
+	.lovecar {
+		position: fixed;
+		top: 0;
+		width: 100%;
+	}
 	.pin-code {
 		height: 2rem;
 		width: 100%;
@@ -1171,7 +1178,7 @@ export default {
 	
 	.mask_content {
 		position: fixed;
-		top: 25%;
+		top: 28%;
 		left: 50%;
 		right: 50%;
 		transform: translate3d(-50%, -50%, 0);
@@ -1185,7 +1192,7 @@ export default {
 	.cancel {
 		position: fixed;
 		z-index: 10000;
-		top: 0.4rem;
+		top: 1rem;
 		left: 0.3rem;
 	}
 	
@@ -1332,11 +1339,13 @@ export default {
 	}
 	
 	.tophead {
+		/*position: absolute;*/
 		height: 2.9rem;
 		width: 100%;
 		background-image: url("../../../static/images/Lovecar/bg.png");
 		display: block;
 		background-size: content;
+		z-index: 1;
 	}
 	
 	.nav {
