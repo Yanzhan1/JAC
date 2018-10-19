@@ -165,13 +165,30 @@ export default {
       this.changeInfo.sex = this.userInfo.sex;
       this.changeInfo.no = this.$store.state.userId,
        this.changeInfo.imageUrl= this.changeInfo.imageUrl
-      this.$http.post(My.UpUserinfo, this.changeInfo, {}).then(res => {
+      this.$http.post(My.UpUserinfo, this.changeInfo, {}).then(res => {      		
             if (res.data.code == 0) {
+            		
               this.popupVisible = true;
-              var self = this;
-              setTimeout(function() {
+              var data = {
+									ruleStr: 'REAL_NAME',
+									serviceTypeStr: 'SERVICE_FIXED',
+									no: this.$store.state.userId
+              }
+            	this.$http.post(My.addintegralRealName, data, {}).then( res => {
+              	const data = res.data
+              	if (data.code == 0 ) {
+              		this.$store.state.integral = data.num
+              		console.log(this.$store.state.integral )
+              	} else {
+              		
+              	}
+              })
+            	.catch( err => {
+            		
+            	})
+              /*setTimeout(function() {
                self.$router.go(-1);
-              }, 2000);
+              }, 2000);*/
             } else {
               let instance = Toast({
                 message: "保存失败",
@@ -180,9 +197,9 @@ export default {
               });
             }
           })
-          .catch(() => {
-            let instance = Toast({
-              message: "系统出现问题",
+          .catch((err) => {
+            Toast({
+              message: "系统异常",
               position: "middle",
               duration: 1000
             });

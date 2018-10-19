@@ -82,19 +82,19 @@ export default {
         end:null,//结束时间
         Account:'',
         startDate: new Date(),
+        thirdStartParty: '', //开始小时时间戳
+        thirdEndParty: '', //结束小时时间戳
     };
   },
   methods:{
       next(){
           //获得时间戳
-          this.start = this.start + ':00:00'
-          this.end = this.end + ':00:00'
-          this.shang = this.start.replace(/\-/g, '/')
-          this.xia = this.end.replace(/\-/g, '/')
-          this.shang = new Date(this.shang)
-          this.xia = new Date(this.xia)
-          this.shang = this.shang.getTime()
-          this.xia = this.xia.getTime()
+          this.shang = this.start.replace(/\-/g, '/').split(' ')[0]
+          this.thirdStartParty = this.start.replace(/\-/g, '/').split(' ')[1]*60*60*1000
+          this.xia = this.end.replace(/\-/g, '/').split(' ')[0]
+          this.thirdEndParty = this.end.replace(/\-/g, '/').split(' ')[1]*60*60*1000
+          this.shang = new Date(this.shang).getTime() + this.thirdStartParty //转换时间戳
+          this.xia = new Date(this.xia).getTime() + this.thirdEndParty
           if(this.shang>this.xia){
               Toast({
                   message:'起始时间不能大于结束时间',
@@ -108,7 +108,6 @@ export default {
                   duration:2000,
               })
           } else{
-//        						console.log(11)
               var param={
                     vin: this.$store.state.vins, 
                     operationType: "CONTROL_AUTH", 
@@ -120,13 +119,13 @@ export default {
                 }
             }
         this.$http.post(Lovecar.Longrange,param,this.$store.state.tsppin).then((res)=>{
-            // console.log(res)
             if(res.data.returnSuccess){
                 this.$router.push({
                 name:'Authorize_next',
                 params:{
                         a:operationTime.getTime(this.shang),
-                        b:operationTime.getTime(this.xia)
+                        b:operationTime.getTime(this.xia),
+                        count: this.Account
             }
          })
             }else{
@@ -149,27 +148,23 @@ export default {
           $('.picker-slot.picker-slot-center')[9].style.display = 'none'
           this.$refs.pickerEnd.open()
       },
-    handleStartConfirm (value) {
+    handleStartConfirm (value) { //确认起始时间
     	this.start = operationTime.getTime(value, 5)
-    	// console.log(this.start)
     },
-    handleEndConfirm (value) {
+    handleEndConfirm (value) { //确认结束时间
     	this.end = operationTime.getTime(value, 5)
-    	// console.log(this.end)
     }
   },
   mounted(){
-//	console.log(operationTime.toTimeStamp('2018-10-8'))
     let oDate=new Date()
     let year =oDate.getFullYear();
     let month =oDate.getMonth()+1;
     month = month<10?"0"+month:month
     let date=oDate.getDate()
     let time=oDate.getHours()
+    let second=oDate.getMinutes()
     this.start=year+'-'+month+'-'+date+' '+time
-
-//  let end=year+'-'+month+'-'+date+' '+(time+4)
-    if(time>=24){
+    if(time>=23){
         this.end=year+'-'+month+'-'+date+1+' '+(time-20)
     }else{
         this.end=year+'-'+month+'-'+date+' '+(time+4)

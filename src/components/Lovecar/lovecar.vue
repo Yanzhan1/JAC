@@ -147,7 +147,7 @@
       <ul class="tipcontent">
         <li @click="turnDing">
           <img src="../../../static/images/Lovecar/ding.png" alt="">
-          <span>盯盯拍</span>
+          <span>涂记宝</span>
         </li>
         <router-link tag='li' to="/lovecar/revisePinCode">
           <img src="../../../static/images/Lovecar/xiupin.png" alt="">

@@ -50,6 +50,7 @@ export default {
     return {
       gettime:'',
       overtime:'',
+      count: this.$route.params.count
     };
   },
   methods: {
@@ -67,6 +68,20 @@ export default {
         cancelButtonHighlight: true
       }).then(action => {
           if (action == "confirm") {
+          	var data = {
+                    vin: this.$store.state.vins, 
+                    operationType: "CONTROL_AUTH", 
+                    operation: 0, 
+                    extParams: {
+                    childNum: this.count, 
+                }
+            }
+          	this.$http.post(Lovecar.Longrange, data, this.$store.state.tsppin).then( res => {
+          		
+          	})
+          	.catch (err => {
+          		
+          	})
           }
         })
         .catch(err => {
