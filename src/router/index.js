@@ -18,7 +18,7 @@ import WifiSetup from "@/components/Lovecar/WifiSetup" //wifi设置
 import FuelQuery from "@/components/Lovecar/FuelQuery" //燃油查询
 import Datechoose from '@/components/Lovecar/Datechoose' //日期选择
 import FlowQuery from "@/components/Lovecar/FlowQuery" //流量查询
-import FlowBuy from "@/components/lovecar/FlowBuy" //流量购买
+import FlowBuy from "@/components/Lovecar/FlowBuy" //流量购买
 import PlaceOrder from "@/components/Lovecar/PlaceOrder" //提交流量订单
 import PurchaseRecord from "@/components/Lovecar/PurchaseRecord" //流量购买记录
 import Islogin from '../components/Lovecar/islogin'
