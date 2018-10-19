@@ -165,6 +165,7 @@ export default {
           this.popupVisible = false;
           this.isShow = false;
         }, 1000);
+        this.total()
       });
     },
     // 判断是否签到

@@ -531,7 +531,14 @@ export default {
 
       
  
-    }
+    },
+    getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
+				this.localprovince = JSON.parse(locationMes).province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '')
+				this.localcity = JSON.parse(locationMes).city.replace('市', '')
+				this.latitude = JSON.parse(locationMes).latitude //精
+        this.longitude = JSON.parse(locationMes).longitude //韦
+        this.getcity()
+			},
   },
   created(){
     		window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			

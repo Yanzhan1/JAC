@@ -199,6 +199,7 @@ export default {
     return {
       activeshow: 1, //默认第一个高亮
       activeshows: 1,
+      tspid:'',
       popupVisible: false,
       MaskIsshow: false, //黑色遮罩层
       num: 3,
@@ -1005,13 +1006,17 @@ export default {
       }
     },
     userId(newVal, oldVal) {
+      this.tspid=this.$store.state.tspId
+        if(this.$store.state.tspId==undefined){
+        this.tspid=0
+      }
       this.$http
         .post(
           My.My_Bus,
           {
             userId: this.$store.state.trueuserId,
             phone: this.$store.state.mobile,
-            tspUserId:this.$store.state.tspId
+            tspUserId:this.tspid
           },
           this.$store.state.getpin
         )
@@ -1047,14 +1052,18 @@ export default {
   mounted() {
     this.vehiclestatus()
     // alert(this.$store.state.tspId)
-  	$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
+    $(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
+    this.tspid=this.$store.state.tspId
+     if(this.$store.state.tspId==undefined){
+        this.tspid=0
+      }
    this.$http
       .post(
         My.My_Bus,
         {
           userId: this.$store.state.trueuserId,
           phone: this.$store.state.mobile,
-          tspUserId:this.$store.state.tspId
+          tspUserId:this.tspid
         },
         this.$store.state.getpin
       )
@@ -1074,6 +1083,12 @@ export default {
             }
           this.vinn = this.$store.state.vins;
           this.Carquerry();
+        }else{
+            Toast({
+              message: res.data.returnErrMsg,
+              position: "middle",
+              duration: 2000
+            });
         }
       });
       

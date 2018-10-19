@@ -154,6 +154,10 @@ export default {
       });
   },
   methods: {
+      getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
+				this.provinceName = JSON.parse(locationMes).province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '')
+				this.cityName = JSON.parse(locationMes).city.replace('市', '')
+			},
     async handleSubmit() {
       var self = this;
       var flag = 0;

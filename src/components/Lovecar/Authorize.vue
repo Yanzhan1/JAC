@@ -111,6 +111,8 @@ export default {
 //        						console.log(11)
               var param={
                     vin: this.$store.state.vins, 
+                    phone:this.$store.state.mobile,
+                    userId:this.$store.state.tspId,
                     operationType: "CONTROL_AUTH", 
                     operation: 1, 
                     extParams: {
