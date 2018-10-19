@@ -11,7 +11,7 @@
 		</header>
 		<div style="height:0.88rem" class="MobileHeight"></div>
 		<div class="wrapper">
-				<router-link tag="div" class="content" id="content" v-for="item in flowData" :to="{path:'/lovecar/placeOrder',query:{flow: item}}">
+				<router-link tag="div" class="content" id="content" v-for="(item,index) in flowData" :key="index" :to="{path:'/lovecar/placeOrder',query:{flow: item}}">
 					<div class="flow-info" ref="flow">
 						<div class="flow-content">
 							<h6>{{item.packageName}}</h6>
