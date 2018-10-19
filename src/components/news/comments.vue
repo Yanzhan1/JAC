@@ -21,7 +21,7 @@
           <ul class="content">
             <li class="area" v-for="(item,index) in List" @click="todetail(item.lid,item.id)" style="">
               <div class="content_p">
-                <span class="content_t"><span style="width: 0.16rem;height: 0.16rem;border-radius: 50%;background: red;display: inline-block" v-if="!item.readState"></span>{{item.title}}</span>
+                <span class="content_t"><span style="width: 0.16rem;height: 0.16rem;border-radius: 50%;background: red;display: inline-block" v-if="item.readState"></span>{{item.title}}</span>
                 <span class="content_x">{{item.createTime}}</span>
               </div>
               <h5 class="wen">
@@ -73,6 +73,13 @@ export default {
       })
       this.$http.get(IMFORMATION.commentRequest+'?id='+lid).then((res)=>{
           if(res.data.status){
+            if(res.data.data.commentType==null){
+              Toast({
+              message: res.data.errorMsg,
+              position: 'middle',
+              duration: 1000
+            })
+            }
            if(res.data.data.commentType == 1){
              this.$router.push({path:"/information/informationDetail",query:{id:res.data.data.lid}})
            }else if(res.data.data.commentType == 2){
@@ -88,10 +95,6 @@ export default {
       }).catch((err)=>{
 
       })
-    },
-    fn() {
-
-    //   this.$router.push("/info/info_details");
     },
     loadTop() {
       this.init();
@@ -111,6 +114,7 @@ export default {
           _this.pageNum=1;
           _this.loading=false;
           _this.List = res.data.data;
+          console.log(res.data.data)
           if(res.data.recordsTotal <= _this.list){
             _this.loadEnd = true;
           }
@@ -169,7 +173,7 @@ li {
   background-color: #f8f8f8;
   width: 100%;
   padding: 0.5rem 0.4rem 0.4rem 0.4rem;
-  margin-top: 0.3rem;
+  margin-top: 0.9rem;
 }
 .area {
   border: 1px solid #ccc;

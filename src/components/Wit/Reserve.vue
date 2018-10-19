@@ -2,7 +2,7 @@
   <div style="height:100%;position:absolute;left:0;top:0;width:100%" class="gobottom">
           <div v-show="region" class="black" @click="choose2"></div> <!-- 遮罩层  -->
           <div class="bgcolor">                 
-                  <mhead currentTitle="车辆预定"></mhead>
+                  <mhead currentTitle="在线订车"></mhead>
                   <ul>
                       <li class="all">
                           <span>预定车型</span>
@@ -206,7 +206,6 @@ export default {
       this.region = true;
     },
     Codigo(){
-      alert(2)
       this.$http.post(Wit.ValidateCode,{
         code:this.Recommend
       }).then((res)=>{
@@ -237,7 +236,8 @@ export default {
       }
       var data = {
         parentId: this.provinceid,
-        level: 2
+        level: 2,
+        size:100,
       };
       this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
         this.data = res.data.data.records;
@@ -497,7 +497,8 @@ export default {
         //选择市
           var data = {
             parentId: this.localparentId,
-            level: 2
+            level: 2,
+            size:100,
           };
           this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
             this.data = res.data.data.records;
@@ -530,7 +531,14 @@ export default {
 
       
  
-    }
+    },
+    getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
+				this.localprovince = JSON.parse(locationMes).province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '')
+				this.localcity = JSON.parse(locationMes).city.replace('市', '')
+				this.latitude = JSON.parse(locationMes).latitude //精
+        this.longitude = JSON.parse(locationMes).longitude //韦
+        this.getcity()
+			},
   },
   created(){
     		window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			

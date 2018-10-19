@@ -6,8 +6,8 @@
             <span></span>
         </header>-->
 				<mhead currentTitle="活动"></mhead>
-        <div style="margin:.4rem;margin-top:1.5rem">暂无活动信息</div>
-      <!-- <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="20">
+        <div style="margin:.4rem;margin-top:1.5rem" v-show="noactivity">暂无活动信息</div>
+      <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="20">
         <div slot="top" class="mint-loadmore-top">
           <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }" style="font-size: 0.3rem">下拉刷新</span>
           <span v-show="topStatus === 'loading'">Loading...</span>
@@ -34,7 +34,7 @@
 
           </ul>
          </div>
-      </mt-loadmore> -->
+      </mt-loadmore>
       <div style="height: 2rem;"></div>
       <p id="showAll2">已加载全部</p>
     </div>
@@ -53,7 +53,8 @@ export default {
       topStatus:'',
       pageNum:1,
       length:4,
-      List:[]
+      List:[],
+      noactivity:false,
     }
   },
   methods: {
@@ -84,6 +85,10 @@ export default {
       this.loading=true;
       this.loadEnd=false;
       this.$http.post(IMFORMATION.getList, {"uid": this.$store.state.userId,"pageNo":_this.pageNum, "length":_this.length,type:3}).then(function (res) {
+        // console.log(res.data.data)
+        if(res.data.data==''){
+          this.noactivity=true;
+        }
         if (res.data.status) {
           _this.pageNum=1;
           _this.loading=false;

@@ -13,12 +13,12 @@
         </div>
         <ul>
             <div class="scoredeatails">积分明细</div>
-            <li class="flex  row between cont cocenter" v-for="(item,index) in details" :key="index">
+            <li class="flex  row between cont cocenter" v-for="(item,index) in this.details" :key="index">
                 <div class="flex column xan">
                     <span style="color:#444;font-size:.28rem">{{item.changeDescription}}</span>
                     <span style="color:#888;font-size:.22rem">{{item.times}}</span>
                 </div>
-                <div style="color:#49BBFF;font-size:.36rem;margin-right:.3rem">+{{item.ruleId}}</div>
+                <div style="color:#49BBFF;font-size:.36rem;margin-right:.3rem">+{{item.integral}}</div>
             </li>
             
         </ul>

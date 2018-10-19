@@ -120,7 +120,7 @@
       </div>
       <span style="font-size:.32rem;color:#222;margin-top:.4rem;text-align:center;display:block">签到成功</span>
       <span style="font-size:.24rem;color:#444;margin-top:.3rem;text-align:center;display:block">获得
-        <span style="color:#49BBFF">20</span> 积分可兑换会员商品</span>
+        <span style="color:#49BBFF"> {{this.num}}</span> 积分可兑换会员商品</span>
     </mt-popup>
   </div>
 </template>
@@ -140,6 +140,7 @@ export default {
       focusNum: 0,
       momentNum: 0,
       myList: [],
+      num:'',//添加的积分量
      flag: false //隐藏推荐码
     };
   },
@@ -156,13 +157,16 @@ export default {
     //  var param=JSON.stringify(data)
     //  console.log(My.SignIn)
       this.$http.post(My.SignIn,data).then(res => {
-        
+        if(res.data.code==0){
+          this.num= res.data.num
+         }
+        this.popupVisible = true;
+        setTimeout(() => {
+          this.popupVisible = false;
+          this.isShow = false;
+        }, 1000);
+        this.total()
       });
-      this.popupVisible = true;
-      setTimeout(() => {
-        this.popupVisible = false;
-        this.isShow = false;
-      }, 1000);
     },
     // 判断是否签到
     IsSign(){
@@ -173,8 +177,6 @@ export default {
        this.$http.post(My.IsSignIn,data).then(res => {
          if(res.data.code==50004){
            this.isShow=false
-         }else if(res.data.code==50002){
-           this.AllIsShow=true
          }
       
        });
@@ -187,8 +189,13 @@ export default {
          }
        this.$http.post(My.Credit,data).then(res => {
         if(res.data.code==0){
-           this.integral=res.data.data[0].count
-           this.$store.state.integral=res.data.data[0].count
+          if(res.data.data==''){
+            this.integral=0
+            this.$store.state.integral=res.data.data[0].count
+          }else{
+            this.integral=res.data.data[0].count
+            this.$store.state.integral=res.data.data[0].count
+          }
            
          }
          

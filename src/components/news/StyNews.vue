@@ -41,10 +41,19 @@ export default {
           }).then((res)=>{
              this.allsystem= res.data.data
           })
-      }
+      },
+        //已读消息接口
+    readmessage(){
+      this.$http.post(IMFORMATION.systemmessageread,{
+        userId:this.$store.state.userId
+      }).then(res=>{
+        console.log(res)
+      })
+    },
   },
   mounted(){
       this.systemmessagelist()
+      this.readmessage()
   },
   components: {
 	  mhead:PublicHead

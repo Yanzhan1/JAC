@@ -127,7 +127,8 @@ window.Wit = {
         searchComplaintsSuggestionsReplyOne: rec + '/enjoyservice/complaintsSuggestionsReply/searchComplaintsSuggestionsReplyOne', //投诉及建议回复查询详细信息
         updateUserPassword: mips + '/admin/userBaseInformation/updateUserPassword', //用户修改密码
         getComAndSugDet: rec + '/enjoyservice/complaintsSuggestionsReply/getComAndSugDet', //反馈详情
-        Help: rec + '/enjoyservice/position/savePosition' //道路救援定位传给后端
+        Help: rec + '/enjoyservice/position/savePosition', //道路救援定位传给后端
+        ValidateCode: mips + 'admin/recommendedCode/validateCode' //验证推荐码
     }
     //我的 部分
 window.My = {
@@ -150,7 +151,8 @@ window.My = {
         Defaultaddress: mips + '/admin/userAddress/setDefaultAddress', //my部分设置默认地址
         Area: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //选择地区
         AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
-        RecomendCode: mips + '/admin/recommendedCode/searchRecommendedCodeOne' //获取推荐码
+        RecomendCode: mips + '/admin/recommendedCode/searchRecommendedCodeOne', //获取推荐码
+        List: 'http://14.21.46.171:8707/api/order/list' //商城订单列表
 
     }
     //爱车
@@ -182,6 +184,7 @@ window.IMFORMATION = {
         getList: indexip + '/sendMessageController/getList', //通知list
         commentRequest: indexip + '/userComment/commentRequest', //获取评论列表lid与类型进行跳转
         read: indexip + '/sendMessageController/read', //通知已读
+        systemmessageread: love_car + '/sys-message/system-message-read', //获取已读消息状态
         systemmessagelist: love_car + '/sys-message/system-message-list', //系统消息列表
         notificationPushDetail: love_car + '/notificationPush/notificationPushDetail', //通知详情
         systemmessagenew: love_car + '/sys-message/system-message-new', //获取未读红点状态
