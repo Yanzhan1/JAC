@@ -289,12 +289,20 @@
 				this.$router.push("/compontent");
 			},
 			getShoppingMall () { //商城订单
-				/*this.$http.get(My.List,).then((res) => {
-					
+				this.$http.get(My.List, {
+					params: {
+						uid: '123456',
+						sign: this.$md5('uid=123456jac.com')
+					},
+					headers: {
+						'Authorization': 'No Auth'
+					}
+				}).then((res) => {
+					console.log(res)
 				})
 				.catch(err => {
 					
-				})*/
+				})
 			},
 			//流量订单
 			flowbuy(){
@@ -352,8 +360,10 @@
 		created() {
 			this.GetXorder();
 			this.flowbuy();
+			this.getShoppingMall()
 		},
 		mounted() {
+//			console.log('加密:' + this.$md5('uid=1jac.com'))
 			$(".MobileHeight").css({
 				"borderTopWidth": this.$store.state.mobileStatusBar,
 				"borderTopColor": "#fff",
