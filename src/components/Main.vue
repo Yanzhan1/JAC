@@ -113,6 +113,7 @@
 			'$route' (to, from) {
 //				alert(to.name)
 				if(to.name == '智享首页') {
+//					alert('滚动的距离: '+this.$store.state.changeScrollY)
 					let recruitScrollY = this.$store.state.changeScrollY
 //						alert(this.$store.state.changeScrollY)
 //					window.scroll(0, recruitScrollY)

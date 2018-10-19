@@ -282,6 +282,7 @@
 							this.scroll = new Bscroll(this.$refs.wrapper, {
 								click: true
 							})
+							this.scroll.scrollTo(0, this.$store.state.changeScrollY)
 						})
 					}
 				});
@@ -298,12 +299,13 @@
 			this.getMainPushModel()
 		},
 		mounted () {
-
+			this.scroll.scrollTo(0, 0)
 		},
 		activated() {
 			window.getIosLocation = this.getIosLocation; //ios获取定位信息,放到window对象供ios调用
 			//获取主推车型，传{}表示全部车型
 			this.getMainPushModel()
+			
 		}
 	};
 </script>

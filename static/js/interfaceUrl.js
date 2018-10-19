@@ -4,7 +4,7 @@
 // console.log(`执行环境${apiHost}`)
 // var indexip = `${apiHost}/api/dk-dm-portal-api`
 //域名
-var host = '//test.jac.timanetwork.net'
+var host = 'http://test.jac.timanetwork.net'
 var indexip = host + '/api/dk-dm-portal-api'
     //服务器-智享
 var mip = host + '/api/jac-automobile-manage/automobilemanage' //智享
@@ -152,7 +152,11 @@ window.My = {
         Area: mips + '/admin/countryAreaCode/searchCountryAreaCodeListPage', //选择地区
         AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
         RecomendCode: mips + '/admin/recommendedCode/searchRecommendedCodeOne', //获取推荐码
-        List: 'http://14.21.46.171:8707/api/order/list' //商城订单列表
+        List: 'http://14.21.46.171:8707/api/order/list', //商城订单列表
+        addintegralRealName:'http://test.jac.timanetwork.net/api/pluto-membership/pluto-membership/integral-gather/addintegral-realName',//保存个人信息,增加积分
+        orderList: 'http://test.jac.timanetwork.net/api/pluto-membership/mall/information/orderList', //商城订单
+        orderDetail:'http://test.jac.timanetwork.net/api/pluto-membership/mall/information/orderDetail' //商城订单详细
+        
 
     }
     //爱车
@@ -169,7 +173,7 @@ window.Lovecar = {
         Flow: love_car + '/vehicle/vehicle-cyc-flow-query', //流量查询
         FlowBuy: love_car + '/vehicle/cyc-flow-package-query', //流量购买查询
         Getoederlist: love_car + '/flow/get-order-list', //后台从tsp同步流量订单查询数据
-        Getoederlistapp: love_car + '/flow/get-order-list-app', //流量订单查询
+        Getoederlistapp: love_car + '/flow/get-order-list', //流量订单查询
         Flowpackage: love_car + '/vehicle/cyc-flow-package-query', //流量包查询
         Longrange: love_car + '/vehicle/set-vehicle-remoteset', //车辆远程设置
         LoginOut: love_car + '/vehicle/remote-vehicle-loginOut', //退出登录

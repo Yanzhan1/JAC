@@ -24,7 +24,7 @@
      
        <div >
         <div style="width:100%;text-align:center;line-height:.88rem;font-size:.36rem;color:#555555;border-bottom:1px solid #f1f1f1">
-          切换频道
+          系列
         </div>
         <div class="flex row cocenter roe">
           <label><input type="radio" v-model="gender" :value="null" /></label>

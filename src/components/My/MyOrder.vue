@@ -48,16 +48,16 @@
 			</mt-tab-container-item>
 			<mt-tab-container-item id="two">
 				<ul>
-					<li class="flex column">
+					<li class="flex column" v-for="(item, index) in shoppingMall">
 						<p class="flex row tim between">
-							<span class="times">2018 09-21 18:34</span>
-							<span class="times">待付款</span>
+							<span class="times">{{item.createDate}}</span>
+							<span class="times">{{item.orderState}}</span>
 						</p>
 						<router-link class="buycity flex row cocenter between" tag="div" to="/orderdetails">
 							<div class="flex row">
 								<img class="pictu" src="../../../static/images/test/my/car_ruifeng_s5.png" alt="" style="height:1.2rem;width:1.14rem;">
 								<div class="flex column cocenter maincenter">
-									<p style="font-size:.31rem;color:#222;">马克华杯</p>
+									<p style="font-size:.31rem;color:#222;">{{item.productName}}</p>
 									<p style="font-size:.22rem;color:#888;">白色 400ml</p>
 								</div>
 							</div>
@@ -74,7 +74,7 @@
 							<span class="cancel">待付款</span>
 						</div>
 					</li>
-					<li class="flex column">
+					<!--<li class="flex column">
 						<p class="flex row tim between">
 							<span class="times">2018 09-21 18:34</span>
 							<span class="times">待评价</span>
@@ -99,7 +99,7 @@
 							<span class="cancel" @click="compontent()">评价晒单</span>
 							<span class="cancel" v-if="3>4">待付款</span>
 						</div>
-					</li>
+					</li>-->
 				</ul>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="three">
@@ -249,6 +249,7 @@
 				Xorder: {}, //线索订单
 				flag: true,
 				allflowbuy:[],
+				shoppingMall: [], //商城订单
 				trafficOrder:{
 					'0': '已完成',
 					'1': '待付款'
@@ -289,16 +290,15 @@
 				this.$router.push("/compontent");
 			},
 			getShoppingMall () { //商城订单
-				this.$http.get(My.List, {
-					params: {
-						uid: '123456',
-						sign: this.$md5('uid=123456jac.com')
-					},
-					headers: {
-						'Authorization': 'No Auth'
+				let data = {
+					uid: '123456'
+				}
+				this.$http.post(My.orderList, data).then((res) => {
+					const data = res.data
+					if (data.code == 0) {
+						this.shoppingMall = data.data
 					}
-				}).then((res) => {
-					console.log(res)
+					console.log(data.code = 0)
 				})
 				.catch(err => {
 					
