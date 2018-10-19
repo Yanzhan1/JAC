@@ -67,7 +67,7 @@ export default {
         var params = [content, platform];
         window.webkit.messageHandlers.share.postMessage(params);
       } else if (isMobile.Android()) {
-        js2android.share(content,imageURL,title,description,platform);
+        js2android.share(content,imageURL,title,description,platform,'1');
       }
     },
     //分享朋友圈
@@ -81,7 +81,7 @@ export default {
         var params = [content, platform];
         window.webkit.messageHandlers.share.postMessage(params);
       } else if (isMobile.Android()) {
-        js2android.share(content,imageURL,title,description,platform);
+        js2android.share(content,imageURL,title,description,platform,'1');
       }
     },
     //分享qq
@@ -95,7 +95,7 @@ export default {
         var params = [content, platform];
         window.webkit.messageHandlers.share.postMessage(params);
       } else if (isMobile.Android()) {
-       js2android.share(content,imageURL,title,description,platform);
+       js2android.share(content,imageURL,title,description,platform,'1');
       }
     },
     //分享qq
@@ -109,7 +109,7 @@ export default {
         var params = [content, platform];
         window.webkit.messageHandlers.share.postMessage(params);
       } else if (isMobile.Android()) {
-       js2android.share(content,imageURL,title,description,platform);
+       js2android.share(content,imageURL,title,description,platform,'1');
       }
     }
   },
