@@ -61,6 +61,7 @@ import Changeaddress from '@/components/My/changeaddress.vue' //新增地址
 import My_dealer from '../components/My/My_dealer.vue' //我的经销商列表
 import MyOrder from '../components/My/MyOrder.vue' //我的订单
 import FlowOrderDetails from '../components/My/FlowOrderDetails.vue' //流量订单详情
+import MallOrderDetails from '../components/My/MallOrderDetails.vue' //商城订单详情
 import MyWl from '../components/My/MyWl.vue' //我的物流
 import Compontent from '../components/My/Compontent.vue' //评价
 import Recommended from '../components/My/Recommended' //推荐码
@@ -470,6 +471,10 @@ const router = new Router({
                 path: "/myindex/flowOrderDetails",
                 name: '流量订单详情',
                 component: FlowOrderDetails
+            },{
+                path: "/myindex/mallOrderDetails",
+                name: '商城订单详情',
+                component: MallOrderDetails
             }, {
                 path: "/mywl",
                 name: '我的物流',

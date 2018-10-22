@@ -53,16 +53,16 @@
 							<span class="times">{{item.createDate}}</span>
 							<span class="times">{{item.orderState}}</span>
 						</p>
-						<router-link class="buycity flex row cocenter between" tag="div" to="/orderdetails">
+						<router-link class="buycity flex row cocenter between" tag="div" :to="{path:'/myindex/mallOrderDetails', query:{orderNo: item.orderNo}}">
 							<div class="flex row">
-								<img class="pictu" src="../../../static/images/test/my/car_ruifeng_s5.png" alt="" style="height:1.2rem;width:1.14rem;">
+								<img class="pictu" :src="item.image" alt="" style="height:1.2rem;width:1.14rem;">
 								<div class="flex column cocenter maincenter">
 									<p style="font-size:.31rem;color:#222;">{{item.productName}}</p>
 									<p style="font-size:.22rem;color:#888;">白色 400ml</p>
 								</div>
 							</div>
 							<div class="flex row cocenter" style="margin-right:.3rem">
-								<span style="font-size:.2rem;color:#222;">X 1</span>
+								<span style="font-size:.2rem;color:#222;">X{{item.num}}</span>
 								<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 							</div>
 						</router-link>
@@ -291,14 +291,13 @@
 			},
 			getShoppingMall () { //商城订单
 				let data = {
-					uid: '123456'
+					no: 'AD022018082803151446865'
 				}
 				this.$http.post(My.orderList, data).then((res) => {
 					const data = res.data
-					if (data.code == 0) {
+					if (data.code == 0) {                                                                                    
 						this.shoppingMall = data.data
 					}
-					console.log(data.code = 0)
 				})
 				.catch(err => {
 					
@@ -311,7 +310,7 @@
 				}
 				this.$http.post(Lovecar.Getoederlistapp,params,this.$store.state.tsppin).then((res)=>{
 					this.allflowbuy = res.data.data
-					console.log(this.allflowbuy)
+//					console.log(this.allflowbuy)
 				})
 			},
 			//线索订单
@@ -490,5 +489,10 @@
 	.bt div .active {
 		color: #49bbff;
 		border: 1px solid #49BBFF;
+	}
+	.maincenter {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
 	}
 </style>
