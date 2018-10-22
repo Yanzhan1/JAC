@@ -230,18 +230,28 @@
   }
 
   .shareIcon {
-    padding-left: 0.2rem;
-    padding-right: 0.2rem;
-    width: 1.2rem;
+    /* padding-left: 0.2rem; */
+    /* padding-right: 0.2rem; */
+    width: 0.8rem;
+    height: 0.8rem;
+    margin-bottom: 3px;
   }
 
   .shareBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 20%;
     height: 100%;
     float: left;
     text-align: center;
     font-size: 0.3rem;
     color: #555555;
+  }
+
+  .shareBox span {
+    font-size: 0.3rem;
+    line-height: 0.3rem;
   }
 
   .shareHide {
