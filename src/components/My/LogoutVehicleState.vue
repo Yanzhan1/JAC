@@ -40,7 +40,7 @@
 				}
 			},
 			getStatus(status) {//暴露方法给原生,登入判断
-//				console.log(status)  		
+				console.log(status)  		
 				this.$store.dispatch('QRCODEPIN', JSON.parse(status))
 			}
 		},
@@ -56,6 +56,7 @@
 		},
 		watch: {
 				qrCode (newVal, oldVal) { //解决扫一扫无法及时获取二维码信息的异步问题
+
 				if(this.qrCode) {
 					let data = {
 						vin: this.qrCode.vin,

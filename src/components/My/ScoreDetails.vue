@@ -8,7 +8,7 @@
         <div style="height:.88rem"></div>-->
         <mhead currentTitle="会员积分"></mhead>
         <div class="flex column arounds">
-            <span class="mycore">我的积分</span>
+            <span class="mycore">当前积分</span>
             <span class="score">{{integral}}</span>
         </div>
         <ul>
@@ -18,7 +18,8 @@
                     <span style="color:#444;font-size:.28rem">{{item.changeDescription}}</span>
                     <span style="color:#888;font-size:.22rem">{{item.times}}</span>
                 </div>
-                <div style="color:#49BBFF;font-size:.36rem;margin-right:.3rem" ref="changecolor" id="changecolor">{{item.integral}}</div>
+                <!-- <div style="color:#49BBFF;font-size:.36rem;margin-right:.3rem" ref="changecolor" id="changecolor">{{item.integral}}</div> -->
+                <div style="font-size:.36rem;margin-right:.3rem"  class="changecolor">{{item.integral}}</div>
             </li>
             
         </ul>
@@ -48,13 +49,19 @@ export default {
             this.details=res.data.data
 
            for(let i=0;i<this.details.length;i++){
-            //  if(this.details[i].ruleId==8){
+             if(this.details[i].ruleId=='5'){
+               this.$nextTick(()=>{
+                 $(".changecolor").eq(i).css("color",'#49BBFF')
+               })
                
-            //  }
+             }else{
+                this.$nextTick(()=>{
+                  $(".changecolor").eq(i).css("color",'#ccc')
+               })
+             }
                this.details[i].times=operationTime.getTime( this.details[i].time, 2  )
            }
         }
-    // console.log(this.$refs.changecolor.style.cssText)
     //     console.log(this.details)
       })
     }
