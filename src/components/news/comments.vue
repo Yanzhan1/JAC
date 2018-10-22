@@ -154,7 +154,10 @@ export default {
     },
   },
   mounted(){
-  	$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
+        $(".MobileHeight").css({
+            "borderTopWidth": this.$store.state.mobileStatusBar,
+            "borderTopColor": "#fff",
+          })
     this.init()
   }
 };
@@ -165,6 +168,10 @@ export default {
   padding: 0;
   margin: 0;
 }
+.MobileHeight {  
+		border-top-style: solid;
+		box-sizing: content-box;
+	}
 li {
   list-style: none;
   margin-top: 0.2rem;
