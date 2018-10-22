@@ -18,7 +18,7 @@
                     <span style="color:#444;font-size:.28rem">{{item.changeDescription}}</span>
                     <span style="color:#888;font-size:.22rem">{{item.times}}</span>
                 </div>
-                <div style="color:#49BBFF;font-size:.36rem;margin-right:.3rem">+{{item.integral}}</div>
+                <div style="color:#49BBFF;font-size:.36rem;margin-right:.3rem" ref="changecolor" id="changecolor">{{item.integral}}</div>
             </li>
             
         </ul>
@@ -48,14 +48,18 @@ export default {
             this.details=res.data.data
 
            for(let i=0;i<this.details.length;i++){
+            //  if(this.details[i].ruleId==8){
+               
+            //  }
                this.details[i].times=operationTime.getTime( this.details[i].time, 2  )
            }
         }
-        console.log(this.details)
+    // console.log(this.$refs.changecolor.style.cssText)
+    //     console.log(this.details)
       })
     }
   },
-  created() {
+  mounted() {
       this.scoredetails()
   }
 };
