@@ -48,7 +48,7 @@ export default {
             this.details=res.data.data
 
            for(let i=0;i<this.details.length;i++){
-               this.details[0].times=operationTime.getTime( this.details[i].time, 2  )
+               this.details[i].times=operationTime.getTime( this.details[i].time, 2  )
            }
         }
         console.log(this.details)

@@ -2,6 +2,13 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+
+//导入mint-ui
+import mintui from 'mint-ui'
+import 'mint-ui/lib/style.css'
+import '../static/style/mint-ui.css'
+Vue.use(mintui)
+Vue.use(Lazyload)
 import router from './router'
 
 //import '../static/js/IOSAndAndroid.js'
@@ -13,6 +20,8 @@ import './../static/style/public.css'
 import axios from 'axios'
 //导入md5加密
 import md5 from 'js-md5';
+//导入复制功能
+import Clipboard from 'clipboard'
 
 /**
  * 获取手机上方状态栏高度
@@ -100,13 +109,7 @@ Vue.component(Radio.name, Radio);
 import MyHeader from '@/components/components/MyHeader'
 Vue.use(MyHeader)
 
-//导入mint-ui
-import mintui from 'mint-ui'
-import 'mint-ui/lib/style.css'
-import '../static/style/mint-ui.css'
-Vue.use(mintui)
-Vue.use(Lazyload)
-    //状态管理
+//状态管理
 import store from './store'
 
 //导入jquery
