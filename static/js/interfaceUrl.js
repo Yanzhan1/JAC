@@ -153,9 +153,9 @@ window.My = {
         AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
         RecomendCode: mips + '/admin/recommendedCode/searchRecommendedCodeOne', //获取推荐码
         List: 'http://14.21.46.171:8707/api/order/list', //商城订单列表
-        addintegralRealName:'http://test.jac.timanetwork.net/api/pluto-membership/pluto-membership/integral-gather/addintegral-realName',//保存个人信息,增加积分
-        orderList: 'http://test.jac.timanetwork.net/api/pluto-membership/mall/information/orderList', //商城订单
-        orderDetail:'http://test.jac.timanetwork.net/api/pluto-membership/mall/information/orderDetail' //商城订单详细
+        addintegralRealName: host + '/api/pluto-membership/pluto-membership/integral-gather/addintegral-realName',//保存个人信息,增加积分
+        orderList: host + '/api/pluto-membership/mall/information/orderList', //商城订单
+        orderDetail: host + '/api/pluto-membership/mall/information/orderDetail' //商城订单详细
         
 
     }
