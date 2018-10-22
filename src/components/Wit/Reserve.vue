@@ -206,23 +206,28 @@ export default {
       this.region = true;
     },
     Codigo(){
-      this.$http.post(Wit.ValidateCode,{
-        code:this.Recommend
-      }).then((res)=>{
-          if(res.data.code==0){
+      if(this.Recommend==''){
+
+      }else{
+
+        this.$http.post(Wit.ValidateCode,{
+          code:this.Recommend
+        }).then((res)=>{
+            if(res.data.code==0){
+                Toast({
+                  message: '该验证码正确',
+                  duration: 1000,
+                  position: "middle"
+                });
+            }else{
               Toast({
-                message: '该验证码正确',
-                duration: 1000,
-                position: "middle"
-              });
-          }else{
-            Toast({
-                message: res.data.msg,
-                duration: 1000,
-                position: "middle"
-              });
-          }
-      })
+                  message: res.data.msg,
+                  duration: 1000,
+                  position: "middle"
+                });
+            }
+        })
+      }
     },
     choosedelay(){
       setTimeout(()=>{

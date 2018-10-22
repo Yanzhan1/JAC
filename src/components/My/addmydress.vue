@@ -137,8 +137,8 @@ export default {
             }
   },
   mounted() {
+    $('.gobottom').height($('.gobottom').height())
     this.info = this.$route.query;
-    $(".editPersonalDetails").height($(".editPersonalDetails").height());
     this.$http
       .post(My.Area, {
         size: 1000,
@@ -467,5 +467,10 @@ input {
 
 .inputcontent {
   z-index: 999;
+}
+.bottom-btn{
+  position:absolute;
+  bottom: 0;
+  left: 0;
 }
 </style>

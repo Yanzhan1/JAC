@@ -2,43 +2,42 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <!--<meta name="viewport" content="width=device-width,initial-scale=1.0">-->
-  <meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
-  <title>江淮汽车</title>
-  <script src="./static/js/interfaceUrl.js"></script>
-  <script src="./static/js/publicmethods.js"></script>
-  <!--原生方法-->
-  <script src="./static/js/IOSAndAndroid.js"></script>
-  <script>
-    //屏幕适配自适应
-    var deviceWidth = document.documentElement.clientWidth;
-    if (deviceWidth > 640) deviceWidth = 640;
-    document.documentElement.style.fontSize = deviceWidth / 7.5 + 'px';
-
-  </script>
+    <meta charset="utf-8">
+    <!--<meta name="viewport" content="width=device-width,initial-scale=1.0">-->
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+    <title>江淮汽车</title>
+    <script src="./static/js/interfaceUrl.js"></script>
+    <script src="./static/js/publicmethods.js"></script>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!--原生方法-->
+    <script src="./static/js/IOSAndAndroid.js"></script>
+    <script>
+        //屏幕适配自适应
+        var deviceWidth = document.documentElement.clientWidth;
+        if (deviceWidth > 640) deviceWidth = 640;
+        document.documentElement.style.fontSize = deviceWidth / 7.5 + 'px';
+    </script>
 </head>
 
 <body>
-  <div id="app"></div>
-  <!-- built files will be auto injected -->
-  <script type="text/javascript">
-    const ModalHelper = ((bodyCls) => { //解决遮罩层滚动穿透问题，分别在遮罩层弹出后和关闭前调用
-      let scrollTop;
-      return {
-        afterOpen: function () {
-          scrollTop = document.scrollingElement.scrollTop;
-          document.body.classList.add(bodyCls);
-          document.body.style.top = -scrollTop + 'px';
-        },
-        beforeClose: function () {
-          document.body.classList.remove(bodyCls);
-          document.scrollingElement.scrollTop = scrollTop;
-        }
-      };
-    })('dialog-open');
-
-  </script>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+    <script type="text/javascript">
+        const ModalHelper = ((bodyCls) => { //解决遮罩层滚动穿透问题，分别在遮罩层弹出后和关闭前调用
+            let scrollTop;
+            return {
+                afterOpen: function() {
+                    scrollTop = document.scrollingElement.scrollTop;
+                    document.body.classList.add(bodyCls);
+                    document.body.style.top = -scrollTop + 'px';
+                },
+                beforeClose: function() {
+                    document.body.classList.remove(bodyCls);
+                    document.scrollingElement.scrollTop = scrollTop;
+                }
+            };
+        })('dialog-open');
+    </script>
 </body>
 
 </html>
