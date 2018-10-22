@@ -506,11 +506,21 @@
         $(showId).hide();
         $("#bgShare").hide();
       },
+      handleScroll () {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+        if (scrollTop > 300) {
+          $("#header1").hide();
+          $("#header2").show();
+        } else {
+          $("#header1").show();
+          $("#header2").hide();
+        }
+      },
     },
     mounted() {
       this.$store.dispatch('hideFoot');
       /*悬浮,更换头部背景透明度和文字*/
-      $(window).scroll(() => {
+      /*$(window).scroll(() => {
         if ($("html,body").scrollTop() <= 300) {
           $("#header1").show();
           $("#header2").hide();
@@ -518,7 +528,8 @@
           $("#header1").hide();
           $("#header2").show();
         }
-      })
+      })*/
+      window.addEventListener('scroll', this.handleScroll)
       this.init();
       this.getUserList();
       this.myNum()

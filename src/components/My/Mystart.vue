@@ -132,7 +132,6 @@
         giveId: 0,
         showImg: false,
         imgSrc: '',
-        scrolled: false
       }
     },
     components: {},
@@ -333,25 +332,12 @@
               // MessageBox('提示', res.data.errorMsg);
             }
           });
-      },
-      handleScroll () {
-        this.scrolled = window.scrollY > 0;
-        if ($("html,body").scrollTop() <= 300) {
-          $("#header1").show();
-          $("#header2").hide();
-        } else {
-          $("#header1").hide();
-          $("#header2").show();
-        }
       }
-    },
-    ready() {
-      window.addEventListener('scroll', this.handleScroll);
     },
     mounted() {
       this.$store.dispatch('hideFoot');
-      /*悬浮,更换头部背景透明度和文字*/
-      /*$(window).scroll(() => {
+      //悬浮,更换头部背景透明度和文字
+      $(window).scroll(() => {
         if ($("html,body").scrollTop() <= 300) {
           $("#header1").show();
           $("#header2").hide();
@@ -359,7 +345,7 @@
           $("#header1").hide();
           $("#header2").show();
         }
-      })*/
+      })
       this.init();
       this.myNum()
       this.getMineList();
