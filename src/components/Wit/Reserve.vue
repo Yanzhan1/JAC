@@ -57,7 +57,7 @@
                           <span>推荐码</span>
                           <div class="allflex">
                               <input type="text" name="" id="" placeholder='点击输入推荐码' v-model="Recommend" @blur="Codigo">
-                              <img src="/static/images/next@2x.png" alt="">
+                              <img src="../../../static/images/next@2x.png" alt="">
                           </div>
                       </li>
                       <li class="all">
@@ -630,6 +630,7 @@ export default {
 .allflex {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 .allflex > input {
   border: 0;

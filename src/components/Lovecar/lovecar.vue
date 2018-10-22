@@ -61,18 +61,18 @@
     </div>
     <div class="content lines">
       <div class="content_1" @click="doors">
-        <img v-if="activeshows==this.isTrue" class="content_pic" src="../../../static/images/Wit/button4@3x_32.png" alt="">
-        <img v-else class="content_pic" src="../../../static/images/Wit/button4@3x.png" alt="">
+        <img v-if="activeshows==this.isTrue" class="content_carDoor" src="../../../static/images/Wit/button4@3x_32.png" alt="">
+        <img v-else class="content_carDoor" src="../../../static/images/Wit/button4@3x.png" alt="">
         <span :class="activeshows==this.isTrue?'act':'activess'">车门</span>
       </div>
       <div class="content_1" @click="backbox">
-        <img v-if="activeshows==this.isTrues" class="content_pic" src="../../../static/images/Wit/button5@3x_86.png" alt="">
-        <img v-else class="content_pic" src="../../../static/images/Wit/button5@3x.png" alt="">
+        <img v-if="activeshows==this.isTrues" class="tailgate" src="../../../static/images/Wit/button5@3x_86.png" alt="">
+        <img v-else class="tailgate" src="../../../static/images/Wit/button5@3x.png" alt="">
         <span :class="activeshows==this.isTrues?'act':'activess'">尾门</span>
       </div>
       <div class="content_1" @click="closefire">
-        <img v-if="activeshows==this.isTruess" class="content_pic" src="../../../static/images/Wit/button6@3x_91.png" alt="">
-        <img v-else class="content_pic" src="../../../static/images/Wit/button6@3x.png" alt="">
+        <img v-if="activeshows==this.isTruess" class="Flameout" src="../../../static/images/Wit/button6@3x_91.png" alt="">
+        <img v-else class="Flameout" src="../../../static/images/Wit/button6@3x.png" alt="">
         <span :class="activeshows==this.isTruess?'act':'activess'">熄火</span>
       </div>
       <div class="content_1" @click="enter()">
@@ -106,14 +106,14 @@
       </router-link>
       <router-link to="/lovecar/skylightControl" tag="li" class="navs air">
         <div class="navs">
-          <img class="picc" src="../../../static/images/Wit/tianchuang.png" alt="">
+          <img class="picc skylight" src="../../../static/images/Wit/tianchuang.png" alt="">
           <span class="pic_txt">天窗控制</span>
         </div>
         <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
       </router-link>
       <router-link to="/lovecar/airEvoluor" tag="li" class="navs air">
         <div class="navs">
-          <img class="picc" src="../../../static/images/Wit/icon5@3x.png" alt="">
+          <img class="picc air_contr" src="../../../static/images/Wit/icon5@3x.png" alt="">
           <span class="pic_txt">空气净化器</span>
         </div>
         <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
@@ -1379,10 +1379,21 @@ export default {
 		display: flex;
 		flex-direction: column;
 	}
+	.content_carDoor {
+		width: .35rem;
+		height: .29rem;
+	}
+	.tailgate {
+		width: .44rem;
+	} 
+	.Flameout {
+		width: .31rem;
+		height: .35rem;
+	}
 	
 	.content_pic {
-		width: 0.28rem;
-		height: 0.34rem;
+		width: 0.35rem;
+		height: 0.35rem;
 	}
 	
 	.lines {
@@ -1440,8 +1451,8 @@ export default {
 	
 	.content {
 		display: flex;
-		flex-direction: row;
 		justify-content: space-around;
+		align-items: center;
 	}
 	
 	.content_1 {
@@ -1480,10 +1491,20 @@ export default {
 	}
 	
 	.picc {
-		width: 0.38rem;
+		width: 0.34rem;
+		height: .38rem;
 		display: block;
 		margin-left: 0.65rem;
 		margin-right: 0.51rem;
+	}
+	.air_contr {
+		width: .26rem;
+    height: .4rem;
+	}
+	
+	.skylight {
+		width: .34rem;
+		height: .38rem;
 	}
 	
 	.pic_r {

@@ -801,7 +801,7 @@ export default {
 
 .wind-blows > img {
   width: 1.4rem;
-  height: 2.35rem;
+  height: 2.15rem;
   margin: 0 auto;
 }
 /*PM数据*/
