@@ -86,9 +86,9 @@ export default {
     transform: translate3d(0, 0, 0) rotateX(0);
 }
 .picker-item {
-    height: 36px;
-    line-height: 36px;
-    padding: 0 10px;
+    height: .36rem;
+    line-height: .36rem;
+    padding: 0 .1rem;
     white-space: nowrap;
     position: relative;
     overflow: hidden;
@@ -106,11 +106,11 @@ export default {
 .picker-center-highlight:before, .picker-center-highlight:after {
   content: '';
   position: absolute;
-  height: 1px;
+  height: .05rem;
   width: 100%;
-  background-color: #eaeaea;
+  background-color: #888888;
   display: block;
-  z-index: 1200;
+  z-index: 9900;
   -webkit-transform: scaleY(0.5);
           transform: scaleY(0.5);
 }
