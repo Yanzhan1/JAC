@@ -3,7 +3,7 @@
     <div>
       <div class="myheader" style="height: auto;" :style="$statusBarHeightObj">
         <div>
-          <img src="../../static/images/discover/shaixuan.png" @click="open" style="width: 0.4rem;margin-top: 0.1rem;" />
+          <img src="../../static/images/discover/shaixuan.png" @click="open" style="width: 0.4rem;margin-bottom: 0;" />
         </div>
         <div style="" class="head-tab" :class="{ recommand: isRecommand }" @click.stop.prevent="goIsRecommand">
           <span>推荐</span>
@@ -19,7 +19,7 @@
         </div>
         <div style="position: relative;">
           <div style="position: absolute;top: 0;left: 0;z-index: 1;width: 100%;height: 100%;" @click="publish"></div>
-          <img src="../../static/images/discover/camera.png" style="width: 0.4rem;margin-top: 0.1rem;" id='id_publish' />
+          <img src="../../static/images/discover/camera.png" style="width: 0.4rem;margin-bottom: 0;" id='id_publish' />
         </div>
         <mt-popup style="width:80%;border-radius:4px;" v-model="popup" position="center">
           <div style="width:100%;text-align:center;box-sizing:border-box;font-size:.36rem;color:#555555;">
