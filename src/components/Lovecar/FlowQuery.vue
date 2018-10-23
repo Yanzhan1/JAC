@@ -99,6 +99,8 @@ export default {
                   {
                     vin: this.$store.state.vins, //车辆vin码
                     queryDate:totime//传给后台的查询时间
+                    // vin: 'LJ12EKS10J00001S4', //车辆vin码
+                    // queryDate:'201810'//传给后台的查询时间
                   },
                   this.$store.state.tsppin
                 )

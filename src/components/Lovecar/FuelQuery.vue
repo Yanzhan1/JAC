@@ -99,72 +99,79 @@
 			}
 		},
 		mounted(){
-			this.years=new Date().getFullYear()+'年';
-			this.months=new Date().getMonth()+1+'月';
-			var newstimes=new Date().getTime();
-			this.remaketime=this.years+'-'+this.months+'-'+'01'
-			this.remaketime=this.remaketime.replace(/[\u4e00-\u9fa5]/g, "")
-			//获取默认页面的请求从当月的1号到当月的当日
-			// alert(this.remaketime)
-			// alert(this.turntimes())
-			var params={
-				vin:this.$store.state.vins,
-				// vin:'LS5A3CJC9JF830022',
-				//UBS2018072410503423882
-				beginTime:this.turntimes(),
-				endTime:newstimes,
-				type:'1'
-			}
-			this.$http.post(Lovecar.Fuel,params,this.$store.state.tsppin).then((res)=>{
-				this.count[0].monthMileage=res.data.data.totalMileage
-				this.count[0].oilConsumer=res.data.data.totalWear
-			})
-			console.log(this.$route.params)
+			
+			// console.log(this.$route.params)
 			// if(this.$route.params.begintime){
-				var accpect=this.$route.params		
-				if(accpect.times=='月'){
-					this.times='3'
-					this.years=accpect.showtop.years+'年';
-					this.months=accpect.showtop.months+'月';
-				}
-				if(accpect.times=='周'){
-					this.times='2'
-					this.years=accpect.showtop.years+'年';
-					this.months=accpect.showtop.months+'月';
-					this.showweek='第'+accpect.showweek+'周'
-				}
-				if(accpect.times=='日'){
-					this.times='1'
-					if(accpect.showtopdate==''){
+				var accpect=this.$route.params
+				if(accpect.begintime==null){
+						this.years=new Date().getFullYear()+'年';
+									this.months=new Date().getMonth()+1+'月';
+									var newstimes=new Date().getTime();
+									this.remaketime=this.years+'-'+this.months+'-'+'01'
+									this.remaketime=this.remaketime.replace(/[\u4e00-\u9fa5]/g, "")
+									//获取默认页面的请求从当月的1号到当月的当日
+									// alert(this.remaketime)
+									// alert(this.turntimes())
+									var params={
+										vin:this.$store.state.vins,
+										// vin:'LS5A3CJC9JF830022',
+										//UBS2018072410503423882
+										beginTime:this.turntimes(),
+										endTime:newstimes,
+										type:'1'
+									}
+									this.$http.post(Lovecar.Fuel,params,this.$store.state.tsppin).then((res)=>{
+										this.count[0].monthMileage=res.data.data.totalMileage
+										this.count[0].oilConsumer=res.data.data.totalWear
+									})
+				}else{
+					alert(2)
+					if(accpect.times=='月'){
+						this.times='3'
 						this.years=accpect.showtop.years+'年';
 						this.months=accpect.showtop.months+'月';
-						this.date=new Date().getDate()+'日'
-					}else{
+					}
+					if(accpect.times=='周'){
+						this.times='2'
 						this.years=accpect.showtop.years+'年';
 						this.months=accpect.showtop.months+'月';
-						this.date=accpect.showtopdate+'日';
+						this.showweek='第'+accpect.showweek+'周'
 					}
-				}
-				if(accpect.times=='年'){
-					this.times='4'
-					if(accpect.showyear==''){
-						this.years=new Date().getFullYear()+'年'
-						this.months=''
-					}else{
-						this.years=accpect.showyear+'年';
-						this.months=''
+					if(accpect.times=='日'){
+						this.times='1'
+						if(accpect.showtopdate==''){
+							this.years=accpect.showtop.years+'年';
+							this.months=accpect.showtop.months+'月';
+							this.date=new Date().getDate()+'日'
+						}else{
+							this.years=accpect.showtop.years+'年';
+							this.months=accpect.showtop.months+'月';
+							this.date=accpect.showtopdate+'日';
+						}
 					}
-				}
-				//路由传过来所选择的日期渲染页面
-				let data={
-					vin: this.$store.state.vin,
-					beginTime:accpect.begintime,
-					endTime:accpect.endtime,
-					type:this.times
-				}
-				this.$http.post(Lovecar.Fuel,data,this.$store.state.tsppin).then((res)=>{
-					// console.log(res)
-				})
+					if(accpect.times=='年'){
+						this.times='4'
+						if(accpect.showyear==''){
+							this.years=new Date().getFullYear()+'年'
+							this.months=''
+						}else{
+							this.years=accpect.showyear+'年';
+							this.months=''
+						}
+					}
+					//路由传过来所选择的日期渲染页面
+					let data={
+						vin: this.$store.state.vin,
+						beginTime:accpect.begintime,
+						endTime:accpect.endtime,
+						type:this.times
+					}
+					this.$http.post(Lovecar.Fuel,data,this.$store.state.tsppin).then((res)=>{
+						// console.log(res)
+							this.count[0].monthMileage=res.data.data.totalMileage
+							this.count[0].oilConsumer=res.data.data.totalWear
+					})
+				}		
 			// }
 		}
 	}

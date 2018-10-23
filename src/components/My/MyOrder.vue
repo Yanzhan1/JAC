@@ -53,7 +53,7 @@
 							<span class="times">{{item.createDate}}</span>
 							<span class="times">{{item.orderState}}</span>
 						</p>
-						<router-link class="buycity flex row cocenter between" tag="div" :to="{path:'/myindex/mallOrderDetails', query:{orderNo: item.orderNo}}">
+						<router-link class="buycity flex row cocenter between" tag="div" :to="{path:'/myindex/mallOrderDetails?toOrderList=suc', query:{orderNo: item.orderNo}}">
 							<div class="flex row">
 								<img class="pictu" :src="item.image" alt="" style="height:1.2rem;width:1.14rem;">
 								<div class="flex column cocenter maincenter">
@@ -74,32 +74,6 @@
 							<span class="cancel">待付款</span>
 						</div>
 					</li>
-					<!--<li class="flex column">
-						<p class="flex row tim between">
-							<span class="times">2018 09-21 18:34</span>
-							<span class="times">待评价</span>
-						</p>
-						<div class="buycity flex row cocenter between">
-							<div class="flex row">
-								<img class="pictu" src="../../../static/images/test/my/car_ruifeng_s5.png" alt="" style="height:1.2rem;width:1.14rem;">
-								<div class="flex column cocenter maincenter">
-									<p style="font-size:.31rem;color:#222;">马克华杯</p>
-									<p style="font-size:.22rem;color:#888;">白色 400ml</p>
-								</div>
-							</div>
-							<div class="flex row cocenter" style="margin-right:.3rem">
-								<span style="font-size:.2rem;color:#222;">X 1</span>
-								<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
-							</div>
-						</div>
-						<div class="flex row  bts">
-							<span class="cancel" v-if="3>4">取消订单</span>
-							<span class="cancel">申请退款</span>
-							<span class="cancel" @click="wul()">查看物流</span>
-							<span class="cancel" @click="compontent()">评价晒单</span>
-							<span class="cancel" v-if="3>4">待付款</span>
-						</div>
-					</li>-->
 				</ul>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="three">
@@ -297,6 +271,7 @@
 					const data = res.data
 					if (data.code == 0) {                                                                                    
 						this.shoppingMall = data.data
+						console.log(this.shoppingMall)
 					}
 				})
 				.catch(err => {
@@ -310,7 +285,7 @@
 				}
 				this.$http.post(Lovecar.Getoederlistapp,params,this.$store.state.tsppin).then((res)=>{
 					this.allflowbuy = res.data.data
-//					console.log(this.allflowbuy)
+					console.log(this.allflowbuy)
 				})
 			},
 			//线索订单
