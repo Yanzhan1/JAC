@@ -271,12 +271,10 @@ export default {
     onValuesChange(picker, values) {
       this.numadd++
       if(values[0]===undefined||this.numadd=='3'){
-        alert(1)
         this.choosedarea=this.provinceName
          this.everycode='024'
          this.cityCode='0228'
       }else{
-          alert(2)
         this.choosedarea = values[0];
       for (var i = 0; i < this.allarea.length; i++) {
         if (this.allarea[i].name == this.choosedarea) {
