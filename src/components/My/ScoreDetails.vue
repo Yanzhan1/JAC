@@ -49,14 +49,14 @@ export default {
             this.details=res.data.data
 
            for(let i=0;i<this.details.length;i++){
-             if(this.details[i].ruleId=='5'){
+             if(this.details[i].ruleId=='8'){
                this.$nextTick(()=>{
-                 $(".changecolor").eq(i).css("color",'#49BBFF')
+                  $(".changecolor").eq(i).css("color",'#ccc')
                })
                
              }else{
                 this.$nextTick(()=>{
-                  $(".changecolor").eq(i).css("color",'#ccc')
+                  $(".changecolor").eq(i).css("color",'#49BBFF')
                })
              }
                this.details[i].times=operationTime.getTime( this.details[i].time, 2  )
