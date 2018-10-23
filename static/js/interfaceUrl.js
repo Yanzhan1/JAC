@@ -16,8 +16,8 @@ var love_car = host + '/api/jac-car-control' //爱车
     //服务器→反馈记录
 var rec = host + '/api/jac-enjoy-service/'
     // H5外网地址，分享用
-var waiwangip = window.location.protocol + host + '/JACH5/#/';
-
+/*var waiwangip = window.location.protocol + host + '/JACH5/#/';*/
+var waiwangip = host + '/JACH5/#/';
 var filestore = host + '/api/dk-filestore-svr'
     //首页
 window.INDEXMESSAGE = {
@@ -156,7 +156,7 @@ window.My = {
         addintegralRealName: host + '/api/pluto-membership/pluto-membership/integral-gather/addintegral-realName',//保存个人信息,增加积分
         orderList: host + '/api/pluto-membership/mall/information/orderList', //商城订单
         orderDetail: host + '/api/pluto-membership/mall/information/orderDetail' //商城订单详细
-        
+
 
     }
     //爱车
