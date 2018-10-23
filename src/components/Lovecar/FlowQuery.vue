@@ -14,7 +14,7 @@
 						<span style="font-size: 0.26rem;color: #444444;">
 					本月总流量:
 				</span>
-						<input :disabled="disabled" type="text" v-model="packageTotalFlow" />MB
+						<input :disabled="disabled" type="text" v-model="packageTotalFlow" /><div>MB</div>
 					</div>
 				</div>
 				<div class="origin-pin">
@@ -22,7 +22,7 @@
 						<span style="font-size: 0.26rem;color: #444444;">
 					已使用流量:
 				</span>
-						<input :disabled="disabled" type="text" v-model="usedFlow" />MB
+						<input :disabled="disabled" type="text" v-model="usedFlow" /><div>MB</div>
 					</div>
 				</div>
 				<div class="origin-pin">
@@ -30,7 +30,7 @@
 						<span style="font-size: 0.26rem;color: #444444;">
 					剩余流量:
 				</span>
-						<input :disabled="disabled" type="text" v-model="surplusFlow" />MB
+						<input :disabled="disabled" type="text" v-model="surplusFlow" /><div style="margin-left:.26rem">MB</div>
 					</div>
 				</div>
 			</div>
@@ -194,7 +194,7 @@ input {
   padding: 0 0.3rem;
 }
 .flow-wrap input{
-  width: .5rem;
+ width: 20%;
 }
 .apn-title {
   height: 0.86rem;
