@@ -43,7 +43,7 @@
 			} else if (system == "IOS") {
 				$(".MobileHeight").css({"marginTop": 0})
 			}
-			this.$http.post(Lovecar.Getoederlist, {phone:this.$store.state.mobile}, this.$store.state.tsppin).then((res) => { //获取所有流量类型
+			this.$http.post(Lovecar.FlowBuy, {}, this.$store.state.tsppin).then((res) => { //获取所有流量类型
 				const data = res.data
 				console.log(data)
 				if (data.returnSuccess) {

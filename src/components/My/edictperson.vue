@@ -185,7 +185,10 @@ export default {
               })
             	.catch( err => {
             		
-            	})
+              })
+              setTimeout(()=>{
+                  this.popupVisible=false
+              },2000)
               /*setTimeout(function() {
                self.$router.go(-1);
               }, 2000);*/

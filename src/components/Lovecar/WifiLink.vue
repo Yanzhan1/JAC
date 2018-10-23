@@ -194,6 +194,7 @@ export default {
   mounted() {
     $(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
     var param = {
+      // vin: 'LS5A3CJC9JF830022',
       vin: this.$store.state.vins,
       operationType: "WIFI",
       operation: 5, //操作项

@@ -39,8 +39,7 @@
 					js2android.scan();
 				}
 			},
-			getStatus(status) {//暴露方法给原生,登入判断
-				console.log(status)  		
+			getStatus(status) {//暴露方法给原生,登入判断		
 				this.$store.dispatch('QRCODEPIN', JSON.parse(status))
 			}
 		},
@@ -48,6 +47,8 @@
   			window.getStatus = this.getStatus;
 		},
 		mounted () {
+			console.log(this.$store.state.qrCodeDate)
+
 		},
 		computed: {
 			qrCode() {
@@ -56,29 +57,39 @@
 		},
 		watch: {
 				qrCode (newVal, oldVal) { //解决扫一扫无法及时获取二维码信息的异步问题
-
 				if(this.qrCode) {
-					let data = {
-						vin: this.qrCode.vin,
-						userName: this.$store.state.mobile
-					}
-					this.$http.post(Lovecar.RemoteVehicleLogin, data, this.$store.state.tsppin).then(res => {
-							const data = res.data
-							//							console.log('扫一扫登入接口状态: '+data.returnSuccess)
-							if(data.returnSuccess) {
-									Toast({
-			              message: '登录成功',
-        					  position: "middle",
-        					  duration: 2000
-									})
-									setTimeout(() => {
-										this.$router.replace({path: '/myindex/loginVehicleState', query:{vin: this.qrCode.vin}})
-									}, 2000)
-							}
-						})
-						.catch(err => {
+					let nowtime=(new Date()).getTime()
+					console.log(nowtime-this.qrCode.createTime)
+					if((nowtime-this.qrCode.createTime)<500000){
 
-						})
+						let data = {
+							vin: this.qrCode.vin,
+							userName: this.$store.state.mobile
+						}
+						this.$http.post(Lovecar.RemoteVehicleLogin, data, this.$store.state.tsppin).then(res => {
+								const data = res.data
+								//							console.log('扫一扫登入接口状态: '+data.returnSuccess)
+								if(data.returnSuccess) {
+										Toast({
+											message: '登录成功',
+												position: "middle",
+												duration: 2000
+										})
+										setTimeout(() => {
+											this.$router.replace({path: '/myindex/loginVehicleState', query:{vin: this.qrCode.vin}})
+										}, 2000)
+								}
+							})
+							.catch(err => {
+	
+							})
+					}else{
+						Toast({
+								message: '二维码超时',
+									position: "middle",
+									duration: 2000
+							})
+					}
 				}
 			}
 		}

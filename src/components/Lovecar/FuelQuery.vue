@@ -103,9 +103,13 @@
 			this.months=new Date().getMonth()+1+'月';
 			var newstimes=new Date().getTime();
 			this.remaketime=this.years+'-'+this.months+'-'+'01'
+			this.remaketime=this.remaketime.replace(/[\u4e00-\u9fa5]/g, "")
 			//获取默认页面的请求从当月的1号到当月的当日
+			// alert(this.remaketime)
+			// alert(this.turntimes())
 			var params={
 				vin:this.$store.state.vins,
+				// vin:'LS5A3CJC9JF830022',
 				//UBS2018072410503423882
 				beginTime:this.turntimes(),
 				endTime:newstimes,
@@ -142,6 +146,7 @@
 					}
 				}
 				if(accpect.times=='年'){
+					this.times='4'
 					if(accpect.showyear==''){
 						this.years=new Date().getFullYear()+'年'
 						this.months=''
@@ -151,7 +156,13 @@
 					}
 				}
 				//路由传过来所选择的日期渲染页面
-				this.$http.post(Lovecar.Fuel,{vin: this.$store.state.vin,beginTime:accpect.begintime,endTime:accpect.endtime,type:this.times},this.$store.state.tsppin).then((res)=>{
+				let data={
+					vin: this.$store.state.vin,
+					beginTime:accpect.begintime,
+					endTime:accpect.endtime,
+					type:this.times
+				}
+				this.$http.post(Lovecar.Fuel,data,this.$store.state.tsppin).then((res)=>{
 					// console.log(res)
 				})
 			// }

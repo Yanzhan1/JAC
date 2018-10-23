@@ -110,6 +110,7 @@ export default {
           } else{
               var param={
                     vin: this.$store.state.vins, 
+                    // vin: 'LS5A3CJC9JF830022', 
                     phone:this.$store.state.mobile,
                     userId:this.$store.state.tspId,
                     operationType: "CONTROL_AUTH", 

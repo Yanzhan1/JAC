@@ -70,6 +70,7 @@ export default {
           if (action == "confirm") {
           	var data = {
                     vin: this.$store.state.vins, 
+                    // vin: 'LS5A3CJC9JF830022', 
                     operationType: "CONTROL_AUTH", 
                     operation: 0, 
                     extParams: {
