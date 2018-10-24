@@ -58,9 +58,9 @@
 		watch: {
 				qrCode (newVal, oldVal) { //解决扫一扫无法及时获取二维码信息的异步问题
 				if(this.qrCode) {
-					let nowtime=(new Date()).getTime()
-					console.log(nowtime-this.qrCode.createTime)
-					if((nowtime-this.qrCode.createTime)<500000){
+					// let nowtime=(new Date()).getTime()
+					// console.log(nowtime-this.qrCode.createTime)
+					// if((nowtime-this.qrCode.createTime)<500000){
 
 						let data = {
 							vin: this.qrCode.vin,
@@ -83,13 +83,13 @@
 							.catch(err => {
 	
 							})
-					}else{
-						Toast({
-								message: '二维码超时',
-									position: "middle",
-									duration: 2000
-							})
-					}
+					// }else{
+					// 	Toast({
+					// 			message: '二维码超时',
+					// 				position: "middle",
+					// 				duration: 2000
+					// 		})
+					// }
 				}
 			}
 		}

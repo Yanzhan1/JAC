@@ -112,7 +112,8 @@ export default {
                     vin: this.$store.state.vins, 
                     // vin: 'LS5A3CJC9JF830022', 
                     phone:this.$store.state.mobile,
-                    userId:this.$store.state.tspId,
+                    // userId:this.$store.state.tspId,
+                    // userId:this.$store.state.trueuserId,
                     operationType: "CONTROL_AUTH", 
                     operation: 1, 
                     extParams: {

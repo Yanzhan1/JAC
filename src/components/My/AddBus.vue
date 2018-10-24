@@ -47,6 +47,8 @@ export default {
        no:this.$store.state.userId,
         vin: this.rame.toUpperCase().replace(/\s*/g,""),
         operationType: "CAR_BINDING",
+        userId:this.$store.state.trueuserId,
+        phone:this.$store.state.mobile,
         operation: 1,
         extParams: {
           engineNo: this.engine.toUpperCase().replace(/\s*/g,"")

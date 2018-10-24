@@ -116,6 +116,8 @@ export default {
           var param = {
             vin: vin,
             extParams: {},
+            userId:this.$store.state.trueuserId,
+            phone:this.$store.state.mobile,
             operationType: "CAR_BINDING",
             operation: 0
           };
