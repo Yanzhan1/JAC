@@ -47,13 +47,14 @@
 				</ul>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="two">
-				<ul>
+				<iframe onload='setIframeHeight(this)' style="width:100%" src=this.url frameborder="0"></iframe>
+				<!-- <ul>
 					<li class="flex column" v-for="(item, index) in shoppingMall">
 						<p class="flex row tim between">
-							<span class="times">{{item.createDate}}</span>
+							<span class="times">{{item.createDate}}</span>k
 							<span class="times">{{item.orderState}}</span>
 						</p>
-						<router-link class="buycity flex row cocenter between" tag="div" :to="{path:'/myindex/mallOrderDetails?toOrderList=suc', query:{orderNo: item.orderNo}}">
+						<div class="buycity flex row cocenter between" @click="todetail">
 							<div class="flex row">
 								<img class="pictu" :src="item.image" alt="" style="height:1.2rem;width:1.14rem;">
 								<div class="flex column cocenter maincenter">
@@ -65,7 +66,7 @@
 								<span style="font-size:.2rem;color:#222;">X{{item.num}}</span>
 								<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 							</div>
-						</router-link>
+						</div>
 						<div class="flex row between bts">
 							<span class="cancel" v-if="3<4">申请退款</span>
 							<span class="cancel" v-if="3>4">查看物流</span>
@@ -74,7 +75,7 @@
 							<span class="cancel">待付款</span>
 						</div>
 					</li>
-				</ul>
+				</ul> -->
 			</mt-tab-container-item>
 			<mt-tab-container-item id="three">
 				<!--<ul>
@@ -210,264 +211,283 @@
 	</div>
 </template>
 <script>
-	import { MessageBox } from "mint-ui";
-	import PublicHead from '../publicmodel/PublicHead';
-	export default {
-		name: 'myOrder',
-		components: {
-			mhead: PublicHead
-		},
-		data() {
-			return {
-				selected: "one",
-				Xorder: {}, //线索订单
-				flag: true,
-				allflowbuy:[],
-				shoppingMall: [], //商城订单
-				trafficOrder:{
-					'0': '已完成',
-					'1': '待付款'
-				}
-			};
-		},
-		methods: {
-			toDetauls(item) {
-				this.$router.push({
-					path: "/orderdetails",
-					query: item
-				});
-			},
-			confirmRevise() {
-				MessageBox.confirm("", {
-						title: "提示",
-						message: "您确定要取消吗？",
-						showConfirmButton: true,
-						showCancelButton: true,
-						cancelButtonClass: "cancelButton",
-						confirmButtonClass: "confirmButton",
-						confirmButtonText: "确定",
-						cancelButtonText: "取消",
-						confirmButtonHighlight: true,
-						cancelButtonHighlight: true
-					})
-					.then(action => {
-						if(action == "confirm") {}
-					})
-					.catch(err => {
-						if(err == "cancel") {}
-					});
-			},
-			wul() {
-				this.$router.push("/mywl");
-			},
-			compontent() {
-				this.$router.push("/compontent");
-			},
-			getShoppingMall () { //商城订单
-				let data = {
-					no: 'AD022018082803151446865'
-				}
-				this.$http.post(My.orderList, data).then((res) => {
-					const data = res.data
-					if (data.code == 0) {                                                                                    
-						this.shoppingMall = data.data
-						console.log(this.shoppingMall)
-					}
-				})
-				.catch(err => {
-					
-				})
-			},
-			//流量订单
-			flowbuy(){
-				var params={
-					phone:this.$store.state.mobile
-				}
-				this.$http.post(Lovecar.Getoederlistapp,params,this.$store.state.tsppin).then((res)=>{
-					this.allflowbuy = res.data.data
-					console.log(this.allflowbuy)
-				})
-			},
-			//线索订单
-			GetXorder() {
-				// alert()
-				var no = this.$store.state.userId;
-				var dealerType = "01"
-				this.$http
-					.post(My.ClueOrder, {
-						userNo: no,
-						dealerType: dealerType
-					})
-					.then(res => {
-						if(res.data.code == 0) {
-							if(res.data.data.records.length == 0) {
-								this.flag = false
-							}
-							this.Xorder = res.data.data.records;
-							for(let i = 0; i < this.Xorder.length; i++) {
-								this.Xorder[i].time = operationTime.getTime(this.Xorder[i].createdDate, 1);
-								if(this.Xorder[i].imageRelationVO.length > 0) {
-									for(let j = 0; j < this.Xorder[i].imageRelationVO.length; j++) {
-										if(this.Xorder[i].imageRelationVO[j].imageType == "6") {
-
-											this.Xorder[i].img = this.Xorder[i].imageRelationVO[j].imageUrl
-										}
-									}
-								} else {
-									this.Xorder[i].img = ""
-								}
-
-							}
-						}
-
-					});
-			},
-			Getoederlist(){
-				let params={
-					vin:this.$store.state.vins
-				}
-				this.$http.post(Lovecar.Getoederlist,params).then((res)=>{
-					console.log(res)
-				})
-			}
-		},
-		created() {
-			this.GetXorder();
-			this.flowbuy();
-			this.getShoppingMall()
-		},
-		mounted() {
-//			console.log('加密:' + this.$md5('uid=1jac.com'))
-			$(".MobileHeight").css({
-				"borderTopWidth": this.$store.state.mobileStatusBar,
-				"borderTopColor": "#fff",
-			})
-		}
-	};
+import { MessageBox } from "mint-ui";
+import PublicHead from "../publicmodel/PublicHead";
+export default {
+  name: "myOrder",
+  components: {
+    mhead: PublicHead
+  },
+  data() {
+    return {
+      selected: "one",
+      Xorder: {}, //线索订单
+      flag: true,
+      allflowbuy: [],
+      shoppingMall: [], //商城订单
+      trafficOrder: {
+        "0": "已完成",
+        "1": "待付款"
+	  },
+	  url:''
+    };
+  },
+  methods: {
+    toDetauls(item) {
+      this.$router.push({
+        path: "/orderdetails",
+        query: item
+      });
+    },
+    //跳转商城详情
+    todetail() {
+      location.href =
+        "http://14.21.46.171:8707/authLogin?uid=1&mobile=13721658974&userName=测试&t测试&t测试&toOrderList=suc&token=96469f768921ff5811a22162fabe0bd0";
+    },
+    confirmRevise() {
+      MessageBox.confirm("", {
+        title: "提示",
+        message: "您确定要取消吗？",
+        showConfirmButton: true,
+        showCancelButton: true,
+        cancelButtonClass: "cancelButton",
+        confirmButtonClass: "confirmButton",
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        confirmButtonHighlight: true,
+        cancelButtonHighlight: true
+      })
+        .then(action => {
+          if (action == "confirm") {
+          }
+        })
+        .catch(err => {
+          if (err == "cancel") {
+          }
+        });
+    },
+    wul() {
+      this.$router.push("/mywl");
+    },
+    compontent() {
+      this.$router.push("/compontent");
+    },
+    getShoppingMall() {
+      //商城订单
+      let data = {
+        no: "AD022018082803151446865"
+      };
+      this.$http
+        .post(My.orderList, data)
+        .then(res => {
+          const data = res.data;
+          if (data.code == 0) {
+            this.shoppingMall = data.data;
+            console.log(this.shoppingMall);
+          }
+        })
+        .catch(err => {});
+    },
+    //流量订单
+    flowbuy() {
+      var params = {
+        phone: this.$store.state.mobile
+      };
+      this.$http
+        .post(Lovecar.Getoederlistapp, params, this.$store.state.tsppin)
+        .then(res => {
+          this.allflowbuy = res.data.data;
+          console.log(this.allflowbuy);
+        });
+    },
+    //线索订单
+    GetXorder() {
+      // alert()
+      var no = this.$store.state.userId;
+      var dealerType = "01";
+      this.$http
+        .post(My.ClueOrder, {
+          userNo: no,
+          dealerType: dealerType
+        })
+        .then(res => {
+          if (res.data.code == 0) {
+            if (res.data.data.records.length == 0) {
+              this.flag = false;
+            }
+            this.Xorder = res.data.data.records;
+            for (let i = 0; i < this.Xorder.length; i++) {
+              this.Xorder[i].time = operationTime.getTime(
+                this.Xorder[i].createdDate,
+                1
+              );
+              if (this.Xorder[i].imageRelationVO.length > 0) {
+                for (
+                  let j = 0;
+                  j < this.Xorder[i].imageRelationVO.length;
+                  j++
+                ) {
+                  if (this.Xorder[i].imageRelationVO[j].imageType == "6") {
+                    this.Xorder[i].img = this.Xorder[i].imageRelationVO[
+                      j
+                    ].imageUrl;
+                  }
+                }
+              } else {
+                this.Xorder[i].img = "";
+              }
+            }
+          }
+        });
+    },
+    Getoederlist() {
+      let params = {
+        vin: this.$store.state.vins
+      };
+      this.$http.post(Lovecar.Getoederlist, params).then(res => {
+        console.log(res);
+      });
+    }
+  },
+  created() {
+    this.GetXorder();
+    this.flowbuy();
+    this.getShoppingMall();
+  },
+  mounted() {
+	this.url='http://14.21.46.171:8707/authLogin'+'?'+'uid='+this.$store.state.tspId+'&moblie='+this.$store.state.mobile+'&userName='+this.$store.state.userId+'&toOrderList=suc&token='+JSON.parse(this.$store.state.tsppin.headers.identityParam).token
+	// alert(this.url)
+    //			console.log('加密:' + this.$md5('uid=1jac.com'))
+    $(".MobileHeight").css({
+      borderTopWidth: this.$store.state.mobileStatusBar,
+      borderTopColor: "#fff"
+    });
+  }
+};
 </script>
 <style scoped>
-	.MobileHeight {
-		border-top-style: solid;
-		box-sizing: content-box;
-	}
-	
-	.mint-navbar .mint-tab-item {
-		padding: 0.3rem 0;
-		font-size: 0.28rem;
-		color: #555;
-	}
-	
-	.mint-navbar {
-		border-bottom: 0.01rem solid #f1f1f1;
-		padding: 0 0.3rem;
-	}
-	
-	.times {
-		padding: 0.3rem 0;
-		font-size: 0.24rem;
-		color: #888;
-	}
-	.order {
-		color: #FF802F;
-	}
-	
-	.tim {
-		border-bottom: 0.01rem solid #f1f1f1;
-		padding: 0 0.4rem;
-	}
-	.bus_left {
-    justify-content: center
-	}
-	.bus_left>img{
-		width: .4rem;
-		height: .4rem;
-	}
-	
-	.busname {
-		color: #49bbff;
-		font-size: 0.28rem;
-		text-align: center;
-		margin-top: 0.2rem;
-	}
-	
-	.bus_right {
-		font-size: 0.24rem;
-		color: #555;
-		margin-top: 0.15rem;
-		/* font-family:  */
-	}
-	
-	.tp {
-		/*margin-top: 0.15rem;
+.MobileHeight {
+  border-top-style: solid;
+  box-sizing: content-box;
+}
+
+.mint-navbar .mint-tab-item {
+  padding: 0.3rem 0;
+  font-size: 0.28rem;
+  color: #555;
+}
+
+.mint-navbar {
+  border-bottom: 0.01rem solid #f1f1f1;
+  padding: 0 0.3rem;
+}
+
+.times {
+  padding: 0.3rem 0;
+  font-size: 0.24rem;
+  color: #888;
+}
+.order {
+  color: #ff802f;
+}
+
+.tim {
+  border-bottom: 0.01rem solid #f1f1f1;
+  padding: 0 0.4rem;
+}
+.bus_left {
+  justify-content: center;
+}
+.bus_left > img {
+  width: 0.4rem;
+  height: 0.4rem;
+}
+
+.busname {
+  color: #49bbff;
+  font-size: 0.28rem;
+  text-align: center;
+  margin-top: 0.2rem;
+}
+
+.bus_right {
+  font-size: 0.24rem;
+  color: #555;
+  margin-top: 0.15rem;
+  /* font-family:  */
+}
+
+.tp {
+  /*margin-top: 0.15rem;
 		margin-left: 0.4rem;*/
-	}
-	.tp>.flowPacket-title {
-		font-weight: bold;
-	}
-	.bt {
-		border-top: 1px solid #f1f1f1;
-		border-bottom: 0.2rem solid #f5f5f5;
-		line-height: .9rem;
-		padding: 0 0.4rem
-	}
-	
-	.bts {
-		border-top: 1px solid #f1f1f1;
-		border-bottom: 0.2rem solid #f5f5f5;
-		justify-content: flex-end;
-    align-items: center;
-    height: .9rem;
-    line-height: .9rem;
-	}
-	.bts>.cancel {
-		display: inline-block;
-		padding: 0 0.2rem;
-		height: .5rem;
-		line-height: .5rem;
-		min-width: 1.1rem;
-		color: #888888;
-		border: 1px solid #CCCCCC;
-		font-size: 0.22rem;
-		text-align: center;
-		border-radius: 0.3rem;
-	}
-	.bt div>.cancel {
-    display: inline-block;
-		padding: 0 0.2rem;
-		height: .5rem;
-		line-height: .5rem;
-		min-width: 1.1rem;
-		color: #888888;
-		border: 1px solid #CCCCCC;
-		font-size: 0.22rem;
-		text-align: center;
-		border-radius: 0.3rem;
-	}
-	
-	.con {
-		padding-bottom: 0.3rem;
-	}
-	
-	.cont {
-		display: flex;
-		justify-content: space-between;
-		padding: 0.3rem 0.3rem 0.3rem 0.9rem;
-	}
-	
-	.buycity {
-		height: 2rem;
-	}
-	
-	.pictu {
-		margin: 0 0.5rem;
-	}
-	.bt div .active {
-		color: #49bbff;
-		border: 1px solid #49BBFF;
-	}
-	.maincenter {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-	}
+}
+.tp > .flowPacket-title {
+  font-weight: bold;
+}
+.bt {
+  border-top: 1px solid #f1f1f1;
+  border-bottom: 0.2rem solid #f5f5f5;
+  line-height: 0.9rem;
+  padding: 0 0.4rem;
+}
+
+.bts {
+  border-top: 1px solid #f1f1f1;
+  border-bottom: 0.2rem solid #f5f5f5;
+  justify-content: flex-end;
+  align-items: center;
+  height: 0.9rem;
+  line-height: 0.9rem;
+}
+.bts > .cancel {
+  display: inline-block;
+  padding: 0 0.2rem;
+  height: 0.5rem;
+  line-height: 0.5rem;
+  min-width: 1.1rem;
+  color: #888888;
+  border: 1px solid #cccccc;
+  font-size: 0.22rem;
+  text-align: center;
+  border-radius: 0.3rem;
+}
+.bt div > .cancel {
+  display: inline-block;
+  padding: 0 0.2rem;
+  height: 0.5rem;
+  line-height: 0.5rem;
+  min-width: 1.1rem;
+  color: #888888;
+  border: 1px solid #cccccc;
+  font-size: 0.22rem;
+  text-align: center;
+  border-radius: 0.3rem;
+}
+
+.con {
+  padding-bottom: 0.3rem;
+}
+
+.cont {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0.3rem 0.3rem 0.9rem;
+}
+
+.buycity {
+  height: 2rem;
+}
+
+.pictu {
+  margin: 0 0.5rem;
+}
+.bt div .active {
+  color: #49bbff;
+  border: 1px solid #49bbff;
+}
+.maincenter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 </style>
