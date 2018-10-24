@@ -487,19 +487,21 @@
         this.$router.go(-1);
         this.$store.dispatch("showFoot")
       },
+      handleScroll () {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+        if (scrollTop > 300) {
+          $("#header1").hide();
+          $("#header2").show();
+        } else {
+          $("#header1").show();
+          $("#header2").hide();
+        }
+      },
     },
     mounted() {
       this.$store.dispatch("hideFoot")
       /*悬浮,更换头部背景透明度和文字*/
-      $(window).scroll(() => {
-        if ($("html,body").scrollTop() <= $("#bgImg").height()) {
-          $("#header1").show();
-          $("#header2").hide();
-        } else {
-          $("#header1").hide();
-          $("#header2").show();
-        }
-      })
+      window.addEventListener('scroll', this.handleScroll)
       //初始化数据
       this.$nextTick(function () {
         this.getActivity();
