@@ -115,9 +115,9 @@ export default {
                     // userId:this.$store.state.tspId,
                     // userId:this.$store.state.trueuserId,
                     operationType: "CONTROL_AUTH", 
+                    childNum: this.Account, 
                     operation: 1, 
                     extParams: {
-                    childNum: this.Account, 
                     beginTime: this.shang, 
                     endTime: this.xia,
                 }
