@@ -8,7 +8,7 @@
     <title>江淮汽车</title>
     <script src="./static/js/interfaceUrl.js"></script>
     <script src="./static/js/publicmethods.js"></script>
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, shrink-to-fit=no,user-scalable=0">
     <!--原生方法-->
     <script src="./static/js/IOSAndAndroid.js"></script>
     <script>
@@ -37,6 +37,18 @@
                 }
             };
         })('dialog-open');
+        (function(doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function() {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+                };
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
     </script>
 </body>
 

@@ -14,7 +14,7 @@
 						<span style="font-size: 0.26rem;color: #444444;">
 					本月总流量:
 				</span>
-						<input :disabled="disabled" type="text" v-model="packageTotalFlow" />
+						<input :disabled="disabled" type="text" v-model="packageTotalFlow" /><div>MB</div>
 					</div>
 				</div>
 				<div class="origin-pin">
@@ -22,7 +22,7 @@
 						<span style="font-size: 0.26rem;color: #444444;">
 					已使用流量:
 				</span>
-						<input :disabled="disabled" type="text" v-model="usedFlow" />
+						<input :disabled="disabled" type="text" v-model="usedFlow" /><div>MB</div>
 					</div>
 				</div>
 				<div class="origin-pin">
@@ -30,7 +30,7 @@
 						<span style="font-size: 0.26rem;color: #444444;">
 					剩余流量:
 				</span>
-						<input :disabled="disabled" type="text" v-model="surplusFlow" />
+						<input :disabled="disabled" type="text" v-model="surplusFlow" /><div style="margin-left:.26rem">MB</div>
 					</div>
 				</div>
 			</div>
@@ -99,6 +99,8 @@ export default {
                   {
                     vin: this.$store.state.vins, //车辆vin码
                     queryDate:totime//传给后台的查询时间
+                    // vin: 'LJ12EKS10J00001S4', //车辆vin码
+                    // queryDate:'201810'//传给后台的查询时间
                   },
                   this.$store.state.tsppin
                 )
@@ -191,7 +193,9 @@ input {
 .flow-wrap {
   padding: 0 0.3rem;
 }
-
+.flow-wrap input{
+ width: 20%;
+}
 .apn-title {
   height: 0.86rem;
   line-height: 1.16rem;

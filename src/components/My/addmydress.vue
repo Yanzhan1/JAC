@@ -272,6 +272,8 @@ export default {
       this.numadd++
       if(values[0]===undefined||this.numadd=='3'){
         this.choosedarea=this.provinceName
+         this.everycode='024'
+         this.cityCode='0228'
       }else{
         this.choosedarea = values[0];
       for (var i = 0; i < this.allarea.length; i++) {

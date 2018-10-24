@@ -188,6 +188,7 @@ export default {
               })
               setTimeout(()=>{
                   this.popupVisible=false
+                  this.$router.go(-1);
               },2000)
               /*setTimeout(function() {
                self.$router.go(-1);

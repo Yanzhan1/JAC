@@ -1,16 +1,17 @@
 <template>
     <div>
-        <!--<header class="header">
+        <header class="header MobileHeight">
             <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
             <span class="header-title">会员积分</span>
             <span class="header-right"></span>
-        </header>
-        <div style="height:.88rem"></div>-->
-        <mhead currentTitle="会员积分"></mhead>
-        <div class="flex column arounds">
-            <span class="mycore">当前积分</span>
-            <span class="score">{{integral}}</span>
-        </div>
+        </header>      
+        <div style="width:100%;height:1.3rem"></div>  
+          <!-- <mhead currentTitle="会员积分"></mhead> -->
+          <div class="flex column arounds">
+              <span class="mycore">当前积分</span>
+              <span class="score">{{integral}}</span>
+          </div>
+          <div style="width:100%;height:1.8rem"></div>
         <ul>
             <div class="scoredeatails">积分明细</div>
             <li class="flex  row between cont cocenter" v-for="(item,index) in this.details" :key="index">
@@ -67,6 +68,10 @@ export default {
     }
   },
   mounted() {
+      $(".MobileHeight").css({
+            "borderTopWidth": this.$store.state.mobileStatusBar,
+            "borderTopColor": "#fff",
+          })
       this.scoredetails()
   }
 };
@@ -75,7 +80,14 @@ export default {
 <style scoped>
 .arounds {
   text-align: center;
+  position: fixed;
+  width: 100%;
+  background: #fff
 }
+.MobileHeight {  
+		border-top-style: solid;
+		box-sizing: content-box;
+	}
 .mycore {
   margin-top: 0.4rem;
   font-size: 0.28rem;
