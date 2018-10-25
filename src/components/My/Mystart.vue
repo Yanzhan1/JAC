@@ -1,9 +1,9 @@
 <template>
   <div>
-    <my-header></my-header>
-    <!-- <header class="header0 header1" id="header1" style="border: none;">
-      <img class="header_left" src="../../../static/images/discover/backfff.png" @click="goBack">
-    </header> -->
+    <my-header>
+      <img slot="backblue" v-show="rightPic" src="../../../static/images/discover/backfff.png"/>
+      <img slot="backblue" v-show="!rightPic" src="../../../static/images/discover/backblue.png"/>
+    </my-header>
     <header class="headerUser" id="header2" style="display: none">
       <img class="f_left" src="../../../static/images/discover/backblue.png" @click="goBack">
       <img class="f_left head_4" src="../../../static/images/discover/normalhead.png">
@@ -132,6 +132,8 @@
         giveId: 0,
         showImg: false,
         imgSrc: '',
+        leftPic: true,
+        rightPic: true,
       }
     },
     components: {},
@@ -335,13 +337,24 @@
       },
       handleScroll () {
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-        if (scrollTop > 300) {
-          $("#header1").hide();
-          $("#header2").show();
-        } else {
-          $("#header1").show();
-          $("#header2").hide();
+        var scrollHeight = (scrollTop / 1000).toFixed(1);
+        if(scrollHeight == 0.0){
+          scrollHeight = 0;
+        }else if(scrollHeight > 0.9){
+          scrollHeight = 1;
         }
+        if(scrollHeight <= 0.4){
+          this.leftPic = true;
+          this.rightPic = true;
+          $("#header2").hide();
+        }else if(0.8 > scrollHeight > 0.4 ){
+          this.leftPic = false;
+          this.rightPic = false;
+          $("#header2").hide();
+        }else if(scrollHeight >= 0.8 ){
+          $("#header2").show();
+        }
+        $("#asd").css("background", `rgba(255, 255, 255, ${scrollHeight})`)
       },
     },
     mounted() {

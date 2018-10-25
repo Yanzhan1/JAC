@@ -113,4 +113,8 @@
     color: #49BBFF;
   }
 
+  .header-title-fff{
+    color: #222222;
+    font-size: 0.36rem;
+  }
 </style>
