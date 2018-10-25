@@ -60,6 +60,13 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
       </router-link>
+      <div class="mylist" @click="tobuy">
+        <div class="flex cocenter">
+          <img src="../../../static/images/my/shoppingbuy.png" alt="">
+          <span>我的商城</span>
+        </div>
+        <img src="../../../static/images/my/next@2x.png" alt="">
+      </div>
       <!-- <router-link to="/myindex/wbrecode" class="mylist" tag="div">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_record_maintanance@2x.png" alt="">
@@ -141,7 +148,13 @@ export default {
       momentNum: 0,
       myList: [],
       num:'',//添加的积分量
-     flag: false //隐藏推荐码
+      flag: false ,//隐藏推荐码
+      url:'',
+      aaaid:'',
+      mobile:'',
+      add:'',
+      userName:'',
+      token:'',
     };
   },
   methods: {
@@ -158,7 +171,7 @@ export default {
     //  console.log(My.SignIn)
       this.$http.post(My.SignIn,data).then(res => {
         if(res.data.code==0){
-          this.num= res.data.num
+          this.num= res.data.data
          }
         this.popupVisible = true;
         setTimeout(() => {
@@ -250,6 +263,13 @@ export default {
     recommended() {
       this.$router.push("/Recommended");
     },
+    //跳转到商城
+    tobuy(){
+      this.add="JAC"+this.aaaid+this.mobile+this.userName+"APP"
+      this.add=this.$md5(this.add)
+      this.url='http://14.21.46.171:8707/authLogin'+'?'+'uid='+this.aaaid+'&moblie='+this.mobile+'&userName='+this.userName+'&toOrderList=suc&token='+this.add
+      location.href=this.url
+    },
     //粉丝
     toFans: function() {
       this.$router.push({ path: "/fans" });
@@ -334,14 +354,46 @@ export default {
           this.flag = true;
         }
       });
+    },
+    Tsp(){
+      let params = {
+      userNo: this.$store.state.userId
+    };
+    this.$http.post(Lovecar.TSP, params).then(res => {
+      if (res.data.msg == "success") {
+        var tsp = res.data.data;
+        this.$store.dispatch("TSP", tsp);
+      }
+    });
     }
+  },
+  computed:{
+        show(){
+          return this.$store.state.tspId
+        }
   },
   created() {
     this.getuserinfo();
     this.RecomendCode(); //获取推荐码
     
   },
+  watch:{
+    show(newVal, oldVal){
+      this.aaaid=this.$store.state.aaaid
+      this.mobile=this.$store.state.mobile
+      this.userName=this.$store.state.userName
+      // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
+    }
+  },
   mounted() {
+    // this.Tsp()
+    // setTimeout(() => {
+      
+      this.aaaid=this.$store.state.aaaid
+      this.mobile=this.$store.state.mobile
+      this.userName=this.$store.state.userName
+      // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
+    // }, 0);
     // console.log(this.$store.state.no)
     // this.getTokenAndNo();
     console.log()

@@ -157,7 +157,11 @@
           <img src="../../../static/images/Lovecar/chejian.png" alt="">
           <span>车辆体检</span>
         </router-link>
-        <router-link tag='li' to="/Authorize">
+        <router-link tag='li' to="/Authorize_next" v-if="Rajtigo">
+          <img src="../../../static/images/Lovecar/yuancheng.png" alt="">
+          <span>远程授权</span>
+        </router-link>
+        <router-link tag='li' to="/Authorize" v-else>
           <img src="../../../static/images/Lovecar/yuancheng.png" alt="">
           <span>远程授权</span>
         </router-link>
@@ -202,6 +206,7 @@ export default {
       tspid:'',
       popupVisible: false,
       MaskIsshow: false, //黑色遮罩层
+      Rajtigo:false,//被授权状态
       num: 3,
       isTrue: false, //锁定
       isTruesss: false, //停车
@@ -808,6 +813,15 @@ export default {
       this.Carquerry();
       this.activeshow = 1;
     },
+    //车辆授权状态
+    vehiclestatus(){
+				this.$http.post(Lovecar.vehiclestatus,{},this.$store.state.getpin).then((res)=>{
+					if(res.data.returnSuccess){
+            this.Rajtigo
+						this.vehicleState=res.data.data.vin
+					}
+				})
+			},
   },
   computed: {
     userId() {
@@ -1046,6 +1060,7 @@ export default {
   mounted() {
     // alert(this.$store.state.tspId)
     $(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
+    this.vehiclestatus()
     this.tspid=this.$store.state.tspId
      if(this.$store.state.tspId==undefined){
         this.tspid=0

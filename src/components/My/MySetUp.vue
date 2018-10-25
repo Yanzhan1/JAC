@@ -19,7 +19,7 @@
 		<router-link tag="div" class="setup-modifypwd" to="/myindex/modifyPassword">
 			<mt-cell title="修改密码" is-link></mt-cell>
 		</router-link>
-		<router-link v-if="vehicleState" tag="div" class="setup-vehiclestate" to="/myindex/loginVehicleState">
+		<router-link v-if="vehicleState" tag="div" class="setup-vehiclestate" :to="{path:'/myindex/loginVehicleState',query:{vin:this.vin}}">
 			<mt-cell title="车机登录状态" is-link></mt-cell>
 		</router-link>
 		<router-link v-else tag="div" class="setup-vehiclestate" to="/myindex/logoutVehicleState">
@@ -43,7 +43,8 @@
 			return {
 				title: '软键盘',
 				value: true,
-				vehicleState: null, //车机登录状态,true代表登录, false代表未登录
+				vin:'',
+				vehicleState:'', //车机登录状态,true代表登录, false代表未登录
 				firstTips: true //车机状态第一次提示,true不提示,改变为false的时候,Toast进行提示
 			}
 		},
@@ -91,21 +92,22 @@
 					return "IOS"
 				}
 			},
-			    //授权转台查询
-			vehiclestatus(){
-				this.$http.post(Lovecar.vehiclestatus,{},this.$store.state.getpin).then((res)=>{
-					if(res.data.returnSuccess){
-						this.vehicleState=res.data.data.vin
-					}
-				})
-			},
 			getCarLoginState() { //获取机车 登录登出状态
 				this.$http.get(Lovecar.LogStatus, this.$store.state.tsppin).then(res => {
 						const data = res.data
 						if(data.returnSuccess) {		
 								//字段缺乏,等待接口完成之后添加判断
-								this.vehicleState = data.data[0].logStatus //true 代表机车已经登录	
-								this.vehicleState = false
+								var allvin=this.data.data
+								for(let i=0;i<allvin.length;i++){
+									if(allvin[i].logStatus){
+										this.vin=allvin[i].vin
+										this.vehicleState = true
+									}else{
+										this.vehicleState = false
+									}
+								}
+								// this.vehicleState = data.data[0].logStatus //true 代表机车已经登录	
+								
 						} else {
 								Toast({
 									message: data.returnErrMsg,
@@ -124,7 +126,6 @@
 			}
 		},
 		mounted () {
-			this.vehiclestatus()
 			this.getCarLoginState()		
 		}
 	}

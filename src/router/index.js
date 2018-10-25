@@ -245,7 +245,7 @@ const router = new Router({
                 name: '忘记pin码',
                 component: ForgetPinCode,
                 meta: {
-                	keepAlive: true
+                    keepAlive: true
                 }
             },
             {
@@ -467,11 +467,11 @@ const router = new Router({
                 path: "/myorder",
                 name: '我的订单',
                 component: MyOrder
-            },{
+            }, {
                 path: "/myindex/flowOrderDetails",
                 name: '流量订单详情',
                 component: FlowOrderDetails
-            },{
+            }, {
                 path: "/myindex/mallOrderDetails",
                 name: '商城订单详情',
                 component: MallOrderDetails
@@ -568,7 +568,7 @@ const router = new Router({
                 name: '智享首页',
                 component: Wit,
                 meet: {
-                	keepAlive: true
+                    keepAlive: true
                 }
             },
             {

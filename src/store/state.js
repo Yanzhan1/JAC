@@ -4,7 +4,9 @@ export default {
     //userId: 1165864, //用户userID 正式上线用
     userId: '', //原生获取的no
     trueuserId: '', //原生传过来的userid
+    aaaid: '', //3a的userid
     tspId: '',
+    userName: '', //用户昵称
     uuid: null,
     UserStartId: null,
     mobile: null, //用户手机号
@@ -26,6 +28,12 @@ export default {
             "identityParam": '{ "userId": "", "token": "", "phone": "" }',
         }
     }, //爱车发送请求时的token,暂用
+    //调用部分tsp接口用到的token
+    buding: {
+        headers: {
+            "token": ''
+        }
+    },
     mytoken: {
         headers: {
             "timaToken": "Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImlkXCI6OTksXCJpbml0VXNlclwiOjAsXCJub1wiOlwiQUQwMjIwMTgwOTA0MTExMTU4NDQ1MTJcIixcInBob25lXCI6XCIxNzcyNDgxNTU4NlwiLFwidXNlckNvZGVcIjpcIjE3NzI0ODE1NTg2XCIsXCJ1c2VyU3RhdHVzXCI6MCxcInVzZXJUeXBlXCI6XCIwMVwifSIsImNyZWF0ZWQiOjE1MzYwMzEzOTQzODIsInVzZXJObyI6IkFEMDIyMDE4MDkwNDExMTE1ODQ0NTEyIiwidXNlclR5cGUiOiIwMSIsImV4cCI6MTUzNjg5NTM5NCwidXNlcklkIjo5OX0.Ut-QmhL4DFWP97sPAZ08iK2Z-xctT0iW-rH0-zTjBgs"

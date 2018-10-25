@@ -29,7 +29,21 @@ export default {
         //      this.$store.dispatch('userInfo',null);
       }
       this.$http.defaults.headers.common["timaToken"] = this.$store.state.token;
-    }
+    },
+    // //拿到个人信息
+    // personname(){
+    //   //获取用户基本信息
+    // var param = {
+    // no: this.$store.state.userId
+    //    // no:'AD022018072505235135056'
+    // };
+    // this.$http.post(My.UserInfo, param).then(res => {
+    //   if (res.data.code == 0) {
+    //     var UserInfo=res.data.data
+    //     this.$store.dispatch("UserInfo",UserInfo)
+    //   }
+    // });
+    // }
   },
   created() {
     window.isLogin = this.isLogin;
@@ -43,8 +57,6 @@ export default {
       userNo: this.$store.state.userId
     };
     this.$http.post(Lovecar.TSP, params).then(res => {
-      // alert(res.data.data.tspId)
-      // alert(JSON.stringify(res))
       if (res.data.msg == "success") {
         var tsp = res.data.data;
         this.$store.dispatch("TSP", tsp);
@@ -62,11 +74,6 @@ export default {
             });
         }
       }
-      // alert(JSON.parse(this.$store.state.getpin.headers.identityParam).userId)
-      // alert(res.data.data.tspId)
-      // JSON.parse(this.$store.state.getpin.headers.identityParam).userId=res.data.data.tspId
-      // alert(JSON.parse(this.$store.state.getpin.headers.identityParam).userId)
-      // alert(2)
     });
 
     // this.getNo()

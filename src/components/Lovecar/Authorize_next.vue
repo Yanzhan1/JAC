@@ -71,10 +71,10 @@ export default {
           	var data = {
                     vin: this.$store.state.vins, 
                     // vin: 'LS5A3CJC9JF830022', 
+                    childNum: this.count, 
                     operationType: "CONTROL_AUTH", 
                     operation: 0, 
                     extParams: {
-                    childNum: this.count, 
                 }
             }
           	this.$http.post(Lovecar.Longrange, data, this.$store.state.tsppin).then( res => {

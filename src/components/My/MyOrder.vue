@@ -9,7 +9,7 @@
 		<!--<mhead currentTitle="我的订单"></mhead>-->
 		<mt-navbar v-model="selected">
 			<mt-tab-item id="one">线索</mt-tab-item>
-			<mt-tab-item id="two">商城</mt-tab-item>
+			<!-- <mt-tab-item id="two">商城</mt-tab-item> -->
 			<!--<mt-tab-item id="three">维保</mt-tab-item>
       <mt-tab-item id="four">停车</mt-tab-item>-->
 			<mt-tab-item id="five">流量</mt-tab-item>
@@ -47,7 +47,7 @@
 				</ul>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="two">
-				<iframe onload='setIframeHeight(this)' style="width:100%" src=this.url frameborder="0"></iframe>
+				<!-- <iframe onload='setIframeHeight(this)' style="width:100%" src=this.url frameborder="0"></iframe> -->
 				<!-- <ul>
 					<li class="flex column" v-for="(item, index) in shoppingMall">
 						<p class="flex row tim between">
@@ -355,7 +355,6 @@ export default {
     this.getShoppingMall();
   },
   mounted() {
-	this.url='http://14.21.46.171:8707/authLogin'+'?'+'uid='+this.$store.state.tspId+'&moblie='+this.$store.state.mobile+'&userName='+this.$store.state.userId+'&toOrderList=suc&token='+JSON.parse(this.$store.state.tsppin.headers.identityParam).token
 	// alert(this.url)
     //			console.log('加密:' + this.$md5('uid=1jac.com'))
     $(".MobileHeight").css({
