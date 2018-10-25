@@ -2,8 +2,11 @@
   <div>
     <div @click="bgHide" id="bgShare" style="position: fixed; width: 100%;height: 100%;background: #000000; display: none;opacity: 0.2"></div>
     <div>
-      <my-header class="header">
-        <img slot="share" class="headRightPic" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
+      <my-header>
+        <img slot="backblue" v-show="rightPic" src="../../../../static/images/discover/backfff.png"/>
+        <img slot="backblue" v-show="!rightPic" src="../../../../static/images/discover/backblue.png"/>
+        <img slot="share" v-show="leftPic" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
+        <img slot="share" v-show="!leftPic" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
       </my-header>
       <!--分享组件-->
       <shareBox :index="0" :item="content" :flag="flag" :type="type" :collectionStatus="content.collectionStatus"
@@ -75,7 +78,9 @@
         flag: 'information',
         type: 'information',
         userId: this.$store.state.userId,
-        isDisable: false
+        isDisable: false,
+        leftPic: true,
+        rightPic: true,
       }
     },
     created() {
@@ -378,15 +383,6 @@
         this.$store.dispatch("showFoot")
       },
       handleScroll () {
-        /*var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-        if (scrollTop > 300) {
-          $("#header1").hide();
-          $("#header2").show();
-        } else {
-          $("#header1").show();
-          $("#header2").hide();
-        }*/
-
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
         var scrollHeight = (scrollTop / 1000).toFixed(1);
         if(scrollHeight == 0.0){
@@ -395,13 +391,13 @@
           scrollHeight = 1;
         }
         if(scrollHeight > 0.4){
-          $('.headLeftPic').attr('src', '../../../../static/images/discover/backblue.png');
-          $('.headRightPic').attr('src', '../../../../static/images/discover/moreblue.png');
+          this.leftPic = false;
+          this.rightPic = false;
         }else if(scrollHeight <= 0.4){
-          $('.headLeftPic').attr('src', '../../../../static/images/discover/backfff.png');
-          $('.headRightPic').attr('src', '../../../../static/images/discover/morefff.png');
+          this.leftPic = true;
+          this.rightPic = true;
         }
-        $(".header").css("background", `rgba(255, 255, 255, ${scrollHeight})`)
+        $("#asd").css("background", `rgba(255, 255, 255, ${scrollHeight})`)
       },
     },
     /*beforeRouteLeave(to, from, next) {

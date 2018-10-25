@@ -4,11 +4,16 @@
     <!--<my-header :title="'社区详情'">
       <img slot="share" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
     </my-header>-->
-     <header class="header header2"  style="background: #fff">
+
+    <my-header :title="'社区详情'">
+      <img slot="backblue" v-show="rightPic" src="../../../../static/images/discover/backfff.png"/>
+      <img slot="backblue" v-show="!rightPic" src="../../../../static/images/discover/backblue.png"/>
+    </my-header>
+     <!--<header class="header header2"  style="background: #fff">
       <img class="header-left" src="../../../../static/images/discover/backblue.png" @click="goBack(content.user.user_id)">
       <p class="header-title-fff">社区详情</p>
       <img src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)"/>
-    </header>
+    </header>-->
     <div style="width: 100%;height: 0.48rem;"></div>
     <shareBox :index="0" :item="content" :flag="flag" :type="type" :isCenter="true" @closeShare="bgHide"></shareBox>
     <div class="wrap_92">

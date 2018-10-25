@@ -1,13 +1,15 @@
 <template>
   <div>
-    <header :class="title ? 'header2' : 'header1'">
+    <header id="asd" :class="title ? 'header2' : 'header1'">
       <div class="top" :style="$statusBarHeightObj"></div>
       <div class="bottom">
 
         <div class="btn-wrapper left">
           <span class="btn" @click="goBack">
-            <img class="headLeftPic" v-if="title" src="../../../../static/images/discover/backblue.png" />
-            <img class="headLeftPic" v-else src="../../../../static/images/discover/backfff.png" />
+            <slot name="backblue"></slot>
+            <slot name="backfff"></slot>
+            <!--<img v-if="title" src="../../../../static/images/discover/backblue.png" />
+            <img v-else src="../../../../static/images/discover/backfff.png" />-->
           </span>
         </div>
 

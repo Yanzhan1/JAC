@@ -2,7 +2,11 @@
   <div>
     <div @click="bgHide" id="bgShare"></div>
     <my-header>
-      <img slot="share" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
+      <!--<img slot="share" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />-->
+      <img slot="backblue" v-show="rightPic" src="../../../../static/images/discover/backfff.png"/>
+      <img slot="backblue" v-show="!rightPic" src="../../../../static/images/discover/backblue.png"/>
+      <img slot="share" v-show="leftPic" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
+      <img slot="share" v-show="!leftPic" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
     </my-header>
     <!-- <header class="header0 header1" id="header1" style="height: auto;padding-bottom: 0.4rem;" :style="$statusBarHeightObj">
       <img style="margin-top: 0.4rem;" class="header_left" src="../../../../static/images/discover/backfff.png" @click="goBack">
@@ -197,7 +201,9 @@
         type: 'activity',
         pictureList: [],
         showJoinList: [],
-        userId: this.$store.state.userId
+        userId: this.$store.state.userId,
+        leftPic: true,
+        rightPic: true,
       }
     },
     created() {
@@ -489,13 +495,20 @@
       },
       handleScroll () {
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-        if (scrollTop > 300) {
-          $("#header1").hide();
-          $("#header2").show();
-        } else {
-          $("#header1").show();
-          $("#header2").hide();
+        var scrollHeight = (scrollTop / 1000).toFixed(1);
+        if(scrollHeight == 0.0){
+          scrollHeight = 0;
+        }else if(scrollHeight > 0.9){
+          scrollHeight = 1;
         }
+        if(scrollHeight > 0.4){
+          this.leftPic = false;
+          this.rightPic = false;
+        }else if(scrollHeight <= 0.4){
+          this.leftPic = true;
+          this.rightPic = true;
+        }
+        $("#asd").css("background", `rgba(255, 255, 255, ${scrollHeight})`)
       },
     },
     mounted() {
