@@ -1,10 +1,15 @@
 <template>
     <div>
-      <header class="head">
+      <!-- <header class="head">
         <img class="header-left" src="../../../../static/images/back@2x.png" @click="$router.go(-1)">
         <p class="header-title-fff">举报</p>
         <span @click="send">提交</span>
-      </header>
+      </header> -->
+
+      <my-header title="活动报名">
+        <span slot="submit" @click="send">提交</span>
+      </my-header>
+
       <div style="margin-top: 0.4rem;"></div>
       <span class="title">举报原因:</span>
       <div class="inform-radio">

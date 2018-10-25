@@ -17,6 +17,9 @@
           <span class="btn">
             <slot name="share"></slot>
           </span>
+          <span class="text">
+            <slot name="submit"></slot>
+          </span>
         </div>
 
       </div>
@@ -102,6 +105,11 @@
 
   .box {
     height: 0.88rem;
+  }
+
+  .text {
+    font-size: 0.28rem;
+    color: #49BBFF;
   }
 
 </style>

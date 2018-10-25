@@ -1,11 +1,14 @@
 <template>
   <div class="allcontent">
     <div>
-      <header class="head">
+      <!-- <header class="head">
         <img class="header-left" src="../../../../static/images/back@2x.png" @click="$router.go(-1)">
         <p class="header-title-fff" style="text-align: center">活动报名</p>
         <div class="header-right"></div>
-      </header>
+      </header> -->
+
+       <my-header title="活动报名"></my-header>
+
       <div class="sign_cell">
         <p>姓名</p>
         <input v-model="user" placeholder="点击输入姓名"/>
