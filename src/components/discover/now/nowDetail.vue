@@ -10,6 +10,7 @@
       <p class="header-title-fff">社区详情</p>
       <img src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)"/>
     </header>
+    <div class="box" style="box-sizing: content-box;" :style="$statusBarHeightObj"></div>
     <div style="width: 100%;height: 0.48rem;"></div>
     <shareBox :index="0" :item="content" :flag="flag" :type="type" :isCenter="true" @closeShare="bgHide"></shareBox>
     <div class="wrap_92">
@@ -606,5 +607,7 @@
 
 <style scoped>
   @import "./../../../../static/css/discover/detail.css";
-
+  .box {
+    height: 0.88rem;
+  }
 </style>

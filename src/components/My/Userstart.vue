@@ -11,6 +11,7 @@
       <p class="header-title-fff" style="margin-left: 30%;">
         {{userInfo.userName}}</p>
     </header>
+    <div class="box" style="box-sizing: content-box;" :style="$statusBarHeightObj"></div>
     <div class="startbg">
       <div class="wrapbg">
         <img v-if="userInfo && userInfo.headUrl" :src="userInfo.headUrl" alt="">
@@ -546,5 +547,7 @@
 <style scoped>
   @import "./../../../static/css/discover/all.css";
   @import "./../../../static/css/discover/detail.css";
-
+  .box {
+    height: 0.88rem;
+  }
 </style>
