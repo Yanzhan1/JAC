@@ -56,7 +56,7 @@ export default {
       };
       // alert(JSON.stringify(param))
       //  alert(JSON.stringify(this.$store.state.getpin))
-      this.$http.post(My.JFmybus, param,this.$store.state.getpin).then(res => {
+      this.$http.post(My.JFmybus, param,this.$store.state.tsppin).then(res => {
         if (res.data.returnSuccess) {
           Toast({
             message: "添加成功！",

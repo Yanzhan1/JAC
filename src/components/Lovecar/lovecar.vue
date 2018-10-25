@@ -222,6 +222,7 @@ export default {
       operationIdses: "", //寻车传给后台的
       operationIdcar:'',//查询车况的id
       msg: "车机已登录",
+      vehicleState:'',//被授权车辆的vin
       pinNumber: "",
       type: "", //判断点击事件
       Condition: {},
@@ -815,10 +816,10 @@ export default {
     },
     //车辆授权状态
     vehiclestatus(){
-				this.$http.post(Lovecar.vehiclestatus,{},this.$store.state.getpin).then((res)=>{
+				this.$http.post(Lovecar.vehiclestatus,{},this.$store.state.tsppin).then((res)=>{
 					if(res.data.returnSuccess){
-            this.Rajtigo
-						this.vehicleState=res.data.data.vin
+            this.Rajtigo=res.data.data[0].beAuthorized
+						this.vehicleState=res.data.data[0].vin
 					}
 				})
 			},
@@ -1014,6 +1015,7 @@ export default {
       }
     },
     userId(newVal, oldVal) {
+      this.vehiclestatus()
       this.tspid=this.$store.state.tspId
         if(this.$store.state.tspId==undefined){
         this.tspid=0
@@ -1023,10 +1025,11 @@ export default {
           My.My_Bus,
           {
             userId: this.$store.state.trueuserId,
+            aaaUserID:this.$store.state.aaaid,
             phone: this.$store.state.mobile,
             tspUserId:this.tspid
           },
-          this.$store.state.getpin
+          this.$store.state.tsppin
         )
         .then(res => {
           if (res.data.returnSuccess) {
@@ -1058,7 +1061,6 @@ export default {
     }
   },
   mounted() {
-    // alert(this.$store.state.tspId)
     $(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
     this.vehiclestatus()
     this.tspid=this.$store.state.tspId
@@ -1071,7 +1073,8 @@ export default {
         {
           userId: this.$store.state.trueuserId,
           phone: this.$store.state.mobile,
-          tspUserId:this.tspid
+          tspUserId:this.tspid,
+          aaaUserID:this.$store.state.aaaid,
         },
         this.$store.state.getpin
       )

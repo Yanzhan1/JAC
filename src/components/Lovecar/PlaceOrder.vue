@@ -25,7 +25,7 @@
 			<div class="package-price">
 				<span style="font-size: .26rem;color: #666666;">套餐价格:</span><span style="font-size: .38rem;color: #49BBFF;"><span style="font-size: .48rem;color: #49BBFF;">2</span>.00元</span>
 			</div>
-			<div class="submit" style="background: #49BBFF;color: #FFFFFF;">
+			<div class="submit" style="background: #49BBFF;color: #FFFFFF;" @click="submit">
 				<span>提交订单</span>
 			</div>
 		</div>
@@ -43,6 +43,19 @@
 		data () {
 			return {
 				placeOrder: this.$route.query.flow
+			}
+		},
+		methods:{
+			//生成流量订单接口
+			submit(){
+				let param={
+					// vin:this.$store.state.vins,
+					vin: 'LJ12EKS10J00001S4',
+					packageId:this.placeOrder.packageId,
+				}
+				this.$http.post(Lovecar.Productionorder,param,this.$store.state.tsppin).then(res=>{
+					console.log(res)
+				})
 			}
 		},
 		mounted () {

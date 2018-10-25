@@ -18,7 +18,7 @@
           <img :src="item.imageUrl" alt="" />
         </div>
         <div class="bus-right">
-          <p class="bus-untie" @click="unite(item.vin)">解绑</p>
+          <p class="bus-untie" @click="unite(item.vin)" v-show="item.beAuthorized=='n'?'false':'true'">解绑</p>
           <div style="display:flex;algin-item:center;">
             <div style="margin-right:.1rem">
                <!-- 若有车牌 解绑车牌 -->
@@ -83,7 +83,7 @@ export default {
             phone: this.$store.state.mobile,
             tspUserId: this.tspid
           },
-          this.$store.state.getpin
+          this.$store.state.tsppin
         )
         .then(res => {
           if (res.data.returnSuccess) {
@@ -112,7 +112,7 @@ export default {
         beAuthorized:beAuthorized,
       };
       this.$http
-        .post(My.SetOneDefault, param, this.$store.state.getpin)
+        .post(My.SetOneDefault, param, this.$store.state.tsppin)
         .then(res => {
           if (res.data.returnSuccess) {
             this.$store.state.vins = vin;
@@ -146,7 +146,7 @@ export default {
           };
 
           this.$http
-            .post(My.JFmybus, param, this.$store.state.getpin)
+            .post(My.JFmybus, param, this.$store.state.tsppin)
             .then(res => {
               if (res.data.returnSuccess) {
                 this.BusDetails = [];
@@ -186,7 +186,7 @@ export default {
           };
 
           this.$http
-            .post(My.planbus, param, this.$store.state.getpin)
+            .post(My.planbus, param, this.$store.state.tsppin)
             .then(res => {
               if (res.data.returnSuccess) {
                 this.MyBus();

@@ -268,7 +268,10 @@ export default {
       this.add="JAC"+this.aaaid+this.mobile+this.userName+"APP"
       this.add=this.$md5(this.add)
       this.url='http://14.21.46.171:8707/authLogin'+'?'+'uid='+this.aaaid+'&moblie='+this.mobile+'&userName='+this.userName+'&toOrderList=suc&token='+this.add
-      location.href=this.url
+      // this.url='http://14.21.46.171:8707/authLogin'+'?'+'uid='+'99'+'&moblie='+'18856913074'+'&userName='+'啊'+'&toOrderList=suc&token='+'91af2f1fe5ba6236a0d99c7ac92161c8'
+      this.$http.get(this.url).then(res=>{
+        console.log(res)
+      })
     },
     //粉丝
     toFans: function() {

@@ -5,7 +5,7 @@
             <span class="header-title">会员积分</span>
             <span class="header-right"></span>
         </header>      
-        <div style="width:100%;height:1.1rem"></div>  
+        <div style="width:100%;height:1rem"></div>  
           <!-- <mhead currentTitle="会员积分"></mhead> -->
           <div class="flex column arounds">
               <span class="mycore">当前积分</span>

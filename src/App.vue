@@ -61,18 +61,17 @@ export default {
         var tsp = res.data.data;
         this.$store.dispatch("TSP", tsp);
         console.log(tsp)
-        if(tsp.tspid!=undefined){
           params = {
-            tspUserId: this.$store.state.tspId,
+            aaaUserID:this.$store.state.aaaid,
+            tspUserId:this.$store.state.tspId,
             userId: this.$store.state.trueuserId,
             phone: this.$store.state.mobile
           };
           this.$http
-            .post(Lovecar.vehicle, params, this.$store.state.getpin)
+            .post(Lovecar.vehicle, params, this.$store.state.tsppin)
             .then(res => {
               // console.log(res)
             });
-        }
       }
     });
 

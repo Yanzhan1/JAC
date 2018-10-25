@@ -152,7 +152,7 @@ window.My = {
         AddAddress: mips + '/admin/userAddress/addUserAddress', //my部分新增地址
         RecomendCode: mips + '/admin/recommendedCode/searchRecommendedCodeOne', //获取推荐码
         List: 'http://14.21.46.171:8707/api/order/list', //商城订单列表
-        addintegralRealName: host + '/api/pluto-membership/pluto-membership/integral-gather/addintegral-realName',//保存个人信息,增加积分
+        addintegralRealName: host + '/api/pluto-membership/pluto-membership/integral-gather/addintegral-realName', //保存个人信息,增加积分
         orderList: host + '/api/pluto-membership/mall/information/orderList', //商城订单
         orderDetail: host + '/api/pluto-membership/mall/information/orderDetail' //商城订单详细
 
@@ -171,6 +171,7 @@ window.Lovecar = {
         Fuel: love_car + '/vehicle/query-vehicle-fuel-statistics', //燃油接口
         Flow: love_car + '/vehicle/vehicle-cyc-flow-query', //流量查询
         FlowBuy: love_car + '/vehicle/cyc-flow-package-query', //流量购买查询
+        Productionorder: love_car + '/flow/production-order', //生产成流量订单
         Getoederlist: love_car + '/flow/get-order-list', //后台从tsp同步流量订单查询数据
         Getoederlistapp: love_car + '/flow/get-order-list', //流量订单查询
         Flowpackage: love_car + '/vehicle/cyc-flow-package-query', //流量包查询
