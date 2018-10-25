@@ -91,6 +91,14 @@
 					return "IOS"
 				}
 			},
+			    //授权转台查询
+			vehiclestatus(){
+				this.$http.post(Lovecar.vehiclestatus,{},this.$store.state.getpin).then((res)=>{
+					if(res.data.returnSuccess){
+						this.vehicleState=res.data.data.vin
+					}
+				})
+			},
 			getCarLoginState() { //获取机车 登录登出状态
 				this.$http.get(Lovecar.LogStatus, this.$store.state.tsppin).then(res => {
 						const data = res.data
@@ -116,7 +124,8 @@
 			}
 		},
 		mounted () {
-				this.getCarLoginState()		
+			this.vehiclestatus()
+			this.getCarLoginState()		
 		}
 	}
 </script>

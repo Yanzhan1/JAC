@@ -808,12 +808,6 @@ export default {
       this.Carquerry();
       this.activeshow = 1;
     },
-    //授权转台查询
-    vehiclestatus(){
-      this.$http.post(Lovecar.vehiclestatus,{},this.$store.state.getpin).then((res)=>{
-        console.log(res)
-      })
-    }
   },
   computed: {
     userId() {
@@ -1050,7 +1044,6 @@ export default {
     }
   },
   mounted() {
-    this.vehiclestatus()
     // alert(this.$store.state.tspId)
     $(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
     this.tspid=this.$store.state.tspId

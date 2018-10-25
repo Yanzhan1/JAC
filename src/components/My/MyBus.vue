@@ -116,6 +116,8 @@ export default {
           var param = {
             vin: vin,
             extParams: {},
+            userId:this.$store.state.trueuserId,
+            phone:this.$store.state.mobile,
             operationType: "CAR_BINDING",
             operation: 0
           };
@@ -140,7 +142,7 @@ export default {
     plate(vin,plateLicenseNo) {
       MessageBox.confirm("", {
         title: "提示",
-        message: "您确定要解绑该车牌吗？",
+        message: "您确定要修改车牌吗？",
         showConfirmButton: true,
         showCancelButton: true,
         cancelButtonClass: "cancelButton",
