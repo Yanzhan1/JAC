@@ -8,7 +8,7 @@
       </span>
     </header>
     <div style="height:0.88rem" class="MobileHeight"></div>
-   <ul class="bus-list">
+    <ul class="bus-list">
       <li class="bus-content flex-center-between" v-for="(item,index) in BusDetails" :key="index">
         <div class="bus-left">
           <div class="bus-name flex-align-center">
@@ -21,8 +21,8 @@
           <p class="bus-untie" @click="unite(item.vin)" v-show="item.beAuthorized=='n'?'false':'true'">解绑</p>
           <div style="display:flex;algin-item:center;">
             <div style="margin-right:.1rem">
-               <!-- 若有车牌 解绑车牌 -->
-              <div class="flex-align-center" v-if="item.plateLicenseNo?'false':''"   @click="plate(item.vin,item.plateLicenseNo)">
+              <!-- 若有车牌 解绑车牌 -->
+              <div class="flex-align-center" v-if="item.plateLicenseNo?'false':''" @click="plate(item.vin,item.plateLicenseNo)">
                 <span style="color:#49BBFF;"> {{item.plateLicenseNo}}</span>
                 <img :src="'./static/images/my/mycar_input@2x.png'" alt="" class="modify-num">
               </div>
@@ -31,27 +31,28 @@
                 <span style="color:#49BBFF;">添加车牌</span>
                 <router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{vin:item.vin}}"></router-link>
               </div>
-             
+
             </div>
             <div style="display: flex;align-items: center;">
-               <!-- n是车主 -->
-              <img class="flex-align-center" style="width:.8rem;height:.3rem;align-items: center;" v-if="item.beAuthorized=='n'?'true':'false'" :src="'./static/images/my/already.png'" alt="">
+              <!-- n是车主   isLocking=1 是已授权给他人，2是未授权给他人--> 
+              <!-- beAuthorized=n 是车主 y是别人授权给他的车 -->
+              <img  v-if="item.isLocking==1&&item.beAuthorized=='n'" class="flex-align-center" style="width:.8rem;height:.3rem;align-items: center;"  :src="'./static/images/my/already.png'" alt="">
               <!-- y是授权车 -->
-              <img class="flex-align-center" style="width:.8rem;height:.3rem;align-items: center;" v-else :src="'./static/images/my/already.png'" alt="">
+              <!-- <div v-else style="font-size:.28rem;color:#49bbff;border:.01rem solid #49bbff;border-radius:0.01rem">授权车</div> -->
+              <img  v-else :src="'./static/images/my/noalerlay.png'" class="flex-align-center" style="width:.8rem;height:.3rem;align-items: center;" alt="">
             </div>
           </div>
-         
-          
+
           <div class="flex row cocenter">
-            <span class="commonFontSize">车架号：{{item.vin}}</span>
-</div>
+            <span class="commonFontSize">车架号：{{item.vin}}</span> 
+          </div>
           <div>
             <span class="commonFontSize">发动机号：{{item.engineNo}}</span>
           </div>
         </div>
       </li>
     </ul>
-    
+
   </div>
 </template>
 
@@ -72,16 +73,17 @@ export default {
     //我的车辆
     MyBus() {
       this.tspid = this.$store.state.tspId;
-      if (this.$store.state.tspId == undefined) {
-        this.tspid = 0;
-      }
+      // if (this.$store.state.tspId == undefined) {
+      //   this.tspid = 0;
+      // }
       this.$http
         .post(
           My.My_Bus,
           {
             userId: this.$store.state.trueuserId,
             phone: this.$store.state.mobile,
-            tspUserId: this.tspid
+            tspUserId: this.tspid,
+            aaaUserID: this.$store.state.aaaid,
           },
           this.$store.state.tsppin
         )
@@ -98,18 +100,18 @@ export default {
         });
     },
     //设为默认
-    setOneDefault(vin, def,beAuthorized) {
+    setOneDefault(vin, def, beAuthorized) {
       var vin = vin;
       var def = def;
-      var beAuthorized=beAuthorized
+      var beAuthorized = beAuthorized;
       if (def == 1) {
         return;
       }
       var param = {
         vin: vin,
-        aaaUserID:this.$store.state.tspId,
-        userId:this.$store.state.trueuserId,
-        beAuthorized:beAuthorized,
+        aaaUserID: this.$store.state.tspId,
+        userId: this.$store.state.trueuserId,
+        beAuthorized: beAuthorized
       };
       this.$http
         .post(My.SetOneDefault, param, this.$store.state.tsppin)
@@ -206,8 +208,10 @@ export default {
     // alert(this.$store.state.tspId)
     $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
     this.MyBus();
+    // alert(JSON.stringify(this.$store.state.tsppin))
   },
   created() {}
+
   //  computed:{
   //     userId(){
   //       return  JSON.parse(this.$store.state.getpin.headers.identityParam).userId
@@ -245,7 +249,7 @@ li {
 }
 .flex-align-center {
   /*垂直居中*/
-  display: flex;
+  display: flex; 
   align-items: center;
 }
 .flex-center-between {

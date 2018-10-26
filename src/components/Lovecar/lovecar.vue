@@ -817,8 +817,9 @@ export default {
     //车辆授权状态
     vehiclestatus(){
 				this.$http.post(Lovecar.vehiclestatus,{},this.$store.state.tsppin).then((res)=>{
+          
 					if(res.data.returnSuccess){
-            this.Rajtigo=res.data.data[0].beAuthorized
+            this.Rajtigo=res.data.data[0].isLocking  //isLocking:true 代表已授权
 						this.vehicleState=res.data.data[0].vin
 					}
 				})
@@ -1076,7 +1077,7 @@ export default {
           tspUserId:this.tspid,
           aaaUserID:this.$store.state.aaaid,
         },
-        this.$store.state.getpin
+        this.$store.state.tsppin
       )
       .then(res => {
         if (res.data.returnSuccess) {

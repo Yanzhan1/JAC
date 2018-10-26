@@ -122,6 +122,7 @@ export default {
                     endTime: this.xia,
                 }
             }
+            console.log(param)
         this.$http.post(Lovecar.Longrange,param,this.$store.state.tsppin).then((res)=>{
             if(res.data.returnSuccess){
                 this.$router.push({
@@ -160,6 +161,7 @@ export default {
     }
   },
   mounted(){
+     
     let oDate=new Date()
     let year =oDate.getFullYear();
     let month =oDate.getMonth()+1;

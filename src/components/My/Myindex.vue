@@ -228,7 +228,16 @@ export default {
       this.$router.push("/news");
     },
     ton(){
-     location.href="http://220.178.49.215:8888/webchat/jsp/common/visitorMobileEnter4.html"
+      if (isMobile.iOS()) {
+        var params = {};
+        
+       
+      } else if (isMobile.Android()) {
+        js2android.gotoOnlineWeb(); 
+       
+      }
+      
+    //  location.href="http://220.178.49.215:8888/webchat/jsp/common/visitorMobileEnter4.html"
     },
     //二维码
     twoma() {
