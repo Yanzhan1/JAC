@@ -208,7 +208,7 @@ export default {
     // alert(this.$store.state.tspId)
     $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
     this.MyBus();
-    // alert(JSON.stringify(this.$store.state.tsppin))
+    // alert(JSON.stringify( this.$store.state.tsppin))
   },
   created() {}
 

@@ -282,7 +282,7 @@ export default {
         this.add;
       // this.url='http://14.21.46.171:8707/authLogin'+'?'+'uid='+'99'+'&moblie='+'18856913074'+'&userName='+'啊'+'&toOrderList=suc&token='+'91af2f1fe5ba6236a0d99c7ac92161c8'
       console.log(this.url);
-      this.$http.get(this.url).then(res => {});
+      // this.$http.get(this.url).then(res => {});
     },
     //粉丝
     toFans: function() {
