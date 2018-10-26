@@ -13,149 +13,159 @@
 			</div>
 			<div class="order-info">
 				<h5>{{placeOrder.packageName}}</h5>
-				<span>￥<span style="font-size: .48rem;">{{placeOrder.prize}}</span>.00元</span>
+				<span>￥
+					<span style="font-size: .48rem;">{{placeOrder.prize}}</span>.00元</span>
 			</div>
 		</div>
 		<div class="linetwo"></div>
-		<div class="pay-method">
+		<!-- <div class="pay-method">
 			<p>支付方式</p>
 			<button class="money-way">微信支付</button>
-		</div>
+		</div> -->
 		<div class="bottomBtn">
 			<div class="package-price">
-				<span style="font-size: .26rem;color: #666666;">套餐价格:</span><span style="font-size: .38rem;color: #49BBFF;"><span style="font-size: .48rem;color: #49BBFF;">{{placeOrder.prize}}</span>.00元</span>
+				<span style="font-size: .26rem;color: #666666;">套餐价格:</span>
+				<span style="font-size: .38rem;color: #49BBFF;">
+					<span style="font-size: .48rem;color: #49BBFF;">{{placeOrder.prize}}</span>.00元</span>
 			</div>
 			<div class="submit" style="background: #49BBFF;color: #FFFFFF;" @click="submit">
-				<span>提交订单</span>
+				<span>去支付</span>
 			</div>
 		</div>
-		
+
 	</div>
 </template>
 
 <script>
-	import PublicHead from '../publicmodel/PublicHead';
-	export default {
-		name: 'placeOrder',
-		components: {
-	  	mhead:PublicHead
-	  },
-		data () {
-			return {
-				placeOrder: this.$route.query.flow
-			}
-		},
-		methods:{
-			//生成流量订单接口
-			
-			submit(){
-				let param={
-					 vin:this.$store.state.vins,
-					//vin: 'LJ12EKS10J00001S4',
-					packetId:this.placeOrder.packageId,
-				}
-				this.$http.post(Lovecar.Productionorder,param,this.$store.state.tsppin).then(res=>{
-					console.log(res)
-				})
-			}
-		},
-		mounted () {
-			
-		}
-	}
+import PublicHead from "../publicmodel/PublicHead";
+export default {
+  name: "placeOrder",
+  components: {
+    mhead: PublicHead
+  },
+  data() {
+    return {
+      placeOrder: this.$route.query.flow
+    };
+  },
+  methods: {
+    //生成流量订单接口
+
+    submit() {
+      let param = {
+        vin: this.$store.state.vins,
+        //vin: 'LJ12EKS10J00001S4',
+        packetId: this.placeOrder.packageId
+      };
+      this.$http
+        .post(Lovecar.Productionorder, param, this.$store.state.tsppin)
+        .then(res => {
+          if (res.data.returnErrCode == 200) {
+			  var tranData=res.data.data.tranData
+			  var merSignMsg=res.data.data.merSignMsg
+			  var merCert=res.data.data.merCert
+            //   alert(merCert)
+            js2android.startIcbcPay(tranData, merSignMsg, merCert);
+          }
+        });
+    }
+  },
+  mounted() {}
+};
 </script>
 
 <style scoped>
-	/*订单title*/
-	.order-header {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		padding: .5rem;
-	}
-	.order-header>h5 {
-		margin-bottom: .3rem;
-	}
-	.lines {
-		width: 95%;
-		background: #DCDCDC;
-		height: .01rem;
-		margin: 0 auto
-	}
-	/*订单介绍*/
-	.order-detail {
-		display: flex;
-		padding: .5rem .7rem
-	}
-	.order-num {
-		height: 1rem;
-		line-height: 1rem;
-		padding-right: .4rem;
-		border-right: .01rem solid #F1F1F1;
-	}
-	.num {
-		font-size: .6rem;
-		background: linear-gradient(180deg, #2099FF, #79BFF9, #0F46F9);
-  	-webkit-background-clip: text;
-    color: transparent;
-	}
-	.unit {
-		background: linear-gradient(180deg, #2099FF, #79BFF9, #0F46F9);
-  	-webkit-background-clip: text;
-    color: transparent;
-	}
-	.order-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding-left: .4rem;
-	}
-	.order-info span {
-		background: linear-gradient(180deg, #2099FF, #79BFF9, #0F46F9);
-  	-webkit-background-clip: text;
-    color: transparent;
-	}
-	.linetwo {
-		width: 95%;
-		background: #DCDCDC;
-		height: .01rem;
-		margin: 0 auto;
-		margin-bottom: .42rem;
-	}
-	/*支付方式*/
-	.pay-method {
-		padding: 0 .3rem
-	}
-	.pay-method>p {
-		margin-bottom: .4rem;
-	}
-	.money-way {
-		display: block;
-		width: 1.97rem;
-		height: 1.44rem;
-		line-height: 1.44rem;
-		color: #49BBFF;
-		border: .01rem solid #49BBFF;
-		border-radius: .08rem;
-		outline: none;
-		background: none;
-		background: url('../../../static/images/Lovecar/background@2x.png') no-repeat center center;
-		background-size: 99% 99%;
-	}
-	.bottomBtn {
-		position: fixed;
-		display: flex;
-		bottom: 0;
-		width: 100%;
-		height: .98rem;
-		box-shadow:0px 0px .1rem 0px rgba(68,68,68,0.2)
-	}
-	.package-price, .submit {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 50%;
-		text-align: center;
-	}
-
+/*订单title*/
+.order-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.5rem;
+}
+.order-header > h5 {
+  margin-bottom: 0.3rem;
+}
+.lines {
+  width: 95%;
+  background: #dcdcdc;
+  height: 0.01rem;
+  margin: 0 auto;
+}
+/*订单介绍*/
+.order-detail {
+  display: flex;
+  padding: 0.5rem 0.7rem;
+}
+.order-num {
+  height: 1rem;
+  line-height: 1rem;
+  padding-right: 0.4rem;
+  border-right: 0.01rem solid #f1f1f1;
+}
+.num {
+  font-size: 0.6rem;
+  background: linear-gradient(180deg, #2099ff, #79bff9, #0f46f9);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.unit {
+  background: linear-gradient(180deg, #2099ff, #79bff9, #0f46f9);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.order-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-left: 0.4rem;
+}
+.order-info span {
+  background: linear-gradient(180deg, #2099ff, #79bff9, #0f46f9);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.linetwo {
+  width: 95%;
+  background: #dcdcdc;
+  height: 0.01rem;
+  margin: 0 auto;
+  margin-bottom: 0.42rem;
+}
+/*支付方式*/
+.pay-method {
+  padding: 0 0.3rem;
+}
+.pay-method > p {
+  margin-bottom: 0.4rem;
+}
+.money-way {
+  display: block;
+  width: 1.97rem;
+  height: 1.44rem;
+  line-height: 1.44rem;
+  color: #49bbff;
+  border: 0.01rem solid #49bbff;
+  border-radius: 0.08rem;
+  outline: none;
+  background: none;
+  background: url("../../../static/images/Lovecar/background@2x.png") no-repeat
+    center center;
+  background-size: 99% 99%;
+}
+.bottomBtn {
+  position: fixed;
+  display: flex;
+  bottom: 0;
+  width: 100%;
+  height: 0.98rem;
+  box-shadow: 0px 0px 0.1rem 0px rgba(68, 68, 68, 0.2);
+}
+.package-price,
+.submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  text-align: center;
+}
 </style>

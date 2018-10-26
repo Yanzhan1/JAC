@@ -73,9 +73,9 @@ export default {
     //我的车辆
     MyBus() {
       this.tspid = this.$store.state.tspId;
-      // if (this.$store.state.tspId == undefined) {
-      //   this.tspid = 0;
-      // }
+      if (this.$store.state.tspId == undefined) {
+        this.tspid = 0;
+      }
       this.$http
         .post(
           My.My_Bus,
