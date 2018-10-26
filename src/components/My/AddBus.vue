@@ -49,6 +49,7 @@ export default {
         operationType: "CAR_BINDING",
         userId:this.$store.state.trueuserId,
         phone:this.$store.state.mobile,
+        aaaUserID: this.$store.state.aaaid,
         operation: 1,
         extParams: {
           engineNo: this.engine.toUpperCase().replace(/\s*/g,"")
