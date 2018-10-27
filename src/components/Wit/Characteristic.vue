@@ -1,5 +1,5 @@
 <template>
-    <div>  
+    <div>
         <!-- <div class="specil">
             <div class="header-left" @click="goback"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem;"></div>
             <p class="active p1">车系特色</p>
@@ -43,8 +43,8 @@ export default {
             })
         },
         reserve(){
-            this.$router.push({
-                name:'车辆预定',
+            this.$router.push('/wit/CarChoose',{
+                name:'车型选择',
                 params:{
                     levelCode:this.levelCode
                 }
@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style scoped>
-	.MobileHeight {  
+	.MobileHeight {
 		border-top-style: solid;
 		box-sizing: content-box;
 	}
