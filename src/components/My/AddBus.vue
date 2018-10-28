@@ -47,7 +47,7 @@ export default {
        no:this.$store.state.userId,
         vin: this.rame.toUpperCase().replace(/\s*/g,""),
         operationType: "CAR_BINDING",
-        userId:this.$store.state.trueuserId,
+        userId:this.$store.state.userId,
         phone:this.$store.state.mobile,
         aaaUserID: this.$store.state.aaaid,
         operation: 1,

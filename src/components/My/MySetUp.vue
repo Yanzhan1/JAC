@@ -95,9 +95,9 @@
 			getCarLoginState() { //获取机车 登录登出状态
 				this.$http.get(Lovecar.LogStatus, this.$store.state.tsppin).then(res => {
 						const data = res.data
-						if(data.returnSuccess) {		
+						if(data.returnSuccess) {	
 								//字段缺乏,等待接口完成之后添加判断
-								var allvin=this.data.data
+								var allvin=data.data
 								for(let i=0;i<allvin.length;i++){
 									if(allvin[i].logStatus){
 										this.vin=allvin[i].vin

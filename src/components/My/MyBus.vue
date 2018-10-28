@@ -36,10 +36,10 @@
             <div style="display: flex;align-items: center;">
               <!-- n是车主   isLocking=1 是已授权给他人，2是未授权给他人--> 
               <!-- beAuthorized=n 是车主 y是别人授权给他的车 -->
-              <img  v-if="item.isLocking==1&&item.beAuthorized=='n'" class="flex-align-center" style="width:.8rem;height:.3rem;align-items: center;"  :src="'./static/images/my/already.png'" alt="">
+              <img  v-show="item.isLocking==1&&item.beAuthorized=='n'" class="flex-align-center" style="width:.8rem;height:.3rem;align-items: center;"  :src="'./static/images/my/already.png'" alt="">
               <!-- y是授权车 -->
               <!-- <div v-else style="font-size:.28rem;color:#49bbff;border:.01rem solid #49bbff;border-radius:0.01rem">授权车</div> -->
-              <img  v-else :src="'./static/images/my/noalerlay.png'" class="flex-align-center" style="width:.8rem;height:.3rem;align-items: center;" alt="">
+              <img  :src="'./static/images/my/noalerlay.png'" class="flex-align-center" style="width:.8rem;height:.3rem;align-items: center;" alt="" v-show="item.beAuthorized=='y'">
             </div>
           </div>
 
@@ -109,7 +109,7 @@ export default {
       }
       var param = {
         vin: vin,
-        aaaUserID: this.$store.state.tspId,
+        aaaUserID: this.$store.state.aaaid,
         userId: this.$store.state.trueuserId,
         beAuthorized: beAuthorized
       };

@@ -111,6 +111,10 @@ import Pre_weib from '../components/Wit/pre_weib.vue' //维保预约
 import Characteristic from '../components/Wit/Characteristic' //车系特色
 import Configure from '../components/Wit/Configure' //配置参数
 import Reserve from '../components/Wit/Reserve' //车辆预定
+import CarChoose from '../components/Wit/CarChoose' //车辆预定
+import ColorChoose from '../components/Wit/ColorChoose' //车辆预定
+import RimChoose from '../components/Wit/RimChoose' //车辆预定
+import VehicleChoose from '../components/Wit/VehicleChoose' //车辆预定
 Vue.use(Router)
 
 const router = new Router({
@@ -575,6 +579,25 @@ const router = new Router({
                 path: '/wit/dealer',
                 name: '经销商查询',
                 component: Dealer
+            },
+            {
+                path: '/wit/CarChoose',
+                name: '车型选择',
+                component: CarChoose
+            },
+            {
+                path: '/wit/ColorChoose',
+                name: '颜色选择',
+                component: ColorChoose
+            },
+            {
+                path: '/wit/RimChoose',
+                name: '轮辋选择',
+                component: RimChoose
+            }, {
+                path: '/wit/VehicleChoose',
+                name: '轮辋选择',
+                component: VehicleChoose
             },
             {
 

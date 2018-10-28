@@ -1025,7 +1025,7 @@ export default {
         .post(
           My.My_Bus,
           {
-            userId: this.$store.state.trueuserId,
+            userId: this.$store.state.userId,
             aaaUserID:this.$store.state.aaaid,
             phone: this.$store.state.mobile,
             tspUserId:this.tspid
@@ -1072,7 +1072,7 @@ export default {
       .post(
         My.My_Bus,
         {
-          userId: this.$store.state.trueuserId,
+          userId: this.$store.state.userId,
           phone: this.$store.state.mobile,
           tspUserId:this.tspid,
           aaaUserID:this.$store.state.aaaid,
