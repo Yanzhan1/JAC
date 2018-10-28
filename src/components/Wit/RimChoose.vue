@@ -1,10 +1,13 @@
 <template>
   <div class="main">
-    <div class="nav">
+    <header class="MobileHeight header">
+			<div  @click="goBack"><img style="width:.4rem;height:.4rem;margin-left:.3rem;" :src="'./static/images/back@2x.png'"></div>
+		</header>
+    <!-- <div class="nav">
       <div class="navBack" @click="goBack">
         <img style="width: 0.4rem;height: 0.65rem;padding-top: 0.2rem" src="../../../static/images/back@2x.png">
       </div>
-    </div>
+    </div> -->
     <div class="headerHeight"></div>
     <div class="content">
       <div class="contentTitle">轮辋选择</div>
@@ -77,7 +80,10 @@
 
     },
     mounted(){
-
+  $(".MobileHeight").css({
+					"borderTopWidth": this.$store.state.mobileStatusBar,
+					"borderTopColor": "#fff",
+				})
     },
     methods:{
       carBtn(index,labelTitle){
@@ -109,6 +115,10 @@
     padding: 0;
 
   }
+  .MobileHeight {
+		border-top-style: solid;
+		box-sizing: content-box;
+	}
   .main{
     height: 100%;
     background-color: #fff;

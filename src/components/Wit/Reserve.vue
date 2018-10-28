@@ -402,7 +402,8 @@ export default {
         model: this.$store.state.srouceNo, //意向车型
         city: this.codecity, //城市ID
         userNo: this.$store.state.userId,
-        code:this.Recommend//推荐码
+        code:this.Recommend,//推荐码
+        modelConfiguration:this.$route.query.vehicleData//车型配置
       };
       this.$http.post(Wit.PreBus, param).then(res => {
         if (res.data.code == 0) {

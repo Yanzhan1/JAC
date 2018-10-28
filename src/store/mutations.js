@@ -28,7 +28,7 @@ export default {
             var strr = JSON.parse(state.getpin.headers.identityParam)
             strr.phone = payload.mobile
             strr.token = payload.token
-            strr.userId = payload.userId
+            strr.userId = payload.no
             state.getpin.headers.identityParam = JSON.stringify(strr)
         } else {
             state.no = null

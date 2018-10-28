@@ -10,10 +10,12 @@
 				</div>			
 			</div>
 		</div>
+		<h3 class="out" @click="out">机车登出</h3>
 	</div>
 </template>
 
 <script>
+	import { Toast } from "mint-ui";
 	import PublicHead from '../publicmodel/PublicHead'
 	export default {
 		name: 'loginVehicleState',
@@ -24,11 +26,37 @@
 			return {
 				vin: this.$route.query.vin
 			}
+		},
+		methods:{
+			out(){
+				let data={
+					vin:this.$route.query.vin
+				}
+				this.$http.post(Lovecar.loginOut,data,this.$store.state.tsppin).then((res)=>{
+					console.log(res)
+					//  Toast({
+					// 		message: res.data.returnErrMsg,
+					// 		position: "middle",
+					// 		duration: 2000
+					// 	});
+				})
+			}
 		}
 	}
 </script>
 
 <style scope>
+	.out{
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		height: 1rem;
+		background: #49bbff;
+		line-height: 1rem;
+		text-align: center;
+		color: #fff;
+	}
 	.vehicle-show {
 		display: flex;
     position: absolute;

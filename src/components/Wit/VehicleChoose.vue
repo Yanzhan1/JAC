@@ -148,7 +148,10 @@
 
     },
     mounted(){
-
+      $(".MobileHeight").css({
+              "borderTopWidth": this.$store.state.mobileStatusBar,
+              "borderTopColor": "#fff",
+            })
     },
     methods:{
       carBtn(index){
@@ -208,6 +211,10 @@
   }
 </script>
 <style scoped>
+	.MobileHeight {
+		border-top-style: solid;
+		box-sizing: content-box;
+	}
   .main{
     background-color: #fff;
     height: 100%;
