@@ -161,7 +161,7 @@
           <img src="../../../static/images/Lovecar/yuancheng.png" alt="">
           <span>远程授权</span>
         </router-link>
-        <router-link tag='li' to="/Authorize" v-else>
+        <router-link tag='li' to="/Authorize" v-else-if="!Rajtigo">
           <img src="../../../static/images/Lovecar/yuancheng.png" alt="">
           <span>远程授权</span>
         </router-link>
@@ -365,7 +365,6 @@ export default {
     },
     //获取此车所具有的车况功能
     Support(){
-      alert(1)
       let param={
         vin:this.vinn
       }
@@ -829,8 +828,22 @@ export default {
 				this.$http.post(Lovecar.vehiclestatus,{},this.$store.state.tsppin).then((res)=>{
           
 					if(res.data.returnSuccess){
-            this.Rajtigo=res.data.data[0].isLocking  //isLocking:true 代表已授权
-						this.vehicleState=res.data.data[0].vin
+            // let arr=res.data.data
+            // arr.forEach(function(ii,index){
+            //   console.log(ii,index)
+            //   if(ii.isLocking===true){    
+            //     this.Rajtigo=!this.Rajtigo
+            //     this.vehicleState=ii.vin
+            //   }
+            // });
+            for(let i=0;i<res.data.data.length;i++){
+              if(res.data.data[i].isLocking==true){
+                this.Rajtigo=!this.Rajtigo
+                this.vehicleState=res.data.data[i].vin
+              }
+            }
+            // this.Rajtigo=res.data.data[0].isLocking  //isLocking:true 代表已授权
+						// this.vehicleState=res.data.data[0].vin
 					}
 				})
 			},

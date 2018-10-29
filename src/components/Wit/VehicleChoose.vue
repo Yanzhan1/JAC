@@ -148,10 +148,10 @@
 
     },
     mounted(){
-      $(".MobileHeight").css({
-              "borderTopWidth": this.$store.state.mobileStatusBar,
-              "borderTopColor": "#fff",
-            })
+      // $(".MobileHeight").css({
+      //         "borderTopWidth": this.$store.state.mobileStatusBar,
+      //         "borderTopColor": "#fff",
+      //       })
     },
     methods:{
       carBtn(index){
@@ -193,7 +193,7 @@
           this.vehicleData.push(LEDType);
         }
 
-        this.vehicleData.push(carType,outType,wheelType);
+        this.vehicleData.unshift(carType,outType,wheelType);
         console.log('vehicleData',this.vehicleData);
 
         this.$router.push({
@@ -211,10 +211,10 @@
   }
 </script>
 <style scoped>
-	.MobileHeight {
+	/* .MobileHeight {
 		border-top-style: solid;
 		box-sizing: content-box;
-	}
+	} */
   .main{
     background-color: #fff;
     height: 100%;
@@ -226,6 +226,7 @@
     height:.88rem;
     line-height: .88rem;
     background-color: #fff;
+    margin-top: .5rem;
   }
   .nav div{
     flex: 1;
