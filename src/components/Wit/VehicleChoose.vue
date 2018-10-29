@@ -1,10 +1,15 @@
 <template>
   <div class="main">
-    <div class="nav">
+    <header class="nav MobileHeight header">
+			<div class="navBack"  @click="goBack"><img style="width:.4rem;height:.4rem;margin-left:-.15rem" :src="'./static/images/back@2x.png'"></div>
+      <div class="navTitle">车辆选装</div>
+      <div></div>
+		</header>
+    <!-- <div class="nav">
       <div class="navBack" @click="goBack"><img style="width:.4rem;height:.4rem;" src="../../../static/images/back@2x.png"></div>
       <div class="navTitle">车辆选装</div>
       <div></div>
-    </div>
+    </div> -->
     <div v-if="this.$route.query.currentTitle == '豪华型'">
       <div class="headerHeight"></div>
       <div class="content">
@@ -158,10 +163,10 @@
 
     },
     mounted(){
-      $(".MobileHeight").css({
-        "borderTopWidth": this.$store.state.mobileStatusBar,
-        "borderTopColor": "#fff",
-      })
+          $(".MobileHeight").css({
+					"borderTopWidth": this.$store.state.mobileStatusBar,
+					"borderTopColor": "#fff",
+				})
     },
     methods:{
       carBtn(index){
@@ -221,10 +226,10 @@
   }
 </script>
 <style scoped>
-  .MobileHeight {
-    border-top-style: solid;
-    box-sizing: content-box;
-  }
+	.MobileHeight {
+		border-top-style: solid;
+		box-sizing: content-box;
+	}
   .main{
     background-color: #fff;
     height: 100%;
@@ -237,6 +242,7 @@
     line-height: .88rem;
     background-color: #fff;
     z-index: 9999;
+    top:0;
   }
   .nav div{
     flex: 1;

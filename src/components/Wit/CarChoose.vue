@@ -1,6 +1,6 @@
 <template>
 <div class="main">
-    <header class="specil MobileHeight header">
+    <header class="nav MobileHeight header ">
 			<div  @click="goBack"><img style="width:.4rem;height:.4rem;" :src="'./static/images/back@2x.png'"></div>
 		</header>
   <!-- <div class="nav">
