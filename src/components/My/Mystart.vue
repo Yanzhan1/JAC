@@ -1,16 +1,16 @@
 <template>
   <div>
     <my-header>
-      <img slot="backblue" v-show="rightPic" src="../../../static/images/discover/backfff.png"/>
-      <img slot="backblue" v-show="!rightPic" src="../../../static/images/discover/backblue.png"/>
+      <img slot="backblue" v-show="leftPic" src="../../../static/images/discover/backfff.png" />
+      <img slot="backblue" v-show="!leftPic" src="../../../static/images/discover/backblue.png" />
     </my-header>
-    <header class="headerUser" id="header2" style="display: none">
+    <!-- <header class="headerUser" id="header2" style="display: none">
       <img class="f_left" src="../../../static/images/discover/backblue.png" @click="goBack">
       <img class="f_left head_4" src="../../../static/images/discover/normalhead.png">
       <p class="header-title-fff" style="margin-left: 30%;">
         {{userInfo.userName}}</p>
     </header>
-    <div class="box" style="box-sizing: content-box;" :style="$statusBarHeightObj"></div>
+    <div class="box" style="box-sizing: content-box;" :style="$statusBarHeightObj"></div> -->
     <div class="startbg">
       <div class="wrapbg">
         <img v-if="userInfo && userInfo.headUrl" :src="userInfo.headUrl" alt="">
@@ -135,6 +135,7 @@
         imgSrc: '',
         leftPic: true,
         rightPic: true,
+        bgImgHeight: 0
       }
     },
     components: {},
@@ -336,24 +337,31 @@
             }
           });
       },
-      handleScroll () {
+      handleScroll() {
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-        var scrollHeight = (scrollTop / 1000).toFixed(1);
-        if(scrollHeight == 0.0){
+        var scrollHeight = (scrollTop / this.bgImgHeight).toFixed(1);
+        if (scrollHeight == 0.0) {
           scrollHeight = 0;
-        }else if(scrollHeight > 0.9){
+        } else if (scrollHeight > 0.9) {
           scrollHeight = 1;
         }
-        if(scrollHeight <= 0.4){
-          this.leftPic = true;
-          this.rightPic = true;
-          $("#header2").hide();
-        }else if(0.8 > scrollHeight > 0.4 ){
+        // if (scrollHeight <= 0.4) {
+        //   this.leftPic = true;
+        //   this.rightPic = true;
+        //   $("#header2").hide();
+        // } else if (0.8 > scrollHeight > 0.4) {
+        //   this.leftPic = false;
+        //   this.rightPic = false;
+        //   $("#header2").hide();
+        // } else if (scrollHeight >= 0.8) {
+        //   $("#header2").show();
+        // }
+        if (scrollHeight > 0.4) {
           this.leftPic = false;
-          this.rightPic = false;
-          $("#header2").hide();
-        }else if(scrollHeight >= 0.8 ){
-          $("#header2").show();
+          // this.rightPic = false;
+        } else if (scrollHeight <= 0.4) {
+          this.leftPic = true;
+          // this.rightPic = true;
         }
         $("#asd").css("background", `rgba(255, 255, 255, ${scrollHeight})`)
       },
@@ -369,6 +377,14 @@
       // this.myFocusNum();
       // this.myFansNum();
       // this.myLikeNum();
+    },
+    updated() {
+      this.$nextTick(() => {
+        const asd = document.querySelector('#asd')
+        const startbg = document.querySelector('.startbg')
+
+        this.bgImgHeight = startbg.getBoundingClientRect().height - asd.getBoundingClientRect().height
+      })
     }
   }
 
@@ -377,7 +393,9 @@
 <style scoped>
   @import "./../../../static/css/discover/all.css";
   @import "./../../../static/css/discover/detail.css";
+
   .box {
     height: 0.88rem;
   }
+
 </style>

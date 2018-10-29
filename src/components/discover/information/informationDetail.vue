@@ -81,6 +81,7 @@
         isDisable: false,
         leftPic: true,
         rightPic: true,
+        bgImgHeight: 0
       }
     },
     created() {
@@ -384,7 +385,7 @@
       },
       handleScroll () {
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-        var scrollHeight = (scrollTop / 1000).toFixed(1);
+        var scrollHeight = (scrollTop / this.bgImgHeight).toFixed(1);
         if(scrollHeight == 0.0){
           scrollHeight = 0;
         }else if(scrollHeight > 0.9){
@@ -436,6 +437,11 @@
         for (let img of imgs) {
           img.style['width'] = '100%'
         }
+
+        const bgImg = document.querySelector('#bgImg')
+        const asd = document.querySelector('#asd')
+
+        this.bgImgHeight =  bgImg.getBoundingClientRect().height - asd.getBoundingClientRect().height
       })
     }
   }

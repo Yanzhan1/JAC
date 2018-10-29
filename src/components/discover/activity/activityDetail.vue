@@ -3,8 +3,8 @@
     <div @click="bgHide" id="bgShare"></div>
     <my-header>
       <!--<img slot="share" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />-->
-      <img slot="backblue" v-show="rightPic" src="../../../../static/images/discover/backfff.png"/>
-      <img slot="backblue" v-show="!rightPic" src="../../../../static/images/discover/backblue.png"/>
+      <img slot="backblue" v-show="rightPic" src="../../../../static/images/discover/backfff.png" />
+      <img slot="backblue" v-show="!rightPic" src="../../../../static/images/discover/backblue.png" />
       <img slot="share" v-show="leftPic" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
       <img slot="share" v-show="!leftPic" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
     </my-header>
@@ -204,6 +204,7 @@
         userId: this.$store.state.userId,
         leftPic: true,
         rightPic: true,
+        bgImgHeight: 0
       }
     },
     created() {
@@ -493,18 +494,18 @@
         this.$router.go(-1);
         this.$store.dispatch("showFoot")
       },
-      handleScroll () {
+      handleScroll() {
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-        var scrollHeight = (scrollTop / 1000).toFixed(1);
-        if(scrollHeight == 0.0){
+        var scrollHeight = (scrollTop / this.bgImgHeight).toFixed(1);
+        if (scrollHeight == 0.0) {
           scrollHeight = 0;
-        }else if(scrollHeight > 0.9){
+        } else if (scrollHeight > 0.9) {
           scrollHeight = 1;
         }
-        if(scrollHeight > 0.4){
+        if (scrollHeight > 0.4) {
           this.leftPic = false;
           this.rightPic = false;
-        }else if(scrollHeight <= 0.4){
+        } else if (scrollHeight <= 0.4) {
           this.leftPic = true;
           this.rightPic = true;
         }
@@ -522,6 +523,14 @@
         this.getPictureList();
       })
       window.getPictureList = this.getPictureList
+    },
+    updated() {
+      this.$nextTick(() => {
+        const bgImg = document.querySelector('#bgImg')
+        const asd = document.querySelector('#asd')
+
+        this.bgImgHeight = bgImg.getBoundingClientRect().height - asd.getBoundingClientRect().height
+      })
     }
   }
 
@@ -547,9 +556,10 @@
     width: 100%;
   }
 
-  .content >>> img {
-    width:100%;
+  .content>>>img {
+    width: 100%;
   }
+
   #bgShare {
     position: fixed;
     width: 100%;
