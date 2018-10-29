@@ -2,7 +2,7 @@
 	<div class="place-order">
 		<mhead currentTitle="提交订单"></mhead>
 		<div class="order-header">
-			<h5>瑞风S7</h5>
+			<h5>{{this.$store.state.brandName}}</h5>
 			<p>汽车VIN：{{this.$store.state.vins}}</p>
 		</div>
 		<div class="lines"></div>

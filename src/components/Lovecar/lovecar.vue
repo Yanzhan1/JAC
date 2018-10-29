@@ -1111,6 +1111,7 @@ export default {
               this.carsysitem = res.data.data[i].seriesName || null;
               var payload = res.data.data[i].vin;
               this.defaultvin=res.data.data[i].vin;
+              this.$store.state.brandName=res.data.data[i].brandName
               console.log('获取默认车辆vin码:'+ this.defaultvin)
               this.$store.dispatch("CARVINS", payload);
               //获取机车 登录登出状态
