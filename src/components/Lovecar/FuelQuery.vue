@@ -125,7 +125,6 @@
 										this.count[0].oilConsumer=res.data.data.totalWear
 									})
 				}else{
-					alert(2)
 					if(accpect.times=='月'){
 						this.times='3'
 						this.years=accpect.showtop.years+'年';
