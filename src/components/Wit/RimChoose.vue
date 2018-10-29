@@ -22,18 +22,18 @@
       <div class="headerHeight2"></div>
       <div class="contentImg">
         <div class="carImg" v-for="(item,index) in carRimData" v-show="index === currentIndex">
-          <img src="../../../static/images/Wit/whiteBody.png"/>
-          <img v-if="$route.query.colorTitle=='典雅白'" :src="'../../../static/images/Wit/whiteBody.png'"/>
-          <img v-else-if="$route.query.colorTitle=='激光紫'" :src="'../../../static/images/Wit/purpleBody.png'"/>
-          <img v-else-if="$route.query.colorTitle=='琥珀金'" :src="'../../../static/images/Wit/goldBody.png'"/>
-          <img v-else-if="$route.query.colorTitle=='拉菲红'" :src="'../../../static/images/Wit/redBody.png'"/>
+          <img :src="'./static/images/Wit/whiteBody.png'"/>
+          <img v-if="$route.query.colorTitle=='典雅白'" :src="'./static/images/Wit/whiteBody.png'"/>
+          <img v-else-if="$route.query.colorTitle=='激光紫'" :src="'./static/images/Wit/purpleBody.png'"/>
+          <img v-else-if="$route.query.colorTitle=='琥珀金'" :src="'./static/images/Wit/goldBody.png'"/>
+          <img v-else-if="$route.query.colorTitle=='拉菲红'" :src="'./static/images/Wit/redBody.png'"/>
           <img :src="item.img"/>
         </div>
       </div>
       <div class="contentCar">
         <div class="contentCarBtn"  :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" v-for="(item,index) in carData" :key="item.id" @click="carBtn(index,item.label)">
-          <img :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" :src="'../../../static/images/Wit/R17common.png'"/>
-          <img  :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" :src="'../../../static/images/Wit/R18common.png'"/>
+          <img :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" :src="'./static/images/Wit/R17common.png'"/>
+          <img  :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" :src="'./static/images/Wit/R18common.png'"/>
           <img :src="item.img">
           <div class="contentCarTitle">{{item.label}}</div>
         </div>

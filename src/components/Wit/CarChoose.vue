@@ -21,7 +21,7 @@
   <div class="headerHeight2"></div>
   <div class="contentImg">
     <div class="carImg">
-      <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;left: 0.25rem" :src="'../../../static/images/Wit/whiteBody.png'"/>
+      <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;left: 0.25rem" :src="'./static/images/Wit/whiteBody.png'"/>
     </div>
   </div>
   <div class="contentCar">
