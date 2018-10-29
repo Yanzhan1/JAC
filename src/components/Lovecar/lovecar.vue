@@ -363,6 +363,16 @@ export default {
         this.Condition = window;
       }
     },
+    //获取此车所具有的车况功能
+    Support(){
+      alert(1)
+      let param={
+        vin:this.vinn
+      }
+      this.$http.post(Lovecar.Support,param,this.$store.state.tsppin).then(res=>{
+        console.log(res)
+      })
+    },
     moved() {
       this.MaskIsshow = false;
       this.IsShow = false;
@@ -1054,6 +1064,7 @@ export default {
               // }
             }
             this.vinn = this.$store.state.vins;
+            this.Support()
             // console.log(this.vinn)
             this.Carquerry();
             // console.log(this.$store.state.mytoken.headers.timaToken);
@@ -1094,6 +1105,7 @@ export default {
              }
             }
           this.vinn = this.$store.state.vins;
+          this.Support()
           this.Carquerry();
         }else{
             Toast({

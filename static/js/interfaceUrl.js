@@ -160,6 +160,7 @@ window.My = {
     }
     //爱车
 window.Lovecar = {
+        Support: love_car + '/vehicle/vehicle-support-function', //tsp用户返回所具有的车况功能
         vehicle: love_car + '/vehicle/sync-tsp-vehicle', //给后端同步车辆接口
         TSP: mips + 'admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne', //获取tsp用户
         Carquery: love_car + '/vehicle/query-vehicle-condition', //车辆车况查询

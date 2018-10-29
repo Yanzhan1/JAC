@@ -75,8 +75,8 @@
                           </div>
                       </li>
                   </ul>
-                  <span class='Remarks'>备注说明：</span>
-                  <textarea placeholder="输入文本..." v-model="beizhu"></textarea>
+                  <!-- <span class='Remarks'>备注说明：</span>
+                  <textarea placeholder="输入文本..." v-model="beizhu"></textarea> -->
                   <div style="height:2rem;"></div>
               <div class="submit" v-show="success">
                   <img src="../../../static/images/Wit/gou@2x.png" alt="" style="width:.8rem;height:.8rem;" class="gou">
@@ -133,6 +133,7 @@ export default {
       success: false,
       areas: false,
       ischange:false,
+      vehicleData:[],//s4系列传过来的数据
       Distribution: "", //经销商
       Recommend: "", //推荐码
       name: "", //姓名
@@ -396,14 +397,13 @@ export default {
         mobile: this.tell, //手机号
         email: this.email, //email
         address: this.address, //地址
-        comments: this.beizhu, //商家备注
+        comments: this.vehicleData, //车型配置
         province: this.provinceid, //省份ID
         series: this.$route.params.levelCode, //意向车系
         model: this.$store.state.srouceNo, //意向车型
         city: this.codecity, //城市ID
         userNo: this.$store.state.userId,
         code:this.Recommend,//推荐码
-        modelConfiguration:this.$route.query.vehicleData//车型配置
       };
       this.$http.post(Wit.PreBus, param).then(res => {
         if (res.data.code == 0) {
@@ -573,7 +573,16 @@ export default {
 				this.latitude = JSON.parse(locationMes).latitude //精
         this.longitude = JSON.parse(locationMes).longitude //韦
         this.getcity()
-			},
+      },
+      //拼接
+      Pikante(){
+        let vehicleData=this.$route.query.vehicleData
+        if(vehicleData[3]==undefined){
+          this.vehicleData=vehicleData[0]+','+vehicleData[1]+','+vehicleData[2]
+        }else{
+          this.vehicleData=vehicleData[0]+','+vehicleData[1]+','+vehicleData[2]+','+vehicleData[3]
+        }
+      }
   },
   created(){
     		window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
@@ -592,6 +601,7 @@ export default {
   },
   mounted() {
     this.tell=this.$store.state.mobile
+    this.Pikante()
     //地区
        $(".gobottom").height($(".gobottom").height());
   }
