@@ -2,7 +2,7 @@
   <div>
     <div @click="bgHide" id="bgShare" style="position: fixed; width: 100%;height: 100%;background: #000000; display: none;opacity: 0.2;top: 0;"></div>
     
-    <my-header :id="'qwe'" :title="'社区详情'">
+    <my-header :title="'社区详情'">
       <img slot="backfff" class="header-left" src="../../../../static/images/discover/backblue.png" @click="goBack(content.user.user_id)">
       <img slot="share" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
     </my-header>

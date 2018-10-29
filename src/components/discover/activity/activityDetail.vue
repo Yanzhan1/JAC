@@ -1,10 +1,10 @@
 <template>
   <div>
     <div @click="bgHide" id="bgShare"></div>
-    <my-header>
+    <my-header :id="'asd'" :title="title" :isShow="isShow" :rightPic="rightPic">
       <!--<img slot="share" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />-->
-      <img slot="backblue" v-show="rightPic" src="../../../../static/images/discover/backfff.png" />
-      <img slot="backblue" v-show="!rightPic" src="../../../../static/images/discover/backblue.png" />
+      <!-- <img slot="backblue" v-show="rightPic" src="../../../../static/images/discover/backfff.png" />
+      <img slot="backblue" v-show="!rightPic" src="../../../../static/images/discover/backblue.png" /> -->
       <img slot="share" v-show="leftPic" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
       <img slot="share" v-show="!leftPic" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
     </my-header>
@@ -12,11 +12,11 @@
       <img style="margin-top: 0.4rem;" class="header_left" src="../../../../static/images/discover/backfff.png" @click="goBack">
       <img style="margin-top: 0.4rem;" class="header_right" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
     </header> -->
-    <header class="header0 header2" id="header2" style="display: none">
+    <!-- <header class="header0 header2" id="header2" style="display: none">
       <img class="header_left" src="../../../../static/images/discover/backblue.png" @click="goBack">
       <p class="header-title-fff">活动详情</p>
       <img class="header_right" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
-    </header>
+    </header> -->
     <!--活动内容S-->
     <shareBox :index="0" :item="content" :flag="flag" :type="type" :collectionStatus="content.collectionStatus"
       :isCenter="true" @closeShare="bgHide" @collection="collection" @reCollection="messageBoxCofirm"></shareBox>
@@ -204,7 +204,9 @@
         userId: this.$store.state.userId,
         leftPic: true,
         rightPic: true,
-        bgImgHeight: 0
+        bgImgHeight: 0,
+        title: '',
+        isShow: true
       }
     },
     created() {
@@ -508,6 +510,13 @@
         } else if (scrollHeight <= 0.4) {
           this.leftPic = true;
           this.rightPic = true;
+        }
+        if (scrollHeight == 1) {
+          this.title = '活动详情'
+          this.isShow = false
+        }else {
+          this.title = ''
+          this.isShow = true
         }
         $("#asd").css("background", `rgba(255, 255, 255, ${scrollHeight})`)
       },

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <my-header>
-      <img slot="backblue" v-show="leftPic" src="../../../static/images/discover/backfff.png" />
-      <img slot="backblue" v-show="!leftPic" src="../../../static/images/discover/backblue.png" />
+    <my-header :id="'asd'" :title="title" :isShow="isShow" :rightPic="leftPic">
+      <!-- <img slot="backblue" v-show="leftPic" src="../../../static/images/discover/backfff.png" />
+      <img slot="backblue" v-show="!leftPic" src="../../../static/images/discover/backblue.png" /> -->
     </my-header>
     <!-- <header class="headerUser" id="header2" style="display: none">
       <img class="f_left" src="../../../static/images/discover/backblue.png" @click="goBack">
@@ -135,7 +135,9 @@
         imgSrc: '',
         leftPic: true,
         rightPic: true,
-        bgImgHeight: 0
+        bgImgHeight: 0,
+        title: '',
+        isShow: true
       }
     },
     components: {},
@@ -362,6 +364,13 @@
         } else if (scrollHeight <= 0.4) {
           this.leftPic = true;
           // this.rightPic = true;
+        }
+        if (scrollHeight == 1) {
+          this.title = this.userInfo.userName
+          this.isShow = false
+        } else {
+          this.title = ''
+          this.isShow = true
         }
         $("#asd").css("background", `rgba(255, 255, 255, ${scrollHeight})`)
       },
