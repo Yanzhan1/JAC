@@ -22,8 +22,8 @@
       <div class="headerHeight2"></div>
       <div class="contentImg">
         <div class="carImg" v-for="(item,index) in carColorData" v-show="index === currentIndex">
-          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" src="../../../static/images/Wit/whiteBody.png"/>
-          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" src="../../../static/images/Wit/white.png"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="'../../../static/images/Wit/whiteBody.png'"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="'../../../static/images/Wit/white.png'"/>
           <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="item.img"/>
         </div>
       </div>
@@ -50,8 +50,8 @@
       <div class="headerHeight2"></div>
       <div class="contentImg">
         <div class="carImg" v-for="(item,index) in carColorData" v-show="index === currentIndex">
-          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" src="../../../static/images/Wit/whiteBody.png"/>
-          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" src="../../../static/images/Wit/white.png"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="'../../../static/images/Wit/whiteBody.png'"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="'../../../static/images/Wit/white.png'"/>
           <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="item.img"/>
         </div>
       </div>
