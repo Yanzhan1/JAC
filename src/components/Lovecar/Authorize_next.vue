@@ -12,13 +12,13 @@
                 <img src="../../../static/images/Lovecar/car_bg@2x.png" alt="">
             </div>
             <div>
-                <div>
+                <!-- <div>
                     <span style="font-size:.26rem;color:#555;">昵称：</span>
                     <span style="font-size:.34rem;color:#222">暮岁</span>
-                </div>
+                </div> -->
                 <div>
                     <span style="font-size:.26rem;color:#555;">账号：</span>
-                    <span style="font-size:.34rem;color:#222">123123213</span>
+                    <span style="font-size:.34rem;color:#222">{{this.userName}}</span>
                 </div>
             </div>
         </div>
@@ -40,6 +40,7 @@
 </template>
  <script>
 import { MessageBox } from "mint-ui";
+import { Toast } from "mint-ui";
 import PublicHead from '../publicmodel/PublicHead'
 export default {
 	name: 'authorizeNext',
@@ -50,10 +51,48 @@ export default {
     return {
       gettime:'',
       overtime:'',
-      count: this.$route.params.count
+      count: this.$route.params.count,
+      // authTime:'',//起始时间
+      // endauthTime:'',//结束时间
+      userName:'',//账号
     };
   },
   methods: {
+    timestampToTime(timestamp) {
+        var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = date.getDate() + ' ';
+        var h = date.getHours() + ':';
+        var m = date.getMinutes() + ':';
+        var s = date.getSeconds();
+        return Y+M+D+h+m+s;
+    },
+     //车辆授权状态
+    vehiclestatus(){
+				this.$http.post(Lovecar.vehiclestatus,{},this.$store.state.tsppin).then((res)=>{         
+					if(res.data.returnSuccess){
+            // let arr=res.data.data
+            // arr.forEach(function(ii,index){
+            //   console.log(ii,index)
+            //   if(ii.isLocking===true){    
+            //     this.Rajtigo=!this.Rajtigo
+            //     this.vehicleState=ii.vin
+            //   }
+            // });
+            for(let i=0;i<res.data.data.length;i++){
+              if(res.data.data[i].isLocking==true){
+                var authTime=res.data.data[i].authTime
+                var endauthTime=res.data.data[i].endAuthTime
+                this.gettime=this.timestampToTime(authTime)
+                this.overtime=this.timestampToTime(endauthTime)
+              }
+            }
+            // this.Rajtigo=res.data.data[0].isLocking  //isLocking:true 代表已授权
+						// this.vehicleState=res.data.data[0].vin
+					}
+				})
+			},
     confirmRevise() {
       MessageBox.confirm("", {
         title: "提示",
@@ -78,7 +117,7 @@ export default {
                 }
             }
           	this.$http.post(Lovecar.Longrange, data, this.$store.state.tsppin).then( res => {
-          		
+          		console.log(res)
           	})
           	.catch (err => {
           		
@@ -92,9 +131,13 @@ export default {
     }
   },
   mounted(){
-    console.log(this.$route.params)
+    
     this.gettime=this.$route.params.a;
     this.overtime=this.$route.params.b;
+    if(this.gettime==undefined){
+      this.vehiclestatus()
+    }
+    this.userName=this.$store.state.userName
   }
 };
 </script>
