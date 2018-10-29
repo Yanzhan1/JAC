@@ -110,7 +110,9 @@ export default {
           	var data = {
                     vin: this.$store.state.vins, 
                     // vin: 'LS5A3CJC9JF830022', 
-                    childNum: this.count, 
+                    childNum: this.count,
+                    userId:this.$store.state.trueuserId, 
+                    phone:this.$store.state.mobile,
                     operationType: "CONTROL_AUTH", 
                     operation: 0, 
                     extParams: {
@@ -131,7 +133,8 @@ export default {
     }
   },
   mounted(){
-    
+    alert(JSON.stringify(this.$store.state.tsppin
+    ))
     this.gettime=this.$route.params.a;
     this.overtime=this.$route.params.b;
     if(this.gettime==undefined){
