@@ -12,9 +12,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="out">
+		<!-- <div class="out">
 			<h3  @click="out">机车登出</h3>
-		</div>
+		</div> -->
 	</div>
 </template>
 

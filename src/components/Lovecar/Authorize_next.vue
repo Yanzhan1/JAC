@@ -18,7 +18,7 @@
                 </div> -->
                 <div>
                     <span style="font-size:.26rem;color:#555;">账号：</span>
-                    <span style="font-size:.34rem;color:#222">{{this.userName}}</span>
+                    <span style="font-size:.34rem;color:#222">{{this.toAuthperson}}</span>
                 </div>
             </div>
         </div>
@@ -55,6 +55,7 @@ export default {
       // authTime:'',//起始时间
       // endauthTime:'',//结束时间
       userName:'',//账号
+      toAuthperson:'',//展示的昵称
     };
   },
   methods: {
@@ -72,20 +73,13 @@ export default {
     vehiclestatus(){
 				this.$http.post(Lovecar.vehiclestatus,{},this.$store.state.tsppin).then((res)=>{         
 					if(res.data.returnSuccess){
-            // let arr=res.data.data
-            // arr.forEach(function(ii,index){
-            //   console.log(ii,index)
-            //   if(ii.isLocking===true){    
-            //     this.Rajtigo=!this.Rajtigo
-            //     this.vehicleState=ii.vin
-            //   }
-            // });
             for(let i=0;i<res.data.data.length;i++){
               if(res.data.data[i].isLocking==true){
                 var authTime=res.data.data[i].authTime
                 var endauthTime=res.data.data[i].endAuthTime
                 this.gettime=this.timestampToTime(authTime)
                 this.overtime=this.timestampToTime(endauthTime)
+                this.toAuthperson=res.data.data[i].toAuthPerson
               }
             }
             // this.Rajtigo=res.data.data[0].isLocking  //isLocking:true 代表已授权
@@ -119,7 +113,19 @@ export default {
                 }
             }
           	this.$http.post(Lovecar.Longrange, data, this.$store.state.tsppin).then( res => {
-          		console.log(res)
+          		if(res.data.returnSuccess){
+                  Toast({
+                    message:'解除授权成功',
+                    position: "middle",
+                    duration: 2000
+                  });
+              }else{
+                Toast({
+                    message:res.data.returnErrMsg,
+                    position: "middle",
+                    duration: 2000
+                    });
+              }
           	})
           	.catch (err => {
           		
@@ -133,8 +139,7 @@ export default {
     }
   },
   mounted(){
-    alert(JSON.stringify(this.$store.state.tsppin
-    ))
+    // alert(JSON.stringify(this.$store.state.tsppin))
     this.gettime=this.$route.params.a;
     this.overtime=this.$route.params.b;
     if(this.gettime==undefined){
