@@ -62,7 +62,7 @@
       </div>
       <div class="contentBtn">
         <div class="contentColorBtn" @click="reserveBtn">
-          选择 >>
+          确定选择 >>
         </div>
       </div>
     </div>
