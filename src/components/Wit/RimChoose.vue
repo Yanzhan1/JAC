@@ -8,38 +8,40 @@
         <img style="width: 0.4rem;height: 0.65rem;padding-top: 0.2rem" src="../../../static/images/back@2x.png">
       </div>
     </div> -->
-    <div class="headerHeight"></div>
-    <div class="content">
-      <div class="contentTitle">轮辋选择</div>
-      <div class="contentSmallTitle">
-        <span class="smallTitle">车型</span>
-        <span class="smallTitle">外观</span>
-        <span class="smallTitle">轮辋</span>
-        <span class="smallTitle one">选配</span>
+    <div v-if="this.$route.query.currentTitle == '豪华型'">
+      <div class="headerHeight"></div>
+      <div class="content">
+        <div class="contentTitle">轮辋选择</div>
+        <div class="contentSmallTitle">
+          <span class="smallTitle">车型</span>
+          <span class="smallTitle">外观</span>
+          <span class="smallTitle">轮辋</span>
+          <span class="smallTitle one">选配</span>
+        </div>
       </div>
-    </div>
-    <div class="headerHeight2"></div>
-    <div class="contentImg">
-      <div class="carImg" v-for="(item,index) in carRimData" v-show="index === currentIndex">
-        <img src="../../../static/images/Wit/whiteBody.png"/>
-        <img v-if="$route.query.colorTitle=='典雅白'" src="../../../static/images/Wit/whiteBody.png"/>
-        <img v-else-if="$route.query.colorTitle=='激光紫'" src="../../../static/images/Wit/purpleBody.png"/>
-        <img v-else-if="$route.query.colorTitle=='琥珀金'" src="../../../static/images/Wit/goldBody.png"/>
-        <img v-else-if="$route.query.colorTitle=='拉菲红'" src="../../../static/images/Wit/redBody.png"/>
-        <img :src="item.img"/>
+      <div class="headerHeight2"></div>
+      <div class="contentImg">
+        <div class="carImg" v-for="(item,index) in carRimData" v-show="index === currentIndex">
+          <img src="../../../static/images/Wit/whiteBody.png"/>
+          <img v-if="$route.query.colorTitle=='典雅白'" src="../../../static/images/Wit/whiteBody.png"/>
+          <img v-else-if="$route.query.colorTitle=='激光紫'" src="../../../static/images/Wit/purpleBody.png"/>
+          <img v-else-if="$route.query.colorTitle=='琥珀金'" src="../../../static/images/Wit/goldBody.png"/>
+          <img v-else-if="$route.query.colorTitle=='拉菲红'" src="../../../static/images/Wit/redBody.png"/>
+          <img :src="item.img"/>
+        </div>
       </div>
-    </div>
-    <div class="contentCar">
-      <div class="contentCarBtn"  :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" v-for="(item,index) in carData" :key="item.id" @click="carBtn(index,item.label)">
-        <img :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" src="../../../static/images/Wit/R17common.png"/>
-        <img  :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" src="../../../static/images/Wit/R18common.png"/>
-        <img :src="item.img">
-        <div class="contentCarTitle">{{item.label}}</div>
+      <div class="contentCar">
+        <div class="contentCarBtn"  :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" v-for="(item,index) in carData" :key="item.id" @click="carBtn(index,item.label)">
+          <img :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" src="../../../static/images/Wit/R17common.png"/>
+          <img  :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" src="../../../static/images/Wit/R18common.png"/>
+          <img :src="item.img">
+          <div class="contentCarTitle">{{item.label}}</div>
+        </div>
       </div>
-    </div>
-    <div class="contentBtn">
-      <div class="contentColorBtn" @click="rimChooseBtn">
-        车型选装 >>
+      <div class="contentBtn">
+        <div class="contentColorBtn" @click="rimChooseBtn">
+          车型选装 >>
+        </div>
       </div>
     </div>
   </div>
@@ -201,6 +203,10 @@
     height: 1.9rem;
     position: absolute;
     top:0;
+    -webkit-transition: -webkit-transform 0.3s;
+    -moz-transition: -moz-transform 0.3s;
+    -o-transition: -o-transform 0.3s;
+    transition: transform 0.3s;
   }
   .contentCar .contentCarBtn .contentCarTitle{
     height: 1rem;
@@ -224,6 +230,11 @@
     height: 2.1rem;
     position: absolute;
     top:0;
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
   }
   .contentCar .contentCarBtn2 .contentCarTitle{
     height: 1rem;

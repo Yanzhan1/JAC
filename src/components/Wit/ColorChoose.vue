@@ -8,32 +8,62 @@
         <img style="width: 0.4rem;height: 0.65rem;padding-top: 0.2rem" src="../../../static/images/back@2x.png">
       </div>
     </div> -->
-    <div class="headerHeight"></div>
-    <div class="content">
-      <div class="contentTitle">颜色选择</div>
-      <div class="contentSmallTitle">
-        <span class="smallTitle">车型</span>
-        <span class="smallTitle">外观</span>
-        <span class="smallTitle">轮辋</span>
-        <span class="smallTitle one">选配</span>
+    <div v-if="this.$route.query.currentTitle == '豪华型'">
+      <div class="headerHeight"></div>
+      <div class="content">
+        <div class="contentTitle">颜色选择</div>
+        <div class="contentSmallTitle">
+          <span class="smallTitle">车型</span>
+          <span class="smallTitle">外观</span>
+          <span class="smallTitle">轮辋</span>
+          <span class="smallTitle one">选配</span>
+        </div>
+      </div>
+      <div class="headerHeight2"></div>
+      <div class="contentImg">
+        <div class="carImg" v-for="(item,index) in carColorData" v-show="index === currentIndex">
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" src="../../../static/images/Wit/whiteBody.png"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" src="../../../static/images/Wit/white.png"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="item.img"/>
+        </div>
+      </div>
+      <div class="contentCar">
+        <div class="contentCarBtn"  :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" v-for="(item,index) in carData" :key="item.id" @click="carBtn(index,item.label)">
+          {{item.label}}
+        </div>
+      </div>
+      <div class="contentBtn">
+        <div class="contentColorBtn" @click="RimChooseBtn">
+          轮辋选择 >>
+        </div>
       </div>
     </div>
-    <div class="headerHeight2"></div>
-    <div class="contentImg">
-      <div class="carImg" v-for="(item,index) in carColorData" v-show="index === currentIndex">
-        <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" src="../../../static/images/Wit/whiteBody.png"/>
-        <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" src="../../../static/images/Wit/white.png"/>
-        <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="item.img"/>
+    <div v-if="this.$route.query.currentTitle == '舒适型'">
+      <div class="headerHeight"></div>
+      <div class="content">
+        <div class="contentTitle">颜色选择</div>
+        <div class="contentSmallTitle">
+          <span class="smallTitle">车型</span>
+          <span class="smallTitle">外观</span>
+        </div>
       </div>
-    </div>
-    <div class="contentCar">
-      <div class="contentCarBtn"  :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" v-for="(item,index) in carData" :key="item.id" @click="carBtn(index,item.label)">
-        {{item.label}}
+      <div class="headerHeight2"></div>
+      <div class="contentImg">
+        <div class="carImg" v-for="(item,index) in carColorData" v-show="index === currentIndex">
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" src="../../../static/images/Wit/whiteBody.png"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" src="../../../static/images/Wit/white.png"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="item.img"/>
+        </div>
       </div>
-    </div>
-    <div class="contentBtn">
-      <div class="contentColorBtn" @click="RimChooseBtn">
-        轮辋选择 >>
+      <div class="contentCar">
+        <div class="contentCarBtn"  :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" v-for="(item,index) in carData" :key="item.id" @click="carBtn(index,item.label)">
+          {{item.label}}
+        </div>
+      </div>
+      <div class="contentBtn">
+        <div class="contentColorBtn" @click="reserveBtn">
+          选择 >>
+        </div>
       </div>
     </div>
   </div>
@@ -108,6 +138,16 @@
 //        console.log('this.currentTitle',this.currentTitle)
         this.$router.push({
           path: '/wit/RimChoose',
+          query: {
+            currentTitle:this.$route.query.currentTitle,
+            colorTitle:this.colorTitle,
+
+          }
+        })
+      },
+      reserveBtn(){//如果是舒适型直接跳转到在线订车页面
+        this.$router.push({
+          path: '/wit/Reserve',
           query: {
             currentTitle:this.$route.query.currentTitle,
             colorTitle:this.colorTitle,
