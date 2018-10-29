@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header id="asd" :class="title ? 'header2' : 'header1'">
+    <header :id="id" :class="title ? 'header2' : 'header1'">
       <div class="top" :style="$statusBarHeightObj"></div>
       <div class="bottom">
 
@@ -36,6 +36,10 @@
       title: { //页面头部标题
         type: String,
         default: ''
+      },
+      id: {
+        type: String,
+        default: 'asd'
       }
     },
     methods: {
@@ -50,6 +54,10 @@
 </script>
 
 <style scoped>
+  #qwe {
+    background-color: #fff;
+  }
+
   header {
     position: fixed;
     top: 0;
