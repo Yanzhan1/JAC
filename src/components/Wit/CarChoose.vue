@@ -171,8 +171,8 @@ export default{
   line-height: 2rem;
   background-color: rgba(232,232,232,0.3);
   text-align: center;
-  font-size: 0.32rem;
-  font-weight: 700;
+  /*font-size: 0.32rem;*/
+  /*font-weight: 700;*/
 }
 .contentCar .contentCarBtn2{
   flex: 1;
@@ -180,8 +180,8 @@ export default{
   line-height: 2rem;
   background-color: rgb(232,232,232);
   text-align: center;
-  font-size: 0.32rem;
-  font-weight: 700;
+  /*font-size: 0.32rem;*/
+  /*font-weight: 700;*/
 }
 .contentBtn{
   height: 3.5rem;
