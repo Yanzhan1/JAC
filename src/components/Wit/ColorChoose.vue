@@ -135,7 +135,6 @@
 
       },
       RimChooseBtn(){
-//        console.log('this.currentTitle',this.currentTitle)
         this.$router.push({
           path: '/wit/RimChoose',
           query: {
