@@ -44,7 +44,7 @@
         <div class="contentTitle">颜色选择</div>
         <div class="contentSmallTitle">
           <span class="smallTitle">车型</span>
-          <span class="smallTitle">颜色</span>
+          <span class="smallTitle one">颜色</span>
         </div>
       </div>
       <div class="headerHeight2"></div>
