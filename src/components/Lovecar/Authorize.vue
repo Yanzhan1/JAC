@@ -113,7 +113,7 @@ export default {
                     // vin: 'LS5A3CJC9JF830022', 
                     phone:this.$store.state.mobile,
                     // userId:this.$store.state.tspId,
-                    userId:this.$store.state.trueuserId,
+                    userId:this.$store.state.userId,
                     operationType: "CONTROL_AUTH", 
                     childNum: this.Account, 
                     operation: 1, 

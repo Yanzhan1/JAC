@@ -105,7 +105,7 @@ export default {
                     vin: this.$store.state.vins, 
                     // vin: 'LS5A3CJC9JF830022', 
                     childNum: this.count,
-                    userId:this.$store.state.trueuserId, 
+                    userId:this.$store.state.userId, 
                     phone:this.$store.state.mobile,
                     operationType: "CONTROL_AUTH", 
                     operation: 0, 

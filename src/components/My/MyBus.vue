@@ -110,7 +110,7 @@ export default {
       var param = {
         vin: vin,
         aaaUserID: this.$store.state.aaaid,
-        userId: this.$store.state.trueuserId,
+        userId: this.$store.state.userId,
         beAuthorized: beAuthorized
       };
       this.$http
@@ -141,7 +141,7 @@ export default {
           var param = {
             vin: vin,
             extParams: {},
-            userId: this.$store.state.trueuserId,
+            userId: this.$store.state.userId,
             phone: this.$store.state.mobile,
             operationType: "CAR_BINDING",
             operation: 0
