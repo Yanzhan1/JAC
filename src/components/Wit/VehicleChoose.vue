@@ -31,7 +31,7 @@
       </div>
       <div class="contentImg">
         <div class="carImg">
-          <img style="" v-if="$route.query.colorTitle=='典雅白'" :src="'../../../static/images/Wit/whiteBody.png'"/>
+          <img style="" v-if="$route.query.colorTitle=='典雅白'" :src="'./static/images/Wit/whiteBody.png'"/>
           <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='激光紫'" :src="'./static/images/Wit/purpleBody.png'"/>
           <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='琥珀金'" :src="'./static/images/Wit/goldBody.png'"/>
           <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='拉菲红'" :src="'./static/images/Wit/redBody.png'"/>
@@ -97,27 +97,27 @@
         show:true,
         show1:true,
         show2:true,
-        url:'../../../static/images/Wit/unChecked@2x.png',
-        url1:'../../../static/images/Wit/checked@2x_89.png',
-        imgLED:'../../../static/images/Wit/LED@2x.png',
-        imgLED1:'../../../static/images/Wit/LED@2x.png',
-        imgBody1:'../../../static/images/Wit/white@2x.png',
-        imgBody2:'../../../static/images/Wit/whiteBodyDouble@2x.png',
-        imgBody3:'../../../static/images/Wit/purpleBodyDouble@2x_22.png',
-        imgBody4:'../../../static/images/Wit/goldBodyDouble@2x_7.png',
-        imgBody5:'../../../static/images/Wit/redBodyDouble@2x_28.png',
-        whiteDouble:'../../../static/images/Wit/whiteDouble.png',
-        purpleDouble:'../../../static/images/Wit/purpleDouble.png',
-        goldDouble:'../../../static/images/Wit/goldDouble.png',
-        redDouble:'../../../static/images/Wit/redDouble.png',
-        whiteNormal:'../../../static/images/Wit/whiteBody.png',
-        purpleNormal:'../../../static/images/Wit/purpleBody.png',
-        goldNormal:'../../../static/images/Wit/goldBody.png',
-        redNormal:'../../../static/images/Wit/redBody.png',
-        carWheelR17:'../../../static/images/Wit/R17Text.png',
-        carWheelR18:'../../../static/images/Wit/R18Text.png',
-        carWheelR17Text:'../../../static/images/Wit/R17-TESS@2x.png',
-        carWheelR18Text:'../../../static/images/Wit/R18-TESS@2x.png',
+        url:'./static/images/Wit/unChecked@2x.png',
+        url1:'./static/images/Wit/checked@2x_89.png',
+        imgLED:'./static/images/Wit/LED@2x.png',
+        imgLED1:'./static/images/Wit/LED@2x.png',
+        imgBody1:'./static/images/Wit/white@2x.png',
+        imgBody2:'./static/images/Wit/whiteBodyDouble@2x.png',
+        imgBody3:'./static/images/Wit/purpleBodyDouble@2x_22.png',
+        imgBody4:'./static/images/Wit/goldBodyDouble@2x_7.png',
+        imgBody5:'./static/images/Wit/redBodyDouble@2x_28.png',
+        whiteDouble:'./static/images/Wit/whiteDouble.png',
+        purpleDouble:'./static/images/Wit/purpleDouble.png',
+        goldDouble:'./static/images/Wit/goldDouble.png',
+        redDouble:'./static/images/Wit/redDouble.png',
+        whiteNormal:'./static/images/Wit/whiteBody.png',
+        purpleNormal:'./static/images/Wit/purpleBody.png',
+        goldNormal:'./static/images/Wit/goldBody.png',
+        redNormal:'./static/images/Wit/redBody.png',
+        carWheelR17:'./static/images/Wit/R17Text.png',
+        carWheelR18:'./static/images/Wit/R18Text.png',
+        carWheelR17Text:'./static/images/Wit/R17-TESS@2x.png',
+        carWheelR18Text:'./static/images/Wit/R18-TESS@2x.png',
         carBody:'',
         wheels:'',
         carData:[
@@ -125,7 +125,7 @@
             id:1,
             label:'LED大灯' ,
             value:'LED大灯',
-            img:'../../../static/images/Wit/LED@2x.png',
+            img:'./static/images/Wit/LED@2x.png',
           },
           {
             id:2,
@@ -151,12 +151,12 @@
           {
             id:2,
             color:'双色车身' ,//R18普通
-            img:'../../../static/images/Wit/white@2x.png'
+            img:'./static/images/Wit/white@2x.png'
           },
           {
             id:3,
             color:'防爆胎装置' ,//R18普通
-            img:'../../../static/images/Wit/R17-TESS@2x.png'
+            img:'./static/images/Wit/R17-TESS@2x.png'
           }
         ]
       }

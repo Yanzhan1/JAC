@@ -100,22 +100,22 @@
           {
             id:1,
             color:'white' ,//典雅白
-            img:'../../../static/images/Wit/white.png'
+            img:'./static/images/Wit/white.png'
           },
           {
             id:2,
             color:'purple' ,//激光紫
-            img:'../../../static/images/Wit/purple.png'
+            img:'./static/images/Wit/purple.png'
           },
           {
             id:3,
             color:'gold' ,//琥珀金
-            img:'../../../static/images/Wit/gold.png'
+            img:'./static/images/Wit/gold.png'
           },
           {
             id:4,
             color:'red' ,//拉菲红
-            img:'../../../static/images/Wit/red.png'
+            img:'./static/images/Wit/red.png'
           }
         ]
       }

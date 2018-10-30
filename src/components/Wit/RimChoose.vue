@@ -57,25 +57,25 @@
             id:1,
             label:'R17' ,
             value:'轮辋:R17',
-            img:'../../../static/images/Wit/R17common.png',
+            img:'./static/images/Wit/R17common.png',
           },
           {
             id:2,
             label:'R18' ,
             value:'轮辋:R18',
-            img:'../../../static/images/Wit/R18common.png'
+            img:'./static/images/Wit/R18common.png'
           }
         ],
         carRimData:[
           {
             id:1,
             color:'R17' ,//R17普通
-            img:'../../../static/images/Wit/R17.png'
+            img:'./static/images/Wit/R17.png'
           },
           {
             id:2,
             color:'R18' ,//R18普通
-            img:'../../../static/images/Wit/R18.png'
+            img:'./static/images/Wit/R18.png'
           }
         ]
       }
