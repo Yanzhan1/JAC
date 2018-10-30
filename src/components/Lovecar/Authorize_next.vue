@@ -51,7 +51,7 @@ export default {
     return {
       gettime:'',
       overtime:'',
-      count: this.$route.params.count,
+      count: '',//被授权人的手机号
       // authTime:'',//起始时间
       // endauthTime:'',//结束时间
       userName:'',//账号
@@ -80,6 +80,7 @@ export default {
                 this.gettime=this.timestampToTime(authTime)
                 this.overtime=this.timestampToTime(endauthTime)
                 this.toAuthperson=res.data.data[i].toAuthPerson
+                this.count=res.data.data[i].phone
               }
             }
             // this.Rajtigo=res.data.data[0].isLocking  //isLocking:true 代表已授权
@@ -101,35 +102,44 @@ export default {
         cancelButtonHighlight: true
       }).then(action => {
           if (action == "confirm") {
-          	var data = {
-                    vin: this.$store.state.vins, 
-                    // vin: 'LS5A3CJC9JF830022', 
-                    childNum: this.count,
-                    userId:this.$store.state.userId, 
-                    phone:this.$store.state.mobile,
-                    operationType: "CONTROL_AUTH", 
-                    operation: 0, 
-                    extParams: {
-                }
-            }
-          	this.$http.post(Lovecar.Longrange, data, this.$store.state.tsppin).then( res => {
-          		if(res.data.returnSuccess){
-                  Toast({
-                    message:'解除授权成功',
-                    position: "middle",
-                    duration: 2000
-                  });
-              }else{
-                Toast({
-                    message:res.data.returnErrMsg,
-                    position: "middle",
-                    duration: 2000
-                    });
+            if(this.count){
+
+              var data = {
+                      vin: this.$store.state.vins, 
+                      // vin: 'LS5A3CJC9JF830022', 
+                      childNum: this.count,
+                      userId:this.$store.state.userId, 
+                      phone:this.$store.state.mobile,
+                      operationType: "CONTROL_AUTH", 
+                      operation: 0, 
+                      extParams: {
+                  }
               }
-          	})
-          	.catch (err => {
-          		
-          	})
+              this.$http.post(Lovecar.Longrange, data, this.$store.state.tsppin).then( res => {
+                if(res.data.returnSuccess){
+                    Toast({
+                      message:'解除授权成功',
+                      position: "middle",
+                      duration: 2000
+                    });
+                }else{
+                  Toast({
+                      message:res.data.returnErrMsg,
+                      position: "middle",
+                      duration: 2000
+                      });
+                }
+              })
+              .catch (err => {
+                
+              })
+            }else{
+               Toast({
+                      message:'未查到授权人手机号',
+                      position: "middle",
+                      duration: 2000
+                    });
+            }
           }
         })
         .catch(err => {
@@ -140,6 +150,9 @@ export default {
   },
   mounted(){
     // alert(JSON.stringify(this.$store.state.tsppin))
+    if(!this.$route.params.count){
+      this.count=this.$route.params.count
+    }
     this.gettime=this.$route.params.a;
     this.overtime=this.$route.params.b;
     if(this.gettime==undefined){

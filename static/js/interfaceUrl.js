@@ -183,6 +183,7 @@ window.Lovecar = {
         Control: love_car + '/vehicle/remote-vehicle-control', //远程控制
         LogStatus: love_car + '/vehicle/vehicle-logstatus', //获取机车登入状态
         vehiclestatus: love_car + '/vehicle/vehicle-status', //车辆授权状态查询
+        // vehiclestatus: 'http://192.168.155.1:8084' + '/vehicle/vehicle-status', //车辆授权状态查询
         loginOut: love_car + '/vehicle/remote-vehicle-loginOut' //车辆远程登出
     }
     //消息接口
