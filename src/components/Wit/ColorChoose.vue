@@ -168,7 +168,6 @@
   .main{
     height: 100%;
     background-color: #fff;
-
   }
   .nav{
     width: 100%;
