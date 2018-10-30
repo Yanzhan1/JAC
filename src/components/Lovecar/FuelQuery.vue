@@ -160,7 +160,7 @@
 					}
 					//路由传过来所选择的日期渲染页面
 					let data={
-						vin: this.$store.state.vin,
+						vin: this.$store.state.vins,
 						beginTime:accpect.begintime,
 						endTime:accpect.endtime,
 						type:this.times

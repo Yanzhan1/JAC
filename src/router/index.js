@@ -112,6 +112,7 @@ import Characteristic from '../components/Wit/Characteristic' //车系特色
 import Configure from '../components/Wit/Configure' //配置参数
 import Reserve from '../components/Wit/Reserve' //车辆预定
 import CarChoose from '../components/Wit/CarChoose' //车辆预定
+import CarChoosenew from '../components/Wit/CarChoosenew' //车辆预定
 import ColorChoose from '../components/Wit/ColorChoose' //车辆预定
 import RimChoose from '../components/Wit/RimChoose' //车辆预定
 import VehicleChoose from '../components/Wit/VehicleChoose' //车辆预定
@@ -584,6 +585,11 @@ const router = new Router({
                 path: '/wit/CarChoose',
                 name: '车型选择',
                 component: CarChoose
+            },
+            {
+                path: '/wit/CarChoosenew',
+                name: '车型选择新',
+                component: CarChoosenew
             },
             {
                 path: '/wit/ColorChoose',

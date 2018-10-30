@@ -14,20 +14,20 @@ export default {
     return {};
   },
   methods: {
-    loadTab(type) {
-      if (type == 0) {
-        this.$router.push({ path: "/recommend" });//主页
-      } else if (type == 1) {
-        this.$router.push({ path: "/wit" })//智享
-      } else if (type == 2) {
-        this.$router.push({ path: "/lovecar" });//爱车
-      }  else if (type == 3) {
-        this.$router.push({ path: "/myindex" });//我的
-      }
-       else if (type == 4) {
-        this.$router.push({ path: "/wit/CarChoose" });//买车页面
-      }
-    },
+    // loadTab(type) {
+    //   if (type == 0) {
+    //     this.$router.push({ path: "/recommend" });//主页
+    //   } else if (type == 1) {
+    //     this.$router.push({ path: "/wit" })//智享
+    //   } else if (type == 2) {
+    //     this.$router.push({ path: "/lovecar" });//爱车
+    //   }  else if (type == 3) {
+    //     this.$router.push({ path: "/myindex" });//我的
+    //   }
+    //    else if (type == 4) {
+    //     this.$router.push({ path: "/wit/CarChoose" });//买车页面
+    //   }
+    // },
     isLogin(userInfo) {
       if (isMobile.iOS()) {
         //     alert( JSON.stringify(userInfo))
@@ -61,7 +61,7 @@ export default {
   },
   created() {
     window.isLogin = this.isLogin;
-    window.loadTab = this.loadTab;
+    // window.loadTab = this.loadTab;
   },
   mounted() {
     // alert(JSON.parse(this.$store.state.getpin.headers.identityParam).userId)
