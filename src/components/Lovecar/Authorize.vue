@@ -87,6 +87,10 @@ export default {
     };
   },
   methods:{
+      //授权成功后调用的方法
+      syncVehicleList(a){
+          console.log(a)
+      },
       next(){
           //获得时间戳
           this.shang = this.start.replace(/\-/g, '/').split(' ')[0]
@@ -125,6 +129,7 @@ export default {
             console.log(param)
         this.$http.post(Lovecar.Longrange,param,this.$store.state.tsppin).then((res)=>{
             if(res.data.returnSuccess){
+                this.syncVehicleList()
                 this.$router.push({
                 name:'Authorize_next',
                 params:{

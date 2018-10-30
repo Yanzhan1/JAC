@@ -254,7 +254,26 @@ export default {
       engineStatus: "",
       defaultvin:'',//默认车辆的vin
 			qrCodePin: '', //扫一扫二维码pin
-			firstTips: true //车机状态第一次提示,true不提示,改变为false的时候,Toast进行提示
+      firstTips: true, //车机状态第一次提示,true不提示,改变为false的时候,Toast进行提示
+      FIND_VEHICLE:false,//远程寻车
+      LOCK:false,//开闭锁,
+      ENGINE:false,//引擎启动,
+      CAR_EXAMINATION:false,//车辆体检
+      WINDOW:false,//车窗控制
+      TRUNK:false,//尾门控制
+      HOSTSEAT_HEAT:false,//座椅控制
+      SUNROOF:false,//天窗控制
+      PURIFICTION:false,//空气净化器控制
+      WIFI:false,//wifi控制
+      ELECTRIC_FENCE:false,//电子围栏
+      CAR_EXAMINATION_QUERY:false,//车辆体检结果查询
+      CAR_POINT_QUERY:false,//车辆位置查询
+      SEND_TO_CAR:false,//发送倒车
+      CAR_POONT_HISTORY_QUERY:false,//车辆历史轨迹
+      TACHOGRAPH:false,//行车记录仪
+      FUEL_STATISTICS:false,//燃油统计
+      CONTROL_AUTH:false,//远程授权
+      FLOW_QUERY:false,//流量查询
     };
   },
   //  beforeRouteEnter :(to, from, next)=> {
