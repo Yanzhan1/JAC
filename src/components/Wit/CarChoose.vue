@@ -1,7 +1,9 @@
 <template>
 <div class="main">
     <header class="nav MobileHeight header ">
-			<div  @click="goBack"><img style="width:.4rem;height:.4rem;" :src="'./static/images/back@2x.png'"></div>
+			<div class="navBack" @click="goBack"><img style="width:.4rem;height:.4rem;" :src="'./static/images/back@2x.png'"></div>
+      <div class="navTitle">选购瑞风S4</div>
+      <div></div>
 		</header>
   <!-- <div class="nav">
     <div class="navBack" @click="goBack">
@@ -119,9 +121,18 @@ export default{
   position: fixed;
   background-color: #fff;
 }
-.nav .navBack{
-  padding-left: 0.15rem;
+.nav div{
+  flex: 1;
 }
+/*.nav .navBack{*/
+  /*padding-left: 0.15rem;*/
+/*}*/
+
+  .nav .navTitle{
+    /*text-align: center;*/
+    padding-left: 0.15rem;
+    font-size: 0.36rem;
+  }
 .headerHeight{
   height: 1.5rem;
 }
