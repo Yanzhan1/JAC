@@ -274,7 +274,7 @@
     font-size: 0.28rem;
   }
   .content .contentSmallTitle .small{
-    border-right: 0.01rem solid #222;
+  border-right: 0.01rem solid rgba(111,111,111,0.6);
     display: inline-block;
     padding: 0 0.13rem;
   }
@@ -316,7 +316,7 @@
     height: 2rem;
     line-height: 2rem;
     background-color: #fff;
-    box-shadow: darkgrey 0.1rem 0.1rem 0.3rem 0.05rem;
+    box-shadow: rgb(182, 181, 181) 0.1rem 0.1rem 0.3rem 0.05rem;
 
   }
   .contentCar .contentCarBtn div{

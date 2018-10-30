@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <header class="MobileHeight header nav">
-			<div  @click="goBack"><img style="width:.4rem;height:.4rem;margin-left:.3rem;" :src="'./static/images/back@2x.png'"></div>
+			<div  @click="goBack"><img style="width:.4rem;height:.4rem;margin-left:0.3rem" :src="'./static/images/back@2x.png'"></div>
 		</header>
     <!-- <div class="nav">
       <div class="navBack" @click="goBack">
@@ -14,7 +14,7 @@
         <div class="contentTitle">轮辋选择</div>
         <div class="contentSmallTitle">
           <span class="smallTitle">车型</span>
-          <span class="smallTitle">外观</span>
+          <span class="smallTitle">颜色</span>
           <span class="smallTitle">轮辋</span>
           <span class="smallTitle one">选配</span>
         </div>
@@ -163,7 +163,7 @@
     display: inline-block;
     width: 1rem;
     text-align: center;
-    border-right: 0.01rem solid #fff;
+    border-right: 0.01rem solid rgba(111,111,111,0.6);
   }
   .content .contentSmallTitle .one{
     border-right: none;

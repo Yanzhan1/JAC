@@ -614,8 +614,8 @@ export default {
   width: 100%;
   height: 100%;
   background: #fff;
-  font-weight: Regular;
-  font-family: PingFangSC-Regular;
+  font-weight: 'Regular';
+  font-family: 'PingFangSC-Regular';
 }
 .black {
   width: 100%;
@@ -677,10 +677,10 @@ textarea {
   padding: 0.1rem;
 }
 .region {
- /* position: absolute;
-  bottom: -1.5rem; */
+ position: absolute;
+  bottom: -1.5rem;
   width: 100%;
-  height: 6rem;
+  height: 5rem;
   color: #222;
   background: #fff;
   font-weight: 'Regular';

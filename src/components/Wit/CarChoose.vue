@@ -11,9 +11,10 @@
   <div class="headerHeight"></div>
   <div class="content">
     <div class="contentTitle">车型选择</div>
+     <!-- <div class="headerHeight2"></div> -->
     <div class="contentSmallTitle">
       <span class="smallTitle">车型</span>
-      <span class="smallTitle">外观</span>
+      <span class="smallTitle">颜色</span>
       <span class="smallTitle">轮辋</span>
       <span class="smallTitle one">选配</span>
     </div>
@@ -24,6 +25,7 @@
       <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;left: 0.25rem" :src="'./static/images/Wit/whiteBody.png'"/>
     </div>
   </div>
+  <div class="headerHeight3"></div>
   <div class="contentCar">
     <div class="contentCarBtn"  :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" v-for="(item,index) in carData" :key="item.id" @click="carBtn(index,item.label)">
       {{item.label}}
@@ -74,7 +76,7 @@ export default{
 //          alert(len)
         for(let i = 0 ;i < len; i++){
           if(i%2){
-            info[i].style.marginLeft = "0.2rem";
+            info[i].style.marginLeft = "0.4rem";
           }
         }
       })
@@ -124,7 +126,10 @@ export default{
   height: 1.5rem;
 }
 .headerHeight2{
-  height: .5rem;
+  height:.5rem;
+}
+.headerHeight3{
+  height: .9rem;
 }
 .content{
   height: 1.5rem;
@@ -145,7 +150,7 @@ export default{
   display: inline-block;
   width: 1rem;
   text-align: center;
-  border-right: 0.01rem solid #fff;
+  border-right: 0.01rem solid rgba(111,111,111,0.6);
 }
 .content .contentSmallTitle .one{
   border-right: none;
@@ -160,28 +165,28 @@ export default{
   position: relative;
 }
 .contentCar{
-  margin: 0 0.2rem;
+  margin: 0 0.8rem;
   display: flex;
-  height: 2rem;
+  height: 1.6rem;
   /*background-color: pink;*/
 }
 .contentCar .contentCarBtn{
   flex: 1;
-  height: 2rem;
-  line-height: 2rem;
+  height: 1.6rem;
+  line-height: 1.6rem;
   background-color: rgba(232,232,232,0.3);
   text-align: center;
   font-size: 0.32rem;
-  font-weight: 700;
+  /* font-weight: 700; */
 }
 .contentCar .contentCarBtn2{
   flex: 1;
-  height: 2rem;
-  line-height: 2rem;
+  height: 1.6rem;
+  line-height: 1.6rem;
   background-color: rgb(232,232,232);
   text-align: center;
   font-size: 0.32rem;
-  font-weight: 700;
+  /* font-weight: 700; */
 }
 .contentBtn{
   height: 3.5rem;

@@ -14,7 +14,7 @@
         <div class="contentTitle">颜色选择</div>
         <div class="contentSmallTitle">
           <span class="smallTitle">车型</span>
-          <span class="smallTitle">外观</span>
+          <span class="smallTitle">颜色</span>
           <span class="smallTitle">轮辋</span>
           <span class="smallTitle one">选配</span>
         </div>
@@ -44,7 +44,7 @@
         <div class="contentTitle">颜色选择</div>
         <div class="contentSmallTitle">
           <span class="smallTitle">车型</span>
-          <span class="smallTitle">外观</span>
+          <span class="smallTitle">颜色</span>
         </div>
       </div>
       <div class="headerHeight2"></div>
@@ -210,7 +210,7 @@
     display: inline-block;
     width: 1rem;
     text-align: center;
-    border-right: 0.01rem solid #fff;
+    border-right: 0.01rem solid rgba(111,111,111,0.6);
   }
   .content .contentSmallTitle .one{
     border-right: none;

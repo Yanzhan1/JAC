@@ -29,7 +29,8 @@
   </div>
 </template>
 <script>
-		import PublicHead from '../publicmodel/PublicHead';
+import {Toast} from 'mint-ui';
+import PublicHead from '../publicmodel/PublicHead';
 export default {
 	name: 'busTest',
 	components: {
@@ -52,19 +53,11 @@ export default {
         if (res.data.returnSuccess) {
           this.getAsyReturn(res.data.operationId);
         } else {
-          if (res.data.returnErrCode == 400) {
-            Toast({
-              message: "token验证失败",
-              position: "middle",
-              duration: 3000
-            });
-          } else {
             Toast({
               message: res.data.returnErrMsg,
               position: "middle",
               duration: 3000
             });
-          }
         }
         //     self.$router.replace('/test_result');
       })
