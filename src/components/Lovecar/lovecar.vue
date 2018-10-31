@@ -1122,48 +1122,50 @@ export default {
   },
   mounted() {
     $(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
-    this.vehiclestatus()
-    this.tspid=this.$store.state.tspId
-     if(this.$store.state.tspId==undefined){
-        this.tspid=0
-      }
-   this.$http
-      .post(
-        My.My_Bus,
-        {
-          userId: this.$store.state.userId,
-          phone: this.$store.state.mobile,
-          tspUserId:this.tspid,
-          aaaUserID:this.$store.state.aaaid,
-        },
-        this.$store.state.tsppin
-      )
-      .then(res => {
-        if (res.data.returnSuccess) {
-          this.BusDetails = res.data.data;
-          for (let i = 0; i < res.data.data.length; i++) {
-            if (res.data.data[i].def == 1) {            
-              this.carsysitem = res.data.data[i].seriesName || null;
-              var payload = res.data.data[i].vin;
-              this.defaultvin=res.data.data[i].vin;
-              this.$store.state.brandName=res.data.data[i].brandName
-              console.log('获取默认车辆vin码:'+ this.defaultvin)
-              this.$store.dispatch("CARVINS", payload);
-              //获取机车 登录登出状态
-//  	       this.getCarLoginState()
-             }
-            }
-          this.vinn = this.$store.state.vins;
-          this.Support()
-          this.Carquerry();
-        }else{
-            Toast({
-              message: res.data.returnErrMsg,
-              position: "middle",
-              duration: 2000
-            });
+    if(this.userId){
+      this.vehiclestatus()
+      this.tspid=this.$store.state.tspId
+       if(this.$store.state.tspId==undefined){
+          this.tspid=0
         }
-      });
+     this.$http
+        .post(
+          My.My_Bus,
+          {
+            userId: this.$store.state.userId,
+            phone: this.$store.state.mobile,
+            tspUserId:this.tspid,
+            aaaUserID:this.$store.state.aaaid,
+          },
+          this.$store.state.tsppin
+        )
+        .then(res => {
+          if (res.data.returnSuccess) {
+            this.BusDetails = res.data.data;
+            for (let i = 0; i < res.data.data.length; i++) {
+              if (res.data.data[i].def == 1) {            
+                this.carsysitem = res.data.data[i].seriesName || null;
+                var payload = res.data.data[i].vin;
+                this.defaultvin=res.data.data[i].vin;
+                this.$store.state.brandName=res.data.data[i].brandName
+                console.log('获取默认车辆vin码:'+ this.defaultvin)
+                this.$store.dispatch("CARVINS", payload);
+                //获取机车 登录登出状态
+  //  	       this.getCarLoginState()
+               }
+              }
+            this.vinn = this.$store.state.vins;
+            this.Support()
+            this.Carquerry();
+          }else{
+              Toast({
+                message: res.data.returnErrMsg,
+                position: "middle",
+                duration: 2000
+              });
+          }
+        });
+    }
       
   }
 };
