@@ -50,14 +50,9 @@ export default {
            }
         },
         reserve(){
-            this.$router.push({
-                name:'车辆预定',
-                params:{
-                    levelCode:this.$route.params.levelCode
-                    // everyno:this.everyno,
-                    // seriesName:this.seriesName
-                }
-            })
+            this.$router.push('/wit/CarChoose',{
+                        name:'车型选择',
+                    })
         },
         choose(el,index){
             this.current=index;
