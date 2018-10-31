@@ -10,7 +10,7 @@
 	    </div>
 	    <div class="navs navs_h">
 	      <div class="navs_t">
-	        <span class="num">{{carcontrol.fuelPercent==undefined?'':carcontrol.fuelPercent*100}}</span>
+	        <span class="num">{{carcontrol.fuelPercent==undefined?'':carcontrol.fuelPercent|changenum}}</span>
 	        <span class="txt">剩余油量（%）</span>
 	      </div>
 	      <div class="navs_t">
@@ -879,7 +879,7 @@ export default {
   },
   filters:{
       changenum(value){
-        value=value*100
+        value=Math.round(value*100)
         return value
       }
   },
