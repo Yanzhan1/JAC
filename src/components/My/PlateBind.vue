@@ -40,14 +40,20 @@ export default {
         operationType: "PLATE_NO",
         operation: 1 //绑定
       };
-      this.$http.post(My.planbus, param, this.$store.state.getpin).then(res => {
-        if (res.data) {
+      this.$http.post(My.planbus, param, this.$store.state.tsppin).then(res => {
+        if (res.data.returnSuccess) {
           Toast({
             message: "添加成功",
             duration: 1000,
             position: "middle"
           });
           this.$router.go(-1);
+        }else{
+          Toast({
+            message:res.data.returnErrMsg,
+            duration:1000,
+            position:'middle'
+          })
         }
       });
 	}

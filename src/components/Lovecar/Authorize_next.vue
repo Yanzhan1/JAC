@@ -122,6 +122,9 @@ export default {
                       position: "middle",
                       duration: 2000
                     });
+                    setTimeout(()=>{
+                      this.$router.push('/myindex')
+                    },2000)
                 }else{
                   Toast({
                       message:res.data.returnErrMsg,

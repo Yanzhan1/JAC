@@ -85,8 +85,8 @@ export default {
         {
           monthMileage: "",
           oilConsumer: "",
-          weekOilConsumer: "7L",
-          dayOilConsumer: "1L"
+          weekOilConsumer: "",
+          dayOilConsumer: ""
         }
       ]
     };
@@ -196,7 +196,9 @@ export default {
               });
             } else {
               this.count[0].monthMileage = res.data.data.totalMileage;
+              this.count[0].weekOilConsumer = res.data.data.averageWearWeek;
               this.count[0].oilConsumer = res.data.data.totalWear;
+              this.count[0].dayOilConsumer = res.data.data.averageWearDay;
             }
           } else {
             Toast({
