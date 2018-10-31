@@ -489,7 +489,7 @@ export default {
       
       this.num++
       // alert('shi'+this.num)
-      if(this.num == 2){
+      if(this.num == 5){
       
         this.city = this.localcity
       }else{
@@ -677,8 +677,8 @@ textarea {
   padding: 0.1rem;
 }
 .region {
- position: absolute;
-  bottom: -1.5rem;
+ /* position: absolute; */
+  /* bottom: -1.5rem; */
   width: 100%;
   height: 5rem;
   color: #222;
@@ -695,9 +695,9 @@ textarea {
   line-height: 0.36rem;
 }
 .region > span {
-  position: absolute;
-  bottom: 5.32rem;
-  right: 0.35rem;
+  /* position: absolute; */
+  float:right;
+  margin-right: .5rem;
   color: #49bbff;
   font-size: 0.28rem;
 }
