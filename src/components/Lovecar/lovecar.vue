@@ -10,7 +10,7 @@
 	    </div>
 	    <div class="navs navs_h">
 	      <div class="navs_t">
-	        <span class="num">{{carcontrol.fuelPercent*100}}</span>
+	        <span class="num">{{carcontrol.fuelPercent==undefined?'':carcontrol.fuelPercent*100}}</span>
 	        <span class="txt">剩余油量（%）</span>
 	      </div>
 	      <div class="navs_t">
@@ -605,6 +605,11 @@ export default {
                             }, 5000);
                          }                          
                           this.carcontrol = res.data.data;
+                          // if(this.carcontrol.fuelPercent==undefined){
+                          //       this.carcontrol.fuelPercent=''
+                          //   }else{
+                          //     this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
+                          //   }
                           console.log(res.data.data);
                           this.engineHoodStsFront=this.carcontrol.engineHoodStsFront
                             ? (this.engineHoodStsFront = "已开")
@@ -711,6 +716,11 @@ export default {
             } else if (res.data.status == "SUCCEED") {
               console.log(res.data.data);
               this.carcontrol = res.data.data;
+              // if(this.carcontrol.fuelPercent==undefined){
+              //     this.carcontrol.fuelPercent=''
+              // }else{
+              //   this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
+              // }
               this.carcontrol.engineHoodStsFront
                 ? (this.engineHoodStsFront = "已开")
                 : (this.engineHoodStsFront = "未开");
