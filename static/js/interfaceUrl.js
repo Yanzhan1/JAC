@@ -173,6 +173,7 @@ window.Lovecar = {
         Flow: love_car + '/vehicle/vehicle-cyc-flow-query', //流量查询
         FlowBuy: love_car + '/vehicle/cyc-flow-package-query', //流量购买查询
         Productionorder: love_car + '/flow/production-order', //生产成流量订单
+        // Productionorder: 'http://172.21.12.35:8084' + '/flow/production-order', //生产成流量订单
         Getoederlist: love_car + '/flow/get-order-list', //后台从tsp同步流量订单查询数据
         Getoederlistapp: love_car + '/flow/get-order-list', //流量订单查询
         Flowpackage: love_car + '/vehicle/cyc-flow-package-query', //流量包查询
@@ -183,7 +184,7 @@ window.Lovecar = {
         Control: love_car + '/vehicle/remote-vehicle-control', //远程控制
         LogStatus: love_car + '/vehicle/vehicle-logstatus', //获取机车登入状态
         vehiclestatus: love_car + '/vehicle/vehicle-status', //车辆授权状态查询
-        // vehiclestatus: 'http://192.168.155.1:8084' + '/vehicle/vehicle-status', //车辆授权状态查询
+        // vehiclestatus: 'http://172.21.12.35:8084' + '/vehicle/vehicle-status', //车辆授权状态查询
         loginOut: love_car + '/vehicle/remote-vehicle-loginOut' //车辆远程登出
     }
     //消息接口

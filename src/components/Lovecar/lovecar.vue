@@ -10,7 +10,7 @@
 	    </div>
 	    <div class="navs navs_h">
 	      <div class="navs_t">
-	        <span class="num">{{carcontrol.fuelPercent}}</span>
+	        <span class="num">{{carcontrol.fuelPercent|changenum}}</span>
 	        <span class="txt">剩余油量（%）</span>
 	      </div>
 	      <div class="navs_t">
@@ -866,6 +866,12 @@ export default {
 					}
 				})
 			},
+  },
+  filters:{
+      changenum(value){
+        value=value*100
+        return value
+      }
   },
   computed: {
     userId() {
