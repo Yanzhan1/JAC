@@ -14,7 +14,7 @@
 			<div class="order-info">
 				<h5>{{placeOrder.packageName}}</h5>
 				<span>￥
-					<span style="font-size: .48rem;">{{placeOrder.prize}}</span>.00元</span>
+					<span style="font-size: .48rem;">{{placeOrder.prize}}</span>元</span>
 			</div>
 		</div>
 		<div class="linetwo"></div>
@@ -26,7 +26,7 @@
 			<div class="package-price">
 				<span style="font-size: .26rem;color: #666666;">套餐价格:</span>
 				<span style="font-size: .38rem;color: #49BBFF;">
-					<span style="font-size: .48rem;color: #49BBFF;">{{placeOrder.prize}}</span>.00元</span>
+					<span style="font-size: .48rem;color: #49BBFF;">{{placeOrder.prize}}</span>元</span>
 			</div>
 			<div class="submit" style="background: #49BBFF;color: #FFFFFF;" @click="submit">
 				<span>去支付</span>

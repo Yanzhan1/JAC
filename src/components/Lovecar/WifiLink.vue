@@ -3,27 +3,27 @@
 		<header class="header MobileHeight">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">WIFI直连</span>
-			<span class="header-right"><router-link tag="img" :to="{name:'wifi设置',params:{names:this.names,pwd:this.pwd}}" @click.native="wifisend" style="width: 0.36rem;height: 0.36rem;" :src="'./static/images/Lovecar/Set@2x.png'"></router-link></span>
+			<span class="header-right"><router-link tag="img" :to="{name:'wifi设置',params:{names:this.names}}" @click.native="wifisend" style="width: 0.36rem;height: 0.36rem;" :src="'./static/images/Lovecar/Set@2x.png'"></router-link></span>
 		</header>
 		<div style="height:0.88rem" class="MobileHeight"></div>
 		<mt-cell :title="title">
 			<mt-switch  v-model="value" @change="turn"></mt-switch>
 		</mt-cell>
 		<div class="line"></div>
-		<div class="origin-pin">
+		<!-- <div class="origin-pin">
 			<div class="flex-align-center revisePinCommon">
 				<span style="font-size: 0.26rem;color: #444444;">
 					wifi名称:
 				</span>
 				<input :disabled="disabled" type="text" v-model="names" />
 			</div>
-		</div>
+		</div> -->
 		<div class="origin-pin">
 			<div class="flex-align-center revisePinCommon">
 				<span style="font-size: 0.26rem;color: #444444;">
 					账户:
 				</span>
-				<input style="margin-left: 1rem;" :disabled="disabled" type="text" v-model="pwd" />
+				<input style="margin-left: 1rem;" :disabled="disabled" type="text" v-model="names" />
 			</div>
 		</div>
 	</div>
@@ -53,7 +53,6 @@ export default {
   methods: {
     //重复调用异步接口
     getAsyReturn(operationId) {
-      var flag = true;
       this.sjc = new Date().getTime();
       this.$http
         .post(
@@ -100,7 +99,8 @@ export default {
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
-                          // flag = false;
+                          this.names=res.data.data.account
+                          this.value=res.data.data.powerStatus
                           // Toast({
                           //   message: "下达指令成功",
                           //   position: "middle",
@@ -124,7 +124,6 @@ export default {
                           position: "middle",
                           duration: 2000
                         });
-                        flag = false;
                         clearInterval(this.time);
                         this.$store.dispatch("LOADINGFLAG", false);
                       }
@@ -132,7 +131,8 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              // flag = false;
+              this.names=res.data.data.account
+              this.value=res.data.data.powerStatus
               // Toast({
               //   message: "下达指令成功",
               //   position: "middle",
@@ -172,7 +172,7 @@ export default {
         extParams: {
           userCategory: 1, //授权人
           newAccount: this.names,
-          newPwd: this.pwd
+          // newPwd: this.pwd
         }
       };
       this.$http
@@ -233,7 +233,6 @@ export default {
       });
     // console.log(this.$route.params.userCategory)
     this.names = this.$route.params.wifiname;
-    this.pwd = this.$route.params.wifipwd;
   }
 };
 </script>

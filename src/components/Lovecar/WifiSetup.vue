@@ -224,14 +224,20 @@ export default {
                   }
                 }
                 if (res.data.returnSuccess == true) {
-                  this.$router.push({
-                    name: "wifi直连",
-                    params: {
-                      wifiname: this.wifiData.name,
-                      wifipwd: this.wifiData.pwd
-                      // userCategory:this.userCategory,
-                    }
-                  });
+                    Toast({
+                          message: "修改成功",
+                          position: "middle",
+                          duration: 2000
+                        });
+                        setTimeout(()=>{
+                          this.$router.push({
+                            name: "wifi直连",
+                            params: {
+                              wifiname: this.wifiData.name,
+                              // userCategory:this.userCategory,
+                            }
+                          });
+                        },2000)
                 }
               })
               .catch(err => {
@@ -254,7 +260,6 @@ export default {
   mounted() {
     // this.$route.params.userCategory?this.userCategory=1:this.userCategory=2
     this.wifiData.name = this.$route.params.names;
-    this.wifiData.pwd = this.$route.params.pwd;
     // console.log(this.userCategory)
   }
 };
