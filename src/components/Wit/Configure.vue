@@ -80,6 +80,7 @@ export default {
         }
         this.$http.post(Wit.searchVehicleSeriesOne,params).then((res)=>{
             let allimage=res.data.data.imageRelationVO
+            this.seriesName=res.data.data.seriesName
             // console.log(allimage)
             this.nav=[]
             for(let i=0;i<allimage.length;i++){
