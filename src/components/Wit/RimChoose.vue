@@ -24,7 +24,7 @@
         <div class="carImg" v-for="(item,index) in carRimData" v-show="index === currentIndex">
           <img :src="'./static/images/Wit/whiteBody.png'"/>
           <img v-if="$route.query.colorTitle=='典雅白'" :src="'./static/images/Wit/whiteBody.png'"/>
-          <img v-else-if="$route.query.colorTitle=='激光紫'" :src="'./static/images/Wit/purpleBody.png'"/>
+          <img v-else-if="$route.query.colorTitle=='极光紫'" :src="'./static/images/Wit/purpleBody.png'"/>
           <img v-else-if="$route.query.colorTitle=='琥珀金'" :src="'./static/images/Wit/goldBody.png'"/>
           <img v-else-if="$route.query.colorTitle=='拉菲红'" :src="'./static/images/Wit/redBody.png'"/>
           <img :src="item.img"/>

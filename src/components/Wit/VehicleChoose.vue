@@ -32,7 +32,7 @@
       <div class="contentImg">
         <div class="carImg">
           <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-if="$route.query.colorTitle=='典雅白'" :src="'./static/images/Wit/whiteBody.png'"/>
-          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='激光紫'" :src="'./static/images/Wit/purpleBody.png'"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='极光紫'" :src="'./static/images/Wit/purpleBody.png'"/>
           <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='琥珀金'" :src="'./static/images/Wit/goldBody.png'"/>
           <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='拉菲红'" :src="'./static/images/Wit/redBody.png'"/>
           <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-show="!show1"  :src="carBody"/>
@@ -58,7 +58,7 @@
         <div class="contentCarBtn">
           <div>
             <img class="leftImg" v-if="$route.query.colorTitle=='典雅白'" :src="imgBody2">
-            <img class="leftImg" v-if="$route.query.colorTitle=='激光紫'" :src="imgBody3">
+            <img class="leftImg" v-if="$route.query.colorTitle=='极光紫'" :src="imgBody3">
             <img class="leftImg" v-if="$route.query.colorTitle=='琥珀金'" :src="imgBody4">
             <img class="leftImg" v-if="$route.query.colorTitle=='拉菲红'" :src="imgBody5">
             <!--<img class="leftImg" :src="this.show1 ? imgBody1 :carSmallBody">-->
@@ -72,8 +72,8 @@
         </div>
         <div class="contentCarBtn">
           <div>
-            <img class="leftImg" v-if="$route.query.rimTitle=='R17'" :src="carWheelR17Text">
-            <img class="leftImg" v-else-if="$route.query.rimTitle=='R18'" :src="carWheelR18Text">
+            <img class="leftImg" v-if="$route.query.rimTitle =='R17'" :src="carWheelR17Text">
+            <img class="leftImg" v-else-if="$route.query.rimTitle =='R18'" :src="carWheelR18Text">
           </div>
           <div class="middleTitle">防爆胎装置</div>
           <div class="rightBtn" >
@@ -184,7 +184,7 @@
           var bodyColor = this.$route.query.colorTitle
           if(bodyColor == '典雅白'){
             this.carBody = this.show1?this.whiteNormal:this.whiteDouble;
-          }else if(bodyColor == '激光紫'){
+          }else if(bodyColor == '极光紫'){
             this.carBody = this.show1?this.purpleNormal:this.purpleDouble;
           }else if(bodyColor == '琥珀金'){
             this.carBody = this.show1?this.goldNormal:this.goldDouble;
