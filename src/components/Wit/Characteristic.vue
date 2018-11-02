@@ -103,6 +103,7 @@ export default {
     align-items: center;
     position: fixed;
     top:0;
+    background: #fff;
 }
 .specil>p{
     padding: .25rem;

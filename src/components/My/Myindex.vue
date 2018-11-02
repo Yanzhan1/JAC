@@ -226,7 +226,7 @@ export default {
     },
     ton() {
       if (isMobile.iOS()) {
-        var params = {};
+        window.webkit.messageHandlers.gotoOnlineWeb()
       } else if (isMobile.Android()) {
         
         js2android.gotoOnlineWeb();

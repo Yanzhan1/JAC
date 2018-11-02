@@ -6,9 +6,12 @@
 			<router-link tag='p' class="p2 active" style="margin-right: 1.3rem;" to="/wit/Configure">配置参数<span></span></router-link>
 		</header>
         <div style="height:.88rem" class="MobileHeight"></div>
-        <div class="talbs">
-            <div v-for="(item,index) in nav" class="talbs_next" @click="choose($event,index)" :class="{blue:current==index}" :key="index">{{item}}</div>
+        <div style="position:fixed;background:#fff;width:100%">
+            <div class="talbs">
+                <div v-for="(item,index) in nav" class="talbs_next" @click="choose($event,index)" :class="{blue:current==index}" :key="index">{{item}}</div>
+            </div>
         </div>
+        <div style="width:100%;height:1.53rem"></div>
         <div class="every_img" >
             <!-- <img style="display:block;width:100%;" class="nav" :src="this.allimage[this.current]" alt=""> -->
             <img v-for="(item,index) in this.arr[this.current]" style="display:block;width:100%;" class="nav" :src="item" alt="">
@@ -140,6 +143,7 @@ export default {
     align-items: center;
     position: fixed;
     margin-bottom: .3rem;
+    background: #fff;
 }
 .specil>p{
     padding: .25rem;
