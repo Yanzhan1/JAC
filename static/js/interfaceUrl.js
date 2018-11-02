@@ -175,7 +175,8 @@ window.Lovecar = {
         Productionorder: love_car + '/flow/production-order', //生产成流量订单
         // Productionorder: 'http://172.21.12.35:8084' + '/flow/production-order', //生产成流量订单
         Getoederlist: love_car + '/flow/get-order-list', //后台从tsp同步流量订单查询数据
-        Getoederlistapp: love_car + '/flow/get-order-list', //流量订单查询
+        Getoederlistapp: love_car + '/flow/get-order-one-app', //流量订单查询
+        // Getoederlistapp: 'http://172.21.12.35:8084' + '/get-order-one-app', //流量订单查询
         Flowpackage: love_car + '/vehicle/cyc-flow-package-query', //流量包查询
         Longrange: love_car + '/vehicle/set-vehicle-remoteset', //车辆远程设置
         LoginOut: love_car + '/vehicle/remote-vehicle-loginOut', //退出登录

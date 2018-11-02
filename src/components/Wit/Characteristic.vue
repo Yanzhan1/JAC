@@ -47,14 +47,14 @@ export default {
                     this.$router.push('/wit/CarChoose',{
                         name:'车型选择',
                         params:{
-                            levelCode:this.levelCode
+                           
                         }
                     })
             }else{
                     this.$router.push('/wit/Reserve',{
                                             name:'车辆预定',
-                                            params:{
-                                                levelCode:this.levelCode
+                                            query:{
+                                                
                                             }
                                         })
             }
@@ -80,7 +80,7 @@ export default {
             let allimage=res.data.data.imageRelationVO
             this.seriesName=res.data.data.seriesName
             this.srouceNo=res.data.data.lmscode
-            this.levelCode=res.data.data.lmslevelCode
+            this.$store.state.levelCode=res.data.data.lmslevelCode
             for(let i=0;i<allimage.length;i++){
                 if(allimage[i].imageType==4){
                     this.everyimage.push(allimage[i].imageUrl)

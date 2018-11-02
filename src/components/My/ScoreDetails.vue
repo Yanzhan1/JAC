@@ -1,6 +1,6 @@
 <template>
     <div>
-        <header class="header MobileHeight">
+        <header class="header MobileHeight" style="background:#fff">
             <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
             <span class="header-title">会员积分</span>
             <span class="header-right"></span>

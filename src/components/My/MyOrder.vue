@@ -212,6 +212,7 @@
 </template>
 <script>
 import { MessageBox } from "mint-ui";
+import { Toast } from "mint-ui";
 import PublicHead from "../publicmodel/PublicHead";
 export default {
   name: "myOrder",
@@ -272,29 +273,35 @@ export default {
     compontent() {
       this.$router.push("/compontent");
     },
-    getShoppingMall() {
-      //商城订单
-      let data = {
-        no: "AD022018082803151446865"
-      };
-      this.$http
-        .post(My.orderList, data)
-        .then(res => {
-          const data = res.data;
-          if (data.code == 0) {
-            this.shoppingMall = data.data;
-            console.log(this.shoppingMall);
-          }
-        })
-        .catch(err => {});
-    },
+    // getShoppingMall() {
+    //   //商城订单
+    //   let data = {
+    //     no: "AD022018082803151446865"
+    //   };
+    //   this.$http
+    //     .post(My.orderList, data)
+    //     .then(res => {
+    //       const data = res.data;
+    //       if (data.code == 0) {
+    //         this.shoppingMall = data.data;
+    //         console.log(this.shoppingMall);
+    //       }else{
+    //           Toast({
+    //               message: data.msg,
+    //               duration: 1000,
+    //               position: "middle"
+    //             });
+    //       }
+    //     })
+    //     .catch(err => {});
+    // },
     //流量订单
     flowbuy() {
       var params = {
-        phone: this.$store.state.mobile
+        userName: this.$store.state.mobile,
       };
       this.$http
-        .post(Lovecar.Getoederlistapp, params, this.$store.state.tsppin)
+        .post(Lovecar.Getoederlist, params, this.$store.state.tsppin)
         .then(res => {
           this.allflowbuy = res.data.data;
           console.log(this.allflowbuy);
@@ -352,7 +359,7 @@ export default {
   created() {
     this.GetXorder();
     this.flowbuy();
-    this.getShoppingMall();
+    // this.getShoppingMall();
   },
   mounted() {
 	// alert(this.url)

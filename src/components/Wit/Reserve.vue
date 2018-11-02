@@ -133,7 +133,7 @@ export default {
       success: false,
       areas: false,
       ischange:false,
-      vehicleData:[],//s4系列传过来的数据
+      vehicleData:'',//s4系列传过来的数据
       Distribution: "", //经销商
       Recommend: "", //推荐码
       name: "", //姓名
@@ -399,7 +399,7 @@ export default {
         address: this.address, //地址
         comments: this.vehicleData, //车型配置
         province: this.provinceid, //省份ID
-        series: this.$route.params.levelCode, //意向车系
+        series: this.$store.state.levelCode, //意向车系
         model: this.$store.state.srouceNo, //意向车型
         city: this.codecity, //城市ID
         userNo: this.$store.state.userId,
@@ -601,7 +601,7 @@ export default {
   },
   mounted() {
     this.tell=this.$store.state.mobile
-    this.Pikante()
+    this.Pikante();
     //地区
        $(".gobottom").height($(".gobottom").height());
   }

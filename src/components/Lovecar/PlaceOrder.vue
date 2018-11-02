@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import {Toast} from "mint-ui"
 import PublicHead from "../publicmodel/PublicHead";
 export default {
   name: "placeOrder",
@@ -66,6 +67,12 @@ export default {
 			  var merCert=res.data.data.merCert
             //   alert(merCert)
             js2android.startIcbcPay(tranData, merSignMsg, merCert);
+          }else{
+             Toast({
+                  message: res.data.returnErrMsg,
+                  duration: 1000,
+                  position: "middle"
+                });
           }
         });
     }

@@ -18,6 +18,7 @@ export default {
     brandName: '', //爱车页面默认车辆的车名
     seriesName: '', //智享主页点击时候车的每一个seriesName
     srouceNo: '', //智享主页点击时候车的每一个srouceNo
+    levelCode: '',
     // userNo: 'AD022018081504171568405', //userNo
     tsppin: {
         headers: {
