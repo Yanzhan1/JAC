@@ -1,19 +1,20 @@
 <template>
 	<div>
-		<header class="header MobileHeight">
+		<header class="header MobileHeight header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title" style="margin-right: 0.65rem;">我的订单</span>
 			<span class="header-right"></span>
 		</header>
 		<div style="height:.88rem" class="MobileHeight"></div>
 		<!--<mhead currentTitle="我的订单"></mhead>-->
-		<mt-navbar v-model="selected">
+    <div ><mt-navbar v-model="selected" class="specil">
 			<mt-tab-item id="one">线索</mt-tab-item>
 			<!-- <mt-tab-item id="two">商城</mt-tab-item> -->
 			<!--<mt-tab-item id="three">维保</mt-tab-item>
       <mt-tab-item id="four">停车</mt-tab-item>-->
 			<mt-tab-item id="five">流量</mt-tab-item>
-		</mt-navbar>
+		</mt-navbar></div>
+		
 		<mt-tab-container v-model="selected">
 			<mt-tab-container-item id="one">
 				<ul v-if="flag">
@@ -45,135 +46,6 @@
 				<ul v-else>
 					<div style="text-align:center;margin-top:.2rem">暂无线索订单</div>
 				</ul>
-			</mt-tab-container-item>
-			<mt-tab-container-item id="two">
-				<!-- <iframe onload='setIframeHeight(this)' style="width:100%" src=this.url frameborder="0"></iframe> -->
-				<!-- <ul>
-					<li class="flex column" v-for="(item, index) in shoppingMall">
-						<p class="flex row tim between">
-							<span class="times">{{item.createDate}}</span>k
-							<span class="times">{{item.orderState}}</span>
-						</p>
-						<div class="buycity flex row cocenter between" @click="todetail">
-							<div class="flex row">
-								<img class="pictu" :src="item.image" alt="" style="height:1.2rem;width:1.14rem;">
-								<div class="flex column cocenter maincenter">
-									<p style="font-size:.31rem;color:#222;">{{item.productName}}</p>
-									<p style="font-size:.22rem;color:#888;">白色 400ml</p>
-								</div>
-							</div>
-							<div class="flex row cocenter" style="margin-right:.3rem">
-								<span style="font-size:.2rem;color:#222;">X{{item.num}}</span>
-								<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
-							</div>
-						</div>
-						<div class="flex row between bts">
-							<span class="cancel" v-if="3<4">申请退款</span>
-							<span class="cancel" v-if="3>4">查看物流</span>
-							<span class="cancel" @click="confirmRevise()">取消订单</span>
-							<span class="cancel" v-if="3>4">评价晒单</span>
-							<span class="cancel">待付款</span>
-						</div>
-					</li>
-				</ul> -->
-			</mt-tab-container-item>
-			<mt-tab-container-item id="three">
-				<!--<ul>
-                    <li class="flex column">
-                        <p class="flex row tim between">
-                            <span class="times">2018 09-21 18:34</span>
-                            <span class="times">已预约</span>
-                        </p>
-                        <div class="flex row cont">
-                            <div class="flex column bus_left">
-                                <img style="height:1.68rem;width:2.56rem" src="../../../static/images/test/my/car_ruifeng_s5.png" alt="">
-                                <span class="busname"></span>
-                            </div>
-                            <div class="flex column tp">
-                                <span class="bus_right">预约网点：上海天马汽车销售有限</span>
-                                <span class="bus_right">地址：上海市徐汇区田林路200号</span>
-                                <span class="bus_right">预约时间：08509859043589</span>
-                                <span class="bus_right">预约项目</span>
-                            </div>
-                        </div>
-                        <div class="flex row between bt">
-                            <span></span>
-                            <span class="cancel">取消订单</span>
-                        </div>
-                    </li>
-                    <li class="flex column">
-                        <p class="flex row tim between">
-                            <span class="times">2018 09-21 18:34</span>
-                            <span class="times">已完成</span>
-                        </p>
-                        <div class="flex row cont">
-                            <div class="flex column bus_left">
-                                <img style="height:1.68rem;width:2.56rem" src="../../../static/images/test/my/car_ruifeng_s5.png" alt="">
-                                <span class="busname"></span>
-                            </div>
-                            <div class="flex column tp">
-                                <span class="bus_right">预约网点：上海天马汽车销售有限</span>
-                                <span class="bus_right">地址：上海市徐汇区田林路200号</span>
-                                <span class="bus_right">预约时间：08509859043589</span>
-                                <span class="bus_right">预约项目:维修</span>
-                            </div>
-                        </div>
-                        <div class="flex row between bt">
-                            <span></span>
-                            <span class="cancel" v-if="3>4">取消订单</span>
-                            <span class="cancel">评价晒单</span>
-                        </div>
-                    </li>
-                </ul>-->
-			</mt-tab-container-item>
-			<mt-tab-container-item id="four">
-				<!--<ul>
-                    <li class="flex column">
-                        <p class="flex row tim between">
-                            <span class="times">2018 09-21 18:34</span>
-                            <span class="times">已预约</span>
-                        </p>
-                        <div class="flex row cont">
-                            <div class="flex column bus_left">
-                                <img style="height:1.68rem;width:2.56rem" src="../../../static/images/test/my/car_ruifeng_s5.png" alt="">
-                                <span class="busname"></span>
-                            </div>
-                            <div class="flex column tp">
-                                <span class="bus_right">预约网点：上海天马汽车销售有限</span>
-                                <span class="bus_right">地址：上海市徐汇区田林路200号</span>
-                                <span class="bus_right">预约时间：08509859043589</span>
-                                <span class="bus_right">预约项目</span>
-                            </div>
-                        </div>
-                        <div class="flex row between bt">
-                            <span></span>
-                            <span class="cancel">取消订单</span>
-                        </div>
-                    </li>
-                    <li class="flex column">
-                        <p class="flex row tim between">
-                            <span class="times">2018 09-21 18:34</span>
-                            <span class="times">已完成</span>
-                        </p>
-                        <div class="flex row cont">
-                            <div class="flex column bus_left">
-                                <img style="height:1.68rem;width:2.56rem" src="../../../static/images/test/my/car_ruifeng_s5.png" alt="">
-                                <span class="busname"></span>
-                            </div>
-                            <div class="flex column tp">
-                                <span class="bus_right">预约网点：上海天马汽车销售有限</span>
-                                <span class="bus_right">地址：上海市徐汇区田林路200号</span>
-                                <span class="bus_right">预约时间：08509859043589</span>
-                                <span class="bus_right">预约项目:维修</span>
-                            </div>
-                        </div>
-                        <div class="flex row between bt">
-                            <span></span>
-                            <span class="cancel" v-if="3>4">取消订单</span>
-                            <span class="cancel">评价晒单</span>
-                        </div>
-                    </li>
-                </ul>-->
 			</mt-tab-container-item>
 			<mt-tab-container-item id="five">
 				<ul>
@@ -372,6 +244,12 @@ export default {
 };
 </script>
 <style scoped>
+.header{
+  background: #fff;
+}
+.specil{
+  position: relative;
+}
 .MobileHeight {
   border-top-style: solid;
   box-sizing: content-box;
