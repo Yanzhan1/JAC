@@ -82,11 +82,11 @@ export default {
           userId: this.$store.state.trueuserId,
           phone: this.$store.state.mobile
         };
-        this.$http
-          .post(Lovecar.vehicle, params, this.$store.state.tsppin)
-          .then(res => {
-            // console.log(res)
-          });
+        // this.$http
+        //   .post(Lovecar.vehicle, params, this.$store.state.tsppin)
+        //   .then(res => {
+        //     // console.log(res)
+        //   });
       }
     });
 
