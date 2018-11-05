@@ -1,14 +1,12 @@
 <template>
 	<div>
 		<mhead currentTitle="车机登录状态"></mhead>
-		<div class="content">
-			<div class="vehicle-show">
-				<img class="state-car" :src="'./static/images/my/qrcode@2x.png'" alt="" />
-				<div>
-					<h5 class="car-title">账号还未在车机登录</h5>
-					<div class="car-info">
-						<p><nobr>点击扫码登录，登录账号到车机></nobr></p>
-					</div>		
+<div class="vehicle-show">
+			<img class="state-car" src="../../../static/images/my/qrcode@2x.png" alt="" />
+			<div>
+				<h5 class="car-title">账号还未在车机登录</h5>
+				<div class="car-info">
+					<p>点击扫码登录，登录账号到车机</p >
 				</div>
 			</div>
 		</div>
@@ -99,36 +97,40 @@
 </script>
 
 <style scoped>
-	.content{
-		width: 100%;
-		height:10rem;
-		 position: relative;
+.vehicle-show {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top:2.6rem;
+    text-align: center;
 	}
-	.vehicle-show {
-		display: flex;
+  .vehicle-show .state-car {
     position: absolute;
-	
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		left: 50%;
-		top: 50%;
-		margin-top: 1rem;
-		transform: translate(-50%, -50%);
-	}
-.vehicle-show .state-car {
 		width: 2.2rem;
 		height: 1.73rem;
+    top: 50%;
+    left: 50%;
+    margin-left: -1.1rem;
 		margin-bottom: 1.14rem;
 	}
-	.vehicle-show .car-title {
-		margin-bottom: .39rem;
+  .vehicle-show .car-title {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    margin-left: -50%;
+    margin-top:2.6rem;
 		color: #444444;
 		font-size: .36rem;
 		text-align: center;
 	}
-	 .vehicle-show .car-info {
-		text-align: center;
+  .vehicle-show .car-info {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    margin-top: 3.2rem;
+    margin-left: -50%;
 	}
 	.bottom-btn {
 		display: flex;

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <header class="header MobileHeight">
+        <header class="header MobileHeight bgcolor">
             <img @click="$router.go(-1)" class="header-left" :src="'./static/images/back@2x.png'" style="margin-left:.3rem">
             <span class='header-title' style="margin-right: .75rem;">评论</span>
             <span></span>
@@ -172,6 +172,9 @@ export default {
 		border-top-style: solid;
 		box-sizing: content-box;
 	}
+  .bgcolor{
+    background: #fff;
+  }
 li {
   list-style: none;
   margin-top: 0.2rem;

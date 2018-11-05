@@ -6,7 +6,7 @@
             <span class="header-right"></span>
         </header>
         <div style="height:.88rem"></div>-->
-        <mhead currentTitle="系统消息"></mhead>
+        <mhead currentTitle="系统消息" class="bgcolor"></mhead>
         <ul style="padding:0 .3rem">
             <li style="margin-top:.3rem" v-for="(item,index) in allsystem" :key="index">
                 <p style="font-size:.22rem;color:#888;text-align:center">{{item.sendTime}}</p>
@@ -62,4 +62,7 @@ export default {
 </script>
 
 <style scoped>
+.bgcolor{
+    background: #fff;
+}
 </style>
