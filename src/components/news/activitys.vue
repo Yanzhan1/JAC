@@ -6,7 +6,7 @@
             <span></span>
         </header>
 				<!-- <mhead currentTitle="活动" class="MobileHeight"></mhead> -->
-        <div style="margin:.4rem;margin-top:1.5rem" v-show="noactivity">暂无活动信息</div>
+        <div style="margin:.4rem;margin-top:1.5rem;text-align: center" v-show="this.noactivity">暂无活动信息</div>
       <mt-loadmore  :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="20">
         <!-- <div slot="top" class="mint-loadmore-top">
           <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }" style="font-size: 0.3rem">下拉刷新</span>
@@ -53,7 +53,7 @@ export default {
       pageNum:1,
       length:4,
       List:[],
-      noactivity:false,
+      noactivity:true,
     }
   },
   methods: {
@@ -74,8 +74,6 @@ export default {
       this.init();
       this.$refs.loadmore.onTopLoaded();
     },
-    loadBottom() {
-    },
     //1，通知 2、评论 3、活动
     //readState 已读状态
     init(){
@@ -84,9 +82,11 @@ export default {
       this.loading=true;
       this.loadEnd=false;
       this.$http.post(IMFORMATION.getList, {"uid": this.$store.state.userId,"pageNo":_this.pageNum, "length":_this.length,type:3}).then(function (res) {
-        // console.log(res.data.data)
-        if(res.data.data==''){
-          this.noactivity=true;
+        // console.log(res.data.data[0])
+        if(res.data.data.length == 0){
+          this.noactivity =true
+        }else{
+          this.noactivity=false
         }
         if (res.data.status) {
           _this.pageNum=1;
@@ -96,7 +96,7 @@ export default {
             _this.loadEnd = true;
           }
         } else {
-          console.log(res.data.errorMsg);
+          // console.log(res.data.errorMsg);
         }
       });
     },
@@ -125,7 +125,7 @@ export default {
           }
         } else {
           _this.pageNum = _this.pageNum -1;
-          console.log(res.data.errorMsg);
+          // console.log(res.data.errorMsg);
         }
       });
     },
