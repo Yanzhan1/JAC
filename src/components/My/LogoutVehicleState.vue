@@ -1,13 +1,15 @@
 <template>
 	<div>
 		<mhead currentTitle="车机登录状态"></mhead>
-		<div class="vehicle-show">
-			<img class="state-car" :src="'./static/images/my/qrcode@2x.png'" alt="" />
-			<div>
-				<h5 class="car-title">账号还未在车机登录</h5>
-				<div class="car-info">
-					<p><nobr>点击扫码登录，登录账号到车机></nobr></p>
-				</div>		
+		<div class="content">
+			<div class="vehicle-show">
+				<img class="state-car" :src="'./static/images/my/qrcode@2x.png'" alt="" />
+				<div>
+					<h5 class="car-title">账号还未在车机登录</h5>
+					<div class="car-info">
+						<p><nobr>点击扫码登录，登录账号到车机></nobr></p>
+					</div>		
+				</div>
 			</div>
 		</div>
 			<div class="bottom-btn" @click="login">
@@ -97,28 +99,35 @@
 </script>
 
 <style scoped>
+	.content{
+		width: 100%;
+		height:10rem;
+		 position: relative;
+	}
 	.vehicle-show {
 		display: flex;
     position: absolute;
+	
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+		left: 50%;
+		top: 50%;
+		margin-top: 1rem;
+		transform: translate(-50%, -50%);
 	}
-	.state-car {
+.vehicle-show .state-car {
 		width: 2.2rem;
 		height: 1.73rem;
 		margin-bottom: 1.14rem;
 	}
-	.car-title {
+	.vehicle-show .car-title {
 		margin-bottom: .39rem;
 		color: #444444;
 		font-size: .36rem;
 		text-align: center;
 	}
-	.car-info {
+	 .vehicle-show .car-info {
 		text-align: center;
 	}
 	.bottom-btn {

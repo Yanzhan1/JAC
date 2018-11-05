@@ -2,12 +2,12 @@
     <div>
         <header class="header MobileHeight">
             <img @click="$router.go(-1)" class="header-left" :src="'./static/images/back@2x.png'" style="margin-left:.4rem">
-            <span class='header-title'>活动</span>
+            <span class='header-title' style="margin-right: .75rem;">活动</span>
             <span></span>
         </header>
 				<!-- <mhead currentTitle="活动" class="MobileHeight"></mhead> -->
         <div style="margin:.4rem;margin-top:1.5rem" v-show="noactivity">暂无活动信息</div>
-      <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="20">
+      <mt-loadmore style="margin-top:1.4rem;" :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="20">
         <div slot="top" class="mint-loadmore-top">
           <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }" style="font-size: 0.3rem">下拉刷新</span>
           <span v-show="topStatus === 'loading'">Loading...</span>
