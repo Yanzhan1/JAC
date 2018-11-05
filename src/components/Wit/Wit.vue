@@ -257,7 +257,7 @@
 				this.latitude = JSON.parse(locationMes).latitude; //精
 				this.longitude = JSON.parse(locationMes).longitude; //韦
 			},
-			getMainPushModel() { //获取主推车型，传{}表示全部车型				
+			getMainPushModel() { //获取主推车型，传{}表示全部车型			
 				var param = {
 					highlyRecommend: "1",
 					no: this.$store.state.busNo

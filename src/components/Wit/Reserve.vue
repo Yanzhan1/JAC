@@ -281,7 +281,7 @@ export default {
               };
               this.$http.post(Wit.Dealer, param, this.$store.state.getpin).then(res => {
                 this.chooseaddress = res.data.data.records;
-                console.log(this.chooseaddress)
+                // console.log(this.chooseaddress)
                 this.slots2[0].values = [];
                 for (var i = 0; i < this.chooseaddress.length; i++) {
                   this.slots2[0].values.push(this.chooseaddress[i].dealerName);
@@ -388,8 +388,28 @@ export default {
       //   });
       //   return false;
       // }
-      var gender = this.smallname == "女" ? 1 : 2;
 
+      var gender = this.smallname == "女" ? 1 : 2;
+      if(this.provinceid==''){
+          for(let value of this.myaddress){
+            if(value.name==this.localprovince){
+              this.provinceid=value.code
+            }
+          }
+             var data = {
+            parentId: this.provinceid,
+            level: 2,
+            size:100,
+          };
+          this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res=>{
+              let city=res.data.data.records
+              for(let values of city){
+                if(values.name==this.localcity){
+                  this.codecity=name.id
+                }
+              }
+          })
+      }
       var param = {
         customerName: this.name, //姓名
         fkDealerId: this.business, //经销商编号
@@ -411,8 +431,8 @@ export default {
           this.region = true;
         } else {
           Toast({
-            message: "系统异常，请稍后重试",
-            duration: 1000,
+            message: res.data.msg,
+            duration: 3000,
             position: "middle"
           });
           return false;

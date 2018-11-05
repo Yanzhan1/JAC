@@ -34,7 +34,7 @@
           </li>
 
         </ul>
-      	<div class="dataInfo" v-if="!mydealerlength" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);font-size: 0.34rem;color: #555555;">
+      	<div class="dataInfo" v-if="this.mydealerlength" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);font-size: 0.34rem;color: #555555;">
 			没有符合该条件的经销商
 			</div>
   </div>
@@ -54,6 +54,7 @@ export default {
       size: 10,
       current: 1,
       topStatus: "",
+      mydealerlength:true,
       imgSrc: '../../../static/images/Wit/bg-mine.png'
     };
   },
@@ -100,6 +101,12 @@ export default {
       this.$http.post(My.MyDealer, param).then(res => {
         if (res.data.code == 0) {
            this.mydealer = res.data.data;
+           console.log(this.mydealer)
+           if(this.mydealer[0].dealerName==undefined){
+             this.mydealerlength=true
+           }else{
+             this.mydealerlength=fasle
+           }
        }
       });
     },

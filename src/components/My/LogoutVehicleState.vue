@@ -2,16 +2,16 @@
 	<div>
 		<mhead currentTitle="车机登录状态"></mhead>
 		<div class="vehicle-show">
-			<img class="state-car" src="../../../static/images/my/qrcode@2x.png" alt="" />
+			<img class="state-car" :src="'./static/images/my/qrcode@2x.png'" alt="" />
 			<div>
 				<h5 class="car-title">账号还未在车机登录</h5>
 				<div class="car-info">
-					<p>点击扫码登录，登录账号到车机</p>
-				</div>			
+					<p><nobr>点击扫码登录，登录账号到车机></nobr></p>
+				</div>		
 			</div>
 		</div>
 			<div class="bottom-btn" @click="login">
-				<img src="../../../static/images/my/code@2x.png" alt="" />
+				<img :src="'./static/images/my/code@2x.png'" alt="" />
 				<span>扫码登录</span>
 			</div>
 </div>
