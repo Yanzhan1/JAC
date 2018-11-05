@@ -103,13 +103,13 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
       </div>
-      <div class="mylist" @click="scan()">
+      <!-- <div class="mylist" @click="scan()">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_code@2x.png" alt="">
           <span>扫一扫</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </div>
+      </div> -->
       <router-link tag="div" class="mylist" :to="{path:'/myindex/mySetUp', query:{no:$store.state.no}}">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_set@2x.png" alt="">
@@ -226,7 +226,7 @@ export default {
     },
     ton() {
       if (isMobile.iOS()) {
-        window.webkit.messageHandlers.scan.gotoOnlineWeb()
+        window.webkit.messageHandlers.gotoOnlineWeb.postMessage()
       } else if (isMobile.Android()) {
         
         js2android.gotoOnlineWeb();
@@ -247,6 +247,9 @@ export default {
         js2android.scan();
       }
     },
+getStatus(pp){
+
+},
 
     // //获取原生的no和token
     // getTokenAndNo() {
@@ -412,6 +415,7 @@ export default {
     this.myNum();
     this.IsSign(); //判断是否签到
     this.total(); //h获取用户总积分
+    window.getStatus=this.getStatus
   }
 };
 </script>
