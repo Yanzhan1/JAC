@@ -12,7 +12,8 @@
               <span class="score">{{integral}}</span>
               <div class="scoredeatails">积分明细</div>
           </div>
-          <div style="width:100%;height:1.8rem"></div>
+          <div style="width:100%;height:2.8rem"></div>
+          <hr style="border:.06rem solid #f1f1f1;">
         <ul>
             <!-- <div class="scoredeatails">积分明细</div> -->
             <li class="flex  row between cont cocenter" v-for="(item,index) in this.details" :key="index">
@@ -49,7 +50,7 @@ export default {
      this.$http.post(My.CreditDetail,data).then(res=>{
        if(res.data.code==0){
             this.details=res.data.data
-
+            console.log(this.details)
            for(let i=0;i<this.details.length;i++){
              if(this.details[i].ruleId=='8'){
                this.$nextTick(()=>{
