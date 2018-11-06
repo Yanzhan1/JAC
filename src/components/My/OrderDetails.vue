@@ -14,7 +14,7 @@
 					<span>预定车型</span>
 				</div>
 
-				<span>瑞风s3</span>
+				<span>{{userinfo.seriesName}}</span>
 			</li>
 			<li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
 				<div class="order-title">
@@ -74,12 +74,12 @@
 				<span>{{userinfo.address}}</span>
 			</li>
 		</ul>
-		<div style="padding:0 .3rem">
+		<!-- <div style="padding:0 .3rem">
 			<p style="font-size:.27rem;color:#222;padding:.3rem 0">备注说明</p>
 			<div class="content">
 				{{userinfo.comments}}
 			</div>
-		</div>
+		</div> -->
 
 	</div>
 </template>

@@ -34,9 +34,12 @@
           </li>
 
         </ul>
-      	<!-- <div class="dataInfo" v-if="this.mydealerlength" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);font-size: 0.34rem;color: #555555;">
-			没有符合该条件的经销商
-			</div> -->
+        <div style="position:relative;width:100%;height:100%;">
+
+          <div class="dataInfo" v-show="this.mydealerlength" style="position: absolute;top: 50%;left: 50%;margin-top:75%;transform: translate(-50%, -50%);font-size: 0.34rem;color: #555555;">
+        没有符合该条件的经销商
+        </div>
+        </div>
   </div>
 </template>
 <script>

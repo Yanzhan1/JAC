@@ -8,6 +8,10 @@
       <img style="width: 0.4rem;height: 0.65rem;padding-top: 0.2rem" src="../../../static/images/back@2x.png">
     </div>
   </div> -->
+  <header class="nav MobileHeight header ">
+      <div class="navTitle">选购瑞风S4</div>
+      <div></div>
+	</header>
   <div class="headerHeight"></div>
   <div class="content">
     <div class="contentTitle">车型选择</div>
@@ -111,6 +115,12 @@ export default{
   /*background-color: #ccc;*/
   height: 100%;
   background-color: #fff;
+}
+.navTitle{
+    width: 88%;
+    padding-left: 0.15rem;
+    font-size: 0.36rem;
+    text-align: center;
 }
 .nav{
   width: 100%;
