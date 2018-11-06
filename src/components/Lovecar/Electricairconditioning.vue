@@ -536,6 +536,7 @@ export default {
                           //   position: "middle",
                           //   duration: 2000
                           // });
+                           this.value = !this.value;
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
@@ -568,6 +569,7 @@ export default {
               //   position: "middle",
               //   duration: 2000
               // });
+               this.value = !this.value;
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
@@ -709,7 +711,7 @@ export default {
           .then(res => {
             res.data.returnSuccess ? (this.num = 1) : (this.num = 2);
             if (res.data.returnSuccess) {
-              this.value = !this.value;
+              // this.value = !this.value;
               this.httpair();
               //pin码正确激活弧线
               this.curveState = !this.curveState;
@@ -762,7 +764,7 @@ export default {
             console.log(res.data.returnSuccess);
             res.data.returnSuccess ? (this.num = 1) : (this.num = 2);
             if (res.data.returnSuccess) {
-              this.value = !this.value;
+              // this.value = !this.value;
               this.httpair();
               //pin码正确激活弧线
               this.curveState = !this.curveState;

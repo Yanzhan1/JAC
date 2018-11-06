@@ -217,7 +217,8 @@
         this.$router.push({
           path: '/wit/Reserve',
           query: {
-            vehicleData:this.vehicleData
+            vehicleData:this.vehicleData,
+            carName:this.$route.query.carName,
           }
         })
 

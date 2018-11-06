@@ -101,7 +101,8 @@
           query: {
             currentTitle:this.$route.query.currentTitle,
             colorTitle:this.$route.query.colorTitle,
-            rimTitle:this.rimTitle
+            rimTitle:this.rimTitle,
+            carName:this.$route.query.carName,
           }
         })
       },

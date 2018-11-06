@@ -96,7 +96,8 @@ export default{
       this.$router.push({
         path: '/wit/ColorChoose',
         query: {
-          currentTitle:this.currentTitle
+          currentTitle:this.currentTitle,
+          carName:'瑞风S4'
         }
       })
     },
