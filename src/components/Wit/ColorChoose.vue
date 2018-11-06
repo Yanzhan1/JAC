@@ -140,7 +140,7 @@
           query: {
             currentTitle:this.$route.query.currentTitle,
             colorTitle:this.colorTitle,
-
+            carName:this.$route.query.carName
           }
         })
       },
@@ -150,7 +150,7 @@
           query: {
             currentTitle:this.$route.query.currentTitle,
             colorTitle:this.colorTitle,
-
+            carName:this.$route.query.carName
           }
         })
       },

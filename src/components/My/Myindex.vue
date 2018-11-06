@@ -247,9 +247,9 @@ export default {
         js2android.scan();
       }
     },
-getStatus(pp){
-
-},
+    getStatus(pp){
+        
+    },
 
     // //获取原生的no和token
     // getTokenAndNo() {

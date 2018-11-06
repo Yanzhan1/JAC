@@ -83,10 +83,8 @@ export default {
       this.loadEnd=false;
       this.$http.post(IMFORMATION.getList, {"uid": this.$store.state.userId,"pageNo":_this.pageNum, "length":_this.length,type:3}).then(function (res) {
         // console.log(res.data.data[0])
-        if(res.data.data.length == 0){
-          this.noactivity =true
-        }else{
-          this.noactivity=false
+        if(res.data.data.length > 0){
+         this.noactivity=false
         }
         if (res.data.status) {
           _this.pageNum=1;
