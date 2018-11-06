@@ -1,7 +1,7 @@
 <template>
   <div>
     <div @click="bgHide" id="bgShare"></div>
-    <header class="header0 header1" id="header1">
+    <!-- <header class="header0 header1" id="header1">
       <img class="header_left" src="../../../../static/images/discover/backfff.png" @click="goBack">
       <img class="header_right" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
     </header>
@@ -9,7 +9,7 @@
       <img class="header_left" src="../../../../static/images/discover/backblue.png" @click="goBack">
       <p class="header-title-fff">活动详情</p>
       <img class="header_right" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
-    </header>
+    </header> -->
     <!--活动内容S-->
     <shareBox :index="0" :item="content" :flag="flag" :type="type" :collectionStatus="content.collectionStatus"
       :isCenter="true" @closeShare="bgHide" @collection="collection" @reCollection="messageBoxCofirm"></shareBox>

@@ -2,7 +2,7 @@
   <div>
     <div @click="bgHide" id="bgShare" style="position: fixed; width: 100%;height: 100%;background: #000000; display: none;opacity: 0.2"></div>
     <div>
-      <header class="header0 header1" id="header1">
+      <!-- <header class="header0 header1" id="header1">
         <img class="header_left" src="../../../../static/images/discover/backfff.png">
         <img class="header_right" src="../../../../static/images/discover/morefff.png" />
       </header>
@@ -10,7 +10,7 @@
         <img class="header_left" src="../../../../static/images/discover/backblue.png">
         <p class="header-title-fff">资讯详情</p>
         <img class="header_right" src="../../../../static/images/discover/moreblue.png" />
-      </header>
+      </header> -->
       <!--分享组件-->
       <shareBox :index="0" :item="content" :flag="flag" :type="type" :collectionStatus="content.collectionStatus"
         :isCenter="true" @closeShare="bgHide" @collection="collection" @reCollection="messageBoxCofirm"></shareBox>
