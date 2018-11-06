@@ -401,17 +401,17 @@ export default {
         .then(res => {
           let allnum = res.data.data;
           for (let value of allnum) {
-            if (value == 6) {
+            if (value.code == 'WINDOW') {
               this.WINDOW=true
-            } else if (value == 9) {
+            } else if (value.code == 'SUNROOF') {
               this.SUNROOF=true
-            } else if (value == 10) {
+            } else if (value.code == 'EAIRCONDITIONER') {
               this.Aircondtion_electricity=true
-            } else if (value == 11) {
+            } else if (value.code == 'PURIFICATION') {
               this.PURIFICTION=true
-            } else if (value == 29||30) {
+            } else if (value.code == 'SEAT_HEAT||SEAT_VENTILATION') {
               this.HOSTSEAT_HEAT=true
-            } else if (value == 31) {
+            } else if (value.code == 'AIRCONDITIONER') {
               this.Aircondtion=true
             }
           }
