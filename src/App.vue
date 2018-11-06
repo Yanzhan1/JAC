@@ -29,9 +29,9 @@ export default {
     //   }
     // },
     isLogin(userInfo) {
-      if (isMobile.iOS()) {
-        //     alert( JSON.stringify(userInfo))
-      }
+      // if (isMobile.iOS()) {
+      //   //     alert( JSON.stringify(userInfo))
+      // }
       if (userInfo && userInfo.no) {
         this.$store.dispatch("isLogin", true);
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用

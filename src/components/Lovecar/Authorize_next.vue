@@ -149,12 +149,11 @@ export default {
                       position: "middle",
                       duration: 2000
                     });
-                    //  if (isMobile.iOS()) {
-                    //       var params = {};
-                    //       window.webkit.messageHandlers.scan.postMessage(params);
-                    //     } else if (isMobile.Android()) {
-                    //       js2android.scan();
-                    //     }
+                     if (isMobile.iOS()) {
+                          window.webkit.messageHandlers.gotoMyIndex.postMessage();
+                        } else if (isMobile.Android()) {
+                          js2android.gotoMyIndex();
+                        }
                     setTimeout(() => {
                       this.$router.push("/myindex");
                     }, 2000);
