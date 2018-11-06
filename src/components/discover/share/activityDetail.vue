@@ -73,7 +73,8 @@
       </div>
       <!--发布者信息E-->
       <div class="picTitle"><span>{{item.message}}</span></div>
-      <div v-if="item.showImgList && item.showImgList.length>0 && item.showImgList!=''" @click="toDetail(item.id)">
+      <!-- <div v-if="item.showImgList && item.showImgList.length>0 && item.showImgList!=''" @click="toDetail(item.id)"> -->
+      <div v-if="item.showImgList && item.showImgList.length>0 && item.showImgList!=''">
         <div v-if="item.showImgList.length==1">
           <img :src="item.showImgList[0]" class="shaitu1">
         </div>
@@ -102,7 +103,7 @@
     <!--晒图内容E-->
     <div style="height: 0.88rem;"></div>
     <!--按钮控制S-->
-    <div v-if="userId">
+    <!-- <div v-if="userId">
       <div class="sign_btn" v-if="content.activityState==2 || content.activityState==1">
         晒&nbsp;图
       </div>
@@ -115,7 +116,7 @@
     </div>
     <div class="sign_btn" v-else>
       报&nbsp;名
-    </div>
+    </div> -->
     <!--按钮控制E-->
     <div id="bg1" style="display: none;  position:fixed;  top: 0;  left: 0;  width: 100%;  height: 100%;  background-color: black;  z-index:1; opacity: 0;" />
   </div>
