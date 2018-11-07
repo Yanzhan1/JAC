@@ -65,8 +65,8 @@ export default {
   },
    mounted() {
     // alert(JSON.stringify(this.$store.state.tsppin))
-    if (!this.$route.params.count) {
-      this.count = this.$route.params.count;
+    if (!this.$route.params.Account) {
+      this.count = this.$route.params.Account;
     this.gettime = this.$route.params.a;
     this.overtime = this.$route.params.b;
     }

@@ -1,6 +1,6 @@
 <template>
 	<div>		
-		<header class="header MobileHeight">
+		<header class="header MobileHeight bgcolor">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
 			<span class="header-title">{{currentTitle}}</span>
 			<span class="header-right"></span>
@@ -51,5 +51,8 @@
 	}
 </script>
 
-<style>
+<style scoped>
+.bgcolor{
+	background:#fff;
+}
 </style>
