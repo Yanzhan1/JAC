@@ -12,7 +12,7 @@
       <li class="bus-content flex-center-between" v-for="(item,index) in BusDetails" :key="index">
         <div class="bus-left">
           <div class="bus-name flex-align-center">
-            <label for="foot-check" class="input-label deft_0" :class="{active:item.def==1||item.defToNathor==1}" @click="setOneDefault(item.vin,item.def,item.beAuthorized)"> </label>
+            <label for="foot-check" class="input-label deft_0" :class="{active:item.def==1||item.defToNathor}" @click="setOneDefault(item.vin,item.def,item.beAuthorized)"> </label>
             <span style="color: #49BBFF;">{{item.vehicleName}}{{item.def==1||item.defToNathor==1?'（默认）':''}}</span>
           </div>
           <img :src="item.imageUrl" alt="" />
@@ -104,7 +104,7 @@ export default {
       var vin = vin;
       var def = def;
       var beAuthorized = beAuthorized;
-      if (def == 1||defToNathor==1) {
+      if (def == 1) {
         return;
       }
       var param = {
