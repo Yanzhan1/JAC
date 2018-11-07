@@ -7,17 +7,29 @@
 		</header>
 		<div style="height:.88rem" class="MobileHeight"></div>
 		<!--<mhead currentTitle="我的订单"></mhead>-->
-    <div ><mt-navbar v-model="selected" class="specil">
+    <!-- <div >
+      <mt-navbar v-model="selected">
 			<mt-tab-item id="one">线索</mt-tab-item>
-			<!-- <mt-tab-item id="two">商城</mt-tab-item> -->
-			<!--<mt-tab-item id="three">维保</mt-tab-item>
-      <mt-tab-item id="four">停车</mt-tab-item>-->
 			<mt-tab-item id="five">流量</mt-tab-item>
-		</mt-navbar></div>
+		  </mt-navbar>
+    </div> -->
+    <div style="position:fixed;width:100%;background:#fff;">
+
+      <div class="box">
+        <div @click="showlist" style="width:50%">
+          <div>线索</div>
+          <div v-show="this.list" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
+        </div>
+        <div @click="showflow" style="width:50%">
+          <div>流量</div>
+          <div v-show="this.flow" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
+        </div>
+      </div>
+    </div>
 		
-		<mt-tab-container v-model="selected">
-			<mt-tab-container-item id="one">
-				<ul v-if="flag">
+		<!-- <mt-tab-container v-model="selected"> -->
+			<!-- <mt-tab-container-item id="one"> -->
+				<ul v-if="flag" v-show="this.list" style="margin-top:.7rem;">
 					<li class="flex column" v-for="(item,index)  in Xorder" :key="index">
 						<p class="flex row tim">
 							<span class="times">{{item.time}}</span>
@@ -46,9 +58,9 @@
 				<ul v-else>
 					<div style="text-align:center;margin-top:.2rem">暂无线索订单</div>
 				</ul>
-			</mt-tab-container-item>
-			<mt-tab-container-item id="five">
-				<ul>
+			<!-- </mt-tab-container-item> -->
+			<!-- <mt-tab-container-item id="five"> -->
+				<ul v-show="this.flow" style="margin-top:.7rem;">
 					<router-link tag="li" class="flex column" v-for="(item,index) in allflowbuy" :key="index"  :to="{path:'/myindex/flowOrderDetails', query: {flowDetail: item}}">
 						<p class="flex row tim between">
 							<span class="times">{{item.purchaseTime}}</span>
@@ -78,8 +90,8 @@
 						</div>
 					</router-link >
 				</ul>
-			</mt-tab-container-item>
-		</mt-tab-container>
+			<!-- </mt-tab-container-item>
+		</mt-tab-container> -->
 	</div>
 </template>
 <script>
@@ -96,6 +108,8 @@ export default {
       selected: "one",
       Xorder: {}, //线索订单
       flag: true,
+      list:false,//线索展示
+      flow:false,//流量展示
       allflowbuy: [],
       shoppingMall: [], //商城订单
       trafficOrder: {
@@ -111,6 +125,14 @@ export default {
         path: "/orderdetails",
         query: item
       });
+    },
+    showlist(){
+      this.list=true;
+      this.flow=false;
+    },
+    showflow(){
+      this.list=false;
+      this.flow=true;
     },
     //跳转商城详情
     todetail() {
@@ -240,6 +262,7 @@ export default {
       borderTopWidth: this.$store.state.mobileStatusBar,
       borderTopColor: "#fff"
     });
+    this.list=true
   }
 };
 </script>
@@ -247,14 +270,15 @@ export default {
 .header{
   background: #fff;
 }
-.specil{
-  position: relative;
-}
 .MobileHeight {
   border-top-style: solid;
   box-sizing: content-box;
 }
-
+.box{
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
 .mint-navbar .mint-tab-item {
   padding: 0.3rem 0;
   font-size: 0.28rem;
