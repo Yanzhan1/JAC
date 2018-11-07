@@ -23,6 +23,12 @@ import md5 from 'js-md5';
 //导入复制功能
 import Clipboard from 'clipboard'
 
+//android4.4 hack
+import 'babel-polyfill'
+import Es6Promise from 'es6-promise'
+require('es6-promise').polyfill()
+Es6Promise.polyfill()
+
 /**
  * 获取手机上方状态栏高度
  */
