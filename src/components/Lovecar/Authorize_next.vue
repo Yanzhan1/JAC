@@ -146,7 +146,7 @@ export default {
                     Toast({
                       message: "解除授权成功",
                       position: "middle",
-                      duration: 2000
+                      duration: 1000
                     });
                      if (isMobile.iOS()) {
                           window.webkit.messageHandlers.gotoMyIndex.postMessage();
@@ -155,7 +155,7 @@ export default {
                         }
                     setTimeout(() => {
                       this.$router.push("/myindex");
-                    }, 2000);
+                    }, 3000);
                   } else {
                     Toast({
                       message: res.data.returnErrMsg,

@@ -59,7 +59,7 @@
       </div>
       <img style="width:.88rem;height:.88rem;margin-top:.2rem" src="../../../static/images/Lovecar/loading@2x.png" alt="" @click="loading">
     </div>
-    <div class="content lines">
+    <div v-show="this.CAR_INFO" class="content lines">
       <div class="content_1" @click="doors">
         <img v-if="activeshows==this.isTrue" class="content_carDoor" src="../../../static/images/Wit/button4@3x_32.png" alt="">
         <img v-else class="content_carDoor" src="../../../static/images/Wit/button4@3x.png" alt="">
@@ -70,12 +70,12 @@
         <img v-else class="tailgate" src="../../../static/images/Wit/button5@3x.png" alt="">
         <span :class="activeshows==this.isTrues?'act':'activess'">尾门</span>
       </div>
-      <div class="content_1" @click="closefire">
+      <div v-show="this.ENGINE" class="content_1" @click="closefire">
         <img v-if="activeshows==this.isTruess" class="Flameout" src="../../../static/images/Wit/button6@3x_91.png" alt="">
         <img v-else class="Flameout" src="../../../static/images/Wit/button6@3x.png" alt="">
         <span :class="activeshows==this.isTruess?'act':'activess'">熄火</span>
       </div>
-      <div class="content_1" @click="enter()">
+      <div v-show="this.FIND_VEHICLE" class="content_1" @click="enter()">
         <img v-if="activeshows==this.isTruesss" class="content_pic" src="../../../static/images/Wit/button7@3x_2.png" alt="">
         <img v-else class="content_pic" src="../../../static/images/Wit/button7@3x.png" alt="">
         <span :class="activeshows==this.isTruesss?'act':'activess'">寻车</span>
@@ -152,15 +152,15 @@
     <img class="cancel" v-if="MaskIsshow" @click="delde" src="../.././../static/images/Lovecar/button9@2x.png" alt="" style="width:.28rem">
     <div v-if="MaskIsshow" class="mask_content">
       <ul class="tipcontent">
-        <li @click="turnDing">
+        <li v-show="this.TACHOGRAPH" @click="turnDing">
           <img src="../../../static/images/Lovecar/ding.png" alt="">
           <span>途记宝</span>
         </li>
-        <router-link tag='li' to="/lovecar/revisePinCode">
+        <router-link v-show="this.UPDATE_PIN" tag='li' to="/lovecar/revisePinCode">
           <img src="../../../static/images/Lovecar/xiupin.png" alt="">
           <span>修改PIN</span>
         </router-link>
-        <router-link tag="li" to="/Bus_test">
+        <router-link v-show="this.CAR_EXAMINATION" tag="li" to="/Bus_test">
           <img src="../../../static/images/Lovecar/chejian.png" alt="">
           <span>车辆体检</span>
         </router-link>
@@ -168,27 +168,27 @@
           <img src="../../../static/images/Lovecar/yuancheng.png" alt="">
           <span>远程授权</span>
         </router-link>
-        <router-link tag='li' to="/Authorize" v-else-if="!Rajtigo">
+        <router-link v-show="this.CONTROL_AUTH" tag='li' to="/Authorize" v-else-if="!Rajtigo">
           <img src="../../../static/images/Lovecar/yuancheng.png" alt="">
           <span>远程授权</span>
         </router-link>
-        <li @click="turnPosition">
+        <li v-show="this.CAR_POINT_QUERY" @click="turnPosition">
           <img src="../../../static/images/Lovecar/dingwei.png" alt="">
           <span>定位</span>
         </li>
-        <router-link tag='li' to="/lovecar/flowQuery">
+        <router-link v-show="this.FLOW_QUERY" tag='li' to="/lovecar/flowQuery">
           <img src="../../../static/images/Lovecar/liuliang.png" alt="">
           <span>流量查询</span>
         </router-link>
-        <router-link tag='li' to="/lovecar/fuelQuery">
+        <router-link v-show="this.FUEL_STATISTICS" tag='li' to="/lovecar/fuelQuery">
           <img src="../../../static/images/Lovecar/ranyou.png" alt="">
           <span>燃油统计</span>
         </router-link>
-        <li @click="turnPage">
+        <li v-show="this.ELECTRIC_FENCE" @click="turnPage">
           <img src="../../../static/images/Lovecar/dianzi.png" alt="">
           <span>电子围栏</span>
         </li>
-				<router-link tag='li' to="/lovecar/wifiLink">
+				<router-link v-show="this.WIFI" tag='li' to="/lovecar/wifiLink">
 					<img src="../../../static/images/Lovecar/wifi.png" alt="">
 					<span>wifi直连</span>
 				</router-link>
@@ -224,6 +224,7 @@ export default {
       firenum: 2, //控制引擎状态2为熄火默认
       backnum: 2, //控制后备箱状态2为关闭默认
       keyNums: [],
+      firstEnter:false,//第一次调用车况
       operationIds: "", //lock传给后台的
       operationIdss: "", //熄火传给后台的
       operationIdses: "", //寻车传给后台的
@@ -263,8 +264,9 @@ export default {
       qrCodePin: "", //扫一扫二维码pin
       firstTips: true, //车机状态第一次提示,true不提示,改变为false的时候,Toast进行提示
       FIND_VEHICLE: false, //远程寻车
-      LOCK: false, //开闭锁,
+      CAR_INFO: false, //开闭锁,
       ENGINE: false, //引擎启动,
+      UPDATE_PIN:false,//修改pin码
       CAR_EXAMINATION: false, //车辆体检
       WINDOW: false, //车窗控制
       Aircondtion_electricity:false,//电动空调
@@ -411,9 +413,33 @@ export default {
               this.PURIFICTION=true
             } else if (value.code == 'SEAT_HEAT||SEAT_VENTILATION') {
               this.HOSTSEAT_HEAT=true
-            } else if (value.code == 'AIRCONDITIONER') {
-              this.Aircondtion=true
-            }
+            } else if (value.code == 'CAR_INFO') {
+              this.CAR_INFO=true
+            
+            } else if (value.code == 'ENGINE') {
+              this.ENGINE=true
+            
+            } else if (value.code == 'CAR_EXAMINATION') {
+              this.CAR_EXAMINATION=true
+            
+            } else if (value.code == 'CAR_POINT_QUERY') {
+              this.CAR_POINT_QUERY=true
+            
+            } else if (value.code == 'UPDATE_PIN') {
+              this.UPDATE_PIN=true
+            
+            } else if (value.code == 'FLOW_QUERY') {
+              this.FLOW_QUERY=true
+            
+            } else if (value.code == 'FUEL_STATISTICS') {
+              this.FUEL_STATISTICS=true
+            
+            } else if (value.code == 'CONTROL_AUTH') {
+              this.CONTROL_AUTH=true 
+            } else if (value.code == 'WIFI') {
+              this.WIFI=true
+            
+            } 
           }
         });
     },
@@ -613,6 +639,28 @@ export default {
                           }
                         } else if (res.data.status == "SUCCEED") {
                           clearInterval(this.time);
+                          if(this.firstEnter){
+                            this.firstEnter=false
+                            if(res.data.data.accStatus==0){
+                              this.isTrue=false
+                              this.locknum = 2
+                            }else{
+                              this.isTrue=true
+                              this.locknum = 1
+                            }
+                            if(res.data.data.engineStatus==0){
+                              this.isTruess=false
+                              this.firenum = 2
+                            }else{
+                              this.isTruess=true
+                              this.firenum = 1
+                            }
+                            if(res.data.data.doorStsTrunk==0){
+                              this.isTrues=false
+                            }else{
+                              this.isTrues=true
+                            }
+                          }
                           if (this.type == 1) {
                             this.isTrue = !this.isTrue;
                             this.isTrue
@@ -752,6 +800,28 @@ export default {
               // }else{
               //   this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
               // }
+               if(this.firstEnter){
+                            this.firstEnter=false
+                            if(res.data.data.accStatus==0){
+                              this.isTrue=false
+                              this.locknum = 2
+                            }else{
+                              this.isTrue=true
+                              this.locknum = 1
+                            }
+                            if(res.data.data.engineStatus==0){
+                              this.isTruess=false
+                              this.firenum = 2
+                            }else{
+                              this.isTruess=true
+                              this.firenum = 1
+                            }
+                            if(res.data.data.doorStsTrunk==0){
+                              this.isTrues=false
+                            }else{
+                              this.isTrues=true
+                            }
+                          }
               this.carcontrol.engineHoodStsFront
                 ? (this.engineHoodStsFront = "已开")
                 : (this.engineHoodStsFront = "未开");
@@ -1143,6 +1213,7 @@ export default {
               }
               // }
             }
+            this.firstEnter=true
             this.vinn = this.$store.state.vins;
             this.Support();
             // console.log(this.vinn)
@@ -1186,6 +1257,7 @@ export default {
                 //  	       this.getCarLoginState()
               }
             }
+            this.firstEnter=true
             this.vinn = this.$store.state.vins;
             this.Support();
             this.Carquerry();

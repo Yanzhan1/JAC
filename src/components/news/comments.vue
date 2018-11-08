@@ -22,7 +22,7 @@
           <ul class="content">
             <li class="area" v-for="(item,index) in List" @click="todetail(item.lid,item.id)" style="">
               <div class="content_p">
-                <span class="content_t"><span style="width: 0.16rem;height: 0.16rem;border-radius: 50%;background: red;display: inline-block" v-if="item.readState"></span>{{item.title}}</span>
+                <span class="content_t"><span style="width: 0.16rem;height: 0.16rem;border-radius: 50%;background: red;display: inline-block" v-if="!item.readState"></span>{{item.title}}</span>
                 <span class="content_x">{{item.createTime}}</span>
               </div>
               <h5 class="wen">

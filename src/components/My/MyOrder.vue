@@ -37,7 +37,7 @@
 						</p>
 						<div class="flex row con" @click="toDetauls(item)">
 							<div class="flex column bus_left">
-								<img style="height:1.2rem;width:2.46rem" :src="item.img" alt="">
+								<img style="height:1.2rem;width:2.46rem" :src="item.imageUrl" alt="">
 								<!-- <span class="busname">{{item.model}}</span> -->
 							</div>
 							<div class="flex column tp">

@@ -130,14 +130,22 @@ export default {
         this.$http.post(Lovecar.Longrange,param,this.$store.state.tsppin).then((res)=>{
             if(res.data.returnSuccess){
                 this.syncVehicleList()
-                this.$router.push({
-                name:'Authorize_next',
-                params:{
-                        a:operationTime.getTime(this.shang),
-                        b:operationTime.getTime(this.xia),
-                        count: this.Account
-            }
-         })
+                   Toast({
+                    message:'友情提示：请告知被授权用户重新登入APP，即可体验远程车控功能',
+                    position:'middle',
+                    duration:3000,
+                })
+                setTimeout(() => {
+                    
+                    this.$router.push({
+                    name:'Authorize_next',
+                    params:{
+                            a:operationTime.getTime(this.shang),
+                            b:operationTime.getTime(this.xia),
+                            count: this.Account
+                }
+             })
+                }, 4000);
             }else{
                 Toast({
                     message:res.data.returnErrMsg,
