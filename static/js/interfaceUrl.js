@@ -186,7 +186,9 @@ window.Lovecar = {
         LogStatus: love_car + '/vehicle/vehicle-logstatus', //获取机车登入状态
         vehiclestatus: love_car + '/vehicle/vehicle-status', //车辆授权状态查询
         // vehiclestatus: 'http://172.21.12.35:8084' + '/vehicle/vehicle-status', //车辆授权状态查询
-        loginOut: love_car + '/vehicle/remote-vehicle-loginOut' //车辆远程登出
+        loginOut: love_car + '/vehicle/remote-vehicle-loginOut', //车辆远程登出
+        showcallbackmessage: love_car + '/call-back/show-callback-message', //超过电子围栏警告
+
     }
     //消息接口
 window.IMFORMATION = {

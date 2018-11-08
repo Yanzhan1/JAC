@@ -725,7 +725,7 @@ export default {
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
                           Toast({
-                            message: "指令下发成功，处理失败！",
+                            message: res.data.status,
                             position: "middle",
                             duration: 2000
                           });
@@ -734,7 +734,7 @@ export default {
                         }
                       } else {
                         Toast({
-                          message: "指令下发失败！",
+                          message:res.data.returnErrMsg,
                           position: "middle",
                           duration: 2000
                         });
@@ -859,7 +859,7 @@ export default {
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
-                message: "指令下发成功，处理失败！",
+                message: res.data.returnErrMsg,
                 position: "middle",
                 duration: 2000
               });
@@ -869,7 +869,7 @@ export default {
           } else {
             // alert(4)
             Toast({
-              message: "指令下发失败！",
+              message: res.data.returnErrMsg,
               position: "middle",
               duration: 2000
             });
@@ -1134,7 +1134,7 @@ export default {
             // alert(1)
             this.BusDetails = res.data.data;
             for (let i = 0; i < res.data.data.length; i++) {
-              if (res.data.data[i].def == 1) {
+              if (res.data.data[i].def == 1||res.data.data[i].defToNathor==1) {
                 this.carsysitem = res.data.data[i].seriesName;
                 // console.log(res.data.data[i].vin);
                 var payload = res.data.data[i].vin;
@@ -1175,7 +1175,7 @@ export default {
           if (res.data.returnSuccess) {
             this.BusDetails = res.data.data;
             for (let i = 0; i < res.data.data.length; i++) {
-              if (res.data.data[i].def == 1) {
+              if (res.data.data[i].def == 1||res.data.data[i].defToNathor==1) {
                 this.carsysitem = res.data.data[i].seriesName || null;
                 var payload = res.data.data[i].vin;
                 this.defaultvin = res.data.data[i].vin;
@@ -1447,19 +1447,19 @@ input:focus {
 }
 
 .top_1 {
-  top: 0.8rem;
+  top: 0.6rem;
   left: 0.8rem;
   font-size: 0.24rem;
 }
 
 .bottom_1 {
-  bottom: 1.1rem;
+  bottom:.5rem;
   left: 0.8rem;
   font-size: 0.24rem;
 }
 
 .middle_1 {
-  bottom: 2.5rem;
+  bottom: 2.1rem;
   left: 0.8rem;
   color: #49bbff;
   font-size: 0.24rem;

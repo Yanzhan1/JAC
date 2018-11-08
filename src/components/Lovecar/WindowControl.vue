@@ -432,6 +432,9 @@ export default {
                           //   duration: 2000
                           // });
                           this.value = !this.value;
+                            this.curveState = !this.curveState;
+              //pin码正确激活空调图
+              (this.activeShowImg = !this.activeShowImg),
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
@@ -464,6 +467,9 @@ export default {
               //   position: "middle",
               //   duration: 2000
               // });
+                this.curveState = !this.curveState;
+              //pin码正确激活空调图
+              (this.activeShowImg = !this.activeShowImg),
               this.value = !this.value;
                clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
@@ -612,9 +618,9 @@ export default {
               // this.value = !this.value;
               this.httpwindow();
               //pin码正确激活弧线
-              this.curveState = !this.curveState;
-              //pin码正确激活空调图
-              (this.activeShowImg = !this.activeShowImg),
+              // this.curveState = !this.curveState;
+              // //pin码正确激活空调图
+              // (this.activeShowImg = !this.activeShowImg),
                 // this.refreshPmData(),
                 //消失遮罩
                 (this.popupVisible = !this.popupVisible);
@@ -662,9 +668,9 @@ export default {
               // this.value = !this.value;
               this.httpwindow();
               //pin码正确激活弧线
-              this.curveState = !this.curveState;
-              //pin码正确激活空调图
-              (this.activeShowImg = !this.activeShowImg),
+              // this.curveState = !this.curveState;
+              // //pin码正确激活空调图
+              // (this.activeShowImg = !this.activeShowImg),
                 // this.refreshPmData(),
                 //消失遮罩
                 (this.popupVisible = !this.popupVisible);

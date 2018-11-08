@@ -33,6 +33,13 @@
                 </div>
                 <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
             </router-link>
+            <router-link to="/info/others" tag="li" class="flex row cocenter between" style="height:.97rem;border-bottom:.01rem solid #f1f1f1">
+                <div class="flex row cocenter rela">
+                    <img src="../../../static/images/my/others.png" alt="" style="width:.32rem;height:.36rem">
+                    <span style="font-size:.27rem;color:#555;margin-left:.2rem">其他</span><span class="infos" v-if="this.activity"></span>
+                </div>
+                <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
+            </router-link>
             <!-- <router-link to="/mywl" tag="li" class="flex row cocenter between" style="height:.97rem;border-bottom:.01rem solid #f1f1f1">
                 <div class="flex row cocenter rela">
                     <img src="../../../static/images/my/icon_message_logistics.png" alt="" style="width:.32rem;height:.36rem">
