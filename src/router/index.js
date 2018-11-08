@@ -21,7 +21,7 @@ import FlowQuery from "@/components/Lovecar/FlowQuery" //流量查询
 import FlowBuy from "@/components/Lovecar/FlowBuy" //流量购买
 import PlaceOrder from "@/components/Lovecar/PlaceOrder" //提交流量订单
 import PurchaseRecord from "@/components/Lovecar/PurchaseRecord" //流量购买记录
-import Islogin from '../components/Lovecar/islogin'
+import Islogin from '@/components/Lovecar/islogin'
 import IntelligenceParking from "@/components/Lovecar/IntelligenceParking" //智能停车G1
 import IntelligentParkingInfo from "@/components/Lovecar/IntelligentParkingInfo" //智能停车G2
 import IntelligentParkingUninfo from "@/components/Lovecar/IntelligentParkingUninfo" //智能停车G3
