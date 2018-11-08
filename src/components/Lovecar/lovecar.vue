@@ -83,35 +83,42 @@
     </div>
     <ul style="padding:0 .2rem">
       <!-- 暂时跳转到电动空调 -->
-      <router-link to="/lovecar/Electricairconditioning" tag="li" class="navs air">
+      <router-link v-show="this.Aircondtion_electricity" to="/lovecar/Electricairconditioning" tag="li" class="navs air">
         <div class="navs">
           <img class="picc" src="../../../static/images/Wit/ari.png" alt="">
           <span class="pic_txt">空调温度</span>
         </div>
         <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
       </router-link>
-      <router-link to="/lovecar/adjustSeatTemper" tag="li" class="navs air">
+      <router-link v-show="this.Aircondtion" to="/lovecar/AirConditionControl" tag="li" class="navs air">
+        <div class="navs">
+          <img class="picc" src="../../../static/images/Wit/ari.png" alt="">
+          <span class="pic_txt">空调温度</span>
+        </div>
+        <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
+      </router-link>
+      <router-link v-show="this.HOSTSEAT_HEAT" to="/lovecar/adjustSeatTemper" tag="li" class="navs air">
         <div class="navs">
           <img class="picc" src="../../../static/images/Wit/zuoyi.png" alt="">
           <span class="pic_txt">座椅调节</span>
         </div>
         <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
       </router-link>
-      <router-link to="/lovecar/windowControl" tag="li" class="navs air">
+      <router-link v-show="this.WINDOW" to="/lovecar/windowControl" tag="li" class="navs air">
         <div class="navs">
           <img class="picc" src="../../../static/images/Wit/chechuang.png" alt="">
           <span class="pic_txt">车窗控制</span>
         </div>
         <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
       </router-link>
-      <router-link to="/lovecar/skylightControl" tag="li" class="navs air">
+      <router-link v-show="this.SUNROOF" to="/lovecar/skylightControl" tag="li" class="navs air">
         <div class="navs">
           <img class="picc skylight" src="../../../static/images/Wit/tianchuang.png" alt="">
           <span class="pic_txt">天窗控制</span>
         </div>
         <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
       </router-link>
-      <router-link to="/lovecar/airEvoluor" tag="li" class="navs air">
+      <router-link v-show="this.PURIFICTION" to="/lovecar/airEvoluor" tag="li" class="navs air">
         <div class="navs">
           <img class="picc air_contr" src="../../../static/images/Wit/icon5@3x.png" alt="">
           <span class="pic_txt">空气净化器</span>
@@ -203,10 +210,10 @@ export default {
     return {
       activeshow: 1, //默认第一个高亮
       activeshows: 1,
-      tspid:'',
+      tspid: "",
       popupVisible: false,
       MaskIsshow: false, //黑色遮罩层
-      Rajtigo:false,//被授权状态
+      Rajtigo: false, //被授权状态
       num: 3,
       isTrue: false, //锁定
       isTruesss: false, //停车
@@ -220,9 +227,9 @@ export default {
       operationIds: "", //lock传给后台的
       operationIdss: "", //熄火传给后台的
       operationIdses: "", //寻车传给后台的
-      operationIdcar:'',//查询车况的id
+      operationIdcar: "", //查询车况的id
       msg: "车机已登录",
-      vehicleState:'',//被授权车辆的vin
+      vehicleState: "", //被授权车辆的vin
       pinNumber: "",
       type: "", //判断点击事件
       Condition: {},
@@ -252,28 +259,30 @@ export default {
       doorStsTrunk: "",
       //发动机状态
       engineStatus: "",
-      defaultvin:'',//默认车辆的vin
-			qrCodePin: '', //扫一扫二维码pin
+      defaultvin: "", //默认车辆的vin
+      qrCodePin: "", //扫一扫二维码pin
       firstTips: true, //车机状态第一次提示,true不提示,改变为false的时候,Toast进行提示
-      FIND_VEHICLE:false,//远程寻车
-      LOCK:false,//开闭锁,
-      ENGINE:false,//引擎启动,
-      CAR_EXAMINATION:false,//车辆体检
-      WINDOW:false,//车窗控制
-      TRUNK:false,//尾门控制
-      HOSTSEAT_HEAT:false,//座椅控制
-      SUNROOF:false,//天窗控制
-      PURIFICTION:false,//空气净化器控制
-      WIFI:false,//wifi控制
-      ELECTRIC_FENCE:false,//电子围栏
-      CAR_EXAMINATION_QUERY:false,//车辆体检结果查询
-      CAR_POINT_QUERY:false,//车辆位置查询
-      SEND_TO_CAR:false,//发送倒车
-      CAR_POONT_HISTORY_QUERY:false,//车辆历史轨迹
-      TACHOGRAPH:false,//行车记录仪
-      FUEL_STATISTICS:false,//燃油统计
-      CONTROL_AUTH:false,//远程授权
-      FLOW_QUERY:false,//流量查询
+      FIND_VEHICLE: false, //远程寻车
+      LOCK: false, //开闭锁,
+      ENGINE: false, //引擎启动,
+      CAR_EXAMINATION: false, //车辆体检
+      WINDOW: false, //车窗控制
+      Aircondtion_electricity:false,//电动空调
+      Aircondtion:false,//自动空调
+      TRUNK: false, //尾门控制
+      HOSTSEAT_HEAT: false, //座椅控制
+      SUNROOF: false, //天窗控制
+      PURIFICTION: false, //空气净化器控制
+      WIFI: false, //wifi控制
+      ELECTRIC_FENCE: false, //电子围栏
+      CAR_EXAMINATION_QUERY: false, //车辆体检结果查询
+      CAR_POINT_QUERY: false, //车辆位置查询
+      SEND_TO_CAR: false, //发送倒车
+      CAR_POONT_HISTORY_QUERY: false, //车辆历史轨迹
+      TACHOGRAPH: false, //行车记录仪
+      FUEL_STATISTICS: false, //燃油统计
+      CONTROL_AUTH: false, //远程授权
+      FLOW_QUERY: false //流量查询
     };
   },
   //  beforeRouteEnter :(to, from, next)=> {
@@ -308,26 +317,26 @@ export default {
       //   ? (this.doorStsRearRight = "未锁")
       //   : (this.doorStsRearRight = "已锁");
 
-        if(this.carcontrol.doorStsFrontLeft==1){
-          this.doorStsFrontLeft = "打开"
-        }else if(this.carcontrol.doorStsFrontLeft==0){
-          this.doorStsFrontLeft = "关闭"
-        }
-        if(this.carcontrol.doorStsFrontRight==1){
-          this.doorStsFrontRight = "打开"
-        }else if(this.carcontrol.doorStsFrontRight==0){
-          this.doorStsFrontRight = "关闭"
-        }
-        if(this.carcontrol.doorStsRearLeft==1){
-          this.doorStsRearLeft = "打开"
-        }else if(this.carcontrol.doorStsRearLeft==0){
-          this.doorStsRearLeft = "关闭"
-        }
-        if(this.carcontrol.doorStsRearRight==1){
-          this.doorStsRearRight = "打开"
-        }else if(this.carcontrol.doorStsRearRight==0){
-          this.doorStsRearRight = "关闭"
-        }
+      if (this.carcontrol.doorStsFrontLeft == 1) {
+        this.doorStsFrontLeft = "打开";
+      } else if (this.carcontrol.doorStsFrontLeft == 0) {
+        this.doorStsFrontLeft = "关闭";
+      }
+      if (this.carcontrol.doorStsFrontRight == 1) {
+        this.doorStsFrontRight = "打开";
+      } else if (this.carcontrol.doorStsFrontRight == 0) {
+        this.doorStsFrontRight = "关闭";
+      }
+      if (this.carcontrol.doorStsRearLeft == 1) {
+        this.doorStsRearLeft = "打开";
+      } else if (this.carcontrol.doorStsRearLeft == 0) {
+        this.doorStsRearLeft = "关闭";
+      }
+      if (this.carcontrol.doorStsRearRight == 1) {
+        this.doorStsRearRight = "打开";
+      } else if (this.carcontrol.doorStsRearRight == 0) {
+        this.doorStsRearRight = "关闭";
+      }
 
       //车窗状态
       // this.windowStsFrontLeft = this.carcontrol.windowStsFrontLeft==1
@@ -342,25 +351,25 @@ export default {
       // this.windowStsRearRight = this.carcontrol.windowStsRearRight==1
       //   ? (this.windowStsRearRight = "已打开")
       //   : (this.windowStsRearRight = "已关闭");
-      if(this.carcontrol.windowStsFrontLeft==1){
-        this.windowStsFrontLeft = "已打开"
-      }else if(this.carcontrol.windowStsFrontLeft==0){
-        this.windowStsFrontLeft = "已关闭"
+      if (this.carcontrol.windowStsFrontLeft == 1) {
+        this.windowStsFrontLeft = "已打开";
+      } else if (this.carcontrol.windowStsFrontLeft == 0) {
+        this.windowStsFrontLeft = "已关闭";
       }
-      if(this.carcontrol.windowStsFrontRight==1){
-        this.windowStsFrontRight = "已打开"
-      }else if(this.carcontrol.windowStsFrontRight==0){
-        this.windowStsFrontRight = "已关闭"
+      if (this.carcontrol.windowStsFrontRight == 1) {
+        this.windowStsFrontRight = "已打开";
+      } else if (this.carcontrol.windowStsFrontRight == 0) {
+        this.windowStsFrontRight = "已关闭";
       }
-      if(this.carcontrol.windowStsRearLeft==1){
-        this.windowStsRearLeft = "已打开"
-      }else if(this.carcontrol.windowStsRearLeft==0){
-        this.windowStsRearLeft = "已关闭"
+      if (this.carcontrol.windowStsRearLeft == 1) {
+        this.windowStsRearLeft = "已打开";
+      } else if (this.carcontrol.windowStsRearLeft == 0) {
+        this.windowStsRearLeft = "已关闭";
       }
-      if(this.carcontrol.windowStsRearRight==1){
-        this.windowStsRearRight = "已打开"
-      }else if(this.carcontrol.windowStsRearRight==0){
-        this.windowStsRearRight = "已关闭"
+      if (this.carcontrol.windowStsRearRight == 1) {
+        this.windowStsRearRight = "已打开";
+      } else if (this.carcontrol.windowStsRearRight == 0) {
+        this.windowStsRearRight = "已关闭";
       }
       var door = {
         left_top: this.doorStsFrontLeft,
@@ -383,13 +392,30 @@ export default {
       }
     },
     //获取此车所具有的车况功能
-    Support(){
-      let param={
-        vin:this.vinn
-      }
-      this.$http.post(Lovecar.Support,param,this.$store.state.tsppin).then(res=>{
-        console.log(res)
-      })
+    Support() {
+      let param = {
+        vin: this.vinn
+      };
+      this.$http
+        .post(Lovecar.Support, param, this.$store.state.tsppin)
+        .then(res => {
+          let allnum = res.data.data;
+          for (let value of allnum) {
+            if (value.code == 'WINDOW') {
+              this.WINDOW=true
+            } else if (value.code == 'SUNROOF') {
+              this.SUNROOF=true
+            } else if (value.code == 'EAIRCONDITIONER') {
+              this.Aircondtion_electricity=true
+            } else if (value.code == 'PURIFICATION') {
+              this.PURIFICTION=true
+            } else if (value.code == 'SEAT_HEAT||SEAT_VENTILATION') {
+              this.HOSTSEAT_HEAT=true
+            } else if (value.code == 'AIRCONDITIONER') {
+              this.Aircondtion=true
+            }
+          }
+        });
     },
     moved() {
       this.MaskIsshow = false;
@@ -517,7 +543,7 @@ export default {
         )
         .then(res => {
           if (res.data.returnSuccess) {
-            this.operationIdcar=res.data.operationId
+            this.operationIdcar = res.data.operationId;
             this.getAsyReturn(res.data.operationId);
           } else {
             Toast({
@@ -586,24 +612,28 @@ export default {
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
-                         clearInterval(this.time);
-                         if(this.type==1){
+                          clearInterval(this.time);
+                          if (this.type == 1) {
                             this.isTrue = !this.isTrue;
-                            this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
-                         }
-                         if(this.type==2){
+                            this.isTrue
+                              ? (this.locknum = 1)
+                              : (this.locknum = 2);
+                          }
+                          if (this.type == 2) {
                             this.isTrues = !this.isTrues;
-                         }                          
-                         if(this.type==3){
+                          }
+                          if (this.type == 3) {
                             this.isTruess = !this.isTruess;
-                            this.isTruess ? (this.firenum = 1) : (this.firenum = 2);
-                         }                          
-                         if(this.type==4){
+                            this.isTruess
+                              ? (this.firenum = 1)
+                              : (this.firenum = 2);
+                          }
+                          if (this.type == 4) {
                             this.isTruesss = !this.isTruesss;
                             setTimeout(() => {
                               this.isTruesss = !this.isTruesss;
                             }, 5000);
-                         }                          
+                          }
                           this.carcontrol = res.data.data;
                           // if(this.carcontrol.fuelPercent==undefined){
                           //       this.carcontrol.fuelPercent=''
@@ -611,11 +641,12 @@ export default {
                           //     this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
                           //   }
                           console.log(res.data.data);
-                          this.engineHoodStsFront=this.carcontrol.engineHoodStsFront
+                          this.engineHoodStsFront = this.carcontrol
+                            .engineHoodStsFront
                             ? (this.engineHoodStsFront = "已开")
                             : (this.engineHoodStsFront = "未开");
                           this.acStatus = this.carcontrol.acStatus; //空调初始状态
-                          this.skylightStatus=this.carcontrol.skylightStatus
+                          this.skylightStatus = this.carcontrol.skylightStatus
                             ? (this.skylightStatus = "已开")
                             : (this.skylightStatus = "未开"); //天窗初始状态
                           this.backnum = this.carcontrol.doorStsTrunk;
@@ -623,78 +654,78 @@ export default {
                             ? (this.doorStsTrunk = "已开")
                             : (this.doorStsTrunk = "未开"); //后备箱的初始状态
                           this.engineStatus = this.carcontrol.engineStatus;
-                           var tai = {
-                              left_top: this.carcontrol.tirePressureFrontLeft,
-                              right_top: this.carcontrol.tirePressureFrontRight,
-                              left_bottom: this.carcontrol.tirePressureRearLeft,
-                              right_bottom: this.carcontrol.tirePressureRearRight
-                            };
-                            //车门状态
-                                if(this.carcontrol.doorStsFrontLeft==1){
-                                  this.doorStsFrontLeft = "打开"
-                                }else if(this.carcontrol.doorStsFrontLeft==0){
-                                  this.doorStsFrontLeft = "关闭"
-                                }
-                                if(this.carcontrol.doorStsFrontRight==1){
-                                  this.doorStsFrontRight = "打开"
-                                }else if(this.carcontrol.doorStsFrontRight==0){
-                                  this.doorStsFrontRight = "关闭"
-                                }
-                                if(this.carcontrol.doorStsRearLeft==1){
-                                  this.doorStsRearLeft = "打开"
-                                }else if(this.carcontrol.doorStsRearLeft==0){
-                                  this.doorStsRearLeft = "关闭"
-                                }
-                                if(this.carcontrol.doorStsRearRight==1){
-                                  this.doorStsRearRight = "打开"
-                                }else if(this.carcontrol.doorStsRearRight==0){
-                                  this.doorStsRearRight = "关闭"
-                                }
-                            //车窗状态
-                              if(this.carcontrol.windowStsFrontLeft==1){
-                                  this.windowStsFrontLeft = "已打开"
-                                }else if(this.carcontrol.windowStsFrontLeft==0){
-                                  this.windowStsFrontLeft = "已关闭"
-                                }
-                                if(this.carcontrol.windowStsFrontRight==1){
-                                  this.windowStsFrontRight = "已打开"
-                                }else if(this.carcontrol.windowStsFrontRight==0){
-                                  this.windowStsFrontRight = "已关闭"
-                                }
-                                if(this.carcontrol.windowStsRearLeft==1){
-                                  this.windowStsRearLeft = "已打开"
-                                }else if(this.carcontrol.windowStsRearLeft==0){
-                                  this.windowStsRearLeft = "已关闭"
-                                }
-                                if(this.carcontrol.windowStsRearRight==1){
-                                  this.windowStsRearRight = "已打开"
-                                }else if(this.carcontrol.windowStsRearRight==0){
-                                  this.windowStsRearRight = "已关闭"
-                                }
-                            var door = {
-                              left_top: this.doorStsFrontLeft,
-                              right_top: this.doorStsFrontRight,
-                              left_bottom: this.doorStsRearLeft,
-                              right_bottom: this.doorStsRearRight
-                            };
-                            var window = {
-                              left_top: this.windowStsFrontLeft,
-                              right_top: this.windowStsFrontRight,
-                              left_bottom: this.windowStsRearLeft,
-                              right_bottom: this.windowStsRearRight
-                            };
-                            if (this.activeshow == 1) {
-                              this.Condition = tai;
-                            } else if (this.activeshow == 2) {
-                              this.Condition = door;
-                            } else if (this.activeshow == 3) {
-                              this.Condition = window;
-                            }
- 
+                          var tai = {
+                            left_top: this.carcontrol.tirePressureFrontLeft,
+                            right_top: this.carcontrol.tirePressureFrontRight,
+                            left_bottom: this.carcontrol.tirePressureRearLeft,
+                            right_bottom: this.carcontrol.tirePressureRearRight
+                          };
+                          //车门状态
+                          if (this.carcontrol.doorStsFrontLeft == 1) {
+                            this.doorStsFrontLeft = "打开";
+                          } else if (this.carcontrol.doorStsFrontLeft == 0) {
+                            this.doorStsFrontLeft = "关闭";
+                          }
+                          if (this.carcontrol.doorStsFrontRight == 1) {
+                            this.doorStsFrontRight = "打开";
+                          } else if (this.carcontrol.doorStsFrontRight == 0) {
+                            this.doorStsFrontRight = "关闭";
+                          }
+                          if (this.carcontrol.doorStsRearLeft == 1) {
+                            this.doorStsRearLeft = "打开";
+                          } else if (this.carcontrol.doorStsRearLeft == 0) {
+                            this.doorStsRearLeft = "关闭";
+                          }
+                          if (this.carcontrol.doorStsRearRight == 1) {
+                            this.doorStsRearRight = "打开";
+                          } else if (this.carcontrol.doorStsRearRight == 0) {
+                            this.doorStsRearRight = "关闭";
+                          }
+                          //车窗状态
+                          if (this.carcontrol.windowStsFrontLeft == 1) {
+                            this.windowStsFrontLeft = "已打开";
+                          } else if (this.carcontrol.windowStsFrontLeft == 0) {
+                            this.windowStsFrontLeft = "已关闭";
+                          }
+                          if (this.carcontrol.windowStsFrontRight == 1) {
+                            this.windowStsFrontRight = "已打开";
+                          } else if (this.carcontrol.windowStsFrontRight == 0) {
+                            this.windowStsFrontRight = "已关闭";
+                          }
+                          if (this.carcontrol.windowStsRearLeft == 1) {
+                            this.windowStsRearLeft = "已打开";
+                          } else if (this.carcontrol.windowStsRearLeft == 0) {
+                            this.windowStsRearLeft = "已关闭";
+                          }
+                          if (this.carcontrol.windowStsRearRight == 1) {
+                            this.windowStsRearRight = "已打开";
+                          } else if (this.carcontrol.windowStsRearRight == 0) {
+                            this.windowStsRearRight = "已关闭";
+                          }
+                          var door = {
+                            left_top: this.doorStsFrontLeft,
+                            right_top: this.doorStsFrontRight,
+                            left_bottom: this.doorStsRearLeft,
+                            right_bottom: this.doorStsRearRight
+                          };
+                          var window = {
+                            left_top: this.windowStsFrontLeft,
+                            right_top: this.windowStsFrontRight,
+                            left_bottom: this.windowStsRearLeft,
+                            right_bottom: this.windowStsRearRight
+                          };
+                          if (this.activeshow == 1) {
+                            this.Condition = tai;
+                          } else if (this.activeshow == 2) {
+                            this.Condition = door;
+                          } else if (this.activeshow == 3) {
+                            this.Condition = window;
+                          }
+
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
                           Toast({
-                            message: "指令下发成功，处理失败！",
+                            message: res.data.status,
                             position: "middle",
                             duration: 2000
                           });
@@ -703,7 +734,7 @@ export default {
                         }
                       } else {
                         Toast({
-                          message: "指令下发失败！",
+                          message:res.data.returnErrMsg,
                           position: "middle",
                           duration: 2000
                         });
@@ -740,110 +771,110 @@ export default {
               //   right_bottom: this.carcontrol.tirePressureRearRight
               // };
               // this.Condition = tai;
-               var tai = {
-                  left_top: this.carcontrol.tirePressureFrontLeft,
-                  right_top: this.carcontrol.tirePressureFrontRight,
-                  left_bottom: this.carcontrol.tirePressureRearLeft,
-                  right_bottom: this.carcontrol.tirePressureRearRight
-                };
-                //车门状态t
-                  if(this.carcontrol.doorStsFrontLeft==1){
-                    this.doorStsFrontLeft = "打开"
-                  }else if(this.carcontrol.doorStsFrontLeft==0){
-                    this.doorStsFrontLeft = "关闭"
-                  }
-                  if(this.carcontrol.doorStsFrontRight==1){
-                    this.doorStsFrontRight = "打开"
-                  }else if(this.carcontrol.doorStsFrontRight==0){
-                    this.doorStsFrontRight = "关闭"
-                  }
-                  if(this.carcontrol.doorStsRearLeft==1){
-                    this.doorStsRearLeft = "打开"
-                  }else if(this.carcontrol.doorStsRearLeft==0){
-                    this.doorStsRearLeft = "关闭"
-                  }
-                  if(this.carcontrol.doorStsRearRight==1){
-                    this.doorStsRearRight = "打开"
-                  }else if(this.carcontrol.doorStsRearRight==0){
-                    this.doorStsRearRight = "关闭"
-                  }
-                //车窗状态
-                    if(this.carcontrol.windowStsFrontLeft==1){
-                        this.windowStsFrontLeft = "已打开"
-                      }else if(this.carcontrol.windowStsFrontLeft==0){
-                        this.windowStsFrontLeft = "已关闭"
-                      }
-                      if(this.carcontrol.windowStsFrontRight==1){
-                        this.windowStsFrontRight = "已打开"
-                      }else if(this.carcontrol.windowStsFrontRight==0){
-                        this.windowStsFrontRight = "已关闭"
-                      }
-                      if(this.carcontrol.windowStsRearLeft==1){
-                        this.windowStsRearLeft = "已打开"
-                      }else if(this.carcontrol.windowStsRearLeft==0){
-                        this.windowStsRearLeft = "已关闭"
-                      }
-                      if(this.carcontrol.windowStsRearRight==1){
-                        this.windowStsRearRight = "已打开"
-                      }else if(this.carcontrol.windowStsRearRight==0){
-                        this.windowStsRearRight = "已关闭"
-                      }
-                var door = {
-                  left_top: this.doorStsFrontLeft,
-                  right_top: this.doorStsFrontRight,
-                  left_bottom: this.doorStsRearLeft,
-                  right_bottom: this.doorStsRearRight
-                };
-                var window = {
-                  left_top: this.windowStsFrontLeft,
-                  right_top: this.windowStsFrontRight,
-                  left_bottom: this.windowStsRearLeft,
-                  right_bottom: this.windowStsRearRight
-                };
-                if (this.activeshow == 1) {
-                  this.Condition = tai;
-                } else if (this.activeshow == 2) {
-                  this.Condition = door;
-                } else if (this.activeshow == 3) {
-                  this.Condition = window;
-                }
-                  if(this.type==1){
-                              this.isTrue = !this.isTrue;
-                              this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
-                          }
-                          if(this.type==2){
-                              this.isTrues = !this.isTrues;
-                          }                          
-                          if(this.type==3){
-                              this.isTruess = !this.isTruess;
-                              this.isTruess ? (this.firenum = 1) : (this.firenum = 2);
-                          }                          
-                          if(this.type==4){
-                              this.isTruesss = !this.isTruesss;
-                              setTimeout(() => {
-                                this.isTruesss = !this.isTruesss;
-                              }, 5000);
-                      }
+              var tai = {
+                left_top: this.carcontrol.tirePressureFrontLeft,
+                right_top: this.carcontrol.tirePressureFrontRight,
+                left_bottom: this.carcontrol.tirePressureRearLeft,
+                right_bottom: this.carcontrol.tirePressureRearRight
+              };
+              //车门状态t
+              if (this.carcontrol.doorStsFrontLeft == 1) {
+                this.doorStsFrontLeft = "打开";
+              } else if (this.carcontrol.doorStsFrontLeft == 0) {
+                this.doorStsFrontLeft = "关闭";
+              }
+              if (this.carcontrol.doorStsFrontRight == 1) {
+                this.doorStsFrontRight = "打开";
+              } else if (this.carcontrol.doorStsFrontRight == 0) {
+                this.doorStsFrontRight = "关闭";
+              }
+              if (this.carcontrol.doorStsRearLeft == 1) {
+                this.doorStsRearLeft = "打开";
+              } else if (this.carcontrol.doorStsRearLeft == 0) {
+                this.doorStsRearLeft = "关闭";
+              }
+              if (this.carcontrol.doorStsRearRight == 1) {
+                this.doorStsRearRight = "打开";
+              } else if (this.carcontrol.doorStsRearRight == 0) {
+                this.doorStsRearRight = "关闭";
+              }
+              //车窗状态
+              if (this.carcontrol.windowStsFrontLeft == 1) {
+                this.windowStsFrontLeft = "已打开";
+              } else if (this.carcontrol.windowStsFrontLeft == 0) {
+                this.windowStsFrontLeft = "已关闭";
+              }
+              if (this.carcontrol.windowStsFrontRight == 1) {
+                this.windowStsFrontRight = "已打开";
+              } else if (this.carcontrol.windowStsFrontRight == 0) {
+                this.windowStsFrontRight = "已关闭";
+              }
+              if (this.carcontrol.windowStsRearLeft == 1) {
+                this.windowStsRearLeft = "已打开";
+              } else if (this.carcontrol.windowStsRearLeft == 0) {
+                this.windowStsRearLeft = "已关闭";
+              }
+              if (this.carcontrol.windowStsRearRight == 1) {
+                this.windowStsRearRight = "已打开";
+              } else if (this.carcontrol.windowStsRearRight == 0) {
+                this.windowStsRearRight = "已关闭";
+              }
+              var door = {
+                left_top: this.doorStsFrontLeft,
+                right_top: this.doorStsFrontRight,
+                left_bottom: this.doorStsRearLeft,
+                right_bottom: this.doorStsRearRight
+              };
+              var window = {
+                left_top: this.windowStsFrontLeft,
+                right_top: this.windowStsFrontRight,
+                left_bottom: this.windowStsRearLeft,
+                right_bottom: this.windowStsRearRight
+              };
+              if (this.activeshow == 1) {
+                this.Condition = tai;
+              } else if (this.activeshow == 2) {
+                this.Condition = door;
+              } else if (this.activeshow == 3) {
+                this.Condition = window;
+              }
+              if (this.type == 1) {
+                this.isTrue = !this.isTrue;
+                this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
+              }
+              if (this.type == 2) {
+                this.isTrues = !this.isTrues;
+              }
+              if (this.type == 3) {
+                this.isTruess = !this.isTruess;
+                this.isTruess ? (this.firenum = 1) : (this.firenum = 2);
+              }
+              if (this.type == 4) {
+                this.isTruesss = !this.isTruesss;
+                setTimeout(() => {
+                  this.isTruesss = !this.isTruesss;
+                }, 5000);
+              }
               clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
-                message: "指令下发成功，处理失败！",
+                message: res.data.returnErrMsg,
                 position: "middle",
                 duration: 2000
               });
-               clearInterval(this.time);
+              clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             }
           } else {
             // alert(4)
             Toast({
-              message: "指令下发失败！",
+              message: res.data.returnErrMsg,
               position: "middle",
               duration: 2000
             });
-             clearInterval(this.time);
-             this.$store.dispatch("LOADINGFLAG", false);
+            clearInterval(this.time);
+            this.$store.dispatch("LOADINGFLAG", false);
           }
         });
     },
@@ -853,35 +884,36 @@ export default {
       this.activeshow = 1;
     },
     //车辆授权状态
-    vehiclestatus(){
-				this.$http.post(Lovecar.vehiclestatus,{},this.$store.state.tsppin).then((res)=>{
-          
-					if(res.data.returnSuccess){
+    vehiclestatus() {
+      this.$http
+        .post(Lovecar.vehiclestatus, {}, this.$store.state.tsppin)
+        .then(res => {
+          if (res.data.returnSuccess) {
             // let arr=res.data.data
             // arr.forEach(function(ii,index){
             //   console.log(ii,index)
-            //   if(ii.isLocking===true){    
+            //   if(ii.isLocking===true){
             //     this.Rajtigo=!this.Rajtigo
             //     this.vehicleState=ii.vin
             //   }
             // });
-            for(let i=0;i<res.data.data.length;i++){
-              if(res.data.data[i].isLocking==true){
-                this.Rajtigo=!this.Rajtigo
-                this.vehicleState=res.data.data[i].vin
+            for (let i = 0; i < res.data.data.length; i++) {
+              if (res.data.data[i].isLocking == true) {
+                this.Rajtigo = !this.Rajtigo;
+                this.vehicleState = res.data.data[i].vin;
               }
             }
             // this.Rajtigo=res.data.data[0].isLocking  //isLocking:true 代表已授权
-						// this.vehicleState=res.data.data[0].vin
-					}
-				})
-			},
+            // this.vehicleState=res.data.data[0].vin
+          }
+        });
+    }
   },
-  filters:{
-      changenum(value){
-        value=Math.round(value*100)
-        return value
-      }
+  filters: {
+    changenum(value) {
+      value = Math.round(value * 100);
+      return value;
+    }
   },
   computed: {
     userId() {
@@ -1074,19 +1106,19 @@ export default {
       }
     },
     userId(newVal, oldVal) {
-      this.vehiclestatus()
-      this.tspid=this.$store.state.tspId
-        if(this.$store.state.tspId==undefined){
-        this.tspid=0
+      this.vehiclestatus();
+      this.tspid = this.$store.state.tspId;
+      if (this.$store.state.tspId == undefined) {
+        this.tspid = 0;
       }
       this.$http
         .post(
           My.My_Bus,
           {
             userId: this.$store.state.userId,
-            aaaUserID:this.$store.state.aaaid,
+            aaaUserID: this.$store.state.aaaid,
             phone: this.$store.state.mobile,
-            tspUserId:this.tspid
+            tspUserId: this.tspid
           },
           this.$store.state.tsppin
         )
@@ -1102,7 +1134,7 @@ export default {
             // alert(1)
             this.BusDetails = res.data.data;
             for (let i = 0; i < res.data.data.length; i++) {
-              if (res.data.data[i].def == 1) {
+              if (res.data.data[i].def == 1||res.data.data[i].defToNathor==1) {
                 this.carsysitem = res.data.data[i].seriesName;
                 // console.log(res.data.data[i].vin);
                 var payload = res.data.data[i].vin;
@@ -1112,7 +1144,7 @@ export default {
               // }
             }
             this.vinn = this.$store.state.vins;
-            this.Support()
+            this.Support();
             // console.log(this.vinn)
             this.Carquerry();
             // console.log(this.$store.state.mytoken.headers.timaToken);
@@ -1121,21 +1153,21 @@ export default {
     }
   },
   mounted() {
-    $(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
-    if(this.userId){
-      this.vehiclestatus()
-      this.tspid=this.$store.state.tspId
-       if(this.$store.state.tspId==undefined){
-          this.tspid=0
-        }
-     this.$http
+    $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
+    if (this.userId) {
+      this.vehiclestatus();
+      this.tspid = this.$store.state.tspId;
+      if (this.$store.state.tspId == undefined) {
+        this.tspid = 0;
+      }
+      this.$http
         .post(
           My.My_Bus,
           {
             userId: this.$store.state.userId,
             phone: this.$store.state.mobile,
-            tspUserId:this.tspid,
-            aaaUserID:this.$store.state.aaaid,
+            tspUserId: this.tspid,
+            aaaUserID: this.$store.state.aaaid
           },
           this.$store.state.tsppin
         )
@@ -1143,466 +1175,471 @@ export default {
           if (res.data.returnSuccess) {
             this.BusDetails = res.data.data;
             for (let i = 0; i < res.data.data.length; i++) {
-              if (res.data.data[i].def == 1) {            
+              if (res.data.data[i].def == 1||res.data.data[i].defToNathor==1) {
                 this.carsysitem = res.data.data[i].seriesName || null;
                 var payload = res.data.data[i].vin;
-                this.defaultvin=res.data.data[i].vin;
-                this.$store.state.brandName=res.data.data[i].brandName
-                console.log('获取默认车辆vin码:'+ this.defaultvin)
+                this.defaultvin = res.data.data[i].vin;
+                this.$store.state.brandName = res.data.data[i].brandName;
+                console.log("获取默认车辆vin码:" + this.defaultvin);
                 this.$store.dispatch("CARVINS", payload);
                 //获取机车 登录登出状态
-  //  	       this.getCarLoginState()
-               }
+                //  	       this.getCarLoginState()
               }
+            }
             this.vinn = this.$store.state.vins;
-            this.Support()
+            this.Support();
             this.Carquerry();
-          }else{
-              Toast({
-                message: res.data.returnErrMsg,
-                position: "middle",
-                duration: 2000
-              });
+          } else {
+            Toast({
+              message: res.data.returnErrMsg,
+              position: "middle",
+              duration: 2000
+            });
           }
         });
     }
-      
   }
 };
-
 </script>
 <style scoped>
-	.mint-popup {
-		border-radius: 0.1rem;
-	}
-	.lovecar {
-		position: fixed;
-		top: 0;
-		width: 100%;
-	}
-	.pin-code {
-		height: 2rem;
-		width: 100%;
-	}
-	
-	.pin-code>div>input {
-		display: block;
-		width: 5.6rem;
-		height: 0.94rem;
-		text-indent: 0.4rem;
-		letter-spacing: 0.77rem;
-		border: none;
-		outline: none;
-		background: url(../../../static/images/Lovecar/border@2x.png) no-repeat center;
-		background-size: 100%;
-	}
-	
-	.typer {
-		position: fixed;
-		bottom: 0;
-		background-color: #fff;
-		height: 4.5rem;
-		width: 100%;
-		padding-top: 0.1rem;
-		z-index: 3001;
-	}
-	
-	.typer li {
-		float: left;
-		height: 0.7rem;
-		margin: 0.1rem 0.05rem 0;
-		color: #333;
-		text-align: center;
-		font-size: 0.32rem;
-		line-height: 0.7rem;
-		background-color: #ccc;
-		-webkit-border-radius: 0.1rem;
-		-moz-border-radius: 0.1rem;
-		border-radius: 0.1rem;
-	}
-	
-	.typer li.typer-num {
-		width: 31%;
-		background-image: -webkit-linear-gradient( 125deg, #147b96, #e6d205 25%, #147b96 50%, #e6d205 75%, #147b96);
-		-webkit-text-fill-color: transparent;
-		-webkit-background-clip: text;
-		-webkit-background-size: 200% 100%;
-		-webkit-animation: masked-animation 4s infinite linear;
-	}
-	
-	.typer li.typer-num.is-A {
-		margin-left: 0.31rem;
-	}
-	
-	.typer li.typer-num.is-OK {
-		width: 0.8rem;
-		margin-left: 0.1rem;
-	}
-	
-	@-webkit-keyframes masked-animation {
-		0% {
-			background-position: 0 0;
-		}
-		100% {
-			background-position: -100% 0;
-		}
-	}
-	
-	.yy {
-		flex-wrap: wrap;
-		justify-content: center;
-		height: 100%;
-	}
-	/* 左上角弹框 */
-	
-	.mask {
-		width: 100%;
-		height: 100%;
-		opacity: 0.5;
-		background: #000;
-		position: fixed;
-		top: 0;
-		left: 0;
-		z-index: 999;
-	}
-	
-	.mask_content {
-		position: fixed;
-		top: 28%;
-		left: 50%;
-		right: 50%;
-		transform: translate3d(-50%, -50%, 0);
-		background-color: #fff;
-		height: 4.1rem;
-		width: 90%;
-		z-index: 10000;
-		border-radius: 3px;
-	}
-	
-	.cancel {
-		position: fixed;
-		z-index: 10000;
-		top: 1rem;
-		left: 0.3rem;
-	}
-	
-	.tipcontent {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		flex-wrap: wrap;
-		box-sizing: border-box;
-	}
-	
-	.tipcontent li {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		width: 25%;
-		margin-top: 0.3rem;
-	}
-	
-	.tipcontent li img {
-		width: 0.4rem;
-		display: block;
-	}
-	
-	.tipcontent li span {
-		color: #444;
-		font-size: 0.22rem;
-		margin-top: 0.23rem;
-	}
-	/*  */
-	
-	#wrap {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		padding: 0.4rem 0;
-	}
-	
-	#wrap input[type="text"] {
-		width: 20%;
-		height: 0.7rem;
-		float: left;
-		text-align: center;
-	}
-	
-	.one {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		padding: 0.4rem 0;
-	}
-	
-	.one input {
-		width: 20%;
-		height: 0.7rem;
-	}
-	
-	input:focus {
-		outline: none;
-	}
-	
-	.con {
-		width: 6rem;
-		height: 3rem;
-		padding: 0.2rem 0.4rem;
-	}
-	
-	.del {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		background-color: #fff;
-		justify-content: space-between;
-		border-bottom: 1px solid #f1f1f1;
-		height: 0.88rem;
-	}
-	
-	.sure {
-		margin-bottom: 0.16rem;
-		color: #555;
-	}
-	
-	.active {
-		color: #49bbff;
-	}
-	
-	.act {
-		color: #49bbff;
-		font-size: 0.22rem;
-		margin-top: 0.12rem;
-	}
-	
-	.actives {
-		color: #ccc !important;
-	}
-	
-	.bus_l {
-		position: relative;
-	}
-	
-	.busl_r {
-		position: absolute;
-		font-size: 0.25rem;
-		color: #49bbff;
-	}
-	
-	.left_1 {
-		left: -0.6rem;
-		top: 1.5rem;
-	}
-	
-	.left_2 {
-		left: -0.6rem;
-		top: 3rem;
-	}
-	
-	.right_1 {
-		right: -1rem;
-		top: 1.5rem;
-	}
-	
-	.right_2 {
-		right: -1rem;
-		top: 3rem;
-	}
-	
-	.top_1 {
-		top: 0.8rem;
-		left: 0.8rem;
-		font-size: 0.24rem;
-	}
-	
-	.bottom_1 {
-		bottom: 1.1rem;
-		left: 0.8rem;
-		font-size: 0.24rem;
-	}
-	
-	.middle_1 {
-		bottom: 2.5rem;
-		left: 0.8rem;
-		color: #49bbff;
-		font-size: 0.24rem;
-	}
-	
-	.tophead {
-		/*position: absolute;*/
-		height: 2.9rem;
-		width: 100%;
-		background-image: url("../../../static/images/Lovecar/bg.png");
-		display: block;
-		background-size: content;
-		z-index: 1;
-	}
-	
-	.nav {
-		display: flex;
-		/*position: fixed;
+.mint-popup {
+  border-radius: 0.1rem;
+}
+.lovecar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.pin-code {
+  height: 2rem;
+  width: 100%;
+}
+
+.pin-code > div > input {
+  display: block;
+  width: 5.6rem;
+  height: 0.94rem;
+  text-indent: 0.4rem;
+  letter-spacing: 0.77rem;
+  border: none;
+  outline: none;
+  background: url(../../../static/images/Lovecar/border@2x.png) no-repeat center;
+  background-size: 100%;
+}
+
+.typer {
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+  height: 4.5rem;
+  width: 100%;
+  padding-top: 0.1rem;
+  z-index: 3001;
+}
+
+.typer li {
+  float: left;
+  height: 0.7rem;
+  margin: 0.1rem 0.05rem 0;
+  color: #333;
+  text-align: center;
+  font-size: 0.32rem;
+  line-height: 0.7rem;
+  background-color: #ccc;
+  -webkit-border-radius: 0.1rem;
+  -moz-border-radius: 0.1rem;
+  border-radius: 0.1rem;
+}
+
+.typer li.typer-num {
+  width: 31%;
+  background-image: -webkit-linear-gradient(
+    125deg,
+    #147b96,
+    #e6d205 25%,
+    #147b96 50%,
+    #e6d205 75%,
+    #147b96
+  );
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-background-size: 200% 100%;
+  -webkit-animation: masked-animation 4s infinite linear;
+}
+
+.typer li.typer-num.is-A {
+  margin-left: 0.31rem;
+}
+
+.typer li.typer-num.is-OK {
+  width: 0.8rem;
+  margin-left: 0.1rem;
+}
+
+@-webkit-keyframes masked-animation {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.yy {
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 100%;
+}
+/* 左上角弹框 */
+
+.mask {
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  background: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+.mask_content {
+  position: fixed;
+  top: 28%;
+  left: 50%;
+  right: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  background-color: #fff;
+  height: 4.1rem;
+  width: 90%;
+  z-index: 10000;
+  border-radius: 3px;
+}
+
+.cancel {
+  position: fixed;
+  z-index: 10000;
+  top: 1rem;
+  left: 0.3rem;
+}
+
+.tipcontent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.tipcontent li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+  margin-top: 0.3rem;
+}
+
+.tipcontent li img {
+  width: 0.4rem;
+  display: block;
+}
+
+.tipcontent li span {
+  color: #444;
+  font-size: 0.22rem;
+  margin-top: 0.23rem;
+}
+/*  */
+
+#wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.4rem 0;
+}
+
+#wrap input[type="text"] {
+  width: 20%;
+  height: 0.7rem;
+  float: left;
+  text-align: center;
+}
+
+.one {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.4rem 0;
+}
+
+.one input {
+  width: 20%;
+  height: 0.7rem;
+}
+
+input:focus {
+  outline: none;
+}
+
+.con {
+  width: 6rem;
+  height: 3rem;
+  padding: 0.2rem 0.4rem;
+}
+
+.del {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #fff;
+  justify-content: space-between;
+  border-bottom: 1px solid #f1f1f1;
+  height: 0.88rem;
+}
+
+.sure {
+  margin-bottom: 0.16rem;
+  color: #555;
+}
+
+.active {
+  color: #49bbff;
+}
+
+.act {
+  color: #49bbff;
+  font-size: 0.22rem;
+  margin-top: 0.12rem;
+}
+
+.actives {
+  color: #ccc !important;
+}
+
+.bus_l {
+  position: relative;
+}
+
+.busl_r {
+  position: absolute;
+  font-size: 0.25rem;
+  color: #49bbff;
+}
+
+.left_1 {
+  left: -0.6rem;
+  top: 1.5rem;
+}
+
+.left_2 {
+  left: -0.6rem;
+  top: 3rem;
+}
+
+.right_1 {
+  right: -1rem;
+  top: 1.5rem;
+}
+
+.right_2 {
+  right: -1rem;
+  top: 3rem;
+}
+
+.top_1 {
+  top: 0.6rem;
+  left: 0.8rem;
+  font-size: 0.24rem;
+}
+
+.bottom_1 {
+  bottom:.5rem;
+  left: 0.8rem;
+  font-size: 0.24rem;
+}
+
+.middle_1 {
+  bottom: 2.1rem;
+  left: 0.8rem;
+  color: #49bbff;
+  font-size: 0.24rem;
+}
+
+.tophead {
+  /*position: absolute;*/
+  height: 2.9rem;
+  width: 100%;
+  background-image: url("../../../static/images/Lovecar/bg.png");
+  display: block;
+  background-size: content;
+  z-index: 1;
+}
+
+.nav {
+  display: flex;
+  /*position: fixed;
 		top: 0;
 		left: 0;*/
-		flex-direction: row;
-		align-items: center;
-		height: 0.88rem;
-		justify-content: space-between;
-		padding: 0 0.5rem;
-	}
-	
-	.left_bus {
-		display: flex;
-		flex-direction: column;
-	}
-	.content_carDoor {
-		width: .35rem;
-		height: .29rem;
-	}
-	.tailgate {
-		width: .44rem;
-	} 
-	.Flameout {
-		width: .31rem;
-		height: .35rem;
-	}
-	
-	.content_pic {
-		width: 0.35rem;
-		height: 0.35rem;
-	}
-	
-	.lines {
-		border-bottom: 1px solid #f1f1f1;
-	}
-	
-	.left_bus1 {
-		display: flex;
-		flex-direction: column;
-		height: 4.75rem;
-		justify-content: space-around;
-		align-items: center;
-		padding-right: 0.6rem;
-		padding-left: 0.2rem;
-	}
-	
-	.txt_m {
-		font-size: 0.34rem;
-		color: #fff;
-	}
-	
-	.activess {
-		color: #444;
-		font-size: 0.22rem;
-		margin-top: 0.12rem;
-	}
-	
-	.txt_r {
-		font-size: 0.25rem;
-		color: #fff;
-	}
-	
-	.bus_righgt {
-		/* width: 1.99rem; */
-		height: 4.24rem;
-		margin-right: -0.5rem;
-	}
-	
-	.left_bus .pic1 {
-		width: 0.4rem;
-		height: 0.4rem;
-	}
-	
-	.left_bus .txt1 {
-		font-size: 0.26rem;
-		margin-top: 0.17rem;
-	}
-	
-	.navs {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-around;
-		align-items: center;
-	}
-	
-	.content {
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
-	}
-	
-	.content_1 {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: 0.31rem 0;
-	}
-	
-	.navs_h {
-		height: 2rem;
-	}
-	
-	.navs_t {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		align-items: center;
-	}
-	
-	.num {
-		color: #fff;
-		font-size: 0.28rem;
-	}
-	
-	.txt {
-		color: #fff;
-		font-size: 0.23rem;
-		margin-top: 0.18rem;
-	}
-	
-	.air {
-		height: 1.2rem;
-		border-bottom: 1px solid #f1f1f1;
-		justify-content: space-between;
-	}
-	
-	.picc {
-		width: 0.34rem;
-		height: .38rem;
-		display: block;
-		margin-left: 0.65rem;
-		margin-right: 0.51rem;
-	}
-	.air_contr {
-		width: .26rem;
-    height: .4rem;
-	}
-	
-	.skylight {
-		width: .34rem;
-		height: .38rem;
-	}
-	
-	.pic_r {
-		width: 0.3rem;
-		display: block;
-		margin-right: 0.4rem;
-	}
-	
-	.pic_txt {
-		font-size: 0.28rem;
-		color: #444;
-	}
-	
-	.line_x {
-		width: 0.17rem;
-		padding-top: 0.4rem;
-	}
-	
-	#can {
-		position: fixed;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		z-index: 9999999;
-	}
+  flex-direction: row;
+  align-items: center;
+  height: 0.88rem;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+}
+
+.left_bus {
+  display: flex;
+  flex-direction: column;
+}
+.content_carDoor {
+  width: 0.35rem;
+  height: 0.29rem;
+}
+.tailgate {
+  width: 0.44rem;
+}
+.Flameout {
+  width: 0.31rem;
+  height: 0.35rem;
+}
+
+.content_pic {
+  width: 0.35rem;
+  height: 0.35rem;
+}
+
+.lines {
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.left_bus1 {
+  display: flex;
+  flex-direction: column;
+  height: 4.75rem;
+  justify-content: space-around;
+  align-items: center;
+  padding-right: 0.6rem;
+  padding-left: 0.2rem;
+}
+
+.txt_m {
+  font-size: 0.34rem;
+  color: #fff;
+}
+
+.activess {
+  color: #444;
+  font-size: 0.22rem;
+  margin-top: 0.12rem;
+}
+
+.txt_r {
+  font-size: 0.25rem;
+  color: #fff;
+}
+
+.bus_righgt {
+  /* width: 1.99rem; */
+  height: 4.24rem;
+  margin-right: -0.5rem;
+}
+
+.left_bus .pic1 {
+  width: 0.4rem;
+  height: 0.4rem;
+}
+
+.left_bus .txt1 {
+  font-size: 0.26rem;
+  margin-top: 0.17rem;
+}
+
+.navs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.content_1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.31rem 0;
+}
+
+.navs_h {
+  height: 2rem;
+}
+
+.navs_t {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.num {
+  color: #fff;
+  font-size: 0.28rem;
+}
+
+.txt {
+  color: #fff;
+  font-size: 0.23rem;
+  margin-top: 0.18rem;
+}
+
+.air {
+  height: 1.2rem;
+  border-bottom: 1px solid #f1f1f1;
+  justify-content: space-between;
+}
+
+.picc {
+  width: 0.34rem;
+  height: 0.38rem;
+  display: block;
+  margin-left: 0.65rem;
+  margin-right: 0.51rem;
+}
+.air_contr {
+  width: 0.26rem;
+  height: 0.4rem;
+}
+
+.skylight {
+  width: 0.34rem;
+  height: 0.38rem;
+}
+
+.pic_r {
+  width: 0.3rem;
+  display: block;
+  margin-right: 0.4rem;
+}
+
+.pic_txt {
+  font-size: 0.28rem;
+  color: #444;
+}
+
+.line_x {
+  width: 0.17rem;
+  padding-top: 0.4rem;
+}
+
+#can {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999999;
+}
 </style>

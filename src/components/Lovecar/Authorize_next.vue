@@ -18,7 +18,7 @@
                 </div> -->
                 <div>
                     <span style="font-size:.26rem;color:#555;">账号：</span>
-                    <span style="font-size:.34rem;color:#222">{{this.toAuthperson}}</span>
+                    <span style="font-size:.34rem;color:#222">{{this.count}}</span>
                 </div>
             </div>
         </div>
@@ -65,12 +65,11 @@ export default {
   },
    mounted() {
     // alert(JSON.stringify(this.$store.state.tsppin))
-    if (!this.$route.params.count) {
+    if (this.$route.params.count) {
       this.count = this.$route.params.count;
     this.gettime = this.$route.params.a;
     this.overtime = this.$route.params.b;
-    }
-    if (this.gettime == undefined) {
+    }else{
       this.vehiclestatus();
     }
     this.userName = this.$store.state.userName;
@@ -149,6 +148,11 @@ export default {
                       position: "middle",
                       duration: 2000
                     });
+                     if (isMobile.iOS()) {
+                          window.webkit.messageHandlers.gotoMyIndex.postMessage();
+                        } else if (isMobile.Android()) {
+                          js2android.gotoMyIndex();
+                        }
                     setTimeout(() => {
                       this.$router.push("/myindex");
                     }, 2000);

@@ -55,6 +55,7 @@ export default {
     submit() {
       let param = {
         vin: this.$store.state.vins,
+        phone:this.$store.state.mobile,
         //vin: 'LJ12EKS10J00001S4',
         packetId: this.placeOrder.packageId
       };

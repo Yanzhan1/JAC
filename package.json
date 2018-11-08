@@ -14,8 +14,10 @@
     "build-prod": "cross-env NODE_ENV=production node build/build.js"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "better-scroll": "^1.13.2",
     "clipboard": "^2.0.1",
+    "es6-promise": "^4.2.5",
     "jquery": "^1.11.1",
     "js-md5": "^0.7.3",
     "mint-ui": "^2.2.9",

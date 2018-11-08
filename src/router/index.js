@@ -84,6 +84,7 @@ import Informations from '../components/news/information.vue'
 import Info_details from '../components/news/info_details.vue'
 import Activitys from '../components/news/activitys.vue'
 import Comments from '../components/news/comments.vue'
+import Others from '../components/news/others.vue'
 //发现部分
 import Discover from '@/components/discover/discover'
 import Header from '@/components/Header' // 发现头部
@@ -556,6 +557,11 @@ const router = new Router({
                 path: "/stynew",
                 name: '系统消息',
                 component: StyNews
+            },
+            {
+                path: "/info/others",
+                name: '其他消息',
+                component: Others
             },
             {
                 path: "/activenew",

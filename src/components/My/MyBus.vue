@@ -12,8 +12,8 @@
       <li class="bus-content flex-center-between" v-for="(item,index) in BusDetails" :key="index">
         <div class="bus-left">
           <div class="bus-name flex-align-center">
-            <label for="foot-check" class="input-label deft_0" :class="{active:item.def==1}" @click="setOneDefault(item.vin,item.def,item.beAuthorized)"> </label>
-            <span style="color: #49BBFF;">{{item.vehicleName}}{{item.def==1?'（默认）':''}}</span>
+            <label for="foot-check" class="input-label deft_0" :class="{active:item.def==1||item.defToNathor}" @click="setOneDefault(item.vin,item.def,item.beAuthorized)"> </label>
+            <span style="color: #49BBFF;">{{item.vehicleName}}{{item.def==1||item.defToNathor==1?'（默认）':''}}</span>
           </div>
           <img :src="item.imageUrl" alt="" />
         </div>
@@ -92,7 +92,7 @@ export default {
             this.BusDetails = res.data.data;
             console.log(this.BusDetails);
             for (let i = 0; i < res.data.data.length; i++) {
-              if (res.data.data[i].def == 1) {
+              if (res.data.data[i].def == 1||res.data.data[i].defToNathor==1) {
                 this.$store.state.vins = res.data.data[i].vin;
               }
             }
