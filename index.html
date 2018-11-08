@@ -23,8 +23,8 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
     <script type="text/javascript">
-        const ModalHelper = (function(bodyCls){ //解决遮罩层滚动穿透问题，分别在遮罩层弹出后和关闭前调用
-            let scrollTop;
+        var ModalHelper = (function(bodyCls){ //解决遮罩层滚动穿透问题，分别在遮罩层弹出后和关闭前调用
+            var scrollTop;
             return {
                 afterOpen: function() {
                     scrollTop = document.scrollingElement.scrollTop;
