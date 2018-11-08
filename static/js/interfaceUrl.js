@@ -19,14 +19,14 @@ var rec = host + '/api/jac-enjoy-service/'
 var waiwangip = window.location.protocol + host + '/JACH5/#/';
 var filestore = host + '/api/dk-filestore-svr'
     //首页
-window.INDEXMESSAGE = {
+var INDEXMESSAGE = {
     getRecommend: indexip + '/recommend/recommendList', //首页-推荐
     getInfomation: indexip + '/information/indexList', //首页-资讯
     getActivity: indexip + '/activity/indexList', //首页-活动
     getNow: indexip + '/moment/indexList', //首页-此刻
     getQuestion: indexip + '/question/indexList', //首页-问答
 }
-window.DISCOVERMESSAGE = {
+var DISCOVERMESSAGE = {
         /*标签*/
         getLabels: indexip + '/label/getLabels', //获取标签
         /*资讯*/
@@ -103,7 +103,7 @@ window.DISCOVERMESSAGE = {
         getOneComment: indexip + '/userComment/getOneComment', //进入评论页获取当前评论所有回复
     }
     // 智享
-window.Wit = {
+var Wit = {
         searchVehicleSeriesOne: mip + '/vehicleSeries/searchVehicleSeriesOne', //车系和配置参数查询
         MainBus: mip + '/vehicleBrand/selectVehicleSeriesByBrand', //全部车型 主推车型
         Dealer: mip + '/dealerVehicleModel/searchDealerVehicleModelListPage', //经销列表商查询
@@ -130,7 +130,7 @@ window.Wit = {
         ValidateCode: mips + 'admin/recommendedCode/validateCode' //验证推荐码
     }
     //我的 部分
-window.My = {
+var My = {
         UserInfo: mips + '/admin/userBaseInformation/searchUserBaseInformationOne', //我的首页 用户基本信息
         IsSignIn: jf + 'api/pluto-membership/pluto-membership/integral-gather/is-sign', //判断用户今天是否签到
         SignIn: jf + '/api/pluto-membership/pluto-membership/integral-gather/addintegral-signIn', //签到
@@ -159,7 +159,7 @@ window.My = {
 
     }
     //爱车
-window.Lovecar = {
+var Lovecar = {
         Support: love_car + '/vehicle/vehicle-support-function', //tsp用户返回所具有的车况功能
         vehicle: love_car + '/vehicle/sync-tsp-vehicle', //给后端同步车辆接口
         TSP: mips + 'admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne', //获取tsp用户
@@ -191,7 +191,7 @@ window.Lovecar = {
 
     }
     //消息接口
-window.IMFORMATION = {
+var IMFORMATION = {
         getList: indexip + '/sendMessageController/getList', //通知list
         commentRequest: indexip + '/userComment/commentRequest', //获取评论列表lid与类型进行跳转
         read: indexip + '/sendMessageController/read', //通知已读
@@ -205,6 +205,6 @@ window.IMFORMATION = {
         getReadFlag: indexip + '/sendMessageController/getReadFlag' //大连部分判断红点有无的接口
     }
     //文件服务器接口
-window.FILESTORE = {
+var FILESTORE = {
     uploadPicture: filestore + '/filestore/v1/picture' // 文件服务器上传图片地址
 }
