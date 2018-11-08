@@ -77,7 +77,7 @@
 								<img src="../../../static/images/next@2x.png" alt="">
 							</div>
 						</div>
-						<div class="flex row between bt">
+						<!-- <div class="flex row between bt">
 							<span></span>
 							<div v-if="item.paymentStatus">
 								<span class="cancel" :class=" item.paymentStatus == 1 ? 'active' : ''">付款</span>
@@ -87,7 +87,7 @@
 								<span class="cancel">再次充值</span>
 								<span class="cancel">删除订单</span>
 							</div>							
-						</div>
+						</div> -->
 					</router-link >
 				</ul>
 			<!-- </mt-tab-container-item>
