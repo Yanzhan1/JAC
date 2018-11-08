@@ -7,7 +7,7 @@
         </header>
 				<!-- <mhead currentTitle="活动" class="MobileHeight"></mhead> -->
         <div style="margin:.4rem;margin-top:1.5rem;text-align: center" v-show="this.noactivity">暂无活动信息</div>
-      <mt-loadmore  :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="20">
+      <mt-loadmore v-show="!this.noactivity"  :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="20">
         <!-- <div slot="top" class="mint-loadmore-top">
           <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }" style="font-size: 0.3rem">下拉刷新</span>
           <span v-show="topStatus === 'loading'">Loading...</span>
@@ -35,7 +35,7 @@
          </div>
       </mt-loadmore>
       <div style="height: 2rem;"></div>
-      <p id="showAll2">已加载全部</p>
+      <!-- <p id="showAll2">已加载全部</p> -->
     </div>
 </template>
 <script>
@@ -71,7 +71,7 @@ export default {
     //   this.$router.push("/info/info_details");
     },
     loadTop() {
-      this.init();
+      this.getNextList();
       this.$refs.loadmore.onTopLoaded();
     },
     //1，通知 2、评论 3、活动
