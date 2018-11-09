@@ -65,7 +65,7 @@
         <img v-else class="content_carDoor" src="../../../static/images/Wit/button4@3x.png" alt="">
         <span :class="activeshows==this.isTrue?'act':'activess'">车门</span>
       </div>
-      <div class="content_1" @click="backbox">
+      <div v-show="this.TRUNK" class="content_1" @click="backbox">
         <img v-if="activeshows==this.isTrues" class="tailgate" src="../../../static/images/Wit/button5@3x_86.png" alt="">
         <img v-else class="tailgate" src="../../../static/images/Wit/button5@3x.png" alt="">
         <span :class="activeshows==this.isTrues?'act':'activess'">尾门</span>
@@ -411,7 +411,7 @@ export default {
               this.Aircondtion_electricity = true;
             } else if (value.code == "PURIFICATION") {
               this.PURIFICTION = true;
-            } else if (value.code == "SEAT_HEAT||SEAT_VENTILATION") {
+            } else if (value.code == "SEAT_HEAT"||"SEAT_VENTILATION") {
               this.HOSTSEAT_HEAT = true;
             } else if (value.code == "CAR_INFO") {
               this.CAR_INFO = true;
@@ -431,7 +431,7 @@ export default {
               this.CONTROL_AUTH = true;
             } else if (value.code == "WIFI") {
               this.WIFI = true;
-            } else if (value.code == "REAL_TIME_VIDEO_VIEW") {
+            } else if (value.code == "REAL_TIME_VIDEO_VIEW"||"TACHOGRAPH") {
               this.REAL_TIME_VIDEO_VIEW = true;
             
             } else if (value.code == "ELECTRIC_FENCE") {
@@ -439,6 +439,9 @@ export default {
             
             } else if (value.code == "FIND_VEHICLE") {
               this.FIND_VEHICLE = true;
+            
+            } else if (value.code == "TRUNK") {
+              this.TRUNK = true;
             }
           }
         });
