@@ -65,7 +65,7 @@
         <img v-else class="content_carDoor" src="../../../static/images/Wit/button4@3x.png" alt="">
         <span :class="activeshows==this.isTrue?'act':'activess'">车门</span>
       </div>
-      <div v-show="this.TRUNK" class="content_1" @click="backbox">
+      <div v-show="this.BackDoor" class="content_1" @click="backbox">
         <img v-if="activeshows==this.isTrues" class="tailgate" src="../../../static/images/Wit/button5@3x_86.png" alt="">
         <img v-else class="tailgate" src="../../../static/images/Wit/button5@3x.png" alt="">
         <span :class="activeshows==this.isTrues?'act':'activess'">尾门</span>
@@ -271,7 +271,7 @@ export default {
       WINDOW: false, //车窗控制
       Aircondtion_electricity: false, //电动空调
       Aircondtion: false, //自动空调
-      TRUNK: false, //尾门控制
+      BackDoor: true, //尾门控制
       HOSTSEAT_HEAT: false, //座椅控制
       SUNROOF: false, //天窗控制
       PURIFICTION: false, //空气净化器控制
@@ -411,7 +411,7 @@ export default {
               this.Aircondtion_electricity = true;
             } else if (value.code == "PURIFICATION") {
               this.PURIFICTION = true;
-            } else if (value.code == "SEAT_HEAT"||"SEAT_VENTILATION") {
+            } else if (value.code == "SEAT_HEAT") {
               this.HOSTSEAT_HEAT = true;
             } else if (value.code == "CAR_INFO") {
               this.CAR_INFO = true;
@@ -431,17 +431,18 @@ export default {
               this.CONTROL_AUTH = true;
             } else if (value.code == "WIFI") {
               this.WIFI = true;
-            } else if (value.code == "REAL_TIME_VIDEO_VIEW"||"TACHOGRAPH") {
+            } else if (value.code == "REAL_TIME_VIDEO_VIEW") {
               this.REAL_TIME_VIDEO_VIEW = true;
-            
             } else if (value.code == "ELECTRIC_FENCE") {
               this.ELECTRIC_FENCE = true;
-            
             } else if (value.code == "FIND_VEHICLE") {
               this.FIND_VEHICLE = true;
-            
             } else if (value.code == "TRUNK") {
-              this.TRUNK = true;
+              this.BackDoor = true;
+            } else if (value.code == "SEAT_VENTILATION") {
+              this.HOSTSEAT_HEAT = true;
+            } else if (value.code == "TACHOGRAPH") {
+              this.REAL_TIME_VIDEO_VIEW = true;
             }
           }
         });
@@ -1396,7 +1397,6 @@ export default {
   top: 1rem;
   left: 0.3rem;
 }
-
 .tipcontent {
   display: flex;
   flex-direction: row;
@@ -1434,7 +1434,6 @@ export default {
   float: left;
   text-align: center;
 }
-
 .one {
   display: flex;
   flex-direction: row;
@@ -1518,7 +1517,6 @@ input:focus {
   color: #49bbff;
   font-size: 0.24rem;
 }
-
 .tophead {
   /*position: absolute;*/
   height: 2.9rem;
@@ -1602,7 +1600,6 @@ input:focus {
   justify-content: space-around;
   align-items: center;
 }
-
 .content {
   display: flex;
   justify-content: space-around;
@@ -1614,7 +1611,6 @@ input:focus {
   align-items: center;
   padding: 0.31rem 0;
 }
-
 .navs_h {
   height: 2rem;
 }
@@ -1624,7 +1620,6 @@ input:focus {
   justify-content: space-between;
   align-items: center;
 }
-
 .num {
   color: #fff;
   font-size: 0.28rem;

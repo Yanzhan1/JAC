@@ -262,7 +262,11 @@ export default {
       borderTopWidth: this.$store.state.mobileStatusBar,
       borderTopColor: "#fff"
     });
-    this.list=true
+    if(this.$route.params.show==1){
+     this.showflow()
+    }else{
+      this.list=true
+    }
   }
 };
 </script>
