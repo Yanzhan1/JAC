@@ -65,7 +65,7 @@
         <img v-else class="content_carDoor" src="../../../static/images/Wit/button4@3x.png" alt="">
         <span :class="activeshows==this.isTrue?'act':'activess'">车门</span>
       </div>
-      <div v-show="this.BackDoor" class="content_1" @click="backbox">
+      <div v-show="this.TRUNK" class="content_1" @click="backbox">
         <img v-if="activeshows==this.isTrues" class="tailgate" src="../../../static/images/Wit/button5@3x_86.png" alt="">
         <img v-else class="tailgate" src="../../../static/images/Wit/button5@3x.png" alt="">
         <span :class="activeshows==this.isTrues?'act':'activess'">尾门</span>
@@ -271,7 +271,7 @@ export default {
       WINDOW: false, //车窗控制
       Aircondtion_electricity: false, //电动空调
       Aircondtion: false, //自动空调
-      BackDoor: false, //尾门控制
+      TRUNK: false, //尾门控制
       HOSTSEAT_HEAT: false, //座椅控制
       SUNROOF: false, //天窗控制
       PURIFICTION: false, //空气净化器控制
@@ -438,7 +438,7 @@ export default {
             } else if (value.code == "FIND_VEHICLE") {
               this.FIND_VEHICLE = true;
             } else if (value.code == "TRUNK") {
-              this.BackDoor = true;
+              this.TRUNK = true;
             } else if (value.code == "SEAT_VENTILATION") {
               this.HOSTSEAT_HEAT = true;
             } else if (value.code == "TACHOGRAPH") {
