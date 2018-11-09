@@ -271,7 +271,7 @@ export default {
       WINDOW: false, //车窗控制
       Aircondtion_electricity: false, //电动空调
       Aircondtion: false, //自动空调
-      BackDoor: true, //尾门控制
+      BackDoor: false, //尾门控制
       HOSTSEAT_HEAT: false, //座椅控制
       SUNROOF: false, //天窗控制
       PURIFICTION: false, //空气净化器控制
