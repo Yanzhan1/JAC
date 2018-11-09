@@ -433,6 +433,12 @@ export default {
               this.WIFI = true;
             } else if (value.code == "REAL_TIME_VIDEO_VIEW") {
               this.REAL_TIME_VIDEO_VIEW = true;
+            
+            } else if (value.code == "ELECTRIC_FENCE") {
+              this.ELECTRIC_FENCE = true;
+            
+            } else if (value.code == "FIND_VEHICLE") {
+              this.FIND_VEHICLE = true;
             }
           }
         });
