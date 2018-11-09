@@ -39,7 +39,23 @@
 				<div class="apn-title">
 					<span>平均油耗</span>
 				</div>
-				<div class="origin-pin">
+				<div class="origin-pin" v-show="chooseyear">
+					<div class="flex-align-center revisePinCommon">
+						<span style="font-size: 0.26rem;color: #444444;">
+							年平均油耗:
+						</span>
+						<input :disabled="disabled" type="text" v-model="item.yearOilConsumer" />
+					</div>
+				</div>
+				<div class="origin-pin" v-show="choosemonth">
+					<div class="flex-align-center revisePinCommon">
+						<span style="font-size: 0.26rem;color: #444444;">
+							月平均油耗:
+						</span>
+						<input :disabled="disabled" type="text" v-model="item.monthOilConsumer" />
+					</div>
+				</div>
+				<div class="origin-pin" v-show="chooseweek">
 					<div class="flex-align-center revisePinCommon">
 						<span style="font-size: 0.26rem;color: #444444;">
 							周平均油耗:
@@ -47,7 +63,7 @@
 						<input :disabled="disabled" type="text" v-model="item.weekOilConsumer" />
 					</div>
 				</div>
-				<div class="origin-pin">
+				<div class="origin-pin" v-show="chooseday">
 					<div class="flex-align-center revisePinCommon">
 						<span style="font-size: 0.26rem;color: #444444;">
 							日平均油耗:
@@ -81,12 +97,18 @@ export default {
       date: "",
       times: "",
       remaketime: "",
+      chooseday:true,
+      chooseweek:true,
+      choosemonth:true,
+      chooseyear:true,
       count: [
         {
           monthMileage: "",
           oilConsumer: "",
           weekOilConsumer: "",
-          dayOilConsumer: ""
+          dayOilConsumer: "",
+          monthOilConsumer:'',
+          yearOilConsumer:'',
         }
       ]
     };
@@ -146,17 +168,29 @@ export default {
     } else {
       if (accpect.times == "月") {
         this.times = "3";
+        this.chooseday=false;
+        this.chooseweek=false;
+        this.choosemonth=true;
+        this.chooseyear=false;
         this.years = accpect.showtop.years + "年";
         this.months = accpect.showtop.months + "月";
       }
       if (accpect.times == "周") {
         this.times = "2";
+        this.chooseday=false;
+        this.chooseweek=true;
+        this.choosemonth=false;
+        this.chooseyear=false;
         this.years = accpect.showtop.years + "年";
         this.months = accpect.showtop.months + "月";
         this.showweek = "第" + accpect.showweek + "周";
       }
       if (accpect.times == "日") {
         this.times = "1";
+        this.chooseday=true;
+        this.chooseweek=false;
+        this.choosemonth=false;
+        this.chooseyear=false;
         if (accpect.showtopdate == "") {
           this.years = accpect.showtop.years + "年";
           this.months = accpect.showtop.months + "月";
@@ -169,6 +203,10 @@ export default {
       }
       if (accpect.times == "年") {
         this.times = "4";
+        this.chooseday=false;
+        this.chooseweek=false;
+        this.choosemonth=false;
+        this.chooseyear=true;
         if (accpect.showyear == "") {
           this.years = new Date().getFullYear() + "年";
           this.months = "";
@@ -195,17 +233,28 @@ export default {
                 duration: 2000
               });
             } else {
+              this.count[0].monthOilConsumer = res.data.data.averageWearMonth;
               this.count[0].monthMileage = res.data.data.totalMileage;
               this.count[0].weekOilConsumer = res.data.data.averageWearWeek;
               this.count[0].oilConsumer = res.data.data.totalWear;
               this.count[0].dayOilConsumer = res.data.data.averageWearDay;
+              this.count[0].yearOilConsumer = res.data.data.averageWearYear;
             }
           } else {
-            Toast({
-              message: res.data.returnErrMsg,
+            if(this.times==2){
+                Toast({
+              message:'本周未结束，无法查询',
               position: "middle",
               duration: 2000
             });
+            }else{
+
+              Toast({
+                message: res.data.returnErrMsg,
+                position: "middle",
+                duration: 2000
+              });
+            }
           }
         });
     }
