@@ -152,7 +152,7 @@
     <img class="cancel" v-if="MaskIsshow" @click="delde" src="../.././../static/images/Lovecar/button9@2x.png" alt="" style="width:.28rem">
     <div v-if="MaskIsshow" class="mask_content">
       <ul class="tipcontent">
-        <li v-show="this.TACHOGRAPH" @click="turnDing">
+        <li v-show="this.REAL_TIME_VIDEO_VIEW" @click="turnDing">
           <img src="../../../static/images/Lovecar/ding.png" alt="">
           <span>途记宝</span>
         </li>
@@ -224,7 +224,7 @@ export default {
       firenum: 2, //控制引擎状态2为熄火默认
       backnum: 2, //控制后备箱状态2为关闭默认
       keyNums: [],
-      firstEnter:false,//第一次调用车况
+      firstEnter: false, //第一次调用车况
       operationIds: "", //lock传给后台的
       operationIdss: "", //熄火传给后台的
       operationIdses: "", //寻车传给后台的
@@ -266,11 +266,11 @@ export default {
       FIND_VEHICLE: false, //远程寻车
       CAR_INFO: false, //开闭锁,
       ENGINE: false, //引擎启动,
-      UPDATE_PIN:false,//修改pin码
+      UPDATE_PIN: false, //修改pin码
       CAR_EXAMINATION: false, //车辆体检
       WINDOW: false, //车窗控制
-      Aircondtion_electricity:false,//电动空调
-      Aircondtion:false,//自动空调
+      Aircondtion_electricity: false, //电动空调
+      Aircondtion: false, //自动空调
       TRUNK: false, //尾门控制
       HOSTSEAT_HEAT: false, //座椅控制
       SUNROOF: false, //天窗控制
@@ -281,7 +281,7 @@ export default {
       CAR_POINT_QUERY: false, //车辆位置查询
       SEND_TO_CAR: false, //发送倒车
       CAR_POONT_HISTORY_QUERY: false, //车辆历史轨迹
-      TACHOGRAPH: false, //行车记录仪
+      REAL_TIME_VIDEO_VIEW: false, //行车记录仪
       FUEL_STATISTICS: false, //燃油统计
       CONTROL_AUTH: false, //远程授权
       FLOW_QUERY: false //流量查询
@@ -403,43 +403,37 @@ export default {
         .then(res => {
           let allnum = res.data.data;
           for (let value of allnum) {
-            if (value.code == 'WINDOW') {
-              this.WINDOW=true
-            } else if (value.code == 'SUNROOF') {
-              this.SUNROOF=true
-            } else if (value.code == 'EAIRCONDITIONER') {
-              this.Aircondtion_electricity=true
-            } else if (value.code == 'PURIFICATION') {
-              this.PURIFICTION=true
-            } else if (value.code == 'SEAT_HEAT||SEAT_VENTILATION') {
-              this.HOSTSEAT_HEAT=true
-            } else if (value.code == 'CAR_INFO') {
-              this.CAR_INFO=true
-            
-            } else if (value.code == 'ENGINE') {
-              this.ENGINE=true
-            
-            } else if (value.code == 'CAR_EXAMINATION') {
-              this.CAR_EXAMINATION=true
-            
-            } else if (value.code == 'CAR_POINT_QUERY') {
-              this.CAR_POINT_QUERY=true
-            
-            } else if (value.code == 'UPDATE_PIN') {
-              this.UPDATE_PIN=true
-            
-            } else if (value.code == 'FLOW_QUERY') {
-              this.FLOW_QUERY=true
-            
-            } else if (value.code == 'FUEL_STATISTICS') {
-              this.FUEL_STATISTICS=true
-            
-            } else if (value.code == 'CONTROL_AUTH') {
-              this.CONTROL_AUTH=true 
-            } else if (value.code == 'WIFI') {
-              this.WIFI=true
-            
-            } 
+            if (value.code == "WINDOW") {
+              this.WINDOW = true;
+            } else if (value.code == "SUNROOF") {
+              this.SUNROOF = true;
+            } else if (value.code == "EAIRCONDITIONER") {
+              this.Aircondtion_electricity = true;
+            } else if (value.code == "PURIFICATION") {
+              this.PURIFICTION = true;
+            } else if (value.code == "SEAT_HEAT||SEAT_VENTILATION") {
+              this.HOSTSEAT_HEAT = true;
+            } else if (value.code == "CAR_INFO") {
+              this.CAR_INFO = true;
+            } else if (value.code == "ENGINE") {
+              this.ENGINE = true;
+            } else if (value.code == "CAR_EXAMINATION") {
+              this.CAR_EXAMINATION = true;
+            } else if (value.code == "CAR_POINT_QUERY") {
+              this.CAR_POINT_QUERY = true;
+            } else if (value.code == "UPDATE_PIN") {
+              this.UPDATE_PIN = true;
+            } else if (value.code == "FLOW_QUERY") {
+              this.FLOW_QUERY = true;
+            } else if (value.code == "FUEL_STATISTICS") {
+              this.FUEL_STATISTICS = true;
+            } else if (value.code == "CONTROL_AUTH") {
+              this.CONTROL_AUTH = true;
+            } else if (value.code == "WIFI") {
+              this.WIFI = true;
+            } else if (value.code == "REAL_TIME_VIDEO_VIEW") {
+              this.REAL_TIME_VIDEO_VIEW = true;
+            }
           }
         });
     },
@@ -639,26 +633,26 @@ export default {
                           }
                         } else if (res.data.status == "SUCCEED") {
                           clearInterval(this.time);
-                          if(this.firstEnter){
-                            this.firstEnter=false
-                            if(res.data.data.accStatus==0){
-                              this.isTrue=false
-                              this.locknum = 2
-                            }else{
-                              this.isTrue=true
-                              this.locknum = 1
+                          if (this.firstEnter) {
+                            this.firstEnter = false;
+                            if (res.data.data.accStatus == 0) {
+                              this.isTrue = false;
+                              this.locknum = 2;
+                            } else {
+                              this.isTrue = true;
+                              this.locknum = 1;
                             }
-                            if(res.data.data.engineStatus==0){
-                              this.isTruess=false
-                              this.firenum = 2
-                            }else{
-                              this.isTruess=true
-                              this.firenum = 1
+                            if (res.data.data.engineStatus == 0) {
+                              this.isTruess = false;
+                              this.firenum = 2;
+                            } else {
+                              this.isTruess = true;
+                              this.firenum = 1;
                             }
-                            if(res.data.data.doorStsTrunk==0){
-                              this.isTrues=false
-                            }else{
-                              this.isTrues=true
+                            if (res.data.data.doorStsTrunk == 0) {
+                              this.isTrues = false;
+                            } else {
+                              this.isTrues = true;
                             }
                           }
                           if (this.type == 1) {
@@ -782,7 +776,7 @@ export default {
                         }
                       } else {
                         Toast({
-                          message:res.data.returnErrMsg,
+                          message: res.data.returnErrMsg,
                           position: "middle",
                           duration: 2000
                         });
@@ -800,28 +794,28 @@ export default {
               // }else{
               //   this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
               // }
-               if(this.firstEnter){
-                            this.firstEnter=false
-                            if(res.data.data.accStatus==0){
-                              this.isTrue=false
-                              this.locknum = 2
-                            }else{
-                              this.isTrue=true
-                              this.locknum = 1
-                            }
-                            if(res.data.data.engineStatus==0){
-                              this.isTruess=false
-                              this.firenum = 2
-                            }else{
-                              this.isTruess=true
-                              this.firenum = 1
-                            }
-                            if(res.data.data.doorStsTrunk==0){
-                              this.isTrues=false
-                            }else{
-                              this.isTrues=true
-                            }
-                          }
+              if (this.firstEnter) {
+                this.firstEnter = false;
+                if (res.data.data.accStatus == 0) {
+                  this.isTrue = false;
+                  this.locknum = 2;
+                } else {
+                  this.isTrue = true;
+                  this.locknum = 1;
+                }
+                if (res.data.data.engineStatus == 0) {
+                  this.isTruess = false;
+                  this.firenum = 2;
+                } else {
+                  this.isTruess = true;
+                  this.firenum = 1;
+                }
+                if (res.data.data.doorStsTrunk == 0) {
+                  this.isTrues = false;
+                } else {
+                  this.isTrues = true;
+                }
+              }
               this.carcontrol.engineHoodStsFront
                 ? (this.engineHoodStsFront = "已开")
                 : (this.engineHoodStsFront = "未开");
@@ -1204,7 +1198,10 @@ export default {
             // alert(1)
             this.BusDetails = res.data.data;
             for (let i = 0; i < res.data.data.length; i++) {
-              if (res.data.data[i].def == 1||res.data.data[i].defToNathor==1) {
+              if (
+                res.data.data[i].def == 1 ||
+                res.data.data[i].defToNathor == 1
+              ) {
                 this.carsysitem = res.data.data[i].seriesName;
                 // console.log(res.data.data[i].vin);
                 var payload = res.data.data[i].vin;
@@ -1213,7 +1210,7 @@ export default {
               }
               // }
             }
-            this.firstEnter=true
+            this.firstEnter = true;
             this.vinn = this.$store.state.vins;
             this.Support();
             // console.log(this.vinn)
@@ -1246,7 +1243,10 @@ export default {
           if (res.data.returnSuccess) {
             this.BusDetails = res.data.data;
             for (let i = 0; i < res.data.data.length; i++) {
-              if (res.data.data[i].def == 1||res.data.data[i].defToNathor==1) {
+              if (
+                res.data.data[i].def == 1 ||
+                res.data.data[i].defToNathor == 1
+              ) {
                 this.carsysitem = res.data.data[i].seriesName || null;
                 var payload = res.data.data[i].vin;
                 this.defaultvin = res.data.data[i].vin;
@@ -1257,7 +1257,7 @@ export default {
                 //  	       this.getCarLoginState()
               }
             }
-            this.firstEnter=true
+            this.firstEnter = true;
             this.vinn = this.$store.state.vins;
             this.Support();
             this.Carquerry();
@@ -1338,16 +1338,13 @@ export default {
   -webkit-background-size: 200% 100%;
   -webkit-animation: masked-animation 4s infinite linear;
 }
-
 .typer li.typer-num.is-A {
   margin-left: 0.31rem;
 }
-
 .typer li.typer-num.is-OK {
   width: 0.8rem;
   margin-left: 0.1rem;
 }
-
 @-webkit-keyframes masked-animation {
   0% {
     background-position: 0 0;
@@ -1356,14 +1353,12 @@ export default {
     background-position: -100% 0;
   }
 }
-
 .yy {
   flex-wrap: wrap;
   justify-content: center;
   height: 100%;
 }
 /* 左上角弹框 */
-
 .mask {
   width: 100%;
   height: 100%;
@@ -1374,7 +1369,6 @@ export default {
   left: 0;
   z-index: 999;
 }
-
 .mask_content {
   position: fixed;
   top: 28%;
@@ -1387,7 +1381,6 @@ export default {
   z-index: 10000;
   border-radius: 3px;
 }
-
 .cancel {
   position: fixed;
   z-index: 10000;
@@ -1400,9 +1393,9 @@ export default {
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
+
   box-sizing: border-box;
 }
-
 .tipcontent li {
   display: flex;
   flex-direction: column;
@@ -1410,26 +1403,22 @@ export default {
   width: 25%;
   margin-top: 0.3rem;
 }
-
 .tipcontent li img {
   width: 0.4rem;
   display: block;
 }
-
 .tipcontent li span {
   color: #444;
   font-size: 0.22rem;
   margin-top: 0.23rem;
 }
 /*  */
-
 #wrap {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 0.4rem 0;
 }
-
 #wrap input[type="text"] {
   width: 20%;
   height: 0.7rem;
@@ -1448,17 +1437,14 @@ export default {
   width: 20%;
   height: 0.7rem;
 }
-
 input:focus {
   outline: none;
 }
-
 .con {
   width: 6rem;
   height: 3rem;
   padding: 0.2rem 0.4rem;
 }
-
 .del {
   display: flex;
   flex-direction: row;
@@ -1468,68 +1454,55 @@ input:focus {
   border-bottom: 1px solid #f1f1f1;
   height: 0.88rem;
 }
-
 .sure {
   margin-bottom: 0.16rem;
   color: #555;
 }
-
 .active {
   color: #49bbff;
 }
-
 .act {
   color: #49bbff;
   font-size: 0.22rem;
   margin-top: 0.12rem;
 }
-
 .actives {
   color: #ccc !important;
 }
-
 .bus_l {
   position: relative;
 }
-
 .busl_r {
   position: absolute;
   font-size: 0.25rem;
   color: #49bbff;
 }
-
 .left_1 {
   left: -0.6rem;
   top: 1.5rem;
 }
-
 .left_2 {
   left: -0.6rem;
   top: 3rem;
 }
-
 .right_1 {
   right: -1rem;
   top: 1.5rem;
 }
-
 .right_2 {
   right: -1rem;
   top: 3rem;
 }
-
 .top_1 {
   top: 0.6rem;
   left: 0.8rem;
   font-size: 0.24rem;
 }
-
 .bottom_1 {
-  bottom:.5rem;
+  bottom: 0.5rem;
   left: 0.8rem;
   font-size: 0.24rem;
 }
-
 .middle_1 {
   bottom: 2.1rem;
   left: 0.8rem;
@@ -1546,7 +1519,6 @@ input:focus {
   background-size: content;
   z-index: 1;
 }
-
 .nav {
   display: flex;
   /*position: fixed;
@@ -1558,7 +1530,6 @@ input:focus {
   justify-content: space-between;
   padding: 0 0.5rem;
 }
-
 .left_bus {
   display: flex;
   flex-direction: column;
@@ -1574,16 +1545,13 @@ input:focus {
   width: 0.31rem;
   height: 0.35rem;
 }
-
 .content_pic {
   width: 0.35rem;
   height: 0.35rem;
 }
-
 .lines {
   border-bottom: 1px solid #f1f1f1;
 }
-
 .left_bus1 {
   display: flex;
   flex-direction: column;
@@ -1593,39 +1561,32 @@ input:focus {
   padding-right: 0.6rem;
   padding-left: 0.2rem;
 }
-
 .txt_m {
   font-size: 0.34rem;
   color: #fff;
 }
-
 .activess {
   color: #444;
   font-size: 0.22rem;
   margin-top: 0.12rem;
 }
-
 .txt_r {
   font-size: 0.25rem;
   color: #fff;
 }
-
 .bus_righgt {
   /* width: 1.99rem; */
   height: 4.24rem;
   margin-right: -0.5rem;
 }
-
 .left_bus .pic1 {
   width: 0.4rem;
   height: 0.4rem;
 }
-
 .left_bus .txt1 {
   font-size: 0.26rem;
   margin-top: 0.17rem;
 }
-
 .navs {
   display: flex;
   flex-direction: row;
@@ -1638,7 +1599,6 @@ input:focus {
   justify-content: space-around;
   align-items: center;
 }
-
 .content_1 {
   display: flex;
   flex-direction: column;
@@ -1649,7 +1609,6 @@ input:focus {
 .navs_h {
   height: 2rem;
 }
-
 .navs_t {
   display: flex;
   flex-direction: column;
@@ -1661,19 +1620,16 @@ input:focus {
   color: #fff;
   font-size: 0.28rem;
 }
-
 .txt {
   color: #fff;
   font-size: 0.23rem;
   margin-top: 0.18rem;
 }
-
 .air {
   height: 1.2rem;
   border-bottom: 1px solid #f1f1f1;
   justify-content: space-between;
 }
-
 .picc {
   width: 0.34rem;
   height: 0.38rem;
@@ -1685,28 +1641,23 @@ input:focus {
   width: 0.26rem;
   height: 0.4rem;
 }
-
 .skylight {
   width: 0.34rem;
   height: 0.38rem;
 }
-
 .pic_r {
   width: 0.3rem;
   display: block;
   margin-right: 0.4rem;
 }
-
 .pic_txt {
   font-size: 0.28rem;
   color: #444;
 }
-
 .line_x {
   width: 0.17rem;
   padding-top: 0.4rem;
 }
-
 #can {
   position: fixed;
   left: 50%;
