@@ -1029,7 +1029,7 @@ export default {
                     // alert(res.data.operationId)
                     // alert(this.operationIdcar)
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(this.operationIdcar);
+                      this.getAsyReturn( res.data.operationId);
                       // alert(this.isTrue)
                     } else {
                       if (res.data.returnErrCode == 400) {
@@ -1067,7 +1067,7 @@ export default {
                   .post(Lovecar.Control, param, this.$store.state.tsppin)
                   .then(res => {
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(this.operationIdcar);
+                      this.getAsyReturn(res.data.operationId);
                     } else {
                       if (res.data.returnErrCode == 400) {
                         Toast({
@@ -1103,7 +1103,7 @@ export default {
                   .then(res => {
                     this.operationIdss = res.data.operationId;
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(this.operationIdcar);
+                      this.getAsyReturn(res.data.operationId);
                     } else {
                       if (res.data.returnErrCode == 400) {
                         Toast({
@@ -1137,7 +1137,7 @@ export default {
                   .then(res => {
                     this.operationIdses = res.data.operationId;
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(this.operationIdcar);
+                      this.getAsyReturn(res.data.operationId);
                     } else {
                       if (res.data.returnErrCode == 400) {
                         Toast({
