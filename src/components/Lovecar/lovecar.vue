@@ -785,7 +785,7 @@ export default {
                           }
                         } else if (res.data.status == "FAILED") {
                           Toast({
-                            message: res.data.status,
+                            message: res.data.returnErrMsg,
                             position: "middle",
                             duration: 2000
                           });
