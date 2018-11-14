@@ -50,7 +50,7 @@ module.exports = {
         query: {
           presets: ['es2015']
         },
-        include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
+        include: [resolve('src'), resolve('static/js'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
       },
       {
         test: /vue-preview.src.*?js$/,
