@@ -1,51 +1,55 @@
 <template>
 	<div>
-		<header class="header MobileHeight" style="z-index: 100!important;">
+		<header class="header MobileHeight bgcolor" style="z-index: 100!important;">
 			<img class="header-left" src="../../../static/images/back@2x.png" @click="$router.go(-1)">
 			<span class="header-title" style="margin-right: 0.65rem;">查询经销商</span>
 			<span class="header-right"></span>
 		</header>
 		<div style="height:.88rem" class="MobileHeight"></div>
-		<div class="flex row around con cocenter title">
-			<div class="flex row cocenter">
-				<!-- 品牌 -->
-				<div class="selection-show " @click="bottomPicker(1)">
-					<div class="headlines">
-						<div> {{brandName}} </div>
+		<div class="title">
+			<div class="flex row around con cocenter">
+				<div class="flex row cocenter">
+					<!-- 品牌 -->
+					<div class="selection-show " @click="bottomPicker(1)">
+						<div class="headlines">
+							<div> {{brandName}} </div>
+						</div>
+						<div class="arrow"></div>
 					</div>
-					<div class="arrow"></div>
 				</div>
-			</div>
-			<div class="flex row cocenter">
-				<!-- 车型 -->
-				<div class="selection-show" @click="bottomPicker(2)">
-					<div class="headlines">
-						<div> {{carName}} </div>
+				<div class="flex row cocenter">
+					<!-- 车型 -->
+					<div class="selection-show" @click="bottomPicker(2)">
+						<div class="headlines">
+							<div> {{carName}} </div>
+						</div>
+						<div class="arrow"></div>
 					</div>
-					<div class="arrow"></div>
 				</div>
-			</div>
-			<div class="flex row cocenter">
-				<!-- 省份 -->
-				<div class="selection-show" @click="bottomPicker(3)">
-					<div class="headlines">
-						<div> {{provinceName}} </div>
+				<div class="flex row cocenter">
+					<!-- 省份 -->
+					<div class="selection-show" @click="bottomPicker(3)">
+						<div class="headlines">
+							<div> {{provinceName}} </div>
+						</div>
+						<div class="arrow"></div>
 					</div>
-					<div class="arrow"></div>
 				</div>
-			</div>
-			<div class="flex row cocenter">
-				<!--城市-->
-				<div class="selection-show" @click="bottomPicker(4)">
-					<div class="headlines">
-						<div> {{cityName}} </div>
-					</div>
+				<div class="flex row cocenter">
+					<!--城市-->
+					<div class="selection-show" @click="bottomPicker(4)">
+						<div class="headlines">
+							<div> {{cityName}} </div>
+						</div>
 
-					<div class="arrow"></div>
+						<div class="arrow"></div>
+					</div>
 				</div>
 			</div>
+			<div style="width:100%;height:.07rem;background:#ccc;"></div>
 		</div>
-		<div class="one" style="height:.1rem;"></div>
+		<!-- <div class="one" style="height:.1rem;"></div> -->
+		<div style="width:100%;height:.88rem;"></div>
 		<div class="dealer-wrapper" :style="{'-webkit-overflow-scrolling': scrollMode}">
 			<mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="80" :auto-fill="false">
 				<ul style="padding:.1rem .2rem" v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
@@ -571,7 +575,9 @@
 		box-sizing: content-box;
 	}
 	/*没有数据时,提示样式*/
-	
+	.bgcolor{
+		background: #fff;
+	}
 	.dataInfo {
 		position: absolute;
 		top: 50%;
@@ -614,9 +620,12 @@
 	}
 	
 	.title {
-		/*position: fixed;
+		width: 100%;
+		position: fixed;
 		height: 0.88rem;
-		line-height: 0.88rem;*/
+		line-height: 0.88rem;
+		background:#fff;
+		z-index: 999;
 	}
 	
 	.con>div {
@@ -703,7 +712,6 @@
 		height: 100%;
 		width: 100%;
 		line-height: 0.88rem;
-		background: #fff;
 	}
 	
 	.selection-show>.headlines {

@@ -59,23 +59,23 @@
       </div>
       <img style="width:.88rem;height:.88rem;margin-top:.2rem" src="../../../static/images/Lovecar/loading@2x.png" alt="" @click="loading">
     </div>
-    <div class="content lines">
+    <div v-show="this.CAR_INFO" class="content lines">
       <div class="content_1" @click="doors">
         <img v-if="activeshows==this.isTrue" class="content_carDoor" src="../../../static/images/Wit/button4@3x_32.png" alt="">
         <img v-else class="content_carDoor" src="../../../static/images/Wit/button4@3x.png" alt="">
         <span :class="activeshows==this.isTrue?'act':'activess'">车门</span>
       </div>
-      <div class="content_1" @click="backbox">
+      <div v-show="this.TRUNK" class="content_1" @click="backbox">
         <img v-if="activeshows==this.isTrues" class="tailgate" src="../../../static/images/Wit/button5@3x_86.png" alt="">
         <img v-else class="tailgate" src="../../../static/images/Wit/button5@3x.png" alt="">
         <span :class="activeshows==this.isTrues?'act':'activess'">尾门</span>
       </div>
-      <div class="content_1" @click="closefire">
+      <div v-show="this.ENGINE" class="content_1" @click="closefire">
         <img v-if="activeshows==this.isTruess" class="Flameout" src="../../../static/images/Wit/button6@3x_91.png" alt="">
         <img v-else class="Flameout" src="../../../static/images/Wit/button6@3x.png" alt="">
         <span :class="activeshows==this.isTruess?'act':'activess'">熄火</span>
       </div>
-      <div class="content_1" @click="enter()">
+      <div v-show="this.FIND_VEHICLE" class="content_1" @click="enter()">
         <img v-if="activeshows==this.isTruesss" class="content_pic" src="../../../static/images/Wit/button7@3x_2.png" alt="">
         <img v-else class="content_pic" src="../../../static/images/Wit/button7@3x.png" alt="">
         <span :class="activeshows==this.isTruesss?'act':'activess'">寻车</span>
@@ -152,15 +152,15 @@
     <img class="cancel" v-if="MaskIsshow" @click="delde" src="../.././../static/images/Lovecar/button9@2x.png" alt="" style="width:.28rem">
     <div v-if="MaskIsshow" class="mask_content">
       <ul class="tipcontent">
-        <li @click="turnDing">
+        <li v-show="this.REAL_TIME_VIDEO_VIEW" @click="turnDing">
           <img src="../../../static/images/Lovecar/ding.png" alt="">
           <span>途记宝</span>
         </li>
-        <router-link tag='li' to="/lovecar/revisePinCode">
+        <router-link v-show="this.UPDATE_PIN" tag='li' to="/lovecar/revisePinCode">
           <img src="../../../static/images/Lovecar/xiupin.png" alt="">
           <span>修改PIN</span>
         </router-link>
-        <router-link tag="li" to="/Bus_test">
+        <router-link v-show="this.CAR_EXAMINATION" tag="li" to="/Bus_test">
           <img src="../../../static/images/Lovecar/chejian.png" alt="">
           <span>车辆体检</span>
         </router-link>
@@ -168,27 +168,27 @@
           <img src="../../../static/images/Lovecar/yuancheng.png" alt="">
           <span>远程授权</span>
         </router-link>
-        <router-link tag='li' to="/Authorize" v-else-if="!Rajtigo">
+        <router-link v-show="this.CONTROL_AUTH" tag='li' to="/Authorize" v-else-if="!Rajtigo">
           <img src="../../../static/images/Lovecar/yuancheng.png" alt="">
           <span>远程授权</span>
         </router-link>
-        <li @click="turnPosition">
+        <li v-show="this.CAR_POINT_QUERY" @click="turnPosition">
           <img src="../../../static/images/Lovecar/dingwei.png" alt="">
           <span>定位</span>
         </li>
-        <router-link tag='li' to="/lovecar/flowQuery">
+        <router-link v-show="this.FLOW_QUERY" tag='li' to="/lovecar/flowQuery">
           <img src="../../../static/images/Lovecar/liuliang.png" alt="">
           <span>流量查询</span>
         </router-link>
-        <router-link tag='li' to="/lovecar/fuelQuery">
+        <router-link v-show="this.FUEL_STATISTICS" tag='li' to="/lovecar/fuelQuery">
           <img src="../../../static/images/Lovecar/ranyou.png" alt="">
           <span>燃油统计</span>
         </router-link>
-        <li @click="turnPage">
+        <li v-show="this.ELECTRIC_FENCE" @click="turnPage">
           <img src="../../../static/images/Lovecar/dianzi.png" alt="">
           <span>电子围栏</span>
         </li>
-				<router-link tag='li' to="/lovecar/wifiLink">
+				<router-link v-show="this.WIFI" tag='li' to="/lovecar/wifiLink">
 					<img src="../../../static/images/Lovecar/wifi.png" alt="">
 					<span>wifi直连</span>
 				</router-link>
@@ -224,6 +224,7 @@ export default {
       firenum: 2, //控制引擎状态2为熄火默认
       backnum: 2, //控制后备箱状态2为关闭默认
       keyNums: [],
+      firstEnter: false, //第一次调用车况
       operationIds: "", //lock传给后台的
       operationIdss: "", //熄火传给后台的
       operationIdses: "", //寻车传给后台的
@@ -263,12 +264,13 @@ export default {
       qrCodePin: "", //扫一扫二维码pin
       firstTips: true, //车机状态第一次提示,true不提示,改变为false的时候,Toast进行提示
       FIND_VEHICLE: false, //远程寻车
-      LOCK: false, //开闭锁,
+      CAR_INFO: false, //开闭锁,
       ENGINE: false, //引擎启动,
+      UPDATE_PIN: false, //修改pin码
       CAR_EXAMINATION: false, //车辆体检
       WINDOW: false, //车窗控制
-      Aircondtion_electricity:false,//电动空调
-      Aircondtion:false,//自动空调
+      Aircondtion_electricity: false, //电动空调
+      Aircondtion: false, //自动空调
       TRUNK: false, //尾门控制
       HOSTSEAT_HEAT: false, //座椅控制
       SUNROOF: false, //天窗控制
@@ -279,7 +281,7 @@ export default {
       CAR_POINT_QUERY: false, //车辆位置查询
       SEND_TO_CAR: false, //发送倒车
       CAR_POONT_HISTORY_QUERY: false, //车辆历史轨迹
-      TACHOGRAPH: false, //行车记录仪
+      REAL_TIME_VIDEO_VIEW: false, //行车记录仪
       FUEL_STATISTICS: false, //燃油统计
       CONTROL_AUTH: false, //远程授权
       FLOW_QUERY: false //流量查询
@@ -401,18 +403,46 @@ export default {
         .then(res => {
           let allnum = res.data.data;
           for (let value of allnum) {
-            if (value.code == 'WINDOW') {
-              this.WINDOW=true
-            } else if (value.code == 'SUNROOF') {
-              this.SUNROOF=true
-            } else if (value.code == 'EAIRCONDITIONER') {
-              this.Aircondtion_electricity=true
-            } else if (value.code == 'PURIFICATION') {
-              this.PURIFICTION=true
-            } else if (value.code == 'SEAT_HEAT||SEAT_VENTILATION') {
-              this.HOSTSEAT_HEAT=true
-            } else if (value.code == 'AIRCONDITIONER') {
-              this.Aircondtion=true
+            if (value.code == "WINDOW") {
+              this.WINDOW = true;
+            } else if (value.code == "SUNROOF") {
+              this.SUNROOF = true;
+            } else if (value.code == "EAIRCONDITIONER") {
+              this.Aircondtion_electricity = true;
+            } else if (value.code == "PURIFICATION") {
+              this.PURIFICTION = true;
+            } else if (value.code == "SEAT_HEAT") {
+              this.HOSTSEAT_HEAT = true;
+            } else if (value.code == "CAR_INFO") {
+              this.CAR_INFO = true;
+            } else if (value.code == "ENGINE") {
+              this.ENGINE = true;
+            } else if (value.code == "CAR_EXAMINATION") {
+              this.CAR_EXAMINATION = true;
+            } else if (value.code == "CAR_POINT_QUERY") {
+              this.CAR_POINT_QUERY = true;
+            } else if (value.code == "UPDATE_PIN") {
+              this.UPDATE_PIN = true;
+            } else if (value.code == "FLOW_QUERY") {
+              this.FLOW_QUERY = true;
+            } else if (value.code == "FUEL_STATISTICS") {
+              this.FUEL_STATISTICS = true;
+            } else if (value.code == "CONTROL_AUTH") {
+              this.CONTROL_AUTH = true;
+            } else if (value.code == "WIFI") {
+              this.WIFI = true;
+            } else if (value.code == "REAL_TIME_VIDEO_VIEW") {
+              this.REAL_TIME_VIDEO_VIEW = true;
+            } else if (value.code == "ELECTRIC_FENCE") {
+              this.ELECTRIC_FENCE = true;
+            } else if (value.code == "FIND_VEHICLE") {
+              this.FIND_VEHICLE = true;
+            } else if (value.code == "TRUNK") {
+              this.TRUNK = true;
+            } else if (value.code == "SEAT_VENTILATION") {
+              this.HOSTSEAT_HEAT = true;
+            } else if (value.code == "TACHOGRAPH") {
+              this.REAL_TIME_VIDEO_VIEW = true;
             }
           }
         });
@@ -613,6 +643,30 @@ export default {
                           }
                         } else if (res.data.status == "SUCCEED") {
                           clearInterval(this.time);
+                          this.$store.dispatch("LOADINGFLAG", false);
+                          if (this.firstEnter) {
+                            this.firstEnter = false;
+                            if (res.data.data.accStatus == 0) {
+                              this.isTrue = false;
+                              this.locknum = 2;
+                            } else {
+                              this.isTrue = true;
+                              this.locknum = 1;
+                            }
+                            if (res.data.data.engineStatus == 0) {
+                              this.isTruess = false;
+                              this.firenum = 2;
+                            } else {
+                              this.isTruess = true;
+                              this.firenum = 1;
+                            }
+                            if (res.data.data.doorStsTrunk == 0) {
+                              this.isTrues = false;
+                            } else {
+                              this.isTrues = true;
+                            }
+                          }
+
                           if (this.type == 1) {
                             this.isTrue = !this.isTrue;
                             this.isTrue
@@ -634,95 +688,101 @@ export default {
                               this.isTruesss = !this.isTruesss;
                             }, 5000);
                           }
-                          this.carcontrol = res.data.data;
-                          // if(this.carcontrol.fuelPercent==undefined){
-                          //       this.carcontrol.fuelPercent=''
-                          //   }else{
-                          //     this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
-                          //   }
-                          console.log(res.data.data);
-                          this.engineHoodStsFront = this.carcontrol
-                            .engineHoodStsFront
-                            ? (this.engineHoodStsFront = "已开")
-                            : (this.engineHoodStsFront = "未开");
-                          this.acStatus = this.carcontrol.acStatus; //空调初始状态
-                          this.skylightStatus = this.carcontrol.skylightStatus
-                            ? (this.skylightStatus = "已开")
-                            : (this.skylightStatus = "未开"); //天窗初始状态
-                          this.backnum = this.carcontrol.doorStsTrunk;
-                          this.backnum
-                            ? (this.doorStsTrunk = "已开")
-                            : (this.doorStsTrunk = "未开"); //后备箱的初始状态
-                          this.engineStatus = this.carcontrol.engineStatus;
-                          var tai = {
-                            left_top: this.carcontrol.tirePressureFrontLeft,
-                            right_top: this.carcontrol.tirePressureFrontRight,
-                            left_bottom: this.carcontrol.tirePressureRearLeft,
-                            right_bottom: this.carcontrol.tirePressureRearRight
-                          };
-                          //车门状态
-                          if (this.carcontrol.doorStsFrontLeft == 1) {
-                            this.doorStsFrontLeft = "打开";
-                          } else if (this.carcontrol.doorStsFrontLeft == 0) {
-                            this.doorStsFrontLeft = "关闭";
+                          if(res.data.data){
+                            this.carcontrol = res.data.data;
+                            // if(this.carcontrol.fuelPercent==undefined){
+                            //       this.carcontrol.fuelPercent=''
+                            //   }else{
+                            //     this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
+                            //   }
+                            console.log(res.data.data);
+                            this.engineHoodStsFront = this.carcontrol
+                              .engineHoodStsFront
+                              ? (this.engineHoodStsFront = "已开")
+                              : (this.engineHoodStsFront = "未开");
+                            this.acStatus = this.carcontrol.acStatus; //空调初始状态
+                            this.skylightStatus = this.carcontrol.skylightStatus
+                              ? (this.skylightStatus = "已开")
+                              : (this.skylightStatus = "未开"); //天窗初始状态
+                            this.backnum = this.carcontrol.doorStsTrunk;
+                            this.backnum
+                              ? (this.doorStsTrunk = "已开")
+                              : (this.doorStsTrunk = "未开"); //后备箱的初始状态
+                            this.engineStatus = this.carcontrol.engineStatus;
+                            var tai = {
+                              left_top: this.carcontrol.tirePressureFrontLeft,
+                              right_top: this.carcontrol.tirePressureFrontRight,
+                              left_bottom: this.carcontrol.tirePressureRearLeft,
+                              right_bottom: this.carcontrol.tirePressureRearRight
+                            };
+                            //车门状态
+                            if (this.carcontrol.doorStsFrontLeft == 1) {
+                              this.doorStsFrontLeft = "打开";
+                            } else if (this.carcontrol.doorStsFrontLeft == 0) {
+                              this.doorStsFrontLeft = "关闭";
+                            }
+                            if (this.carcontrol.doorStsFrontRight == 1) {
+                              this.doorStsFrontRight = "打开";
+                            } else if (this.carcontrol.doorStsFrontRight == 0) {
+                              this.doorStsFrontRight = "关闭";
+                            }
+                            if (this.carcontrol.doorStsRearLeft == 1) {
+                              this.doorStsRearLeft = "打开";
+                            } else if (this.carcontrol.doorStsRearLeft == 0) {
+                              this.doorStsRearLeft = "关闭";
+                            }
+                            if (this.carcontrol.doorStsRearRight == 1) {
+                              this.doorStsRearRight = "打开";
+                            } else if (this.carcontrol.doorStsRearRight == 0) {
+                              this.doorStsRearRight = "关闭";
+                            }
+                            //车窗状态
+                            if (this.carcontrol.windowStsFrontLeft == 1) {
+                              this.windowStsFrontLeft = "已打开";
+                            } else if (this.carcontrol.windowStsFrontLeft == 0) {
+                              this.windowStsFrontLeft = "已关闭";
+                            }
+                            if (this.carcontrol.windowStsFrontRight == 1) {
+                              this.windowStsFrontRight = "已打开";
+                            } else if (this.carcontrol.windowStsFrontRight == 0) {
+                              this.windowStsFrontRight = "已关闭";
+                            }
+                            if (this.carcontrol.windowStsRearLeft == 1) {
+                              this.windowStsRearLeft = "已打开";
+                            } else if (this.carcontrol.windowStsRearLeft == 0) {
+                              this.windowStsRearLeft = "已关闭";
+                            }
+                            if (this.carcontrol.windowStsRearRight == 1) {
+                              this.windowStsRearRight = "已打开";
+                            } else if (this.carcontrol.windowStsRearRight == 0) {
+                              this.windowStsRearRight = "已关闭";
+                            }
+                            var door = {
+                              left_top: this.doorStsFrontLeft,
+                              right_top: this.doorStsFrontRight,
+                              left_bottom: this.doorStsRearLeft,
+                              right_bottom: this.doorStsRearRight
+                            };
+                            var window = {
+                              left_top: this.windowStsFrontLeft,
+                              right_top: this.windowStsFrontRight,
+                              left_bottom: this.windowStsRearLeft,
+                              right_bottom: this.windowStsRearRight
+                            };
+                            if (this.activeshow == 1) {
+                              this.Condition = tai;
+                            } else if (this.activeshow == 2) {
+                              this.Condition = door;
+                            } else if (this.activeshow == 3) {
+                              this.Condition = window;
+                            }
+                          }else{
+                             Toast({
+                                    message: '指令下发成功,请实时刷新车况查看',
+                                    position: "middle",
+                                    duration: 2000
+                                });
                           }
-                          if (this.carcontrol.doorStsFrontRight == 1) {
-                            this.doorStsFrontRight = "打开";
-                          } else if (this.carcontrol.doorStsFrontRight == 0) {
-                            this.doorStsFrontRight = "关闭";
-                          }
-                          if (this.carcontrol.doorStsRearLeft == 1) {
-                            this.doorStsRearLeft = "打开";
-                          } else if (this.carcontrol.doorStsRearLeft == 0) {
-                            this.doorStsRearLeft = "关闭";
-                          }
-                          if (this.carcontrol.doorStsRearRight == 1) {
-                            this.doorStsRearRight = "打开";
-                          } else if (this.carcontrol.doorStsRearRight == 0) {
-                            this.doorStsRearRight = "关闭";
-                          }
-                          //车窗状态
-                          if (this.carcontrol.windowStsFrontLeft == 1) {
-                            this.windowStsFrontLeft = "已打开";
-                          } else if (this.carcontrol.windowStsFrontLeft == 0) {
-                            this.windowStsFrontLeft = "已关闭";
-                          }
-                          if (this.carcontrol.windowStsFrontRight == 1) {
-                            this.windowStsFrontRight = "已打开";
-                          } else if (this.carcontrol.windowStsFrontRight == 0) {
-                            this.windowStsFrontRight = "已关闭";
-                          }
-                          if (this.carcontrol.windowStsRearLeft == 1) {
-                            this.windowStsRearLeft = "已打开";
-                          } else if (this.carcontrol.windowStsRearLeft == 0) {
-                            this.windowStsRearLeft = "已关闭";
-                          }
-                          if (this.carcontrol.windowStsRearRight == 1) {
-                            this.windowStsRearRight = "已打开";
-                          } else if (this.carcontrol.windowStsRearRight == 0) {
-                            this.windowStsRearRight = "已关闭";
-                          }
-                          var door = {
-                            left_top: this.doorStsFrontLeft,
-                            right_top: this.doorStsFrontRight,
-                            left_bottom: this.doorStsRearLeft,
-                            right_bottom: this.doorStsRearRight
-                          };
-                          var window = {
-                            left_top: this.windowStsFrontLeft,
-                            right_top: this.windowStsFrontRight,
-                            left_bottom: this.windowStsRearLeft,
-                            right_bottom: this.windowStsRearRight
-                          };
-                          if (this.activeshow == 1) {
-                            this.Condition = tai;
-                          } else if (this.activeshow == 2) {
-                            this.Condition = door;
-                          } else if (this.activeshow == 3) {
-                            this.Condition = window;
-                          }
-
-                          this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
                           Toast({
                             message: res.data.status,
@@ -734,7 +794,7 @@ export default {
                         }
                       } else {
                         Toast({
-                          message:res.data.returnErrMsg,
+                          message: res.data.returnErrMsg,
                           position: "middle",
                           duration: 2000
                         });
@@ -746,117 +806,150 @@ export default {
               }
             } else if (res.data.status == "SUCCEED") {
               console.log(res.data.data);
-              this.carcontrol = res.data.data;
-              // if(this.carcontrol.fuelPercent==undefined){
-              //     this.carcontrol.fuelPercent=''
-              // }else{
-              //   this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
-              // }
-              this.carcontrol.engineHoodStsFront
-                ? (this.engineHoodStsFront = "已开")
-                : (this.engineHoodStsFront = "未开");
-              this.acStatus = this.carcontrol.acStatus; //空调初始状态
-              this.carcontrol.skylightStatus
-                ? (this.skylightStatus = "已开")
-                : (this.skylightStatus = "未开"); //天窗初始状态
-              this.backnum = this.carcontrol.doorStsTrunk;
-              this.backnum
-                ? (this.doorStsTrunk = "已开")
-                : (this.doorStsTrunk = "未开"); //后备箱的初始状态
-              this.engineStatus = this.carcontrol.engineStatus;
-              // var tai = {
-              //   left_top: this.carcontrol.tirePressureFrontLeft,
-              //   right_top: this.carcontrol.tirePressureFrontRight,
-              //   left_bottom: this.carcontrol.tirePressureRearLeft,
-              //   right_bottom: this.carcontrol.tirePressureRearRight
-              // };
-              // this.Condition = tai;
-              var tai = {
-                left_top: this.carcontrol.tirePressureFrontLeft,
-                right_top: this.carcontrol.tirePressureFrontRight,
-                left_bottom: this.carcontrol.tirePressureRearLeft,
-                right_bottom: this.carcontrol.tirePressureRearRight
-              };
-              //车门状态t
-              if (this.carcontrol.doorStsFrontLeft == 1) {
-                this.doorStsFrontLeft = "打开";
-              } else if (this.carcontrol.doorStsFrontLeft == 0) {
-                this.doorStsFrontLeft = "关闭";
-              }
-              if (this.carcontrol.doorStsFrontRight == 1) {
-                this.doorStsFrontRight = "打开";
-              } else if (this.carcontrol.doorStsFrontRight == 0) {
-                this.doorStsFrontRight = "关闭";
-              }
-              if (this.carcontrol.doorStsRearLeft == 1) {
-                this.doorStsRearLeft = "打开";
-              } else if (this.carcontrol.doorStsRearLeft == 0) {
-                this.doorStsRearLeft = "关闭";
-              }
-              if (this.carcontrol.doorStsRearRight == 1) {
-                this.doorStsRearRight = "打开";
-              } else if (this.carcontrol.doorStsRearRight == 0) {
-                this.doorStsRearRight = "关闭";
-              }
-              //车窗状态
-              if (this.carcontrol.windowStsFrontLeft == 1) {
-                this.windowStsFrontLeft = "已打开";
-              } else if (this.carcontrol.windowStsFrontLeft == 0) {
-                this.windowStsFrontLeft = "已关闭";
-              }
-              if (this.carcontrol.windowStsFrontRight == 1) {
-                this.windowStsFrontRight = "已打开";
-              } else if (this.carcontrol.windowStsFrontRight == 0) {
-                this.windowStsFrontRight = "已关闭";
-              }
-              if (this.carcontrol.windowStsRearLeft == 1) {
-                this.windowStsRearLeft = "已打开";
-              } else if (this.carcontrol.windowStsRearLeft == 0) {
-                this.windowStsRearLeft = "已关闭";
-              }
-              if (this.carcontrol.windowStsRearRight == 1) {
-                this.windowStsRearRight = "已打开";
-              } else if (this.carcontrol.windowStsRearRight == 0) {
-                this.windowStsRearRight = "已关闭";
-              }
-              var door = {
-                left_top: this.doorStsFrontLeft,
-                right_top: this.doorStsFrontRight,
-                left_bottom: this.doorStsRearLeft,
-                right_bottom: this.doorStsRearRight
-              };
-              var window = {
-                left_top: this.windowStsFrontLeft,
-                right_top: this.windowStsFrontRight,
-                left_bottom: this.windowStsRearLeft,
-                right_bottom: this.windowStsRearRight
-              };
-              if (this.activeshow == 1) {
-                this.Condition = tai;
-              } else if (this.activeshow == 2) {
-                this.Condition = door;
-              } else if (this.activeshow == 3) {
-                this.Condition = window;
-              }
-              if (this.type == 1) {
-                this.isTrue = !this.isTrue;
-                this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
-              }
-              if (this.type == 2) {
-                this.isTrues = !this.isTrues;
-              }
-              if (this.type == 3) {
-                this.isTruess = !this.isTruess;
-                this.isTruess ? (this.firenum = 1) : (this.firenum = 2);
-              }
-              if (this.type == 4) {
-                this.isTruesss = !this.isTruesss;
-                setTimeout(() => {
-                  this.isTruesss = !this.isTruesss;
-                }, 5000);
-              }
               clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
+              console.log(11)
+               if (this.firstEnter) {
+                  this.firstEnter = false;
+                  if (res.data.data.accStatus == 0) {
+                    this.isTrue = false;
+                    this.locknum = 2;
+                  } else {
+                    this.isTrue = true;
+                    this.locknum = 1;
+                  }
+                  if (res.data.data.engineStatus == 0) {
+                    this.isTruess = false;
+                    this.firenum = 2;
+                  } else {
+                    this.isTruess = true;
+                    this.firenum = 1;
+                  }
+                  if (res.data.data.doorStsTrunk == 0) {
+                    this.isTrues = false;
+                  } else {
+                    this.isTrues = true;
+                  }
+                }
+                 if (this.type == 1) {
+                  this.isTrue = !this.isTrue;
+                  this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
+                }
+                if (this.type == 2) {
+                  this.isTrues = !this.isTrues;
+                }
+                if (this.type == 3) {
+                  this.isTruess = !this.isTruess;
+                  this.isTruess ? (this.firenum = 1) : (this.firenum = 2);
+                }
+                if (this.type == 4) {
+                  this.isTruesss = !this.isTruesss;
+                  setTimeout(() => {
+                    this.isTruesss = !this.isTruesss;
+                  }, 5000);
+                }
+              if(res.data.data){
+                console.log(22)
+                this.carcontrol = res.data.data;
+                // if(this.carcontrol.fuelPercent==undefined){
+                //     this.carcontrol.fuelPercent=''
+                // }else{
+                //   this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
+                // }
+               
+                this.carcontrol.engineHoodStsFront
+                  ? (this.engineHoodStsFront = "已开")
+                  : (this.engineHoodStsFront = "未开");
+                this.acStatus = this.carcontrol.acStatus; //空调初始状态
+                this.carcontrol.skylightStatus
+                  ? (this.skylightStatus = "已开")
+                  : (this.skylightStatus = "未开"); //天窗初始状态
+                this.backnum = this.carcontrol.doorStsTrunk;
+                this.backnum
+                  ? (this.doorStsTrunk = "已开")
+                  : (this.doorStsTrunk = "未开"); //后备箱的初始状态
+                this.engineStatus = this.carcontrol.engineStatus;
+                // var tai = {
+                //   left_top: this.carcontrol.tirePressureFrontLeft,
+                //   right_top: this.carcontrol.tirePressureFrontRight,
+                //   left_bottom: this.carcontrol.tirePressureRearLeft,
+                //   right_bottom: this.carcontrol.tirePressureRearRight
+                // };
+                // this.Condition = tai;
+                var tai = {
+                  left_top: this.carcontrol.tirePressureFrontLeft,
+                  right_top: this.carcontrol.tirePressureFrontRight,
+                  left_bottom: this.carcontrol.tirePressureRearLeft,
+                  right_bottom: this.carcontrol.tirePressureRearRight
+                };
+                //车门状态t
+                if (this.carcontrol.doorStsFrontLeft == 1) {
+                  this.doorStsFrontLeft = "打开";
+                } else if (this.carcontrol.doorStsFrontLeft == 0) {
+                  this.doorStsFrontLeft = "关闭";
+                }
+                if (this.carcontrol.doorStsFrontRight == 1) {
+                  this.doorStsFrontRight = "打开";
+                } else if (this.carcontrol.doorStsFrontRight == 0) {
+                  this.doorStsFrontRight = "关闭";
+                }
+                if (this.carcontrol.doorStsRearLeft == 1) {
+                  this.doorStsRearLeft = "打开";
+                } else if (this.carcontrol.doorStsRearLeft == 0) {
+                  this.doorStsRearLeft = "关闭";
+                }
+                if (this.carcontrol.doorStsRearRight == 1) {
+                  this.doorStsRearRight = "打开";
+                } else if (this.carcontrol.doorStsRearRight == 0) {
+                  this.doorStsRearRight = "关闭";
+                }
+                //车窗状态
+                if (this.carcontrol.windowStsFrontLeft == 1) {
+                  this.windowStsFrontLeft = "已打开";
+                } else if (this.carcontrol.windowStsFrontLeft == 0) {
+                  this.windowStsFrontLeft = "已关闭";
+                }
+                if (this.carcontrol.windowStsFrontRight == 1) {
+                  this.windowStsFrontRight = "已打开";
+                } else if (this.carcontrol.windowStsFrontRight == 0) {
+                  this.windowStsFrontRight = "已关闭";
+                }
+                if (this.carcontrol.windowStsRearLeft == 1) {
+                  this.windowStsRearLeft = "已打开";
+                } else if (this.carcontrol.windowStsRearLeft == 0) {
+                  this.windowStsRearLeft = "已关闭";
+                }
+                if (this.carcontrol.windowStsRearRight == 1) {
+                  this.windowStsRearRight = "已打开";
+                } else if (this.carcontrol.windowStsRearRight == 0) {
+                  this.windowStsRearRight = "已关闭";
+                }
+                var door = {
+                  left_top: this.doorStsFrontLeft,
+                  right_top: this.doorStsFrontRight,
+                  left_bottom: this.doorStsRearLeft,
+                  right_bottom: this.doorStsRearRight
+                };
+                var window = {
+                  left_top: this.windowStsFrontLeft,
+                  right_top: this.windowStsFrontRight,
+                  left_bottom: this.windowStsRearLeft,
+                  right_bottom: this.windowStsRearRight
+                };
+                if (this.activeshow == 1) {
+                  this.Condition = tai;
+                } else if (this.activeshow == 2) {
+                  this.Condition = door;
+                } else if (this.activeshow == 3) {
+                  this.Condition = window;
+                }
+              }else{
+                 Toast({
+                    message: '指令下发成功,请实时刷新车况查看',
+                    position: "middle",
+                    duration: 2000
+                });
+              }
             } else if (res.data.status == "FAILED") {
               Toast({
                 message: res.data.returnErrMsg,
@@ -955,7 +1048,7 @@ export default {
                     // alert(res.data.operationId)
                     // alert(this.operationIdcar)
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(this.operationIdcar);
+                      this.getAsyReturn( res.data.operationId);
                       // alert(this.isTrue)
                     } else {
                       if (res.data.returnErrCode == 400) {
@@ -993,7 +1086,7 @@ export default {
                   .post(Lovecar.Control, param, this.$store.state.tsppin)
                   .then(res => {
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(this.operationIdcar);
+                      this.getAsyReturn(res.data.operationId);
                     } else {
                       if (res.data.returnErrCode == 400) {
                         Toast({
@@ -1029,7 +1122,7 @@ export default {
                   .then(res => {
                     this.operationIdss = res.data.operationId;
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(this.operationIdcar);
+                      this.getAsyReturn(res.data.operationId);
                     } else {
                       if (res.data.returnErrCode == 400) {
                         Toast({
@@ -1063,7 +1156,7 @@ export default {
                   .then(res => {
                     this.operationIdses = res.data.operationId;
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn(this.operationIdcar);
+                      this.getAsyReturn( res.data.operationId);
                     } else {
                       if (res.data.returnErrCode == 400) {
                         Toast({
@@ -1134,7 +1227,10 @@ export default {
             // alert(1)
             this.BusDetails = res.data.data;
             for (let i = 0; i < res.data.data.length; i++) {
-              if (res.data.data[i].def == 1||res.data.data[i].defToNathor==1) {
+              if (
+                res.data.data[i].def == 1 ||
+                res.data.data[i].defToNathor == 1
+              ) {
                 this.carsysitem = res.data.data[i].seriesName;
                 // console.log(res.data.data[i].vin);
                 var payload = res.data.data[i].vin;
@@ -1143,6 +1239,7 @@ export default {
               }
               // }
             }
+            this.firstEnter = true;
             this.vinn = this.$store.state.vins;
             this.Support();
             // console.log(this.vinn)
@@ -1175,7 +1272,10 @@ export default {
           if (res.data.returnSuccess) {
             this.BusDetails = res.data.data;
             for (let i = 0; i < res.data.data.length; i++) {
-              if (res.data.data[i].def == 1||res.data.data[i].defToNathor==1) {
+              if (
+                res.data.data[i].def == 1 ||
+                res.data.data[i].defToNathor == 1
+              ) {
                 this.carsysitem = res.data.data[i].seriesName || null;
                 var payload = res.data.data[i].vin;
                 this.defaultvin = res.data.data[i].vin;
@@ -1186,6 +1286,7 @@ export default {
                 //  	       this.getCarLoginState()
               }
             }
+            this.firstEnter = true;
             this.vinn = this.$store.state.vins;
             this.Support();
             this.Carquerry();
@@ -1266,16 +1367,13 @@ export default {
   -webkit-background-size: 200% 100%;
   -webkit-animation: masked-animation 4s infinite linear;
 }
-
 .typer li.typer-num.is-A {
   margin-left: 0.31rem;
 }
-
 .typer li.typer-num.is-OK {
   width: 0.8rem;
   margin-left: 0.1rem;
 }
-
 @-webkit-keyframes masked-animation {
   0% {
     background-position: 0 0;
@@ -1284,14 +1382,12 @@ export default {
     background-position: -100% 0;
   }
 }
-
 .yy {
   flex-wrap: wrap;
   justify-content: center;
   height: 100%;
 }
 /* 左上角弹框 */
-
 .mask {
   width: 100%;
   height: 100%;
@@ -1302,7 +1398,6 @@ export default {
   left: 0;
   z-index: 999;
 }
-
 .mask_content {
   position: fixed;
   top: 28%;
@@ -1315,22 +1410,20 @@ export default {
   z-index: 10000;
   border-radius: 3px;
 }
-
 .cancel {
   position: fixed;
   z-index: 10000;
   top: 1rem;
   left: 0.3rem;
 }
-
 .tipcontent {
   display: flex;
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
+
   box-sizing: border-box;
 }
-
 .tipcontent li {
   display: flex;
   flex-direction: column;
@@ -1338,33 +1431,28 @@ export default {
   width: 25%;
   margin-top: 0.3rem;
 }
-
 .tipcontent li img {
   width: 0.4rem;
   display: block;
 }
-
 .tipcontent li span {
   color: #444;
   font-size: 0.22rem;
   margin-top: 0.23rem;
 }
 /*  */
-
 #wrap {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 0.4rem 0;
 }
-
 #wrap input[type="text"] {
   width: 20%;
   height: 0.7rem;
   float: left;
   text-align: center;
 }
-
 .one {
   display: flex;
   flex-direction: row;
@@ -1376,17 +1464,14 @@ export default {
   width: 20%;
   height: 0.7rem;
 }
-
 input:focus {
   outline: none;
 }
-
 .con {
   width: 6rem;
   height: 3rem;
   padding: 0.2rem 0.4rem;
 }
-
 .del {
   display: flex;
   flex-direction: row;
@@ -1396,75 +1481,61 @@ input:focus {
   border-bottom: 1px solid #f1f1f1;
   height: 0.88rem;
 }
-
 .sure {
   margin-bottom: 0.16rem;
   color: #555;
 }
-
 .active {
   color: #49bbff;
 }
-
 .act {
   color: #49bbff;
   font-size: 0.22rem;
   margin-top: 0.12rem;
 }
-
 .actives {
   color: #ccc !important;
 }
-
 .bus_l {
   position: relative;
 }
-
 .busl_r {
   position: absolute;
   font-size: 0.25rem;
   color: #49bbff;
 }
-
 .left_1 {
   left: -0.6rem;
   top: 1.5rem;
 }
-
 .left_2 {
   left: -0.6rem;
   top: 3rem;
 }
-
 .right_1 {
   right: -1rem;
   top: 1.5rem;
 }
-
 .right_2 {
   right: -1rem;
   top: 3rem;
 }
-
 .top_1 {
   top: 0.6rem;
   left: 0.8rem;
   font-size: 0.24rem;
 }
-
 .bottom_1 {
-  bottom:.5rem;
+  bottom: 0.5rem;
   left: 0.8rem;
   font-size: 0.24rem;
 }
-
 .middle_1 {
   bottom: 2.1rem;
   left: 0.8rem;
   color: #49bbff;
   font-size: 0.24rem;
 }
-
 .tophead {
   /*position: absolute;*/
   height: 2.9rem;
@@ -1474,7 +1545,6 @@ input:focus {
   background-size: content;
   z-index: 1;
 }
-
 .nav {
   display: flex;
   /*position: fixed;
@@ -1486,7 +1556,6 @@ input:focus {
   justify-content: space-between;
   padding: 0 0.5rem;
 }
-
 .left_bus {
   display: flex;
   flex-direction: column;
@@ -1502,16 +1571,13 @@ input:focus {
   width: 0.31rem;
   height: 0.35rem;
 }
-
 .content_pic {
   width: 0.35rem;
   height: 0.35rem;
 }
-
 .lines {
   border-bottom: 1px solid #f1f1f1;
 }
-
 .left_bus1 {
   display: flex;
   flex-direction: column;
@@ -1521,87 +1587,72 @@ input:focus {
   padding-right: 0.6rem;
   padding-left: 0.2rem;
 }
-
 .txt_m {
   font-size: 0.34rem;
   color: #fff;
 }
-
 .activess {
   color: #444;
   font-size: 0.22rem;
   margin-top: 0.12rem;
 }
-
 .txt_r {
   font-size: 0.25rem;
   color: #fff;
 }
-
 .bus_righgt {
   /* width: 1.99rem; */
   height: 4.24rem;
   margin-right: -0.5rem;
 }
-
 .left_bus .pic1 {
   width: 0.4rem;
   height: 0.4rem;
 }
-
 .left_bus .txt1 {
   font-size: 0.26rem;
   margin-top: 0.17rem;
 }
-
 .navs {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
 }
-
 .content {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
-
 .content_1 {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0.31rem 0;
 }
-
 .navs_h {
   height: 2rem;
 }
-
 .navs_t {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
-
 .num {
   color: #fff;
   font-size: 0.28rem;
 }
-
 .txt {
   color: #fff;
   font-size: 0.23rem;
   margin-top: 0.18rem;
 }
-
 .air {
   height: 1.2rem;
   border-bottom: 1px solid #f1f1f1;
   justify-content: space-between;
 }
-
 .picc {
   width: 0.34rem;
   height: 0.38rem;
@@ -1613,28 +1664,23 @@ input:focus {
   width: 0.26rem;
   height: 0.4rem;
 }
-
 .skylight {
   width: 0.34rem;
   height: 0.38rem;
 }
-
 .pic_r {
   width: 0.3rem;
   display: block;
   margin-right: 0.4rem;
 }
-
 .pic_txt {
   font-size: 0.28rem;
   color: #444;
 }
-
 .line_x {
   width: 0.17rem;
   padding-top: 0.4rem;
 }
-
 #can {
   position: fixed;
   left: 50%;

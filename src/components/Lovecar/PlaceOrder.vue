@@ -56,6 +56,8 @@ export default {
       let param = {
         vin: this.$store.state.vins,
         phone:this.$store.state.mobile,
+        userid:this.$store.state.userId,
+        aaauserid:this.$store.state.aaaid,
         //vin: 'LJ12EKS10J00001S4',
         packetId: this.placeOrder.packageId
       };
@@ -78,7 +80,12 @@ export default {
         });
     },
     goflowlist(){
-      
+        this.$router.push({
+                    name:'我的订单',
+                    params:{
+                           show:1
+                }
+             })
     }
   },
   mounted() {}
