@@ -75,8 +75,10 @@
 		</div>
 		<p id="showAll2" style="visibility: hidden">已加载全部</p>
 		<!--没有数据时,对用户进行提示-->
-		<div class="dataInfo" v-if="flag" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);font-size: 0.34rem;color: #555555;">
-			没有符合该条件的经销商
+		<div v-if="flag" style="position: relative;">
+			<div class="dataInfo">
+				没有符合该条件的经销商
+			</div>
 		</div>
 
 		<mt-popup v-model="popupVisible" position="bottom">

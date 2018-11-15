@@ -63,7 +63,8 @@
       <div class="content_1" @click="doors">
         <img v-if="activeshows==this.isTrue" class="content_carDoor" src="../../../static/images/Wit/button4@3x_32.png" alt="">
         <img v-else class="content_carDoor" src="../../../static/images/Wit/button4@3x.png" alt="">
-        <span :class="activeshows==this.isTrue?'act':'activess'">车门</span>
+        <span v-if="activeshows==this.isTrue"  :class="'act'">开锁</span>
+        <span v-else  :class="'activess'">闭锁</span>
       </div>
       <div v-show="this.TRUNK" class="content_1" @click="backbox">
         <img v-if="activeshows==this.isTrues" class="tailgate" src="../../../static/images/Wit/button5@3x_86.png" alt="">
@@ -73,7 +74,8 @@
       <div v-show="this.ENGINE" class="content_1" @click="closefire">
         <img v-if="activeshows==this.isTruess" class="Flameout" src="../../../static/images/Wit/button6@3x_91.png" alt="">
         <img v-else class="Flameout" src="../../../static/images/Wit/button6@3x.png" alt="">
-        <span :class="activeshows==this.isTruess?'act':'activess'">熄火</span>
+        <span v-if="activeshows==this.isTruess" :class="'act'">启动</span>
+        <span v-else :class="'activess'">熄火</span>
       </div>
       <div v-show="this.FIND_VEHICLE" class="content_1" @click="enter()">
         <img v-if="activeshows==this.isTruesss" class="content_pic" src="../../../static/images/Wit/button7@3x_2.png" alt="">
@@ -300,10 +302,10 @@ export default {
     fn(type) {
       this.activeshow = type;
       var tai = {
-        left_top: this.carcontrol.tirePressureFrontLeft,
-        right_top: this.carcontrol.tirePressureFrontRight,
-        left_bottom: this.carcontrol.tirePressureRearLeft,
-        right_bottom: this.carcontrol.tirePressureRearRight
+        left_top: this.carcontrol.tirePressureFrontLeft + "Kpa",
+        right_top: this.carcontrol.tirePressureFrontRight + "Kpa",
+        left_bottom: this.carcontrol.tirePressureRearLeft + "Kpa",
+        right_bottom: this.carcontrol.tirePressureRearRight + "Kpa"
       };
       //车门状态
       // this.doorStsFrontLeft = this.carcontrol.doorStsFrontLeft==1
@@ -646,24 +648,24 @@ export default {
                           this.$store.dispatch("LOADINGFLAG", false);
                           if (this.firstEnter) {
                             this.firstEnter = false;
-                            if (res.data.data.accStatus == 0) {
-                              this.isTrue = false;
-                              this.locknum = 2;
-                            } else {
+                            if (res.data.data.accStatus == 1) {
                               this.isTrue = true;
                               this.locknum = 1;
-                            }
-                            if (res.data.data.engineStatus == 0) {
-                              this.isTruess = false;
-                              this.firenum = 2;
                             } else {
+                              this.isTrue = false;
+                              this.locknum = 2;
+                            }
+                            if (res.data.data.engineStatus == 1) {
                               this.isTruess = true;
                               this.firenum = 1;
-                            }
-                            if (res.data.data.doorStsTrunk == 0) {
-                              this.isTrues = false;
                             } else {
+                              this.isTruess = false;
+                              this.firenum = 2;
+                            }
+                            if (res.data.data.doorStsTrunk == 1) {
                               this.isTrues = true;
+                            } else {
+                              this.isTrues = false;
                             }
                           }
 
@@ -688,7 +690,7 @@ export default {
                               this.isTruesss = !this.isTruesss;
                             }, 5000);
                           }
-                          if(res.data.data){
+                          if (res.data.data) {
                             this.carcontrol = res.data.data;
                             // if(this.carcontrol.fuelPercent==undefined){
                             //       this.carcontrol.fuelPercent=''
@@ -710,10 +712,14 @@ export default {
                               : (this.doorStsTrunk = "未开"); //后备箱的初始状态
                             this.engineStatus = this.carcontrol.engineStatus;
                             var tai = {
-                              left_top: this.carcontrol.tirePressureFrontLeft,
-                              right_top: this.carcontrol.tirePressureFrontRight,
-                              left_bottom: this.carcontrol.tirePressureRearLeft,
-                              right_bottom: this.carcontrol.tirePressureRearRight
+                              left_top:
+                                this.carcontrol.tirePressureFrontLeft + "Kpa",
+                              right_top:
+                                this.carcontrol.tirePressureFrontRight + "Kpa",
+                              left_bottom:
+                                this.carcontrol.tirePressureRearLeft + "Kpa",
+                              right_bottom:
+                                this.carcontrol.tirePressureRearRight + "Kpa"
                             };
                             //车门状态
                             if (this.carcontrol.doorStsFrontLeft == 1) {
@@ -739,12 +745,16 @@ export default {
                             //车窗状态
                             if (this.carcontrol.windowStsFrontLeft == 1) {
                               this.windowStsFrontLeft = "已打开";
-                            } else if (this.carcontrol.windowStsFrontLeft == 0) {
+                            } else if (
+                              this.carcontrol.windowStsFrontLeft == 0
+                            ) {
                               this.windowStsFrontLeft = "已关闭";
                             }
                             if (this.carcontrol.windowStsFrontRight == 1) {
                               this.windowStsFrontRight = "已打开";
-                            } else if (this.carcontrol.windowStsFrontRight == 0) {
+                            } else if (
+                              this.carcontrol.windowStsFrontRight == 0
+                            ) {
                               this.windowStsFrontRight = "已关闭";
                             }
                             if (this.carcontrol.windowStsRearLeft == 1) {
@@ -754,7 +764,9 @@ export default {
                             }
                             if (this.carcontrol.windowStsRearRight == 1) {
                               this.windowStsRearRight = "已打开";
-                            } else if (this.carcontrol.windowStsRearRight == 0) {
+                            } else if (
+                              this.carcontrol.windowStsRearRight == 0
+                            ) {
                               this.windowStsRearRight = "已关闭";
                             }
                             var door = {
@@ -776,12 +788,12 @@ export default {
                             } else if (this.activeshow == 3) {
                               this.Condition = window;
                             }
-                          }else{
-                             Toast({
-                                    message: '指令下发成功,请实时刷新车况查看',
-                                    position: "middle",
-                                    duration: 2000
-                                });
+                          } else {
+                            Toast({
+                              message: "指令下发成功,请实时刷新车况查看",
+                              position: "middle",
+                              duration: 2000
+                            });
                           }
                         } else if (res.data.status == "FAILED") {
                           Toast({
@@ -808,55 +820,53 @@ export default {
               console.log(res.data.data);
               clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
-              console.log(11)
-               if (this.firstEnter) {
-                  this.firstEnter = false;
-                  if (res.data.data.accStatus == 0) {
-                    this.isTrue = false;
-                    this.locknum = 2;
-                  } else {
-                    this.isTrue = true;
-                    this.locknum = 1;
-                  }
-                  if (res.data.data.engineStatus == 0) {
-                    this.isTruess = false;
-                    this.firenum = 2;
-                  } else {
-                    this.isTruess = true;
-                    this.firenum = 1;
-                  }
-                  if (res.data.data.doorStsTrunk == 0) {
-                    this.isTrues = false;
-                  } else {
-                    this.isTrues = true;
-                  }
+              if (this.firstEnter) {
+                this.firstEnter = false;
+                if (res.data.data.accStatus == 1) {
+                  this.isTrue = true;
+                  this.locknum = 1;
+                } else {
+                  this.isTrue = false;
+                  this.locknum = 2;
                 }
-                 if (this.type == 1) {
-                  this.isTrue = !this.isTrue;
-                  this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
+                if (res.data.data.engineStatus == 1) {
+                  this.isTruess = true;
+                  this.firenum = 1;
+                } else {
+                  this.isTruess = false;
+                  this.firenum = 2;
                 }
-                if (this.type == 2) {
-                  this.isTrues = !this.isTrues;
+                if (res.data.data.doorStsTrunk == 1) {
+                  this.isTrues = true;
+                } else {
+                  this.isTrues = false;
                 }
-                if (this.type == 3) {
-                  this.isTruess = !this.isTruess;
-                  this.isTruess ? (this.firenum = 1) : (this.firenum = 2);
-                }
-                if (this.type == 4) {
+              }
+              if (this.type == 1) {
+                this.isTrue = !this.isTrue;
+                this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
+              }
+              if (this.type == 2) {
+                this.isTrues = !this.isTrues;
+              }
+              if (this.type == 3) {
+                this.isTruess = !this.isTruess;
+                this.isTruess ? (this.firenum = 1) : (this.firenum = 2);
+              }
+              if (this.type == 4) {
+                this.isTruesss = !this.isTruesss;
+                setTimeout(() => {
                   this.isTruesss = !this.isTruesss;
-                  setTimeout(() => {
-                    this.isTruesss = !this.isTruesss;
-                  }, 5000);
-                }
-              if(res.data.data){
-                console.log(22)
+                }, 5000);
+              }
+              if (res.data.data) {
                 this.carcontrol = res.data.data;
                 // if(this.carcontrol.fuelPercent==undefined){
                 //     this.carcontrol.fuelPercent=''
                 // }else{
                 //   this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
                 // }
-               
+
                 this.carcontrol.engineHoodStsFront
                   ? (this.engineHoodStsFront = "已开")
                   : (this.engineHoodStsFront = "未开");
@@ -877,10 +887,10 @@ export default {
                 // };
                 // this.Condition = tai;
                 var tai = {
-                  left_top: this.carcontrol.tirePressureFrontLeft,
-                  right_top: this.carcontrol.tirePressureFrontRight,
-                  left_bottom: this.carcontrol.tirePressureRearLeft,
-                  right_bottom: this.carcontrol.tirePressureRearRight
+                  left_top: this.carcontrol.tirePressureFrontLeft + "Kpa",
+                  right_top: this.carcontrol.tirePressureFrontRight + "Kpa",
+                  left_bottom: this.carcontrol.tirePressureRearLeft + "Kpa",
+                  right_bottom: this.carcontrol.tirePressureRearRight + "Kpa"
                 };
                 //车门状态t
                 if (this.carcontrol.doorStsFrontLeft == 1) {
@@ -943,11 +953,11 @@ export default {
                 } else if (this.activeshow == 3) {
                   this.Condition = window;
                 }
-              }else{
-                 Toast({
-                    message: '指令下发成功,请实时刷新车况查看',
-                    position: "middle",
-                    duration: 2000
+              } else {
+                Toast({
+                  message: "指令下发成功,请实时刷新车况查看",
+                  position: "middle",
+                  duration: 2000
                 });
               }
             } else if (res.data.status == "FAILED") {
@@ -974,7 +984,7 @@ export default {
     //手动刷新
     loading() {
       this.Carquerry();
-      this.activeshow = 1;
+      this.activeshow = this.activeshow;
     },
     //车辆授权状态
     vehiclestatus() {
@@ -1048,7 +1058,7 @@ export default {
                     // alert(res.data.operationId)
                     // alert(this.operationIdcar)
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn( res.data.operationId);
+                      this.getAsyReturn(res.data.operationId);
                       // alert(this.isTrue)
                     } else {
                       if (res.data.returnErrCode == 400) {
@@ -1156,7 +1166,7 @@ export default {
                   .then(res => {
                     this.operationIdses = res.data.operationId;
                     if (res.data.returnSuccess) {
-                      this.getAsyReturn( res.data.operationId);
+                      this.getAsyReturn(res.data.operationId);
                     } else {
                       if (res.data.returnErrCode == 400) {
                         Toast({
@@ -1421,7 +1431,6 @@ export default {
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-
   box-sizing: border-box;
 }
 .tipcontent li {
@@ -1459,7 +1468,6 @@ export default {
   align-items: center;
   padding: 0.4rem 0;
 }
-
 .one input {
   width: 20%;
   height: 0.7rem;
