@@ -336,8 +336,9 @@
   }
   .contentCar .contentCarBtn .middleTitle{
     font-size: 0.32rem;
-    text-align: center;
+    text-align:  left;
     font-weight: 400;
+    padding-left: 0.08rem;
   }
   .contentCar .contentCarBtn .rightBtn{
     position: relative;
