@@ -49,10 +49,10 @@
       </div>
       <div class="bus_l">
         <img src="../../../static/images/Wit/bus.png" alt="" class="bus_righgt">
-        <span ref='open' class='busl_r left_1'>{{Condition.left_top}}</span>
-        <span ref='open' class='busl_r  left_2'>{{Condition.left_bottom}}</span>
-        <span ref='open' class='busl_r right_1'>{{Condition.right_top}}</span>
-        <span ref='open' class='busl_r right_2'>{{Condition.right_bottom}}</span>
+        <span ref='open1' class='busl_r left_1'>{{Condition.left_top}}</span>
+        <span ref='open2' class='busl_r  left_2'>{{Condition.left_bottom}}</span>
+        <span ref='open3' class='busl_r right_1'>{{Condition.right_top}}</span>
+        <span ref='open4' class='busl_r right_2'>{{Condition.right_bottom}}</span>
         <span class='busl_r top_1'>{{this.engineHoodStsFront}}</span>
         <span class='busl_r bottom_1'>{{this.doorStsTrunk}}</span>
         <span class='busl_r middle_1'>{{this.skylightStatus}}</span>
@@ -131,12 +131,13 @@
     <!-- 输入框 -->
     <div id="bg" class="bg" />
     <mt-popup v-model="popupVisible" position="middle">
-      <div class="con">
+      <div class="con" style="position:relative;">
         <div class="del">
           <img @click="cancel" src="../.././../static/images/Wit/delete@3x.png" alt="" style="width:.28rem">
           <div style="font-size:.36rem;color:#222">请输入PIN码</div>
           <span></span>
         </div>
+          <img @click="Toasteach"  class="question" style="width:.35rem;height:.35rem" src="../.././../static/images/lovecar/question.png" alt="">
         <div class="pin-code flex maincenter cocenter">
           <div id="pinCon">
             <input @click="onTypewriting" v-model="pinNumber" class="pin-input" maxlength="6" type="text" readonly/>
@@ -391,8 +392,49 @@ export default {
         this.Condition = tai;
       } else if (this.activeshow == 2) {
         this.Condition = door;
+        console.log(this.Condition);
+        if (this.Condition.left_top == "关闭") {
+          $(".left_1").css("color", "#49BBFF");
+        } else if (this.Condition.left_top == "开启") {
+          $(".left_1").css("color", "#FC3B46");
+        }
+        if (this.Condition.left_bottom == "关闭") {
+          $(".left_2").css("color", "#49BBFF");
+        } else if (this.Condition.left_top == "开启") {
+          $(".left_2").css("color", "#FC3B46");
+        }
+        if (this.Condition.right_top == "关闭") {
+          $("right_1").css("color", "#49BBFF");
+        } else if (this.Condition.right_top == "开启") {
+          $("right_1").css("color", "#FC3B46");
+        }
+        if (this.Condition.right_bottom == "关闭") {
+          $("right_2").css("color", "#49BBFF");
+        } else if (this.Condition.right_bottom == "开启") {
+          $("right_2").css("color", "#FC3B46");
+        }
       } else if (this.activeshow == 3) {
         this.Condition = window;
+        if (this.Condition.left_top == "已关闭") {
+          $(".left_1").css("color", "#49BBFF");
+        } else if (this.Condition.left_top == "已打开") {
+          $(".left_1").css("color", "#FC3B46");
+        }
+        if (this.Condition.left_bottom == "已关闭") {
+          $(".left_2").css("color", "#49BBFF");
+        } else if (this.Condition.left_top == "已打开") {
+          $(".left_2").css("color", "#FC3B46");
+        }
+        if (this.Condition.right_top == "已关闭") {
+          $("right_1").css("color", "#49BBFF");
+        } else if (this.Condition.right_top == "已打开") {
+          $("right_1").css("color", "#FC3B46");
+        }
+        if (this.Condition.right_bottom == "已关闭") {
+          $("right_2").css("color", "#49BBFF");
+        } else if (this.Condition.right_bottom == "已打开") {
+          $("right_2").css("color", "#FC3B46");
+        }
       }
     },
     //获取此车所具有的车况功能
@@ -565,6 +607,16 @@ export default {
         window.webkit.messageHandlers.goDDPaiiOS.postMessage({});
       }
     },
+    //各种点击问好的提示
+    Toasteach(){
+      if(this.type==1){
+         Toast({
+              message:'在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁',
+              position: "bottom",
+              duration: 2000
+            });
+      }
+    },
     //调用车况接口
     async Carquerry() {
       this.$http
@@ -702,14 +754,23 @@ export default {
                               .engineHoodStsFront
                               ? (this.engineHoodStsFront = "已开")
                               : (this.engineHoodStsFront = "未开");
+                            this.carcontrol.engineHoodStsFront
+                              ? $(".top_1").css("color", "#FC3B46")
+                              : $(".top_1").css("color", "#49BBFF");
                             this.acStatus = this.carcontrol.acStatus; //空调初始状态
                             this.skylightStatus = this.carcontrol.skylightStatus
                               ? (this.skylightStatus = "已开")
                               : (this.skylightStatus = "未开"); //天窗初始状态
+                            this.carcontrol.skylightStatus
+                              ? $(".middle_1").css("color", "#FC3B46")
+                              : $(".middle_1").css("color", "#49BBFF");
                             this.backnum = this.carcontrol.doorStsTrunk;
                             this.backnum
                               ? (this.doorStsTrunk = "已开")
                               : (this.doorStsTrunk = "未开"); //后备箱的初始状态
+                            this.backnum
+                              ? $(".bottom_1").css("color", "#FC3B46")
+                              : $(".bottom_1").css("color", "#49BBFF");
                             this.engineStatus = this.carcontrol.engineStatus;
                             var tai = {
                               left_top:
@@ -785,8 +846,52 @@ export default {
                               this.Condition = tai;
                             } else if (this.activeshow == 2) {
                               this.Condition = door;
+                              if (this.Condition.left_top == "关闭") {
+                                $(".left_1").css("color", "#49BBFF");
+                              } else if (this.Condition.left_top == "开启") {
+                                $(".left_1").css("color", "#FC3B46");
+                              }
+                              if (this.Condition.left_bottom == "关闭") {
+                                $(".left_2").css("color", "#49BBFF");
+                              } else if (this.Condition.left_top == "开启") {
+                                $(".left_2").css("color", "#FC3B46");
+                              }
+                              if (this.Condition.right_top == "关闭") {
+                                $("right_1").css("color", "#49BBFF");
+                              } else if (this.Condition.right_top == "开启") {
+                                $("right_1").css("color", "#FC3B46");
+                              }
+                              if (this.Condition.right_bottom == "关闭") {
+                                $("right_2").css("color", "#49BBFF");
+                              } else if (
+                                this.Condition.right_bottom == "开启"
+                              ) {
+                                $("right_2").css("color", "#FC3B46");
+                              }
                             } else if (this.activeshow == 3) {
                               this.Condition = window;
+                              if (this.Condition.left_top == "已关闭") {
+                                $(".left_1").css("color", "#49BBFF");
+                              } else if (this.Condition.left_top == "已打开") {
+                                $(".left_1").css("color", "#FC3B46");
+                              }
+                              if (this.Condition.left_bottom == "已关闭") {
+                                $(".left_2").css("color", "#49BBFF");
+                              } else if (this.Condition.left_top == "已打开") {
+                                $(".left_2").css("color", "#FC3B46");
+                              }
+                              if (this.Condition.right_top == "已关闭") {
+                                $("right_1").css("color", "#49BBFF");
+                              } else if (this.Condition.right_top == "已打开") {
+                                $("right_1").css("color", "#FC3B46");
+                              }
+                              if (this.Condition.right_bottom == "已关闭") {
+                                $("right_2").css("color", "#49BBFF");
+                              } else if (
+                                this.Condition.right_bottom == "已打开"
+                              ) {
+                                $("right_2").css("color", "#FC3B46");
+                              }
                             }
                           } else {
                             Toast({
@@ -871,13 +976,22 @@ export default {
                   ? (this.engineHoodStsFront = "已开")
                   : (this.engineHoodStsFront = "未开");
                 this.acStatus = this.carcontrol.acStatus; //空调初始状态
+                this.carcontrol.engineHoodStsFront
+                  ? $(".top_1").css("color", "#FC3B46")
+                  : $(".top_1").css("color", "#49BBFF");
                 this.carcontrol.skylightStatus
                   ? (this.skylightStatus = "已开")
                   : (this.skylightStatus = "未开"); //天窗初始状态
+                this.carcontrol.skylightStatus
+                  ? $(".middle_1").css("color", "#FC3B46")
+                  : $(".middle_1").css("color", "#49BBFF");
                 this.backnum = this.carcontrol.doorStsTrunk;
                 this.backnum
                   ? (this.doorStsTrunk = "已开")
                   : (this.doorStsTrunk = "未开"); //后备箱的初始状态
+                this.backnum
+                  ? $(".bottom_1").css("color", "#FC3B46")
+                  : $(".bottom_1").css("color", "#49BBFF");
                 this.engineStatus = this.carcontrol.engineStatus;
                 // var tai = {
                 //   left_top: this.carcontrol.tirePressureFrontLeft,
@@ -950,8 +1064,48 @@ export default {
                   this.Condition = tai;
                 } else if (this.activeshow == 2) {
                   this.Condition = door;
+                  if (this.Condition.left_top == "关闭") {
+                    $(".left_1").css("color", "#49BBFF");
+                  } else if (this.Condition.left_top == "开启") {
+                    $(".left_1").css("color", "#FC3B46");
+                  }
+                  if (this.Condition.left_bottom == "关闭") {
+                    $(".left_2").css("color", "#49BBFF");
+                  } else if (this.Condition.left_top == "开启") {
+                    $(".left_2").css("color", "#FC3B46");
+                  }
+                  if (this.Condition.right_top == "关闭") {
+                    $("right_1").css("color", "#49BBFF");
+                  } else if (this.Condition.right_top == "开启") {
+                    $("right_1").css("color", "#FC3B46");
+                  }
+                  if (this.Condition.right_bottom == "关闭") {
+                    $("right_2").css("color", "#49BBFF");
+                  } else if (this.Condition.right_bottom == "开启") {
+                    $("right_2").css("color", "#FC3B46");
+                  }
                 } else if (this.activeshow == 3) {
                   this.Condition = window;
+                  if (this.Condition.left_top == "已关闭") {
+                    $(".left_1").css("color", "#49BBFF");
+                  } else if (this.Condition.left_top == "已打开") {
+                    $(".left_1").css("color", "#FC3B46");
+                  }
+                  if (this.Condition.left_bottom == "已关闭") {
+                    $(".left_2").css("color", "#49BBFF");
+                  } else if (this.Condition.left_top == "已打开") {
+                    $(".left_2").css("color", "#FC3B46");
+                  }
+                  if (this.Condition.right_top == "已关闭") {
+                    $("right_1").css("color", "#49BBFF");
+                  } else if (this.Condition.right_top == "已打开") {
+                    $("right_1").css("color", "#FC3B46");
+                  }
+                  if (this.Condition.right_bottom == "已关闭") {
+                    $("right_2").css("color", "#49BBFF");
+                  } else if (this.Condition.right_bottom == "已打开") {
+                    $("right_2").css("color", "#FC3B46");
+                  }
                 }
               } else {
                 Toast({
@@ -1695,5 +1849,10 @@ input:focus {
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 9999999;
+}
+.question{
+  position: absolute;
+  top: .3rem;
+  right: .3rem;
 }
 </style>
