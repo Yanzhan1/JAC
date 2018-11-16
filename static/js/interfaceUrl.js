@@ -15,6 +15,7 @@ var mips = host + '/api/jac-admin/' //地区
 var jf = host + '/' //跟积分有关的
     // var love_car = host+'/jvconnectedcar' //爱车
 var love_car = host + '/api/jac-car-control' //爱车
+    // var love_car = 'http://172.21.4.114:8084' //爱车
     //服务器→反馈记录
 var rec = host + '/api/jac-enjoy-service/'
     // H5外网地址，分享用
