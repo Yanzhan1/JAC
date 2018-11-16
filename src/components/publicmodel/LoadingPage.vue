@@ -2,7 +2,7 @@
   <div class="loadingPage flex-center">
     <div class="flex-center loadingBackground">
       <img  id="img" src="../../../static/images/Lovecar/loading.gif">
-      <p style="color: rgb(0, 116, 255);">加载数据中...</p>
+      <p style="color: #FFFFFF;">加载数据中...</p>
     </div>
   </div>
 </template>
@@ -61,7 +61,6 @@
     width: 1.87rem;
     height: 1.87rem;
     color: #FFFFFF;
-    background: #FAFAFA;
     border-radius: 0.1rem;
   }
   .loadingBackground>img{
