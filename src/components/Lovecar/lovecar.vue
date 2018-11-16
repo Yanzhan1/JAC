@@ -63,38 +63,38 @@
     <div  class="content lines">
       <div v-show="this.CAR_INFO" class="content_1" @click="doors">
       <!-- <div class="content_1" @click="doors"> -->
-        <img v-if="activeshows==this.isTrue" class="content_carDoor" src="../../../static/images/lovecar/lockoff.png" alt="">
-        <img v-else class="content_carDoor" src="../../../static/images/lovecar/lockon.png" alt="">
+        <img v-if="activeshows==this.isTrue" class="content_carDoor" :src="'./static/images/lovecar/lockoff.png'" alt="">
+        <img v-else class="content_carDoor" :src="'./static/images/lovecar/lockon.png'" alt="">
         <span :class="activeshows==this.isTrue?'activess':'act'">闭锁</span>
       </div>
       <div v-show="this.CAR_INFO" class="content_1" @click="doors">
       <!-- <div class="content_1" @click="doors"> -->
-        <img v-if="activeshows==this.isTrue" class="content_carDoor" src="../../../static/images/lovecar/nolockon.png" alt="">
-        <img v-else class="content_carDoor" src="../../../static/images/lovecar/nolockoff.png" alt="">
+        <img v-if="activeshows==this.isTrue" class="content_carDoor" :src="'./static/images/lovecar/nolockon.png'" alt="">
+        <img v-else class="content_carDoor" :src="'./static/images/lovecar/nolockoff.png'" alt="">
         <span :class="activeshows==this.isTrue?'act':'activess'">开锁</span>
       </div>
       <!-- <div class="content_1" @click="backbox"> -->
       <div v-show="this.TRUNK" class="content_1" @click="backbox">
-        <img v-if="activeshows==this.isTrues" class="tailgate" src="../../../static/images/Wit/button5@3x_86.png" alt="">
-        <img v-else class="tailgate" src="../../../static/images/Wit/button5@3x.png" alt="">
+        <img v-if="activeshows==this.isTrues" class="tailgate" :src="'./static/images/Wit/button5@3x_86.png'" alt="">
+        <img v-else class="tailgate" :src="'./static/images/Wit/button5@3x.png'" alt="">
         <span :class="activeshows==this.isTrues?'act':'activess'">尾门</span>
       </div>
       <!-- <div class="content_1" @click="closefire"> -->
       <div v-show="this.ENGINE" class="content_1" @click="closefire">
-        <img v-if="activeshows==this.isTruess" class="Flameout" src="../../../static/images/lovecar/fireon.png" alt="">
-        <img v-else class="Flameout" src="../../../static/images/lovecar/fireoff.png" alt="">
+        <img v-if="activeshows==this.isTruess" class="Flameout" :src="'./static/images/lovecar/fireon.png'" alt="">
+        <img v-else class="Flameout" :src="'./static/images/lovecar/fireoff.png'" alt="">
         <span :class="activeshows==this.isTruess?'act':'activess'">启动</span>
       </div>
       <!-- <div class="content_1" @click="closefire"> -->
       <div v-show="this.ENGINE" class="content_1" @click="closefire">
-        <img v-if="activeshows==this.isTruess" class="Flameout" src="../../../static/images/Lovecar/nofireoff.png" alt="">
-        <img v-else class="Flameout" src="../../../static/images/lovecar/nofireon.png" alt="">
+        <img v-if="activeshows==this.isTruess" class="Flameout" :src="'./static/images/Lovecar/nofireoff.png'" alt="">
+        <img v-else class="Flameout" :src="'./static/images/lovecar/nofireon.png'" alt="">
         <span :class="activeshows==this.isTruess?'activess':'act'">熄火</span>
       </div>
       <!-- <div class="content_1" @click="enter()"> -->
       <div v-show="this.FIND_VEHICLE" class="content_1" @click="enter()">
-        <img v-if="activeshows==this.isTruesss" class="content_pic" src="../../../static/images/Wit/button7@3x_2.png" alt="">
-        <img v-else class="content_pic" src="../../../static/images/Wit/button7@3x.png" alt="">
+        <img v-if="activeshows==this.isTruesss" class="content_pic" :src="'./static/images/Wit/button7@3x_2.png'" alt="">
+        <img v-else class="content_pic" :src="'./static/images/Wit/button7@3x.png'" alt="">
         <span :class="activeshows==this.isTruesss?'act':'activess'">寻车</span>
       </div>
     </div>
@@ -152,7 +152,7 @@
           <div style="font-size:.36rem;color:#222">请输入PIN码</div>
           <span></span>
         </div>
-          <img @click="Toasteach"  class="question" style="width:.35rem;height:.35rem" src="../.././../static/images/lovecar/question.png" alt="">
+          <img @click="Toasteach"  class="question" style="width:.35rem;height:.35rem" :src="'./static/images/lovecar/question.png'" alt="">
         <div class="pin-code flex maincenter cocenter">
           <div id="pinCon">
             <input @click="onTypewriting" v-model="pinNumber" class="pin-input" maxlength="6" type="text" readonly/>
