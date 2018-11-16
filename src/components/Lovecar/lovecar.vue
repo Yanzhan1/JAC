@@ -61,16 +61,16 @@
       <img style="width:.88rem;height:.88rem;margin-top:.2rem" src="../../../static/images/Lovecar/loading@2x.png" alt="" @click="loading">
     </div>
     <div  class="content lines">
-      <div v-show="this.CAR_INFO" class="content_1" @click="doors">
+      <div class="content_1" @click="doors">
       <!-- <div class="content_1" @click="doors"> -->
-        <img v-if="activeshows==this.isTrue" class="content_carDoor" :src="'./static/images/lovecar/lockoff.png'" alt="">
-        <img v-else class="content_carDoor" :src="'./static/images/lovecar/lockon.png'" alt="">
+        <img v-if="activeshows==this.isTrue" class="content_carDoor" :src="'./static/images/Lovecar/lockoff.png'" alt="">
+        <img v-else class="content_carDoor" :src="'./static/images/Lovecar/lockon.png'" alt="">
         <span :class="activeshows==this.isTrue?'activess':'act'">闭锁</span>
       </div>
       <div v-show="this.CAR_INFO" class="content_1" @click="doors">
       <!-- <div class="content_1" @click="doors"> -->
-        <img v-if="activeshows==this.isTrue" class="content_carDoor" :src="'./static/images/lovecar/nolockon.png'" alt="">
-        <img v-else class="content_carDoor" :src="'./static/images/lovecar/nolockoff.png'" alt="">
+        <img v-if="activeshows==this.isTrue" class="content_carDoor" :src="'./static/images/Lovecar/nolockon.png'" alt="">
+        <img v-else class="content_carDoor" :src="'./static/images/Lovecar/nolockoff.png'" alt="">
         <span :class="activeshows==this.isTrue?'act':'activess'">开锁</span>
       </div>
       <!-- <div class="content_1" @click="backbox"> -->
@@ -81,14 +81,14 @@
       </div>
       <!-- <div class="content_1" @click="closefire"> -->
       <div v-show="this.ENGINE" class="content_1" @click="closefire">
-        <img v-if="activeshows==this.isTruess" class="Flameout" :src="'./static/images/lovecar/fireon.png'" alt="">
-        <img v-else class="Flameout" :src="'./static/images/lovecar/fireoff.png'" alt="">
+        <img v-if="activeshows==this.isTruess" class="Flameout" :src="'./static/images/Lovecar/fireon.png'" alt="">
+        <img v-else class="Flameout" :src="'./static/images/Lovecar/fireoff.png'" alt="">
         <span :class="activeshows==this.isTruess?'act':'activess'">启动</span>
       </div>
       <!-- <div class="content_1" @click="closefire"> -->
       <div v-show="this.ENGINE" class="content_1" @click="closefire">
         <img v-if="activeshows==this.isTruess" class="Flameout" :src="'./static/images/Lovecar/nofireoff.png'" alt="">
-        <img v-else class="Flameout" :src="'./static/images/lovecar/nofireon.png'" alt="">
+        <img v-else class="Flameout" :src="'./static/images/Lovecar/nofireon.png'" alt="">
         <span :class="activeshows==this.isTruess?'activess':'act'">熄火</span>
       </div>
       <!-- <div class="content_1" @click="enter()"> -->
@@ -152,7 +152,7 @@
           <div style="font-size:.36rem;color:#222">请输入PIN码</div>
           <span></span>
         </div>
-          <img @click="Toasteach"  class="question" style="width:.35rem;height:.35rem" :src="'./static/images/lovecar/question.png'" alt="">
+          <img @click="Toasteach"  class="question" style="width:.35rem;height:.35rem" :src="'./static/images/Lovecar/question.png'" alt="">
         <div class="pin-code flex maincenter cocenter">
           <div id="pinCon">
             <input @click="onTypewriting" v-model="pinNumber" class="pin-input" maxlength="6" type="text" readonly/>
