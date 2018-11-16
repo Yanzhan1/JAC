@@ -531,18 +531,18 @@ export default {
                           }
                         } else if (res.data.status == "SUCCEED") {
                           // flag = false;
-                          // Toast({
-                          //   message: "下达指令成功",
-                          //   position: "middle",
-                          //   duration: 2000
-                          // });
+                          Toast({
+                            message: "空调已成功开启",
+                            position: "middle",
+                            duration: 2000
+                          });
                            this.value = !this.value;
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
                           flag = false;
                           Toast({
-                            message: "指令下发成功，处理失败！",
+                            message: "空调开启失败，请稍后重试",
                             position: "middle",
                             duration: 2000
                           });
@@ -564,16 +564,16 @@ export default {
               }
             } else if (res.data.status == "SUCCEED") {
               // flag = false;
-              // Toast({
-              //   message: "下达指令成功",
-              //   position: "middle",
-              //   duration: 2000
-              // });
+              Toast({
+                message: "空调已成功开启",
+                position: "middle",
+                duration: 2000
+              });
                this.value = !this.value;
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
-                message: "指令下发成功，处理失败！",
+                message: "空调开启失败，请稍后重试",
                 position: "middle",
                 duration: 2000
               });

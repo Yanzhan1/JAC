@@ -376,18 +376,18 @@ export default {
                           }
                         } else if (res.data.status == "SUCCEED") {
                           // flag = false;
-                          // Toast({
-                          //   message: "下达指令成功",
-                          //   position: "middle",
-                          //   duration: 2000
-                          // });
+                          Toast({
+                            message: "天窗已成功关闭",
+                            position: "middle",
+                            duration: 2000
+                          });
                           this.value = !this.value;
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
                           flag = false;
                           Toast({
-                            message: "指令下发成功，处理失败！",
+                            message: "天窗关闭失败，请稍后重试",
                             position: "middle",
                             duration: 2000
                           });
@@ -409,17 +409,17 @@ export default {
               }
             } else if (res.data.status == "SUCCEED") {
               // flag = false;
-              // Toast({
-              //   message: "下达指令成功",
-              //   position: "middle",
-              //   duration: 2000
-              // });
+              Toast({
+                message: "天窗已成功关闭",
+                position: "middle",
+                duration: 2000
+              });
               this.value = !this.value;
                clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
-                message: "指令下发成功，处理失败！",
+                message: "天窗关闭失败，请稍后重试",
                 position: "middle",
                 duration: 2000
               });
@@ -454,7 +454,14 @@ export default {
           // console.log(res);
           this.operationIds = res.data.operationId;
           if (res.data.returnSuccess) {
-            this.getAsyReturn(res.data.operationId);
+              Toast({
+                  message: "指令已下发，请稍后",
+                  position: "middle",
+                  duration: 2000
+                });
+                setTimeout(() => {                 
+                  this.getAsyReturn(res.data.operationId);
+                }, 2000);
           } else {
             if (res.data.returnErrCode == 400) {
           		Toast({

@@ -522,18 +522,18 @@ export default {
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
-                          // Toast({
-                          //   message: "下达指令成功",
-                          //   position: "middle",
-                          //   duration: 2000
-                          // });
+                          Toast({
+                            message: "空调已成功开启",
+                            position: "middle",
+                            duration: 2000
+                          });
                           this.value = !this.value;
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
                           flag = false;
                           Toast({
-                            message: "指令下发成功，处理失败！",
+                            message: "空调开启失败，请稍后重试",
                             position: "middle",
                             duration: 2000
                           });
@@ -554,11 +554,11 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              // Toast({
-              //   message: "下达指令成功",
-              //   position: "middle",
-              //   duration: 2000
-              // });
+              Toast({
+                message: "空调已成功开启",
+                position: "middle",
+                duration: 2000
+              });
               this.value = !this.value;
                clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
@@ -573,7 +573,7 @@ export default {
             }
           } else {
             Toast({
-              message: "指令下发失败！",
+              message: "空调开启失败，请稍后重试",
               position: "middle",
               duration: 2000
             });
@@ -602,7 +602,14 @@ export default {
         .post(Lovecar.Control, param, this.$store.state.tsppin)
         .then(res => {
           if (res.data.returnSuccess) {
-            this.getAsyReturn(res.data.operationId);
+            Toast({
+                message: "指令已下发,请稍后",
+                position: "middle",
+                duration: 2000
+              });
+              setTimeout(()=>{
+                this.getAsyReturn(res.data.operationId);
+              },2000)
           } else {
             if (res.data.returnErrCode == 400) {
               Toast({
