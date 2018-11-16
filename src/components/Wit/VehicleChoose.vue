@@ -10,7 +10,7 @@
       <div class="navTitle">车辆选装</div>
       <div></div>
     </div> -->
-    <div v-if="this.$route.query.currentTitle == '豪华型'">
+    <div v-if="this.$route.query.currentTitle == '超越型' || this.$route.query.currentTitle == '梦想型' || this.$route.query.currentTitle == '探索型'">
       <div class="headerHeight"></div>
       <div class="content">
         <div class="contentTitle">车辆选装</div>
@@ -48,7 +48,7 @@
           <div>
             <img class="leftImg" :src="show?imgLED1:imgLED">
           </div>
-          <div class="middleTitle">LED大灯</div>
+          <div class="middleTitle">LED前大灯</div>
           <div class="rightBtn" >
             <div  class="rightBtnContent" @click="carBtn(0)">
               <img style="width:.6rem;height:.7rem;padding-top: 0.1rem;padding-left: 0.02rem" :src="show?url:url1">
@@ -63,10 +63,10 @@
             <img class="leftImg" v-if="$route.query.colorTitle=='拉菲红'" :src="imgBody5">
             <!--<img class="leftImg" :src="this.show1 ? imgBody1 :carSmallBody">-->
           </div>
-          <div class="middleTitle">双色车身</div>
+          <div class="middleTitle">新潮双色车身</div>
           <div class="rightBtn" >
             <div  class="rightBtnContent" @click="carBtn(1)">
-              <img  style="width:.6rem;height:.7rem;padding-top: 0.1rem;padding-left: 0.02rem" :src="show1?url:url1">
+              <img  style="width:.6rem;height:.7rem;padding-top: 0.1rem;padding-left: 0.02rem" v-if="$route.query.colorTitle=='典雅白' || $route.query.colorTitle=='拉菲红' " :src="show1?url:url1">
             </div>
           </div>
         </div>

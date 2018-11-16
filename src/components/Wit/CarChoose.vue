@@ -5,15 +5,9 @@
       <div class="navTitle">选购瑞风S4</div>
       <div></div>
 		</header>
-  <!-- <div class="nav">
-    <div class="navBack" @click="goBack">
-      <img style="width: 0.4rem;height: 0.65rem;padding-top: 0.2rem" src="../../../static/images/back@2x.png">
-    </div>
-  </div> -->
   <div class="headerHeight"></div>
   <div class="content">
     <div class="contentTitle">车型选择</div>
-     <!-- <div class="headerHeight2"></div> -->
     <div class="contentSmallTitle">
       <span class="smallTitle">车型</span>
       <span class="smallTitle">颜色</span>
@@ -27,7 +21,7 @@
       <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;left: 0.25rem" :src="'./static/images/Wit/whiteBody.png'"/>
     </div>
   </div>
-  <div class="headerHeight3"></div>
+  <!--<div class="headerHeight3"></div>-->
   <div class="contentCar">
     <div class="contentCarBtn"  :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" v-for="(item,index) in carData" :key="item.id" @click="carBtn(index,item.label)">
       {{item.label}}
@@ -45,44 +39,40 @@ export default{
   data(){
     return{
         currentIndex:0,
-        currentTitle:'豪华型',
+        currentTitle:'超越型',
         carData:[
           {
             id:1,
-            label:'豪华型' ,
-            value:'车型:豪华型'
+            label:'超越型' ,
+            value:'车型:超越型'
           },
           {
             id:2,
-            label:'舒适型' ,
-            value:'车型:舒适型'
+            label:'梦想型' ,
+            value:'车型:梦想型'
+          },
+          {
+            id:3,
+            label:'探索型' ,
+            value:'车型:探索型'
+          },
+          {
+            id:4,
+            label:'自由型' ,
+            value:'车型:自由型'
           }
         ]
     }
 
   },
   mounted(){
-    this.getData();
-            $(".MobileHeight").css({
-					"borderTopWidth": this.$store.state.mobileStatusBar,
-					"borderTopColor": "#fff",
-				})
+
+    $(".MobileHeight").css({
+      "borderTopWidth": this.$store.state.mobileStatusBar,
+      "borderTopColor": "#fff",
+    })
   },
   methods:{
-    getData(){//该右边marginLeft的值
-      var _this = this;
-      _this.$nextTick(()=>{
-        var info = document.getElementsByClassName("contentCarBtn");
-        console.log("----",info)
-        var len = info.length;
-//          alert(len)
-        for(let i = 0 ;i < len; i++){
-          if(i%2){
-            info[i].style.marginLeft = "0.4rem";
-          }
-        }
-      })
-    },
     carBtn(index,labelTitle){
       this.currentIndex = index;
       this.currentTitle = labelTitle;
@@ -128,11 +118,11 @@ export default{
   /*padding-left: 0.15rem;*/
 /*}*/
 
-  .nav .navTitle{
-    /*text-align: center;*/
-    padding-left: 0.15rem;
-    font-size: 0.36rem;
-  }
+.nav .navTitle{
+  /*text-align: center;*/
+  padding-left: 0.15rem;
+  font-size: 0.36rem;
+}
 .headerHeight{
   height: 1.5rem;
 }
@@ -176,27 +166,26 @@ export default{
   position: relative;
 }
 .contentCar{
-  margin: 0 0.8rem;
+  margin: 0 0.2rem;
   display: flex;
-  height: 1.6rem;
-  /*background-color: pink;*/
+  height: 2rem;
 }
 .contentCar .contentCarBtn{
   flex: 1;
-  height: 1.6rem;
-  line-height: 1.6rem;
-  background-color: rgba(232,232,232,0.3);
+  height: 2rem;
+  line-height: 2rem;
+  color:#6f6f6f;
   text-align: center;
   font-size: 0.32rem;
 
 }
 .contentCar .contentCarBtn2{
   flex: 1;
-  height: 1.6rem;
-  line-height: 1.6rem;
-  background-color: rgb(232,232,232);
+  height: 2rem;
+  line-height: 2rem;
+  color: #222222;
   text-align: center;
-  font-size: 0.32rem;
+  font-size: 0.36rem;
 
 }
 .contentBtn{

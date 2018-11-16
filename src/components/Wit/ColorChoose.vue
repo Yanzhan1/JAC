@@ -8,7 +8,7 @@
         <img style="width: 0.4rem;height: 0.65rem;padding-top: 0.2rem" src="../../../static/images/back@2x.png">
       </div>
     </div> -->
-    <div v-if="this.$route.query.currentTitle == '豪华型'">
+    <div v-if="this.$route.query.currentTitle == '超越型' || this.$route.query.currentTitle == '梦想型' || this.$route.query.currentTitle == '探索型'">
       <div class="headerHeight"></div>
       <div class="content">
         <div class="contentTitle">颜色选择</div>
@@ -38,7 +38,7 @@
         </div>
       </div>
     </div>
-    <div v-if="this.$route.query.currentTitle == '舒适型'">
+    <div v-if="this.$route.query.currentTitle == '自由型'">
       <div class="headerHeight"></div>
       <div class="content">
         <div class="contentTitle">颜色选择</div>
