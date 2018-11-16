@@ -174,21 +174,26 @@
     methods:{
       carBtn(index){
         this.currentIndex = index;
-        console.log(this.currentIndex )
-
+//        console.log(this.currentIndex )
         if(this.currentIndex == 0){
           this.show = !this.show
           this.imgsrc = this.show ? this.imgLED2:this.imgLED;
         }else if(this.currentIndex == 1){
-          this.show1 = !this.show1
+//          this.show1 = !this.show1
           var bodyColor = this.$route.query.colorTitle
           if(bodyColor == '典雅白'){
+            this.show1 = !this.show1
             this.carBody = this.show1?this.whiteNormal:this.whiteDouble;
           }else if(bodyColor == '极光紫'){
-            this.carBody = this.show1?this.purpleNormal:this.purpleDouble;
+              this.show1 = true;
+//            this.carBody = this.show1?this.purpleNormal:this.purpleDouble;
+            this.carBody = this.purpleNormal;
           }else if(bodyColor == '琥珀金'){
-            this.carBody = this.show1?this.goldNormal:this.goldDouble;
-          }else if(bodyColor == '拉菲红'){
+            this.show1 = true;
+//            this.carBody = this.show1?this.goldNormal:this.goldDouble;
+            this.carBody = this.goldNormal;
+          } else if(bodyColor == '拉菲红'){
+            this.show1 = !this.show1
             this.carBody = this.show1?this.redNormal:this.redDouble;
           }
         }else if(this.currentIndex == 2){
@@ -206,7 +211,7 @@
         var carType = "车型："+this.$route.query.currentTitle;
         var outType= this.show1 ? "外观："+this.$route.query.colorTitle :"外观：双色车身"+this.$route.query.colorTitle;
         var wheelType = this.show2 ?"轮辋："+this.$route.query.rimTitle : "轮辋：防爆胎装置"+this.$route.query.rimTitle;
-        var LEDType= this.show ? '' : "LED大灯：LED大灯";
+        var LEDType= this.show ? '' : "LED大灯：LED前大灯";
         if(LEDType != ''){
           this.vehicleData.push(LEDType);
         }
