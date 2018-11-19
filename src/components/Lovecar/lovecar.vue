@@ -1976,10 +1976,11 @@ input:focus {
 }
 .content_carDoor {
   width: 0.35rem;
-  height: 0.29rem;
+  height: 0.35rem;
 }
 .tailgate {
   width: 0.44rem;
+  height: .35rem;
 }
 .Flameout {
   width: 0.31rem;
