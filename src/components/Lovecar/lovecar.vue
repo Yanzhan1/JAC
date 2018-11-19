@@ -15,11 +15,11 @@
 	        <span class="txt">剩余油量（%）</span>
 	      </div>
 	      <div class="navs_t">
-	        <span class="num">{{carcontrol.totalDistance}}</span>
+	        <span class="num">{{carcontrol.totalDistance==undefined?0:carcontrol.totalDistance}}</span>
 	        <span class="txt">行驶里程（KM）</span>
 	      </div>
 	      <div class="navs_t">
-	        <span class="num">{{carcontrol.mileage}}</span>
+	        <span class="num">{{carcontrol.mileage==undefined?0:carcontrol.mileage}}</span>
 	        <span class="txt">续航里程（KM）</span>
 	      </div>
 	    </div>
