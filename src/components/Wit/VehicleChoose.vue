@@ -70,18 +70,18 @@
             </div>
           </div>
         </div>
-        <div class="contentCarBtn">
-          <div>
-            <img class="leftImg" v-if="$route.query.rimTitle =='R17'" :src="carWheelR17Text">
-            <img class="leftImg" v-else-if="$route.query.rimTitle =='R18'" :src="carWheelR18Text">
-          </div>
-          <div class="middleTitle">防爆胎装置</div>
-          <div class="rightBtn" >
-            <div  class="rightBtnContent" @click="carBtn(2)">
-              <img style="width:.6rem;height:.7rem;padding-top: 0.1rem;padding-left: 0.02rem" :src="show2?url:url1">
-            </div>
-          </div>
-        </div>
+        <!--<div class="contentCarBtn">-->
+          <!--<div>-->
+            <!--<img class="leftImg" v-if="$route.query.rimTitle =='R17'" :src="carWheelR17Text">-->
+            <!--<img class="leftImg" v-else-if="$route.query.rimTitle =='R18'" :src="carWheelR18Text">-->
+          <!--</div>-->
+          <!--<div class="middleTitle">防爆胎装置</div>-->
+          <!--<div class="rightBtn" >-->
+            <!--<div  class="rightBtnContent" @click="carBtn(2)">-->
+              <!--<img style="width:.6rem;height:.7rem;padding-top: 0.1rem;padding-left: 0.02rem" :src="show2?url:url1">-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
       </div>
       <div class="contentBtn">
         <div class="contentColorBtn" @click="confirmChooseBtn">
@@ -135,13 +135,13 @@
             label:'双色车身' ,
             value:'双色车身',
             img:'双色车身',
-          },
-          {
-            id:3,
-            label:'防爆胎装置' ,
-            value:'防爆胎装置',
-            img:'防爆胎装置',
           }
+//          {
+//            id:3,
+//            label:'防爆胎装置' ,
+//            value:'防爆胎装置',
+//            img:'防爆胎装置',
+//          }
         ],
 
         imgsrc:'',
@@ -155,12 +155,12 @@
             id:2,
             color:'双色车身' ,//R18普通
             img:'./static/images/Wit/white@2x.png'
-          },
-          {
-            id:3,
-            color:'防爆胎装置' ,//R18普通
-            img:'./static/images/Wit/R17-TESS@2x.png'
           }
+//          {
+//            id:3,
+//            color:'防爆胎装置' ,//R18普通
+//            img:'./static/images/Wit/R17-TESS@2x.png'
+//          }
         ]
       }
 
@@ -196,27 +196,30 @@
             this.show1 = !this.show1
             this.carBody = this.show1?this.redNormal:this.redDouble;
           }
-        }else if(this.currentIndex == 2){
-          this.show2 = !this.show2
-          var bodyColor = this.$route.query.rimTitle
+        }
+//        else if(this.currentIndex == 2){
+//          this.show2 = !this.show2
+//          var bodyColor = this.$route.query.rimTitle
 //          if(bodyColor == 'R17'){
 //            this.wheels = this.show2?this.carWheelR17:this.carWheelR17;
 //          }else if(bodyColor == 'R18'){
 //            this.wheels = this.show2?this.carWheelR18:this.carWheelR18;
 //          }
-        }
+//        }
       },
       confirmChooseBtn(){
         this.vehicleData = [];
         var carType = "车型："+this.$route.query.currentTitle;
         var outType= this.show1 ? "外观："+this.$route.query.colorTitle :"外观：双色车身"+this.$route.query.colorTitle;
-        var wheelType = this.show2 ?"轮辋："+this.$route.query.rimTitle : "轮辋：防爆胎装置"+this.$route.query.rimTitle;
+//        var wheelType = this.show2 ?"轮辋："+this.$route.query.rimTitle : "轮辋：防爆胎装置"+this.$route.query.rimTitle;
         var LEDType= this.show ? '' : "LED大灯：LED前大灯";
         if(LEDType != ''){
           this.vehicleData.push(LEDType);
         }
 
-        this.vehicleData.push(carType,outType,wheelType);
+//        this.vehicleData.push(carType,outType,wheelType);
+        this.vehicleData.push(carType,outType);
+
         console.log('vehicleData',this.vehicleData);
 
         this.$router.push({
@@ -317,7 +320,7 @@
   }
   .contentCar{
     margin: 0 0.2rem;
-    height: 8rem;
+    height: 5.5rem;
   }
   .contentCar .contentCarBtn{
     display: flex;
