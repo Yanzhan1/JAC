@@ -61,7 +61,7 @@
       <img style="width:.88rem;height:.88rem;margin-top:.2rem" src="../../../static/images/Lovecar/loading@2x.png" alt="" @click="loading">
     </div>
     <div  class="content lines">
-      <div class="content_1" @click="doors">
+      <div v-show="this.CAR_INFO" class="content_1" @click="doors">
       <!-- <div class="content_1" @click="doors"> -->
         <img v-if="activeshows==this.isTrue" class="content_carDoor" :src="'./static/images/Lovecar/lockoff.png'" alt="">
         <img v-else class="content_carDoor" :src="'./static/images/Lovecar/lockon.png'" alt="">
