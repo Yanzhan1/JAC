@@ -363,6 +363,9 @@
   }
 
   .contentBtn{
+    width: 100%;
+    position:fixed;
+    bottom:0;
     height: 0.88rem;
     line-height:0.88rem;
     background-color: rgb(80,188,252);
