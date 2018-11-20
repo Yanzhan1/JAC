@@ -138,4 +138,11 @@ export default {
 .mint-toast{
   z-index: 99999;
 }
+.mint-msgbox-message {
+    color: #999;
+    margin: 0;
+    text-align: left;
+    line-height: .56rem;
+    text-indent: 2em;
+}
 </style>

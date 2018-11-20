@@ -222,6 +222,7 @@
 <script>
 import { Toast } from "mint-ui";
 import { Button } from "mint-ui";
+import {MessageBox} from 'mint-ui'
 export default {
   name: "lovecar",
   data() {
@@ -627,35 +628,43 @@ export default {
     //各种点击问好的提示
     Toasteach() {
       if (this.type == 1) {
-        Toast({
-          message:
-            "在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁",
-          position: "middle",
-          duration: 3000
-        });
+        if(this.isTrue){
+          MessageBox('提示', '在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁');
+        }else{
+          MessageBox('提示', '四门两盖在关的情况下可以对车辆四门锁进行关闭。');
+        }
+        // Toast({
+        //   message:
+        //     "在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁",
+        //   position: "middle",
+        //   duration: 3000
+        // });
       }
       if (this.type == 2) {
-        Toast({
-          message:
-            "在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁",
-          position: "middle",
-          duration: 3000
-        });
+        MessageBox('提示', '在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁');
+        // Toast({
+        //   message:
+        //     "在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁",
+        //   position: "middle",
+        //   duration: 3000
+        // });
       }
       if (this.type == 3) {
-        Toast({
-          message:
-            "请确保档位处于P或空挡，手刹拉起；在档位为空挡或P档，电子或机械手刹拉起情况下且车辆处于闭锁状态下，可以远程启动发送机，10分钟内车辆无操作，将会自动熄火",
-          position: "middle",
-          duration: 4000
-        });
+        MessageBox('提示', '请确保档位处于P或空挡，手刹拉起；在档位为空挡或P档，电子或机械手刹拉起情况下且车辆处于闭锁状态下，可以远程启动发送机，10分钟内车辆无操作，将会自动熄火');
+        // Toast({
+        //   message:
+        //     "请确保档位处于P或空挡，手刹拉起；在档位为空挡或P档，电子或机械手刹拉起情况下且车辆处于闭锁状态下，可以远程启动发送机，10分钟内车辆无操作，将会自动熄火",
+        //   position: "middle",
+        //   duration: 4000
+        // });
       }
       if (this.type == 4) {
-        Toast({
-          message: "左右转向灯先闪烁3次并伴有喇叭响3次",
-          position: "middle",
-          duration: 2000
-        });
+         MessageBox('提示', '左右转向灯先闪烁3次并伴有喇叭响3次');
+        // Toast({
+        //   message: "左右转向灯先闪烁3次并伴有喇叭响3次",
+        //   position: "middle",
+        //   duration: 2000
+        // });
       }
     },
     //调用车况接口
@@ -748,17 +757,17 @@ export default {
                             this.firstEnter = false;
                             if (res.data.data.accStatus == 1) {
                               this.isTrue = true;
-                              this.locknum = 1;
+                              this.locknum = 2;
                             } else {
                               this.isTrue = false;
-                              this.locknum = 2;
+                              this.locknum = 1;
                             }
                             if (res.data.data.engineStatus == 1) {
                               this.isTruess = true;
-                              this.firenum = 1;
+                              this.firenum = 2;
                             } else {
                               this.isTruess = false;
-                              this.firenum = 2;
+                              this.firenum = 1;
                             }
                             if (res.data.data.doorStsTrunk == 1) {
                               this.isTrues = true;
@@ -770,8 +779,8 @@ export default {
                           if (this.type == 1) {
                             this.isTrue = !this.isTrue;
                             this.isTrue
-                              ? (this.locknum = 1)
-                              : (this.locknum = 2);
+                              ? (this.locknum = 2)
+                              : (this.locknum = 1);
                             if (this.isTrue) {
                               Toast({
                                 message:
@@ -782,7 +791,7 @@ export default {
                             } else {
                               Toast({
                                 message:
-                                  "四门两盖在关的情况下可以对车辆四门锁进行关闭。",
+                                  "车门已成功闭锁",
                                 position: "middle",
                                 duration: 3000
                               });
@@ -807,8 +816,8 @@ export default {
                           if (this.type == 3) {
                             this.isTruess = !this.isTruess;
                             this.isTruess
-                              ? (this.firenum = 1)
-                              : (this.firenum = 2);
+                              ? (this.firenum = 2)
+                              : (this.firenum = 1);
                             if (this.isTruess) {
                               Toast({
                                 message: "该车辆已处于启动状态",
@@ -992,7 +1001,8 @@ export default {
                             }
                           }
                         } else if (res.data.status == "FAILED") {
-                          if ((this.type = 1)) {
+                          console.log('进入2')
+                          if ((this.type == 1)) {
                             if (this.isTrue) {
                               Toast({
                                 message: "解锁失败，请稍后重试",
@@ -1006,7 +1016,7 @@ export default {
                                 duration: 2000
                               });
                             }
-                          } else if ((this.type = 2)) {
+                          } else if ((this.type == 2)) {
                             if (this.isTrues) {
                               Toast({
                                 message: "后备箱打开失败，请稍后重试",
@@ -1014,21 +1024,22 @@ export default {
                                 duration: 2000
                               });
                             }
-                          } else if ((this.type = 3)) {
+                          } else if ((this.type == 3)) {
                             if (this.isTruess) {
-                              Toast({
-                                message: "车辆启动失败，请稍后重试",
+                             
+                               Toast({
+                                message: "车辆熄火失败，请稍后重试",
                                 position: "middle",
                                 duration: 2000
                               });
                             } else {
                               Toast({
-                                message: "车辆熄火失败，请稍后重试",
+                                message: "车辆启动失败，请稍后重试",
                                 position: "middle",
                                 duration: 2000
                               });
                             }
-                          } else if ((this.type = 4)) {
+                          } else if ((this.type == 4)) {
                             if (this.isTrues) {
                               Toast({
                                 message: "寻车失败，请稍后重试",
@@ -1066,17 +1077,17 @@ export default {
                 this.firstEnter = false;
                 if (res.data.data.accStatus == 1) {
                   this.isTrue = true;
-                  this.locknum = 1;
+                  this.locknum = 2;
                 } else {
                   this.isTrue = false;
-                  this.locknum = 2;
+                  this.locknum = 1;
                 }
                 if (res.data.data.engineStatus == 1) {
                   this.isTruess = true;
-                  this.firenum = 1;
+                  this.firenum = 2;
                 } else {
                   this.isTruess = false;
-                  this.firenum = 2;
+                  this.firenum = 1;
                 }
                 if (res.data.data.doorStsTrunk == 1) {
                   this.isTrues = true;
@@ -1087,7 +1098,7 @@ export default {
 
               if (this.type == 1) {
                 this.isTrue = !this.isTrue;
-                this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
+                this.isTrue ? (this.locknum = 2) : (this.locknum = 1);
                 if (this.isTrue) {
                   Toast({
                     message: "车门已成功开锁，30S内车辆无操作将自动闭锁。",
@@ -1096,7 +1107,7 @@ export default {
                   });
                 } else {
                   Toast({
-                    message: "四门两盖在关的情况下可以对车辆四门锁进行关闭。",
+                    message: "车门已成功闭锁",
                     position: "middle",
                     duration: 3000
                   });
@@ -1120,7 +1131,7 @@ export default {
               }
               if (this.type == 3) {
                 this.isTruess = !this.isTruess;
-                this.isTruess ? (this.firenum = 1) : (this.firenum = 2);
+                this.isTruess ? (this.firenum = 2) : (this.firenum = 1);
                 if (this.isTruess) {
                   Toast({
                     message: "该车辆已处于启动状态",
@@ -1295,7 +1306,8 @@ export default {
                 }
               }
             } else if (res.data.status == "FAILED") {
-              if ((this.type = 1)) {
+              console.log('进入1')
+              if ((this.type == 1)) {
                 if (this.isTrue) {
                   Toast({
                     message: "解锁失败，请稍后重试",
@@ -1310,7 +1322,7 @@ export default {
                   });
                 }
               }else
-              if ((this.type = 2)) {
+              if ((this.type == 2)) {
                 if (this.isTrues) {
                   Toast({
                     message: "后备箱打开失败，请稍后重试",
@@ -1319,22 +1331,23 @@ export default {
                   });
                 }
               }else
-              if ((this.type = 3)) {
+              if ((this.type == 3)) {
                 if (this.isTruess) {
-                  Toast({
-                    message: "车辆启动失败，请稍后重试",
+                 
+                    Toast({
+                    message: "车辆熄火失败，请稍后重试",
                     position: "middle",
                     duration: 2000
                   });
                 } else {
-                  Toast({
-                    message: "车辆熄火失败，请稍后重试",
+                 Toast({
+                    message: "车辆启动失败，请稍后重试",
                     position: "middle",
                     duration: 2000
                   });
                 }
               }else
-              if ((this.type = 4)) {
+              if ((this.type == 4)) {
                 if (this.isTrues) {
                   Toast({
                     message: "寻车失败，请稍后重试",
@@ -1530,6 +1543,7 @@ export default {
                         duration: 2000
                       });
                       setTimeout(() => {
+                        // console.log('熄火了')
                         this.getAsyReturn(res.data.operationId);
                       }, 2000);
                     } else {
