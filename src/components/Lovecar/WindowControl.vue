@@ -120,11 +120,11 @@
 import { Createarc } from "../../../static/js/drawarc.js";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
-import PublicHead from '../publicmodel/PublicHead';
+import PublicHead from "../publicmodel/PublicHead";
 export default {
   name: "windowControl",
   components: {
-  	mhead:PublicHead
+    mhead: PublicHead
   },
   data() {
     return {
@@ -180,9 +180,9 @@ export default {
       this.httpwindow();
     },
     //路由跳转的时候清除轮询loading
-    goback () {
-    	this.$router.go(-1);
-    	this.$store.dispatch('LOADINGFLAG', false)
+    goback() {
+      this.$router.go(-1);
+      this.$store.dispatch("LOADINGFLAG", false);
     },
     //车窗高度增加
     windAdd() {
@@ -432,10 +432,10 @@ export default {
                             duration: 2000
                           });
                           this.value = !this.value;
-                            this.curveState = !this.curveState;
-              //pin码正确激活空调图
-              (this.activeShowImg = !this.activeShowImg),
-                          clearInterval(this.time);
+                          this.curveState = !this.curveState;
+                          //pin码正确激活空调图
+                          (this.activeShowImg = !this.activeShowImg),
+                            clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
                           flag = false;
@@ -467,11 +467,11 @@ export default {
                 position: "middle",
                 duration: 2000
               });
-                this.curveState = !this.curveState;
+              this.curveState = !this.curveState;
               //pin码正确激活空调图
               (this.activeShowImg = !this.activeShowImg),
-              this.value = !this.value;
-               clearInterval(this.time);
+                (this.value = !this.value);
+              clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
@@ -479,7 +479,7 @@ export default {
                 position: "middle",
                 duration: 2000
               });
-               clearInterval(this.time);
+              clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             }
           } else {
@@ -517,39 +517,39 @@ export default {
               position: "middle",
               duration: 2000
             });
-            setTimeout(()=>{
+            setTimeout(() => {
               this.getAsyReturn(res.data.operationId);
-            },2000)
+            }, 2000);
           } else {
             if (res.data.returnErrCode == 400) {
-          		Toast({
-	              message: "token验证失败",
-	              position: "middle",
-	              duration: 2000
-	            });
-          	} else {
-          		Toast({
-	              message: res.data.returnErrMsg,
-	              position: "middle",
-	              duration: 2000
-	            });
-          	}
+              Toast({
+                message: "token验证失败",
+                position: "middle",
+                duration: 2000
+              });
+            } else {
+              Toast({
+                message: res.data.returnErrMsg,
+                position: "middle",
+                duration: 2000
+              });
+            }
           }
         })
         .catch(err => {
-        	Toast({
-              message: '系统异常',
-              position: "middle",
-              duration: 2000
-            });
+          Toast({
+            message: "系统异常",
+            position: "middle",
+            duration: 2000
+          });
         });
     }
   },
   mounted() {
-  	clearInterval(this.time)
+    clearInterval(this.time);
     this.produCurve();
     this.inputs();
-	this.$http
+    this.$http
       .post(
         Lovecar.Carquery,
         { vins: [this.$store.state.vins] },
@@ -557,7 +557,7 @@ export default {
       )
       .then(res => {
         if (res.data.returnSuccess) {
-       		// this.getAsyReturn(res.data.operationId);
+          // this.getAsyReturn(res.data.operationId);
         } else {
           Toast({
             message: res.data.returnErrMsg,
@@ -566,13 +566,13 @@ export default {
           });
         }
       })
-      .catch( err => {
-      	Toast({
-            message: '系统异常',
-            position: "middle",
-            duration: 2000
-          });
-      })
+      .catch(err => {
+        Toast({
+          message: "系统异常",
+          position: "middle",
+          duration: 2000
+        });
+      });
   },
   created() {
     console.log(localStorage.Tip);
@@ -610,7 +610,7 @@ export default {
       //console.log(this.pinNumber.length)
       if (this.pinNumber.length == 6) {
         var nums = this.pinNumber;
-//      alert(this.$store.state.tsppin.headers.identityParam.token)
+        //      alert(this.$store.state.tsppin.headers.identityParam.token)
         this.$http
           .post(
             Lovecar.Checkphonepin,
@@ -628,9 +628,9 @@ export default {
               // this.curveState = !this.curveState;
               // //pin码正确激活空调图
               // (this.activeShowImg = !this.activeShowImg),
-                // this.refreshPmData(),
-                //消失遮罩
-                (this.popupVisible = !this.popupVisible);
+              // this.refreshPmData(),
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
               //消失软键盘
               (this.showTyper = 0),
                 //清空pin码
@@ -678,9 +678,9 @@ export default {
               // this.curveState = !this.curveState;
               // //pin码正确激活空调图
               // (this.activeShowImg = !this.activeShowImg),
-                // this.refreshPmData(),
-                //消失遮罩
-                (this.popupVisible = !this.popupVisible);
+              // this.refreshPmData(),
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
               //消失软键盘
               (this.showTyper = 0),
                 //清空pin码
@@ -751,12 +751,13 @@ export default {
 .mint-popup {
   border-radius: 0.1rem;
 }
-.conmmon-style { /*公共样式*/
-	border: none;
-	outline: none;
-	appearance: none;
-	-webkit-appearance: none;
-	background: none;
+.conmmon-style {
+  /*公共样式*/
+  border: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
 }
 /*车窗头部*/
 

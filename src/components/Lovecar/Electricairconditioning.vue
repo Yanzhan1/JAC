@@ -755,10 +755,10 @@ export default {
               // this.value = !this.value;
               this.httpair();
               //pin码正确激活弧线
-              this.curveState = !this.curveState;
-              //pin码正确激活空调图
-              (this.activeShowImg = !this.activeShowImg),
-                this.refreshPmData(),
+              // this.curveState = !this.curveState;
+              // //pin码正确激活空调图
+              // (this.activeShowImg = !this.activeShowImg),
+              //   this.refreshPmData(),
                 //消失遮罩
                 (this.popupVisible = !this.popupVisible);
               //消失软键盘

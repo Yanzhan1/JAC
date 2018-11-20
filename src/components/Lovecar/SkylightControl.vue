@@ -376,6 +376,10 @@ export default {
                           }
                         } else if (res.data.status == "SUCCEED") {
                           // flag = false;
+                                 //pin码正确激活弧线
+              this.curveState = !this.curveState;
+              //pin码正确激活空调图
+              this.activeShowImg = !this.activeShowImg;
                           Toast({
                             message: "天窗已成功关闭",
                             position: "middle",
@@ -409,6 +413,10 @@ export default {
               }
             } else if (res.data.status == "SUCCEED") {
               // flag = false;
+                     //pin码正确激活弧线
+              this.curveState = !this.curveState;
+              //pin码正确激活空调图
+              this.activeShowImg = !this.activeShowImg;
               Toast({
                 message: "天窗已成功关闭",
                 position: "middle",
@@ -560,11 +568,7 @@ export default {
 
               this.httpsky();
 
-              //pin码正确激活弧线
-              this.curveState = !this.curveState;
-              console.log(1);
-              //pin码正确激活空调图
-              this.activeShowImg = !this.activeShowImg;
+       
               // this.refreshPmData(),
               //消失遮罩
               this.popupVisible = !this.popupVisible;
@@ -613,9 +617,9 @@ export default {
               // this.value = !this.value;
               this.httpsky();
               //pin码正确激活弧线
-              this.curveState = !this.curveState;
-              //pin码正确激活空调图
-              (this.activeShowImg = !this.activeShowImg),
+              // this.curveState = !this.curveState;
+              // //pin码正确激活空调图
+              // (this.activeShowImg = !this.activeShowImg),
                 // this.refreshPmData(),
                 //消失遮罩
                 (this.popupVisible = !this.popupVisible);
