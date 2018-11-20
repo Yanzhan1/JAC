@@ -146,11 +146,11 @@
 import { Createarc } from "../../../static/js/drawarc.js";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
-import PublicHead from '../publicmodel/PublicHead'
+import PublicHead from "../publicmodel/PublicHead";
 export default {
   name: "airconditionControl",
   components: {
-  	mhead:PublicHead
+    mhead: PublicHead
   },
   data() {
     return {
@@ -217,7 +217,6 @@ export default {
       compressors: 0, //传给后台的控制压缩机数值
       operationIds: "",
       marginTop: this.$store.state.mobileStatusBar
-
     };
   },
   methods: {
@@ -522,11 +521,16 @@ export default {
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
-                          Toast({
-                            message: "空调已成功开启",
-                            position: "middle",
-                            duration: 2000
-                          });
+                          //pin码正确激活弧线
+                          this.curveState = !this.curveState;
+                          //pin码正确激活空调图
+                          (this.activeShowImg = !this.activeShowImg),
+                            this.refreshPmData(),
+                            Toast({
+                              message: "空调已成功开启",
+                              position: "middle",
+                              duration: 2000
+                            });
                           this.value = !this.value;
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
@@ -554,13 +558,18 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              Toast({
-                message: "空调已成功开启",
-                position: "middle",
-                duration: 2000
-              });
+              //pin码正确激活弧线
+              this.curveState = !this.curveState;
+              //pin码正确激活空调图
+              (this.activeShowImg = !this.activeShowImg),
+                this.refreshPmData(),
+                Toast({
+                  message: "空调已成功开启",
+                  position: "middle",
+                  duration: 2000
+                });
               this.value = !this.value;
-               clearInterval(this.time);
+              clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
@@ -568,7 +577,7 @@ export default {
                 position: "middle",
                 duration: 2000
               });
-               clearInterval(this.time);
+              clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             }
           } else {
@@ -603,13 +612,13 @@ export default {
         .then(res => {
           if (res.data.returnSuccess) {
             Toast({
-                message: "指令已下发,请稍后",
-                position: "middle",
-                duration: 2000
-              });
-              setTimeout(()=>{
-                this.getAsyReturn(res.data.operationId);
-              },2000)
+              message: "指令已下发,请稍后",
+              position: "middle",
+              duration: 2000
+            });
+            setTimeout(() => {
+              this.getAsyReturn(res.data.operationId);
+            }, 2000);
           } else {
             if (res.data.returnErrCode == 400) {
               Toast({
@@ -636,9 +645,9 @@ export default {
     }
   },
   mounted() {
-	$(".MobileHeight").css("marginTop", this.marginTop)
-//	alert(this.marginTop)
-  	//
+    $(".MobileHeight").css("marginTop", this.marginTop);
+    //	alert(this.marginTop)
+    //
     clearInterval(this.time);
     this.produCurve();
     this.inputs();
@@ -712,13 +721,9 @@ export default {
             if (res.data.returnSuccess) {
               // this.value = !this.value;
               this.httpair();
-              //pin码正确激活弧线
-              this.curveState = !this.curveState;
-              //pin码正确激活空调图
-              (this.activeShowImg = !this.activeShowImg),
-                this.refreshPmData(),
-                //消失遮罩
-                (this.popupVisible = !this.popupVisible);
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
+              console.log('进入')
               //消失软键盘
               (this.showTyper = 0),
                 //清空pin码
@@ -839,11 +844,11 @@ export default {
   border-radius: 0.1rem;
 }
 .conmmon-style {
-	border: none;
-	outline: none;
-	appearance: none;
-	-webkit-appearance: none;
-	background: none;
+  border: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
 }
 /*空调头部*/
 
@@ -864,12 +869,12 @@ export default {
   display: flex;
   align-items: center;
 }
-.air-btn>.switch-mask {
-    position: absolute;
-    left: 54%;
-    width: 38%;
-    height: 100%;
-    background-color:transparent ;
+.air-btn > .switch-mask {
+  position: absolute;
+  left: 54%;
+  width: 38%;
+  height: 100%;
+  background-color: transparent;
 }
 /*空调标志*/
 
@@ -940,8 +945,8 @@ export default {
   border-radius: 0.3rem;
   background: #fff;
 }
-.count>button {
-	border: none
+.count > button {
+  border: none;
 }
 /*风扇部分*/
 
