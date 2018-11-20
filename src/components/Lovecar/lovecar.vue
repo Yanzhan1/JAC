@@ -63,15 +63,15 @@
     <div  class="content lines">
       <div v-show="this.CAR_INFO" class="content_1" @click="doors">
       <!-- <div class="content_1" @click="doors"> -->
-        <img v-if="activeshows==this.isTrue" class="content_carDoor" :src="'./static/images/Lovecar/lockoff.png'" alt="">
-        <img v-else class="content_carDoor" :src="'./static/images/Lovecar/lockon.png'" alt="">
-        <span :class="activeshows==this.isTrue?'activess':'act'">闭锁</span>
+        <img v-if="activeshows==this.isTrue" class="content_carDoor" :src="'./static/images/Lovecar/lockon.png'" alt="">
+        <img v-else class="content_carDoor" :src="'./static/images/Lovecar/lockoff.png'" alt="">
+        <span :class="activeshows==this.isTrue?'act':'activess'">闭锁</span>
       </div>
-      <div v-show="this.CAR_INFO" class="content_1" @click="doors">
+      <div v-show="this.CAR_INFO" class="content_1" @click="doorsoppen">
       <!-- <div class="content_1" @click="doors"> -->
-        <img v-if="activeshows==this.isTrue" class="content_carDoor" :src="'./static/images/Lovecar/nolockon.png'" alt="">
+        <img v-if="activeshows==this.isTrueopen" class="content_carDoor" :src="'./static/images/Lovecar/nolockon.png'" alt="">
         <img v-else class="content_carDoor" :src="'./static/images/Lovecar/nolockoff.png'" alt="">
-        <span :class="activeshows==this.isTrue?'act':'activess'">开锁</span>
+        <span :class="activeshows==this.isTrueopen?'act':'activess'">开锁</span>
       </div>
       <!-- <div class="content_1" @click="backbox"> -->
       <div v-show="this.TRUNK" class="content_1" @click="backbox">
@@ -86,10 +86,10 @@
         <span :class="activeshows==this.isTruess?'act':'activess'">启动</span>
       </div>
       <!-- <div class="content_1" @click="closefire"> -->
-      <div v-show="this.ENGINE" class="content_1" @click="closefire">
-        <img v-if="activeshows==this.isTruess" class="Flameout" :src="'./static/images/Lovecar/nofireoff.png'" alt="">
-        <img v-else class="Flameout" :src="'./static/images/Lovecar/nofireon.png'" alt="">
-        <span :class="activeshows==this.isTruess?'activess':'act'">熄火</span>
+      <div v-show="this.ENGINE" class="content_1" @click="closefireoff">
+        <img v-if="activeshows==this.isTruessoff" class="Flameout" :src="'./static/images/Lovecar/nofireon.png'" alt="">
+        <img v-else class="Flameout" :src="'./static/images/Lovecar/nofireoff.png'" alt="">
+        <span :class="activeshows==this.isTruessoff?'act':'activess'">熄火</span>
       </div>
       <!-- <div class="content_1" @click="enter()"> -->
       <div v-show="this.FIND_VEHICLE" class="content_1" @click="enter()">
@@ -222,7 +222,7 @@
 <script>
 import { Toast } from "mint-ui";
 import { Button } from "mint-ui";
-import {MessageBox} from 'mint-ui'
+import { MessageBox } from "mint-ui";
 export default {
   name: "lovecar",
   data() {
@@ -234,15 +234,13 @@ export default {
       MaskIsshow: false, //黑色遮罩层
       Rajtigo: false, //被授权状态
       num: 3,
-      isTrueA:false,//闭锁
-      isTrueB:false,//开锁
-      isTrue: false, //锁定
+      isTrueopen: false, //控制开锁
+      isTruessoff: false, //控制熄火
+      isTrue: false, //控制闭锁
       isTruesss: false, //停车
-      isTruess: false, //熄火
+      isTruess: false, //控制开启
       isTrues: false, //尾门
       IsShow: false,
-      locknum: 2, //控制锁状态2为锁定默认
-      firenum: 2, //控制引擎状态2为熄火默认
       backnum: 2, //控制后备箱状态2为关闭默认
       keyNums: [],
       firstEnter: false, //第一次调用车况
@@ -519,6 +517,10 @@ export default {
       this.type = 1;
       this.popupVisible = true;
     },
+    doorsoppen() {
+      this.type = 5;
+      this.popupVisible = true;
+    },
     //后备箱的请求
     backbox() {
       this.type = 2;
@@ -527,6 +529,10 @@ export default {
     //熄火的请求
     closefire() {
       this.type = 3;
+      this.popupVisible = true;
+    },
+    closefireoff() {
+      this.type = 6;
       this.popupVisible = true;
     },
     // 寻车 事件
@@ -628,11 +634,8 @@ export default {
     //各种点击问好的提示
     Toasteach() {
       if (this.type == 1) {
-        if(this.isTrue){
-          MessageBox('提示', '在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁');
-        }else{
-          MessageBox('提示', '四门两盖在关的情况下可以对车辆四门锁进行关闭。');
-        }
+        MessageBox("提示", "四门两盖在关的情况下可以对车辆四门锁进行关闭。");
+
         // Toast({
         //   message:
         //     "在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁",
@@ -640,8 +643,17 @@ export default {
         //   duration: 3000
         // });
       }
+      if (this.type == 5) {
+        MessageBox(
+          "提示",
+          "在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁"
+        );
+      }
       if (this.type == 2) {
-        MessageBox('提示', '在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁');
+        MessageBox(
+          "提示",
+          "在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁"
+        );
         // Toast({
         //   message:
         //     "在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁",
@@ -650,7 +662,7 @@ export default {
         // });
       }
       if (this.type == 3) {
-        MessageBox('提示', '请确保档位处于P或空挡，手刹拉起；在档位为空挡或P档，电子或机械手刹拉起情况下且车辆处于闭锁状态下，可以远程启动发送机，10分钟内车辆无操作，将会自动熄火');
+        MessageBox("提示", "该车辆已处于启动状态");
         // Toast({
         //   message:
         //     "请确保档位处于P或空挡，手刹拉起；在档位为空挡或P档，电子或机械手刹拉起情况下且车辆处于闭锁状态下，可以远程启动发送机，10分钟内车辆无操作，将会自动熄火",
@@ -658,8 +670,14 @@ export default {
         //   duration: 4000
         // });
       }
+      if (this.type == 6) {
+        MessageBox(
+          "提示",
+          "请确保档位处于P或空挡，手刹拉起；在档位为空挡或P档，电子或机械手刹拉起情况下且车辆处于闭锁状态下，可以远程启动发送机，10分钟内车辆无操作，将会自动熄火"
+        );
+      }
       if (this.type == 4) {
-         MessageBox('提示', '左右转向灯先闪烁3次并伴有喇叭响3次');
+        MessageBox("提示", "左右转向灯先闪烁3次并伴有喇叭响3次");
         // Toast({
         //   message: "左右转向灯先闪烁3次并伴有喇叭响3次",
         //   position: "middle",
@@ -756,18 +774,18 @@ export default {
                           if (this.firstEnter) {
                             this.firstEnter = false;
                             if (res.data.data.accStatus == 1) {
-                              this.isTrue = true;
-                              this.locknum = 2;
-                            } else {
                               this.isTrue = false;
-                              this.locknum = 1;
+                              this.isTrueopen = true;
+                            } else {
+                              this.isTrue = true;
+                              this.isTrueopen = false;
                             }
                             if (res.data.data.engineStatus == 1) {
                               this.isTruess = true;
-                              this.firenum = 2;
+                              this.isTruessoff = false;
                             } else {
                               this.isTruess = false;
-                              this.firenum = 1;
+                              this.isTruessoff = true;
                             }
                             if (res.data.data.doorStsTrunk == 1) {
                               this.isTrues = true;
@@ -777,25 +795,23 @@ export default {
                           }
 
                           if (this.type == 1) {
-                            this.isTrue = !this.isTrue;
-                            this.isTrue
-                              ? (this.locknum = 2)
-                              : (this.locknum = 1);
-                            if (this.isTrue) {
-                              Toast({
-                                message:
-                                  "车门已成功开锁，30S内车辆无操作将自动闭锁。",
-                                position: "middle",
-                                duration: 3000
-                              });
-                            } else {
-                              Toast({
-                                message:
-                                  "车门已成功闭锁",
-                                position: "middle",
-                                duration: 3000
-                              });
-                            }
+                            this.isTrue = true;
+                            this.isTrueopen = false;
+                            Toast({
+                              message: "车门已成功闭锁",
+                              position: "middle",
+                              duration: 3000
+                            });
+                          }
+                          if (this.type == 5) {
+                            this.isTrue = false;
+                            this.isTrueopen = true;
+                            Toast({
+                              message:
+                                "车门已成功开锁，30S内车辆无操作将自动闭锁。",
+                              position: "middle",
+                              duration: 3000
+                            });
                           }
                           if (this.type == 2) {
                             this.isTrues = !this.isTrues;
@@ -814,23 +830,22 @@ export default {
                             }
                           }
                           if (this.type == 3) {
-                            this.isTruess = !this.isTruess;
-                            this.isTruess
-                              ? (this.firenum = 2)
-                              : (this.firenum = 1);
-                            if (this.isTruess) {
-                              Toast({
-                                message: "该车辆已处于启动状态",
-                                position: "middle",
-                                duration: 3000
-                              });
-                            } else {
-                              Toast({
-                                message: "车辆已成功熄火",
-                                position: "middle",
-                                duration: 3000
-                              });
-                            }
+                            this.isTruess = true;
+                            this.isTruessoff = false;
+                            Toast({
+                              message: "该车辆已处于启动状态",
+                              position: "middle",
+                              duration: 3000
+                            });
+                          }
+                          if (this.type == 6) {
+                            this.isTruess = false;
+                            this.isTruessoff = true;
+                            Toast({
+                              message: "车辆已成功熄火",
+                              position: "middle",
+                              duration: 3000
+                            });
                           }
                           if (this.type == 4) {
                             this.isTruesss = !this.isTruesss;
@@ -1001,22 +1016,19 @@ export default {
                             }
                           }
                         } else if (res.data.status == "FAILED") {
-                          console.log('进入2')
-                          if ((this.type == 1)) {
-                            if (this.isTrue) {
-                              Toast({
-                                message: "解锁失败，请稍后重试",
-                                position: "middle",
-                                duration: 2000
-                              });
-                            } else {
-                              Toast({
-                                message: "闭锁失败，请稍后重试",
-                                position: "middle",
-                                duration: 2000
-                              });
-                            }
-                          } else if ((this.type == 2)) {
+                          if (this.type == 1) {
+                            Toast({
+                              message: "闭锁失败，请稍后重试",
+                              position: "middle",
+                              duration: 2000
+                            });
+                          } else if (this.type == 5) {
+                            Toast({
+                              message: "解锁失败，请稍后重试",
+                              position: "middle",
+                              duration: 2000
+                            });
+                          } else if (this.type == 2) {
                             if (this.isTrues) {
                               Toast({
                                 message: "后备箱打开失败，请稍后重试",
@@ -1024,22 +1036,19 @@ export default {
                                 duration: 2000
                               });
                             }
-                          } else if ((this.type == 3)) {
-                            if (this.isTruess) {
-                             
-                               Toast({
-                                message: "车辆熄火失败，请稍后重试",
-                                position: "middle",
-                                duration: 2000
-                              });
-                            } else {
-                              Toast({
-                                message: "车辆启动失败，请稍后重试",
-                                position: "middle",
-                                duration: 2000
-                              });
-                            }
-                          } else if ((this.type == 4)) {
+                          } else if (this.type == 3) {
+                            Toast({
+                              message: "车辆启动失败，请稍后重试",
+                              position: "middle",
+                              duration: 2000
+                            });
+                          } else if (this.type == 6) {
+                            Toast({
+                              message: "车辆熄火失败，请稍后重试",
+                              position: "middle",
+                              duration: 2000
+                            });
+                          } else if (this.type == 4) {
                             if (this.isTrues) {
                               Toast({
                                 message: "寻车失败，请稍后重试",
@@ -1076,18 +1085,18 @@ export default {
               if (this.firstEnter) {
                 this.firstEnter = false;
                 if (res.data.data.accStatus == 1) {
-                  this.isTrue = true;
-                  this.locknum = 2;
-                } else {
                   this.isTrue = false;
-                  this.locknum = 1;
+                  this.isTrueopen = true;
+                } else {
+                  this.isTrue = true;
+                  this.isTrueopen = false;
                 }
                 if (res.data.data.engineStatus == 1) {
                   this.isTruess = true;
-                  this.firenum = 2;
+                  this.isTruessoff = false;
                 } else {
                   this.isTruess = false;
-                  this.firenum = 1;
+                  this.isTruessoff = true;
                 }
                 if (res.data.data.doorStsTrunk == 1) {
                   this.isTrues = true;
@@ -1095,23 +1104,23 @@ export default {
                   this.isTrues = false;
                 }
               }
-
               if (this.type == 1) {
-                this.isTrue = !this.isTrue;
-                this.isTrue ? (this.locknum = 2) : (this.locknum = 1);
-                if (this.isTrue) {
-                  Toast({
-                    message: "车门已成功开锁，30S内车辆无操作将自动闭锁。",
-                    position: "middle",
-                    duration: 3000
-                  });
-                } else {
-                  Toast({
-                    message: "车门已成功闭锁",
-                    position: "middle",
-                    duration: 3000
-                  });
-                }
+                this.isTrue = true;
+                this.isTrueopen = false;
+                Toast({
+                  message: "车门已成功闭锁",
+                  position: "middle",
+                  duration: 3000
+                });
+              }
+              if (this.type == 5) {
+                this.isTrue = false;
+                this.isTrueopen = true;
+                Toast({
+                  message: "车门已成功开锁，30S内车辆无操作将自动闭锁。",
+                  position: "middle",
+                  duration: 3000
+                });
               }
               if (this.type == 2) {
                 this.isTrues = !this.isTrues;
@@ -1130,21 +1139,22 @@ export default {
                 }
               }
               if (this.type == 3) {
-                this.isTruess = !this.isTruess;
-                this.isTruess ? (this.firenum = 2) : (this.firenum = 1);
-                if (this.isTruess) {
-                  Toast({
-                    message: "该车辆已处于启动状态",
-                    position: "middle",
-                    duration: 3000
-                  });
-                } else {
-                  Toast({
-                    message: "车辆已成功熄火",
-                    position: "middle",
-                    duration: 3000
-                  });
-                }
+                this.isTruess = true;
+                this.isTruessoff = false;
+                Toast({
+                  message: "该车辆已处于启动状态",
+                  position: "middle",
+                  duration: 3000
+                });
+              }
+              if (this.type == 6) {
+                this.isTruess = false;
+                this.isTruessoff = true;
+                Toast({
+                  message: "车辆已成功熄火",
+                  position: "middle",
+                  duration: 3000
+                });
               }
               if (this.type == 4) {
                 this.isTruesss = !this.isTruesss;
@@ -1164,11 +1174,11 @@ export default {
                 // }else{
                 //   this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
                 // }
-                      Toast({                        
-                              message: "获取最新车况成功",
-                              position: "middle",
-                              duration: 2000
-                            });
+                Toast({
+                  message: "获取最新车况成功",
+                  position: "middle",
+                  duration: 2000
+                });
                 this.carcontrol.engineHoodStsFront
                   ? (this.engineHoodStsFront = "已开")
                   : (this.engineHoodStsFront = "未开");
@@ -1306,23 +1316,19 @@ export default {
                 }
               }
             } else if (res.data.status == "FAILED") {
-              console.log('进入1')
-              if ((this.type == 1)) {
-                if (this.isTrue) {
-                  Toast({
-                    message: "解锁失败，请稍后重试",
-                    position: "middle",
-                    duration: 2000
-                  });
-                } else {
-                  Toast({
-                    message: "闭锁失败，请稍后重试",
-                    position: "middle",
-                    duration: 2000
-                  });
-                }
-              }else
-              if ((this.type == 2)) {
+              if (this.type == 1) {
+                Toast({
+                  message: "闭锁失败，请稍后重试",
+                  position: "middle",
+                  duration: 2000
+                });
+              } else if (this.type == 5) {
+                Toast({
+                  message: "解锁失败，请稍后重试",
+                  position: "middle",
+                  duration: 2000
+                });
+              } else if (this.type == 2) {
                 if (this.isTrues) {
                   Toast({
                     message: "后备箱打开失败，请稍后重试",
@@ -1330,24 +1336,19 @@ export default {
                     duration: 2000
                   });
                 }
-              }else
-              if ((this.type == 3)) {
-                if (this.isTruess) {
-                 
-                    Toast({
-                    message: "车辆熄火失败，请稍后重试",
-                    position: "middle",
-                    duration: 2000
-                  });
-                } else {
-                 Toast({
-                    message: "车辆启动失败，请稍后重试",
-                    position: "middle",
-                    duration: 2000
-                  });
-                }
-              }else
-              if ((this.type == 4)) {
+              } else if (this.type == 3) {
+                Toast({
+                  message: "车辆启动失败，请稍后重试",
+                  position: "middle",
+                  duration: 2000
+                });
+              } else if (this.type == 6) {
+                Toast({
+                  message: "车辆熄火失败，请稍后重试",
+                  position: "middle",
+                  duration: 2000
+                });
+              } else if (this.type == 4) {
                 if (this.isTrues) {
                   Toast({
                     message: "寻车失败，请稍后重试",
@@ -1355,6 +1356,12 @@ export default {
                     duration: 2000
                   });
                 }
+              } else {
+                Toast({
+                  message: "最新车况获取失败,请稍后重试",
+                  position: "middle",
+                  duration: 2000
+                });
               }
 
               clearInterval(this.time);
@@ -1440,7 +1447,55 @@ export default {
                 var params = {
                   vin: this.$store.state.vins,
                   operationType: "LOCK",
-                  operation: this.locknum //操作项
+                  operation: 2 //操作项
+                };
+                this.$http
+                  .post(Lovecar.Control, params, this.$store.state.tsppin)
+                  .then(res => {
+                    this.operationIds = res.data.operationId;
+                    // alert(res.data.operationId)
+                    // alert(this.operationIdcar)
+                    if (res.data.returnSuccess) {
+                      Toast({
+                        message: "指令已下发,请稍后",
+                        position: "middle",
+                        duration: 2000
+                      });
+                      setTimeout(() => {
+                        this.getAsyReturn(res.data.operationId);
+                      }, 2000);
+                      // alert(this.isTrue)
+                    } else {
+                      if (res.data.returnErrCode == 400) {
+                        Toast({
+                          message: "token验证失败",
+                          position: "middle",
+                          duration: 2000
+                        });
+                      } else {
+                        Toast({
+                          message: res.data.returnErrMsg,
+                          position: "middle",
+                          duration: 2000
+                        });
+                      }
+                    }
+                  })
+                  .catch(err => {
+                    Toast({
+                      message: "系统异常",
+                      position: "middle",
+                      duration: 2000
+                    });
+                  });
+              } else if (this.type == 5) {
+                //车辆锁定的接口
+                // alert(this.$store.state.vins)
+                // this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
+                var params = {
+                  vin: this.$store.state.vins,
+                  operationType: "LOCK",
+                  operation: 1 //操作项
                 };
                 this.$http
                   .post(Lovecar.Control, params, this.$store.state.tsppin)
@@ -1530,7 +1585,51 @@ export default {
                 var param = {
                   vin: this.$store.state.vins,
                   operationType: "ENGINE",
-                  operation: this.firenum //操作项
+                  operation: 1 //操作项
+                };
+                this.$http
+                  .post(Lovecar.Control, param, this.$store.state.tsppin)
+                  .then(res => {
+                    this.operationIdss = res.data.operationId;
+                    if (res.data.returnSuccess) {
+                      Toast({
+                        message: "指令已下发,请稍后",
+                        position: "middle",
+                        duration: 2000
+                      });
+                      setTimeout(() => {
+                        // console.log('熄火了')
+                        this.getAsyReturn(res.data.operationId);
+                      }, 2000);
+                    } else {
+                      if (res.data.returnErrCode == 400) {
+                        Toast({
+                          message: "token验证失败",
+                          position: "middle",
+                          duration: 2000
+                        });
+                      } else {
+                        Toast({
+                          message: res.data.returnErrMsg,
+                          position: "middle",
+                          duration: 2000
+                        });
+                      }
+                    }
+                  })
+                  .catch(err => {
+                    Toast({
+                      message: "系统异常",
+                      position: "middle",
+                      duration: 2000
+                    });
+                  });
+              } else if (this.type == 6) {
+                //引擎接口，熄火
+                var param = {
+                  vin: this.$store.state.vins,
+                  operationType: "ENGINE",
+                  operation: 2 //操作项
                 };
                 this.$http
                   .post(Lovecar.Control, param, this.$store.state.tsppin)
@@ -1994,7 +2093,7 @@ input:focus {
 }
 .tailgate {
   width: 0.44rem;
-  height: .35rem;
+  height: 0.35rem;
 }
 .Flameout {
   width: 0.31rem;
