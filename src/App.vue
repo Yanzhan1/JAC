@@ -43,7 +43,14 @@ export default {
         //      this.$store.dispatch('userInfo',null);
       }
       this.$http.defaults.headers.common["timaToken"] = this.$store.state.token;
-    }
+    },
+    // Getmarkedwords(){
+    //   this.$http.post(My.getwords,{}).then((res)=>{
+    //     if(res.data.msg=='success'){
+    //       this.$store.dispatch('getWords',res.data.data)
+    //     }
+    //   })
+    // }
     // //拿到个人信息
     // personname(){
     //   //获取用户基本信息
@@ -88,6 +95,7 @@ export default {
         //   });
       }
     });
+    // this.Getmarkedwords()
 
     // this.getNo()
   }

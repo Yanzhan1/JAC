@@ -49,5 +49,6 @@ export default {
     shownum: '', //车系特色判断返回的路由
     busNo: null, //主推车型，全部车型 选择的no
     qrCodeDate: null, //扫描二维码给出信息
-    changeScrollY: '' //存储滚动高度
+    changeScrollY: '', //存储滚动高度
+    GETWORDS: [] //储存所有的提示信息
 }

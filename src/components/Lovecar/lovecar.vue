@@ -230,6 +230,7 @@ export default {
       activeshow: 1, //默认第一个高亮
       activeshows: 1,
       tspid: "",
+      allwords:[],//贮存所有的提示语
       popupVisible: false,
       MaskIsshow: false, //黑色遮罩层
       Rajtigo: false, //被授权状态
@@ -303,7 +304,15 @@ export default {
       REAL_TIME_VIDEO_VIEW: false, //行车记录仪
       FUEL_STATISTICS: false, //燃油统计
       CONTROL_AUTH: false, //远程授权
-      FLOW_QUERY: false //流量查询
+      FLOW_QUERY: false, //流量查询
+      open_lock:[],//开锁的所有提示语
+      close_lock:[],//闭锁的所有提示语
+      open_trunk:[],//后备箱的所有提示语
+      vehicle_launch:[],//车辆启动的所有提示语
+      vehicle_flameout:[],//车辆熄火的所有提示语
+      find_vehicle:[],//寻车的所有提示语
+      vehicle_condition:[],//车况的所有提示语
+
     };
   },
   //  beforeRouteEnter :(to, from, next)=> {
@@ -408,7 +417,6 @@ export default {
         this.Condition = tai;
       } else if (this.activeshow == 2) {
         this.Condition = door;
-        console.log(this.Condition);
         if (this.Condition.left_top == "关闭") {
           $(".left_1").css("color", "#49BBFF");
         } else if (this.Condition.left_top == "开启") {
@@ -601,14 +609,12 @@ export default {
     //   this.$http.post(My.My_Bus, {}, this.$store.state.tsppin).then(res => {
     //     if (res.data.returnSuccess) {
     //       this.BusDetails = res.data.data;
-    //       console.log(res.data.data)
     //       for (let i = 0; i < res.data.data.length; i++) {
     //         if (res.data.data[i].def == 1) {
     //           this.vinn = res.data.data[i].vin;
     //         }
     //       }
     //     }
-    //     console.log(this.$store.state.vins)
     //   });
     // },
     //跳转电子围栏
@@ -634,7 +640,7 @@ export default {
     //各种点击问好的提示
     Toasteach() {
       if (this.type == 1) {
-        MessageBox("提示", "四门两盖在关的情况下可以对车辆四门锁进行关闭。");
+        MessageBox("提示", this.close_lock[3].remark);
 
         // Toast({
         //   message:
@@ -646,13 +652,13 @@ export default {
       if (this.type == 5) {
         MessageBox(
           "提示",
-          "在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁"
+          this.open_lock[3].remark
         );
       }
       if (this.type == 2) {
         MessageBox(
           "提示",
-          "在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁"
+          this.open_trunk[3].remark
         );
         // Toast({
         //   message:
@@ -662,7 +668,15 @@ export default {
         // });
       }
       if (this.type == 3) {
-        MessageBox("提示", "该车辆已处于启动状态");
+        if(this.isTruess){
+
+          MessageBox("提示", this.vehicle_launch[2].remark);
+        }else{
+           MessageBox(
+          "提示",
+          this.vehicle_launch[5].remark
+        );
+        }
         // Toast({
         //   message:
         //     "请确保档位处于P或空挡，手刹拉起；在档位为空挡或P档，电子或机械手刹拉起情况下且车辆处于闭锁状态下，可以远程启动发送机，10分钟内车辆无操作，将会自动熄火",
@@ -673,11 +687,11 @@ export default {
       if (this.type == 6) {
         MessageBox(
           "提示",
-          "请确保档位处于P或空挡，手刹拉起；在档位为空挡或P档，电子或机械手刹拉起情况下且车辆处于闭锁状态下，可以远程启动发送机，10分钟内车辆无操作，将会自动熄火"
+          this.vehicle_flameout[3].remark
         );
       }
       if (this.type == 4) {
-        MessageBox("提示", "左右转向灯先闪烁3次并伴有喇叭响3次");
+        MessageBox("提示", this.find_vehicle[3].remark);
         // Toast({
         //   message: "左右转向灯先闪烁3次并伴有喇叭响3次",
         //   position: "middle",
@@ -697,7 +711,7 @@ export default {
           if (res.data.returnSuccess) {
             this.operationIdcar = res.data.operationId;
             Toast({
-              message: "指令已下发,请稍后",
+              message:this.vehicle_condition[0].remark,
               position: "middle",
               duration: 2000
             });
@@ -710,6 +724,38 @@ export default {
             });
           }
         });
+    },
+    //拿到所有的提示语
+    Getmarkedwords(){
+      this.$http.post(My.getwords,{}).then((res)=>{
+        if(res.data.msg=='success'){
+          this.allwords=res.data.data
+          this.$store.dispatch('getWords',this.allwords)
+          for(let value of this.allwords){
+            if(value.dictType=='open_lock'){
+              this.open_lock=value.sysDictDataVOs
+            }
+            if(value.dictType=='close_lock'){
+              this.close_lock=value.sysDictDataVOs
+            }
+            if(value.dictType=='open_trunk'){
+              this.open_trunk=value.sysDictDataVOs
+            }
+            if(value.dictType=='vehicle_launch'){
+              this.vehicle_launch=value.sysDictDataVOs
+            }
+            if(value.dictType=='vehicle_flameout'){
+              this.vehicle_flameout=value.sysDictDataVOs
+            }
+            if(value.dictType=='find_vehicle'){
+              this.find_vehicle=value.sysDictDataVOs
+            }
+            if(value.dictType=='vehicle_condition'){
+              this.vehicle_condition=value.sysDictDataVOs
+            }
+          }
+        }
+      })
     },
     //跳转定位
     turnPosition() {
@@ -798,7 +844,7 @@ export default {
                             this.isTrue = true;
                             this.isTrueopen = false;
                             Toast({
-                              message: "车门已成功闭锁",
+                              message: this.close_lock[1].remark,
                               position: "middle",
                               duration: 3000
                             });
@@ -808,7 +854,7 @@ export default {
                             this.isTrueopen = true;
                             Toast({
                               message:
-                                "车门已成功开锁，30S内车辆无操作将自动闭锁。",
+                                this.open_lock[1].remark,
                               position: "middle",
                               duration: 3000
                             });
@@ -817,7 +863,7 @@ export default {
                             this.isTrues = !this.isTrues;
                             if (this.isTrues) {
                               Toast({
-                                message: "后备箱已成功打开",
+                                message:this.open_trunk[1].remark,
                                 position: "middle",
                                 duration: 3000
                               });
@@ -833,7 +879,7 @@ export default {
                             this.isTruess = true;
                             this.isTruessoff = false;
                             Toast({
-                              message: "该车辆已处于启动状态",
+                              message: this.vehicle_launch[4].remark,
                               position: "middle",
                               duration: 3000
                             });
@@ -842,7 +888,7 @@ export default {
                             this.isTruess = false;
                             this.isTruessoff = true;
                             Toast({
-                              message: "车辆已成功熄火",
+                              message: this.vehicle_flameout[1].remark,
                               position: "middle",
                               duration: 3000
                             });
@@ -850,7 +896,7 @@ export default {
                           if (this.type == 4) {
                             this.isTruesss = !this.isTruesss;
                             Toast({
-                              message: "车辆正在鸣笛闪烁",
+                              message:this.find_vehicle[1].remark,
                               position: "middle",
                               duration: 1500
                             });
@@ -865,9 +911,9 @@ export default {
                             //   }else{
                             //     this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
                             //   }
-                            console.log(res.data.data);
+                            // console.log(res.data.data);
                             Toast({
-                              message: "获取最新车况成功",
+                              message: this.vehicle_condition[1].remark,
                               position: "middle",
                               duration: 2000
                             });
@@ -1018,47 +1064,47 @@ export default {
                         } else if (res.data.status == "FAILED") {
                           if (this.type == 1) {
                             Toast({
-                              message: "闭锁失败，请稍后重试",
+                              message:this.close_lock[2].remark,
                               position: "middle",
                               duration: 2000
                             });
                           } else if (this.type == 5) {
                             Toast({
-                              message: "解锁失败，请稍后重试",
+                              message: this.open_lock[2].remark,
                               position: "middle",
                               duration: 2000
                             });
                           } else if (this.type == 2) {
                             if (this.isTrues) {
                               Toast({
-                                message: "后备箱打开失败，请稍后重试",
+                                message:this.open_trunk[2].remark,
                                 position: "middle",
                                 duration: 2000
                               });
                             }
                           } else if (this.type == 3) {
                             Toast({
-                              message: "车辆启动失败，请稍后重试",
+                              message: this.vehicle_launch[3].remark,
                               position: "middle",
                               duration: 2000
                             });
                           } else if (this.type == 6) {
                             Toast({
-                              message: "车辆熄火失败，请稍后重试",
+                              message:this.vehicle_flameout[2].remark,
                               position: "middle",
                               duration: 2000
                             });
                           } else if (this.type == 4) {
                             if (this.isTrues) {
                               Toast({
-                                message: "寻车失败，请稍后重试",
+                                message: this.find_vehicle[2].remark,
                                 position: "middle",
                                 duration: 2000
                               });
                             }
                           } else {
                             Toast({
-                              message: "最新车况获取失败,请稍后重试",
+                              message: this.vehicle_condition[2].remark,
                               position: "middle",
                               duration: 2000
                             });
@@ -1079,7 +1125,6 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              console.log(res.data.data);
               clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
               if (this.firstEnter) {
@@ -1108,7 +1153,7 @@ export default {
                 this.isTrue = true;
                 this.isTrueopen = false;
                 Toast({
-                  message: "车门已成功闭锁",
+                  message: this.close_lock[1].remark,
                   position: "middle",
                   duration: 3000
                 });
@@ -1117,7 +1162,7 @@ export default {
                 this.isTrue = false;
                 this.isTrueopen = true;
                 Toast({
-                  message: "车门已成功开锁，30S内车辆无操作将自动闭锁。",
+                  message: this.open_lock[1].remark,
                   position: "middle",
                   duration: 3000
                 });
@@ -1126,7 +1171,7 @@ export default {
                 this.isTrues = !this.isTrues;
                 if (this.isTrues) {
                   Toast({
-                    message: "后备箱已成功打开",
+                    message: this.open_trunk[1].remark,
                     position: "middle",
                     duration: 3000
                   });
@@ -1142,7 +1187,7 @@ export default {
                 this.isTruess = true;
                 this.isTruessoff = false;
                 Toast({
-                  message: "该车辆已处于启动状态",
+                  message: this.vehicle_launch[4].remark,
                   position: "middle",
                   duration: 3000
                 });
@@ -1151,7 +1196,7 @@ export default {
                 this.isTruess = false;
                 this.isTruessoff = true;
                 Toast({
-                  message: "车辆已成功熄火",
+                  message: this.vehicle_flameout[1].remark,
                   position: "middle",
                   duration: 3000
                 });
@@ -1159,7 +1204,7 @@ export default {
               if (this.type == 4) {
                 this.isTruesss = !this.isTruesss;
                 Toast({
-                  message: "车辆正在鸣笛闪烁",
+                  message: this.find_vehicle[1].remark,
                   position: "middle",
                   duration: 1500
                 });
@@ -1175,7 +1220,7 @@ export default {
                 //   this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
                 // }
                 Toast({
-                  message: "获取最新车况成功",
+                  message: this.vehicle_condition[1].remark,
                   position: "middle",
                   duration: 2000
                 });
@@ -1318,47 +1363,47 @@ export default {
             } else if (res.data.status == "FAILED") {
               if (this.type == 1) {
                 Toast({
-                  message: "闭锁失败，请稍后重试",
+                  message: this.close_lock[2].remark,
                   position: "middle",
                   duration: 2000
                 });
               } else if (this.type == 5) {
                 Toast({
-                  message: "解锁失败，请稍后重试",
+                  message: this.open_lock[2].remark,
                   position: "middle",
                   duration: 2000
                 });
               } else if (this.type == 2) {
                 if (this.isTrues) {
                   Toast({
-                    message: "后备箱打开失败，请稍后重试",
+                    message: this.open_trunk[2].remark,
                     position: "middle",
                     duration: 2000
                   });
                 }
               } else if (this.type == 3) {
                 Toast({
-                  message: "车辆启动失败，请稍后重试",
+                  message: this.vehicle_launch[3].remark,
                   position: "middle",
                   duration: 2000
                 });
               } else if (this.type == 6) {
                 Toast({
-                  message: "车辆熄火失败，请稍后重试",
+                  message: this.vehicle_flameout[2].remark,
                   position: "middle",
                   duration: 2000
                 });
               } else if (this.type == 4) {
                 if (this.isTrues) {
                   Toast({
-                    message: "寻车失败，请稍后重试",
+                    message: this.find_vehicle[2].remark,
                     position: "middle",
                     duration: 2000
                   });
                 }
               } else {
                 Toast({
-                  message: "最新车况获取失败,请稍后重试",
+                  message: this.vehicle_condition[2].remark,
                   position: "middle",
                   duration: 2000
                 });
@@ -1392,7 +1437,6 @@ export default {
           if (res.data.returnSuccess) {
             // let arr=res.data.data
             // arr.forEach(function(ii,index){
-            //   console.log(ii,index)
             //   if(ii.isLocking===true){
             //     this.Rajtigo=!this.Rajtigo
             //     this.vehicleState=ii.vin
@@ -1457,7 +1501,7 @@ export default {
                     // alert(this.operationIdcar)
                     if (res.data.returnSuccess) {
                       Toast({
-                        message: "指令已下发,请稍后",
+                        message: this.open_lock[0].remark,
                         position: "middle",
                         duration: 2000
                       });
@@ -1505,7 +1549,7 @@ export default {
                     // alert(this.operationIdcar)
                     if (res.data.returnSuccess) {
                       Toast({
-                        message: "指令已下发,请稍后",
+                        message: this.close_lock[0].remark,
                         position: "middle",
                         duration: 2000
                       });
@@ -1538,7 +1582,6 @@ export default {
                   });
               } else if (this.type == 2) {
                 // 后备箱接口
-                // console.log(this.isTrues);
                 this.isTrues ? (this.backnum = 1) : (this.backnum = 2);
                 var param = {
                   vin: this.$store.state.vins,
@@ -1550,7 +1593,7 @@ export default {
                   .then(res => {
                     if (res.data.returnSuccess) {
                       Toast({
-                        message: "指令已下发,请稍后",
+                        message: this.open_trunk[0].remark,
                         position: "middle",
                         duration: 2000
                       });
@@ -1593,12 +1636,11 @@ export default {
                     this.operationIdss = res.data.operationId;
                     if (res.data.returnSuccess) {
                       Toast({
-                        message: "指令已下发,请稍后",
+                        message: vehicle_launch[0].remark,
                         position: "middle",
                         duration: 2000
                       });
                       setTimeout(() => {
-                        // console.log('熄火了')
                         this.getAsyReturn(res.data.operationId);
                       }, 2000);
                     } else {
@@ -1637,12 +1679,11 @@ export default {
                     this.operationIdss = res.data.operationId;
                     if (res.data.returnSuccess) {
                       Toast({
-                        message: "指令已下发,请稍后",
+                        message: this.vehicle_flameout[0].remark,
                         position: "middle",
                         duration: 2000
                       });
                       setTimeout(() => {
-                        // console.log('熄火了')
                         this.getAsyReturn(res.data.operationId);
                       }, 2000);
                     } else {
@@ -1679,7 +1720,7 @@ export default {
                     this.operationIdses = res.data.operationId;
                     if (res.data.returnSuccess) {
                       Toast({
-                        message: "指令已下发,请稍后",
+                        message: this.find_vehicle[0].remark,
                         position: "middle",
                         duration: 2000
                       });
@@ -1761,7 +1802,6 @@ export default {
                 res.data.data[i].defToNathor == 1
               ) {
                 this.carsysitem = res.data.data[i].seriesName;
-                // console.log(res.data.data[i].vin);
                 var payload = res.data.data[i].vin;
                 this.$store.dispatch("CARVINS", payload);
                 // this.$store.state.vins = res.data.data[i].vin;
@@ -1771,15 +1811,14 @@ export default {
             this.firstEnter = true;
             this.vinn = this.$store.state.vins;
             this.Support();
-            // console.log(this.vinn)
             this.Carquerry();
-            // console.log(this.$store.state.mytoken.headers.timaToken);
           }
         });
     }
   },
   mounted() {
     $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
+        this.Getmarkedwords()
     if (this.userId) {
       this.vehiclestatus();
       this.tspid = this.$store.state.tspId;
@@ -1809,7 +1848,7 @@ export default {
                 var payload = res.data.data[i].vin;
                 this.defaultvin = res.data.data[i].vin;
                 this.$store.state.brandName = res.data.data[i].brandName;
-                console.log("获取默认车辆vin码:" + this.defaultvin);
+                // console.log("获取默认车辆vin码:" + this.defaultvin);
                 this.$store.dispatch("CARVINS", payload);
                 //获取机车 登录登出状态
                 //  	       this.getCarLoginState()

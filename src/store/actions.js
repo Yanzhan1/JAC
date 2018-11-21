@@ -3,6 +3,9 @@ export default {
     isLogin: ({ commit, state }, payload) => {
         commit(types.ISLOGIN, payload)
     },
+    getWords: ({ commit, state }, payload) => {
+        commit(types.GETWORDS, payload)
+    },
     SOFTKEYBOARD: ({ commit, state }, payload) => {
         commit(types.SOFTKEYBOARD, payload)
     },
