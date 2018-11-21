@@ -19,10 +19,10 @@
 		<router-link tag="div" class="setup-modifypwd" to="/myindex/modifyPassword">
 			<mt-cell title="修改密码" is-link></mt-cell>
 		</router-link>
-		<router-link v-if="vehicleState" tag="div" class="setup-vehiclestate" :to="{path:'/myindex/loginVehicleState',query:{vin:this.vin}}">
+		<!-- <router-link v-if="vehicleState" tag="div" class="setup-vehiclestate" :to="{path:'/myindex/loginVehicleState',query:{vin:this.vin}}">
 			<mt-cell title="车机登录状态" is-link></mt-cell>
-		</router-link>
-		<router-link v-else tag="div" class="setup-vehiclestate" to="/myindex/logoutVehicleState">
+		</router-link> -->
+		<router-link  tag="div" class="setup-vehiclestate" to="/myindex/logoutVehicleState">
 			<mt-cell title="车机登录状态" is-link></mt-cell>
 		</router-link>
 		<router-link tag="div" class="setup-loginout" to="">
@@ -126,7 +126,7 @@
 			}
 		},
 		mounted () {
-			this.getCarLoginState()		
+			// this.getCarLoginState()		
 		}
 	}
 </script>
