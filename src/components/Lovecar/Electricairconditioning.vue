@@ -123,6 +123,7 @@
 					<div style="font-size:.36rem;color:#222">请输入PIN码</div>
 					<span></span>
 				</div>
+         <img @click="Toasteach"  class="question" style="width:.35rem;height:.35rem" :src="'./static/images/Lovecar/question.png'" alt="">
 				<div class="pin-code flex-center">
 					<div  v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
 						<input class="pin-input" maxlength="6" type="text" v-model="pinNumber" readonly/>
@@ -155,6 +156,7 @@
 import { Createarc } from "../../../static/js/drawarc.js";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
+import {MessageBox} from 'mint-ui';
 import PublicHead from "../publicmodel/PublicHead";
 export default {
   name: "electricairconditioning",
@@ -165,6 +167,8 @@ export default {
     return {
       time: "", //定时器命名
       //移动端键盘值
+      allwords:[],//所有的提示
+      airconditionwords:[],//空调的提示
       ownKeyBoard: {
         first: "",
         second: "",
@@ -384,6 +388,9 @@ export default {
       }
       that.keyNums = arr2;
     },
+      Toasteach(){
+        MessageBox("提示", this.airconditionwords[3].remark);
+      },
     //产生曲线
     produCurve() {
       //温度激活弧线
@@ -464,6 +471,15 @@ export default {
         return false;
       }
     },
+    //拿到空调的提示语
+    getairconditionwords(){
+      this.allwords=this.$store.state.GETWORDS;
+      for(let value of this.allwords){
+        if(value.dictType=='air_conditioning'){
+          this.airconditionwords=value.sysDictDataVOs
+        }
+      }
+    },
     //重复调用异步接口
     getAsyReturn(operationId) {
       var flag = true;
@@ -520,7 +536,7 @@ export default {
                           (this.activeShowImg = !this.activeShowImg),
                             this.refreshPmData(),
                             Toast({
-                              message: "空调已成功开启",
+                              message:this.airconditionwords[1].remark,
                               position: "middle",
                               duration: 2000
                             });
@@ -530,7 +546,7 @@ export default {
                         } else if (res.data.status == "FAILED") {
                           flag = false;
                           Toast({
-                            message: "空调开启失败，请稍后重试",
+                            message: this.airconditionwords[2].remark,
                             position: "middle",
                             duration: 2000
                           });
@@ -558,7 +574,7 @@ export default {
               (this.activeShowImg = !this.activeShowImg),
                 this.refreshPmData(),
                 Toast({
-                  message: "空调已成功开启",
+                  message:this.airconditionwords[1].remark,
                   position: "middle",
                   duration: 2000
                 });
@@ -566,7 +582,7 @@ export default {
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
-                message: "空调开启失败，请稍后重试",
+                message: this.airconditionwords[2].remark,
                 position: "middle",
                 duration: 2000
               });
@@ -603,7 +619,14 @@ export default {
         .post(Lovecar.Control, param, this.$store.state.tsppin)
         .then(res => {
           if (res.data.returnSuccess) {
-            this.getAsyReturn(res.data.operationId);
+            Toast({
+              message:this.airconditionwords[0].remark,
+              position:'middle',
+              duration:2000
+            })
+            setTimeout(()=>{
+              this.getAsyReturn(res.data.operationId);
+            },2000)
           } else {
             if (res.data.returnErrCode == 400) {
               Toast({
@@ -632,7 +655,8 @@ export default {
   mounted() {
     $(".MobileHeight").css("marginTop", this.marginTop);
     //	alert(this.marginTop)
-    //
+      console.log(this.$store.state.GETWORDS)
+      this.getairconditionwords()
     clearInterval(this.time);
     this.produCurve();
     this.inputs();
@@ -1007,7 +1031,11 @@ export default {
   border: none;
   text-align: center;
 }
-
+.question {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.3rem;
+}
 .addWind {
   display: block;
   width: 0.6rem;

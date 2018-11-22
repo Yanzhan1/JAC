@@ -89,6 +89,7 @@
 					<div style="font-size:.36rem;color:#222">请输入PIN码</div>
 					<span></span>
 				</div>
+        <img @click="Toasteach"  class="question" style="width:.35rem;height:.35rem" :src="'./static/images/Lovecar/question.png'" alt="">
 				<div class="pin-code flex-center">
 					<div v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
 						<input class="pin-input" maxlength="6" type="text" v-model="pinNumber" readonly/>
@@ -121,6 +122,7 @@ import { Createarc } from "../../../static/js/drawarc.js";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
 import PublicHead from "../publicmodel/PublicHead";
+import { MessageBox } from "mint-ui";
 export default {
   name: "windowControl",
   components: {
@@ -130,6 +132,8 @@ export default {
     return {
       //车窗控制按钮开关
       //value: false,
+      windowwords:[],//车窗提示语
+      allwords:[],//所有提示语
       //移动端键盘值
       ownKeyBoard: {
         first: "",
@@ -212,6 +216,17 @@ export default {
         return;
       }
       this.httpwindow();
+    },
+     //拿到车窗的提示语
+    getwindowwords(){
+      this.allwords=this.$store.state.GETWORDS;
+       for(let value of this.allwords){
+        if(value.dictType=='vehicle_window'){
+          console.log(value)
+          this.windowwords=value.sysDictDataVOs
+          console.log(this.windowwords)
+        }
+      }
     },
     //车窗高度减少
     windReduce() {
@@ -376,6 +391,14 @@ export default {
         return false;
       }
     },
+    Toasteach(){
+      console.log(123)
+       MessageBox(
+          "提示",
+          this.windowwords[3].remark
+        );
+      console.log(231)
+    },
     //重复调用异步接口
     getAsyReturn(operationId) {
       var flag = true;
@@ -427,7 +450,7 @@ export default {
                         } else if (res.data.status == "SUCCEED") {
                           // flag = false;
                           Toast({
-                            message: "车窗已成功打开",
+                            message: this.windowwords[1].remark,
                             position: "middle",
                             duration: 2000
                           });
@@ -440,7 +463,7 @@ export default {
                         } else if (res.data.status == "FAILED") {
                           flag = false;
                           Toast({
-                            message: "车控指令操作失败，请稍后重试",
+                            message:  this.windowwords[2].remark,
                             position: "middle",
                             duration: 2000
                           });
@@ -463,7 +486,7 @@ export default {
             } else if (res.data.status == "SUCCEED") {
               // flag = false;
               Toast({
-                message: "车窗已成功打开",
+                message: this.windowwords[1].remark,
                 position: "middle",
                 duration: 2000
               });
@@ -475,7 +498,7 @@ export default {
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
-                message: "车控指令操作失败，请稍后重试",
+                message: this.windowwords[2].remark,
                 position: "middle",
                 duration: 2000
               });
@@ -513,7 +536,7 @@ export default {
           this.operationIds = res.data.operationId;
           if (res.data.returnSuccess) {
             Toast({
-              message: "指令已下发,请稍后",
+              message: this.windowwords[0].remark,
               position: "middle",
               duration: 2000
             });
@@ -547,6 +570,7 @@ export default {
   },
   mounted() {
     clearInterval(this.time);
+    this.getwindowwords()
     this.produCurve();
     this.inputs();
     this.$http
@@ -1087,5 +1111,10 @@ ul > li {
   height: 100%;
   opacity: 0.5;
   background: #000;
+}
+.question {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.3rem;
 }
 </style>

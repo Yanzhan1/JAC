@@ -114,6 +114,7 @@
 					<div style="font-size:.36rem;color:#222">请输入PIN码</div>
 					<span></span>
 				</div>
+         <img @click="Toasteach"  class="question" style="width:.35rem;height:.35rem" :src="'./static/images/Lovecar/question.png'" alt="">
 				<div class="pin-code flex-center">
 					<div  v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
 						<input class="pin-input" maxlength="6" type="text" v-model="pinNumber" readonly/>
@@ -146,6 +147,7 @@
 import { Createarc } from "../../../static/js/drawarc.js";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
+import {MessageBox} from 'mint-ui';
 import PublicHead from "../publicmodel/PublicHead";
 export default {
   name: "airconditionControl",
@@ -287,6 +289,9 @@ export default {
         return;
       }
       this.httpair();
+    },
+    Toasteach(){
+      MessageBox("提示", this.airconditionwords[3].remark);
     },
     //温度减少
     reduce() {
@@ -472,6 +477,15 @@ export default {
         return false;
       }
     },
+     //拿到空调的提示语
+    getairconditionwords(){
+      this.allwords=this.$store.state.GETWORDS;
+      for(let value of this.allwords){
+        if(value.dictType=='air_conditioning'){
+          this.airconditionwords=value.sysDictDataVOs
+        }
+      }
+    },
     //重复调用异步接口
     getAsyReturn(operationId) {
       var flag = true;
@@ -527,7 +541,7 @@ export default {
                           (this.activeShowImg = !this.activeShowImg),
                             this.refreshPmData(),
                             Toast({
-                              message: "空调已成功开启",
+                              message: this.airconditionwords[1].remark,
                               position: "middle",
                               duration: 2000
                             });
@@ -537,7 +551,7 @@ export default {
                         } else if (res.data.status == "FAILED") {
                           flag = false;
                           Toast({
-                            message: "空调开启失败，请稍后重试",
+                            message: this.airconditionwords[2].remark,
                             position: "middle",
                             duration: 2000
                           });
@@ -564,7 +578,7 @@ export default {
               (this.activeShowImg = !this.activeShowImg),
                 this.refreshPmData(),
                 Toast({
-                  message: "空调已成功开启",
+                  message: this.airconditionwords[1].remark,
                   position: "middle",
                   duration: 2000
                 });
@@ -582,7 +596,7 @@ export default {
             }
           } else {
             Toast({
-              message: "空调开启失败，请稍后重试",
+              message: this.airconditionwords[2].remark,
               position: "middle",
               duration: 2000
             });
@@ -611,14 +625,14 @@ export default {
         .post(Lovecar.Control, param, this.$store.state.tsppin)
         .then(res => {
           if (res.data.returnSuccess) {
-            Toast({
-              message: "指令已下发,请稍后",
-              position: "middle",
-              duration: 2000
-            });
-            setTimeout(() => {
+             Toast({
+              message:this.airconditionwords[0].remark,
+              position:'middle',
+              duration:2000
+            })
+            setTimeout(()=>{
               this.getAsyReturn(res.data.operationId);
-            }, 2000);
+            },2000)
           } else {
             if (res.data.returnErrCode == 400) {
               Toast({
@@ -647,7 +661,8 @@ export default {
   mounted() {
     $(".MobileHeight").css("marginTop", this.marginTop);
     //	alert(this.marginTop)
-    //
+    this.getairconditionwords()
+    console.log(this.$store.state.GETWORDS)
     clearInterval(this.time);
     this.produCurve();
     this.inputs();
@@ -1204,6 +1219,11 @@ ul > li {
   100% {
     background-position: -100% 0;
   }
+}
+.question {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.3rem;
 }
 /*自定遮罩层*/
 .bgMask {

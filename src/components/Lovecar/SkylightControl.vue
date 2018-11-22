@@ -68,6 +68,7 @@
 					<div style="font-size:.36rem;color:#222">请输入PIN码</div>
 					<span></span>
 				</div>
+        <img @click="Toasteach"  class="question" style="width:.35rem;height:.35rem" :src="'./static/images/Lovecar/question.png'" alt="">
 				<div class="pin-code flex-center">
 					<div v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
 						<input class="pin-input" maxlength="6" type="text" v-model="pinNumber" readonly/>
@@ -98,6 +99,7 @@
 import { Createarc } from "../../../static/js/drawarc.js";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
+import {MessageBox} from "mint-ui";
 import PublicHead from '../publicmodel/PublicHead'
 export default {
   name: "skylightControl",
@@ -110,6 +112,8 @@ export default {
       //天窗控制按钮开关
       //				value: false,
       //移动端键盘值
+      allwords:[],//所有提示
+      skywords:[],//天窗提示
       ownKeyBoard: {
         first: "",
         second: "",
@@ -151,6 +155,16 @@ export default {
     	this.$router.go(-1);
     	this.$store.dispatch('LOADINGFLAG', false)
     },
+    //拿到天窗的提示
+    getskywords(){
+      this.allwords=this.$store.state.GETWORDS
+      console.log()
+      for(let value of this.allwords){
+        if(value.dictType=='skylight'){
+          this.skywords=value.sysDictDataVOs
+        }
+      }
+    },
     //天窗宽度增加
     windAdd() {
       if (this.activeShowImg) {
@@ -180,6 +194,11 @@ export default {
         return;
       }
       this.httpsky();
+    },
+    Toasteach(){
+      console.log(1)
+       MessageBox("提示", this.skywords[3].remark);
+       console.log(2)
     },
     //天窗宽度减少
     windReduce() {
@@ -381,7 +400,7 @@ export default {
               //pin码正确激活空调图
               this.activeShowImg = !this.activeShowImg;
                           Toast({
-                            message: "天窗已成功关闭",
+                            message: this.skywords[1].remark,
                             position: "middle",
                             duration: 2000
                           });
@@ -391,7 +410,7 @@ export default {
                         } else if (res.data.status == "FAILED") {
                           flag = false;
                           Toast({
-                            message: "天窗关闭失败，请稍后重试",
+                            message: this.skywords[2].remark,
                             position: "middle",
                             duration: 2000
                           });
@@ -418,7 +437,7 @@ export default {
               //pin码正确激活空调图
               this.activeShowImg = !this.activeShowImg;
               Toast({
-                message: "天窗已成功关闭",
+                message: this.skywords[1].remark,
                 position: "middle",
                 duration: 2000
               });
@@ -427,7 +446,7 @@ export default {
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
-                message: "天窗关闭失败，请稍后重试",
+                message: this.skywords[2].remark,
                 position: "middle",
                 duration: 2000
               });
@@ -463,7 +482,7 @@ export default {
           this.operationIds = res.data.operationId;
           if (res.data.returnSuccess) {
               Toast({
-                  message: "指令已下发，请稍后",
+                  message: this.skywords[0].remark,
                   position: "middle",
                   duration: 2000
                 });
@@ -499,6 +518,7 @@ export default {
   	clearInterval(this.time)
     this.produCurve();
     this.inputs();
+    this.getskywords();
     //调取车况
     // this.$http
     //   .post(
@@ -713,6 +733,11 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.question {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.3rem;
 }
 /*天窗标志*/
 
