@@ -482,6 +482,7 @@
         }
         for (let img of imgs) {
           img.style['width'] = '100%'
+          img.style['height'] = 'auto'
         }
       })
     }

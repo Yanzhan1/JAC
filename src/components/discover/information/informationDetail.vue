@@ -446,6 +446,7 @@
         }
         for (let img of imgs) {
           img.style['width'] = '100%'
+          img.style['height'] = 'auto'
         }
 
         const bgImg = document.querySelector('#bgImg')
