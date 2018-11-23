@@ -46,7 +46,6 @@
 					</div>
 				</div>
 			</div>
-			<div style="width:100%;height:.07rem;background:#ccc;"></div>
 		</div>
 		<!-- <div class="one" style="height:.1rem;"></div> -->
 		<div style="width:100%;height:.88rem;"></div>

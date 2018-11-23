@@ -365,9 +365,11 @@ export default {
       };
       this.$http.post(My.RecomendCode, param).then(res => {
         if(res.data.msg='success'){
+          if(res.data.code!=500){
+          console.log(2)
           this.share = res.data.code;
-
           this.flag = true;
+        }
         }
       });
     },
