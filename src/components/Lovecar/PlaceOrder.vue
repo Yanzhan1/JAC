@@ -88,7 +88,9 @@ export default {
              })
     }
   },
-  mounted() {}
+  mounted() {
+    window.goflowlist=this.goflowlist
+  }
 };
 </script>
 

@@ -89,6 +89,7 @@
 					<div style="font-size:.36rem;color:#222">请输入PIN码</div>
 					<span></span>
 				</div>
+        <img @click="Toasteach"  class="question" style="width:.35rem;height:.35rem" :src="'./static/images/Lovecar/question.png'" alt="">
 				<div class="pin-code flex-center">
 					<div v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
 						<input class="pin-input" maxlength="6" type="text" v-model="pinNumber" readonly/>
@@ -120,16 +121,19 @@
 import { Createarc } from "../../../static/js/drawarc.js";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
-import PublicHead from '../publicmodel/PublicHead';
+import PublicHead from "../publicmodel/PublicHead";
+import { MessageBox } from "mint-ui";
 export default {
   name: "windowControl",
   components: {
-  	mhead:PublicHead
+    mhead: PublicHead
   },
   data() {
     return {
       //车窗控制按钮开关
       //value: false,
+      windowwords:[],//车窗提示语
+      allwords:[],//所有提示语
       //移动端键盘值
       ownKeyBoard: {
         first: "",
@@ -180,9 +184,9 @@ export default {
       this.httpwindow();
     },
     //路由跳转的时候清除轮询loading
-    goback () {
-    	this.$router.go(-1);
-    	this.$store.dispatch('LOADINGFLAG', false)
+    goback() {
+      this.$router.go(-1);
+      this.$store.dispatch("LOADINGFLAG", false);
     },
     //车窗高度增加
     windAdd() {
@@ -212,6 +216,17 @@ export default {
         return;
       }
       this.httpwindow();
+    },
+     //拿到车窗的提示语
+    getwindowwords(){
+      this.allwords=this.$store.state.GETWORDS;
+       for(let value of this.allwords){
+        if(value.dictType=='vehicle_window'){
+          console.log(value)
+          this.windowwords=value.sysDictDataVOs
+          console.log(this.windowwords)
+        }
+      }
     },
     //车窗高度减少
     windReduce() {
@@ -376,6 +391,14 @@ export default {
         return false;
       }
     },
+    Toasteach(){
+      console.log(123)
+       MessageBox(
+          "提示",
+          this.windowwords[3].remark
+        );
+      console.log(231)
+    },
     //重复调用异步接口
     getAsyReturn(operationId) {
       var flag = true;
@@ -426,21 +449,21 @@ export default {
                           }
                         } else if (res.data.status == "SUCCEED") {
                           // flag = false;
-                          // Toast({
-                          //   message: "下达指令成功",
-                          //   position: "middle",
-                          //   duration: 2000
-                          // });
+                          Toast({
+                            message: this.windowwords[1].remark,
+                            position: "middle",
+                            duration: 2000
+                          });
                           this.value = !this.value;
-                            this.curveState = !this.curveState;
-              //pin码正确激活空调图
-              (this.activeShowImg = !this.activeShowImg),
-                          clearInterval(this.time);
+                          this.curveState = !this.curveState;
+                          //pin码正确激活空调图
+                          (this.activeShowImg = !this.activeShowImg),
+                            clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
                           flag = false;
                           Toast({
-                            message: "指令下发成功，处理失败！",
+                            message:  this.windowwords[2].remark,
                             position: "middle",
                             duration: 2000
                           });
@@ -462,24 +485,24 @@ export default {
               }
             } else if (res.data.status == "SUCCEED") {
               // flag = false;
-              // Toast({
-              //   message: "下达指令成功",
-              //   position: "middle",
-              //   duration: 2000
-              // });
-                this.curveState = !this.curveState;
-              //pin码正确激活空调图
-              (this.activeShowImg = !this.activeShowImg),
-              this.value = !this.value;
-               clearInterval(this.time);
-              this.$store.dispatch("LOADINGFLAG", false);
-            } else if (res.data.status == "FAILED") {
               Toast({
-                message: "指令下发成功，处理失败！",
+                message: this.windowwords[1].remark,
                 position: "middle",
                 duration: 2000
               });
-               clearInterval(this.time);
+              this.curveState = !this.curveState;
+              //pin码正确激活空调图
+              (this.activeShowImg = !this.activeShowImg),
+                (this.value = !this.value);
+              clearInterval(this.time);
+              this.$store.dispatch("LOADINGFLAG", false);
+            } else if (res.data.status == "FAILED") {
+              Toast({
+                message: this.windowwords[2].remark,
+                position: "middle",
+                duration: 2000
+              });
+              clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             }
           } else {
@@ -512,37 +535,45 @@ export default {
         .then(res => {
           this.operationIds = res.data.operationId;
           if (res.data.returnSuccess) {
-            this.getAsyReturn(res.data.operationId);
-          } else {
-            if (res.data.returnErrCode == 400) {
-          		Toast({
-	              message: "token验证失败",
-	              position: "middle",
-	              duration: 2000
-	            });
-          	} else {
-          		Toast({
-	              message: res.data.returnErrMsg,
-	              position: "middle",
-	              duration: 2000
-	            });
-          	}
-          }
-        })
-        .catch(err => {
-        	Toast({
-              message: '系统异常',
+            Toast({
+              message: this.windowwords[0].remark,
               position: "middle",
               duration: 2000
             });
+            setTimeout(() => {
+              this.getAsyReturn(res.data.operationId);
+            }, 2000);
+          } else {
+            if (res.data.returnErrCode == 400) {
+              Toast({
+                message: "token验证失败",
+                position: "middle",
+                duration: 2000
+              });
+            } else {
+              Toast({
+                message: res.data.returnErrMsg,
+                position: "middle",
+                duration: 2000
+              });
+            }
+          }
+        })
+        .catch(err => {
+          Toast({
+            message: "系统异常",
+            position: "middle",
+            duration: 2000
+          });
         });
     }
   },
   mounted() {
-  	clearInterval(this.time)
+    clearInterval(this.time);
+    this.getwindowwords()
     this.produCurve();
     this.inputs();
-	this.$http
+    this.$http
       .post(
         Lovecar.Carquery,
         { vins: [this.$store.state.vins] },
@@ -550,7 +581,7 @@ export default {
       )
       .then(res => {
         if (res.data.returnSuccess) {
-       		// this.getAsyReturn(res.data.operationId);
+          // this.getAsyReturn(res.data.operationId);
         } else {
           Toast({
             message: res.data.returnErrMsg,
@@ -559,13 +590,13 @@ export default {
           });
         }
       })
-      .catch( err => {
-      	Toast({
-            message: '系统异常',
-            position: "middle",
-            duration: 2000
-          });
-      })
+      .catch(err => {
+        Toast({
+          message: "系统异常",
+          position: "middle",
+          duration: 2000
+        });
+      });
   },
   created() {
     console.log(localStorage.Tip);
@@ -603,7 +634,7 @@ export default {
       //console.log(this.pinNumber.length)
       if (this.pinNumber.length == 6) {
         var nums = this.pinNumber;
-//      alert(this.$store.state.tsppin.headers.identityParam.token)
+        //      alert(this.$store.state.tsppin.headers.identityParam.token)
         this.$http
           .post(
             Lovecar.Checkphonepin,
@@ -621,9 +652,9 @@ export default {
               // this.curveState = !this.curveState;
               // //pin码正确激活空调图
               // (this.activeShowImg = !this.activeShowImg),
-                // this.refreshPmData(),
-                //消失遮罩
-                (this.popupVisible = !this.popupVisible);
+              // this.refreshPmData(),
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
               //消失软键盘
               (this.showTyper = 0),
                 //清空pin码
@@ -671,9 +702,9 @@ export default {
               // this.curveState = !this.curveState;
               // //pin码正确激活空调图
               // (this.activeShowImg = !this.activeShowImg),
-                // this.refreshPmData(),
-                //消失遮罩
-                (this.popupVisible = !this.popupVisible);
+              // this.refreshPmData(),
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
               //消失软键盘
               (this.showTyper = 0),
                 //清空pin码
@@ -744,12 +775,13 @@ export default {
 .mint-popup {
   border-radius: 0.1rem;
 }
-.conmmon-style { /*公共样式*/
-	border: none;
-	outline: none;
-	appearance: none;
-	-webkit-appearance: none;
-	background: none;
+.conmmon-style {
+  /*公共样式*/
+  border: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
 }
 /*车窗头部*/
 
@@ -1079,5 +1111,10 @@ ul > li {
   height: 100%;
   opacity: 0.5;
   background: #000;
+}
+.question {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.3rem;
 }
 </style>

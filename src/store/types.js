@@ -12,3 +12,4 @@ export const TSP = 'TSP'; //查询tsp用户的信息
 export const NONAME = 'NONAME'; //智享首页储存的no和name
 export const MOBILESTATUSBAR = 'MOBILESTATUSBAR'; //手机状态栏高度,原生提供
 export const QRCODEPIN = 'QRCODEPIN'; //扫描二维码获取的vin,用于扫一扫判断
+export const GETWORDS = 'GETWORDS'; //获取各种提示

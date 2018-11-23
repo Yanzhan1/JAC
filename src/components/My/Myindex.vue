@@ -364,7 +364,7 @@ export default {
         userNo: this.$store.state.userId
       };
       this.$http.post(My.RecomendCode, param).then(res => {
-        if ((res.data.code = !500)) {
+        if(res.data.msg='success'){
           this.share = res.data.code;
 
           this.flag = true;

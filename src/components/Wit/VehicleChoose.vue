@@ -10,7 +10,7 @@
       <div class="navTitle">车辆选装</div>
       <div></div>
     </div> -->
-    <div v-if="this.$route.query.currentTitle == '豪华型'">
+    <div v-if="this.$route.query.currentTitle == '超越型' || this.$route.query.currentTitle == '梦想型' || this.$route.query.currentTitle == '探索型'">
       <div class="headerHeight"></div>
       <div class="content">
         <div class="contentTitle">车辆选装</div>
@@ -48,7 +48,7 @@
           <div>
             <img class="leftImg" :src="show?imgLED1:imgLED">
           </div>
-          <div class="middleTitle">LED大灯</div>
+          <div class="middleTitle">LED前大灯</div>
           <div class="rightBtn" >
             <div  class="rightBtnContent" @click="carBtn(0)">
               <img style="width:.6rem;height:.7rem;padding-top: 0.1rem;padding-left: 0.02rem" :src="show?url:url1">
@@ -63,25 +63,25 @@
             <img class="leftImg" v-if="$route.query.colorTitle=='拉菲红'" :src="imgBody5">
             <!--<img class="leftImg" :src="this.show1 ? imgBody1 :carSmallBody">-->
           </div>
-          <div class="middleTitle">双色车身</div>
+          <div class="middleTitle">新潮双色车身</div>
           <div class="rightBtn" >
             <div  class="rightBtnContent" @click="carBtn(1)">
-              <img  style="width:.6rem;height:.7rem;padding-top: 0.1rem;padding-left: 0.02rem" :src="show1?url:url1">
+              <img  style="width:.6rem;height:.7rem;padding-top: 0.1rem;padding-left: 0.02rem" v-if="$route.query.colorTitle=='典雅白' || $route.query.colorTitle=='拉菲红' " :src="show1?url:url1">
             </div>
           </div>
         </div>
-        <div class="contentCarBtn">
-          <div>
-            <img class="leftImg" v-if="$route.query.rimTitle =='R17'" :src="carWheelR17Text">
-            <img class="leftImg" v-else-if="$route.query.rimTitle =='R18'" :src="carWheelR18Text">
-          </div>
-          <div class="middleTitle">防爆胎装置</div>
-          <div class="rightBtn" >
-            <div  class="rightBtnContent" @click="carBtn(2)">
-              <img style="width:.6rem;height:.7rem;padding-top: 0.1rem;padding-left: 0.02rem" :src="show2?url:url1">
-            </div>
-          </div>
-        </div>
+        <!--<div class="contentCarBtn">-->
+          <!--<div>-->
+            <!--<img class="leftImg" v-if="$route.query.rimTitle =='R17'" :src="carWheelR17Text">-->
+            <!--<img class="leftImg" v-else-if="$route.query.rimTitle =='R18'" :src="carWheelR18Text">-->
+          <!--</div>-->
+          <!--<div class="middleTitle">防爆胎装置</div>-->
+          <!--<div class="rightBtn" >-->
+            <!--<div  class="rightBtnContent" @click="carBtn(2)">-->
+              <!--<img style="width:.6rem;height:.7rem;padding-top: 0.1rem;padding-left: 0.02rem" :src="show2?url:url1">-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
       </div>
       <div class="contentBtn">
         <div class="contentColorBtn" @click="confirmChooseBtn">
@@ -135,13 +135,13 @@
             label:'双色车身' ,
             value:'双色车身',
             img:'双色车身',
-          },
-          {
-            id:3,
-            label:'防爆胎装置' ,
-            value:'防爆胎装置',
-            img:'防爆胎装置',
           }
+//          {
+//            id:3,
+//            label:'防爆胎装置' ,
+//            value:'防爆胎装置',
+//            img:'防爆胎装置',
+//          }
         ],
 
         imgsrc:'',
@@ -155,12 +155,12 @@
             id:2,
             color:'双色车身' ,//R18普通
             img:'./static/images/Wit/white@2x.png'
-          },
-          {
-            id:3,
-            color:'防爆胎装置' ,//R18普通
-            img:'./static/images/Wit/R17-TESS@2x.png'
           }
+//          {
+//            id:3,
+//            color:'防爆胎装置' ,//R18普通
+//            img:'./static/images/Wit/R17-TESS@2x.png'
+//          }
         ]
       }
 
@@ -174,44 +174,52 @@
     methods:{
       carBtn(index){
         this.currentIndex = index;
-        console.log(this.currentIndex )
-
+//        console.log(this.currentIndex )
         if(this.currentIndex == 0){
           this.show = !this.show
           this.imgsrc = this.show ? this.imgLED2:this.imgLED;
         }else if(this.currentIndex == 1){
-          this.show1 = !this.show1
+//          this.show1 = !this.show1
           var bodyColor = this.$route.query.colorTitle
           if(bodyColor == '典雅白'){
+            this.show1 = !this.show1
             this.carBody = this.show1?this.whiteNormal:this.whiteDouble;
           }else if(bodyColor == '极光紫'){
-            this.carBody = this.show1?this.purpleNormal:this.purpleDouble;
+              this.show1 = true;
+//            this.carBody = this.show1?this.purpleNormal:this.purpleDouble;
+            this.carBody = this.purpleNormal;
           }else if(bodyColor == '琥珀金'){
-            this.carBody = this.show1?this.goldNormal:this.goldDouble;
-          }else if(bodyColor == '拉菲红'){
+            this.show1 = true;
+//            this.carBody = this.show1?this.goldNormal:this.goldDouble;
+            this.carBody = this.goldNormal;
+          } else if(bodyColor == '拉菲红'){
+            this.show1 = !this.show1
             this.carBody = this.show1?this.redNormal:this.redDouble;
           }
-        }else if(this.currentIndex == 2){
-          this.show2 = !this.show2
-          var bodyColor = this.$route.query.rimTitle
+        }
+//        else if(this.currentIndex == 2){
+//          this.show2 = !this.show2
+//          var bodyColor = this.$route.query.rimTitle
 //          if(bodyColor == 'R17'){
 //            this.wheels = this.show2?this.carWheelR17:this.carWheelR17;
 //          }else if(bodyColor == 'R18'){
 //            this.wheels = this.show2?this.carWheelR18:this.carWheelR18;
 //          }
-        }
+//        }
       },
       confirmChooseBtn(){
         this.vehicleData = [];
         var carType = "车型："+this.$route.query.currentTitle;
         var outType= this.show1 ? "外观："+this.$route.query.colorTitle :"外观：双色车身"+this.$route.query.colorTitle;
-        var wheelType = this.show2 ?"轮辋："+this.$route.query.rimTitle : "轮辋：防爆胎装置"+this.$route.query.rimTitle;
-        var LEDType= this.show ? '' : "LED大灯：LED大灯";
+//        var wheelType = this.show2 ?"轮辋："+this.$route.query.rimTitle : "轮辋：防爆胎装置"+this.$route.query.rimTitle;
+        var LEDType= this.show ? '' : "LED大灯：LED前大灯";
         if(LEDType != ''){
           this.vehicleData.push(LEDType);
         }
 
-        this.vehicleData.push(carType,outType,wheelType);
+//        this.vehicleData.push(carType,outType,wheelType);
+        this.vehicleData.push(carType,outType);
+
         console.log('vehicleData',this.vehicleData);
 
         this.$router.push({
@@ -312,7 +320,7 @@
   }
   .contentCar{
     margin: 0 0.2rem;
-    height: 8rem;
+    height: 5.5rem;
   }
   .contentCar .contentCarBtn{
     display: flex;
@@ -336,8 +344,9 @@
   }
   .contentCar .contentCarBtn .middleTitle{
     font-size: 0.32rem;
-    text-align: center;
+    text-align:  left;
     font-weight: 400;
+    padding-left: 0.08rem;
   }
   .contentCar .contentCarBtn .rightBtn{
     position: relative;
@@ -354,6 +363,9 @@
   }
 
   .contentBtn{
+    width: 100%;
+    position:fixed;
+    bottom:0;
     height: 0.88rem;
     line-height:0.88rem;
     background-color: rgb(80,188,252);

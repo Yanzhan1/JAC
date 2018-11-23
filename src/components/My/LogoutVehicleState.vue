@@ -77,12 +77,12 @@ export default {
                 position: "middle",
                 duration: 2000
               });
-              setTimeout(() => {
-                this.$router.replace({
-                  path: "/myindex/loginVehicleState",
-                  query: { vin: this.qrCode.vin }
-                });
-              }, 2000);
+            }else{
+              Toast({
+                message: "登入失败",
+                position: "middle",
+                duration: 2000
+              });
             }
           })
           .catch(err => {});

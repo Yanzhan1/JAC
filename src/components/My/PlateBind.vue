@@ -34,28 +34,36 @@ export default {
   methods: {
     // 添加车辆
    add() {
-	   var param = {
-        vin: this.vin,
-        extParams: { plateLicenseNo: this.plate },
-        operationType: "PLATE_NO",
-        operation: 1 //绑定
-      };
-      this.$http.post(My.planbus, param, this.$store.state.tsppin).then(res => {
-        if (res.data.returnSuccess) {
-          Toast({
-            message: "添加成功",
+     if(!this.plate){
+        Toast({
+            message: "车牌不能为空",
             duration: 1000,
             position: "middle"
           });
-          this.$router.go(-1);
-        }else{
-          Toast({
-            message:res.data.returnErrMsg,
-            duration:1000,
-            position:'middle'
-          })
-        }
-      });
+     }else{
+       var param = {
+          vin: this.vin,
+          extParams: { plateLicenseNo: this.plate },
+          operationType: "PLATE_NO",
+          operation: 1 //绑定
+        };
+        this.$http.post(My.planbus, param, this.$store.state.tsppin).then(res => {
+          if (res.data.returnSuccess) {
+            Toast({
+              message: "添加成功",
+              duration: 1000,
+              position: "middle"
+            });
+            this.$router.go(-1);
+          }else{
+            Toast({
+              message:res.data.returnErrMsg,
+              duration:1000,
+              position:'middle'
+            })
+          }
+        });
+     }
 	}
 },
   created() {}

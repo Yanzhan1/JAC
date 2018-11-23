@@ -3,6 +3,9 @@ export default {
     [types.ISLOGIN]: (state, payload) => {
         state.islogin = payload;
     },
+    [types.GETWORDS]: (state, payload) => {
+        state.GETWORDS = payload;
+    },
     [types.SOFTKEYBOARD]: (state, payload) => {
         state.softkeyboard = payload;
     },

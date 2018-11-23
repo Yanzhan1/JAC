@@ -23,6 +23,9 @@
 			.catch( err => {
 				
 			})
+		},
+		methods: {
+			
 		}
 	}
 </script>

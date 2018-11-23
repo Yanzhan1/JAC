@@ -403,8 +403,12 @@ export default {
                           //   duration: 2000
                           // });
                           if (this.btnContent == "主驾") {
+                            //pin码正确激活主驾座椅图
+                            this.activeShowImgLeft = !this.activeShowImgLeft;
                             this.value = !this.value;
                           } else {
+                            //pin码正确激活座椅图
+                            this.activeShowImgRight = !this.activeShowImgRight;
                             this.aeraValue = !this.aeraValue;
                           }
                           clearInterval(this.time);
@@ -439,8 +443,12 @@ export default {
               //   duration: 2000
               // });
               if (this.btnContent == "主驾") {
+                //pin码正确激活主驾座椅图
+                this.activeShowImgLeft = !this.activeShowImgLeft;
                 this.value = !this.value;
               } else {
+                //pin码正确激活座椅图
+                this.activeShowImgRight = !this.activeShowImgRight;
                 this.aeraValue = !this.aeraValue;
               }
               clearInterval(this.time);
@@ -648,10 +656,9 @@ export default {
                 //主驾调温激活
                 // this.value = !this.value;
                 this.httpheatmain();
-                //pin码正确激活主驾座椅图
-                (this.activeShowImgLeft = !this.activeShowImgLeft),
-                  //消失遮罩
-                  (this.popupVisible = !this.popupVisible);
+
+                //消失遮罩
+                this.popupVisible = !this.popupVisible;
                 //消失软键盘
                 (this.showTyper = 0),
                   //清空pin码
@@ -660,10 +667,9 @@ export default {
                 //副驾调温激活
                 // this.aeraValue = !this.aeraValue;
                 this.httpheatnext();
-                //pin码正确激活座椅图
-                (this.activeShowImgRight = !this.activeShowImgRight),
-                  //消失遮罩
-                  (this.popupVisible = !this.popupVisible);
+
+                //消失遮罩
+                this.popupVisible = !this.popupVisible;
                 //消失软键盘
                 (this.showTyper = 0),
                   //清空pin码
@@ -711,7 +717,7 @@ export default {
                 //判断为主驾的时候激活主驾曲线和图
                 // this.value = !this.value;
                 //pin码正确激活主驾座椅图
-                (this.activeShowImgLeft = !this.activeShowImgLeft),
+                // (this.activeShowImgLeft = !this.activeShowImgLeft),
                   //消失遮罩
                   (this.popupVisible = !this.popupVisible);
                 //消失软键盘

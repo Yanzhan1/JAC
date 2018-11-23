@@ -122,15 +122,15 @@
 import { Createarc } from "../../../static/js/drawarc.js";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
-import PublicHead from '../publicmodel/PublicHead';
+import PublicHead from "../publicmodel/PublicHead";
 export default {
   name: "skylightControl",
   components: {
-  	mhead:PublicHead
+    mhead: PublicHead
   },
   data() {
     return {
-      sjc:'',
+      sjc: "",
       time: "", //定时器命名
       //移动端键盘值
       ownKeyBoard: {
@@ -172,12 +172,12 @@ export default {
     };
   },
   methods: {
-  	//路由跳转的时候清除轮询loading
-    goback () {
-    	this.$router.go(-1);
-    	this.$store.dispatch('LOADINGFLAG', false)
+    //路由跳转的时候清除轮询loading
+    goback() {
+      this.$router.go(-1);
+      this.$store.dispatch("LOADINGFLAG", false);
     },
-//重复调用异步接口
+    //重复调用异步接口
     getAsyReturn(operationId) {
       var flag = true;
       this.sjc = new Date().getTime();
@@ -226,6 +226,10 @@ export default {
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
+                          //pin码正确激活弧线
+                          this.curveState = !this.curveState;
+                          //pin码正确激活空调图
+                          this.activeShowImg = !this.activeShowImg;
                           // Toast({
                           //   message: "下达指令成功",
                           //   position: "middle",
@@ -263,8 +267,12 @@ export default {
               //   position: "middle",
               //   duration: 2000
               // });
+              //pin码正确激活弧线
+              this.curveState = !this.curveState;
+              //pin码正确激活空调图
+              this.activeShowImg = !this.activeShowImg;
               this.value = !this.value;
-               clearInterval(this.time);
+              clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
@@ -272,7 +280,7 @@ export default {
                 position: "middle",
                 duration: 2000
               });
-               clearInterval(this.time);
+              clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             }
           } else {
@@ -319,7 +327,6 @@ export default {
               duration: 2000
             });
           }
-
         });
     },
     //滑动结束的时候发送请求
@@ -516,11 +523,10 @@ export default {
       } else {
         return false;
       }
-    },
- 
+    }
   },
   mounted() {
-  	clearInterval(this.time)
+    clearInterval(this.time);
     this.produCurve();
     this.inputs();
     //调取车况
@@ -638,12 +644,9 @@ export default {
             if (res.data.returnSuccess) {
               // this.value = !this.value;
               this.httpairevolution();
-              //pin码正确激活弧线
-              this.curveState = !this.curveState;
-              //pin码正确激活空调图
-              (this.activeShowImg = !this.activeShowImg),
-                //消失遮罩
-                (this.popupVisible = !this.popupVisible);
+
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
               //消失软键盘
               (this.showTyper = 0),
                 //清空pin码
@@ -715,12 +718,13 @@ export default {
   border-radius: 0.1rem;
 }
 
-.conmmon-style { /*公共样式*/
-	border: none;
-	outline: none;
-	appearance: none;
-	-webkit-appearance: none;
-	background: none;
+.conmmon-style {
+  /*公共样式*/
+  border: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
 }
 /*进化器头部*/
 

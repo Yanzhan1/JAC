@@ -114,6 +114,7 @@
 					<div style="font-size:.36rem;color:#222">请输入PIN码</div>
 					<span></span>
 				</div>
+         <img @click="Toasteach"  class="question" style="width:.35rem;height:.35rem" :src="'./static/images/Lovecar/question.png'" alt="">
 				<div class="pin-code flex-center">
 					<div  v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
 						<input class="pin-input" maxlength="6" type="text" v-model="pinNumber" readonly/>
@@ -146,11 +147,12 @@
 import { Createarc } from "../../../static/js/drawarc.js";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
-import PublicHead from '../publicmodel/PublicHead'
+import {MessageBox} from 'mint-ui';
+import PublicHead from "../publicmodel/PublicHead";
 export default {
   name: "airconditionControl",
   components: {
-  	mhead:PublicHead
+    mhead: PublicHead
   },
   data() {
     return {
@@ -217,7 +219,6 @@ export default {
       compressors: 0, //传给后台的控制压缩机数值
       operationIds: "",
       marginTop: this.$store.state.mobileStatusBar
-
     };
   },
   methods: {
@@ -288,6 +289,9 @@ export default {
         return;
       }
       this.httpair();
+    },
+    Toasteach(){
+      MessageBox("提示", this.airconditionwords[3].remark);
     },
     //温度减少
     reduce() {
@@ -473,6 +477,15 @@ export default {
         return false;
       }
     },
+     //拿到空调的提示语
+    getairconditionwords(){
+      this.allwords=this.$store.state.GETWORDS;
+      for(let value of this.allwords){
+        if(value.dictType=='air_conditioning'){
+          this.airconditionwords=value.sysDictDataVOs
+        }
+      }
+    },
     //重复调用异步接口
     getAsyReturn(operationId) {
       var flag = true;
@@ -522,18 +535,23 @@ export default {
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
-                          // Toast({
-                          //   message: "下达指令成功",
-                          //   position: "middle",
-                          //   duration: 2000
-                          // });
+                          //pin码正确激活弧线
+                          this.curveState = !this.curveState;
+                          //pin码正确激活空调图
+                          (this.activeShowImg = !this.activeShowImg),
+                            this.refreshPmData(),
+                            Toast({
+                              message: this.airconditionwords[1].remark,
+                              position: "middle",
+                              duration: 2000
+                            });
                           this.value = !this.value;
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
                           flag = false;
                           Toast({
-                            message: "指令下发成功，处理失败！",
+                            message: this.airconditionwords[2].remark,
                             position: "middle",
                             duration: 2000
                           });
@@ -554,13 +572,18 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              // Toast({
-              //   message: "下达指令成功",
-              //   position: "middle",
-              //   duration: 2000
-              // });
+              //pin码正确激活弧线
+              this.curveState = !this.curveState;
+              //pin码正确激活空调图
+              (this.activeShowImg = !this.activeShowImg),
+                this.refreshPmData(),
+                Toast({
+                  message: this.airconditionwords[1].remark,
+                  position: "middle",
+                  duration: 2000
+                });
               this.value = !this.value;
-               clearInterval(this.time);
+              clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
@@ -568,12 +591,12 @@ export default {
                 position: "middle",
                 duration: 2000
               });
-               clearInterval(this.time);
+              clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             }
           } else {
             Toast({
-              message: "指令下发失败！",
+              message: this.airconditionwords[2].remark,
               position: "middle",
               duration: 2000
             });
@@ -602,7 +625,14 @@ export default {
         .post(Lovecar.Control, param, this.$store.state.tsppin)
         .then(res => {
           if (res.data.returnSuccess) {
-            this.getAsyReturn(res.data.operationId);
+             Toast({
+              message:this.airconditionwords[0].remark,
+              position:'middle',
+              duration:2000
+            })
+            setTimeout(()=>{
+              this.getAsyReturn(res.data.operationId);
+            },2000)
           } else {
             if (res.data.returnErrCode == 400) {
               Toast({
@@ -629,9 +659,10 @@ export default {
     }
   },
   mounted() {
-	$(".MobileHeight").css("marginTop", this.marginTop)
-//	alert(this.marginTop)
-  	//
+    $(".MobileHeight").css("marginTop", this.marginTop);
+    //	alert(this.marginTop)
+    this.getairconditionwords()
+    console.log(this.$store.state.GETWORDS)
     clearInterval(this.time);
     this.produCurve();
     this.inputs();
@@ -705,13 +736,9 @@ export default {
             if (res.data.returnSuccess) {
               // this.value = !this.value;
               this.httpair();
-              //pin码正确激活弧线
-              this.curveState = !this.curveState;
-              //pin码正确激活空调图
-              (this.activeShowImg = !this.activeShowImg),
-                this.refreshPmData(),
-                //消失遮罩
-                (this.popupVisible = !this.popupVisible);
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
+              console.log('进入')
               //消失软键盘
               (this.showTyper = 0),
                 //清空pin码
@@ -759,10 +786,10 @@ export default {
               // this.value = !this.value;
               this.httpair();
               //pin码正确激活弧线
-              this.curveState = !this.curveState;
-              //pin码正确激活空调图
-              (this.activeShowImg = !this.activeShowImg),
-                this.refreshPmData(),
+              // this.curveState = !this.curveState;
+              // //pin码正确激活空调图
+              // (this.activeShowImg = !this.activeShowImg),
+              //   this.refreshPmData(),
                 //消失遮罩
                 (this.popupVisible = !this.popupVisible);
               //消失软键盘
@@ -832,11 +859,11 @@ export default {
   border-radius: 0.1rem;
 }
 .conmmon-style {
-	border: none;
-	outline: none;
-	appearance: none;
-	-webkit-appearance: none;
-	background: none;
+  border: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
 }
 /*空调头部*/
 
@@ -857,12 +884,12 @@ export default {
   display: flex;
   align-items: center;
 }
-.air-btn>.switch-mask {
-    position: absolute;
-    left: 54%;
-    width: 38%;
-    height: 100%;
-    background-color:transparent ;
+.air-btn > .switch-mask {
+  position: absolute;
+  left: 54%;
+  width: 38%;
+  height: 100%;
+  background-color: transparent;
 }
 /*空调标志*/
 
@@ -933,8 +960,8 @@ export default {
   border-radius: 0.3rem;
   background: #fff;
 }
-.count>button {
-	border: none
+.count > button {
+  border: none;
 }
 /*风扇部分*/
 
@@ -1192,6 +1219,11 @@ ul > li {
   100% {
     background-position: -100% 0;
   }
+}
+.question {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.3rem;
 }
 /*自定遮罩层*/
 .bgMask {

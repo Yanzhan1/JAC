@@ -43,7 +43,14 @@ export default {
         //      this.$store.dispatch('userInfo',null);
       }
       this.$http.defaults.headers.common["timaToken"] = this.$store.state.token;
-    }
+    },
+    // Getmarkedwords(){
+    //   this.$http.post(My.getwords,{}).then((res)=>{
+    //     if(res.data.msg=='success'){
+    //       this.$store.dispatch('getWords',res.data.data)
+    //     }
+    //   })
+    // }
     // //拿到个人信息
     // personname(){
     //   //获取用户基本信息
@@ -64,9 +71,8 @@ export default {
     // window.loadTab = this.loadTab;
   },
   mounted() {
-    // alert(JSON.parse(this.$store.state.getpin.headers.identityParam).userId)
-    // this.isLogin({name:'',no:'AD022018091802395260173'})
-    // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImlkXCI6MTc3LFwiaW5pdFVzZXJcIjowLFwibm9cIjpcIkFEMDIyMDE4MDkxODAyMzk1MjYwMTczXCIsXCJwaG9uZVwiOlwiMTc2ODExMDgzMThcIixcInVzZXJDb2RlXCI6XCIxNzY4MTEwODMxOFwiLFwidXNlclN0YXR1c1wiOjAsXCJ1c2VyVHlwZVwiOlwiMDFcIn0iLCJjcmVhdGVkIjoxNTM5MTU2MDY1MDcyLCJ1c2VyTm8iOiJBRDAyMjAxODA5MTgwMjM5NTI2MDE3MyIsInVzZXJUeXBlIjoiMDEiLCJleHAiOjE1NDAwMjAwNjUsInVzZXJJZCI6MTc3fQ.DhJGKo93jkJ4e-3wK0GCHoysvmN0jJXyVqRgzD1zfEM'
+    // this.isLogin({name:'',no:'AD022018110210272109037'})
+    // this.$http.defaults.headers.common['timaToken'] = '1c3ec1e7-44e9-462e-aa85-fe264cdefe50'
     //获取用户
     let params = {
       userNo: this.$store.state.userId
@@ -89,6 +95,7 @@ export default {
         //   });
       }
     });
+    // this.Getmarkedwords()
 
     // this.getNo()
   }
@@ -135,5 +142,15 @@ export default {
   z-index: 9900;
   -webkit-transform: scaleY(0.5);
   transform: scaleY(0.5);
+}
+.mint-toast{
+  z-index: 99999;
+}
+.mint-msgbox-message {
+    color: #999;
+    margin: 0;
+    text-align: left;
+    line-height: .56rem;
+    text-indent: 2em;
 }
 </style>
