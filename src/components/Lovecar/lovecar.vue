@@ -328,10 +328,10 @@ export default {
     fn(type) {
       this.activeshow = type;
       var tai = {
-        left_top: this.carcontrol.tirePressureFrontLeft + "Kpa",
-        right_top: this.carcontrol.tirePressureFrontRight + "Kpa",
-        left_bottom: this.carcontrol.tirePressureRearLeft + "Kpa",
-        right_bottom: this.carcontrol.tirePressureRearRight + "Kpa"
+        left_top: this.carcontrol.tirePressureFrontLeft + "kPa",
+        right_top: this.carcontrol.tirePressureFrontRight + "kPa",
+        left_bottom: this.carcontrol.tirePressureRearLeft + "kPa",
+        right_bottom: this.carcontrol.tirePressureRearRight + "kPa"
       };
       //车门状态
       // this.doorStsFrontLeft = this.carcontrol.doorStsFrontLeft==1
@@ -715,7 +715,9 @@ export default {
               position: "middle",
               duration: 2000
             });
-            this.getAsyReturn(res.data.operationId);
+            setTimeout(() => {           
+              this.getAsyReturn(res.data.operationId);
+            }, 2000);
           } else {
             Toast({
               message: res.data.returnErrMsg,
@@ -941,13 +943,13 @@ export default {
                             this.engineStatus = this.carcontrol.engineStatus;
                             var tai = {
                               left_top:
-                                this.carcontrol.tirePressureFrontLeft + "Kpa",
+                                this.carcontrol.tirePressureFrontLeft + "kPa",
                               right_top:
-                                this.carcontrol.tirePressureFrontRight + "Kpa",
+                                this.carcontrol.tirePressureFrontRight + "kPa",
                               left_bottom:
-                                this.carcontrol.tirePressureRearLeft + "Kpa",
+                                this.carcontrol.tirePressureRearLeft + "kPa",
                               right_bottom:
-                                this.carcontrol.tirePressureRearRight + "Kpa"
+                                this.carcontrol.tirePressureRearRight + "kPa"
                             };
                             //车门状态
                             if (this.carcontrol.doorStsFrontLeft == 1) {
@@ -1253,10 +1255,10 @@ export default {
                 // };
                 // this.Condition = tai;
                 var tai = {
-                  left_top: this.carcontrol.tirePressureFrontLeft + "Kpa",
-                  right_top: this.carcontrol.tirePressureFrontRight + "Kpa",
-                  left_bottom: this.carcontrol.tirePressureRearLeft + "Kpa",
-                  right_bottom: this.carcontrol.tirePressureRearRight + "Kpa"
+                  left_top: this.carcontrol.tirePressureFrontLeft + "kPa",
+                  right_top: this.carcontrol.tirePressureFrontRight + "kPa",
+                  left_bottom: this.carcontrol.tirePressureRearLeft + "kPa",
+                  right_bottom: this.carcontrol.tirePressureRearRight + "kPa"
                 };
                 //车门状态t
                 if (this.carcontrol.doorStsFrontLeft == 1) {
