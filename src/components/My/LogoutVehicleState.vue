@@ -134,6 +134,9 @@ export default {
   left: 50%;
   margin-top: 3.2rem;
   margin-left: -50%;
+   color: #444444;
+  font-size: 0.36rem;
+  font-weight: bold;
 }
 .bottom-btn {
   display: flex;

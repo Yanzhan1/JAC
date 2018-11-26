@@ -23,7 +23,7 @@
 			<mt-cell title="车机登录状态" is-link></mt-cell>
 		</router-link> -->
 		<router-link  tag="div" class="setup-vehiclestate" to="/myindex/logoutVehicleState">
-			<mt-cell title="车机登录状态" is-link></mt-cell>
+			<mt-cell title="车机扫码登入" is-link></mt-cell>
 		</router-link>
 		<router-link tag="div" class="setup-loginout" to="">
 			<mt-cell @click.native="signOut" title="退出登录" is-link></mt-cell>
