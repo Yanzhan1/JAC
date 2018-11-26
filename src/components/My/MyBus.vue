@@ -1,7 +1,7 @@
 <template>
   <div class="my-bus">
     <header class="header MobileHeight">
-      <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+      <img class="header-left" :src="'./static/images/back@2x.png'" @click="goindex">
       <span class="header-title">我的车辆</span>
       <span class="header-right">
         <router-link tag="img" to="/myindex/addBus" style="width: 0.36rem;height: 0.36rem;" :src="'./static/images/my/mycar_add.png'"></router-link>
@@ -70,6 +70,9 @@ export default {
     };
   },
   methods: {
+    goindex(){
+        this.$router.replace("/myindex")
+    },
     //我的车辆
     MyBus() {
       this.tspid = this.$store.state.tspId;
