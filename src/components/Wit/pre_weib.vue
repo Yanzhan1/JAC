@@ -72,10 +72,10 @@
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
 			</li>
-			<li class="flex row li_st between cocenter">
+			<li class="flex row li_st between cocenter" @click="orderTimeStatus">
 				<p style="font-size:.27rem;color:#555">预约时间</p>
 				<div class="flex row cocenter">
-					<span ref="Gettimes" style="font-size:.26rem;color:#222"></span>
+					<span ref="Gettimes" style="font-size:.26rem;color:#222">{{currentTime}}</span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
 			</li>
@@ -94,9 +94,6 @@
 			<ul style="padding:.1rem .2rem" >
 					<li class="ul_list flex row around " v-for="(item,index) in addressArray">
             <label class="chooseimages" :class="index == currentIndex ? 'active' : ''" @click="chooseimage(index,item.title)"></label>
-							<!-- <img @click="imageselect" v-if="chooseserveimg" style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-select.png" alt="">
-							<img @click="imageoff" v-else style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-offselect.png" alt=""> -->
-						<!--<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>-->
 						<div class="flex column around  mid">
 							<span class="txt_top dian">{{item.title}}</span>
 							<span class="flex row cocenter">
@@ -110,44 +107,23 @@
 							</div>
 						</div>
 					</li>
-					<!--<li class="ul_list flex row around " >-->
-            <!--<label class="chooseimages" :class="this.flag1?'active':''" @click="chooseimage(1)"></label>-->
-							<!--&lt;!&ndash; <img @click="imageselect" v-if="chooseserveimg" style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-select.png" alt="">-->
-							<!--<img @click="imageoff" v-else style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-offselect.png" alt=""> &ndash;&gt;-->
-						<!--&lt;!&ndash;<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>&ndash;&gt;-->
-						<!--<div class="flex column around  mid">-->
-							<!--<span class="txt_top dian">上海呼伦汽车</span>-->
-							<!--<span class="flex row cocenter">-->
-		                        <!--<img style="width:.25rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">-->
-		                        <!--<span class="txt_m dian" style="margin-top:.1rem">上海市闵行区啦啦啦</span>-->
-							<!--</span>-->
-						<!--</div>-->
-						<!--<div class="cocenter flex-center">-->
-							<!--<div class="flex-column-align">-->
-								<!--<span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">距离</span><span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">0.2</span>-->
-							<!--</div>-->
-						<!--</div>-->
-					<!--</li>-->
-					<!--<li class="ul_list flex row around " >-->
-            <!--<label class="chooseimages" :class="this.flag2?'active':''" @click="chooseimage(2)"></label>-->
-							<!--&lt;!&ndash; <img @click="imageselect" v-if="chooseserveimg" style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-select.png" alt="">-->
-							<!--<img @click="imageoff" v-else style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-offselect.png" alt=""> &ndash;&gt;-->
-						<!--&lt;!&ndash;<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>&ndash;&gt;-->
-						<!--<div class="flex column around  mid">-->
-							<!--<span class="txt_top dian">上海呼伦汽车</span>-->
-							<!--<span class="flex row cocenter">-->
-		                        <!--<img style="width:.25rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">-->
-		                        <!--<span class="txt_m dian" style="margin-top:.1rem">上海市闵行区啦啦啦</span>-->
-							<!--</span>-->
-						<!--</div>-->
-						<!--<div class="cocenter flex-center">-->
-							<!--<div class="flex-column-align">-->
-								<!--<span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">距离</span><span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">0.2</span>-->
-							<!--</div>-->
-						<!--</div>-->
-					<!--</li>-->
 				</ul>
 		</div>
+    <!-- 预约时间出框 -->
+    <div class="service " v-if="orderTime">
+      <div style="height: 0.28rem"></div>
+      <span style="display: inline-block;width: 1rem;height: 0.28rem;text-align: center" @click="cancalBtn">取消</span>
+      <span class="surebuttom" @click="confirmBtn">确定</span>
+      <div class="every_times">
+        <img :src="'./static/images/Lovecar/left-balck.png'" alt="" class="img_l" @click="leftBtn">
+        <div class="center">xxx年xxx月xxx日</div>
+        <img :src="'./static/images/Lovecar/right-black.png'" alt="" class="img_r" @click="rightBtn">
+        <div>
+
+        </div>
+
+      </div>
+    </div>
 		<span class="bottom-btn" style="background-color:#49BBFF;" >立即预约</span>
 
 		<div v-show="allback" class="black" @click='backgroundshow'></div>
@@ -167,6 +143,7 @@ export default {
   data() {
     return {
       servicezhan: false, //控制服务站
+      orderTime:false,//控制时间
       allback: false, //遮罩层
       chooseserveimg: false, //控制选择服务站图片默认不选择
       chooseprovinceq: false, //控制省份弹框
@@ -180,6 +157,8 @@ export default {
       flag2:false,
       currentIndex:-1,
       currentTitle:'',
+      currentTime:'',
+      pickerVisible:false,
       addressArray:[
         {
           id:'1',
@@ -348,10 +327,21 @@ export default {
       this.servicezhan = true;
       this.allback = true;
     },
+    orderTimeStatus() {
+      this.pickerVisible = true;
+      this.orderTime = true;
+      this.allback = true;
+      $("#timeLabel").show();
+    },
     //选择确定服务站
     subsub() {
       this.allback = false;
       this.servicezhan = false;
+    },
+    //选择确定预约时间
+    confirmBtn(){
+      this.allback = false;
+      this.orderTime = false;
     },
     //点击遮罩层消失
     backgroundshow() {
@@ -401,6 +391,16 @@ export default {
     },
     imageoff() {
       this.chooseserveimg = true;
+    },
+    cancalBtn(){//取消
+      this.orderTime = false;
+      this.allback = false;
+    },
+    leftBtn(){//左时间按钮
+
+    },
+    rightBtn(){//右时间按钮
+
     }
   },
   created() {},
@@ -461,6 +461,32 @@ export default {
   height: 0.44rem;
   background-size: 100%;
   background-repeat: no-repeat;
+}
+.every_times {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 0.93rem;
+  background: #fff;
+  font: Medium 0.28rem/0.3rem "PingFang-SC-Medium";
+}
+.every_times > img {
+  width: 0.16rem;
+  height: 0.26rem;
+  position: absolute;
+}
+.every_times .img_l {
+  left: 0.45rem;
+  top: 0.39rem;
+}
+.every_times .img_r {
+  right: 0.52rem;
+  top: 0.39rem;
+}
+.center {
+  position: absolute;
 }
 .mid {
   padding: 0.2rem 0;
