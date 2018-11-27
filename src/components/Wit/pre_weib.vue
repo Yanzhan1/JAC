@@ -110,6 +110,42 @@
 							</div>
 						</div>
 					</li>
+					<li class="ul_list flex row around " >
+            <label class="chooseimages" :class="this.flag?'active':''" @click="chooseimage"></label>
+							<!-- <img @click="imageselect" v-if="chooseserveimg" style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-select.png" alt="">
+							<img @click="imageoff" v-else style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-offselect.png" alt=""> -->
+						<!--<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>-->
+						<div class="flex column around  mid">
+							<span class="txt_top dian">上海呼伦汽车</span>
+							<span class="flex row cocenter">
+		                        <img style="width:.25rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">
+		                        <span class="txt_m dian" style="margin-top:.1rem">上海市闵行区啦啦啦</span>
+							</span>
+						</div>
+						<div class="cocenter flex-center">
+							<div class="flex-column-align">
+								<span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">距离</span><span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">0.2</span>
+							</div>
+						</div>
+					</li>
+					<li class="ul_list flex row around " >
+            <label class="chooseimages" :class="this.flag?'active':''" @click="chooseimage"></label>
+							<!-- <img @click="imageselect" v-if="chooseserveimg" style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-select.png" alt="">
+							<img @click="imageoff" v-else style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-offselect.png" alt=""> -->
+						<!--<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>-->
+						<div class="flex column around  mid">
+							<span class="txt_top dian">上海呼伦汽车</span>
+							<span class="flex row cocenter">
+		                        <img style="width:.25rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">
+		                        <span class="txt_m dian" style="margin-top:.1rem">上海市闵行区啦啦啦</span>
+							</span>
+						</div>
+						<div class="cocenter flex-center">
+							<div class="flex-column-align">
+								<span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">距离</span><span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">0.2</span>
+							</div>
+						</div>
+					</li>
 				</ul>
 		</div>
 		<span class="bottom-btn" style="background-color:#49BBFF;" >立即预约</span>
