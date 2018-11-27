@@ -68,7 +68,7 @@
 			<li class="flex row li_st between cocenter" @click="servicestatus">
 				<p style="font-size:.27rem;color:#555">服务站</p>
 				<div class="flex row cocenter">
-					<span style="font-size:.26rem;color:#222"></span>
+					<span style="font-size:.26rem;color:#222">{{currentTitle}}</span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
 			</li>
@@ -92,16 +92,16 @@
 			<h2 style="padding:.2rem; text-align: center;font:.4rem/.6rem 'PingFang-SC-Regular'">服务站</h2>
 			<span class="surebuttom" @click="subsub">确定</span>
 			<ul style="padding:.1rem .2rem" >
-					<li class="ul_list flex row around " >
-            <label class="chooseimages" :class="this.flag?'active':''" @click="chooseimage"></label>
+					<li class="ul_list flex row around " v-for="(item,index) in addressArray">
+            <label class="chooseimages" :class="index == currentIndex ? 'active' : ''" @click="chooseimage(index,item.title)"></label>
 							<!-- <img @click="imageselect" v-if="chooseserveimg" style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-select.png" alt="">
 							<img @click="imageoff" v-else style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-offselect.png" alt=""> -->
 						<!--<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>-->
 						<div class="flex column around  mid">
-							<span class="txt_top dian">上海呼伦汽车</span>
+							<span class="txt_top dian">{{item.title}}</span>
 							<span class="flex row cocenter">
 		                        <img style="width:.25rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">
-		                        <span class="txt_m dian" style="margin-top:.1rem">上海市闵行区啦啦啦</span>
+		                        <span class="txt_m dian" style="margin-top:.1rem">{{item.addressTitle}}</span>
 							</span>
 						</div>
 						<div class="cocenter flex-center">
@@ -110,42 +110,42 @@
 							</div>
 						</div>
 					</li>
-					<li class="ul_list flex row around " >
-            <label class="chooseimages" :class="this.flag?'active':''" @click="chooseimage"></label>
-							<!-- <img @click="imageselect" v-if="chooseserveimg" style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-select.png" alt="">
-							<img @click="imageoff" v-else style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-offselect.png" alt=""> -->
-						<!--<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>-->
-						<div class="flex column around  mid">
-							<span class="txt_top dian">上海呼伦汽车</span>
-							<span class="flex row cocenter">
-		                        <img style="width:.25rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">
-		                        <span class="txt_m dian" style="margin-top:.1rem">上海市闵行区啦啦啦</span>
-							</span>
-						</div>
-						<div class="cocenter flex-center">
-							<div class="flex-column-align">
-								<span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">距离</span><span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">0.2</span>
-							</div>
-						</div>
-					</li>
-					<li class="ul_list flex row around " >
-            <label class="chooseimages" :class="this.flag?'active':''" @click="chooseimage"></label>
-							<!-- <img @click="imageselect" v-if="chooseserveimg" style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-select.png" alt="">
-							<img @click="imageoff" v-else style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-offselect.png" alt=""> -->
-						<!--<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>-->
-						<div class="flex column around  mid">
-							<span class="txt_top dian">上海呼伦汽车</span>
-							<span class="flex row cocenter">
-		                        <img style="width:.25rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">
-		                        <span class="txt_m dian" style="margin-top:.1rem">上海市闵行区啦啦啦</span>
-							</span>
-						</div>
-						<div class="cocenter flex-center">
-							<div class="flex-column-align">
-								<span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">距离</span><span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">0.2</span>
-							</div>
-						</div>
-					</li>
+					<!--<li class="ul_list flex row around " >-->
+            <!--<label class="chooseimages" :class="this.flag1?'active':''" @click="chooseimage(1)"></label>-->
+							<!--&lt;!&ndash; <img @click="imageselect" v-if="chooseserveimg" style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-select.png" alt="">-->
+							<!--<img @click="imageoff" v-else style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-offselect.png" alt=""> &ndash;&gt;-->
+						<!--&lt;!&ndash;<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>&ndash;&gt;-->
+						<!--<div class="flex column around  mid">-->
+							<!--<span class="txt_top dian">上海呼伦汽车</span>-->
+							<!--<span class="flex row cocenter">-->
+		                        <!--<img style="width:.25rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">-->
+		                        <!--<span class="txt_m dian" style="margin-top:.1rem">上海市闵行区啦啦啦</span>-->
+							<!--</span>-->
+						<!--</div>-->
+						<!--<div class="cocenter flex-center">-->
+							<!--<div class="flex-column-align">-->
+								<!--<span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">距离</span><span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">0.2</span>-->
+							<!--</div>-->
+						<!--</div>-->
+					<!--</li>-->
+					<!--<li class="ul_list flex row around " >-->
+            <!--<label class="chooseimages" :class="this.flag2?'active':''" @click="chooseimage(2)"></label>-->
+							<!--&lt;!&ndash; <img @click="imageselect" v-if="chooseserveimg" style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-select.png" alt="">-->
+							<!--<img @click="imageoff" v-else style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-offselect.png" alt=""> &ndash;&gt;-->
+						<!--&lt;!&ndash;<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>&ndash;&gt;-->
+						<!--<div class="flex column around  mid">-->
+							<!--<span class="txt_top dian">上海呼伦汽车</span>-->
+							<!--<span class="flex row cocenter">-->
+		                        <!--<img style="width:.25rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">-->
+		                        <!--<span class="txt_m dian" style="margin-top:.1rem">上海市闵行区啦啦啦</span>-->
+							<!--</span>-->
+						<!--</div>-->
+						<!--<div class="cocenter flex-center">-->
+							<!--<div class="flex-column-align">-->
+								<!--<span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">距离</span><span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">0.2</span>-->
+							<!--</div>-->
+						<!--</div>-->
+					<!--</li>-->
 				</ul>
 		</div>
 		<span class="bottom-btn" style="background-color:#49BBFF;" >立即预约</span>
@@ -176,6 +176,28 @@ export default {
       valuescity1: "", //被选中的城市
       choosecity: false, //控制城市弹框
       flag:false,
+      flag1:false,
+      flag2:false,
+      currentIndex:-1,
+      currentTitle:'',
+      addressArray:[
+        {
+          id:'1',
+          title: "上海呼伦汽车",
+          addressTitle:"上海市闵行区啦啦啦"
+        },
+        {
+          id:'2',
+          title: "上海呼伦汽车1",
+          addressTitle:"上海市闵行区啦啦啦"
+        },
+        {
+          id:'3',
+          title: "上海呼伦汽车2",
+          addressTitle:"上海市闵行区啦啦啦"
+        },
+
+      ],
       array31: [
         "01",
         "02",
@@ -370,8 +392,9 @@ export default {
       this.valuescity = values[0];
       picker.setSlotValue(1, values[0]);
     },
-    chooseimage(){
-      this.flag=!this.flag
+    chooseimage(index,title){
+        this.currentIndex = index;
+        this.currentTitle = title;
     },
     imageselect() {
       this.chooseserveimg = false;
