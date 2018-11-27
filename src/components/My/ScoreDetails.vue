@@ -11,7 +11,6 @@
               <span class="mycore">当前积分</span>
               <span class="score">{{integral}}</span>
               <div class="scoredeatails">积分明细</div>
-              <hr style="border:.06rem solid #f1f1f1;width:100%">
           </div>
           <div style="width:100%;height:3.3rem"></div>
         <ul>
@@ -102,7 +101,6 @@ export default {
   font-size: 0.6rem;
   color: #49bbff;
   margin-top: 0.3rem;
-  border-bottom: 0.1rem solid #f1f1f1;
   padding-bottom: 0.1rem;
 }
 .scoredeatails {
