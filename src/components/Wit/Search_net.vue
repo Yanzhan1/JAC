@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<header class="header MobileHeight" style="z-index: 100!important;">
+		<header class="header MobileHeight bgcolor" style="z-index: 100!important;">
 			<img class="header-left" src="../../../static/images/back@2x.png" @click="$router.go(-1)">
 			<span class="header-title" style="margin-right: 0.65rem;">查询维保网点</span>
 			<span class="header-right"></span>
@@ -637,7 +637,9 @@
 	.dealer-wrapper {
 		min-height: 100%;
 	}
-	
+	.bgcolor{
+		background: #fff;
+	}
 	.ul_list {
 		height: 2.3rem;
 		border-bottom: 1px solid #f7f7f7;

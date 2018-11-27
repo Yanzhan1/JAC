@@ -1,12 +1,12 @@
 <template>
 	<div>
-		<mhead currentTitle="车机登录状态"></mhead>
+		<mhead currentTitle="车机扫码登录"></mhead>
 		<div class="vehicle-show">
 			<img class="state-car" src="../../../static/images/my/qrcode@2x.png" alt="" />
 			<div>
 				<!-- <h5 class="car-title">账号还未在车机登录</h5> -->
 				<div class="car-info">
-					<h3 style="font: 600 .3rem/.5rem 'PingFang-SC-Medium'">点击扫码登录，登录账号到车机</h3>
+					<h3 style="font: 800 .3rem/.5rem 'PingFang-SC-Medium'">点击扫码登录，登录账号到车机</h3>
 				</div>
 			</div>
 		</div>
