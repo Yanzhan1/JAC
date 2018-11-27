@@ -36,6 +36,7 @@
 </template>
 <script>
 export default{
+	name: 'carChoose',
   data(){
     return{
         currentIndex:0,
@@ -80,7 +81,7 @@ export default{
 
     },
     colorChooseBtn(){
-      console.log('this.currentTitle',this.currentTitle)
+//    console.log('this.currentTitle',this.currentTitle)
       this.$router.push({
         path: '/wit/ColorChoose',
         query: {
