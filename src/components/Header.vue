@@ -144,9 +144,12 @@
           labelState: this.labelState
         }).then(function (res) {
           if (res.data.status) {
-            const [zero, one, two, three, four, fives] = res.data.data
-            const arr = [one, three, zero, fives, two, four]
-
+            // 给基础数据排序
+            const [zero, one, two, three, four, fives, a] = res.data.data
+            const arr = [one, three, zero, fives, two, four, a].filter((item)=>{
+              return item ? true : false
+            })
+            
             _this.labels = arr
           }
         });
