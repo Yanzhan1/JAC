@@ -38,21 +38,31 @@
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
 			</li>
-			<li class="flex row li_st between cocenter">
+			<li class="flex row li_st between cocenter" @click="chooseprovinces">
 				<p style="font-size:.27rem;color:#555">省份</p>
 				<div class="flex row cocenter">
-					<span>上海</span>
+					<span>{{this.valuesprovince1}}</span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
 			</li>
-			<li class="flex row li_st between cocenter">
+			<li class="flex row li_st between cocenter" @click="choosecitys">
 				<p style="font-size:.27rem;color:#555">城市</p>
 				<div class="flex row cocenter">
-					<span>上海</span>
+					<span>{{this.valuescity1}}</span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
 			</li>
 		</ul>
+    <mt-popup id="provinceLabel" class="region"  position="bottom">
+                  <h3>选择省</h3>
+                  <span @click="chooseprovinceone">确定</span>
+                  <mt-picker :slots="slots1" @change="provinceChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
+    </mt-popup>
+    <mt-popup id="cityLabel" class="region"  position="bottom">
+                  <h3>选择市</h3>
+                  <span @click="choosecityone">确定</span>
+                  <mt-picker :slots="slots2" @change="cityChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
+    </mt-popup>
 		<div class="carmessage">预约信息</div>
 		<ul style="padding:0 .33rem">
 			<li class="flex row li_st between cocenter" @click="servicestatus">
@@ -83,8 +93,9 @@
 			<span class="surebuttom" @click="subsub">确定</span>
 			<ul style="padding:.1rem .2rem" >
 					<li class="ul_list flex row around " >
-							<img v-if="chooseserveimg" style="width:,44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-select.png" alt="">
-							<img v-else style="width:,44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-offselect.png" alt="">
+            <label class="chooseimages" :class="this.flag?'active':''" @click="chooseimage"></label>
+							<!-- <img @click="imageselect" v-if="chooseserveimg" style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-select.png" alt="">
+							<img @click="imageoff" v-else style="width:.44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-offselect.png" alt=""> -->
 						<!--<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>-->
 						<div class="flex column around  mid">
 							<span class="txt_top dian">上海呼伦汽车</span>
@@ -95,92 +106,14 @@
 						</div>
 						<div class="cocenter flex-center">
 							<div class="flex-column-align">
-								<span class="txt_m" style="margin-top:.2rem;width:1.14rem;">距离0.2</span>
-							</div>
-						</div>
-					</li>
-					<li class="ul_list flex row around " >
-						<img style="width:,44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-select.png" alt="">
-						<!--<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>-->
-						<div class="flex column around  mid">
-							<span class="txt_top dian">上海呼伦汽车</span>
-							<span class="flex row cocenter">
-		                        <img style="width:.25rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">
-		                        <span class="txt_m dian" style="margin-top:.1rem">上海市闵行区啦啦啦</span>
-							</span>
-						</div>
-						<div class="cocenter flex-center">
-							<div class="flex-column-align">
-								<span class="txt_m" style="margin-top:.2rem;width:1.14rem;">距离0.2</span>
-							</div>
-						</div>
-					</li>
-					<li  class="ul_list flex row around " >
-						<img style="width:,44rem;height:.44rem;margin-top:.8rem;margin-left:1rem;margin-right:.2rem;" src="../../../static/images/Wit/icon-select.png" alt="">
-						<!--<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>-->
-						<div class="flex column around  mid">
-							<span class="txt_top dian">上海呼伦汽车</span>
-							<span class="flex row cocenter">
-		                        <img style="width:.25rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">
-		                        <span class="txt_m dian" style="margin-top:.1rem">上海市闵行区啦啦啦</span>
-							</span>
-						</div>
-						<div class="cocenter flex-center">
-							<div class="flex-column-align">
-								<span class="txt_m" style="margin-top:.2rem;width:1.14rem;">距离0.2</span>
+								<span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">距离</span><span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">0.2</span>
 							</div>
 						</div>
 					</li>
 				</ul>
 		</div>
 		<span class="bottom-btn" style="background-color:#49BBFF;" >立即预约</span>
-		<!-- <mt-popup v-model="popupVisible" position="bottom">
-			<div style="width:100%;z-index:999" v-if="type==1">
-				<div class="flex row between pp">
-					<span></span>
-					<span style="font-size:.34rem;color:#222;margin-left: .7rem;">选择服务时间</span>
-					<span style="font-size:.3rem;color:#49BBFF;margin:0 .3rem" @click="sure">确定</span>
-				</div>
-				<mt-picker :slots="slotss" @change="onDateChange"></mt-picker>
-			</div>
-			<div style="width:100%;z-index:999" v-if="type==2">
-				<div class="flex row between pp">
-					<span></span>
-					<span style="font-size:.34rem;color:#222;margin-left: .7rem;">选择经销商</span>
-					<span style="font-size:.3rem;color:#49BBFF;margin:0 .3rem" @click="sure">确定</span>
-				</div>
-				<mt-picker :slots="slots" @change="onValuesChange"></mt-picker>
-			</div>
 
-			<div style="width:100%;z-index:999" v-if="type==4">
-				<div class="flex row between pp">
-					<span></span>
-					<span style="font-size:.34rem;color:#222;margin-left: .7rem;">选择服务类型</span>
-					<span style="font-size:.3rem;color:#49BBFF;margin:0 .3rem" @click="sure">确定</span>
-				</div>
-				<mt-picker :slots="service" @change="onServicesChange"></mt-picker>
-			</div>
-			<div style="width:100%;z-index:999" v-if="type==3">
-				<div class="flex row between pp">
-					<span></span>
-					<span style="font-size:.34rem;color:#222;margin-left: .7rem;">选择服务车型</span>
-					<span style="font-size:.3rem;color:#49BBFF;margin:0 .3rem" @click="sure">确定</span>
-				</div>
-				<mt-picker :slots="addressSlots" @change="onAddressChange" :visible-item-count="5"></mt-picker>
-			</div>
-		</mt-popup> -->
-		<!-- 提交成功后显示 -->
-		<!-- <div class="submit" v-show="">
-			<img src="/static/images/Wit/gou@2x.png" alt="" style="width:.8rem;height:.8rem;" class="gou">
-			<h3>提交成功</h3>
-			<div class="success_bt">{{this.thanks}}</div>
-			<div style="width:5.68rem;height:.02rem;background:#f1f1f1;margin:.2rem auto;"></div>
-			<div class="look">
-				<div class="look_l">查看订单</div>
-				<div style="width:.02rem;height:.6rem;background:#f1f1f1;"></div>
-				<div class="look_r" @click="complete">完成</div>
-			</div>
-		</div> -->
 		<div v-show="allback" class="black" @click='backgroundshow'></div>
 		<!-- 遮罩层  -->
 	</div>
@@ -188,6 +121,7 @@
 <script>
 import { Picker } from "mint-ui";
 import { Toast } from "mint-ui";
+import { Popup } from "mint-ui";
 import PublicHead from "../publicmodel/PublicHead";
 export default {
   name: "preWeib",
@@ -198,7 +132,14 @@ export default {
     return {
       servicezhan: false, //控制服务站
       allback: false, //遮罩层
-      chooseserveimg:false,//控制选择服务站图片默认不选择
+      chooseserveimg: false, //控制选择服务站图片默认不选择
+      chooseprovinceq: false, //控制省份弹框
+      valuesprovince: "", //被选中的省份
+      valuesprovince1: "", //被选中的省份
+      valuescity: "", //被选中的城市
+      valuescity1: "", //被选中的城市
+      choosecity: false, //控制城市弹框
+      flag:false,
       array31: [
         "01",
         "02",
@@ -325,66 +266,20 @@ export default {
         "27",
         "28"
       ],
-      slotss: [
+      slots1: [
         {
           flex: 1,
-          values: [],
+          values: ["上海", "浙江省", "安徽省", "河南省"],
           className: "slot1",
-          textAlign: "left",
-          defaultIndex: 2
-        },
-        {
-          flex: 1,
-          values: [
-            "01",
-            "02",
-            "03",
-            "04",
-            "05",
-            "06",
-            "07",
-            "08",
-            "09",
-            "10",
-            "11",
-            "12"
-          ],
-          className: "slot2",
-          textAlign: "center",
-          defaultIndex: 2
-        },
-        {
-          flex: 1,
-          values: [],
-          className: "slot3",
-          textAlign: "right",
-          defaultIndex: 2
-        }
-      ],
-      addressSlots: [
-        {
-          flex: 1,
-          values: [],
-          className: "slot1",
-          textAlign: "center"
-        },
-        {
-          divider: true,
-          content: "",
-          itemHieight: 74,
-          className: "slot2"
-        },
-        {
-          flex: 1,
-          values: [],
-          className: "slot3",
           textAlign: "center"
         }
       ],
-      slots: [
+      slots2: [
         {
-          values: [],
-          defaultIndex: 3
+          flex: 1,
+          values: ["杭州", "金华", "丽水", "南京"],
+          className: "slot1",
+          textAlign: "center"
         }
       ]
     };
@@ -394,17 +289,60 @@ export default {
     servicestatus() {
       this.servicezhan = true;
       this.allback = true;
-	},
-	//选择确定服务站
-	subsub(){
-		this.allback=false;
-		this.servicezhan=false;
-	},
-	//点击遮罩层消失
-	backgroundshow(){
-			this.allback=false;
-		this.servicezhan=false;
-	}
+    },
+    //选择确定服务站
+    subsub() {
+      this.allback = false;
+      this.servicezhan = false;
+    },
+    //点击遮罩层消失
+    backgroundshow() {
+      this.allback = false;
+      this.servicezhan = false;
+      $("#provinceLabel").hide();
+      $("#cityLabel").hide();
+    },
+    //选择省份
+    chooseprovinces() {
+      $("#provinceLabel").show();
+      this.allback = true;
+    },
+    //确认省份
+    chooseprovinceone() {
+      $("#provinceLabel").hide();
+      this.allback = false;
+      this.valuesprovince1 = this.valuesprovince;
+    },
+    //确认城市
+    choosecityone() {
+      $("#cityLabel").hide();
+      this.allback = false;
+      this.valuescity1 = this.valuescity;
+    },
+    //选择城市
+    choosecitys() {
+      this.allback = true;
+      $("#cityLabel").show();
+    },
+    //省份的滑动选择
+    provinceChange(picker, values) {
+      this.valuesprovince = values[0];
+      picker.setSlotValue(1, values[0]);
+    },
+    //城市的滑动选择
+    cityChange(picker, values) {
+      this.valuescity = values[0];
+      picker.setSlotValue(1, values[0]);
+    },
+    chooseimage(){
+      this.flag=!this.flag
+    },
+    imageselect() {
+      this.chooseserveimg = false;
+    },
+    imageoff() {
+      this.chooseserveimg = true;
+    }
   },
   created() {},
   watch: {
@@ -445,6 +383,26 @@ export default {
   color: rgba(73, 187, 255, 1);
   float: right;
 }
+.chooseimages {
+  display: block;
+  width: 0.44rem;
+  height: 0.44rem;
+  background-image: url("../../../static/images/Lovecar/loseWindow.png");
+  border-radius: 50%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  margin-top: 0.45rem;
+  padding: 0.2rem;
+  margin-right: 0.2rem;
+  margin-left: 0.3rem;
+}
+.active {
+  background-image: url("../../../static/images/Lovecar/window2@2x.png");
+  width: 0.44rem;
+  height: 0.44rem;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
 .mid {
   padding: 0.2rem 0;
 }
@@ -474,6 +432,8 @@ export default {
 .flex-column-align {
   width: 1.14rem;
   margin-right: 0.4rem;
+  height: 0.3rem;
+  line-height: 0.3rem;
 }
 .service {
   position: fixed;
@@ -534,7 +494,31 @@ export default {
   margin-left: 0.59rem;
   margin-top: 0.36rem;
 }
-
+.region {
+  /* position: absolute; */
+  /* bottom: -1.5rem; */
+  width: 100%;
+  height: 5rem;
+  color: #222;
+  background: #fff;
+  font-weight: Regular;
+  font-family: "PingFangSC-Regular";
+  z-index: 1001;
+}
+.region > h3 {
+  text-align: center;
+  margin-top: 0.42rem;
+  font-size: 0.36rem;
+  color: #222;
+  line-height: 0.36rem;
+}
+.region > span {
+  /* position: absolute; */
+  float: right;
+  margin-right: 0.5rem;
+  color: #49bbff;
+  font-size: 0.28rem;
+}
 .gou {
   margin-left: 2.7rem;
   margin-top: 0.21rem;

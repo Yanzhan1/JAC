@@ -918,11 +918,15 @@ export default {
                             //     this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
                             //   }
                             // console.log(res.data.data);
-                            Toast({
-                              message: this.vehicle_condition[1].remark,
-                              position: "middle",
-                              duration: 2000
-                            });
+                            setTimeout(()=>{
+
+                              Toast({
+                                message: this.vehicle_condition[1].remark,
+                                position: "middle",
+                                duration: 2000
+                              },2000);
+                            },4000)
+                            
                             this.engineHoodStsFront = this.carcontrol
                               .engineHoodStsFront
                               ? (this.engineHoodStsFront = "已开")
@@ -1225,11 +1229,14 @@ export default {
                 // }else{
                 //   this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
                 // }
-                Toast({
-                  message: this.vehicle_condition[1].remark,
-                  position: "middle",
-                  duration: 2000
-                });
+                setTimeout(()=>{
+
+                  Toast({
+                    message: this.vehicle_condition[1].remark,
+                    position: "middle",
+                    duration: 2000
+                  });
+                },4000)
                 this.carcontrol.engineHoodStsFront
                   ? (this.engineHoodStsFront = "已开")
                   : (this.engineHoodStsFront = "未开");
