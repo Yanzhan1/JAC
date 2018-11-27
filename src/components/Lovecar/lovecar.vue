@@ -714,11 +714,11 @@ export default {
         .then(res => {
           if (res.data.returnSuccess) {
             this.operationIdcar = res.data.operationId;
-            Toast({
-              message:this.vehicle_condition[0].remark,
-              position: "middle",
-              duration: 2000
-            });
+            // Toast({
+            //   message:this.vehicle_condition[0].remark,
+            //   position: "middle",
+            //   duration: 2000
+            // });
             setTimeout(() => {           
               this.getAsyReturn(res.data.operationId);
             }, 2000);
@@ -1105,13 +1105,13 @@ export default {
                               duration: 2000
                             });
                           } else if (this.type == 4) {
-                            if (this.isTrues) {
+                         
                               Toast({
                                 message: this.find_vehicle[2].remark,
                                 position: "middle",
                                 duration: 2000
                               });
-                            }
+                            
                           } else {
                             Toast({
                               message: this.vehicle_condition[2].remark,
@@ -1406,14 +1406,12 @@ export default {
                   position: "middle",
                   duration: 2000
                 });
-              } else if (this.type == 4) {
-                if (this.isTrues) {
+              } else if (this.type == 4) {   
                   Toast({
                     message: this.find_vehicle[2].remark,
                     position: "middle",
                     duration: 2000
                   });
-                }
               } else {
                 Toast({
                   message: this.vehicle_condition[2].remark,
@@ -1531,7 +1529,7 @@ export default {
                         });
                       } else {
                         Toast({
-                          message: this.open_lock[0].remark,
+                          message: this.open_lock[2].remark,
                           position: "middle",
                           duration: 2000
                         });
@@ -1540,7 +1538,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: "系统异常",
+                      message: this.open_lock[2].remark,
                       position: "middle",
                       duration: 2000
                     });
@@ -1588,7 +1586,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: "系统异常",
+                      message: this.close_lock[2].remark,
                       position: "middle",
                       duration: 2000
                     });
@@ -1631,7 +1629,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: "系统异常",
+                      message: this.open_trunk[2].remark,
                       position: "middle",
                       duration: 2000
                     });
@@ -1674,7 +1672,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: "系统异常",
+                      message:vehicle_launch[3].remark,
                       position: "middle",
                       duration: 2000
                     });
@@ -1717,7 +1715,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: "系统异常",
+                      message:vehicle_launch[3].remark,
                       position: "middle",
                       duration: 2000
                     });
@@ -1732,6 +1730,7 @@ export default {
                   .then(res => {
                     this.operationIdses = res.data.operationId;
                     if (res.data.returnSuccess) {
+
                       Toast({
                         message: this.find_vehicle[0].remark,
                         position: "middle",
@@ -1774,7 +1773,7 @@ export default {
           })
           .catch(req => {
             Toast({
-              message: "系统异常",
+              message: res.data.returnErrMsg,
               position: "middle",
               duration: 2000
             });
