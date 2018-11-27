@@ -117,6 +117,7 @@ import CarChoosenew from '../components/Wit/CarChoosenew' //车辆预定
 import ColorChoose from '../components/Wit/ColorChoose' //车辆预定
 import RimChoose from '../components/Wit/RimChoose' //车辆预定
 import VehicleChoose from '../components/Wit/VehicleChoose' //车辆预定
+import Weightshopping from '../components/Wit/Weightshopping' //重卡购车
 Vue.use(Router)
 
 const router = new Router({
@@ -642,6 +643,11 @@ const router = new Router({
                 path: '/wit/Reserve',
                 name: '车辆预定',
                 component: Reserve
+            },
+            {
+                path: '/wit/Weightshopping',
+                name: '重卡购车',
+                component: Weightshopping
             },
         ]
     }]

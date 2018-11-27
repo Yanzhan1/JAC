@@ -4,9 +4,9 @@
 		<div class="vehicle-show">
 			<img class="state-car" src="../../../static/images/my/qrcode@2x.png" alt="" />
 			<div>
-				<h5 class="car-title">账号还未在车机登录</h5>
+				<!-- <h5 class="car-title">账号还未在车机登录</h5> -->
 				<div class="car-info">
-					<p>点击扫码登录，登录账号到车机</p >
+					<h3 style="font: 600 .3rem/.5rem 'PingFang-SC-Medium'">点击扫码登录，登录账号到车机</h3>
 				</div>
 			</div>
 		</div>
@@ -135,8 +135,7 @@ export default {
   margin-top: 3.2rem;
   margin-left: -50%;
    color: #444444;
-  font-size: 0.36rem;
-  font-weight: bold;
+  font: 600 .4rem/.6rem 'PingFang-SC-Medium'
 }
 .bottom-btn {
   display: flex;
