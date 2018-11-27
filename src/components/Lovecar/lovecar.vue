@@ -99,7 +99,7 @@
       </div>
     </div>
     <ul style="padding:0 .2rem">
-      <!-- 暂时跳转到电动空调 -->
+      <!-- 跳转到电动空调 -->
       <router-link v-show="this.Aircondtion_electricity" to="/lovecar/Electricairconditioning" tag="li" class="navs air">
         <div class="navs">
           <img class="picc" src="../../../static/images/Wit/ari.png" alt="">
@@ -107,6 +107,7 @@
         </div>
         <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
       </router-link>
+      <!-- 跳转到自动空调 -->
       <router-link v-show="this.Aircondtion" to="/lovecar/AirConditionControl" tag="li" class="navs air">
         <div class="navs">
           <img class="picc" src="../../../static/images/Wit/ari.png" alt="">
@@ -477,7 +478,10 @@ export default {
               this.SUNROOF = true;
             } else if (value.code == "EAIRCONDITIONER") {
               this.Aircondtion_electricity = true;
-            } else if (value.code == "PURIFICATION") {
+            }else if(value.code == "AIRCONDITIONER"){
+              this.Aircondtion=true
+            }
+             else if (value.code == "PURIFICATION") {
               this.PURIFICTION = true;
             } else if (value.code == "SEAT_HEAT") {
               this.HOSTSEAT_HEAT = true;
