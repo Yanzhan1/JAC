@@ -1428,7 +1428,7 @@ export default {
           } else {
             // alert(4)
             Toast({
-              message: res.data.returnErrMsg,
+              message: this.vehicle_condition[2].remark,
               position: "middle",
               duration: 2000
             });
