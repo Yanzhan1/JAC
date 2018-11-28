@@ -81,7 +81,7 @@ export default {
       if (res.data.msg == "success") {
         var tsp = res.data.data;
         this.$store.dispatch("TSP", tsp);
-        console.log(tsp);
+        // console.log(tsp);
         params = {
           aaaUserID: this.$store.state.aaaid,
           tspUserId: this.$store.state.tspId,

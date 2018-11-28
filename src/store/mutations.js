@@ -33,6 +33,7 @@ export default {
             strr.token = payload.token
             strr.userId = payload.no
             state.getpin.headers.identityParam = JSON.stringify(strr)
+                // console.log(state.getpin.headers.identityParam)
         } else {
             state.no = null
             state.mobile = null
@@ -47,7 +48,7 @@ export default {
         state.vins = payload
     },
     [types.NONAME]: (state, payload) => {
-        console.log(JSON.stringify(payload))
+        // console.log(JSON.stringify(payload))
         state.seriesName = payload.seriesName
         state.everyno = payload.no
         state.srouceNo = payload.srouceNo
