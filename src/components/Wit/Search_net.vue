@@ -614,9 +614,12 @@
 	}
 	
 	.title {
-		/*position: fixed;
+		position: fixed;
+		z-index: 999;
+		width: 100%;
 		height: 0.88rem;
-		line-height: 0.88rem;*/
+		line-height: 0.88rem;
+		background: #fff;
 	}
 	
 	.con>div {
@@ -636,6 +639,7 @@
 	
 	.dealer-wrapper {
 		min-height: 100%;
+		margin-top: .8rem;
 	}
 	.bgcolor{
 		background: #fff;
