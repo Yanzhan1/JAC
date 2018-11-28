@@ -40,19 +40,17 @@ export default {
       }
     },
     getStatus(status) {
-      console.log(1)
       //暴露方法给原生,登入判断
-      console.log(status)
-      this.$store.dispatch("QRCODEPIN", JSON.parse(status));
+      this.$store.dispatch("QRCODEPIN", status);
     },
-    getStatus2(status){
-      console.log(status)
-      this.$store.dispatch("QRCODEPIN", JSON.parse(status));
-    }
+    // getStatus2(status){
+    //   console.log(status)
+    //   this.$store.dispatch("QRCODEPIN", JSON.parse(status));
+    // }
   },
   created() {
     window.getStatus = this.getStatus;
-    window.getStatus2 = this.getStatus2;
+    // window.getStatus2 = this.getStatus2;
   },
   mounted() {
     // console.log(this.$store.state.qrCodeDate);
