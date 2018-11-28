@@ -35,19 +35,27 @@ export default {
         var params = {};
         window.webkit.messageHandlers.scan.postMessage(params);
       } else if (isMobile.Android()) {
+        console.log(2222)
         js2android.scan();
       }
     },
     getStatus(status) {
+      console.log(1)
       //暴露方法给原生,登入判断
+      console.log(status)
+      this.$store.dispatch("QRCODEPIN", JSON.parse(status));
+    },
+    getStatus2(status){
+      console.log(status)
       this.$store.dispatch("QRCODEPIN", JSON.parse(status));
     }
   },
   created() {
     window.getStatus = this.getStatus;
+    window.getStatus2 = this.getStatus2;
   },
   mounted() {
-    console.log(this.$store.state.qrCodeDate);
+    // console.log(this.$store.state.qrCodeDate);
   },
   computed: {
     qrCode() {
