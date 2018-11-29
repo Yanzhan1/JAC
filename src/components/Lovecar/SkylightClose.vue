@@ -341,13 +341,15 @@ export default {
         });
     },
     httpsky() {
+      let gear=this.activeShowImg?'1':'0'
+      console.log(gear)
       var param = {
         vin: this.$store.state.vins,
         operationType: "SUNROOF",
         extParams: {
           fluctuationType: 1, //档位
-          // percent: this.windNum[this.skylightSpace].replace(/%/g, "") //0-100
-          gear:1,//车窗1,2,3,4,5档可选
+          // percent: this.windNum[this.skylightSpace].replace(/%/g, ""), //0-100
+          gear:gear,//车窗1,2,3,4,5档可选
         }
       };
       this.$http
@@ -469,6 +471,11 @@ export default {
               position: "middle",
               duration: 1000
             });
+              this.popupVisible = !this.popupVisible;
+              //消失软键盘
+              (this.showTyper = 0),
+                //清空pin码
+                (this.pinNumber = "");
           });
       }
     },

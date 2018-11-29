@@ -16,9 +16,11 @@
 		<!--曲线Start-->
 		<div class="curve">
 			<div class="cureve-text">
+        <span style="display:block;width:2rem;position:absolute;left: 0rem;top: -0.3rem;">全关</span>
+        <span style="display:block;width:2rem;position:absolute; left: 3rem;top: 3.1rem;">全开</span>
 				<span style="left: 3.1rem;top: 2.6rem;">0%</span>
 				<span style="left: 2.2rem;top: 0.3rem;">50%</span>
-				<span style="left: 0rem;top: -0.3rem;">100%</span>
+				<span style="left: 0rem;top: -0.7rem;">100%</span>
 			</div>
 			<div class="curveActive" v-show="curveState" @touchend="end">
 				<canvas id="rightColorful"></canvas>
@@ -527,7 +529,7 @@ export default {
         extParams: {
           windowNum: 5,
           fluctuationType: 2,
-          percent: this.windNum[this.windowSpace].replace(/%/g, "")
+          percent:(100%-this.windNum[this.windowSpace]).replace(/%/g, "")
           // gear:''
         }
       };

@@ -129,7 +129,14 @@
         </div>
         <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
       </router-link>
-      <router-link v-show="this.SUNROOF" to="/lovecar/skylightControl" tag="li" class="navs air">
+      <!-- <router-link v-show="this.SUNROOF" to="/lovecar/skylightControl" tag="li" class="navs air">
+        <div class="navs">
+          <img class="picc skylight" src="../../../static/images/Wit/tianchuang.png" alt="">
+          <span class="pic_txt">天窗控制</span>
+        </div>
+        <img class="pic_r" src="../../../static/images/Wit/next.png" alt="">
+      </router-link> -->
+      <router-link v-show="this.SUNROOF" :to="{path:'/lovecar/skylightClose',query:{carcontrol:this.carcontrol}}" tag="li" class="navs air">
         <div class="navs">
           <img class="picc skylight" src="../../../static/images/Wit/tianchuang.png" alt="">
           <span class="pic_txt">天窗控制</span>
@@ -145,8 +152,8 @@
       </router-link>
     </ul>
     <!-- 输入框 -->
-    <div id="bg" class="bg" />
-    <mt-popup v-model="popupVisible" position="middle">
+	<div class="masks" v-if="popupVisible" @click="bgcolor"></div>
+    <mt-popup v-model="popupVisible" position="middle" :modal="false" popup-transition="popup-fade">
       <div class="con" style="position:relative;">
         <div class="del">
           <img @click="cancel" src="../.././../static/images/Wit/delete@3x.png" alt="" style="width:.28rem">
@@ -418,48 +425,48 @@ export default {
         this.Condition = tai;
       } else if (this.activeshow == 2) {
         this.Condition = door;
-        if (this.Condition.left_top == "关闭") {
-          $(".left_1").css("color", "#49BBFF");
-        } else if (this.Condition.left_top == "开启") {
-          $(".left_1").css("color", "#FC3B46");
-        }
-        if (this.Condition.left_bottom == "关闭") {
-          $(".left_2").css("color", "#49BBFF");
-        } else if (this.Condition.left_top == "开启") {
-          $(".left_2").css("color", "#FC3B46");
-        }
-        if (this.Condition.right_top == "关闭") {
-          $("right_1").css("color", "#49BBFF");
-        } else if (this.Condition.right_top == "开启") {
-          $("right_1").css("color", "#FC3B46");
-        }
-        if (this.Condition.right_bottom == "关闭") {
-          $("right_2").css("color", "#49BBFF");
-        } else if (this.Condition.right_bottom == "开启") {
-          $("right_2").css("color", "#FC3B46");
-        }
-      } else if (this.activeshow == 3) {
-        this.Condition = window;
-        if (this.Condition.left_top == "已关闭") {
-          $(".left_1").css("color", "#49BBFF");
-        } else if (this.Condition.left_top == "已打开") {
-          $(".left_1").css("color", "#FC3B46");
-        }
-        if (this.Condition.left_bottom == "已关闭") {
-          $(".left_2").css("color", "#49BBFF");
-        } else if (this.Condition.left_top == "已打开") {
-          $(".left_2").css("color", "#FC3B46");
-        }
-        if (this.Condition.right_top == "已关闭") {
-          $("right_1").css("color", "#49BBFF");
-        } else if (this.Condition.right_top == "已打开") {
-          $("right_1").css("color", "#FC3B46");
-        }
-        if (this.Condition.right_bottom == "已关闭") {
-          $("right_2").css("color", "#49BBFF");
-        } else if (this.Condition.right_bottom == "已打开") {
-          $("right_2").css("color", "#FC3B46");
-        }
+    //     if (this.Condition.left_top == "关闭") {
+    //       $(".left_1").css("color", "#49BBFF");
+    //     } else if (this.Condition.left_top == "开启") {
+    //       $(".left_1").css("color", "#FC3B46");
+    //     }
+    //     if (this.Condition.left_bottom == "关闭") {
+    //       $(".left_2").css("color", "#49BBFF");
+    //     } else if (this.Condition.left_top == "开启") {
+    //       $(".left_2").css("color", "#FC3B46");
+    //     }
+    //     if (this.Condition.right_top == "关闭") {
+    //       $("right_1").css("color", "#49BBFF");
+    //     } else if (this.Condition.right_top == "开启") {
+    //       $("right_1").css("color", "#FC3B46");
+    //     }
+    //     if (this.Condition.right_bottom == "关闭") {
+    //       $("right_2").css("color", "#49BBFF");
+    //     } else if (this.Condition.right_bottom == "开启") {
+    //       $("right_2").css("color", "#FC3B46");
+    //     }
+    //   } else if (this.activeshow == 3) {
+    //     this.Condition = window;
+    //     if (this.Condition.left_top == "已关闭") {
+    //       $(".left_1").css("color", "#49BBFF");
+    //     } else if (this.Condition.left_top == "已打开") {
+    //       $(".left_1").css("color", "#FC3B46");
+    //     }
+    //     if (this.Condition.left_bottom == "已关闭") {
+    //       $(".left_2").css("color", "#49BBFF");
+    //     } else if (this.Condition.left_top == "已打开") {
+    //       $(".left_2").css("color", "#FC3B46");
+    //     }
+    //     if (this.Condition.right_top == "已关闭") {
+    //       $("right_1").css("color", "#49BBFF");
+    //     } else if (this.Condition.right_top == "已打开") {
+    //       $("right_1").css("color", "#FC3B46");
+    //     }
+    //     if (this.Condition.right_bottom == "已关闭") {
+    //       $("right_2").css("color", "#49BBFF");
+    //     } else if (this.Condition.right_bottom == "已打开") {
+    //       $("right_2").css("color", "#FC3B46");
+    //     }
       }
     },
     //获取此车所具有的车况功能
@@ -518,8 +525,14 @@ export default {
             }
           }
         });
-    },
+	},
+	bgcolor(){
+		 this.MaskIsshow = false;
+      this.IsShow = false;
+      this.popupVisible = false;
+	},
     moved() {
+		console.log(1)
       this.MaskIsshow = false;
       this.IsShow = false;
       this.popupVisible = false;
@@ -925,29 +938,29 @@ export default {
                                 position: "middle",
                                 duration: 2000
                               },2000);
-                            },4000)
+                            })
                             
                             this.engineHoodStsFront = this.carcontrol
                               .engineHoodStsFront
                               ? (this.engineHoodStsFront = "已开")
                               : (this.engineHoodStsFront = "未开");
-                            this.carcontrol.engineHoodStsFront
-                              ? $(".top_1").css("color", "#FC3B46")
-                              : $(".top_1").css("color", "#49BBFF");
+                            // this.carcontrol.engineHoodStsFront
+                            //   ? $(".top_1").css("color", "#FC3B46")
+                            //   : $(".top_1").css("color", "#49BBFF");
                             this.acStatus = this.carcontrol.acStatus; //空调初始状态
                             this.skylightStatus = this.carcontrol.skylightStatus
                               ? (this.skylightStatus = "已开")
                               : (this.skylightStatus = "未开"); //天窗初始状态
-                            this.carcontrol.skylightStatus
-                              ? $(".middle_1").css("color", "#FC3B46")
-                              : $(".middle_1").css("color", "#49BBFF");
+                            // this.carcontrol.skylightStatus
+                            //   ? $(".middle_1").css("color", "#FC3B46")
+                            //   : $(".middle_1").css("color", "#49BBFF");
                             this.backnum = this.carcontrol.doorStsTrunk;
                             this.backnum
                               ? (this.doorStsTrunk = "已开")
                               : (this.doorStsTrunk = "未开"); //后备箱的初始状态
-                            this.backnum
-                              ? $(".bottom_1").css("color", "#FC3B46")
-                              : $(".bottom_1").css("color", "#49BBFF");
+                            // this.backnum
+                            //   ? $(".bottom_1").css("color", "#FC3B46")
+                            //   : $(".bottom_1").css("color", "#49BBFF");
                             this.engineStatus = this.carcontrol.engineStatus;
                             var tai = {
                               left_top:
@@ -1023,52 +1036,52 @@ export default {
                               this.Condition = tai;
                             } else if (this.activeshow == 2) {
                               this.Condition = door;
-                              if (this.Condition.left_top == "关闭") {
-                                $(".left_1").css("color", "#49BBFF");
-                              } else if (this.Condition.left_top == "开启") {
-                                $(".left_1").css("color", "#FC3B46");
-                              }
-                              if (this.Condition.left_bottom == "关闭") {
-                                $(".left_2").css("color", "#49BBFF");
-                              } else if (this.Condition.left_top == "开启") {
-                                $(".left_2").css("color", "#FC3B46");
-                              }
-                              if (this.Condition.right_top == "关闭") {
-                                $("right_1").css("color", "#49BBFF");
-                              } else if (this.Condition.right_top == "开启") {
-                                $("right_1").css("color", "#FC3B46");
-                              }
-                              if (this.Condition.right_bottom == "关闭") {
-                                $("right_2").css("color", "#49BBFF");
-                              } else if (
-                                this.Condition.right_bottom == "开启"
-                              ) {
-                                $("right_2").css("color", "#FC3B46");
-                              }
+                            //   if (this.Condition.left_top == "关闭") {
+                            //     $(".left_1").css("color", "#49BBFF");
+                            //   } else if (this.Condition.left_top == "开启") {
+                            //     $(".left_1").css("color", "#FC3B46");
+                            //   }
+                            //   if (this.Condition.left_bottom == "关闭") {
+                            //     $(".left_2").css("color", "#49BBFF");
+                            //   } else if (this.Condition.left_top == "开启") {
+                            //     $(".left_2").css("color", "#FC3B46");
+                            //   }
+                            //   if (this.Condition.right_top == "关闭") {
+                            //     $("right_1").css("color", "#49BBFF");
+                            //   } else if (this.Condition.right_top == "开启") {
+                            //     $("right_1").css("color", "#FC3B46");
+                            //   }
+                            //   if (this.Condition.right_bottom == "关闭") {
+                            //     $("right_2").css("color", "#49BBFF");
+                            //   } else if (
+                            //     this.Condition.right_bottom == "开启"
+                            //   ) {
+                            //     $("right_2").css("color", "#FC3B46");
+                            //   }
                             } else if (this.activeshow == 3) {
                               this.Condition = window;
-                              if (this.Condition.left_top == "已关闭") {
-                                $(".left_1").css("color", "#49BBFF");
-                              } else if (this.Condition.left_top == "已打开") {
-                                $(".left_1").css("color", "#FC3B46");
-                              }
-                              if (this.Condition.left_bottom == "已关闭") {
-                                $(".left_2").css("color", "#49BBFF");
-                              } else if (this.Condition.left_top == "已打开") {
-                                $(".left_2").css("color", "#FC3B46");
-                              }
-                              if (this.Condition.right_top == "已关闭") {
-                                $("right_1").css("color", "#49BBFF");
-                              } else if (this.Condition.right_top == "已打开") {
-                                $("right_1").css("color", "#FC3B46");
-                              }
-                              if (this.Condition.right_bottom == "已关闭") {
-                                $("right_2").css("color", "#49BBFF");
-                              } else if (
-                                this.Condition.right_bottom == "已打开"
-                              ) {
-                                $("right_2").css("color", "#FC3B46");
-                              }
+                            //   if (this.Condition.left_top == "已关闭") {
+                            //     $(".left_1").css("color", "#49BBFF");
+                            //   } else if (this.Condition.left_top == "已打开") {
+                            //     $(".left_1").css("color", "#FC3B46");
+                            //   }
+                            //   if (this.Condition.left_bottom == "已关闭") {
+                            //     $(".left_2").css("color", "#49BBFF");
+                            //   } else if (this.Condition.left_top == "已打开") {
+                            //     $(".left_2").css("color", "#FC3B46");
+                            //   }
+                            //   if (this.Condition.right_top == "已关闭") {
+                            //     $("right_1").css("color", "#49BBFF");
+                            //   } else if (this.Condition.right_top == "已打开") {
+                            //     $("right_1").css("color", "#FC3B46");
+                            //   }
+                            //   if (this.Condition.right_bottom == "已关闭") {
+                            //     $("right_2").css("color", "#49BBFF");
+                            //   } else if (
+                            //     this.Condition.right_bottom == "已打开"
+                            //   ) {
+                            //     $("right_2").css("color", "#FC3B46");
+                            //   }
                             }
                           }
                         } else if (res.data.status == "FAILED") {
@@ -1085,13 +1098,13 @@ export default {
                               duration: 2000
                             });
                           } else if (this.type == 2) {
-                            if (this.isTrues) {
+             
                               Toast({
                                 message:this.open_trunk[2].remark,
                                 position: "middle",
                                 duration: 2000
                               });
-                            }
+                            
                           } else if (this.type == 3) {
                             Toast({
                               message: this.vehicle_launch[3].remark,
@@ -1105,13 +1118,13 @@ export default {
                               duration: 2000
                             });
                           } else if (this.type == 4) {
-                            if (this.isTrues) {
+                        
                               Toast({
                                 message: this.find_vehicle[2].remark,
                                 position: "middle",
                                 duration: 2000
                               });
-                            }
+                            
                           } else {
                             Toast({
                               message: this.vehicle_condition[2].remark,
@@ -1241,22 +1254,22 @@ export default {
                   ? (this.engineHoodStsFront = "已开")
                   : (this.engineHoodStsFront = "未开");
                 this.acStatus = this.carcontrol.acStatus; //空调初始状态
-                this.carcontrol.engineHoodStsFront
-                  ? $(".top_1").css("color", "#FC3B46")
-                  : $(".top_1").css("color", "#49BBFF");
-                this.carcontrol.skylightStatus
-                  ? (this.skylightStatus = "已开")
-                  : (this.skylightStatus = "未开"); //天窗初始状态
-                this.carcontrol.skylightStatus
-                  ? $(".middle_1").css("color", "#FC3B46")
-                  : $(".middle_1").css("color", "#49BBFF");
-                this.backnum = this.carcontrol.doorStsTrunk;
-                this.backnum
-                  ? (this.doorStsTrunk = "已开")
-                  : (this.doorStsTrunk = "未开"); //后备箱的初始状态
-                this.backnum
-                  ? $(".bottom_1").css("color", "#FC3B46")
-                  : $(".bottom_1").css("color", "#49BBFF");
+                // this.carcontrol.engineHoodStsFront
+                //   ? $(".top_1").css("color", "#FC3B46")
+                //   : $(".top_1").css("color", "#49BBFF");
+                // this.carcontrol.skylightStatus
+                //   ? (this.skylightStatus = "已开")
+                //   : (this.skylightStatus = "未开"); //天窗初始状态
+                // this.carcontrol.skylightStatus
+                //   ? $(".middle_1").css("color", "#FC3B46")
+                //   : $(".middle_1").css("color", "#49BBFF");
+                // this.backnum = this.carcontrol.doorStsTrunk;
+                // this.backnum
+                //   ? (this.doorStsTrunk = "已开")
+                //   : (this.doorStsTrunk = "未开"); //后备箱的初始状态
+                // this.backnum
+                //   ? $(".bottom_1").css("color", "#FC3B46")
+                //   : $(".bottom_1").css("color", "#49BBFF");
                 this.engineStatus = this.carcontrol.engineStatus;
                 // var tai = {
                 //   left_top: this.carcontrol.tirePressureFrontLeft,
@@ -1329,48 +1342,48 @@ export default {
                   this.Condition = tai;
                 } else if (this.activeshow == 2) {
                   this.Condition = door;
-                  if (this.Condition.left_top == "关闭") {
-                    $(".left_1").css("color", "#49BBFF");
-                  } else if (this.Condition.left_top == "开启") {
-                    $(".left_1").css("color", "#FC3B46");
-                  }
-                  if (this.Condition.left_bottom == "关闭") {
-                    $(".left_2").css("color", "#49BBFF");
-                  } else if (this.Condition.left_top == "开启") {
-                    $(".left_2").css("color", "#FC3B46");
-                  }
-                  if (this.Condition.right_top == "关闭") {
-                    $("right_1").css("color", "#49BBFF");
-                  } else if (this.Condition.right_top == "开启") {
-                    $("right_1").css("color", "#FC3B46");
-                  }
-                  if (this.Condition.right_bottom == "关闭") {
-                    $("right_2").css("color", "#49BBFF");
-                  } else if (this.Condition.right_bottom == "开启") {
-                    $("right_2").css("color", "#FC3B46");
-                  }
-                } else if (this.activeshow == 3) {
-                  this.Condition = window;
-                  if (this.Condition.left_top == "已关闭") {
-                    $(".left_1").css("color", "#49BBFF");
-                  } else if (this.Condition.left_top == "已打开") {
-                    $(".left_1").css("color", "#FC3B46");
-                  }
-                  if (this.Condition.left_bottom == "已关闭") {
-                    $(".left_2").css("color", "#49BBFF");
-                  } else if (this.Condition.left_top == "已打开") {
-                    $(".left_2").css("color", "#FC3B46");
-                  }
-                  if (this.Condition.right_top == "已关闭") {
-                    $("right_1").css("color", "#49BBFF");
-                  } else if (this.Condition.right_top == "已打开") {
-                    $("right_1").css("color", "#FC3B46");
-                  }
-                  if (this.Condition.right_bottom == "已关闭") {
-                    $("right_2").css("color", "#49BBFF");
-                  } else if (this.Condition.right_bottom == "已打开") {
-                    $("right_2").css("color", "#FC3B46");
-                  }
+                //   if (this.Condition.left_top == "关闭") {
+                //     $(".left_1").css("color", "#49BBFF");
+                //   } else if (this.Condition.left_top == "开启") {
+                //     $(".left_1").css("color", "#FC3B46");
+                //   }
+                //   if (this.Condition.left_bottom == "关闭") {
+                //     $(".left_2").css("color", "#49BBFF");
+                //   } else if (this.Condition.left_top == "开启") {
+                //     $(".left_2").css("color", "#FC3B46");
+                //   }
+                //   if (this.Condition.right_top == "关闭") {
+                //     $("right_1").css("color", "#49BBFF");
+                //   } else if (this.Condition.right_top == "开启") {
+                //     $("right_1").css("color", "#FC3B46");
+                //   }
+                //   if (this.Condition.right_bottom == "关闭") {
+                //     $("right_2").css("color", "#49BBFF");
+                //   } else if (this.Condition.right_bottom == "开启") {
+                //     $("right_2").css("color", "#FC3B46");
+                //   }
+                // } else if (this.activeshow == 3) {
+                //   this.Condition = window;
+                //   if (this.Condition.left_top == "已关闭") {
+                //     $(".left_1").css("color", "#49BBFF");
+                //   } else if (this.Condition.left_top == "已打开") {
+                //     $(".left_1").css("color", "#FC3B46");
+                //   }
+                //   if (this.Condition.left_bottom == "已关闭") {
+                //     $(".left_2").css("color", "#49BBFF");
+                //   } else if (this.Condition.left_top == "已打开") {
+                //     $(".left_2").css("color", "#FC3B46");
+                //   }
+                //   if (this.Condition.right_top == "已关闭") {
+                //     $("right_1").css("color", "#49BBFF");
+                //   } else if (this.Condition.right_top == "已打开") {
+                //     $("right_1").css("color", "#FC3B46");
+                //   }
+                //   if (this.Condition.right_bottom == "已关闭") {
+                //     $("right_2").css("color", "#49BBFF");
+                //   } else if (this.Condition.right_bottom == "已打开") {
+                //     $("right_2").css("color", "#FC3B46");
+                //   }
                 }
               }
             } else if (res.data.status == "FAILED") {
@@ -1387,13 +1400,13 @@ export default {
                   duration: 2000
                 });
               } else if (this.type == 2) {
-                if (this.isTrues) {
+               
                   Toast({
                     message: this.open_trunk[2].remark,
                     position: "middle",
                     duration: 2000
                   });
-                }
+                
               } else if (this.type == 3) {
                 Toast({
                   message: this.vehicle_launch[3].remark,
@@ -1407,13 +1420,13 @@ export default {
                   duration: 2000
                 });
               } else if (this.type == 4) {
-                if (this.isTrues) {
+
                   Toast({
                     message: this.find_vehicle[2].remark,
                     position: "middle",
                     duration: 2000
                   });
-                }
+                
               } else {
                 Toast({
                   message: this.vehicle_condition[2].remark,
@@ -1439,7 +1452,8 @@ export default {
     },
     //手动刷新
     loading() {
-      this.Carquerry();
+	  this.Carquerry();
+	  this.type=10;
       this.activeshow = this.activeshow;
     },
     //车辆授权状态
@@ -1531,7 +1545,7 @@ export default {
                         });
                       } else {
                         Toast({
-                          message: this.open_lock[0].remark,
+                          message: this.open_lock[2].remark,
                           position: "middle",
                           duration: 2000
                         });
@@ -1540,7 +1554,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: "系统异常",
+                      message:this.open_lock[2].remark,
                       position: "middle",
                       duration: 2000
                     });
@@ -1588,7 +1602,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: "系统异常",
+                      message: this.close_lock[2].remark,
                       position: "middle",
                       duration: 2000
                     });
@@ -1631,7 +1645,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: "系统异常",
+                      message: this.open_trunk[2].remark,
                       position: "middle",
                       duration: 2000
                     });
@@ -1649,7 +1663,7 @@ export default {
                     this.operationIdss = res.data.operationId;
                     if (res.data.returnSuccess) {
                       Toast({
-                        message: vehicle_launch[0].remark,
+                        message: this.vehicle_launch[0].remark,
                         position: "middle",
                         duration: 2000
                       });
@@ -1665,7 +1679,7 @@ export default {
                         });
                       } else {
                         Toast({
-                          message:vehicle_launch[3].remark,
+                          message:this.vehicle_launch[3].remark,
                           position: "middle",
                           duration: 2000
                         });
@@ -1674,7 +1688,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: "系统异常",
+                      message: this.vehicle_launch[3].remark,
                       position: "middle",
                       duration: 2000
                     });
@@ -1717,7 +1731,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: "系统异常",
+                      message:this.vehicle_flameout[2].remark,
                       position: "middle",
                       duration: 2000
                     });
@@ -1774,7 +1788,7 @@ export default {
           })
           .catch(req => {
             Toast({
-              message: "系统异常",
+              message: res.data.returnErrMsg,
               position: "middle",
               duration: 2000
             });
@@ -1970,6 +1984,16 @@ export default {
 }
 /* 左上角弹框 */
 .mask {
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  background: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+.masks {
   width: 100%;
   height: 100%;
   opacity: 0.5;
