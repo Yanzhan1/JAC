@@ -29,6 +29,7 @@ import axios from 'axios'
 import md5 from 'js-md5';
 //导入复制功能
 import Clipboard from 'clipboard'
+import _ from "lodash" //工具库
 
 /**
  * 获取手机上方状态栏高度
