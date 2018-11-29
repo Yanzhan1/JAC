@@ -15,10 +15,10 @@
 					<img src="../../../static/images/Wit/zhixiang_home_maintenance_outlets_btn.png" alt="">
 					<span>维保网点</span>
 				</li>
-				<!-- <li class="li_list" @click="pre_weib()">
+				<li class="li_list" @click="pre_weib()">
           <img src="../../../static/images/Wit/zhixiang_home_maintenance_appointment_btn.png" alt="">
           <span>维保预约</span>
-        </li> -->
+        </li>
 				<li class="li_list" @click="confirmRevise">
 					<img src="../../../static/images/Wit/zhixiang_home_road_rescue_btn.png" alt="">
 					<span>道路救援</span>
@@ -372,7 +372,7 @@
 	
 	.tophead {
 		height: 2.58rem;
-		background-image: url("../../../static/images/Wit/bg-mine.png");
+		background-image: url("../../../static/images/Wit/baclgroundwit.png");
 		width: 100%;
 		display: block;
 		background-size: content;

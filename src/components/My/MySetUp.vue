@@ -10,6 +10,9 @@
 		<!--<mt-cell :title="title">
 			<mt-switch @change="turn" v-model="value"><span></span></mt-switch>
 		</mt-cell>-->
+		<div class="setup-ctcperson" @click="versionupdate">
+			<mt-cell title="版本更新" is-link></mt-cell>
+		</div>
 		<router-link tag="div" class="setup-ctcperson" to="/myindex/contactPerson">
 			<mt-cell title="紧急联系人" is-link></mt-cell>
 		</router-link>
@@ -77,6 +80,26 @@
 						console.log('123');
 					}
 				});
+			},
+			// checkVersion(){},
+			// isIOSOrAndroid() { //判断ios和安卓机型的方法
+			// 	var u = navigator.userAgent,
+			// 		app = navigator.appVersion;
+			// 	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+			// 	var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			// 	if(isAndroid) {
+			// 		return "Android"
+			// 	} else if(isIOS) {
+			// 		return "IOS"
+			// 	}
+			// },
+			//版本更新
+			vrsionupdate(){
+				if (isMobile.Android) {
+					window.js2android.checkVersion()
+				} else if (isMobile.iOS) {
+					// window.webkit.messageHandlers.checkVersion.postMessage({}); //ios方法暂时没有提供,需后续跟踪
+				}				
 			},
 			turn() { //switch开关方法
 				this.value ? this.$store.dispatch('SOFTKEYBOARD', true) : this.$store.dispatch('SOFTKEYBOARD', false)
