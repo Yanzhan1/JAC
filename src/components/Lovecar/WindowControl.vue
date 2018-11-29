@@ -181,7 +181,8 @@ export default {
   },
   methods: {
     end() {
-      this.httpwindow();
+      this.debouncedGetAnswer()
+      // this.httpwindow();
     },
     //路由跳转的时候清除轮询loading
     goback() {
@@ -599,6 +600,7 @@ export default {
       });
   },
   created() {
+    this.debouncedGetAnswer =_.debounce(this.httpwindow, 3000)
     console.log(localStorage.Tip);
     if (localStorage.Tip) {
       this.popupInfo = false;

@@ -123,6 +123,7 @@
         </div>
 
       </div>
+      <mt-picker :slots="slotstime" @change="timeChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
     </div>
 		<span class="bottom-btn" style="background-color:#49BBFF;" >立即预约</span>
 
@@ -149,6 +150,7 @@ export default {
       chooseprovinceq: false, //控制省份弹框
       valuesprovince: "", //被选中的省份
       valuesprovince1: "", //被选中的省份
+      valuestime:'',//被选中的时间
       valuescity: "", //被选中的城市
       valuescity1: "", //被选中的城市
       choosecity: false, //控制城市弹框
@@ -157,7 +159,7 @@ export default {
       flag2:false,
       currentIndex:-1,
       currentTitle:'',
-      currentTime:'',
+      currentTime:'',//被选中的时间
       pickerVisible:false,
       addressArray:[
         {
@@ -311,6 +313,14 @@ export default {
           textAlign: "center"
         }
       ],
+      slotstime: [
+        {
+          flex: 1,
+          values: ["7:00-8:00","8:00-9:00","9:00-10:00","10:00-11:00","11:00-12:00"],
+          className: "slot1",
+          textAlign: "center"
+        }
+      ],
       slots2: [
         {
           flex: 1,
@@ -342,6 +352,7 @@ export default {
     confirmBtn(){
       this.allback = false;
       this.orderTime = false;
+      this.currentTime=this.valuestime
     },
     //点击遮罩层消失
     backgroundshow() {
@@ -349,6 +360,7 @@ export default {
       this.servicezhan = false;
       $("#provinceLabel").hide();
       $("#cityLabel").hide();
+      this.orderTime=false;
     },
     //选择省份
     chooseprovinces() {
@@ -365,7 +377,7 @@ export default {
     choosecityone() {
       $("#cityLabel").hide();
       this.allback = false;
-      this.valuescity1 = this.valuescity;
+      this.currentTime = this.valuescity;
     },
     //选择城市
     choosecitys() {
@@ -375,6 +387,10 @@ export default {
     //省份的滑动选择
     provinceChange(picker, values) {
       this.valuesprovince = values[0];
+      picker.setSlotValue(1, values[0]);
+    },
+    timeChange(picker, values) {
+      this.valuestime = values[0];
       picker.setSlotValue(1, values[0]);
     },
     //城市的滑动选择
@@ -470,7 +486,8 @@ export default {
   width: 100%;
   height: 0.93rem;
   background: #fff;
-  font: Medium 0.28rem/0.3rem "PingFang-SC-Medium";
+  font: 0.28rem/0.3rem "PingFang-SC-Medium";
+  font-weight: Medium;
 }
 .every_times > img {
   width: 0.16rem;

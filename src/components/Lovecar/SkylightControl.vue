@@ -466,7 +466,7 @@ export default {
     carcontrolskylight(){
       if(this.$route.query.carcontrol.skylightStatus=='0'){
 
-        }else{
+        }else if(this.$route.query.carcontrol.skylightStatus=='1'){
         //pin码正确激活弧线
         this.curveState = true;
         //pin码正确激活空调图
