@@ -30,6 +30,7 @@ import AdjustSeatTemper from "@/components/Lovecar/AdjustSeatTemper" //座椅调
 import AdjustSeatAeration from "@/components/Lovecar/AdjustSeatAeration" //座椅通风
 import WindowControl from "@/components/Lovecar/WindowControl" //车窗控制
 import SkylightControl from "@/components/Lovecar/SkylightControl" //天窗控制
+import SkylightClose from "@/components/Lovecar/SkylightClose" //天窗关闭
 import AirEvoluor from "@/components/Lovecar/AirEvoluor" //空气进化器
 import Electricairconditioning from '@/components/Lovecar/Electricairconditioning' //电动空调调控
 
@@ -344,6 +345,11 @@ const router = new Router({
                 path: "/lovecar/skylightControl",
                 name: '天窗控制',
                 component: SkylightControl
+            },
+            {
+                path: "/lovecar/skylightClose",
+                name: '天窗关闭',
+                component: SkylightClose
             },
             {
                 path: "/lovecar/airEvoluor",
