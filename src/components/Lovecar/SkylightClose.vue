@@ -66,12 +66,12 @@
 import { Createarc } from "../../../static/js/drawarc.js";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
-import {MessageBox} from "mint-ui";
-import PublicHead from '../publicmodel/PublicHead'
+import { MessageBox } from "mint-ui";
+import PublicHead from "../publicmodel/PublicHead";
 export default {
   name: "skylightClose",
   components: {
-  	mhead:PublicHead
+    mhead: PublicHead
   },
   data() {
     return {
@@ -79,8 +79,8 @@ export default {
       //天窗控制按钮开关
       //				value: false,
       //移动端键盘值
-      allwords:[],//所有提示
-      skywords:[],//天窗提示
+      allwords: [], //所有提示
+      skywords: [], //天窗提示
       ownKeyBoard: {
         first: "",
         second: "",
@@ -110,24 +110,24 @@ export default {
       this.httpsky();
     },
     //路由跳转的时候清除轮询loading
-    goback () {
-    	this.$router.go(-1);
-    	this.$store.dispatch('LOADINGFLAG', false)
+    goback() {
+      this.$router.go(-1);
+      this.$store.dispatch("LOADINGFLAG", false);
     },
     //拿到天窗的提示
-    getskywords(){
-      this.allwords=this.$store.state.GETWORDS
-      console.log()
-      for(let value of this.allwords){
-        if(value.dictType=='skylight'){
-          this.skywords=value.sysDictDataVOs
+    getskywords() {
+      this.allwords = this.$store.state.GETWORDS;
+      console.log();
+      for (let value of this.allwords) {
+        if (value.dictType == "skylight") {
+          this.skywords = value.sysDictDataVOs;
         }
       }
     },
-    Toasteach(){
-      console.log(1)
-       MessageBox("提示", this.skywords[3].remark);
-       console.log(2)
+    Toasteach() {
+      console.log(1);
+      MessageBox("提示", this.skywords[3].remark);
+      console.log(2);
     },
     //点击遮罩或者'x'移除popup
     removeMask() {
@@ -212,6 +212,17 @@ export default {
         return false;
       }
     },
+    //控制天窗起始状态
+      carcontrolskylight(){
+      if(this.$route.query.carcontrol.skylightStatus=='0'){
+
+        }else{
+        //pin码正确激活弧线
+        this.curveState = true;
+        //pin码正确激活空调图
+        this.activeShowImg = true;
+      }
+    },
     //重复调用异步接口
     getAsyReturn(operationId) {
       this.sjc = new Date().getTime();
@@ -260,11 +271,10 @@ export default {
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
-                          // flag = false;
-                                 //pin码正确激活弧线
-//            this.curveState = !this.curveState;
-              //pin码正确激活空调图
-              this.activeShowImg = !this.activeShowImg;
+                          //  pin码正确激活弧线
+                          this.curveState = !this.curveState;
+                          //pin码正确激活空调图
+                          this.activeShowImg = true;
                           Toast({
                             message: this.skywords[1].remark,
                             position: "middle",
@@ -297,18 +307,17 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              // flag = false;
-                     //pin码正确激活弧线
+              //pin码正确激活弧线
               this.curveState = !this.curveState;
               //pin码正确激活空调图
-              this.activeShowImg = !this.activeShowImg;
+              this.activeShowImg = true;
               Toast({
                 message: this.skywords[1].remark,
                 position: "middle",
                 duration: 2000
               });
               this.value = !this.value;
-               clearInterval(this.time);
+              clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
@@ -316,7 +325,7 @@ export default {
                 position: "middle",
                 duration: 2000
               });
-               clearInterval(this.time);
+              clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             }
           } else {
@@ -336,9 +345,9 @@ export default {
         vin: this.$store.state.vins,
         operationType: "SUNROOF",
         extParams: {
-          fluctuationType: 2, //档位百分比
-          percent: this.windNum[this.skylightSpace].replace(/%/g, "") //0-100
-          // gear:'',//车窗1,2,3,4,5档可选
+          fluctuationType: 1, //档位
+          // percent: this.windNum[this.skylightSpace].replace(/%/g, "") //0-100
+          gear:1,//车窗1,2,3,4,5档可选
         }
       };
       this.$http
@@ -347,44 +356,45 @@ export default {
           // console.log(res);
           this.operationIds = res.data.operationId;
           if (res.data.returnSuccess) {
-              Toast({
-                  message: this.skywords[0].remark,
-                  position: "middle",
-                  duration: 2000
-                });
-                setTimeout(() => {                 
-                  this.getAsyReturn(res.data.operationId);
-                }, 2000);
-          } else {
-            if (res.data.returnErrCode == 400) {
-          		Toast({
-	              message: "token验证失败",
-	              position: "middle",
-	              duration: 2000
-	            });
-          	} else {
-          		Toast({
-	              message: res.data.returnErrMsg,
-	              position: "middle",
-	              duration: 2000
-	            });
-          	}
-          }
-        })
-        .catch(err => {
-        	Toast({
-              message: '系统异常',
+            Toast({
+              message: this.skywords[0].remark,
               position: "middle",
               duration: 2000
             });
+            setTimeout(() => {
+              this.getAsyReturn(res.data.operationId);
+            }, 2000);
+          } else {
+            if (res.data.returnErrCode == 400) {
+              Toast({
+                message: "token验证失败",
+                position: "middle",
+                duration: 2000
+              });
+            } else {
+              Toast({
+                message: res.data.returnErrMsg,
+                position: "middle",
+                duration: 2000
+              });
+            }
+          }
+        })
+        .catch(err => {
+          Toast({
+            message: "系统异常",
+            position: "middle",
+            duration: 2000
+          });
         });
     }
   },
   mounted() {
-  	clearInterval(this.time)
-//  this.produCurve();
+    clearInterval(this.time);
+    //  this.produCurve();
     this.inputs();
     this.getskywords();
+    this.carcontrolskylight();
   },
   computed: {
     fullValue: {
@@ -408,8 +418,9 @@ export default {
         this.ownKeyBoard.sixth = newVal;
       }
     },
-    hasNOClick () {  //判断图片的与隐藏
-    	return !this.activeShowImg
+    hasNOClick() {
+      //判断图片的与隐藏
+      return !this.activeShowImg;
     }
   },
   watch: {
@@ -417,7 +428,6 @@ export default {
       //console.log(this.pinNumber.length)
       if (this.pinNumber.length == 6) {
         var nums = this.pinNumber;
-				this.activeShowImg = true
         this.$http
           .post(
             Lovecar.Checkphonepin,
@@ -427,12 +437,10 @@ export default {
             this.$store.state.tsppin
           )
           .then(res => {
-            console.log(res.data.returnSuccess);
             if (res.data.returnSuccess) {
               // this.value = !this.value;
               this.httpsky();
 
-       
               // this.refreshPmData(),
               //消失遮罩
               this.popupVisible = !this.popupVisible;
@@ -484,9 +492,9 @@ export default {
               // this.curveState = !this.curveState;
               // //pin码正确激活空调图
               // (this.activeShowImg = !this.activeShowImg),
-                // this.refreshPmData(),
-                //消失遮罩
-                (this.popupVisible = !this.popupVisible);
+              // this.refreshPmData(),
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
               //消失软键盘
               (this.showTyper = 0),
                 //清空pin码
@@ -558,12 +566,13 @@ export default {
   border-radius: 0.1rem;
 }
 
-.conmmon-style { /*公共样式*/
-	border: none;
-	outline: none;
-	appearance: none;
-	-webkit-appearance: none;
-	background: none;
+.conmmon-style {
+  /*公共样式*/
+  border: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
 }
 /*天窗头部*/
 
@@ -653,23 +662,22 @@ export default {
 }
 /*关闭按钮*/
 .close-skylight {
-	
 }
-.close-skylight>button {
-    display: block;
-    width: 3rem;
-    height: .8rem;
-    font-size: .32rem;
-    color: #ffff;
-    border: none;
-    outline: none;
-    border-radius: .4rem;
-    background: #49BBFF;
+.close-skylight > button {
+  display: block;
+  width: 3rem;
+  height: 0.8rem;
+  font-size: 0.32rem;
+  color: #ffff;
+  border: none;
+  outline: none;
+  border-radius: 0.4rem;
+  background: #49bbff;
 }
-.close-skylight>button.active {
-    background: #CCCCCC;
-    /*color: #000000;*/
-   opacity: .5;
+.close-skylight > button.active {
+  background: #cccccc;
+  /*color: #000000;*/
+  opacity: 0.5;
 }
 /*pin码提示框*/
 

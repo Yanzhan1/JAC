@@ -48,9 +48,9 @@
 				<div style="margin-bottom: 0.36rem;" class="flex-center">
 					<img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
 					<div class="wind-count">
-						<button @click=" windReduce" class="addWind conmmon-style"><</button>
+						<button disabled="this.curveState" @click=" windReduce" class="addWind conmmon-style"><</button>
 						<input class="wind-input" type="text" v-model="windNum[skylightSpace]" readonly/>
-						<button @click="windAdd" class="reduceWind conmmon-style">></button>
+						<button disabled="this.curveState" @click="windAdd" class="reduceWind conmmon-style">></button>
 					</div>
 					<img :src="'./static/images/Lovecar/right@2x.png'" alt="" />
 				</div>
@@ -196,9 +196,7 @@ export default {
       this.httpsky();
     },
     Toasteach(){
-      console.log(1)
        MessageBox("提示", this.skywords[3].remark);
-       console.log(2)
     },
     //天窗宽度减少
     windReduce() {
@@ -465,6 +463,16 @@ export default {
           }
         });
     },
+    carcontrolskylight(){
+      if(this.$route.query.carcontrol.skylightStatus=='0'){
+
+        }else{
+        //pin码正确激活弧线
+        this.curveState = true;
+        //pin码正确激活空调图
+        this.activeShowImg = true;
+      }
+    },
     httpsky() {
       var param = {
         vin: this.$store.state.vins,
@@ -519,6 +527,8 @@ export default {
     this.produCurve();
     this.inputs();
     this.getskywords();
+    this.carcontrolskylight()
+    console.log(this.$route.query.carcontrol)
     //调取车况
     // this.$http
     //   .post(
