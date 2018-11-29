@@ -727,11 +727,11 @@ export default {
         .then(res => {
           if (res.data.returnSuccess) {
             this.operationIdcar = res.data.operationId;
-            Toast({
-              message:this.vehicle_condition[0].remark,
-              position: "middle",
-              duration: 2000
-            });
+            // Toast({
+            //   message:this.vehicle_condition[0].remark,
+            //   position: "middle",
+            //   duration: 2000
+            // });
             setTimeout(() => {           
               this.getAsyReturn(res.data.operationId);
             }, 2000);
