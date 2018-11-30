@@ -50,10 +50,10 @@
       </div>
       <div class="bus_l">
         <img src="../../../static/images/Wit/bus.png" alt="" class="bus_righgt">
-        <span ref='open1' class='busl_r left_1'>{{Condition.left_top}}</span>
-        <span ref='open2' class='busl_r  left_2'>{{Condition.left_bottom}}</span>
-        <span ref='open3' class='busl_r right_1'>{{Condition.right_top}}</span>
-        <span ref='open4' class='busl_r right_2'>{{Condition.right_bottom}}</span>
+        <span ref='open1' class='busl_r left_1'>{{Condition.left_top=='undefinedkPa'?'':Condition.left_top}}</span>
+        <span ref='open2' class='busl_r  left_2'>{{Condition.left_bottom=='undefinedkPa'?'':Condition.left_bottom}}</span>
+        <span ref='open3' class='busl_r right_1'>{{Condition.right_top=='undefinedkPa'?'':Condition.right_top}}</span>
+        <span ref='open4' class='busl_r right_2'>{{Condition.right_bottom=='undefinedkPa'?'':Condition.right_bottom}}</span>
         <!-- <span class='busl_r top_1'>{{this.engineHoodStsFront}}</span> -->
         <span class='busl_r bottom_1'>{{this.doorStsTrunk}}</span>
         <span class='busl_r middle_1'>{{this.skylightStatus}}</span>
