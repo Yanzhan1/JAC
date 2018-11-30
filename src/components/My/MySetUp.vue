@@ -10,10 +10,7 @@
 		<!--<mt-cell :title="title">
 			<mt-switch @change="turn" v-model="value"><span></span></mt-switch>
 		</mt-cell>-->
-		<div class="setup-ctcperson" @click="versionupdate" style="position:relative">
-			<div v-show="flag" style="position:absolute;z-index:2;width:.1rem;height:.1rem;border-radius:50%;background:red;left:2.3rem;top:.3rem;"></div>
-			<mt-cell  title="当前版本v2.0.0" is-link></mt-cell>
-		</div>
+		
 		<router-link tag="div" class="setup-ctcperson" to="/myindex/contactPerson">
 			<mt-cell title="紧急联系人" is-link></mt-cell>
 		</router-link>
@@ -29,6 +26,10 @@
 		<router-link  tag="div" class="setup-vehiclestate" to="/myindex/logoutVehicleState">
 			<mt-cell title="车机扫码登录" is-link></mt-cell>
 		</router-link>
+		<!-- <div class="setup-ctcperson" @click="versionupdate" style="position:relative">
+			<div v-show="flag" style="position:absolute;z-index:2;width:.1rem;height:.1rem;border-radius:50%;background:red;left:2.3rem;top:.3rem;"></div>
+			<mt-cell  title="当前版本v2.0.0" is-link></mt-cell>
+		</div> -->
 		<router-link tag="div" class="setup-loginout" to="">
 			<mt-cell @click.native="signOut" title="退出登录" is-link></mt-cell>
 		</router-link>
