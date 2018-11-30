@@ -17,12 +17,12 @@
 		<div class="skylight-wrap flex-column-align">
 			<div class="skylight-content flex-center-between">
 				<div class="wind-blows">
-					<img v-if="hasNOClick" :src="'./static/images/Lovecar/skylight@2x.png'" alt="" />
+					<img v-if="!hasNOClick" :src="'./static/images/Lovecar/skylight@2x.png'" alt="" />
 					<img v-else  :src="'./static/images/Lovecar/skylight1@2x.png'" alt="" />
 				</div>
 			</div>
 			<div class="close-skylight" @click="popupVisible=true">
-				<button :disabled="!this.curveState" :class="this.curveState === false ? 'active' : ''">点击关闭天窗</button>
+				<button :disabled="this.curveState" :class="!this.curveState === false ? 'active' : ''">点击关闭天窗</button>
 			</div>
 		</div>
 		
@@ -118,7 +118,6 @@ export default {
     //拿到天窗的提示
     getskywords() {
       this.allwords = this.$store.state.GETWORDS;
-      console.log();
       for (let value of this.allwords) {
         if (value.dictType == "skylight") {
           this.skywords = value.sysDictDataVOs;
@@ -215,7 +214,7 @@ export default {
     },
     //控制天窗起始状态
     carcontrolskylight() {
-      console.log("jinru");
+      // console.log("jinru");
       if (this.$route.query.carcontrol.skylightStatus == "1") {
         //pin码正确激活弧线
         this.curveState = true;
@@ -264,7 +263,7 @@ export default {
                           console.log(tSS);
                           if (tSS >= 56) {
                             Toast({
-                              message: "请求超时",
+                              message: this.skywords[2].remark,
                               position: "middle",
                               duration: 2000
                             });
@@ -273,9 +272,9 @@ export default {
                           }
                         } else if (res.data.status == "SUCCEED") {
                           //  pin码正确激活弧线
-                          this.curveState = true;
+                          this.curveState = false;
                           //pin码正确激活空调图
-                          this.activeShowImg = true;
+                          this.activeShowImg = false;
                           Toast({
                             message: this.skywords[1].remark,
                             position: "middle",
@@ -296,7 +295,7 @@ export default {
                         }
                       } else {
                         Toast({
-                          message: "指令下发失败！",
+                          message: this.skywords[2].remark,
                           position: "middle",
                           duration: 2000
                         });
@@ -309,9 +308,9 @@ export default {
               }
             } else if (res.data.status == "SUCCEED") {
               //pin码正确激活弧线
-              this.curveState = true;
+              this.curveState = false;
               //pin码正确激活空调图
-              this.activeShowImg = true;
+              this.activeShowImg = false;
               Toast({
                 message: this.skywords[1].remark,
                 position: "middle",
@@ -331,7 +330,7 @@ export default {
             }
           } else {
             Toast({
-              message: "指令下发失败！",
+              message: this.skywords[2].remark,
               position: "middle",
               duration: 2000
             });
@@ -342,15 +341,14 @@ export default {
         });
     },
     httpsky() {
-      let gear = this.activeShowImg ? "1" : "0";
-      console.log(gear);
+      // let gear = this.activeShowImg ? "1" : "0";
       var param = {
         vin: this.$store.state.vins,
         operationType: "SUNROOF",
         extParams: {
           fluctuationType: 1, //档位
           // percent: this.windNum[this.skylightSpace].replace(/%/g, ""), //0-100
-          gear: gear //车窗1,2,3,4,5档可选
+          gear: '2' //车窗1,2,3,4,5档可选
         }
       };
       this.$http
@@ -376,7 +374,7 @@ export default {
               });
             } else {
               Toast({
-                message: res.data.returnErrMsg,
+                message: this.skywords[2].remark,
                 position: "middle",
                 duration: 2000
               });
@@ -385,7 +383,7 @@ export default {
         })
         .catch(err => {
           Toast({
-            message: res.data.returnErrMsg,
+            message: this.skywords[2].remark,
             position: "middle",
             duration: 2000
           });
@@ -397,7 +395,7 @@ export default {
     //  this.produCurve();
     this.inputs();
     this.getskywords();
-    this.carcontrolskylight();
+    // this.carcontrolskylight();
   },
   computed: {
     fullValue: {
@@ -442,8 +440,8 @@ export default {
           .then(res => {
             if (res.data.returnSuccess) {
               // this.value = !this.value;
+              console.log(1)
               this.httpsky();
-
               // this.refreshPmData(),
               //消失遮罩
               this.popupVisible = !this.popupVisible;

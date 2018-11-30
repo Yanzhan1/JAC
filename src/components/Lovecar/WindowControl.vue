@@ -418,7 +418,7 @@ export default {
               //60s  后 清除定时器，不在发请求
               if (tSS >= 56) {
                 Toast({
-                  message: "请求超时",
+                  message: this.windowwords[2].remark,
                   position: "middle",
                   duration: 2000
                 });
@@ -439,7 +439,7 @@ export default {
                           //60s  后 清除定时器，不在发请求
                           if (tSS >= 56) {
                             Toast({
-                              message: "请求超时",
+                              message: this.windowwords[2].remark,
                               position: "middle",
                               duration: 2000
                             });
@@ -453,14 +453,13 @@ export default {
                             position: "middle",
                             duration: 2000
                           });
-                          this.value = !this.value;
-                          this.curveState = !this.curveState;
+                          // this.value = !this.value;
+                          this.curveState = true;
                           //pin码正确激活空调图
-                          (this.activeShowImg = !this.activeShowImg),
+                          (this.activeShowImg = true),
                             clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
-                          flag = false;
                           Toast({
                             message:  this.windowwords[2].remark,
                             position: "middle",
@@ -471,7 +470,7 @@ export default {
                         }
                       } else {
                         Toast({
-                          message: "指令下发失败！",
+                          message: this.windowwords[2].remark,
                           position: "middle",
                           duration: 2000
                         });
@@ -489,10 +488,10 @@ export default {
                 position: "middle",
                 duration: 2000
               });
-              this.curveState = !this.curveState;
+              this.curveState =true;
               //pin码正确激活空调图
-              (this.activeShowImg = !this.activeShowImg),
-                (this.value = !this.value);
+              (this.activeShowImg = true),
+                // (this.value = !this.value);
               clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
@@ -506,11 +505,10 @@ export default {
             }
           } else {
             Toast({
-              message: "指令下发失败！",
+              message:this.windowwords[2].remark,
               position: "middle",
               duration: 2000
             });
-            flag = false;
             clearInterval(this.time);
             this.$store.dispatch("LOADINGFLAG", false);
           }

@@ -445,8 +445,8 @@ export default {
     //     } else if (this.Condition.right_bottom == "开启") {
     //       $("right_2").css("color", "#FC3B46");
     //     }
-    //   } else if (this.activeshow == 3) {
-    //     this.Condition = window;
+      } else if (this.activeshow == 3) {
+        this.Condition = window;
     //     if (this.Condition.left_top == "已关闭") {
     //       $(".left_1").css("color", "#49BBFF");
     //     } else if (this.Condition.left_top == "已打开") {
@@ -532,7 +532,6 @@ export default {
       this.popupVisible = false;
 	},
     moved() {
-		console.log(1)
       this.MaskIsshow = false;
       this.IsShow = false;
       this.popupVisible = false;
