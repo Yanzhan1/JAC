@@ -225,9 +225,9 @@ export default {
       this.allwords=this.$store.state.GETWORDS;
        for(let value of this.allwords){
         if(value.dictType=='vehicle_window'){
-          console.log(value)
+          // console.log(value)
           this.windowwords=value.sysDictDataVOs
-          console.log(this.windowwords)
+          // console.log(this.windowwords)
         }
       }
     },
@@ -297,7 +297,7 @@ export default {
     //页面进入提示框中'不在提醒'状态
     remind() {
       this.remindState = !this.remindState;
-      console.log(this.remindState);
+      // console.log(this.remindState);
     },
     //修改车窗高度弹出框-取消
     winConfirm() {
@@ -305,7 +305,7 @@ export default {
     },
     //修改车窗高度弹出框-确定，remindState为true，'不在提醒'未激活，false，'不在提醒'激活
     reduceWindow() {
-      console.log(this.remindState);
+      // console.log(this.remindState);
       if (this.remindState == false) {
         localStorage.Tip = true;
       }
@@ -395,12 +395,10 @@ export default {
       }
     },
     Toasteach(){
-      console.log(123)
        MessageBox(
           "提示",
           this.windowwords[3].remark
         );
-      console.log(231)
     },
     //重复调用异步接口
     getAsyReturn(operationId) {
@@ -418,7 +416,6 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              console.log(tSS);
               if (tSS >= 56) {
                 Toast({
                   message: "请求超时",
@@ -440,7 +437,6 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          console.log(tSS);
                           if (tSS >= 56) {
                             Toast({
                               message: "请求超时",
@@ -522,6 +518,8 @@ export default {
     },
     //车窗接口
     httpwindow() {
+      let percent=100-this.windNum[this.windowSpace].replace(/%/g, "")
+      console.log(percent)
       var param = {
         vin: this.$store.state.vins,
         operationType: "WINDOW",
@@ -529,7 +527,7 @@ export default {
         extParams: {
           windowNum: 5,
           fluctuationType: 2,
-          percent:(100%-this.windNum[this.windowSpace]).replace(/%/g, "")
+          percent:percent
           // gear:''
         }
       };
@@ -603,7 +601,6 @@ export default {
   },
   created() {
     this.debouncedGetAnswer =_.debounce(this.httpwindow, 3000)
-    console.log(localStorage.Tip);
     if (localStorage.Tip) {
       this.popupInfo = false;
     } else {
@@ -635,7 +632,6 @@ export default {
   },
   watch: {
     pinNumber(newVal, oldVal) {
-      //console.log(this.pinNumber.length)
       if (this.pinNumber.length == 6) {
         var nums = this.pinNumber;
         //      alert(this.$store.state.tsppin.headers.identityParam.token)
@@ -648,7 +644,6 @@ export default {
             this.$store.state.tsppin
           )
           .then(res => {
-            console.log(res.data.returnSuccess);
             if (res.data.returnSuccess) {
               // this.value = !this.value;
               this.httpwindow();
@@ -698,7 +693,6 @@ export default {
             this.$store.state.tsppin
           )
           .then(res => {
-            console.log(res.data.returnSuccess);
             if (res.data.returnSuccess) {
               // this.value = !this.value;
               this.httpwindow();
