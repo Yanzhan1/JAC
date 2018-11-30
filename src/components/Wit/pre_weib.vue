@@ -115,13 +115,17 @@
       <span style="display: inline-block;width: 1rem;height: 0.28rem;text-align: center" @click="cancalBtn">取消</span>
       <span class="surebuttom" @click="confirmBtn">确定</span>
       <div class="every_times">
-        <img :src="'./static/images/Lovecar/left-balck.png'" alt="" class="img_l" @click="leftBtn">
-        <div class="center">xxx年xxx月xxx日</div>
-        <img :src="'./static/images/Lovecar/right-black.png'" alt="" class="img_r" @click="rightBtn">
-        <div>
-
-        </div>
-
+        <mt-swipe class="time-swiper" ref="swiperWrap" :auto="0" :showIndicators="false" :continuous="false">
+				  <mt-swipe-item v-for="(item, index) in dataList" :key="index">
+				  	<p class="">
+				  		{{item}}
+				  	</p>
+				  </mt-swipe-item>
+				</mt-swipe>
+				<div class="button-wrapper">
+          <button class="next-button" @click="$refs.swiperWrap.next()">></button>
+          <button class="prev-button" @click="$refs.swiperWrap.prev()"><</button>
+       	</div>
       </div>
       <mt-picker :slots="slotstime" @change="timeChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
     </div>
@@ -328,7 +332,8 @@ export default {
           className: "slot1",
           textAlign: "center"
         }
-      ]
+      ],
+      dataList: [] //日期数组
     };
   },
   mounted() {},
@@ -412,6 +417,16 @@ export default {
       this.orderTime = false;
       this.allback = false;
     },
+    getDateList(counts){ //生成当前日期开始后的日期数组
+    	for (let i=0 ;i<counts;i++) {
+    		let time=new Date().getTime() + 1000*60*60*24*i;
+    		this.dataList.push(new Date(time).toLocaleDateString()) 
+    		/*this.dataList = new Date(this.dataList.replace((/\//g, '-')))*/
+    	}
+    	this.dataList.forEach((item, index) => {
+    		this.dataList[index] = item.replace(/\//g, '-')
+  		})
+    },
     leftBtn(){//左时间按钮
 
     },
@@ -419,7 +434,9 @@ export default {
 
     }
   },
-  created() {},
+  created() {
+  	this.getDateList(7)
+  },
   watch: {
     onDateChangevalue() {}
   }
@@ -502,6 +519,41 @@ export default {
   right: 0.52rem;
   top: 0.39rem;
 }
+.every_times >>> .mint-swipe {
+	width: 100% !important;
+}
+
+.every_times >>> .mint-swipe-item>p {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	text-align: center;
+	font-size: .36rem;
+}
+.every_times > .button-wrapper > .prev-button {
+	position: absolute;
+  top: 6%;
+  left: 0.6rem;
+  width: .16rem;
+  height: .26rem;
+  border: none;
+  outline: none;
+  padding: .3rem;
+  background: none;
+}
+.every_times > .button-wrapper > .next-button {
+  position: absolute;
+  top: 0%;
+  right: 0.6rem;
+  width: .16rem;
+  height: .26rem;
+  border: none;
+  outline: none;
+  padding: 0.3rem;
+  background: none;
+}
+
 .center {
   position: absolute;
 }
