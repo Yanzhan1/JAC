@@ -22,7 +22,7 @@
 				</div>
 			</div>
 			<div class="close-skylight" @click="popupVisible=true">
-				<button :disabled="!hasNOClick" :class="hasNOClick === false ? 'active' : ''">点击关闭天窗</button>
+				<button :disabled="!this.curveState" :class="this.curveState === false ? 'active' : ''">点击关闭天窗</button>
 			</div>
 		</div>
 		
@@ -78,6 +78,7 @@ export default {
       time: "", //定时器命名
       //天窗控制按钮开关
       //				value: false,
+      curveState: false,
       //移动端键盘值
       allwords: [], //所有提示
       skywords: [], //天窗提示
@@ -213,14 +214,14 @@ export default {
       }
     },
     //控制天窗起始状态
-      carcontrolskylight(){
-      if(this.$route.query.carcontrol.skylightStatus=='0'){
-
-        }else if(his.$route.query.carcontrol.skylightStatus=='1'){
+    carcontrolskylight() {
+      console.log("jinru");
+      if (this.$route.query.carcontrol.skylightStatus == "1") {
         //pin码正确激活弧线
         this.curveState = true;
         //pin码正确激活空调图
         this.activeShowImg = true;
+      } else {
       }
     },
     //重复调用异步接口
@@ -272,7 +273,7 @@ export default {
                           }
                         } else if (res.data.status == "SUCCEED") {
                           //  pin码正确激活弧线
-                          this.curveState = !this.curveState;
+                          this.curveState = true;
                           //pin码正确激活空调图
                           this.activeShowImg = true;
                           Toast({
@@ -308,7 +309,7 @@ export default {
               }
             } else if (res.data.status == "SUCCEED") {
               //pin码正确激活弧线
-              this.curveState = !this.curveState;
+              this.curveState = true;
               //pin码正确激活空调图
               this.activeShowImg = true;
               Toast({
@@ -341,15 +342,15 @@ export default {
         });
     },
     httpsky() {
-      let gear=this.activeShowImg?'1':'0'
-      console.log(gear)
+      let gear = this.activeShowImg ? "1" : "0";
+      console.log(gear);
       var param = {
         vin: this.$store.state.vins,
         operationType: "SUNROOF",
         extParams: {
           fluctuationType: 1, //档位
           // percent: this.windNum[this.skylightSpace].replace(/%/g, ""), //0-100
-          gear:gear,//车窗1,2,3,4,5档可选
+          gear: gear //车窗1,2,3,4,5档可选
         }
       };
       this.$http
@@ -422,7 +423,7 @@ export default {
     },
     hasNOClick() {
       //判断图片的与隐藏
-      return !this.activeShowImg;
+      return this.activeShowImg;
     }
   },
   watch: {
@@ -468,15 +469,15 @@ export default {
           })
           .catch(err => {
             Toast({
-              message:  res.data.returnErrMsg,
+              message: res.data.returnErrMsg,
               position: "middle",
               duration: 1000
             });
-              this.popupVisible = !this.popupVisible;
-              //消失软键盘
-              (this.showTyper = 0),
-                //清空pin码
-                (this.pinNumber = "");
+            this.popupVisible = !this.popupVisible;
+            //消失软键盘
+            (this.showTyper = 0),
+              //清空pin码
+              (this.pinNumber = "");
           });
       }
     },
