@@ -613,7 +613,7 @@ export default {
                 //清空pin码
                 (this.pinNumber = "");
               Toast({
-                message: data.returnErrMsg,
+                message: res.data.returnErrMsg,
                 position: "middle",
                 duration: 1000
               });
@@ -621,7 +621,7 @@ export default {
           })
           .catch(err => {
             Toast({
-              message: "系统异常",
+              message: res.data.returnErrMsg,
               position: "middle",
               duration: 1000
             });
@@ -659,7 +659,7 @@ export default {
                 //清空pin码
                 (this.fullValue = "");
               Toast({
-                message: data.returnErrMsg,
+                message: res.data.returnErrMsg,
                 position: "middle",
                 duration: 1000
               });
@@ -667,7 +667,7 @@ export default {
           })
           .catch(err => {
             Toast({
-              message: "系统异常",
+              message: res.data.returnErrMsg,
               position: "middle",
               duration: 1000
             });

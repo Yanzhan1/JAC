@@ -1137,7 +1137,7 @@ export default {
                         }
                       } else {
                         Toast({
-                          message: res.data.returnErrMsg,
+                          message:this.vehicle_condition[2].remark,
                           position: "middle",
                           duration: 2000
                         });
@@ -1441,7 +1441,7 @@ export default {
           } else {
             // alert(4)
             Toast({
-              message: res.data.returnErrMsg,
+              message:this.vehicle_condition[2].remark,
               position: "middle",
               duration: 2000
             });
@@ -1772,7 +1772,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: this.find_vehicle[0].remark,
+                      message: this.find_vehicle[2].remark,
                       position: "middle",
                       duration: 2000
                     });
