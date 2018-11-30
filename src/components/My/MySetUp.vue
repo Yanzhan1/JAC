@@ -10,8 +10,9 @@
 		<!--<mt-cell :title="title">
 			<mt-switch @change="turn" v-model="value"><span></span></mt-switch>
 		</mt-cell>-->
-		<div class="setup-ctcperson" @click="versionupdate">
-			<mt-cell title="版本更新" is-link></mt-cell>
+		<div class="setup-ctcperson" @click="versionupdate" style="position:relative">
+			<div v-show="flag" style="position:absolute;z-index:2;width:.1rem;height:.1rem;border-radius:50%;background:red;left:2.3rem;top:.3rem;"></div>
+			<mt-cell  title="当前版本v2.0.0" is-link></mt-cell>
 		</div>
 		<router-link tag="div" class="setup-ctcperson" to="/myindex/contactPerson">
 			<mt-cell title="紧急联系人" is-link></mt-cell>
@@ -47,6 +48,8 @@
 				title: '软键盘',
 				value: true,
 				vin:'',
+				flag:false,//控制版本更新的红点
+				update:'',//更新版本号
 				vehicleState:'', //车机登录状态,true代表登录, false代表未登录
 				firstTips: true //车机状态第一次提示,true不提示,改变为false的时候,Toast进行提示
 			}
@@ -93,8 +96,19 @@
 			// 		return "IOS"
 			// 	}
 			// },
+			//判断是否更新
+			newphone(){
+				if (isMobile.Android) {
+					// let Detectionupdate=window.js2android.getVersionInfo()
+					// this.flag=Detectionupdate.flag
+					// this.update=Detectionupdate.versionName
+					// console.log(Detectionupdate)
+				} else if (isMobile.iOS) {
+					// window.webkit.messageHandlers.checkVersion.postMessage({}); //ios方法暂时没有提供,需后续跟踪
+				}	
+			},
 			//版本更新
-			vrsionupdate(){
+			versionupdate(){
 				if (isMobile.Android) {
 					window.js2android.checkVersion()
 				} else if (isMobile.iOS) {
@@ -149,6 +163,7 @@
 			}
 		},
 		mounted () {
+			this.newphone()
 			// this.getCarLoginState()		
 		}
 	}
