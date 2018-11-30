@@ -95,14 +95,14 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
       </router-link>
-      <div class="mylist" @click="recommended" v-if="flag">
+      <!-- <div class="mylist" @click="recommended" v-if="flag">
 
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_recommend@2x.png" alt="">
           <span>推荐码</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </div>
+      </div> -->
       <!-- <div class="mylist" @click="scan()">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_code@2x.png" alt="">
