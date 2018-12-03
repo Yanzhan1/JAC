@@ -27,7 +27,7 @@
 			<mt-cell title="车机扫码登录" is-link></mt-cell>
 		</router-link>
 		<div class="setup-ctcperson" @click="versionupdate" style="position:relative">
-			<div v-show="flag" style="position:absolute;z-index:2;width:.1rem;height:.1rem;border-radius:50%;background:red;left:2.3rem;top:.3rem;"></div>
+			<div v-show="flag" style="position:absolute;z-index:2;width:.1rem;height:.1rem;border-radius:50%;background:red;left:2.4rem;top:.3rem;"></div>
 			<mt-cell  :title="this.update" is-link></mt-cell>
 		</div>
 		<router-link tag="div" class="setup-loginout" to="">
@@ -103,7 +103,7 @@
 					let Detectionupdate=JSON.parse(window.js2android.getVersionInfo())
 					this.flag=Detectionupdate.flag
 					this.update=Detectionupdate.versionName
-					this.update='当前版本'+this.update
+					this.update='当前版本 '+this.update
 				} else if (isMobile.iOS) {
 					// window.webkit.messageHandlers.checkVersion.postMessage({}); //ios方法暂时没有提供,需后续跟踪
 				}	
