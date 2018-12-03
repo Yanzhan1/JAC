@@ -16,13 +16,17 @@
     <div style="position:fixed;width:100%;background:#fff;">
 
       <div class="box">
-        <div @click="showlist" style="width:50%">
+        <div @click="showlist" >
           <div>线索</div>
           <div v-show="this.list" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
         </div>
-        <div @click="showflow" style="width:50%">
+        <div @click="showflow">
           <div>流量</div>
           <div v-show="this.flow" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
+        </div>
+        <div @click="showMaintenance" >
+          <div>维保</div>
+          <div v-show="this.Maintenance" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
         </div>
       </div>
     </div>
@@ -90,6 +94,36 @@
 						</div> -->
 					</router-link >
 				</ul>
+        <ul v-show="this.Maintenance" style="margin-top:.7rem;">
+          		<router-link tag="li" class="flex column" v-for="(item,index) in allflowbuy" :key="index"  :to="{path:'/myindex/flowOrderDetails', query: {flowDetail: item}}">
+						<p class="flex row tim between">
+							<span class="times">{{item.purchaseTime}}</span>
+							<span class="times" :class=" true ? 'order': ''">{{trafficOrder[item.paymentStatus]}}</span>
+						</p>
+						<div class="cont">
+							<div class="flex column tp">
+								<!--<span class="bus_right">地址：上海市徐汇区田林路200号</span>-->
+								<span class="flowPacket-title">{{item.packetName}}</span>
+								<span class="bus_right">维保网点:{{item.orderId}}</span>
+								<span class="bus_right">维保类型：{{item.price}}元</span>
+							</div>
+							<div class="flex column bus_left">
+								<img src="../../../static/images/next@2x.png" alt="">
+							</div>
+						</div>
+						<!-- <div class="flex row between bt">
+							<span></span>
+							<div v-if="item.paymentStatus">
+								<span class="cancel" :class=" item.paymentStatus == 1 ? 'active' : ''">付款</span>
+								<span class="cancel">取消订单</span>
+							</div>
+							<div v-else>
+								<span class="cancel">再次充值</span>
+								<span class="cancel">删除订单</span>
+							</div>							
+						</div> -->
+					</router-link >
+        </ul>
 			<!-- </mt-tab-container-item>
 		</mt-tab-container> -->
 	</div>
@@ -110,7 +144,9 @@ export default {
       flag: true,
       list:false,//线索展示
       flow:false,//流量展示
+      Maintenance:false,//维保展示
       allflowbuy: [],
+      allmaintenance:[],
       shoppingMall: [], //商城订单
       trafficOrder: {
         "0": "已完成",
@@ -129,10 +165,17 @@ export default {
     showlist(){
       this.list=true;
       this.flow=false;
+      this.Maintenance=false;
     },
     showflow(){
       this.list=false;
       this.flow=true;
+      this.Maintenance=false;
+    },
+    showMaintenance(){
+      this.Maintenance=true;
+      this.flow=false;
+      this.list=false;
     },
     //跳转商城详情
     todetail() {
