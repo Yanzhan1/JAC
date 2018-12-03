@@ -499,7 +499,7 @@ export default {
               console.log(tSS);
               if (tSS >= 56) {
                 Toast({
-                  message: "请求超时",
+                  message:this.airconditionwords[2].remark,
                   position: "middle",
                   duration: 2000
                 });
@@ -521,7 +521,7 @@ export default {
                           console.log(tSS);
                           if (tSS >= 56) {
                             Toast({
-                              message: "请求超时",
+                              message:this.airconditionwords[2].remark,
                               position: "middle",
                               duration: 2000
                             });
@@ -555,7 +555,7 @@ export default {
                         }
                       } else {
                         Toast({
-                          message: "指令下发失败！",
+                          message: this.airconditionwords[2].remark,
                           position: "middle",
                           duration: 2000
                         });
@@ -590,7 +590,7 @@ export default {
             }
           } else {
             Toast({
-              message: "指令下发失败！",
+              message: this.airconditionwords[2].remark,
               position: "middle",
               duration: 2000
             });
@@ -636,7 +636,7 @@ export default {
               });
             } else {
               Toast({
-                message: res.data.returnErrMsg,
+                message:this.airconditionwords[2].remark,
                 position: "middle",
                 duration: 2000
               });

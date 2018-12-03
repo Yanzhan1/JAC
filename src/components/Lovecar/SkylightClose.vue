@@ -346,9 +346,9 @@ export default {
         vin: this.$store.state.vins,
         operationType: "SUNROOF",
         extParams: {
-          fluctuationType: 1, //档位
+          fluctuationType: 1, //档位qg
           // percent: this.windNum[this.skylightSpace].replace(/%/g, ""), //0-100
-          gear: '2' //车窗1,2,3,4,5档可选
+          gear: '2' //车窗1是开,2是关
         }
       };
       this.$http

@@ -16,8 +16,8 @@
 		<!--曲线Start-->
 		<div class="curve">
 			<div class="cureve-text">
-        <span style="display:block;width:2rem;position:absolute;left: 0rem;top: -0.3rem;">全关</span>
-        <span style="display:block;width:2rem;position:absolute; left: 3rem;top: 3.1rem;">全开</span>
+        <span style="display:block;width:1.2rem;position:absolute;left: 0rem;top: -0.3rem;">全关</span>
+        <span style="display:block;width:1rem;position:absolute; left: 2.9rem;top: 3.1rem;">全开</span>
 				<span style="left: 3.1rem;top: 2.6rem;">0%</span>
 				<span style="left: 2.2rem;top: 0.3rem;">50%</span>
 				<span style="left: 0rem;top: -0.7rem;">100%</span>
