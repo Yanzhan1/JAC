@@ -1,12 +1,12 @@
 <template>
 	<div class="fuel-query">
-		<!--<header class="header">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.push('/lovecar')">
+		<header class="header" style="top:.4rem">
+			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.replace('/lovecar')">
 			<span class="header-title">燃油查询</span>
 			<span class="header-right"></span>
 		</header>
-		<div style="height:0.88rem"></div>-->
-		<mhead currentTitle="燃油查询"></mhead>
+		<div style="height:1.18rem"></div>
+		<!-- <mhead currentTitle="燃油查询"></mhead> -->
 		<div class="fuel-title">
 			<span>统计周期</span>
 			<div>
