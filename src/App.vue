@@ -71,9 +71,9 @@ export default {
     // window.loadTab = this.loadTab;
   },
   mounted() {
-    this.isLogin({name:'',no:'AD022018110703532168908'})
-    this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTU0MjA3NDc5ODAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6Mzc4LFwiaW5pdFVzZXJcIjowLFwibGFzdE1vZGlmaWVkRGF0ZVwiOjE1NDIwNzQ4MTkwMDAsXCJub1wiOlwiQUQwMjIwMTgxMTEzMTAwNjMzODExNTVcIixcInBob25lXCI6XCIxODY1NTQ1MjYyOVwiLFwidXNlckNvZGVcIjpcIjE4NjU1NDUyNjI5XCIsXCJ1c2VyU3RhdHVzXCI6MCxcInVzZXJUeXBlXCI6XCIwMVwifSIsImNyZWF0ZWQiOjE1NDM0NjMxNjE2MDksInVzZXJObyI6IkFEMDIyMDE4MTExMzEwMDYzMzgxMTU1IiwidXNlclR5cGUiOiIwMSIsImV4cCI6MTU0NDMyNzE2MSwidXNlcklkIjozNzh9.GqSaqDHK8llEZO40h8AJ1NYAT6gSn0OIqVhfMd4-8kk'
-    //获取用户
+    // this.isLogin({name:'',no:'AD022018110210272109037'})
+    // this.$http.defaults.headers.common['timaToken'] = '1c3ec1e7-44e9-462e-aa85-fe264cdefe50'
+    // 获取用户
     let params = {
       userNo: this.$store.state.userId
     };

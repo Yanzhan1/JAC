@@ -30,19 +30,19 @@
 				<div class="left_bus1">
 					<div class="left_bus" @click="fn(1)">
 						<img v-if="activeshow==1" class="pic1" src="../../../static/images/Wit/taiya.png" alt="">
-						<img v-else class="pic1" src="../../../static/images/Wit/taiya1.png" alt="">
+						<img v-else class="pic1" src="../../../static/images/Wit/taiya1.png" alt="">&nbsp;&nbsp;
 						<span :class="activeshow==1?'active':'actives'" class="txt1">胎压</span>
             <div v-show="activeshow==1?true:false" style="width:.7rem;height:.03rem;position:absolute;background:#49bbff;top:.7rem;left: 50%;transform: translate(-50%, -50%);"></div>
 					</div>
 					<div class="left_bus" @click="fn(2)">
 						<img v-if="activeshow==2" class="pic1" src="../../../static/images/Wit/chemen.png" alt="">
-						<img v-else class="pic1" src="../../../static/images/Wit/chemen1.png" alt="">
+						<img v-else class="pic1" src="../../../static/images/Wit/chemen1.png" alt="">&nbsp;&nbsp;
 						<span :class="activeshow==2?'active':'actives'" class="txt1">车门</span>
             <div v-show="activeshow==2?true:false" style="width:.7rem;height:.03rem;position:absolute;background:#49bbff;top:.7rem;left: 50%;transform: translate(-50%, -50%);"></div>
 					</div>
 					<div class="left_bus" @click="fn(3)">
 						<img v-if="activeshow==3" class="pic1" src="../../../static/images/Wit/chechuang.png" alt="">
-						<img v-else class="pic1" src="../../../static/images/Wit/chechuang1.png" alt="">
+						<img v-else class="pic1" src="../../../static/images/Wit/chechuang1.png" alt="">&nbsp;&nbsp;
 						<span :class="activeshow==3?'active':'actives'" class="txt1">车窗</span>
             <div v-show="activeshow==3?true:false" style="width:.7rem;height:.03rem;position:absolute;background:#49bbff;top:.7rem;left: 50%;transform: translate(-50%, -50%);"></div>
 					</div>
@@ -2300,6 +2300,7 @@ input:focus {
   display: flex;
   align-items: center;
   position: relative;
+  margin-bottom: 0;
 }
 
 .content_carDoor {
@@ -2362,7 +2363,7 @@ input:focus {
 
 .left_bus .txt1 {
   font-size: 0.26rem;
-  margin-top: 0.17rem;
+  /*margin-top: 0.17rem;*/
 }
 /*功能轮播Start*/
 
@@ -2413,6 +2414,8 @@ input:focus {
   justify-content: center;
   align-items: center;
   height: 1.2rem;
+  color: #444444;
+  font-size: .22rem;
 }
 
 .navs_h {
@@ -2469,7 +2472,8 @@ input:focus {
 }
 
 .pic_txt {
-  font-size: 0.28rem;
+	margin-left: .11rem;
+  font-size: 0.22rem;
   color: #444;
 }
 
