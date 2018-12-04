@@ -49,27 +49,34 @@
 				</div>
 			</div>
 			<div class="bus_l">
-				<img style="position:absolute;left: 50%; top: 50%;transform: translate(-50%, -50%);margin-top:.5rem;" src="../../../static/images/Wit/bus.png" alt="" class="bus_righgt">
+				<img style="position:absolute;left: 50%; top: 72%;transform: translate(-50%, -50%);margin-top:.5rem;" src="../../../static/images/Wit/bus.png" alt="" class="bus_righgt">
 				<span ref='open1' class='busl_r left_1'>{{Condition.left_top=='undefinedkPa'?'':Condition.left_top}}</span>
 				<span ref='open2' class='busl_r  left_2'>{{Condition.left_bottom=='undefinedkPa'?'':Condition.left_bottom}}</span>
-        <img v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 1.45rem;right:2.2rem;" alt="">
-        <img v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 1.45rem;left:2.2rem;" alt="">
-        <img v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 3.45rem;left:2.2rem;" alt="">
-        <img v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 3.45rem;right:2.2rem;" alt="">
-        <!-- 控制天窗的线 -->
-        <img :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.skylightStatus=='已开'?true:false" style="position:absolute;display:block;width:1.8rem;top:1.9rem;right:2.1rem;"></img>
-        <img :src="'./static/images/Lovecar/blueright.png'" v-else style="position:absolute;display:block;width:1.14rem;top:2.4rem;right:2.5rem;"></img>
-        <!-- 控制尾门的线 -->
-        <img :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.doorStsTrunk=='已开'?true:false" style="position:absolute;display:block;width:1.8rem;top:3.5rem;right:2.1rem;"></img>
-        <img :src="'./static/images/Lovecar/blueright.png'" v-else style="position:absolute;display:block;width:1.14rem;top:4rem;right:2.5rem;"></img>
+				<!--胎压图片Start-->
+        <img v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 1.85rem;right:2.2rem;" alt="">
+        <img v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 1.85rem;left:2.2rem;" alt="">
+        <img v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 3.85rem;left:2.2rem;" alt="">
+        <img v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 3.85rem;right:2.2rem;" alt="">
+        <!--胎压图片End-->
+        
+        <!-- 控制天窗的线Start 分为激活和未激活 -->
+        <img :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.skylightStatus=='已开'?true:false" style="position:absolute;display:block;width:1.8rem;top:2.9rem;right:2.1rem;"></img>
+        <img :src="'./static/images/Lovecar/blueright.png'" v-else style="position:absolute;display:block;width:1.14rem;top:2.9rem;right:2.5rem;"></img>
+        <!--天窗线End-->
+        
+        <!-- 尾门线Start 分为激活和未激活  -->
+        <img :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.doorStsTrunk=='已开'?true:false" style="position:absolute;display:block;width:1.8rem;top:3.95rem;right:2.1rem;"></img>
+        <img :src="'./static/images/Lovecar/blueright.png'" v-else style="position:absolute;display:block;width:1.14rem;top:4.55rem;right:2.5rem;"></img>
+        <!--尾门线End-->
+        
         <!-- 控制右前车门线 -->
-        <img :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.right_top=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;right:1.7rem;top: 1.1rem;"></img>
+        <img :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.right_top=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;right:1.7rem;top: 1.5rem;"></img>
         <!-- 控制右后车门线 -->
-        <img :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.right_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;right:1.7rem;top: 3.1rem;"></img>
+        <img :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.right_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;right:1.7rem;top: 3.6rem;"></img>
         <!-- 控制左前车门线 -->
-        <img :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_top=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;left: 1.7rem;top: 1.1rem;"></img>
+        <img :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_top=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;left: 1.7rem;top: 1.6rem;"></img>
         <!-- 控制左后车门线 -->
-        <img :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;left: 1.7rem;top: 3.1rem;"></img>
+        <img :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;left: 1.7rem;top: 3.6rem;"></img>
 				<span ref='open3' class='busl_r right_1'>{{Condition.right_top=='undefinedkPa'?'':Condition.right_top}}</span>
 				<span ref='open4' class='busl_r right_2'>{{Condition.right_bottom=='undefinedkPa'?'':Condition.right_bottom}}</span>
 				<!-- <span class='busl_r top_1'>{{this.engineHoodStsFront}}</span> -->
@@ -2236,23 +2243,24 @@ input:focus {
 }
 
 .left_1 {
-  left: 1.3rem;
-  top: 1.5rem;
+  left: 1.5rem;
+  top: 2.35rem;
+  /*background: skyblue;*/
 }
 
 .left_2 {
-  left: 1.3rem;
-  top: 3.5rem;
+  left: 1.5rem;
+  top: 3.55rem;
 }
 
 .right_1 {
-  right: 1.3rem;
-  top: 1.5rem;
+  right: 1.5rem;
+  top: 2.35rem;
 }
 
 .right_2 {
-  right: 1.3rem;
-  top: 3.5rem;
+  right: 1.5rem;
+  top: 3.55rem;
 }
 
 .top_1 {
@@ -2262,13 +2270,13 @@ input:focus {
 }
 
 .bottom_1 {
-  top: 3.88rem;
+  top: 4.45rem;
   right: 2rem;
   font-size: 0.24rem;
 }
 
 .middle_1 {
-  top: 2.28rem;
+  top: 3.25rem;
   right: 2rem;
   color: #49bbff;
   font-size: 0.24rem;
@@ -2351,8 +2359,8 @@ input:focus {
 }
 
 .bus_righgt {
-  /* width: 1.99rem; */
-  height: 4.24rem;
+  width: 2.72rem; 
+  height: 4.86rem;
   margin-right: -0.5rem;
 }
 
@@ -2370,6 +2378,7 @@ input:focus {
 .icon-container {
   height: 2rem;
   bottom: -2.6rem;
+  background: ;
 }
 .love-wrapper >>> .mint-swipe-indicator {
   opacity: 1;
@@ -2457,7 +2466,7 @@ input:focus {
 }
 .loadingcar {
   position: absolute;
-  top: 0.41rem;
+  top: 0rem;
   right: 0.45rem;
 }
 .skylight {
