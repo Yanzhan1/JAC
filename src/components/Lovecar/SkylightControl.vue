@@ -197,7 +197,7 @@ export default {
       this.httpsky();
     },
     Toasteach(){
-       MessageBox("提示", this.skywords[3].remark);
+       MessageBox("提示", this.skywords[3].dectValue);
     },
     //天窗宽度减少
     windReduce() {
@@ -363,7 +363,7 @@ export default {
               console.log(tSS);
               if (tSS >= 56) {
                 Toast({
-                  message: "请求超时",
+                  message:this.skywords[2].dectValue,
                   position: "middle",
                   duration: 2000
                 });
@@ -385,7 +385,7 @@ export default {
                           console.log(tSS);
                           if (tSS >= 56) {
                             Toast({
-                              message: "请求超时",
+                              message:this.skywords[2].dectValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -399,7 +399,7 @@ export default {
               //pin码正确激活空调图
               this.activeShowImg = !this.activeShowImg;
                           Toast({
-                            message: this.skywords[1].remark,
+                            message: this.skywords[1].dectValue,
                             position: "middle",
                             duration: 2000
                           });
@@ -409,7 +409,7 @@ export default {
                         } else if (res.data.status == "FAILED") {
                           flag = false;
                           Toast({
-                            message: this.skywords[2].remark,
+                            message: this.skywords[2].dectValue,
                             position: "middle",
                             duration: 2000
                           });
@@ -418,7 +418,7 @@ export default {
                         }
                       } else {
                         Toast({
-                          message: "指令下发失败！",
+                          message: this.skywords[2].dectValue,
                           position: "middle",
                           duration: 2000
                         });
@@ -436,7 +436,7 @@ export default {
               //pin码正确激活空调图
               this.activeShowImg = !this.activeShowImg;
               Toast({
-                message: this.skywords[1].remark,
+                message: this.skywords[1].dectValue,
                 position: "middle",
                 duration: 2000
               });
@@ -445,7 +445,7 @@ export default {
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
-                message: this.skywords[2].remark,
+                message: this.skywords[2].dectValue,
                 position: "middle",
                 duration: 2000
               });
@@ -454,7 +454,7 @@ export default {
             }
           } else {
             Toast({
-              message: "指令下发失败！",
+              message: this.skywords[2].dectValue,
               position: "middle",
               duration: 2000
             });
@@ -491,7 +491,7 @@ export default {
           this.operationIds = res.data.operationId;
           if (res.data.returnSuccess) {
               Toast({
-                  message: this.skywords[0].remark,
+                  message: this.skywords[0].dectValue,
                   position: "middle",
                   duration: 2000
                 });
@@ -499,19 +499,13 @@ export default {
                   this.getAsyReturn(res.data.operationId);
                 }, 2000);
           } else {
-            if (res.data.returnErrCode == 400) {
-          		Toast({
-	              message: "token验证失败",
-	              position: "middle",
-	              duration: 2000
-	            });
-          	} else {
+         
           		Toast({
 	              message: res.data.returnErrMsg,
 	              position: "middle",
 	              duration: 2000
 	            });
-          	}
+          	
           }
         })
         .catch(err => {

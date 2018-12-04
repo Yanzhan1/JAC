@@ -389,7 +389,7 @@ export default {
       that.keyNums = arr2;
     },
       Toasteach(){
-        MessageBox("提示", this.airconditionwords[3].remark);
+        MessageBox("提示", this.airconditionwords[3].dectValue);
       },
     //产生曲线
     produCurve() {
@@ -499,7 +499,7 @@ export default {
               console.log(tSS);
               if (tSS >= 56) {
                 Toast({
-                  message:this.airconditionwords[2].remark,
+                  message:this.airconditionwords[2].dectValue,
                   position: "middle",
                   duration: 2000
                 });
@@ -521,7 +521,7 @@ export default {
                           console.log(tSS);
                           if (tSS >= 56) {
                             Toast({
-                              message:this.airconditionwords[2].remark,
+                              message:this.airconditionwords[2].dectValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -536,7 +536,7 @@ export default {
                           (this.activeShowImg = !this.activeShowImg),
                             this.refreshPmData(),
                             Toast({
-                              message:this.airconditionwords[1].remark,
+                              message:this.airconditionwords[1].dectValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -546,7 +546,7 @@ export default {
                         } else if (res.data.status == "FAILED") {
                           flag = false;
                           Toast({
-                            message: this.airconditionwords[2].remark,
+                            message: this.airconditionwords[2].dectValue,
                             position: "middle",
                             duration: 2000
                           });
@@ -555,7 +555,7 @@ export default {
                         }
                       } else {
                         Toast({
-                          message: this.airconditionwords[2].remark,
+                          message: this.airconditionwords[2].dectValue,
                           position: "middle",
                           duration: 2000
                         });
@@ -574,7 +574,7 @@ export default {
               (this.activeShowImg = !this.activeShowImg),
                 this.refreshPmData(),
                 Toast({
-                  message:this.airconditionwords[1].remark,
+                  message:this.airconditionwords[1].dectValue,
                   position: "middle",
                   duration: 2000
                 });
@@ -582,7 +582,7 @@ export default {
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
-                message: this.airconditionwords[2].remark,
+                message: this.airconditionwords[2].dectValue,
                 position: "middle",
                 duration: 2000
               });
@@ -590,7 +590,7 @@ export default {
             }
           } else {
             Toast({
-              message: this.airconditionwords[2].remark,
+              message: this.airconditionwords[2].dectValue,
               position: "middle",
               duration: 2000
             });
@@ -620,7 +620,7 @@ export default {
         .then(res => {
           if (res.data.returnSuccess) {
             Toast({
-              message:this.airconditionwords[0].remark,
+              message:this.airconditionwords[0].dectValue,
               position:'middle',
               duration:2000
             })
@@ -636,7 +636,7 @@ export default {
               });
             } else {
               Toast({
-                message:this.airconditionwords[2].remark,
+                message:this.airconditionwords[2].dectValue,
                 position: "middle",
                 duration: 2000
               });
