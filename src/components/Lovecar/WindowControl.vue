@@ -506,7 +506,12 @@ export default {
                           }
                         } else if (res.data.status == "SUCCEED") {
                           if (this.fluctuationType == "1") {
-                            this.flags=true
+                            console.log('jsadhfkjdsa')
+                            this.flags=false
+                              //车窗图片关闭
+                            this.activeShowImg = false
+                            //canvas的关闭
+                            this.curveState=false
                              Toast({
                               message: this.windowwords[4].dictValue,
                               position: "middle",
@@ -514,7 +519,7 @@ export default {
                             });
                           }
                           if(this.fluctuationType=='3'){
-                            this.flags=false
+                            this.flags=true
                             //车窗图片激活
                             this.activeShowImg = true
                             //canvas的激活
@@ -535,9 +540,7 @@ export default {
                           }
                           // flag = false;
                           // this.value = !this.value;
-                          this.curveState = true;
-                          //pin码正确激活车窗图
-                          (this.activeShowImg = true), clearInterval(this.time);
+                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
                           Toast({
@@ -554,7 +557,6 @@ export default {
                           position: "middle",
                           duration: 2000
                         });
-                        flag = false;
                         clearInterval(this.time);
                         this.$store.dispatch("LOADINGFLAG", false);
                       }
@@ -563,7 +565,12 @@ export default {
               }
             } else if (res.data.status == "SUCCEED") {
                if (this.fluctuationType == "1") {
-                            this.flags=true
+                            this.flags=false
+                             console.log('jsadhfkjdsa')
+                             //车窗图片关闭
+                            this.activeShowImg = false
+                            //canvas的关闭
+                            this.curveState=false
                              Toast({
                               message: this.windowwords[4].dictValue,
                               position: "middle",
@@ -571,7 +578,7 @@ export default {
                             });
                           }
                           if(this.fluctuationType=='3'){
-                            this.flags=false
+                            this.flags=true
                             //车窗图片激活
                             this.activeShowImg = true
                             //canvas的激活
@@ -592,9 +599,7 @@ export default {
               }
               // flag = false;
               // this.value = !this.value;
-              this.curveState = true;
-              //pin码正确激活空调图
-              (this.activeShowImg = true), clearInterval(this.time);
+               clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
@@ -619,7 +624,6 @@ export default {
     //车窗接口百分比系列
     httpwindow() {
       this.percent = 100 - this.windNum[this.windowSpace].replace(/%/g, "");
-      console.log(percent);
       var param = {
         vin: this.$store.state.vins,
         operationType: "WINDOW",
