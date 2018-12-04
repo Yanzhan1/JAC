@@ -4,7 +4,7 @@
 			<div class="nav MobileHeight">
 				<div style="color:#fff;font: .3rem/.5rem 'PingFang-SC-Regular'" @click="navtip">更多车控</div>
 				<!-- <img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block"> -->
-				<span class="txt_m">&nbsp;&nbsp;&nbsp;&nbsp;{{this.carsysitem}}</span>
+				<span class="txt_m" style="margin-right: 1.8rem;">&nbsp;&nbsp;&nbsp;&nbsp;{{this.carsysitem}}</span>
 				<!--<span class="txt_r" @click="islogin()" v-if="this.LoginStatus">车机已登录</span>
 	      <span class="txt_r" v-else @click="login()">车机未登录</span>-->
 				<span class="txt_r"></span>
