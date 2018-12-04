@@ -60,8 +60,8 @@
         <!--胎压图片End-->
         
         <!-- 控制天窗的线Start 分为激活和未激活 -->
-        <img :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.skylightStatus=='已开'?true:false" v-show="this.activeshow==3?true:false" style="position:absolute;display:block;width:1.8rem;top:2.9rem;right:2.1rem;"></img>
-        <img :src="'./static/images/Lovecar/blueright.png'" v-else v-show="this.activeshow==3?true:false" style="position:absolute;display:block;width:1.14rem;top:3.35rem;right:2.5rem;"></img>
+        <img :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.skylightStatus=='已开'?true:false" v-show="this.activeshow==3?true:false" style="position:absolute;display:block;width:1.8rem;top:2.65rem;right:2.1rem;"></img>
+        <img :src="'./static/images/Lovecar/blueright.png'" v-else v-show="this.activeshow==3?true:false" style="position:absolute;display:block;width:1.14rem;top:3.1rem;right:2.5rem;"></img>
         <!--天窗线End-->
         
         <!-- 尾门线Start 分为激活和未激活  -->
@@ -70,13 +70,13 @@
         <!--尾门线End-->
         
         <!-- 控制右前车门线 -->
-        <img :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.right_top=='已打开'?true:false" style="position:absolute;display:block;width:1rem;right:2rem;top: 2.2rem;"></img>
+        <img :src="'./static/images/Lovecar/rightshan.gif'" v-if="Condition.right_top=='已打开'?true:false" v-show="this.activeshow=='2'||'3'?true:false"  style="position:absolute;display:block;width:1rem;right:2rem;top: 2.2rem;"></img>
         <!-- 控制右后车门线 -->
-        <img :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.right_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1rem;right:2rem;top: 3.45rem;"></img>
+        <img :src="'./static/images/Lovecar/rightshan.gif'" v-if="Condition.right_bottom=='已打开'?true:false" v-show="this.activeshow=='2'||'3'?true:false" style="position:absolute;display:block;width:1rem;right:2rem;top: 3.45rem;"></img>
         <!-- 控制左前车门线 -->
-        <img :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_top=='已打开'?true:false" style="position:absolute;display:block;width:1rem;left: 1.8rem;top: 2.2rem;"></img>
+        <img :src="'./static/images/Lovecar/leftshan.gif'" v-if="Condition.left_top=='已打开'?true:false" v-show="this.activeshow=='2'||'3'?true:false" style="position:absolute;display:block;width:1rem;left: 1.8rem;top: 2.2rem;"></img>
         <!-- 控制左后车门线 -->
-        <img :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1rem;left: 1.8rem;top: 3.45rem;"></img>
+        <img :src="'./static/images/Lovecar/leftshan.gif'" v-if="Condition.left_bottom=='已打开'?true:false" v-show="this.activeshow=='2'||'3'?true:false" style="position:absolute;display:block;width:1rem;left: 1.8rem;top: 3.45rem;"></img>
 				<span ref='open3' class='busl_r right_1'>{{Condition.right_top=='undefinedkPa'?'':Condition.right_top}}</span>
 				<span ref='open4' class='busl_r right_2'>{{Condition.right_bottom=='undefinedkPa'?'':Condition.right_bottom}}</span>
 				<!-- <span class='busl_r top_1'>{{this.engineHoodStsFront}}</span> -->
@@ -1780,19 +1780,13 @@ export default {
                         this.getAsyReturn(res.data.operationId);
                       }, 2000);
                     } else {
-                      if (res.data.returnErrCode == 400) {
-                        Toast({
-                          message: "token验证失败",
-                          position: "middle",
-                          duration: 2000
-                        });
-                      } else {
+                    
                         Toast({
                           message: this.vehicle_launch[3].dictValue,
                           position: "middle",
                           duration: 2000
                         });
-                      }
+                      
                     }
                   })
                   .catch(err => {
@@ -1951,6 +1945,9 @@ export default {
           }
         });
     }
+  },
+  beforeCreate(){
+	  clearInterval(this.time);
   },
   mounted() {
     $(".MobileHeight").css({
@@ -2271,7 +2268,7 @@ input:focus {
 }
 
 .middle_1 {
-  top: 3.25rem;
+  top: 3rem;
   right: 2rem;
   color: #49bbff;
   font-size: 0.24rem;
@@ -2372,7 +2369,7 @@ input:focus {
 
 .icon-container {
   height: 2rem;
-  bottom: -4.6rem;
+  bottom: -4rem;
   /*background: lightblue;*/
 }
 .love-wrapper >>> .mint-swipe-indicator {
