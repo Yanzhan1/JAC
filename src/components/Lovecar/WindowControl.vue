@@ -402,7 +402,7 @@ export default {
     },
     //车窗接口一键系列
     httpwindowall() {
-      let percent = this.flags ? "2" : "1";
+      let percent = this.fluctuationType=='1' ? "1" : "2";
       console.log(percent);
       var param = {
         vin: this.$store.state.vins,
@@ -421,7 +421,7 @@ export default {
           this.operationIds = res.data.operationId;
           if (res.data.returnSuccess) {
             Toast({
-              message: this.windowwords[0].remark,
+              message: this.windowwords[0].dictValue,
               position: "middle",
               duration: 2000
             });
@@ -456,7 +456,7 @@ export default {
       }
     },
     Toasteach() {
-      MessageBox("提示", this.windowwords[3].remark);
+      MessageBox("提示", this.windowwords[3].dictValue);
     },
     //重复调用异步接口
     getAsyReturn(operationId) {
@@ -476,7 +476,7 @@ export default {
               //60s  后 清除定时器，不在发请求
               if (tSS >= 56) {
                 Toast({
-                  message: this.windowwords[2].remark,
+                  message: this.windowwords[2].dictValue,
                   position: "middle",
                   duration: 2000
                 });
@@ -497,7 +497,7 @@ export default {
                           //60s  后 清除定时器，不在发请求
                           if (tSS >= 56) {
                             Toast({
-                              message: this.windowwords[2].remark,
+                              message: this.windowwords[2].dictValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -508,7 +508,7 @@ export default {
                           if (this.fluctuationType == "1") {
                             this.flags=true
                              Toast({
-                              message: this.windowwords[4].remark,
+                              message: this.windowwords[4].dictValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -520,13 +520,13 @@ export default {
                             //canvas的激活
                             this.curveState=true
                              Toast({
-                              message: this.windowwords[5].remark,
+                              message: this.windowwords[5].dictValue,
                               position: "middle",
                               duration: 2000
                             });
                           }
                           if (this.fluctuationType == "2") {
-                            let percent=this.windowwords[5].remark+this.percent+'%'
+                            let percent=this.windowwords[5].dictValue+this.percent+'%'
                             Toast({
                               message: percent,
                               position: "middle",
@@ -541,7 +541,7 @@ export default {
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
                           Toast({
-                            message: this.windowwords[2].remark,
+                            message: this.windowwords[2].dictValue,
                             position: "middle",
                             duration: 2000
                           });
@@ -550,7 +550,7 @@ export default {
                         }
                       } else {
                         Toast({
-                          message: this.windowwords[2].remark,
+                          message: this.windowwords[2].dictValue,
                           position: "middle",
                           duration: 2000
                         });
@@ -565,7 +565,7 @@ export default {
                if (this.fluctuationType == "1") {
                             this.flags=true
                              Toast({
-                              message: this.windowwords[4].remark,
+                              message: this.windowwords[4].dictValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -577,13 +577,13 @@ export default {
                             //canvas的激活
                             this.curveState=true
                              Toast({
-                              message: this.windowwords[1].remark,
+                              message: this.windowwords[1].dictValue,
                               position: "middle",
                               duration: 2000
                             });
                           }
               if (this.fluctuationType == "2") {
-                let percent=this.windowwords[5].remark+this.percent+'%'
+                let percent=this.windowwords[5].dictValue+this.percent+'%'
                 Toast({
                   message: percent,
                   position: "middle",
@@ -598,7 +598,7 @@ export default {
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
-                message: this.windowwords[2].remark,
+                message: this.windowwords[2].dictValue,
                 position: "middle",
                 duration: 2000
               });
@@ -607,7 +607,7 @@ export default {
             }
           } else {
             Toast({
-              message: this.windowwords[2].remark,
+              message: this.windowwords[2].dictValue,
               position: "middle",
               duration: 2000
             });
@@ -637,7 +637,7 @@ export default {
           this.operationIds = res.data.operationId;
           if (res.data.returnSuccess) {
             Toast({
-              message: this.windowwords[0].remark,
+              message: this.windowwords[0].dictValue,
               position: "middle",
               duration: 2000
             });

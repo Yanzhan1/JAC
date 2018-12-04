@@ -126,7 +126,7 @@ export default {
     },
     Toasteach() {
       console.log(1);
-      MessageBox("提示", this.skywords[3].dectValue);
+      MessageBox("提示", this.skywords[3].dictValue);
       console.log(2);
     },
     //点击遮罩或者'x'移除popup
@@ -241,7 +241,7 @@ export default {
               console.log(tSS);
               if (tSS >= 56) {
                 Toast({
-                  message: this.skywords[2].dectValue,
+                  message: this.skywords[2].dictValue,
                   position: "middle",
                   duration: 2000
                 });
@@ -263,7 +263,7 @@ export default {
                           console.log(tSS);
                           if (tSS >= 56) {
                             Toast({
-                              message: this.skywords[2].dectValue,
+                              message: this.skywords[2].dictValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -276,7 +276,7 @@ export default {
                           //pin码正确激活空调图
                           this.activeShowImg = false;
                           Toast({
-                            message: this.skywords[1].dectValue,
+                            message: this.skywords[1].dictValue,
                             position: "middle",
                             duration: 2000
                           });
@@ -286,7 +286,7 @@ export default {
                         } else if (res.data.status == "FAILED") {
                           flag = false;
                           Toast({
-                            message: this.skywords[2].dectValue,
+                            message: this.skywords[2].dictValue,
                             position: "middle",
                             duration: 2000
                           });
@@ -295,7 +295,7 @@ export default {
                         }
                       } else {
                         Toast({
-                          message: this.skywords[2].dectValue,
+                          message: this.skywords[2].dictValue,
                           position: "middle",
                           duration: 2000
                         });
@@ -312,7 +312,7 @@ export default {
               //pin码正确激活空调图
               this.activeShowImg = false;
               Toast({
-                message: this.skywords[1].dectValue,
+                message: this.skywords[1].dictValue,
                 position: "middle",
                 duration: 2000
               });
@@ -321,7 +321,7 @@ export default {
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
-                message: this.skywords[2].dectValue,
+                message: this.skywords[2].dictValue,
                 position: "middle",
                 duration: 2000
               });
@@ -330,7 +330,7 @@ export default {
             }
           } else {
             Toast({
-              message: this.skywords[2].dectValue,
+              message: this.skywords[2].dictValue,
               position: "middle",
               duration: 2000
             });
@@ -358,7 +358,7 @@ export default {
           this.operationIds = res.data.operationId;
           if (res.data.returnSuccess) {
             Toast({
-              message: this.skywords[0].dectValue,
+              message: this.skywords[0].dictValue,
               position: "middle",
               duration: 2000
             });
@@ -374,7 +374,7 @@ export default {
               });
             } else {
               Toast({
-                message: this.skywords[2].dectValue,
+                message: this.skywords[2].dictValue,
                 position: "middle",
                 duration: 2000
               });
@@ -383,7 +383,7 @@ export default {
         })
         .catch(err => {
           Toast({
-            message: this.skywords[2].dectValue,
+            message: this.skywords[2].dictValue,
             position: "middle",
             duration: 2000
           });
