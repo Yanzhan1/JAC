@@ -2366,7 +2366,7 @@ input:focus {
 
 .left_bus .txt1 {
   font-size: 0.26rem;
-  /*margin-top: 0.17rem;*/
+  margin-top: 0.12rem;
 }
 /*功能轮播Start*/
 
