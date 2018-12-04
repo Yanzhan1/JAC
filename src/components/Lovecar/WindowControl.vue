@@ -402,7 +402,7 @@ export default {
     },
     //车窗接口一键系列
     httpwindowall() {
-      let percent = this.fluctuationType=='1' ? "1" : "2";
+      let percent = this.fluctuationType=='1' ? "2" : "1";
       console.log(percent);
       var param = {
         vin: this.$store.state.vins,
@@ -506,7 +506,7 @@ export default {
                           }
                         } else if (res.data.status == "SUCCEED") {
                           if (this.fluctuationType == "1") {
-                            console.log('jsadhfkjdsa')
+                            console.log(222)
                             this.flags=false
                               //车窗图片关闭
                             this.activeShowImg = false
@@ -519,6 +519,7 @@ export default {
                             });
                           }
                           if(this.fluctuationType=='3'){
+                            console.log(333)
                             this.flags=true
                             //车窗图片激活
                             this.activeShowImg = true
@@ -531,6 +532,7 @@ export default {
                             });
                           }
                           if (this.fluctuationType == "2") {
+                            console.log(4444)
                             let percent=this.windowwords[5].dictValue+this.percent+'%'
                             Toast({
                               message: percent,
@@ -566,7 +568,7 @@ export default {
             } else if (res.data.status == "SUCCEED") {
                if (this.fluctuationType == "1") {
                             this.flags=false
-                             console.log('jsadhfkjdsa')
+                            console.log(111)
                              //车窗图片关闭
                             this.activeShowImg = false
                             //canvas的关闭
@@ -579,6 +581,7 @@ export default {
                           }
                           if(this.fluctuationType=='3'){
                             this.flags=true
+                            console.log(222)
                             //车窗图片激活
                             this.activeShowImg = true
                             //canvas的激活
@@ -623,6 +626,7 @@ export default {
     },
     //车窗接口百分比系列
     httpwindow() {
+      this.fluctuationType=2
       this.percent = 100 - this.windNum[this.windowSpace].replace(/%/g, "");
       var param = {
         vin: this.$store.state.vins,

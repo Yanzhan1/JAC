@@ -536,16 +536,16 @@ export default {
                           }
                         } else if (res.data.status == "SUCCEED") {
                           //pin码正确激活弧线
-                          this.curveState = !this.curveState;
+                          this.curveState = true;
                           //pin码正确激活空调图
-                          (this.activeShowImg = !this.activeShowImg),
+                          (this.activeShowImg =true),
                             this.refreshPmData(),
                             Toast({
                               message: this.airconditionwords[1].dictValue,
                               position: "middle",
                               duration: 2000
                             });
-                          this.value = !this.value;
+                          this.value = true;
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
@@ -573,16 +573,16 @@ export default {
               }
             } else if (res.data.status == "SUCCEED") {
               //pin码正确激活弧线
-              this.curveState = !this.curveState;
+              this.curveState = true;
               //pin码正确激活空调图
-              (this.activeShowImg = !this.activeShowImg),
+              (this.activeShowImg = true),
                 this.refreshPmData(),
                 Toast({
                   message: this.airconditionwords[1].dictValue,
                   position: "middle",
                   duration: 2000
                 });
-              this.value = !this.value;
+              this.value =true;
               clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
@@ -600,7 +600,6 @@ export default {
               position: "middle",
               duration: 2000
             });
-            flag = false;
             clearInterval(this.time);
             this.$store.dispatch("LOADINGFLAG", false);
           }
