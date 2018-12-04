@@ -241,7 +241,7 @@ export default {
               console.log(tSS);
               if (tSS >= 56) {
                 Toast({
-                  message: "请求超时",
+                  message: this.skywords[2].remark,
                   position: "middle",
                   duration: 2000
                 });

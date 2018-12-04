@@ -676,7 +676,7 @@ export default {
     //各种点击问好的提示
     Toasteach() {
       if (this.type == 1) {
-        MessageBox("提示", this.close_lock[3].remark);
+        MessageBox("提示", this.close_lock[3].dectValue);
 
         // Toast({
         //   message:
@@ -686,10 +686,10 @@ export default {
         // });
       }
       if (this.type == 5) {
-        MessageBox("提示", this.open_lock[3].remark);
+        MessageBox("提示", this.open_lock[3].dectValue);
       }
       if (this.type == 2) {
-        MessageBox("提示", this.open_trunk[3].remark);
+        MessageBox("提示", this.open_trunk[3].dectValue);
         // Toast({
         //   message:
         //     "在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁",
@@ -699,9 +699,9 @@ export default {
       }
       if (this.type == 3) {
         if (this.isTruess) {
-          MessageBox("提示", this.vehicle_launch[2].remark);
+          MessageBox("提示", this.vehicle_launch[2].dectValue);
         } else {
-          MessageBox("提示", this.vehicle_launch[5].remark);
+          MessageBox("提示", this.vehicle_launch[5].dectValue);
         }
         // Toast({
         //   message:
@@ -711,10 +711,10 @@ export default {
         // });
       }
       if (this.type == 6) {
-        MessageBox("提示", this.vehicle_flameout[3].remark);
+        MessageBox("提示", this.vehicle_flameout[3].dectValue);
       }
       if (this.type == 4) {
-        MessageBox("提示", this.find_vehicle[3].remark);
+        MessageBox("提示", this.find_vehicle[3].dectValue);
         // Toast({
         //   message: "左右转向灯先闪烁3次并伴有喇叭响3次",
         //   position: "middle",
@@ -736,7 +736,7 @@ export default {
           if (res.data.returnSuccess) {
             this.operationIdcar = res.data.operationId;
             Toast({
-              message: this.vehicle_condition[0].remark,
+              message: this.vehicle_condition[0].dectValue,
               position: "middle",
               duration: 2000
             });
@@ -745,7 +745,7 @@ export default {
             }, 2000);
           } else {
             Toast({
-              message: this.vehicle_condition[2].remark,
+              message: this.vehicle_condition[2].dectValue,
               position: "middle",
               duration: 2000
             });
@@ -815,45 +815,45 @@ export default {
               if (tSS >= 56) {
                 if (this.type == 1) {
                   Toast({
-                    message: this.close_lock[2].remark,
+                    message: this.close_lock[2].dectValue,
                     position: "middle",
                     duration: 2000
                   });
                 } else if (this.type == 5) {
                   Toast({
-                    message: this.open_lock[2].remark,
+                    message: this.open_lock[2].dectValue,
                     position: "middle",
                     duration: 2000
                   });
                 } else if (this.type == 2) {
                   if (this.isTrues) {
                     Toast({
-                      message: this.open_trunk[2].remark,
+                      message: this.open_trunk[2].dectValue,
                       position: "middle",
                       duration: 2000
                     });
                   }
                 } else if (this.type == 3) {
                   Toast({
-                    message: this.vehicle_launch[3].remark,
+                    message: this.vehicle_launch[3].dectValue,
                     position: "middle",
                     duration: 2000
                   });
                 } else if (this.type == 6) {
                   Toast({
-                    message: this.vehicle_flameout[2].remark,
+                    message: this.vehicle_flameout[2].dectValue,
                     position: "middle",
                     duration: 2000
                   });
                 } else if (this.type == 4) {
                   Toast({
-                    message: this.find_vehicle[2].remark,
+                    message: this.find_vehicle[2].dectValue,
                     position: "middle",
                     duration: 2000
                   });
                 } else {
                   Toast({
-                    message: this.vehicle_condition[2].remark,
+                    message: this.vehicle_condition[2].dectValue,
                     position: "middle",
                     duration: 2000
                   });
@@ -879,51 +879,51 @@ export default {
                           if (tSS >= 56) {
                             if (this.type == 1) {
                               Toast({
-                                message: this.close_lock[2].remark,
+                                message: this.close_lock[2].dectValue,
                                 position: "middle",
                                 duration: 2000
                               });
                             } else if (this.type == 5) {
                               Toast({
-                                message: this.open_lock[2].remark,
+                                message: this.open_lock[2].dectValue,
                                 position: "middle",
                                 duration: 2000
                               });
                             } else if (this.type == 2) {
                               if (this.isTrues) {
                                 Toast({
-                                  message: this.open_trunk[2].remark,
+                                  message: this.open_trunk[2].dectValue,
                                   position: "middle",
                                   duration: 2000
                                 });
                               } else {
                                 Toast({
-                                  message: this.open_trunk[1].remark,
+                                  message: this.open_trunk[1].dectValue,
                                   position: "middle",
                                   duration: 2000
                                 });
                               }
                             } else if (this.type == 3) {
                               Toast({
-                                message: this.vehicle_launch[3].remark,
+                                message: this.vehicle_launch[3].dectValue,
                                 position: "middle",
                                 duration: 2000
                               });
                             } else if (this.type == 6) {
                               Toast({
-                                message: this.vehicle_flameout[2].remark,
+                                message: this.vehicle_flameout[2].dectValue,
                                 position: "middle",
                                 duration: 2000
                               });
                             } else if (this.type == 4) {
                               Toast({
-                                message: this.find_vehicle[2].remark,
+                                message: this.find_vehicle[2].dectValue,
                                 position: "middle",
                                 duration: 2000
                               });
                             } else {
                               Toast({
-                                message: this.vehicle_condition[2].remark,
+                                message: this.vehicle_condition[2].dectValue,
                                 position: "middle",
                                 duration: 2000
                               });
@@ -961,7 +961,7 @@ export default {
                             this.isTrue = true;
                             this.isTrueopen = false;
                             Toast({
-                              message: this.close_lock[1].remark,
+                              message: this.close_lock[1].dectValue,
                               position: "middle",
                               duration: 3000
                             });
@@ -970,7 +970,7 @@ export default {
                             this.isTrue = false;
                             this.isTrueopen = true;
                             Toast({
-                              message: this.open_lock[1].remark,
+                              message: this.open_lock[1].dectValue,
                               position: "middle",
                               duration: 3000
                             });
@@ -979,13 +979,13 @@ export default {
                             this.isTrues = !this.isTrues;
                             if (this.isTrues) {
                               Toast({
-                                message: this.open_trunk[2].remark,
+                                message: this.open_trunk[2].dectValue,
                                 position: "middle",
                                 duration: 3000
                               });
                             } else {
                               Toast({
-                                message:this.open_trunk[1].remark,
+                                message:this.open_trunk[1].dectValue,
                                 position: "middle",
                                 duration: 3000
                               });
@@ -995,7 +995,7 @@ export default {
                             this.isTruess = true;
                             this.isTruessoff = false;
                             Toast({
-                              message: this.vehicle_launch[1].remark,
+                              message: this.vehicle_launch[1].dectValue,
                               position: "middle",
                               duration: 3000
                             });
@@ -1004,7 +1004,7 @@ export default {
                             this.isTruess = false;
                             this.isTruessoff = true;
                             Toast({
-                              message: this.vehicle_flameout[1].remark,
+                              message: this.vehicle_flameout[1].dectValue,
                               position: "middle",
                               duration: 3000
                             });
@@ -1012,7 +1012,7 @@ export default {
                           if (this.type == 4) {
                             this.isTruesss = !this.isTruesss;
                             Toast({
-                              message: this.find_vehicle[1].remark,
+                              message: this.find_vehicle[1].dectValue,
                               position: "middle",
                               duration: 1500
                             });
@@ -1031,7 +1031,7 @@ export default {
                             setTimeout(() => {
                               Toast(
                                 {
-                                  message: this.vehicle_condition[1].remark,
+                                  message: this.vehicle_condition[1].dectValue,
                                   position: "middle",
                                   duration: 2000
                                 },
@@ -1186,51 +1186,51 @@ export default {
                         } else if (res.data.status == "FAILED") {
                           if (this.type == 1) {
                             Toast({
-                              message: this.close_lock[2].remark,
+                              message: this.close_lock[2].dectValue,
                               position: "middle",
                               duration: 2000
                             });
                           } else if (this.type == 5) {
                             Toast({
-                              message: this.open_lock[2].remark,
+                              message: this.open_lock[2].dectValue,
                               position: "middle",
                               duration: 2000
                             });
                           } else if (this.type == 2) {
                             if (!this.isTrues) {
                               Toast({
-                                message: this.open_trunk[2].remark,
+                                message: this.open_trunk[2].dectValue,
                                 position: "middle",
                                 duration: 2000
                               });
                             } else {
                               Toast({
-                                message: this.open_trunk[1].remark,
+                                message: this.open_trunk[1].dectValue,
                                 position: "middle",
                                 duration: 2000
                               });
                             }
                           } else if (this.type == 3) {
                             Toast({
-                              message: this.vehicle_launch[3].remark,
+                              message: this.vehicle_launch[3].dectValue,
                               position: "middle",
                               duration: 2000
                             });
                           } else if (this.type == 6) {
                             Toast({
-                              message: this.vehicle_flameout[2].remark,
+                              message: this.vehicle_flameout[2].dectValue,
                               position: "middle",
                               duration: 2000
                             });
                           } else if (this.type == 4) {
                             Toast({
-                              message: this.find_vehicle[2].remark,
+                              message: this.find_vehicle[2].dectValue,
                               position: "middle",
                               duration: 2000
                             });
                           } else {
                             Toast({
-                              message: this.vehicle_condition[2].remark,
+                              message: this.vehicle_condition[2].dectValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -1240,7 +1240,7 @@ export default {
                         }
                       } else {
                         Toast({
-                          message: this.vehicle_condition[2].remark,
+                          message: this.vehicle_condition[2].dectValue,
                           position: "middle",
                           duration: 2000
                         });
@@ -1279,7 +1279,7 @@ export default {
                 this.isTrue = true;
                 this.isTrueopen = false;
                 Toast({
-                  message: this.close_lock[1].remark,
+                  message: this.close_lock[1].dectValue,
                   position: "middle",
                   duration: 3000
                 });
@@ -1288,7 +1288,7 @@ export default {
                 this.isTrue = false;
                 this.isTrueopen = true;
                 Toast({
-                  message: this.open_lock[1].remark,
+                  message: this.open_lock[1].dectValue,
                   position: "middle",
                   duration: 3000
                 });
@@ -1297,13 +1297,13 @@ export default {
                 this.isTrues = !this.isTrues;
                 if (this.isTrues) {
                   Toast({
-                    message: this.open_trunk[1].remark,
+                    message: this.open_trunk[1].dectValue,
                     position: "middle",
                     duration: 3000
                   });
                 } else {
                   Toast({
-                    message: this.open_trunk[2].remark,
+                    message: this.open_trunk[2].dectValue,
                     position: "middle",
                     duration: 3000
                   });
@@ -1313,7 +1313,7 @@ export default {
                 this.isTruess = true;
                 this.isTruessoff = false;
                 Toast({
-                  message: this.vehicle_launch[1].remark,
+                  message: this.vehicle_launch[1].dectValue,
                   position: "middle",
                   duration: 3000
                 });
@@ -1322,7 +1322,7 @@ export default {
                 this.isTruess = false;
                 this.isTruessoff = true;
                 Toast({
-                  message: this.vehicle_flameout[1].remark,
+                  message: this.vehicle_flameout[1].dectValue,
                   position: "middle",
                   duration: 3000
                 });
@@ -1330,7 +1330,7 @@ export default {
               if (this.type == 4) {
                 this.isTruesss = !this.isTruesss;
                 Toast({
-                  message: this.find_vehicle[1].remark,
+                  message: this.find_vehicle[1].dectValue,
                   position: "middle",
                   duration: 1500
                 });
@@ -1347,7 +1347,7 @@ export default {
                 // }
                 setTimeout(() => {
                   Toast({
-                    message: this.vehicle_condition[1].remark,
+                    message: this.vehicle_condition[1].dectValue,
                     position: "middle",
                     duration: 2000
                   });
@@ -1491,51 +1491,51 @@ export default {
             } else if (res.data.status == "FAILED") {
               if (this.type == 1) {
                 Toast({
-                  message: this.close_lock[2].remark,
+                  message: this.close_lock[2].dectValue,
                   position: "middle",
                   duration: 2000
                 });
               } else if (this.type == 5) {
                 Toast({
-                  message: this.open_lock[2].remark,
+                  message: this.open_lock[2].dectValue,
                   position: "middle",
                   duration: 2000
                 });
               } else if (this.type == 2) {
                 if (!this.isTrues) {
                   Toast({
-                    message: this.open_trunk[2].remark,
+                    message: this.open_trunk[2].dectValue,
                     position: "middle",
                     duration: 2000
                   });
                 } else {
                   Toast({
-                    message: this.open_trunk[1].remark,
+                    message: this.open_trunk[1].dectValue,
                     position: "middle",
                     duration: 2000
                   });
                 }
               } else if (this.type == 3) {
                 Toast({
-                  message: this.vehicle_launch[3].remark,
+                  message: this.vehicle_launch[3].dectValue,
                   position: "middle",
                   duration: 2000
                 });
               } else if (this.type == 6) {
                 Toast({
-                  message: this.vehicle_flameout[2].remark,
+                  message: this.vehicle_flameout[2].dectValue,
                   position: "middle",
                   duration: 2000
                 });
               } else if (this.type == 4) {
                 Toast({
-                  message: this.find_vehicle[2].remark,
+                  message: this.find_vehicle[2].dectValue,
                   position: "middle",
                   duration: 2000
                 });
               } else {
                 Toast({
-                  message: this.vehicle_condition[2].remark,
+                  message: this.vehicle_condition[2].dectValue,
                   position: "middle",
                   duration: 2000
                 });
@@ -1547,7 +1547,7 @@ export default {
           } else {
             // alert(4)
             Toast({
-              message: this.vehicle_condition[2].remark,
+              message: this.vehicle_condition[2].dectValue,
               position: "middle",
               duration: 2000
             });
@@ -1634,7 +1634,7 @@ export default {
                     // alert(this.operationIdcar)
                     if (res.data.returnSuccess) {
                       Toast({
-                        message: this.open_lock[0].remark,
+                        message: this.open_lock[0].dectValue,
                         position: "middle",
                         duration: 2000
                       });
@@ -1651,7 +1651,7 @@ export default {
                         });
                       } else {
                         Toast({
-                          message: this.open_lock[2].remark,
+                          message: this.open_lock[2].dectValue,
                           position: "middle",
                           duration: 2000
                         });
@@ -1660,7 +1660,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: this.open_lock[2].remark,
+                      message: this.open_lock[2].dectValue,
                       position: "middle",
                       duration: 2000
                     });
@@ -1682,7 +1682,7 @@ export default {
                     // alert(this.operationIdcar)
                     if (res.data.returnSuccess) {
                       Toast({
-                        message: this.close_lock[0].remark,
+                        message: this.close_lock[0].dectValue,
                         position: "middle",
                         duration: 2000
                       });
@@ -1699,7 +1699,7 @@ export default {
                         });
                       } else {
                         Toast({
-                          message: this.close_lock[2].remark,
+                          message: this.close_lock[2].dectValue,
                           position: "middle",
                           duration: 2000
                         });
@@ -1708,7 +1708,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: this.close_lock[2].remark,
+                      message: this.close_lock[2].dectValue,
                       position: "middle",
                       duration: 2000
                     });
@@ -1726,7 +1726,7 @@ export default {
                   .then(res => {
                     if (res.data.returnSuccess) {
                       Toast({
-                        message: this.open_trunk[0].remark,
+                        message: this.open_trunk[0].dectValue,
                         position: "middle",
                         duration: 2000
                       });
@@ -1742,7 +1742,7 @@ export default {
                         });
                       } else {
                         Toast({
-                          message: this.open_trunk[2].remark,
+                          message: this.open_trunk[2].dectValue,
                           position: "middle",
                           duration: 2000
                         });
@@ -1751,7 +1751,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: this.open_trunk[2].remark,
+                      message: this.open_trunk[2].dectValue,
                       position: "middle",
                       duration: 2000
                     });
@@ -1770,7 +1770,7 @@ export default {
                     if (res.data.returnSuccess) {
                       console.log();
                       Toast({
-                        message: this.vehicle_launch[0].remark,
+                        message: this.vehicle_launch[0].dectValue,
                         position: "middle",
                         duration: 2000
                       });
@@ -1786,7 +1786,7 @@ export default {
                         });
                       } else {
                         Toast({
-                          message: this.vehicle_launch[3].remark,
+                          message: this.vehicle_launch[3].dectValue,
                           position: "middle",
                           duration: 2000
                         });
@@ -1795,7 +1795,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: this.vehicle_launch[3].remark,
+                      message: this.vehicle_launch[3].dectValue,
                       position: "middle",
                       duration: 2000
                     });
@@ -1813,7 +1813,7 @@ export default {
                     this.operationIdss = res.data.operationId;
                     if (res.data.returnSuccess) {
                       Toast({
-                        message: this.vehicle_flameout[0].remark,
+                        message: this.vehicle_flameout[0].dectValue,
                         position: "middle",
                         duration: 2000
                       });
@@ -1829,7 +1829,7 @@ export default {
                         });
                       } else {
                         Toast({
-                          message: this.vehicle_flameout[2].remark,
+                          message: this.vehicle_flameout[2].dectValue,
                           position: "middle",
                           duration: 2000
                         });
@@ -1838,7 +1838,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: this.vehicle_flameout[2].remark,
+                      message: this.vehicle_flameout[2].dectValue,
                       position: "middle",
                       duration: 2000
                     });
@@ -1854,7 +1854,7 @@ export default {
                     this.operationIdses = res.data.operationId;
                     if (res.data.returnSuccess) {
                       Toast({
-                        message: this.find_vehicle[0].remark,
+                        message: this.find_vehicle[0].dectValue,
                         position: "middle",
                         duration: 2000
                       });
@@ -1870,7 +1870,7 @@ export default {
                         });
                       } else {
                         Toast({
-                          message: this.find_vehicle[2].remark,
+                          message: this.find_vehicle[2].dectValue,
                           position: "middle",
                           duration: 2000
                         });
@@ -1879,7 +1879,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: this.find_vehicle[0].remark,
+                      message: this.find_vehicle[0].dectValue,
                       position: "middle",
                       duration: 2000
                     });
