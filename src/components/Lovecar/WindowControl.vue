@@ -18,9 +18,9 @@
 			<div class="cureve-text">
         <span style="display:block;width:1.2rem;position:absolute;left: 0rem;top: -0.3rem;">全关</span>
         <span style="display:block;width:1rem;position:absolute; left: 2.9rem;top: 3.1rem;">全开</span>
-				<span style="left: 3.1rem;top: 2.6rem;">0%</span>
+				<span style="left: 3.1rem;top: 2.6rem;">100%</span>
 				<span style="left: 2.2rem;top: 0.3rem;">50%</span>
-				<span style="left: 0rem;top: -0.7rem;">100%</span>
+				<span style="left: 0rem;top: -0.7rem;">0%</span>
 			</div>
 			<div class="curveActive" v-show="curveState" @touchend="end">
 				<canvas id="rightColorful"></canvas>
@@ -35,7 +35,7 @@
 		<div class="window-wrap flex-column-align">
 			<div class="window-content flex-center-between">
 				<div class="temperature">
-					<span :class="activeShowImg?'fontActive':'loseActives'" style="font-size: 0.68rem;color: #222222;">{{windNum[windowSpace]}}</span>
+					<span :class="activeShowImg?'fontActive':'loseActives'" style="font-size: 0.68rem;color: #222222;">{{windNum[windowSpace]|changenum}}</span>
 				</div>
 				<div class="wind-blows">
 					<img v-if="activeShowImg" :src="'./static/images/Lovecar/window@2x.png'" alt="" />
@@ -136,9 +136,9 @@ export default {
   },
   data() {
     return {
-      fluctuationType: 0,//当等于1的时候一键全开关,等于2的时候百分比
+      fluctuationType: 0, //当等于1的时候一键全开关,等于2的时候百分比
       flags: false,
-      percent:'',//车窗打开百分比
+      percent: "", //车窗打开百分比
       //车窗控制按钮开关
       //value: false,
       windowwords: [], //车窗提示语
@@ -190,13 +190,13 @@ export default {
   },
   methods: {
     alloff() {
-      this.fluctuationType=1
-      this.popupVisible=true
+      this.fluctuationType = 1;
+      this.popupVisible = true;
       // this.httpwindowall();
     },
     allon() {
-      this.fluctuationType=3
-      this.popupVisible=true
+      this.fluctuationType = 3;
+      this.popupVisible = true;
       // this.httpwindowall();
     },
     end() {
@@ -402,7 +402,7 @@ export default {
     },
     //车窗接口一键系列
     httpwindowall() {
-      let percent = this.fluctuationType=='1' ? "2" : "1";
+      let percent = this.fluctuationType == "1" ? "100" : "0";
       console.log(percent);
       var param = {
         vin: this.$store.state.vins,
@@ -410,8 +410,8 @@ export default {
         // operation: this.nums, //操作项
         extParams: {
           windowNum: 5,
-          fluctuationType: 1,
-          gear: percent
+          fluctuationType: 2,
+          percent: percent
           // gear:''
         }
       };
@@ -506,43 +506,61 @@ export default {
                           }
                         } else if (res.data.status == "SUCCEED") {
                           if (this.fluctuationType == "1") {
-                            console.log(222)
-                            this.flags=false
-                              //车窗图片关闭
-                            this.activeShowImg = false
+                            console.log(222);
+                            // this.windNum[windowSpace]='100%'
+                            this.flags = false;
+                            //车窗图片关闭
+                            this.activeShowImg = false;
                             //canvas的关闭
-                            this.curveState=false
-                             Toast({
+                            this.curveState = false;
+                            Toast({
                               message: this.windowwords[4].dictValue,
                               position: "middle",
                               duration: 2000
                             });
                           }
-                          if(this.fluctuationType=='3'){
-                            console.log(333)
-                            this.flags=true
+                          if (this.fluctuationType == "3") {
+                            console.log(333);
+                            // this.windNum[windowSpace]='0%'
+                            this.flags = true;
                             //车窗图片激活
-                            this.activeShowImg = true
+                            this.activeShowImg = true;
                             //canvas的激活
-                            this.curveState=true
-                             Toast({
+                            this.curveState = true;
+                            Toast({
                               message: this.windowwords[5].dictValue,
                               position: "middle",
                               duration: 2000
                             });
                           }
                           if (this.fluctuationType == "2") {
-                            console.log(4444)
-                            let percent=this.windowwords[5].dictValue+this.percent+'%'
-                            Toast({
-                              message: percent,
-                              position: "middle",
-                              duration: 2000
-                            });
+                            if (this.percent == "100") {
+                              Toast({
+                                message: this.windowwords[5].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else if (this.percent == "0") {
+                              Toast({
+                                message: this.windowwords[4].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else {
+                              let percent =
+                                this.windowwords[5].dictValue +
+                                this.percent +
+                                "%";
+                              Toast({
+                                message: percent,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
                           }
                           // flag = false;
                           // this.value = !this.value;
-                           clearInterval(this.time);
+                          clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
                           Toast({
@@ -566,43 +584,60 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-               if (this.fluctuationType == "1") {
-                            this.flags=false
-                            console.log(111)
-                             //车窗图片关闭
-                            this.activeShowImg = false
-                            //canvas的关闭
-                            this.curveState=false
-                             Toast({
-                              message: this.windowwords[4].dictValue,
-                              position: "middle",
-                              duration: 2000
-                            });
-                          }
-                          if(this.fluctuationType=='3'){
-                            this.flags=true
-                            console.log(222)
-                            //车窗图片激活
-                            this.activeShowImg = true
-                            //canvas的激活
-                            this.curveState=true
-                             Toast({
-                              message: this.windowwords[1].dictValue,
-                              position: "middle",
-                              duration: 2000
-                            });
-                          }
-              if (this.fluctuationType == "2") {
-                let percent=this.windowwords[5].dictValue+this.percent+'%'
+              if (this.fluctuationType == "1") {
+                this.flags = false;
+                // this.windNum[windowSpace]='100%'
+                console.log(111);
+                //车窗图片关闭
+                this.activeShowImg = false;
+                //canvas的关闭
+                this.curveState = false;
                 Toast({
-                  message: percent,
+                  message: this.windowwords[4].dictValue,
                   position: "middle",
                   duration: 2000
                 });
               }
+              if (this.fluctuationType == "3") {
+                this.flags = true;
+                // this.windNum[windowSpace]='0%'
+                console.log(222);
+                //车窗图片激活
+                this.activeShowImg = true;
+                //canvas的激活
+                this.curveState = true;
+                Toast({
+                  message: this.windowwords[1].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              }
+              if (this.fluctuationType == "2") {
+                if (this.percent == "100") {
+                  Toast({
+                    message: this.windowwords[5].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                } else if (this.percent == "0") {
+                  Toast({
+                    message: this.windowwords[4].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                } else {
+                  let percent =
+                    this.windowwords[5].dictValue + this.percent + "%";
+                  Toast({
+                    message: percent,
+                    position: "middle",
+                    duration: 2000
+                  });
+                }
+              }
               // flag = false;
               // this.value = !this.value;
-               clearInterval(this.time);
+              clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
@@ -626,7 +661,7 @@ export default {
     },
     //车窗接口百分比系列
     httpwindow() {
-      this.fluctuationType=2
+      this.fluctuationType = 2;
       this.percent = 100 - this.windNum[this.windowSpace].replace(/%/g, "");
       var param = {
         vin: this.$store.state.vins,
@@ -730,6 +765,12 @@ export default {
       }
     }
   },
+  filters:{
+      changenum(value){
+        value=(100-value.replace(/%/g, ""))+'%'
+        return value
+      }
+  },
   watch: {
     pinNumber(newVal, oldVal) {
       if (this.pinNumber.length == 6) {
@@ -746,10 +787,10 @@ export default {
           .then(res => {
             if (res.data.returnSuccess) {
               // this.value = !this.value;\
-              if(this.fluctuationType=='1'||'3'){
-                  this.httpwindowall()
+              if (this.fluctuationType == "1" || "3") {
+                this.httpwindowall();
               }
-              if(this.fluctuationType=='2'){
+              if (this.fluctuationType == "2") {
                 this.httpwindow();
               }
               //pin码正确激活弧线
@@ -800,11 +841,11 @@ export default {
           .then(res => {
             if (res.data.returnSuccess) {
               // this.value = !this.value;
-              if(this.fluctuationType=='1'||'3'){
-                  this.httpwindowall();
+              if (this.fluctuationType == "1" || "3") {
+                this.httpwindowall();
               }
-              if(this.fluctuationType=='2'){
-                  this.httpwindow();
+              if (this.fluctuationType == "2") {
+                this.httpwindow();
               }
               //pin码正确激活弧线
               // this.curveState = !this.curveState;

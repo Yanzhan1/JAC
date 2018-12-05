@@ -474,6 +474,7 @@ export default {
     //拿到空调的提示语
     getairconditionwords(){
       this.allwords=this.$store.state.GETWORDS;
+      console.log(this.allwords)
       for(let value of this.allwords){
         if(value.dictType=='air_conditioning'){
           this.airconditionwords=value.sysDictDataVOs
