@@ -26,7 +26,7 @@
 		<router-link  tag="div" class="setup-vehiclestate" to="/myindex/logoutVehicleState">
 			<mt-cell title="车机扫码登录" is-link></mt-cell>
 		</router-link>
-		<div class="setup-ctcperson" @click="versionupdate" style="position:relative">
+		<div v-show="this.banben" class="setup-ctcperson" @click="versionupdate" style="position:relative">
 			<div v-show="this.flag" style="position:absolute;z-index:2;width:.1rem;height:.1rem;border-radius:50%;background:red;left:2.4rem;top:.3rem;"></div>
 			<mt-cell  :title="this.update" is-link></mt-cell>
 		</div>
@@ -49,6 +49,7 @@
 				title: '软键盘',
 				value: true,
 				vin:'',
+				banben:true,//判断兼容低版本不能更新显示消失
 				flag:false,//控制版本更新的红点
 				update:'',//更新版本号
 				vehicleState:'', //车机登录状态,true代表登录, false代表未登录
@@ -100,12 +101,18 @@
 			//判断是否更新
 			newphone(){
 				if (isMobile.Android) {
+
+					if(this.update==''){
+						this.banben=false
+					}
 					let Detectionupdate=JSON.parse(window.js2android.getVersionInfo())
 					this.flag=Detectionupdate.flag
-					console.log(this.flag)
 					this.flag=this.flag=='1'?true:false
 					this.update=Detectionupdate.versionName
 					this.update='当前版本 '+this.update
+					if(this.update!=''){
+						this.banben=true
+					}
 				} else if (isMobile.iOS) {
 					// window.webkit.messageHandlers.checkVersion.postMessage({}); //ios方法暂时没有提供,需后续跟踪
 				}	
