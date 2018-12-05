@@ -2385,8 +2385,8 @@ input:focus {
 
 .icon-container {
   height: 2rem;
-	margin-top: 50%;
-  background: lightblue;
+	margin-top: 55%;
+  /*background: lightblue;*/
 }
 .love-wrapper >>> .mint-swipe-indicator {
   opacity: 1;
