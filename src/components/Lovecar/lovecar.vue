@@ -49,40 +49,40 @@
 				</div>
 			</div>
 			<div class="bus_l">
-				<img style="position:absolute;left: 50%; top: 72%;transform: translate(-50%, -50%);margin-top:.5rem;" src="../../../static/images/Wit/bus.png" alt="" class="bus_righgt">
-				<span ref='open1' class='busl_r left_1'>{{Condition.left_top=='undefinedkPa'?'':Condition.left_top}}</span>
-				<span ref='open2' class='busl_r  left_2'>{{Condition.left_bottom=='undefinedkPa'?'':Condition.left_bottom}}</span>
+				<img style="position:absolute;left: 50%; top: 72%;transform: translate(-50%, -50%);margin-top:.5rem;" src="../../../static/images/Wit/bus.png" alt="" class="bus_righgt clearFix">
+				<span ref='open1' class='busl_r left_1 clearFix'>{{Condition.left_top=='undefinedkPa'?'':Condition.left_top}}</span>
+				<span ref='open2' class='busl_r  left_2 clearFix'>{{Condition.left_bottom=='undefinedkPa'?'':Condition.left_bottom}}</span>
 				<!--胎压图片Start-->
-        <img v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 1.85rem;right:2.2rem;" alt="">
-        <img v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 1.85rem;left:2.2rem;" alt="">
-        <img v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 3.85rem;left:2.2rem;" alt="">
-        <img v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 3.85rem;right:2.2rem;" alt="">
+        <img class="clearFix" v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 1.85rem;right:2.2rem;" alt="">
+        <img class="clearFix" v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 1.85rem;left:2.2rem;" alt="">
+        <img class="clearFix" v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 3.85rem;left:2.2rem;" alt="">
+        <img class="clearFix" v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 3.85rem;right:2.2rem;" alt="">
         <!--胎压图片End-->
         
         <!-- 控制天窗的线Start 分为激活和未激活 -->
-        <img :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.skylightStatus=='已开'?true:false" style="position:absolute;display:block;width:1.8rem;top:2.9rem;right:2.1rem;"></img>
-        <img :src="'./static/images/Lovecar/blueright.png'" v-else style="position:absolute;display:block;width:1.14rem;top:2.9rem;right:2.5rem;"></img>
+        <img class="clearFix" :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.skylightStatus=='已开'?true:false" style="position:absolute;display:block;width:1.8rem;top:2.9rem;right:2.1rem;"></img>
+        <img class="clearFix" :src="'./static/images/Lovecar/blueright.png'" v-else style="position:absolute;display:block;width:1.14rem;top:2.9rem;right:2.5rem;"></img>
         <!--天窗线End-->
         
         <!-- 尾门线Start 分为激活和未激活  -->
-        <img :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.doorStsTrunk=='已开'?true:false" style="position:absolute;display:block;width:1.8rem;top:3.95rem;right:2.1rem;"></img>
-        <img :src="'./static/images/Lovecar/blueright.png'" v-else style="position:absolute;display:block;width:1.14rem;top:4.55rem;right:2.5rem;"></img>
+        <img class="clearFix" :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.doorStsTrunk=='已开'?true:false" style="position:absolute;display:block;width:1.8rem;top:3.95rem;right:2.1rem;"></img>
+        <img class="clearFix" :src="'./static/images/Lovecar/blueright.png'" v-else style="position:absolute;display:block;width:1.14rem;top:4.55rem;right:2.5rem;"></img>
         <!--尾门线End-->
         
         <!-- 控制右前车门线 -->
-        <img :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.right_top=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;right:1.7rem;top: 1.5rem;"></img>
+        <img class="clearFix" :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.right_top=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;right:1.7rem;top: 1.5rem;"></img>
         <!-- 控制右后车门线 -->
-        <img :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.right_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;right:1.7rem;top: 3.6rem;"></img>
+        <img class="clearFix" :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.right_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;right:1.7rem;top: 3.6rem;"></img>
         <!-- 控制左前车门线 -->
-        <img :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_top=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;left: 1.7rem;top: 1.6rem;"></img>
+        <img class="clearFix" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_top=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;left: 1.7rem;top: 1.6rem;"></img>
         <!-- 控制左后车门线 -->
-        <img :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;left: 1.7rem;top: 3.6rem;"></img>
-				<span ref='open3' class='busl_r right_1'>{{Condition.right_top=='undefinedkPa'?'':Condition.right_top}}</span>
-				<span ref='open4' class='busl_r right_2'>{{Condition.right_bottom=='undefinedkPa'?'':Condition.right_bottom}}</span>
+        <img class="clearFix" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;left: 1.7rem;top: 3.6rem;"></img>
+				<span ref='open3' class='busl_r right_1 clearFix'>{{Condition.right_top=='undefinedkPa'?'':Condition.right_top}}</span>
+				<span ref='open4' class='busl_r right_2 clearFix'>{{Condition.right_bottom=='undefinedkPa'?'':Condition.right_bottom}}</span>
 				<!-- <span class='busl_r top_1'>{{this.engineHoodStsFront}}</span> -->
-				<span class='busl_r bottom_1'>{{this.doorStsTrunk}}</span>
-				<span class='busl_r middle_1'>{{this.skylightStatus}}</span>
-			  <img class="loadingcar" style="width:.88rem;height:.88rem;margin-top:.2rem" src="../../../static/images/Lovecar/loading@2x.png" alt="" @click="loading">
+				<span class='busl_r bottom_1 clearFix'>{{this.doorStsTrunk}}</span>
+				<span class='busl_r middle_1 clearFix'>{{this.skylightStatus}}</span>
+			  <img class="loadingcar clearFix" style="width:.88rem;height:.88rem;margin-top:.2rem" src="../../../static/images/Lovecar/loading@2x.png" alt="" @click="loading">
 			</div>
 		</div>
 		<!--功能轮播Start-->
@@ -2014,6 +2014,14 @@ export default {
 };
 </script>
 <style scoped>
+	.clearFix:after{
+		clear:both;
+		display:block;
+		visibility:hidden;
+		height:0;
+		line-height:0;
+		content:"";
+	}
 .mint-popup {
   border-radius: 0.1rem;
 }
@@ -2377,8 +2385,8 @@ input:focus {
 
 .icon-container {
   height: 2rem;
-  bottom: -4.6rem;
-  /*background: lightblue;*/
+	margin-top: 50%;
+  background: lightblue;
 }
 .love-wrapper >>> .mint-swipe-indicator {
   opacity: 1;
