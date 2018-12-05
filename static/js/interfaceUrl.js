@@ -5,8 +5,8 @@
 // var indexip = `${apiHost}/api/dk-dm-portal-api`
 // //测试环境域名
 //var host = '//test.jac.timanetwork.net'
-    //生产环境域名403
-       var host = '//jacsupperapp.jac.com.cn'
+//生产环境域名403
+var host = '//jacsupperapp.jac.com.cn'
 var indexip = host + '/api/dk-dm-portal-api'
     //服务器-智享
 var mip = host + '/api/jac-automobile-manage/automobilemanage' //智享
@@ -171,7 +171,7 @@ window.Lovecar = {
         Changepin: love_car + '/vehicle/update-vehicle-pin', //修改pin码
         Getphonepin: love_car + '/vehicle//identify-code', //获取验证码
         Checkphonepin: love_car + '/vehicle/check-vehicle-pin', //验证pin码
-        BusTest: love_car + '/vehicle/query-cyc-car-examination', //车辆体检
+        BusTest: love_car + '/vehicle/vehicle-check', //车辆体检
         Fuel: love_car + '/vehicle/query-vehicle-fuel-statistics', //燃油接口
         Flow: love_car + '/vehicle/vehicle-cyc-flow-query', //流量查询
         FlowBuy: love_car + '/vehicle/cyc-flow-package-query', //流量购买查询

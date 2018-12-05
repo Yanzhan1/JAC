@@ -683,7 +683,7 @@ export default {
     //各种点击问好的提示
     Toasteach() {
       if (this.type == 1) {
-        MessageBox("提示", this.close_lock[3].dectValue);
+        MessageBox("提示", this.close_lock[3].dictValue);
 
         // Toast({
         //   message:
@@ -693,10 +693,10 @@ export default {
         // });
       }
       if (this.type == 5) {
-        MessageBox("提示", this.open_lock[3].dectValue);
+        MessageBox("提示", this.open_lock[3].dictValue);
       }
       if (this.type == 2) {
-        MessageBox("提示", this.open_trunk[3].dectValue);
+        MessageBox("提示", this.open_trunk[3].dictValue);
         // Toast({
         //   message:
         //     "在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁",
@@ -706,9 +706,9 @@ export default {
       }
       if (this.type == 3) {
         if (this.isTruess) {
-          MessageBox("提示", this.vehicle_launch[2].dectValue);
+          MessageBox("提示", this.vehicle_launch[2].dictValue);
         } else {
-          MessageBox("提示", this.vehicle_launch[5].dectValue);
+          MessageBox("提示", this.vehicle_launch[5].dictValue);
         }
         // Toast({
         //   message:
@@ -718,10 +718,10 @@ export default {
         // });
       }
       if (this.type == 6) {
-        MessageBox("提示", this.vehicle_flameout[3].dectValue);
+        MessageBox("提示", this.vehicle_flameout[3].dictValue);
       }
       if (this.type == 4) {
-        MessageBox("提示", this.find_vehicle[3].dectValue);
+        MessageBox("提示", this.find_vehicle[3].dictValue);
         // Toast({
         //   message: "左右转向灯先闪烁3次并伴有喇叭响3次",
         //   position: "middle",
@@ -742,17 +742,12 @@ export default {
         .then(res => {
           if (res.data.returnSuccess) {
             this.operationIdcar = res.data.operationId;
-            Toast({
-              message: this.vehicle_condition[0].dectValue,
-              position: "middle",
-              duration: 2000
-            });
             setTimeout(() => {
               this.getAsyReturn(res.data.operationId);
             }, 2000);
           } else {
             Toast({
-              message: this.vehicle_condition[2].dectValue,
+              message: this.vehicle_condition[2].dictValue,
               position: "middle",
               duration: 2000
             });
@@ -822,45 +817,45 @@ export default {
               if (tSS >= 56) {
                 if (this.type == 1) {
                   Toast({
-                    message: this.close_lock[2].dectValue,
+                    message: this.close_lock[2].dictValue,
                     position: "middle",
                     duration: 2000
                   });
                 } else if (this.type == 5) {
                   Toast({
-                    message: this.open_lock[2].dectValue,
+                    message: this.open_lock[2].dictValue,
                     position: "middle",
                     duration: 2000
                   });
                 } else if (this.type == 2) {
                   if (this.isTrues) {
                     Toast({
-                      message: this.open_trunk[2].dectValue,
+                      message: this.open_trunk[2].dictValue,
                       position: "middle",
                       duration: 2000
                     });
                   }
                 } else if (this.type == 3) {
                   Toast({
-                    message: this.vehicle_launch[3].dectValue,
+                    message: this.vehicle_launch[3].dictValue,
                     position: "middle",
                     duration: 2000
                   });
                 } else if (this.type == 6) {
                   Toast({
-                    message: this.vehicle_flameout[2].dectValue,
+                    message: this.vehicle_flameout[2].dictValue,
                     position: "middle",
                     duration: 2000
                   });
                 } else if (this.type == 4) {
                   Toast({
-                    message: this.find_vehicle[2].dectValue,
+                    message: this.find_vehicle[2].dictValue,
                     position: "middle",
                     duration: 2000
                   });
                 } else {
                   Toast({
-                    message: this.vehicle_condition[2].dectValue,
+                    message: this.vehicle_condition[2].dictValue,
                     position: "middle",
                     duration: 2000
                   });
@@ -886,51 +881,51 @@ export default {
                           if (tSS >= 56) {
                             if (this.type == 1) {
                               Toast({
-                                message: this.close_lock[2].dectValue,
+                                message: this.close_lock[2].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
                             } else if (this.type == 5) {
                               Toast({
-                                message: this.open_lock[2].dectValue,
+                                message: this.open_lock[2].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
                             } else if (this.type == 2) {
                               if (this.isTrues) {
                                 Toast({
-                                  message: this.open_trunk[2].dectValue,
+                                  message: this.open_trunk[2].dictValue,
                                   position: "middle",
                                   duration: 2000
                                 });
                               } else {
                                 Toast({
-                                  message: this.open_trunk[1].dectValue,
+                                  message: this.open_trunk[1].dictValue,
                                   position: "middle",
                                   duration: 2000
                                 });
                               }
                             } else if (this.type == 3) {
                               Toast({
-                                message: this.vehicle_launch[3].dectValue,
+                                message: this.vehicle_launch[3].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
                             } else if (this.type == 6) {
                               Toast({
-                                message: this.vehicle_flameout[2].dectValue,
+                                message: this.vehicle_flameout[2].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
                             } else if (this.type == 4) {
                               Toast({
-                                message: this.find_vehicle[2].dectValue,
+                                message: this.find_vehicle[2].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
                             } else {
                               Toast({
-                                message: this.vehicle_condition[2].dectValue,
+                                message: this.vehicle_condition[2].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
@@ -968,7 +963,7 @@ export default {
                             this.isTrue = true;
                             this.isTrueopen = false;
                             Toast({
-                              message: this.close_lock[1].dectValue,
+                              message: this.close_lock[1].dictValue,
                               position: "middle",
                               duration: 3000
                             });
@@ -977,7 +972,7 @@ export default {
                             this.isTrue = false;
                             this.isTrueopen = true;
                             Toast({
-                              message: this.open_lock[1].dectValue,
+                              message: this.open_lock[1].dictValue,
                               position: "middle",
                               duration: 3000
                             });
@@ -986,13 +981,13 @@ export default {
                             this.isTrues = !this.isTrues;
                             if (this.isTrues) {
                               Toast({
-                                message: this.open_trunk[2].dectValue,
+                                message: this.open_trunk[2].dictValue,
                                 position: "middle",
                                 duration: 3000
                               });
                             } else {
                               Toast({
-                                message:this.open_trunk[1].dectValue,
+                                message:this.open_trunk[1].dictValue,
                                 position: "middle",
                                 duration: 3000
                               });
@@ -1002,7 +997,7 @@ export default {
                             this.isTruess = true;
                             this.isTruessoff = false;
                             Toast({
-                              message: this.vehicle_launch[1].dectValue,
+                              message: this.vehicle_launch[1].dictValue,
                               position: "middle",
                               duration: 3000
                             });
@@ -1011,7 +1006,7 @@ export default {
                             this.isTruess = false;
                             this.isTruessoff = true;
                             Toast({
-                              message: this.vehicle_flameout[1].dectValue,
+                              message: this.vehicle_flameout[1].dictValue,
                               position: "middle",
                               duration: 3000
                             });
@@ -1019,7 +1014,7 @@ export default {
                           if (this.type == 4) {
                             this.isTruesss = !this.isTruesss;
                             Toast({
-                              message: this.find_vehicle[1].dectValue,
+                              message: this.find_vehicle[1].dictValue,
                               position: "middle",
                               duration: 1500
                             });
@@ -1038,7 +1033,7 @@ export default {
                             setTimeout(() => {
                               Toast(
                                 {
-                                  message: this.vehicle_condition[1].dectValue,
+                                  message: this.vehicle_condition[1].dictValue,
                                   position: "middle",
                                   duration: 2000
                                 },
@@ -1193,51 +1188,51 @@ export default {
                         } else if (res.data.status == "FAILED") {
                           if (this.type == 1) {
                             Toast({
-                              message: this.close_lock[2].dectValue,
+                              message: this.close_lock[2].dictValue,
                               position: "middle",
                               duration: 2000
                             });
                           } else if (this.type == 5) {
                             Toast({
-                              message: this.open_lock[2].dectValue,
+                              message: this.open_lock[2].dictValue,
                               position: "middle",
                               duration: 2000
                             });
                           } else if (this.type == 2) {
                             if (!this.isTrues) {
                               Toast({
-                                message: this.open_trunk[2].dectValue,
+                                message: this.open_trunk[2].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
                             } else {
                               Toast({
-                                message: this.open_trunk[1].dectValue,
+                                message: this.open_trunk[1].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
                             }
                           } else if (this.type == 3) {
                             Toast({
-                              message: this.vehicle_launch[3].dectValue,
+                              message: this.vehicle_launch[3].dictValue,
                               position: "middle",
                               duration: 2000
                             });
                           } else if (this.type == 6) {
                             Toast({
-                              message: this.vehicle_flameout[2].dectValue,
+                              message: this.vehicle_flameout[2].dictValue,
                               position: "middle",
                               duration: 2000
                             });
                           } else if (this.type == 4) {
                             Toast({
-                              message: this.find_vehicle[2].dectValue,
+                              message: this.find_vehicle[2].dictValue,
                               position: "middle",
                               duration: 2000
                             });
                           } else {
                             Toast({
-                              message: this.vehicle_condition[2].dectValue,
+                              message: this.vehicle_condition[2].dictValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -1247,7 +1242,7 @@ export default {
                         }
                       } else {
                         Toast({
-                          message: this.vehicle_condition[2].dectValue,
+                          message: this.vehicle_condition[2].dictValue,
                           position: "middle",
                           duration: 2000
                         });
@@ -1286,7 +1281,7 @@ export default {
                 this.isTrue = true;
                 this.isTrueopen = false;
                 Toast({
-                  message: this.close_lock[1].dectValue,
+                  message: this.close_lock[1].dictValue,
                   position: "middle",
                   duration: 3000
                 });
@@ -1295,7 +1290,7 @@ export default {
                 this.isTrue = false;
                 this.isTrueopen = true;
                 Toast({
-                  message: this.open_lock[1].dectValue,
+                  message: this.open_lock[1].dictValue,
                   position: "middle",
                   duration: 3000
                 });
@@ -1304,13 +1299,13 @@ export default {
                 this.isTrues = !this.isTrues;
                 if (this.isTrues) {
                   Toast({
-                    message: this.open_trunk[1].dectValue,
+                    message: this.open_trunk[1].dictValue,
                     position: "middle",
                     duration: 3000
                   });
                 } else {
                   Toast({
-                    message: this.open_trunk[2].dectValue,
+                    message: this.open_trunk[2].dictValue,
                     position: "middle",
                     duration: 3000
                   });
@@ -1320,7 +1315,7 @@ export default {
                 this.isTruess = true;
                 this.isTruessoff = false;
                 Toast({
-                  message: this.vehicle_launch[1].dectValue,
+                  message: this.vehicle_launch[1].dictValue,
                   position: "middle",
                   duration: 3000
                 });
@@ -1329,7 +1324,7 @@ export default {
                 this.isTruess = false;
                 this.isTruessoff = true;
                 Toast({
-                  message: this.vehicle_flameout[1].dectValue,
+                  message: this.vehicle_flameout[1].dictValue,
                   position: "middle",
                   duration: 3000
                 });
@@ -1337,7 +1332,7 @@ export default {
               if (this.type == 4) {
                 this.isTruesss = !this.isTruesss;
                 Toast({
-                  message: this.find_vehicle[1].dectValue,
+                  message: this.find_vehicle[1].dictValue,
                   position: "middle",
                   duration: 1500
                 });
@@ -1354,7 +1349,7 @@ export default {
                 // }
                 setTimeout(() => {
                   Toast({
-                    message: this.vehicle_condition[1].dectValue,
+                    message: this.vehicle_condition[1].dictValue,
                     position: "middle",
                     duration: 2000
                   });
@@ -1498,51 +1493,51 @@ export default {
             } else if (res.data.status == "FAILED") {
               if (this.type == 1) {
                 Toast({
-                  message: this.close_lock[2].dectValue,
+                  message: this.close_lock[2].dictValue,
                   position: "middle",
                   duration: 2000
                 });
               } else if (this.type == 5) {
                 Toast({
-                  message: this.open_lock[2].dectValue,
+                  message: this.open_lock[2].dictValue,
                   position: "middle",
                   duration: 2000
                 });
               } else if (this.type == 2) {
                 if (!this.isTrues) {
                   Toast({
-                    message: this.open_trunk[2].dectValue,
+                    message: this.open_trunk[2].dictValue,
                     position: "middle",
                     duration: 2000
                   });
                 } else {
                   Toast({
-                    message: this.open_trunk[1].dectValue,
+                    message: this.open_trunk[1].dictValue,
                     position: "middle",
                     duration: 2000
                   });
                 }
               } else if (this.type == 3) {
                 Toast({
-                  message: this.vehicle_launch[3].dectValue,
+                  message: this.vehicle_launch[3].dictValue,
                   position: "middle",
                   duration: 2000
                 });
               } else if (this.type == 6) {
                 Toast({
-                  message: this.vehicle_flameout[2].dectValue,
+                  message: this.vehicle_flameout[2].dictValue,
                   position: "middle",
                   duration: 2000
                 });
               } else if (this.type == 4) {
                 Toast({
-                  message: this.find_vehicle[2].dectValue,
+                  message: this.find_vehicle[2].dictValue,
                   position: "middle",
                   duration: 2000
                 });
               } else {
                 Toast({
-                  message: this.vehicle_condition[2].dectValue,
+                  message: this.vehicle_condition[2].dictValue,
                   position: "middle",
                   duration: 2000
                 });
@@ -1554,7 +1549,7 @@ export default {
           } else {
             // alert(4)
             Toast({
-              message: this.vehicle_condition[2].dectValue,
+              message: this.vehicle_condition[2].dictValue,
               position: "middle",
               duration: 2000
             });
@@ -1641,7 +1636,7 @@ export default {
                     // alert(this.operationIdcar)
                     if (res.data.returnSuccess) {
                       Toast({
-                        message: this.open_lock[0].dectValue,
+                        message: this.open_lock[0].dictValue,
                         position: "middle",
                         duration: 2000
                       });
@@ -1658,7 +1653,7 @@ export default {
                         });
                       } else {
                         Toast({
-                          message: this.open_lock[2].dectValue,
+                          message: this.open_lock[2].dictValue,
                           position: "middle",
                           duration: 2000
                         });
@@ -1667,7 +1662,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: this.open_lock[2].dectValue,
+                      message: this.open_lock[2].dictValue,
                       position: "middle",
                       duration: 2000
                     });
@@ -1689,7 +1684,7 @@ export default {
                     // alert(this.operationIdcar)
                     if (res.data.returnSuccess) {
                       Toast({
-                        message: this.close_lock[0].dectValue,
+                        message: this.close_lock[0].dictValue,
                         position: "middle",
                         duration: 2000
                       });
@@ -1706,7 +1701,7 @@ export default {
                         });
                       } else {
                         Toast({
-                          message: this.close_lock[2].dectValue,
+                          message: this.close_lock[2].dictValue,
                           position: "middle",
                           duration: 2000
                         });
@@ -1715,7 +1710,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: this.close_lock[2].dectValue,
+                      message: this.close_lock[2].dictValue,
                       position: "middle",
                       duration: 2000
                     });
@@ -1733,7 +1728,7 @@ export default {
                   .then(res => {
                     if (res.data.returnSuccess) {
                       Toast({
-                        message: this.open_trunk[0].dectValue,
+                        message: this.open_trunk[0].dictValue,
                         position: "middle",
                         duration: 2000
                       });
@@ -1749,7 +1744,7 @@ export default {
                         });
                       } else {
                         Toast({
-                          message: this.open_trunk[2].dectValue,
+                          message: this.open_trunk[2].dictValue,
                           position: "middle",
                           duration: 2000
                         });
@@ -1758,7 +1753,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: this.open_trunk[2].dectValue,
+                      message: this.open_trunk[2].dictValue,
                       position: "middle",
                       duration: 2000
                     });
@@ -1777,7 +1772,7 @@ export default {
                     if (res.data.returnSuccess) {
                       console.log();
                       Toast({
-                        message: this.vehicle_launch[0].dectValue,
+                        message: this.vehicle_launch[0].dictValue,
                         position: "middle",
                         duration: 2000
                       });
@@ -1785,24 +1780,18 @@ export default {
                         this.getAsyReturn(res.data.operationId);
                       }, 2000);
                     } else {
-                      if (res.data.returnErrCode == 400) {
+                    
                         Toast({
-                          message: "token验证失败",
+                          message: this.vehicle_launch[3].dictValue,
                           position: "middle",
                           duration: 2000
                         });
-                      } else {
-                        Toast({
-                          message: this.vehicle_launch[3].dectValue,
-                          position: "middle",
-                          duration: 2000
-                        });
-                      }
+                      
                     }
                   })
                   .catch(err => {
                     Toast({
-                      message: this.vehicle_launch[3].dectValue,
+                      message: this.vehicle_launch[3].dictValue,
                       position: "middle",
                       duration: 2000
                     });
@@ -1820,7 +1809,7 @@ export default {
                     this.operationIdss = res.data.operationId;
                     if (res.data.returnSuccess) {
                       Toast({
-                        message: this.vehicle_flameout[0].dectValue,
+                        message: this.vehicle_flameout[0].dictValue,
                         position: "middle",
                         duration: 2000
                       });
@@ -1836,7 +1825,7 @@ export default {
                         });
                       } else {
                         Toast({
-                          message: this.vehicle_flameout[2].dectValue,
+                          message: this.vehicle_flameout[2].dictValue,
                           position: "middle",
                           duration: 2000
                         });
@@ -1845,7 +1834,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: this.vehicle_flameout[2].dectValue,
+                      message: this.vehicle_flameout[2].dictValue,
                       position: "middle",
                       duration: 2000
                     });
@@ -1861,7 +1850,7 @@ export default {
                     this.operationIdses = res.data.operationId;
                     if (res.data.returnSuccess) {
                       Toast({
-                        message: this.find_vehicle[0].dectValue,
+                        message: this.find_vehicle[0].dictValue,
                         position: "middle",
                         duration: 2000
                       });
@@ -1877,7 +1866,7 @@ export default {
                         });
                       } else {
                         Toast({
-                          message: this.find_vehicle[2].dectValue,
+                          message: this.find_vehicle[2].dictValue,
                           position: "middle",
                           duration: 2000
                         });
@@ -1886,7 +1875,7 @@ export default {
                   })
                   .catch(err => {
                     Toast({
-                      message: this.find_vehicle[0].dectValue,
+                      message: this.find_vehicle[0].dictValue,
                       position: "middle",
                       duration: 2000
                     });
@@ -1956,6 +1945,9 @@ export default {
           }
         });
     }
+  },
+  beforeCreate(){
+	  clearInterval(this.time);
   },
   mounted() {
     $(".MobileHeight").css({
@@ -2251,13 +2243,13 @@ input:focus {
 }
 
 .left_1 {
-  left: 1.5rem;
+  left: 1.3rem;
   top: 2.35rem;
   /*background: skyblue;*/
 }
 
 .left_2 {
-  left: 1.5rem;
+  left: 1.3rem;
   top: 3.55rem;
 }
 
@@ -2278,13 +2270,13 @@ input:focus {
 }
 
 .bottom_1 {
-  top: 4.45rem;
+  top: 4.9rem;
   right: 2rem;
   font-size: 0.24rem;
 }
 
 .middle_1 {
-  top: 3.25rem;
+  top: 3rem;
   right: 2rem;
   color: #49bbff;
   font-size: 0.24rem;
@@ -2379,7 +2371,7 @@ input:focus {
 
 .left_bus .txt1 {
   font-size: 0.26rem;
-  /*margin-top: 0.17rem;*/
+  margin-top: 0.12rem;
 }
 /*功能轮播Start*/
 

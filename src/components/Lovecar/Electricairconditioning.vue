@@ -103,13 +103,13 @@
 				<!--&lt;!&ndash;<img v-else :src="'./static/images/Lovecar/no-off2@2x.png'" />&ndash;&gt;-->
 			<!--</button>-->
 			<button :disabled="!value" class="tabar flex-column-align" @click="change(2)">
-				<img v-if="activeShowImg == 2" :src="'./static/images/Lovecar/off-left@2x.png'" />
-				<img v-else :src="'./static/images/Lovecar/off-left2@2x.png'" />
+				<img v-if="activeShowImg == 2" :src="'./static/images/Lovecar/neion.png'" />
+				<img v-else :src="'./static/images/Lovecar/neioff.png'" />
 				<span :class="activeShowImg==2?'active':'actives'">内循环</span>
 			</button>
 			<button :disabled="!value" class="tabar flex-column-align" @click="change(3)">
-				<img v-if="activeShowImg == 3" :src="'./static/images/Lovecar/off-right@2x.png'" />
-				<img v-else :src="'./static/images/Lovecar/off-right2@2x.png'" />
+				<img v-if="activeShowImg == 3" :src="'./static/images/Lovecar/waion.png'" />
+				<img v-else :src="'./static/images/Lovecar/waioff.png'" />
 				<span :class="activeShowImg==3?'active':'actives'">外循环</span>
 			</button>
 			<!--底部导航End-->
@@ -531,16 +531,16 @@ export default {
                         } else if (res.data.status == "SUCCEED") {
                           // flag = false;
                           //pin码正确激活弧线
-                          this.curveState = !this.curveState;
+                          this.curveState = true;
                           //pin码正确激活空调图
-                          (this.activeShowImg = !this.activeShowImg),
+                          (this.activeShowImg = true),
                             this.refreshPmData(),
                             Toast({
                               message:this.airconditionwords[1].dictValue,
                               position: "middle",
                               duration: 2000
                             });
-                          this.value = !this.value;
+                          this.value = true;
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
@@ -569,16 +569,16 @@ export default {
             } else if (res.data.status == "SUCCEED") {
               // flag = false;
               //pin码正确激活弧线
-              this.curveState = !this.curveState;
+              this.curveState = true;
               //pin码正确激活空调图
-              (this.activeShowImg = !this.activeShowImg),
+              (this.activeShowImg = true),
                 this.refreshPmData(),
                 Toast({
                   message:this.airconditionwords[1].dictValue,
                   position: "middle",
                   duration: 2000
                 });
-              this.value = !this.value;
+              this.value = true;
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
