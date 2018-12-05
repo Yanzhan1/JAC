@@ -2258,23 +2258,23 @@
 	}
 	
 	.left_1 {
-		left: 1.4rem;
+		left: 1.2rem;
 		top: 2.63rem;
 		/*background: skyblue;*/
 	}
 	
 	.left_2 {
-		left: 1.4rem;
+		left: 1.2rem;
 		top: 4.3rem;
 	}
 	
 	.right_1 {
-		right: 1.7rem;
+		right: 1.5rem;
 		top: 2.63rem;
 	}
 	
 	.right_2 {
-		right: 1.7rem;
+		right: 1.5rem;
 		top: 4.3rem;
 	}
 	
