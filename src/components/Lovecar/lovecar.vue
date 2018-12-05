@@ -62,30 +62,30 @@
 					<!--左边胎压状态End-->
 
 					<!--胎压图片Start-->
-					<img class="" v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 1.85rem;right:2.2rem;" alt="">
-					<img class="" v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 1.85rem;left:2.2rem;" alt="">
-					<img class="" v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 3.85rem;left:2.2rem;" alt="">
-					<img class="" v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 3.85rem;right:2.2rem;" alt="">
+					<img class="" v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 2.6rem;right:2.4rem;" alt="">
+					<img class="" v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 2.6rem;left:2.2rem;" alt="">
+					<img class="" v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 4.25rem;left:2.2rem;" alt="">
+					<img class="" v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 4.25rem;right:2.4rem;" alt="">
 					<!--胎压图片End-->
 
 					<!-- 控制天窗的线Start 分为激活和未激活 -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.skylightStatus=='已开'?true:false" style="position:absolute;display:block;width:1.8rem;top:2.9rem;right:2.1rem;"></img>
-					<img class="" :src="'./static/images/Lovecar/blueright.png'" v-else style="position:absolute;display:block;width:1.14rem;top:2.9rem;right:2.5rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.skylightStatus=='已开'?true:false" v-show="activeshow=='3'?true:false" style="position:absolute;display:block;width:1.8rem;top:3.1rem;right:2.1rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/blueright.png'" v-else v-show="activeshow=='3'?true:false" style="position:absolute;display:block;width:1.14rem;top:3.55rem;right:2.5rem;"></img>
 					<!--天窗线End-->
 
 					<!-- 尾门线Start 分为激活和未激活  -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.doorStsTrunk=='已开'?true:false" style="position:absolute;display:block;width:1.8rem;top:3.95rem;right:2.1rem;"></img>
-					<img class="" :src="'./static/images/Lovecar/blueright.png'" v-else style="position:absolute;display:block;width:1.14rem;top:4.55rem;right:2.5rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.doorStsTrunk=='已开'?true:false" v-show="activeshow=='2'?true:false" style="position:absolute;display:block;width:1.8rem;top:5.05rem;right:2.1rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/blueright.png'" v-else v-show="activeshow=='2'?true:false" style="position:absolute;display:block;width:1.14rem;top:5.5rem;right:2.5rem;"></img>
 					<!--尾门线End-->
 
 					<!-- 控制右前车门线 -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.right_top=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;right:1.7rem;top: 1.5rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.right_top=='已打开'?true:false" style="position:absolute;display:block;width:1rem;right:2.1rem;top: 2.5rem;"></img>
 					<!-- 控制右后车门线 -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.right_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;right:1.7rem;top: 3.6rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.right_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1rem;right:2.1rem;top: 4.2rem;"></img>
 					<!-- 控制左前车门线 -->
-					<img class="" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_top=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;left: 1.7rem;top: 1.6rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_top=='已打开'?true:false" style="position:absolute;display:block;width:1rem;left: 1.9rem;top: 2.5rem;"></img>
 					<!-- 控制左后车门线 -->
-					<img class="" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1.8rem;left: 1.7rem;top: 3.6rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1rem;left: 1.9rem;top: 4.2rem;"></img>
 					<!--右边胎压状态Start-->
 					<span ref='open3' class='busl_r right_1 '>{{Condition.right_top=='undefinedkPa'?'':Condition.right_top}}</span>
 					<span ref='open4' class='busl_r right_2 '>{{Condition.right_bottom=='undefinedkPa'?'':Condition.right_bottom}}</span>
@@ -93,15 +93,16 @@
 
 					<!-- <span class='busl_r top_1'>{{this.engineHoodStsFront}}</span> -->
 					<!--天窗And尾门状态Start-->
-					<span class='busl_r bottom_1 '>{{this.doorStsTrunk}}</span>
-					<span class='busl_r middle_1 '>{{this.skylightStatus}}</span>
+					<span v-show="activeshow=='3'?true:false" class='busl_r bottom_1 '>{{this.doorStsTrunk}}</span>
+					<span v-show="activeshow=='2'?true:false" class='busl_r middle_1 '>{{this.skylightStatus}}</span>
 					<!--天窗And尾门状态End-->
 					<img class="loadingcar " style="width:.88rem;height:.88rem;margin-top:.2rem" src="../../../static/images/Lovecar/loading@2x.png" alt="" @click="loading">
 				</div>
 				<!--车况主体End-->
 			</div>
+		</div>
 			<!--功能轮播Start-->
-			<mt-swipe v-show="this.allFunction.length" :auto="0" class="icon-container">
+			<mt-swipe :auto="0" class="icon-container">
 				<!--轮播第一页Start-->
 				<mt-swipe-item>
 					<div class="content">
@@ -196,7 +197,6 @@
 				<!--轮播第二页End-->
 			</mt-swipe>
 			<!--功能轮播End-->
-		</div>
 		<!--爱车End-->
 
 		<!-- 输入框 -->
@@ -2259,23 +2259,23 @@
 	
 	.left_1 {
 		left: 1.4rem;
-		top: 1.9rem;
+		top: 2.63rem;
 		/*background: skyblue;*/
 	}
 	
 	.left_2 {
 		left: 1.4rem;
-		top: 3.9rem;
+		top: 4.3rem;
 	}
 	
 	.right_1 {
-		right: 1.5rem;
-		top: 1.9rem;
+		right: 1.7rem;
+		top: 2.63rem;
 	}
 	
 	.right_2 {
-		right: 1.5rem;
-		top: 3.9rem;
+		right: 1.7rem;
+		top: 4.3rem;
 	}
 	
 	.top_1 {
@@ -2285,13 +2285,13 @@
 	}
 	
 	.bottom_1 {
-		top: 4.9rem;
+		top: 5.4rem;
 		right: 2rem;
 		font-size: 0.24rem;
 	}
 	
 	.middle_1 {
-		top: 3rem;
+		top: 3.45rem;
 		right: 2rem;
 		color: #49bbff;
 		font-size: 0.24rem;
@@ -2391,7 +2391,10 @@
 	/*功能轮播Start*/
 	
 	.icon-container {
+		position: fixed;
 		height: 2rem;
+		width: 100%;
+		bottom: 1rem;
 	}
 	
 	.love-wrapper>>>.mint-swipe-indicator {

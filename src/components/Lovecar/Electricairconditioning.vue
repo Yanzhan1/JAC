@@ -156,7 +156,7 @@
 import { Createarc } from "../../../static/js/drawarc.js";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
-import {MessageBox} from 'mint-ui';
+import { MessageBox } from "mint-ui";
 import PublicHead from "../publicmodel/PublicHead";
 export default {
   name: "electricairconditioning",
@@ -165,10 +165,16 @@ export default {
   },
   data() {
     return {
+      turnon: 0, //辨别不同的指令1空调2压缩机3内循环4外循环5档位6风量
       time: "", //定时器命名
       //移动端键盘值
-      allwords:[],//所有的提示
-      airconditionwords:[],//空调的提示
+      allwords: [], //所有的提示
+      airconditionwords: [], //空调的提示
+      compressor: [], //压缩机的提示
+      gear_adjust: [], //档位调节提示
+      air_regulation: [], //风量调节提示
+      internal_cycle_regulation: [], //内循环调节提示
+      external_circulation_regulation: [], //外循环调节提示
       ownKeyBoard: {
         first: "",
         second: "",
@@ -218,6 +224,7 @@ export default {
   methods: {
     //空调控制开关方法
     turn() {
+      this.turnon = 1;
       if (this.activeShowImg) {
         this.value = true;
       } else {
@@ -228,8 +235,9 @@ export default {
     },
     //压缩机控制开关
     turnCompressor() {
+      this.turnon = 2;
       if (this.activeShowImg) {
-        this.compressor = this.compressor;
+        this.compressor = true;
       } else {
         this.compressor = false;
       }
@@ -243,9 +251,11 @@ export default {
         this.loop = 0;
       }
       if (val == 2) {
+        this.turnon = 3;
         this.loop = 1;
       }
       if (val == 3) {
+        this.turnon = 4;
         this.loop = 2;
       }
       this.activeShowImg
@@ -260,6 +270,7 @@ export default {
     },
     //温度增加
     add() {
+      this.turnon = 5;
       if (this.activeShowImg && this.airSpace < this.temperNum.length - 1) {
         this.airSpace++;
         //计数器控制曲线
@@ -286,6 +297,7 @@ export default {
     },
     //温度减少
     reduce() {
+      this.turnon = 5;
       if (this.activeShowImg && this.airSpace > this.min) {
         this.airSpace--;
         //计数器控制曲线
@@ -312,6 +324,7 @@ export default {
     },
     //风量增加
     windAdd() {
+      this.turnon = 6;
       if (this.activeShowImg) {
         if (this.winIndex >= this.windNum.length - 1) {
           this.winIndex = this.windNum.length - 1;
@@ -325,6 +338,7 @@ export default {
     },
     //风量减少
     windReduce() {
+      this.turnon = 6;
       if (this.activeShowImg) {
         if (this.winIndex <= this.winMin) {
           this.winIndex = this.winMin;
@@ -388,9 +402,9 @@ export default {
       }
       that.keyNums = arr2;
     },
-      Toasteach(){
-        MessageBox("提示", this.airconditionwords[3].dictValue);
-      },
+    Toasteach() {
+      MessageBox("提示", this.airconditionwords[3].dictValue);
+    },
     //产生曲线
     produCurve() {
       //温度激活弧线
@@ -428,9 +442,11 @@ export default {
     },
     //用户停止滑动触发移动端事件,发送后端请求
     end() {
+      this.turnon = 5;
+      this.debouncedGetAnswer();
       //				var start = $('#rightColorful').on('touchstart)
-      this.httpair();
-      console.log(this.temperNum[this.airSpace]);
+      // this.httpair();
+      // console.log(this.temperNum[this.airSpace]);
     },
     //激活空调图,进行旋转
     refreshPmData() {
@@ -472,12 +488,27 @@ export default {
       }
     },
     //拿到空调的提示语
-    getairconditionwords(){
-      this.allwords=this.$store.state.GETWORDS;
-      console.log(this.allwords)
-      for(let value of this.allwords){
-        if(value.dictType=='air_conditioning'){
-          this.airconditionwords=value.sysDictDataVOs
+    getairconditionwords() {
+      this.allwords = this.$store.state.GETWORDS;
+      console.log(this.allwords);
+      for (let value of this.allwords) {
+        if (value.dictType == "air_conditioning") {
+          this.airconditionwords = value.sysDictDataVOs;
+        }
+        if (value.dictType == "compressor") {
+          this.compressor = value.sysDictDataVOs;
+        }
+        if (value.dictType == "gear_adjust") {
+          this.gear_adjust = value.sysDictDataVOs;
+        }
+        if (value.dictType == "air_regulation") {
+          this.air_regulation = value.sysDictDataVOs;
+        }
+        if (value.dictType == "internal_cycle_regulation") {
+          this.internal_cycle_regulation = value.sysDictDataVOs;
+        }
+        if (value.dictType == "external_circulation_regulation") {
+          this.external_circulation_regulation = value.sysDictDataVOs;
         }
       }
     },
@@ -499,11 +530,64 @@ export default {
               //60s  后 清除定时器，不在发请求
               console.log(tSS);
               if (tSS >= 56) {
-                Toast({
-                  message:this.airconditionwords[2].dictValue,
-                  position: "middle",
-                  duration: 2000
-                });
+                if (this.turnon == "1") {
+                  if (this.value) {
+                    Toast({
+                      message: this.airconditionwords[2].dictValue,
+                      position: "middle",
+                      duration: 2000
+                    });
+                  } else {
+                    Toast({
+                      message: this.airconditionwords[4].dictValue,
+                      position: "middle",
+                      duration: 2000
+                    });
+                  }
+                }
+                if (this.turnon == "2") {
+                  if (this.compressor) {
+                    Toast({
+                      message: this.compressor[2].dictValue,
+                      position: "middle",
+                      duration: 2000
+                    });
+                  } else {
+                    Toast({
+                      message: this.compressor[4].dictValue,
+                      position: "middle",
+                      duration: 2000
+                    });
+                  }
+                }
+                if (this.turnon == "3") {
+                  Toast({
+                    message: this.gear_adjust[2].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                }
+                if (this.turnon == "4") {
+                  Toast({
+                    message: this.air_regulation[2].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                }
+                if (this.turnon == "5") {
+                  Toast({
+                    message: this.internal_cycle_regulation[2].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                }
+                if (this.turnon == "6") {
+                  Toast({
+                    message: this.external_circulation_regulation[2].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                }
                 this.$store.dispatch("LOADINGFLAG", false);
               } else {
                 this.time = setInterval(() => {
@@ -521,46 +605,270 @@ export default {
                           //60s  后 清除定时器，不在发请求
                           console.log(tSS);
                           if (tSS >= 56) {
-                            Toast({
-                              message:this.airconditionwords[2].dictValue,
-                              position: "middle",
-                              duration: 2000
-                            });
+                            if (this.turnon == "1") {
+                              if (this.value) {
+                                Toast({
+                                  message: this.airconditionwords[2].dictValue,
+                                  position: "middle",
+                                  duration: 2000
+                                });
+                              } else {
+                                Toast({
+                                  message: this.airconditionwords[4].dictValue,
+                                  position: "middle",
+                                  duration: 2000
+                                });
+                              }
+                            }
+                            if (this.turnon == "2") {
+                              if (this.compressor) {
+                                Toast({
+                                  message: this.compressor[2].dictValue,
+                                  position: "middle",
+                                  duration: 2000
+                                });
+                              } else {
+                                Toast({
+                                  message: this.compressor[4].dictValue,
+                                  position: "middle",
+                                  duration: 2000
+                                });
+                              }
+                            }
+                            if (this.turnon == "3") {
+                              Toast({
+                                message: this.gear_adjust[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
+                            if (this.turnon == "4") {
+                              Toast({
+                                message: this.air_regulation[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
+                            if (this.turnon == "5") {
+                              Toast({
+                                message: this.internal_cycle_regulation[2]
+                                  .dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
+                            if (this.turnon == "6") {
+                              Toast({
+                                message: this.external_circulation_regulation[2]
+                                  .dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
                             clearInterval(this.time);
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
                           // flag = false;
                           //pin码正确激活弧线
-                          this.curveState = true;
-                          //pin码正确激活空调图
-                          (this.activeShowImg = true),
-                            this.refreshPmData(),
+                          if (this.turnon == "1") {
+                            if (this.value) {
+                              Toast({
+                                message: this.airconditionwords[1].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              this.value = true;
+                              this.curveState = true(
+                                //pin码正确激活空调图
+                                (this.activeShowImg = true)
+                              );
+                            } else {
+                              Toast({
+                                message: this.airconditionwords[3].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              this.value = false;
+                              this.curveState = false;
+                              //pin码正确激活空调图
+                              this.activeShowImg = false;
+                            }
+                          }
+                          if (this.turnon == "2") {
+                            if (this.compressor) {
+                              Toast({
+                                message: this.compressor[1].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              this.compressor = true;
+                            } else {
+                              Toast({
+                                message: this.compressor[3].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
+                            this.compressor = false;
+                          }
+                          if (this.turnon == "3") {
                             Toast({
-                              message:this.airconditionwords[1].dictValue,
+                              message: this.gear_adjust[1].dictValue,
                               position: "middle",
                               duration: 2000
                             });
-                          this.value = true;
-                          clearInterval(this.time);
+                          }
+                          if (this.turnon == "4") {
+                            Toast({
+                              message: this.air_regulation[1].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
+                          if (this.turnon == "5") {
+                            Toast({
+                              message: this.internal_cycle_regulation[1]
+                                .dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
+                          if (this.turnon == "6") {
+                            Toast({
+                              message: this.external_circulation_regulation[1]
+                                .dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
+                          this.refreshPmData(), clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
-                          flag = false;
-                          Toast({
-                            message: this.airconditionwords[2].dictValue,
-                            position: "middle",
-                            duration: 2000
-                          });
+                          if (this.turnon == "1") {
+                            if (this.value) {
+                              Toast({
+                                message: this.airconditionwords[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else {
+                              Toast({
+                                message: this.airconditionwords[4].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
+                          }
+                          if (this.turnon == "2") {
+                            if (this.compressor) {
+                              Toast({
+                                message: this.compressor[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else {
+                              Toast({
+                                message: this.compressor[4].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
+                          }
+                          if (this.turnon == "3") {
+                            Toast({
+                              message: this.gear_adjust[2].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
+                          if (this.turnon == "4") {
+                            Toast({
+                              message: this.air_regulation[2].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
+                          if (this.turnon == "5") {
+                            Toast({
+                              message: this.internal_cycle_regulation[2]
+                                .dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
+                          if (this.turnon == "6") {
+                            Toast({
+                              message: this.external_circulation_regulation[2]
+                                .dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         }
                       } else {
-                        Toast({
-                          message: this.airconditionwords[2].dictValue,
-                          position: "middle",
-                          duration: 2000
-                        });
-                        flag = false;
+                        if (this.turnon == "1") {
+                            if (this.value) {
+                              Toast({
+                                message: this.airconditionwords[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else {
+                              Toast({
+                                message: this.airconditionwords[4].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
+                          }
+                          if (this.turnon == "2") {
+                            if (this.compressor) {
+                              Toast({
+                                message: this.compressor[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else {
+                              Toast({
+                                message: this.compressor[4].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
+                          }
+                          if (this.turnon == "3") {
+                            Toast({
+                              message: this.gear_adjust[2].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
+                          if (this.turnon == "4") {
+                            Toast({
+                              message: this.air_regulation[2].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
+                          if (this.turnon == "5") {
+                            Toast({
+                              message: this.internal_cycle_regulation[2]
+                                .dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
+                          if (this.turnon == "6") {
+                            Toast({
+                              message: this.external_circulation_regulation[2]
+                                .dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
                         clearInterval(this.time);
                         this.$store.dispatch("LOADINGFLAG", false);
                       }
@@ -568,34 +876,201 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              // flag = false;
-              //pin码正确激活弧线
-              this.curveState = true;
-              //pin码正确激活空调图
-              (this.activeShowImg = true),
-                this.refreshPmData(),
+              if (this.turnon == "1") {
+                if (this.value) {
+                  Toast({
+                    message: this.airconditionwords[1].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                  this.value = true;
+                  this.curveState = true;
+                  //pin码正确激活空调图
+                  this.activeShowImg = true;
+                } else {
+                  Toast({
+                    message: this.airconditionwords[3].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                  this.value = false;
+                  this.curveState = false;
+                  //pin码正确激活空调图
+                  this.activeShowImg = false;
+                }
+              }
+              if (this.turnon == "2") {
+                if (this.compressor) {
+                  Toast({
+                    message: this.compressor[1].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                  this.compressor = true;
+                } else {
+                  Toast({
+                    message: this.compressor[3].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                }
+                this.compressor = false;
+              }
+              if (this.turnon == "3") {
                 Toast({
-                  message:this.airconditionwords[1].dictValue,
+                  message: this.gear_adjust[1].dictValue,
                   position: "middle",
                   duration: 2000
                 });
-              this.value = true;
+              }
+              if (this.turnon == "4") {
+                Toast({
+                  message: this.air_regulation[1].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              }
+              if (this.turnon == "5") {
+                Toast({
+                  message: this.internal_cycle_regulation[1].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              }
+              if (this.turnon == "6") {
+                Toast({
+                  message: this.external_circulation_regulation[1].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              }
+              this.refreshPmData(),
+                Toast({
+                  message: this.airconditionwords[1].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
-              Toast({
-                message: this.airconditionwords[2].dictValue,
-                position: "middle",
-                duration: 2000
-              });
+              if (this.turnon == "1") {
+                if (this.value) {
+                  Toast({
+                    message: this.airconditionwords[2].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                } else {
+                  Toast({
+                    message: this.airconditionwords[4].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                }
+              }
+              if (this.turnon == "2") {
+                if (this.compressor) {
+                  Toast({
+                    message: this.compressor[2].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                } else {
+                  Toast({
+                    message: this.compressor[4].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                }
+              }
+              if (this.turnon == "3") {
+                Toast({
+                  message: this.gear_adjust[2].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              }
+              if (this.turnon == "4") {
+                Toast({
+                  message: this.air_regulation[2].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              }
+              if (this.turnon == "5") {
+                Toast({
+                  message: this.internal_cycle_regulation[2].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              }
+              if (this.turnon == "6") {
+                Toast({
+                  message: this.external_circulation_regulation[2].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              }
               this.$store.dispatch("LOADINGFLAG", false);
             }
           } else {
-            Toast({
-              message: this.airconditionwords[2].dictValue,
-              position: "middle",
-              duration: 2000
-            });
-            flag = false;
+            if (this.turnon == "1") {
+              if (this.value) {
+                Toast({
+                  message: this.airconditionwords[2].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              } else {
+                Toast({
+                  message: this.airconditionwords[4].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              }
+            }
+            if (this.turnon == "2") {
+              if (this.compressor) {
+                Toast({
+                  message: this.compressor[2].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              } else {
+                Toast({
+                  message: this.compressor[4].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              }
+            }
+            if (this.turnon == "3") {
+              Toast({
+                message: this.gear_adjust[2].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+            }
+            if (this.turnon == "4") {
+              Toast({
+                message: this.air_regulation[2].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+            }
+            if (this.turnon == "5") {
+              Toast({
+                message: this.internal_cycle_regulation[2].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+            }
+            if (this.turnon == "6") {
+              Toast({
+                message: this.external_circulation_regulation[2].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+            }
             clearInterval(this.time);
             this.$store.dispatch("LOADINGFLAG", false);
           }
@@ -620,28 +1095,57 @@ export default {
         .post(Lovecar.Control, param, this.$store.state.tsppin)
         .then(res => {
           if (res.data.returnSuccess) {
-            Toast({
-              message:this.airconditionwords[0].dictValue,
-              position:'middle',
-              duration:2000
-            })
-            setTimeout(()=>{
-              this.getAsyReturn(res.data.operationId);
-            },2000)
-          } else {
-            if (res.data.returnErrCode == 400) {
+            if (this.turnon == "1") {
               Toast({
-                message: "token验证失败",
-                position: "middle",
-                duration: 2000
-              });
-            } else {
-              Toast({
-                message:this.airconditionwords[2].dictValue,
+                message: this.airconditionwords[0].dictValue,
                 position: "middle",
                 duration: 2000
               });
             }
+            if (this.turnon == "2") {
+              Toast({
+                message: this.compressor[0].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+            }
+            if (this.turnon == "3") {
+              Toast({
+                message: this.airconditionwords[0].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+            }
+            if (this.turnon == "4") {
+              Toast({
+                message: this.gear_adjust[0].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+            }
+            if (this.turnon == "5") {
+              Toast({
+                message: this.airconditiair_regulationonwords[0].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+            }
+            if (this.turnon == "6") {
+              Toast({
+                message: this.external_circulation_regulation[0].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+            }
+            setTimeout(() => {
+              this.getAsyReturn(res.data.operationId);
+            }, 2000);
+          } else {
+            Toast({
+              message: this.airconditionwords[2].dictValue,
+              position: "middle",
+              duration: 2000
+            });
           }
         })
         .catch(err => {
@@ -656,8 +1160,8 @@ export default {
   mounted() {
     $(".MobileHeight").css("marginTop", this.marginTop);
     //	alert(this.marginTop)
-      console.log(this.$store.state.GETWORDS)
-      this.getairconditionwords()
+    console.log(this.$store.state.GETWORDS);
+    this.getairconditionwords();
     clearInterval(this.time);
     this.produCurve();
     this.inputs();
@@ -730,6 +1234,7 @@ export default {
             res.data.returnSuccess ? (this.num = 1) : (this.num = 2);
             if (res.data.returnSuccess) {
               // this.value = !this.value;
+              this.turnon = 1;
               this.httpair();
               //消失遮罩
               this.popupVisible = !this.popupVisible;
@@ -778,14 +1283,15 @@ export default {
             res.data.returnSuccess ? (this.num = 1) : (this.num = 2);
             if (res.data.returnSuccess) {
               // this.value = !this.value;
+              this.turnon = 1;
               this.httpair();
               //pin码正确激活弧线
               // this.curveState = !this.curveState;
               // //pin码正确激活空调图
               // (this.activeShowImg = !this.activeShowImg),
               //   this.refreshPmData(),
-                //消失遮罩
-                (this.popupVisible = !this.popupVisible);
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
               //消失软键盘
               (this.showTyper = 0),
                 //清空pin码
@@ -815,7 +1321,9 @@ export default {
           });
       }
     },
-    updated() {}
+    created() {
+      this.debouncedGetAnswer = _.debounce(this.httpair, 3000);
+    }
   }
 };
 </script>
