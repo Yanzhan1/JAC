@@ -26,7 +26,7 @@
                 		<p style="color: #999999;margin-left: .2rem;">2018-12-01 08:15:00(结算)</p>
                 	</div>
                 	
-                	<p class="dot-score">网点评分</p>
+                	<p class="dot-score" @click="tocomment">网点评分</p>
                 </div>
             </li>
 
@@ -43,7 +43,12 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    //跳到网点评分页面
+    tocomment(){
+      this.$router.push('/myindex/dotcomment')
+    }
+  },
   created() {}
 };
 </script>

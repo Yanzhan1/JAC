@@ -689,6 +689,7 @@ export default {
                               });
                               this.value = false;
                               this.curveState = false;
+                              this.compressor = false
                               //pin码正确激活空调图
                               this.activeShowImg = false;
                             }
@@ -900,6 +901,7 @@ export default {
                   });
                   this.value = false;
                   this.curveState = false;
+                  this.compressor = false;
                   //pin码正确激活空调图
                   this.activeShowImg = false;
                 }

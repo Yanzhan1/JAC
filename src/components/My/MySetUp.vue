@@ -114,7 +114,17 @@
 						this.banben=true
 					}
 				} else if (isMobile.iOS) {
-					// window.webkit.messageHandlers.checkVersion.postMessage({}); //ios方法暂时没有提供,需后续跟踪
+					if(this.update==''){
+						this.banben=false
+					}
+					let Detectionupdate=JSON.parse(window.webkit.messageHandlers.getVersionInfo.postMessage({})); //ios方法暂时没有提供,需后续跟踪
+					this.flag=Detectionupdate.flag
+					this.flag=this.flag=='1'?true:false
+					this.update=Detectionupdate.versionName
+					this.update='当前版本 '+this.update
+					if(this.update!=''){
+						this.banben=true
+					}
 				}	
 			},
 			//版本更新
@@ -122,7 +132,7 @@
 				if (isMobile.Android) {
 					window.js2android.checkVersion()
 				} else if (isMobile.iOS) {
-					// window.webkit.messageHandlers.checkVersion.postMessage({}); //ios方法暂时没有提供,需后续跟踪
+					window.webkit.messageHandlers.checkVersion.postMessage({}); //ios方法暂时没有提供,需后续跟踪
 				}				
 			},
 			turn() { //switch开关方法
@@ -157,7 +167,7 @@
 								
 						} else {
 								Toast({
-									message: data.returnErrMsg,
+									message: res.data.returnErrMsg,
 									position: "middle",
 									duration: 2001
 								});						
@@ -165,7 +175,7 @@
 					})
 					.catch(err => {
 						Toast({
-							message: '系统异常',
+							message: res.data.returnErrMsg,
 							position: "middle",
 							duration: 2001
 						});
