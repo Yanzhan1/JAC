@@ -1186,6 +1186,9 @@ export default {
     //     });
     //   });
   },
+   beforeDestroy(){
+     clearInterval(this.time);
+  },
   beforeRouteLeave(to, from, next) {
     clearInterval(this.time);
     next();

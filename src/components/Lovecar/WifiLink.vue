@@ -233,7 +233,10 @@ export default {
       });
     // console.log(this.$route.params.userCategory)
     this.names = this.$route.params.wifiname;
-  }
+  },
+   beforeDestroy(){
+     clearInterval(this.time);
+  },
 };
 </script>
 

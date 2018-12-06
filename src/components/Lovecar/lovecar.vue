@@ -93,8 +93,8 @@
 
 					<!-- <span class='busl_r top_1'>{{this.engineHoodStsFront}}</span> -->
 					<!--天窗And尾门状态Start-->
-					<span v-show="activeshow=='3'?true:false" class='busl_r bottom_1 '>{{this.doorStsTrunk}}</span>
-					<span v-show="activeshow=='2'?true:false" class='busl_r middle_1 '>{{this.skylightStatus}}</span>
+					<span v-show="activeshow=='2'?true:false" class='busl_r bottom_1 '>{{this.doorStsTrunk}}</span>
+					<span v-show="activeshow=='3'?true:false" class='busl_r middle_1 '>{{this.skylightStatus}}</span>
 					<!--天窗And尾门状态End-->
 					<img class="loadingcar " style="width:.88rem;height:.88rem;margin-top:.2rem" src="../../../static/images/Lovecar/loading@2x.png" alt="" @click="loading">
 				</div>
@@ -1043,7 +1043,7 @@
 															//     this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
 															//   }
 															// console.log(res.data.data);
-															setTimeout(() => {
+															// setTimeout(() => {
 																Toast({
 																		message: this.vehicle_condition[1].dictValue,
 																		position: "middle",
@@ -1051,7 +1051,7 @@
 																	},
 																	2000
 																);
-															}, 4000);
+															// }, 4000);
 
 															this.engineHoodStsFront = this.carcontrol
 																.engineHoodStsFront ?
@@ -1652,19 +1652,13 @@
 												}, 2000);
 												// alert(this.isTrue)
 											} else {
-												if(res.data.returnErrCode == 400) {
-													Toast({
-														message: "token验证失败",
-														position: "middle",
-														duration: 2000
-													});
-												} else {
+											
 													Toast({
 														message: this.open_lock[2].dictValue,
 														position: "middle",
 														duration: 2000
 													});
-												}
+												
 											}
 										})
 										.catch(err => {
@@ -1700,20 +1694,14 @@
 												}, 2000);
 												// alert(this.isTrue)
 											} else {
-												if(res.data.returnErrCode == 400) {
-													Toast({
-														message: "token验证失败",
-														position: "middle",
-														duration: 2000
-													});
-												} else {
+											
 													Toast({
 														message: this.close_lock[2].dictValue,
 														position: "middle",
 														duration: 2000
 													});
 												}
-											}
+											
 										})
 										.catch(err => {
 											Toast({
@@ -1743,19 +1731,13 @@
 													this.getAsyReturn(res.data.operationId);
 												}, 2000);
 											} else {
-												if(res.data.returnErrCode == 400) {
-													Toast({
-														message: "token验证失败",
-														position: "middle",
-														duration: 2000
-													});
-												} else {
+											
 													Toast({
 														message: this.open_trunk[2].dictValue,
 														position: "middle",
 														duration: 2000
 													});
-												}
+												
 											}
 										})
 										.catch(err => {
@@ -1824,19 +1806,13 @@
 													this.getAsyReturn(res.data.operationId);
 												}, 2000);
 											} else {
-												if(res.data.returnErrCode == 400) {
-													Toast({
-														message: "token验证失败",
-														position: "middle",
-														duration: 2000
-													});
-												} else {
+												
 													Toast({
 														message: this.vehicle_flameout[2].dictValue,
 														position: "middle",
 														duration: 2000
 													});
-												}
+												
 											}
 										})
 										.catch(err => {
@@ -1865,19 +1841,13 @@
 													this.getAsyReturn(res.data.operationId);
 												}, 2000);
 											} else {
-												if(res.data.returnErrCode == 400) {
-													Toast({
-														message: "token验证失败",
-														position: "middle",
-														duration: 2000
-													});
-												} else {
+											
 													Toast({
 														message: this.find_vehicle[2].dictValue,
 														position: "middle",
 														duration: 2000
 													});
-												}
+												
 											}
 										})
 										.catch(err => {
@@ -2007,7 +1977,10 @@
 						}
 					});
 			}
-		}
+		},
+		 beforeDestroy(){
+     clearInterval(this.time);
+  },
 	};
 </script>
 <style scoped>
@@ -2394,7 +2367,7 @@
 		position: fixed;
 		height: 2rem;
 		width: 100%;
-		bottom: 1rem;
+		bottom: .5rem;
 	}
 	
 	.love-wrapper>>>.mint-swipe-indicator {

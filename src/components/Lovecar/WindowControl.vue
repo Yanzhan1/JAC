@@ -402,7 +402,7 @@ export default {
     },
     //车窗接口一键系列
     httpwindowall() {
-      let percent = this.fluctuationType == "1" ? "100" : "0";
+      let percent = this.fluctuationType == "1" ? "0" : "100";
       console.log(percent);
       var param = {
         vin: this.$store.state.vins,
@@ -742,6 +742,9 @@ export default {
       this.popupInfo = true;
     }
   },
+  beforeDestroy(){
+     clearInterval(this.time);
+  },
   computed: {
     fullValue: {
       //拼接input输入框值,激活修改
@@ -956,7 +959,7 @@ export default {
   line-height: 1.4rem;
   width: 1.4rem;
   height: 1.4rem;
-  margin: 0.55rem;
+  margin: 0.65rem;
   border: 0.01rem solid #333333;
   border-radius: 50%;
 }

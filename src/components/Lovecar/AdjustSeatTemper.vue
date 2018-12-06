@@ -613,6 +613,9 @@ export default {
     //     });
     //   });
   },
+   beforeDestroy(){
+     clearInterval(this.time);
+  },
   computed: {
     fullValue: {
       //拼接input输入框值,激活修改
