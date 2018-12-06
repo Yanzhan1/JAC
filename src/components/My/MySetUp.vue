@@ -86,6 +86,15 @@
 					}
 				});
 			},
+			getvalue(value){
+				console.log(value)
+					value=JSON.parse(value)
+					this.flag=value.flag
+					this.flag=this.flag=='1'?true:false
+					this.update=value.versionName
+					this.update='当前版本 '+this.update
+					
+			},
 			// checkVersion(){},
 			// isIOSOrAndroid() { //判断ios和安卓机型的方法
 			// 	var u = navigator.userAgent,
@@ -101,11 +110,11 @@
 			//判断是否更新
 			newphone(){
 				if (isMobile.Android) {
-
 					if(this.update==''){
 						this.banben=false
 					}
 					let Detectionupdate=JSON.parse(window.js2android.getVersionInfo())
+					console.log(window.js2android.getVersionInfo())
 					this.flag=Detectionupdate.flag
 					this.flag=this.flag=='1'?true:false
 					this.update=Detectionupdate.versionName
@@ -114,26 +123,18 @@
 						this.banben=true
 					}
 				} else if (isMobile.iOS) {
-					if(this.update==''){
-						this.banben=false
-					}
-					let Detectionupdate=JSON.parse(window.webkit.messageHandlers.getVersionInfo.postMessage({})); //ios方法暂时没有提供,需后续跟踪
-					this.flag=Detectionupdate.flag
-					this.flag=this.flag=='1'?true:false
-					this.update=Detectionupdate.versionName
-					this.update='当前版本 '+this.update
-					if(this.update!=''){
-						this.banben=true
-					}
+					
+					window.webkit.messageHandlers.getVersionInfo.postMessage({}); //ios方法暂时没有提供,需后续跟踪
+					
 				}	
 			},
 			//版本更新
 			versionupdate(){
-				if (isMobile.Android) {
-					window.js2android.checkVersion()
-				} else if (isMobile.iOS) {
+				// if (isMobile.Android) {
+				// 	window.js2android.checkVersion()
+				// } else if (isMobile.iOS) {
 					window.webkit.messageHandlers.checkVersion.postMessage({}); //ios方法暂时没有提供,需后续跟踪
-				}				
+				// }				
 			},
 			turn() { //switch开关方法
 				this.value ? this.$store.dispatch('SOFTKEYBOARD', true) : this.$store.dispatch('SOFTKEYBOARD', false)
@@ -181,6 +182,9 @@
 						});
 					});
 			}
+		},
+		created(){
+			window.getvalue = this.getvalue
 		},
 		mounted () {
 			this.newphone()

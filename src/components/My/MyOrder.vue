@@ -95,10 +95,10 @@
 					</router-link >
 				</ul>
         <ul v-show="this.Maintenance" style="margin-top:.7rem;">
-          		<router-link tag="li" class="flex column" v-for="(item,index) in allflowbuy" :key="index"  :to="{path:'/myindex/flowOrderDetails', query: {flowDetail: item}}">
+          <router-link tag="li" class="flex column" v-for="(item,index) in allflowbuy" :key="index"  :to="{path:'/myindex/flowOrderDetails', query: {flowDetail: item}}">
 						<p class="flex row tim between">
 							<span class="times">{{item.purchaseTime}}</span>
-							<span class="times" :class=" true ? 'order': ''">{{trafficOrder[item.paymentStatus]}}</span>
+							<span class="times" >{{trafficOrder[item.paymentStatus]}}</span>
 						</p>
 						<div class="cont">
 							<div class="flex column tp">
@@ -111,17 +111,6 @@
 								<img src="../../../static/images/next@2x.png" alt="">
 							</div>
 						</div>
-						<!-- <div class="flex row between bt">
-							<span></span>
-							<div v-if="item.paymentStatus">
-								<span class="cancel" :class=" item.paymentStatus == 1 ? 'active' : ''">付款</span>
-								<span class="cancel">取消订单</span>
-							</div>
-							<div v-else>
-								<span class="cancel">再次充值</span>
-								<span class="cancel">删除订单</span>
-							</div>							
-						</div> -->
 					</router-link >
         </ul>
 			<!-- </mt-tab-container-item>
@@ -142,17 +131,17 @@ export default {
       selected: "one",
       Xorder: {}, //线索订单
       flag: true,
-      list:false,//线索展示
-      flow:false,//流量展示
-      Maintenance:false,//维保展示
+      list: false, //线索展示
+      flow: false, //流量展示
+      Maintenance: false, //维保展示
       allflowbuy: [],
-      allmaintenance:[],
+      allmaintenance: [],
       shoppingMall: [], //商城订单
       trafficOrder: {
         "0": "已完成",
         "1": "待付款"
-	  },
-	  url:''
+      },
+      url: ""
     };
   },
   methods: {
@@ -162,20 +151,20 @@ export default {
         query: item
       });
     },
-    showlist(){
-      this.list=true;
-      this.flow=false;
-      this.Maintenance=false;
+    showlist() {
+      this.list = true;
+      this.flow = false;
+      this.Maintenance = false;
     },
-    showflow(){
-      this.list=false;
-      this.flow=true;
-      this.Maintenance=false;
+    showflow() {
+      this.list = false;
+      this.flow = true;
+      this.Maintenance = false;
     },
-    showMaintenance(){
-      this.Maintenance=true;
-      this.flow=false;
-      this.list=false;
+    showMaintenance() {
+      this.Maintenance = true;
+      this.flow = false;
+      this.list = false;
     },
     //跳转商城详情
     todetail() {
@@ -235,7 +224,7 @@ export default {
     //流量订单
     flowbuy() {
       var params = {
-        userName: this.$store.state.mobile,
+        userName: this.$store.state.mobile
       };
       this.$http
         .post(Lovecar.Getoederlist, params, this.$store.state.tsppin)
@@ -299,29 +288,29 @@ export default {
     // this.getShoppingMall();
   },
   mounted() {
-	// alert(this.url)
+    // alert(this.url)
     //			console.log('加密:' + this.$md5('uid=1jac.com'))
     $(".MobileHeight").css({
       borderTopWidth: this.$store.state.mobileStatusBar,
       borderTopColor: "#fff"
     });
-    if(this.$route.params.show==1){
-     this.showflow()
-    }else{
-      this.list=true
+    if (this.$route.params.show == 1) {
+      this.showflow();
+    } else {
+      this.list = true;
     }
   }
 };
 </script>
 <style scoped>
-.header{
+.header {
   background: #fff;
 }
 .MobileHeight {
   border-top-style: solid;
   box-sizing: content-box;
 }
-.box{
+.box {
   display: flex;
   justify-content: space-around;
   text-align: center;

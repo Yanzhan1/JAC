@@ -686,7 +686,7 @@ export default {
 }
 .close-skylight > button.active {
   background: #cccccc;
-  /*color: #000000;*/
+  color: #fff;
   opacity: 0.5;
 }
 /*pin码提示框*/

@@ -165,8 +165,11 @@ export default {
   },
   data() {
     return {
+      timer:null,
+      times:'',
       turnon: 0, //辨别不同的指令1空调2压缩机3内循环4外循环5档位6风量
       time: "", //定时器命名
+      mmm:0,//防止用户连点
       //移动端键盘值
       allwords: [], //所有的提示
       airconditionwords: [], //空调的提示
@@ -188,7 +191,7 @@ export default {
       //压缩机switch按钮激活变量
       compressor: false,
       //图片激活变量
-      activeShowImg: 0,
+      activeShowImg: false,
       //温度调节最大值
       max: 14,
       //温度调节最小值
@@ -268,6 +271,11 @@ export default {
     },
     //温度增加
     add() {
+       if(!this.timer){
+        clearTimeout(this.timers)
+      }
+       this.timers = setTimeout(()=>{
+
       this.turnon = 5;
       if (this.activeShowImg && this.airSpace < this.temperNum.length - 1) {
         this.airSpace++;
@@ -292,50 +300,69 @@ export default {
         return;
       }
       this.httpair();
+       },1000)
     },
     //温度减少
     reduce() {
-      this.turnon = 5;
-      if (this.activeShowImg && this.airSpace > this.min) {
-        this.airSpace--;
-        //计数器控制曲线
-        new Createarc({
-          el: "rightColorful", //canvas id
-          vuethis: this, //使用位置的this指向
-          num: "airSpace", //data数值
-          type: "right", //圆弧方向  left right
-          tempdel: 15, //总差值
-          ratio: 0.4, //宽度比例
-          iscontrol: true, //控制是否能滑动，可以滑动
-          color: {
-            start: "#e22e10", //圆弧下边颜色
-            center: "#f39310", //圆弧中间颜色
-            end: "#04e8db", //圆弧上边颜色
-            num: 3
-          }
-        });
-      } else if (this.airSpace <= this.min) {
-        this.airSpace = this.min;
-        return;
+       if(!this.timer){
+        clearTimeout(this.timers)
       }
-      this.httpair();
+      this.timers=setTimeout(()=>{
+
+        this.turnon = 5;
+        if (this.activeShowImg && this.airSpace > this.min) {
+          this.airSpace--;
+          //计数器控制曲线
+          new Createarc({
+            el: "rightColorful", //canvas id
+            vuethis: this, //使用位置的this指向
+            num: "airSpace", //data数值
+            type: "right", //圆弧方向  left right
+            tempdel: 15, //总差值
+            ratio: 0.4, //宽度比例
+            iscontrol: true, //控制是否能滑动，可以滑动
+            color: {
+              start: "#e22e10", //圆弧下边颜色
+              center: "#f39310", //圆弧中间颜色
+              end: "#04e8db", //圆弧上边颜色
+              num: 3
+            }
+          });
+        } else if (this.airSpace <= this.min) {
+          this.airSpace = this.min;
+          return;
+        }
+        this.httpair();
+      },1000)
     },
     //风量增加
     windAdd() {
-      this.turnon = 6;
-      if (this.activeShowImg) {
-        if (this.winIndex >= this.windNum.length - 1) {
-          this.winIndex = this.windNum.length - 1;
-        } else {
-          this.winIndex++;
-        }
-      } else {
-        return;
+      if(!this.timer){
+        clearTimeout(this.timers)
       }
-      this.httpair();
+      this.timers = setTimeout(()=>{
+
+          this.turnon = 6;
+          if (this.activeShowImg) {
+            if (this.winIndex >= this.windNum.length - 1) {
+              this.winIndex = this.windNum.length - 1;
+            } else {
+              this.winIndex++;
+            }
+          } else {
+            return;
+          }
+          this.httpair();
+      },1000)
+      
     },
     //风量减少
     windReduce() {
+       if(!this.timer){
+        clearTimeout(this.timers)
+      }
+       this.timers = setTimeout(()=>{
+
       this.turnon = 6;
       if (this.activeShowImg) {
         if (this.winIndex <= this.winMin) {
@@ -348,6 +375,7 @@ export default {
       }
       this.Air = this.$refs.Air.value;
       this.httpair();
+       },1000)
     },
     //点击遮罩或者'x'移除popup
     removeMask() {

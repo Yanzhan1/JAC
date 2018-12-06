@@ -33,6 +33,7 @@ import SkylightControl from "@/components/Lovecar/SkylightControl" //天窗控�
 import SkylightClose from "@/components/Lovecar/SkylightClose" //天窗关闭
 import AirEvoluor from "@/components/Lovecar/AirEvoluor" //空气进化器
 import Electricairconditioning from '@/components/Lovecar/Electricairconditioning' //电动空调调控
+import Remotecharging from "@/components/Lovecar/Remotecharging" //充电功能页面
 
 //我的部分
 import My from '@/components/My/Myindex'
@@ -357,6 +358,11 @@ const router = new Router({
                 name: '空气净化器',
                 component: AirEvoluor
             },
+            {
+                path: "/lovecar/remotecharging",
+                name: '充电功能',
+                component: Remotecharging
+            },
 
             //我的页面
             {
@@ -467,7 +473,7 @@ const router = new Router({
                 path: "/myindex/wbrecode",
                 name: '维保记录',
                 component: WbRecode
-            },{
+            }, {
                 path: "/myindex/dotcomment",
                 name: '网点评分',
                 component: DotComment
