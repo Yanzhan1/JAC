@@ -50,7 +50,7 @@
 			<div class="air-content flex-center-between">
 				<!--温度计数器Start-->
 				<div class="temperature">
-					<span style="display:block;margin-bottom: 0.4rem;">温度</span>
+					<span style="display:block;position:fixed;left:1rem;top:4.2rem;">温度</span>
 					<div class="temper-inputcoun flex-center">
 						<div class="counter">
 							<button class="conmmon-style" :disabled="!value" @click="add" style="transform: rotateZ(-90deg);">></button>
@@ -81,7 +81,7 @@
 				<!--温度数值End-->
 			</div>
 			<!--风量计数器Start-->
-      <div style="margin-top:1rem;"
+      <div style="position:fixed;top:8rem;"
       >空调风量</div>
 			<div class="air-change flex-center">
 				<img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
@@ -258,9 +258,7 @@ export default {
         this.turnon = 4;
         this.loop = 2;
       }
-      this.activeShowImg
-        ? (this.activeShowImg = val)
-        : (this.activeShowImg = 0);
+
       this.httpair();
     },
     //路由跳转的时候清除轮询loading
@@ -443,8 +441,8 @@ export default {
     //用户停止滑动触发移动端事件,发送后端请求
     end() {
       this.turnon = 5;
-      this.httpair()
-      // this.debouncedGetAnswer();
+      // this.httpair();
+      this.debouncedGetAnswer();
       //				var start = $('#rightColorful').on('touchstart)
       // this.httpair();
       // console.log(this.temperNum[this.airSpace]);
@@ -713,6 +711,9 @@ export default {
                             }
                           }
                           if (this.turnon == "3") {
+                            this.activeShowImg
+                              ? (this.activeShowImg = 2)
+                              : (this.activeShowImg = 0);
                             Toast({
                               message: this.internal_cycle_regulation[1]
                                 .dictValue,
@@ -721,6 +722,9 @@ export default {
                             });
                           }
                           if (this.turnon == "4") {
+                            this.activeShowImg
+                              ? (this.activeShowImg = 3)
+                              : (this.activeShowImg = 0);
                             Toast({
                               message: this.external_circulation_regulation[1]
                                 .dictValue,
@@ -918,6 +922,9 @@ export default {
                 }
               }
               if (this.turnon == "3") {
+                this.activeShowImg
+                  ? (this.activeShowImg = 2)
+                  : (this.activeShowImg = 0);
                 Toast({
                   message: this.internal_cycle_regulation[1].dictValue,
                   position: "middle",
@@ -925,6 +932,9 @@ export default {
                 });
               }
               if (this.turnon == "4") {
+                this.activeShowImg
+                  ? (this.activeShowImg = 3)
+                  : (this.activeShowImg = 0);
                 Toast({
                   message: this.external_circulation_regulation[1].dictValue,
                   position: "middle",
@@ -1186,8 +1196,8 @@ export default {
     //     });
     //   });
   },
-   beforeDestroy(){
-     clearInterval(this.time);
+  beforeDestroy() {
+    clearInterval(this.time);
   },
   beforeRouteLeave(to, from, next) {
     clearInterval(this.time);
@@ -1215,6 +1225,9 @@ export default {
         this.ownKeyBoard.sixth = newVal;
       }
     }
+  },
+  created() {
+    this.debouncedGetAnswer = _.debounce(this.httpair, 2000);
   },
   watch: {
     pinNumber(newVal, oldVal) {
@@ -1315,9 +1328,6 @@ export default {
             });
           });
       }
-    },
-    created() {
-      this.debouncedGetAnswer = _.debounce(this.httpair, 3000);
     }
   }
 };
@@ -1440,6 +1450,9 @@ export default {
 
 .temper-inputcoun {
   height: 3.4rem;
+  position: fixed;
+  left: 1rem;
+  top: 4.8rem;
   background: url("../../../static/images/Lovecar/line5@2x_21.png") no-repeat
     center;
   background-size: contain;
@@ -1463,7 +1476,8 @@ export default {
 /*风扇部分*/
 
 .wind-blows {
-  margin-left: 0.5rem;
+  position: fixed;
+  top: 5.7rem;
   align-self: flex-end;
 }
 .wind-blows > div {
