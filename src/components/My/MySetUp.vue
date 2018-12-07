@@ -130,11 +130,11 @@
 			},
 			//版本更新
 			versionupdate(){
-				// if (isMobile.Android) {
-				// 	window.js2android.checkVersion()
-				// } else if (isMobile.iOS) {
+				if (isMobile.Android) {
+					window.js2android.checkVersion()
+				} else if (isMobile.iOS) {
 					window.webkit.messageHandlers.checkVersion.postMessage({}); //ios方法暂时没有提供,需后续跟踪
-				// }				
+				}				
 			},
 			turn() { //switch开关方法
 				this.value ? this.$store.dispatch('SOFTKEYBOARD', true) : this.$store.dispatch('SOFTKEYBOARD', false)

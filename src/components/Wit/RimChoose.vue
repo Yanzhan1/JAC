@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <header class="MobileHeight header nav">
-			<div  @click="goBack"><img style="width:.4rem;height:.4rem;margin-left:0.3rem" :src="'./static/images/back@2x.png'"></div>
+			<div  @click="goBack"><img style="width:.4rem;height:.4rem;" :src="'./static/images/back@2x.png'"></div>
 		</header>
     <div v-if="this.$route.query.currentTitle == '超越型' || this.$route.query.currentTitle == '梦想型' || this.$route.query.currentTitle == '探索型'">
       <div class="headerHeight"></div>
@@ -108,11 +108,7 @@
   }
 </script>
 <style scoped>
-  *{
-    margin: 0;
-    padding: 0;
-
-  }
+  
   .MobileHeight {
 		border-top-style: solid;
 		box-sizing: content-box;

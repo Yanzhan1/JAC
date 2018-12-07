@@ -24,10 +24,10 @@
           <div>流量</div>
           <div v-show="this.flow" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
         </div>
-        <div @click="showMaintenance" >
+        <!-- <div @click="showMaintenance" >
           <div>维保</div>
           <div v-show="this.Maintenance" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
-        </div>
+        </div> -->
       </div>
     </div>
 		

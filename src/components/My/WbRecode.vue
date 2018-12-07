@@ -26,11 +26,7 @@
                 		<p style="color: #999999;margin-left: .2rem;">2018-12-01 08:15:00(结算)</p>
                 	</div>
                 	
-<<<<<<< HEAD
-                	<p class="dot-score" @click="tocomment">网点评分</p>
-=======
                 	<router-link tag="p" to="/myindex/dotcomment" class="dot-score">网点评分</router-link tag="p" to="/myindex/dotcomment">
->>>>>>> fea
                 </div>
             </li>
 
