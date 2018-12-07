@@ -70,6 +70,9 @@
       popupVisibleChange: function () {
         this.$refs.mine.popupVisibleChange()
       },
+      changeSlide(index){
+        this.$root.eventHub.$emit('changeSlide', index)
+      },
       goIsRecommand: function () {
         this.$router.push('/recommend')
         this.isRecommand = true
@@ -77,6 +80,7 @@
         this.isAllActivity = false
         this.isNow = false
         this.isQuestion = false
+        this.changeSlide(0)
       },
       goInformation: function () {
         this.$router.push('/information')
@@ -85,6 +89,7 @@
         this.isAllActivity = false
         this.isNow = false
         this.isQuestion = false
+        this.changeSlide(1)
       },
       goAllActivity: function () {
         this.$router.push("/activity")
@@ -93,6 +98,7 @@
         this.isInformation = false
         this.isNow = false
         this.isQuestion = false
+        this.changeSlide(2)
       },
       goIsNow: function () {
         this.$router.push("/now")
@@ -101,6 +107,7 @@
         this.isInformation = false
         this.isAllActivity = false
         this.isQuestion = false
+        this.changeSlide(3)
       },
       goQuestion: function () {
         this.isNow = false
@@ -210,6 +217,11 @@
         this.goIsNow()
         this.$emit('refresh')
       }
+      this.$root.eventHub.$on('changeTab', (index)=>{
+        const list = ['goIsRecommand', 'goInformation', 'goAllActivity', 'goIsNow']
+
+        this[list[index]]()
+      })
     }
   }
 

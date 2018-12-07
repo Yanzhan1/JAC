@@ -125,6 +125,13 @@ const router = new Router({
     mode: 'hash',
     scrollBehavior(to, from, savedPosition) { //商品列表进去详情，返回时回到原来的高度
         if (savedPosition) {
+            const list = ['/recommend', '/information', '/activity', '/now']
+
+            if(list.includes(to.path)){
+                const swiperSlides = document.querySelectorAll('.swiperSlide')
+
+                swiperSlides[to.meta.index].scrollTop = to.meta.savedScrollTop || 0
+            }
             return savedPosition
         } else {
             if (from.meta.keepAlive) {
@@ -155,25 +162,30 @@ const router = new Router({
                     path: "/recommend",
                     component: Recommend,
                     meta: {
-                        keepAlive: true
+                        keepAlive: true,
+                        index: 0,
+
                     }
                 }, {
                     path: "/activity",
                     component: Activity,
                     meta: {
-                        keepAlive: true
+                        keepAlive: true,
+                        index: 2
                     }
                 }, {
                     path: "/information",
                     component: Information,
                     meta: {
-                        keepAlive: true
+                        keepAlive: true,
+                        index: 1
                     }
                 }, {
                     path: "/now",
                     component: Now,
                     meta: {
-                        keepAlive: true
+                        keepAlive: true,
+                        index: 3
                     }
                 }]
             },

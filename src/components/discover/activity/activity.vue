@@ -190,6 +190,7 @@
       }
     },
     mounted() {
+      console.log('activity')
       this.getRefreshList();
     },
   }

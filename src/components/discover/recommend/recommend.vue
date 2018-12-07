@@ -575,6 +575,7 @@
       }
     },
     mounted() {
+      console.log('recommend')
       this.getRefreshList();
       this.userId = this.$store.state.userId;
       // alert(this.$store.state.userId)
