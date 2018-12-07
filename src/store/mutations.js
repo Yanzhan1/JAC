@@ -33,7 +33,6 @@ export default {
             strr.token = payload.token
             strr.userId = payload.no
             state.getpin.headers.identityParam = JSON.stringify(strr)
-                // console.log(state.getpin.headers.identityParam)
         } else {
             state.no = null
             state.mobile = null
@@ -48,7 +47,6 @@ export default {
         state.vins = payload
     },
     [types.NONAME]: (state, payload) => {
-        // console.log(JSON.stringify(payload))
         state.seriesName = payload.seriesName
         state.everyno = payload.no
         state.srouceNo = payload.srouceNo
@@ -64,7 +62,6 @@ export default {
         str.userId = payload.tspId + '';
         str.token = payload.token;
         state.refreshToken = payload.refreshToken
-            // console.log(str)
         state.tsppin.headers.identityParam = JSON.stringify(str)
         state.tspId = payload.tspId
         state.buding.headers.token = payload.token;
@@ -75,7 +72,6 @@ export default {
     },
     [types.QRCODEPIN]: (state, payload) => {
         state.qrCodeDate = payload
-        console.log(payload)
     },
     changeScrollY: (state, payload) => {
         state.changeScrollY = payload

@@ -3,10 +3,7 @@
 		<div class="lovecar tophead">
 			<div class="nav MobileHeight">
 				<div style="color:#fff;font: .3rem/.5rem 'PingFang-SC-Regular'" @click="navtip">更多车控</div>
-				<!-- <img @click="navtip" src="../../../static/images/Wit/3x.png" alt="" style="width:.4rem;display:block"> -->
 				<span class="txt_m" style="margin-right: 1.8rem;">&nbsp;&nbsp;&nbsp;&nbsp;{{this.carsysitem}}</span>
-				<!--<span class="txt_r" @click="islogin()" v-if="this.LoginStatus">车机已登录</span>
-	      <span class="txt_r" v-else @click="login()">车机未登录</span>-->
 				<span class="txt_r"></span>
 			</div>
 			<div class="navs navs_h">
@@ -100,7 +97,6 @@
 				</div>
 				<!--车况主体End-->
 			</div>
-		</div>
 			<!--功能轮播Start-->
 			<mt-swipe :auto="0" class="icon-container">
 				<!--轮播第一页Start-->
@@ -196,6 +192,7 @@
 				</mt-swipe-item>
 				<!--轮播第二页End-->
 			</mt-swipe>
+		</div>
 			<!--功能轮播End-->
 		<!--爱车End-->
 
@@ -1928,6 +1925,11 @@
 			clearInterval(this.time);
 		},
 		mounted() {
+			// Toast({
+			// 	message: document.documentElement.style.fontSize,
+			// 	position: "middle",
+			// 	duration: 2000
+			// });
 			$(".MobileHeight").css({
 				marginTop: this.$store.state.mobileStatusBar
 			});
@@ -2366,10 +2368,10 @@
 	/*功能轮播Start*/
 	
 	.icon-container {
-		position: fixed;
+		
 		height: 2rem;
 		width: 100%;
-		bottom: .5rem;
+		
 	}
 	
 	.love-wrapper>>>.mint-swipe-indicator {

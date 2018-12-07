@@ -7,7 +7,7 @@
     </header>
     <div style="height:.88rem"></div>-->
     <mhead currentTitle="车辆体检"></mhead>
-    <h2>诊断时间：06-29 17:33</h2>
+    <!-- <h2>诊断时间：06-29 17:33</h2> -->
     <ul class="ul_content">
       <li class="flex row between cocenter">
         <p class="li_quan">电子转向柱锁</p>
@@ -43,12 +43,18 @@ export default {
     };
   },
   created() {
-    var self = this;
-    var param = {
-      vin: this.$store.state.vins
-    };
+    //进入页面获取一次车辆体检
+    this.starttest()
+  },
+  methods: {
+    //进入页面发起的车辆查询
+    starttest(){
+       var param = {
+        vin: this.$store.state.vins,
+        operationType: "CYC_CAR_EXAMINATION",
+      };
     this.$http
-      .post(Lovecar.BusTest, param, this.$store.state.tsppin)
+      .post(Lovecar.Control, param, this.$store.state.tsppin)
       .then(res => {
         if (res.data.returnSuccess) {
           this.getAsyReturn(res.data.operationId);
@@ -59,7 +65,6 @@ export default {
               duration: 3000
             });
         }
-        //     self.$router.replace('/test_result');
       })
       .catch(err => {
         Toast({
@@ -68,8 +73,34 @@ export default {
           duration: 3000
         });
       });
-  },
-  methods: {
+    },
+    //点击刷新按钮查询车辆体检
+    bustest(){
+      var param = {
+      vin: this.$store.state.vins
+    };
+    this.$http
+      .post(Lovecar.BusTest, param, this.$store.state.tsppin)
+      .then(res => {
+        if (res.data.returnSuccess) {
+         console.log(res)
+        } else {
+            Toast({
+              message: res.data.returnErrMsg,
+              position: "middle",
+              duration: 3000
+            });
+        }
+
+      })
+      .catch(err => {
+        Toast({
+          message:  res.data.returnErrMsg,
+          position: "middle",
+          duration: 3000
+        });
+      });
+    },
     //重复调用的接口
     getAsyReturn(operationId) {
       var flag = true;
