@@ -235,6 +235,8 @@
 					<span>修改PIN</span>
 				</router-link>
 				<router-link v-show="this.CAR_EXAMINATION" tag="li" to="/Bus_test">
+				<!-- 暂时解除车辆体检权限调接口 -->
+				<!-- <router-link  tag="li" to="/Bus_test"> -->
 					<img src="../../../static/images/Lovecar/chejian.png" alt="">
 					<span>车辆体检</span>
 				</router-link>
