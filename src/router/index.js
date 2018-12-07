@@ -107,6 +107,8 @@ import ToSign from '@/components/discover/activity/toSign' //活动报名
 import ToInform from '@/components/discover/component/inform' //举报此刻
 // 智享部分
 import Wit from '@/components/Wit/Wit.vue' //智享首页
+import HotSell from '@/components/Wit/HotSell.vue' //热销车型
+import IntelligentCar from '@/components/Wit/IntelligentCar.vue' //智能选车
 import Dealer from '../components/Wit/dealer.vue' //经销商查询
 import Recoment_bus from '../components/Wit/Recoment_bus.vue'
 import Search_net from '../components/Wit/Search_net.vue' //网点查询
@@ -593,6 +595,16 @@ const router = new Router({
                 meet: {
                     keepAlive: true
                 }
+            },
+            {
+                path: '/wit/hotSell',
+                name: '热销车型',
+                component: HotSell
+            },
+            {
+                path: '/wit/intelligentCar',
+                name: '智能选车',
+                component: IntelligentCar
             },
             {
                 path: '/wit/dealer',
