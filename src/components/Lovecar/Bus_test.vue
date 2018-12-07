@@ -8,8 +8,9 @@
     <div style="height:.88rem"></div>-->
     <mhead currentTitle="车辆体检"></mhead>
     <!-- <h2>诊断时间：06-29 17:33</h2> -->
+    <mt-button type="primary" size="large">刷新</mt-button>
     <ul class="ul_content">
-      <li class="flex row between cocenter">
+      <li class="flex row between cocenter" @click="bustest">
         <p class="li_quan">电子转向柱锁</p>
         <span class="right_pic actives"></span>
       </li>
@@ -30,6 +31,7 @@
 </template>
 <script>
 import {Toast} from 'mint-ui';
+import {Button} from 'mint-ui';
 import PublicHead from '../publicmodel/PublicHead';
 export default {
 	name: 'busTest',
@@ -39,7 +41,8 @@ export default {
   data() {
     return {
       time: "",
-      sjc: ""
+      sjc: "",
+      allfalse:[],//储存所有的车辆体检错误信息
     };
   },
   created() {
@@ -77,7 +80,7 @@ export default {
     //点击刷新按钮查询车辆体检
     bustest(){
       var param = {
-      vin: this.$store.state.vins
+      vin: 'LJ12EKS32J4757842'
     };
     this.$http
       .post(Lovecar.BusTest, param, this.$store.state.tsppin)
@@ -150,6 +153,7 @@ export default {
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
+                          this.allfalse=res.data.data
                           // Toast({
                           //   message: "下达指令成功",
                           //   position: "middle",
@@ -184,6 +188,7 @@ export default {
               //   position: "middle",
               //   duration: 3000
               // });
+              this.allfalse=res.data.data
                clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
