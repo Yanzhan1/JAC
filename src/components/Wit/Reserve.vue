@@ -53,13 +53,13 @@
                               <img src="../../../static/images/next@2x.png" alt="">
                           </div>
                       </li>
-                      <li class="all">
+                      <!-- <li class="all">
                           <span>推荐码</span>
                           <div class="allflex">
                               <input type="text" name="" id="" placeholder='点击输入推荐码' v-model="Recommend" @blur="Codigo">
                               <img src="../../../static/images/next@2x.png" alt="">
                           </div>
-                      </li>
+                      </li> -->
                       <li class="all">
                           <span>电子邮箱</span>
                           <div class="allflex">
