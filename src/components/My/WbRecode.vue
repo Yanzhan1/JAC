@@ -6,25 +6,27 @@
             <span class="header-right"></span>
         </header>
         <div style="height:.88rem"></div>-->
-        <mhead currentTitle="维保预约记录"></mhead>
+        <mhead currentTitle="维保记录"></mhead>
         <ul>
             <li v-for="(item,index) in 5" :key="index">
                 <div class="times">
-                    <span class="tim">2017.04.03</span>
-                    <!-- <span class="timr">预约成功</span>
-                    <span class="timr">已过期</span> -->
-                    <span class="timrs">已取消</span>
+                		<img src="../../../static/images/Wit/zhandian.png" style="width: .36rem;height: .34rem;"/>
+                    <span class="tim">上海永达通豪汽车公司</span>
                 </div>
-                <div class="flex row between maincenter" style="padding:.4rem">
-                    <!-- <div class="flex column maincenter cocenter" style="margin-left:.2rem">
-                        <span><img src="../../../static/images/Wit/bg-mine.png" alt="" style="width:2.46rem;height:1.2rem"></span>
-                        <span class="busname">瑞风 S5</span>
-                    </div> -->
-                    <div class="flex column maincenter" style="margin-right:.5rem">
-                        <span class="titlecar">瑞风M5</span>
-                        <span class="leftname">维保网点：上海市闵行区</span>
-                        <span class="leftname">维保类型：</span>
-                    </div>
+                <div class="record-wrap" style="padding:.52rem .5rem 0 .8rem">
+									<p class="record-name">维保类型：<span class="record-con">保养</span> </p>
+									<p class="record-name">送修人：<span class="record-con">宋师傅</span></p>
+									<p class="record-name">车牌号：<span class="record-con">沪A2008</span></p>
+									<p class="record-name">VIN：<span class="record-con">7328</span></p>
+									<div style="height: 1px;width: 100%;margin: 0 auto;background: #F1F1F1;"></div>
+                </div>
+                <div class="record-footer">
+                	<div style="display: flex;justify-content: center;align-items: center;">
+                		<img src="../../../static/images/Wit/shijian.png" style="width: .3rem;height: .3rem;margin-bottom: 0;"/>
+                		<p style="color: #999999;margin-left: .2rem;">2018-12-01 08:15:00(结算)</p>
+                	</div>
+                	
+                	<router-link tag="p" to="/myindex/dotcomment" class="dot-score">网点评分</router-link tag="p" to="/myindex/dotcomment">
                 </div>
             </li>
 
@@ -41,7 +43,12 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    //跳到网点评分页面
+    tocomment(){
+      this.$router.push('/myindex/dotcomment')
+    }
+  },
   created() {}
 };
 </script>
@@ -50,25 +57,19 @@ export default {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  padding: 0 .3rem;
   border-top: 0.1rem solid #f1f1f1;
   border-bottom: 0.01rem solid #f1f1f1;
 }
 .tim {
   line-height: 0.85rem;
-  font-size: 0.22rem;
+  font-size: 0.32rem;
   color: #222;
-  padding-left: 0.4rem;
+  padding-left: 0.17rem;
   display: block;
 }
-.timr {
-  width: 1.5rem;
-  height: 0.27rem;
-  font-size: 0.28;
-  font-family: "PingFang-SC-Regular";
-  font-weight: 400;
-  color: rgba(73, 187, 255, 1);
-}
+
 .timrs {
   width: 1.5rem;
   height: 0.27rem;
@@ -76,6 +77,46 @@ export default {
   font-family: "PingFang-SC-Regular";
   font-weight: 400;
   color: rgba(153, 153, 153, 1);
+}
+/*维保记录主体信息*/
+.record-wrap {
+	display: flex;
+	flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0 !important;
+}
+.record-wrap>p{
+	width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+ 	margin-bottom: .28rem;
+}
+.record-name {
+	color: #444444;
+}
+.record-con {
+	color: #222222;
+	font-size: .3rem;
+	font-weight: 600;
+}
+.record-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 1rem;
+  padding: 0 .3rem;
+}
+
+.dot-score {
+	width: 1.6rem;
+  height: .66rem;
+  line-height: .62rem;
+	text-align: center;
+	color: #49BBFF;
+	border: 1px solid #49BBFF;
+	border-radius: .33rem;
 }
 
 .titlecar {
@@ -86,11 +127,7 @@ export default {
   font-weight: 500;
   color: rgba(34, 34, 34, 1);
 }
-.busname {
-  font-size: 0.24rem;
-  color: #49bbff;
-  margin-top: 0.14rem;
-}
+
 .leftname {
   font-size: 0.24rem;
   color: #555;

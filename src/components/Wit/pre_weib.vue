@@ -115,7 +115,11 @@
       <span style="display: inline-block;width: 1rem;height: 0.28rem;text-align: center" @click="cancalBtn">取消</span>
       <span class="surebuttom" @click="confirmBtn">确定</span>
       <div class="every_times">
-        <mt-swipe class="time-swiper" ref="swiperWrap" :auto="0" :showIndicators="false" :continuous="false">
+        <mt-swipe class="time-swiper" ref="swiperWrap" 
+        	:auto="0" 
+        	:showIndicators="false" 
+        	:continuous="false"
+      	>
 				  <mt-swipe-item v-for="(item, index) in dataList" :key="index">
 				  	<p class="">
 				  		{{item}}

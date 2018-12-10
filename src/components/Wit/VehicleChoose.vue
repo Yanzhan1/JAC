@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <header class="nav MobileHeight header">
-			<div class="navBack"  @click="goBack"><img style="width:.4rem;height:.4rem;margin-left:-.15rem" :src="'./static/images/back@2x.png'"></div>
+			<div class="navBack"  @click="goBack"><img style="width:.4rem;height:.4rem;" :src="'./static/images/back@2x.png'"></div>
       <div class="navTitle">车辆选装</div>
       <div></div>
 		</header>
@@ -257,10 +257,10 @@
     top:0;
   }
   .nav div{
-    flex: 1;
+    /* flex: 1; */
   }
   .nav .navBack{
-    padding: 0.2rem 0 0.2rem 0.15rem;
+    /* padding: 0.2rem 0 0.2rem 0.15rem; */
 
   }
   .nav .navTitle{

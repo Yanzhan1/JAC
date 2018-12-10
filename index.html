@@ -4,26 +4,30 @@
 <head>
     <meta charset="utf-8">
     <!--<meta name="viewport" content="width=device-width,initial-scale=1.0">-->
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+    <!-- <meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1"> -->
     <title>江淮汽车</title>
     <script src="./static/js/interfaceUrl.js"></script>
     <script src="./static/js/publicmethods.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, shrink-to-fit=no,user-scalable=0">
     <!--原生方法-->
     <script src="./static/js/IOSAndAndroid.js"></script>
+
     <script>
         //屏幕适配自适应
         var deviceWidth = document.documentElement.clientWidth;
         if (deviceWidth > 640) deviceWidth = 640;
+        if (deviceWidth == 360) deviceWidth = 375 * 1.2;
         document.documentElement.style.fontSize = deviceWidth / 7.5 + 'px';
     </script>
+    <!--<script src="https://cdn.bootcss.com/eruda/1.5.4/eruda.min.js"></script>
+		<script>eruda.init();</script>-->
 </head>
 
 <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
     <script type="text/javascript">
-        var ModalHelper = (function(bodyCls){ //解决遮罩层滚动穿透问题，分别在遮罩层弹出后和关闭前调用
+        var ModalHelper = (function(bodyCls) { //解决遮罩层滚动穿透问题，分别在遮罩层弹出后和关闭前调用
             var scrollTop;
             return {
                 afterOpen: function() {

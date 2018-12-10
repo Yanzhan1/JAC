@@ -261,7 +261,10 @@ export default {
     // this.$route.params.userCategory?this.userCategory=1:this.userCategory=2
     this.wifiData.name = this.$route.params.names;
     // console.log(this.userCategory)
-  }
+  },
+   beforeDestroy(){
+     clearInterval(this.time);
+  },
 };
 </script>
 

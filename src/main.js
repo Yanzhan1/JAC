@@ -30,6 +30,10 @@ import md5 from 'js-md5';
 //导入复制功能
 import Clipboard from 'clipboard'
 import _ from "lodash" //工具库
+import Velocity from 'velocity-animate'  //js动画库,有用
+import 'velocity-animate/velocity.ui.js'
+import MyStart from '@/components/publicmodel/start' //封装公共头部组件,直接引用
+Vue.use(MyStart)
 
 /**
  * 获取手机上方状态栏高度
@@ -91,7 +95,8 @@ import {
     TabContainerItem,
     Spinner,
     Radio,
-    Lazyload
+    Lazyload,
+    Field
 } from 'mint-ui'; //按需引入部分组件
 Vue.component(Search.name, Search);
 Vue.component(PaletteButton.name, PaletteButton);
@@ -113,6 +118,7 @@ Vue.component(TabContainer.name, TabContainer);
 Vue.component(TabContainerItem.name, TabContainerItem);
 Vue.component(Spinner.name, Spinner);
 Vue.component(Radio.name, Radio);
+Vue.component(Field.name, Field);
 
 import MyHeader from '@/components/components/MyHeader'
 Vue.use(MyHeader)
@@ -124,7 +130,8 @@ import store from './store'
 import $ from 'jquery'
 //
 //手机端调试工具,发布提交时必须注释掉
-// import vConsole from './assets/util/vconsole'
+   import Vconsole from 'vconsole'
+   new Vconsole()
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

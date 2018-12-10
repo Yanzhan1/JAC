@@ -33,6 +33,7 @@ import SkylightControl from "@/components/Lovecar/SkylightControl" //天窗控�
 import SkylightClose from "@/components/Lovecar/SkylightClose" //天窗关闭
 import AirEvoluor from "@/components/Lovecar/AirEvoluor" //空气进化器
 import Electricairconditioning from '@/components/Lovecar/Electricairconditioning' //电动空调调控
+import Remotecharging from "@/components/Lovecar/Remotecharging" //充电功能页面
 
 //我的部分
 import My from '@/components/My/Myindex'
@@ -74,6 +75,7 @@ import TwoMa from '../components/My/TwoMa.vue' //二维码
 import Test_Result from '../components/Lovecar/Test_Reault.vue' //测试结果
 import WbRecode from '../components/My/WbRecode.vue' //维保记录
 import ScoreDetails from '../components/My/ScoreDetails.vue' //会员积分详情
+import DotComment from '../components/My/DotComment.vue' //网点评分
 // 消息
 import News from '../components/news/News.vue' //消息
 import StyNews from '../components/news/StyNews.vue' //系统消息
@@ -106,6 +108,8 @@ import ToSign from '@/components/discover/activity/toSign' //活动报名
 import ToInform from '@/components/discover/component/inform' //举报此刻
 // 智享部分
 import Wit from '@/components/Wit/Wit.vue' //智享首页
+import HotSell from '@/components/Wit/HotSell.vue' //热销车型
+import IntelligentCar from '@/components/Wit/IntelligentCar.vue' //智能选车
 import Dealer from '../components/Wit/dealer.vue' //经销商查询
 import Recoment_bus from '../components/Wit/Recoment_bus.vue'
 import Search_net from '../components/Wit/Search_net.vue' //网点查询
@@ -368,6 +372,11 @@ const router = new Router({
                 name: '空气净化器',
                 component: AirEvoluor
             },
+            {
+                path: "/lovecar/remotecharging",
+                name: '充电功能',
+                component: Remotecharging
+            },
 
             //我的页面
             {
@@ -478,6 +487,10 @@ const router = new Router({
                 path: "/myindex/wbrecode",
                 name: '维保记录',
                 component: WbRecode
+            }, {
+                path: "/myindex/dotcomment",
+                name: '网点评分',
+                component: DotComment
             },
             {
                 path: "/myaddress",
@@ -600,6 +613,16 @@ const router = new Router({
                 meet: {
                     keepAlive: true
                 }
+            },
+            {
+                path: '/wit/hotSell',
+                name: '热销车型',
+                component: HotSell
+            },
+            {
+                path: '/wit/intelligentCar',
+                name: '智能选车',
+                component: IntelligentCar
             },
             {
                 path: '/wit/dealer',

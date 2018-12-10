@@ -16,14 +16,18 @@
     <div style="position:fixed;width:100%;background:#fff;">
 
       <div class="box">
-        <div @click="showlist" style="width:50%">
+        <div @click="showlist" >
           <div>线索</div>
           <div v-show="this.list" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
         </div>
-        <div @click="showflow" style="width:50%">
+        <div @click="showflow">
           <div>流量</div>
           <div v-show="this.flow" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
         </div>
+        <!-- <div @click="showMaintenance" >
+          <div>维保</div>
+          <div v-show="this.Maintenance" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
+        </div> -->
       </div>
     </div>
 		
@@ -90,6 +94,25 @@
 						</div> -->
 					</router-link >
 				</ul>
+        <ul v-show="this.Maintenance" style="margin-top:.7rem;">
+          <router-link tag="li" class="flex column" v-for="(item,index) in allflowbuy" :key="index"  :to="{path:'/myindex/flowOrderDetails', query: {flowDetail: item}}">
+						<p class="flex row tim between">
+							<span class="times">{{item.purchaseTime}}</span>
+							<span class="times" >{{trafficOrder[item.paymentStatus]}}</span>
+						</p>
+						<div class="cont">
+							<div class="flex column tp">
+								<!--<span class="bus_right">地址：上海市徐汇区田林路200号</span>-->
+								<span class="flowPacket-title">{{item.packetName}}</span>
+								<span class="bus_right">维保网点:{{item.orderId}}</span>
+								<span class="bus_right">维保类型：{{item.price}}元</span>
+							</div>
+							<div class="flex column bus_left">
+								<img src="../../../static/images/next@2x.png" alt="">
+							</div>
+						</div>
+					</router-link >
+        </ul>
 			<!-- </mt-tab-container-item>
 		</mt-tab-container> -->
 	</div>
@@ -108,15 +131,17 @@ export default {
       selected: "one",
       Xorder: {}, //线索订单
       flag: true,
-      list:false,//线索展示
-      flow:false,//流量展示
+      list: false, //线索展示
+      flow: false, //流量展示
+      Maintenance: false, //维保展示
       allflowbuy: [],
+      allmaintenance: [],
       shoppingMall: [], //商城订单
       trafficOrder: {
         "0": "已完成",
         "1": "待付款"
-	  },
-	  url:''
+      },
+      url: ""
     };
   },
   methods: {
@@ -126,13 +151,20 @@ export default {
         query: item
       });
     },
-    showlist(){
-      this.list=true;
-      this.flow=false;
+    showlist() {
+      this.list = true;
+      this.flow = false;
+      this.Maintenance = false;
     },
-    showflow(){
-      this.list=false;
-      this.flow=true;
+    showflow() {
+      this.list = false;
+      this.flow = true;
+      this.Maintenance = false;
+    },
+    showMaintenance() {
+      this.Maintenance = true;
+      this.flow = false;
+      this.list = false;
     },
     //跳转商城详情
     todetail() {
@@ -192,7 +224,7 @@ export default {
     //流量订单
     flowbuy() {
       var params = {
-        userName: this.$store.state.mobile,
+        userName: this.$store.state.mobile
       };
       this.$http
         .post(Lovecar.Getoederlist, params, this.$store.state.tsppin)
@@ -256,29 +288,29 @@ export default {
     // this.getShoppingMall();
   },
   mounted() {
-	// alert(this.url)
+    // alert(this.url)
     //			console.log('加密:' + this.$md5('uid=1jac.com'))
     $(".MobileHeight").css({
       borderTopWidth: this.$store.state.mobileStatusBar,
       borderTopColor: "#fff"
     });
-    if(this.$route.params.show==1){
-     this.showflow()
-    }else{
-      this.list=true
+    if (this.$route.params.show == 1) {
+      this.showflow();
+    } else {
+      this.list = true;
     }
   }
 };
 </script>
 <style scoped>
-.header{
+.header {
   background: #fff;
 }
 .MobileHeight {
   border-top-style: solid;
   box-sizing: content-box;
 }
-.box{
+.box {
   display: flex;
   justify-content: space-around;
   text-align: center;

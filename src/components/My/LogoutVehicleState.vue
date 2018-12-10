@@ -35,25 +35,27 @@ export default {
         var params = {};
         window.webkit.messageHandlers.scan.postMessage(params);
       } else if (isMobile.Android()) {
-        console.log(2222)
         js2android.scan();
       }
     },
     getStatus(status) {
-      //暴露方法给原生,登入判断
+      //暴露方法给安卓,登入判断
+      // console.log(status)
       this.$store.dispatch("QRCODEPIN", status);
     },
-    // getStatus2(status){
-    //   console.log(status)
-    //   this.$store.dispatch("QRCODEPIN", JSON.parse(status));
-    // }
+    //暴露方法给ios拿数据
+    getiosStatus(iosstatus){
+     let status= JSON.parse(iosstatus)
+     this.$store.dispatch("QRCODEPIN", status);
+    }
   },
   created() {
     window.getStatus = this.getStatus;
+    window.getiosStatus = this.getiosStatus;
     // window.getStatus2 = this.getStatus2;
   },
   mounted() {
-    // console.log(this.$store.state.qrCodeDate);
+
   },
   computed: {
     qrCode() {
@@ -64,9 +66,6 @@ export default {
     qrCode(newVal, oldVal) {
       //解决扫一扫无法及时获取二维码信息的异步问题
       if (this.qrCode) {
-        // let nowtime=(new Date()).getTime()
-        // console.log(nowtime-this.qrCode.createTime)
-        // if((nowtime-this.qrCode.createTime)<500000){
 
         let data = {
           vin: this.qrCode.vin,
@@ -76,7 +75,6 @@ export default {
           .post(Lovecar.RemoteVehicleLogin, data, this.$store.state.tsppin)
           .then(res => {
             const data = res.data;
-            //							console.log('扫一扫登入接口状态: '+data.returnSuccess)
             if (data.returnSuccess) {
               Toast({
                 message: "登录成功",

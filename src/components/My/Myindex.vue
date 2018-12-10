@@ -284,7 +284,7 @@ export default {
         "&toOrderList=suc&token=" +
         this.add;
       // this.url='http://14.21.46.171:8707/authLogin'+'?'+'uid='+'99'+'&moblie='+'18856913074'+'&userName='+'啊'+'&toOrderList=suc&token='+'91af2f1fe5ba6236a0d99c7ac92161c8'
-      console.log(this.url);
+      // console.log(this.url);
       // this.$http.get(this.url).then(res => {});
     },
     //粉丝
@@ -336,7 +336,7 @@ export default {
             _this.likeNum = res.data.data.likeNum;
             _this.momentNum = res.data.data.momentNum;
           } else {
-            console.log(res.data.errorMsg);
+            // console.log(res.data.errorMsg);
             // MessageBox('提示', res.data.errorMsg);
           }
         });
@@ -353,7 +353,7 @@ export default {
           if (res.data.status) {
             _this.myList = res.data.data;
           } else {
-            console.log(res.data.errorMsg);
+            // console.log(res.data.errorMsg);
             //MessageBox('提示', res.data.errorMsg);
           }
         });
@@ -366,7 +366,6 @@ export default {
       this.$http.post(My.RecomendCode, param).then(res => {
         if(res.data.msg='success'){
           if(res.data.code!=500){
-          console.log(2)
           this.share = res.data.code;
           this.flag = true;
         }

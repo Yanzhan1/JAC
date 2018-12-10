@@ -26,10 +26,10 @@
 		<router-link  tag="div" class="setup-vehiclestate" to="/myindex/logoutVehicleState">
 			<mt-cell title="车机扫码登录" is-link></mt-cell>
 		</router-link>
-		<!-- <div class="setup-ctcperson" @click="versionupdate" style="position:relative">
-			<div v-show="flag" style="position:absolute;z-index:2;width:.1rem;height:.1rem;border-radius:50%;background:red;left:2.3rem;top:.3rem;"></div>
-			<mt-cell  title="当前版本v2.0.0" is-link></mt-cell>
-		</div> -->
+		<div v-show="this.banben" class="setup-ctcperson" @click="versionupdate" style="position:relative">
+			<div v-show="this.flag" style="position:absolute;z-index:2;width:.1rem;height:.1rem;border-radius:50%;background:red;left:2.4rem;top:.3rem;"></div>
+			<mt-cell  :title="this.update" is-link></mt-cell>
+		</div>
 		<router-link tag="div" class="setup-loginout" to="">
 			<mt-cell @click.native="signOut" title="退出登录" is-link></mt-cell>
 		</router-link>
@@ -49,6 +49,7 @@
 				title: '软键盘',
 				value: true,
 				vin:'',
+				banben:true,//判断兼容低版本不能更新显示消失
 				flag:false,//控制版本更新的红点
 				update:'',//更新版本号
 				vehicleState:'', //车机登录状态,true代表登录, false代表未登录
@@ -81,9 +82,18 @@
 					}
 				}).catch(err => {
 					if(err == 'cancel') {
-						console.log('123');
+						
 					}
 				});
+			},
+			getvalue(value){
+				console.log(value)
+					value=JSON.parse(value)
+					this.flag=value.flag
+					this.flag=this.flag=='1'?true:false
+					this.update=value.versionName
+					this.update='当前版本 '+this.update
+					
 			},
 			// checkVersion(){},
 			// isIOSOrAndroid() { //判断ios和安卓机型的方法
@@ -100,12 +110,22 @@
 			//判断是否更新
 			newphone(){
 				if (isMobile.Android) {
-					// let Detectionupdate=window.js2android.getVersionInfo()
-					// this.flag=Detectionupdate.flag
-					// this.update=Detectionupdate.versionName
-					// console.log(Detectionupdate)
+					if(this.update==''){
+						this.banben=false
+					}
+					let Detectionupdate=JSON.parse(window.js2android.getVersionInfo())
+					console.log(window.js2android.getVersionInfo())
+					this.flag=Detectionupdate.flag
+					this.flag=this.flag=='1'?true:false
+					this.update=Detectionupdate.versionName
+					this.update='当前版本 '+this.update
+					if(this.update!=''){
+						this.banben=true
+					}
 				} else if (isMobile.iOS) {
-					// window.webkit.messageHandlers.checkVersion.postMessage({}); //ios方法暂时没有提供,需后续跟踪
+					
+					window.webkit.messageHandlers.getVersionInfo.postMessage({}); //ios方法暂时没有提供,需后续跟踪
+					
 				}	
 			},
 			//版本更新
@@ -113,7 +133,7 @@
 				if (isMobile.Android) {
 					window.js2android.checkVersion()
 				} else if (isMobile.iOS) {
-					// window.webkit.messageHandlers.checkVersion.postMessage({}); //ios方法暂时没有提供,需后续跟踪
+					window.webkit.messageHandlers.checkVersion.postMessage({}); //ios方法暂时没有提供,需后续跟踪
 				}				
 			},
 			turn() { //switch开关方法
@@ -148,7 +168,7 @@
 								
 						} else {
 								Toast({
-									message: data.returnErrMsg,
+									message: res.data.returnErrMsg,
 									position: "middle",
 									duration: 2001
 								});						
@@ -156,12 +176,15 @@
 					})
 					.catch(err => {
 						Toast({
-							message: '系统异常',
+							message: res.data.returnErrMsg,
 							position: "middle",
 							duration: 2001
 						});
 					});
 			}
+		},
+		created(){
+			window.getvalue = this.getvalue
 		},
 		mounted () {
 			this.newphone()
