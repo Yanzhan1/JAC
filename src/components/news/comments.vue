@@ -1,11 +1,11 @@
 <template>
     <div>
-        <header class="header MobileHeight bgcolor">
+        <!-- <header class="header MobileHeight bgcolor">
             <img @click="$router.go(-1)" class="header-left" :src="'./static/images/back@2x.png'" style="margin-left:.3rem">
             <span class='header-title' style="margin-right: .75rem;">评论</span>
             <span></span>
-        </header>
-        <!--<mhead currentTitle="评论"></mhead>-->
+        </header> -->
+        <mhead currentTitle="评论" style="background:#fff"></mhead>
       <div v-if="this.nowactivity" style="margin:.4rem;margin-top:1.5rem;text-align: center">暂无评论</div>
       <mt-loadmore v-else :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :bottomLoadingText="loadingText" ref="loadmore" :topDistance="20">
         <!-- <div slot="top" class="mint-loadmore-top">
@@ -95,7 +95,11 @@ export default {
             })
           }
       }).catch((err)=>{
-
+        let instance = Toast({
+              message: res.data.errorMsg,
+              position: 'middle',
+              duration: 1000
+            })
       })
     },
     loadTop() {

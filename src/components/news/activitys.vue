@@ -1,11 +1,11 @@
 <template>
     <div>
-        <header class="header MobileHeight bgcolor">
+        <!-- <header class="header MobileHeight bgcolor">
             <img @click="$router.go(-1)" class="header-left" :src="'./static/images/back@2x.png'" style="margin-left:.4rem">
             <span class='header-title' style="margin-right: .75rem;">活动</span>
             <span></span>
-        </header>
-				<!-- <mhead currentTitle="活动" class="MobileHeight"></mhead> -->
+        </header> -->
+				<mhead currentTitle="活动" style="background:#fff"></mhead>
         <div style="margin:.4rem;margin-top:1.5rem;text-align: center" v-show="this.noactivity">暂无活动信息</div>
       <mt-loadmore v-show="!this.noactivity"  :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="20">
         <!-- <div slot="top" class="mint-loadmore-top">
