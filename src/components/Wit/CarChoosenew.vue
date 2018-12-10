@@ -37,6 +37,7 @@
 export default{
   data(){
     return{
+        item:{no:'AU112018110106375078380'},
         currentIndex:0,
         currentTitle:'超越型',
         carData:[
@@ -72,6 +73,9 @@ export default{
     })
   },
   methods:{
+    getno(){
+      this.$store.dispatch("NONAME", this.item)
+    },
     carBtn(index,labelTitle){
       this.currentIndex = index;
       this.currentTitle = labelTitle;
