@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import Secret from './utils/secret'
-
 export default {
   name: "App",
   data() {
@@ -37,9 +35,6 @@ export default {
       if (userInfo && userInfo.no) {
         this.$store.dispatch("isLogin", true);
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
-        // const secUid = Secret.Encrypt(userInfo.no)
-
-        // this.$store.dispatch("userId", secUid);
         this.$store.dispatch("userId", userInfo.no);
         this.$store.dispatch("userInfo", userInfo);
       } else {
