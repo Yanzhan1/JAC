@@ -12,7 +12,7 @@
           <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }" style="font-size: 0.3rem">下拉刷新</span>
           <span v-show="topStatus === 'loading'">Loading...</span>
         </div> -->
-        <div 
+        <div
           v-infinite-scroll="getNextList"
           infinite-scroll-disabled="loading"
           infinite-scroll-distance="10">
@@ -107,7 +107,7 @@ export default {
       this.$refs.loadmore.onTopLoaded();
     },
     loadBottom() {
- 
+
     },
     //1，通知 2、评论 3、活动
     //readState 已读状态
@@ -178,7 +178,7 @@ export default {
   padding: 0;
   margin: 0;
 }
-.MobileHeight {  
+.MobileHeight {
 		border-top-style: solid;
 		box-sizing: content-box;
 	}
@@ -193,7 +193,6 @@ li {
   background-color: #f8f8f8;
   width: 100%;
   padding: 0.5rem 0.4rem 0.4rem 0.4rem;
-  margin-top: 0.9rem;
 }
 .area {
   border: 1px solid #ccc;
@@ -235,7 +234,7 @@ li {
   color: rgba(252, 87, 31);
 }
 #showAll2{
-  display: none; 
+  display: none;
   font-size: 0.3rem;
   margin: auto;
   text-align: center
