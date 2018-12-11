@@ -611,6 +611,7 @@ export default {
 				var Position = js2android.getLocationInfo() //获取安卓定位信息
         var NewPosition = JSON.parse(Position)
         this.localprovince=NewPosition.province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '')//当地的省
+        console.log(this.localprovince)
         this.localcity= NewPosition.city.replace('市', '')//当地的市
 				this.latitude = NewPosition.latitude //经度
         this.longitude = NewPosition.longitude //纬度
