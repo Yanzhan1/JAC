@@ -108,7 +108,7 @@
   }
 </script>
 <style scoped>
-  
+
   .MobileHeight {
 		border-top-style: solid;
 		box-sizing: content-box;
