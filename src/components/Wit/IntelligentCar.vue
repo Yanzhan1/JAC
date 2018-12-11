@@ -722,15 +722,22 @@
 		overflow-scrolling: touch;	
 	}
 	.animate-box {
+    display: flex;
+    align-items: center;
+    height: 100%;
 		white-space: nowrap;
 	}
 	
 	.filte-item {
-		display: inline-block;
-		padding: .18rem .2rem;
-		margin: .1rem;
-		background: #F5F5F5;
-		border-radius: .3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 0.6rem;
+    line-height: .6rem;
+    padding: 0 .2rem;
+    margin: .1rem;
+    background: #F5F5F5;
+    border-radius: .3rem;
 	}
 	.filte-item>span:nth-of-type(1) {
 		color: #B4B4B4;
