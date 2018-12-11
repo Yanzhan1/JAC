@@ -8,6 +8,7 @@ export default {
     tspId: '',
     userName: '', //用户昵称
     uuid: null,
+    sign: '', //原生拿到的用作埋点
     UserStartId: null,
     mobile: null, //用户手机号
     softkeyboard: true, //默认软键盘开启
@@ -51,4 +52,5 @@ export default {
     qrCodeDate: null, //扫描二维码给出信息
     changeScrollY: '', //存储滚动高度
     GETWORDS: [] //储存所有的提示信息
+
 }

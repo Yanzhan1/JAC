@@ -9,7 +9,7 @@
 var host = '//jacsupperapp.jac.com.cn'
 var indexip = host + '/api/dk-dm-portal-api'
 var focusip = host + '/api/dk-pr-svr' //uat
-var point = 'http://192.168.1.141:8868'//埋点
+var point = 'http://192.168.1.141:8868' //埋点
     //服务器-智享
 var mip = host + '/api/jac-automobile-manage/automobilemanage' //智享
     //服务器-admin(跟用户有关即我的)
@@ -24,9 +24,9 @@ var rec = host + '/api/jac-enjoy-service/'
 var waiwangip = window.location.protocol + host + '/JACH5/#/';
 var filestore = host + '/api/dk-filestore-svr'
 var POINT = {
-  addpoint: indexip + '/buriedPoint/buriedPointModuleStart', //tab切换时候埋点
-  buryingPointShare: indexip + '/buriedPoint/buryingPointShare', //分享时候埋点
-}
+        addpoint: indexip + '/buriedPoint/buriedPointModuleStart', //tab切换时候埋点,车型切换时候埋点
+        buryingPointShare: indexip + '/buriedPoint/buryingPointShare', //分享时候埋点
+    }
     //首页
 window.INDEXMESSAGE = {
     getRecommend: indexip + '/recommend/recommendList', //首页-推荐
