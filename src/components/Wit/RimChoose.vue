@@ -108,7 +108,7 @@
   }
 </script>
 <style scoped>
-  
+
   .MobileHeight {
 		border-top-style: solid;
 		box-sizing: content-box;
@@ -237,7 +237,7 @@
     left: 45%;
   }
   .contentBtn{
-    height: 3.5rem;
+    height: 2.3rem;
     /*background-color: green;*/
   }
   .contentBtn .contentColorBtn{
