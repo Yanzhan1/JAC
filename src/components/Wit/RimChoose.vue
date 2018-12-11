@@ -237,7 +237,7 @@
     left: 45%;
   }
   .contentBtn{
-    height: 2.3rem;
+    height: 3.5rem;
     /*background-color: green;*/
   }
   .contentBtn .contentColorBtn{
