@@ -123,12 +123,13 @@
       //埋点
       addPoint: function (flag) {
         var _this = this;
-        console.log(_this.$store.state.userId)
+        console.log(_this.$store.state.userId+"这里是userId")
+        console.log(_this.$store.state.uuid+"这里是uuid")
         console.log(flag)
         this.$http.post(POINT.addpoint, {
           "uid": _this.$store.state.userId,
           "id":'',
-          "sign":'',
+          "sign": _this.$store.state.uuid,
           "moduleName":flag
         }).then(function (res) {
 
