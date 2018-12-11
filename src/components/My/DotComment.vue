@@ -109,8 +109,8 @@
 				var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //安卓
 				var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
 				if(isIOS) {
-					var docheight = $(window).height() - 50; //ios使用resize监听屏幕高度与安卓不一样,把软键盘高度依然算在了屏幕内,手动减值,触发判断
-					//						console.log('IOS resize后高度:' + docheight)
+					var docheight = $(window).height() - 1; //ios使用resize监听屏幕高度与安卓不一样,把软键盘高度依然算在了屏幕内,手动减值,触发判断
+					console.log('IOS resize后高度:' + docheight)
 					if(docheight < this.screenHeight) {
 						$('.btn').css('position', 'static')
 						$(".score-time").css("bottom", "0.24rem"); //解决数字计数器bug
@@ -123,7 +123,8 @@
 					var docheight = $(window).height();
 					console.log('Android resize后高度:' + docheight)
 					if(docheight < this.screenHeight) {
-						$(".score-time").css("bottom", "1.14rem");
+//						$('.btn').css('position', 'fixed')
+//						$(".score-time").css("bottom", "1.14rem");
 					} else {
 						$(".score-time").css("bottom", "0.24rem");
 					}
@@ -183,6 +184,7 @@
 			},
 		},
 		mounted() {
+			console.log('初次进入页面高度:' + this.screenHeight)
 			window.addEventListener('resize', this.changeFocus)
 		},
 		beforeDestroy() {
@@ -234,6 +236,7 @@
 	
 	.score-textarea {
 		position: relative;
+		margin-bottom: 3.06rem;
 	}
 	
 	.score-textarea>>>.mint-field-core {

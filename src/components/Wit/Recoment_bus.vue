@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="header MobileHeight">
+    <header class="header MobileHeight bgcolor">
       <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.push('/wit')">
       <div id="tip">
         <span class="header-title" :class="type==1?'active':''" style="margin-right:.2rem" @click="getcarbus(1)">全部车型</span>
@@ -12,12 +12,23 @@
     <ul>
       <li class="bus_li" v-for="(item,index) in this.mainbus" :key="index" @click="tode(item)">
         <img :src="item.imgUrl" alt="">
-        <div class="bus_1">
-          <span class="bus_2">{{item.seriesName}}</span>
-          <span class="bus_3"  v-if="item.guidancePriceStart>0">
-            <span style="color:#a5a5a5;font-size:.22rem" > 官方指导价</span> ：{{item.guidancePriceStart}}万起</span>
+        <div class="bus_1" v-if="item.guidancePriceStart>0">
+          <div>
+            <img :src="'./../../../static/images/Wit/dingzi.png'" alt="">
+            <span class="bus_2">{{item.seriesName}}</span>
+          </div>
+          <div>
+            <span class="bus_3"  >
+              <div> 官方指导价:</div> {{item.guidancePriceStart}}万起</span>
+          </div>
         </div>
-        <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
+        <div class="bus_n" v-else>
+          <div>
+            <img :src="'./../../../static/images/Wit/dingzi.png'" alt="">
+            <span class="bus_2">{{item.seriesName}}</span>
+          </div>
+        </div>
+        <!-- <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem"> -->
       </li>
     </ul>
     <mt-popup v-model="popupVisible" position="middle">
@@ -192,6 +203,9 @@ export default {
 .mint-popup {
   width: 80%;
 }
+.bgcolor{
+  background: #fff;
+}
 .fot {
   position: relative;
   width: 100%;
@@ -251,33 +265,76 @@ export default {
 }
 
 .bus_li {
-  height: 2.3rem;
+  height: 3.57rem;
+  width: 100%;
   border-bottom: 1px solid #f5f5f5;
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: column;
   align-items: center;
 }
 .bus_li img {
-  width: 2.56rem;
-  height: 1.4rem;
-  margin-left: 0.3rem;
+  width:100%;
+  height: 2.37rem;
 }
 .bus_1 {
+  width: 100%;
+  height: 1.2rem;
   display: flex;
-  flex-direction: column;
-  margin-left: 0.38rem;
-  align-items: flex-start;
-  width: 4rem;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+}
+.bus_n{
+   width: 100%;
+  height: 1.2rem;
+  display: flex;
+  flex: 1;
+  justify-content:center;
+  align-items: center;
+}
+.bus_n>div>img{
+  width: .28rem;
+  height: .28rem;
+}
+.bus_1>div>img{
+  width: .28rem;
+  height: .28rem;
+  margin-left: .3rem;
+}
+.bus_n>div{
+  display: flex;
+  align-items: center;
+  padding: 0.3rem;
+}
+.bus_1>div{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.3rem;
 }
 .bus_2 {
-  font-size: 0.3rem;
-  color: #222;
-  padding: 0.1rem 0;
+    color: #222;
+		padding: .2rem;
+		font-size:.32rem;
+		font-family:'PingFang-SC-Bold';
+		font-weight:bold;
+		color:rgba(34,34,34,1);
 }
 .bus_3 {
-  font-size: 0.28rem;
-  color: #3a5cff;
+  margin-right: .33rem;
+		display: flex;
+		align-items: center;
+		font-size:.28rem;
+		font-family:'PingFang-SC-Bold';
+		font-weight:bold;
+		color:rgba(73,187,255,1);
+}
+.bus_3>div{
+    font-size:.24rem;
+		font-family:'PingFangSC-Regular';
+		font-weight:400;
+		color:rgba(153,153,153,1);
+    margin-right: .2rem;
 }
 .input-label {
   display: block;
