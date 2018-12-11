@@ -2,7 +2,7 @@
 <div class="main">
     <header class="nav MobileHeight header ">
       <div class="navTitle">选购瑞风S4</div>
-      <div></div>
+      <!-- <div></div> -->
 		</header>
   <div class="headerHeight"></div>
   <div class="content">
@@ -126,8 +126,8 @@ export default{
 /*}*/
 
 .nav .navTitle{
-  /*text-align: center;*/
-  padding-left: 0.15rem;
+  text-align: center;
+  /* padding-left: 0.2rem; */
   font-size: 0.36rem;
 }
 .headerHeight{
