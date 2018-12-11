@@ -5,7 +5,7 @@
             <span class='header-title' style="margin-right: .75rem;">其他</span>
             <span></span>
         </header> -->
-        <mhead currentTitle="评论" style="background:#fff;"></mhead>
+        <mhead currentTitle="其他" style="background:#fff;"></mhead>
         <div v-if="this.shows" style="margin:.4rem;margin-top:1.5rem;text-align: center">暂无消息</div>
       <mt-loadmore v-else :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :bottomLoadingText="loadingText" ref="loadmore" :topDistance="20">
         <!--<div slot="top" class="mint-loadmore-top">
