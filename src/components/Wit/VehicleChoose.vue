@@ -1,9 +1,10 @@
 <template>
   <div class="main">
+
     <header class="nav MobileHeight header">
 			<div class="navBack"  @click="goBack"><img style="width:.4rem;height:.4rem;" :src="'./static/images/back@2x.png'"></div>
-      <div class="navTitle">车辆选装</div>
-      <div></div>
+      <!--<div class="navTitle">车辆选装</div>-->
+      <!--<div></div>-->
 		</header>
     <!-- <div class="nav">
       <div class="navBack" @click="goBack"><img style="width:.4rem;height:.4rem;" src="../../../static/images/back@2x.png"></div>
