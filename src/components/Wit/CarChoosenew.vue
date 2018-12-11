@@ -214,6 +214,6 @@ export default {
   align-items: center;
   justify-content: center;
   background: #fff;
-  top: .38rem;
+  top: .08rem;
 }
 </style>
