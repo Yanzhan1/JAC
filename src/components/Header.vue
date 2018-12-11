@@ -77,6 +77,7 @@
         this.isAllActivity = false
         this.isNow = false
         this.isQuestion = false
+        this.addPoint('recommend');
       },
       goInformation: function () {
         this.$router.push('/information')
@@ -85,6 +86,7 @@
         this.isAllActivity = false
         this.isNow = false
         this.isQuestion = false
+        this.addPoint('inform');
       },
       goAllActivity: function () {
         this.$router.push("/activity")
@@ -93,6 +95,7 @@
         this.isInformation = false
         this.isNow = false
         this.isQuestion = false
+        this.addPoint('activity');
       },
       goIsNow: function () {
         this.$router.push("/now")
@@ -101,6 +104,7 @@
         this.isInformation = false
         this.isAllActivity = false
         this.isQuestion = false
+        this.addPoint('community');
       },
       goQuestion: function () {
         this.isNow = false
@@ -108,6 +112,22 @@
         this.isInformation = false
         this.isAllActivity = false
         this.isQuestion = true
+      },
+      //埋点
+      addPoint: function (flag) {
+        var _this = this;
+        console.log(_this.$store.state.userId)
+        console.log(flag)
+        this.$http.post(POINT.addpoint, {
+          "uid": _this.$store.state.userId,
+          "id":'',
+          "sign":'',
+          "moduleName":flag
+        }).then(function (res) {
+
+        }).catch(()=>{
+
+        })
       },
       //发布心情
       publish: function () {
