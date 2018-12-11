@@ -1988,6 +1988,13 @@
 	};
 </script>
 <style scoped>
+	.love-wrapper >>> .mint-msgbox-message {
+		color: #999;
+    margin: 0;
+    text-align: left;
+    line-height: .56rem;
+    text-indent: 2em;
+	}
 	.clearFix:after {
 		clear: both;
 		display: block;

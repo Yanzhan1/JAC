@@ -48,28 +48,28 @@
 		<div style="height: 1.2rem" v-show="showTitleFilter"></div>
 		<!--筛选条模块Start-->
 		<vertical-toggle>
-			<div class="filter-wrapper blue" v-show="contentTypeCar">
+			<div class="filter-wrapper" v-show="contentTypeCar">
 				<div class="flter-content">
 					<p class="condition" v-for="(item, index) in chooseList" @click="chooseTypeCar(item)" :key="index">{{item.con}}</p>
 				</div>
 			</div>
 		</vertical-toggle>
 		<vertical-toggle>
-			<div class="filter-wrapper violet" v-show="contentIndustry">
+			<div class="filter-wrapper" v-show="contentIndustry">
 				<div class="flter-content">
 					<p class="condition" v-for="(item, index) in chooseListTwo" @click="chooseIndustry(item)" :key="index">{{item.con}}</p>
 				</div>
 			</div>
 		</vertical-toggle>
 		<vertical-toggle>
-			<div class="filter-wrapper gray" v-show="contentDrive">
+			<div class="filter-wrapper" v-show="contentDrive">
 				<div class="flter-content">
 					<p class="condition" v-for="(item, index) in chooseListThree" @click="chooseDrive(item)" :key="index">{{item.con}}</p>
 				</div>
 			</div>
 		</vertical-toggle>
 		<vertical-toggle>
-			<div class="filter-wrapper green" v-show="contentLoad">
+			<div class="filter-wrapper" v-show="contentLoad">
 				<div class="flter-content">
 					<p class="condition" v-for="(item, index) in chooseListFour" @click="chooseLoad(item)" :key="index">{{item.con}}</p>
 				</div>
@@ -136,7 +136,7 @@
 				contentTraffic: false, //路况筛选列表状态, false消失,true展现 
 				typeCarSelect: false, //车型选择标识符
 				driveSelect: false, //驱动选择标识符
-				filterList: {
+				filterList: {  //点击筛选列表,存入到该对象
 					carType: ''
 				}, //筛选记录对象
 				chooseList: [{
@@ -292,6 +292,7 @@
 					this.filterList.drive = ''
 					this.filterList.load = ''
 					this.filterList.traffic = ''
+					this.typeCarSelect = false  //车型不选,不让进入过滤模块
 					Velocity($('.car-wrapper'), {
 						top: '1.88rem'
 					}, {
@@ -313,7 +314,7 @@
 				if(value === 1) { //车型
 					if(that.vehicleTypeFlag) {
 
-						//进入先关闭已经打开的筛选列表
+						//进入关闭已经打开的其它筛选模块
 						that.contentIndustry = false
 						that.contentDrive = false
 						that.contentLoad = false
@@ -321,46 +322,77 @@
 
 						that.contentTypeCar = true //车型筛选列表打开
 						that.bagMask = true
-						typeImg.addClass('iconTrans').parent().siblings().find('.icon').removeClass('iconTrans') //当前箭头up,其它箭头down					
+						typeImg.addClass('iconTrans').parent().siblings().find('.icon').removeClass('iconTrans') //当前箭头up,其它箭头down
 					} else {
-						that.contentTypeCar = false //车型筛选列表关闭
+						if(that.contentTypeCar){  //还点击在该筛选title上的时候,关闭该筛选模块,背景和箭头
+							that.contentTypeCar = false //车型筛选模块关闭
 
-						that.contentLoad = false
-						that.contentIndustry = false
-						that.contentDrive = false
-						that.contentTraffic = false
+							that.contentLoad = false
+							that.contentIndustry = false
+							that.contentDrive = false
+							that.contentTraffic = false
 
-						that.bagMask = false
-						typeImg.removeClass('iconTrans') //当前箭头down
+							that.bagMask = false
+							typeImg.removeClass('iconTrans') //当前箭头down
+						}else{  //反向没有点击在该title上走一遍该title打开流程
+							that.contentTypeCar = true //车型筛选模块打开
+
+							that.contentLoad = false
+							that.contentIndustry = false
+							that.contentDrive = false
+							that.contentTraffic = false
+
+							that.bagMask = true
+							typeImg.addClass('iconTrans').parent().siblings().find('.icon').removeClass('iconTrans') //当前箭头down
+						}
+
 					}
 					that.vehicleTypeFlag = !that.vehicleTypeFlag
 				} else if(value === 2) { //行业
 					if(that.industryFlag) {
 						if(that.typeCarSelect == false) {
-							//								alert('请首先选择车型，才可进行条件筛选')
 							MessageBox.alert('请首先选择车型，才可进行条件筛选')
 							return
 						} else {
-							that.contentIndustry = true //行业筛选列表打开
+							that.contentIndustry = true //行业筛选模块打开
 							that.bagMask = true
 							industryImg.addClass('iconTrans').parent().siblings().find('.icon').removeClass('iconTrans') //当前箭头up,其它箭头down
+							//进入关闭已经打开的其它筛选模块
+							that.contentTypeCar = false
+							that.contentDrive = false
+							that.contentLoad = false
+							that.contentTraffic = false
 						}
-						//进入关闭已经打开的筛选列表
-						that.contentTypeCar = false
-						that.contentDrive = false
-						that.contentLoad = false
-						that.contentTraffic = false
+						
 
 					} else {
-						that.contentIndustry = false //行业筛选列表关闭
+						if(that.typeCarSelect == false) {
+							//								alert('请首先选择车型，才可进行条件筛选')
+							MessageBox.alert('请首先选择车型，才可进行条件筛选')
+							return
+						}
+						if(that.contentIndustry){  //正向第一次进入
+							that.contentIndustry = false //行业筛选模块关闭
 
-						that.contentTypeCar = false
-						that.contentLoad = false
-						that.contentDrive = false
-						that.contentTraffic = false
+							that.contentTypeCar = false
+							that.contentLoad = false
+							that.contentDrive = false
+							that.contentTraffic = false
 
-						that.bagMask = false
-						industryImg.removeClass('iconTrans') //当前箭头down
+							that.bagMask = false
+							industryImg.removeClass('iconTrans') //当前箭头down
+						}else{  //反向再次进入, 在另一个title进入的时候直接把其它筛选模块状态改为了false,再次进入需要走一次打开流程
+							that.contentIndustry = true //行业筛选模块关闭
+
+							that.contentTypeCar = false
+							that.contentLoad = false
+							that.contentDrive = false
+							that.contentTraffic = false
+
+							that.bagMask = true
+							industryImg.addClass('iconTrans').parent().siblings().find('.icon').removeClass('iconTrans') //当前箭头down
+						}
+
 					}
 					that.industryFlag = !that.industryFlag //区分打开关闭
 				} else if(value === 3) { //驱动
@@ -369,26 +401,45 @@
 							MessageBox.alert('请首先选择车型，才可进行条件筛选')
 							return
 						} else {
-							that.contentDrive = true //驱动筛选列表打开
+							that.contentDrive = true //驱动筛选模块打开
 							that.bagMask = true
 							driveImg.addClass('iconTrans').parent().siblings().find('.icon').removeClass('iconTrans') //当前箭头up,其它箭头down
+							//进入关闭已经打开的其它筛选模块
+							that.contentTypeCar = false
+							that.contentIndustry = false
+							that.contentLoad = false
+							that.contentTraffic = false
 						}
-						//进入先关闭已经打开的筛选列表
-						that.contentTypeCar = false
-						that.contentIndustry = false
-						that.contentLoad = false
-						that.contentTraffic = false
+						
 
 					} else {
-						that.contentDrive = false //驱动筛选列表关闭
+						if(that.typeCarSelect == false) {
+							//								alert('请首先选择车型，才可进行条件筛选')
+							MessageBox.alert('请首先选择车型，才可进行条件筛选')
+							return
+						}
+						if(that.contentDrive){
+							that.contentDrive = false //驱动筛选模块关闭
 
-						that.contentTypeCar = false
-						that.contentIndustry = false
-						that.contentLoad = false
-						that.contentTraffic = false
+							that.contentTypeCar = false
+							that.contentIndustry = false
+							that.contentLoad = false
+							that.contentTraffic = false
 
-						that.bagMask = false
-						driveImg.removeClass('iconTrans') //当前箭头down
+							that.bagMask = false
+							driveImg.removeClass('iconTrans') //当前箭头down
+						}else{
+							that.contentDrive = true //驱动筛选模块关闭
+
+							that.contentTypeCar = false
+							that.contentIndustry = false
+							that.contentLoad = false
+							that.contentTraffic = false
+
+							that.bagMask = true
+							driveImg.addClass('iconTrans').parent().siblings().find('.icon').removeClass('iconTrans') //当前箭头down
+						}
+
 					}
 					that.driveFlag = !that.driveFlag
 				} else if(value === 4) { //载重
@@ -400,26 +451,48 @@
 							MessageBox.alert('需选择驱动来区分货物载重')
 							return
 						} else {
-							that.contentLoad = true //载重筛选列表打开
+							that.contentLoad = true //载重筛选模块打开
 							that.bagMask = true
 							loadImg.addClass('iconTrans').parent().siblings().find('.icon').removeClass('iconTrans') //当前箭头up,其它箭头down
+							//进入关闭已经打开的其它筛选模块
+							that.contentTypeCar = false
+							that.contentIndustry = false
+							that.contentDrive = false
+							that.contentTraffic = false
 						}
-						//进入先关闭已经打开的筛选列表
-						that.contentTypeCar = false
-						that.contentIndustry = false
-						that.contentDrive = false
-						that.contentTraffic = false
+						
 
 					} else {
-						that.contentLoad = false //载重筛选列表关闭
+						if(that.typeCarSelect == false) {
+							//								alert('请首先选择车型，才可进行条件筛选')
+							MessageBox.alert('请首先选择车型，才可进行条件筛选')
+							return
+						}
+						if(that.driveSelect == false) {  //清除驱动的时候没有选择驱动,禁止进入
+							MessageBox.alert('需选择驱动来区分货物载重')
+							return
+						}
+						if(that.contentLoad){
+							that.contentLoad = false //载重筛选模块关闭
 
-						that.contentTypeCar = false
-						that.contentIndustry = false
-						that.contentDrive = false
-						that.contentTraffic = false
+							that.contentTypeCar = false
+							that.contentIndustry = false
+							that.contentDrive = false
+							that.contentTraffic = false
 
-						that.bagMask = false
-						loadImg.removeClass('iconTrans') //当前箭头down
+							that.bagMask = false
+							loadImg.removeClass('iconTrans') //当前箭头down
+						}else{
+							that.contentLoad = true //载重筛选模块关闭
+
+							that.contentTypeCar = false
+							that.contentIndustry = false
+							that.contentDrive = false
+							that.contentTraffic = false
+
+							that.bagMask = true
+							loadImg.addClass('iconTrans').parent().siblings().find('.icon').removeClass('iconTrans') //当前箭头down
+						}
 					}
 					that.loadFlag = !that.loadFlag
 				} else { //路况
@@ -428,26 +501,44 @@
 							MessageBox.alert('请首先选择车型，才可进行条件筛选')
 							return
 						} else {
-							that.contentTraffic = true //路况筛选列表打开
+							that.contentTraffic = true //路况筛选模块打开
 							that.bagMask = true
 							trafficImg.addClass('iconTrans').parent().siblings().find('.icon').removeClass('iconTrans') //当前箭头up,其它箭头down
+							//进入关闭已经打开的其它筛选模块
+							that.contentTypeCar = false
+							that.contentIndustry = false
+							that.contentDrive = false
+							that.contentLoad = false
 						}
-						//进入关闭已经打开的筛选列表
-						that.contentTypeCar = false
-						that.contentIndustry = false
-						that.contentDrive = false
-						that.contentLoad = false
+						
 
 					} else {
-						that.contentTraffic = false //路况筛选列表关闭
+						if(that.typeCarSelect == false) {
+							//								alert('请首先选择车型，才可进行条件筛选')
+							MessageBox.alert('请首先选择车型，才可进行条件筛选')
+							return
+						}
+						if(that.contentTraffic){
+							that.contentTraffic = false //路况筛选模块关闭
 
-						that.contentTypeCar = false
-						that.contentIndustry = false
-						that.contentDrive = false
-						that.contentLoad = false
+							that.contentTypeCar = false
+							that.contentIndustry = false
+							that.contentDrive = false
+							that.contentLoad = false
 
-						that.bagMask = false
-						trafficImg.removeClass('iconTrans') //当前箭头down
+							that.bagMask = false
+							trafficImg.removeClass('iconTrans') //当前箭头down
+						}else{
+							that.contentTraffic = true //路况筛选模块打开
+
+							that.contentTypeCar = false
+							that.contentIndustry = false
+							that.contentDrive = false
+							that.contentLoad = false
+
+							that.bagMask = true;
+							trafficImg.addClass('iconTrans').parent().siblings().find('.icon').removeClass('iconTrans') //当前箭头down
+						}
 					}
 					that.trafficFlag = !that.trafficFlag
 				}
@@ -472,16 +563,20 @@
 			},
 			closeFilterList(key) { //关闭筛选列表
 				var that = this
-				Velocity(this.$refs[key][0], {
+				Velocity(that.$refs[key][0], {
 					scale: [0.3, 1]
 				}, {
 					duration: 200,
 					complete: function() {
 						that.filterList[key] = '',
+						that.$forceUpdate()
+						if (key == 'drive' && that.filterList['drive'] == '') {  //驱动筛选条件清除, 载重筛选条件也要消失
+							that.driveSelect = false
+							that.filterList['load'] = ''
 							that.$forceUpdate()
+						}
 					}
 				})
-
 			},
 			beforeEnter(el) {
 				el.style.transform = 'scale(1)'
@@ -528,6 +623,11 @@
 </script>
 
 <style scoped>
+	/*修改mint-ui自带的样式*/
+	.intelligent-car >>> .mint-msgbox  .mint-msgbox-message {
+		text-align: center !important;
+	}
+	/*箭头动画*/
 	.brain-power-title>div>.icon {
 		transition: transform .25s linear;
 	}
@@ -618,7 +718,6 @@
 		align-items: center;
 		width: 100%;
 		height: 1.2rem;
-		background: linen;
 		overflow-y: scroll;	
 		overflow-scrolling: touch;	
 	}
@@ -633,6 +732,13 @@
 		background: #F5F5F5;
 		border-radius: .3rem;
 	}
+	.filte-item>span:nth-of-type(1) {
+		color: #B4B4B4;
+	}
+	.filte-item>span:nth-of-type(2) {
+		color: #CCCCCC;
+		padding-left: .1rem;
+	}
 	
 	.filter-wrapper {
 		position: absolute;
@@ -642,22 +748,6 @@
 		padding: .7rem .35rem;
 		background: #FFFFFF;
 		z-index: 11
-	}
-	
-	.blue {
-		background: skyblue;
-	}
-	
-	.violet {
-		background: violet;
-	}
-	
-	.gray {
-		background: gray;
-	}
-	
-	.green {
-		background: greenyellow;
 	}
 	
 	.flter-content {
