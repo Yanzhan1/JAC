@@ -1,5 +1,5 @@
 <template>
-    <div>  
+    <div>
         <!-- <div class="specil">
             <div class="header-left" @click="goback"><img :src="'./static/images/back@2x.png'" alt="" style="width:.4rem;height:.4rem;"></div>
             <p class="active p1">车系特色</p>
@@ -43,12 +43,21 @@ export default {
             })
         },
         reserve(){
-            this.$router.push({
-                name:'车辆预定',
-                params:{
-                    levelCode:this.levelCode
-                }
-            })
+            if(this.seriesName=='瑞风S4'){
+                    this.$router.push('/wit/CarChoose',{
+                        name:'车型选择',
+                        params:{
+                           
+                        }
+                    })
+            }else{
+                    this.$router.push('/wit/Reserve',{
+                                            name:'车辆预定',
+                                            query:{
+                                                
+                                            }
+                                        })
+            }
         },
         goback(){
             // alert(this.$store.state.shownum)
@@ -69,8 +78,9 @@ export default {
         }
         this.$http.post(Wit.searchVehicleSeriesOne,params).then((res)=>{
             let allimage=res.data.data.imageRelationVO
+            this.seriesName=res.data.data.seriesName
             this.srouceNo=res.data.data.lmscode
-            this.levelCode=res.data.data.lmslevelCode
+            this.$store.state.levelCode=res.data.data.lmslevelCode
             for(let i=0;i<allimage.length;i++){
                 if(allimage[i].imageType==4){
                     this.everyimage.push(allimage[i].imageUrl)
@@ -82,7 +92,7 @@ export default {
 </script>
 
 <style scoped>
-	.MobileHeight {  
+	.MobileHeight {
 		border-top-style: solid;
 		box-sizing: content-box;
 	}
@@ -93,6 +103,7 @@ export default {
     align-items: center;
     position: fixed;
     top:0;
+    background: #fff;
 }
 .specil>p{
     padding: .25rem;

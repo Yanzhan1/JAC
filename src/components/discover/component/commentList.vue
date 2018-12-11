@@ -189,7 +189,7 @@
         if (_this.bId) {
           concatId = _this.fId + "," + _this.bId;
         } else {
-          concatId = _this.fId;
+          concatId = _this.fId || _this.$route.query.id;
         }
         this.$http.post(DISCOVERMESSAGE.informationComment, {
           "uid": _this.$store.state.userId,
@@ -198,7 +198,6 @@
           "id": concatId
         }).then(function (res) {
           if (res.data.status) {
-            _this.fId = null;
             _this.getComments();
             _this.closeComment();
           } else {
@@ -229,6 +228,8 @@
         $("#commentBg").hide();
         $("#id_pl_icon").show();
         this.commentMsg = '';
+        this.fId = null;
+        this.bId = null
       },
       //返回上一级
       goBack: function () {

@@ -1,12 +1,12 @@
 <template>
   <div>
-    <!--<header class="header">
+    <header class="header MobileHeight bgcolor">
       <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
       <span class="header-title">我的经销商</span>
       <span class="header-right"></span>
     </header>
-    <div style="height:.88rem"></div>-->
-   	<mhead currentTitle="我的经销商"></mhead>
+    <div style="height:.88rem"></div>
+   	<!-- <mhead currentTitle="我的经销商" ></mhead> -->
         <ul v-for="(item,index) in mydealer" :key="index" class="flex column " style="padding:.3rem;border-bottom:.1rem solid #f5f5f5">
           
           <li class="flex column">
@@ -34,9 +34,12 @@
           </li>
 
         </ul>
-      	<div class="dataInfo" v-if="!mydealerlength" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);font-size: 0.34rem;color: #555555;">
-			没有符合该条件的经销商
-			</div>
+        <div style="position:relative;width:100%;height:100%;">
+
+          <div class="dataInfo" v-show="this.shows" style="position: absolute;top: 50%;left: 50%;margin-top:75%;transform: translate(-50%, -50%);font-size: 0.34rem;color: #555555;">
+        没有符合该条件的经销商
+        </div>
+        </div>
   </div>
 </template>
 <script>
@@ -54,6 +57,7 @@ export default {
       size: 10,
       current: 1,
       topStatus: "",
+      shows:true,
       imgSrc: '../../../static/images/Wit/bg-mine.png'
     };
   },
@@ -100,12 +104,24 @@ export default {
       this.$http.post(My.MyDealer, param).then(res => {
         if (res.data.code == 0) {
            this.mydealer = res.data.data;
+           console.log(this.mydealer)
+           if(this.mydealer[0].dealerName==undefined){
+             console.log(1)
+             this.shows=true
+           }else{
+             console.log(2)
+             this.shows=false
+           }
        }
       });
     },
  
   },
   mounted() {
+    $(".MobileHeight").css({
+            "borderTopWidth": this.$store.state.mobileStatusBar,
+            "borderTopColor": "#fff",
+          })
     this.GetMyDealer();
   }
 };
@@ -121,6 +137,10 @@ export default {
 	  flex-direction: column;
 	  align-items: center;
 	}
+  .MobileHeight {  
+		border-top-style: solid;
+		box-sizing: content-box;
+	}
 .mui-ellipsis-2 {
   /* display: -webkit-box;
   overflow: hidden;
@@ -129,6 +149,9 @@ export default {
   word-wrap: break-word;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical; */
+}
+.bgcolor{
+  background:#fff;
 }
 .mint-popup {
   width: 100%;

@@ -48,9 +48,9 @@
 				<div style="margin-bottom: 0.36rem;" class="flex-center">
 					<img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
 					<div class="wind-count">
-						<button @click=" windReduce" class="addWind conmmon-style"><</button>
+						<button disabled="this.curveState" @click=" windReduce" class="addWind conmmon-style"><</button>
 						<input class="wind-input" type="text" v-model="windNum[skylightSpace]" readonly/>
-						<button @click="windAdd" class="reduceWind conmmon-style">></button>
+						<button disabled="this.curveState" @click="windAdd" class="reduceWind conmmon-style">></button>
 					</div>
 					<img :src="'./static/images/Lovecar/right@2x.png'" alt="" />
 				</div>
@@ -68,6 +68,7 @@
 					<div style="font-size:.36rem;color:#222">请输入PIN码</div>
 					<span></span>
 				</div>
+        <img @click="Toasteach"  class="question" style="width:.35rem;height:.35rem" :src="'./static/images/Lovecar/question.png'" alt="">
 				<div class="pin-code flex-center">
 					<div v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
 						<input class="pin-input" maxlength="6" type="text" v-model="pinNumber" readonly/>
@@ -98,6 +99,7 @@
 import { Createarc } from "../../../static/js/drawarc.js";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
+import {MessageBox} from "mint-ui";
 import PublicHead from '../publicmodel/PublicHead'
 export default {
   name: "skylightControl",
@@ -110,6 +112,8 @@ export default {
       //天窗控制按钮开关
       //				value: false,
       //移动端键盘值
+      allwords:[],//所有提示
+      skywords:[],//天窗提示
       ownKeyBoard: {
         first: "",
         second: "",
@@ -144,12 +148,23 @@ export default {
       //				this.activeShowImg = !this.activeShowImg
     },
     end() {
-      this.httpsky();
+      this.debouncedGetAnswer()
+      // this.httpsky();
     },
     //路由跳转的时候清除轮询loading
     goback () {
     	this.$router.go(-1);
     	this.$store.dispatch('LOADINGFLAG', false)
+    },
+    //拿到天窗的提示
+    getskywords(){
+      this.allwords=this.$store.state.GETWORDS
+      console.log()
+      for(let value of this.allwords){
+        if(value.dictType=='skylight'){
+          this.skywords=value.sysDictDataVOs
+        }
+      }
     },
     //天窗宽度增加
     windAdd() {
@@ -180,6 +195,9 @@ export default {
         return;
       }
       this.httpsky();
+    },
+    Toasteach(){
+       MessageBox("提示", this.skywords[3].dictValue);
     },
     //天窗宽度减少
     windReduce() {
@@ -345,7 +363,7 @@ export default {
               console.log(tSS);
               if (tSS >= 56) {
                 Toast({
-                  message: "请求超时",
+                  message:this.skywords[2].dictValue,
                   position: "middle",
                   duration: 2000
                 });
@@ -367,7 +385,7 @@ export default {
                           console.log(tSS);
                           if (tSS >= 56) {
                             Toast({
-                              message: "请求超时",
+                              message:this.skywords[2].dictValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -376,17 +394,22 @@ export default {
                           }
                         } else if (res.data.status == "SUCCEED") {
                           // flag = false;
-                          // Toast({
-                          //   message: "下达指令成功",
-                          //   position: "middle",
-                          //   duration: 2000
-                          // });
+                                 //pin码正确激活弧线
+              this.curveState = !this.curveState;
+              //pin码正确激活空调图
+              this.activeShowImg = !this.activeShowImg;
+                          Toast({
+                            message: this.skywords[1].dictValue,
+                            position: "middle",
+                            duration: 2000
+                          });
+                          this.value = !this.value;
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
                           flag = false;
                           Toast({
-                            message: "指令下发成功，处理失败！",
+                            message: this.skywords[2].dictValue,
                             position: "middle",
                             duration: 2000
                           });
@@ -395,7 +418,7 @@ export default {
                         }
                       } else {
                         Toast({
-                          message: "指令下发失败！",
+                          message: this.skywords[2].dictValue,
                           position: "middle",
                           duration: 2000
                         });
@@ -408,16 +431,21 @@ export default {
               }
             } else if (res.data.status == "SUCCEED") {
               // flag = false;
-              // Toast({
-              //   message: "下达指令成功",
-              //   position: "middle",
-              //   duration: 2000
-              // });
+                     //pin码正确激活弧线
+              this.curveState = !this.curveState;
+              //pin码正确激活空调图
+              this.activeShowImg = !this.activeShowImg;
+              Toast({
+                message: this.skywords[1].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+              this.value = !this.value;
                clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
-                message: "指令下发成功，处理失败！",
+                message: this.skywords[2].dictValue,
                 position: "middle",
                 duration: 2000
               });
@@ -426,7 +454,7 @@ export default {
             }
           } else {
             Toast({
-              message: "指令下发失败！",
+              message: this.skywords[2].dictValue,
               position: "middle",
               duration: 2000
             });
@@ -435,6 +463,16 @@ export default {
             this.$store.dispatch("LOADINGFLAG", false);
           }
         });
+    },
+    carcontrolskylight(){
+      if(this.$route.query.carcontrol.skylightStatus=='0'){
+
+        }else if(this.$route.query.carcontrol.skylightStatus=='1'){
+        //pin码正确激活弧线
+        this.curveState = true;
+        //pin码正确激活空调图
+        this.activeShowImg = true;
+      }
     },
     httpsky() {
       var param = {
@@ -452,36 +490,43 @@ export default {
           // console.log(res);
           this.operationIds = res.data.operationId;
           if (res.data.returnSuccess) {
-            this.getAsyReturn(res.data.operationId);
+              Toast({
+                  message: this.skywords[0].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+                setTimeout(() => {                 
+                  this.getAsyReturn(res.data.operationId);
+                }, 2000);
           } else {
-            if (res.data.returnErrCode == 400) {
-          		Toast({
-	              message: "token验证失败",
-	              position: "middle",
-	              duration: 2000
-	            });
-          	} else {
+         
           		Toast({
 	              message: res.data.returnErrMsg,
 	              position: "middle",
 	              duration: 2000
 	            });
-          	}
+          	
           }
         })
         .catch(err => {
         	Toast({
-              message: '系统异常',
+              message:  res.data.returnErrMsg,
               position: "middle",
               duration: 2000
             });
         });
     }
   },
+  created(){
+    this.debouncedGetAnswer =_.debounce(this.httpsky, 3000)
+  },
   mounted() {
   	clearInterval(this.time)
     this.produCurve();
     this.inputs();
+    this.getskywords();
+    this.carcontrolskylight()
+    console.log(this.$route.query.carcontrol)
     //调取车况
     // this.$http
     //   .post(
@@ -507,6 +552,9 @@ export default {
     //         duration: 2000
     //       });
     //   })
+  },
+   beforeDestroy(){
+     clearInterval(this.time);
   },
   computed: {
     fullValue: {
@@ -547,15 +595,11 @@ export default {
           .then(res => {
             console.log(res.data.returnSuccess);
             if (res.data.returnSuccess) {
-              this.value = !this.value;
+              // this.value = !this.value;
 
               this.httpsky();
 
-              //pin码正确激活弧线
-              this.curveState = !this.curveState;
-              console.log(1);
-              //pin码正确激活空调图
-              this.activeShowImg = !this.activeShowImg;
+       
               // this.refreshPmData(),
               //消失遮罩
               this.popupVisible = !this.popupVisible;
@@ -572,7 +616,7 @@ export default {
                 //清空pin码
                 (this.pinNumber = "");
               Toast({
-                message: data.returnErrMsg,
+                message: res.data.returnErrMsg,
                 position: "middle",
                 duration: 1000
               });
@@ -580,7 +624,7 @@ export default {
           })
           .catch(err => {
             Toast({
-              message: "系统异常",
+              message:  res.data.returnErrMsg,
               position: "middle",
               duration: 1000
             });
@@ -601,12 +645,12 @@ export default {
           .then(res => {
             console.log(res.data.returnSuccess);
             if (res.data.returnSuccess) {
-              this.value = !this.value;
+              // this.value = !this.value;
               this.httpsky();
               //pin码正确激活弧线
-              this.curveState = !this.curveState;
-              //pin码正确激活空调图
-              (this.activeShowImg = !this.activeShowImg),
+              // this.curveState = !this.curveState;
+              // //pin码正确激活空调图
+              // (this.activeShowImg = !this.activeShowImg),
                 // this.refreshPmData(),
                 //消失遮罩
                 (this.popupVisible = !this.popupVisible);
@@ -622,7 +666,7 @@ export default {
                 //清空pin码
                 (this.fullValue = "");
               Toast({
-                message: data.returnErrMsg,
+                message: res.data.returnErrMsg,
                 position: "middle",
                 duration: 1000
               });
@@ -630,7 +674,7 @@ export default {
           })
           .catch(err => {
             Toast({
-              message: "系统异常",
+              message:  res.data.returnErrMsg,
               position: "middle",
               duration: 1000
             });
@@ -700,6 +744,11 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.question {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.3rem;
 }
 /*天窗标志*/
 

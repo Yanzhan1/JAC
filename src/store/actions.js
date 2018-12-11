@@ -3,6 +3,9 @@ export default {
     isLogin: ({ commit, state }, payload) => {
         commit(types.ISLOGIN, payload)
     },
+    getWords: ({ commit, state }, payload) => {
+        commit(types.GETWORDS, payload)
+    },
     SOFTKEYBOARD: ({ commit, state }, payload) => {
         commit(types.SOFTKEYBOARD, payload)
     },
@@ -33,7 +36,7 @@ export default {
     MOBILESTATUSBAR: ({ commit, state }, payload) => {
         commit(types.MOBILESTATUSBAR, payload)
     },
-    QRCODEPIN: ({commit, state}, payload) => {
-    	commit(types.QRCODEPIN, payload)
+    QRCODEPIN: ({ commit, state }, payload) => {
+        commit(types.QRCODEPIN, payload)
     }
 }

@@ -1,8 +1,8 @@
 <template>
   <div class="loadingPage flex-center">
     <div class="flex-center loadingBackground">
-      <img  id="img" :src="'./static/images/Lovecar/loading.png'">
-      <p>加载数据中...</p>
+      <img  id="img" src="../../../static/images/Lovecar/loading.gif">
+      <p style="color: #FFFFFF;">加载数据中...</p>
     </div>
   </div>
 </template>
@@ -61,14 +61,13 @@
     width: 1.87rem;
     height: 1.87rem;
     color: #FFFFFF;
-    background: #000;
     border-radius: 0.1rem;
   }
   .loadingBackground>img{
-    width: .94rem !important;
-    height: .94rem !important;
+    width: 1.44rem !important;
+    height: 1.44rem !important;
     margin-bottom: 0.1rem;
-    animation: rotate 1.5s linear  infinite
+    /*animation: rotate 1.5s linear  infinite*/
   }
   @-webkit-keyframes rotate {
   0% {

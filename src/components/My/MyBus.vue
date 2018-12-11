@@ -1,44 +1,58 @@
 <template>
   <div class="my-bus">
     <header class="header MobileHeight">
-      <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+      <img class="header-left" :src="'./static/images/back@2x.png'" @click="goindex">
       <span class="header-title">我的车辆</span>
       <span class="header-right">
         <router-link tag="img" to="/myindex/addBus" style="width: 0.36rem;height: 0.36rem;" :src="'./static/images/my/mycar_add.png'"></router-link>
       </span>
     </header>
     <div style="height:0.88rem" class="MobileHeight"></div>
-   <ul class="bus-list">
+    <ul class="bus-list">
       <li class="bus-content flex-center-between" v-for="(item,index) in BusDetails" :key="index">
         <div class="bus-left">
           <div class="bus-name flex-align-center">
-            <label for="foot-check" class="input-label deft_0" :class="{active:item.def==1}" @click="setOneDefault(item.vin,item.def)"> </label>
-            <span style="color: #49BBFF;">{{item.vehicleName}}{{item.def==1?'（默认）':''}}</span>
+            <label for="foot-check" class="input-label deft_0" :class="{active:item.def==1||item.defToNathor}" @click="setOneDefault(item.vin,item.def,item.beAuthorized)"> </label>
+            <span style="color: #49BBFF;">{{item.vehicleName}}{{item.def==1||item.defToNathor==1?'（默认）':''}}</span>
           </div>
           <img :src="item.imageUrl" alt="" />
         </div>
         <div class="bus-right">
-          <p class="bus-untie" @click="unite(item.vin)">解绑</p>
-          <!-- 若有车牌 解绑车牌 -->
-          <div class="flex-align-center" v-if="item.plateLicenseNo?'false':''"   @click="plate(item.vin,item.plateLicenseNo)">
-            <span style="color:#49BBFF;"> {{item.plateLicenseNo}}</span>
-            <img :src="'./static/images/my/mycar_input@2x.png'" alt="" class="modify-num">
+          <p class="bus-untie" @click="unite(item.vin)" v-show="item.beAuthorized=='n'?'false':'true'">解绑</p>
+          <div style="display:flex;algin-item:center;">
+            <div style="margin-right:.1rem">
+              <!-- 若有车牌 解绑车牌 -->
+              <div class="flex-align-center" v-if="item.plateLicenseNo?'false':''" @click="plate(item.vin,item.plateLicenseNo)">
+                <span style="color:#49BBFF;"> {{item.plateLicenseNo}}</span>
+                <img :src="'./static/images/my/mycar_input@2x.png'" alt="" class="modify-num">
+              </div>
+              <!-- 若无车牌 添加车牌 -->
+              <div class="flex-align-center" v-else>
+                <span style="color:#49BBFF;">添加车牌</span>
+                <router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{vin:item.vin}}"></router-link>
+              </div>
+
+            </div>
+            <div style="display: flex;align-items: center;">
+              <!-- n是车主   isLocking=1 是已授权给他人，2是未授权给他人--> 
+              <!-- beAuthorized=n 是车主 y是别人授权给他的车 -->
+              <img  v-show="item.isLocking==1&&item.beAuthorized=='n'" class="flex-align-center" style="width:.8rem;height:.3rem;align-items: center;"  :src="'./static/images/my/already.png'" alt="">
+              <!-- y是授权车 -->
+              <!-- <div v-else style="font-size:.28rem;color:#49bbff;border:.01rem solid #49bbff;border-radius:0.01rem">授权车</div> -->
+              <img  :src="'./static/images/my/noalerlay.png'" class="flex-align-center" style="width:.8rem;height:.3rem;align-items: center;" alt="" v-show="item.beAuthorized=='y'">
+            </div>
           </div>
-          <!-- 若无车牌 添加车牌 -->
-          <div class="flex-align-center" v-else>
-            <span style="color:#49BBFF;">添加车牌</span>
-            <router-link tag="img" class="modify-num" :src="'./static/images/my/mycar_input@2x.png'" :to="{path:'/myindex/plateBind',query:{vin:item.vin}}"></router-link>
-          </div>
+
           <div class="flex row cocenter">
-            <span class="commonFontSize">车架号：{{item.vin}}</span>
-</div>
+            <span class="commonFontSize">车架号：{{item.vin}}</span> 
+          </div>
           <div>
             <span class="commonFontSize">发动机号：{{item.engineNo}}</span>
           </div>
         </div>
       </li>
     </ul>
-    
+
   </div>
 </template>
 
@@ -50,55 +64,69 @@ export default {
   data() {
     return {
       carState: true, //汽车默认状态
-      BusDetails: [] ,//我的车辆信息
-      tspid:'',
+      BusDetails: [], //我的车辆信息
+      tspid: "",
+      beAuthorized: ""
     };
   },
   methods: {
+    goindex(){
+        this.$router.replace("/myindex")
+    },
     //我的车辆
     MyBus() {
-      this.tspid=this.$store.state.tspId
-      if(this.$store.state.tspId==undefined){
-        this.tspid=0
+      this.tspid = this.$store.state.tspId;
+      if (this.$store.state.tspId == undefined) {
+        this.tspid = 0;
       }
-  this.$http.post(My.My_Bus, {
-     userId:this.$store.state.trueuserId,
-     phone:this.$store.state.mobile,
-     tspUserId:this.tspid
-
-  }, this.$store.state.getpin).then(res => {
-        if (res.data.returnSuccess) {
-          this.BusDetails = res.data.data;
-          console.log(this.BusDetails)
-          for(let i=0;i< res.data.data.length;i++){
-            if(res.data.data[i].def==1){
-              this.$store.state.vins=res.data.data[i].vin
+      this.$http
+        .post(
+          My.My_Bus,
+          {
+            userId: this.$store.state.userId,
+            phone: this.$store.state.mobile,
+            tspUserId: this.tspid,
+            aaaUserID: this.$store.state.aaaid,
+          },
+          this.$store.state.tsppin
+        )
+        .then(res => {
+          if (res.data.returnSuccess) {
+            this.BusDetails = res.data.data;
+            console.log(this.BusDetails);
+            for (let i = 0; i < res.data.data.length; i++) {
+              if (res.data.data[i].def == 1||res.data.data[i].defToNathor==1) {
+                this.$store.state.vins = res.data.data[i].vin;
+              }
             }
           }
-        }
-      });
+        });
     },
     //设为默认
-    setOneDefault(vin, def) {
+    setOneDefault(vin, def, beAuthorized) {
       var vin = vin;
       var def = def;
+      var beAuthorized = beAuthorized;
       if (def == 1) {
         return;
       }
       var param = {
-        vin: vin
+        vin: vin,
+        aaaUserID: this.$store.state.aaaid,
+        userId: this.$store.state.userId,
+        beAuthorized: beAuthorized
       };
-     this.$http
-        .post(My.SetOneDefault, param, this.$store.state.getpin)
+      this.$http
+        .post(My.SetOneDefault, param, this.$store.state.tsppin)
         .then(res => {
           if (res.data.returnSuccess) {
-              this.$store.state.vins=vin
-              this.MyBus();
+            this.$store.state.vins = vin;
+            this.MyBus();
           }
         });
     },
     //解绑车辆
-     unite(no) {
+    unite(no) {
       MessageBox.confirm("", {
         title: "提示",
         message: "您确定要解绑该车辆吗？",
@@ -116,30 +144,32 @@ export default {
           var param = {
             vin: vin,
             extParams: {},
-            userId:this.$store.state.trueuserId,
-            phone:this.$store.state.mobile,
+            userId: this.$store.state.userId,
+            phone: this.$store.state.mobile,
             operationType: "CAR_BINDING",
             operation: 0
           };
-          
-          this.$http.post(My.JFmybus, param, this.$store.state.getpin).then(res => {
-            if (res.data.returnSuccess) {
-                 this.BusDetails=[]
-              this.MyBus();
-              this.$forceUpdate()
-            } else {
-              Toast({
-                message: "解绑失败，请稍后重试！",
-                duration: 1000,
-                position: "middle"
-              });
-            }
-          });
+
+          this.$http
+            .post(My.JFmybus, param, this.$store.state.tsppin)
+            .then(res => {
+              if (res.data.returnSuccess) {
+                this.BusDetails = [];
+                this.MyBus();
+                this.$forceUpdate();
+              } else {
+                Toast({
+                  message: "解绑失败，请稍后重试！",
+                  duration: 1000,
+                  position: "middle"
+                });
+              }
+            });
         }
       });
     },
     //解绑车牌
-    plate(vin,plateLicenseNo) {
+    plate(vin, plateLicenseNo) {
       MessageBox.confirm("", {
         title: "提示",
         message: "您确定要修改车牌吗？",
@@ -152,38 +182,39 @@ export default {
         confirmButtonHighlight: true,
         cancelButtonHighlight: true
       }).then(action => {
-        
         if (action == "confirm") {
           var param = {
-               vin:vin,
-            	extParams:{  plateLicenseNo:plateLicenseNo,},
-				      operationType:"PLATE_NO", 	 
-				    	operation:0, //解绑
+            vin: vin,
+            extParams: { plateLicenseNo: plateLicenseNo },
+            operationType: "PLATE_NO",
+            operation: 0 //解绑
           };
-          
-          this.$http.post(My.planbus,param,this.$store.state.getpin).then(res => {
-            if (res.data.returnSuccess) {
-              this.MyBus();
-            } else {
-              Toast({
-                message: "解绑失败，请稍后重试！",
-                duration: 1000,
-                position: "middle"
-              });
-            }
-          });
+
+          this.$http
+            .post(My.planbus, param, this.$store.state.tsppin)
+            .then(res => {
+              if (res.data.returnSuccess) {
+                this.MyBus();
+              } else {
+                Toast({
+                  message: "解绑失败，请稍后重试！",
+                  duration: 1000,
+                  position: "middle"
+                });
+              }
+            });
         }
       });
-    },
+    }
   },
-  mounted(){
+  mounted() {
     // alert(this.$store.state.tspId)
-  	$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
+    $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
     this.MyBus();
+    // alert(JSON.stringify( this.$store.state.tsppin))
   },
-  created() {
-    
-  },
+  created() {}
+
   //  computed:{
   //     userId(){
   //       return  JSON.parse(this.$store.state.getpin.headers.identityParam).userId
@@ -221,7 +252,7 @@ li {
 }
 .flex-align-center {
   /*垂直居中*/
-  display: flex;
+  display: flex; 
   align-items: center;
 }
 .flex-center-between {

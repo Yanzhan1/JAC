@@ -87,6 +87,10 @@ export default {
     };
   },
   methods:{
+      //授权成功后调用的方法
+      syncVehicleList(a){
+          console.log(a)
+      },
       next(){
           //获得时间戳
           this.shang = this.start.replace(/\-/g, '/').split(' ')[0]
@@ -113,7 +117,7 @@ export default {
                     // vin: 'LS5A3CJC9JF830022', 
                     phone:this.$store.state.mobile,
                     // userId:this.$store.state.tspId,
-                    // userId:this.$store.state.trueuserId,
+                    userId:this.$store.state.userId,
                     operationType: "CONTROL_AUTH", 
                     childNum: this.Account, 
                     operation: 1, 
@@ -122,16 +126,26 @@ export default {
                     endTime: this.xia,
                 }
             }
+            console.log(param)
         this.$http.post(Lovecar.Longrange,param,this.$store.state.tsppin).then((res)=>{
             if(res.data.returnSuccess){
-                this.$router.push({
-                name:'Authorize_next',
-                params:{
-                        a:operationTime.getTime(this.shang),
-                        b:operationTime.getTime(this.xia),
-                        count: this.Account
-            }
-         })
+                this.syncVehicleList()
+                   Toast({
+                    message:'友情提示：请告知被授权用户重新登入APP，即可体验远程车控功能',
+                    position:'middle',
+                    duration:3000,
+                })
+                setTimeout(() => {
+                    
+                    this.$router.push({
+                    name:'Authorize_next',
+                    params:{
+                            a:operationTime.getTime(this.shang),
+                            b:operationTime.getTime(this.xia),
+                            count: this.Account
+                }
+             })
+                }, 4000);
             }else{
                 Toast({
                     message:res.data.returnErrMsg,
@@ -160,6 +174,7 @@ export default {
     }
   },
   mounted(){
+     
     let oDate=new Date()
     let year =oDate.getFullYear();
     let month =oDate.getMonth()+1;

@@ -384,6 +384,7 @@
       }
     },
     mounted() {
+      console.log('now')
       this.getRefreshList()
     }
   }

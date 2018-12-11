@@ -10,6 +10,7 @@
 		<!--<mt-cell :title="title">
 			<mt-switch @change="turn" v-model="value"><span></span></mt-switch>
 		</mt-cell>-->
+		
 		<router-link tag="div" class="setup-ctcperson" to="/myindex/contactPerson">
 			<mt-cell title="紧急联系人" is-link></mt-cell>
 		</router-link>
@@ -19,12 +20,16 @@
 		<router-link tag="div" class="setup-modifypwd" to="/myindex/modifyPassword">
 			<mt-cell title="修改密码" is-link></mt-cell>
 		</router-link>
-		<router-link v-if="vehicleState" tag="div" class="setup-vehiclestate" to="/myindex/loginVehicleState">
+		<!-- <router-link v-if="vehicleState" tag="div" class="setup-vehiclestate" :to="{path:'/myindex/loginVehicleState',query:{vin:this.vin}}">
 			<mt-cell title="车机登录状态" is-link></mt-cell>
+		</router-link> -->
+		<router-link  tag="div" class="setup-vehiclestate" to="/myindex/logoutVehicleState">
+			<mt-cell title="车机扫码登录" is-link></mt-cell>
 		</router-link>
-		<router-link v-else tag="div" class="setup-vehiclestate" to="/myindex/logoutVehicleState">
-			<mt-cell title="车机登录状态" is-link></mt-cell>
-		</router-link>
+		<div v-show="this.banben" class="setup-ctcperson" @click="versionupdate" style="position:relative">
+			<div v-show="this.flag" style="position:absolute;z-index:2;width:.1rem;height:.1rem;border-radius:50%;background:red;left:2.4rem;top:.3rem;"></div>
+			<mt-cell  :title="this.update" is-link></mt-cell>
+		</div>
 		<router-link tag="div" class="setup-loginout" to="">
 			<mt-cell @click.native="signOut" title="退出登录" is-link></mt-cell>
 		</router-link>
@@ -43,7 +48,11 @@
 			return {
 				title: '软键盘',
 				value: true,
-				vehicleState: null, //车机登录状态,true代表登录, false代表未登录
+				vin:'',
+				banben:true,//判断兼容低版本不能更新显示消失
+				flag:false,//控制版本更新的红点
+				update:'',//更新版本号
+				vehicleState:'', //车机登录状态,true代表登录, false代表未登录
 				firstTips: true //车机状态第一次提示,true不提示,改变为false的时候,Toast进行提示
 			}
 		},
@@ -73,9 +82,59 @@
 					}
 				}).catch(err => {
 					if(err == 'cancel') {
-						console.log('123');
+						
 					}
 				});
+			},
+			getvalue(value){
+				console.log(value)
+					value=JSON.parse(value)
+					this.flag=value.flag
+					this.flag=this.flag=='1'?true:false
+					this.update=value.versionName
+					this.update='当前版本 '+this.update
+					
+			},
+			// checkVersion(){},
+			// isIOSOrAndroid() { //判断ios和安卓机型的方法
+			// 	var u = navigator.userAgent,
+			// 		app = navigator.appVersion;
+			// 	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+			// 	var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			// 	if(isAndroid) {
+			// 		return "Android"
+			// 	} else if(isIOS) {
+			// 		return "IOS"
+			// 	}
+			// },
+			//判断是否更新
+			newphone(){
+				if (isMobile.Android) {
+					if(this.update==''){
+						this.banben=false
+					}
+					let Detectionupdate=JSON.parse(window.js2android.getVersionInfo())
+					console.log(window.js2android.getVersionInfo())
+					this.flag=Detectionupdate.flag
+					this.flag=this.flag=='1'?true:false
+					this.update=Detectionupdate.versionName
+					this.update='当前版本 '+this.update
+					if(this.update!=''){
+						this.banben=true
+					}
+				} else if (isMobile.iOS) {
+					
+					window.webkit.messageHandlers.getVersionInfo.postMessage({}); //ios方法暂时没有提供,需后续跟踪
+					
+				}	
+			},
+			//版本更新
+			versionupdate(){
+				if (isMobile.Android) {
+					window.js2android.checkVersion()
+				} else if (isMobile.iOS) {
+					window.webkit.messageHandlers.checkVersion.postMessage({}); //ios方法暂时没有提供,需后续跟踪
+				}				
 			},
 			turn() { //switch开关方法
 				this.value ? this.$store.dispatch('SOFTKEYBOARD', true) : this.$store.dispatch('SOFTKEYBOARD', false)
@@ -91,24 +150,25 @@
 					return "IOS"
 				}
 			},
-			    //授权转台查询
-			vehiclestatus(){
-				this.$http.post(Lovecar.vehiclestatus,{},this.$store.state.getpin).then((res)=>{
-					if(res.data.returnSuccess){
-						this.vehicleState=res.data.data.vin
-					}
-				})
-			},
 			getCarLoginState() { //获取机车 登录登出状态
 				this.$http.get(Lovecar.LogStatus, this.$store.state.tsppin).then(res => {
 						const data = res.data
-						if(data.returnSuccess) {		
+						if(data.returnSuccess) {	
 								//字段缺乏,等待接口完成之后添加判断
-								this.vehicleState = data.data[0].logStatus //true 代表机车已经登录	
-								this.vehicleState = false
+								var allvin=data.data
+								for(let i=0;i<allvin.length;i++){
+									if(allvin[i].logStatus){
+										this.vin=allvin[i].vin
+										this.vehicleState = true
+									}else{
+										this.vehicleState = false
+									}
+								}
+								// this.vehicleState = data.data[0].logStatus //true 代表机车已经登录	
+								
 						} else {
 								Toast({
-									message: data.returnErrMsg,
+									message: res.data.returnErrMsg,
 									position: "middle",
 									duration: 2001
 								});						
@@ -116,16 +176,19 @@
 					})
 					.catch(err => {
 						Toast({
-							message: '系统异常',
+							message: res.data.returnErrMsg,
 							position: "middle",
 							duration: 2001
 						});
 					});
 			}
 		},
+		created(){
+			window.getvalue = this.getvalue
+		},
 		mounted () {
-			this.vehiclestatus()
-			this.getCarLoginState()		
+			this.newphone()
+			// this.getCarLoginState()		
 		}
 	}
 </script>

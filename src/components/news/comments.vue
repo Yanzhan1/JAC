@@ -1,17 +1,18 @@
 <template>
     <div>
-        <header class="header MobileHeight">
+        <!-- <header class="header MobileHeight bgcolor">
             <img @click="$router.go(-1)" class="header-left" :src="'./static/images/back@2x.png'" style="margin-left:.3rem">
             <span class='header-title' style="margin-right: .75rem;">评论</span>
             <span></span>
-        </header>
-        <!--<mhead currentTitle="评论"></mhead>-->
-      <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :bottomLoadingText="loadingText" ref="loadmore" :topDistance="20">
-        <!--<div slot="top" class="mint-loadmore-top">
+        </header> -->
+        <mhead currentTitle="评论" style="background:#fff"></mhead>
+      <div v-if="this.nowactivity" style="margin:.4rem;margin-top:1.5rem;text-align: center">暂无评论</div>
+      <mt-loadmore v-else :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" :bottomLoadingText="loadingText" ref="loadmore" :topDistance="20">
+        <!-- <div slot="top" class="mint-loadmore-top">
           <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }" style="font-size: 0.3rem">下拉刷新</span>
           <span v-show="topStatus === 'loading'">Loading...</span>
-        </div>-->
-        <div
+        </div> -->
+        <div 
           v-infinite-scroll="getNextList"
           infinite-scroll-disabled="loading"
           infinite-scroll-distance="10">
@@ -21,7 +22,7 @@
           <ul class="content">
             <li class="area" v-for="(item,index) in List" @click="todetail(item.lid,item.id)" style="">
               <div class="content_p">
-                <span class="content_t"><span style="width: 0.16rem;height: 0.16rem;border-radius: 50%;background: red;display: inline-block" v-if="item.readState"></span>{{item.title}}</span>
+                <span class="content_t"><span style="width: 0.16rem;height: 0.16rem;border-radius: 50%;background: red;display: inline-block" v-if="!item.readState"></span>{{item.title}}</span>
                 <span class="content_x">{{item.createTime}}</span>
               </div>
               <h5 class="wen">
@@ -37,10 +38,10 @@
           <!--<div v-for="(item,index) in List">
 
           </div>-->
+      <div style="height: 2rem;"></div>
+      <!-- <p id="showAll2">已加载全部</p> -->
         </div>
       </mt-loadmore>
-      <div style="height: 2rem;"></div>
-      <p id="showAll2">已加载全部</p>
     </div>
 </template>
 <script>
@@ -59,7 +60,8 @@ export default {
       topStatus:'',
       pageNum:1,
       length:4,
-      List:[]
+      List:[],
+      nowactivity:false,
     }
   },
   methods: {
@@ -93,62 +95,70 @@ export default {
             })
           }
       }).catch((err)=>{
-
+        let instance = Toast({
+              message: res.data.errorMsg,
+              position: 'middle',
+              duration: 1000
+            })
       })
     },
     loadTop() {
-      this.init();
+      this.getNextList();
       this.$refs.loadmore.onTopLoaded();
     },
     loadBottom() {
+ 
     },
     //1，通知 2、评论 3、活动
     //readState 已读状态
     init(){
       //获取列表第一页
-      let _this = this;
       this.loading=true;
       this.loadEnd=false;
-      this.$http.post(IMFORMATION.getList, {"uid": this.$store.state.userId,"pageNo":_this.pageNum, "length":_this.length,type:2}).then(function (res) {
+      this.$http.post(IMFORMATION.getList, {"uid": this.$store.state.userId,"pageNo":this.pageNum, "length":this.length,type:2}).then((res)=> {
         if (res.data.status) {
-          _this.pageNum=1;
-          _this.loading=false;
-          _this.List = res.data.data;
-          console.log(res.data.data)
-          if(res.data.recordsTotal <= _this.list){
-            _this.loadEnd = true;
+          if(res.data.data[0]==undefined){
+            this.nowactivity=true
+          }else{
+             this.nowactivity=false
+          }
+          this.pageNum=1;
+          this.loading=false;
+          this.List = res.data.data;
+          // console.log(res.data.data)
+          if(res.data.recordsTotal <= this.list){
+            this.loadEnd = true;
           }
         } else {
-          console.log(res.data.errorMsg);
+          // console.log(res.data.errorMsg);
         }
       });
     },
     //通知list翻新
-    getNextList: function () {
-      let _this = this;
+    getNextList () {
       if(this.loadEnd){
         this.loadBottom();
         return;
       }
       this.loadEnd=true;
       this.pageNum++;
-      this.$http.post(IMFORMATION.getList, {"uid": this.$store.state.userId,"pageNo":_this.pageNum, "length":_this.length,type:2}).then(function (res) {
-        _this.loadEnd=false;
+      this.$http.post(IMFORMATION.getList, {"uid": this.$store.state.userId,"pageNo":this.pageNum, "length":this.length,type:2}).then((res) =>{
+        this.loadEnd=false;
         if (res.data.status) {
 
-          var allPages = Math.ceil(res.data.recordsTotal/_this.length);
-          if(allPages <= _this.pageNum){
-            _this.loading = true;
-            _this.allLoaded = true;
-            _this.loadEnd = true;
+          var allPages = Math.ceil(res.data.recordsTotal/this.length);
+          if(allPages <= this.pageNum){
+            this.loading = true;
+            this.allLoaded = true;
+            this.loadEnd = true;
             $("#showAll2").show();
           }
-          if(allPages >= _this.pageNum){
-            _this.List = _this.List.concat(res.data.data);
+          if(allPages >= this.pageNum){
+            this.List = this.List.concat(res.data.data);
           }
         } else {
-          _this.pageNum = _this.pageNum -1;
-          console.log(res.data.errorMsg);
+          this.pageNum = this.pageNum -1;
+          // console.log(res.data.errorMsg);
         }
       });
     },
@@ -172,6 +182,9 @@ export default {
 		border-top-style: solid;
 		box-sizing: content-box;
 	}
+  .bgcolor{
+    background: #fff;
+  }
 li {
   list-style: none;
   margin-top: 0.2rem;

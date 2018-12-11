@@ -16,9 +16,11 @@
 		<!--曲线Start-->
 		<div class="curve">
 			<div class="cureve-text">
-				<span style="left: 3.1rem;top: 2.6rem;">0%</span>
+        <span style="display:block;width:1.2rem;position:absolute;left: 0rem;top: -0.3rem;">全关</span>
+        <span style="display:block;width:1rem;position:absolute; left: 2.9rem;top: 3.1rem;">全开</span>
+				<span style="left: 3.1rem;top: 2.6rem;">100%</span>
 				<span style="left: 2.2rem;top: 0.3rem;">50%</span>
-				<span style="left: 0rem;top: -0.3rem;">100%</span>
+				<span style="left: 0rem;top: -0.7rem;">0%</span>
 			</div>
 			<div class="curveActive" v-show="curveState" @touchend="end">
 				<canvas id="rightColorful"></canvas>
@@ -33,7 +35,7 @@
 		<div class="window-wrap flex-column-align">
 			<div class="window-content flex-center-between">
 				<div class="temperature">
-					<span :class="activeShowImg?'fontActive':'loseActives'" style="font-size: 0.68rem;color: #222222;">{{windNum[windowSpace]}}</span>
+					<span :class="activeShowImg?'fontActive':'loseActives'" style="font-size: 0.68rem;color: #222222;">{{windNum[windowSpace]|changenum}}</span>
 				</div>
 				<div class="wind-blows">
 					<img v-if="activeShowImg" :src="'./static/images/Lovecar/window@2x.png'" alt="" />
@@ -43,8 +45,12 @@
 					<!--<span :class="activeShowImg?'fontActive':'loseActives'">{{number}}</span>-->
 				</div>
 			</div>
+      <div class="allcontrol">
+        <div :class="this.flags?'':'allchangecolor'" @click="alloff">全关</div>
+        <div :class="this.flags?'allchangecolor':''" @click="allon">全开</div>
+      </div>
 			<!--车窗高度计数器Start-->
-			<div class="window-change">
+			<!-- <div class="window-change">
 				<div style="margin-bottom: 0.36rem;" class="flex-center">
 					<img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
 					<div class="wind-count">
@@ -55,7 +61,7 @@
 					<img :src="'./static/images/Lovecar/right@2x.png'" alt="" />
 				</div>
 				<span style="color: #222222;font-size: 0.24rem;">升降高度</span>
-			</div>
+			</div> -->
 			<!--车窗高度计数器End-->
 		</div>
 		<!--车窗信息提示Start-->
@@ -89,6 +95,7 @@
 					<div style="font-size:.36rem;color:#222">请输入PIN码</div>
 					<span></span>
 				</div>
+        <img @click="Toasteach"  class="question" style="width:.35rem;height:.35rem" :src="'./static/images/Lovecar/question.png'" alt="">
 				<div class="pin-code flex-center">
 					<div v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
 						<input class="pin-input" maxlength="6" type="text" v-model="pinNumber" readonly/>
@@ -120,16 +127,22 @@
 import { Createarc } from "../../../static/js/drawarc.js";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
-import PublicHead from '../publicmodel/PublicHead';
+import PublicHead from "../publicmodel/PublicHead";
+import { MessageBox } from "mint-ui";
 export default {
   name: "windowControl",
   components: {
-  	mhead:PublicHead
+    mhead: PublicHead
   },
   data() {
     return {
+      fluctuationType: 0, //当等于1的时候一键全开关,等于2的时候百分比
+      flags: false,
+      percent: "", //车窗打开百分比
       //车窗控制按钮开关
       //value: false,
+      windowwords: [], //车窗提示语
+      allwords: [], //所有提示语
       //移动端键盘值
       ownKeyBoard: {
         first: "",
@@ -176,73 +189,95 @@ export default {
     };
   },
   methods: {
+    alloff() {
+      this.fluctuationType = 1;
+      this.popupVisible = true;
+      // this.httpwindowall();
+    },
+    allon() {
+      this.fluctuationType = 3;
+      this.popupVisible = true;
+      // this.httpwindowall();
+    },
     end() {
-      this.httpwindow();
+      this.debouncedGetAnswer();
+      // this.httpwindow();
     },
     //路由跳转的时候清除轮询loading
-    goback () {
-    	this.$router.go(-1);
-    	this.$store.dispatch('LOADINGFLAG', false)
+    goback() {
+      this.$router.go(-1);
+      this.$store.dispatch("LOADINGFLAG", false);
     },
     //车窗高度增加
-    windAdd() {
-      if (this.activeShowImg) {
-        this.popupVisible = false;
-        if (this.windowSpace >= this.windNum.length - 1) {
-          this.windowSpace = this.windNum.length - 1;
-        } else {
-          this.windowSpace++;
-          //计数器控制曲线
-          new Createarc({
-            el: "rightColorful", //canvas id
-            vuethis: this, //使用位置的this指向
-            num: "windowSpace", //data数值
-            type: "right", //圆弧方向  left right
-            tempdel: 11, //总差值
-            ratio: 0.4, //宽度比例
-            iscontrol: true, //控制是否能滑动，可以滑动
-            color: {
-              start: "#49bbff", //圆弧下边颜色
-              end: "#04e8db" //圆弧上边颜色
-            }
-          });
+    // windAdd() {
+    //   if (this.activeShowImg) {
+    //     this.popupVisible = false;
+    //     if (this.windowSpace >= this.windNum.length - 1) {
+    //       this.windowSpace = this.windNum.length - 1;
+    //     } else {
+    //       this.windowSpace++;
+    //       //计数器控制曲线
+    //       new Createarc({
+    //         el: "rightColorful", //canvas id
+    //         vuethis: this, //使用位置的this指向
+    //         num: "windowSpace", //data数值
+    //         type: "right", //圆弧方向  left right
+    //         tempdel: 11, //总差值
+    //         ratio: 0.4, //宽度比例
+    //         iscontrol: true, //控制是否能滑动，可以滑动
+    //         color: {
+    //           start: "#49bbff", //圆弧下边颜色
+    //           end: "#04e8db" //圆弧上边颜色
+    //         }
+    //       });
+    //     }
+    //   } else {
+    //     this.popupVisible = true;
+    //     return;
+    //   }
+    //   this.httpwindow();
+    // },
+    //拿到车窗的提示语
+    getwindowwords() {
+      this.allwords = this.$store.state.GETWORDS;
+      for (let value of this.allwords) {
+        if (value.dictType == "vehicle_window") {
+          // console.log(value)
+          this.windowwords = value.sysDictDataVOs;
+          // console.log(this.windowwords)
         }
-      } else {
-        this.popupVisible = true;
-        return;
       }
-      this.httpwindow();
     },
     //车窗高度减少
-    windReduce() {
-      if (this.activeShowImg) {
-        this.popupVisible = false;
-        if (this.windowSpace <= this.winMin) {
-          this.windowSpace = 0;
-        } else {
-          this.windowSpace--;
-          //计数器控制曲线
-          new Createarc({
-            el: "rightColorful", //canvas id
-            vuethis: this, //使用位置的this指向
-            num: "windowSpace", //data数值
-            type: "right", //圆弧方向  left right
-            tempdel: 11, //总差值
-            ratio: 0.4, //宽度比例
-            iscontrol: true, //控制是否能滑动，可以滑动
-            color: {
-              start: "#49bbff", //圆弧下边颜色
-              end: "#04e8db", //圆弧上边颜色
-              num: 2
-            }
-          });
-        }
-      } else {
-        this.popupVisible = true;
-        return;
-      }
-      this.httpwindow();
-    },
+    // windReduce() {
+    //   if (this.activeShowImg) {
+    //     this.popupVisible = false;
+    //     if (this.windowSpace <= this.winMin) {
+    //       this.windowSpace = 0;
+    //     } else {
+    //       this.windowSpace--;
+    //       //计数器控制曲线
+    //       new Createarc({
+    //         el: "rightColorful", //canvas id
+    //         vuethis: this, //使用位置的this指向
+    //         num: "windowSpace", //data数值
+    //         type: "right", //圆弧方向  left right
+    //         tempdel: 11, //总差值
+    //         ratio: 0.4, //宽度比例
+    //         iscontrol: true, //控制是否能滑动，可以滑动
+    //         color: {
+    //           start: "#49bbff", //圆弧下边颜色
+    //           end: "#04e8db", //圆弧上边颜色
+    //           num: 2
+    //         }
+    //       });
+    //     }
+    //   } else {
+    //     this.popupVisible = true;
+    //     return;
+    //   }
+    //   this.httpwindow();
+    // },
     //产生曲线
     produCurve() {
       //车窗激活弧线
@@ -279,7 +314,7 @@ export default {
     //页面进入提示框中'不在提醒'状态
     remind() {
       this.remindState = !this.remindState;
-      console.log(this.remindState);
+      // console.log(this.remindState);
     },
     //修改车窗高度弹出框-取消
     winConfirm() {
@@ -287,7 +322,7 @@ export default {
     },
     //修改车窗高度弹出框-确定，remindState为true，'不在提醒'未激活，false，'不在提醒'激活
     reduceWindow() {
-      console.log(this.remindState);
+      // console.log(this.remindState);
       if (this.remindState == false) {
         localStorage.Tip = true;
       }
@@ -365,6 +400,50 @@ export default {
         value.next().focus();
       }
     },
+    //车窗接口一键系列
+    httpwindowall() {
+      let percent = this.fluctuationType == "1" ? "0" : "100";
+      console.log(percent);
+      var param = {
+        vin: this.$store.state.vins,
+        operationType: "WINDOW",
+        // operation: this.nums, //操作项
+        extParams: {
+          windowNum: 5,
+          fluctuationType: 2,
+          percent: percent
+          // gear:''
+        }
+      };
+      this.$http
+        .post(Lovecar.Control, param, this.$store.state.tsppin)
+        .then(res => {
+          this.operationIds = res.data.operationId;
+          if (res.data.returnSuccess) {
+            Toast({
+              message: this.windowwords[0].dictValue,
+              position: "middle",
+              duration: 2000
+            });
+            setTimeout(() => {
+              this.getAsyReturn(res.data.operationId);
+            }, 2000);
+          } else {
+            Toast({
+              message: res.data.returnErrMsg,
+              position: "middle",
+              duration: 2000
+            });
+          }
+        })
+        .catch(err => {
+          Toast({
+            message: res.data.returnErrMsg,
+            position: "middle",
+            duration: 2000
+          });
+        });
+    },
     //监听backspace事件
     keyupFun(value, e) {
       var k = e.keyCode;
@@ -375,6 +454,9 @@ export default {
       } else {
         return false;
       }
+    },
+    Toasteach() {
+      MessageBox("提示", this.windowwords[3].dictValue);
     },
     //重复调用异步接口
     getAsyReturn(operationId) {
@@ -392,10 +474,9 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              console.log(tSS);
               if (tSS >= 56) {
                 Toast({
-                  message: "请求超时",
+                  message: this.windowwords[2].dictValue,
                   position: "middle",
                   duration: 2000
                 });
@@ -414,10 +495,9 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          console.log(tSS);
                           if (tSS >= 56) {
                             Toast({
-                              message: "请求超时",
+                              message: this.windowwords[2].dictValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -425,18 +505,66 @@ export default {
                             this.$store.dispatch("LOADINGFLAG", false);
                           }
                         } else if (res.data.status == "SUCCEED") {
+                          if (this.fluctuationType == "1") {
+                            console.log(222);
+                            // this.windNum[windowSpace]='100%'
+                            this.flags = false;
+                            //车窗图片关闭
+                            this.activeShowImg = false;
+                            //canvas的关闭
+                            this.curveState = false;
+                            Toast({
+                              message: this.windowwords[4].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
+                          if (this.fluctuationType == "3") {
+                            console.log(333);
+                            // this.windNum[windowSpace]='0%'
+                            this.flags = true;
+                            //车窗图片激活
+                            this.activeShowImg = true;
+                            //canvas的激活
+                            this.curveState = true;
+                            Toast({
+                              message: this.windowwords[5].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
+                          if (this.fluctuationType == "2") {
+                            if (this.percent == "100") {
+                              Toast({
+                                message: this.windowwords[5].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else if (this.percent == "0") {
+                              Toast({
+                                message: this.windowwords[4].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else {
+                              let percent =
+                                this.windowwords[5].dictValue +
+                                this.percent +
+                                "%";
+                              Toast({
+                                message: percent,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
+                          }
                           // flag = false;
-                          // Toast({
-                          //   message: "下达指令成功",
-                          //   position: "middle",
-                          //   duration: 2000
-                          // });
+                          // this.value = !this.value;
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
-                          flag = false;
                           Toast({
-                            message: "指令下发成功，处理失败！",
+                            message: this.windowwords[2].dictValue,
                             position: "middle",
                             duration: 2000
                           });
@@ -445,11 +573,10 @@ export default {
                         }
                       } else {
                         Toast({
-                          message: "指令下发失败！",
+                          message: this.windowwords[2].dictValue,
                           position: "middle",
                           duration: 2000
                         });
-                        flag = false;
                         clearInterval(this.time);
                         this.$store.dispatch("LOADINGFLAG", false);
                       }
@@ -457,37 +584,85 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
+              if (this.fluctuationType == "1") {
+                this.flags = false;
+                // this.windNum[windowSpace]='100%'
+                console.log(111);
+                //车窗图片关闭
+                this.activeShowImg = false;
+                //canvas的关闭
+                this.curveState = false;
+                Toast({
+                  message: this.windowwords[4].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              }
+              if (this.fluctuationType == "3") {
+                this.flags = true;
+                // this.windNum[windowSpace]='0%'
+                console.log(222);
+                //车窗图片激活
+                this.activeShowImg = true;
+                //canvas的激活
+                this.curveState = true;
+                Toast({
+                  message: this.windowwords[1].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              }
+              if (this.fluctuationType == "2") {
+                if (this.percent == "100") {
+                  Toast({
+                    message: this.windowwords[5].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                } else if (this.percent == "0") {
+                  Toast({
+                    message: this.windowwords[4].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                } else {
+                  let percent =
+                    this.windowwords[5].dictValue + this.percent + "%";
+                  Toast({
+                    message: percent,
+                    position: "middle",
+                    duration: 2000
+                  });
+                }
+              }
               // flag = false;
-              // Toast({
-              //   message: "下达指令成功",
-              //   position: "middle",
-              //   duration: 2000
-              // });
-               clearInterval(this.time);
+              // this.value = !this.value;
+              clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
               Toast({
-                message: "指令下发成功，处理失败！",
+                message: this.windowwords[2].dictValue,
                 position: "middle",
                 duration: 2000
               });
-               clearInterval(this.time);
+              clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             }
           } else {
             Toast({
-              message: "指令下发失败！",
+              message: this.windowwords[2].dictValue,
               position: "middle",
               duration: 2000
             });
-            flag = false;
             clearInterval(this.time);
             this.$store.dispatch("LOADINGFLAG", false);
           }
         });
     },
-    //车窗接口
+    //车窗接口百分比系列
     httpwindow() {
+      this.fluctuationType = 2;
+      this.percent = 100 - this.windNum[this.windowSpace].replace(/%/g, "");
       var param = {
         vin: this.$store.state.vins,
         operationType: "WINDOW",
@@ -495,7 +670,7 @@ export default {
         extParams: {
           windowNum: 5,
           fluctuationType: 2,
-          percent: this.windNum[this.windowSpace].replace(/%/g, "")
+          percent: this.percent
           // gear:''
         }
       };
@@ -504,37 +679,37 @@ export default {
         .then(res => {
           this.operationIds = res.data.operationId;
           if (res.data.returnSuccess) {
-            this.getAsyReturn(res.data.operationId);
-          } else {
-            if (res.data.returnErrCode == 400) {
-          		Toast({
-	              message: "token验证失败",
-	              position: "middle",
-	              duration: 2000
-	            });
-          	} else {
-          		Toast({
-	              message: res.data.returnErrMsg,
-	              position: "middle",
-	              duration: 2000
-	            });
-          	}
-          }
-        })
-        .catch(err => {
-        	Toast({
-              message: '系统异常',
+            Toast({
+              message: this.windowwords[0].dictValue,
               position: "middle",
               duration: 2000
             });
+            setTimeout(() => {
+              this.getAsyReturn(res.data.operationId);
+            }, 2000);
+          } else {
+            Toast({
+              message: res.data.returnErrMsg,
+              position: "middle",
+              duration: 2000
+            });
+          }
+        })
+        .catch(err => {
+          Toast({
+            message: res.data.returnErrMsg,
+            position: "middle",
+            duration: 2000
+          });
         });
     }
   },
   mounted() {
-  	clearInterval(this.time)
+    clearInterval(this.time);
+    this.getwindowwords();
     this.produCurve();
     this.inputs();
-	this.$http
+    this.$http
       .post(
         Lovecar.Carquery,
         { vins: [this.$store.state.vins] },
@@ -542,7 +717,7 @@ export default {
       )
       .then(res => {
         if (res.data.returnSuccess) {
-       		// this.getAsyReturn(res.data.operationId);
+          // this.getAsyReturn(res.data.operationId);
         } else {
           Toast({
             message: res.data.returnErrMsg,
@@ -551,21 +726,24 @@ export default {
           });
         }
       })
-      .catch( err => {
-      	Toast({
-            message: '系统异常',
-            position: "middle",
-            duration: 2000
-          });
-      })
+      .catch(err => {
+        Toast({
+          message: res.data.returnErrMsg,
+          position: "middle",
+          duration: 2000
+        });
+      });
   },
   created() {
-    console.log(localStorage.Tip);
+    this.debouncedGetAnswer = _.debounce(this.httpwindow, 3000);
     if (localStorage.Tip) {
       this.popupInfo = false;
     } else {
       this.popupInfo = true;
     }
+  },
+  beforeDestroy(){
+     clearInterval(this.time);
   },
   computed: {
     fullValue: {
@@ -590,12 +768,17 @@ export default {
       }
     }
   },
+  filters:{
+      changenum(value){
+        value=(100-value.replace(/%/g, ""))+'%'
+        return value
+      }
+  },
   watch: {
     pinNumber(newVal, oldVal) {
-      //console.log(this.pinNumber.length)
       if (this.pinNumber.length == 6) {
         var nums = this.pinNumber;
-//      alert(this.$store.state.tsppin.headers.identityParam.token)
+        //      alert(this.$store.state.tsppin.headers.identityParam.token)
         this.$http
           .post(
             Lovecar.Checkphonepin,
@@ -605,17 +788,21 @@ export default {
             this.$store.state.tsppin
           )
           .then(res => {
-            console.log(res.data.returnSuccess);
             if (res.data.returnSuccess) {
-              this.value = !this.value;
-              this.httpwindow();
+              // this.value = !this.value;\
+              if (this.fluctuationType == "1" || "3") {
+                this.httpwindowall();
+              }
+              if (this.fluctuationType == "2") {
+                this.httpwindow();
+              }
               //pin码正确激活弧线
-              this.curveState = !this.curveState;
-              //pin码正确激活空调图
-              (this.activeShowImg = !this.activeShowImg),
-                // this.refreshPmData(),
-                //消失遮罩
-                (this.popupVisible = !this.popupVisible);
+              // this.curveState = !this.curveState;
+              // //pin码正确激活空调图
+              // (this.activeShowImg = !this.activeShowImg),
+              // this.refreshPmData(),
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
               //消失软键盘
               (this.showTyper = 0),
                 //清空pin码
@@ -628,7 +815,7 @@ export default {
                 //清空pin码
                 (this.pinNumber = "");
               Toast({
-                message: data.returnErrMsg,
+                message: res.data.returnErrMsg,
                 position: "middle",
                 duration: 1000
               });
@@ -636,7 +823,7 @@ export default {
           })
           .catch(err => {
             Toast({
-              message: "系统异常",
+              message: res.data.returnErrMsg,
               position: "middle",
               duration: 1000
             });
@@ -655,17 +842,21 @@ export default {
             this.$store.state.tsppin
           )
           .then(res => {
-            console.log(res.data.returnSuccess);
             if (res.data.returnSuccess) {
-              this.value = !this.value;
-              this.httpwindow();
+              // this.value = !this.value;
+              if (this.fluctuationType == "1" || "3") {
+                this.httpwindowall();
+              }
+              if (this.fluctuationType == "2") {
+                this.httpwindow();
+              }
               //pin码正确激活弧线
-              this.curveState = !this.curveState;
-              //pin码正确激活空调图
-              (this.activeShowImg = !this.activeShowImg),
-                // this.refreshPmData(),
-                //消失遮罩
-                (this.popupVisible = !this.popupVisible);
+              // this.curveState = !this.curveState;
+              // //pin码正确激活空调图
+              // (this.activeShowImg = !this.activeShowImg),
+              // this.refreshPmData(),
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
               //消失软键盘
               (this.showTyper = 0),
                 //清空pin码
@@ -678,7 +869,7 @@ export default {
                 //清空pin码
                 (this.fullValue = "");
               Toast({
-                message: data.returnErrMsg,
+                message: res.data.returnErrMsg,
                 position: "middle",
                 duration: 1000
               });
@@ -686,7 +877,7 @@ export default {
           })
           .catch(err => {
             Toast({
-              message: "系统异常",
+              message: res.data.returnErrMsg,
               position: "middle",
               duration: 1000
             });
@@ -736,12 +927,13 @@ export default {
 .mint-popup {
   border-radius: 0.1rem;
 }
-.conmmon-style { /*公共样式*/
-	border: none;
-	outline: none;
-	appearance: none;
-	-webkit-appearance: none;
-	background: none;
+.conmmon-style {
+  /*公共样式*/
+  border: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
 }
 /*车窗头部*/
 
@@ -756,6 +948,22 @@ export default {
   justify-content: center;
   align-items: center;
 }
+.allcontrol {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  vertical-align: middle;
+}
+.allcontrol > div {
+  line-height: 1.4rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  margin: 0.65rem;
+  border: 0.01rem solid #333333;
+  border-radius: 50%;
+}
+
 /*车窗标志*/
 
 .window-ch {
@@ -1071,5 +1279,14 @@ ul > li {
   height: 100%;
   opacity: 0.5;
   background: #000;
+}
+.question {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.3rem;
+}
+div.allchangecolor {
+  border: 0.01rem solid #49bbff;
+  color: #49bbff;
 }
 </style>

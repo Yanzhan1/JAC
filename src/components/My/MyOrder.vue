@@ -1,22 +1,39 @@
 <template>
 	<div>
-		<header class="header MobileHeight">
+		<header class="header MobileHeight header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title" style="margin-right: 0.65rem;">我的订单</span>
 			<span class="header-right"></span>
 		</header>
 		<div style="height:.88rem" class="MobileHeight"></div>
 		<!--<mhead currentTitle="我的订单"></mhead>-->
-		<mt-navbar v-model="selected">
+    <!-- <div >
+      <mt-navbar v-model="selected">
 			<mt-tab-item id="one">线索</mt-tab-item>
-			<mt-tab-item id="two">商城</mt-tab-item>
-			<!--<mt-tab-item id="three">维保</mt-tab-item>
-      <mt-tab-item id="four">停车</mt-tab-item>-->
 			<mt-tab-item id="five">流量</mt-tab-item>
-		</mt-navbar>
-		<mt-tab-container v-model="selected">
-			<mt-tab-container-item id="one">
-				<ul v-if="flag">
+		  </mt-navbar>
+    </div> -->
+    <div style="position:fixed;width:100%;background:#fff;">
+
+      <div class="box">
+        <div @click="showlist" >
+          <div>线索</div>
+          <div v-show="this.list" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
+        </div>
+        <div @click="showflow">
+          <div>流量</div>
+          <div v-show="this.flow" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
+        </div>
+        <!-- <div @click="showMaintenance" >
+          <div>维保</div>
+          <div v-show="this.Maintenance" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
+        </div> -->
+      </div>
+    </div>
+		
+		<!-- <mt-tab-container v-model="selected"> -->
+			<!-- <mt-tab-container-item id="one"> -->
+				<ul v-if="flag" v-show="this.list" style="margin-top:.7rem;">
 					<li class="flex column" v-for="(item,index)  in Xorder" :key="index">
 						<p class="flex row tim">
 							<span class="times">{{item.time}}</span>
@@ -24,7 +41,7 @@
 						</p>
 						<div class="flex row con" @click="toDetauls(item)">
 							<div class="flex column bus_left">
-								<img style="height:1.2rem;width:2.46rem" :src="item.img" alt="">
+								<img style="height:1.2rem;width:2.46rem" :src="item.imageUrl" alt="">
 								<!-- <span class="busname">{{item.model}}</span> -->
 							</div>
 							<div class="flex column tp">
@@ -32,7 +49,7 @@
 								<span class="bus_right">经销商：{{item.dealerName}}</span>
 								<span class="bus_right">地址：{{item.address}}</span>
 								<span class="bus_right">订单编号：{{item.fkDealerId}}</span>
-								<span class="bus_right">备注：{{item.comments}}</span>
+								<!-- <span class="bus_right">备注：{{item.comments}}</span> -->
 
 							</div>
 						</div>
@@ -45,138 +62,9 @@
 				<ul v-else>
 					<div style="text-align:center;margin-top:.2rem">暂无线索订单</div>
 				</ul>
-			</mt-tab-container-item>
-			<mt-tab-container-item id="two">
-				<iframe onload='setIframeHeight(this)' style="width:100%" src=this.url frameborder="0"></iframe>
-				<!-- <ul>
-					<li class="flex column" v-for="(item, index) in shoppingMall">
-						<p class="flex row tim between">
-							<span class="times">{{item.createDate}}</span>k
-							<span class="times">{{item.orderState}}</span>
-						</p>
-						<div class="buycity flex row cocenter between" @click="todetail">
-							<div class="flex row">
-								<img class="pictu" :src="item.image" alt="" style="height:1.2rem;width:1.14rem;">
-								<div class="flex column cocenter maincenter">
-									<p style="font-size:.31rem;color:#222;">{{item.productName}}</p>
-									<p style="font-size:.22rem;color:#888;">白色 400ml</p>
-								</div>
-							</div>
-							<div class="flex row cocenter" style="margin-right:.3rem">
-								<span style="font-size:.2rem;color:#222;">X{{item.num}}</span>
-								<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
-							</div>
-						</div>
-						<div class="flex row between bts">
-							<span class="cancel" v-if="3<4">申请退款</span>
-							<span class="cancel" v-if="3>4">查看物流</span>
-							<span class="cancel" @click="confirmRevise()">取消订单</span>
-							<span class="cancel" v-if="3>4">评价晒单</span>
-							<span class="cancel">待付款</span>
-						</div>
-					</li>
-				</ul> -->
-			</mt-tab-container-item>
-			<mt-tab-container-item id="three">
-				<!--<ul>
-                    <li class="flex column">
-                        <p class="flex row tim between">
-                            <span class="times">2018 09-21 18:34</span>
-                            <span class="times">已预约</span>
-                        </p>
-                        <div class="flex row cont">
-                            <div class="flex column bus_left">
-                                <img style="height:1.68rem;width:2.56rem" src="../../../static/images/test/my/car_ruifeng_s5.png" alt="">
-                                <span class="busname"></span>
-                            </div>
-                            <div class="flex column tp">
-                                <span class="bus_right">预约网点：上海天马汽车销售有限</span>
-                                <span class="bus_right">地址：上海市徐汇区田林路200号</span>
-                                <span class="bus_right">预约时间：08509859043589</span>
-                                <span class="bus_right">预约项目</span>
-                            </div>
-                        </div>
-                        <div class="flex row between bt">
-                            <span></span>
-                            <span class="cancel">取消订单</span>
-                        </div>
-                    </li>
-                    <li class="flex column">
-                        <p class="flex row tim between">
-                            <span class="times">2018 09-21 18:34</span>
-                            <span class="times">已完成</span>
-                        </p>
-                        <div class="flex row cont">
-                            <div class="flex column bus_left">
-                                <img style="height:1.68rem;width:2.56rem" src="../../../static/images/test/my/car_ruifeng_s5.png" alt="">
-                                <span class="busname"></span>
-                            </div>
-                            <div class="flex column tp">
-                                <span class="bus_right">预约网点：上海天马汽车销售有限</span>
-                                <span class="bus_right">地址：上海市徐汇区田林路200号</span>
-                                <span class="bus_right">预约时间：08509859043589</span>
-                                <span class="bus_right">预约项目:维修</span>
-                            </div>
-                        </div>
-                        <div class="flex row between bt">
-                            <span></span>
-                            <span class="cancel" v-if="3>4">取消订单</span>
-                            <span class="cancel">评价晒单</span>
-                        </div>
-                    </li>
-                </ul>-->
-			</mt-tab-container-item>
-			<mt-tab-container-item id="four">
-				<!--<ul>
-                    <li class="flex column">
-                        <p class="flex row tim between">
-                            <span class="times">2018 09-21 18:34</span>
-                            <span class="times">已预约</span>
-                        </p>
-                        <div class="flex row cont">
-                            <div class="flex column bus_left">
-                                <img style="height:1.68rem;width:2.56rem" src="../../../static/images/test/my/car_ruifeng_s5.png" alt="">
-                                <span class="busname"></span>
-                            </div>
-                            <div class="flex column tp">
-                                <span class="bus_right">预约网点：上海天马汽车销售有限</span>
-                                <span class="bus_right">地址：上海市徐汇区田林路200号</span>
-                                <span class="bus_right">预约时间：08509859043589</span>
-                                <span class="bus_right">预约项目</span>
-                            </div>
-                        </div>
-                        <div class="flex row between bt">
-                            <span></span>
-                            <span class="cancel">取消订单</span>
-                        </div>
-                    </li>
-                    <li class="flex column">
-                        <p class="flex row tim between">
-                            <span class="times">2018 09-21 18:34</span>
-                            <span class="times">已完成</span>
-                        </p>
-                        <div class="flex row cont">
-                            <div class="flex column bus_left">
-                                <img style="height:1.68rem;width:2.56rem" src="../../../static/images/test/my/car_ruifeng_s5.png" alt="">
-                                <span class="busname"></span>
-                            </div>
-                            <div class="flex column tp">
-                                <span class="bus_right">预约网点：上海天马汽车销售有限</span>
-                                <span class="bus_right">地址：上海市徐汇区田林路200号</span>
-                                <span class="bus_right">预约时间：08509859043589</span>
-                                <span class="bus_right">预约项目:维修</span>
-                            </div>
-                        </div>
-                        <div class="flex row between bt">
-                            <span></span>
-                            <span class="cancel" v-if="3>4">取消订单</span>
-                            <span class="cancel">评价晒单</span>
-                        </div>
-                    </li>
-                </ul>-->
-			</mt-tab-container-item>
-			<mt-tab-container-item id="five">
-				<ul>
+			<!-- </mt-tab-container-item> -->
+			<!-- <mt-tab-container-item id="five"> -->
+				<ul v-show="this.flow" style="margin-top:.7rem;">
 					<router-link tag="li" class="flex column" v-for="(item,index) in allflowbuy" :key="index"  :to="{path:'/myindex/flowOrderDetails', query: {flowDetail: item}}">
 						<p class="flex row tim between">
 							<span class="times">{{item.purchaseTime}}</span>
@@ -193,7 +81,7 @@
 								<img src="../../../static/images/next@2x.png" alt="">
 							</div>
 						</div>
-						<div class="flex row between bt">
+						<!-- <div class="flex row between bt">
 							<span></span>
 							<div v-if="item.paymentStatus">
 								<span class="cancel" :class=" item.paymentStatus == 1 ? 'active' : ''">付款</span>
@@ -203,15 +91,35 @@
 								<span class="cancel">再次充值</span>
 								<span class="cancel">删除订单</span>
 							</div>							
-						</div>
+						</div> -->
 					</router-link >
 				</ul>
-			</mt-tab-container-item>
-		</mt-tab-container>
+        <ul v-show="this.Maintenance" style="margin-top:.7rem;">
+          <router-link tag="li" class="flex column" v-for="(item,index) in allflowbuy" :key="index"  :to="{path:'/myindex/flowOrderDetails', query: {flowDetail: item}}">
+						<p class="flex row tim between">
+							<span class="times">{{item.purchaseTime}}</span>
+							<span class="times" >{{trafficOrder[item.paymentStatus]}}</span>
+						</p>
+						<div class="cont">
+							<div class="flex column tp">
+								<!--<span class="bus_right">地址：上海市徐汇区田林路200号</span>-->
+								<span class="flowPacket-title">{{item.packetName}}</span>
+								<span class="bus_right">维保网点:{{item.orderId}}</span>
+								<span class="bus_right">维保类型：{{item.price}}元</span>
+							</div>
+							<div class="flex column bus_left">
+								<img src="../../../static/images/next@2x.png" alt="">
+							</div>
+						</div>
+					</router-link >
+        </ul>
+			<!-- </mt-tab-container-item>
+		</mt-tab-container> -->
 	</div>
 </template>
 <script>
 import { MessageBox } from "mint-ui";
+import { Toast } from "mint-ui";
 import PublicHead from "../publicmodel/PublicHead";
 export default {
   name: "myOrder",
@@ -223,13 +131,17 @@ export default {
       selected: "one",
       Xorder: {}, //线索订单
       flag: true,
+      list: false, //线索展示
+      flow: false, //流量展示
+      Maintenance: false, //维保展示
       allflowbuy: [],
+      allmaintenance: [],
       shoppingMall: [], //商城订单
       trafficOrder: {
         "0": "已完成",
         "1": "待付款"
-	  },
-	  url:''
+      },
+      url: ""
     };
   },
   methods: {
@@ -238,6 +150,21 @@ export default {
         path: "/orderdetails",
         query: item
       });
+    },
+    showlist() {
+      this.list = true;
+      this.flow = false;
+      this.Maintenance = false;
+    },
+    showflow() {
+      this.list = false;
+      this.flow = true;
+      this.Maintenance = false;
+    },
+    showMaintenance() {
+      this.Maintenance = true;
+      this.flow = false;
+      this.list = false;
     },
     //跳转商城详情
     todetail() {
@@ -272,29 +199,35 @@ export default {
     compontent() {
       this.$router.push("/compontent");
     },
-    getShoppingMall() {
-      //商城订单
-      let data = {
-        no: "AD022018082803151446865"
-      };
-      this.$http
-        .post(My.orderList, data)
-        .then(res => {
-          const data = res.data;
-          if (data.code == 0) {
-            this.shoppingMall = data.data;
-            console.log(this.shoppingMall);
-          }
-        })
-        .catch(err => {});
-    },
+    // getShoppingMall() {
+    //   //商城订单
+    //   let data = {
+    //     no: "AD022018082803151446865"
+    //   };
+    //   this.$http
+    //     .post(My.orderList, data)
+    //     .then(res => {
+    //       const data = res.data;
+    //       if (data.code == 0) {
+    //         this.shoppingMall = data.data;
+    //         console.log(this.shoppingMall);
+    //       }else{
+    //           Toast({
+    //               message: data.msg,
+    //               duration: 1000,
+    //               position: "middle"
+    //             });
+    //       }
+    //     })
+    //     .catch(err => {});
+    // },
     //流量订单
     flowbuy() {
       var params = {
-        phone: this.$store.state.mobile
+        userName: this.$store.state.mobile
       };
       this.$http
-        .post(Lovecar.Getoederlistapp, params, this.$store.state.tsppin)
+        .post(Lovecar.Getoederlist, params, this.$store.state.tsppin)
         .then(res => {
           this.allflowbuy = res.data.data;
           console.log(this.allflowbuy);
@@ -352,25 +285,36 @@ export default {
   created() {
     this.GetXorder();
     this.flowbuy();
-    this.getShoppingMall();
+    // this.getShoppingMall();
   },
   mounted() {
-	this.url='http://14.21.46.171:8707/authLogin'+'?'+'uid='+this.$store.state.tspId+'&moblie='+this.$store.state.mobile+'&userName='+this.$store.state.userId+'&toOrderList=suc&token='+JSON.parse(this.$store.state.tsppin.headers.identityParam).token
-	// alert(this.url)
+    // alert(this.url)
     //			console.log('加密:' + this.$md5('uid=1jac.com'))
     $(".MobileHeight").css({
       borderTopWidth: this.$store.state.mobileStatusBar,
       borderTopColor: "#fff"
     });
+    if (this.$route.params.show == 1) {
+      this.showflow();
+    } else {
+      this.list = true;
+    }
   }
 };
 </script>
 <style scoped>
+.header {
+  background: #fff;
+}
 .MobileHeight {
   border-top-style: solid;
   box-sizing: content-box;
 }
-
+.box {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
 .mint-navbar .mint-tab-item {
   padding: 0.3rem 0;
   font-size: 0.28rem;

@@ -2,7 +2,7 @@
   <div>
     <div class="mytop" :style="$statusBarHeightObj">
       <div class="flex between mytopicon cocenter">
-        <img src="../../../static/images/my/mine_service@2x.png" alt=""  @click="ton()">
+        <img src="../../../static/images/my/mine_service@2x.png" alt="" @click="ton()">
         <img src="../../../static/images/my/mine_message@2x.png" alt="" @click="tonews()">
       </div>
       <div class="mytophead flex between cocenter">
@@ -60,13 +60,20 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
       </router-link>
-      <!-- <router-link to="/myindex/wbrecode" class="mylist" tag="div">
+      <div class="mylist" @click="tobuy">
+        <div class="flex cocenter">
+          <img src="../../../static/images/my/shoppingbuy.png" alt="">
+          <span>我的商城</span>
+        </div>
+        <img src="../../../static/images/my/next@2x.png" alt="">
+      </div>
+       <!--<router-link to="/myindex/wbrecode" class="mylist" tag="div">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_record_maintanance@2x.png" alt="">
           <span>维保记录</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </router-link> -->
+      </router-link>--> 
       <router-link to="/myCollect" tag="div" class="mylist">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_collection@2x.png" alt="">
@@ -88,28 +95,28 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
       </router-link>
-      <div class="mylist" @click="recommended" v-if="flag">
+      <!-- <div class="mylist" @click="recommended" v-if="flag">
 
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_recommend@2x.png" alt="">
           <span>推荐码</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </div>
-      <div class="mylist" @click="scan()">
+      </div> -->
+      <!-- <div class="mylist" @click="scan()">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_code@2x.png" alt="">
           <span>扫一扫</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </div>
+      </div> -->
       <router-link tag="div" class="mylist" :to="{path:'/myindex/mySetUp', query:{no:$store.state.no}}">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_set@2x.png" alt="">
           <span>设置</span>
         </div>
         <div style="display: flex;align-items: center;">
-          <span>2.5</span>
+          <span></span>
           <img src="../../../static/images/my/next@2x.png" alt="">
         </div>
       </router-link>
@@ -134,14 +141,20 @@ export default {
       Personal: {}, //个人信息
       popupVisible: false,
       isShow: true, //今日未签到
-      integral:'',//用户总积分
+      integral: "", //用户总积分
       likeNum: 0,
       fansNum: 0,
       focusNum: 0,
       momentNum: 0,
       myList: [],
-      num:'',//添加的积分量
-     flag: false //隐藏推荐码
+      num: "", //添加的积分量
+      flag: false, //隐藏推荐码
+      url: "",
+      aaaid: "",
+      mobile: "",
+      add: "",
+      userName: "",
+      token: ""
     };
   },
   methods: {
@@ -150,58 +163,55 @@ export default {
       var data = {
         ruleStr: "SIGN_IN",
         serviceTypeStr: "SERVICE_FIXED",
-       
-        no:this.$store.state.userId
-         // no:'AD11201809030320353266'
-      }
-    //  var param=JSON.stringify(data)
-    //  console.log(My.SignIn)
-      this.$http.post(My.SignIn,data).then(res => {
-        if(res.data.code==0){
-          this.num= res.data.num
-         }
+
+        no: this.$store.state.userId
+        // no:'AD11201809030320353266'
+      };
+      //  var param=JSON.stringify(data)
+      //  console.log(My.SignIn)
+      this.$http.post(My.SignIn, data).then(res => {
+        if (res.data.code == 0) {
+          this.num = res.data.data;
+        }
         this.popupVisible = true;
         setTimeout(() => {
           this.popupVisible = false;
           this.isShow = false;
         }, 1000);
-        this.total()
+        this.total();
       });
     },
     // 判断是否签到
-    IsSign(){
-     var data = {
-           no:this.$store.state.userId
-             //no:'AD112018090402110693811'
-      }
-       this.$http.post(My.IsSignIn,data).then(res => {
-         if(res.data.code==50004){
-           this.isShow=false
-         }
-      
-       });
+    IsSign() {
+      var data = {
+        no: this.$store.state.userId
+        //no:'AD112018090402110693811'
+      };
+      this.$http.post(My.IsSignIn, data).then(res => {
+        if (res.data.code == 50004) {
+          this.isShow = false;
+        }
+      });
     },
     // 获取用户总积分
-      total(){
-        var data = {
-          no:this.$store.state.userId
-            // no:'AD022018090502444422707'
-         }
-       this.$http.post(My.Credit,data).then(res => {
-        if(res.data.code==0){
-          if(res.data.data==''){
-            this.integral=0
-            this.$store.state.integral=res.data.data[0].count
-          }else{
-            this.integral=res.data.data[0].count
-            this.$store.state.integral=res.data.data[0].count
+    total() {
+      var data = {
+        no: this.$store.state.userId
+        // no:'AD022018090502444422707'
+      };
+      this.$http.post(My.Credit, data).then(res => {
+        if (res.data.code == 0) {
+          if (res.data.data == "") {
+            this.integral = 0;
+            this.$store.state.integral = res.data.data[0].count;
+          } else {
+            this.integral = res.data.data[0].count;
+            this.$store.state.integral = res.data.data[0].count;
           }
-           
-         }
-         
-       });
-      },
-   
+        }
+      });
+    },
+
     //积分详情
     ToScore() {
       this.$router.push("/my/scoredetails");
@@ -214,8 +224,15 @@ export default {
     tonews() {
       this.$router.push("/news");
     },
-    ton(){
-     location.href="http://220.178.49.215:8888/webchat/jsp/common/visitorMobileEnter4.html"
+    ton() {
+      if (isMobile.iOS()) {
+        window.webkit.messageHandlers.gotoOnlineWeb.postMessage()
+      } else if (isMobile.Android()) {
+        
+        js2android.gotoOnlineWeb();
+      }
+
+      //  location.href="http://220.178.49.215:8888/webchat/jsp/common/visitorMobileEnter4.html"
     },
     //二维码
     twoma() {
@@ -226,11 +243,12 @@ export default {
       if (isMobile.iOS()) {
         var params = {};
         window.webkit.messageHandlers.scan.postMessage(params);
-       
       } else if (isMobile.Android()) {
         js2android.scan();
-       
       }
+    },
+    getStatus(pp){
+        
     },
 
     // //获取原生的no和token
@@ -249,6 +267,25 @@ export default {
     // },
     recommended() {
       this.$router.push("/Recommended");
+    },
+    //跳转到商城
+    tobuy() {
+      this.add = "JAC" + this.aaaid + this.mobile + this.userName + "APP";
+      this.add = this.$md5(this.add);
+      location.href =
+        "http://gift.jac.com.cn/app/authLogin" +
+        "?" +
+        "uid=" +
+        this.aaaid +
+        "&mobile=" +
+        this.mobile +
+        "&userName=" +
+        this.userName +
+        "&toOrderList=suc&token=" +
+        this.add;
+      // this.url='http://14.21.46.171:8707/authLogin'+'?'+'uid='+'99'+'&moblie='+'18856913074'+'&userName='+'啊'+'&toOrderList=suc&token='+'91af2f1fe5ba6236a0d99c7ac92161c8'
+      // console.log(this.url);
+      // this.$http.get(this.url).then(res => {});
     },
     //粉丝
     toFans: function() {
@@ -299,7 +336,7 @@ export default {
             _this.likeNum = res.data.data.likeNum;
             _this.momentNum = res.data.data.momentNum;
           } else {
-            console.log(res.data.errorMsg);
+            // console.log(res.data.errorMsg);
             // MessageBox('提示', res.data.errorMsg);
           }
         });
@@ -316,7 +353,7 @@ export default {
           if (res.data.status) {
             _this.myList = res.data.data;
           } else {
-            console.log(res.data.errorMsg);
+            // console.log(res.data.errorMsg);
             //MessageBox('提示', res.data.errorMsg);
           }
         });
@@ -327,27 +364,59 @@ export default {
         userNo: this.$store.state.userId
       };
       this.$http.post(My.RecomendCode, param).then(res => {
-      
-        if (res.data.code =! 500) {  
+        if(res.data.msg='success'){
+          if(res.data.code!=500){
           this.share = res.data.code;
-       
           this.flag = true;
         }
+        }
       });
+    },
+    Tsp() {
+      let params = {
+        userNo: this.$store.state.userId
+      };
+      this.$http.post(Lovecar.TSP, params).then(res => {
+        if (res.data.msg == "success") {
+          var tsp = res.data.data;
+          this.$store.dispatch("TSP", tsp);
+        }
+      });
+    }
+  },
+  computed: {
+    show() {
+      return this.$store.state.tspId;
     }
   },
   created() {
     this.getuserinfo();
     this.RecomendCode(); //获取推荐码
-    
+  },
+  watch: {
+    show(newVal, oldVal) {
+      this.aaaid = this.$store.state.aaaid;
+      this.mobile = this.$store.state.mobile;
+      this.userName = this.$store.state.userName;
+      // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
+    }
   },
   mounted() {
+    // this.Tsp()
+    // setTimeout(() => {
+
+    this.aaaid = this.$store.state.aaaid;
+    this.mobile = this.$store.state.mobile;
+    this.userName = this.$store.state.userName;
+    // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
+    // }, 0);
     // console.log(this.$store.state.no)
     // this.getTokenAndNo();
-    console.log()
+    console.log();
     this.myNum();
     this.IsSign(); //判断是否签到
-     this.total()//h获取用户总积分
+    this.total(); //h获取用户总积分
+    window.getStatus=this.getStatus
   }
 };
 </script>
@@ -392,7 +461,7 @@ export default {
 
 .mytopicon {
   height: 0.88rem;
-   /* margin-top:.3rem */
+  /* margin-top:.3rem */
 }
 
 .mytopicon > img {

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<header class="header MobileHeight" style="z-index: 100!important;">
+		<header class="header MobileHeight bgcolor" style="z-index: 100!important;">
 			<img class="header-left" src="../../../static/images/back@2x.png" @click="$router.go(-1)">
 			<span class="header-title" style="margin-right: 0.65rem;">查询维保网点</span>
 			<span class="header-right"></span>
@@ -45,7 +45,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="one" style="height:.1rem;"></div>
 		<div class="dealer-wrapper" :style="{'-webkit-overflow-scrolling': scrollMode}">
 			<mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="80" :auto-fill="false">
 				<ul style="padding:.1rem .2rem" v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
@@ -615,9 +614,12 @@
 	}
 	
 	.title {
-		/*position: fixed;
+		position: fixed;
+		z-index: 999;
+		width: 100%;
 		height: 0.88rem;
-		line-height: 0.88rem;*/
+		line-height: 0.88rem;
+		background: #fff;
 	}
 	
 	.con>div {
@@ -637,8 +639,11 @@
 	
 	.dealer-wrapper {
 		min-height: 100%;
+		margin-top: .8rem;
 	}
-	
+	.bgcolor{
+		background: #fff;
+	}
 	.ul_list {
 		height: 2.3rem;
 		border-bottom: 1px solid #f7f7f7;

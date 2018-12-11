@@ -4,7 +4,9 @@ export default {
     //userId: 1165864, //用户userID 正式上线用
     userId: '', //原生获取的no
     trueuserId: '', //原生传过来的userid
+    aaaid: '', //3a的userid
     tspId: '',
+    userName: '', //用户昵称
     uuid: null,
     UserStartId: null,
     mobile: null, //用户手机号
@@ -13,12 +15,15 @@ export default {
     refreshToken: '',
     integral: '', //用户总积分
     everyno: '', //智享主页点击时候每个车的no
+    brandName: '', //爱车页面默认车辆的车名
     seriesName: '', //智享主页点击时候车的每一个seriesName
     srouceNo: '', //智享主页点击时候车的每一个srouceNo
+    levelCode: '',
     // userNo: 'AD022018081504171568405', //userNo
     tsppin: {
         headers: {
             "identityParam": '{ "userId": "", "token": "", "phone": "" }',
+            // "identityParam": '{ "userId": "177", "token": "1c3ec1e7-44e9-462e-aa85-fe264cdefe50", "phone": "17775099071" }',
         }
     }, //非爱车发送请求时的token,暂用
     getpin: {
@@ -26,6 +31,12 @@ export default {
             "identityParam": '{ "userId": "", "token": "", "phone": "" }',
         }
     }, //爱车发送请求时的token,暂用
+    //调用部分tsp接口用到的token
+    buding: {
+        headers: {
+            "token": ''
+        }
+    },
     mytoken: {
         headers: {
             "timaToken": "Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImlkXCI6OTksXCJpbml0VXNlclwiOjAsXCJub1wiOlwiQUQwMjIwMTgwOTA0MTExMTU4NDQ1MTJcIixcInBob25lXCI6XCIxNzcyNDgxNTU4NlwiLFwidXNlckNvZGVcIjpcIjE3NzI0ODE1NTg2XCIsXCJ1c2VyU3RhdHVzXCI6MCxcInVzZXJUeXBlXCI6XCIwMVwifSIsImNyZWF0ZWQiOjE1MzYwMzEzOTQzODIsInVzZXJObyI6IkFEMDIyMDE4MDkwNDExMTE1ODQ0NTEyIiwidXNlclR5cGUiOiIwMSIsImV4cCI6MTUzNjg5NTM5NCwidXNlcklkIjo5OX0.Ut-QmhL4DFWP97sPAZ08iK2Z-xctT0iW-rH0-zTjBgs"
@@ -38,5 +49,6 @@ export default {
     shownum: '', //车系特色判断返回的路由
     busNo: null, //主推车型，全部车型 选择的no
     qrCodeDate: null, //扫描二维码给出信息
-    changeScrollY: '' //存储滚动高度
+    changeScrollY: '', //存储滚动高度
+    GETWORDS: [] //储存所有的提示信息
 }

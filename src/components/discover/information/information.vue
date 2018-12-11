@@ -270,6 +270,7 @@
     },
     mounted() {
       //    	alert(11)
+      console.log('information')
       this.$nextTick(function () {
         this.getRefreshList()
       })

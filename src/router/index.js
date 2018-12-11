@@ -21,7 +21,7 @@ import FlowQuery from "@/components/Lovecar/FlowQuery" //流量查询
 import FlowBuy from "@/components/Lovecar/FlowBuy" //流量购买
 import PlaceOrder from "@/components/Lovecar/PlaceOrder" //提交流量订单
 import PurchaseRecord from "@/components/Lovecar/PurchaseRecord" //流量购买记录
-import Islogin from '../components/Lovecar/islogin'
+import Islogin from '@/components/Lovecar/islogin'
 import IntelligenceParking from "@/components/Lovecar/IntelligenceParking" //智能停车G1
 import IntelligentParkingInfo from "@/components/Lovecar/IntelligentParkingInfo" //智能停车G2
 import IntelligentParkingUninfo from "@/components/Lovecar/IntelligentParkingUninfo" //智能停车G3
@@ -30,8 +30,10 @@ import AdjustSeatTemper from "@/components/Lovecar/AdjustSeatTemper" //座椅调
 import AdjustSeatAeration from "@/components/Lovecar/AdjustSeatAeration" //座椅通风
 import WindowControl from "@/components/Lovecar/WindowControl" //车窗控制
 import SkylightControl from "@/components/Lovecar/SkylightControl" //天窗控制
+import SkylightClose from "@/components/Lovecar/SkylightClose" //天窗关闭
 import AirEvoluor from "@/components/Lovecar/AirEvoluor" //空气进化器
 import Electricairconditioning from '@/components/Lovecar/Electricairconditioning' //电动空调调控
+import Remotecharging from "@/components/Lovecar/Remotecharging" //充电功能页面
 
 //我的部分
 import My from '@/components/My/Myindex'
@@ -73,6 +75,7 @@ import TwoMa from '../components/My/TwoMa.vue' //二维码
 import Test_Result from '../components/Lovecar/Test_Reault.vue' //测试结果
 import WbRecode from '../components/My/WbRecode.vue' //维保记录
 import ScoreDetails from '../components/My/ScoreDetails.vue' //会员积分详情
+import DotComment from '../components/My/DotComment.vue' //网点评分
 // 消息
 import News from '../components/news/News.vue' //消息
 import StyNews from '../components/news/StyNews.vue' //系统消息
@@ -84,6 +87,7 @@ import Informations from '../components/news/information.vue'
 import Info_details from '../components/news/info_details.vue'
 import Activitys from '../components/news/activitys.vue'
 import Comments from '../components/news/comments.vue'
+import Others from '../components/news/others.vue'
 //发现部分
 import Discover from '@/components/discover/discover'
 import Header from '@/components/Header' // 发现头部
@@ -104,6 +108,8 @@ import ToSign from '@/components/discover/activity/toSign' //活动报名
 import ToInform from '@/components/discover/component/inform' //举报此刻
 // 智享部分
 import Wit from '@/components/Wit/Wit.vue' //智享首页
+import HotSell from '@/components/Wit/HotSell.vue' //热销车型
+import IntelligentCar from '@/components/Wit/IntelligentCar.vue' //智能选车
 import Dealer from '../components/Wit/dealer.vue' //经销商查询
 import Recoment_bus from '../components/Wit/Recoment_bus.vue'
 import Search_net from '../components/Wit/Search_net.vue' //网点查询
@@ -111,12 +117,25 @@ import Pre_weib from '../components/Wit/pre_weib.vue' //维保预约
 import Characteristic from '../components/Wit/Characteristic' //车系特色
 import Configure from '../components/Wit/Configure' //配置参数
 import Reserve from '../components/Wit/Reserve' //车辆预定
+import CarChoose from '../components/Wit/CarChoose' //车辆预定
+import CarChoosenew from '../components/Wit/CarChoosenew' //车辆预定
+import ColorChoose from '../components/Wit/ColorChoose' //车辆预定
+import RimChoose from '../components/Wit/RimChoose' //车辆预定
+import VehicleChoose from '../components/Wit/VehicleChoose' //车辆预定
+import Weightshopping from '../components/Wit/Weightshopping' //重卡购车
 Vue.use(Router)
 
 const router = new Router({
     mode: 'hash',
     scrollBehavior(to, from, savedPosition) { //商品列表进去详情，返回时回到原来的高度
         if (savedPosition) {
+            // const list = ['/recommend', '/information', '/activity', '/now']
+
+            // if(list.includes(to.path)){
+            //     const swiperSlides = document.querySelectorAll('.swiperSlide')
+
+            //     swiperSlides[to.meta.index].scrollTop = to.meta.savedScrollTop || 0
+            // }
             return savedPosition
         } else {
             if (from.meta.keepAlive) {
@@ -147,25 +166,30 @@ const router = new Router({
                     path: "/recommend",
                     component: Recommend,
                     meta: {
-                        keepAlive: true
+                        keepAlive: true,
+                        index: 0,
+
                     }
                 }, {
                     path: "/activity",
                     component: Activity,
                     meta: {
-                        keepAlive: true
+                        keepAlive: true,
+                        index: 2
                     }
                 }, {
                     path: "/information",
                     component: Information,
                     meta: {
-                        keepAlive: true
+                        keepAlive: true,
+                        index: 1
                     }
                 }, {
                     path: "/now",
                     component: Now,
                     meta: {
-                        keepAlive: true
+                        keepAlive: true,
+                        index: 3
                     }
                 }]
             },
@@ -245,7 +269,7 @@ const router = new Router({
                 name: '忘记pin码',
                 component: ForgetPinCode,
                 meta: {
-                	keepAlive: true
+                    keepAlive: true
                 }
             },
             {
@@ -339,9 +363,19 @@ const router = new Router({
                 component: SkylightControl
             },
             {
+                path: "/lovecar/skylightClose",
+                name: '天窗关闭',
+                component: SkylightClose
+            },
+            {
                 path: "/lovecar/airEvoluor",
                 name: '空气净化器',
                 component: AirEvoluor
+            },
+            {
+                path: "/lovecar/remotecharging",
+                name: '充电功能',
+                component: Remotecharging
             },
 
             //我的页面
@@ -453,6 +487,10 @@ const router = new Router({
                 path: "/myindex/wbrecode",
                 name: '维保记录',
                 component: WbRecode
+            }, {
+                path: "/myindex/dotcomment",
+                name: '网点评分',
+                component: DotComment
             },
             {
                 path: "/myaddress",
@@ -467,11 +505,11 @@ const router = new Router({
                 path: "/myorder",
                 name: '我的订单',
                 component: MyOrder
-            },{
+            }, {
                 path: "/myindex/flowOrderDetails",
                 name: '流量订单详情',
                 component: FlowOrderDetails
-            },{
+            }, {
                 path: "/myindex/mallOrderDetails",
                 name: '商城订单详情',
                 component: MallOrderDetails
@@ -553,6 +591,11 @@ const router = new Router({
                 component: StyNews
             },
             {
+                path: "/info/others",
+                name: '其他消息',
+                component: Others
+            },
+            {
                 path: "/activenew",
                 name: '活动',
                 component: ActiveNew
@@ -568,13 +611,47 @@ const router = new Router({
                 name: '智享首页',
                 component: Wit,
                 meet: {
-                	keepAlive: true
+                    keepAlive: true
                 }
+            },
+            {
+                path: '/wit/hotSell',
+                name: '热销车型',
+                component: HotSell
+            },
+            {
+                path: '/wit/intelligentCar',
+                name: '智能选车',
+                component: IntelligentCar
             },
             {
                 path: '/wit/dealer',
                 name: '经销商查询',
                 component: Dealer
+            },
+            {
+                path: '/wit/CarChoose',
+                name: '车型选择',
+                component: CarChoose
+            },
+            {
+                path: '/wit/CarChoosenew',
+                name: '车型选择新',
+                component: CarChoosenew
+            },
+            {
+                path: '/wit/ColorChoose',
+                name: '颜色选择',
+                component: ColorChoose
+            },
+            {
+                path: '/wit/RimChoose',
+                name: '轮辋选择',
+                component: RimChoose
+            }, {
+                path: '/wit/VehicleChoose',
+                name: '轮辋选择',
+                component: VehicleChoose
             },
             {
 
@@ -607,6 +684,11 @@ const router = new Router({
                 path: '/wit/Reserve',
                 name: '车辆预定',
                 component: Reserve
+            },
+            {
+                path: '/wit/Weightshopping',
+                name: '重卡购车',
+                component: Weightshopping
             },
         ]
     }]

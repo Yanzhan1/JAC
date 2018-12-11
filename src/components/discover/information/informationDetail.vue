@@ -2,9 +2,10 @@
   <div>
     <div @click="bgHide" id="bgShare" style="position: fixed; width: 100%;height: 100%;background: #000000; display: none;opacity: 0.2"></div>
     <div>
-      <my-header>
-        <img slot="backblue" v-show="rightPic" src="../../../../static/images/discover/backfff.png"/>
-        <img slot="backblue" v-show="!rightPic" src="../../../../static/images/discover/backblue.png"/>
+      <my-header :id="'asd'" :title="title" :isShow="isShow" :rightPic="rightPic">
+        <!-- <img slot="backblue" v-show="rightPic" src="../../../../static/images/discover/backfff.png" />
+        <img slot="backblue" v-show="!rightPic" src="../../../../static/images/discover/backblue.png" /> -->
+
         <img slot="share" v-show="leftPic" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
         <img slot="share" v-show="!leftPic" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
       </my-header>
@@ -81,6 +82,9 @@
         isDisable: false,
         leftPic: true,
         rightPic: true,
+        bgImgHeight: 0,
+        title: '',
+        isShow: true
       }
     },
     created() {
@@ -382,20 +386,27 @@
         this.$router.go(-1);
         this.$store.dispatch("showFoot")
       },
-      handleScroll () {
+      handleScroll() {
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-        var scrollHeight = (scrollTop / 1000).toFixed(1);
-        if(scrollHeight == 0.0){
+        var scrollHeight = (scrollTop / this.bgImgHeight).toFixed(1);
+        if (scrollHeight == 0.0) {
           scrollHeight = 0;
-        }else if(scrollHeight > 0.9){
+        } else if (scrollHeight > 0.9) {
           scrollHeight = 1;
         }
-        if(scrollHeight > 0.4){
+        if (scrollHeight > 0.4) {
           this.leftPic = false;
           this.rightPic = false;
-        }else if(scrollHeight <= 0.4){
+        } else if (scrollHeight <= 0.4) {
           this.leftPic = true;
           this.rightPic = true;
+        }
+        if (scrollHeight == 1) {
+          this.title = '咨询详情'
+          this.isShow = false
+        } else {
+          this.title = ''
+          this.isShow = true
         }
         $("#asd").css("background", `rgba(255, 255, 255, ${scrollHeight})`)
       },
@@ -410,8 +421,8 @@
     },*/
     mounted() {
       this.$store.dispatch("hideFoot"),
-      /*悬浮,更换头部背景透明度和文字*/
-      window.addEventListener('scroll', this.handleScroll)
+        /*悬浮,更换头部背景透明度和文字*/
+        window.addEventListener('scroll', this.handleScroll)
       //初始化数据
       this.$nextTick(function () {
         this.getDetail();
@@ -435,7 +446,13 @@
         }
         for (let img of imgs) {
           img.style['width'] = '100%'
+          img.style['height'] = 'auto'
         }
+
+        const bgImg = document.querySelector('#bgImg')
+        const asd = document.querySelector('#asd')
+
+        this.bgImgHeight = bgImg.getBoundingClientRect().height - asd.getBoundingClientRect().height
       })
     }
   }

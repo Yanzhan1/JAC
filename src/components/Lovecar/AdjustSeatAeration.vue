@@ -391,6 +391,15 @@ export default {
                           //   position: "middle",
                           //   duration: 2000
                           // });
+                          if(this.btnContent == "主驾"){
+                              this.value = !this.value;
+                                //pin码正确激活主驾座椅图
+                (this.activeShowImgLeft = !this.activeShowImgLeft)
+                          }else{
+                            //pin码正确激活座椅图
+                (this.activeShowImgRight = !this.activeShowImgRight)
+                              this.aeraValue = !this.aeraValue;
+                          }
                           clearInterval(this.time);
                           this.$store.dispatch("LOADINGFLAG", false);
                         } else if (res.data.status == "FAILED") {
@@ -421,6 +430,15 @@ export default {
               //   position: "middle",
               //   duration: 2000
               // });
+              if(this.btnContent == "主驾"){
+                              this.value = !this.value;
+                                //pin码正确激活主驾座椅图
+                (this.activeShowImgLeft = !this.activeShowImgLeft)
+                          }else{
+                            //pin码正确激活座椅图
+                (this.activeShowImgRight = !this.activeShowImgRight)
+                              this.aeraValue = !this.aeraValue;
+                          }
                clearInterval(this.time);
               this.$store.dispatch("LOADINGFLAG", false);
             } else if (res.data.status == "FAILED") {
@@ -498,7 +516,7 @@ export default {
         })
         .catch(err => {
         	Toast({
-              message: '系统异常',
+              message:res.data.returnErrMsg,
               position: "middle",
               duration: 2000
             });
@@ -579,11 +597,14 @@ export default {
       })
       .catch( err => {
       	Toast({
-            message: '系统异常',
+            message: res.data.returnErrMsg,
             position: "middle",
             duration: 2000
           });
       })
+  },
+   beforeDestroy(){
+     clearInterval(this.time);
   },
   computed: {
     fullValue: {
@@ -626,10 +647,9 @@ export default {
             if (data.returnSuccess == true) {
               if (this.btnContent == "主驾") {
                 //主驾通风激活
-                this.value = !this.value;
+                // this.value = !this.value;
                 this.httpcoolmain();
-                //pin码正确激活主驾座椅图
-                (this.activeShowImgLeft = !this.activeShowImgLeft),
+              
                   //消失遮罩
                   (this.popupVisible = !this.popupVisible);
                 //消失软键盘
@@ -638,10 +658,9 @@ export default {
                   (this.pinNumber = "");
               } else {
                 //副驾通风激活
-                this.aeraValue = !this.aeraValue;
+                // this.aeraValue = !this.aeraValue;
                 this.httpcoolnext();
-                //pin码正确激活座椅图
-                (this.activeShowImgRight = !this.activeShowImgRight),
+                
                   //消失遮罩
                   (this.popupVisible = !this.popupVisible);
                 //消失软键盘
@@ -657,7 +676,7 @@ export default {
                 //清空pin码
                 (this.fullValue = "");
               Toast({
-                message: data.returnErrMsg,
+                message: res.data.returnErrMsg,
                 position: "middle",
                 duration: 1000
               });
@@ -665,7 +684,7 @@ export default {
           })
           .catch(err => {
             let instance = Toast({
-              message: "系统异常",
+              message: res.data.returnErrMsg,
               position: "middle",
               duration: 1000
             });
@@ -688,9 +707,9 @@ export default {
             const data = res.data;
             if (data.returnSuccess == true) {
               if (this.btnContent == "主驾") {
-                this.value = !this.value;
+                // this.value = !this.value;
                 //pin码正确激活主驾座椅图
-                (this.activeShowImgLeft = !this.activeShowImgLeft),
+                // (this.activeShowImgLeft = !this.activeShowImgLeft),
                   //消失遮罩
                   (this.popupVisible = !this.popupVisible);
                 //消失软键盘
@@ -698,7 +717,7 @@ export default {
                   //清空pin码
                   (this.fullValue = "");
               } else {
-                this.aeraValue = !this.aeraValue;
+                // this.aeraValue = !this.aeraValue;
                 //pin码正确激活座椅图
                 (this.activeShowImgRight = !this.activeShowImgRight),
                   //消失遮罩
@@ -716,7 +735,7 @@ export default {
                 //清空pin码
                 (this.fullValue = "");
               let instance = Toast({
-                message: data.returnErrMsg,
+                message: res.data.returnErrMsg,
                 position: "middle",
                 duration: 1000
               });
@@ -724,7 +743,7 @@ export default {
           })
           .catch(err => {
             let instance = Toast({
-              message: "系统异常",
+              message: res.data.returnErrMsg,
               position: "middle",
               duration: 1000
             });

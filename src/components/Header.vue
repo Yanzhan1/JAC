@@ -70,6 +70,9 @@
       popupVisibleChange: function () {
         this.$refs.mine.popupVisibleChange()
       },
+      changeSlide(index){
+        this.$root.eventHub.$emit('changeSlide', index)
+      },
       goIsRecommand: function () {
         this.$router.push('/recommend')
         this.isRecommand = true
@@ -77,6 +80,7 @@
         this.isAllActivity = false
         this.isNow = false
         this.isQuestion = false
+        this.changeSlide(0)
         this.addPoint('recommend');
       },
       goInformation: function () {
@@ -86,6 +90,7 @@
         this.isAllActivity = false
         this.isNow = false
         this.isQuestion = false
+        this.changeSlide(1)
         this.addPoint('inform');
       },
       goAllActivity: function () {
@@ -95,6 +100,7 @@
         this.isInformation = false
         this.isNow = false
         this.isQuestion = false
+        this.changeSlide(2)
         this.addPoint('activity');
       },
       goIsNow: function () {
@@ -104,6 +110,7 @@
         this.isInformation = false
         this.isAllActivity = false
         this.isQuestion = false
+        this.changeSlide(3)
         this.addPoint('community');
       },
       goQuestion: function () {
@@ -164,8 +171,11 @@
           labelState: this.labelState
         }).then(function (res) {
           if (res.data.status) {
-            const [zero, one, two, three, four, fives] = res.data.data
-            const arr = [one, three, zero, fives, two, four]
+            // 给基础数据排序
+            const [zero, one, two, three, four, fives, a] = res.data.data
+            const arr = [one, three, zero, fives, two, four, a].filter((item)=>{
+              return item ? true : false
+            })
 
             _this.labels = arr
           }
@@ -227,6 +237,11 @@
         this.goIsNow()
         this.$emit('refresh')
       }
+      this.$root.eventHub.$on('changeTab', (index)=>{
+        const list = ['goIsRecommand', 'goInformation', 'goAllActivity', 'goIsNow']
+
+        this[list[index]]()
+      })
     }
   }
 

@@ -86,7 +86,7 @@
         let title = '';
         let description = '描述';
         if (this.type == 'now') {
-          content = waiwangip + '/now/nowDetail?id=' + item.id;
+          content = waiwangip + 'share/nowDetail?id=' + item.id;
           if (item.momentImgList == null) {
             imageURL = null
           } else {

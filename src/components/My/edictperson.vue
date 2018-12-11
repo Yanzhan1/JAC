@@ -177,7 +177,7 @@ export default {
             	this.$http.post(My.addintegralRealName, data, {}).then( res => {
               	const data = res.data
               	if (data.code == 0 ) {
-              		this.$store.state.integral = data.num
+              		this.$store.state.integral = data.data
               		console.log(this.$store.state.integral )
               	} else {
               		

@@ -42,11 +42,25 @@
 		},
 		data() {
 			return {
-				flowDetail: this.$route.query.flowDetail
+				flowDetail: this.$route.query.flowDetail,
+				alldetail:{}
+			}
+		},
+		methods:{
+			detail(){
+				let data={
+					orderId:this.flowDetail.orderId
+				}
+				this.$http.post(Lovecar.Getoederlistapp,data,this.$store.state.tsppin).then((res)=>{
+					if(res.data.returnSuccess){
+						this.alldetail=res.data.data
+					}
+				})
 			}
 		},
 		mounted() {
 			console.log(this.flowDetail)
+			// this.detail()
 		}
 	}
 </script>

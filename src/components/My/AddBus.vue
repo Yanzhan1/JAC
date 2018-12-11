@@ -47,8 +47,9 @@ export default {
        no:this.$store.state.userId,
         vin: this.rame.toUpperCase().replace(/\s*/g,""),
         operationType: "CAR_BINDING",
-        userId:this.$store.state.trueuserId,
+        userId:this.$store.state.userId,
         phone:this.$store.state.mobile,
+        aaaUserID: this.$store.state.aaaid,
         operation: 1,
         extParams: {
           engineNo: this.engine.toUpperCase().replace(/\s*/g,"")
@@ -56,7 +57,7 @@ export default {
       };
       // alert(JSON.stringify(param))
       //  alert(JSON.stringify(this.$store.state.getpin))
-      this.$http.post(My.JFmybus, param,this.$store.state.getpin).then(res => {
+      this.$http.post(My.JFmybus, param,this.$store.state.tsppin).then(res => {
         if (res.data.returnSuccess) {
           Toast({
             message: "添加成功！",

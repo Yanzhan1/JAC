@@ -1,15 +1,15 @@
 <template>
   <div>
-    <header id="asd" :class="title ? 'header2' : 'header1'">
+    <header :id="id" :class="title ? 'header2' : 'header1'">
       <div class="top" :style="$statusBarHeightObj"></div>
       <div class="bottom">
 
         <div class="btn-wrapper left">
           <span class="btn" @click="goBack">
-            <slot name="backblue"></slot>
-            <slot name="backfff"></slot>
-            <!--<img v-if="title" src="../../../../static/images/discover/backblue.png" />
-            <img v-else src="../../../../static/images/discover/backfff.png" />-->
+            <!-- <slot name="backblue"></slot>
+            <slot name="backfff"></slot> -->
+            <img v-if="title || !rightPic" src="../../../../static/images/discover/backblue.png" />
+            <img v-else src="../../../../static/images/discover/backfff.png" />
           </span>
         </div>
 
@@ -26,7 +26,7 @@
 
       </div>
     </header>
-    <div v-if="title" class="box" style="box-sizing: content-box;" :style="$statusBarHeightObj"></div>
+    <div v-if="title && isShow" class="box" style="box-sizing: content-box;" :style="$statusBarHeightObj"></div>
   </div>
 </template>
 
@@ -36,6 +36,18 @@
       title: { //页面头部标题
         type: String,
         default: ''
+      },
+      id: {
+        type: String,
+        default: ''
+      },
+      isShow: {
+        type: Boolean,
+        default: true
+      },
+      rightPic: {
+        type: Boolean,
+        default: true
       }
     },
     methods: {
@@ -50,6 +62,7 @@
 </script>
 
 <style scoped>
+
   header {
     position: fixed;
     top: 0;
@@ -65,6 +78,7 @@
   }
 
   header.header2 {
+    background-color: rgba(255, 255, 255, 1);
     border-bottom: 1px solid #F1F1F1;
   }
 
@@ -113,8 +127,9 @@
     color: #49BBFF;
   }
 
-  .header-title-fff{
+  .header-title-fff {
     color: #222222;
     font-size: 0.36rem;
   }
+
 </style>
