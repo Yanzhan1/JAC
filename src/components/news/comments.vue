@@ -193,7 +193,7 @@ li {
   background-color: #f8f8f8;
   width: 100%;
   padding: 0.5rem 0.4rem 0.4rem 0.4rem;
-  margin-top: 0.9rem;
+  margin-top: 0.3rem;
 }
 .area {
   border: 1px solid #ccc;
