@@ -64,6 +64,12 @@ export default {
             duration: 1000,
             position: "middle"
           });
+           if (isMobile.iOS()) {
+          var params = {};
+              window.webkit.messageHandlers.scan.syncVehicleList(params);
+            } else if (isMobile.Android()) {
+              js2android.syncVehicleList();
+          }
           var self = this;
           setTimeout(function() {
             self.$router.go(-1);

@@ -33,7 +33,8 @@ import SkylightControl from "@/components/Lovecar/SkylightControl" //天窗控�
 import SkylightClose from "@/components/Lovecar/SkylightClose" //天窗关闭
 import AirEvoluor from "@/components/Lovecar/AirEvoluor" //空气进化器
 import Electricairconditioning from '@/components/Lovecar/Electricairconditioning' //电动空调调控
-import Remotecharging from "@/components/Lovecar/Remotecharging" //充电功能页面
+import Remotecharging from "@/components/Lovecar/newenergy/Remotecharging" //充电功能页面
+import Preheat from "@/components/Lovecar/newenergy/Preheat" //充电功能页面
 
 //我的部分
 import My from '@/components/My/Myindex'
@@ -376,6 +377,11 @@ const router = new Router({
                 path: "/lovecar/remotecharging",
                 name: '充电功能',
                 component: Remotecharging
+            },
+            {
+                path: "/lovecar/preheat",
+                name: '远程预热',
+                component: Preheat
             },
 
             //我的页面

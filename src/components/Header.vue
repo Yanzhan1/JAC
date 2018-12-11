@@ -81,6 +81,7 @@
         this.isNow = false
         this.isQuestion = false
         this.changeSlide(0)
+        this.addPoint('recommend');
       },
       goInformation: function () {
         this.$router.push('/information')
@@ -90,6 +91,7 @@
         this.isNow = false
         this.isQuestion = false
         this.changeSlide(1)
+        this.addPoint('inform');
       },
       goAllActivity: function () {
         this.$router.push("/activity")
@@ -99,6 +101,7 @@
         this.isNow = false
         this.isQuestion = false
         this.changeSlide(2)
+        this.addPoint('activity');
       },
       goIsNow: function () {
         this.$router.push("/now")
@@ -108,6 +111,7 @@
         this.isAllActivity = false
         this.isQuestion = false
         this.changeSlide(3)
+        this.addPoint('community');
       },
       goQuestion: function () {
         this.isNow = false
@@ -115,6 +119,23 @@
         this.isInformation = false
         this.isAllActivity = false
         this.isQuestion = true
+      },
+      //埋点
+      addPoint: function (flag) {
+        var _this = this;
+        console.log(_this.$store.state.userId+"这里是userId")
+        console.log(_this.$store.state.uuid+"这里是uuid")
+        console.log(flag)
+        this.$http.post(POINT.addpoint, {
+          "uid": _this.$store.state.userId,
+          "id":'',
+          "sign": _this.$store.state.uuid,
+          "moduleName":flag
+        }).then(function (res) {
+
+        }).catch(()=>{
+
+        })
       },
       //发布心情
       publish: function () {
@@ -156,7 +177,7 @@
             const arr = [one, three, zero, fives, two, four, a].filter((item)=>{
               return item ? true : false
             })
-            
+
             _this.labels = arr
           }
         });

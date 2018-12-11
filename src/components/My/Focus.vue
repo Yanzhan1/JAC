@@ -7,7 +7,14 @@
         <div class="header-right"></div>
       </header> -->
     <div style="margin-top: 0.32rem;"></div>
-    <ul class="wrap_92" v-for="item in list">
+    <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore"
+                 :topDistance="80">
+      <div slot="top" class="mint-loadmore-top" style="margin-top:-54px;">
+        <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }" class="down-frash">下拉刷新</span>
+        <span v-show="topStatus === 'loading'">Loading...</span>
+      </div>
+      <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
+    <ul class="wrap_92" v-for="item in focusList">
       <li>
         <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="headPic">
         <img v-else src="../../../static/images/discover/normalhead.png" class="headPic">
@@ -18,6 +25,8 @@
         </div>
       </li>
     </ul>
+      </div>
+    </mt-loadmore>
   </div>
 </template>
 
@@ -30,19 +39,86 @@
     data() {
       return {
         listNum: 9,
-        list: [],
-        userId: null
+        focusList: [],
+        userId: null,
+        pageNum: 1,
+        allLoaded: false,
+        loadEnd: false,
+        loading: false,
+        topStatus: '',
+        list:15
       }
     },
     created() {},
     methods: {
+      loadTop() {
+        this.getRefreshList();
+        this.$refs.loadmore.onTopLoaded();
+      },
+      loadBottom() {},
+      handleTopChange(status) {
+        this.topStatus = status;
+      },
+      getRefreshList: function () {
+        //获取关注列表第一页
+        let _this = this;
+        this.loading = true;
+        this.loadEnd = false;
+        this.$http.post(DISCOVERMESSAGE.focusOnList, {
+          "uid": this.userId,
+          "pageNo":1,
+          "length":_this.list,
+        }).then(function (res) {
+          if (res.data.status) {
+            _this.pageNum = 1;
+            _this.loading = false;
+            _this.focusList = res.data.data;
+            if (res.data.recordsTotal <= _this.list) {
+              _this.loadEnd = true;
+            }
+          } else {
+            console.log(res.data.errorMsg);
+          }
+        });
+      },
+      //关注刷新翻页
+      getNextList: function () {
+        let _this = this;
+        if (this.loadEnd) {
+          this.loadBottom();
+          return;
+        }
+        this.loadEnd = true;
+        this.pageNum++;
+        this.$http.post(DISCOVERMESSAGE.focusOnList, {
+          "uid": this.userId,
+          "pageNo":_this.pageNum,
+          "length":_this.list
+        }).then(function (res) {
+          _this.loadEnd = false;
+          if (res.data.status) {
+            _this.focusList = _this.fansList.concat(res.data.data);
+            var allPages = Math.ceil(res.data.recordsTotal / _this.list);
+            if (allPages <= _this.pageNum) {
+              _this.loading = true;
+              _this.allLoaded = true;
+              _this.loadEnd = true;
+            }
+          } else {
+            _this.pageNum = _this.pageNum - 1;
+            console.log(res.data.errorMsg);
+          }
+        });
+      },
       goBack: function () {
         this.$router.go(-1);
       },
       getFocusList: function () {
         var _this = this;
         this.$http.post(DISCOVERMESSAGE.focusOnList, {
-          "uid": this.userId
+          "uid": this.userId,
+          "pageNo":1,
+          "length":10
         }).then(function (res) {
           if (res.data.status) {
             //console.log(res.data.data);
@@ -56,7 +132,8 @@
     },
     mounted() {
       this.userId = this.$store.state.userId;
-      this.getFocusList();
+      //this.getFocusList();
+      this.getRefreshList()
     }
   }
 

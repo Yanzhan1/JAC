@@ -1,8 +1,8 @@
 <template>
 <div class="main">
-    <header class="nav MobileHeight header ">
+    <header class="newheader">
       <div class="navTitle">选购瑞风S4</div>
-      <div></div>
+      <!-- <div></div> -->
 		</header>
   <div class="headerHeight"></div>
   <div class="content">
@@ -34,174 +34,186 @@
 </div>
 </template>
 <script>
-export default{
-  data(){
-    return{
-        item:{no:'AU112018110106375078380'},
-        currentIndex:0,
-        currentTitle:'超越型',
-        carData:[
-          {
-            id:1,
-            label:'超越型' ,
-            value:'车型:超越型'
-          },
-          {
-            id:2,
-            label:'梦想型' ,
-            value:'车型:梦想型'
-          },
-          {
-            id:3,
-            label:'探索型' ,
-            value:'车型:探索型'
-          },
-          {
-            id:4,
-            label:'自由型' ,
-            value:'车型:自由型'
-          }
-        ]
-    }
-
+export default {
+  data() {
+    return {
+      item: { no: "AU112018110106375078380" },
+      currentIndex: 0,
+      currentTitle: "超越型",
+      carData: [
+        {
+          id: 1,
+          label: "超越型",
+          value: "车型:超越型"
+        },
+        {
+          id: 2,
+          label: "梦想型",
+          value: "车型:梦想型"
+        },
+        {
+          id: 3,
+          label: "探索型",
+          value: "车型:探索型"
+        },
+        {
+          id: 4,
+          label: "自由型",
+          value: "车型:自由型"
+        }
+      ]
+    };
   },
-  mounted(){
-
+  mounted() {
     $(".MobileHeight").css({
-      "borderTopWidth": this.$store.state.mobileStatusBar,
-      "borderTopColor": "#fff",
-    })
+      borderTopWidth: this.$store.state.mobileStatusBar,
+      borderTopColor: "#fff"
+    });
   },
-  methods:{
-    getno(){
-      this.$store.dispatch("NONAME", this.item)
+  methods: {
+    getno() {
+      this.$store.dispatch("NONAME", this.item);
     },
-    carBtn(index,labelTitle){
+    carBtn(index, labelTitle) {
       this.currentIndex = index;
       this.currentTitle = labelTitle;
-      console.log('this.currentTitle',this.currentTitle)
-
+      console.log("this.currentTitle", this.currentTitle);
     },
-    colorChooseBtn(){
-      console.log('this.currentTitle',this.currentTitle)
+    colorChooseBtn() {
+      console.log("this.currentTitle", this.currentTitle);
       this.$router.push({
-        path: '/wit/ColorChoose',
+        path: "/wit/ColorChoose",
         query: {
-          currentTitle:this.currentTitle,
-          carName:'瑞风S4'
+          currentTitle: this.currentTitle,
+          carName: "瑞风S4"
         }
-      })
+      });
     },
-    goBack(){
+    goBack() {
       this.$router.go(-1);
     }
+  },
+  mounted() {
+    this.getno();
   }
-}
+};
 </script>
 <style scoped>
-	.MobileHeight {
-		border-top-style: solid;
-		box-sizing: content-box;
-	}
-.main{
+.MobileHeight {
+  border-top-style: solid;
+  box-sizing: content-box;
+}
+.main {
   /*background-color: #ccc;*/
   height: 100%;
   background-color: #fff;
 }
-.nav{
+.nav {
   width: 100%;
-  height:.88rem;
-  line-height: .88rem;
+  height: 0.88rem;
+  line-height: 0.88rem;
   position: fixed;
   background-color: #fff;
 }
-.nav div{
+.nav div {
   flex: 1;
 }
 /*.nav .navBack{*/
-  /*padding-left: 0.15rem;*/
+/*padding-left: 0.15rem;*/
 /*}*/
 
-.nav .navTitle{
-  /*text-align: center;*/
-  padding-left: 0.15rem;
+.navTitle {
+  text-align: center;
+  /* padding-left: 0.2rem; */
   font-size: 0.36rem;
+  font-family: "PingFangSC-Regular";
+  font-weight: 400;
+  color: rgba(34, 34, 34, 1);
 }
-.headerHeight{
+.headerHeight {
   height: 1.5rem;
 }
-.headerHeight2{
-  height:.5rem;
+.headerHeight2 {
+  height: 0.5rem;
 }
-.headerHeight3{
-  height: .9rem;
+.headerHeight3 {
+  height: 0.9rem;
 }
-.content{
+.content {
   height: 1.5rem;
   margin: 0 0.2rem;
 }
-.content .contentTitle{
+.content .contentTitle {
   margin-left: 0.2rem;
   font-size: 0.36rem;
   height: 0.9rem;
   line-height: 0.9rem;
-  color: rgb(32,32,32);
+  color: rgb(32, 32, 32);
 }
-.content .contentSmallTitle{
+.content .contentSmallTitle {
   font-size: 0.28rem;
-  color: rgb(111,111,111);
+  color: rgb(111, 111, 111);
 }
-.content .contentSmallTitle .smallTitle{
+.content .contentSmallTitle .smallTitle {
   display: inline-block;
   width: 1rem;
   text-align: center;
-  border-right: 0.01rem solid rgba(111,111,111,0.6);
+  border-right: 0.01rem solid rgba(111, 111, 111, 0.6);
 }
-.content .contentSmallTitle .one{
+.content .contentSmallTitle .one {
   border-right: none;
 }
-.contentImg{
+.contentImg {
   width: 100%;
   height: 4rem;
 }
-.carImg{
+.carImg {
   width: 7.2rem;
   height: 4rem;
   position: relative;
 }
-.contentCar{
+.contentCar {
   margin: 0 0.2rem;
   display: flex;
   height: 2rem;
 }
-.contentCar .contentCarBtn{
+.contentCar .contentCarBtn {
   flex: 1;
   height: 2rem;
   line-height: 2rem;
-  color:#6f6f6f;
+  color: #6f6f6f;
   text-align: center;
   font-size: 0.32rem;
-
 }
-.contentCar .contentCarBtn2{
+.contentCar .contentCarBtn2 {
   flex: 1;
   height: 2rem;
   line-height: 2rem;
   color: #222222;
   text-align: center;
   font-size: 0.36rem;
-
 }
-.contentBtn{
+.contentBtn {
   height: 3.5rem;
   /*background-color: green;*/
 }
-.contentBtn .contentColorBtn{
+.contentBtn .contentColorBtn {
   padding-top: 1.2rem;
   height: 0.88rem;
-  line-height:0.88rem;
+  line-height: 0.88rem;
   font-size: 0.36rem;
-  color: rgb(111,111,111);
+  color: rgb(111, 111, 111);
   text-align: center;
+}
+.newheader {
+  position: fixed;
+  width: 100%;
+  height: 0.98rem;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  top: .08rem;
 }
 </style>

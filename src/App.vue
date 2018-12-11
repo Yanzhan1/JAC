@@ -37,11 +37,11 @@ export default {
       if (userInfo && userInfo.no) {
         this.$store.dispatch("isLogin", true);
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
-        const secUid = Secret.Encrypt(userInfo.no)
+        // const secUid = Secret.Encrypt(userInfo.no)
 
-        console.log(secUid)
-        this.$store.dispatch("userId", secUid);
-        // this.$store.dispatch("userId", userInfo.no);
+        // console.log(secUid)
+        // this.$store.dispatch("userId", secUid);
+        this.$store.dispatch("userId", userInfo.no);
         this.$store.dispatch("userInfo", userInfo);
       } else {
         this.$store.dispatch("isLogin", false);
@@ -77,8 +77,8 @@ export default {
     // window.loadTab = this.loadTab;
   },
   mounted() {
-    // this.isLogin({name:'',no:'AD022018110703532168908'})
-    // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTU0MjA3NDc5ODAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6Mzc4LFwiaW5pdFVzZXJcIjowLFwibGFzdE1vZGlmaWVkRGF0ZVwiOjE1NDIwNzQ4MTkwMDAsXCJub1wiOlwiQUQwMjIwMTgxMTEzMTAwNjMzODExNTVcIixcInBob25lXCI6XCIxODY1NTQ1MjYyOVwiLFwidXNlckNvZGVcIjpcIjE4NjU1NDUyNjI5XCIsXCJ1c2VyU3RhdHVzXCI6MCxcInVzZXJUeXBlXCI6XCIwMVwifSIsImNyZWF0ZWQiOjE1NDM0NjMxNjE2MDksInVzZXJObyI6IkFEMDIyMDE4MTExMzEwMDYzMzgxMTU1IiwidXNlclR5cGUiOiIwMSIsImV4cCI6MTU0NDMyNzE2MSwidXNlcklkIjozNzh9.GqSaqDHK8llEZO40h8AJ1NYAT6gSn0OIqVhfMd4-8kk'
+    // this.isLogin({name:'',no:'AD022018112604033927672'})
+    // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTU0MzIxOTQ0MzAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6NDc1LFwiaW5pdFVzZXJcIjowLFwibGFzdE1vZGlmaWVkRGF0ZVwiOjE1NDMyMTk0ODMwMDAsXCJub1wiOlwiQUQwMjIwMTgxMTI2MDQwMzM5Mjc2NzJcIixcInBlcnNvbmFsU2lnbmF0dXJlXCI6XCJkZHBhaVwiLFwic2V4XCI6MSxcInVzZXJDb2RlXCI6XCIxODYwMzAxMDU1MFwiLFwidXNlck5hbWVcIjpcIuebr-ebr-aLjVwiLFwidXNlclN0YXR1c1wiOjAsXCJ1c2VyVHlwZVwiOlwiMDFcIn0iLCJjcmVhdGVkIjoxNTQ0NDk3OTk0NDM4LCJ1c2VyTm8iOiJBRDAyMjAxODExMjYwNDAzMzkyNzY3MiIsInVzZXJUeXBlIjoiMDEiLCJ1c2VyTmFtZSI6Iuebr-ebr-aLjSIsImV4cCI6MTU0NTM2MTk5NCwidXNlcklkIjo0NzV9.zhOKZAlLPkqSqHrFT6O65UEK-71Sh0I-Ych9qfKsFvA'
     // 获取用户
     let params = {
       userNo: this.$store.state.userId
@@ -152,11 +152,11 @@ export default {
 .mint-toast{
   z-index: 99999;
 }
-.mint-msgbox-message {
+/*.mint-msgbox-message {
     color: #999;
     margin: 0;
     text-align: left;
     line-height: .56rem;
     text-indent: 2em;
-}
+}*/
 </style>

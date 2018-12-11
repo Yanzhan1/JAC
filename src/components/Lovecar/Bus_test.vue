@@ -8,30 +8,37 @@
     <div style="height:.88rem"></div>-->
     <mhead currentTitle="车辆体检"></mhead>
     <!-- <h2>诊断时间：06-29 17:33</h2> -->
-    <mt-button type="primary" size="large">刷新</mt-button>
-    <ul class="ul_content">
-      <li class="flex row between cocenter" @click="bustest">
-        <p class="li_quan">电子转向柱锁</p>
-        <span class="right_pic actives"></span>
-      </li>
-      <li class="flex row between cocenter">
-        <p class="li_quan">电子转向柱锁</p>
-        <span class="right_pic"></span>
-      </li>
-      <li class="flex row between cocenter">
-        <p class="li_quan">电子转向柱锁</p>
-        <span class="right_pic"></span>
-      </li>
-      <li class="flex row between cocenter">
-        <p class="li_quan">电子转向柱锁</p>
-        <span class="right_pic"></span>
-      </li>
-    </ul>
+    <!-- <mt-button type="primary" size="large" @click.native="bustest">刷新</mt-button> -->
+    <mt-loadmore :top-method="loadTop" ref="loadmore" @top-status-change="handleTopChange">
+        <div slot="top" class="mint-loadmore-top">
+          <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }">↓</span>
+          <span v-show="topStatus === 'loading'">Loading...</span>
+        </div>
+        <ul class="ul_content">
+          <li class="flex row between cocenter" >
+            <p class="li_quan">电子转向柱锁</p>
+            <span class="right_pic actives"></span>
+          </li>
+          <li class="flex row between cocenter">
+            <p class="li_quan">电子转向柱锁</p>
+            <span class="right_pic"></span>
+          </li>
+          <li class="flex row between cocenter">
+            <p class="li_quan">电子转向柱锁</p>
+            <span class="right_pic"></span>
+          </li>
+          <li class="flex row between cocenter">
+            <p class="li_quan">电子转向柱锁</p>
+            <span class="right_pic"></span>
+          </li>
+        </ul>
+    </mt-loadmore>
   </div>
 </template>
 <script>
 import {Toast} from 'mint-ui';
 import {Button} from 'mint-ui';
+import {Loadmore} from 'mint-ui';
 import PublicHead from '../publicmodel/PublicHead';
 export default {
 	name: 'busTest',
@@ -40,6 +47,7 @@ export default {
   },
   data() {
     return {
+      topStatus: '',
       time: "",
       sjc: "",
       allfalse:[],//储存所有的车辆体检错误信息
@@ -50,6 +58,13 @@ export default {
     this.starttest()
   },
   methods: {
+     handleTopChange(status) {
+        this.topStatus = status;
+      },
+      loadTop() {
+          this.bustest()
+          this.$refs.loadmore.onTopLoaded();
+        },
     //进入页面发起的车辆查询
     starttest(){
        var param = {

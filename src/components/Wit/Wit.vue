@@ -20,7 +20,7 @@
 					<span>维保预约</span>
 				</li> -->
 				<li class="li_list" @click="confirmRevise">
-					<img style="width:.52rem;height:.56rem" src="../../../static/images/Wit/witrescue.png" alt="">
+					<img style="width:.56rem;height:.52rem" src="../../../static/images/Wit/witrescue.png" alt="">
 					<span>道路救援</span>
 				</li>
 			</ul>

@@ -18,6 +18,7 @@ export default {
     [types.USERINFO]: (state, payload) => {
         // alert(JSON.stringify(payload))
         if (payload) {
+            state.sign = payload.sign
             state.userName = payload.userName
             state.trueuserId = payload.userId
             state.no = payload.no
