@@ -2,10 +2,10 @@ export default {
     islogin: false, //判断是否登录 正式上线用
     // islogin: true, //判断是否登录 测试用
     //userId: 1165864, //用户userID 正式上线用
-    userId: '', //原生获取的no
+    userId: '', //原生获取的no用来做用户的唯一标识
     trueuserId: '', //原生传过来的userid
     aaaid: '', //3a的userid
-    tspId: '',
+    tspId: '', //查询是否tsp用户的接口拿到的tspid
     userName: '', //用户昵称
     uuid: null,
     sign: '', //原生拿到的用作埋点
@@ -13,7 +13,7 @@ export default {
     mobile: null, //用户手机号
     softkeyboard: true, //默认软键盘开启
     token: null, //用户token
-    refreshToken: '',
+    refreshToken: '', //查询是否tsp用户接口拿到的刷新token
     integral: '', //用户总积分
     everyno: '', //智享主页点击时候每个车的no
     brandName: '', //爱车页面默认车辆的车名
