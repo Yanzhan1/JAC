@@ -11,7 +11,7 @@
         <div class="comment_userinfo">
           <div class="user_head">
             <div @click="changeUserStartId(item.user.user_id)">
-              <img v-if="item.user" :src="item.user.head_image" />
+              <img v-if="item.user && item.user.head_image" :src="item.user.head_image" />
               <img v-else src="../../../../static/images/discover/normalhead.png" />
             </div>
           </div>
@@ -32,7 +32,7 @@
             </div>
             <div class="user_date">
               {{item.commentTime}}
-              <span v-if="item.user && userId == item.user.user_id">
+              <span v-if="item.user && userId == item.user.user_id && item.deleteFlag != 1">
                 <span @click="deleteComment(item.id)" class="font_1">删除</span>
               </span>
             </div>
@@ -41,7 +41,7 @@
         <!--评论者信息E-->
         <div style="width:100%;">
           <!--评论内容-->
-          <p class="commentB" @click="commentbtnBack(item.id)">{{item.message}}</p>
+          <p class="commentB" @click="commentbtnBack(item.id, undefined, item.deleteFlag)">{{item.message}}</p>
           <div class="commentB_back">
             <!--回复内容S-->
             <div v-for="(back,index) in item.reverts" class="commentB_msg">
@@ -58,8 +58,8 @@
                   <span v-else>尚未设置昵称:</span>
                 </span><br>
               </span>
-              <span class="font_4" @click="commentbtnBack(item.id,back.id)">{{back.message}}</span>
-              <span v-if="back.user && userId == back.user.user_id">
+              <span class="font_4" @click="commentbtnBack(item.id, back.id, back.deleteFlag)">{{back.message}}</span>
+              <span v-if="back.user && userId == back.user.user_id && back.deleteFlag != 1">
                 <span @click="deleteComment(back.id)" style="color: #888888;font-size: 0.24rem;">删除</span>
               </span>
             </div>
@@ -189,6 +189,11 @@
         if (_this.bId) {
           concatId = _this.fId + "," + _this.bId;
         } else {
+          if(this.conmmentsList[0] && this.conmmentsList[0].deleteFlag == 1){
+            MessageBox('提示', '主评论已被删除, 不能被回复')
+            this.closeComment()
+            return
+          }
           concatId = _this.fId || _this.$route.query.id;
         }
         this.$http.post(DISCOVERMESSAGE.informationComment, {
@@ -217,7 +222,10 @@
         $("#comment").focus();
       },
       //回复
-      commentbtnBack(id, backId) {
+      commentbtnBack(id, backId, deleteFlag) {
+        if(deleteFlag == 1){
+          return
+        }
         $("#commentBg").show();
         $("#comment").focus();
         this.fId = id;

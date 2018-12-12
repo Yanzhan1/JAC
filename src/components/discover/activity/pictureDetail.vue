@@ -94,7 +94,7 @@
               </div>
               <div class="user_date">
                 {{item.commentTime}}
-                <span v-if="item.user && userId == item.user.user_id">
+                <span v-if="item.user && userId == item.user.user_id && item.deleteFlag != 1">
                   <span @click="deleteComment(item.id)" class="font_1">删除</span>
                 </span>
               </div>
@@ -103,7 +103,7 @@
           <!--评论者信息E-->
           <!--评论内容和回复内容S-->
           <div class="comment_content">
-            <p @click="commentbtnBack(item.id)">{{item.message}}</p>
+            <p @click="commentbtnBack(item.id, undefined, item.deleteFlag)">{{item.message}}</p>
             <div v-if="item.reverts && item.reverts.length>0">
               <div class="comment_msg">
                 <div v-for="(back,index) in item.reverts.slice(0,3)">
@@ -120,8 +120,8 @@
                       <span v-else>尚未设置昵称:</span><br>
                     </span>
                   </span>
-                  <span class="font_2" @click="commentbtnBack(item.id,back.id)">{{back.message}}</span>
-                  <span v-if="back.user && userId == back.user.user_id">
+                  <span class="font_2" @click="commentbtnBack(item.id, back.id, back.deleteFlag)">{{back.message}}</span>
+                  <span v-if="back.user && userId == back.user.user_id && back.deleteFlag != 1">
                     <span @click="deleteComment(back.id)" class="font_1">删除</span>
                   </span>
                 </div>
@@ -197,6 +197,14 @@
       shareBox
     },
     methods: {
+      toCommentList: function (id) {
+        this.$router.push({
+          path: "/component/commentList",
+          query: {
+            id: id
+          }
+        })
+      },
       clickImg(e) {
         this.showImg = true;
         this.imgSrc = e.currentTarget.src;
@@ -444,7 +452,10 @@
         $("#comment").focus();
       },
       //点击回复
-      commentbtnBack(id, backId) {
+      commentbtnBack(id, backId, deleteFlag) {
+        if(deleteFlag == 1){
+          return 
+        }
         $("#commentBg").show();
         $("#comment").focus();
         this.fId = id;
