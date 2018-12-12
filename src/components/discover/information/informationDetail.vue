@@ -116,7 +116,7 @@
           "lid": _this.manageId
         }).then(function (res) {
           if (res.data.status) {
-            _this.content.collectionStatus = false;
+            _this.content.collectionStatus = 1;
             setTimeout(() => {
               _this.bgHide();
             }, 1500)
@@ -138,7 +138,7 @@
           "lid": _this.manageId
         }).then(function (res) {
           if (res.data.status) {
-            _this.content.collectionStatus = true;
+            _this.content.collectionStatus = 0;
             setTimeout(() => {
               _this.bgHide();
             }, 1500)

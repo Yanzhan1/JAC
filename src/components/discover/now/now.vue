@@ -78,7 +78,7 @@
               <img src="../../../../static/images/discover/eye.png" class="f_left" />
               <span class="f_left">{{item.readNum}}</span>
               <span class="f_right">{{item.likeNum}}</span>
-              <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveMomentLike(item.id,index)" />
+              <img v-if="item.likeStatus==0" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveMomentLike(item.id,index)" />
               <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeMomentLike(item.id,index)" />
             </div>
             <!--阅读数量,是否点赞以及点赞数量E-->
@@ -264,7 +264,7 @@
         }).then(function (res) {
           if (res.data.status) {
             _this.nowList[index].likeNum = res.data.data.num;
-            _this.nowList[index].likeStatus = false;
+            _this.nowList[index].likeStatus = 1;
           } else {
             _this.toLogin();
             //MessageBox('提示', res.data.errorMsg);
@@ -280,7 +280,7 @@
         }).then(function (res) {
           if (res.data.status) {
             _this.nowList[index].likeNum = res.data.data.num;
-            _this.nowList[index].likeStatus = true;
+            _this.nowList[index].likeStatus = 0;
           } else {
             _this.toLogin();
             //MessageBox('提示', res.data.errorMsg);

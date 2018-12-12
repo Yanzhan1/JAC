@@ -38,11 +38,11 @@
       </div>-->
         <!--资讯、活动（收藏）-->
         <div v-else>
-          <div class="shareBox mt_4" v-if="collectionStatus" @click="collection">
+          <div class="shareBox mt_4" v-if="collectionStatus == 0" @click="collection">
             <img src="../../../../static/images/discover/yishoucang.png" class="shareIcon" />
             <span style="color: #222222;">收藏</span>
           </div>
-          <div class="shareBox mt_4" v-if="!collectionStatus" @click="reCollection">
+          <div class="shareBox mt_4" v-else @click="reCollection">
             <img src="../../../../static/images/discover/shoucang.png" class="shareIcon" />
             <span style="color: #222222;">已收藏</span>
           </div>
@@ -71,7 +71,7 @@
       toShare: function (item, platform) {
 
         /**
-         * 限时3秒之内只能触发一次 
+         * 限时3秒之内只能触发一次
          */
         if (!this.shareFlag) {
           return
