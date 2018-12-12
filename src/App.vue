@@ -35,6 +35,7 @@ export default {
       //   //     alert( JSON.stringify(userInfo))
       // }
       if (userInfo && userInfo.no) {
+        console.log('从原生拿到的对象'+JSON.stringify(userInfo))
         this.$store.dispatch("isLogin", true);
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
         // const secUid = Secret.Encrypt(userInfo.no)
@@ -43,12 +44,28 @@ export default {
         // this.$store.dispatch("userId", secUid);
         this.$store.dispatch("userId", userInfo.no);
         this.$store.dispatch("userInfo", userInfo);
+          let params = {
+              userNo: userInfo.no
+            };
+            this.$http.post(Lovecar.TSP, params).then(res => {
+              if (res.data.msg == "success") {
+                var tsp = res.data.data;
+                this.$store.dispatch("TSP", tsp);
+                // console.log(tsp);
+                params = {
+                  aaaUserID: this.$store.state.aaaid,
+                  tspUserId: this.$store.state.tspId,
+                  userId: this.$store.state.trueuserId,
+                  phone: this.$store.state.mobile
+                };
+              }
+            });
       } else {
         this.$store.dispatch("isLogin", false);
         this.$store.dispatch("userId", null);
         //      this.$store.dispatch('userInfo',null);
       }
-      this.$http.defaults.headers.common["timaToken"] = this.$store.state.token;
+      this.$http.defaults.headers.common['timaToken'] = this.$store.state.token;
     },
     // Getmarkedwords(){
     //   this.$http.post(My.getwords,{}).then((res)=>{
@@ -77,30 +94,11 @@ export default {
     // window.loadTab = this.loadTab;
   },
   mounted() {
-    // this.isLogin({name:'',no:'AD022018112604033927672'})
-    // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTU0MzIxOTQ0MzAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6NDc1LFwiaW5pdFVzZXJcIjowLFwibGFzdE1vZGlmaWVkRGF0ZVwiOjE1NDMyMTk0ODMwMDAsXCJub1wiOlwiQUQwMjIwMTgxMTI2MDQwMzM5Mjc2NzJcIixcInBlcnNvbmFsU2lnbmF0dXJlXCI6XCJkZHBhaVwiLFwic2V4XCI6MSxcInVzZXJDb2RlXCI6XCIxODYwMzAxMDU1MFwiLFwidXNlck5hbWVcIjpcIuebr-ebr-aLjVwiLFwidXNlclN0YXR1c1wiOjAsXCJ1c2VyVHlwZVwiOlwiMDFcIn0iLCJjcmVhdGVkIjoxNTQ0NDk3OTk0NDM4LCJ1c2VyTm8iOiJBRDAyMjAxODExMjYwNDAzMzkyNzY3MiIsInVzZXJUeXBlIjoiMDEiLCJ1c2VyTmFtZSI6Iuebr-ebr-aLjSIsImV4cCI6MTU0NTM2MTk5NCwidXNlcklkIjo0NzV9.zhOKZAlLPkqSqHrFT6O65UEK-71Sh0I-Ych9qfKsFvA'
+    // this.isLogin({name:'',no:'AD022018111503400349500'})
+    // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTU0MjI2NzU5NjAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6Mzk4LFwiaW5pdFVzZXJcIjowLFwibGFzdE1vZGlmaWVkRGF0ZVwiOjE1NDIyODQ3OTQwMDAsXCJub1wiOlwiQUQwMjIwMTgxMTE1MDM0MDAzNDk1MDBcIixcInVzZXJDb2RlXCI6XCIxODAxMDg1NjUxM1wiLFwidXNlclN0YXR1c1wiOjAsXCJ1c2VyVHlwZVwiOlwiMDFcIn0iLCJjcmVhdGVkIjoxNTQ0NTc5OTMyODExLCJ1c2VyTm8iOiJBRDAyMjAxODExMTUwMzQwMDM0OTUwMCIsInVzZXJUeXBlIjoiMDEiLCJleHAiOjE1NDU0NDM5MzIsInVzZXJJZCI6Mzk4fQ.N4iu4H10d8qA9WFTCAuWp5bUyFB7dy73B43VJ1Ad09k'
+    // this.isLogin({name:'',no:'AD022018110210272109037'})
+    // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTU0MTEyNTYzOTAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6MzQ2LFwiaW5pdFVzZXJcIjowLFwibGFzdE1vZGlmaWVkRGF0ZVwiOjE1NDExMjU2ODAwMDAsXCJub1wiOlwiQUQwMjIwMTgxMTAyMTAyNzIxMDkwMzdcIixcInBlcnNvbmFsU2lnbmF0dXJlXCI6XCJcIixcInBob25lXCI6XCIxODg1NjMxNzA1OVwiLFwic2V4XCI6MSxcInVzZXJDb2RlXCI6XCIxODg1NjMxNzA1OVwiLFwidXNlck5hbWVcIjpcIuW8oOWFiOijlVwiLFwidXNlclN0YXR1c1wiOjAsXCJ1c2VyVHlwZVwiOlwiMDFcIn0iLCJjcmVhdGVkIjoxNTQ0NTg0NTgzNzQxLCJ1c2VyTm8iOiJBRDAyMjAxODExMDIxMDI3MjEwOTAzNyIsInVzZXJUeXBlIjoiMDEiLCJ1c2VyTmFtZSI6IuW8oOWFiOijlSIsImV4cCI6MTU0NTQ0ODU4MywidXNlcklkIjozNDZ9.QG89RuAvwly-y3fpOSwMuDnxwxFWfwLVwrITMwRGdp4'
     // 获取用户
-    let params = {
-      userNo: this.$store.state.userId
-    };
-    this.$http.post(Lovecar.TSP, params).then(res => {
-      if (res.data.msg == "success") {
-        var tsp = res.data.data;
-        this.$store.dispatch("TSP", tsp);
-        // console.log(tsp);
-        params = {
-          aaaUserID: this.$store.state.aaaid,
-          tspUserId: this.$store.state.tspId,
-          userId: this.$store.state.trueuserId,
-          phone: this.$store.state.mobile
-        };
-        // this.$http
-        //   .post(Lovecar.vehicle, params, this.$store.state.tsppin)
-        //   .then(res => {
-        //     // console.log(res)
-        //   });
-      }
-    });
     // this.Getmarkedwords()
 
     // this.getNo()

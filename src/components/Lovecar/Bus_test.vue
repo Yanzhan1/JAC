@@ -68,7 +68,7 @@ export default {
     //进入页面发起的车辆查询
     starttest(){
        var param = {
-        vin: this.$store.state.vins,
+        vin:'LJ12EKS22J4757945',
         operationType: "CYC_CAR_EXAMINATION",
       };
     this.$http
@@ -95,7 +95,7 @@ export default {
     //点击刷新按钮查询车辆体检
     bustest(){
       var param = {
-      vin: 'LJ12EKS32J4757842'
+      vin: 'LJ12EKS22J4757945'
     };
     this.$http
       .post(Lovecar.BusTest, param, this.$store.state.tsppin)
@@ -227,7 +227,10 @@ export default {
           }
         });
     }
-  }
+  },
+  beforeDestroy() {
+      clearInterval(this.time);
+  },
 };
 </script>
 <style scoped>
