@@ -340,7 +340,7 @@
           "lid": _this.activityId
         }).then(function (res) {
           if (res.data.status) {
-            _this.content.collectionStatus = false;
+            _this.content.collectionStatus = 1;
             setTimeout(() => {
               _this.bgHide();
             }, 2000)
@@ -363,7 +363,7 @@
           "lid": _this.activityId
         }).then(function (res) {
           if (res.data.status) {
-            _this.content.collectionStatus = true;
+            _this.content.collectionStatus = 0;
             setTimeout(() => {
               _this.bgHide();
             }, 2000)
