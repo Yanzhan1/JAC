@@ -80,7 +80,11 @@ export default {
 
 <style scoped>
 .headers{
-  background: #fff
+  background: #fff;
+  padding:0;
+}
+.header-left{
+  margin-left: .3rem;
 }
 .arounds {
   text-align: center;
