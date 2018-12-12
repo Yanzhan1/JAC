@@ -402,7 +402,7 @@
           this.rightPic = true;
         }
         if (scrollHeight == 1) {
-          this.title = '咨询详情'
+          this.title = '资讯详情'
           this.isShow = false
         } else {
           this.title = ''

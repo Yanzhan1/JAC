@@ -31,14 +31,14 @@
             <div>开始时间</div>
             <div class="flex contentcenter">
                 <div>{{starttime2}}</div>
-                <img :style="'display:block;width:.3rem;height:.3rem;margin-top:-.06rem'" src="./../../../static/images/next@2x.png" alt="">
+                <img :style="'display:block;width:.3rem;height:.3rem;margin-top:-.06rem'" src="./../../../../static/images/next@2x.png" alt="">
             </div>
         </div>
         <div class="flex between begintime" @click="endtime">
             <div>结束时间</div>
             <div class="flex contentcenter">
                 <div>{{endtime2}}</div>
-                <img :style="'display:block;width:.3rem;height:.3rem;margin-top:-.06rem'" src="./../../../static/images/next@2x.png" alt="">
+                <img :style="'display:block;width:.3rem;height:.3rem;margin-top:-.06rem'" src="./../../../../static/images/next@2x.png" alt="">
             </div>
         </div>
         <div class="bottombut" @click="subbt">
@@ -60,7 +60,7 @@
 <script>
 import { Popup } from "mint-ui";
 import { Picker } from "mint-ui";
-import PublicHead from "../publicmodel/PublicHead";
+import PublicHead from "../../publicmodel/PublicHead";
 export default {
   data() {
     return {

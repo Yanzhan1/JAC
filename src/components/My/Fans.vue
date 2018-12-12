@@ -19,7 +19,7 @@
             <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="headPic">
             <img v-else src="../../../static/images/discover/normalhead.png" class="headPic">
             <div class="nameBox">
-              <span v-if="item.user" class="name">{{item.user.nick_name}}</span>
+              <span v-if="item.user && item.user.nick_name" class="name">{{item.user.nick_name}}</span>
               <span v-else class="name">尚未设置昵称</span>
               <div class="line"></div>
             </div>

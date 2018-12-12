@@ -134,11 +134,35 @@ export default {
     //渲染列表   1
     getcarbus(num) {
     if (num == 1) {
+      let time=new Date().getTime()
+      let params={
+        "uid":this.$store.state.userId,
+        "start_time":time,
+        "sign":this.$store.state.sign,
+        "moduleName":"allCar"
+      }
+        this.$http.post(POINT.addpoint,params).then((res)=>{
+            console.log(res)
+        }).catch((err)=>{
+
+        })
         //等于1 传“” 。 获取全部车型
         this.type = 1;
         this.highlyRecommend = "";
         this.no=this.gender
       } else {
+          let time=new Date().getTime()
+          let params={
+            "uid":this.$store.state.userId,
+            "start_time":time,
+            "sign":this.$store.state.sign,
+            "moduleName":"recommendCar"
+          }
+            this.$http.post(POINT.addpoint,params).then((res)=>{
+                console.log(res)
+            }).catch((err)=>{
+
+            })
         this.type = 2; //等于2 传“1” 。 获取主推车型
         this.highlyRecommend = "1";
         this.no=this.gender

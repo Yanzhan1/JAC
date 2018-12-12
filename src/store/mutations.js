@@ -18,6 +18,7 @@ export default {
     [types.USERINFO]: (state, payload) => {
         // alert(JSON.stringify(payload))
         if (payload) {
+            state.sign = payload.sign
             state.userName = payload.userName
             state.trueuserId = payload.userId
             state.no = payload.no
@@ -59,7 +60,7 @@ export default {
         var str = JSON.parse(state.tsppin.headers.identityParam)
             // alert(JSON.stringify(payload))
             // alert(typeof payload.token)
-        str.userId = payload.tspId + '';
+        str.userId = payload.aaaid + '';
         str.token = payload.token;
         state.refreshToken = payload.refreshToken
         state.tsppin.headers.identityParam = JSON.stringify(str)

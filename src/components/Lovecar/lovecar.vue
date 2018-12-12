@@ -195,10 +195,9 @@
 		</div>
 			<!--功能轮播End-->
 		<!--爱车End-->
-
+		<div class="bgMask" v-show="this.popupbg" @click="mainbgmask"></div>
 		<!-- 输入框 -->
-		<div id="bg" class="bg" />
-		<mt-popup v-model="popupVisible" position="middle">
+		<mt-popup v-model="popupVisible" position="middle" :modal="false">
 			<div class="con" style="position:relative;">
 				<div class="del">
 					<img @click="cancel" src="../.././../static/images/Wit/delete@3x.png" alt="" style="width:.28rem">
@@ -285,6 +284,7 @@
 				activeshow: 1, //默认第一个高亮
 				activeshows: 1,
 				tspid: "",
+				popupbg:false,
 				allwords: [], //贮存所有的提示语
 				popupVisible: false,
 				MaskIsshow: false, //黑色遮罩层
@@ -379,6 +379,11 @@
 			// shows(){
 			//   popupVisible: true
 			// },
+			mainbgmask(){
+				this.popupbg=false;
+				this.popupVisible=false;
+				this.IsShow=false;
+			},
 			//点击高亮
 			fn(type) {
 				this.activeshow = type;
@@ -583,34 +588,41 @@
 			doors() {
 				this.type = 1;
 				this.popupVisible = true;
+				this.popupbg=true
 			},
 			doorsoppen() {
 				this.type = 5;
 				this.popupVisible = true;
+				this.popupbg=true
 			},
 			//后备箱的请求
 			backbox() {
 				this.type = 2;
 				this.popupVisible = true;
+				this.popupbg=true
 			},
 			//熄火的请求
 			closefire() {
 				this.type = 3;
 				this.popupVisible = true;
+				this.popupbg=true
 			},
 			closefireoff() {
 				this.type = 6;
 				this.popupVisible = true;
+				this.popupbg=true
 			},
 			// 寻车 事件
 			enter() {
 				this.type = 4;
 				this.popupVisible = true;
+				this.popupbg=true
 			},
 			//关闭PIN码弹框
 			cancel() {
 				this.IsShow = false;
 				this.popupVisible = false;
+				this.popupbg=false;
 			},
 			//关闭顶部主菜单
 			delde() {
@@ -1988,6 +2000,13 @@
 	};
 </script>
 <style scoped>
+	.love-wrapper >>> .mint-msgbox-message {
+		color: #999;
+    margin: 0;
+    text-align: left;
+    line-height: .56rem;
+    text-indent: 2em;
+	}
 	.clearFix:after {
 		clear: both;
 		display: block;
@@ -2097,6 +2116,19 @@
 		z-index: 999;
 	}
 	
+	/*自定遮罩层*/
+.bgMask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  background: #000;
+  z-index: 999;
+}
 	.mask_content {
 		position: fixed;
 		top: 28%;

@@ -30,7 +30,7 @@ import md5 from 'js-md5';
 //导入复制功能
 import Clipboard from 'clipboard'
 import _ from "lodash" //工具库
-import Velocity from 'velocity-animate'  //js动画库,有用
+import Velocity from 'velocity-animate' //js动画库,有用
 import 'velocity-animate/velocity.ui.js'
 import MyStart from '@/components/publicmodel/start' //封装公共头部组件,直接引用
 Vue.use(MyStart)
@@ -130,8 +130,8 @@ import store from './store'
 import $ from 'jquery'
 //
 //手机端调试工具,发布提交时必须注释掉
-   import Vconsole from 'vconsole'
-   new Vconsole()
+// import Vconsole from 'vconsole'
+// new Vconsole()
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
