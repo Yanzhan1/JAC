@@ -59,7 +59,13 @@
         labels: [],
         picked: this.$store.state.selectLabelState ? this.$store.state.selectLabelState[0] : null,
         popup: false,
-        labelState: 11 //标签默认值为11
+        labelState: 11, //标签默认值为11
+        obj: { //tab状态的映射表
+          '/recommend': this.goIsRecommand,
+          '/information': this.goInformation,
+          '/activity': this.goAllActivity,
+          '/now': this.goIsNow
+        }
       }
     },
     components: {
@@ -70,9 +76,9 @@
       popupVisibleChange: function () {
         this.$refs.mine.popupVisibleChange()
       },
-      changeSlide(index){
-        this.$root.eventHub.$emit('changeSlide', index)
-      },
+      // changeSlide(index){
+      //   this.$root.eventHub.$emit('changeSlide', index)
+      // },
       goIsRecommand: function () {
         this.$router.push('/recommend')
         this.isRecommand = true
@@ -80,7 +86,7 @@
         this.isAllActivity = false
         this.isNow = false
         this.isQuestion = false
-        this.changeSlide(0)
+        // this.changeSlide(0)
         this.addPoint('recommend');
       },
       goInformation: function () {
@@ -90,7 +96,7 @@
         this.isAllActivity = false
         this.isNow = false
         this.isQuestion = false
-        this.changeSlide(1)
+        // this.changeSlide(1)
         this.addPoint('inform');
       },
       goAllActivity: function () {
@@ -100,7 +106,7 @@
         this.isInformation = false
         this.isNow = false
         this.isQuestion = false
-        this.changeSlide(2)
+        // this.changeSlide(2)
         this.addPoint('activity');
       },
       goIsNow: function () {
@@ -110,7 +116,7 @@
         this.isInformation = false
         this.isAllActivity = false
         this.isQuestion = false
-        this.changeSlide(3)
+        // this.changeSlide(3)
         this.addPoint('community');
       },
       goQuestion: function () {
@@ -182,6 +188,12 @@
           }
         });
       },
+      // 设置tab状态
+      setTabStatu(){
+        const {path} = this.$route
+        
+        this.obj[path] && this.obj[path].apply(this, arguments)
+      }
     },
     computed: {
       loginState() {
@@ -193,56 +205,25 @@
         if (loginState) {
           this.getLabels()
         }
+      },
+      $route(newVal, oldVla){
+        this.setTabStatu()
       }
     },
     mounted: function () {
-      this.isInformation = false
-      this.isAllActivity = false
-      this.isNow = false
-      this.isQuestion = false
-      var temp = window.location.href;
-      var flag = temp.substring(temp.length - 3);
-      var all = temp.substring(temp.length - 8);
-      if (all == 'question') {
-        this.isNow = false
-        this.isRecommand = false
-        this.isInformation = false
-        this.isAllActivity = false
-        this.isQuestion = true
-      } else {
-        if (flag == 'ity') {
-          this.isAllActivity = true
-          this.isRecommand = false
-          this.isInformation = false
-          this.isNow = false
-          this.isQuestion = false
-        } else if (flag == 'now') {
-          this.isAllActivity = false
-          this.isRecommand = false
-          this.isInformation = false
-          this.isNow = true
-          this.isQuestion = false
-        } else if (flag == 'ion') {
-          this.isAllActivity = false
-          this.isRecommand = false
-          this.isInformation = true
-          this.isNow = false
-          this.isQuestion = false
-        }
-      }
+      this.setTabStatu()
       this.$nextTick(function () {
         this.getLabels()
-        console.log("this.picked", this.picked)
       })
       window.toNow = () => {
         this.goIsNow()
         this.$emit('refresh')
       }
-      this.$root.eventHub.$on('changeTab', (index)=>{
-        const list = ['goIsRecommand', 'goInformation', 'goAllActivity', 'goIsNow']
+      // this.$root.eventHub.$on('changeTab', (index)=>{
+      //   const list = ['goIsRecommand', 'goInformation', 'goAllActivity', 'goIsNow']
 
-        this[list[index]]()
-      })
+      //   this[list[index]]()
+      // })
     }
   }
 
