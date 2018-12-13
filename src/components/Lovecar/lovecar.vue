@@ -1367,13 +1367,13 @@
 									// }else{
 									//   this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
 									// }
-									setTimeout(() => {
+									// setTimeout(() => {
 										Toast({
 											message: this.vehicle_condition[1].dictValue,
 											position: "middle",
 											duration: 2000
 										});
-									}, 4000);
+									// }, 4000);
 									this.carcontrol.engineHoodStsFront ?
 										(this.engineHoodStsFront = "已开") :
 										(this.engineHoodStsFront = "未开");
