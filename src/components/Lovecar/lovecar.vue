@@ -1362,11 +1362,7 @@
 								}
 								if(res.data.data) {
 									this.carcontrol = res.data.data;
-									// if(this.carcontrol.fuelPercent==undefined){
-									//     this.carcontrol.fuelPercent=''
-									// }else{
-									//   this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
-									// }
+									
 									// setTimeout(() => {
 										Toast({
 											message: this.vehicle_condition[1].dictValue,
