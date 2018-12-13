@@ -5,9 +5,20 @@
         <div class="box">
             <div class="box_top">
                 <div class="batterystatus">当前电池状态</div>
-                <div class="flex cocenter batterystatusright" >
+                <div class="flex cocenter batterystatusrightgray" v-show="this.type==1?true:false" >
+                    <div :class="'colorgray'"></div>
+                    待充电
+                </div>
+                <div class="flex cocenter batterystatusright" v-show="this.type==2?true:false">
                     <div :class="'coloryellow'"></div>
-                    &nbsp&nbsp&nbsp待充电</div>
+                    已预约充电
+                </div>
+                <div class="flex cocenter batterystatusrightblue" v-show="this.type==3?true:false">
+                    <div :class="'colorblue'"></div>
+                    充电中
+                    <div :class="'colorblue'"></div>
+                    直流快充
+                </div>
             </div>
             <div class="flex around box_bottom">
                 <div class="flex column bottom_div">
@@ -15,7 +26,7 @@
                     <div style="font-size:.24rem;color:rgba(102,102,102,1)">续航里程(km)</div>
                 </div>
                 <div class="flex column bottom_div">
-                    <div style="font-size:.48rem;color:rgba(102,102,102,1)">70%</div>
+                    <div class="quantity" style="font-size:.48rem;color:rgba(102,102,102,1)">20%</div>
                     <div style="font-size:.24rem;color:rgba(102,102,102,1)">电量</div>
                 </div>
                 <div class="flex column bottom_div">
@@ -25,100 +36,139 @@
             </div>
         </div>
         <div class="charginggun">充电枪状态</div>
-        <div class="flex cocenter charginggunstatus" ><div :class="'coloryellow'"></div>&nbsp&nbsp&nbsp未连接</div>
+        <div class="flex cocenter charginggunstatus" v-show="this.type==1?true:false" >
+          <div :class="'coloryellow'"></div>
+          未连接
+        </div>
+        <div class="flex cocenter charginggunstatusblue" v-show="this.type==2?true:false">
+          <div :class="'colorblue'"></div>
+          已连接
+        </div>
+        <div class="flex cocenter charginggunstatusblue" v-show="this.type==3?true:false">
+          <div :class="'colorblue'"></div>
+          已连接
+        </div>
         <div class="charginggun">充电时间</div>
         <div class="flex between begintime" @click="begintime">
             <div>开始时间</div>
             <div class="flex contentcenter">
-                <div>{{starttime2}}</div>
+                <div>{{this.starttimes}}</div>
                 <img :style="'display:block;width:.3rem;height:.3rem;margin-top:-.06rem'" src="./../../../../static/images/next@2x.png" alt="">
             </div>
         </div>
-        <div class="flex between begintime" @click="endtime">
+        <div class="flex between begintime" @click="endtimea">
             <div>结束时间</div>
             <div class="flex contentcenter">
-                <div>{{endtime2}}</div>
+                <div>{{this.endtimes}}</div>
                 <img :style="'display:block;width:.3rem;height:.3rem;margin-top:-.06rem'" src="./../../../../static/images/next@2x.png" alt="">
             </div>
         </div>
+         <mt-datetime-picker
+            ref="pickerstart"
+            type="datetime"
+            year-format="{value} 年"
+            month-format="{value} 月"
+            date-format="{value} 日"
+            hourFormat="{value} 时"
+            minuteFormat="{value} 分"
+            @confirm="handleConfirmstart"
+            :startDate="startday"
+            :endDate="endtime"
+            >
+        </mt-datetime-picker>
+         <mt-datetime-picker
+            ref="pickerend"
+            type="datetime"
+            year-format="{value} 年"
+            month-format="{value} 月"
+            date-format="{value} 日"
+            hourFormat="{value} 时"
+            minuteFormat="{value} 分"
+            @confirm="handleConfirmend"
+            :startDate="startday"
+            :endDate="endtime"
+            >
+        </mt-datetime-picker>
         <div class="bottombut" @click="subbt">
             预约充电
         </div>
-        <mt-popup v-model="popupVisible1" position="bottom" popup-transition="popup-fade" style="width:100%">
-                  <h3 style="text-align:center;padding:.3rem;font-size:.34rem;">开始时间</h3>
-                  <span class="suretime" @click="choosebegin">确定</span>
-                  <mt-picker :slots="slots1" @change="beginTime" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
-        </mt-popup>
-        <mt-popup v-model="popupVisible2" position="bottom" popup-transition="popup-fade" style="width:100%">
-                  <h3 style="text-align:center;padding:.3rem;font-size:.34rem;">结束时间</h3>
-                  <span class="suretime" @click="chooseend">确定</span>
-                  <mt-picker :slots="slots2" @change="endTime" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
-        </mt-popup>
     </div>
 </template>
 
 <script>
-import { Popup } from "mint-ui";
-import { Picker } from "mint-ui";
 import PublicHead from "../../publicmodel/PublicHead";
 export default {
   data() {
     return {
-      popupVisible1: false,//控制起始时间弹框
-      popupVisible2: false,//控制结束时间弹框
-      starttime1:'',//起始时间
-      starttime2:'',//起始时间
-      endtime1:'',//结束时间
-      endtime2:'',//结束时间
-      slots1: [
-        {
-          values: ["1:00", "2:00", "3:00", "4:00"],
-          className: "slot1",
-          textAlign: "center"
-        },
-        {
-          divider: true,
-          itemHieight: 74
-        }
-      ],
-      slots2: [
-        {
-          values: ["1:00", "2:00", "3:00", "4:00",'5:00'],
-          className: "slot1",
-          textAlign: "center"
-        },
-        {
-          divider: true,
-          itemHieight: 74
-        }
-      ]
+      type: 1, //充电的状态1为无状态2为已预约充电3为充电中
+      startday: new Date(),
+      toendtime: "", //结束充电传给后台的时间戳
+      endtimes: "",
+      tostarttime: "",
+      starttimes: "" //开始充电传给后台的时间戳
     };
   },
   methods: {
     //提交
     subbt() {},
+    //选择充电开始时间
     begintime() {
-      this.popupVisible1 = true;
+      this.$refs.pickerstart.open();
     },
-    endtime() {
-        this.popupVisible2 = true;
+    handleConfirmstart(start) {
+      this.tostarttime = new Date(start).getTime();
+      this.starttimes = this.tochangeTime(new Date(start).getTime());
     },
-    choosebegin(){
-        this.popupVisible1=false;
-        this.starttime2=this.starttime1
+    //选择充电结束时间
+    endtimea() {
+      this.$refs.pickerend.open();
     },
-    chooseend(){
-        this.popupVisible2=false;
-        this.endtime2=this.endtime1
+    handleConfirmend(end) {
+      this.toendtime = new Date(end).getTime();
+      this.endtimes = this.tochangeTime(new Date(end).getTime());
     },
-     beginTime(picker, values) {
-          this.starttime1=values[0]
-     },
-     endTime(picker, values) {
-          this.endtime1=values[0]
-     }
+    //控制电量的颜色在数据渲染后调用
+    changequantitycolor() {
+      parseInt(
+        $(".quantity")
+          .text()
+          .replace("%", "")
+      ) > 20
+        ? $(".quantity").css("color", "#49BBFF")
+        : $(".quantity").css("color", "#FF5926");
+    },
+    //时间戳转化
+    tochangeTime(inputTime) {
+      var date = new Date(inputTime);
+      var y = date.getFullYear();
+      var m = date.getMonth() + 1;
+      m = m < 10 ? "0" + m : m;
+      var d = date.getDate();
+      d = d < 10 ? "0" + d : d;
+      var h = date.getHours();
+      h = h < 10 ? "0" + h : h;
+      var minute = date.getMinutes();
+      minute = minute < 10 ? "0" + minute : minute;
+      return y + "年" + m + "月" + d + "日" + "" + h + ":" + minute;
+    },
+    Conversiontime(timestamp) {
+      var date = new Date(timestamp);
+      let Y, M, D, h, m, s;
+      Y = date.getFullYear() + "-";
+      M = date.getMonth() + 1 + "-";
+      D = date.getDate();
+      return Y + M + D;
+    }
   },
-  mounted: {},
+  created() {
+    // this.endtime=this.toDate()
+    let time = new Date().getTime() + 1000 * 60 * 60 * 24 * 7;
+    this.endtime = new Date(this.Conversiontime(time) + "");
+  },
+  mounted() {
+    this.changequantitycolor();
+    this.starttimes=this.tochangeTime(new Date().getTime())
+  },
   components: {
     mhead: PublicHead
   }
@@ -145,9 +195,15 @@ export default {
 .batterystatusright {
   color: #ffcc00;
 }
-.popo{
-    width: 100%;
-    height: 5rem;
+.batterystatusrightblue {
+  color: #49bbff;
+}
+.batterystatusrightgray {
+  color: #666666;
+}
+.popo {
+  width: 100%;
+  height: 5rem;
 }
 .box_top {
   display: flex;
@@ -169,9 +225,29 @@ export default {
   height: 0.12rem;
   border-radius: 50%;
   background: rgba(255, 204, 0, 1);
+  margin: 0 0.2rem;
+}
+.colorgray {
+  width: 0.12rem;
+  height: 0.12rem;
+  border-radius: 50%;
+  background: #666666;
+  margin: 0 0.2rem;
+}
+.colorblue {
+  width: 0.12rem;
+  height: 0.12rem;
+  border-radius: 50%;
+  background: #49bbff;
+  margin: 0 0.2rem;
 }
 .charginggunstatus {
   color: #ffcc00;
+  margin-top: 0.3rem;
+  margin-left: 0.5rem;
+}
+.charginggunstatusblue {
+  color: #49bbff;
   margin-top: 0.3rem;
   margin-left: 0.5rem;
 }
@@ -203,10 +279,10 @@ export default {
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
 }
-.suretime{
-    display: block;
-    text-align: right;
-    margin-right: .3rem;
-    color: #49BBFF;
+.suretime {
+  display: block;
+  text-align: right;
+  margin-right: 0.3rem;
+  color: #49bbff;
 }
 </style>

@@ -308,6 +308,7 @@
 				vehicleState: "", //被授权车辆的vin
 				pinNumber: "",
 				type: "", //判断点击事件
+				typebefore:'',
 				Condition: {},
 				LoginStatus: "", //机车登录状态
 				time: "",
@@ -586,35 +587,35 @@
 			},
 			//锁的弹出框
 			doors() {
-				this.type = 1;
+				this.typebefore = 1;
 				this.popupVisible = true;
 				this.popupbg=true
 			},
 			doorsoppen() {
-				this.type = 5;
+				this.typebefore = 5;
 				this.popupVisible = true;
 				this.popupbg=true
 			},
 			//后备箱的请求
 			backbox() {
-				this.type = 2;
+				this.typebefore = 2;
 				this.popupVisible = true;
 				this.popupbg=true
 			},
 			//熄火的请求
 			closefire() {
-				this.type = 3;
+				this.typebefore = 3;
 				this.popupVisible = true;
 				this.popupbg=true
 			},
 			closefireoff() {
-				this.type = 6;
+				this.typebefore = 6;
 				this.popupVisible = true;
 				this.popupbg=true
 			},
 			// 寻车 事件
 			enter() {
-				this.type = 4;
+				this.typebefore = 4;
 				this.popupVisible = true;
 				this.popupbg=true
 			},
@@ -709,7 +710,7 @@
 			},
 			//各种点击问好的提示
 			Toasteach() {
-				if(this.type == 1) {
+				if(this.typebefore == 1) {
 					MessageBox("提示", this.close_lock[3].dictValue);
 
 					// Toast({
@@ -719,10 +720,10 @@
 					//   duration: 3000
 					// });
 				}
-				if(this.type == 5) {
+				if(this.typebefore == 5) {
 					MessageBox("提示", this.open_lock[3].dictValue);
 				}
-				if(this.type == 2) {
+				if(this.typebefore == 2) {
 					MessageBox("提示", this.open_trunk[3].dictValue);
 					// Toast({
 					//   message:
@@ -731,7 +732,7 @@
 					//   duration: 3000
 					// });
 				}
-				if(this.type == 3) {
+				if(this.typebefore == 3) {
 					if(this.isTruess) {
 						MessageBox("提示", this.vehicle_launch[2].dictValue);
 					} else {
@@ -744,10 +745,10 @@
 					//   duration: 4000
 					// });
 				}
-				if(this.type == 6) {
+				if(this.typebefore == 6) {
 					MessageBox("提示", this.vehicle_flameout[3].dictValue);
 				}
-				if(this.type == 4) {
+				if(this.typebefore == 4) {
 					MessageBox("提示", this.find_vehicle[3].dictValue);
 					// Toast({
 					//   message: "左右转向灯先闪烁3次并伴有喇叭响3次",
@@ -1623,6 +1624,19 @@
 		watch: {
 			pinNumber(newVal, oldVal) {
 				if(this.pinNumber.length == 6) {
+					if(this.typebefore==1){
+						this.type=1
+					}else if(this.typebefore==2){
+						this.type=2
+					}else if(this.typebefore==3){
+						this.type=3
+					}else if(this.typebefore==4){
+						this.type=4
+					}else if(this.typebefore==5){
+						this.type=5
+					}else if(this.typebefore==6){
+						this.type=6
+					}
 					var PIN = this.pinNumber;
 					this.popupVisible = !this.popupVisible;
 					(this.IsShow = false), (this.pinNumber = "");
@@ -1638,6 +1652,7 @@
 							// alert(res.data.returnSuccess)
 							if(res.data.returnSuccess) {
 								if(this.type == 1) {
+									
 									//车辆锁定的接口
 									// alert(this.$store.state.vins)
 									// this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
@@ -1935,8 +1950,10 @@
 		},
 		beforeCreate() {
 			clearInterval(this.time);
+
 		},
 		mounted() {
+			this.type=10;
 			// Toast({
 			// 	message: document.documentElement.style.fontSize,
 			// 	position: "middle",

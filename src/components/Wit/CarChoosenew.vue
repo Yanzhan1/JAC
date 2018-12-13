@@ -1,5 +1,6 @@
 <template>
 <div class="main">
+    <div style="width:100%;height:.38rem;position:fixed;background:#fff;top:0;"></div>
     <header class="newheader">
       <div class="navTitle">选购瑞风S4</div>
       <!-- <div></div> -->
