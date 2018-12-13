@@ -104,7 +104,7 @@
           <!--评论者信息E-->
           <!--评论内容和回复内容S-->
           <div class="comment_content">
-            <p @click="commentbtnBack(item.id, undefined, item.deleteFlag)">{{item.message}}</p>
+            <p :class="{'fontStyleItalic': item.deleteFlag == 1}" @click="commentbtnBack(item.id, undefined, item.deleteFlag)">{{item.message}}</p>
             <div v-if="item.reverts && item.reverts.length>0">
               <div class="comment_msg">
                 <div v-for="(back,index) in item.reverts.slice(0,3)">
@@ -121,7 +121,7 @@
                       <span v-else>尚未设置昵称:</span><br>
                     </span>
                   </span>
-                  <span class="font_2" @click="commentbtnBack(item.id, back.id, back.deleteFlag)">{{back.message}}</span>
+                  <span :class="{'fontStyleItalic': back.deleteFlag == 1}" class="font_2" @click="commentbtnBack(item.id, back.id, back.deleteFlag)">{{back.message}}</span>
                   <span v-if="back.user && userId == back.user.user_id && back.deleteFlag != 1">
                     <span @click="deleteComment(back.id)" class="font_1">删除</span>
                   </span>

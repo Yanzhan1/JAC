@@ -1,3 +1,7 @@
+.fontStyleItalic {
+  font-style: italic;
+}
+
 .header {
   font-size: 0.36rem;
   position: fixed;
