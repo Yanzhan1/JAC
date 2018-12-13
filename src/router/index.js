@@ -130,13 +130,13 @@ const router = new Router({
     mode: 'hash',
     scrollBehavior(to, from, savedPosition) { //商品列表进去详情，返回时回到原来的高度
         if (savedPosition) {
-            // const list = ['/recommend', '/information', '/activity', '/now']
+            const list = ['/recommend', '/information', '/activity', '/now']
 
-            // if(list.includes(to.path)){
-            //     const swiperSlides = document.querySelectorAll('.swiperSlide')
+            if(list.includes(to.path)){
+                const swiperSlides = document.querySelectorAll('.swiperSlide')
 
-            //     swiperSlides[to.meta.index].scrollTop = to.meta.savedScrollTop || 0
-            // }
+                swiperSlides[to.meta.index].scrollTop = to.meta.savedScrollTop || 0
+            }
             return savedPosition
         } else {
             if (from.meta.keepAlive) {

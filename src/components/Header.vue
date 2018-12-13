@@ -72,13 +72,31 @@
       /*Mine*/
     },
     computed: {},
+    created(){
+      this.addPoint = this.bbox(this.addPoint)
+    },
     methods: {
+      // 闭了个包
+      bbox :function(fn){
+        var timer = null 
+        var self = this 
+
+        return function(){
+          var args = arguments
+
+          clearTimeout(timer)
+          timer = null
+          timer = setTimeout(function(){
+            fn.apply(self, args)
+          }, 180)
+        }
+      },
       popupVisibleChange: function () {
         this.$refs.mine.popupVisibleChange()
       },
-      // changeSlide(index){
-      //   this.$root.eventHub.$emit('changeSlide', index)
-      // },
+      changeSlide(index){
+        this.$root.eventHub.$emit('changeSlide', index)
+      },
       goIsRecommand: function () {
         this.$router.push('/recommend')
         this.isRecommand = true
@@ -86,7 +104,7 @@
         this.isAllActivity = false
         this.isNow = false
         this.isQuestion = false
-        // this.changeSlide(0)
+        this.changeSlide(0)
         this.addPoint('recommend');
       },
       goInformation: function () {
@@ -96,7 +114,7 @@
         this.isAllActivity = false
         this.isNow = false
         this.isQuestion = false
-        // this.changeSlide(1)
+        this.changeSlide(1)
         this.addPoint('inform');
       },
       goAllActivity: function () {
@@ -106,7 +124,7 @@
         this.isInformation = false
         this.isNow = false
         this.isQuestion = false
-        // this.changeSlide(2)
+        this.changeSlide(2)
         this.addPoint('activity');
       },
       goIsNow: function () {
@@ -116,7 +134,7 @@
         this.isInformation = false
         this.isAllActivity = false
         this.isQuestion = false
-        // this.changeSlide(3)
+        this.changeSlide(3)
         this.addPoint('community');
       },
       goQuestion: function () {
@@ -193,6 +211,14 @@
         const {path} = this.$route
         
         this.obj[path] && this.obj[path].apply(this, arguments)
+      },
+      // 设置tab状态
+      onChangeTab(){
+        this.$root.eventHub.$on('changeTab', (index)=>{
+          const list = ['goIsRecommand', 'goInformation', 'goAllActivity', 'goIsNow']
+
+          this[list[index]]()
+        })
       }
     },
     computed: {
@@ -219,11 +245,7 @@
         this.goIsNow()
         this.$emit('refresh')
       }
-      // this.$root.eventHub.$on('changeTab', (index)=>{
-      //   const list = ['goIsRecommand', 'goInformation', 'goAllActivity', 'goIsNow']
-
-      //   this[list[index]]()
-      // })
+      this.onChangeTab()
     }
   }
 
