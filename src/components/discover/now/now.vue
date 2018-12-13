@@ -80,6 +80,7 @@
               <span class="f_right">{{item.likeNum}}</span>
               <img v-if="item.likeStatus==0" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveMomentLike(item.id,index)" />
               <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeMomentLike(item.id,index)" />
+              <span v-if="item.supreme==1" style="color: orange;margin-right: 0.16rem;" class="f_right">精品</span>
             </div>
             <!--阅读数量,是否点赞以及点赞数量E-->
           </div>
