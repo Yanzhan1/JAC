@@ -157,13 +157,8 @@
             _this.loading = false;
             _this.informationList = res.data.data;
 
-            /**
-             * 刷新后暂停视频
-             */
             _this.$nextTick(function () {
-              _this.$refs['myVideo'].forEach((myVideo, i) => {
-                myVideo.player.pause()
-              })
+              _this.closePlayer()
             })
 
             if (res.data.recordsTotal <= _this.list) {
@@ -295,6 +290,18 @@
         var showId = '#share_information' + this.indexNum;
         $(showId).hide();
         $("#bgShareInfo").hide();
+      },
+      closePlayer() {
+        if (this.$refs['myVideo']) {
+          this.$refs['myVideo'].forEach((myVideo, i) => {
+            myVideo.player.pause()
+          })
+        }
+      },
+      onClosePlayer() {
+        this.$root.eventHub.$on('closePlayer', (index) => {
+          this.closePlayer()
+        })
       }
     },
     computed: {
@@ -342,6 +349,7 @@
       this.$nextTick(function () {
         this.getRefreshList()
       })
+      this.onClosePlayer()
     }
   }
 

@@ -53,6 +53,7 @@
           on: {
             slideChange: function () {
               self.$root.eventHub.$emit('changeTab', this.activeIndex)
+              self.$root.eventHub.$emit('closePlayer')
             }
           }
         })
