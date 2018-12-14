@@ -27,24 +27,24 @@
       this.$http.interceptors.request.use((config) => {
         const params = config.method == 'post' ? config.data : config.params
         const arr = config.url.match(this.reg)
-
+        console.log(arr)
         // 在发送请求之前做些什么
         if (config.url == Lovecar.OperationId) {
-          this.$store.dispatch('LOADINGFLAG', true)
+          localshow()
         }
         if (this.loadingnum == 0) {
           if (arr) {
             switch (arr[1]) {
               case 'dk-dm-portal-api': // 发现
                 if (!(params.pageNo && params.pageNo > 1)) {
-                  this.loadingflag = true;
+                  localshow()
                 }
                 break
               default:
-                this.loadingflag = true;
+                localshow()
             }
           } else {
-            this.loadingflag = true;
+            localshow()
           }
         }
         this.loadingnum++;
@@ -55,9 +55,9 @@
       }, (error) => {
         this.loadingnum--;
         if (this.loadingnum == 0) {
-          this.loadingflag = false;
+          localhide()
         }
-        this.$store.dispatch('LOADINGFLAG', false)
+        localhide()
         return Promise.reject(error);
       });
       // 添加响应拦截器
@@ -74,14 +74,15 @@
             }
             break;
         }
+        console.log(Lovecar.OperationId)
         if (response.config.url != Lovecar.OperationId) {
           this.loadingnum--;
           if (this.loadingnum == 0) {
-            this.loadingflag = false;
+            localhide()
             this.$forceUpdate();
           }
         } else {
-          this.loadingflag = false;
+          localhide()
         }
         if (response.config.url.indexOf('dk-dm-portal-api') == -1) {
           ModalHelper.beforeClose() //解决遮罩层穿透
@@ -90,9 +91,9 @@
       }, (error) => {
         this.loadingnum--;
         if (this.loadingnum == 0) {
-          this.loadingflag = false;
+          localhide()
         }
-        this.$store.dispatch('LOADINGFLAG', false)
+        localhide()
         return Promise.reject(error);
       });
     },
