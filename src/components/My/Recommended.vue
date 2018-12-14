@@ -127,7 +127,7 @@ export default {
       }else{
 
         	Toast({
-								message: '您还没有推荐码，请绑定车辆获取您的推荐码',
+								message: '您还没有推荐码，请绑定车辆获取推荐码',
 								position: "middle",
 								duration: 2000
 							});
