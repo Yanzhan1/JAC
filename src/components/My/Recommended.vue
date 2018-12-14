@@ -123,7 +123,6 @@ export default {
       console.log(1)
      if (res.data.code == 0) {
        this.flag=true
-       this.flag=false
         this.share = res.data.data.code;
       }else{
 
