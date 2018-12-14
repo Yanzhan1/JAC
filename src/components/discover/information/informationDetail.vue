@@ -22,7 +22,10 @@
         <p class="date_info">
           {{content.issuedDate}}
         </p>
-        <p ref="content" class="content" v-html="content.manageBody">
+        <p v-if="content.manageType == 2" ref="content" class="content" >
+          <iframe :src="content.manageBody" style="width: 100%;min-height: 714px;border: none;"></iframe>
+        </p>
+        <p v-else ref="content" class="content" v-html="content.manageBody">
         </p>
         <div class="contentIconInfo">
           <!--阅读数量-->
