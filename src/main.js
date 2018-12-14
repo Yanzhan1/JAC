@@ -22,6 +22,7 @@ import router from './router'
 
 //css 导入
 import './../static/style/public.css'
+import '../static/css/myVideo/myVideo.css' // 重置vue-video-player部分样式
 
 //导入axios
 import axios from 'axios'

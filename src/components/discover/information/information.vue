@@ -9,8 +9,34 @@
       </div>
       <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
         <!--资讯列表S-->
-        <div v-for="(item,index) in informationList">
-          <div class="boxInfo">
+        <div v-for="(item,index) in informationList" :key="index">
+
+          <div class="boxInfo" v-if="item.manageType == 3">
+            <div>
+              <p class="listTitleInfo">
+                {{item.manageTitle.slice(0,46)}}
+                <span v-if="item.manageTitle.length>46">...</span>
+              </p>
+
+              <div class="listPic312">
+                <my-video ref="myVideo" :index="index" :imgUrl="item.imgUrl" :manageBody="item.manageBody"
+                  @addPageviews="addPageviews" @closeOther="closeOther"></my-video>
+              </div>
+
+            </div>
+            <div class="listIconInfo">
+              <!--阅读数量-->
+              <img src="../../../../static/images/discover/eye.png" class="f_left" />
+              <span class="f_left">{{item.readNum}}</span>
+              <!--是否点赞以及点赞数量-->
+              <span class="f_right">{{item.likeNum}}</span>
+              <img v-if="item.likeStatus == 0" src="../../../../static/images/discover/nozan.png" class="f_right"
+                @click="giveInformationLike(item.manageId,index)" />
+              <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeInformationLike(item.manageId,index)" />
+            </div>
+          </div>
+
+          <div class="boxInfo" v-else>
             <div @click="toDetail(item.manageId, index)">
               <p class="listTitleInfo">
                 {{item.manageTitle.slice(0,46)}}
@@ -24,10 +50,12 @@
               <span class="f_left">{{item.readNum}}</span>
               <!--是否点赞以及点赞数量-->
               <span class="f_right">{{item.likeNum}}</span>
-              <img v-if="item.likeStatus == 0" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveInformationLike(item.manageId,index)" />
+              <img v-if="item.likeStatus == 0" src="../../../../static/images/discover/nozan.png" class="f_right"
+                @click="giveInformationLike(item.manageId,index)" />
               <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeInformationLike(item.manageId,index)" />
             </div>
           </div>
+
         </div>
         <!--资讯列表E-->
       </div>
@@ -37,12 +65,12 @@
 
 <script>
   import {
-    MessageBox
-  } from 'mint-ui';
-  import shareBox from '../component/shareBox.vue';
-  import {
+    MessageBox,
     Toast
   } from 'mint-ui';
+  import shareBox from '../component/shareBox.vue';
+  import MyVideo from '@/components/components/myVideo/MyVideo'
+
   let shareIndex = "";
   export default {
     name: "Information",
@@ -64,8 +92,38 @@
     },
     components: {
       shareBox,
+      MyVideo
     },
     methods: {
+      /**
+       * 打开一个视频关闭其他视频
+       */
+      closeOther(index) {
+        this.$refs['myVideo'].forEach((myVideo, i) => {
+          if (i != index) {
+            myVideo.player.pause()
+          }
+        })
+      },
+      getReadNum: function (manageId, index) {
+        var _this = this;
+        this.$http.post(DISCOVERMESSAGE.informationRead, {
+          "uid": _this.$store.state.userId,
+          "lid": manageId
+        }).then(function (res) {
+          if (res.data.status) {
+            _this.informationList[index].readNum = res.data.data;
+          } else {
+            MessageBox('提示', res.data.errorMsg);
+          }
+        });
+      },
+      /**
+       * set浏览量
+       */
+      addPageviews(index) {
+        this.getReadNum(this.informationList[index].manageId, index)
+      },
       toDetail: function (id, index) {
         this._index = index
         this.$router.push({
@@ -98,6 +156,16 @@
             _this.pageNum = 1;
             _this.loading = false;
             _this.informationList = res.data.data;
+
+            /**
+             * 刷新后暂停视频
+             */
+            _this.$nextTick(function () {
+              _this.$refs['myVideo'].forEach((myVideo, i) => {
+                myVideo.player.pause()
+              })
+            })
+
             if (res.data.recordsTotal <= _this.list) {
               _this.loadEnd = true;
             }

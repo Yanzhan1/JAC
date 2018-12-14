@@ -1,0 +1,4 @@
+.video-player, .video-js.vjs-fluid {
+    height: 100%;
+    padding-top: 0;
+}
