@@ -2,7 +2,7 @@
   <div class="container">
     <div class="player">
       <video-player class="video-player vjs-custom-skin" ref="videoPlayer" :playsinline="true" :options="playerOptions"
-        @pause="onPlayerPause($event)" @timeupdate="onPlayerTimeupdate($event)">
+      @play="onPlayerPlay($event)"  @pause="onPlayerPause($event)" @timeupdate="onPlayerTimeupdate($event)">
       </video-player>
     </div>
   </div>
@@ -48,6 +48,16 @@ export default {
     videoPlayer
   },
   methods: {
+    onPlayerPlay(player) {
+       //全屏播放
+      if (!player.isFullscreen()) {
+        player.requestFullscreen();
+        player.isFullscreen(true);
+      } else {
+        player.exitFullscreen();
+        player.isFullscreen(false);
+      }
+    },
     onPlayerPause(player){
       this.start = true
       this.flag && (this.count = 0)
