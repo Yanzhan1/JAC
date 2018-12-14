@@ -961,6 +961,7 @@
 													} else if(res.data.status == "SUCCEED") {
 														clearInterval(this.time);
 														this.$store.dispatch("LOADINGFLAG", false);
+														this.popupbg=false
 														if(this.firstEnter) {
 															this.firstEnter = false;
 															if(res.data.data.accStatus == 1) {
@@ -1259,6 +1260,7 @@
 														}
 														clearInterval(this.time);
 														this.$store.dispatch("LOADINGFLAG", false);
+														this.popupbg=false;
 													}
 												} else {
 													Toast({
@@ -1275,6 +1277,7 @@
 							} else if(res.data.status == "SUCCEED") {
 								clearInterval(this.time);
 								this.$store.dispatch("LOADINGFLAG", false);
+								this.popupbg=false
 								if(this.firstEnter) {
 									this.firstEnter = false;
 									if(res.data.data.accStatus == 1) {
@@ -1561,6 +1564,7 @@
 
 								clearInterval(this.time);
 								this.$store.dispatch("LOADINGFLAG", false);
+								this.popupbg=false;
 							}
 						} else {
 							// alert(4)
@@ -1949,7 +1953,6 @@
 
 		},
 		mounted() {
-			this.type=10;
 			// Toast({
 			// 	message: document.documentElement.style.fontSize,
 			// 	position: "middle",

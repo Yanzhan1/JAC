@@ -391,7 +391,7 @@ export default {
   },
   created() {
     this.getuserinfo();
-    this.RecomendCode(); //获取推荐码
+    // this.RecomendCode(); //获取推荐码
   },
   watch: {
     show(newVal, oldVal) {
