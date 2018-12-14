@@ -6,12 +6,12 @@
         <span class="header-title">推荐码</span>
         <span class="header-right"></span>
       </header>
-      <div class="center">
+      <div class="center" v-show="flag">
         <div class="my">我的推荐码</div>
         <img src="../../../static/images/my/icon_share@2x.png" alt="" @click="enjoy()">
         <div class="num">{{this.share}}</div>
       </div>
-    <div class="mask"></div>
+    <div class="mask" v-show="flag"></div>
     <mt-popup v-model="popupVisible" position="bottom">
       <div style="height:2.5rem;width:100%;">
         <ul class="search flex row around cocenter" style="height:2rem">
@@ -49,7 +49,7 @@ export default {
     return {
       share: "",
       popupVisible: false,
-      
+      flag:false,
     };
   },
   methods: {
@@ -122,16 +122,16 @@ export default {
     this.$http.post(My.RecomendCode, param).then(res => {
       console.log(1)
      if (res.data.code == 0) {
+       this.flag=true
+       this.flag=false
         this.share = res.data.data.code;
       }else{
-
 
         	Toast({
 								message: '您还没有推荐码，请绑定车辆获取您的推荐码',
 								position: "middle",
 								duration: 2000
 							});
-
       }
     });
   },

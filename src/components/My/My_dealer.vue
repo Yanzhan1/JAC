@@ -150,8 +150,12 @@ export default {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical; */
 }
+.header-left{
+  margin-left: .3rem;
+}
 .bgcolor{
   background:#fff;
+  padding: 0;
 }
 .mint-popup {
   width: 100%;
