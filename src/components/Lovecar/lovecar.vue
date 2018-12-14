@@ -887,6 +887,7 @@
 										});
 									}
 									this.$store.dispatch("LOADINGFLAG", false);
+									this.popupbg=false
 								} else {
 									this.time = setInterval(() => {
 										this.$http
@@ -956,6 +957,7 @@
 																});
 															}
 															clearInterval(this.time);
+															this.popupbg=false;
 															this.$store.dispatch("LOADINGFLAG", false);
 														}
 													} else if(res.data.status == "SUCCEED") {
@@ -1269,6 +1271,7 @@
 														duration: 2000
 													});
 													clearInterval(this.time);
+													this.popupbg=false;
 													this.$store.dispatch("LOADINGFLAG", false);
 												}
 											});
@@ -1574,6 +1577,7 @@
 								duration: 2000
 							});
 							clearInterval(this.time);
+							this.popupbg=false;
 							this.$store.dispatch("LOADINGFLAG", false);
 						}
 					});
@@ -1885,6 +1889,7 @@
 										});
 								}
 							} else {
+								this.popupbg=false
 								Toast({
 									message: res.data.returnErrMsg,
 									position: "middle",
