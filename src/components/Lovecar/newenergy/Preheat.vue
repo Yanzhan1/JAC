@@ -4,57 +4,63 @@
         <div style="width:100%;height:.01rem;background:#f1f1f1"></div>
         <div class="box flex cocenter">
             <div class="boxtest">当前车辆预热状态</div>
-            <div class="minbox flex cocenter">
+            <div class="minbox flex cocenter" v-show="this.type==1?true:false">
                 <div style="width:.12rem;height:.12rem;background:#999999;border-radius:50%;"></div>
                 <div style="font-size:.24rem;color:rgba(102,102,102,1);margin-right:.3rem;margin-left:.1rem">无状态</div>
             </div>
+            <div class="minbox flex cocenter" v-show="this.type==2?true:false">
+                <div style="width:.12rem;height:.12rem;background:#FFCC00;border-radius:50%;"></div>
+                <div style="font-size:.24rem;color:#FFCC00;margin-right:.3rem;margin-left:.1rem">等待预热</div>
+            </div>
+            <div class="minbox flex cocenter" v-show="this.type==3?true:false">
+                <div style="width:.12rem;height:.12rem;background:#49BBFF;border-radius:50%;"></div>
+                <div style="font-size:.24rem;color:#49BBFF;margin-right:.3rem;margin-left:.1rem">预热中</div>
+            </div>
         </div>
         <div class="sethot">预热时间设置</div>
-        <div class="flex cocenter between nextbox" @click="choosehottime">
+        <div class="flex cocenter between nextbox" @click="openPicker">
             <span>预热开始时间</span>
             <div >
-                <div>{{starttime2}}</div>
+                <div>{{this.hottimes}}</div>
                 <img :src="'./../../../../static/images/next@2x.png'" alt="">
             </div>
         </div>
         <div class="hotset">
             预热档位设置
         </div>
+        <mt-datetime-picker
+            ref="picker"
+            type="datetime"
+            year-format="{value} 年"
+            month-format="{value} 月"
+            date-format="{value} 日"
+            hourFormat="{value} 时"
+            minuteFormat="{value} 分"
+            @confirm="handleConfirm"
+            :startDate="startday"
+            :endDate="endtime"
+            >
+        </mt-datetime-picker>
         <div class="flex cocenter around setdangwei">
             <div @click="setlow" :class="this.chooseGear?'activelow':'activehigh'">低档</div>
             <div @click="sethigh" :class="!this.chooseGear?'activelow':'activehigh'">高档</div>
         </div>
         <div class="botsub">开始预热</div>
-        <mt-popup v-model="popupVisible" position="bottom" popup-transition="popup-fade" style="width:100%">
-                  <h3 style="text-align:center;padding:.3rem;font-size:.34rem;">开始时间</h3>
-                  <span class="suretime" @click="choosebegin">确定</span>
-                  <mt-picker :slots="slots" @change="beginTime" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
-        </mt-popup>
+
     </div>
 </template>
 
 <script>
-import { Popup } from "mint-ui";
-import { Picker } from "mint-ui";
 import PublicHead from "../../publicmodel/PublicHead";
 export default {
   data() {
     return {
+      type:1,//判断预热的状态1为无状态2为等待预热3为预热中
       chooseGear: true, //true为默认低档
-      popupVisible: false,
-      starttime1: "", //选择的预热时间
-      starttime2: "",
-      slots: [
-        {
-          values: ["1:00", "2:00", "3:00", "4:00"],
-          className: "slot1",
-          textAlign: "center"
-        },
-        {
-          divider: true,
-          itemHieight: 74
-        }
-      ]
+      hottimes:'',//选择得到的预热时间
+      startday:new Date(),//限定开始时间的选择
+      endtime:'',//限定结束时间的选择
+      totime:'',//传给后台的时间戳
     };
   },
   methods: {
@@ -66,22 +72,50 @@ export default {
     sethigh() {
       this.chooseGear = !this.chooseGear;
     },
-    //控制时间选择弹框
-    choosehottime() {
-      this.popupVisible = true;
+    choosehottime(){
+
     },
-    //点击确定选择的预热时间
-    choosebegin() {
-      this.popupVisible = false;
-      this.starttime2 = this.starttime1;
+    openPicker() {
+        this.$refs.picker.open();
     },
-    //picker插件里面的选择具体时间
-    beginTime(picker, values) {
-      this.starttime1 = values[0];
-    }
+    //时间戳转化
+    tochangeTime(inputTime) {
+            var date = new Date(inputTime);
+            var y = date.getFullYear();
+            var m = date.getMonth() + 1;
+            m = m < 10 ? ('0' + m) : m;
+            var d = date.getDate();
+            d = d < 10 ? ('0' + d) : d;
+            var h = date.getHours();
+            h = h < 10 ? ('0' + h) : h;
+            var minute = date.getMinutes();
+            minute = minute < 10 ? ('0' + minute) : minute;
+            return y + '年' + m + '月' + d + '日' + '' + h + ':' + minute;
+    },
+    handleConfirm(data){
+      //totime为得到的时间戳
+      this.totime=new Date(data).getTime()
+      this.hottimes=this.tochangeTime(new Date(data).getTime())
+    },
+    Conversiontime(timestamp) {
+                        var date = new Date(timestamp);
+                        let Y,M,D,h,m,s
+                        Y = date.getFullYear() + '-';
+                        M =  (date.getMonth()+1)+ '-';
+                        D = date.getDate();
+                        return Y+M+D;
+           }
   },
   components: {
     mhead: PublicHead
+  },
+  created(){
+    // this.endtime=this.toDate()
+    let time= new Date().getTime()+1000*60*60*24*7
+    this.endtime=new Date(this.Conversiontime(time)+'') 
+  },
+  mounted(){
+    this.hottimes=this.tochangeTime(new Date().getTime())
   }
 };
 </script>

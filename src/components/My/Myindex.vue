@@ -95,14 +95,14 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
       </router-link>
-      <!-- <div class="mylist" @click="recommended" v-if="flag">
+      <div class="mylist" @click="recommended">
 
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_recommend@2x.png" alt="">
           <span>推荐码</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </div> -->
+      </div>
       <!-- <div class="mylist" @click="scan()">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_code@2x.png" alt="">
@@ -359,19 +359,19 @@ export default {
         });
     },
     //获取推荐码 如没有  推荐码 栏不显示
-    RecomendCode() {
-      var param = {
-        userNo: this.$store.state.userId
-      };
-      this.$http.post(My.RecomendCode, param).then(res => {
-        if(res.data.msg='success'){
-          if(res.data.code!=500){
-          this.share = res.data.code;
-          this.flag = true;
-        }
-        }
-      });
-    },
+    // RecomendCode() {
+    //   var param = {
+    //     userNo: this.$store.state.userId
+    //   };
+    //   this.$http.post(My.RecomendCode, param).then(res => {
+    //     if(res.data.msg='success'){
+    //       if(res.data.code!=500){
+    //       this.share = res.data.code;
+    //       this.flag = true;
+    //     }
+    //     }
+    //   });
+    // },
     Tsp() {
       let params = {
         userNo: this.$store.state.userId
@@ -391,7 +391,7 @@ export default {
   },
   created() {
     this.getuserinfo();
-    this.RecomendCode(); //获取推荐码
+    // this.RecomendCode(); //获取推荐码
   },
   watch: {
     show(newVal, oldVal) {
