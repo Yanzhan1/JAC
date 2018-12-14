@@ -43,6 +43,7 @@
 
 <script>
 import { Popup } from "mint-ui";
+import {Toast} from 'mint-ui'
 export default {
   data() {
     return {
@@ -119,15 +120,18 @@ export default {
       userNo: this.$store.state.userId
     };
     this.$http.post(My.RecomendCode, param).then(res => {
-
+      console.log(1)
      if (res.data.code == 0) {
         this.share = res.data.data.code;
       }else{
+
+
         	Toast({
 								message: '您还没有推荐码，请绑定车辆获取您的推荐码',
 								position: "middle",
 								duration: 2000
 							});
+
       }
     });
   },
