@@ -32,12 +32,12 @@ export default {
         poster: this.imgUrl, //你的封面地址
         width: document.documentElement.clientWidth,
         notSupportedMessage: '此视频暂无法播放，请稍后再试', //允许覆盖Video.js无法播放媒体源时显示的默认信息。
-//        controlBar: {
-//          timeDivider: true,
-//          durationDisplay: true,
-//          remainingTimeDisplay: false,
-//          fullscreenToggle: true  //全屏按钮
-//        }
+        controlBar: {
+          timeDivider: true,
+          durationDisplay: true,
+          remainingTimeDisplay: false,
+          fullscreenToggle: true  //全屏按钮
+        }
       },
       count: 0, 
       flag: true,

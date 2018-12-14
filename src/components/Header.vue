@@ -94,9 +94,9 @@
       popupVisibleChange: function () {
         this.$refs.mine.popupVisibleChange()
       },
-      // changeSlide(index){
-      //   this.$root.eventHub.$emit('changeSlide', index)
-      // },
+      changeSlide(index){
+        this.$root.eventHub.$emit('changeSlide', index)
+      },
       goIsRecommand: function () {
         this.$router.push('/recommend')
         this.isRecommand = true
@@ -104,7 +104,7 @@
         this.isAllActivity = false
         this.isNow = false
         this.isQuestion = false
-        // this.changeSlide(0)
+        this.changeSlide(0)
         this.addPoint('recommend');
       },
       goInformation: function () {
@@ -114,7 +114,7 @@
         this.isAllActivity = false
         this.isNow = false
         this.isQuestion = false
-        // this.changeSlide(1)
+        this.changeSlide(1)
         this.addPoint('inform');
       },
       goAllActivity: function () {
@@ -124,7 +124,7 @@
         this.isInformation = false
         this.isNow = false
         this.isQuestion = false
-        // this.changeSlide(2)
+        this.changeSlide(2)
         this.addPoint('activity');
       },
       goIsNow: function () {
@@ -134,7 +134,7 @@
         this.isInformation = false
         this.isAllActivity = false
         this.isQuestion = false
-        // this.changeSlide(3)
+        this.changeSlide(3)
         this.addPoint('community');
       },
       goQuestion: function () {
