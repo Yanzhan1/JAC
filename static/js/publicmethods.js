@@ -155,8 +155,8 @@ function localshow() {
     if (isMobile.iOS()) {
         var params = {};
         window.webkit.messageHandlers.scan.showProgressDialog(params);
-    } else if (isMobile.Android()) {
-        js2android.showProgressDialog();
+    } else if (isMobile.Android() && window.js2android) {
+          js2android.showProgressDialog();
     }
 };
 
@@ -165,7 +165,7 @@ function localhide() {
     if (isMobile.iOS()) {
         var params = {};
         window.webkit.messageHandlers.scan.dismissProgressDialog(params);
-    } else if (isMobile.Android()) {
+    } else if (isMobile.Android() && window.js2android) {
         js2android.dismissProgressDialog();
     }
 }
