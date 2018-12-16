@@ -79,8 +79,8 @@
                           <!-- <img  style="width:.3rem;height:.3rem;position:absolute;left:1.6rem;" src="./../../../static/images/Lovecar/question.png" alt=""> -->
                           <div class="allflex specilpay">
                               <span style="margin-right:.2rem;">2000元</span>
-                              <img @click="getpay" v-if="this.showchecked" :src="'./../../../static/images/my/mycar_check.png'" alt="">
-                              <img @click="nopay" v-else :src="'./../../../static/images/my/checked.png'" alt="">
+                              <img @click="getpay" v-if="this.showchecked" src="../../../static/images/Wit/mycar_check.png" alt="">
+                              <img @click="nopay" v-else src="../../../static/images/Wit/checked.png" alt="">
                           </div>
                       </li>
                   </ul>

@@ -64,7 +64,7 @@
 						</div>
 						<div class="bus_1">
 							<div>
-								<img :src="'./../../../static/images/Wit/dingzi.png'" alt="">
+								<img src="../../../static/images/Wit/dingzi.png" alt="">
 								<span class="bus_2">{{item.seriesName}}</span>
 							</div>
 							<div>
