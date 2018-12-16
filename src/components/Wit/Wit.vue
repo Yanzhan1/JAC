@@ -62,7 +62,7 @@
 						<div>
 							<img :src="item.imgUrl" alt="">
 						</div>
-						<div class="bus_1" v-if="item.guidancePriceStart>0">
+						<div class="bus_1">
 							<div>
 								<img :src="'./../../../static/images/Wit/dingzi.png'" alt="">
 								<span class="bus_2">{{item.seriesName}}</span>
@@ -73,12 +73,12 @@
 									{{item.guidancePriceStart}}万起</span>
 							</div>
 						</div>
-						<div class="bus_n" v-else>
+						<!-- <div class="bus_n" v-else>
 							<div>
 								<img :src="'./../../../static/images/Wit/dingzi.png'" alt="">
 								<span class="bus_2">{{item.seriesName}}</span>
 							</div>
-						</div>
+						</div> -->
 					</li>
 				</ul>
 			</div>
@@ -426,7 +426,8 @@ textarea::-webkit-input-placeholder {
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  margin-top: 0.4rem;
+  height: .88rem;
+  line-height: .78rem;
 }
 
 .ul_list_1 {
@@ -439,7 +440,6 @@ textarea::-webkit-input-placeholder {
 .li_list {
   display: flex;
   flex-direction: column;
-  width: 1.02rem;
   align-items: center;
 }
 
@@ -451,7 +451,7 @@ textarea::-webkit-input-placeholder {
 
 .li_list span {
   text-align: center;
-  font-size: 0.22rem;
+  font-size: 0.28rem;
   padding-top: .2rem;
   color: #49bbff;
 }
@@ -459,7 +459,7 @@ textarea::-webkit-input-placeholder {
 .wrapper {
   position: absolute;
   /* top: 2.58rem; */
-  top: 1.8rem;
+  top: 1.6rem;
   left: 0;
   right: 0;
   bottom: 0;
