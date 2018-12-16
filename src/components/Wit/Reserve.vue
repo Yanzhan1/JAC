@@ -74,6 +74,14 @@
                               <img src="../../../static/images/next@2x.png" alt="">
                           </div>
                       </li>
+                      <li class="all">
+                          <span>预付定金</span>
+                          <img  style="width:.3rem;height:.3rem;position:absolute;left:1.6rem;" src="./../../../static/images/Lovecar/question.png" alt="">
+                          <div class="allflex" @click="gopay">
+                              <span style="margin-right:.2rem;">2000元</span>
+                              <img src="../../../static/images/next@2x.png" alt="">
+                          </div>
+                      </li>
                   </ul>
                   <!-- <span class='Remarks'>备注说明：</span>
                   <textarea placeholder="输入文本..." v-model="beizhu"></textarea> -->
@@ -122,6 +130,7 @@ export default {
   },
   data() {
     return {
+      pushmoney:'2000元',
       num:0,
       region: false,
       distributors: false,
@@ -463,6 +472,11 @@ export default {
         }
       });
     },
+    gopay(){
+       this.$router.push({
+         path:'/wit/Earnest'
+       });
+    },
     //选择省
     onValuesChange(picker, values) {
       this.num++;
@@ -597,10 +611,14 @@ export default {
       //拼接
       Pikante(){
         let vehicleData=this.$route.query.vehicleData
+        console.log(vehicleData)
         if(vehicleData[3]==undefined){
           this.vehicleData=vehicleData[0]+','+vehicleData[1]+','+vehicleData[2]
+        }else if(vehicleData[2]==undefined){
+          this.vehicleData=vehicleData[0]+','+vehicleData[1]
         }else{
           this.vehicleData=vehicleData[0]+','+vehicleData[1]+','+vehicleData[2]+','+vehicleData[3]
+
         }
       }
   },
@@ -654,6 +672,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 0.28rem;
+  position: relative;
   height: 1rem;
   line-height: 0.28rem;
   font-size: 0.28rem;

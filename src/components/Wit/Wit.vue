@@ -8,11 +8,11 @@
 
 			<ul class="ul_list">
 				<li class="li_list" @click="fn()">
-					<img style="width:.56rem;height:.48rem" src="../../../static/images/Wit/withouse.png" alt="">
+					<!-- <img style="width:.56rem;height:.48rem" src="../../../static/images/Wit/withouse.png" alt=""> -->
 					<span>经销商</span>
 				</li>
 				<li class="li_list" @click="search_net()">
-					<img style="width:.52rem;height:.56rem" src="../../../static/images/Wit/witrepair.png" alt="">
+					<!-- <img style="width:.52rem;height:.56rem" src="../../../static/images/Wit/witrepair.png" alt=""> -->
 					<span>维保网点</span>
 				</li>
 			<!-- <li class="li_list" @click="pre_weib()">
@@ -20,7 +20,7 @@
 					<span>维保预约</span>
 				</li> -->
 				<li class="li_list" @click="confirmRevise">
-					<img style="width:.56rem;height:.52rem" src="../../../static/images/Wit/witrescue.png" alt="">
+					<!-- <img style="width:.56rem;height:.52rem" src="../../../static/images/Wit/witrescue.png" alt=""> -->
 					<span>道路救援</span>
 				</li>
 			</ul>
@@ -458,7 +458,8 @@ textarea::-webkit-input-placeholder {
 
 .wrapper {
   position: absolute;
-  top: 2.58rem;
+  /* top: 2.58rem; */
+  top: 2rem;
   left: 0;
   right: 0;
   bottom: 0;

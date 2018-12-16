@@ -6,12 +6,12 @@
         <img src="../../../static/images/my/mine_message@2x.png" alt="" @click="tonews()">
       </div>
       <div class="mytophead flex between cocenter">
-        <div style="padding-left: 0.3rem;padding-right: 0.2rem" class="flex cocenter">
+        <div style="padding-left: 0.3rem;padding-right: 0.2rem;position:relative" class="flex cocenter">
           <div @click="edict()" style="width: 1.2rem;height: 1.2rem;border-radius:50%;overflow:hidden">
             <img v-if="Personal.headUrl" :src="Personal.headUrl" alt="" style="width:100%;height:100%">
             <img v-else src="../../../static/images/discover/normalhead.png" alt="" style="width:100%;height:100%">
           </div>
-
+          <img v-show="this.imgV" class="signimg" :src="'./../../../static/images/my/signv.png'" alt="">
           <div class="flex column" style="margin-left: 0.2rem;">
             <div class="flex cocenter" style="overflow: hidden">
               <span v-if="Personal.userName" style="color: #fff;font-size: 0.32rem;font-weight: bold">{{Personal.userName}}</span>
@@ -147,6 +147,7 @@ export default {
       focusNum: 0,
       momentNum: 0,
       myList: [],
+      imgV:'',//控制V图片是否展示
       num: "", //添加的积分量
       flag: false, //隐藏推荐码
       url: "",
@@ -218,7 +219,12 @@ export default {
     },
     //编辑个人信息
     edict() {
-      this.$router.push("/edictperson");
+      this.$router.push({
+        path: "/edictperson",
+        query: {
+          imgV:this.imgV
+        }
+      });
     },
     //消息
     tonews() {
@@ -307,6 +313,13 @@ export default {
       this.$http.post(My.UserInfo, param).then(res => {
         if (res.data.code == 0) {
           this.Personal = res.data.data;
+          for( let val of this.Personal.entitys){
+              if(val.entity=='V'){
+                this.imgV=true
+              }else{
+                this.imgV=false
+              }
+          }
         }
       });
     },
@@ -437,6 +450,14 @@ export default {
   font-size: 0.28rem;
   color: #fff;
   background: linear-gradient(to right, #79bff9, #2099ff);
+}
+.signimg{
+  display: block;
+  /* width: .4rem;
+  height: .4rem; */
+  position: absolute;
+  top: .8rem;
+  left: 1.05rem;
 }
 .btns {
   width: 1.8rem;
