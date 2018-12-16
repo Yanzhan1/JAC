@@ -11,7 +11,7 @@
             <img v-if="Personal.headUrl" :src="Personal.headUrl" alt="" style="width:100%;height:100%">
             <img v-else src="../../../static/images/discover/normalhead.png" alt="" style="width:100%;height:100%">
           </div>
-          <img v-show="this.imgV" class="signimg" src="../../../static/images/my/signv.png" alt="">
+          <img v-show="this.imgV" class="signimg" src="../../../static/images/my/signVV.png" alt="">
           <div class="flex column" style="margin-left: 0.2rem;">
             <div class="flex cocenter" style="overflow: hidden">
               <span v-if="Personal.userName" style="color: #fff;font-size: 0.32rem;font-weight: bold">{{Personal.userName}}</span>
