@@ -426,7 +426,7 @@ textarea::-webkit-input-placeholder {
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  margin-top: 0.8rem;
+  margin-top: 0.4rem;
 }
 
 .ul_list_1 {
@@ -459,7 +459,7 @@ textarea::-webkit-input-placeholder {
 .wrapper {
   position: absolute;
   /* top: 2.58rem; */
-  top: 2rem;
+  top: 1.8rem;
   left: 0;
   right: 0;
   bottom: 0;
