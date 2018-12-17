@@ -394,7 +394,7 @@ export default {
       if(this.provinceid==''){
           for(let value of this.myaddress){
             if(value.name==this.localprovince){
-              this.provinceid=value.code
+              this.provinceid=value.id
             }
           }
              var data = {
