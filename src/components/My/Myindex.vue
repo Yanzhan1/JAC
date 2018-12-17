@@ -11,11 +11,14 @@
             <img v-if="Personal.headUrl" :src="Personal.headUrl" alt="" style="width:100%;height:100%">
             <img v-else src="../../../static/images/discover/normalhead.png" alt="" style="width:100%;height:100%">
           </div>
+          <!-- 控制V图标的展示 -->
           <img v-show="this.imgV" class="signimg" :src="Vimg" alt="">
           <div class="flex column" style="margin-left: 0.2rem;">
             <div class="flex cocenter" style="overflow: hidden">
               <span v-if="Personal.userName" style="color: #fff;font-size: 0.32rem;font-weight: bold">{{Personal.userName}}</span>
               <span v-else style="color: #fff;font-size: 0.32rem;font-weight: bold">尚未设置昵称</span>
+              <!-- 控制jac图标的展示 -->
+              <div class="jacshow" >JAC</div>
               <img v-if="Personal.sex==1" src="../../../static/images/my/gender_man@2x.png" alt="" style="width: 0.28rem;height: 0.28rem">
               <img v-if="Personal.sex==2" src="../../../static/images/my/gender_woman.png" alt="" style="width: 0.28rem;height: 0.28rem">
             </div>
@@ -134,7 +137,7 @@
 
 <script>
 import { Popup } from "mint-ui";
-import Vimg from "../../../static/images/my/signVV.png"
+import Vimg from "../../../static/images/my/signVV.png";
 export default {
   name: "Myindex",
   data() {
@@ -148,8 +151,9 @@ export default {
       focusNum: 0,
       momentNum: 0,
       myList: [],
-      Vimg,//V图片
-      imgV:'',//控制V图片是否展示
+      Vimg, //V图片
+      imgV: "", //控制V图片是否展示
+      imgJac: false, //控制jac是否展示
       num: "", //添加的积分量
       flag: false, //隐藏推荐码
       url: "",
@@ -224,7 +228,7 @@ export default {
       this.$router.push({
         path: "/edictperson",
         query: {
-          imgV:this.imgV
+          imgV: this.imgV
         }
       });
     },
@@ -234,9 +238,8 @@ export default {
     },
     ton() {
       if (isMobile.iOS()) {
-        window.webkit.messageHandlers.gotoOnlineWeb.postMessage()
+        window.webkit.messageHandlers.gotoOnlineWeb.postMessage();
       } else if (isMobile.Android()) {
-        
         js2android.gotoOnlineWeb();
       }
 
@@ -255,9 +258,7 @@ export default {
         js2android.scan();
       }
     },
-    getStatus(pp){
-        
-    },
+    getStatus(pp) {},
 
     // //获取原生的no和token
     // getTokenAndNo() {
@@ -315,12 +316,15 @@ export default {
       this.$http.post(My.UserInfo, param).then(res => {
         if (res.data.code == 0) {
           this.Personal = res.data.data;
-          console.log(this.Personal)
-          for( let val of this.Personal.entitys){
-              if(val.entity=='V'){
-                console.log('进入')
-                this.imgV=true
-              }
+          console.log(this.Personal);
+          for (let val of this.Personal.entitys) {
+            if (val.entity == "V") {
+              console.log("进入");
+              this.imgV = true;
+            }
+            if (val.entity == "JAC") {
+              this.imgJac = true;
+            }
           }
         }
       });
@@ -431,7 +435,7 @@ export default {
     this.myNum();
     this.IsSign(); //判断是否签到
     this.total(); //h获取用户总积分
-    window.getStatus=this.getStatus
+    window.getStatus = this.getStatus;
   }
 };
 </script>
@@ -453,12 +457,12 @@ export default {
   color: #fff;
   background: linear-gradient(to right, #79bff9, #2099ff);
 }
-.signimg{
+.signimg {
   display: block;
   /* width: .4rem;
   height: .4rem; */
   position: absolute;
-  top: .8rem;
+  top: 0.8rem;
   left: 1.05rem;
 }
 .btns {
@@ -611,5 +615,18 @@ export default {
   font-size: 0.28rem;
   color: #555555;
   margin-left: 0.2rem;
+}
+.jacshow {
+  margin-left: 0.1rem;
+  width: 0.7rem;
+  height: 0.35rem;
+  line-height: 0.35rem;
+  text-align: center;
+  border: 0.02rem solid #fff;
+  border-radius: 0.04rem;
+  color: #fff;
+  font-size: 0.1rem;
+  font-family: "PingFang-SC-Regular";
+  font-weight: 400;
 }
 </style>
