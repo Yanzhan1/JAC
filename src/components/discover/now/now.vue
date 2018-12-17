@@ -17,6 +17,8 @@
                 <div @click="changeUserStartId(item.user.user_id)">
                   <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="head_72" />
                   <img v-else src="../../../../static/images/discover/normalhead.png" class="head_72" />
+                  <!--加V-->
+                  <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../../static/images/discover/v.png" class="head_22"/>
                 </div>
               </div>
               <div class="user_info">
@@ -395,5 +397,11 @@
 <style scoped>
   @import "./../../../../static/css/discover/all.css";
   @import "./../../../../static/css/discover/detail.css";
-
+  .head_22{
+    width: 0.2rem !important;
+    height: 0.2rem !important;
+    position: relative;
+    right: -0.54rem;
+    bottom: 0.12rem;
+  }
 </style>

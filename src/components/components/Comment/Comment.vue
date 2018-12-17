@@ -121,5 +121,4 @@
 
 <style scoped>
   @import "../../../../static/css/discover/detail.css";
-
 </style>

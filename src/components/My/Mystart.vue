@@ -15,10 +15,17 @@
       <div class="wrapbg">
         <img v-if="userInfo && userInfo.headUrl" :src="userInfo.headUrl" alt="">
         <img v-else src="../../../static/images/discover/normalhead.png" />
+        <!--加V-->
+        <img v-if="userInfo && vFlag" src="../../../static/images/discover/v.png" class="head_22"/>
       </div>
       <div class="user_info">
         <p class="font_36 mb_16">
           {{userInfo.userName}}</p>
+        <!--加V-->
+        <div class="tagstopbottom flex" v-if="userInfo.entitys">
+          <div v-for="item in userInfo.entitys" class="tags">{{item.entity}}</div>
+        </div>
+        <div style="clear: both"></div>
         <p class="font_24fff">{{userInfo.personalSignature}}</p>
         <div class="mytopbottom flex around">
           <div>
@@ -49,6 +56,8 @@
             <div @click="changeUserStartId(item.user.user_id)">
               <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="head_72" />
               <img v-else src="../../../static/images/discover/normalhead.png" class="head_72" />
+              <!--加V-->
+              <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../static/images/discover/v.png" class="head_list"/>
             </div>
           </div>
           <div class="user_info">
@@ -137,7 +146,8 @@
         rightPic: true,
         bgImgHeight: 0,
         title: '',
-        isShow: true
+        isShow: true,
+        vFlag: false
       }
     },
     components: {},
@@ -172,6 +182,11 @@
         }).then(function (res) {
           if (res.data.code == 0) {
             _this.userInfo = res.data.data;
+            for(var item in _this.userInfo.entitys){
+              if(_this.userInfo.entitys[item].entity.indexOf('V') != -1){
+                _this.vFlag = true;
+              }
+            }
           }
         });
       },
@@ -406,5 +421,35 @@
   .box {
     height: 0.88rem;
   }
-
+  .head_22{
+    width: 0.4rem !important;
+    height: 0.4rem !important;
+    position: relative;
+    right: 0.48rem;
+  }
+  .head_list{
+    width: 0.2rem !important;
+    height: 0.2rem !important;
+    position: relative;
+    right: -0.54rem;
+    bottom: 0.1rem;
+  }
+  .tags{
+    border-radius: 0.08rem;
+    border: 0.02rem solid #fff;
+    padding: 0 0.1rem;
+    height: 0.44rem;
+    line-height: 0.44rem;
+    color: #fff;
+    float: left;
+    margin: 0 0.15rem;
+  }
+  .tagstopbottom{
+    padding-bottom: 0.3rem;
+    width: 84%;
+    margin: 0 auto;
+  }
+  .startbg .wrapbg{
+    padding-left: 0.4rem;
+  }
 </style>
