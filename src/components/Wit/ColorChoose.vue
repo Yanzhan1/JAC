@@ -16,7 +16,7 @@
           <span class="smallTitle">车型</span>
           <span class="smallTitle">颜色</span>
           <span class="smallTitle">轮辋</span>
-          <span class="smallTitle one">选配</span>
+          <span class="smallTitle one">选装</span>
         </div>
       </div>
       <div class="headerHeight2"></div>
