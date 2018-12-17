@@ -610,7 +610,7 @@
     bottom: 0.1rem;
   }
   .tags{
-    border-radius: 0.08rem;
+    border-radius: 0.1rem;
     border: 0.02rem solid #fff;
     padding: 0 0.1rem;
     height: 0.44rem;
