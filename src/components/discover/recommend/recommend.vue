@@ -24,7 +24,7 @@
               </p>
 
               <div class="listPic312">
-                <my-video ref="myVideo" :index="index" :imgUrl="item.imgUrl" :manageBody="item.manageBody"
+                <my-video ref="myVideo" :index="index" :imgUrl="item.pictureUrl" :manageBody="item.manageBody"
                   @addPageviews="addPageviews" @closeOther="closeOther"></my-video>
               </div>
 
