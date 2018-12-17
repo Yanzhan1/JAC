@@ -627,5 +627,6 @@ export default {
   color: #fff;
   font-size: 0.1rem;
   -webkit-transform: scale(0.75);
+  -o-transform: scale(.75)
 }
 </style>

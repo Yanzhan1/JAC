@@ -5,7 +5,7 @@
       <div class="contentList">
         <span class="contentList-left">头像</span>
         <div class="contentList-right">
-          <img class="imgVa" :src="'./../../../static/images/my/signv.png'" alt="">
+          <img v-show="this.$route.query.imgV" class="imgVa" :src="Vimg" alt="">
           <div style="width:.76rem;height:.76rem">
             <img   id="img" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem;border-radius:50%">
           </div>
@@ -78,6 +78,7 @@
 import { MessageBox } from "mint-ui";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
+import Vimg from "../../../static/images/my/signVV.png";
 import PublicHead from '../publicmodel/PublicHead';
 export default {
 	name: 'edictPerson',
@@ -88,6 +89,7 @@ export default {
     return {
       popupVisible: false,
       sex: 1, //1男，0女
+      Vimg,
       userInfo: {
       //  headUrl: "../../../static/images/my/qq.png"
       }, //展示用户信息
