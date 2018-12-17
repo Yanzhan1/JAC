@@ -64,7 +64,7 @@
 						</div>
 						<div class="bus_1">
 							<div>
-								<img src="../../../static/images/Wit/dingzi.png" alt="">
+								<img :src="Dingzi" alt="">
 								<span class="bus_2">{{item.seriesName}}</span>
 							</div>
 							<div>
@@ -135,6 +135,7 @@
 </template>
 <script>
 import { MessageBox } from "mint-ui";
+import Dingzi from "../../../static/images/Wit/dingzi.png"
 import Bscroll from "better-scroll";
 export default {
   data() {
@@ -143,6 +144,7 @@ export default {
       mainbus: {}, //主推车型
       sheetVisible: true,
       flag: false,
+      Dingzi,
       latitude: "", //精度
       longitude: "", //维度
       tt: {},

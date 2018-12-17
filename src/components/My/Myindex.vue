@@ -11,7 +11,7 @@
             <img v-if="Personal.headUrl" :src="Personal.headUrl" alt="" style="width:100%;height:100%">
             <img v-else src="../../../static/images/discover/normalhead.png" alt="" style="width:100%;height:100%">
           </div>
-          <img v-show="this.imgV" class="signimg" src="../../../static/images/my/signVV.png" alt="">
+          <img v-show="this.imgV" class="signimg" :src="Vimg" alt="">
           <div class="flex column" style="margin-left: 0.2rem;">
             <div class="flex cocenter" style="overflow: hidden">
               <span v-if="Personal.userName" style="color: #fff;font-size: 0.32rem;font-weight: bold">{{Personal.userName}}</span>
@@ -134,6 +134,7 @@
 
 <script>
 import { Popup } from "mint-ui";
+import Vimg from "../../../static/images/my/signVV.png"
 export default {
   name: "Myindex",
   data() {
@@ -147,6 +148,7 @@ export default {
       focusNum: 0,
       momentNum: 0,
       myList: [],
+      Vimg,//V图片
       imgV:'',//控制V图片是否展示
       num: "", //添加的积分量
       flag: false, //隐藏推荐码
