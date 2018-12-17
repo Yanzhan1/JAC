@@ -618,12 +618,12 @@ export default {
 }
 .jacshow {
   margin-left: 0.1rem;
-  width: 0.7rem;
-  height: 0.35rem;
-  line-height: 0.35rem;
+  width: 0.88rem;
+  height: 0.36rem;
+  line-height: 0.36rem;
   text-align: center;
   border: 0.02rem solid #fff;
-  border-radius: 0.04rem;
+  border-radius: 0.1rem;
   color: #fff;
   font-size: 0.1rem;
   -webkit-transform: scale(0.75);
