@@ -90,7 +90,7 @@
                 尚未设置昵称
               </div>
               <div class="operation_comment">
-                <div>
+                <div v-if="item.deleteFlag == 0">
                   <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="w_04 mr_16 v_m f_left"
                     @click="giveCommentLike(item.id,index)" />
                   <img v-else src="../../../../static/images/discover/zan.png" class="w_04 mr_16 v_m f_left" @click="removeCommentLike(item.id,index)" />
