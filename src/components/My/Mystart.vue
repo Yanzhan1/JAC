@@ -67,6 +67,7 @@
             <div v-else class="user_name">
               尚未设置昵称
             </div>
+            <span v-if="item.user && item.user.vflag.indexOf('JAC') != -1" class="jac">JAC</span>
             <div class="user_date">
               {{item.createDate}}
             </div>
@@ -448,8 +449,10 @@
     padding-bottom: 0.3rem;
     width: 84%;
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
   }
-  .startbg .wrapbg{
+  /*.startbg .wrapbg{
     padding-left: 0.4rem;
-  }
+  }*/
 </style>

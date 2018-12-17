@@ -22,6 +22,7 @@
           <div v-else class="user_name">
             尚未设置昵称
           </div>
+          <span v-if="item.user && item.user.vflag.indexOf('JAC') != -1" class="jac">JAC</span>
           <div class="operation_comment">
             <div v-if="item.deleteFlag == 0">
               <img v-if="item.likeStatus" src="../../../static/images/discover/nozan.png" class="w_04 mr_16 v_m f_left"
