@@ -625,8 +625,8 @@ export default {
   border: 0.02rem solid #fff;
   border-radius: 0.1rem;
   color: #fff;
-  font-size: 0.1rem;
-  -webkit-transform: scale(0.75);
-  -o-transform: scale(.75)
+  font-size: 0.2rem;
+  /* -webkit-transform: scale(0.75);
+  -o-transform: scale(.75) */
 }
 </style>
