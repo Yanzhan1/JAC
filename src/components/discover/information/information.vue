@@ -17,12 +17,10 @@
                 {{item.manageTitle.slice(0,46)}}
                 <span v-if="item.manageTitle.length>46">...</span>
               </p>
-
               <div class="listPic312">
                 <my-video ref="myVideo" :index="index" :imgUrl="item.imgUrl" :manageBody="item.manageBody"
                   @addPageviews="addPageviews" @closeOther="closeOther"></my-video>
               </div>
-
             </div>
             <div class="listIconInfo">
               <!--阅读数量-->
@@ -344,7 +342,6 @@
       // }
     },
     mounted() {
-      //    	alert(11)
       console.log('information')
       this.$nextTick(function () {
         this.getRefreshList()

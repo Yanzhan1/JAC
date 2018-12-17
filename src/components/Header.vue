@@ -147,9 +147,6 @@
       //埋点
       addPoint: function (flag) {
         var _this = this;
-        console.log(_this.$store.state.userId+"这里是userId")
-        console.log(_this.$store.state.uuid+"这里是uuid")
-        console.log(flag)
         this.$http.post(POINT.addpoint, {
           "uid": _this.$store.state.userId,
           "id":'',
@@ -178,7 +175,6 @@
         this.popup = true
       },
       confirm: function () {
-        console.log("this.picked", this.picked)
         this.popup = false
         if (this.picked) {
           this.$store.dispatch('selectLabelState', [this.picked]);

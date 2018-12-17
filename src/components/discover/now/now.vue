@@ -52,6 +52,8 @@
             <!--发布者信息E-->
             <div @click="toDetail(item.id)" class="listTitleInfo">{{item.momentMessage}}</div>
             <div class="pics" v-if="item.momentImgList">
+              <!--加精华-->
+              <img v-if="item.supreme==1" src="../../../../static/images/discover/jinghua.png" class="jinghua"/>
               <div v-if="item.momentImgList.length==1" v-for="imgItem in item.momentImgList">
                 <img @click="toDetail(item.id)" :src="imgItem" class="pic1" />
               </div>
@@ -82,7 +84,6 @@
               <span class="f_right">{{item.likeNum}}</span>
               <img v-if="item.likeStatus==0" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveMomentLike(item.id,index)" />
               <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeMomentLike(item.id,index)" />
-              <span v-if="item.supreme==1" style="color: orange;margin-right: 0.16rem;" class="f_right">精品</span>
             </div>
             <!--阅读数量,是否点赞以及点赞数量E-->
           </div>
@@ -403,5 +404,11 @@
     position: relative;
     right: -0.54rem;
     bottom: 0.12rem;
+  }
+  .jinghua{
+    width: 1.12rem !important;
+    height: 1.12rem !important;
+    position: absolute;
+    right: 0;
   }
 </style>

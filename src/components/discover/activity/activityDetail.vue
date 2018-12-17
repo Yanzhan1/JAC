@@ -92,6 +92,8 @@
         <span style="float: right;" v-if="item.user && self(item.user.user_id)" @click="deletePic(item.id)">删除</span>
       </div>
       <div v-if="item.showImgList && item.showImgList.length>0 && item.showImgList!=''" @click="toDetail(item.id)">
+        <!--加精华-->
+        <img v-if="item.supreme==1" src="../../../../static/images/discover/jinghua.png" class="jinghua"/>
         <div v-if="item.showImgList.length==1">
           <img :src="item.showImgList[0]" class="shaitu1" style="object-fit: cover;">
         </div>
@@ -578,5 +580,10 @@
     display: none;
     opacity: 0.2
   }
-
+  .jinghua{
+    width: 1.12rem !important;
+    height: 1.12rem !important;
+    position: absolute;
+    right: 4%;
+  }
 </style>
