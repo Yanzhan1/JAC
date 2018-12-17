@@ -33,7 +33,7 @@
 		<div class="score-textarea">
 			<div class="greater">
 				<transition-group tag="div" class="greater-wrap" :css="false" @before-enter="beforeEnter" @enter="enter" @leave="leave">
-					<button v-for="(item, index) in questionList" v-show="evaluatePoint <= 2" @click="toggleClass(index)" :class="{active: checkIndex(index)}" :key="index" :data-index="index">{{item}}</button>
+					<button v-for="(item, index) in questionList" v-show="evaluatePoint <= 2" @click="toggleClass(item.dictValue)" :class="{active: checkIndex(item.dictValue)}" :key="index" :data-index="index">{{item.dictValue}}</button>
 				</transition-group>
 
 			</div>
@@ -72,36 +72,59 @@
 				servicePoin: '', //服务得分
 				repairePoin: '', //维修得分
 				introduction: '', //问题收集输入文本
-				questionList: ['时间过长', '维保质量低', '收费不合理', '人员态度恶劣', '问题解释不清', '休息区不舒适', '进/出站不方便'], //问题列表
-				nowIndex: [], //多选问题列表
+				questionList: [], //问题列表,展示用
+				nowIndex: [], //多选问题列表内容(数组形式)
+				question: '', //真正传给后台的内容,要求字符串形式
 				popupVisible: false, //控制提示状态变量,false消失, true显现
-				screenHeight: $(window).height()
+				screenHeight: $(window).height(),
 			}
 		},
 		methods: {
+			init() { //获取问题列表
+				var data = {
+					dictType: 'branches_evaluation'
+				}
+				this.$http.post(My.searchSysDictTypeList, data).then(res => {
+						const data = res.data;
+						if(data.code == 0) {
+							this.questionList = data.data[0].sysDictDataVOs
+						} else {
+							Toast({
+								message: "服务器内部错误",
+								position: "middle",
+								duration: 2000
+							})
+						}
+					})
+					.catch(err => {
+						Toast({
+							message: "系统异常",
+							position: "middle",
+							duration: 2000
+						})
+					})
+			},
 			evaluate(value) { //总体评价
-				//				console.log('总体评价' + value + '分')
 				this.evaluatePoint = value
 			},
 			service(value) { //服务分
-				//				console.log('服务' + value + '分')
 				this.servicePoin = value
 			},
 			repair(value) { //维修分
-				//				console.log('维修' + value + '分')
 				this.repairePoin = value
 			},
-			toggleClass(index) { //多选问题
-				if(this.nowIndex.indexOf(index) == -1) {
-					this.nowIndex.push(index)
+			toggleClass(value) { //多选问题
+				if(this.nowIndex.indexOf(value) == -1) {
+					this.nowIndex.push(value)
+					this.question = this.nowIndex.join(',')
 				} else {
-					this.nowIndex = this.nowIndex.filter((inx) => {
-						return inx != index
+					this.nowIndex = this.nowIndex.filter((val) => {
+						return val != value
 					})
 				}
 			},
-			checkIndex(index) { //返回数组中有的下标
-				return this.nowIndex.indexOf(index) != -1
+			checkIndex(value) { //返回数组中有的下标
+				return this.nowIndex.indexOf(value) != -1
 			},
 			changeFocus() { //处理ios机型fixed布局失效
 				var u = navigator.userAgent,
@@ -110,7 +133,6 @@
 				var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
 				if(isIOS) {
 					var docheight = $(window).height() - 1; //ios使用resize监听屏幕高度与安卓不一样,把软键盘高度依然算在了屏幕内,手动减值,触发判断
-					console.log('IOS resize后高度:' + docheight)
 					if(docheight < this.screenHeight) {
 						$('.btn').css('position', 'static')
 						$(".score-time").css("bottom", "0.24rem"); //解决数字计数器bug
@@ -123,26 +145,60 @@
 					var docheight = $(window).height();
 					console.log('Android resize后高度:' + docheight)
 					if(docheight < this.screenHeight) {
-//						$('.btn').css('position', 'fixed')
-//						$(".score-time").css("bottom", "1.14rem");
+						//						$('.btn').css('position', 'fixed')
+						//						$(".score-time").css("bottom", "1.14rem");
 					} else {
 						$(".score-time").css("bottom", "0.24rem");
 					}
 				}
 			},
 			submitScore() { //提交评分
-				if(this.evaluatePoint == 5 || this.servicePoin == '' || this.repairePoin == '') {
+				var self = this;
+				if(self.evaluatePoint == 5 || self.servicePoin == '' || self.repairePoin == '') {
 					Toast({
 						message: '网点星级评分不能为空',
 						position: 'middle',
 						duration: 1000
 					});
 					return
-				} else if(this.evaluatePoint <= 2 && this.nowIndex.length == 0) {
-					this.popupVisible = true
+				} else if(self.evaluatePoint <= 2 && self.nowIndex.length == 0) {
+					self.popupVisible = true
 					return
 				} else {
-					console.log('111')
+					var data = {
+						brandNo: 'VB2018071807034444249',
+						evaluationOne: self.evaluatePoint,
+						evluationThree: self.servicePoin,
+						evluationTwo: self.repairePoin,
+						notSatisfiedReason: self.question,
+						recordNo: "AU182139219837218",
+						userNo: "AD022018091010154751445",
+						remark: self.introduction
+					}
+					self.$http.post(My.addBranchesEvaluation, data).then(res => {
+							const data = res.data
+							if(data.code == 0) {
+								Toast({
+									message: "评价成功",
+									position: "middle",
+									duration: 2000
+								})
+							} else {
+								Toast({
+									message: data.msg,
+									position: "middle",
+									duration: 2000
+								})
+								this.chooseFlag = true
+							}
+						})
+						.catch(err => {
+							Toast({
+								message: '系统异常',
+								position: "middle",
+								duration: 2000
+							})
+						})
 				}
 			},
 			beforeEnter(el) { //动画
@@ -164,28 +220,16 @@
 			},
 			leave(el, done) {
 				var delay = el.dataset.index * 200
-				//				setTimeout(function() {
-				/*Velocity(
-					el, {
-						opacity: [ 0, "easeInSine", 1],
-						translateX: ['100%', 0]
-					}, {
-						complete: done
-					}
-				)*/
-				//				}, delay)
-				//					setTimeout ( () => {
 				Velocity(el, "transition.bounceUpOut", { //可选slideUp
 					duration: 500,
 					complete: done
 				})
-				//					}, delay)
 
 			},
 		},
 		mounted() {
-			console.log('初次进入页面高度:' + this.screenHeight)
 			window.addEventListener('resize', this.changeFocus)
+			this.init()
 		},
 		beforeDestroy() {
 			window.removeEventListener('resize', this.changeFocus)

@@ -4,9 +4,9 @@
 // console.log(`执行环境${apiHost}`)
 // var indexip = `${apiHost}/api/dk-dm-portal-api`
 // //测试环境域名
-// var host = '//test.jac.timanetwork.net'
-//生产环境域名403
 var host = '//test.jac.timanetwork.net'
+    //生产环境域名403
+    // var host = '//jacsupperapp.jac.com.cn'
 var indexip = host + '/api/dk-dm-portal-api'
 var focusip = host + '/api/dk-pr-svr' //uat
 var point = 'http://192.168.1.141:8868' //埋点
@@ -164,7 +164,9 @@ window.My = {
         addintegralRealName: host + '/api/pluto-membership/pluto-membership/integral-gather/addintegral-realName', //保存个人信息,增加积分
         orderList: host + '/api/pluto-membership/mall/information/orderList', //商城订单
         orderDetail: host + '/api/pluto-membership/mall/information/orderDetail', //商城订单详细
-        getwords: mips + 'admin/sysDictType/searchSysDictTypeList' //获取所有提示语
+        getwords: mips + 'admin/sysDictType/searchSysDictTypeList', //获取所有提示语
+        searchSysDictTypeList: mips + '/admin/sysDictType/searchSysDictTypeList', //网点评分列表
+        addBranchesEvaluation: mip + '/branchesEvaluation/addBranchesEvaluation', //提交评分
 
     }
     //爱车

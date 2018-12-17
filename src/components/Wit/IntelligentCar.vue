@@ -136,7 +136,7 @@
 				contentTraffic: false, //路况筛选列表状态, false消失,true展现 
 				typeCarSelect: false, //车型选择标识符
 				driveSelect: false, //驱动选择标识符
-				filterList: {  //点击筛选列表,存入到该对象
+				filterList: { //点击筛选列表,存入到该对象
 					carType: ''
 				}, //筛选记录对象
 				chooseList: [{
@@ -158,11 +158,11 @@
 				], //选择列表
 				chooseListTwo: [{
 						type: 1,
-						con: '农副散杂'
+						con: '楼房建筑渣土、垃圾、土方、砂石料等'
 					},
 					{
 						type: 2,
-						con: '冷链'
+						con: '矿石、矿粉、砂石料、煤炭'
 					},
 					{
 						type: 3,
@@ -292,7 +292,7 @@
 					this.filterList.drive = ''
 					this.filterList.load = ''
 					this.filterList.traffic = ''
-					this.typeCarSelect = false  //车型不选,不让进入过滤模块
+					this.typeCarSelect = false //车型不选,不让进入过滤模块
 					Velocity($('.car-wrapper'), {
 						top: '1.88rem'
 					}, {
@@ -324,7 +324,7 @@
 						that.bagMask = true
 						typeImg.addClass('iconTrans').parent().siblings().find('.icon').removeClass('iconTrans') //当前箭头up,其它箭头down
 					} else {
-						if(that.contentTypeCar){  //还点击在该筛选title上的时候,关闭该筛选模块,背景和箭头
+						if(that.contentTypeCar) { //还点击在该筛选title上的时候,关闭该筛选模块,背景和箭头
 							that.contentTypeCar = false //车型筛选模块关闭
 
 							that.contentLoad = false
@@ -334,7 +334,7 @@
 
 							that.bagMask = false
 							typeImg.removeClass('iconTrans') //当前箭头down
-						}else{  //反向没有点击在该title上走一遍该title打开流程
+						} else { //反向没有点击在该title上走一遍该title打开流程
 							that.contentTypeCar = true //车型筛选模块打开
 
 							that.contentLoad = false
@@ -363,15 +363,13 @@
 							that.contentLoad = false
 							that.contentTraffic = false
 						}
-						
-
 					} else {
 						if(that.typeCarSelect == false) {
 							//								alert('请首先选择车型，才可进行条件筛选')
 							MessageBox.alert('请首先选择车型，才可进行条件筛选')
 							return
 						}
-						if(that.contentIndustry){  //正向第一次进入
+						if(that.contentIndustry) { //正向第一次进入
 							that.contentIndustry = false //行业筛选模块关闭
 
 							that.contentTypeCar = false
@@ -381,7 +379,7 @@
 
 							that.bagMask = false
 							industryImg.removeClass('iconTrans') //当前箭头down
-						}else{  //反向再次进入, 在另一个title进入的时候直接把其它筛选模块状态改为了false,再次进入需要走一次打开流程
+						} else { //反向再次进入, 在另一个title进入的时候直接把其它筛选模块状态改为了false,再次进入需要走一次打开流程
 							that.contentIndustry = true //行业筛选模块关闭
 
 							that.contentTypeCar = false
@@ -392,7 +390,6 @@
 							that.bagMask = true
 							industryImg.addClass('iconTrans').parent().siblings().find('.icon').removeClass('iconTrans') //当前箭头down
 						}
-
 					}
 					that.industryFlag = !that.industryFlag //区分打开关闭
 				} else if(value === 3) { //驱动
@@ -410,15 +407,13 @@
 							that.contentLoad = false
 							that.contentTraffic = false
 						}
-						
-
 					} else {
 						if(that.typeCarSelect == false) {
 							//								alert('请首先选择车型，才可进行条件筛选')
 							MessageBox.alert('请首先选择车型，才可进行条件筛选')
 							return
 						}
-						if(that.contentDrive){
+						if(that.contentDrive) {
 							that.contentDrive = false //驱动筛选模块关闭
 
 							that.contentTypeCar = false
@@ -428,7 +423,7 @@
 
 							that.bagMask = false
 							driveImg.removeClass('iconTrans') //当前箭头down
-						}else{
+						} else {
 							that.contentDrive = true //驱动筛选模块关闭
 
 							that.contentTypeCar = false
@@ -439,7 +434,6 @@
 							that.bagMask = true
 							driveImg.addClass('iconTrans').parent().siblings().find('.icon').removeClass('iconTrans') //当前箭头down
 						}
-
 					}
 					that.driveFlag = !that.driveFlag
 				} else if(value === 4) { //载重
@@ -460,19 +454,17 @@
 							that.contentDrive = false
 							that.contentTraffic = false
 						}
-						
-
 					} else {
 						if(that.typeCarSelect == false) {
 							//								alert('请首先选择车型，才可进行条件筛选')
 							MessageBox.alert('请首先选择车型，才可进行条件筛选')
 							return
 						}
-						if(that.driveSelect == false) {  //清除驱动的时候没有选择驱动,禁止进入
+						if(that.driveSelect == false) { //清除驱动的时候没有选择驱动,禁止进入
 							MessageBox.alert('需选择驱动来区分货物载重')
 							return
 						}
-						if(that.contentLoad){
+						if(that.contentLoad) {
 							that.contentLoad = false //载重筛选模块关闭
 
 							that.contentTypeCar = false
@@ -482,7 +474,7 @@
 
 							that.bagMask = false
 							loadImg.removeClass('iconTrans') //当前箭头down
-						}else{
+						} else {
 							that.contentLoad = true //载重筛选模块关闭
 
 							that.contentTypeCar = false
@@ -510,15 +502,13 @@
 							that.contentDrive = false
 							that.contentLoad = false
 						}
-						
-
 					} else {
 						if(that.typeCarSelect == false) {
 							//								alert('请首先选择车型，才可进行条件筛选')
 							MessageBox.alert('请首先选择车型，才可进行条件筛选')
 							return
 						}
-						if(that.contentTraffic){
+						if(that.contentTraffic) {
 							that.contentTraffic = false //路况筛选模块关闭
 
 							that.contentTypeCar = false
@@ -528,7 +518,7 @@
 
 							that.bagMask = false
 							trafficImg.removeClass('iconTrans') //当前箭头down
-						}else{
+						} else {
 							that.contentTraffic = true //路况筛选模块打开
 
 							that.contentTypeCar = false
@@ -569,8 +559,8 @@
 					duration: 200,
 					complete: function() {
 						that.filterList[key] = '',
-						that.$forceUpdate()
-						if (key == 'drive' && that.filterList['drive'] == '') {  //驱动筛选条件清除, 载重筛选条件也要消失
+							that.$forceUpdate()
+						if(key == 'drive' && that.filterList['drive'] == '') { //驱动筛选条件清除, 载重筛选条件也要消失
 							that.driveSelect = false
 							that.filterList['load'] = ''
 							that.$forceUpdate()
@@ -624,10 +614,12 @@
 
 <style scoped>
 	/*修改mint-ui自带的样式*/
-	.intelligent-car >>> .mint-msgbox  .mint-msgbox-message {
+	
+	.intelligent-car>>>.mint-msgbox .mint-msgbox-message {
 		text-align: center !important;
 	}
 	/*箭头动画*/
+	
 	.brain-power-title>div>.icon {
 		transition: transform .25s linear;
 	}
@@ -718,34 +710,38 @@
 		align-items: center;
 		width: 100%;
 		height: 1.2rem;
-		overflow-y: scroll;	
-		overflow-scrolling: touch;	
+		overflow-y: scroll;
+		overflow-scrolling: touch;
 	}
+	
 	.animate-box {
-    display: flex;
-    align-items: center;
-    height: 100%;
+		display: flex;
+		align-items: center;
+		height: 100%;
 		white-space: nowrap;
 	}
 	
 	.filte-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 0.6rem;
-    line-height: .6rem;
-    padding: 0 .2rem;
-    margin: .1rem;
-    background: #F5F5F5;
-    border-radius: .3rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 0.6rem;
+		line-height: .6rem;
+		padding: 0 .2rem;
+		margin: .1rem;
+		background: #F5F5F5;
+		border-radius: .3rem;
 	}
+	
 	.filte-item>span:nth-of-type(1) {
 		color: #B4B4B4;
 	}
+	
 	.filte-item>span:nth-of-type(2) {
 		color: #CCCCCC;
 		padding-left: .1rem;
 	}
+	/*筛选模块*/
 	
 	.filter-wrapper {
 		position: absolute;
