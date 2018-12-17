@@ -650,13 +650,13 @@
 }
 
 .jac{
-  color: #9E9E9E;
   display: inline;
   width: 1rem;
   height: 0.24rem;
   line-height: 0.24rem;
-  border-radius: 0.16rem;
+  border-radius: 0.1rem;
   border: 0.02rem solid #C2C2C2;
   padding: 0 0.1rem;
   font-size: 0.2rem;
+  color: #9E9E9E;
 }
