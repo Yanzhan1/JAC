@@ -55,10 +55,10 @@
 		created() {},
 		mounted() {
 			this.$nextTick(() => {
-				if(!this.scroll) {
+				/*if(!this.scroll) {
 					this.scroll = new BScroll(this.$refs.wrapper, {})
 					console.log(this.scroll)
-				}
+				}*/
 
 				this.scroll = new BScroll(this.$refs.wrapper, {
 					click: true
