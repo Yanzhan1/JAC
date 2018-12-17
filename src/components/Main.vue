@@ -27,7 +27,6 @@
       this.$http.interceptors.request.use((config) => {
         const params = config.method == 'post' ? config.data : config.params
         const arr = config.url.match(this.reg)
-        console.log(arr)
         // 在发送请求之前做些什么
         if (config.url == Lovecar.OperationId) {
           localshow()

@@ -188,8 +188,8 @@
   font-size: 0.32rem;
   color: #222222;
   line-height: 0.36rem;
-  width: 70%;
   float: left;
+  margin-right: 0.2rem;
 }
 .comment_userinfo .user_info .user_date{
   font-size: 0.24rem;
@@ -647,4 +647,16 @@
   font-size: 0.32rem;
   color: #F5F5F5;
   letter-spacing: 1px;
+}
+
+.jac{
+  color: #9E9E9E;
+  display: inline;
+  width: 1rem;
+  height: 0.24rem;
+  line-height: 0.24rem;
+  border-radius: 0.16rem;
+  border: 0.02rem solid #C2C2C2;
+  padding: 0 0.1rem;
+  font-size: 0.2rem;
 }

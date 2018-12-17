@@ -16,6 +16,8 @@
             <div @click="changeUserStartId(item.user.user_id)">
               <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="head_72" />
               <img v-else src="../../../static/images/discover/normalhead.png" class="head_72" />
+              <!--加V-->
+              <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../static/images/discover/v.png" class="head_list"/>
             </div>
           </div>
           <div class="user_info">
@@ -25,6 +27,7 @@
             <div v-else class="user_name">
               尚未设置昵称
             </div>
+            <span v-if="item.user && item.user.vflag.indexOf('JAC') != -1" class="jac">JAC</span>
             <div class="guanzhu">
               <div v-if="item.user && userId != item.user.user_id">
                 <div v-if="item.focusStatus == 0" @click="addFoucs(item.user.user_id,index)">
@@ -229,5 +232,11 @@
   .header {
     margin-left: -0.3rem;
   }
-
+  .head_list{
+    width: 0.2rem !important;
+    height: 0.2rem !important;
+    position: relative;
+    right: -0.54rem;
+    bottom: 0.1rem;
+  }
 </style>
