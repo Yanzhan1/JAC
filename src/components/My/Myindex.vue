@@ -315,11 +315,11 @@ export default {
       this.$http.post(My.UserInfo, param).then(res => {
         if (res.data.code == 0) {
           this.Personal = res.data.data;
+          console.log(this.Personal)
           for( let val of this.Personal.entitys){
               if(val.entity=='V'){
+                console.log('进入')
                 this.imgV=true
-              }else{
-                this.imgV=false
               }
           }
         }
