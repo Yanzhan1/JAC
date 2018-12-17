@@ -1,13 +1,13 @@
 <template>
   <div>
     <div @click="bgHide" id="bgShare" style="position: fixed; width: 100%;height: 100%;background: #000000; display: none;opacity: 0.2;top: 0;"></div>
-    
+
     <my-header :title="'社区详情'">
       <img slot="backfff" class="header-left" src="../../../../static/images/discover/backblue.png" @click="goBack(content.user.user_id)">
       <img slot="share" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
     </my-header>
 
-    <div style="width: 100%;height: 0.48rem;"></div>
+    <!--<div style="width: 100%;height: 0.48rem;"></div>-->
     <shareBox :index="0" :item="content" :flag="flag" :type="type" :isCenter="true" @closeShare="bgHide"></shareBox>
     <div class="wrap_92">
       <div class="top_14" style="margin-top: 0.52rem;">
@@ -17,6 +17,8 @@
             <div @click="changeUserStartId(content.user.user_id)">
               <img v-if="content.user && content.user.head_image" :src="content.user.head_image" />
               <img v-else src="../../../../static/images/discover/normalhead.png" />
+              <!--加V-->
+              <img v-if="content.user && content.user.vflag.indexOf('V') != -1" src="../../../../static/images/discover/v.png" class="head_22"/>
             </div>
           </div>
           <div class="user_info">
@@ -76,6 +78,8 @@
               <div @click="changeUserStartId(item.user.user_id)">
                 <img v-if="item.user && item.user.head_image" :src="item.user.head_image" />
                 <img v-else src="../../../../static/images/discover/normalhead.png" />
+                <!--加V-->
+                <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../../static/images/discover/v.png" class="head_list"/>
               </div>
             </div>
             <div class="user_info">
@@ -86,7 +90,7 @@
                 尚未设置昵称
               </div>
               <div class="operation_comment">
-                <div>
+                <div v-if="item.deleteFlag == 0">
                   <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="w_04 mr_16 v_m f_left"
                     @click="giveCommentLike(item.id,index)" />
                   <img v-else src="../../../../static/images/discover/zan.png" class="w_04 mr_16 v_m f_left" @click="removeCommentLike(item.id,index)" />
@@ -608,5 +612,19 @@
   @import "./../../../../static/css/discover/detail.css";
   .box {
     height: 0.88rem;
+  }
+  .head_22{
+    width: 0.2rem !important;
+    height: 0.2rem !important;
+    position: relative;
+    right: -0.54rem;
+    bottom: 0.12rem;
+  }
+  .head_list{
+    width: 0.2rem !important;
+    height: 0.2rem !important;
+    position: relative;
+    right: -0.54rem;
+    bottom: 0.1rem;
   }
 </style>

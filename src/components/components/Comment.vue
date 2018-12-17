@@ -11,6 +11,8 @@
               <img :src="item.user.head_image" />
             </span>
             <img v-else src="../../../static/images/discover/normalhead.png" />
+            <!--加V-->
+            <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../static/images/discover/v.png" class="head_list"/>
           </div>
         </div>
         <div class="user_info">
@@ -21,7 +23,7 @@
             尚未设置昵称
           </div>
           <div class="operation_comment">
-            <div>
+            <div v-if="item.deleteFlag == 0">
               <img v-if="item.likeStatus" src="../../../static/images/discover/nozan.png" class="w_04 mr_16 v_m f_left"
                 @click="giveCommentLike(item.id,index)" />
               <img v-else src="../../../static/images/discover/zan.png" class="w_04 mr_16 v_m f_left" @click="removeCommentLike(item.id,index)" />
@@ -125,5 +127,11 @@
 
 <style scoped>
   @import "../../../static/css/discover/detail.css";
-
+  .head_list{
+    width: 0.2rem !important;
+    height: 0.2rem !important;
+    position: relative;
+    right: -0.54rem;
+    bottom: 0.1rem;
+  }
 </style>
