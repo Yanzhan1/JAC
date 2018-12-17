@@ -14,7 +14,7 @@
         <img :src="item.imgUrl" alt="">
         <div class="bus_1" >
           <div>
-            <img :src="'./../../../static/images/Wit/dingzi.png'" alt="">
+            <img :src="Dingzi" alt="">
             <span class="bus_2">{{item.seriesName}}</span>
           </div>
           <div>
@@ -58,12 +58,14 @@
 <script>
 import { Popup } from "mint-ui";
 import { Radio } from "mint-ui";
+import Dingzi from "../../../static/images/Wit/dingzi.png"
 export default {
   data() {
     return {
       popupVisible: false,
       selected_all: false,
       type: 1,
+      Dingzi,
       highlyRecommend: "", //全部车型 传1 主推车型
       mainbus: {}, //存储展示的数据 主推车型 全部车型
       choosebus: {}, //选择频道
