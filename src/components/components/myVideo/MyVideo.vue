@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="player">
-      <video-player class="video-player vjs-custom-skin" ref="videoPlayer" :playsinline="true" :options="playerOptions"
+      <video-player class="video-player vjs-custom-skin" ref="videoPlayer" :playsinline="playsinline" :options="playerOptions"
         @pause="onPlayerPause($event)" @timeupdate="onPlayerTimeupdate($event)">
       </video-player>
     </div>
@@ -41,7 +41,8 @@ export default {
       },
       count: 0, 
       flag: true,
-      start: true
+      start: true,
+      playsinline: isMobile.iOS()
     }
   },
   components: {

@@ -13,10 +13,33 @@
           <div style="height: 8rem;"></div>
         </div>
         <!--内容S-->
-        <div v-for="(item,index) in recommendList">
+        <div v-for="(item,index) in recommendList" :key="index">
           <!--资讯列表S-->
           <div v-if="item.recommendType==1">
-            <div class="boxInfo">
+
+            <div class="boxInfo" v-if="item.manageType == 3">
+              <p class="listTitleInfo">
+                {{item.title.slice(0,46)}}
+                <span v-if="item.title.length>46">...</span>
+              </p>
+
+              <div class="listPic312">
+                <my-video ref="myVideo" :index="index" :imgUrl="item.pictureUrl" :manageBody="item.manageBody"
+                  @addPageviews="addPageviews" @closeOther="closeOther"></my-video>
+              </div>
+
+              <div class="listIconInfo">
+                <!--阅读数量-->
+                <img src="../../../../static/images/discover/eye.png" class="f_left" />
+                <span class="f_left">{{item.readNum}}</span>
+                <!--是否点赞以及点赞数量-->
+                <span class="f_right">{{item.likeNum}}</span>
+                <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveInformationLike(item.id, index, 2)" />
+                <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeInformationLike(item.id, index, 2)" />
+              </div>
+            </div>
+
+            <div class="boxInfo" v-else>
               <p class="listTitleInfo" @click="toDetailInfo(item.id)">
                 {{item.title.slice(0,46)}}
                 <span v-if="item.title.length>46">...</span>
@@ -32,6 +55,7 @@
                 <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeInformationLike(item.id, index, 2)" />
               </div>
             </div>
+
           </div>
           <!--资讯列表E-->
           <!--活动列表S-->
@@ -183,13 +207,13 @@
 <script>
   import moment from "moment";
   import {
-    MessageBox
-  } from 'mint-ui';
-  import {
+    MessageBox,
     Toast
   } from 'mint-ui';
   import Header from '../../Header.vue';
   import shareBox from '../component/shareBox.vue';
+  import MyVideo from '@/components/components/myVideo/MyVideo'
+
   export default {
     name: "Recommend",
     data() {
@@ -211,8 +235,50 @@
     },
     components: {
       shareBox,
+      MyVideo
     },
     methods: {
+      closePlayer() {
+        if (this.$refs['myVideo']) {
+          this.$refs['myVideo'].forEach((myVideo, i) => {
+            myVideo.player.pause()
+          })
+        }
+      },
+      onClosePlayer() {
+        this.$root.eventHub.$on('closePlayer', (index) => {
+          this.closePlayer()
+        })
+      },
+      /**
+       * 打开一个视频关闭其他视频
+       */
+      closeOther(index) {
+        this.$refs['myVideo'].forEach((myVideo, i) => {
+          if (i != index) {
+            myVideo.player.pause()
+          }
+        })
+      },
+      getReadNum: function (id, index) {
+        var _this = this;
+        this.$http.post(DISCOVERMESSAGE.informationRead, {
+          "uid": _this.$store.state.userId,
+          "lid": id
+        }).then(function (res) {
+          if (res.data.status) {
+            _this.recommendList[index].readNum = res.data.data;
+          } else {
+            MessageBox('提示', res.data.errorMsg);
+          }
+        });
+      },
+      /**
+       * set浏览量
+       */
+      addPageviews(index) {
+        this.getReadNum(this.recommendList[index].id, index)
+      },
       toDetailInfo: function (id) {
         this.$router.push({
           path: "/information/informationDetail",
@@ -354,6 +420,11 @@
             _this.pageNum = 1;
             _this.loading = false;
             _this.recommendList = res.data.data;
+
+            _this.$nextTick(function () {
+              _this.closePlayer()
+            })
+
             //console.log(res.data.data)
             for (let i = 0; i < _this.recommendList.length; i++) {
               _this.recommendList[i].issuedDate = _this.convert(_this.recommendList[i].issuedDate)
@@ -579,6 +650,7 @@
       this.getRefreshList();
       this.userId = this.$store.state.userId;
       // alert(this.$store.state.userId)
+      this.onClosePlayer()
     }
 
   }
