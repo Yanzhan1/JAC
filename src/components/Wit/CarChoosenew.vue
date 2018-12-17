@@ -74,6 +74,7 @@ export default {
   methods: {
     getno() {
       this.$store.dispatch("NONAME", this.item);
+      
     },
     carBtn(index, labelTitle) {
       this.currentIndex = index;
@@ -96,6 +97,8 @@ export default {
   },
   mounted() {
     this.getno();
+    this.$store.state.levelCode= 'CY001'
+    this.$store.state.srouceNo='CYRF016'
   }
 };
 </script>

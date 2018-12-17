@@ -123,6 +123,7 @@ import CarChoosenew from '../components/Wit/CarChoosenew' //车辆预定
 import ColorChoose from '../components/Wit/ColorChoose' //车辆预定
 import RimChoose from '../components/Wit/RimChoose' //车辆预定
 import VehicleChoose from '../components/Wit/VehicleChoose' //车辆预定
+import Earnest from '../components/Wit/Earnest' //支付定金页面
 Vue.use(Router)
 
 const router = new Router({
@@ -131,7 +132,7 @@ const router = new Router({
         if (savedPosition) {
             const list = ['/recommend', '/information', '/activity', '/now']
 
-            if(list.includes(to.path)){
+            if (list.includes(to.path)) {
                 const swiperSlides = document.querySelectorAll('.swiperSlide')
 
                 swiperSlides[to.meta.index].scrollTop = to.meta.savedScrollTop || 0
@@ -689,6 +690,11 @@ const router = new Router({
                 path: '/wit/Reserve',
                 name: '车辆预定',
                 component: Reserve
+            },
+            {
+                path: '/wit/Earnest',
+                name: '车辆定金页面',
+                component: Earnest
             },
         ]
     }]

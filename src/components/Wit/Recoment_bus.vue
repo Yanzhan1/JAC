@@ -12,22 +12,22 @@
     <ul>
       <li class="bus_li" v-for="(item,index) in this.mainbus" :key="index" @click="tode(item)">
         <img :src="item.imgUrl" alt="">
-        <div class="bus_1" v-if="item.guidancePriceStart>0">
+        <div class="bus_1" >
           <div>
             <img :src="'./../../../static/images/Wit/dingzi.png'" alt="">
             <span class="bus_2">{{item.seriesName}}</span>
           </div>
           <div>
-            <span class="bus_3"  >
+            <span class="bus_3" v-if="item.guidancePriceStart>0" >
               <div> 官方指导价:</div> {{item.guidancePriceStart}}万起</span>
           </div>
         </div>
-        <div class="bus_n" v-else>
+        <!-- <div class="bus_n" v-else>
           <div>
             <img :src="'./../../../static/images/Wit/dingzi.png'" alt="">
             <span class="bus_2">{{item.seriesName}}</span>
           </div>
-        </div>
+        </div> -->
         <!-- <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem"> -->
       </li>
     </ul>

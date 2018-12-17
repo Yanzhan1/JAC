@@ -74,6 +74,15 @@
                               <img src="../../../static/images/next@2x.png" alt="">
                           </div>
                       </li>
+                      <li class="all" v-show="this.moneypay">
+                          <span>预付定金</span>
+                          <!-- <img  style="width:.3rem;height:.3rem;position:absolute;left:1.6rem;" src="./../../../static/images/Lovecar/question.png" alt=""> -->
+                          <div class="allflex specilpay">
+                              <span style="margin-right:.2rem;">2000元</span>
+                              <img @click="getpay" v-if="this.showchecked" src="../../../static/images/Wit/noselectedpay.png" alt="">
+                              <img @click="nopay" v-else src="../../../static/images/Wit/selectedpay.png" alt="">
+                          </div>
+                      </li>
                   </ul>
                   <!-- <span class='Remarks'>备注说明：</span>
                   <textarea placeholder="输入文本..." v-model="beizhu"></textarea> -->
@@ -122,6 +131,9 @@ export default {
   },
   data() {
     return {
+      pushmoney:'2000元',
+      moneypay:false,//控制定金是否展示
+      showchecked:true,
       num:0,
       region: false,
       distributors: false,
@@ -234,6 +246,14 @@ export default {
       setTimeout(()=>{
         this.choose()
       },0)
+    },
+    //勾选支付定金操作
+    getpay(){
+      this.showchecked=false;
+    },
+    //为勾选支付定金操作
+    nopay(){
+      this.showchecked=true;
     },
     choose() {
       this.region = false;
@@ -370,25 +390,6 @@ export default {
         });
         return false;
       }
-      // var address = this.address;
-      // if (address == "") {
-      //   Toast({
-      //     message: "地址不能为空",
-      //     duration: 1000,
-      //     position: "middle"
-      //   });
-      //   return false;
-      // }
-      // var beizhu = this.beizhu;
-      // if (beizhu == "") {
-      //   Toast({
-      //     message: "备注不能为空",
-      //     duration: 1000,
-      //     position: "middle"
-      //   });
-      //   return false;
-      // }
-
       var gender = this.smallname == "女" ? 1 : 2;
       if(this.provinceid==''){
           for(let value of this.myaddress){
@@ -410,34 +411,41 @@ export default {
               }
           })
       }
-      var param = {
-        customerName: this.name, //姓名
-        fkDealerId: this.business, //经销商编号
-        gender: gender, //性别
-        mobile: this.tell, //手机号
-        email: this.email, //email
-        address: this.address, //地址
-        comments: this.vehicleData, //车型配置
-        province: this.provinceid, //省份ID
-        series: this.$store.state.levelCode, //意向车系
-        model: this.$store.state.srouceNo, //意向车型
-        city: this.codecity, //城市ID
-        userNo: this.$store.state.userId,
-        code:this.Recommend,//推荐码
-      };
-      this.$http.post(Wit.PreBus, param).then(res => {
-        if (res.data.code == 0) {
-          this.success = true;
-          this.region = true;
-        } else {
-          Toast({
-            message: res.data.msg,
-            duration: 3000,
-            position: "middle"
-          });
-          return false;
-        }
-      });
+      if(this.showchecked){
+
+        var param = {
+          customerName: this.name, //姓名
+          fkDealerId: this.business, //经销商编号
+          gender: gender, //性别
+          mobile: this.tell, //手机号
+          email: this.email, //email
+          address: this.address, //地址
+          comments: this.vehicleData, //车型配置
+          province: this.provinceid, //省份ID
+          series: this.$store.state.levelCode, //意向车系
+          model: this.$store.state.srouceNo, //意向车型
+          city: this.codecity, //城市ID
+          userNo: this.$store.state.userId,
+          code:this.Recommend,//推荐码
+        };
+        this.$http.post(Wit.PreBus, param).then(res => {
+          if (res.data.code == 0) {
+            this.success = true;
+            this.region = true;
+          } else {
+            Toast({
+              message: res.data.msg,
+              duration: 3000,
+              position: "middle"
+            });
+            return false;
+          }
+        });
+      }else{
+        this.$router.push({
+         path:'/wit/Earnest'
+       });
+      }
     },
     	isIOSOrAndroid() { //判断ios和安卓机型的方法
 				var u = navigator.userAgent,
@@ -597,10 +605,14 @@ export default {
       //拼接
       Pikante(){
         let vehicleData=this.$route.query.vehicleData
+        console.log(vehicleData)
         if(vehicleData[3]==undefined){
           this.vehicleData=vehicleData[0]+','+vehicleData[1]+','+vehicleData[2]
+        }else if(vehicleData[2]==undefined){
+          this.vehicleData=vehicleData[0]+','+vehicleData[1]
         }else{
           this.vehicleData=vehicleData[0]+','+vehicleData[1]+','+vehicleData[2]+','+vehicleData[3]
+
         }
       }
   },
@@ -623,6 +635,9 @@ export default {
   mounted() {
     this.tell=this.$store.state.mobile
     this.Pikante();
+    if(this.$store.state.levelCode=='CY001'){
+        this.moneypay=true
+    }
     //地区
        $(".gobottom").height($(".gobottom").height());
   }
@@ -654,6 +669,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 0.28rem;
+  position: relative;
   height: 1rem;
   line-height: 0.28rem;
   font-size: 0.28rem;
@@ -773,5 +789,9 @@ textarea {
 .specilflex > input {
   width: 1rem;
   margin: 0 0 0.02rem 0;
+}
+.specilpay>img{
+  width:.3rem;
+  height:.3rem;
 }
 </style>

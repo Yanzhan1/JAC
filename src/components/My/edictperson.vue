@@ -5,6 +5,7 @@
       <div class="contentList">
         <span class="contentList-left">头像</span>
         <div class="contentList-right">
+          <img class="imgVa" :src="'./../../../static/images/my/signv.png'" alt="">
           <div style="width:.76rem;height:.76rem">
             <img   id="img" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem;border-radius:50%">
           </div>
@@ -375,5 +376,12 @@ input {
 }
 textarea:hover {
   border-color: #ff00ff;
+}
+.imgVa{
+  position: absolute;
+  width: .3rem;
+  height: .3rem;
+  left: .5rem;
+  top: .5rem;
 }
 </style>

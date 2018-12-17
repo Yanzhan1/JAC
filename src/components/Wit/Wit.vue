@@ -8,11 +8,11 @@
 
 			<ul class="ul_list">
 				<li class="li_list" @click="fn()">
-					<img style="width:.56rem;height:.48rem" src="../../../static/images/Wit/withouse.png" alt="">
+					<!-- <img style="width:.56rem;height:.48rem" src="../../../static/images/Wit/withouse.png" alt=""> -->
 					<span>经销商</span>
 				</li>
 				<li class="li_list" @click="search_net()">
-					<img style="width:.52rem;height:.56rem" src="../../../static/images/Wit/witrepair.png" alt="">
+					<!-- <img style="width:.52rem;height:.56rem" src="../../../static/images/Wit/witrepair.png" alt=""> -->
 					<span>维保网点</span>
 				</li>
 			<!-- <li class="li_list" @click="pre_weib()">
@@ -20,7 +20,7 @@
 					<span>维保预约</span>
 				</li> -->
 				<li class="li_list" @click="confirmRevise">
-					<img style="width:.56rem;height:.52rem" src="../../../static/images/Wit/witrescue.png" alt="">
+					<!-- <img style="width:.56rem;height:.52rem" src="../../../static/images/Wit/witrescue.png" alt=""> -->
 					<span>道路救援</span>
 				</li>
 			</ul>
@@ -62,9 +62,9 @@
 						<div>
 							<img :src="item.imgUrl" alt="">
 						</div>
-						<div class="bus_1" v-if="item.guidancePriceStart>0">
+						<div class="bus_1">
 							<div>
-								<img :src="'./../../../static/images/Wit/dingzi.png'" alt="">
+								<img :src="Dingzi" alt="">
 								<span class="bus_2">{{item.seriesName}}</span>
 							</div>
 							<div>
@@ -73,12 +73,12 @@
 									{{item.guidancePriceStart}}万起</span>
 							</div>
 						</div>
-						<div class="bus_n" v-else>
+						<!-- <div class="bus_n" v-else>
 							<div>
 								<img :src="'./../../../static/images/Wit/dingzi.png'" alt="">
 								<span class="bus_2">{{item.seriesName}}</span>
 							</div>
-						</div>
+						</div> -->
 					</li>
 				</ul>
 			</div>
@@ -135,6 +135,7 @@
 </template>
 <script>
 import { MessageBox } from "mint-ui";
+import Dingzi from "../../../static/images/Wit/dingzi.png"
 import Bscroll from "better-scroll";
 export default {
   data() {
@@ -143,6 +144,7 @@ export default {
       mainbus: {}, //主推车型
       sheetVisible: true,
       flag: false,
+      Dingzi,
       latitude: "", //精度
       longitude: "", //维度
       tt: {},
@@ -426,7 +428,8 @@ textarea::-webkit-input-placeholder {
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  margin-top: 0.8rem;
+  height: .88rem;
+  line-height: .78rem;
 }
 
 .ul_list_1 {
@@ -439,7 +442,6 @@ textarea::-webkit-input-placeholder {
 .li_list {
   display: flex;
   flex-direction: column;
-  width: 1.02rem;
   align-items: center;
 }
 
@@ -451,14 +453,15 @@ textarea::-webkit-input-placeholder {
 
 .li_list span {
   text-align: center;
-  font-size: 0.22rem;
+  font-size: 0.28rem;
   padding-top: .2rem;
   color: #49bbff;
 }
 
 .wrapper {
   position: absolute;
-  top: 2.58rem;
+  /* top: 2.58rem; */
+  top: 1.6rem;
   left: 0;
   right: 0;
   bottom: 0;
