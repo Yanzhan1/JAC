@@ -67,30 +67,28 @@ export default {
       }
       this.$http.defaults.headers.common['timaToken'] = this.$store.state.token;
     },
-    // Getmarkedwords(){
-    //   this.$http.post(My.getwords,{}).then((res)=>{
-    //     if(res.data.msg=='success'){
-    //       this.$store.dispatch('getWords',res.data.data)
-    //     }
-    //   })
-    // }
-    // //拿到个人信息
-    // personname(){
-    //   //获取用户基本信息
-    // var param = {
-    // no: this.$store.state.userId
-    //    // no:'AD022018072505235135056'
-    // };
-    // this.$http.post(My.UserInfo, param).then(res => {
-    //   if (res.data.code == 0) {
-    //     var UserInfo=res.data.data
-    //     this.$store.dispatch("UserInfo",UserInfo)
-    //   }
-    // });
-    // }
+   	localshow () {
+    	if (isMobile.iOS()) {
+      var params = {};
+      window.webkit.messageHandlers.scan.showProgressDialog(params);
+	    } else if (isMobile.Android() && window.js2android) {
+	          js2android.showProgressDialog();
+	    }
+    },
+    localhide () {
+    	// 防止用户原生连点隐藏的遮罩层
+	    if (isMobile.iOS()) {
+	       /* var params = {};
+	        window.webkit.messageHandlers.scan.dismissProgressDialog(params);*/
+	    } else if (isMobile.Android() && window.js2android) {
+	        js2android.dismissProgressDialog();
+	    }
+    }
   },
   created() {
     window.isLogin = this.isLogin;
+    window.localshow = this.localshow
+    window.localhide = this.localhide
     // window.loadTab = this.loadTab;
   },
   mounted() {

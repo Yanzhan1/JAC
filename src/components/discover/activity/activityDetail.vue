@@ -76,6 +76,7 @@
           <div v-else class="user_name">
             尚未设置昵称
           </div>
+          <span v-if="item.user && item.user.vflag.indexOf('JAC') != -1" class="jac">JAC</span>
           <div class="shaitu">
             <img class="f_left" src="../../../../static/images/discover/comment.png" alt="" @click="toDetail(item.id)">
             <span class="num_28 f_left mr_32">{{item.commentNum}}</span>

@@ -27,6 +27,7 @@
             <div v-else class="user_name">
               尚未设置昵称
             </div>
+            <span v-if="item.user && item.user.vflag.indexOf('JAC') != -1" class="jac">JAC</span>
             <div class="guanzhu">
               <div v-if="item.user && userId != item.user.user_id">
                 <div v-if="item.focusStatus == 0" @click="addFoucs(item.user.user_id,index)">

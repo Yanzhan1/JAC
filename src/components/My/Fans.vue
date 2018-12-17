@@ -18,9 +18,12 @@
           <li>
             <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="headPic">
             <img v-else src="../../../static/images/discover/normalhead.png" class="headPic">
+            <!--加V-->
+            <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../static/images/discover/v.png" class="head_22"/>
             <div class="nameBox">
               <span v-if="item.user && item.user.nick_name" class="name">{{item.user.nick_name}}</span>
               <span v-else class="name">尚未设置昵称</span>
+              <span v-if="item.user && item.user.vflag.indexOf('JAC') != -1" class="jac">JAC</span>
               <div class="line"></div>
             </div>
           </li>
@@ -183,6 +186,13 @@
     height: 0.8rem;
     line-height: 0.8rem;
     border-bottom: 0.02rem solid #f1f1f1;
+  }
+  .head_22{
+    width: 0.2rem !important;
+    height: 0.2rem !important;
+    position: relative;
+    right: 0.15rem;
+    bottom: -0.58rem;
   }
 
 </style>

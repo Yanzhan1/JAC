@@ -15,6 +15,8 @@
             <div @click="changeUserStartId(content.user.user_id)">
               <img v-if="content.user && content.user.head_image" :src="content.user.head_image" />
               <img v-else src="../../../../static/images/discover/normalhead.png" />
+              <!--加V-->
+              <img v-if="content.user && content.user.vflag.indexOf('V') != -1" src="../../../../static/images/discover/v.png" class="head_list"/>
             </div>
           </div>
           <div class="user_info">
@@ -24,6 +26,7 @@
             <div v-else class="user_name">
               尚未设置昵称
             </div>
+            <span v-if="content.user && content.user.vflag.indexOf('JAC') != -1" class="jac">JAC</span>
             <div class="guanzhu">
               <div v-if="content.user && userId != content.user.user_id">
                 <div v-if="content.focusStatus == 0" @click="addFoucs(content.user.user_id)">
@@ -75,6 +78,8 @@
               <div @click="changeUserStartId(item.user.user_id)">
                 <img v-if="item.user && item.user.head_image" :src="item.user.head_image" />
                 <img v-else src="../../../../static/images/discover/normalhead.png" />
+                <!--加V-->
+                <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../../static/images/discover/v.png" class="head_list"/>
               </div>
             </div>
             <div class="user_info">
@@ -84,6 +89,7 @@
               <div v-else class="user_name">
                 尚未设置昵称
               </div>
+              <span v-if="item.user && item.user.vflag.indexOf('JAC') != -1" class="jac">JAC</span>
               <div class="operation_comment">
                 <div>
                   <img v-if="item.likeStatus" src="../../../../static/images/discover/nozan.png" class="w_04 mr_16 v_m f_left"
@@ -454,7 +460,7 @@
       //点击回复
       commentbtnBack(id, backId, deleteFlag) {
         if(deleteFlag == 1){
-          return 
+          return
         }
         $("#commentBg").show();
         $("#comment").focus();
@@ -507,5 +513,11 @@
 </script>
 <style scoped>
   @import "./../../../../static/css/discover/detail.css";
-
+  .head_list{
+    width: 0.2rem !important;
+    height: 0.2rem !important;
+    position: relative;
+    right: -0.54rem;
+    bottom: 0.1rem;
+  }
 </style>
