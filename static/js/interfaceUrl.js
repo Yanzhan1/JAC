@@ -4,9 +4,9 @@
 // console.log(`执行环境${apiHost}`)
 // var indexip = `${apiHost}/api/dk-dm-portal-api`
 // //测试环境域名
-// var host = '//test.jac.timanetwork.net'
-//生产环境域名403
 var host = '//test.jac.timanetwork.net'
+    //生产环境域名403
+    // var host = '//jacsupperapp.jac.com.cn'
 var indexip = host + '/api/dk-dm-portal-api'
 var focusip = host + '/api/dk-pr-svr' //uat
 var point = 'http://192.168.1.141:8868' //埋点
