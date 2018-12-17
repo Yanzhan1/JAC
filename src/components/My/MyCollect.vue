@@ -209,4 +209,8 @@
   .header{
     margin-left: -0.3rem;
   }
+  .boxInfo{
+    width: 92%;
+    margin: 0 auto;
+  }
 </style>
