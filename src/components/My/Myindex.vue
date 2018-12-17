@@ -18,7 +18,7 @@
               <span v-if="Personal.userName" style="color: #fff;font-size: 0.32rem;font-weight: bold">{{Personal.userName}}</span>
               <span v-else style="color: #fff;font-size: 0.32rem;font-weight: bold">尚未设置昵称</span>
               <!-- 控制jac图标的展示 -->
-              <div class="jacshow" >JAC</div>
+              <div v-show="imgJac" class="jacshow" >JAC</div>
               <img v-if="Personal.sex==1" src="../../../static/images/my/gender_man@2x.png" alt="" style="width: 0.28rem;height: 0.28rem">
               <img v-if="Personal.sex==2" src="../../../static/images/my/gender_woman.png" alt="" style="width: 0.28rem;height: 0.28rem">
             </div>
@@ -626,7 +626,6 @@ export default {
   border-radius: 0.04rem;
   color: #fff;
   font-size: 0.1rem;
-  font-family: "PingFang-SC-Regular";
-  font-weight: 400;
+  -webkit-transform: scale(0.75);
 }
 </style>
