@@ -2,7 +2,7 @@
   <div :style="{height: `${height}px`}" id="tabs-container" class="swiper-container">
     <div class="swiper-wrapper">
       <div class="swiper-slide swiperSlide" v-for="(item, index) in list" :key="index">
-        <component :is="item.component"></component>
+        <component :ref='item.path' :is="item.component"></component>
       </div>
     </div>
   </div>
@@ -53,7 +53,7 @@
           on: {
             slideChange: function () {
               self.$root.eventHub.$emit('changeTab', this.activeIndex)
-              self.$root.eventHub.$emit('closePlayer')
+              self.closePlayer('/recommend', '/information')
             }
           }
         })
@@ -78,11 +78,28 @@
             })
           })(swiperSlide)
         }
+      },
+      closePlayer(...paths) {
+        console.log(paths)
+        paths.forEach((path) => {
+          if (this.$refs[path] && this.$refs[path][0] && this.$refs[path][0].$refs[
+              'myVideo']) {
+            this.$refs[path][0].$refs['myVideo'].forEach((myVideo, i) => {
+              myVideo.player.pause()
+            })
+          }
+        })
+      },
+      onClosePlayer() {
+        this.$root.eventHub.$on('closePlayer', (path) => {
+          this.closePlayer(path)
+        })
       }
     },
     mounted() {
       this.initSwiper()
       this.saveScrollTop()
+      this.onClosePlayer()
     }
   }
 

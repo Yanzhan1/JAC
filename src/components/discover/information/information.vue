@@ -156,7 +156,7 @@
             _this.informationList = res.data.data;
 
             _this.$nextTick(function () {
-              _this.closePlayer()
+              _this.$root.eventHub.$emit('closePlayer', '/information')
             })
 
             if (res.data.recordsTotal <= _this.list) {
@@ -288,18 +288,6 @@
         var showId = '#share_information' + this.indexNum;
         $(showId).hide();
         $("#bgShareInfo").hide();
-      },
-      closePlayer() {
-        if (this.$refs['myVideo']) {
-          this.$refs['myVideo'].forEach((myVideo, i) => {
-            myVideo.player.pause()
-          })
-        }
-      },
-      onClosePlayer() {
-        this.$root.eventHub.$on('closePlayer', (index) => {
-          this.closePlayer()
-        })
       }
     },
     computed: {
@@ -346,7 +334,6 @@
       this.$nextTick(function () {
         this.getRefreshList()
       })
-      this.onClosePlayer()
     }
   }
 

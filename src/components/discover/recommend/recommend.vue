@@ -18,13 +18,13 @@
           <div v-if="item.recommendType==1">
 
             <div class="boxInfo" v-if="item.manageType == 3">
-              <!--视频不要标题-->
-              <!--<p class="listTitleInfo">-->
-                <!--{{item.title.slice(0,46)}}-->
-                <!--<span v-if="item.title.length>46">...</span>-->
-              <!--</p>-->
+              <!-- <p class="listTitleInfo">
+                {{item.title.slice(0,46)}}
+                <span v-if="item.title.length>46">...</span>
+              </p> -->
+
               <div class="listPic312" style="height:4rem">
-                <my-video ref="myVideo" :index="index" :imgUrl="item.pictureUrl" :manageBody="item.manageBody"
+                <my-video ref="myVideo" :index="index" :imgUrl="item.imgUrl" :manageBody="item.manageBody"
                   @addPageviews="addPageviews" @closeOther="closeOther"></my-video>
               </div>
 
@@ -238,18 +238,6 @@
       MyVideo
     },
     methods: {
-      closePlayer() {
-        if (this.$refs['myVideo']) {
-          this.$refs['myVideo'].forEach((myVideo, i) => {
-            myVideo.player.pause()
-          })
-        }
-      },
-      onClosePlayer() {
-        this.$root.eventHub.$on('closePlayer', (index) => {
-          this.closePlayer()
-        })
-      },
       /**
        * 打开一个视频关闭其他视频
        */
@@ -421,8 +409,8 @@
             _this.loading = false;
             _this.recommendList = res.data.data;
 
-            _this.$nextTick(function () {
-              _this.closePlayer()
+            _this.$nextTick(function(){
+              _this.$root.eventHub.$emit('closePlayer', '/recommend')
             })
 
             //console.log(res.data.data)
@@ -650,7 +638,6 @@
       this.getRefreshList();
       this.userId = this.$store.state.userId;
       // alert(this.$store.state.userId)
-      this.onClosePlayer()
     }
 
   }
