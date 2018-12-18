@@ -76,9 +76,11 @@
             var timer1 = null // 防抖
             var timer2 = null // 节流
             var start = +new Date
+            var startPos = 0
 
             swiperSlide.addEventListener('scroll', () => {
               var end = +new Date
+              var endPos = swiperSlide.scrollTop
 
               clearTimeout(timer1)
               clearTimeout(timer2)
@@ -88,18 +90,20 @@
                 this.$route.meta.savedScrollTop = swiperSlide.scrollTop
               }, 180)
               if (end - start >= 300) {
-                this.closeOverflowPlayer(i)
+                this.closeOverflowPlayer(i, (endPos > startPos))
                 start = end
+                startPos = endPos
               } else {
                 timer2 = setTimeout(() => {
-                  this.closeOverflowPlayer(i)
+                  this.closeOverflowPlayer(i, (endPos > startPos))
+                  startPos = endPos
                 }, 300)
               }
             })
           })(swiperSlide, i)
         }
       },
-      closeOverflowPlayer(i) {
+      closeOverflowPlayer(i, boo) {
         var {
           path
         } = this.list[i]
@@ -116,7 +120,7 @@
               var player = myVideo.player
 
               if (bottom > this.placeholderHeight) {
-                if (bottom - this.placeholderHeight < (height / 2)) {
+                if (boo && bottom - this.placeholderHeight < (height / 2)) {
                   player.pause()
                 }
                 if (bottom - this.windowHeight >= (height / 2)) {
