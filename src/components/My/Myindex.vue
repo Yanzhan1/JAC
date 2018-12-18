@@ -617,14 +617,15 @@ export default {
   margin-left: 0.2rem;
 }
 .jacshow {
+  display: inline;
   margin-left: 0.1rem;
   width: 0.88rem;
   height: 0.36rem;
-  line-height: 0.36rem;
+  line-height: 0.31rem;
   text-align: center;
-  border: 0.02rem solid #fff;
+  border: 0.02rem solid #C2C2C2;
   border-radius: 0.1rem;
-  color: #fff;
+  color: #9E9E9E;
   font-size: 0.2rem;
   /* -webkit-transform: scale(0.75);
   -o-transform: scale(.75) */
