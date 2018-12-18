@@ -209,20 +209,14 @@ export default {
         if (res.data.returnSuccess) {
           this.getAsyReturn(res.data.operationId);
         } else {
-          if (res.data.returnErrCode == 403) {
-            Toast({
-              message: "token验证失败",
-              position: "middle",
-              duration: 2000
-            });
-          } else {
+      
             Toast({
               message: res.data.returnErrMsg,
               position: "middle",
               duration: 2000
             });
           }
-        }
+        
       })
       .catch(err => {
         Toast({
