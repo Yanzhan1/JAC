@@ -196,7 +196,7 @@
         }).then(function (res) {
           if (res.data.status) {
             _this.myList[index].likeNum = res.data.data.num;
-            _this.myList[index].likeStatus = false;
+            _this.myList[index].likeStatus = 1;
           } else {
             _this.toLogin();
           }
@@ -211,7 +211,7 @@
         }).then(function (res) {
           if (res.data.status) {
             _this.myList[index].likeNum = res.data.data.num;
-            _this.myList[index].likeStatus = true;
+            _this.myList[index].likeStatus = 0;
           } else {
             _this.toLogin();
           }

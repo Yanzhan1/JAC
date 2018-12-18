@@ -65,7 +65,7 @@
           <span class="f_left">{{content.readNum}}</span>
           <!--是否点赞以及点赞数量-->
           <span class="f_right">{{content.likeNum}}</span>
-          <img v-if="content.likeStatus" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveArticleLike">
+          <img v-if="content.likeStatus == 0" src="../../../../static/images/discover/nozan.png" class="f_right" @click="giveArticleLike">
           <img v-else src="../../../../static/images/discover/zan.png" class="f_right" @click="removeArticleLike">
         </div>
       </div>
@@ -362,7 +362,7 @@
         }).then(function (res) {
           if (res.data.status) {
             _this.content.likeNum = res.data.data.num;
-            _this.content.likeStatus = false;
+            _this.content.likeStatus = 1;
           } else {
             if (_this.$store.state.userId == null) {
               _this.toLogin();
@@ -381,7 +381,7 @@
         }).then(function (res) {
           if (res.data.status) {
             _this.content.likeNum = res.data.data.num;
-            _this.content.likeStatus = true;
+            _this.content.likeStatus = 0;
           } else {
             if (_this.$store.state.userId == null) {
               _this.toLogin();

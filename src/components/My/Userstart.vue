@@ -13,8 +13,8 @@
     </header>
     <div class="box" style="box-sizing: content-box;" :style="$statusBarHeightObj"></div> -->
     <div class="startbg">
-      <div class="wrapbg">
-        <img v-if="userInfo && userInfo.headUrl" :src="userInfo.headUrl" alt=""s>
+      <div :class="['wrapbg' ,vFlag ? 'left4' : '']">
+        <img v-if="userInfo && userInfo.headUrl" :src="userInfo.headUrl" alt="">
         <img v-else src="../../../static/images/discover/normalhead.png" />
         <!--加V-->
         <img v-if="userInfo && vFlag" src="../../../static/images/discover/v.png" class="head_22"/>
@@ -217,7 +217,6 @@
       },
       init() {
         let _this = this;
-        console.log(_this.$store.state.UserStartId)
         _this.$http.post(My.UserInfo, {
           "no": _this.$store.state.UserStartId
         }).then(function (res) {
@@ -478,7 +477,7 @@
         }).then(function (res) {
           if (res.data.status) {
             _this.myList[index].likeNum = res.data.data.num;
-            _this.myList[index].likeStatus = false;
+            _this.myList[index].likeStatus = 1;
           } else {
             if (_this.$store.state.userId == null) {
               _this.toLogin();
@@ -497,7 +496,7 @@
         }).then(function (res) {
           if (res.data.status) {
             _this.myList[index].likeNum = res.data.data.num;
-            _this.myList[index].likeStatus = true;
+            _this.myList[index].likeStatus = 0;
           } else {
             if (_this.$store.state.userId == null) {
               _this.toLogin();
@@ -626,7 +625,8 @@
     display: flex;
     justify-content: center;
   }
-  /*.startbg .wrapbg{
+  .left4{
     padding-left: 0.4rem;
-  }*/
+  }
+
 </style>

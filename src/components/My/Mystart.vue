@@ -12,7 +12,7 @@
     </header>
     <div class="box" style="box-sizing: content-box;" :style="$statusBarHeightObj"></div> -->
     <div class="startbg">
-      <div class="wrapbg">
+      <div :class="['wrapbg' ,vFlag ? 'left4' : '']">
         <img v-if="userInfo && userInfo.headUrl" :src="userInfo.headUrl" alt="">
         <img v-else src="../../../static/images/discover/normalhead.png" />
         <!--加V-->
@@ -186,6 +186,7 @@
             for(var item in _this.userInfo.entitys){
               if(_this.userInfo.entitys[item].entity.indexOf('V') != -1){
                 _this.vFlag = true;
+                console.log(_this.vFlag+"是否加V")
               }
             }
           }
@@ -291,7 +292,7 @@
         }).then(function (res) {
           if (res.data.status) {
             _this.myList[index].likeNum = res.data.data.num;
-            _this.myList[index].likeStatus = false;
+            _this.myList[index].likeStatus = 1;
           } else {
             MessageBox('提示', res.data.errorMsg);
           }
@@ -306,7 +307,7 @@
         }).then(function (res) {
           if (res.data.status) {
             _this.myList[index].likeNum = res.data.data.num;
-            _this.myList[index].likeStatus = true;
+            _this.myList[index].likeStatus = 0;
           } else {
             MessageBox('提示', res.data.errorMsg);
           }
@@ -452,7 +453,7 @@
     display: flex;
     justify-content: center;
   }
-  /*.startbg .wrapbg{
+  .left4{
     padding-left: 0.4rem;
-  }*/
+  }
 </style>
