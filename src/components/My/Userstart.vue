@@ -109,7 +109,7 @@
           <img src="../../../static/images/discover/eye.png" class="f_left" />
           <span class="f_left">{{item.readNum}}</span>
           <span class="f_right">{{item.likeNum}}</span>
-          <img v-if="item.likeStatus" src="../../../static/images/discover/nozan.png" class="f_right" @click="giveNowLike(item.id,index)">
+          <img v-if="item.likeStatus==0" src="../../../static/images/discover/nozan.png" class="f_right" @click="giveNowLike(item.id,index)">
           <img v-else src="../../../static/images/discover/zan.png" class="f_right" @click="removeNowLike(item.id,index)">
         </div>
         <!--阅读数量,是否点赞以及点赞数量E-->
