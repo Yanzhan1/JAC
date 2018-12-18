@@ -150,6 +150,9 @@ export default {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical; */
 }
+.header-title{
+  margin-right:.2rem;
+}
 .header-left{
   margin-left: .3rem;
 }

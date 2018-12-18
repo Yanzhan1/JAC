@@ -42,8 +42,8 @@
                           <div class="specilflex">
                               <!-- <input type="text" name="" id="" placeholder="点击输入称谓" v-model="smallname">
                               <img src="/static/images/next@2x.png" alt=""> -->
-                                <input type="radio" name="choosea" value="男" checked @click="choosesex"><span>男</span>
-                                <input type="radio" name="choosea" value="女" @click="choosesex"><span>女</span>
+                                <input type="radio" name="choosea" value="男" checked @click="choosesex"><div>男</div>
+                                <input type="radio" name="choosea" value="女" @click="choosesex"><div>女</div>
                           </div>
                       </li>
                       <li class="phone all">
@@ -781,14 +781,20 @@ textarea {
   font-size: 0.34rem;
 }
 .specilflex {
+  width: 3rem;
+  height: 1rem;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  flex: 1;
 }
 .specilflex > input {
   width: 1rem;
-  margin: 0 0 0.02rem 0;
+  height: .4rem;
+}
+.specilflex>div{
+  width: .5rem;
+  height: .3rem;
+  line-height: .4rem;
 }
 .specilpay>img{
   width:.3rem;

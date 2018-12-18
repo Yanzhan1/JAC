@@ -5,7 +5,7 @@
     <!-- <keep-alive v-if="flag"> -->
     <!-- <router-view v-if="flag" /> -->
     <!-- </keep-alive> -->
-    <my-swiper :height="height" v-if="$store.state.islogin && flag"></my-swiper>
+    <my-swiper :placeholderHeight="placeholderHeight" :height="height" v-if="$store.state.islogin && flag"></my-swiper>
   </div>
 </template>
 
@@ -18,7 +18,8 @@
     data() {
       return {
         flag: true,
-        height: 0
+        height: 0,
+        placeholderHeight: 0
       }
     },
     methods: {
@@ -33,6 +34,7 @@
       const box = document.querySelector('#box')
       const placeholder = document.querySelector('#placeholder')
 
+      this.placeholderHeight = placeholder.getBoundingClientRect().height
       this.height = window.innerHeight - placeholder.getBoundingClientRect().height
       box.style.height = window.innerHeight + 'px'
     },
