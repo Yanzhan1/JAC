@@ -267,7 +267,7 @@ export default {
     //路由跳转的时候清除轮询loading
     goback() {
       this.$router.go(-1);
-      this.$store.dispatch("LOADINGFLAG", false);
+      localhide();
     },
     //温度增加
     add() {
@@ -615,7 +615,7 @@ export default {
                     duration: 2000
                   });
                 }
-                this.$store.dispatch("LOADINGFLAG", false);
+                localhide();
               } else {
                 this.time = setInterval(() => {
                   this.$http
@@ -693,7 +693,7 @@ export default {
                               });
                             }
                             clearInterval(this.time);
-                            this.$store.dispatch("LOADINGFLAG", false);
+                            localhide();
                           }
                         } else if (res.data.status == "SUCCEED") {
                           // flag = false;
@@ -775,7 +775,7 @@ export default {
                               duration: 2000
                             });
                           }
-                          this.$store.dispatch("LOADINGFLAG", false);
+                          localhide();
                           this.refreshPmData(), clearInterval(this.time);
                         } else if (res.data.status == "FAILED") {
                           if (this.turnon == "1") {
@@ -839,7 +839,7 @@ export default {
                             });
                           }
                           clearInterval(this.time);
-                          this.$store.dispatch("LOADINGFLAG", false);
+                          localhide();
                         }
                       } else {
                         if (this.turnon == "1") {
@@ -903,7 +903,7 @@ export default {
                           });
                         }
                         clearInterval(this.time);
-                        this.$store.dispatch("LOADINGFLAG", false);
+                        localhide();
                         console.log("jieshu2");
                       }
                     });
@@ -985,7 +985,7 @@ export default {
                   duration: 2000
                 });
               }
-              this.$store.dispatch("LOADINGFLAG", false);
+              localhide();
               this.refreshPmData(), clearInterval(this.time);
             } else if (res.data.status == "FAILED") {
               if (this.turnon == "1") {
@@ -1046,7 +1046,7 @@ export default {
                   duration: 2000
                 });
               }
-              this.$store.dispatch("LOADINGFLAG", false);
+              localhide();
             }
           } else {
             if (this.turnon == "1") {
@@ -1108,7 +1108,7 @@ export default {
               });
             }
             clearInterval(this.time);
-            this.$store.dispatch("LOADINGFLAG", false);
+            localhide();
           }
         });
     },

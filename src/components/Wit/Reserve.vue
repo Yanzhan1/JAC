@@ -301,7 +301,6 @@ export default {
               };
               this.$http.post(Wit.Dealer, param, this.$store.state.getpin).then(res => {
                 this.chooseaddress = res.data.data.records;
-                // console.log(this.chooseaddress)
                 this.slots2[0].values = [];
                 for (var i = 0; i < this.chooseaddress.length; i++) {
                   this.slots2[0].values.push(this.chooseaddress[i].dealerName);
@@ -596,6 +595,7 @@ export default {
  
     },
     getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
+    console.log(locationMes)
 				this.localprovince = JSON.parse(locationMes).province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '')
 				this.localcity = JSON.parse(locationMes).city.replace('市', '')
 				this.latitude = JSON.parse(locationMes).latitude //精
@@ -605,7 +605,6 @@ export default {
       //拼接
       Pikante(){
         let vehicleData=this.$route.query.vehicleData
-        console.log(vehicleData)
         if(vehicleData[3]==undefined){
           this.vehicleData=vehicleData[0]+','+vehicleData[1]+','+vehicleData[2]
         }else if(vehicleData[2]==undefined){
@@ -617,19 +616,21 @@ export default {
       }
   },
   created(){
-    		window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
+    		
       var system = this.isIOSOrAndroid();
 			if(system == 'Android') {
 				var Position = js2android.getLocationInfo() //获取安卓定位信息
         var NewPosition = JSON.parse(Position)
         this.localprovince=NewPosition.province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '')//当地的省
-        console.log(this.localprovince)
         this.localcity= NewPosition.city.replace('市', '')//当地的市
 				this.latitude = NewPosition.latitude //经度
         this.longitude = NewPosition.longitude //纬度
         this.getcity()
 			} else if(system == "IOS") {
-				window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
+        console.log('ios')
+        window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
+        console.log('通知结束')
+          window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
       }
   },
   mounted() {

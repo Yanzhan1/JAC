@@ -192,7 +192,7 @@ export default {
     //路由跳转的时候清除轮询loading
     goback() {
       this.$router.push("/lovecar");
-      this.$store.dispatch("LOADINGFLAG", false);
+      localhide();
     },
     //点击遮罩或者'x'移除popup
     removeMask() {
@@ -371,7 +371,7 @@ export default {
                   position: "middle",
                   duration: 2000
                 });
-                this.$store.dispatch("LOADINGFLAG", false);
+                localhide();
               } else {
                 this.time = setInterval(() => {
                   this.$http
@@ -394,7 +394,7 @@ export default {
                               duration: 2000
                             });
                             clearInterval(this.time);
-                            this.$store.dispatch("LOADINGFLAG", false);
+                            localhide();
                           }
                         } else if (res.data.status == "SUCCEED") {
                           // Toast({
@@ -412,7 +412,7 @@ export default {
                             this.aeraValue = !this.aeraValue;
                           }
                           clearInterval(this.time);
-                          this.$store.dispatch("LOADINGFLAG", false);
+                          localhide();
                         } else if (res.data.status == "FAILED") {
                           flag = false;
                           Toast({
@@ -421,7 +421,7 @@ export default {
                             duration: 2000
                           });
                           clearInterval(this.time);
-                          this.$store.dispatch("LOADINGFLAG", false);
+                          localhide();
                         }
                       } else {
                         Toast({
@@ -431,7 +431,7 @@ export default {
                         });
                         flag = false;
                         clearInterval(this.time);
-                        this.$store.dispatch("LOADINGFLAG", false);
+                        localhide();
                       }
                     });
                 }, 4000);
@@ -452,7 +452,7 @@ export default {
                 this.aeraValue = !this.aeraValue;
               }
               clearInterval(this.time);
-              this.$store.dispatch("LOADINGFLAG", false);
+              localhide();
             } else if (res.data.status == "FAILED") {
               Toast({
                 message: "指令下发成功，处理失败！",
@@ -460,7 +460,7 @@ export default {
                 duration: 2000
               });
               clearInterval(this.time);
-              this.$store.dispatch("LOADINGFLAG", false);
+              localhide();
             }
           } else {
             Toast({
@@ -470,7 +470,7 @@ export default {
             });
             flag = false;
             clearInterval(this.time);
-            this.$store.dispatch("LOADINGFLAG", false);
+            localhide();
           }
         });
     },

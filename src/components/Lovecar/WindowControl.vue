@@ -206,7 +206,7 @@ export default {
     //路由跳转的时候清除轮询loading
     goback() {
       this.$router.go(-1);
-      this.$store.dispatch("LOADINGFLAG", false);
+      localhide();
     },
     //车窗高度增加
     // windAdd() {
@@ -403,7 +403,6 @@ export default {
     //车窗接口一键系列
     httpwindowall() {
       let percent = this.fluctuationType == "1" ? "0" : "100";
-      console.log(percent);
       var param = {
         vin: this.$store.state.vins,
         operationType: "WINDOW",
@@ -480,7 +479,7 @@ export default {
                   position: "middle",
                   duration: 2000
                 });
-                this.$store.dispatch("LOADINGFLAG", false);
+                 localhide()
               } else {
                 this.time = setInterval(() => {
                   this.$http
@@ -502,11 +501,11 @@ export default {
                               duration: 2000
                             });
                             clearInterval(this.time);
-                            this.$store.dispatch("LOADINGFLAG", false);
+                            localhide();
                           }
                         } else if (res.data.status == "SUCCEED") {
                           if (this.fluctuationType == "1") {
-                            console.log(222);
+                           
                             // this.windNum[windowSpace]='100%'
                             this.flags = false;
                             //车窗图片关闭
@@ -520,7 +519,7 @@ export default {
                             });
                           }
                           if (this.fluctuationType == "3") {
-                            console.log(333);
+                           
                             // this.windNum[windowSpace]='0%'
                             this.flags = true;
                             //车窗图片激活
@@ -561,7 +560,7 @@ export default {
                           // flag = false;
                           // this.value = !this.value;
                           clearInterval(this.time);
-                          this.$store.dispatch("LOADINGFLAG", false);
+                          localhide();
                         } else if (res.data.status == "FAILED") {
                           Toast({
                             message: this.windowwords[2].dictValue,
@@ -569,7 +568,7 @@ export default {
                             duration: 2000
                           });
                           clearInterval(this.time);
-                          this.$store.dispatch("LOADINGFLAG", false);
+                          localhide();
                         }
                       } else {
                         Toast({
@@ -578,7 +577,7 @@ export default {
                           duration: 2000
                         });
                         clearInterval(this.time);
-                        this.$store.dispatch("LOADINGFLAG", false);
+                        localhide();
                       }
                     });
                 }, 4000);
@@ -638,7 +637,7 @@ export default {
               // flag = false;
               // this.value = !this.value;
               clearInterval(this.time);
-              this.$store.dispatch("LOADINGFLAG", false);
+              localhide();
             } else if (res.data.status == "FAILED") {
               Toast({
                 message: this.windowwords[2].dictValue,
@@ -646,7 +645,7 @@ export default {
                 duration: 2000
               });
               clearInterval(this.time);
-              this.$store.dispatch("LOADINGFLAG", false);
+              localhide();
             }
           } else {
             Toast({
@@ -655,7 +654,7 @@ export default {
               duration: 2000
             });
             clearInterval(this.time);
-            this.$store.dispatch("LOADINGFLAG", false);
+            localhide();
           }
         });
     },
