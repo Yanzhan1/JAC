@@ -68,18 +68,19 @@ export default {
       this.$http.defaults.headers.common['timaToken'] = this.$store.state.token;
     },
    	localshow () {
-    	if (isMobile.iOS()) {
+      var system = IOSAndAndroid.isIOSOrAndroid()
+    	if (system == 'IOS') {
       var params = {};
-      window.webkit.messageHandlers.scan.showProgressDialog(params);
-	    } else if (isMobile.Android() && window.js2android) {
+      window.webkit.messageHandlers.showProgressDialog.postMessage(params);
+	    } else {
 	          js2android.showProgressDialog();
 	    }
     },
     localhide () {
     	// 防止用户原生连点隐藏的遮罩层
 	    if (isMobile.iOS()) {
-	       /* var params = {};
-	        window.webkit.messageHandlers.scan.dismissProgressDialog(params);*/
+         var params = {};
+         window.webkit.messageHandlers.dismissProgressDialog.postMessage(params);
 	    } else if (isMobile.Android() && window.js2android) {
 	        js2android.dismissProgressDialog();
 	    }
@@ -92,8 +93,8 @@ export default {
     // window.loadTab = this.loadTab;
   },
   mounted() {
-    // this.isLogin({name:'',no:'AD022018090401514458675'})
-    // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTUzNjA0MDMwNDAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImVtZXJnZW5jeUNvbnRhY3ROYW1lXCI6XCLlvKDkuInlm5vkupRcIixcImVtZXJnZW5jeUNvbnRhY3RQaG9uZVwiOlwiMTgyMTUxMjQzNjUxXCIsXCJpZFwiOjEwMCxcImluaXRVc2VyXCI6MCxcImxhc3RNb2RpZmllZERhdGVcIjoxNTM2MDU5MTU5MDAwLFwibm9cIjpcIkFEMDIyMDE4MDkwNDAxNTE0NDU4Njc1XCIsXCJwZXJzb25hbFNpZ25hdHVyZVwiOlwi6LWw5oiR55qE6Lev77yM6LCB566h6LCBXCIsXCJwaG9uZVwiOlwiMTg5MzA0NTU5MjhcIixcInJlYWxQaG9uZVwiOlwiMTg5KioqKjU5MjhcIixcInNleFwiOjIsXCJ1c2VyQ29kZVwiOlwiMTg5MzA0NTU5MjhcIixcInVzZXJOYW1lXCI6XCLmiJHnn6XpgZPmiJHmmK_osIFcIixcInVzZXJTdGF0dXNcIjowLFwidXNlclR5cGVcIjpcIjAxXCJ9IiwiY3JlYXRlZCI6MTU0NTAzNDcyMjM4MywidXNlck5vIjoiQUQwMjIwMTgwOTA0MDE1MTQ0NTg2NzUiLCJ1c2VyVHlwZSI6IjAxIiwidXNlck5hbWUiOiLmiJHnn6XpgZPmiJHmmK_osIEiLCJleHAiOjE1NDU4OTg3MjIsInVzZXJJZCI6MTAwfQ.AIRbPneG8HAnyFHWi5NHZ90mzX06srpWm2cEnjcIECA'
+    // this.isLogin({name:'',no:'AD022018121402494457431'})
+    // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTU0NDc3MDE4NDAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6NDkyLFwiaW5pdFVzZXJcIjowLFwibGFzdE1vZGlmaWVkRGF0ZVwiOjE1NDQ3NzA1NjYwMDAsXCJub1wiOlwiQUQwMjIwMTgxMjE0MDI0OTQ0NTc0MzFcIixcInBob25lXCI6XCIxNTAyNjU2Njk5MlwiLFwidXNlckNvZGVcIjpcIjE1MDI2NTY2OTkyXCIsXCJ1c2VyTmFtZVwiOlwiWVlGXCIsXCJ1c2VyU3RhdHVzXCI6MCxcInVzZXJUeXBlXCI6XCIwMVwifSIsImNyZWF0ZWQiOjE1NDUwNjMzNTM4NTgsInVzZXJObyI6IkFEMDIyMDE4MTIxNDAyNDk0NDU3NDMxIiwidXNlclR5cGUiOiIwMSIsInVzZXJOYW1lIjoiWVlGIiwiZXhwIjoxNTQ1OTI3MzUzLCJ1c2VySWQiOjQ5Mn0.QRPXVmMziV1tH4KcakZ7KcoVg1mx9dhDLVetoMEGhgI'
     // 获取用户
     // this.Getmarkedwords()
 
