@@ -2,7 +2,7 @@
   <div>
     <div @click="bgHide" id="bgShare" style="position: fixed; width: 100%;height: 100%;background: #000000; display: none;opacity: 0.2;top: 0;"></div>
 
-    <my-header :title="'社区详情'">
+    <my-header :title="'社区详情'" :goBackBbox="goBackBbox(content.user.user_id, goBack)">
       <img slot="backfff" class="header-left" src="../../../../static/images/discover/backblue.png" @click="goBack(content.user.user_id)">
       <img slot="share" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
     </my-header>
@@ -578,12 +578,19 @@
         $("#bgShare").hide();
         $("#myInput").show();
       },
+      goBackBbox(id, fn){
+        var self = this
+
+        return function () {
+          fn.apply(self, [id])
+        }
+      },
       //返回上一级
       goBack: function (id) {
         if (id != this.$store.state.userId) {
           this.$store.state.UserStartId = id;
         }
-        // this.$router.go(-1);
+        this.$router.go(-1);
         this.$store.dispatch("showFoot")
       }
     },

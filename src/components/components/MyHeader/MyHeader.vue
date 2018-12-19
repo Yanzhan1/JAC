@@ -48,13 +48,20 @@
       rightPic: {
         type: Boolean,
         default: true
+      },
+      goBackBbox: {
+        type: Function
       }
     },
     methods: {
       //返回上一级
       goBack: function () {
-        this.$router.go(-1);
-        this.$store.dispatch("showFoot")
+        if(this.goBackBbox){
+          this.goBackBbox()
+        }else {
+          this.$router.go(-1);
+          this.$store.dispatch("showFoot")
+        }
       }
     }
   }
