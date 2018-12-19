@@ -9,7 +9,7 @@
       </div>
       <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
         <!--资讯列表S-->
-        <div v-for="(item,index) in informationList" :key="index">
+        <div v-for="(item,index) in informationList" :key="index" @click="handleRecordIndex(index)">
 
           <div class="boxInfo" v-if="item.manageType == 3">
             <div>
@@ -288,7 +288,13 @@
         var showId = '#share_information' + this.indexNum;
         $(showId).hide();
         $("#bgShareInfo").hide();
-      }
+      },
+      /**
+       * 记录index
+       */
+      handleRecordIndex(index) {
+        this._index = index
+      },
     },
     computed: {
       selectLabelState() {
@@ -299,35 +305,29 @@
       selectLabelState() {
         this.getRefreshList()
       },
-      // ['$route'](to, from) {
-      //   if (this._index === null || !from.query.id) {
-      //     return
-      //   }
-      //   if (from.path == '/information/informationDetail') {
-      //     this.$http.post(DISCOVERMESSAGE.informationDetail, {
-      //       "uid": this.$store.state.userId,
-      //       "id": from.query.id
-      //     }).then((res) => {
-      //       if (res.data.status) {
-      //         const {
-      //           data: {
-      //             data: {
-      //               readNum,
-      //               likeStatus,
-      //               likeNum
-      //             }
-      //           }
-      //         } = res
+      ['$route'](to, from) {
+        if (from.path == '/information/informationDetail') {
+          this.$http.post(DISCOVERMESSAGE.informationDetail, {
+            "uid": this.$store.state.userId,
+            "id": from.query.id
+          }).then((res) => {
+            // console.log(res)
+            if (res.data.status) {
+              const {
+                data: {
+                  data: {
+                    readNum
+                  }
+                }
+              } = res
 
-      //         // this.informationList[this._index].readNum = readNum
-      //         // this.informationList[this._index].likeStatus = likeStatus
-      //         // this.informationList[this._index].likeNum = likeNum
-      //       } else {
-      //         console.log(res.data.errorMsg);
-      //       }
-      //     });
-      //   }
-      // }
+              this.informationList[this._index].readNum = readNum
+            } else {
+              console.log(res.data.errorMsg);
+            }
+          });
+        }
+      }
     },
     mounted() {
       console.log('information')

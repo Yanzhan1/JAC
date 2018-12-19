@@ -13,7 +13,7 @@
           <div style="height: 8rem;"></div>
         </div>
         <!--内容S-->
-        <div v-for="(item,index) in recommendList" :key="index">
+        <div v-for="(item,index) in recommendList" :key="index" @click="handleRecordIndex(index)">
           <!--资讯列表S-->
           <div v-if="item.recommendType==1">
 
@@ -230,7 +230,8 @@
         imgSrc: '',
         flag: 'recommend',
         typeInfo: 'information',
-        typeNow: 'now'
+        typeNow: 'now',
+        _index: null
       }
     },
     components: {
@@ -631,6 +632,31 @@
       },
       selectLabelState() {
         this.getRefreshList()
+      },
+      ['$route'](to, from){
+        if (!from.query.id) {
+          return
+        }
+        if (to.path == '/recommend' && from.path == '/information/informationDetail') {
+          this.$http.post(DISCOVERMESSAGE.informationDetail, {
+            "uid": this.$store.state.userId,
+            "id": from.query.id
+          }).then(({
+                     data
+                   }) => {
+            if (data.status) {
+              for (let i = 0; i < this.recommendList.length; i++) {
+                if (this.recommendList[i].recommendType == 1 && this.recommendList[i].id == from.query.id) {
+                  this.recommendList[i].readNum = data.data.readNum;
+                  break
+                }
+              }
+            } else {
+              console.log(data.errorMsg);
+              //MessageBox('提示', res.data.errorMsg);
+            }
+          });
+        }
       }
     },
     mounted() {

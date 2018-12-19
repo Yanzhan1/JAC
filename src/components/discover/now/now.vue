@@ -9,12 +9,12 @@
       </div>
       <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
         <!--社区列表S-->
-        <div v-for="(item,index) in nowList">
+        <div v-for="(item,index) in nowList" @click="handleRecordIndex(index)">
           <div class="boxInfo">
             <!--发布者信息S-->
             <div class="comment_userinfo">
               <div class="user_head">
-                <div @click="changeUserStartId(item.user.user_id)">
+                <div @click="changeUserStartId(item.user.user_id, item.id, index)">
                   <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="head_72" />
                   <img v-else src="../../../../static/images/discover/normalhead.png" class="head_72" />
                   <!--加V-->
@@ -122,10 +122,47 @@
         //分享参数
         flag: 'now',
         type: 'now',
+        _index: null,
       }
     },
     components: {
       shareBox
+    },
+    watch: {
+      getUserId(val) {
+        this.getRefreshList()
+      },
+      ['$route'](to, from) {
+        if (from.path == '/mystart') {
+          this.getRefreshList();
+        }
+        if (!from.query.id) {
+          return
+        }
+        if ((from.path == '/now/nowDetail' || from.path == '/userstart') && this._index !== null) {
+          this.$http.post(DISCOVERMESSAGE.nowDetail, {
+            "uid": this.$store.state.userId,
+            "id": from.query.id
+          }).then((res) => {
+            if (res.data.status) {
+              const {
+                data: {
+                  data: {
+                    likeStatus,
+                    readNum,
+                    likeNum,
+                  }
+                }
+              } = res
+              this.nowList[this._index].likeStatus = likeStatus
+              this.nowList[this._index].readNum = readNum
+              this.nowList[this._index].likeNum = likeNum
+            } else {
+              MessageBox('提示', res.data.errorMsg);
+            }
+          });
+        }
+      }
     },
     methods: {
       self(id) {
@@ -134,6 +171,12 @@
         } else {
           return true;
         }
+      },
+      /**
+       * 记录index
+       */
+      handleRecordIndex(index) {
+        this._index = index
       },
       clickImg(e) {
         this.showImg = true;
@@ -151,7 +194,7 @@
       handleTopChange(status) {
         this.topStatus = status;
       },
-      changeUserStartId(id) {
+     /* changeUserStartId(id) {
         if (id == this.$store.state.userId) {
           this.$router.push({
             path: '/mystart'
@@ -163,6 +206,22 @@
             path: '/userstart',
             query: {
               id
+            }
+          });
+        }
+      },*/
+      changeUserStartId(id, id1, index) {
+        if (id == this.$store.state.userId) {
+          this.$router.push({
+            path: "/mystart"
+          });
+        } else {
+          this.handleRecordIndex(index)
+          this.$store.state.UserStartId = id;
+          this.$router.push({
+            path: "/userstart",
+            query: {
+              id: id1
             }
           });
         }
@@ -383,11 +442,11 @@
         return this.$store.state.userId
       }
     },
-    watch: {
+    /*watch: {
       getUserId(val) {
         this.getRefreshList()
       }
-    },
+    },*/
     mounted() {
       console.log('now')
       this.getRefreshList()

@@ -453,6 +453,7 @@
       },
       getUserList: function () {
         var _this = this;
+        console.log(_this.$store.state.UserStartId)
         this.$http.post(DISCOVERMESSAGE.issueMomentList, {
           // "uid": _this.$store.state.userId,
           "uid": _this.$store.state.userId,
@@ -463,6 +464,7 @@
               res.data.data[i].createDate = _this.convert(res.data.data[i].createDate)
             }
             _this.myList = res.data.data;
+            console.log("他人页面")
           } else {
             console.log(res.data.errorMsg);
           }
