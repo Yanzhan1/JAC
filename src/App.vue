@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <keep-alive> 
+    <keep-alive>
     	<router-view v-if="$route.meta.keepAlive" />
     </keep-alive>
       <router-view v-if="!$route.meta.keepAlive" />
@@ -72,7 +72,7 @@ export default {
     	if (system == 'IOS') {
       var params = {};
       window.webkit.messageHandlers.showProgressDialog.postMessage(params);
-	    } else {
+      } else if (isMobile.Android() && window.js2android) {
 	          js2android.showProgressDialog();
 	    }
     },

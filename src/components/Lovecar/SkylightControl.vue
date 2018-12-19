@@ -367,7 +367,7 @@ export default {
                   position: "middle",
                   duration: 2000
                 });
-                this.$store.dispatch("LOADINGFLAG", false);
+                localhide();
               } else {
                 this.time = setInterval(() => {
                   this.$http
@@ -390,7 +390,7 @@ export default {
                               duration: 2000
                             });
                             clearInterval(this.time);
-                            this.$store.dispatch("LOADINGFLAG", false);
+                            localhide();
                           }
                         } else if (res.data.status == "SUCCEED") {
                           // flag = false;
@@ -405,7 +405,7 @@ export default {
                           });
                           this.value = !this.value;
                           clearInterval(this.time);
-                          this.$store.dispatch("LOADINGFLAG", false);
+                          localhide();
                         } else if (res.data.status == "FAILED") {
                           flag = false;
                           Toast({
@@ -414,7 +414,7 @@ export default {
                             duration: 2000
                           });
                           clearInterval(this.time);
-                          this.$store.dispatch("LOADINGFLAG", false);
+                          localhide();
                         }
                       } else {
                         Toast({
@@ -424,7 +424,7 @@ export default {
                         });
                         flag = false;
                         clearInterval(this.time);
-                        this.$store.dispatch("LOADINGFLAG", false);
+                        localhide();
                       }
                     });
                 }, 4000);
@@ -442,7 +442,7 @@ export default {
               });
               this.value = !this.value;
                clearInterval(this.time);
-              this.$store.dispatch("LOADINGFLAG", false);
+              localhide();
             } else if (res.data.status == "FAILED") {
               Toast({
                 message: this.skywords[2].dictValue,
@@ -450,7 +450,7 @@ export default {
                 duration: 2000
               });
                clearInterval(this.time);
-              this.$store.dispatch("LOADINGFLAG", false);
+              localhide();
             }
           } else {
             Toast({
@@ -460,7 +460,7 @@ export default {
             });
             flag = false;
             clearInterval(this.time);
-            this.$store.dispatch("LOADINGFLAG", false);
+            localhide();
           }
         });
     },

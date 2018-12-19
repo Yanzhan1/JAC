@@ -175,7 +175,7 @@ export default {
     //路由跳转的时候清除轮询loading
     goback() {
       this.$router.go(-1);
-      this.$store.dispatch("LOADINGFLAG", false);
+      localhide();
     },
     //重复调用异步接口
     getAsyReturn(operationId) {
@@ -200,7 +200,7 @@ export default {
                   position: "middle",
                   duration: 2000
                 });
-                this.$store.dispatch("LOADINGFLAG", false);
+                localhide();
               } else {
                 this.time = setInterval(() => {
                   this.$http
@@ -223,7 +223,7 @@ export default {
                               duration: 2000
                             });
                             clearInterval(this.time);
-                            this.$store.dispatch("LOADINGFLAG", false);
+                            localhide();
                           }
                         } else if (res.data.status == "SUCCEED") {
                           //pin码正确激活弧线
@@ -237,7 +237,7 @@ export default {
                           // });
                           this.value = !this.value;
                           clearInterval(this.time);
-                          this.$store.dispatch("LOADINGFLAG", false);
+                          localhide();
                         } else if (res.data.status == "FAILED") {
                           flag = false;
                           Toast({
@@ -246,7 +246,7 @@ export default {
                             duration: 2000
                           });
                           clearInterval(this.time);
-                          this.$store.dispatch("LOADINGFLAG", false);
+                          localhide();
                         }
                       } else {
                         Toast({
@@ -256,7 +256,7 @@ export default {
                         });
                         flag = false;
                         clearInterval(this.time);
-                        this.$store.dispatch("LOADINGFLAG", false);
+                        localhide();
                       }
                     });
                 }, 4000);
@@ -273,7 +273,7 @@ export default {
               this.activeShowImg = !this.activeShowImg;
               this.value = !this.value;
               clearInterval(this.time);
-              this.$store.dispatch("LOADINGFLAG", false);
+              localhide();
             } else if (res.data.status == "FAILED") {
               Toast({
                 message: "指令下发成功，处理失败！",
@@ -281,7 +281,7 @@ export default {
                 duration: 2000
               });
               clearInterval(this.time);
-              this.$store.dispatch("LOADINGFLAG", false);
+              localhide();
             }
           } else {
             Toast({
@@ -291,7 +291,7 @@ export default {
             });
             flag = false;
             clearInterval(this.time);
-            this.$store.dispatch("LOADINGFLAG", false);
+            localhide();
           }
         });
     },

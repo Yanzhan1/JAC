@@ -960,6 +960,7 @@ export default {
                             }
                             clearInterval(this.time);
                             this.popupbg = false;
+                            console.log('jinru1')
                             localhide()
                           }
                         } else if (res.data.status == "SUCCEED") {
@@ -1268,6 +1269,7 @@ export default {
                             });
                           }
                           clearInterval(this.time);
+                          console.log('jinru2')
                           localhide()
                           this.popupbg = false;
                         }
@@ -1573,6 +1575,7 @@ export default {
               }
 
               clearInterval(this.time);
+              console.log('')
              localhide()
               this.popupbg = false;
             }

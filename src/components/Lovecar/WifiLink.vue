@@ -73,7 +73,7 @@ export default {
                   position: "middle",
                   duration: 2000
                 });
-                this.$store.dispatch("LOADINGFLAG", false);
+                localhide();
               } else {
                 this.time = setInterval(() => {
                   this.$http
@@ -96,7 +96,7 @@ export default {
                               duration: 2000
                             });
                             clearInterval(this.time);
-                            this.$store.dispatch("LOADINGFLAG", false);
+                            localhide();
                           }
                         } else if (res.data.status == "SUCCEED") {
                           this.names=res.data.data.account
@@ -107,7 +107,7 @@ export default {
                           //   duration: 2000
                           // });
                           clearInterval(this.time);
-                          this.$store.dispatch("LOADINGFLAG", false);
+                          localhide();
                         } else if (res.data.status == "FAILED") {
                           flag = false;
                           Toast({
@@ -116,7 +116,7 @@ export default {
                             duration: 2000
                           });
                           clearInterval(this.time);
-                          this.$store.dispatch("LOADINGFLAG", false);
+                          localhide();
                         }
                       } else {
                         Toast({
@@ -125,7 +125,7 @@ export default {
                           duration: 2000
                         });
                         clearInterval(this.time);
-                        this.$store.dispatch("LOADINGFLAG", false);
+                        localhide();
                       }
                     });
                 }, 4000);
@@ -139,7 +139,7 @@ export default {
               //   duration: 2000
               // });
                clearInterval(this.time);
-              this.$store.dispatch("LOADINGFLAG", false);
+              localhide();
             } else if (res.data.status == "FAILED") {
               Toast({
                 message: "指令下发成功，处理失败！",
@@ -147,7 +147,7 @@ export default {
                 duration: 2000
               });
                clearInterval(this.time);
-              this.$store.dispatch("LOADINGFLAG", false);
+              localhide();
             }
           } else {
             Toast({
@@ -157,7 +157,7 @@ export default {
             });
             flag = false;
             clearInterval(this.time);
-            this.$store.dispatch("LOADINGFLAG", false);
+            localhide();
           }
         });
     },
@@ -209,20 +209,14 @@ export default {
         if (res.data.returnSuccess) {
           this.getAsyReturn(res.data.operationId);
         } else {
-          if (res.data.returnErrCode == 403) {
-            Toast({
-              message: "token验证失败",
-              position: "middle",
-              duration: 2000
-            });
-          } else {
+      
             Toast({
               message: res.data.returnErrMsg,
               position: "middle",
               duration: 2000
             });
           }
-        }
+        
       })
       .catch(err => {
         Toast({

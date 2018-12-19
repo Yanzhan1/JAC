@@ -66,7 +66,7 @@ export default {
           });
            if (isMobile.iOS()) {
           var params = {};
-              window.webkit.messageHandlers.scan.syncVehicleList(params);
+              window.webkit.messageHandlers.syncVehicleList.postMessage();
             } else if (isMobile.Android()) {
               js2android.syncVehicleList();
           }

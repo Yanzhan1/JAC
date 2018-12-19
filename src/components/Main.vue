@@ -72,8 +72,7 @@
               window.webkit.messageHandlers.logout403.postMessage({}); //IOS退出app
             }
             break;
-        }
-        console.log(Lovecar.OperationId)
+        } 
         if (response.config.url != Lovecar.OperationId) {
           this.loadingnum--;
           if (this.loadingnum == 0) {
@@ -81,7 +80,7 @@
             this.$forceUpdate();
           }
         } else {
-          localhide()
+          // localhide()
         }
         if (response.config.url.indexOf('dk-dm-portal-api') == -1) {
           ModalHelper.beforeClose() //解决遮罩层穿透
