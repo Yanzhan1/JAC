@@ -6,7 +6,7 @@
       <!-- <img slot="backblue" v-show="rightPic" src="../../../../static/images/discover/backfff.png" />
       <img slot="backblue" v-show="!rightPic" src="../../../../static/images/discover/backblue.png" /> -->
       <img slot="share" v-show="leftPic" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
-      <img slot="share" v-show="!leftPic" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
+      <img slot="share" v-show="!leftPic && content.activityType != 2" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
     </my-header>
     <!-- <header class="header0 header1" id="header1" style="height: auto;padding-bottom: 0.4rem;" :style="$statusBarHeightObj">
       <img style="margin-top: 0.4rem;" class="header_left" src="../../../../static/images/discover/backfff.png" @click="goBack">
@@ -18,9 +18,13 @@
       <img class="header_right" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
     </header> -->
     <!--活动内容S-->
-    <shareBox :index="0" :item="content" :flag="flag" :type="type" :collectionStatus="content.collectionStatus"
-      :isCenter="true" @closeShare="bgHide" @collection="collection" @reCollection="messageBoxCofirm"></shareBox>
-    <img :src="content.imgUrl" style="width: 100%;" id="bgImg" />
+    <p v-if="content.activityType == 2">
+      <iframe :src="content.activityBody" style="width: 100%;min-height: 714px;border: none;"></iframe>
+    </p>
+    <div v-else-if="content.activityType != 2">
+      <shareBox :index="0" :item="content" :flag="flag" :type="type" :collectionStatus="content.collectionStatus"
+                :isCenter="true" @closeShare="bgHide" @collection="collection" @reCollection="messageBoxCofirm"></shareBox>
+      <img :src="content.imgUrl" style="width: 100%;" id="bgImg" />
     <div class="wrap_92">
       <p class="contentActTitle">
         {{content.activityTitle}}
@@ -182,6 +186,7 @@
     </div>
 
     <!--按钮控制E-->
+    </div>
     <div id="bg1" @click="bgbtn1" style="display: none;  position:fixed;  top: 0;  left: 0;  width: 100%;  height: 100%;  background-color: black;  z-index:1; opacity: 0;" />
   </div>
 </template>
