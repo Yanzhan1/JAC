@@ -403,43 +403,47 @@ export default {
           };
           this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res=>{
               let city=res.data.data.records
+              console.log(city)
+              console.log(this.localcity)
               for(let values of city){
                 if(values.name==this.localcity){
-                  this.codecity=name.id
+                  this.codecity=values.id
                 }
               }
+             
           })
       }
       if(this.showchecked){
-
-        var param = {
-          customerName: this.name, //姓名
-          fkDealerId: this.business, //经销商编号
-          gender: gender, //性别
-          mobile: this.tell, //手机号
-          email: this.email, //email
-          address: this.address, //地址
-          comments: this.vehicleData, //车型配置
-          province: this.provinceid, //省份ID
-          series: this.$store.state.levelCode, //意向车系
-          model: this.$store.state.srouceNo, //意向车型
-          city: this.codecity, //城市ID
-          userNo: this.$store.state.userId,
-          code:this.Recommend,//推荐码
-        };
-        this.$http.post(Wit.PreBus, param).then(res => {
-          if (res.data.code == 0) {
-            this.success = true;
-            this.region = true;
-          } else {
-            Toast({
-              message: res.data.msg,
-              duration: 3000,
-              position: "middle"
+        setTimeout(()=>{
+            var param = {
+              customerName: this.name, //姓名
+              fkDealerId: this.business, //经销商编号
+              gender: gender, //性别
+              mobile: this.tell, //手机号
+              email: this.email, //email
+              address: this.address, //地址
+              comments: this.vehicleData, //车型配置
+              province: this.provinceid, //省份ID
+              series: this.$store.state.levelCode, //意向车系
+              model: this.$store.state.srouceNo, //意向车型
+              city: this.codecity, //城市ID
+              userNo: this.$store.state.userId,
+              code:this.Recommend,//推荐码
+            };
+            this.$http.post(Wit.PreBus, param).then(res => {
+              if (res.data.code == 0) {
+                this.success = true;
+                this.region = true;
+              } else {
+                Toast({
+                  message: res.data.msg,
+                  duration: 3000,
+                  position: "middle"
+                });
+                return false;
+              }
             });
-            return false;
-          }
-        });
+        },500)
       }else{
         this.$router.push({
          path:'/wit/Earnest'
