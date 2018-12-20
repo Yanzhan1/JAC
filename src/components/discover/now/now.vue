@@ -151,12 +151,14 @@
                     likeStatus,
                     readNum,
                     likeNum,
+                    focusStatus
                   }
                 }
               } = res
               this.nowList[this._index].likeStatus = likeStatus
               this.nowList[this._index].readNum = readNum
               this.nowList[this._index].likeNum = likeNum
+              this.nowList[this._index].focusStatus = focusStatus
             } else {
               MessageBox('提示', res.data.errorMsg);
             }
