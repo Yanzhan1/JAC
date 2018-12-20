@@ -337,7 +337,7 @@
         this.$http.post(DISCOVERMESSAGE.focusStatu, {
           "uid": _this.$store.state.userId,
           // "focusId": _this.$store.state.UserStartId
-          "focusId": _this.$route.query.id
+          "focusId": _this.$store.state.UserStartId
         }).then(function (res) {
           if (res.data.status) {
             _this.focusStatu = res.data.data;
@@ -351,8 +351,8 @@
         var _this = this;
         this.$http.post(DISCOVERMESSAGE.focusOn, {
           "uid": _this.$store.state.userId,
-          // "focusId": _this.$store.state.UserStartId
-          "focusId": _this.$route.query.id
+          "focusId": _this.$store.state.UserStartId
+          // "focusId": _this.$route.query.id
         }).then(function (res) {
           if (res.data.status) {
             _this.focusStatus();
@@ -374,8 +374,8 @@
           var _this = this;
           this.$http.post(DISCOVERMESSAGE.unFocus, {
             "uid": _this.$store.state.userId,
-            // "focusId": _this.$store.state.UserStartId
-            "focusId": _this.$route.query.id
+            "focusId": _this.$store.state.UserStartId
+            // "focusId": _this.$route.query.id
           }).then(function (res) {
             if (res.data.status) {
               _this.focusStatus();
