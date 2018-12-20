@@ -527,7 +527,6 @@ export default {
       let param = {
         vin: this.vinn
       };
-      // console.log(this.$store.state.tsppin)
       this.$http
         .post(Lovecar.Support, param, this.$store.state.tsppin)
         .then(res => {
@@ -840,7 +839,6 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              // console.log(tSS);
               if (tSS >= 56) {
                 if (this.type == 1) {
                   Toast({
@@ -905,7 +903,6 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          // console.log(tSS);
                           if (tSS >= 56) {
                             if (this.type == 1) {
                               Toast({
@@ -960,7 +957,6 @@ export default {
                             }
                             clearInterval(this.time);
                             this.popupbg = false;
-                            console.log('jinru1')
                             localhide()
                           }
                         } else if (res.data.status == "SUCCEED") {
@@ -1055,13 +1051,6 @@ export default {
                           }
                           if (res.data.data) {
                             this.carcontrol = res.data.data;
-                            // if(this.carcontrol.fuelPercent==undefined){
-                            //       this.carcontrol.fuelPercent=''
-                            //   }else{
-                            //     this.carcontrol.fuelPercent=this.carcontrol.fuelPercent*100
-                            //   }
-                            // console.log(res.data.data);
-                            // setTimeout(() => {
                             Toast(
                               {
                                 message: this.vehicle_condition[1].dictValue,
@@ -1070,8 +1059,6 @@ export default {
                               },
                               2000
                             );
-                            // }, 4000);
-
                             this.engineHoodStsFront = this.carcontrol
                               .engineHoodStsFront
                               ? (this.engineHoodStsFront = "已开")
@@ -1269,7 +1256,6 @@ export default {
                             });
                           }
                           clearInterval(this.time);
-                          console.log('jinru2')
                           localhide()
                           this.popupbg = false;
                         }
@@ -1575,7 +1561,6 @@ export default {
               }
 
               clearInterval(this.time);
-              console.log('')
              localhide()
               this.popupbg = false;
             }
@@ -1904,7 +1889,6 @@ export default {
       }
     },
     userId(newVal, oldVal) {
-      console.log("进入检测");
       this.vehiclestatus();
       this.tspid = this.$store.state.tspId;
       if (this.$store.state.tspId == undefined) {
@@ -1964,7 +1948,6 @@ export default {
       if (res.data.msg == "success") {
         var tsp = res.data.data;
         this.$store.dispatch("TSP", tsp);
-        // console.log(tsp);
         params = {
           aaaUserID: this.$store.state.aaaid,
           tspUserId: this.$store.state.tspId,
@@ -1983,7 +1966,6 @@ export default {
     });
     this.Getmarkedwords();
     if (this.userId) {
-      console.log("进入加载");
       this.vehiclestatus();
       this.tspid = this.$store.state.tspId;
       if (this.$store.state.tspId == undefined) {
@@ -2012,7 +1994,6 @@ export default {
                 var payload = res.data.data[i].vin;
                 this.defaultvin = res.data.data[i].vin;
                 this.$store.state.brandName = res.data.data[i].brandName;
-                // console.log("获取默认车辆vin码:" + this.defaultvin);
                 this.$store.dispatch("CARVINS", payload);
                 //获取机车 登录登出状态
                 //  	       this.getCarLoginState()

@@ -391,7 +391,6 @@ export default {
     }
   },
   mounted() {
-    clearInterval(this.time);
     //  this.produCurve();
     this.inputs();
     this.getskywords();

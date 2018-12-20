@@ -281,6 +281,17 @@ export default {
     tobuy() {
       this.add = "JAC" + this.aaaid + this.mobile + this.userName + "APP";
       this.add = this.$md5(this.add);
+      let a="http://gift.jac.com.cn/app/authLogin" +
+        "?" +
+        "uid=" +
+        this.aaaid +
+        "&mobile=" +
+        this.mobile +
+        "&userName=" +
+        this.userName +
+        "&toOrderList=suc&token=" +
+        this.add
+        console.log(a)
       location.href =
         "http://gift.jac.com.cn/app/authLogin" +
         "?" +
@@ -423,15 +434,17 @@ export default {
   mounted() {
     // this.Tsp()
     // setTimeout(() => {
-
-    this.aaaid = this.$store.state.aaaid;
-    this.mobile = this.$store.state.mobile;
-    this.userName = this.$store.state.userName;
+      localStorage.setItem("aaaid",JSON.stringify(1))
+      localStorage.setItem("mobile",JSON.stringify(this.$store.state.mobile))
+      localStorage.setItem("userName",JSON.stringify(this.$store.state.userName))
+      
+      this.aaaid=JSON.parse(localStorage.getItem("aaaid"))
+      this.mobile = JSON.parse(localStorage.getItem("mobile"))
+      this.userName = JSON.parse(localStorage.getItem("userName"))
     // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
     // }, 0);
     // console.log(this.$store.state.no)
     // this.getTokenAndNo();
-    console.log();
     this.myNum();
     this.IsSign(); //判断是否签到
     this.total(); //h获取用户总积分

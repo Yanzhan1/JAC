@@ -29,7 +29,9 @@
         const arr = config.url.match(this.reg)
         // 在发送请求之前做些什么
         if (config.url == Lovecar.OperationId) {
-          localshow()
+          if(this.loadingnum == 0){
+            localshow()
+          }
         }
         if (this.loadingnum == 0) {
           if (arr) {
@@ -52,7 +54,7 @@
         }
         return config;
       }, (error) => {
-        this.loadingnum--;
+        this.loadingnum=0;
         if (this.loadingnum == 0) {
           localhide()
         }
@@ -73,8 +75,10 @@
             }
             break;
         } 
+                  this.loadingnum=0
         if (response.config.url != Lovecar.OperationId) {
-          this.loadingnum--;
+          // this.loadingnum--;
+          console.log(this.loadingnum)
           if (this.loadingnum == 0) {
             localhide()
             this.$forceUpdate();
@@ -87,7 +91,7 @@
         }
         return response;
       }, (error) => {
-        this.loadingnum--;
+        this.loadingnum=0;
         if (this.loadingnum == 0) {
           localhide()
         }
