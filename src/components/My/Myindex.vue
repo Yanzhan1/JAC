@@ -432,6 +432,7 @@ export default {
     }
   },
   mounted() {
+    console.log(1)
     // this.Tsp()
     // setTimeout(() => {
       localStorage.setItem("aaaid",JSON.stringify(1))
