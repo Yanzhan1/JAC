@@ -48,7 +48,7 @@
 								<span class="bus_right">品牌: {{item.seriesName}}</span>
 								<span class="bus_right">经销商：{{item.dealerName}}</span>
 								<span class="bus_right">地址：{{item.address}}</span>
-								<span class="bus_right">订单编号：{{item.fkDealerId}}</span>
+								<span class="bus_right">订单编号：{{item.mediaLeadId}}</span>
 								<!-- <span class="bus_right">备注：{{item.comments}}</span> -->
 
 							</div>
