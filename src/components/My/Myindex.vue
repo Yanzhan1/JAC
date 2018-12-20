@@ -637,9 +637,9 @@ export default {
   height: 0.36rem;
   line-height: 0.31rem;
   text-align: center;
-  border: 0.02rem solid #C2C2C2;
+  border: 0.02rem solid #fff;
   border-radius: 0.1rem;
-  color: #9E9E9E;
+  color:#fff;
   font-size: 0.2rem;
   /* -webkit-transform: scale(0.75);
   -o-transform: scale(.75) */
