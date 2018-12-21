@@ -1,12 +1,12 @@
 <template>
   <div>
     <my-header :id="'asd'" :title="title" :isShow="isShow" :rightPic="rightPic">
-      <img slot="share" v-show="leftPic" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
-      <img slot="share" v-show="!leftPic" src="../../../../static/images/discover/moreblue.png"/>
+      <!--<img slot="share" v-show="leftPic" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
+      <img slot="share" v-show="!leftPic" src="../../../../static/images/discover/moreblue.png"/>-->
       <!--<img slot="share" v-show="!leftPic" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />-->
     </my-header>
     <!--活动内容S-->
-    <iframe :src="content.activityBody" style="width: 100%;min-height: 714px;border: none;"></iframe>
+    <iframe :src="content.activityBody" :style="iframHeightObj"></iframe>
   </div>
 </template>
 
@@ -29,7 +29,12 @@
         rightPic: true,
         bgImgHeight: 0,
         title: '',
-        isShow: true
+        isShow: true,
+        iframHeightObj: {
+          'border': 'none',
+          'minHeight': window.innerHeight + 'px',
+          'width': '100%'
+        }
       }
     },
     created() {
