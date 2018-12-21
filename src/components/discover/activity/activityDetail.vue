@@ -2,26 +2,11 @@
   <div>
     <div @click="bgHide" id="bgShare"></div>
     <my-header :id="'asd'" :title="title" :isShow="isShow" :rightPic="rightPic">
-      <!--<img slot="share" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />-->
-      <!-- <img slot="backblue" v-show="rightPic" src="../../../../static/images/discover/backfff.png" />
-      <img slot="backblue" v-show="!rightPic" src="../../../../static/images/discover/backblue.png" /> -->
       <img slot="share" v-show="leftPic" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
-      <img slot="share" v-show="!leftPic && content.activityType != 2" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
+      <img slot="share" v-show="!leftPic" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
     </my-header>
-    <!-- <header class="header0 header1" id="header1" style="height: auto;padding-bottom: 0.4rem;" :style="$statusBarHeightObj">
-      <img style="margin-top: 0.4rem;" class="header_left" src="../../../../static/images/discover/backfff.png" @click="goBack">
-      <img style="margin-top: 0.4rem;" class="header_right" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
-    </header> -->
-    <!-- <header class="header0 header2" id="header2" style="display: none">
-      <img class="header_left" src="../../../../static/images/discover/backblue.png" @click="goBack">
-      <p class="header-title-fff">活动详情</p>
-      <img class="header_right" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
-    </header> -->
     <!--活动内容S-->
-    <p v-if="content.activityType == 2">
-      <iframe :src="content.activityBody" style="width: 100%;min-height: 714px;border: none;"></iframe>
-    </p>
-    <div v-else-if="content.activityType != 2">
+    <div>
       <shareBox :index="0" :item="content" :flag="flag" :type="type" :collectionStatus="content.collectionStatus"
                 :isCenter="true" @closeShare="bgHide" @collection="collection" @reCollection="messageBoxCofirm"></shareBox>
       <img :src="content.imgUrl" style="width: 100%;" id="bgImg" />
@@ -130,7 +115,6 @@
     <div style="height: 0.88rem;"></div>
     <!--按钮控制S-->
     <div v-if="userId">
-
       <!-- 未开始 -->
       <template v-if="content.activityState == 0">
         <!-- 未报名 -->
@@ -162,24 +146,6 @@
           晒&nbsp;图
         </div>
       </template>
-
-      <!-- <div class="sign_btn" v-if="(content.activityState==0) && content.joinStatus" @click="toSign(content.activityId)">
-        报&nbsp;名
-      </div>
-      <div class="sign_btn" v-else-if="content.activityState==0 && !content.joinStatus" @click="toPic(content.activityId)">
-          已报名
-        </div>
-      <div class="sign_btn" v-else-if="content.activityState!=2 && !content.joinStatus" @click="removeWant">
-        取消报名
-      </div>
-      <div class="sign_btn" v-else-if="(content.activityState==2 || content.activityState==1)&& !content.joinStatus"
-        @click="toPic(content.activityId)">
-        晒&nbsp;图
-      </div>
-      <div class="sign_btn" v-else>
-        报名已结束
-      </div> -->
-
     </div>
     <div class="sign_btn" v-else @click="cantWantGo">
       报&nbsp;名
