@@ -110,6 +110,7 @@ import ToSign from '@/components/discover/activity/toSign' //活动报名
 import ToInform from '@/components/discover/component/inform' //举报此刻
 // 智享部分
 import Wit from '@/components/Wit/Wit.vue' //智享首页
+import Allbus from '@/components/Wit/Allbus.vue' //主推车型
 import HotSell from '@/components/Wit/HotSell.vue' //热销车型
 import IntelligentCar from '@/components/Wit/IntelligentCar.vue' //智能选车
 import Dealer from '../components/Wit/dealer.vue' //经销商查询
@@ -673,14 +674,30 @@ const router = new Router({
                 meta: {
                     keepAlive: true
                 }
-            }, {
+            },
+            {
+
+                path: '/wit/Allbus',
+                name: '全部车型',
+                component: Allbus,
+                meta: {
+                    keepAlive: true
+                }
+            },
+            {
                 path: '/wit/search_net',
                 name: '网点查询',
-                component: Search_net
+                component: Search_net,
+                meta: {
+                    keepAlive: true
+                }
             }, {
                 path: '/wit/pre_weib',
                 name: '维保预约',
-                component: Pre_weib
+                component: Pre_weib,
+                meta: {
+                    keepAlive: true
+                }
             },
             {
                 path: '/wit/Characteristic',
