@@ -77,6 +77,7 @@ import Test_Result from '../components/Lovecar/Test_Reault.vue' //测试结果
 import WbRecode from '../components/My/WbRecode.vue' //维保记录
 import ScoreDetails from '../components/My/ScoreDetails.vue' //会员积分详情
 import DotComment from '../components/My/DotComment.vue' //网点评分
+import Agreement from '../components/My/Agreement.vue' //网点评分
 // 消息
 import News from '../components/news/News.vue' //消息
 import StyNews from '../components/news/StyNews.vue' //系统消息
@@ -571,6 +572,11 @@ const router = new Router({
                 path: "my/scoredetails",
                 name: '积分详情',
                 component: ScoreDetails
+            },
+            {
+                path: "Agreement",
+                name: '协议',
+                component: Agreement
             },
             // 消息
             {

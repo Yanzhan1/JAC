@@ -78,7 +78,6 @@
                   this.loadingnum=0
         if (response.config.url != Lovecar.OperationId) {
           // this.loadingnum--;
-          console.log(this.loadingnum)
           if (this.loadingnum == 0) {
             localhide()
             this.$forceUpdate();
