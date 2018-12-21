@@ -95,10 +95,10 @@ export default {
     }
   },
   created() {
+    window.goActivityDetail = this.goActivityDetail
     window.isLogin = this.isLogin;
     window.localshow = this.localshow
     window.localhide = this.localhide
-    window.goActivityDetail = this.goActivityDetail
     // window.loadTab = this.loadTab;
   },
   mounted() {
