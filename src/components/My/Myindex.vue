@@ -175,7 +175,6 @@ export default {
         // no:'AD11201809030320353266'
       };
       //  var param=JSON.stringify(data)
-      //  console.log(My.SignIn)
       this.$http.post(My.SignIn, data).then(res => {
         if (res.data.code == 0) {
           this.num = res.data.data;
@@ -281,17 +280,17 @@ export default {
     tobuy() {
       this.add = "JAC" + this.aaaid + this.mobile + this.userName + "APP";
       this.add = this.$md5(this.add);
-      let a="http://gift.jac.com.cn/app/authLogin" +
-        "?" +
-        "uid=" +
-        this.aaaid +
-        "&mobile=" +
-        this.mobile +
-        "&userName=" +
-        this.userName +
-        "&toOrderList=suc&token=" +
-        this.add
-        console.log(a)
+      // let a="http://gift.jac.com.cn/app/authLogin" +
+      //   "?" +
+      //   "uid=" +
+      //   this.aaaid +
+      //   "&mobile=" +
+      //   this.mobile +
+      //   "&userName=" +
+      //   this.userName +
+      //   "&toOrderList=suc&token=" +
+      //   this.add
+      //   console.log(a)
       location.href =
         "http://gift.jac.com.cn/app/authLogin" +
         "?" +
@@ -303,9 +302,6 @@ export default {
         this.userName +
         "&toOrderList=suc&token=" +
         this.add;
-      // this.url='http://14.21.46.171:8707/authLogin'+'?'+'uid='+'99'+'&moblie='+'18856913074'+'&userName='+'啊'+'&toOrderList=suc&token='+'91af2f1fe5ba6236a0d99c7ac92161c8'
-      // console.log(this.url);
-      // this.$http.get(this.url).then(res => {});
     },
     //粉丝
     toFans: function() {
@@ -327,10 +323,8 @@ export default {
       this.$http.post(My.UserInfo, param).then(res => {
         if (res.data.code == 0) {
           this.Personal = res.data.data;
-          console.log(this.Personal);
           for (let val of this.Personal.entitys) {
             if (val.entity == "V") {
-              console.log("进入");
               this.imgV = true;
             }
             if (val.entity == "JAC") {
@@ -366,7 +360,6 @@ export default {
             _this.likeNum = res.data.data.likeNum;
             _this.momentNum = res.data.data.momentNum;
           } else {
-            // console.log(res.data.errorMsg);
             // MessageBox('提示', res.data.errorMsg);
           }
         });
@@ -383,7 +376,6 @@ export default {
           if (res.data.status) {
             _this.myList = res.data.data;
           } else {
-            // console.log(res.data.errorMsg);
             //MessageBox('提示', res.data.errorMsg);
           }
         });
@@ -416,7 +408,7 @@ export default {
   },
   computed: {
     show() {
-      return this.$store.state.tspId;
+      return this.$store.state.aaaid;
     }
   },
   created() {
@@ -425,22 +417,29 @@ export default {
   },
   watch: {
     show(newVal, oldVal) {
-      this.aaaid = this.$store.state.aaaid;
-      this.mobile = this.$store.state.mobile;
-      this.userName = this.$store.state.userName;
+      console.log(2)
+      localStorage.setItem("aaaid",JSON.stringify(this.$store.state.aaaid))
+      localStorage.setItem("mobile",JSON.stringify(this.$store.state.mobile))
+      localStorage.setItem("userName",JSON.stringify(this.$store.state.userName))
+      this.aaaid =JSON.parse(localStorage.getItem("aaaid"));
+      console.log( this.aaaid)
+      this.mobile = JSON.parse(localStorage.getItem("mobile"));
+      this.userName = JSON.parse(localStorage.getItem("userName"));
       // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
     }
   },
   mounted() {
     // this.Tsp()
     // setTimeout(() => {
-      localStorage.setItem("aaaid",JSON.stringify(1))
-      localStorage.setItem("mobile",JSON.stringify(this.$store.state.mobile))
-      localStorage.setItem("userName",JSON.stringify(this.$store.state.userName))
-      
-      this.aaaid=JSON.parse(localStorage.getItem("aaaid"))
-      this.mobile = JSON.parse(localStorage.getItem("mobile"))
-      this.userName = JSON.parse(localStorage.getItem("userName"))
+        console.log(1)
+        console.log(this.$store.state.aaaid)
+        localStorage.setItem("aaaid",JSON.stringify(this.$store.state.aaaid))
+        localStorage.setItem("mobile",JSON.stringify(this.$store.state.mobile))
+        localStorage.setItem("userName",JSON.stringify(this.$store.state.userName))
+        this.aaaid=JSON.parse(localStorage.getItem("aaaid"))
+        console.log(this.aaaid)
+        this.mobile = JSON.parse(localStorage.getItem("mobile"))
+        this.userName = JSON.parse(localStorage.getItem("userName"))
     // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
     // }, 0);
     // console.log(this.$store.state.no)
@@ -636,9 +635,9 @@ export default {
   height: 0.36rem;
   line-height: 0.31rem;
   text-align: center;
-  border: 0.02rem solid #C2C2C2;
+  border: 0.02rem solid #fff;
   border-radius: 0.1rem;
-  color: #9E9E9E;
+  color:#fff;
   font-size: 0.2rem;
   /* -webkit-transform: scale(0.75);
   -o-transform: scale(.75) */
