@@ -97,6 +97,7 @@ import Activity from '@/components/discover/activity/activity' //活动首页
 import Information from '@/components/discover/information/information' //资讯首页
 import Now from '@/components/discover/now/now' //此刻首页
 import ActivityDetail from '@/components/discover/activity/activityDetail' //活动详情
+import ActivityLive from '@/components/discover/activity/activityLive' //活动直播
 import InformationDetail from '@/components/discover/information/informationDetail' //资讯详情
 import NowDetail from '@/components/discover/now/nowDetail' //此刻详情
 import ActivityDetailStatic from '@/components/discover/share/activityDetail' //分享出去的活动详情
@@ -197,7 +198,12 @@ const router = new Router({
             {
                 path: "/activity/activityDetail",
                 component: ActivityDetail
-            }, {
+            },
+            {
+                path: "/activity/activityLive",
+                component: ActivityLive
+            },
+            {
                 path: "/information/informationDetail",
                 component: InformationDetail
             }, {

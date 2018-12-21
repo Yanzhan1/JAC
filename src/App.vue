@@ -84,12 +84,21 @@ export default {
 	    } else if (isMobile.Android() && window.js2android) {
 	        js2android.dismissProgressDialog();
 	    }
+    },
+    goActivityDetail (activityId){
+      this.$router.push({
+        path: "/activity/activityLive",
+        query: {
+          activityId: activityId
+        }
+      })
     }
   },
   created() {
     window.isLogin = this.isLogin;
     window.localshow = this.localshow
     window.localhide = this.localhide
+    window.goActivityDetail = this.goActivityDetail
     // window.loadTab = this.loadTab;
   },
   mounted() {

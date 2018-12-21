@@ -10,11 +10,11 @@
         <!--活动列表S-->
         <div v-for="(item) in activityList" :key="item.id">
           <div class="boxInfo">
-            <p class="listTitleInfo" @click="toDetail(item.activityId)">
+            <p class="listTitleInfo" @click="toDetail(item.activityId,item.activityType)">
               {{item.activityTitle.slice(0,46)}}
               <span v-if="item.activityTitle.length>46">...</span>
             </p>
-            <img class="listPic312" @click="toDetail(item.activityId)" :src="item.imgUrl" />
+            <img class="listPic312" @click="toDetail(item.activityId,item.activityType)" :src="item.imgUrl" />
             <div class="listIconActivity">
               <!--未开始-->
               <div v-if="item.activityState==0">
@@ -108,9 +108,15 @@
       handleTopChange(status) {
         this.topStatus = status;
       },
-      toDetail: function (id) {
+      toDetail: function (id,activityType) {
+        var path = '';
+        if(activityType == 2){
+          path = '/activity/activityLive';
+        }else{
+          path = '/activity/activityDetail';
+        }
         this.$router.push({
-          path: "/activity/activityDetail",
+          path: path,
           query: {
             activityId: id
           }
@@ -190,7 +196,6 @@
       }
     },
     mounted() {
-      console.log('activity')
       this.getRefreshList();
     },
   }
