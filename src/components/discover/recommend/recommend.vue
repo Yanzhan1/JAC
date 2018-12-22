@@ -59,7 +59,7 @@
           </div>
           <!--资讯列表E-->
           <!--活动列表S-->
-          <div v-if="item.recommendType==2">
+          <div v-if="item.recommendType==0">
             <div class="boxInfo">
               <p class="listTitleInfo" @click="toActDetail(item.id)">
                 {{item.title.slice(0,46)}}
@@ -93,7 +93,7 @@
           </div>
           <!--活动列表E-->
           <!--社区列表S-->
-          <div v-if="item.recommendType==3">
+          <div v-if="item.recommendType==2">
             <div class="boxInfo">
               <!--发布者信息S-->
               <div class="comment_userinfo">
