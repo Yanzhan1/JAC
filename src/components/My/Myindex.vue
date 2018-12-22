@@ -76,7 +76,7 @@
           <span>维保记录</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </router-link>--> 
+      </router-link>-->
       <router-link to="/myCollect" tag="div" class="mylist">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_collection@2x.png" alt="">
@@ -417,33 +417,15 @@ export default {
   },
   watch: {
     show(newVal, oldVal) {
-      console.log(2)
-      localStorage.setItem("aaaid",JSON.stringify(this.$store.state.aaaid))
-      localStorage.setItem("mobile",JSON.stringify(this.$store.state.mobile))
-      localStorage.setItem("userName",JSON.stringify(this.$store.state.userName))
-      this.aaaid =JSON.parse(localStorage.getItem("aaaid"));
-      console.log( this.aaaid)
-      this.mobile = JSON.parse(localStorage.getItem("mobile"));
-      this.userName = JSON.parse(localStorage.getItem("userName"));
-      // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
+      this.aaaid = this.$store.state.aaaid;
+      this.mobile =  this.$store.state.mobile;
+      this.userName =  this.$store.state.userName;
     }
   },
   mounted() {
-    // this.Tsp()
-    // setTimeout(() => {
-        console.log(1)
-        console.log(this.$store.state.aaaid)
-        localStorage.setItem("aaaid",JSON.stringify(this.$store.state.aaaid))
-        localStorage.setItem("mobile",JSON.stringify(this.$store.state.mobile))
-        localStorage.setItem("userName",JSON.stringify(this.$store.state.userName))
-        this.aaaid=JSON.parse(localStorage.getItem("aaaid"))
-        console.log(this.aaaid)
-        this.mobile = JSON.parse(localStorage.getItem("mobile"))
-        this.userName = JSON.parse(localStorage.getItem("userName"))
-    // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
-    // }, 0);
-    // console.log(this.$store.state.no)
-    // this.getTokenAndNo();
+    this.aaaid = this.$store.state.aaaid;
+    this.mobile =  this.$store.state.mobile;
+    this.userName =  this.$store.state.userName;
     this.myNum();
     this.IsSign(); //判断是否签到
     this.total(); //h获取用户总积分
