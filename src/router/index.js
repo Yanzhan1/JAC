@@ -127,6 +127,12 @@ import ColorChoose from '../components/Wit/ColorChoose' //车辆预定
 import RimChoose from '../components/Wit/RimChoose' //车辆预定
 import VehicleChoose from '../components/Wit/VehicleChoose' //车辆预定
 import Earnest from '../components/Wit/Earnest' //支付定金页面
+// 临时首页 ios审核用
+import indexLogin from '../components/index_login/index_login'
+import indexLoginDetail1 from '../components/index_login/index_login_detail1'
+import indexLoginDetail2 from '../components/index_login/index_login_detail2'
+import indexLoginDetail3 from '../components/index_login/index_login_detail3'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -152,11 +158,28 @@ const router = new Router({
     routes: [{
         path: '/',
         component: Main,
-        children: [{
-                path: '/',
-                redirect: '/discover'
-            },
-            //发现
+        children: [
+          {
+            path: '/',
+            redirect: '/discover'
+          },
+          {
+            path: "/indexLogin",
+            component: indexLogin
+          },
+          {
+            path: '/indexLogin/indexLoginDetail1',
+            component: indexLoginDetail1
+          },
+          {
+            path: '/indexLogin/indexLoginDetail2',
+            component: indexLoginDetail2
+          },
+          {
+            path: '/indexLogin/indexLoginDetail3',
+            component: indexLoginDetail3
+          },
+          //发现
             {
                 path: "/discover",
                 component: Discover,

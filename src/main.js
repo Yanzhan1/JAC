@@ -40,6 +40,9 @@ Vue.use(MyStart)
  * 获取手机上方状态栏高度
  */
 try {
+    Vue.prototype.$statusBarHeightObj = {
+      paddingTop: 0,
+    }
     if (isMobile.iOS()) {
         Vue.prototype.$statusBarHeightObj = {
             paddingTop: 0,
