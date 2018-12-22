@@ -44,15 +44,17 @@
                 </div>
               </div>
             </div>
-            <div class="user_date">
-              {{item.createDate}}
+            <div>
+              <div class="user_date">
+                {{item.createDate}}
+                <p style="float: right;" @click="deleteNow(item.id)">删除</p>
+              </div>
             </div>
           </div>
         </div>
         <!--发布者信息E-->
         <div class="listTitleInfo">
           <span @click="toDetail(item.id)">{{item.momentMessage}}</span>
-          <p style="float: right;" @click="deleteNow(item.id)">删除</p>
         </div>
         <div class="pics" v-if="item.momentImgList">
           <div v-if="item.momentImgList.length==1" v-for="imgItem in item.momentImgList">
