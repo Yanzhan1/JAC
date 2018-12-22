@@ -4,8 +4,9 @@
       <div style="margin:0.3rem 0;display:inline-block">
         <img src="../../../static/images/discover/index_login/logo.png" style="height:0.8rem;margin-bottom: 0;" />
       </div>
-      <div style="margin:0.3rem 0;display:inline-block;float:right">
-        <img src="../../../static/images/discover/index_login/logo.png" style="height:0.8rem;margin-bottom: 0;" />
+      <div class="login" style="margin:0.3rem 0;display:inline-block;float:right;" @click="toLogin()">
+        <!--<img src="../../../static/images/discover/index_login/logo.png" style="height:0.8rem;margin-bottom: 0;" />-->
+        <p style="padding:0.2rem 0.1rem">登陆/注册</p>
       </div>
     </div>
     <div class="boxInfo" style="margin-top:0 ">
@@ -106,5 +107,13 @@
     color: #49BBFF;
     ;
   }
-
+  .login {
+    bottom: 0.3rem;
+    border-radius: 0.1rem;
+    border-color: #49BBFF;
+    border:1px solid;
+    color: #49BBFF;
+    box-sizing:border-box;
+    line-height: 0.78rem;
+  }
 </style>
