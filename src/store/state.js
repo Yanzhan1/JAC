@@ -10,7 +10,7 @@ export default {
     uuid: null,
     sign: '', //原生拿到的用作埋点
     UserStartId: null,
-    mobile: null, //用户手机号
+    mobile: '', //用户手机号
     softkeyboard: true, //默认软键盘开启
     token: null, //用户token
     refreshToken: '', //查询是否tsp用户接口拿到的刷新token
