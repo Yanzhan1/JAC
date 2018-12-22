@@ -68,9 +68,9 @@ Vue.prototype.toLogin = function() {
     }).then(action => {
         console.log("跳转登录");
         if (isMobile.iOS()) {
-            window.webkit.messageHandlers.goLogin.postMessage("");
-        } else if (isMobile.Android()) {
-            NativeJavaScriptInterface.goLogin();
+            window.webkit.messageHandlers.login.postMessage("");
+        } else if (isMobile.Android() && window.js2android) {
+          window.js2android.login();
         }
     });
 }
