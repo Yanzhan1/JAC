@@ -1,5 +1,6 @@
 export const ISLOGIN = 'ISLOGIN'; //是否登录
 export const USERID = 'USERID'; //用户UserId
+export const IMGURL = 'IMGURL'; //用户UserId
 export const UUID = 'UUID'; //用户UUID
 export const NO = 'NO'; //模拟用户NO
 export const TOKEN = 'TOKEN'; //用户token

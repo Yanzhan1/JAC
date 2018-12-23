@@ -73,7 +73,7 @@ export default {
         };
         this.$http.post(My.UserInfo, param).then(res => {
           if (res.data.code == 0) {
-            console.log(res.data.data.headUrl);
+            this.$store.dispatch('imgUrl', res.data.data.headUrl)
           }
         });
       }

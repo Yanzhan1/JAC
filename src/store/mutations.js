@@ -12,6 +12,9 @@ export default {
     [types.USERID]: (state, payload) => {
         state.userId = payload
     },
+    [types.IMGURL]: (state, payload) => {
+        state.imgUrl = payload
+    },
     [types.UUID]: (state, payload) => {
         state.uuid = payload
     },
@@ -20,7 +23,7 @@ export default {
         if (payload) {
             state.sign = payload.sign
             state.userName = payload.userName
-            state.imgUrl = payload.imgUrl
+            // state.imgUrl = payload.imgUrl
             state.trueuserId = payload.userId
             state.no = payload.no
             state.mobile = payload.mobile
