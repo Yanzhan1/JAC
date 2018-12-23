@@ -79,22 +79,22 @@ export default {
       }
     },
    	localshow () {
-      // var system = IOSAndAndroid.isIOSOrAndroid()
-    	// if (system == 'IOS') {
-      // var params = {};
-      // //window.webkit.messageHandlers.showProgressDialog.postMessage(params);
-      // } else if (isMobile.Android() && window.js2android) {
-	    //       js2android.showProgressDialog();
-	    // }
+      var system = IOSAndAndroid.isIOSOrAndroid()
+    	if (system == 'IOS') {
+      var params = {};
+      //window.webkit.messageHandlers.showProgressDialog.postMessage(params);
+      } else if (isMobile.Android() && window.js2android) {
+	          js2android.showProgressDialog();
+	    }
     },
     localhide () {
     	// 防止用户原生连点隐藏的遮罩层
-	    // if (isMobile.iOS()) {
-      //    var params = {};
-      //    //window.webkit.messageHandlers.dismissProgressDialog.postMessage(params);
-	    // } else if (isMobile.Android() && window.js2android) {
-	    //     js2android.dismissProgressDialog();
-	    // }
+	    if (isMobile.iOS()) {
+         var params = {};
+         //window.webkit.messageHandlers.dismissProgressDialog.postMessage(params);
+	    } else if (isMobile.Android() && window.js2android) {
+	        js2android.dismissProgressDialog();
+	    }
     },
     goActivityDetail (activityId){
       this.$router.push({
