@@ -20,6 +20,7 @@ export default {
         if (payload) {
             state.sign = payload.sign
             state.userName = payload.userName
+            state.imgUrl = payload.imgUrl
             state.trueuserId = payload.userId
             state.no = payload.no
             state.mobile = payload.mobile

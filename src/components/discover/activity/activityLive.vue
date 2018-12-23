@@ -6,11 +6,12 @@
       <!--<img slot="share" v-show="!leftPic" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />-->
     </my-header>
     <!--活动内容S-->
-    <iframe :src="content.activityBody" :style="iframHeightObj"></iframe>
+    <iframe id="childframe" :src="content.activityBody" :style="iframHeightObj"></iframe>
   </div>
 </template>
 
 <script>
+  var url = require('url')
   import {
     MessageBox
   } from 'mint-ui';
@@ -44,6 +45,43 @@
       shareBox
     },
     methods: {
+      postMessageObj() {
+        var count = 0
+        var self = this
+
+        return {
+          sendPostMessage: function (activityBody) {
+            if (count >= 10) {
+              console.log('不瘠薄调了')
+              return
+            }
+            count++
+            var {
+              protocol,
+              host
+            } = url.parse(activityBody, true)
+            var auth = self.$store.state.islogin
+            var userId = self.$store.state.userId
+            var headImgUrl = self.$store.state.imgUrl
+            var userName = self.$store.state.userName
+
+            try {
+              document.querySelector('#childframe').contentWindow.postMessage({
+                src: 'jh',
+                auth,
+                userId,
+                headImgUrl,
+                userName
+              }, `${protocol}://${host}`)
+            } catch (e) {
+              console.log('没调通')
+              setTimeout(() => {
+                this.sendPostMessage(activityBody)
+              }, 1000)
+            }
+          }
+        }
+      },
       //活动详情
       getActivity() {
         var _this = this;
@@ -53,6 +91,11 @@
         }, ).then(function (res) {
           if (res.data.status) {
             _this.content = res.data.data;
+
+            _this.$nextTick(function () {
+              _this.postMessageObj().sendPostMessage(res.data.data.activityBody)
+            })
+
           } else {
             console.log('提示', res.data.errorMsg);
           }
@@ -74,7 +117,8 @@
         const asd = document.querySelector('#asd')
         //this.bgImgHeight = bgImg.getBoundingClientRect().height - asd.getBoundingClientRect().height
       })
-    }
+    },
+
   }
 
 </script>
@@ -86,6 +130,7 @@
     height: 0.32rem;
     width: 0.32rem
   }
+
   #bgShare {
     position: fixed;
     width: 100%;
@@ -94,4 +139,5 @@
     display: none;
     opacity: 0.2
   }
+
 </style>

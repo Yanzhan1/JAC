@@ -7,6 +7,7 @@ export default {
     aaaid: '', //3a的userid
     tspId: '', //查询是否tsp用户的接口拿到的tspid
     userName: '', //用户昵称
+    imgUrl: '',
     uuid: null,
     sign: '', //原生拿到的用作埋点
     UserStartId: null,
