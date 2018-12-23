@@ -44,28 +44,39 @@ export default {
         // this.$store.dispatch("userId", secUid);
         this.$store.dispatch("userId", userInfo.no);
         this.$store.dispatch("userInfo", userInfo);
-          let params = {
-              userNo: userInfo.no
+        let params = {
+            userNo: userInfo.no
+          };
+        this.$http.post(Lovecar.TSP, params).then(res => {
+          if (res.data.msg == "success") {
+            var tsp = res.data.data;
+            this.$store.dispatch("TSP", tsp);
+            // console.log(tsp);
+            params = {
+              aaaUserID: this.$store.state.aaaid,
+              tspUserId: this.$store.state.tspId,
+              userId: this.$store.state.trueuserId,
+              phone: this.$store.state.mobile
             };
-            this.$http.post(Lovecar.TSP, params).then(res => {
-              if (res.data.msg == "success") {
-                var tsp = res.data.data;
-                this.$store.dispatch("TSP", tsp);
-                // console.log(tsp);
-                params = {
-                  aaaUserID: this.$store.state.aaaid,
-                  tspUserId: this.$store.state.tspId,
-                  userId: this.$store.state.trueuserId,
-                  phone: this.$store.state.mobile
-                };
-              }
-            });
+          }
+        });
       } else {
         this.$store.dispatch("isLogin", false);
         this.$store.dispatch("userId", null);
         //      this.$store.dispatch('userInfo',null);
       }
       this.$http.defaults.headers.common['timaToken'] = this.$store.state.token;
+      // 如果登录成功，获取用户头像
+      if(this.$http.defaults.headers.common['timaToken']){
+        var param = {
+          no: this.$store.state.userId
+        };
+        this.$http.post(My.UserInfo, param).then(res => {
+          if (res.data.code == 0) {
+            console.log(res.data.data.headUrl);
+          }
+        });
+      }
     },
    	localshow () {
       var system = IOSAndAndroid.isIOSOrAndroid()
