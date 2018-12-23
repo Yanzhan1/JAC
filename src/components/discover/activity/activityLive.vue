@@ -68,11 +68,11 @@
             try {
               document.querySelector('#childframe').contentWindow.postMessage({
                 src: 'jh',
-                auth,
+                auth: auth ? 'yes' : 'no',
                 userId,
                 headImgUrl,
                 userName
-              }, `${protocol}://${host}`)
+              }, '*')
             } catch (e) {
               console.log('没调通')
               setTimeout(() => {
