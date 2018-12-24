@@ -54,7 +54,7 @@
           var userId = this.$store.state.userId
           var headImgUrl = this.$store.state.imgUrl
           var userName = this.$store.state.userName
-
+          
           document.querySelector('#childframe').contentWindow.postMessage({
             src: 'jh',
             auth: auth ? 'yes' : 'no',
@@ -72,6 +72,11 @@
           "id": this.activityId
         }, ).then(function (res) {
           if (res.data.status) {
+
+            res.data.data.activityBody = res.data.data.activityBody.includes('?') ? 
+            `${res.data.data.activityBody}&t=${+new Date}` : 
+            `${res.data.data.activityBody}?t=${+new Date}`
+
             _this.content = res.data.data;
 
             _this.$nextTick(function () {
