@@ -45,41 +45,23 @@
       shareBox
     },
     methods: {
-      postMessageObj() {
-        var count = 0
-        var self = this
+      sendMessage(activityBody) {
+        var iframe = document.querySelector('#childframe')
 
-        return {
-          sendPostMessage: function (activityBody) {
-            if (count >= 10) {
-              console.log('不瘠薄调了')
-              return
-            }
-            count++
-            var {
-              protocol,
-              host
-            } = url.parse(activityBody, true)
-            var auth = self.$store.state.islogin
-            var userId = self.$store.state.userId
-            var headImgUrl = self.$store.state.imgUrl
-            var userName = self.$store.state.userName
+        iframe.onload = () => {
+          var targetOrigin = activityBody.split('?')[0]
+          var auth = this.$store.state.islogin
+          var userId = this.$store.state.userId
+          var headImgUrl = this.$store.state.imgUrl
+          var userName = this.$store.state.userName
 
-            try {
-              document.querySelector('#childframe').contentWindow.postMessage({
-                src: 'jh',
-                auth: auth ? 'yes' : 'no',
-                userId,
-                headImgUrl,
-                userName
-              }, '*')
-            } catch (e) {
-              console.log('没调通')
-              setTimeout(() => {
-                this.sendPostMessage(activityBody)
-              }, 1000)
-            }
-          }
+          document.querySelector('#childframe').contentWindow.postMessage({
+            src: 'jh',
+            auth: auth ? 'yes' : 'no',
+            userId,
+            headImgUrl,
+            userName
+          }, targetOrigin)
         }
       },
       //活动详情
@@ -92,9 +74,7 @@
           if (res.data.status) {
             _this.content = res.data.data;
 
-            _this.$nextTick(function () {
-              _this.postMessageObj().sendPostMessage(res.data.data.activityBody)
-            })
+            _this.sendMessage(res.data.data.activityBody)
 
           } else {
             console.log('提示', res.data.errorMsg);
