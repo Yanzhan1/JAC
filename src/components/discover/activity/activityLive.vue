@@ -74,7 +74,9 @@
           if (res.data.status) {
             _this.content = res.data.data;
 
-            _this.sendMessage(res.data.data.activityBody)
+            _this.$nextTick(function () {
+              _this.sendMessage(res.data.data.activityBody)
+            })
 
           } else {
             console.log('提示', res.data.errorMsg);
