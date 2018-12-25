@@ -1,5 +1,5 @@
 <template>
-  <div :style="wrapperStyleObj">
+  <div>
     <!--活动内容S-->
     <iframe id="childframe" :src="content.activityBody" :style="iframHeightObj"></iframe>
   </div>
@@ -19,10 +19,6 @@
           'border': 'none',
           'height': window.innerHeight + 'px',
           'width': '100%'
-        },
-        wrapperStyleObj: {
-          'height': window.innerHeight + 'px',
-          'overflow': 'hidden'
         }
       }
     },

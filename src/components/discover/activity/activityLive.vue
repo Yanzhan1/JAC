@@ -1,5 +1,5 @@
 <template>
-  <div :style="wrapperStyleObj">
+  <div>
     <div v-show="bgShareFlag" @click="bgHide" id="bgShare"></div>
     <my-header :id="'asd'" :title="title" :isShow="isShow" :rightPic="rightPic">
       <img slot="share" v-show="leftPic" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
@@ -39,10 +39,6 @@
           'border': 'none',
           // 'height': window.innerHeight + 'px',
           'width': '100%'
-        },
-        wrapperStyleObj: {
-          'height': window.innerHeight + 'px',
-          'overflow': 'hidden'
         },
         bgShareFlag: false,
         flag: 'activity',
