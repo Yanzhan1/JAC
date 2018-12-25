@@ -1,7 +1,7 @@
 <template>
-  <div style="height: 13.34rem;">
+  <div class="container" :style="containerStyleObj">
     <!--活动内容S-->
-    <iframe id="childframe" :src="content.activityBody" marginwidth="0" marginheight="0" vspace="0" hspace="0" frameborder="0" width="100%" height="100%"></iframe>
+    <iframe id="childframe" :src="content.activityBody" border="0" style="border:none;" scrolling="no"></iframe>
   </div>
 </template>
 
@@ -15,15 +15,14 @@
         userId: this.$store.state.userId,
         bgImgHeight: 0,
         title: '',
-        iframeHeight: window.innerHeight,
-        iframeStyleObj: {
-          'height': '13.44rem'
+        containerStyleObj: {
+          'height': window.innerHeight + 'px'
         }
       }
     },
     created() {
       this.activityId = this.$route.query.activityId;
-      
+
       this.getActivity()
     },
     methods: {
@@ -65,6 +64,24 @@
     height: 100%;
     background: black;
     opacity: 0.2
+  }
+
+  .container {
+    width: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  iframe {
+    /*width: 1px;*/
+    height: 100%;
+    width: 100%;
+    /*min-width:100%;*/
+  }
+
+  iframe.safaric_fix {
+    width: 1px;
+    min-width: 100%;
   }
 
 </style>
