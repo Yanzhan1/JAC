@@ -17,7 +17,8 @@
         title: '',
         iframeHeight: window.innerHeight,
         iframeStyleObj: {
-          'height': window.innerHeight + 'px'
+          'height': window.innerHeight + 'px',
+          'overflow': 'hidden'
         }
       }
     },
