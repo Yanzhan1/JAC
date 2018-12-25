@@ -41,5 +41,8 @@ export default {
     },
     QRCODEPIN: ({ commit, state }, payload) => {
         commit(types.QRCODEPIN, payload)
+    },
+    RECORD: ({ commit, state }, payload) => {
+        commit(types.RECORD, payload)
     }
 }

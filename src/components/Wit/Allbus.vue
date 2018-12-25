@@ -90,6 +90,22 @@ export default {
 				"borderTopWidth": this.$store.state.mobileStatusBar,
 				"borderTopColor": "#fff",
 			})
+  },
+  //keepalive的钩子函数
+  activated(){
+    //全部车型的埋点
+     let time=new Date().getTime()
+      let params={
+        "uid":this.$store.state.aaaid,
+        "start_time":time,
+        "sign":this.$store.state.sign,
+        "moduleName":"allCar"
+      }
+        this.$http.post(POINT.addpoint,params).then((res)=>{
+            console.log(res)
+        }).catch((err)=>{
+
+        })
   }
 };
 </script>
@@ -165,7 +181,7 @@ export default {
 .bus_li {
   height: 3.57rem;
   width: 100%;
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 4px solid #f5f5f5;
   display: flex;
   flex-direction: column;
   align-items: center;

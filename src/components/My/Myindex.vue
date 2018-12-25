@@ -137,6 +137,7 @@
 
 <script>
 import { Popup } from "mint-ui";
+import { Toast } from "mint-ui";
 import Vimg from "../../../static/images/my/signVV.png";
 export default {
   name: "Myindex",
@@ -278,30 +279,39 @@ export default {
     },
     //跳转到商城
     tobuy() {
-      this.add = "JAC" + this.aaaid + this.mobile + this.userName + "APP";
-      this.add = this.$md5(this.add);
-      // let a="http://gift.jac.com.cn/app/authLogin" +
-      //   "?" +
-      //   "uid=" +
-      //   this.aaaid +
-      //   "&mobile=" +
-      //   this.mobile +
-      //   "&userName=" +
-      //   this.userName +
-      //   "&toOrderList=suc&token=" +
-      //   this.add
-      //   console.log(a)
-      location.href =
-        "http://gift.jac.com.cn/app/authLogin" +
-        "?" +
-        "uid=" +
-        this.aaaid +
-        "&mobile=" +
-        this.mobile +
-        "&userName=" +
-        this.userName +
-        "&toOrderList=suc&token=" +
-        this.add;
+      if(this.$store.state.mobile){
+        this.add = "JAC" + this.aaaid + this.mobile + this.userName + "APP";
+        this.add = this.$md5(this.add);
+        // let a="http://gift.jac.com.cn/app/authLogin" +
+        //   "?" +
+        //   "uid=" +
+        //   this.aaaid +
+        //   "&mobile=" +
+        //   this.mobile +
+        //   "&userName=" +
+        //   this.userName +
+        //   "&toOrderList=suc&token=" +
+        //   this.add
+        //   console.log(a)
+        location.href =
+          "http://gift.jac.com.cn/app/authLogin" +
+          "?" +
+          "uid=" +
+          this.aaaid +
+          "&mobile=" +
+          this.mobile +
+          "&userName=" +
+          this.userName +
+          "&toOrderList=suc&token=" +
+          this.add;
+      }
+        else{
+            Toast({
+                  message: "请先绑定手机号,完善用户信息",
+                  duration: 1000,
+                  position: "middle"
+                });
+      }
     },
     //粉丝
     toFans: function() {
@@ -417,15 +427,44 @@ export default {
   },
   watch: {
     show(newVal, oldVal) {
-      this.aaaid = this.$store.state.aaaid;
-      this.mobile =  this.$store.state.mobile;
-      this.userName =  this.$store.state.userName;
+      if(this.$store.state.mobile){
+        localStorage.setItem("aaaid",JSON.stringify(this.$store.state.aaaid))
+        localStorage.setItem("mobile",JSON.stringify(this.$store.state.mobile))
+        if(this.$store.state.userName){
+          localStorage.setItem("userName",JSON.stringify(this.$store.state.userName))
+          this.userName = JSON.parse(localStorage.getItem("userName"));
+        }else{
+          this.userName=''
+        }
+        this.aaaid =JSON.parse(localStorage.getItem("aaaid"));
+        // console.log( this.aaaid+'watch')
+        this.mobile = JSON.parse(localStorage.getItem("mobile"));
+
+      }
+      // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
     }
   },
   mounted() {
-    this.aaaid = this.$store.state.aaaid;
-    this.mobile =  this.$store.state.mobile;
-    this.userName =  this.$store.state.userName;
+    // this.Tsp()
+    // setTimeout(() => {
+      if(this.$store.state.mobile){
+        
+        localStorage.setItem("aaaid",JSON.stringify(this.$store.state.aaaid))
+        localStorage.setItem("mobile",JSON.stringify(this.$store.state.mobile))
+        if(this.$store.state.userName){
+          localStorage.setItem("userName",JSON.stringify(this.$store.state.userName))
+          this.userName = JSON.parse(localStorage.getItem("userName"));
+        }else{
+          this.userName=''
+        }
+        this.aaaid=JSON.parse(localStorage.getItem("aaaid"))
+        // console.log(this.aaaid+'mounted')
+        this.mobile = JSON.parse(localStorage.getItem("mobile"))
+      }
+    // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
+    // }, 0);
+    // console.log(this.$store.state.no)
+    // this.getTokenAndNo();
     this.myNum();
     this.IsSign(); //判断是否签到
     this.total(); //h获取用户总积分

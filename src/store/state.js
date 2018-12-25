@@ -52,6 +52,6 @@ export default {
     busNo: null, //主推车型，全部车型 选择的no
     qrCodeDate: null, //扫描二维码给出信息
     changeScrollY: '', //存储滚动高度
-    GETWORDS: [] //储存所有的提示信息
-
+    GETWORDS: [], //储存所有的提示信息
+    record: 1, //跳转回智享的时候几率的tab默认为1
 }
