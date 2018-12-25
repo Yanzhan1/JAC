@@ -1,5 +1,5 @@
 <template>
-  <div :style="iframeStyleObj">
+  <div style="height: 13.34rem;">
     <!--活动内容S-->
     <iframe id="childframe" :src="content.activityBody" marginwidth="0" marginheight="0" vspace="0" hspace="0" frameborder="0" width="100%" height="100%"></iframe>
   </div>
@@ -17,8 +17,7 @@
         title: '',
         iframeHeight: window.innerHeight,
         iframeStyleObj: {
-          'height': window.innerHeight + 'px',
-          'overflow': 'hidden'
+          'height': '13.44rem'
         }
       }
     },
