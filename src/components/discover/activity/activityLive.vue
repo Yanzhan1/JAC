@@ -119,7 +119,6 @@
           var userId = this.$store.state.userId
           var headImgUrl = this.$store.state.imgUrl
           var userName = this.$store.state.userName
-          alert("this.$store.state.userName"+this.$store.state.userName)
           try {
             console.log('tryStary')
             document.querySelector('#childframe').contentWindow.postMessage({

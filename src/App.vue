@@ -31,7 +31,6 @@ export default {
     //   }
     // },
     isLogin(userInfo) {
-      alert(JSON.stringify(userInfo))
       // if (isMobile.iOS()) {
       //   //     alert( JSON.stringify(userInfo))
       // }
