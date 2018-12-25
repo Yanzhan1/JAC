@@ -119,12 +119,7 @@
           var userId = this.$store.state.userId
           var headImgUrl = this.$store.state.imgUrl
           var userName = this.$store.state.userName
-
-          console.log(targetOrigin)
-          console.log(auth)
-          console.log(userId)
-          console.log(headImgUrl)
-          console.log(userName)
+          aler("this.$store.state.userName"+this.$store.state.userName)
           try {
             console.log('tryStary')
             document.querySelector('#childframe').contentWindow.postMessage({
