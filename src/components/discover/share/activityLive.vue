@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div :style="wrapperStyleObj">
     <!--活动内容S-->
-    <p v-if="frameFlag">直播正在加载中!请稍等...</p>
     <iframe id="childframe" :src="content.activityBody" :style="iframHeightObj"></iframe>
   </div>
 </template>
@@ -18,10 +17,13 @@
         title: '',
         iframHeightObj: {
           'border': 'none',
-          'minHeight': window.innerHeight + 'px',
+          'height': window.innerHeight + 'px',
           'width': '100%'
         },
-        frameFlag: true
+        wrapperStyleObj: {
+          'height': window.innerHeight + 'px',
+          'overflow': 'hidden'
+        }
       }
     },
     created() {
@@ -29,13 +31,6 @@
       this.getActivity()
     },
     methods: {
-      sendMessage() {
-        var iframe = document.querySelector('#childframe')
-
-        iframe.onload = () => {
-          this.frameFlag = false
-        }
-      },
       //活动详情
       getActivity() {
         var _this = this;
@@ -50,11 +45,6 @@
               `${res.data.data.activityBody}?t=${+new Date}`
 
             _this.content = res.data.data;
-
-            _this.$nextTick(function () {
-              _this.sendMessage(res.data.data.activityBody)
-            })
-
           } else {
             console.log('提示', res.data.errorMsg);
           }

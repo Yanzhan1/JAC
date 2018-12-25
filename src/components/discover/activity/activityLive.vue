@@ -1,12 +1,11 @@
 <template>
-  <div>
+  <div :style="wrapperStyleObj">
     <div v-show="bgShareFlag" @click="bgHide" id="bgShare"></div>
     <my-header :id="'asd'" :title="title" :isShow="isShow" :rightPic="rightPic">
       <img slot="share" v-show="leftPic" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
       <img slot="share" v-show="!leftPic" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
     </my-header>
     <!--活动内容S-->
-    <p v-if="frameFlag">直播正在加载中!请稍等...</p>
     <iframe id="childframe" :src="content.activityBody" :style="iframHeightObj"></iframe>
 
     <shareBox :index="0" :item="content" :flag="flag" :type="type" :collectionStatus="content.collectionStatus"
@@ -31,24 +30,28 @@
         activityId: '',
         content: [],
         userId: this.$store.state.userId,
-        leftPic: true,
+        leftPic: false,
         rightPic: true,
         bgImgHeight: 0,
-        title: '',
+        title: ' ',
         isShow: true,
         iframHeightObj: {
           'border': 'none',
-          'minHeight': window.innerHeight + 'px',
+          'height': window.innerHeight + 'px',
           'width': '100%'
+        },
+        wrapperStyleObj: {
+          'height': window.innerHeight + 'px',
+          'overflow': 'hidden'
         },
         bgShareFlag: false,
         flag: 'activity',
-        type: 'activityLive',
-        frameFlag: true
+        type: 'activityLive'
       }
     },
     created() {
       this.activityId = this.$route.query.activityId;
+      // console.log(this.$doubleShare)
     },
     components: {
       shareBox
@@ -115,7 +118,6 @@
         var iframe = document.querySelector('#childframe')
 
         iframe.onload = () => {
-          this.frameFlag = false
           var targetOrigin = activityBody.split('?')[0]
           var auth = this.$store.state.islogin
           var userId = this.$store.state.userId
