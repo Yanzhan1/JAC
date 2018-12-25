@@ -6,8 +6,10 @@
       <img slot="share" v-show="!leftPic" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
     </my-header>
     <!--活动内容S-->
-    <iframe id="childframe" :src="content.activityBody" marginwidth="0" marginheight="0" vspace="0" hspace="0"
-      frameborder="0" width="100%" :style="iframeStyleObj" :height="iframeHeight"></iframe>
+
+    <div class="container" :style="containerStyleObj">
+      <iframe id="childframe" :src="content.activityBody" border="0" style="border:none;" scrolling="no"></iframe>
+    </div>
 
     <shareBox :index="0" :item="content" :flag="flag" :type="type" :collectionStatus="content.collectionStatus"
       :isCenter="true" @closeShare="bgHide" @collection="collection" @reCollection="messageBoxCofirm"></shareBox>
@@ -36,11 +38,10 @@
         bgImgHeight: 0,
         title: ' ',
         isShow: true,
-        iframeHeight: 0,
-        iframeStyleObj: {},
         bgShareFlag: false,
         flag: 'activity',
-        type: 'activityLive'
+        type: 'activityLive',
+        containerStyleObj: {}
       }
     },
     created() {
@@ -111,28 +112,20 @@
       sendMessage(activityBody) {
         var iframe = document.querySelector('#childframe')
 
-        console.log('iframe', iframe)
         iframe.onload = () => {
-          console.log('loadEnd')
           var targetOrigin = activityBody.split('?')[0]
           var auth = this.$store.state.islogin
           var userId = this.$store.state.userId
           var headImgUrl = this.$store.state.imgUrl
           var userName = this.$store.state.userName
-          try {
-            console.log('tryStary')
-            document.querySelector('#childframe').contentWindow.postMessage({
-              src: 'jh',
-              auth: auth ? 'yes' : 'no',
-              userId,
-              headImgUrl,
-              userName
-            }, targetOrigin)
-            console.log('tryEnd')
-          } catch (e) {
-            console.log(e)
-            console.log('try到了')
-          }
+
+          document.querySelector('#childframe').contentWindow.postMessage({
+            src: 'jh',
+            auth: auth ? 'yes' : 'no',
+            userId,
+            headImgUrl,
+            userName
+          }, targetOrigin)
         }
       },
       //活动详情
@@ -151,7 +144,6 @@
             _this.content = res.data.data;
 
             _this.$nextTick(function () {
-              console.log('startPossMessage')
               _this.sendMessage(res.data.data.activityBody)
             })
 
@@ -169,8 +161,7 @@
       this.$nextTick(function () {
         var asd = document.querySelector('#asd')
 
-        this.iframeHeight = window.innerHeight - asd.getBoundingClientRect().height
-        this.iframeStyleObj['max-height'] = window.innerHeight - asd.getBoundingClientRect().height + 'px'
+        this.containerStyleObj['height'] = window.innerHeight - asd.getBoundingClientRect().height + 'px'
         this.getActivity();
       })
     },
@@ -200,6 +191,24 @@
     height: 100%;
     background: black;
     opacity: 0.2
+  }
+
+  .container {
+    width: 100%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  iframe {
+    /*width: 1px;*/
+    height: 100%;
+    width: 100%;
+    /*min-width:100%;*/
+  }
+
+  iframe.safaric_fix {
+    width: 1px;
+    min-width: 100%;
   }
 
 </style>
