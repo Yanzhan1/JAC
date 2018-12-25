@@ -18,7 +18,8 @@
         iframHeightObj: {
           'border': 'none',
           'height': window.innerHeight + 'px',
-          'width': '100%'
+          'width': '100%',
+          'overflow-x': 'hidden'
         }
       }
     },

@@ -58,6 +58,9 @@ try {
     }
 }
 
+// import doubleShare from '@/utils/doubleShare'
+
+// Vue.prototype.$doubleShare = doubleShare
 Vue.prototype.$http = axios;
 Vue.prototype.$md5 = md5
 Vue.prototype.toLogin = function() {
@@ -134,8 +137,8 @@ import store from './store'
 import $ from 'jquery'
 //
 //手机端调试工具,发布提交时必须注释掉
-import Vconsole from 'vconsole'
-new Vconsole()
+// import Vconsole from 'vconsole'
+// new Vconsole()
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
