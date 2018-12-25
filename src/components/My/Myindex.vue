@@ -279,20 +279,30 @@ export default {
     },
     //跳转到商城
     tobuy() {
-      if(this.$store.state.mobile){
-        this.add = "JAC" + this.aaaid + this.mobile + this.userName + "APP";
+        this.userName = JSON.parse(localStorage.getItem("userName"));
+        this.aaaid=JSON.parse(localStorage.getItem("aaaid"));
+        console.log(localStorage.getItem("mobile"))
+        if(localStorage.getItem("mobile")!='undefined'){
+          this.mobile = JSON.parse(localStorage.getItem("mobile"));
+          this.add = "JAC" + this.aaaid + this.mobile + this.userName + "APP";
         this.add = this.$md5(this.add);
-        // let a="http://gift.jac.com.cn/app/authLogin" +
-        //   "?" +
-        //   "uid=" +
-        //   this.aaaid +
-        //   "&mobile=" +
-        //   this.mobile +
-        //   "&userName=" +
-        //   this.userName +
-        //   "&toOrderList=suc&token=" +
-        //   this.add
-        //   console.log(a)
+        let Stringurl="http://gift.jac.com.cn/app/authLogin" +
+          "?" +
+          "uid=" +
+          this.aaaid +
+          "&mobile=" +
+          this.mobile +
+          "&userName=" +
+          this.userName +
+          "&toOrderList=suc&token=" +
+          this.add
+        if (isMobile.iOS()) {
+        var params = {Stringurl:Stringurl};
+          window.webkit.messageHandlers.gotoMallOrderWeb.postMessage(params);
+        } else if (isMobile.Android()) {
+          js2android.gotoMallOrderWeb(Stringurl);
+        }
+        
         location.href =
           "http://gift.jac.com.cn/app/authLogin" +
           "?" +
@@ -304,14 +314,14 @@ export default {
           this.userName +
           "&toOrderList=suc&token=" +
           this.add;
-      }
-        else{
-            Toast({
-                  message: "请先绑定手机号,完善用户信息",
-                  duration: 1000,
-                  position: "middle"
-                });
-      }
+        }else{
+          Toast({
+								message: '请完善信息',
+								position: "middle",
+								duration: 2000
+							});
+        }
+        
     },
     //粉丝
     toFans: function() {
@@ -427,43 +437,20 @@ export default {
   },
   watch: {
     show(newVal, oldVal) {
-      if(this.$store.state.mobile){
-        localStorage.setItem("aaaid",JSON.stringify(this.$store.state.aaaid))
-        localStorage.setItem("mobile",JSON.stringify(this.$store.state.mobile))
-        if(this.$store.state.userName){
-          localStorage.setItem("userName",JSON.stringify(this.$store.state.userName))
-          this.userName = JSON.parse(localStorage.getItem("userName"));
-        }else{
-          this.userName=''
-        }
-        this.aaaid =JSON.parse(localStorage.getItem("aaaid"));
-        // console.log( this.aaaid+'watch')
-        this.mobile = JSON.parse(localStorage.getItem("mobile"));
-
-      }
+        // this.userName = JSON.parse(localStorage.getItem("userName"));
+        // this.aaaid =JSON.parse(localStorage.getItem("aaaid"));
+        // this.mobile = JSON.parse(localStorage.getItem("mobile"));
       // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
     }
   },
   mounted() {
     // this.Tsp()
     // setTimeout(() => {
-      if(this.$store.state.mobile){
-        
-        localStorage.setItem("aaaid",JSON.stringify(this.$store.state.aaaid))
-        localStorage.setItem("mobile",JSON.stringify(this.$store.state.mobile))
-        if(this.$store.state.userName){
-          localStorage.setItem("userName",JSON.stringify(this.$store.state.userName))
-          this.userName = JSON.parse(localStorage.getItem("userName"));
-        }else{
-          this.userName=''
-        }
-        this.aaaid=JSON.parse(localStorage.getItem("aaaid"))
-        // console.log(this.aaaid+'mounted')
-        this.mobile = JSON.parse(localStorage.getItem("mobile"))
-      }
+        // this.userName = JSON.parse(localStorage.getItem("userName"));
+        // this.aaaid=JSON.parse(localStorage.getItem("aaaid"))
+        // this.mobile = JSON.parse(localStorage.getItem("mobile"))
     // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
     // }, 0);
-    // console.log(this.$store.state.no)
     // this.getTokenAndNo();
     this.myNum();
     this.IsSign(); //判断是否签到

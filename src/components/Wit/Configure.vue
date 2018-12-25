@@ -54,7 +54,7 @@ export default {
         },
         reserve(){
              if(this.seriesName=='瑞风S4'){
-                    this.$router.push('/wit/CarChoose',{
+                    this.$router.push('/CarChoose',{
                         name:'车型选择',
                         params:{
                             levelCode:this.levelCode
