@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div :style="iframeStyleObj">
     <!--活动内容S-->
-    <iframe id="childframe" :style="iframeStyleObj" :src="content.activityBody" marginwidth="0" marginheight="0" vspace="0" hspace="0" frameborder="0" width="100%" :height="iframeHeight"></iframe>
+    <iframe id="childframe" :src="content.activityBody" marginwidth="0" marginheight="0" vspace="0" hspace="0" frameborder="0" width="100%" height="100%"></iframe>
   </div>
 </template>
 
@@ -17,7 +17,7 @@
         title: '',
         iframeHeight: window.innerHeight,
         iframeStyleObj: {
-          'max-height': window.innerHeight + 'px'
+          'height': window.innerHeight + 'px'
         }
       }
     },
