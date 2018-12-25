@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--活动内容S-->
-    <iframe id="childframe" :src="content.activityBody" :style="iframHeightObj"></iframe>
+    <iframe id="childframe" :src="content.activityBody" marginwidth="0" marginheight="0" vspace="0" hspace="0" frameborder="0" width="100%" :height="iframeHeight"></iframe>
   </div>
 </template>
 
@@ -15,16 +15,12 @@
         userId: this.$store.state.userId,
         bgImgHeight: 0,
         title: '',
-        iframHeightObj: {
-          'border': 'none',
-          'height': window.innerHeight + 'px',
-          'width': '100%',
-          'overflow-x': 'hidden'
-        }
+        iframeHeight: window.innerHeight
       }
     },
     created() {
       this.activityId = this.$route.query.activityId;
+      
       this.getActivity()
     },
     methods: {

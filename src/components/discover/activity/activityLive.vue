@@ -6,7 +6,7 @@
       <img slot="share" v-show="!leftPic" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
     </my-header>
     <!--活动内容S-->
-    <iframe id="childframe" :src="content.activityBody" :style="iframHeightObj"></iframe>
+    <iframe id="childframe" :src="content.activityBody" marginwidth="0" marginheight="0" vspace="0" hspace="0" frameborder="0" width="100%" :height="iframeHeight"></iframe>
 
     <shareBox :index="0" :item="content" :flag="flag" :type="type" :collectionStatus="content.collectionStatus"
       :isCenter="true" @closeShare="bgHide" @collection="collection" @reCollection="messageBoxCofirm"></shareBox>
@@ -35,12 +35,7 @@
         bgImgHeight: 0,
         title: ' ',
         isShow: true,
-        iframHeightObj: {
-          'border': 'none',
-          // 'height': window.innerHeight + 'px',
-          'width': '100%',
-          'overflow-x': 'hidden'
-        },
+        iframeHeight: 0,
         bgShareFlag: false,
         flag: 'activity',
         type: 'activityLive'
@@ -163,7 +158,7 @@
       this.$nextTick(function () {
         var asd = document.querySelector('#asd')
 
-        this.iframHeightObj.height = window.innerHeight - asd.getBoundingClientRect().height + 'px'
+        this.iframeHeight = window.innerHeight - asd.getBoundingClientRect().height
         this.getActivity();
       })
     },
