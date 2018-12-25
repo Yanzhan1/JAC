@@ -78,6 +78,9 @@ export default {
     [types.QRCODEPIN]: (state, payload) => {
         state.qrCodeDate = payload
     },
+    [types.RECORD]: (state, payload) => {
+        state.record = payload
+    },
     changeScrollY: (state, payload) => {
         state.changeScrollY = payload
     }
