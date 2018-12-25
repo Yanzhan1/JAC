@@ -108,6 +108,12 @@
           title = item.activityTitle || '江淮汽车';
           description = item.activityTitle ? item.activityTitle : item.title;
           platform = platform;
+        } else if (this.type == 'activityLive') {
+          content = waiwangip + 'share/activityLive?activityId=' + (item.activityId ? item.activityId : item.id);
+          imageURL = item.imgUrl ? item.imgUrl : item.pictureUrl;
+          title = item.activityTitle || '江淮汽车';
+          description = item.activityTitle ? item.activityTitle : item.title;
+          platform = platform;
         }
         /*else if(this.type=='question'){
                   content = waiwangip+'discover/questionDetail?id='+item.id;

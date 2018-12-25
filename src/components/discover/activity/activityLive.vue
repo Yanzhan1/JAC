@@ -1,12 +1,17 @@
 <template>
   <div>
+    <div v-show="bgShareFlag" @click="bgHide" id="bgShare"></div>
     <my-header :id="'asd'" :title="title" :isShow="isShow" :rightPic="rightPic">
-      <!--<img slot="share" v-show="leftPic" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
-      <img slot="share" v-show="!leftPic" src="../../../../static/images/discover/moreblue.png"/>-->
-      <!--<img slot="share" v-show="!leftPic" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />-->
+      <img slot="share" v-show="leftPic" src="../../../../static/images/discover/morefff.png" @click="onShareClick(0)" />
+      <img slot="share" v-show="!leftPic" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
     </my-header>
     <!--活动内容S-->
+    <p v-if="frameFlag">直播正在加载中!请稍等...</p>
     <iframe id="childframe" :src="content.activityBody" :style="iframHeightObj"></iframe>
+
+    <shareBox :index="0" :item="content" :flag="flag" :type="type" :collectionStatus="content.collectionStatus"
+      :isCenter="true" @closeShare="bgHide" @collection="collection" @reCollection="messageBoxCofirm"></shareBox>
+
   </div>
 </template>
 
@@ -35,7 +40,11 @@
           'border': 'none',
           'minHeight': window.innerHeight + 'px',
           'width': '100%'
-        }
+        },
+        bgShareFlag: false,
+        flag: 'activity',
+        type: 'activityLive',
+        frameFlag: true
       }
     },
     created() {
@@ -45,16 +54,74 @@
       shareBox
     },
     methods: {
+      //收藏
+      collection: function () {
+        var _this = this;
+        console.log(_this.userId);
+        this.$http.post(DISCOVERMESSAGE.activetyCollection, {
+          "uid": _this.userId,
+          "lid": _this.activityId
+        }).then(function (res) {
+          if (res.data.status) {
+            _this.content.collectionStatus = 1;
+            setTimeout(() => {
+              _this.bgHide();
+            }, 2000)
+          } else {
+            if (_this.$store.state.userId == null) {
+              _this.toLogin();
+            } else {
+              MessageBox('提示', res.data.errorMsg);
+            }
+          }
+        });
+      },
+      //取消收藏
+      messageBoxCofirm: function () {
+        var _this = this;
+        /*MessageBox.confirm('确定取消收藏?').then(action => {*/
+        var _this = this;
+        this.$http.post(DISCOVERMESSAGE.activetyRemoveCollection, {
+          "uid": _this.userId,
+          "lid": _this.activityId
+        }).then(function (res) {
+          if (res.data.status) {
+            _this.content.collectionStatus = 0;
+            setTimeout(() => {
+              _this.bgHide();
+            }, 2000)
+          } else {
+            if (_this.$store.state.userId == null) {
+              _this.toLogin();
+            } else {
+              MessageBox('提示', res.data.errorMsg);
+            }
+          }
+        });
+        /*});*/
+      },
+      onShareClick: function (index) {
+        this.indexNum = index;
+        var showId = '#share_activity' + index;
+        $(showId).show();
+        this.bgShareFlag = true
+      },
+      bgHide() {
+        var showId = '#share_activity' + this.indexNum;
+        $(showId).hide();
+        this.bgShareFlag = false
+      },
       sendMessage(activityBody) {
         var iframe = document.querySelector('#childframe')
 
         iframe.onload = () => {
+          this.frameFlag = false
           var targetOrigin = activityBody.split('?')[0]
           var auth = this.$store.state.islogin
           var userId = this.$store.state.userId
           var headImgUrl = this.$store.state.imgUrl
           var userName = this.$store.state.userName
-          
+
           document.querySelector('#childframe').contentWindow.postMessage({
             src: 'jh',
             auth: auth ? 'yes' : 'no',
@@ -73,9 +140,9 @@
         }, ).then(function (res) {
           if (res.data.status) {
 
-            res.data.data.activityBody = res.data.data.activityBody.includes('?') ? 
-            `${res.data.data.activityBody}&t=${+new Date}` : 
-            `${res.data.data.activityBody}?t=${+new Date}`
+            res.data.data.activityBody = res.data.data.activityBody.includes('?') ?
+              `${res.data.data.activityBody}&t=${+new Date}` :
+              `${res.data.data.activityBody}?t=${+new Date}`
 
             _this.content = res.data.data;
 
@@ -123,7 +190,6 @@
     width: 100%;
     height: 100%;
     background: black;
-    display: none;
     opacity: 0.2
   }
 
