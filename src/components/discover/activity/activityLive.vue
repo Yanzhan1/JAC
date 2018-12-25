@@ -37,7 +37,7 @@
         isShow: true,
         iframHeightObj: {
           'border': 'none',
-          'height': window.innerHeight + 'px',
+          // 'height': window.innerHeight + 'px',
           'width': '100%'
         },
         wrapperStyleObj: {
@@ -164,6 +164,9 @@
       window.addEventListener('scroll', this.handleScroll)
       //初始化数据
       this.$nextTick(function () {
+        var asd = document.querySelector('#asd')
+
+        this.iframHeightObj.height = window.innerHeight - asd.getBoundingClientRect().height + 'px'
         this.getActivity();
       })
     },
