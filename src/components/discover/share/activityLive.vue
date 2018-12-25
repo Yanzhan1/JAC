@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--活动内容S-->
-    <iframe id="childframe" :src="content.activityBody" marginwidth="0" marginheight="0" vspace="0" hspace="0" frameborder="0" width="100%" :height="iframeHeight"></iframe>
+    <iframe id="childframe" :style="iframeStyleObj" :src="content.activityBody" marginwidth="0" marginheight="0" vspace="0" hspace="0" frameborder="0" width="100%" :height="iframeHeight"></iframe>
   </div>
 </template>
 
@@ -15,7 +15,10 @@
         userId: this.$store.state.userId,
         bgImgHeight: 0,
         title: '',
-        iframeHeight: window.innerHeight
+        iframeHeight: window.innerHeight,
+        iframeStyleObj: {
+          'max-height': window.innerHeight + 'px'
+        }
       }
     },
     created() {

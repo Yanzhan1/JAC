@@ -6,7 +6,8 @@
       <img slot="share" v-show="!leftPic" src="../../../../static/images/discover/moreblue.png" @click="onShareClick(0)" />
     </my-header>
     <!--活动内容S-->
-    <iframe id="childframe" :src="content.activityBody" marginwidth="0" marginheight="0" vspace="0" hspace="0" frameborder="0" width="100%" :height="iframeHeight"></iframe>
+    <iframe id="childframe" :src="content.activityBody" marginwidth="0" marginheight="0" vspace="0" hspace="0"
+      frameborder="0" width="100%" :style="iframeStyleObj" :height="iframeHeight"></iframe>
 
     <shareBox :index="0" :item="content" :flag="flag" :type="type" :collectionStatus="content.collectionStatus"
       :isCenter="true" @closeShare="bgHide" @collection="collection" @reCollection="messageBoxCofirm"></shareBox>
@@ -36,6 +37,7 @@
         title: ' ',
         isShow: true,
         iframeHeight: 0,
+        iframeStyleObj: {},
         bgShareFlag: false,
         flag: 'activity',
         type: 'activityLive'
@@ -109,20 +111,34 @@
       sendMessage(activityBody) {
         var iframe = document.querySelector('#childframe')
 
+        console.log('iframe', iframe)
         iframe.onload = () => {
+          console.log('loadEnd')
           var targetOrigin = activityBody.split('?')[0]
           var auth = this.$store.state.islogin
           var userId = this.$store.state.userId
           var headImgUrl = this.$store.state.imgUrl
           var userName = this.$store.state.userName
 
-          document.querySelector('#childframe').contentWindow.postMessage({
-            src: 'jh',
-            auth: auth ? 'yes' : 'no',
-            userId,
-            headImgUrl,
-            userName
-          }, targetOrigin)
+          console.log(targetOrigin)
+          console.log(auth)
+          console.log(userId)
+          console.log(headImgUrl)
+          console.log(userName)
+          try {
+            console.log('tryStary')
+            document.querySelector('#childframe').contentWindow.postMessage({
+              src: 'jh',
+              auth: auth ? 'yes' : 'no',
+              userId,
+              headImgUrl,
+              userName
+            }, targetOrigin)
+            console.log('tryEnd')
+          } catch (e) {
+            console.log(e)
+            console.log('try到了')
+          }
         }
       },
       //活动详情
@@ -141,6 +157,7 @@
             _this.content = res.data.data;
 
             _this.$nextTick(function () {
+              console.log('startPossMessage')
               _this.sendMessage(res.data.data.activityBody)
             })
 
@@ -159,6 +176,7 @@
         var asd = document.querySelector('#asd')
 
         this.iframeHeight = window.innerHeight - asd.getBoundingClientRect().height
+        this.iframeStyleObj['max-height'] = window.innerHeight - asd.getBoundingClientRect().height + 'px'
         this.getActivity();
       })
     },
