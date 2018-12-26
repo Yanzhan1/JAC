@@ -650,6 +650,7 @@ export default {
   border-radius: 0.1rem;
   color:#fff;
   font-size: 0.2rem;
+  font-weight: 520;
   /* -webkit-transform: scale(0.75);
   -o-transform: scale(.75) */
 }
