@@ -8,7 +8,8 @@
     <!--活动内容S-->
 
     <div class="container" :style="containerStyleObj">
-      <iframe id="childframe" :src="content.activityBody" frameborder="0" marginwidth="0" marginheight="0" border="0" vspace="0" hspace="0" scrolling="no"></iframe>
+      <iframe id="childframe" :src="content.activityBody" frameborder="0" marginwidth="0" marginheight="0" border="0"
+        vspace="0" hspace="0" scrolling="no"></iframe>
     </div>
 
     <shareBox :index="0" :item="content" :flag="flag" :type="type" :collectionStatus="content.collectionStatus"
@@ -46,7 +47,6 @@
     },
     created() {
       this.activityId = this.$route.query.activityId;
-      // console.log(this.$doubleShare)
     },
     components: {
       shareBox
@@ -161,7 +161,6 @@
       this.$nextTick(() => {
         var asd = document.querySelector('#asd')
 
-        // this.containerStyleObj['height'] = window.innerHeight - asd.getBoundingClientRect().height + 'px'
         this.containerStyleObj['height'] = window.innerHeight + 'px'
         this.getActivity();
       })
@@ -183,15 +182,14 @@
     width: 100%;
     height: 100%;
     background: black;
-    opacity: 0.2
+    opacity: 0.2;
+    z-index: 9999;
   }
 
   .container {
     width: 100%;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
-    border: 1px solid red;
-    box-sizing: border-box;
   }
 
   iframe {
@@ -203,8 +201,6 @@
     *height: 100%;
     border: none;
     margin: 0;
-    border: 1px solid blue;
-    box-sizing: border-box;
   }
 
 </style>
