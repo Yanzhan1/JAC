@@ -1,14 +1,5 @@
 <template>
   <div>
-    <header class="header MobileHeight bgcolor">
-      <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.push('/wit')">
-      <div id="tip">
-        <span class="header-title" :class="type==1?'active':''" style="margin-right:.2rem" @click="getcarbus(1)">全部车型</span>
-        <span class="header-title" :class="type==2?'active':''" @click="getcarbus(2)">主推车型</span>
-      </div>
-      <span @click="shai()" class="header-right" style="margin-right: .65rem;"><img src="../../../static/images/Wit/shaixuan1@3x.png" alt="" style="width:.4rem"></span>
-    </header>
-    <div style="height:.88rem" class="MobileHeight"></div>
     <ul>
       <li class="bus_li" v-for="(item,index) in this.mainbus" :key="index" @click="tode(item)">
         <img :src="item.imgUrl" alt="">
@@ -31,28 +22,6 @@
         <!-- <img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem"> -->
       </li>
     </ul>
-    <mt-popup v-model="popupVisible" position="middle">
-     
-       <div >
-        <div style="width:100%;text-align:center;line-height:.88rem;font-size:.36rem;color:#555555;border-bottom:1px solid #f1f1f1">
-          系列
-        </div>
-        <div class="flex row cocenter roe">
-          <label><input type="radio" v-model="gender" :value="null" /></label>
-          <span class="txt" style="margin-left:.1rem">全选</span>
-        </div>
-        <ul class="flex row wrap between">
-          <li class="flex row cocenter list_li" v-for="(item,index) in good_list" :key="index">
-            <label><input type="radio" v-model="gender" :value="item.no" /></label>
-            <span class="txt" style="margin-left:.1rem">{{item.brandName}}</span>
-          </li>
-        </ul>
-        <div class="fot">
-          <p class="pp" style="" @click="fn(1)">取消</p>
-          <p class="sure" style="" @click="fn(2)">确定</p>
-        </div>
-      </div>
-    </mt-popup>
   </div>
 </template>
 <script>
@@ -77,9 +46,6 @@ export default {
      };
   },
   methods: {
-    shai() {
-      this.popupVisible = true;
-    },
     tode(item) {
      this.$store.dispatch("NONAME", item);
      this.$store.state.shownum=2
@@ -89,89 +55,10 @@ export default {
           }
       });
     },
-//切换频道
-    fn(num) {
-      if (num == 2) {
-       var arr = this.arr;
-       if(this.type==1){
-          var param = {
-          highlyRecommend: this.highlyRecommend,
-          no: this.gender ,//全部车型
-          };   
-          this.$store.state.busNo=this.gender
-       }else{
-          var param = {
-          highlyRecommend: this.highlyRecommend,
-          no: this.gender//主推车型
-        };   
-        this.$store.state.busNo=this.gender
-       }
-       this.$http.post(Wit.MainBus, param).then(res => {
-          if (res.data.code == 0) {
-            var arr = res.data.data;
-           
-            for (let i = 0; i < arr.length; i++) {
-              if (arr[i].imageRelationVO.length > 0) {
-                for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
-                  if (arr[i].imageRelationVO[j].isDefault == 1) {
-                    arr[i].imgUrl = arr[i].imageRelationVO[j].imageUrl;
 
-                   } 
-                }
-             } else {
-                arr[i].imgUrl = "";
-              }
-            }
-            this.mainbus = {};
-             
-            this.mainbus = arr;
-          }
-        });
-      
-      } else {
-         this.popupVisible = false;
-      }
-      this.popupVisible = false;
-    },
-    //渲染列表   1
-    getcarbus(num) {
-    if (num == 1) {
-      let time=new Date().getTime()
-      let params={
-        "uid":this.$store.state.userId,
-        "start_time":time,
-        "sign":this.$store.state.sign,
-        "moduleName":"allCar"
-      }
-        this.$http.post(POINT.addpoint,params).then((res)=>{
-            console.log(res)
-        }).catch((err)=>{
-
-        })
-        //等于1 传“” 。 获取全部车型
-        this.type = 1;
-        this.highlyRecommend = "";
-        this.no=this.gender
-      } else {
-          let time=new Date().getTime()
-          let params={
-            "uid":this.$store.state.userId,
-            "start_time":time,
-            "sign":this.$store.state.sign,
-            "moduleName":"recommendCar"
-          }
-            this.$http.post(POINT.addpoint,params).then((res)=>{
-                console.log(res)
-            }).catch((err)=>{
-
-            })
-        this.type = 2; //等于2 传“1” 。 获取主推车型
-        this.highlyRecommend = "1";
-        this.no=this.gender
-      }
+    getcarbus() {
       var param = {
-        highlyRecommend: this.highlyRecommend,
-        no:this.no
+        highlyRecommend: '1',
       };
    this.$http.post(Wit.MainBus, param).then(res => {
         if (res.data.code == 0) {
@@ -191,25 +78,11 @@ export default {
           this.mainbus = arr;
         }
       });
-    },
-    //切换频道 多选框
-    choosemore() {
-      var param = {};
-      this.$http.post(Wit.Switching, param).then(res => {
-        if (res.data.code == 0) {
-          this.choosebus = res.data.data;
-          for (let i = 0; i < this.choosebus.length; i++) {
-            this.choosebus[i].is_selected = false;
-          }
-        }
-        this.good_list = this.choosebus;
-      });
     }
   },
   created() {
     //获取全部车型，主推车型
     this.getcarbus();
-    this.choosemore();
    
   },
   mounted(){
@@ -218,6 +91,21 @@ export default {
 				"borderTopWidth": this.$store.state.mobileStatusBar,
 				"borderTopColor": "#fff",
 			})
+  },
+  activated(){
+    //做了缓存,主推车型的埋点
+    	  let time=new Date().getTime()
+          let params={
+            "uid":this.$store.state.aaaid,
+            "start_time":time,
+            "sign":this.$store.state.sign,
+            "moduleName":"recommendCar"
+          }
+            this.$http.post(POINT.addpoint,params).then((res)=>{
+                console.log(res)
+            }).catch((err)=>{
+
+            })
   }
 };
 </script>
@@ -293,7 +181,7 @@ export default {
 .bus_li {
   height: 3.57rem;
   width: 100%;
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 4px solid #f5f5f5;
   display: flex;
   flex-direction: column;
   align-items: center;

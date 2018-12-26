@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <header class="nav MobileHeight header ">
-      <div class="navBack" @click="goBack"><img style="width:.4rem;height:.4rem;" :src="'./static/images/back@2x.png'"></div>
+      <div v-show="this.flag" class="navBack" @click="goBack"><img style="width:.4rem;height:.4rem;" :src="'./static/images/back@2x.png'"></div>
       <div class="navTitle">选购瑞风S4</div>
       <div></div>
     </header>
@@ -37,6 +37,7 @@
       return {
         currentIndex: 0,
         currentTitle: '超越型',
+        flag:true,//判断返回按钮
         carData: [
           {
             id: 1,
@@ -62,18 +63,23 @@
       }
 
     },
+    created(){
+            window.showHeader = this.showHeader;
+    },
     mounted(){
       $(".MobileHeight").css({
         "borderTopWidth": this.$store.state.mobileStatusBar,
         "borderTopColor": "#fff",
       })
-
-      console.log("this.$store.state.currentTitle",this.$store.state.currentTitle);
+      // console.log("this.$store.state.currentTitle",this.$store.state.currentTitle);
     },
     methods:{
       goBack(){
-        this.$router.go(-1);
-      }
+        this.$router.push('/wit/Characteristic');
+      },
+      showHeader(flag){
+        this.flag=flag.flag
+      },
     }
   }
 </script>

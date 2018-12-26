@@ -1,165 +1,126 @@
-<template>
-	<div>
-		<div class="tophead" :style="$statusBarHeightObj">
-			<!-- <div class="search">
-        <input class="ipt" type="text" placeholder="搜索服务">
-        <img class="pic" src="../../../static/images/Wit/zhixiang_home_search_service_icon.png" alt=""> 
-      </div> -->
-
-			<ul class="ul_list">
-				<li class="li_list" @click="fn()">
-					<!-- <img style="width:.56rem;height:.48rem" src="../../../static/images/Wit/withouse.png" alt=""> -->
-					<span>经销商</span>
-				</li>
-				<li class="li_list" @click="search_net()">
-					<!-- <img style="width:.52rem;height:.56rem" src="../../../static/images/Wit/witrepair.png" alt=""> -->
-					<span>维保网点</span>
-				</li>
-			<!-- <li class="li_list" @click="pre_weib()">
-					<img src="../../../static/images/Wit/zhixiang_home_maintenance_appointment_btn.png" alt="">
-					<span>维保预约</span>
-				</li> -->
-				<li class="li_list" @click="confirmRevise">
-					<!-- <img style="width:.56rem;height:.52rem" src="../../../static/images/Wit/witrescue.png" alt=""> -->
-					<span>道路救援</span>
-				</li>
-			</ul>
-			<div style="width:80%;height:.02rem;background:#f1f1f1;margin:0 auto;margin-top:.2rem;"></div>
-		</div>
-		<!-- <div class="bustype">
-      <img src="../../../static/images/Wit/zhixiang_home_service_title_point.png" alt="">
-      <span>智享服务</span>
-    </div> -->
-		<!-- <ul class="ul_list_1">
-      <li class="li_list_1">
-        <img src="../../../static/images/Wit/zhixiang_home_capacity_buy_car_btn.png" alt="">
-        <span>智能选车</span>
-      </li>
-      <li class="li_list_1" @click="search()">
-        <img src="../../../static/images/Wit/zhixiang_home_maintaim_search_btn.png" alt="">
-        <span>保养查询</span>
-      </li>
-      <li class="li_list_1">
-        <img src="../../../static/images/Wit/zhixiang_home_used_car_btn.png" alt="">
-        <span>二手车服务</span>
-      </li>
-      <li class="li_list_1">
-        <img src="../../../static/images/Wit/zhixiang_home_violation_search_btn.png" alt="">
-        <span>违章查询</span>
-      </li>
-    </ul> -->
-		<div class="wrapper" ref="wrapper" id="wrapper"  @touchend="move">
-			<div id="content">
-				<div class="bustypes" @click="tobus">
-					<div class="bustypes_1">
-						<img src="../../../static/images/Wit/zhixiang_home_service_title_point.png" alt="">
-						<span>主推车型</span>
-					</div>
-					<img src="../../../static/images/Wit/next.png" alt="">
-				</div>
-				<ul class="bus">
-					<li class="bus_li" @click="specil(item)" v-for="(item,index) in this.mainbus" :key="index">
-						<div>
-							<img :src="item.imgUrl" alt="">
-						</div>
-						<div class="bus_1">
-							<div>
-								<img :src="Dingzi" alt="">
-								<span class="bus_2">{{item.seriesName}}</span>
-							</div>
-							<div>
-								<span class="bus_3" v-if="item.guidancePriceStart>0">
-									<div>官方指导价:</div>
-									{{item.guidancePriceStart}}万起</span>
-							</div>
-						</div>
-						<!-- <div class="bus_n" v-else>
-							<div>
-								<img :src="'./../../../static/images/Wit/dingzi.png'" alt="">
-								<span class="bus_2">{{item.seriesName}}</span>
-							</div>
-						</div> -->
-					</li>
-				</ul>
-			</div>
-		</div>
-
-		<mt-popup v-model="popupVisible" position="center">
-			<div class="bgc">
-				<div style="font-size:.25rem;color:#fff;text-align:center;margin-top:.2rem">车辆VIP码：84092184032840932</div>
-			</div>
-			<div class="flex row maincenter" style="margin-top:.54rem">
-				<div class="mt_l flex column">
-					<span style="font-size:.46rem;color:#fff;">5000
-            <span style="font-size:.22rem;color:#fff;">km</span>
-					</span>
-					<span style="font-size:.22rem;color:#fff;margin-top:.34rem">距离下次保养</span>
-				</div>
-				<div class="mt_m" style="font-size:.9rem;color:#f5f5f5;padding:0 .7rem">/</div>
-				<div class="mt_r flex column ">
-					<span>
-            <span style="font-size:.46rem;color:#fff;">06/26</span>
-					<span class="tim">2018</span>
-					</span>
-					<span style="font-size:.22rem;color:#fff;margin-top:.34rem">预计下次保养时间</span>
-				</div>
-			</div>
-			<div class="know" @click="know()">我知道了</div>
-			<div style="width:100%;">
-				<img @click="know()" :src="'../../../static/images/Wit/mycar_check.png'" alt="" style="width:.58rem;height:.58rem;margin:.75rem auto">
-			</div>
-		</mt-popup>
-		<div class="mask" v-if="flag"></div>
-		<ul class="ulList" v-if="flag" @click="cancel()">
-			<li class="cont flex column contentcenter" @click="call(1)">
-				<span style="font-size:.32rem;color:#222">4008-889933</span>
-				<span style="font-size:.22rem;color:#888">(瑞风，和悦)</span>
-			</li>
-			<li class="cont flex column contentcenter" @click="call(2)">
-				<span style="font-size:.32rem;color:#222">4008-009933</span>
-				<span style="font-size:.22rem;color:#888">(帅铃，骏铃，康铃)</span>
-			</li>
-			<li class="cont flex column contentcenter" @click="call(3)">
-				<span style="font-size:.32rem;color:#222">4008-003366</span>
-				<span style="font-size:.22rem;color:#888">(星锐)</span>
-			</li>
-			<li class="cont flex column contentcenter" @click="call(4)">
-				<span style="font-size:.32rem;color:#222">4008-006633</span>
-				<span style="font-size:.22rem;color:#888">(格尔发)</span>
-			</li>
-			<li class="cont flex column contentcenter" style="border-bottom:none">
-				<span style="font-size:.32rem;color:#666">取消</span>
-			</li>
-		</ul>
-	</div>
+<template>  
+    <div>
+      <!--nav导航Start-->
+      <div class="topb"></div>
+      <div class="find_nav">
+        <div class="find_nav_left">
+          <div class="find_nav_list">
+            <ul id="pagenavi1">
+              <li class="specilmain">
+                <a href="javascript:;" class="active">主推车型</a>
+              </li>
+              <li class="specilall">
+                <a href="javascript:;">全部车型</a>
+              </li>
+              <li>
+                <a href="javascript:;">经销网点</a>
+              </li>
+              <li>
+                <a href="javascript:;">维保网点</a>
+              </li>					
+              <li class="sideline"></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!--nav导航End-->
+      <div
+      class="roadrescue" 
+             ref="moveDiv"
+      >
+        <img
+        @mousedown="down"
+        @mousemove.prevent="move"
+        @mouseup="up"
+        @touchstart="down"
+        @touchmove.prevent="move"
+        @touchend="up"
+        @click="confirmRevise" 
+         src="../../../static/images/Wit/loadhelp.png" alt="">
+      </div>
+      <div @click="bgclick" class="mask" v-if="flag"></div>
+      <ul class="ulList" v-if="flag" @click="cancel()">
+        <li class="cont flex column contentcenter" @click="call(1)">
+          <span style="font-size:.32rem;color:#222">4008-889933</span>
+          <span style="font-size:.22rem;color:#888">(瑞风，和悦)</span>
+        </li>
+        <li class="cont flex column contentcenter" @click="call(2)">
+          <span style="font-size:.32rem;color:#222">4008-009933</span>
+          <span style="font-size:.22rem;color:#888">(帅铃，骏铃，康铃)</span>
+        </li>
+        <li class="cont flex column contentcenter" @click="call(3)">
+          <span style="font-size:.32rem;color:#222">4008-003366</span>
+          <span style="font-size:.22rem;color:#888">(星锐)</span>
+        </li>
+        <li class="cont flex column contentcenter" @click="call(4)">
+          <span style="font-size:.32rem;color:#222">4008-006633</span>
+          <span style="font-size:.22rem;color:#888">(格尔发)</span>
+        </li>
+        <li class="cont flex column contentcenter" style="border-bottom:none">
+          <span style="font-size:.32rem;color:#666">取消</span>
+        </li>
+      </ul>
+      <!--内容Start-->
+      <div id="slider1" class="swipe">
+        <ul class="box01_list" >
+          <li class="li_list " @click="Record(1)">
+            <Recomentbus ></Recomentbus>
+          </li>
+          <li class="li_list specilall" @click="Record(2)">
+            <Allbus></Allbus>
+          </li>
+          <li class="li_list" @click="Record(3)">
+            <dealer></dealer>					
+          </li>
+          <li class="li_list" @click="Record(4)">
+            <searchnet></searchnet>					
+          </li>
+        </ul>
+      </div>
+      <!--内容End-->
+    </div>
+ 
 </template>
+
 <script>
+import TouchSl from "../../../static/js/touchslider.js";
 import { MessageBox } from "mint-ui";
-import Dingzi from "../../../static/images/Wit/dingzi.png"
-import Bscroll from "better-scroll";
+import dealer from "./dealer.vue";
+import searchnet from "./Search_net.vue";
+import Recomentbus from "./Recoment_bus.vue";
+import Allbus from "./Allbus.vue";
 export default {
+  name: "wit",
   data() {
     return {
-      popupVisible: false,
-      mainbus: {}, //主推车型
-      sheetVisible: true,
       flag: false,
-      Dingzi,
-      latitude: "", //精度
-      longitude: "", //维度
-      tt: {},
-      allno: [], //储存所有接受到的no
-      positions: "" //储存滚动的位置
+      moveFlag: false,
+      clickFlag: false,
+      position: {
+      x: 0,
+      y: 0
+    },
+    nx: '', 
+    ny: '', 
+    dx: '', 
+    dy: '', 
+    xPum: '', 
+    yPum: '',
     };
   },
-  beforeRouteLeave(to, from, next) {
-    //			alert(this.positions)
-    if (this.positions == null) this.positions = 0;
-    this.$store.commit("changeScrollY", this.positions);
-    //			alert(this.$store.state.changeScrollY)
-    next();
+  components: {
+    dealer,
+    searchnet,
+    Recomentbus,
+    Allbus
   },
   methods: {
+    sliderHeight() {
+      var wHeight = $(window).height();
+      var sliderHeight = wHeight - 70;
+
+      $(".swipe li").height(sliderHeight);
+    },
     //道路救援
     confirmRevise() {
       MessageBox.confirm("", {
@@ -177,7 +138,6 @@ export default {
         .then(action => {
           if (action == "confirm") {
             this.flag = true;
-
             if (isMobile.iOS()) {
               window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
               var param = {
@@ -185,7 +145,8 @@ export default {
                 longitude: this.longitude,
                 positionTypeNo: this.$store.state.userId
               };
-              this.$http.post(Wit.Help, param).then(res => {});
+              this.$http.post(Wit.Help, param).then(res => {
+			  });
             } else if (isMobile.Android()) {
               var position = js2android.getLocationInfo();
               var positions = JSON.parse(position);
@@ -195,9 +156,10 @@ export default {
               var param = {
                 latitude: this.latitude,
                 longitude: this.longitude,
-                positionTypeNo: this.$store.state.userId
+                positionTypeNo: this.$store.state.aaaid
               };
-              this.$http.post(Wit.Help, param).then(res => {});
+              this.$http.post(Wit.Help, param).then(res => {
+			  });
             }
           }
         })
@@ -210,8 +172,86 @@ export default {
     //取消
     cancel() {
       this.flag = false;
-    },
-    call(num) {
+  },
+  //记录wit是从哪里跳转的
+  Record(num){
+      this.$store.dispatch('RECORD',num)
+  },
+	//点击遮罩层消失
+	bgclick(){
+		this.flag=false;
+  },
+  backwit(){
+      
+    if(this.$store.state.record=='1'){
+      console.log('jintu1')
+      $('.specilmain').eq(0)
+          .addClass("find_nav_cur")
+          .siblings()
+          .removeClass("find_nav_cur");
+    }else if(this.$store.state.record=='2'){
+      console.log('jinru2')
+      $('.specilall').eq(0)
+          .addClass("find_nav_cur")
+          .siblings()
+          .removeClass("find_nav_cur"); //给点击的li添加激活类名,其它li清除类名
+    }
+  
+  },
+  down(){
+     var touch ;
+     this.moveFlag = true;
+    if(event.touches){
+        touch = event.touches[0];
+    }else {
+        touch = event;
+    }
+    this.position.x = touch.clientX;
+    this.position.y = touch.clientY;
+    this.dx = this.$refs.moveDiv.offsetLeft;
+    this.dy = this.$refs.moveDiv.offsetTop;　
+  },
+  move(){
+    if (this.moveFlag) {
+      var touch;
+      var moveDiv = this.$refs.moveDiv
+      if(event.touches){
+          touch = event.touches[0];
+      }else {
+          touch = event;
+      }
+      this.nx = touch.clientX - this.position.x;
+      this.ny = touch.clientY - this.position.y;
+      this.xPum = this.dx+this.nx;
+      this.yPum = this.dy+this.ny;
+      if(this.xPum<0){
+        this.xPum=0
+      }
+      let right=document.body.clientWidth-touch.clientX-this.$refs.moveDiv.offsetWidth/2
+      if(right<0){
+        this.xPum=document.body.clientWidth-this.$refs.moveDiv.offsetHeight
+      }
+      let bottom=document.body.clientHeight-touch.clientY-this.$refs.moveDiv.offsetHeight
+      if(bottom<0){
+        this.yPum=document.body.clientHeight-this.$refs.moveDiv.offsetHeight*1.7
+      }
+
+      
+      if(this.yPum<0){
+        this.yPum=0
+      }
+      moveDiv.style.left = this.xPum+"px";
+      moveDiv.style.top = this.yPum +"px";
+    }        　
+  },
+  up(){
+    this.moveFlag = false; 
+    if (!this.moveFlag) {
+      // alert('2222')
+    }
+  },
+	//打电话传号码
+	 call(num) {
       var tell = "";
       if (num == 1) {
         tell = "4008-889933";
@@ -228,119 +268,304 @@ export default {
         js2android.call(tell);
       }
     },
-    //经销商
-    fn() {
-      this.$router.push("/wit/dealer");
+    init() {
+      var $window = $(window);
+      var initialWindowHeight = null;
+
+      $window.resize(function() {
+        this.sliderHeight();
+      });
+      this.sliderHeight();
     },
-    //全部车型，主推车型
-    tobus() {
-      this.$router.push("/wit/recoment_bus");
-    },
-    //维保网点
-    search_net() {
-      this.$router.push("/wit/search_net");
-    },
-    //维保预约
-    pre_weib() {
-      this.$router.push("/wit/pre_weib");
-    },
-    //车系特色， 配置表
-    specil(item) {
-      this.$store.dispatch("NONAME", item);
-      this.$store.state.shownum = 1;
-      this.$router.push({
-        name: "车系特色",
-        params: {
-          // num:1
-          // everyno:item.no,
-          // seriesName:item.seriesName,
+    changeTap() {
+      var fnl_x, x1, y1, ty_left;
+      $(".find_nav_list").css("left", 0);
+
+      $(".find_nav_list li").each(function() {
+        //初始遍历li
+        $(".sideline").css({
+          //设置底部到航线初始值为0
+          left: 0
+        });
+        $(".find_nav_list li")
+          .eq(0)
+          .addClass("find_nav_cur")
+          .siblings()
+          .removeClass("find_nav_cur"); //给第一个li添加激活类名,其它兄弟li去除激活的类名
+      });
+
+      var nav_w = $(".find_nav_list li")
+        .first()
+        .width(); //获取第一个li的宽度
+      $(".sideline").width(nav_w); //把第一个li的宽度赋值给
+      let nav_all=$(".find_nav_list li")
+      $(".find_nav_list li").on("click", function() {
+        //点击头部li
+        // console.log($(this).position().left); //打印出点击li的定位left值
+        nav_w = $(this).width(); //获取点击li的宽度
+        $(".sideline").stop(true); //先停止底部导航条动画
+        $(".sideline").animate(
+          {
+            //底部导航条动画移动到点击的li下
+            left: $(this).position().left
+          },
+          300
+        );
+        $(".sideline").animate({
+          //底部导航条动画的为li的宽度
+          width: nav_w
+        });
+        $(this)
+          .addClass("find_nav_cur")
+          .siblings()
+          .removeClass("find_nav_cur"); //给点击的li添加激活类名,其它li清除类名
+        //对点击li的left值与嵌套盒子宽度做判断,让.find_nav_list盒子的定位left处于正中间
+        var fn_w = ($(".find_nav").width() - nav_w) / 2;
+        var fnl_l; //第三方变量,最终赋值给.find_nav_list的left的值
+        var fnl_x = parseInt($(this).position().left); //点击li的定位left值
+        if (fnl_x <= fn_w) {
+          fnl_l = 0;
+        } else if (fn_w - fnl_x <= flb_w - fl_w) {
+          fnl_l = flb_w - fl_w;
+        } else {
+          fnl_l = fn_w - fnl_x;
+        }
+        $(".find_nav_list").animate(
+          {
+            left: fnl_l
+          },
+          300
+        );
+      });
+      var fl_w = $(".find_nav_list").width(); //find_nav_list的宽度
+      var flb_w = $(".find_nav_left").width(); //find_nav_left的宽度
+      $(".find_nav_list").on("touchstart", function(e) {
+        var touch1 = e.originalEvent.targetTouches[0];
+        x1 = touch1.pageX; //获取手指滑动开始的X位置
+        y1 = touch1.pageY; //获取手指滑动开始的Y位置
+        ty_left = parseInt($(this).css("left")); //获取手指滑动开始的定位left值
+      });
+      $(".find_nav_list").on("touchmove", function(e) {
+        var touch2 = e.originalEvent.targetTouches[0];
+        var x2 = touch2.pageX; //持续获得手指的X,Y的值
+        var y2 = touch2.pageY;
+        if (ty_left + x2 - x1 >= 0) {
+          $(this).css("left", 0);
+        } else if (ty_left + x2 - x1 <= flb_w - fl_w) {
+          $(this).css("left", flb_w - fl_w);
+        } else {
+          $(this).css("left", ty_left + x2 - x1);
+        }
+        if (Math.abs(y2 - y1) > 0) {
+          e.preventDefault();
         }
       });
-    },
-    //保养查询
-    search() {
-      this.popupVisible = true;
-    },
-    //关闭保养查询
-    know() {
-      this.popupVisible = false;
-    },
-    getIosLocation(locationMes) {
-      //IOS调用,H5获取ios定位信息
-      this.latitude = JSON.parse(locationMes).latitude; //精
-      this.longitude = JSON.parse(locationMes).longitude; //韦
-    },
-    getMainPushModel() {
-      //获取主推车型，传{}表示全部车型
-      var param = {
-        highlyRecommend: "1",
-        no: this.$store.state.busNo
-      };
-      this.$http.post(Wit.MainBus, param).then(res => {
-        if (res.data.code == 0) {
-          var arr = res.data.data;
-          for (var i = 0; i < arr.length; i++) {
-            if (arr[i].imageRelationVO.length > 0) {
-              for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
-                if (arr[i].imageRelationVO[j].isDefault == 1) {
-                  arr[i].imgUrl = arr[i].imageRelationVO[j].imageUrl;
-                }
-              }
-              this.allno.push(arr[i].no);
+
+      for (var n = 1; n < 9; n++) {
+        var page = "pagenavi" + n;
+        var mslide = "slider" + n;
+        var mtitle = "emtitle" + n;
+        var arrdiv = "arrdiv" + n;
+        var as = $("#" + page + "").find("a");
+        var tt = new TouchSlider({
+          id: mslide,
+          auto: "-1",
+          fx: "ease-in-out",
+          direction: "left",
+          speed: 600,
+          timeout: 5000,
+          before: function(index) {
+            var as = document
+              .getElementById(this.page)
+              .getElementsByTagName("a");
+            as[this.p].className = "";
+            this.p = index;
+
+            fnl_x = parseInt(
+              $(".find_nav_list li")
+                .eq(this.p)
+                .position().left
+            );
+
+            nav_w = $(".find_nav_list li")
+              .eq(this.p)
+              .width();
+            $(".sideline").stop(true);
+            $(".sideline").animate(
+              {
+                left: $(".find_nav_list li")
+                  .eq(this.p)
+                  .position().left
+              },
+              300
+            );
+            $(".sideline").animate(
+              {
+                width: nav_w
+              },
+              100
+            );
+            $(".find_nav_list li")
+              .eq(this.p)
+              .addClass("find_nav_cur")
+              .siblings()
+              .removeClass("find_nav_cur");
+            var fn_w = ($(".find_nav").width() - nav_w) / 2;
+            var fnl_l;
+            if (fnl_x <= fn_w) {
+              fnl_l = 0;
+            } else if (fn_w - fnl_x <= flb_w - fl_w) {
+              fnl_l = flb_w - fl_w;
             } else {
-              arr[i].imgUrl = "";
+              fnl_l = fn_w - fnl_x;
             }
+            $(".find_nav_list").animate(
+              {
+                left: fnl_l
+              },
+              300
+            );
           }
-          this.mainbus = arr;
-          this.$nextTick(() => {
-            this.scroll = new Bscroll(this.$refs.wrapper, {
-              click: true
-            });
-            this.scroll.scrollTo(0, this.$store.state.changeScrollY);
-          });
+        });
+        tt.page = page;
+        tt.p = 0;
+        //console.dir(tt); console.dir(tt.__proto__);
+
+        for (var i = 0; i < as.length; i++) {
+          (function() {
+            var j = i;
+            as[j].tt = tt;
+            as[j].onclick = function() {
+              this.tt.slide(j);
+              return false;
+            };
+          })();
         }
-      });
-    },
-    move() {
-      this.scroll.on("scrollEnd", pos => {
-        this.positions = pos.y;
-        //alert(this.positions)
-      });
+      }
     }
   },
-  created() {
-    window.getIosLocation = this.getIosLocation; //ios获取定位信息,放到window对象供ios调用
-    this.getMainPushModel();
-  },
   mounted() {
-    this.scroll.scrollTo(0, 0);
+    this.init();
+    this.changeTap();
   },
-  activated() {
-    window.getIosLocation = this.getIosLocation; //ios获取定位信息,放到window对象供ios调用
-    //获取主推车型，传{}表示全部车型
-    this.getMainPushModel();
-  }
+  beforeDestroy() {}
 };
 </script>
+
 <style scoped>
-* {
-  padding: 0;
-  margin: 0;
-}
-
-.cancelButton {
-  color: #ccc !important;
-}
-
-.mask {
+.topb {
   width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  height: 0.5rem;
   position: fixed;
+  background: #fff;
   top: 0;
+  z-index: 888;
+}
+.find_nav {
+  width: 100%;
+  height: 0.7rem;
+  background-color: #fff;
+  position: fixed;
+  top: 0.5rem;
+  z-index:888;
+  display: flex;
+  box-sizing: border-box;
+}
+
+.find_nav_left {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+}
+
+.find_nav_list {
+  position: absolute;
   left: 0;
 }
 
+.find_nav_list ul {
+  position: relative;
+  white-space: nowrap;
+  font-size: 0;
+}
+
+.find_nav_list ul li {
+  display: inline-block;
+  padding: 0;
+  margin: 0 0.4rem;
+}
+
+.find_nav_list ul li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 0.7rem;
+  font-size: 0.28rem;
+  text-align: center;
+  color: #666;
+}
+
+.find_nav_cur a {
+  color: #49bbff !important;
+}
+.find_nav_list a.active {
+		color: #C00
+	}
+.sideline {
+  display: block;
+  position: absolute;
+  border: 0;
+  height: 0.02rem;
+  background-color: #49bbff;
+  left: 0;
+  top: 0.6rem;
+  pointer-events: none;
+}
+
+.li_list {
+  height: 100vh !important;
+  overflow-y: auto;
+  display: table;
+}
+/*将每个li封闭成一个盒子，就可以独立每个li内的内容*/
+
+.li_list span {
+  display: block;
+  height: 0.3rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  margin: 0 0 0.2rem;
+  font-size: 0.55rem;
+  line-height: 3rem;
+  text-align: center;
+}
+
+.swipe {
+  padding: 0.7rem 0 0 0;
+}
+.roadrescue {
+  position: fixed;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  width: 1rem;
+  height: 1rem;
+  z-index: 9999;
+  top:50% ;
+  right: 0.3rem;
+  border-radius: 50%;
+}
+.roadrescue>img{
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -.5rem;
+  margin-left: -.5rem;
+}
 .ulList {
   width: 100%;
   background-color: #fff;
@@ -348,263 +573,18 @@ export default {
   bottom: 0;
   left: 0;
   padding: 0.1rem;
+  z-index: 10001;
 }
-
-.cont {
-  height: 1rem;
-  border-bottom: 0.01rem solid #f8f8f8;
+.ulList>li{
+  padding: .15rem 0;
 }
-
-.know {
-  line-height: 0.82rem;
-  width: 5.64rem;
-  background-color: #fff;
-  font-size: 0.32rem;
-  color: #4189ff;
-  text-align: center;
-  margin: 0.6rem auto;
-  border-radius: 0.2rem;
-}
-
-.tim {
-  font-size: 0.14rem;
-  background-color: #fff;
-  color: #3b67ff;
-  line-height: 0.24rem;
-  padding: 0 0.1rem;
-}
-
-.mint-popup {
-  width: 90%;
-  height: 4.12rem;
-  /* background-image: url("../../../static/images/Wit/windows_maintain_search_bg.png"); */
-  background-size: 100%;
-  top: 42%;
-  border-radius: 0.2rem;
-}
-
-.tophead {
-  height: 2.58rem;
-  /* background-image: url("../../../static/images/Wit/baclgroundwit.png"); */
+.mask {
   width: 100%;
-  display: block;
-  background-size: content;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
   left: 0;
-  overflow: hidden;
-}
-
-.ipt {
-  height: 0.78rem;
-  width: 6.5rem;
-  border: 0;
-  display: inline-block;
-  position: relative;
-  padding-left: 0.6rem;
-}
-
-.search {
-  padding: 0.47rem;
-  text-align: center;
-}
-
-input::-webkit-input-placeholder,
-textarea::-webkit-input-placeholder {
-  color: #a5a5a5;
-  font-size: 0.28rem;
-}
-
-.pic {
-  width: 0.42rem;
-  display: block;
-  position: absolute;
-  top: 0.65rem;
-  left: 0.6rem;
-}
-
-.ul_list {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  height: .88rem;
-  line-height: .78rem;
-}
-
-.ul_list_1 {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.li_list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.li_list img {
-  display: block;
-  box-shadow: rgba(0, 0, 0, 0.36);
-  opacity: 0.5;
-}
-
-.li_list span {
-  text-align: center;
-  font-size: 0.28rem;
-  padding-top: .2rem;
-  color: #49bbff;
-}
-
-.wrapper {
-  position: absolute;
-  /* top: 2.58rem; */
-  top: 1.6rem;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-}
-/*.bustype {
-  height: 0.75rem;
-  border-bottom: 1px solid #f5f5f5;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.bustype img {
-  width: 0.14rem;
-  display: block;
-  margin: 0 0.14rem;
-}
-.bustype span {
-  font-size: 0.21rem;
-  color: #222;
-}*/
-
-.li_list_1 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0.26rem 0 0.5rem 0;
-}
-
-.ul_list_1 .li_list_1 span {
-  color: #444;
-  text-align: center;
-}
-
-.ul_list_1 .li_list_1 img {
-  width: 0.72rem;
-  display: block;
-}
-
-.bustypes {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 0.9rem;
-  justify-content: space-between;
-}
-
-.bustypes img {
-  width: 0.3rem;
-  margin-right: 0.14rem;
-}
-
-.bustypes_1 {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  /* justify-content: flex-start; */
-}
-
-.bustypes_1 img {
-  width: 0.18rem;
-  display: block;
-  margin-left: 0.14rem;
-}
-
-.bustypes_1 span {
-  font-size: 0.28rem;
-  color: #222;
-}
-.bus_n {
-  width: 100%;
-  height: 1.2rem;
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-}
-.bus_n > div {
-  display: flex;
-  align-items: center;
-  padding: 0.3rem;
-}
-.bus_n > div > img {
-  width: 0.28rem;
-  height: 0.28rem;
-}
-.bus {
-  display: flex;
-  flex-direction: column;
-}
-
-.bus_li {
-  height: 3.57rem;
-  border-bottom: 1px solid #f5f5f5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.bus_li img {
-  width: 100%;
-  height: 2.37rem;
-}
-
-.bus_1 {
-  width: 100%;
-  height: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.bus_1 > div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.3rem;
-}
-.bus_1 > div > img {
-  width: 0.28rem;
-  height: 0.28rem;
-}
-.bus_2 {
-  color: #222;
-  padding: 0.2rem;
-  font-size: 0.32rem;
-  font-family: "PingFang-SC-Bold";
-  font-weight: bold;
-  color: rgba(34, 34, 34, 1);
-}
-
-.bus_3 {
-  display: flex;
-  align-items: center;
-  font-size: 0.28rem;
-  font-family: "PingFang-SC-Bold";
-  font-weight: bold;
-  color: rgba(73, 187, 255, 1);
-}
-.bus_3 > div {
-  font-size: 0.24rem;
-  font-family: "PingFangSC-Regular";
-  font-weight: 400;
-  color: rgba(153, 153, 153, 1);
-  margin-right: 0.2rem;
+  z-index: 10000;
 }
 </style>

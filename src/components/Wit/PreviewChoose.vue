@@ -220,9 +220,6 @@
           this.vehicleData.push(LEDType);
         }
         this.vehicleData.push(carType,outType,carPowerType,wheelType,priceType);
-
-        console.log('vehicleData',this.vehicleData);
-
         this.$router.push({
           path: '/wit/Reserve',
           query: {

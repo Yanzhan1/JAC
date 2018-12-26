@@ -1,11 +1,11 @@
 <template>
 	<div>
-		<header class="header MobileHeight bgcolor" style="z-index: 100!important;">
+		<!-- <header class="header MobileHeight bgcolor" style="z-index: 100!important;">
 			<img class="header-left" src="../../../static/images/back@2x.png" @click="$router.go(-1)">
 			<span class="header-title" style="margin-right: 0.65rem;">查询维保网点</span>
 			<span class="header-right"></span>
-		</header>
-		<div style="height:.88rem" class="MobileHeight"></div>
+		</header> -->
+		<div  class="MobileHeight"></div>
 		<div class="flex row around con cocenter title">
 			<div class="flex row cocenter">
 				<!-- 品牌 -->
@@ -111,6 +111,7 @@
 				<mt-picker :slots="citySlot" @change="chooseCity" :visible-item-count="5" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
 			</div>
 		</mt-popup>
+		
 	</div>
 </template>
 <script>
