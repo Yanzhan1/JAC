@@ -8,7 +8,7 @@
     <!--活动内容S-->
 
     <div class="container" :style="containerStyleObj">
-      <iframe id="childframe" :src="content.activityBody" border="0" style="border:none;" scrolling="no"></iframe>
+      <iframe id="childframe" :src="content.activityBody" scrolling="no"></iframe>
     </div>
 
     <shareBox :index="0" :item="content" :flag="flag" :type="type" :collectionStatus="content.collectionStatus"
@@ -158,21 +158,13 @@
       /*悬浮,更换头部背景透明度和文字*/
       window.addEventListener('scroll', this.handleScroll)
       //初始化数据
-      this.$nextTick(function () {
+      this.$nextTick(() => {
         var asd = document.querySelector('#asd')
 
         this.containerStyleObj['height'] = window.innerHeight - asd.getBoundingClientRect().height + 'px'
         this.getActivity();
       })
-    },
-    updated() {
-      this.$nextTick(() => {
-        const bgImg = document.querySelector('#bgImg')
-        const asd = document.querySelector('#asd')
-        //this.bgImgHeight = bgImg.getBoundingClientRect().height - asd.getBoundingClientRect().height
-      })
-    },
-
+    }
   }
 
 </script>
@@ -200,15 +192,13 @@
   }
 
   iframe {
-    /*width: 1px;*/
-    height: 100%;
-    width: 100%;
-    /*min-width:100%;*/
-  }
-
-  iframe.safaric_fix {
     width: 1px;
     min-width: 100%;
+    *width: 100%;
+    height: 1px;
+    min-height: 100%;
+    *height: 100%;
+    border: none;
   }
 
 </style>
