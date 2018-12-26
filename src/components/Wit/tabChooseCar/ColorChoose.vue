@@ -179,6 +179,7 @@
         })
       },
       backChooseBtn(){
+
         this.$router.push({
           path: '/CarChoose',
           query: {
@@ -188,6 +189,48 @@
             carName:this.$route.query.carName
           }
         })
+//        if(this.$store.state.currentTitle == '自由型'){
+//          this.$router.push({
+//            path: '/CarChoose',
+//            query: {
+//              currentTitle:this.$store.state.currentTitle,
+//              powerTitle:this.$store.state.powerTitle,
+//              priceTitle:this.$store.state.priceTitle,
+//              carName:this.$route.query.carName
+//            }
+//          })
+//        }else if(this.$store.state.currentTitle == '超越型'){
+//          this.$router.push({
+//            path: '/CarChoose',
+//            query: {
+//              currentTitle:this.$store.state.currentTitle,
+//              powerTitle:this.$store.state.powerTitle2,
+//              priceTitle:this.$store.state.priceTitle,
+//              carName:this.$route.query.carName
+//            }
+//          })
+//        }else if(this.$store.state.currentTitle == '梦想型'){
+//          this.$router.push({
+//            path: '/CarChoose',
+//            query: {
+//              currentTitle:this.$store.state.currentTitle,
+//              powerTitle:this.$store.state.powerTitle3,
+//              priceTitle:this.$store.state.priceTitle,
+//              carName:this.$route.query.carName
+//            }
+//          })
+//        } else if(this.$store.state.currentTitle == '探索型'){
+//          this.$router.push({
+//            path: '/CarChoose',
+//            query: {
+//              currentTitle:this.$store.state.currentTitle,
+//              powerTitle:this.$store.state.powerTitle1,
+//              priceTitle:this.$store.state.priceTitle,
+//              carName:this.$route.query.carName
+//            }
+//          })
+//        }
+
       },
       goBack(){
           this.$router.go(-1);
