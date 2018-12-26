@@ -243,11 +243,10 @@ export default{
       var _this = this;
       _this.$nextTick(()=>{
         var info = document.getElementsByClassName("contentCarBtn");
-        console.log("----",info)
+        // console.log("----",info)
         var len = info.length;
         if(!(len%2)){
-//          alert(len)
-          console.log(info[len-1])
+          // console.log(info[len-1])
           info[len-1].style.left = "0.2rem";
           info[len-2].style.right = "0.2rem";
         }else {
@@ -303,9 +302,9 @@ export default{
       this.$store.state.priceTitle = labelTitle;
     },
     colorChooseBtn(){
-      console.log('111111',this.$store.state.currentTitle)
-      console.log('22222',this.$store.state.powerTitle)
-      console.log('333333',this.$store.state.priceTitle)
+      // console.log('111111',this.$store.state.currentTitle)
+      // console.log('22222',this.$store.state.powerTitle)
+      // console.log('333333',this.$store.state.priceTitle)
       if(this.$store.state.currentTitle == '自由型'){
         this.$router.push({
           path: '/ColorChoose',

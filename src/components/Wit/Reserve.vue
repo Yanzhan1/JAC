@@ -403,8 +403,6 @@ export default {
           };
           this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res=>{
               let city=res.data.data.records
-              console.log(city)
-              console.log(this.localcity)
               for(let values of city){
                 if(values.name==this.localcity){
                   this.codecity=values.id
@@ -422,7 +420,7 @@ export default {
               mobile: this.tell, //手机号
               email: this.email, //email
               address: this.address, //地址
-              comments: this.vehicleData, //车型配置
+              comments: this.$route.query.vehicleData, //车型配置
               province: this.provinceid, //省份ID
               series: this.$store.state.levelCode, //意向车系
               model: this.$store.state.srouceNo, //意向车型
@@ -599,7 +597,6 @@ export default {
  
     },
     getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
-    console.log(locationMes)
 				this.localprovince = JSON.parse(locationMes).province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '')
 				this.localcity = JSON.parse(locationMes).city.replace('市', '')
 				this.latitude = JSON.parse(locationMes).latitude //精
@@ -631,9 +628,9 @@ export default {
         this.longitude = NewPosition.longitude //纬度
         this.getcity()
 			} else if(system == "IOS") {
-        console.log('ios')
+        // console.log('ios')
         window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
-        console.log('通知结束')
+        // console.log('通知结束')
           window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
       }
   },
