@@ -35,7 +35,6 @@ export default {
       //   //     alert( JSON.stringify(userInfo))
       // }
       if (userInfo && userInfo.no) {
-             console.log('从原生拿到的对象'+JSON.stringify(userInfo))
         this.$store.dispatch("isLogin", true);
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
         // const secUid = Secret.Encrypt(userInfo.no)
@@ -88,7 +87,7 @@ export default {
       var system = IOSAndAndroid.isIOSOrAndroid();
       if (system == "IOS") {
         var params = {};
-        //window.webkit.messageHandlers.showProgressDialog.postMessage(params);
+        window.webkit.messageHandlers.showProgressDialog.postMessage(params);
       } else if (isMobile.Android() && window.js2android) {
         js2android.showProgressDialog();
       }
@@ -97,7 +96,7 @@ export default {
       // 防止用户原生连点隐藏的遮罩层
       if (isMobile.iOS()) {
         var params = {};
-        //window.webkit.messageHandlers.dismissProgressDialog.postMessage(params);
+        window.webkit.messageHandlers.dismissProgressDialog.postMessage(params);
       } else if (isMobile.Android() && window.js2android) {
         js2android.dismissProgressDialog();
       }
