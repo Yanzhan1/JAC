@@ -206,6 +206,21 @@
         }, ).then(function (res) {
           if (res.data.status) {
             _this.content = res.data.data;
+
+            // David
+            var {
+              activityTitle,
+              activityBody,
+              imgUrl
+            } = res.data.data
+            // _this.$doubleShare.qqShare(window.location.href, activityTitle, activityBody, imgUrl)
+            setShareInfo({
+              title: activityTitle,
+              summary: activityBody,
+              pic: imgUrl,
+              url: window.location.href,
+            })
+
             if (res.data.data.joinList) {
               _this.showJoinList = res.data.data.joinList.slice(0, 10);
             }
@@ -494,8 +509,8 @@
     width: 100%;
   }
 
-  .content >>> img {
-    width:100%;
+  .content>>>img {
+    width: 100%;
   }
 
   #bgShare {
