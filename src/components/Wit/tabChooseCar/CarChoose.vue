@@ -200,26 +200,26 @@ export default{
       this.currentIndex = 1;
       this.$store.state.carIntroduceTitle = '10.25寸大屏 天窗';
       this.$store.state.carIntroduceTitle2 = 'PEPS无钥匙进入及一键启动 智聆车联网3.0系统';
-      if(this.$store.state.powerTitle == "1.5T CVT 自动"){
+      if(this.$store.state.powerTitle2 == "1.5T CVT 自动"){
         this.currentIndex4 = 0
-      }else if(this.$store.state.powerTitle == "1.6L CVT 自动"){
+      }else if(this.$store.state.powerTitle2 == "1.6L CVT 自动"){
         this.currentIndex4 = 1
-      } else if(this.$store.state.powerTitle == "1.5T 6MT 手动"){
+      } else if(this.$store.state.powerTitle2 == "1.5T 6MT 手动"){
         this.currentIndex4 = 2
-      }else if(this.$store.state.powerTitle == "1.6L 6MT 手动"){
+      }else if(this.$store.state.powerTitle2 == "1.6L 6MT 手动"){
         this.currentIndex4 = 3
       }
     } else if(this.$store.state.currentTitle == "梦想型"){
       this.currentIndex = 2;
       this.$store.state.carIntroduceTitle = '主驾驶电动座椅 360全景影像';
       this.$store.state.carIntroduceTitle2 = 'TESS爆胎应急安全系统';
-      if(this.$store.state.powerTitle == "1.5T CVT 自动"){
+      if(this.$store.state.powerTitle3 == "1.5T CVT 自动"){
         this.currentIndex5 = 0
-      }else if(this.$store.state.powerTitle == "1.6L CVT 自动"){
+      }else if(this.$store.state.powerTitle3 == "1.6L CVT 自动"){
         this.currentIndex5 = 1
-      } else if(this.$store.state.powerTitle == "1.5T 6MT 手动"){
+      } else if(this.$store.state.powerTitle3 == "1.5T 6MT 手动"){
         this.currentIndex5 = 2
-      }else if(this.$store.state.powerTitle == "1.6L 6MT 手动"){
+      }else if(this.$store.state.powerTitle3 == "1.6L 6MT 手动"){
         this.currentIndex5 = 3
       }
     }else if(this.$store.state.currentTitle == "探索型"){

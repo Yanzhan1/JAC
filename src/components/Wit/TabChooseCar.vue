@@ -77,9 +77,9 @@
       goBack(){
         this.$router.push('/wit/Characteristic');
       },
-      showHeader(flag){
-        this.flag=flag.flag
-      },
+      // showHeader(flag){
+      //   this.flag=flag.flag
+      // },
     }
   }
 </script>

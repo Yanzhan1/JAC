@@ -1,5 +1,5 @@
 <template>
-	<div class="aircondition-control">
+	<div class="aircondition-control" @touchmove.prevent>
 		<!--<header class="header MobileHeight">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
 			<span class="header-title">空调控制</span>

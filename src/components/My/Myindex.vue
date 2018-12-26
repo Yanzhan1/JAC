@@ -238,7 +238,8 @@ export default {
     },
     ton() {
       if (isMobile.iOS()) {
-        window.webkit.messageHandlers.gotoOnlineWeb.postMessage();
+        let params={}
+        window.webkit.messageHandlers.gotoOnlineWeb.postMessage(params);
       } else if (isMobile.Android()) {
         js2android.gotoOnlineWeb();
       }
@@ -296,6 +297,8 @@ export default {
           this.userName +
           "&toOrderList=suc&token=" +
           this.add
+          console.log(Stringurl)
+          return false
         if (isMobile.iOS()) {
         var params = {Stringurl:Stringurl};
           window.webkit.messageHandlers.gotoMallOrderWeb.postMessage(params);
@@ -303,17 +306,17 @@ export default {
           js2android.gotoMallOrderWeb(Stringurl);
         }
         
-        location.href =
-          "http://gift.jac.com.cn/app/authLogin" +
-          "?" +
-          "uid=" +
-          this.aaaid +
-          "&mobile=" +
-          this.mobile +
-          "&userName=" +
-          this.userName +
-          "&toOrderList=suc&token=" +
-          this.add;
+        // location.href =
+        //   "http://gift.jac.com.cn/app/authLogin" +
+        //   "?" +
+        //   "uid=" +
+        //   this.aaaid +
+        //   "&mobile=" +
+        //   this.mobile +
+        //   "&userName=" +
+        //   this.userName +
+        //   "&toOrderList=suc&token=" +
+        //   this.add;
         }else{
           Toast({
 								message: '请完善信息',
@@ -647,6 +650,7 @@ export default {
   border-radius: 0.1rem;
   color:#fff;
   font-size: 0.2rem;
+  font-weight: 520;
   /* -webkit-transform: scale(0.75);
   -o-transform: scale(.75) */
 }
