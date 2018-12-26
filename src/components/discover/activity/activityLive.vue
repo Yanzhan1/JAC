@@ -8,7 +8,7 @@
     <!--活动内容S-->
 
     <div class="container" :style="containerStyleObj">
-      <iframe id="childframe" :src="content.activityBody" scrolling="no"></iframe>
+      <iframe id="childframe" :src="content.activityBody" frameborder="0" marginwidth="0" marginheight="0" border="0" vspace="0" hspace="0" scrolling="no"></iframe>
     </div>
 
     <shareBox :index="0" :item="content" :flag="flag" :type="type" :collectionStatus="content.collectionStatus"
@@ -199,6 +199,7 @@
     min-height: 100%;
     *height: 100%;
     border: none;
+    margin: 0;
   }
 
 </style>
