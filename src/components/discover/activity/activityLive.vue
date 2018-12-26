@@ -154,14 +154,14 @@
       },
     },
     mounted() {
-      // this.$store.dispatch("hideFoot")
+      this.$store.dispatch("hideFoot")
       /*悬浮,更换头部背景透明度和文字*/
       window.addEventListener('scroll', this.handleScroll)
       //初始化数据
       this.$nextTick(() => {
         var asd = document.querySelector('#asd')
 
-        this.containerStyleObj['height'] = window.innerHeight + 'px'
+        this.containerStyleObj['top'] = asd.getBoundingClientRect().height + 'px'
         this.getActivity();
       })
     }
@@ -187,6 +187,9 @@
   }
 
   .container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
     width: 100%;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
