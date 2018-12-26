@@ -56,7 +56,7 @@
       </div>
       <div class="gradientline"></div>
     </div>
-
+    <div class="agreement" @click="goAgreement"><<用户协议>></div>
     <span class="submit" @click="changemessage">保存</span>
 
     <mt-popup v-model="popupVisible" position="middle">
@@ -218,6 +218,13 @@ export default {
     selectSex(num) {
       this.userInfo.sex = num;
       this.$forceUpdate();
+    },
+    //跳转协议
+    goAgreement(){
+      $('.agreement').css('color','#49BBFF')
+      setTimeout(()=>{
+          this.$router.push('./Agreement')
+      },500)
     }
   },
   mounted() {
@@ -385,5 +392,12 @@ textarea:hover {
   height: .3rem;
   left: .5rem;
   top: .5rem;
+}
+.agreement{
+  font-size:.28rem;
+  font-family:'PingFang-SC-Medium';
+  font-weight:500;
+  color:rgba(85,85,85,1);
+  margin-left: .2rem;
 }
 </style>
