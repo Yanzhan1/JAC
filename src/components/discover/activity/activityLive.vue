@@ -154,7 +154,7 @@
       },
     },
     mounted() {
-      this.$store.dispatch("hideFoot")
+      // this.$store.dispatch("hideFoot")
       /*悬浮,更换头部背景透明度和文字*/
       window.addEventListener('scroll', this.handleScroll)
       //初始化数据
