@@ -282,7 +282,6 @@ export default {
     tobuy() {
         this.userName = JSON.parse(localStorage.getItem("userName"));
         this.aaaid=JSON.parse(localStorage.getItem("aaaid"));
-        console.log(localStorage.getItem("mobile"))
         if(localStorage.getItem("mobile")!='undefined'){
           this.mobile = JSON.parse(localStorage.getItem("mobile"));
           this.add = "JAC" + this.aaaid + this.mobile + this.userName + "APP";
@@ -297,26 +296,12 @@ export default {
           this.userName +
           "&toOrderList=suc&token=" +
           this.add
-          console.log(Stringurl)
-          return false
         if (isMobile.iOS()) {
         var params = {Stringurl:Stringurl};
           window.webkit.messageHandlers.gotoMallOrderWeb.postMessage(params);
         } else if (isMobile.Android()) {
           js2android.gotoMallOrderWeb(Stringurl);
         }
-        
-        // location.href =
-        //   "http://gift.jac.com.cn/app/authLogin" +
-        //   "?" +
-        //   "uid=" +
-        //   this.aaaid +
-        //   "&mobile=" +
-        //   this.mobile +
-        //   "&userName=" +
-        //   this.userName +
-        //   "&toOrderList=suc&token=" +
-        //   this.add;
         }else{
           Toast({
 								message: '请完善信息',
