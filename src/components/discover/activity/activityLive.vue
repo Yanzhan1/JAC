@@ -161,7 +161,8 @@
       this.$nextTick(() => {
         var asd = document.querySelector('#asd')
 
-        this.containerStyleObj['height'] = window.innerHeight - asd.getBoundingClientRect().height + 'px'
+        // this.containerStyleObj['height'] = window.innerHeight - asd.getBoundingClientRect().height + 'px'
+        this.containerStyleObj['height'] = window.innerHeight + 'px'
         this.getActivity();
       })
     }
@@ -189,6 +190,8 @@
     width: 100%;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
+    border: 1px solid red;
+    box-sizing: border-box;
   }
 
   iframe {
@@ -200,6 +203,8 @@
     *height: 100%;
     border: none;
     margin: 0;
+    border: 1px solid blue;
+    box-sizing: border-box;
   }
 
 </style>
