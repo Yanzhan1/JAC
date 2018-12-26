@@ -85,21 +85,31 @@ export default {
     },
     localshow() {
       var system = IOSAndAndroid.isIOSOrAndroid();
-      if (system == "IOS") {
-        var params = {};
-        window.webkit.messageHandlers.showProgressDialog.postMessage(params);
-      } else if (isMobile.Android() && window.js2android) {
-        js2android.showProgressDialog();
+      try{
+          if (system == "IOS") {
+                  var params = {};
+                  window.webkit.messageHandlers.showProgressDialog.postMessage(params);
+                } else if (isMobile.Android() && window.js2android) {
+                  js2android.showProgressDialog();
+                }
+      }catch(err){
+          console.log("无此方法")
       }
+      
     },
     localhide() {
       // 防止用户原生连点隐藏的遮罩层
-      if (isMobile.iOS()) {
-        var params = {};
-        window.webkit.messageHandlers.dismissProgressDialog.postMessage(params);
-      } else if (isMobile.Android() && window.js2android) {
-        js2android.dismissProgressDialog();
+      try{
+          if (isMobile.iOS()) {
+            var params = {};
+            window.webkit.messageHandlers.dismissProgressDialog.postMessage(params);
+          } else if (isMobile.Android() && window.js2android) {
+            js2android.dismissProgressDialog();
+          }
+      }catch(err){
+        console.log('暂时没有此方法')
       }
+      
     },
     goActivityDetail(activityId) {
       this.$router.push({
