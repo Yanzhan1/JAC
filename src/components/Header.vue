@@ -18,7 +18,8 @@
           <span>社区</span>
         </div>
         <div style="position: relative;">
-          <div style="position: absolute;top: 0;left: 0;z-index: 1;width: 100%;height: 100%;" @click="publish"></div>
+          <a style="position: absolute;top: 0;left: 0;z-index: 1;width: 100%;height: 100%;"  href="https://onairh5.yunshicloud.com/pages/liveDetails/detail.html?companyId=qcy&productId=DFD4A7193F4345C7B914579A1AE80076&_id=5c21031c2befbe00167a30fa&t=1545801580429"></a>
+          <!-- <div style="position: absolute;top: 0;left: 0;z-index: 1;width: 100%;height: 100%;" @click="publish"></div> -->
           <img src="../../static/images/discover/camera.png" style="width: 0.4rem;margin-bottom: 0;" id='id_publish' />
         </div>
         <mt-popup style="width:80%;border-radius:4px;" v-model="popup" position="center">
@@ -72,21 +73,21 @@
       /*Mine*/
     },
     computed: {},
-    created(){
+    created() {
       this.addPoint = this.bbox(this.addPoint)
     },
     methods: {
       // 闭了个包
-      bbox :function(fn){
+      bbox: function (fn) {
         var timer = null
         var self = this
 
-        return function(){
+        return function () {
           var args = arguments
 
           clearTimeout(timer)
           timer = null
-          timer = setTimeout(function(){
+          timer = setTimeout(function () {
             fn.apply(self, args)
           }, 180)
         }
@@ -94,7 +95,7 @@
       popupVisibleChange: function () {
         this.$refs.mine.popupVisibleChange()
       },
-      changeSlide(index){
+      changeSlide(index) {
         this.$root.eventHub.$emit('changeSlide', index)
       },
       goIsRecommand: function () {
@@ -149,18 +150,39 @@
         var _this = this;
         this.$http.post(POINT.addpoint, {
           "uid": _this.$store.state.userId,
-          "id":'',
+          "id": '',
           "sign": _this.$store.state.uuid,
-          "moduleName":flag
+          "moduleName": flag
         }).then(function (res) {
 
-        }).catch(()=>{
+        }).catch(() => {
 
         })
       },
       //发布心情
       publish: function () {
         // this.$router.push({path:"/now/addPic"})
+        window.isLogin({
+          "id": 104,
+          "no": "AD022018090510544276622",
+          "userName": "喵了个咪",
+          "sex": 1,
+          "userCode": "15942435652",
+          "phone": "15942435652",
+          "realPhone": "159****5652",
+          "userStatus": 0,
+          "authenticationStatus": 0,
+          "initUser": 0,
+          "personalSignature": "",
+          "userType": "01",
+          "token": "Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTUzNjExNjA4MjAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6MTA0LFwiaW5pdFVzZXJcIjowLFwibGFzdE1vZGlmaWVkRGF0ZVwiOjE1MzYxMjQ5NTAwMDAsXCJub1wiOlwiQUQwMjIwMTgwOTA1MTA1NDQyNzY2MjJcIixcInBlcnNvbmFsU2lnbmF0dXJlXCI6XCJcIixcInBob25lXCI6XCIxNTk0MjQzNTY1MlwiLFwicmVhbFBob25lXCI6XCIxNTkqKioqNTY1MlwiLFwic2V4XCI6MSxcInVzZXJDb2RlXCI6XCIxNTk0MjQzNTY1MlwiLFwidXNlck5hbWVcIjpcIuWWteS6huS4quWSqlwiLFwidXNlclN0YXR1c1wiOjAsXCJ1c2VyVHlwZVwiOlwiMDFcIn0iLCJjcmVhdGVkIjoxNTQ1Nzg3MDk0MjQ4LCJ1c2VyTm8iOiJBRDAyMjAxODA5MDUxMDU0NDI3NjYyMiIsInVzZXJUeXBlIjoiMDEiLCJ1c2VyTmFtZSI6IuWWteS6huS4quWSqiIsImV4cCI6MTU0NjY1MTA5NCwidXNlcklkIjoxMDR9.DkVha0VhoTac_Hf-A2cBJ5VFyF-cqqS1ORbfCNDUoNQ",
+          "refreshToken": "Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTUzNjExNjA4MjAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6MTA0LFwiaW5pdFVzZXJcIjowLFwibGFzdE1vZGlmaWVkRGF0ZVwiOjE1MzYxMjQ5NTAwMDAsXCJub1wiOlwiQUQwMjIwMTgwOTA1MTA1NDQyNzY2MjJcIixcInBlcnNvbmFsU2lnbmF0dXJlXCI6XCJcIixcInBob25lXCI6XCIxNTk0MjQzNTY1MlwiLFwicmVhbFBob25lXCI6XCIxNTkqKioqNTY1MlwiLFwic2V4XCI6MSxcInVzZXJDb2RlXCI6XCIxNTk0MjQzNTY1MlwiLFwidXNlck5hbWVcIjpcIuWWteS6huS4quWSqlwiLFwidXNlclN0YXR1c1wiOjAsXCJ1c2VyVHlwZVwiOlwiMDFcIn0iLCJjcmVhdGVkIjoxNTQ1Nzg3MDk0MjQ4LCJ1c2VyTm8iOiJBRDAyMjAxODA5MDUxMDU0NDI3NjYyMiIsInVzZXJUeXBlIjoiMDEiLCJ1c2VyTmFtZSI6IuWWteS6huS4quWSqiIsImV4cCI6MTU0NjY1MTA5NCwidXNlcklkIjoxMDR9.DkVha0VhoTac_Hf-A2cBJ5VFyF-cqqS1ORbfCNDUoNQ",
+          "createdDate": 1536116082000,
+          "lastModifiedDate": 1536124950000,
+          "deleteFlag": "0"
+        })
+        return
+
         if (isMobile.iOS()) {
           let uuid = this.$store.state.uuid;
           let params = {
@@ -194,7 +216,7 @@
           if (res.data.status) {
             // 给基础数据排序
             const [zero, one, two, three, four, fives, a] = res.data.data
-            const arr = [one, three, zero, fives, two, four, a].filter((item)=>{
+            const arr = [one, three, zero, fives, two, four, a].filter((item) => {
               return item ? true : false
             })
 
@@ -203,14 +225,16 @@
         });
       },
       // 设置tab状态
-      setTabStatu(){
-        const {path} = this.$route
+      setTabStatu() {
+        const {
+          path
+        } = this.$route
 
         this.obj[path] && this.obj[path].apply(this, arguments)
       },
       // 设置tab状态
-      onChangeTab(){
-        this.$root.eventHub.$on('changeTab', (index)=>{
+      onChangeTab() {
+        this.$root.eventHub.$on('changeTab', (index) => {
           const list = ['goIsRecommand', 'goInformation', 'goAllActivity', 'goIsNow']
 
           this[list[index]]()
@@ -228,7 +252,7 @@
           this.getLabels()
         }
       },
-      $route(newVal, oldVla){
+      $route(newVal, oldVla) {
         this.setTabStatu()
       }
     },
