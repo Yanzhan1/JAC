@@ -182,17 +182,33 @@ export default {
 		this.flag=false;
   },
   backwit(){
-      
+    console.log($('.find_nav_list li').eq(0))
     if(this.$store.state.record=='1'){
-      $('.specilmain').eq(0)
+      console.log('jinru1')
+      $('.find_nav_list li').eq(0)
           .addClass("find_nav_cur")
           .siblings()
           .removeClass("find_nav_cur");
+      $(".sideline").animate(
+      {
+        //底部导航条动画移动到点击的li下
+        left: $($('.find_nav_list li').eq(0)).position().left
+      },
+      200
+    );
     }else if(this.$store.state.record=='2'){
-      $('.specilall').eq(0)
+      console.log('jinru2')
+      $('.find_nav_list li').eq(1)
           .addClass("find_nav_cur")
           .siblings()
           .removeClass("find_nav_cur"); //给点击的li添加激活类名,其它li清除类名
+          $(".sideline").animate(
+      {
+        //底部导航条动画移动到点击的li下
+        left: $($('.find_nav_list li').eq(1)).position().left
+      },
+      300
+    );
     }
   
   },
@@ -455,6 +471,7 @@ export default {
           })();
         }
       }
+      this.backwit()
     }
   },
   created() {
@@ -535,9 +552,9 @@ export default {
 .find_nav_cur a {
   color: #49bbff !important;
 }
-.find_nav_list a.active {
+/* .find_nav_list a.active {
 		color: #C00
-	}
+	} */
 .sideline {
   display: block;
   position: absolute;
