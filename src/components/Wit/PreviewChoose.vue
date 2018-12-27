@@ -7,8 +7,8 @@
     </header>
     <div v-if="this.$route.query.currentTitle == '自由型'">
       <div class="headerHeight"></div>
-      <transition name="slide">
-        <div class="content" v-if="flag">
+      <!--<transition name="slide">-->
+        <div class="content">
           <div class="contentTitle">瑞风S4</div>
           <div class="contentSmallTitle">
             <div class="small">
@@ -22,10 +22,10 @@
             </div>
           </div>
         </div>
-      </transition>
+      <!--</transition>-->
       <div class="headerHeight2"></div>
-      <transition name="slide1">
-        <div class="contentImg" v-if="flag">
+      <!--<transition name="slide1">-->
+        <div class="contentImg">
           <div class="carImg">
             <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-if="$route.query.colorTitle=='典雅白'" :src="'./static/images/Wit/whiteBody.png'"/>
             <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='极光紫'" :src="'./static/images/Wit/purpleBody.png'"/>
@@ -33,7 +33,7 @@
             <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='拉菲红'" :src="'./static/images/Wit/redBody.png'"/>
           </div>
         </div>
-      </transition>
+      <!--</transition>-->
       <div class="contentBtn">
         <div class="contentText">
           <div class="priceLabel">{{this.$route.query.priceTitle}}万元</div>
@@ -48,8 +48,8 @@
     </div>
     <div v-if="this.$route.query.currentTitle == '超越型' || this.$route.query.currentTitle == '梦想型' || this.$route.query.currentTitle == '探索型'">
       <div class="headerHeight3"></div>
-      <transition name="slide">
-        <div class="content" v-if="flag">
+      <!--<transition name="slide">-->
+        <div class="content">
           <div class="contentTitle">瑞风S4</div>
           <div class="contentSmallTitle">
             <div class="small">
@@ -63,10 +63,10 @@
             </div>
           </div>
         </div>
-      </transition>
+      <!--</transition>-->
       <div class="contentImg">
-        <transition name="slide1">
-          <div class="carImg" v-if="flag">
+        <!--<transition name="slide1">-->
+          <div class="carImg">
             <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-if="$route.query.colorTitle=='典雅白'" :src="'./static/images/Wit/whiteBody.png'"/>
             <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='极光紫'" :src="'./static/images/Wit/purpleBody.png'"/>
             <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='琥珀金'" :src="'./static/images/Wit/goldBody.png'"/>
@@ -76,10 +76,10 @@
             <img v-if="$route.query.rimTitle=='R18'" :src="'./static/images/Wit/R18.png'">
             <img v-else-if="$route.query.rimTitle=='R17'" :src="'./static/images/Wit/R17.png'">
           </div>
-        </transition>
+        <!--</transition>-->
       </div>
-      <transition name="slide2">
-        <div class="contentCar" v-if="flag">
+      <!--<transition name="slide2">-->
+        <div class="contentCar">
 
             <div class="contentCarBtn" >
               <div>
@@ -98,16 +98,16 @@
           </div>
           <div class="contentCarBtn" v-if="this.$route.query.outType == '双色车身'">
             <div>
-              <img class="leftImg" v-if="$route.query.colorTitle=='典雅白'" :src="imgBody2">
-              <img class="leftImg" v-if="$route.query.colorTitle=='极光紫'" :src="imgBody3">
-              <img class="leftImg" v-if="$route.query.colorTitle=='琥珀金'" :src="imgBody4">
-              <img class="leftImg" v-if="$route.query.colorTitle=='拉菲红'" :src="imgBody5">
+              <img class="leftImg3" v-if="$route.query.colorTitle=='典雅白'" :src="imgBody2">
+              <img class="leftImg3" v-if="$route.query.colorTitle=='极光紫'" :src="imgBody3">
+              <img class="leftImg3" v-if="$route.query.colorTitle=='琥珀金'" :src="imgBody4">
+              <img class="leftImg3" v-if="$route.query.colorTitle=='拉菲红'" :src="imgBody5">
               <!--<img class="leftImg" :src="this.show1 ? imgBody1 :carSmallBody">-->
             </div>
             <div class="middleTitle">双色车身&nbsp;&nbsp;¥2000</div>
           </div>
         </div>
-      </transition>
+      <!--</transition>-->
       <div class="contentBtn">
         <div class="contentText">
           <div class="priceLabel">{{this.$route.query.priceTitle}}万元</div>
@@ -137,10 +137,12 @@
         imgLED:'./static/images/Wit/LED@2x.png',
         imgLED1:'./static/images/Wit/LED@2x.png',
         imgBody1:'./static/images/Wit/white@2x.png',
-        imgBody2:'./static/images/Wit/whiteBodyDouble@2x.png',
+        imgBody2:'./static/images/Wit/whiteBodyDouble2.png',
+//        imgBody2:'./static/images/Wit/whiteBodyDouble@2x.png',
         imgBody3:'./static/images/Wit/purpleBodyDouble@2x_22.png',
         imgBody4:'./static/images/Wit/goldBodyDouble@2x_7.png',
-        imgBody5:'./static/images/Wit/redBodyDouble@2x_28.png',
+        imgBody5:'./static/images/Wit/redBodyDouble2.png',
+//        imgBody5:'./static/images/Wit/redBodyDouble@2x_28.png',
         whiteDouble:'./static/images/Wit/whiteDouble.png',
         purpleDouble:'./static/images/Wit/purpleDouble.png',
         goldDouble:'./static/images/Wit/goldDouble.png',
@@ -233,10 +235,13 @@
         this.$store.state.currentTitle = '梦想型';
         this.$store.state.powerTitle = '1.5T CVT 自动';
         this.$store.state.priceTitle = 80800;
+        this.$store.state.powerTitle1 = '1.5T CVT 自动';
+        this.$store.state.powerTitle2 = '1.5T CVT 自动';
+        this.$store.state.powerTitle3 = '1.5T CVT 自动';
         this.$store.state.colorTitle = '典雅白';
         this.$store.state.rimTitle ='R17';
         this.$router.push({
-          path: '/CarChoose'
+          path: '/wit/tabChooseCar'
         })
       },
       goBack(){
@@ -346,13 +351,21 @@
     flex: 1;
   }
   .contentCar .contentCarBtn .leftImg{
-     margin: 0.2rem 0.2rem 0.2rem 0;
+     /*margin: 0.2rem 0.2rem 0.2rem 0;*/
      width: 2rem;
      height: 1.4rem;
      line-height: 1.4rem;
      background-size: 100% 100%;
-     border:1px solid #ccc;
+     /*border:1px solid #ccc;*/
    }
+  .contentCar .contentCarBtn .leftImg3{
+    margin: 0.2rem 0.2rem 0.2rem 0;
+    width: 2rem;
+    height: 1rem;
+    line-height: 1rem;
+    background-size: 100% 100%;
+    /*border:1px solid #ccc;*/
+  }
   .contentCar .contentCarBtn .leftImg2{
     margin-left: -0.2rem;
     width: 2.4rem;
@@ -362,7 +375,7 @@
     /*border:1px solid #ccc;*/
   }
   .contentCar .contentCarBtn .middleTitle{
-    margin: 0.2rem 0;
+    /*margin: 0.2rem 0;*/
     flex: 2;
     font-size: 0.32rem;
     text-align:  left;
