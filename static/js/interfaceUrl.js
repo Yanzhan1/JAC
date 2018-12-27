@@ -55,7 +55,7 @@ window.DISCOVERMESSAGE = {
         activetyRemoveLike: indexip + '/userLike/removeActivityLike', //活动取消点赞
         activetyCollection: indexip + '/userCollection/collectionActivity', //活动收藏
         activetyRemoveCollection: indexip + '/userCollection/unCollection/Activity', //活动取消收藏
-        activetyRead: indexip + '/readerHistory/information', //活动浏览量
+        activetyRead: indexip + '/readerHistory/activity', //活动浏览量
         activetyWantGo: indexip + '/userActivity/join', //活动报名
         activetyRemoveWant: indexip + '/userActivity/unJoin', //活动取消报名
         addPicture: indexip + '/showPicture/add', //晒图

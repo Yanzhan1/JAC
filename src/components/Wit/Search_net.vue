@@ -1,11 +1,10 @@
 <template>
-	<div>
+	<div class="box-last">
 		<!-- <header class="header MobileHeight bgcolor" style="z-index: 100!important;">
 			<img class="header-left" src="../../../static/images/back@2x.png" @click="$router.go(-1)">
 			<span class="header-title" style="margin-right: 0.65rem;">查询维保网点</span>
 			<span class="header-right"></span>
 		</header> -->
-		<div  class="MobileHeight"></div>
 		<div class="flex row around con cocenter title">
 			<div class="flex row cocenter">
 				<!-- 品牌 -->
@@ -45,6 +44,7 @@
 				</div>
 			</div>
 		</div>
+		<div style="width:100%;height:1rem;"></div>
 		<div class="dealer-wrapper" :style="{'-webkit-overflow-scrolling': scrollMode}">
 			<mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="80" :auto-fill="false">
 				<ul style="padding:.1rem .2rem" v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
@@ -621,6 +621,7 @@
 		height: 0.88rem;
 		line-height: 0.88rem;
 		background: #fff;
+		margin-top:.3rem;
 	}
 	
 	.con>div {
@@ -640,7 +641,6 @@
 	
 	.dealer-wrapper {
 		min-height: 100%;
-		margin-top: .8rem;
 	}
 	.bgcolor{
 		background: #fff;
@@ -750,5 +750,10 @@
 	.flex-center-around span {
 		color: #49bbff;
 		font-size: 0.28rem;
+	}
+	.box-last{
+		position: relative;
+		width: 100%;
+		height: 100%;
 	}
 </style>

@@ -661,7 +661,7 @@ const router = new Router({
                 name: '智享首页',
                 component: Wit,
                 meta: {
-                    keepAlive: true
+                    keepAlive: false
                 }
             },
             {

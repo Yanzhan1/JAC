@@ -2,39 +2,39 @@
 <div class="main">
   <div class="headerHeight"></div>
 
-  <transition name="slide1">
-    <div class="contentImg" v-if="flag">
+  <!--<transition name="slide1">-->
+    <div class="contentImg">
       <div class="carImg">
         <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;left: 0.25rem" :src="'./static/images/Wit/whiteBody.png'"/>
       </div>
     </div>
-  </transition>
-  <transition name="slide2" >
-    <div class="contentCarIntroduceTitle" v-if="flag">
+  <!--</transition>-->
+  <!--<transition name="slide2" >-->
+    <div class="contentCarIntroduceTitle">
         <span>{{$store.state.carIntroduceTitle}}</span>
         <span v-if="$store.state.carIntroduceTitle2 != ''">{{$store.state.carIntroduceTitle2}}</span>
     </div>
-  </transition>
-  <transition name="slide" >
-    <div class="contentCar" v-if="flag">
+  <!--</transition>-->
+  <!--<transition name="slide" >-->
+    <div class="contentCar">
       <div class="contentCarBtn" :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" v-for="(item,index) in carData" :key="item.id" @click="carBtn(index,item.label,item.carTitle,item.carTitle2)">
         {{item.label}}
       </div>
     </div>
-  </transition>
+  <!--</transition>-->
 
     <div style="position: relative;">
-      <transition name="slide2">
-        <div v-if="flag">
+      <!--<transition name="slide2">-->
+        <div>
           <img style="width:7rem;height: 3rem;background-size: 100% 100%;position: absolute;left: 0.25rem" v-if="$store.state.currentTitle == '自由型'" :src="'./static/images/Wit/bg1.png'"/>
           <img style="width:7rem;height: 3rem;background-size: 100% 100%;position: absolute;left: 0.25rem" v-if="$store.state.currentTitle == '超越型'" :src="'./static/images/Wit/bg2.png'"/>
           <img style="width:7rem;height: 3rem;background-size: 100% 100%;position: absolute;left: 0.25rem" v-if="$store.state.currentTitle == '梦想型'" :src="'./static/images/Wit/bg3.png'"/>
           <img style="width:7rem;height: 3rem;background-size: 100% 100%;position: absolute;left: 0.25rem" v-if="$store.state.currentTitle == '探索型'" :src="'./static/images/Wit/bg4.png'"/>
         </div>
-      </transition>
+      <!--</transition>-->
       <div class="contentCarpowerBg">
-      <transition name="slide2">
-        <div class="contentCarpower" v-if="flag">
+      <!--<transition name="slide2">-->
+        <div class="contentCarpower">
           <div class="contentCarpowerBtn" v-if="$store.state.currentTitle == '自由型'" :class="index == currentIndex2 ?'contentCarpowerBtn2':'contentCarpowerBtn'"  v-for="(item,index) in carPowerData" :key="item.id" @click="carPowerBtn(index,item.label,item.text)">
             {{item.label}}
           </div>
@@ -48,7 +48,7 @@
             {{item.label}}
           </div>
         </div>
-      </transition>
+      <!--</transition>-->
       </div>
     </div>
 

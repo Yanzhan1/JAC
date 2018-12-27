@@ -25,7 +25,7 @@
             <div class="middleTitle"><span>LED前大灯</span><span>+&nbsp;¥1000</span></div>
             <div class="rightBtn" >
               <div  class="rightBtnContent" @click="carBtn(0)">
-                <img style="width:.6rem;height:.7rem;padding-top: 0.1rem;padding-left: 0.02rem" :src="show?url:url1">
+                <img style="width:.6rem;height:.7rem;padding-top: 0.1rem;padding-left: 0.02rem" :src="this.$store.state.show?url:url1">
               </div>
             </div>
           </div>
@@ -40,12 +40,13 @@
             <div class="middleTitle"><span>新潮双色车身</span><span>+&nbsp;¥2000</span></div>
             <div class="rightBtn" >
               <div  class="rightBtnContent" @click="carBtn(1)">
-                <img  style="width:.6rem;height:.7rem;padding-top: 0.1rem;padding-left: 0.02rem" v-if="$route.query.colorTitle=='典雅白' || $route.query.colorTitle=='拉菲红' " :src="show1?url:url1">
+                <img  style="width:.6rem;height:.7rem;padding-top: 0.1rem;padding-left: 0.02rem" v-if="$route.query.colorTitle=='典雅白' || $route.query.colorTitle=='拉菲红' " :src="this.$store.state.show1?url:url1">
               </div>
             </div>
           </div>
         </div>
       </transition>
+      <div class="headerHeight"></div>
       <div class="contentBtn">
         <div class="contentText">
           <div class="priceLabel">{{this.$store.state.priceTitle+this.totalPrice3}}万元</div>
@@ -135,6 +136,11 @@
 					"borderTopWidth": this.$store.state.mobileStatusBar,
 					"borderTopColor": "#fff",
 				})
+//      if(this.$store.state.rimTitle == "R17"){
+//        this.currentIndex = 0
+//      }else if(this.$store.state.rimTitle == "R18"){
+//        this.currentIndex = 1
+//      }
       this.flag = true;
     },
     methods:{
@@ -142,37 +148,37 @@
         this.currentIndex = index;
 //        console.log(this.currentIndex )
         if(this.currentIndex == 0){
-          this.show = !this.show
-          this.imgsrc = this.show ? this.imgLED2:this.imgLED;
-          this.totalPrice = this.show ? this.increasePrice2 :this.increasePrice;
+          this.$store.state.show = !this.$store.state.show
+          this.imgsrc = this.$store.state.show ? this.imgLED2:this.imgLED;
+          this.totalPrice = this.$store.state.show ? this.increasePrice2 :this.increasePrice;
           console.log('this.totalPrice ',this.totalPrice )
 
         }else if(this.currentIndex == 1){
           var bodyColor = this.$route.query.colorTitle
           if(bodyColor == '典雅白'){
-            this.show1 = !this.show1
+            this.$store.state.show1 = !this.$store.state.show1
             this.carBody = this.show1?this.whiteNormal:this.whiteDouble;
             this.totalPrice2 = this.show1 ? this.increasePrice2 :this.increasePrice3;
             console.log('this.totalPrice2 ',this.totalPrice2 )
           } else if(bodyColor == '极光紫'){
-              this.show1 = true;
+            this.$store.state.show1 = true;
             this.carBody = this.purpleNormal;
           }else if(bodyColor == '琥珀金'){
-            this.show1 = true;
+            this.$store.state.show1 = true;
             this.carBody = this.goldNormal;
           }
           else if(bodyColor == '拉菲红'){
-            this.show1 = !this.show1
-            this.carBody = this.show1?this.redNormal:this.redDouble;
-            this.totalPrice2 = this.show1 ? this.increasePrice2 :this.increasePrice3;
+            this.$store.state.show1 = !this.$store.state.show1
+            this.carBody = this.$store.state.show1?this.redNormal:this.redDouble;
+            this.totalPrice2 = this.$store.state.show1 ? this.increasePrice2 :this.increasePrice3;
             console.log('this.totalPrice2 ',this.totalPrice2 )
           }
         }
         this.totalPrice3 = this.totalPrice +this.totalPrice2;
       },
       previeChooseBtn(){
-        var outType= this.show1 ? '车身' : '双色车身';
-        var LEDType= this.show ? '' : "LED前大灯";
+        var outType= this.$store.state.show1 ? '车身' : '双色车身';
+        var LEDType= this.$store.state.show ? '' : "LED前大灯";
         var priceTitleType= parseFloat(this.$store.state.priceTitle)+this.totalPrice3
 
         this.$router.push({
