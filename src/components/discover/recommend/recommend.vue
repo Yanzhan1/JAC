@@ -18,10 +18,10 @@
           <div v-if="item.recommendType==1">
 
             <div class="boxInfo" v-if="item.manageType == 3">
-              <!-- <p class="listTitleInfo">
+              <p class="listTitleInfo">
                 {{item.title.slice(0,46)}}
                 <span v-if="item.title.length>46">...</span>
-              </p> -->
+              </p>
 
               <div class="listPic312" style="height:4rem">
                 <my-video ref="myVideo" :index="index" :imgUrl="item.pictureUrl" :manageBody="item.manageBody"

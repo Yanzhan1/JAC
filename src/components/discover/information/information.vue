@@ -13,10 +13,10 @@
 
           <div class="boxInfo" v-if="item.manageType == 3">
             <div>
-              <!--<p class="listTitleInfo">-->
-                <!--{{item.manageTitle.slice(0,46)}}-->
-                <!--<span v-if="item.manageTitle.length>46">...</span>-->
-              <!--</p>-->
+              <p class="listTitleInfo">
+                {{item.manageTitle.slice(0,46)}}
+                <span v-if="item.manageTitle.length>46">...</span>
+              </p>
               <div class="listPic312" style="height:4rem">
                 <my-video ref="myVideo" :index="index" :imgUrl="item.imgUrl" :manageBody="item.manageBody"
                   @addPageviews="addPageviews" @closeOther="closeOther"></my-video>
