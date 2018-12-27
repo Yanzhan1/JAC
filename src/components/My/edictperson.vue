@@ -56,7 +56,9 @@
       </div>
       <div class="gradientline"></div>
     </div>
-    <div class="agreement" @click="goAgreement"><<用户协议>></div>
+    <div class="agreement">江淮汽车      
+        <a href="javascript:;" @click="goAgreement"><<用户注册协议>></a>
+      </div>
     <span class="submit" @click="changemessage">保存</span>
 
     <mt-popup v-model="popupVisible" position="middle">
@@ -221,7 +223,6 @@ export default {
     },
     //跳转协议
     goAgreement(){
-      $('.agreement').css('color','#49BBFF')
       setTimeout(()=>{
           this.$router.push('./Agreement')
       },500)
@@ -394,10 +395,15 @@ textarea:hover {
   top: .5rem;
 }
 .agreement{
+  width: 100%;
+  text-align: center;
   font-size:.28rem;
   font-family:'PingFang-SC-Medium';
   font-weight:500;
   color:rgba(85,85,85,1);
   margin-left: .2rem;
+}
+.agreement a{
+  color: #49bbff;
 }
 </style>
