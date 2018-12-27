@@ -137,6 +137,7 @@
 
 <script>
 import { Popup } from "mint-ui";
+import { Toast } from "mint-ui";
 import Vimg from "../../../static/images/my/signVV.png";
 export default {
   name: "Myindex",
@@ -237,7 +238,8 @@ export default {
     },
     ton() {
       if (isMobile.iOS()) {
-        window.webkit.messageHandlers.gotoOnlineWeb.postMessage();
+        let params={}
+        window.webkit.messageHandlers.gotoOnlineWeb.postMessage(params);
       } else if (isMobile.Android()) {
         js2android.gotoOnlineWeb();
       }
@@ -278,30 +280,36 @@ export default {
     },
     //跳转到商城
     tobuy() {
-      this.add = "JAC" + this.aaaid + this.mobile + this.userName + "APP";
-      this.add = this.$md5(this.add);
-      // let a="http://gift.jac.com.cn/app/authLogin" +
-      //   "?" +
-      //   "uid=" +
-      //   this.aaaid +
-      //   "&mobile=" +
-      //   this.mobile +
-      //   "&userName=" +
-      //   this.userName +
-      //   "&toOrderList=suc&token=" +
-      //   this.add
-      //   console.log(a)
-      location.href =
-        "http://gift.jac.com.cn/app/authLogin" +
-        "?" +
-        "uid=" +
-        this.aaaid +
-        "&mobile=" +
-        this.mobile +
-        "&userName=" +
-        this.userName +
-        "&toOrderList=suc&token=" +
-        this.add;
+        this.userName = JSON.parse(localStorage.getItem("userName"));
+        this.aaaid=JSON.parse(localStorage.getItem("aaaid"));
+        if(localStorage.getItem("mobile")!='undefined'){
+          this.mobile = JSON.parse(localStorage.getItem("mobile"));
+          this.add = "JAC" + this.aaaid + this.mobile + this.userName + "APP";
+        this.add = this.$md5(this.add);
+        let Stringurl="http://gift.jac.com.cn/app/authLogin" +
+          "?" +
+          "uid=" +
+          this.aaaid +
+          "&mobile=" +
+          this.mobile +
+          "&userName=" +
+          this.userName +
+          "&toOrderList=suc&token=" +
+          this.add
+        if (isMobile.iOS()) {
+        var params = {Stringurl:Stringurl};
+          window.webkit.messageHandlers.gotoMallOrderWeb.postMessage(params);
+        } else if (isMobile.Android()) {
+          js2android.gotoMallOrderWeb(Stringurl);
+        }
+        }else{
+          Toast({
+								message: '请完善信息',
+								position: "middle",
+								duration: 2000
+							});
+        }
+        
     },
     //粉丝
     toFans: function() {
@@ -417,15 +425,21 @@ export default {
   },
   watch: {
     show(newVal, oldVal) {
-      this.aaaid = this.$store.state.aaaid;
-      this.mobile =  this.$store.state.mobile;
-      this.userName =  this.$store.state.userName;
+        // this.userName = JSON.parse(localStorage.getItem("userName"));
+        // this.aaaid =JSON.parse(localStorage.getItem("aaaid"));
+        // this.mobile = JSON.parse(localStorage.getItem("mobile"));
+      // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
     }
   },
   mounted() {
-    this.aaaid = this.$store.state.aaaid;
-    this.mobile =  this.$store.state.mobile;
-    this.userName =  this.$store.state.userName;
+    // this.Tsp()
+    // setTimeout(() => {
+        // this.userName = JSON.parse(localStorage.getItem("userName"));
+        // this.aaaid=JSON.parse(localStorage.getItem("aaaid"))
+        // this.mobile = JSON.parse(localStorage.getItem("mobile"))
+    // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
+    // }, 0);
+    // this.getTokenAndNo();
     this.myNum();
     this.IsSign(); //判断是否签到
     this.total(); //h获取用户总积分
@@ -621,6 +635,7 @@ export default {
   border-radius: 0.1rem;
   color:#fff;
   font-size: 0.2rem;
+  font-weight: 520;
   /* -webkit-transform: scale(0.75);
   -o-transform: scale(.75) */
 }

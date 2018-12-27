@@ -72,21 +72,21 @@
       /*Mine*/
     },
     computed: {},
-    created(){
+    created() {
       this.addPoint = this.bbox(this.addPoint)
     },
     methods: {
       // 闭了个包
-      bbox :function(fn){
+      bbox: function (fn) {
         var timer = null
         var self = this
 
-        return function(){
+        return function () {
           var args = arguments
 
           clearTimeout(timer)
           timer = null
-          timer = setTimeout(function(){
+          timer = setTimeout(function () {
             fn.apply(self, args)
           }, 180)
         }
@@ -94,7 +94,7 @@
       popupVisibleChange: function () {
         this.$refs.mine.popupVisibleChange()
       },
-      changeSlide(index){
+      changeSlide(index) {
         this.$root.eventHub.$emit('changeSlide', index)
       },
       goIsRecommand: function () {
@@ -149,12 +149,12 @@
         var _this = this;
         this.$http.post(POINT.addpoint, {
           "uid": _this.$store.state.userId,
-          "id":'',
+          "id": '',
           "sign": _this.$store.state.uuid,
-          "moduleName":flag
+          "moduleName": flag
         }).then(function (res) {
 
-        }).catch(()=>{
+        }).catch(() => {
 
         })
       },
@@ -194,7 +194,7 @@
           if (res.data.status) {
             // 给基础数据排序
             const [zero, one, two, three, four, fives, a] = res.data.data
-            const arr = [one, three, zero, fives, two, four, a].filter((item)=>{
+            const arr = [one, three, zero, fives, two, four, a].filter((item) => {
               return item ? true : false
             })
 
@@ -203,14 +203,16 @@
         });
       },
       // 设置tab状态
-      setTabStatu(){
-        const {path} = this.$route
+      setTabStatu() {
+        const {
+          path
+        } = this.$route
 
         this.obj[path] && this.obj[path].apply(this, arguments)
       },
       // 设置tab状态
-      onChangeTab(){
-        this.$root.eventHub.$on('changeTab', (index)=>{
+      onChangeTab() {
+        this.$root.eventHub.$on('changeTab', (index) => {
           const list = ['goIsRecommand', 'goInformation', 'goAllActivity', 'goIsNow']
 
           this[list[index]]()
@@ -228,7 +230,7 @@
           this.getLabels()
         }
       },
-      $route(newVal, oldVla){
+      $route(newVal, oldVla) {
         this.setTabStatu()
       }
     },

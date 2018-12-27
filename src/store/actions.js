@@ -12,6 +12,9 @@ export default {
     userId: ({ commit, state }, payload) => {
         commit(types.USERID, payload)
     },
+    imgUrl: ({ commit, state }, payload) => {
+        commit(types.IMGURL, payload)
+    },
     uuid: ({ commit, state }, payload) => {
         commit(types.UUID, payload)
     },
@@ -38,5 +41,8 @@ export default {
     },
     QRCODEPIN: ({ commit, state }, payload) => {
         commit(types.QRCODEPIN, payload)
+    },
+    RECORD: ({ commit, state }, payload) => {
+        commit(types.RECORD, payload)
     }
 }

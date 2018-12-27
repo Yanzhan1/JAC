@@ -44,7 +44,7 @@ export default {
         },
         reserve(){
             if(this.seriesName=='瑞风S4'){
-                    this.$router.push('/wit/CarChoose',{
+                    this.$router.push('/CarChoose',{
                         name:'车型选择',
                         params:{
                            
@@ -60,12 +60,7 @@ export default {
             }
         },
         goback(){
-            // alert(this.$store.state.shownum)
-            if(this.$store.state.shownum==1){
-                this.$router.push('/wit')
-            }else{
-                this.$router.push('/wit/recoment_bus')
-            }
+                this.$router.push('/wit')         
         }
     },
     mounted(){

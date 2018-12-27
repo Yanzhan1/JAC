@@ -1,11 +1,6 @@
 <template>
   <div>
-    <div style="width:100%;height:.7rem;background:#fff;position:fixed;top:0;z-index:99999"></div>
-      <header class="header MobileHeight">
-        <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-        <span class="header-title">推荐码</span>
-        <span class="header-right"></span>
-      </header>
+    <mhead currentTitle="推荐码"></mhead>
       <div class="center" v-show="flag">
         <div class="my">我的推荐码</div>
         <img src="../../../static/images/my/icon_share@2x.png" alt="" @click="enjoy()">
@@ -43,7 +38,8 @@
 
 <script>
 import { Popup } from "mint-ui";
-import {Toast} from 'mint-ui'
+import {Toast} from 'mint-ui';
+	import PublicHead from "../publicmodel/PublicHead";
 export default {
   data() {
     return {
@@ -52,6 +48,9 @@ export default {
       flag:false,
     };
   },
+  components: {
+			mhead: PublicHead
+		},
   methods: {
     //点击分享
     enjoy() {

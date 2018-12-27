@@ -7,6 +7,7 @@ export default {
     aaaid: '', //3a的userid
     tspId: '', //查询是否tsp用户的接口拿到的tspid
     userName: '', //用户昵称
+    imgUrl: '',
     uuid: null,
     sign: '', //原生拿到的用作埋点
     UserStartId: null,
@@ -51,6 +52,16 @@ export default {
     busNo: null, //主推车型，全部车型 选择的no
     qrCodeDate: null, //扫描二维码给出信息
     changeScrollY: '', //存储滚动高度
-    GETWORDS: [] //储存所有的提示信息
-
+    GETWORDS: [], //储存所有的提示信息
+    record: 1, //跳转回智享的时候几率的tab默认为1
+    currentTitle: '梦想型',
+    carIntroduceTitle1: '主驾驶电动座椅  360全景影像',
+    carIntroduceTitle2: 'TESS爆胎应急安全系统',
+    powerTitle: '1.5T CVT 自动',
+    powerTitle1: '1.5T CVT 自动',
+    powerTitle2: '1.5T CVT 自动',
+    powerTitle3: '1.5T CVT 自动',
+    priceTitle: 80800,
+    colorTitle: '典雅白',
+    rimTitle: 'R17',
 }

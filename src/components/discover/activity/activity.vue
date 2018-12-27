@@ -20,14 +20,14 @@
               <div v-if="item.activityState==0">
                 <img src="../../../../static/images/discover/date1.png" class="f_left" />
                 <span class="f_left">{{item.planDate}}</span>
-                <span class="f_right">未开始</span>
+                <span class="f_right">报名中</span>
                 <img src="../../../../static/images/discover/start1.png" class="f_right" />
               </div>
               <!--已开始-->
               <div v-if="item.activityState==1">
                 <img src="../../../../static/images/discover/date2.png" class="f_left" />
                 <span class="f_left">{{item.planDate}}</span>
-                <span class="f_right">已开始</span>
+                <span class="f_right">进行中</span>
                 <img src="../../../../static/images/discover/start2.png" class="f_right" />
               </div>
               <!--已结束-->

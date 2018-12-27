@@ -1,11 +1,11 @@
 <template>
 	<div>
-		<header class="header MobileHeight bgcolor" style="z-index: 100!important;">
+		<!-- <header class="header MobileHeight bgcolor" style="z-index: 100!important;">
 			<img class="header-left" src="../../../static/images/back@2x.png" @click="$router.go(-1)">
 			<span class="header-title" style="margin-right: 0.65rem;">查询经销商</span>
 			<span class="header-right"></span>
-		</header>
-		<div style="height:.88rem" class="MobileHeight"></div>
+		</header> -->
+		<div class="MobileHeight"></div>
 		<div class="title">
 			<div class="flex row around con cocenter">
 				<div class="flex row cocenter">

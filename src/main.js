@@ -58,6 +58,9 @@ try {
     }
 }
 
+import doubleShare from '@/utils/doubleShare'
+
+Vue.prototype.$doubleShare = doubleShare
 Vue.prototype.$http = axios;
 Vue.prototype.$md5 = md5
 Vue.prototype.toLogin = function() {

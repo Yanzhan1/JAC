@@ -1,5 +1,6 @@
 export const ISLOGIN = 'ISLOGIN'; //是否登录
 export const USERID = 'USERID'; //用户UserId
+export const IMGURL = 'IMGURL'; //用户UserId
 export const UUID = 'UUID'; //用户UUID
 export const NO = 'NO'; //模拟用户NO
 export const TOKEN = 'TOKEN'; //用户token
@@ -13,3 +14,4 @@ export const NONAME = 'NONAME'; //智享首页储存的no和name
 export const MOBILESTATUSBAR = 'MOBILESTATUSBAR'; //手机状态栏高度,原生提供
 export const QRCODEPIN = 'QRCODEPIN'; //扫描二维码获取的vin,用于扫一扫判断
 export const GETWORDS = 'GETWORDS'; //获取各种提示
+export const RECORD = 'RECORD'; //记录wit部分页面跳转

@@ -77,7 +77,7 @@ import Test_Result from '../components/Lovecar/Test_Reault.vue' //测试结果
 import WbRecode from '../components/My/WbRecode.vue' //维保记录
 import ScoreDetails from '../components/My/ScoreDetails.vue' //会员积分详情
 import DotComment from '../components/My/DotComment.vue' //网点评分
-import Agreement from '../components/My/Agreement.vue' //网点评分
+import Agreement from '../components/My/Agreement.vue' //用户协议
 // 消息
 import News from '../components/news/News.vue' //消息
 import StyNews from '../components/news/StyNews.vue' //系统消息
@@ -102,6 +102,7 @@ import ActivityLive from '@/components/discover/activity/activityLive' //活动�
 import InformationDetail from '@/components/discover/information/informationDetail' //资讯详情
 import NowDetail from '@/components/discover/now/nowDetail' //此刻详情
 import ActivityDetailStatic from '@/components/discover/share/activityDetail' //分享出去的活动详情
+import ActivityLiveStatic from '@/components/discover/share/activityLive' //分享出去的活动直播详情
 import InformationDetailStatic from '@/components/discover/share/informationDetail' //分享出去的资讯详情
 import NowDetailStatic from '@/components/discover/share/nowDetail' //分享出去的此刻详情
 import PictureDetail from '@/components/discover/activity/pictureDetail' //晒图详情
@@ -121,12 +122,15 @@ import Pre_weib from '../components/Wit/pre_weib.vue' //维保预约
 import Characteristic from '../components/Wit/Characteristic' //车系特色
 import Configure from '../components/Wit/Configure' //配置参数
 import Reserve from '../components/Wit/Reserve' //车辆预定
-import CarChoose from '../components/Wit/CarChoose' //车辆预定
-import CarChoosenew from '../components/Wit/CarChoosenew' //车辆预定
-import ColorChoose from '../components/Wit/ColorChoose' //车辆预定
-import RimChoose from '../components/Wit/RimChoose' //车辆预定
-import VehicleChoose from '../components/Wit/VehicleChoose' //车辆预定
+import CarChoose from '../components/Wit/tabChooseCar/CarChoose.vue' //车型
+import CarChoosenew from '../components/Wit/CarChoosenew.vue' //车辆预定
+import ColorChoose from '../components/Wit/tabChooseCar/ColorChoose.vue' //颜色
+import RimChoose from '../components/Wit/tabChooseCar/RimChoose.vue' //轮辋
+import VehicleChoose from '../components/Wit/tabChooseCar/VehicleChoose.vue' //车辆
+import PreviewChoose from '../components/Wit/PreviewChoose.vue' //
+import TabChooseCar from '../components/Wit/TabChooseCar.vue' //车辆预定
 import Earnest from '../components/Wit/Earnest' //支付定金页面
+
 // 临时首页 ios审核用
 import indexLogin from '../components/index_login/index_login'
 import indexLoginDetail1 from '../components/index_login/index_login_detail1'
@@ -158,28 +162,27 @@ const router = new Router({
     routes: [{
         path: '/',
         component: Main,
-        children: [
-          {
-            path: '/',
-            redirect: '/discover'
-          },
-          {
-            path: "/indexLogin",
-            component: indexLogin
-          },
-          {
-            path: '/indexLogin/indexLoginDetail1',
-            component: indexLoginDetail1
-          },
-          {
-            path: '/indexLogin/indexLoginDetail2',
-            component: indexLoginDetail2
-          },
-          {
-            path: '/indexLogin/indexLoginDetail3',
-            component: indexLoginDetail3
-          },
-          //发现
+        children: [{
+                path: '/',
+                redirect: '/discover'
+            },
+            {
+                path: "/indexLogin",
+                component: indexLogin
+            },
+            {
+                path: '/indexLogin/indexLoginDetail1',
+                component: indexLoginDetail1
+            },
+            {
+                path: '/indexLogin/indexLoginDetail2',
+                component: indexLoginDetail2
+            },
+            {
+                path: '/indexLogin/indexLoginDetail3',
+                component: indexLoginDetail3
+            },
+            //发现
             {
                 path: "/discover",
                 component: Discover,
@@ -238,7 +241,12 @@ const router = new Router({
             {
                 path: "/share/activityDetail",
                 component: ActivityDetailStatic
-            }, {
+            },
+            {
+                path: "/share/activityLive",
+                component: ActivityLiveStatic
+            },
+            {
                 path: "/share/informationDetail",
                 component: InformationDetailStatic
             }, {
@@ -652,7 +660,7 @@ const router = new Router({
                 path: '/wit',
                 name: '智享首页',
                 component: Wit,
-                meet: {
+                meta: {
                     keepAlive: true
                 }
             },
@@ -672,28 +680,47 @@ const router = new Router({
                 component: Dealer
             },
             {
-                path: '/wit/CarChoose',
+                path: '/wit/tabChooseCar',
                 name: '车型选择',
-                component: CarChoose
+                component: TabChooseCar,
+                children: [{
+                        path: '/',
+                        redirect: "/CarChoose",
+                        // name: '车型选择',
+                        component: CarChoose
+                    },
+                    {
+                        path: '/CarChoose',
+                        name: '车型选择',
+                        component: CarChoose
+                    },
+                    {
+                        path: '/ColorChoose',
+                        name: '颜色选择',
+                        component: ColorChoose
+                    },
+                    {
+                        path: '/RimChoose',
+                        name: '轮辋选择',
+                        component: RimChoose
+                    },
+                    {
+                        path: '/VehicleChoose',
+                        name: '轮辋选择',
+                        component: VehicleChoose
+                    }
+                ]
             },
+            {
+                path: '/wit/PreviewChoose',
+                name: '选配预览',
+                component: PreviewChoose
+            },
+
             {
                 path: '/wit/CarChoosenew',
                 name: '车型选择新',
                 component: CarChoosenew
-            },
-            {
-                path: '/wit/ColorChoose',
-                name: '颜色选择',
-                component: ColorChoose
-            },
-            {
-                path: '/wit/RimChoose',
-                name: '轮辋选择',
-                component: RimChoose
-            }, {
-                path: '/wit/VehicleChoose',
-                name: '轮辋选择',
-                component: VehicleChoose
             },
             {
 
