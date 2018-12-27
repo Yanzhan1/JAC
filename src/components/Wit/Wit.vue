@@ -13,7 +13,7 @@
                 <a href="javascript:;">全部车型</a>
               </li>
               <li>
-                <a href="javascript:;">经销网点</a>
+                <a href="javascript:;" >经销网点</a>
               </li>
               <li>
                 <a href="javascript:;">维保网点</a>
@@ -184,13 +184,11 @@ export default {
   backwit(){
       
     if(this.$store.state.record=='1'){
-      console.log('jintu1')
       $('.specilmain').eq(0)
           .addClass("find_nav_cur")
           .siblings()
           .removeClass("find_nav_cur");
     }else if(this.$store.state.record=='2'){
-      console.log('jinru2')
       $('.specilall').eq(0)
           .addClass("find_nav_cur")
           .siblings()
@@ -276,6 +274,21 @@ export default {
         this.sliderHeight();
       });
       this.sliderHeight();
+    },
+     isIOSOrAndroid() {
+      //判断ios和安卓机型的方法
+      var u = navigator.userAgent,
+        app = navigator.appVersion;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Linux") > -1; //g
+      var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+      if (isAndroid) {
+        return "Android";
+      } else if (isIOS) {
+        return "IOS";
+      }
+    },
+    getIosLocation(locationMes){
+      this.$store.state.locationMes=locationMes
     },
     changeTap() {
       var fnl_x, x1, y1, ty_left;
@@ -444,6 +457,19 @@ export default {
       }
     }
   },
+  created() {
+    
+    var system = this.isIOSOrAndroid();
+    if (system == "Android") {
+      this.$store.state.locationMes=js2android.getLocationInfo()
+    } else if (system == "IOS") {
+      window.getIosLocation = this.getIosLocation; //ios获取定位信息,放到window对象供ios调用
+      setTimeout(() => {
+        
+        window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
+      }, 0);
+    }
+  },
   mounted() {
     this.init();
     this.changeTap();
@@ -519,7 +545,7 @@ export default {
   height: 0.02rem;
   background-color: #49bbff;
   left: 0;
-  top: 0.6rem;
+  top: 0.48rem;
   pointer-events: none;
 }
 

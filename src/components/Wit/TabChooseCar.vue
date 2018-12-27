@@ -1,33 +1,64 @@
 <template>
   <div class="main">
-    <header class="nav MobileHeight header ">
-      <div v-show="this.flag" class="navBack" @click="goBack"><img style="width:.4rem;height:.4rem;" :src="'./static/images/back@2x.png'"></div>
+    <header v-if="this.flag" class="nav MobileHeight header ">
+      <div  class="navBack" @click="goBack"><img style="width:.4rem;height:.4rem;" :src="'./static/images/back@2x.png'"></div>
       <div class="navTitle">选购瑞风S4</div>
-      <div></div>
+      <div ></div>
     </header>
+    <header v-else class="specilheader nav MobileHeight">
+      <div >选购瑞风S4</div>
+    </header>
+
     <div class="headerHeight"></div>
-    <div v-if="this.$store.state.currentTitle != '自由型'" class="tab">
-      <router-link tag="div" class="tabContent" :to="{path:'/CarChoose'}" >
-        车型
-      </router-link>
-      <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle}}" >
-       颜色
-      </router-link>
-      <router-link tag="div" class="tabContent" :to="{path:'/RimChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,colorTitle:this.$store.state.colorTitle}}" >
-        轮辋
-      </router-link>
-      <router-link tag="div" class="tabContent" :to="{path:'/VehicleChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,colorTitle:this.$store.state.colorTitle,rimTitle:this.$store.state.rimTitle}}" >
-       选装
-      </router-link>
-    </div>
-    <div v-else-if="this.$store.state.currentTitle == '自由型'"  class="tab">
-      <router-link tag="div" class="tabContent" :to="{path:'/CarChoose'}" >
-        车型
-      </router-link>
-      <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle}}" >
+    <div v-if="!this.flag">
+      <div v-if="this.$store.state.currentTitle != '自由型'" class="tab">
+        <router-link tag="div" class="tabContent" :to="{path:'/CarChoose'}" >
+          车型
+        </router-link>
+        <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,}}" >
         颜色
-      </router-link>
+        </router-link>
+        <router-link tag="div" class="tabContent" :to="{path:'/RimChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,colorTitle:this.$store.state.colorTitle}}" >
+          轮辋
+        </router-link>
+        <router-link tag="div" class="tabContent" :to="{path:'/VehicleChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,colorTitle:this.$store.state.colorTitle,rimTitle:this.$store.state.rimTitle}}" >
+        选装
+        </router-link>
+      </div>
+      <div v-else-if="this.$store.state.currentTitle == '自由型'"  class="tab">
+        <router-link tag="div" class="tabContent" :to="{path:'/CarChoose'}" >
+          车型
+        </router-link>
+        <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle}}" >
+          颜色
+        </router-link>
+      </div>
     </div>
+    <div v-else>
+      <div v-if="this.$store.state.currentTitle != '自由型'" class="tab">
+        <router-link tag="div" class="tabContent" :to="{path:'/CarChoose'}" >
+          车型
+        </router-link>
+        <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,lovecar:'#/lovecar'}}" >
+        颜色
+        </router-link>
+        <router-link tag="div" class="tabContent" :to="{path:'/RimChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,colorTitle:this.$store.state.colorTitle,lovecar:'#/lovecar'}}" >
+          轮辋
+        </router-link>
+        <router-link tag="div" class="tabContent" :to="{path:'/VehicleChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,colorTitle:this.$store.state.colorTitle,rimTitle:this.$store.state.rimTitle,lovecar:'#/lovecar'}}" >
+        选装
+        </router-link>
+      </div>
+      <div v-else-if="this.$store.state.currentTitle == '自由型'"  class="tab">
+        <router-link tag="div" class="tabContent" :to="{path:'/CarChoose'}" >
+          车型
+        </router-link>
+        <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,lovecar:'#/lovecar'}}" >
+          颜色
+        </router-link>
+      </div>
+    </div>
+    
     <router-view/>
   </div>
 </template>
@@ -71,6 +102,10 @@
         "borderTopWidth": this.$store.state.mobileStatusBar,
         "borderTopColor": "#fff",
       })
+      //如果从爱车页面进入默认s4系列的车型
+      this.$store.state.levelCode= 'CY001'
+      this.$store.state.srouceNo='CYRF016'
+      this.$store.dispatch("NONAME", {srouceNo:'AU112018110106375078380'});
       // console.log("this.$store.state.currentTitle",this.$store.state.currentTitle);
     },
     methods:{
@@ -78,7 +113,7 @@
         this.$router.push('/wit/Characteristic');
       },
       showHeader(flag){
-        // this.flag=flag.flag
+        this.flag=flag.flag
       },
     }
   }
@@ -138,5 +173,12 @@
     color: #222222 !important;
     font-size: 0.38rem !important;
     /*background-color: #26a2ff;*/
+  }
+  .specilheader{
+    text-align: center;
+    
+  }
+  .specilheader>div{
+    font-size: .36rem;
   }
 </style>

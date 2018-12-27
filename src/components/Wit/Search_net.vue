@@ -1,5 +1,5 @@
 <template>
-	<div class="box-last">
+	<div class="box_last">
 		<!-- <header class="header MobileHeight bgcolor" style="z-index: 100!important;">
 			<img class="header-left" src="../../../static/images/back@2x.png" @click="$router.go(-1)">
 			<span class="header-title" style="margin-right: 0.65rem;">查询维保网点</span>
@@ -430,6 +430,7 @@
 				}
 			},
 			getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
+			console.log(locationMes+'search')
 				this.provinceName = JSON.parse(locationMes).province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '')
 				this.cityName = JSON.parse(locationMes).city.replace('市', '')
 				this.latitude = JSON.parse(locationMes).latitude //精
@@ -536,6 +537,44 @@
 				this.publicrequst() //请求该省份的经销商列表
 			}
 		},
+		computed: {
+    locationMes() {
+      return this.$store.state.locationMes;
+    }
+  },
+		watch: {
+    locationMes(newVal, oldVal) {
+      console.log(this.$store.state.locationMes + "deral");
+      var system = this.isIOSOrAndroid();
+      if (system == "Android") {
+        var Position = this.$store.state.locationMes; //获取安卓定位信息
+        var NewPosition = JSON.parse(Position);
+        this.provinceName = NewPosition.province
+          .replace("自治区", "")
+          .replace("省", "")
+          .replace("市", "")
+          .replace("壮族", "")
+          .replace("回族", ""); //省
+        this.cityName = NewPosition.city.replace("市", ""); //市
+        this.latitude = NewPosition.latitude; //经度
+        this.longitude = NewPosition.longitude; //纬度
+      } else if (system == "IOS") {
+		 
+		this.provinceName = JSON.parse(this.$store.state.locationMes)
+          .province.replace("自治区", "")
+          .replace("省", "")
+          .replace("市", "")
+          .replace("壮族", "")
+		  .replace("回族", "");
+        this.cityName = JSON.parse(this.$store.state.locationMes).city.replace(
+          "市",
+          ""
+        );
+        this.latitude = JSON.parse(this.$store.state.locationMes).latitude; //精
+        this.longitude = JSON.parse(this.$store.state.locationMes).longitude; //韦
+      }
+    }
+  },
 		mounted() {
 			this.init()
 			$(".MobileHeight").css({
@@ -544,18 +583,48 @@
 			})
 		},
 		created() {
-			window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
 			var system = this.isIOSOrAndroid();
-			if(system == 'Android') {
-				var Position = js2android.getLocationInfo() //获取安卓定位信息
-				var NewPosition = JSON.parse(Position)
-				this.provinceName = NewPosition.province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '') //省
-				this.cityName = NewPosition.city.replace('市', '') //市
-				this.latitude = NewPosition.latitude //经度
-				this.longitude = NewPosition.longitude //纬度
-			} else if(system == "IOS") {
-				window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
-			}
+      if (system == "Android") {
+        var Position = this.$store.state.locationMes; //获取安卓定位信息
+        var NewPosition = JSON.parse(Position);
+        this.provinceName = NewPosition.province
+          .replace("自治区", "")
+          .replace("省", "")
+          .replace("市", "")
+          .replace("壮族", "")
+          .replace("回族", ""); //省
+        this.cityName = NewPosition.city.replace("市", ""); //市
+        this.latitude = NewPosition.latitude; //经度
+        this.longitude = NewPosition.longitude; //纬度
+      } else if (system == "IOS") {
+		 
+		this.provinceName = JSON.parse(this.$store.state.locationMes)
+          .province.replace("自治区", "")
+          .replace("省", "")
+          .replace("市", "")
+          .replace("壮族", "")
+		  .replace("回族", "");
+        this.cityName = JSON.parse(this.$store.state.locationMes).city.replace(
+          "市",
+          ""
+        );
+        this.latitude = JSON.parse(this.$store.state.locationMes).latitude; //精
+        this.longitude = JSON.parse(this.$store.state.locationMes).longitude; //韦
+      }
+			// window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
+			// var system = this.isIOSOrAndroid();
+			// if(system == 'Android') {
+			// 	var Position = js2android.getLocationInfo() //获取安卓定位信息
+			// 	var NewPosition = JSON.parse(Position)
+			// 	this.provinceName = NewPosition.province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '') //省
+			// 	this.cityName = NewPosition.city.replace('市', '') //市
+			// 	this.latitude = NewPosition.latitude //经度
+			// 	this.longitude = NewPosition.longitude //纬度
+			// } else if(system == "IOS") {
+			// 	console.log('jinru search')
+			// 	window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
+			// 	console.log('jieshu search')
+			// }
 		},
 		filters: {
 			toFixed(input, param1) { //可以有好多的自定义过滤器，这里的this指向的是window
@@ -751,7 +820,7 @@
 		color: #49bbff;
 		font-size: 0.28rem;
 	}
-	.box-last{
+	.box_last{
 		position: relative;
 		width: 100%;
 		height: 100%;

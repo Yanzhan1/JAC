@@ -677,7 +677,10 @@ const router = new Router({
             {
                 path: '/wit/dealer',
                 name: '经销商查询',
-                component: Dealer
+                component: Dealer,
+                meta: {
+                    keepAlive: true
+                }
             },
             {
                 path: '/wit/tabChooseCar',
@@ -747,6 +750,7 @@ const router = new Router({
                 meta: {
                     keepAlive: true
                 }
+
             }, {
                 path: '/wit/pre_weib',
                 name: '维保预约',
