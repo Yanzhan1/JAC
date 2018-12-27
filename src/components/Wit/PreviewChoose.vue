@@ -206,6 +206,7 @@
         "borderTopWidth": this.$store.state.mobileStatusBar,
         "borderTopColor": "#fff",
       })
+
       this.flag = true;
     },
     methods:{
@@ -240,12 +241,26 @@
         this.$store.state.powerTitle3 = '1.5T CVT 自动';
         this.$store.state.colorTitle = '典雅白';
         this.$store.state.rimTitle ='R17';
+        this.$store.state.show = false;
+        this.$store.state.show1 = false;
         this.$router.push({
           path: '/wit/tabChooseCar'
         })
       },
       goBack(){
-        this.$router.go(-1);
+        this.$router.push({
+          path: '/VehicleChoose',
+          query: {
+            currentTitle: this.$route.query.currentTitle,
+            colorTitle: this.$route.query.colorTitle,
+            rimTitle: this.$route.query.rimTitle,
+            powerTitle: this.$route.query.powerTitle,
+            priceTitle: this.$route.query.priceTitleType,
+            ledType:this.$route.query.LEDType,
+            outType:this.$route.query.outType,
+            carName:this.$route.query.carName,
+          }
+        })
       }
     }
   }
