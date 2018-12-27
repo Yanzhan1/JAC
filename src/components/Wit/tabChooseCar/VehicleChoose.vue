@@ -178,13 +178,13 @@
           }
         }
         this.totalPrice3 = this.totalPrice +this.totalPrice2;
-
+        this.$store.state.priceTitle = this.$route.query.priceTitle+this.totalPrice3;
       },
       previeChooseBtn(){
         var outType= !this.$store.state.show1 ? '车身' : '双色车身';
         var LEDType= !this.$store.state.show ? '' : "LED前大灯";
 //        var priceTitleType= parseFloat(this.$store.state.priceTitle)+this.totalPrice3
-        this.$store.state.priceTitle = this.$route.query.priceTitle+this.totalPrice3;
+//        this.$store.state.priceTitle = this.$route.query.priceTitle+this.totalPrice3;
 
         this.$router.push({
           path: '/wit/PreviewChoose',
