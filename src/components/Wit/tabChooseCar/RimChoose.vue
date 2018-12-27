@@ -2,8 +2,8 @@
   <div class="main">
     <div v-if="this.$route.query.currentTitle == '超越型' || this.$route.query.currentTitle == '梦想型' || this.$route.query.currentTitle == '探索型'">
       <div class="headerHeight"></div>
-      <transition name="slide1">
-        <div class="contentImg" v-if="flag">
+      <!--<transition name="slide1">-->
+        <div class="contentImg">
           <div class="carImg" v-for="(item,index) in carRimData" v-show="index === currentIndex">
             <img :src="'./static/images/Wit/whiteBody.png'"/>
             <img v-if="$route.query.colorTitle=='典雅白'" :src="'./static/images/Wit/whiteBody.png'"/>
@@ -13,9 +13,9 @@
             <img :src="item.img"/>
           </div>
         </div>
-      </transition>
-      <transition name="slide2">
-        <div class="contentCar" v-if="flag">
+      <!--</transition>-->
+      <!--<transition name="slide2">-->
+        <div class="contentCar">
           <div class="contentCarBtn"  :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" v-for="(item,index) in carData" :key="item.id" @click="carBtn(index,item.label)">
             <img :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" :src="'./static/images/Wit/R17common.png'"/>
             <img  :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" :src="'./static/images/Wit/R18common.png'"/>
@@ -23,7 +23,7 @@
             <div class="contentCarTitle">{{item.label}}</div>
           </div>
         </div>
-      </transition>
+      <!--</transition>-->
       <div class="contentBtn">
         <div class="contentText">
           <div class="priceLabel">{{this.$store.state.priceTitle+this.rimTitlePriceTotal}}万元</div>
@@ -108,7 +108,7 @@
             currentTitle:this.$route.query.currentTitle,
             colorTitle:this.$route.query.colorTitle,
             rimTitle:this.$store.state.rimTitle,
-            powerTitle:this.$store.state.powerTitle,
+            powerTitle:this.$route.query.powerTitle,
             priceTitle:this.$store.state.priceTitle,
             carName:this.$route.query.carName,
           }

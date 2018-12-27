@@ -64,4 +64,6 @@ export default {
     priceTitle: 80800,
     colorTitle: '典雅白',
     rimTitle: 'R17',
+    show:true,
+    show1:true,
 }

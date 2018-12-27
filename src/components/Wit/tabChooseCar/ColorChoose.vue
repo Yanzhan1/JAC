@@ -2,18 +2,18 @@
   <div class="main">
     <div v-if="this.$route.query.currentTitle == '超越型' || this.$route.query.currentTitle == '梦想型' || this.$route.query.currentTitle == '探索型'">
       <div class="headerHeight"></div>
-      <transition name="slide1">
-        <div class="contentImg" v-if="flag">
+      <!--<transition name="slide1">-->
+        <div class="contentImg">
           <div class="carImg" v-for="(item,index) in carColorData" v-show="index === currentIndex">
             <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="'./static/images/Wit/whiteBody.png'"/>
             <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="'./static/images/Wit/white.png'"/>
             <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="item.img"/>
           </div>
         </div>
-      </transition>
+      <!--</transition>-->
       <div class="headerHeight2"></div>
-      <transition name="slide">
-        <div class="contentCar" v-if="flag">
+      <!--<transition name="slide">-->
+        <div class="contentCar">
           <div class="contentCarBtn"  v-for="(item,index) in carData" :key="item.id" @click="carBtn(index,item.label)">
             <div style="position: relative">
               <img  v-if="item.label == '拉菲红'" class="colorTitle" :class="currentIndex == 0?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/redColor.png'">
@@ -24,7 +24,7 @@
             </div>
           </div>
         </div>
-      </transition>
+      <!--</transition>-->
       <div class="contentBtn">
         <div class="contentText">
           <div class="priceLabel">{{this.$store.state.priceTitle}}万元</div>
@@ -39,18 +39,18 @@
     </div>
     <div v-else-if="this.$route.query.currentTitle == '自由型'">
       <div class="headerHeight"></div>
-      <transition name="slide1">
-        <div class="contentImg" v-if="flag">
+      <!--<transition name="slide1">-->
+        <div class="contentImg">
           <div class="carImg" v-for="(item,index) in carColorData" v-show="index === currentIndex">
             <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="'./static/images/Wit/whiteBody.png'"/>
             <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="'./static/images/Wit/white.png'"/>
             <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="item.img"/>
           </div>
         </div>
-      </transition>
+      <!--</transition>-->
       <div class="headerHeight2"></div>
-      <transition name="slide">
-        <div class="contentCar" v-if="flag">
+      <!--<transition name="slide">-->
+        <div class="contentCar">
           <div class="contentCarBtn"  v-for="(item,index) in carData" :key="item.id" @click="carBtn(index,item.label)">
             <div style="position: relative">
               <img  v-if="item.label == '拉菲红'" class="colorTitle" :class="currentIndex == 0?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/redColor.png'">
@@ -61,7 +61,7 @@
             </div>
           </div>
         </div>
-      </transition>
+      <!--</transition>-->
       <div class="contentBtn">
         <div class="contentText">
           <div class="priceLabel">{{this.$store.state.priceTitle}}万元</div>
@@ -160,7 +160,7 @@
           query: {
             currentTitle:this.$store.state.currentTitle,
             colorTitle:this.$store.state.colorTitle,
-            powerTitle:this.$store.state.powerTitle,
+            powerTitle:this.$route.query.powerTitle,
             priceTitle:this.$store.state.priceTitle,
             carName:this.$route.query.carName
           }
