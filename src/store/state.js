@@ -64,6 +64,7 @@ export default {
     priceTitle: 80800,
     colorTitle: '典雅白',
     rimTitle: 'R17',
-    show:true,
-    show1:true,
+    show: true,
+    show1: true,
+    locationMes: '', //ios获取的地址
 }
