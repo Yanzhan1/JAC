@@ -36,7 +36,7 @@
       <!--</transition>-->
       <div class="contentBtn">
         <div class="contentText">
-          <div class="priceLabel">{{this.$route.query.priceTitle}}万元</div>
+          <div class="priceLabel">{{this.$route.query.priceTitle}}元</div>
           <div class="contentColorBtn2" @click="resetChooseBtn">
             << 重新选择
           </div>
@@ -110,7 +110,7 @@
       <!--</transition>-->
       <div class="contentBtn">
         <div class="contentText">
-          <div class="priceLabel">{{this.$route.query.priceTitle}}万元</div>
+          <div class="priceLabel">{{this.$route.query.priceTitle}}元</div>
           <div class="contentColorBtn2" @click="resetChooseBtn">
             << 重新选择
           </div>

@@ -27,7 +27,7 @@
       <!--</transition>-->
       <div class="contentBtn">
         <div class="contentText">
-          <div class="priceLabel">{{this.$store.state.priceTitle}}万元</div>
+          <div class="priceLabel">{{this.$store.state.priceTitle}}元</div>
           <div class="contentColorBtn2" @click="backChooseBtn">
             << 车型选择
           </div>
@@ -64,7 +64,7 @@
       <!--</transition>-->
       <div class="contentBtn">
         <div class="contentText">
-          <div class="priceLabel">{{this.$store.state.priceTitle}}万元</div>
+          <div class="priceLabel">{{this.$store.state.priceTitle}}元</div>
           <div class="contentColorBtn2" @click="backChooseBtn">
             << 车型选择
           </div>

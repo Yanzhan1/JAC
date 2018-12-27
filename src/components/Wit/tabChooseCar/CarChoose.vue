@@ -55,7 +55,10 @@
   <div class="contentBtn">
     <div class="contentText">
       <div v-if="this.$store.state.priceTitle != ''" class="priceLabel">
-        {{this.$store.state.priceTitle}}万元
+        {{this.$store.state.priceTitle}}元
+      </div>
+      <div class="contentColorBtn2">
+
       </div>
       <div class="contentColorBtn" @click="colorChooseBtn">
         颜色选择 >>
@@ -490,6 +493,14 @@ export default{
   line-height:1rem;
   font-size: 0.36rem;
   text-align: right;
+  color: #49BBFF;
+}
+.contentBtn .contentColorBtn2{
+  padding-right: 0.3rem;
+  height: 1rem;
+  line-height:1rem;
+  font-size: 0.36rem;
+  text-align: left;
   color: #49BBFF;
 }
   .slide-enter-active {

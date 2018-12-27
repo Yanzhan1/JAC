@@ -49,7 +49,7 @@
       <div class="headerHeight"></div>
       <div class="contentBtn">
         <div class="contentText">
-          <div class="priceLabel">{{this.$store.state.priceTitle}}万元</div>
+          <div class="priceLabel">{{this.$store.state.priceTitle}}元</div>
           <div class="contentColorBtn2" @click="backChooseBtn">
             << 轮辋选择
           </div>
@@ -178,7 +178,7 @@
           }
         }
         this.totalPrice3 = this.totalPrice +this.totalPrice2;
-        this.$store.state.priceTitle = this.$route.query.priceTitle+this.totalPrice3;
+
       },
       previeChooseBtn(){
         var outType= !this.$store.state.show1 ? '车身' : '双色车身';

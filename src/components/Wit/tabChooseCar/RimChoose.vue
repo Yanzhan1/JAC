@@ -21,12 +21,14 @@
             <img  :class="index == currentIndex ?'contentCarBtn2':'contentCarBtn'" :src="'./static/images/Wit/R18common.png'"/>
             <img :src="item.img">
             <div class="contentCarTitle">{{item.label}}</div>
+            <div class="contentCarTitle2">{{item.text}}</div>
           </div>
         </div>
+
       <!--</transition>-->
       <div class="contentBtn">
         <div class="contentText">
-          <div class="priceLabel">{{this.$store.state.priceTitle+this.rimTitlePriceTotal}}万元</div>
+          <div class="priceLabel">{{this.$store.state.priceTitle+this.rimTitlePriceTotal}}元</div>
           <div class="contentColorBtn2" @click="backChooseBtn">
             << 颜色选择
           </div>
@@ -51,12 +53,14 @@
             id:1,
             label:'R17' ,
             value:'轮辋:R17',
+            text:'',
             img:'./static/images/Wit/R17common.png',
           },
           {
             id:2,
             label:'R18' ,
             value:'轮辋:R18',
+            text:'¥500',
             img:'./static/images/Wit/R18common.png'
           }
         ],
@@ -231,6 +235,17 @@
     bottom: 0;
     left: 40%;
   }
+  .contentCar .contentCarBtn .contentCarTitle2{
+    height: 1rem;
+    line-height: 1rem;
+    font-size: 0.32rem !important;
+    /*background: green;*/
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    top: 2.5rem;
+    left: 38%;
+  }
   .contentCar .contentCarBtn2{
     flex: 1;
     height: 3rem;
@@ -256,6 +271,15 @@
     text-align: center;
     bottom: 0;
     left: 45%;
+  }
+  .contentCar .contentCarBtn2 .contentCarTitle2{
+    height: 1rem;
+    line-height: 1rem;
+    font-size: 0.38rem !important;
+    text-align: center;
+    bottom: 0;
+    top: 2.5rem;
+    left: 42%;
   }
   .contentBtn{
     position: fixed;
