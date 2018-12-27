@@ -555,7 +555,6 @@ export default {
   display: table;
 }
 /*将每个li封闭成一个盒子，就可以独立每个li内的内容*/
-
 .li_list span {
   display: block;
   height: 0.3rem;
