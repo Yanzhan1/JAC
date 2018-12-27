@@ -207,19 +207,16 @@
           if (res.data.status) {
             _this.content = res.data.data;
 
-            // David
+
+            /**
+             * 二次分享配置
+             */
             var {
               activityTitle,
               activityBody,
               imgUrl
             } = res.data.data
-            // _this.$doubleShare.qqShare(window.location.href, activityTitle, activityBody, imgUrl)
-            setShareInfo({
-              title: activityTitle,
-              summary: activityBody,
-              pic: imgUrl,
-              url: window.location.href,
-            })
+            _this.$doubleShare(activityTitle, activityBody, imgUrl, window.location.href)
 
             if (res.data.data.joinList) {
               _this.showJoinList = res.data.data.joinList.slice(0, 10);
