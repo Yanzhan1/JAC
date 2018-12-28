@@ -147,7 +147,7 @@
       return {
         listNum: 3,
         activityId: '',
-        content: [],
+        content: {},
         readnum: 0,
         flag: 'activity',
         type: 'activity',

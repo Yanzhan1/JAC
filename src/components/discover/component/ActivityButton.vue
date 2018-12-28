@@ -44,17 +44,15 @@
             fn: this.toPic
           }
         },
-        finalState: 'noUserId'
       }
     },
     computed: {
       text() {
         return this.strategies[this.finalState].text
+      },
+      finalState() {
+        return this.noUserId.after(this.sign).after(this.noSign).after(this.end).after(this.pic).call(this)
       }
-    },
-
-    created() {
-      this.finalState = this.noUserId.after(this.sign).after(this.noSign).after(this.end).after(this.pic).call(this)
     },
     methods: {
       fn() {
