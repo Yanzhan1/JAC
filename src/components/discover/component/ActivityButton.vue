@@ -41,7 +41,7 @@
           },
           'pic': {
             text: '晒&nbsp;图',
-            fn: this.pic
+            fn: this.toPic
           }
         },
         finalState: 'noUserId'
