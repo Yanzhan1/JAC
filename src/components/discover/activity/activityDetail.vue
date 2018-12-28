@@ -117,11 +117,20 @@
     <div v-if="userId">
       <!--当活动type等于3的时候，未开始和进行中状态未报名的人按钮显示“报名”，报名的人按钮显示“晒图”-->
       <div v-if="content.activityType == 3">
-        <!-- 未开始和进行中 -->
         <template v-if="content.activityState == 0 || content.activityState == 1">
-          <!-- 未报名 -->
+          <!-- 未开始和进行中未报名 -->
           <div v-if="content.joinStatus" class="sign_btn" @click="toSign(content.activityId)">
             报&nbsp;名
+          </div>
+          <!-- 未开始和进行中已报名 -->
+          <div v-else class="sign_btn" @click="toPic(content.activityId)">
+            晒&nbsp;图
+          </div>
+        </template>
+        <!-- 已结束 -->
+        <template v-else-if="content.activityState == 2">
+          <div v-if="content.joinStatus" class="sign_btn">
+            活动已结束
           </div>
           <div v-else class="sign_btn" @click="toPic(content.activityId)">
             晒&nbsp;图
