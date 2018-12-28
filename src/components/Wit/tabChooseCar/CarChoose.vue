@@ -185,56 +185,98 @@ export default{
       "borderTopWidth": this.$store.state.mobileStatusBar,
       "borderTopColor": "#fff",
     })
+//    this.$store.state.show = false;
+//    this.$store.state.show1 = false;
+//    this.$store.state.priceTitle = 80800;
+    this.$store.state.currentTitle = '梦想型';
+    this.$store.state.powerTitle = '1.5T CVT 自动';
+    this.$store.state.priceTitle = 80800;
+    this.$store.state.powerTitle1 = '1.5T CVT 自动';
+    this.$store.state.powerTitle2 = '1.5T CVT 自动';
+    this.$store.state.powerTitle3 = '1.5T CVT 自动';
+//    this.$store.state.colorTitle = '典雅白';
+    this.$store.state.rimTitle ='R17';
+    this.$store.state.show = false;
+    this.$store.state.show1 = false;
 //    alert(this.$store.state.currentTitle);
     if(this.$store.state.currentTitle == "自由型"){
       this.currentIndex = 0;
       this.$store.state.carIntroduceTitle = '215/50 R17铝轮 TPMS胎压监测';
       this.$store.state.carIntroduceTitle2 = '皮质多功能方向盘 ESP车身稳定系统';
       if(this.$store.state.powerTitle == "1.5T CVT 自动"){
-        this.currentIndex2 = 0
+        this.currentIndex2 = 0;
+
       }else if(this.$store.state.powerTitle == "1.6L CVT 自动"){
-        this.currentIndex2 = 1
+        this.currentIndex2 = 1;
+//        this.$store.state.show = false;
+//        this.$store.state.show1 = false;
       } else if(this.$store.state.powerTitle == "1.5T 6MT 手动"){
-        this.currentIndex2 = 2
+        this.currentIndex2 = 2;
+//        this.$store.state.show = false;
+//        this.$store.state.show1 = false;
       }else if(this.$store.state.powerTitle == "1.6L 6MT 手动"){
-        this.currentIndex2 = 3
+        this.currentIndex2 = 3;
+//        this.$store.state.show = false;
+//        this.$store.state.show1 = false;
       }
     }else if(this.$store.state.currentTitle == "超越型"){
       this.currentIndex = 1;
       this.$store.state.carIntroduceTitle = '10.25寸大屏 天窗';
       this.$store.state.carIntroduceTitle2 = 'PEPS无钥匙进入及一键启动 智聆车联网3.0系统';
       if(this.$store.state.powerTitle2 == "1.5T CVT 自动"){
-        this.currentIndex4 = 0
+        this.currentIndex4 = 0;
+//        this.$store.state.show = false;
+//        this.$store.state.show1 = false;
       }else if(this.$store.state.powerTitle2 == "1.6L CVT 自动"){
-        this.currentIndex4 = 1
+        this.currentIndex4 = 1;
+//        this.$store.state.show = false;
+//        this.$store.state.show1 = false;
       } else if(this.$store.state.powerTitle2 == "1.5T 6MT 手动"){
-        this.currentIndex4 = 2
+        this.currentIndex4 = 2;
+//        this.$store.state.show = false;
+//        this.$store.state.show1 = false;
       }else if(this.$store.state.powerTitle2 == "1.6L 6MT 手动"){
-        this.currentIndex4 = 3
+        this.currentIndex4 = 3;
+//        this.$store.state.show = false;
+//        this.$store.state.show1 = false;
       }
     } else if(this.$store.state.currentTitle == "梦想型"){
       this.currentIndex = 2;
       this.$store.state.carIntroduceTitle = '主驾驶电动座椅 360全景影像';
       this.$store.state.carIntroduceTitle2 = 'TESS爆胎应急安全系统';
       if(this.$store.state.powerTitle3 == "1.5T CVT 自动"){
-        this.currentIndex5 = 0
+        this.currentIndex5 = 0;
+//        this.$store.state.show = false;
+//        this.$store.state.show1 = false;
       }else if(this.$store.state.powerTitle3 == "1.6L CVT 自动"){
-        this.currentIndex5 = 1
+        this.currentIndex5 = 1;
+//        this.$store.state.show = false;
+//        this.$store.state.show1 = false;
       } else if(this.$store.state.powerTitle3 == "1.5T 6MT 手动"){
-        this.currentIndex5 = 2
+        this.currentIndex5 = 2;
+//        this.$store.state.show = false;
+//        this.$store.state.show1 = false;
       }else if(this.$store.state.powerTitle3 == "1.6L 6MT 手动"){
-        this.currentIndex5 = 3
+        this.currentIndex5 = 3;
+//        this.$store.state.show = false;
+//        this.$store.state.show1 = false;
       }
     }else if(this.$store.state.currentTitle == "探索型"){
       this.currentIndex = 3;
       this.$store.state.carIntroduceTitle = '全景天窗 电动尾门';
       this.$store.state.carIntroduceTitle2 = '';
       if(this.$store.state.powerTitle1 == "1.5T CVT 自动"){
-        this.currentIndex3 = 0
+        this.currentIndex3 = 0;
+//        this.$store.state.show = false;
+//        this.$store.state.show1 = false;
       }else if(this.$store.state.powerTitle1 == "1.6L CVT 自动"){
-        this.currentIndex3 = 1
+        this.currentIndex3 = 1;
+//        this.$store.state.show = false;
+//        this.$store.state.show1 = false;
       } else if(this.$store.state.powerTitle1 == "1.5T 6MT 手动"){
-        this.currentIndex3 = 2
+        this.currentIndex3 = 2;
+//        this.$store.state.show = false;
+//        this.$store.state.show1 = false;
       }
     }
 
