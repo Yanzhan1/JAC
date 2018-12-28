@@ -28,6 +28,7 @@
 				<span style="font-size: .38rem;color: #49BBFF;">
 					<span style="font-size: .48rem;color: #49BBFF;">{{placeOrder.prize}}</span>元</span>
 			</div>
+      <div style="position:absolute;left:0.2rem;bottom:10rem;font:500 .2rem/.3rem 'PingFangSC-Regular'">客服电话：4008889933</div>
 			<div class="submit" style="background: #49BBFF;color: #FFFFFF;" @click="submit">
 				<span>去支付</span>
 			</div>
@@ -69,7 +70,17 @@ export default {
 			  var merSignMsg=res.data.data.merSignMsg
 			  var merCert=res.data.data.merCert
             //   alert(merCert)
-            js2android.startIcbcPay(tranData, merSignMsg, merCert);
+        if (isMobile.iOS()) {
+        var params = {
+          tranData:tranData,
+          merSignMsg:merSignMsg,
+          merCert:merCert,
+        };
+        window.webkit.messageHandlers.js2android.postMessage(params);
+      } else if (isMobile.Android()) {
+        js2android.js2android(tranData, merSignMsg, merCert);
+      }
+            
           }else{
              Toast({
                   message: res.data.returnErrMsg,

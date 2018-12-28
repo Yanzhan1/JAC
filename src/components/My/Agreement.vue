@@ -1,7 +1,7 @@
 <template>
     <div class="box">
         <header class="header MobileHeight bgcolor">
-            <img @click="$router.go(-1)" class="header-left" :src="'./static/images/back@2x.png'" style="margin-left:.3rem">
+            <img @click="goback" class="header-left" :src="'./static/images/back@2x.png'">
             <span class='header-title' style="margin-right: .75rem;">用户注册协议</span>
             <span></span>
         </header>
@@ -277,17 +277,56 @@ import PublicHead from "../publicmodel/PublicHead";
 export default {
     data(){
         return{
-
+            flag:false,
+            top:0,
         }
     },
     components: {
     mhead: PublicHead
   },
+  methods:{
+      isFromSource(a){
+          alert(a)
+            this.flag=a
+      },
+      init(){
+           if (isMobile.iOS()) {
+                var params = {};
+                window.webkit.messageHandlers.getStatusBarHeight.postMessage(params);
+      } else if (isMobile.Android()) {
+          this.top=js2android.getStatusBarHeight();
+          this.top=this.top+'px'
+           $(".MobileHeight").css({
+                "borderTopWidth":  this.top,
+                "borderTopColor": "#fff",
+              })
+      }
+      },
+      goback(){
+          if(this.flag){
+              if (isMobile.iOS()) {
+                var params = {};
+                window.webkit.messageHandlers.exit.postMessage(params);
+            } else if (isMobile.Android()) {
+                js2android.exit();
+
+            }
+          }else{
+              this.$router.go(-1)
+          }
+      }
+  },
+  created(){
+      window.isFromSource=this.isFromSource
+      this.init()
+  },
   mounted(){
-      $(".MobileHeight").css({
-            "borderTopWidth": this.$store.state.mobileStatusBar,
-            "borderTopColor": "#fff",
-          })
+      
+          $(".MobileHeight").css({
+                "borderTopWidth": this.$store.state.mobileStatusBar,
+                "borderTopColor": "#fff",
+              })
+      
   }
 }
 </script>

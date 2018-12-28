@@ -46,7 +46,7 @@
 				</div>
 			</div>
 		</div>
-		<div style="width:100%;height:1rem;"></div>
+		<div style="width:100%;height:1.4rem;"></div>
 		<div class="dealer-wrapper" :style="{'-webkit-overflow-scrolling': scrollMode}">
 			<mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="80" :auto-fill="false">
 				<ul style="padding:.1rem .2rem" v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
@@ -739,9 +739,9 @@ export default {
   width: 100%;
   height: 0.88rem;
   line-height: 0.88rem;
-  background: #fff;
   z-index: 999;
-  margin-top: 0.3rem;
+  top: 1.4rem;
+  background: #fff;
 }
 
 .con > div {

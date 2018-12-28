@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul>
+    <ul style="margin-top:.88rem;">
       <li class="bus_li" v-for="(item,index) in this.mainbus" :key="index" @click="tode(item)">
         <img :src="item.imgUrl" alt="">
         <div class="bus_1" >
