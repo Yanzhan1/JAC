@@ -136,6 +136,12 @@
 					"borderTopWidth": this.$store.state.mobileStatusBar,
 					"borderTopColor": "#fff",
 				})
+      this.$store.state.currentTitle = '梦想型';
+      this.$store.state.colorTitle = '典雅白';
+      this.$store.state.powerTitle = '1.5T CVT 自动';
+      this.$store.state.rimTitle ='R17';
+      this.$store.state.show = false;
+      this.$store.state.show1 = false;
       if(this.$store.state.colorTitle == "拉菲红"){
         this.currentIndex = 0
       }else if(this.$store.state.colorTitle == "典雅白"){
