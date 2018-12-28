@@ -123,10 +123,6 @@
           <div v-if="content.joinStatus" class="sign_btn" @click="toSign(content.activityId)">
             报&nbsp;名
           </div>
-          <!-- 已报名 -->
-          <!--<div v-else class="sign_btn" @click="removeWant">
-            取消报名
-          </div>-->
           <div v-else class="sign_btn" @click="toPic(content.activityId)">
             晒&nbsp;图
           </div>
