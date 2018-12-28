@@ -1,11 +1,12 @@
 <template>
     <div class="box">
-        <header class="header MobileHeight bgcolor">
+        <div class="topfff"></div>
+        <header class="header  bgcolor">
             <img @click="goback" class="header-left" :src="'./static/images/back@2x.png'">
             <span class='header-title' style="margin-right: .75rem;">用户注册协议</span>
             <span></span>
         </header>
-        <div style="height:0.88rem" class="MobileHeight"></div>   
+        <div class="top_line"></div>   
         <div class="strong">
             请您先仔细阅读本协议的内容，尤其是字体加粗部分。如您对本协议内容或页面提示信息有疑问，请勿进行下一步操作。您可通过4008889933进行咨询，以方便我们为您解释和说明，您通过页面点击或其他方式确认即表示您已同意本协议。
 本协议之效力、解释、变更、执行与争议解决均适用中华人民共和国法律。因本协议产生的争议，均应依照中华人民共和国法律予以处理，并由安徽江淮汽车集团股份有限公司所在地人民法院管辖。
@@ -295,10 +296,8 @@ export default {
       } else if (isMobile.Android()) {
           this.top=js2android.getStatusBarHeight();
           this.top=this.top+'px'
-           $(".MobileHeight").css({
-                "borderTopWidth":  this.top,
-                "borderTopColor": "#fff",
-              })
+
+
       }
       },
       goback(){
@@ -350,6 +349,18 @@ export default {
 
 }
 .bgcolor{
+    top: .5rem;
+    background: #fff;
+}
+.topfff{
+    width: 100%;
+    background: #fff;
+    height: .5rem;
+    position: fixed;
+}
+.top_line{
+    width: 100%;
+    height: 1.4rem;
     background: #fff;
 }
 </style>
