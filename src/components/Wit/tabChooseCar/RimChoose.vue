@@ -105,6 +105,7 @@
         }
       },
       rimChooseBtn(){
+//          alert(this.$route.query.powerTitle);
 //        console.log('this.currentTitle',this.currentTitle)
         this.$router.push({
           path: '/VehicleChoose',

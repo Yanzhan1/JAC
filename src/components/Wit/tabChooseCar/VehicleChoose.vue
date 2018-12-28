@@ -70,6 +70,8 @@
 //        show:true,
 //        show1:true,
 //        show2:true,
+        show3:true,
+        show4:true,
         flag:false,
         url:'./static/images/Wit/unCheck.png',
         url1:'./static/images/Wit/check.png',
@@ -95,12 +97,20 @@
         carBody:'./static/images/Wit/whiteDouble.png',
         wheels:'',
         increasePrice:1000,
-        increasePrice2:0,
+        increasePrice2:-1000,
         increasePrice3:2000,
+        increasePrice4:-2000,
         totalPrice:0,
         totalPrice2:0,
         totalPrice3:0,
         totalPrice4:0,
+        reducePrice:1000,
+        reducePrice2:0,
+        reducePrice3:2000,
+        totalPrice5:0,
+        totalPrice6:0,
+        totalPrice7:0,
+        totalPrice8:0,
         carData:[
           {
             id:1,
@@ -133,35 +143,34 @@
 
     },
     mounted(){
-          $(".MobileHeight").css({
-					"borderTopWidth": this.$store.state.mobileStatusBar,
-					"borderTopColor": "#fff",
-				})
+      $(".MobileHeight").css({
+        "borderTopWidth": this.$store.state.mobileStatusBar,
+        "borderTopColor": "#fff",
+      })
       if(this.$store.state.show == true){
-//        this.$store.state.priceTitle = this.$store.state.priceTitle;
+          this.currentIndex = 0
       }else if(this.$store.state.show == true){
-//        this.$store.state.priceTitle = this.$store.state.priceTitle;
+        this.currentIndex = 1
       }
-//      alert(this.$store.state.show)
-//      alert(this.$store.state.show1)
       this.flag = true;
     },
     methods:{
       carBtn(index){
         this.currentIndex = index;
-//        console.log(this.currentIndex )
         if(this.currentIndex == 0){
-          this.$store.state.show = !this.$store.state.show
+          this.$store.state.show = !this.$store.state.show;
+
           this.imgsrc = this.$store.state.show ? this.imgLED2:this.imgLED;
           this.totalPrice = !this.$store.state.show ? this.increasePrice2 :this.increasePrice;
+          this.$store.state.priceTitle = this.$store.state.priceTitle + this.totalPrice;
           console.log('this.totalPrice ',this.totalPrice )
-
         }else if(this.currentIndex == 1){
           var bodyColor = this.$route.query.colorTitle
           if(bodyColor == '典雅白'){
-            this.$store.state.show1 = !this.$store.state.show1
+            this.$store.state.show1 = !this.$store.state.show1;
             this.carBody = !this.$store.state.show1?this.whiteNormal:this.whiteDouble;
-            this.totalPrice2 =  !this.$store.state.show1 ? this.increasePrice2 :this.increasePrice3;
+            this.totalPrice2 =  !this.$store.state.show1 ? this.increasePrice4 :this.increasePrice3;
+            this.$store.state.priceTitle = this.$store.state.priceTitle+this.totalPrice2;
             console.log('this.totalPrice2 ',this.totalPrice2 )
           } else if(bodyColor == '极光紫'){
             this.$store.state.show1 = true;
@@ -173,18 +182,15 @@
           else if(bodyColor == '拉菲红'){
             this.$store.state.show1 = !this.$store.state.show1
             this.carBody = this.$store.state.show1?this.redNormal:this.redDouble;
-            this.totalPrice2 = !this.$store.state.show1 ? this.increasePrice2 :this.increasePrice3;
-            console.log('this.totalPrice2 ',this.totalPrice2 )
+            this.totalPrice2 = !this.$store.state.show1 ? this.increasePrice4 :this.increasePrice3;
+            this.$store.state.priceTitle = this.$store.state.priceTitle+this.totalPrice2;
           }
         }
-        this.totalPrice3 = this.totalPrice +this.totalPrice2;
-        this.$store.state.priceTitle = this.$route.query.priceTitle+this.totalPrice3;
+
       },
       previeChooseBtn(){
         var outType= !this.$store.state.show1 ? '车身' : '双色车身';
         var LEDType= !this.$store.state.show ? '' : "LED前大灯";
-//        var priceTitleType= parseFloat(this.$store.state.priceTitle)+this.totalPrice3
-//        this.$store.state.priceTitle = this.$route.query.priceTitle+this.totalPrice3;
 
         this.$router.push({
           path: '/wit/PreviewChoose',
@@ -217,10 +223,10 @@
   }
 </script>
 <style scoped>
-	.MobileHeight {
-		border-top-style: solid;
-		box-sizing: content-box;
-	}
+  .MobileHeight {
+    border-top-style: solid;
+    box-sizing: content-box;
+  }
   .main{
     background-color: #fff;
     height: 100%;
@@ -265,7 +271,7 @@
     font-size: 0.28rem;
   }
   .content .contentSmallTitle .small{
-  border-right: 0.01rem solid rgba(111,111,111,0.6);
+    border-right: 0.01rem solid rgba(111,111,111,0.6);
     display: inline-block;
     padding: 0 0.13rem;
   }
