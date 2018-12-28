@@ -133,6 +133,7 @@
   width: 100%;
   overflow: hidden;
   margin-bottom: 0.2rem;
+  word-break:break-all;
 }
 .operation_content{
   margin-bottom: 1.2rem;
