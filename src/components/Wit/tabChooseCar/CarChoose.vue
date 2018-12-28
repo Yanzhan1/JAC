@@ -417,7 +417,8 @@ export default{
       this.$store.state.priceTitle = labelTitle;
     },
     colorChooseBtn(){
-        this.$router.push({
+      if(this.$store.state.noback){
+           this.$router.push({
           path: '/ColorChoose',
           query: {
             currentTitle:this.$store.state.currentTitle,
@@ -425,6 +426,18 @@ export default{
             priceTitle:this.$store.state.priceTitle
           }
         })
+      }else{
+           this.$router.push({
+          path: '/ColorChoose',
+          query: {
+            currentTitle:this.$store.state.currentTitle,
+            powerTitle:this.$store.state.powerTitle,
+            priceTitle:this.$store.state.priceTitle,
+            lovecar:'notsplovecar'
+          }
+        })
+      }
+       
 //      if(this.$store.state.currentTitle == '自由型'){
 //        this.$router.push({
 //          path: '/ColorChoose',

@@ -161,7 +161,8 @@
         this.flag = true;
       },
       RimChooseBtn(){
-        this.$router.push({
+        if(this.$store.state.noback){
+           this.$router.push({
           path: '/RimChoose',
           query: {
             currentTitle:this.$store.state.currentTitle,
@@ -171,8 +172,24 @@
             carName:this.$route.query.carName
           }
         })
+        }else{
+           this.$router.push({
+          path: '/RimChoose',
+          query: {
+            currentTitle:this.$store.state.currentTitle,
+            colorTitle:this.$store.state.colorTitle,
+            powerTitle:this.$route.query.powerTitle,
+            priceTitle:this.$store.state.priceTitle,
+            carName:this.$route.query.carName,
+            lovecar:'notsplovecar'
+          }
+        })
+        }
+       
       },
       previewBtn(){//如果是舒适型(自由型)直接跳转到在线订车页面
+      if(this.$store.state.noback){
+
         this.$router.push({
           path: '/wit/PreviewChoose',
           query: {
@@ -183,18 +200,43 @@
             carName:this.$route.query.carName
           }
         })
-      },
-      backChooseBtn(){
-
-        this.$router.push({
-          path: '/CarChoose',
+      }else{
+         this.$router.push({
+          path: '/wit/PreviewChoose',
           query: {
             currentTitle:this.$store.state.currentTitle,
+            colorTitle:this.$store.state.colorTitle,
             powerTitle:this.$store.state.powerTitle,
             priceTitle:this.$store.state.priceTitle,
-            carName:this.$route.query.carName
+            carName:this.$route.query.carName,
+            lovecar:'notsplovecar'
           }
         })
+      }
+      },
+      backChooseBtn(){
+        if(this.$store.state.noback){
+          this.$router.push({
+            path: '/CarChoose',
+            query: {
+              currentTitle:this.$store.state.currentTitle,
+              powerTitle:this.$store.state.powerTitle,
+              priceTitle:this.$store.state.priceTitle,
+              carName:this.$route.query.carName
+            }
+          })
+        }else{
+          this.$router.push({
+            path: '/CarChoose',
+            query: {
+              currentTitle:this.$store.state.currentTitle,
+              powerTitle:this.$store.state.powerTitle,
+              priceTitle:this.$store.state.priceTitle,
+              carName:this.$route.query.carName,
+              lovecar:'notsplovecar',
+            }
+          })
+        }
 //        if(this.$store.state.currentTitle == '自由型'){
 //          this.$router.push({
 //            path: '/CarChoose',
