@@ -1,6 +1,6 @@
 <template>
   <div class="sign_btn" @click="fn">
-    <span v-html="text"></span>
+    <span v-html="this.strategies[this.finalState].text"></span>
   </div>
 </template>
 
@@ -46,17 +46,18 @@
           'ing': {
             text: '活动进行中',
             fn: null
+          },
+          'normal': {
+            text: '活动已结&nbsp;束',
+            fn: null
           }
         },
       }
     },
     computed: {
-      text() {
-        console.log(this.finalState)
-        return this.strategies[this.finalState].text
-      },
       finalState() {
-        return this.noUserId.after(this.sign).after(this.noSign).after(this.ing).after(this.end).after(this.pic).call(
+        return this.noUserId.after(this.sign).after(this.noSign).after(this.ing).after(this.end).after(this.pic).after(
+          this.normal).call(
           this)
       }
     },
@@ -116,6 +117,7 @@
        */
       ing() {
         if (this.activityType != 3 && this.activityState == 1 && this.joinStatus) {
+          console.log('活动进行中')
           return 'ing'
         }
         return 'nextSuccessor'
@@ -135,7 +137,10 @@
             return 'pic'
           }
         }
-        return '匹配有误'
+        return 'nextSuccessor'
+      },
+      normal() {
+        return 'normal'
       },
       /**
        * 登录
