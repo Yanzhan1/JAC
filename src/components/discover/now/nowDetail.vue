@@ -31,17 +31,17 @@
             <span v-if="content.user && content.user.vflag.indexOf('JAC') != -1" class="jac">JAC</span>
             <div class="guanzhu">
               <div v-if="content.user && userId != content.user.user_id">
-                <div v-if="content.focusStatus == 0" @click="addFoucs(content.user.user_id)">
-                  <img src="../../../../static/images/discover/jgz.png">
-                  <span class="font_4">关注</span>
-                </div>
-                <div v-else-if="content.focusStatus == 1" @click="removeFoucs(content.user.user_id)">
+                <div v-if="content.focusStatus == 1" @click="removeFoucs(content.user.user_id)">
                   <img src="../../../../static/images/discover/ygz.png">
                   <span class="font_4">已关注</span>
                 </div>
-                <div v-else="content.focusStatus == 2" @click="removeFoucs(content.user.user_id)">
+                <div v-else-if="content.focusStatus == 2" @click="removeFoucs(content.user.user_id)">
                   <img src="../../../../static/images/discover/ygz.png">
                   <span class="font_4">相互关注</span>
+                </div>
+                <div v-else @click="addFoucs(content.user.user_id)">
+                  <img src="../../../../static/images/discover/jgz.png">
+                  <span class="font_4">关注</span>
                 </div>
               </div>
             </div>

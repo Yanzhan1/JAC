@@ -118,11 +118,11 @@
     <div style="height: 1rem;"></div>
     <!--社区列表E-->
     <div class="bottom_btn_wrap">
-      <div v-if="focusStatu == 0" class="bottom_jgz" @click="addFoucs">
-        加关注
-      </div>
-      <div v-else-if="focusStatu == 1||focusStatu == 2" class="bottom_ygz" @click="removeFoucs">
+      <div v-if="focusStatu == 1||focusStatu == 2" class="bottom_ygz" @click="removeFoucs">
         已关注
+      </div>
+      <div v-else class="bottom_jgz" @click="addFoucs">
+        加关注
       </div>
     </div>
   </div>
