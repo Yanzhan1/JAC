@@ -38,10 +38,10 @@
           <div class="contentCarpowerBtn" v-if="$store.state.currentTitle == '自由型'" :class="index == currentIndex2 ?'contentCarpowerBtn2':'contentCarpowerBtn'"  v-for="(item,index) in carPowerData" :key="item.id" @click="carPowerBtn(index,item.label,item.text)">
             {{item.label}}
           </div>
-          <div class="contentCarpowerBtn" v-if="$store.state.currentTitle == '超越型'" :class="index == currentIndex4 ?'contentCarpowerBtn2':'contentCarpowerBtn'"  v-for="(item,index) in carPowerData" :key="item.id" @click="carPowerBtn3(index,item.label,item.text)">
+          <div class="contentCarpowerBtn" v-if="$store.state.currentTitle == '超越型'" :class="index == currentIndex4 ?'contentCarpowerBtn2':'contentCarpowerBtn'"  v-for="(item,index) in carPowerData3" :key="item.id" @click="carPowerBtn3(index,item.label,item.text)">
             {{item.label}}
           </div>
-          <div class="contentCarpowerBtn" v-if="$store.state.currentTitle == '梦想型'" :class="index == currentIndex5 ?'contentCarpowerBtn2':'contentCarpowerBtn'"  v-for="(item,index) in carPowerData" :key="item.id" @click="carPowerBtn4(index,item.label,item.text)">
+          <div class="contentCarpowerBtn" v-if="$store.state.currentTitle == '梦想型'" :class="index == currentIndex5 ?'contentCarpowerBtn2':'contentCarpowerBtn'"  v-for="(item,index) in carPowerData4" :key="item.id" @click="carPowerBtn4(index,item.label,item.text)">
             {{item.label}}
           </div>
           <div v-if="$store.state.currentTitle == '探索型'" :class="index == currentIndex3 ?'contentCarpowerBtn2':'contentCarpowerBtn'"  v-for="(item,index) in carPowerData2" :key="item.id" @click="carPowerBtn2(index,item.label,item.text)">
@@ -78,6 +78,14 @@ export default{
       currentIndex4: 0,
       currentIndex5: 0,
       powerFlag: false,
+      priceTitle: 88800,//梦想型1.5T CVT 自动价格
+      priceTitle3: 80800,//自由型1.5T CVT 自动
+      priceTitle4:84800,//超越型1.5T CVT 自动
+      priceTitle2: 98800,//探索型1.5T CVT 自动
+      powerTitle: '1.5T CVT 自动',//梦想型1.5T CVT 自动
+      powerTitle1: '1.5T CVT 自动',//自由型1.5T CVT 自动
+      powerTitle3: '1.5T CVT 自动',//超越型1.5T CVT 自动
+      powerTitle2: '1.5T CVT 自动',//探索型1.5T CVT 自动
       carData:[
         {
           id:1,
@@ -134,24 +142,76 @@ export default{
           text:67800,
         }
       ],
-      carPowerData2:[
+      carPowerData3:[
         {
           id:1,
           label:'1.5T CVT 自动' ,
           value:'1.5T CVT 自动',
-          text:80800
+          text:84800
         },
         {
           id:2,
           label:'1.6L CVT 自动' ,
           value:'1.6L CVT 自动',
-          text:76800
+          text:80800
         },
         {
           id:3,
           label:'1.5T 6MT 手动' ,
           value:'1.5T 6MT 手动',
-          text:71800
+          text:75800
+        },
+        {
+          id:4,
+          label:'1.6L 6MT 手动' ,
+          value:'1.6L 6MT 手动',
+          text:71800,
+        }
+      ],
+      carPowerData4:[
+        {
+          id:1,
+          label:'1.5T CVT 自动' ,
+          value:'1.5T CVT 自动',
+          text:88800
+        },
+        {
+          id:2,
+          label:'1.6L CVT 自动' ,
+          value:'1.6L CVT 自动',
+          text:84800
+        },
+        {
+          id:3,
+          label:'1.5T 6MT 手动' ,
+          value:'1.5T 6MT 手动',
+          text:79800
+        },
+        {
+          id:4,
+          label:'1.6L 6MT 手动' ,
+          value:'1.6L 6MT 手动',
+          text:75800,
+        }
+      ],
+      carPowerData2:[
+        {
+          id:1,
+          label:'1.5T CVT 自动' ,
+          value:'1.5T CVT 自动',
+          text:98800
+        },
+        {
+          id:2,
+          label:'1.6L CVT 自动' ,
+          value:'1.6L CVT 自动',
+          text:94800
+        },
+        {
+          id:3,
+          label:'1.5T 6MT 手动' ,
+          value:'1.5T 6MT 手动',
+          text:89800
         }
       ],
       priceData:[
@@ -185,16 +245,11 @@ export default{
       "borderTopWidth": this.$store.state.mobileStatusBar,
       "borderTopColor": "#fff",
     })
-//    this.$store.state.show = false;
-//    this.$store.state.show1 = false;
-//    this.$store.state.priceTitle = 80800;
+
     this.$store.state.currentTitle = '梦想型';
+    this.$store.state.colorTitle = '典雅白';
     this.$store.state.powerTitle = '1.5T CVT 自动';
     this.$store.state.priceTitle = 80800;
-    this.$store.state.powerTitle1 = '1.5T CVT 自动';
-    this.$store.state.powerTitle2 = '1.5T CVT 自动';
-    this.$store.state.powerTitle3 = '1.5T CVT 自动';
-//    this.$store.state.colorTitle = '典雅白';
     this.$store.state.rimTitle ='R17';
     this.$store.state.show = false;
     this.$store.state.show1 = false;
@@ -205,78 +260,64 @@ export default{
       this.$store.state.carIntroduceTitle2 = '皮质多功能方向盘 ESP车身稳定系统';
       if(this.$store.state.powerTitle == "1.5T CVT 自动"){
         this.currentIndex2 = 0;
-
+        this.$store.state.priceTitle = 80800;
       }else if(this.$store.state.powerTitle == "1.6L CVT 自动"){
         this.currentIndex2 = 1;
-//        this.$store.state.show = false;
-//        this.$store.state.show1 = false;
+        this.$store.state.priceTitle = 76800;
       } else if(this.$store.state.powerTitle == "1.5T 6MT 手动"){
         this.currentIndex2 = 2;
-//        this.$store.state.show = false;
-//        this.$store.state.show1 = false;
+        this.$store.state.priceTitle = 71800;
       }else if(this.$store.state.powerTitle == "1.6L 6MT 手动"){
         this.currentIndex2 = 3;
-//        this.$store.state.show = false;
-//        this.$store.state.show1 = false;
+        this.$store.state.priceTitle = 67800;
       }
     }else if(this.$store.state.currentTitle == "超越型"){
       this.currentIndex = 1;
       this.$store.state.carIntroduceTitle = '10.25寸大屏 天窗';
       this.$store.state.carIntroduceTitle2 = 'PEPS无钥匙进入及一键启动 智聆车联网3.0系统';
-      if(this.$store.state.powerTitle2 == "1.5T CVT 自动"){
+      if(this.$store.state.powerTitle == "1.5T CVT 自动"){
         this.currentIndex4 = 0;
-//        this.$store.state.show = false;
-//        this.$store.state.show1 = false;
-      }else if(this.$store.state.powerTitle2 == "1.6L CVT 自动"){
+        this.$store.state.priceTitle = 84800;
+      }else if(this.$store.state.powerTitle == "1.6L CVT 自动"){
         this.currentIndex4 = 1;
-//        this.$store.state.show = false;
-//        this.$store.state.show1 = false;
-      } else if(this.$store.state.powerTitle2 == "1.5T 6MT 手动"){
+        this.$store.state.priceTitle = 80800;
+      } else if(this.$store.state.powerTitle == "1.5T 6MT 手动"){
         this.currentIndex4 = 2;
-//        this.$store.state.show = false;
-//        this.$store.state.show1 = false;
-      }else if(this.$store.state.powerTitle2 == "1.6L 6MT 手动"){
+        this.$store.state.priceTitle = 75800;
+      }else if(this.$store.state.powerTitle == "1.6L 6MT 手动"){
         this.currentIndex4 = 3;
-//        this.$store.state.show = false;
-//        this.$store.state.show1 = false;
+        this.$store.state.priceTitle = 71800;
       }
     } else if(this.$store.state.currentTitle == "梦想型"){
       this.currentIndex = 2;
       this.$store.state.carIntroduceTitle = '主驾驶电动座椅 360全景影像';
       this.$store.state.carIntroduceTitle2 = 'TESS爆胎应急安全系统';
-      if(this.$store.state.powerTitle3 == "1.5T CVT 自动"){
+      if(this.$store.state.powerTitle == "1.5T CVT 自动"){
         this.currentIndex5 = 0;
-//        this.$store.state.show = false;
-//        this.$store.state.show1 = false;
-      }else if(this.$store.state.powerTitle3 == "1.6L CVT 自动"){
+        this.$store.state.priceTitle = 88800;
+      }else if(this.$store.state.powerTitle == "1.6L CVT 自动"){
         this.currentIndex5 = 1;
-//        this.$store.state.show = false;
-//        this.$store.state.show1 = false;
-      } else if(this.$store.state.powerTitle3 == "1.5T 6MT 手动"){
+        this.$store.state.priceTitle = 84800;
+      } else if(this.$store.state.powerTitle == "1.5T 6MT 手动"){
         this.currentIndex5 = 2;
-//        this.$store.state.show = false;
-//        this.$store.state.show1 = false;
-      }else if(this.$store.state.powerTitle3 == "1.6L 6MT 手动"){
+        this.$store.state.priceTitle = 79800;
+      }else if(this.$store.state.powerTitle == "1.6L 6MT 手动"){
         this.currentIndex5 = 3;
-//        this.$store.state.show = false;
-//        this.$store.state.show1 = false;
+        this.$store.state.priceTitle = 75800;
       }
     }else if(this.$store.state.currentTitle == "探索型"){
       this.currentIndex = 3;
       this.$store.state.carIntroduceTitle = '全景天窗 电动尾门';
       this.$store.state.carIntroduceTitle2 = '';
-      if(this.$store.state.powerTitle1 == "1.5T CVT 自动"){
+      if(this.$store.state.powerTitle == "1.5T CVT 自动"){
         this.currentIndex3 = 0;
-//        this.$store.state.show = false;
-//        this.$store.state.show1 = false;
-      }else if(this.$store.state.powerTitle1 == "1.6L CVT 自动"){
+        this.$store.state.priceTitle = 98800;
+      }else if(this.$store.state.powerTitle == "1.6L CVT 自动"){
         this.currentIndex3 = 1;
-//        this.$store.state.show = false;
-//        this.$store.state.show1 = false;
-      } else if(this.$store.state.powerTitle1 == "1.5T 6MT 手动"){
+        this.$store.state.priceTitle = 94800;
+      } else if(this.$store.state.powerTitle == "1.5T 6MT 手动"){
         this.currentIndex3 = 2;
-//        this.$store.state.show = false;
-//        this.$store.state.show1 = false;
+        this.$store.state.priceTitle = 89800;
       }
     }
 
@@ -284,73 +325,98 @@ export default{
     console.log(" this.$store.state.currentTitle",this.$store.state.currentTitle)
   },
   methods:{
-    getData(){//该右边marginLeft的值
-      var _this = this;
-      _this.$nextTick(()=>{
-        var info = document.getElementsByClassName("contentCarBtn");
-        // console.log("----",info)
-        var len = info.length;
-        if(!(len%2)){
-          // console.log(info[len-1])
-          info[len-1].style.left = "0.2rem";
-          info[len-2].style.right = "0.2rem";
-        }else {
-          info[len-1].style.marginTop = "0.2rem";
-        }
-
-      })
-    },
     carBtn(index,labelTitle,carIntroduceTitle,carIntroduceTitle2){
       this.currentIndex = index;
       this.$store.state.currentTitle = labelTitle;
-//      alert(carIntroduceTitle,carIntroduceTitle2);
       this.$store.state.carIntroduceTitle = carIntroduceTitle;
       this.$store.state.carIntroduceTitle2 = carIntroduceTitle2;
       this.powerFlag = !this.powerFlag;
       this.flag  = true;
+      if(this.$store.state.currentTitle == '自由型'){
+          if(this.$store.state.powerTitle == '1.5T CVT 自动'){
+            this.$store.state.priceTitle = this.priceTitle3;
+          } else if(this.$store.state.powerTitle == '1.6L CVT 自动'){
+            this.$store.state.priceTitle = this.priceTitle3;
+          }else if(this.$store.state.powerTitle == '1.5T 6MT 手动'){
+            this.$store.state.priceTitle = this.priceTitle3;
+          }else if(this.$store.state.powerTitle == '1.6L 6MT 手动'){
+            this.$store.state.priceTitle = this.priceTitle3;
+          }
+
+      }else if(this.$store.state.currentTitle == '超越型'){
+        if(this.$store.state.powerTitle == '1.5T CVT 自动'){
+          this.$store.state.priceTitle = this.priceTitle4;
+        } else if(this.$store.state.powerTitle == '1.6L CVT 自动'){
+          this.$store.state.priceTitle = this.priceTitle4;
+        }else if(this.$store.state.powerTitle == '1.5T 6MT 手动'){
+          this.$store.state.priceTitle = this.priceTitle4;
+        }else if(this.$store.state.powerTitle == '1.6L 6MT 手动'){
+          this.$store.state.priceTitle = this.priceTitle4;
+        }
+      }else if(this.$store.state.currentTitle == '梦想型'){
+        if(this.$store.state.powerTitle == '1.5T CVT 自动'){
+          this.$store.state.priceTitle = this.priceTitle;
+        } else if(this.$store.state.powerTitle == '1.6L CVT 自动'){
+          this.$store.state.priceTitle = this.priceTitle;
+        }else if(this.$store.state.powerTitle == '1.5T 6MT 手动'){
+          this.$store.state.priceTitle = this.priceTitle;
+        }else if(this.$store.state.powerTitle == '1.6L 6MT 手动'){
+          this.$store.state.priceTitle = this.priceTitle;
+        }
+      }else if(this.$store.state.currentTitle == '探索型'){
+        if(this.$store.state.powerTitle == '1.5T CVT 自动'){
+          this.$store.state.priceTitle = this.priceTitle2;
+        } else if(this.$store.state.powerTitle == '1.6L CVT 自动'){
+          this.$store.state.priceTitle = this.priceTitle2;
+        }else if(this.$store.state.powerTitle == '1.5T 6MT 手动'){
+          this.$store.state.priceTitle = this.priceTitle2;
+        }else if(this.$store.state.powerTitle == '1.6L 6MT 手动'){
+          this.$store.state.priceTitle = this.priceTitle2;
+        }
+      }
     },
     carPowerBtn(index,labelTitle,text){
 //        alert(labelTitle)
       this.currentIndex2 = index;
       this.$store.state.powerTitle = labelTitle;
-      this.$store.state.priceTitle = text;
-
+      this.priceTitle = text;
+      this.$store.state.priceTitle = this.priceTitle
       this.flag  = true;
     },
     carPowerBtn3(index,labelTitle,text){
 //        alert(labelTitle)
 
       this.currentIndex4 = index;
-      this.$store.state.powerTitle2 = labelTitle;
-      this.$store.state.priceTitle = text;
-
+      this.powerTitle2 = labelTitle;
+      this.$store.state.powerTitle = this.powerTitle2;
+      this.priceTitle3 = text;
+      this.$store.state.priceTitle = this.priceTitle3
       this.flag  = true;
     },
     carPowerBtn4(index,labelTitle,text){
 //        alert(labelTitle)
       this.currentIndex5 = index;
-      this.$store.state.powerTitle3 = labelTitle;
-      this.$store.state.priceTitle = text;
+      this.powerTitle3 = labelTitle;
+      this.$store.state.powerTitle = this.powerTitle3;
+      this.priceTitle4 = text;
+      this.$store.state.priceTitle = this.priceTitle4
 
       this.flag  = true;
     },
     carPowerBtn2(index,labelTitle,text){
 //        alert(labelTitle)
       this.currentIndex3 = index;
-      this.$store.state.powerTitle1 = labelTitle;
-      this.$store.state.priceTitle = text;
+      this.powerTitle = labelTitle;
+      this.$store.state.powerTitle = labelTitle;
+      this.priceTitle2 = text;
+      this.$store.state.priceTitle = this.priceTitle2
 
       this.flag  = true;
     },
     priceBtn(labelTitle){
-//      alert(labelTitle)
       this.$store.state.priceTitle = labelTitle;
     },
     colorChooseBtn(){
-      // console.log('111111',this.$store.state.currentTitle)
-      // console.log('22222',this.$store.state.powerTitle)
-      // console.log('333333',this.$store.state.priceTitle)
-      if(this.$store.state.currentTitle == '自由型'){
         this.$router.push({
           path: '/ColorChoose',
           query: {
@@ -359,34 +425,43 @@ export default{
             priceTitle:this.$store.state.priceTitle
           }
         })
-      }else if(this.$store.state.currentTitle == '超越型'){
-        this.$router.push({
-          path: '/ColorChoose',
-          query: {
-            currentTitle:this.$store.state.currentTitle,
-            powerTitle:this.$store.state.powerTitle2,
-            priceTitle:this.$store.state.priceTitle
-          }
-        })
-      }else if(this.$store.state.currentTitle == '梦想型'){
-        this.$router.push({
-          path: '/ColorChoose',
-          query: {
-            currentTitle:this.$store.state.currentTitle,
-            powerTitle:this.$store.state.powerTitle3,
-            priceTitle:this.$store.state.priceTitle
-          }
-        })
-      } else if(this.$store.state.currentTitle == '探索型'){
-        this.$router.push({
-          path: '/ColorChoose',
-          query: {
-            currentTitle:this.$store.state.currentTitle,
-            powerTitle:this.$store.state.powerTitle1,
-            priceTitle:this.$store.state.priceTitle
-          }
-        })
-      }
+//      if(this.$store.state.currentTitle == '自由型'){
+//        this.$router.push({
+//          path: '/ColorChoose',
+//          query: {
+//            currentTitle:this.$store.state.currentTitle,
+//            powerTitle:this.$store.state.powerTitle,
+//            priceTitle:this.priceTitle3
+//          }
+//        })
+//      }else if(this.$store.state.currentTitle == '超越型'){
+//        this.$router.push({
+//          path: '/ColorChoose',
+//          query: {
+//            currentTitle:this.$store.state.currentTitle,
+//            powerTitle:this.$store.state.powerTitle2,
+//            priceTitle:this.priceTitle4
+//          }
+//        })
+//      }else if(this.$store.state.currentTitle == '梦想型'){
+//        this.$router.push({
+//          path: '/ColorChoose',
+//          query: {
+//            currentTitle:this.$store.state.currentTitle,
+//            powerTitle:this.$store.state.powerTitle,
+//            priceTitle:this.priceTitle
+//          }
+//        })
+//      } else if(this.$store.state.currentTitle == '探索型'){
+//        this.$router.push({
+//          path: '/ColorChoose',
+//          query: {
+//            currentTitle:this.$store.state.currentTitle,
+//            powerTitle:this.$store.state.powerTitle2,
+//            priceTitle:this.priceTitle
+//          }
+//        })
+//      }
 
     },
     goBack(){

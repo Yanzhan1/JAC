@@ -60,7 +60,7 @@
             id:2,
             label:'R18' ,
             value:'轮辋:R18',
-            text:'¥500',
+            text:'+¥500',
             img:'./static/images/Wit/R18common.png'
           }
         ],
@@ -245,7 +245,7 @@
     position: absolute;
     bottom: 0;
     top: 2.5rem;
-    left: 38%;
+    left: 35%;
   }
   .contentCar .contentCarBtn2{
     flex: 1;
@@ -280,7 +280,7 @@
     text-align: center;
     bottom: 0;
     top: 2.5rem;
-    left: 42%;
+    left: 37%;
   }
   .contentBtn{
     position: fixed;

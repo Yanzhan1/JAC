@@ -5,6 +5,7 @@
       <div class="navTitle"></div>
       <div></div>
     </header>
+
     <div v-if="this.$route.query.currentTitle == '自由型'">
       <div class="headerHeight"></div>
       <!--<transition name="slide">-->
@@ -299,7 +300,7 @@
     height: 1rem;
   }
   .headerHeight3{
-    height: 1.2rem;
+    height: 1.5rem;
   }
   .content{
     height: 1.5rem;
