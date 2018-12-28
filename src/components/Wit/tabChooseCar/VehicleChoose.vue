@@ -9,7 +9,7 @@
             <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='极光紫'" :src="'./static/images/Wit/purpleBody.png'"/>
             <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='琥珀金'" :src="'./static/images/Wit/goldBody.png'"/>
             <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='拉菲红'" :src="'./static/images/Wit/redBody.png'"/>
-            <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-show="this.$store.state.show1"  :src="carBody"/>
+            <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-show="this.$store.state.show1 && ($route.query.colorTitle=='典雅白' || $route.query.colorTitle=='拉菲红')"  :src="carBody"/>
             <!--<img v-if="$route.query.rimTitle=='R18'" :src="'./static/images/Wit/R18.png'">-->
             <!--<img v-else-if="$route.query.rimTitle=='R17'" :src="'./static/images/Wit/R17.png'">-->
             <!--<img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-show="!show2"  :src="wheels"/>-->
@@ -104,13 +104,6 @@
         totalPrice2:0,
         totalPrice3:0,
         totalPrice4:0,
-        reducePrice:1000,
-        reducePrice2:0,
-        reducePrice3:2000,
-        totalPrice5:0,
-        totalPrice6:0,
-        totalPrice7:0,
-        totalPrice8:0,
         carData:[
           {
             id:1,
@@ -149,13 +142,20 @@
       })
       if(this.$store.state.show == true){
           this.currentIndex = 0
-      }else if(this.$store.state.show == true){
-        this.currentIndex = 1
+      }else if(this.$store.state.show1 == true){
+        this.currentIndex = 1;
       }
+
+//      else if(this.$store.state.colorTitle == '琥珀金'){
+//
+//      }
+      console.log('this.$store.state.show1',this.$store.state.show1)
       this.flag = true;
     },
     methods:{
       carBtn(index){
+        console.log(this.$store.state.show);
+        console.log(this.$store.state.show1);
         this.currentIndex = index;
         if(this.currentIndex == 0){
           this.$store.state.show = !this.$store.state.show;
@@ -173,10 +173,9 @@
             this.$store.state.priceTitle = this.$store.state.priceTitle+this.totalPrice2;
             console.log('this.totalPrice2 ',this.totalPrice2 )
           } else if(bodyColor == '极光紫'){
-            this.$store.state.show1 = true;
             this.carBody = this.purpleNormal;
+
           }else if(bodyColor == '琥珀金'){
-            this.$store.state.show1 = true;
             this.carBody = this.goldNormal;
           }
           else if(bodyColor == '拉菲红'){
