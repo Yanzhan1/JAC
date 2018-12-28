@@ -106,7 +106,8 @@
       //如果从爱车页面进入默认s4系列的车型
       this.$store.state.levelCode= 'CY001'
       this.$store.state.srouceNo='CYRF016'
-      this.$store.dispatch("NONAME", {srouceNo:'AU112018110106375078380'});
+      this.$store.state.srouceNo='AU112018110106375078380'
+      this.$store.state.seriesName='瑞风S4'
       // console.log("this.$store.state.currentTitle",this.$store.state.currentTitle);
     },
     methods:{
