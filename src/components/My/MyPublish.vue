@@ -130,8 +130,7 @@
       getmyList: function () {
         var _this = this;
         this.$http.post(DISCOVERMESSAGE.issueMomentList, {
-          "uid": _this.$store.state.userId,
-          "hisUid": _this.$store.state.UserStartId
+          "uid": _this.$store.state.userId
         }).then(function (res) {
           if (res.data.status) {
             _this.myList = res.data.data;
