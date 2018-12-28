@@ -42,16 +42,22 @@
           'pic': {
             text: '晒&nbsp;图',
             fn: this.toPic
+          },
+          'ing': {
+            text: '活动进行中',
+            fn: null
           }
         },
       }
     },
     computed: {
       text() {
+        console.log(this.finalState)
         return this.strategies[this.finalState].text
       },
       finalState() {
-        return this.noUserId.after(this.sign).after(this.noSign).after(this.end).after(this.pic).call(this)
+        return this.noUserId.after(this.sign).after(this.noSign).after(this.ing).after(this.end).after(this.pic).call(
+          this)
       }
     },
     methods: {
@@ -102,6 +108,15 @@
         if (this.activityState == 2 && this.joinStatus) {
           console.log('活动已结束')
           return 'end'
+        }
+        return 'nextSuccessor'
+      },
+      /**
+       * 活动进行中
+       */
+      ing() {
+        if (this.activityType != 3 && this.activityState == 1 && this.joinStatus) {
+          return 'ing'
         }
         return 'nextSuccessor'
       },
