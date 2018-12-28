@@ -113,79 +113,80 @@
     </div>
     <!--晒图内容E-->
     <div style="height: 0.88rem;"></div>
-    <!--按钮控制S-->
-    <div v-if="userId">
-      <!--当活动type等于3的时候，未开始和进行中状态未报名的人按钮显示“报名”，报名的人按钮显示“晒图”-->
-      <div v-if="content.activityType == 3">
-        <template v-if="content.activityState == 0 || content.activityState == 1">
-          <!-- 未开始和进行中未报名 -->
-          <div v-if="content.joinStatus" class="sign_btn" @click="toSign(content.activityId)">
-            报&nbsp;名
-          </div>
-          <!-- 未开始和进行中已报名 -->
-          <div v-else class="sign_btn" @click="toPic(content.activityId)">
-            晒&nbsp;图
-          </div>
-        </template>
-        <!-- 已结束 -->
-        <template v-else-if="content.activityState == 2">
-          <div v-if="content.joinStatus" class="sign_btn">
-            活动已结束
-          </div>
-          <div v-else class="sign_btn" @click="toPic(content.activityId)">
-            晒&nbsp;图
-          </div>
-        </template>
-      </div>
+      <!--按钮控制S-->
+      <div v-if="userId">
+        <!--当活动type等于3的时候，未开始和进行中状态未报名的人按钮显示“报名”，报名的人按钮显示“晒图”-->
+        <div v-if="content.activityType == 3">
+          <!-- 未开始和进行中 -->
+          <template v-if="content.activityState == 0 || content.activityState == 1">
+            <!-- 未报名 -->
+            <div v-if="content.joinStatus" class="sign_btn" @click="toSign(content.activityId)">
+              报&nbsp;名
+            </div>
+            <!-- 已报名 -->
+            <div v-else class="sign_btn" @click="toPic(content.activityId)">
+              晒&nbsp;图
+            </div>
+          </template>
+          <!-- 已结束 -->
+          <template v-else-if="content.activityState == 2">
+            <div v-if="content.joinStatus" class="sign_btn">
+              活动已结束
+            </div>
+            <div v-else class="sign_btn" @click="toPic(content.activityId)">
+              晒&nbsp;图
+            </div>
+          </template>
+        </div>
 
-      <!--activityType为1,2的时候，按钮常规逻辑-->
-      <div v-else>
-        <!-- 未开始 -->
-        <template v-if="content.activityState == 0">
-          <!-- 未报名 -->
-          <div v-if="content.joinStatus" class="sign_btn" @click="toSign(content.activityId)">
-            报&nbsp;名
-          </div>
-          <!-- 已报名 -->
-          <div v-else class="sign_btn" @click="removeWant">
-            取消报名
-          </div>
-        </template>
-        <!-- 已结束 -->
-        <template v-else-if="content.activityState == 2">
-          <div v-if="content.joinStatus" class="sign_btn">
-            活动已结束
-          </div>
-          <div v-else class="sign_btn" @click="toPic(content.activityId)">
-            晒&nbsp;图
-          </div>
-        </template>
-        <!-- 已开始 -->
-        <template v-else-if="content.activityState == 1">
-          <!-- 未报名 -->
-          <div v-if="content.joinStatus" class="sign_btn">
-            报名已结束
-          </div>
-          <!-- 已报名 -->
-          <div v-else class="sign_btn" @click="toPic(content.activityId)">
-            晒&nbsp;图
-          </div>
-        </template>
-        <!-- 已结束 -->
-        <template v-else-if="content.activityState == 2">
-          <div v-if="content.joinStatus" class="sign_btn">
-            活动已结束
-          </div>
-          <div v-else class="sign_btn" @click="toPic(content.activityId)">
-            晒&nbsp;图
-          </div>
-        </template>
-        <div class="sign_btn" v-else @click="cantWantGo">
-          报&nbsp;名
+        <!--activityType为1,2的时候，按钮常规逻辑-->
+        <div v-else>
+          <!-- 未开始 -->
+          <template v-if="content.activityState == 0">
+            <!-- 未报名 -->
+            <div v-if="content.joinStatus" class="sign_btn" @click="toSign(content.activityId)">
+              报&nbsp;名
+            </div>
+            <!-- 已报名 -->
+            <div v-else class="sign_btn" @click="removeWant">
+              取消报名
+            </div>
+          </template>
+          <!-- 已结束 -->
+          <template v-else-if="content.activityState == 2">
+            <div v-if="content.joinStatus" class="sign_btn">
+              活动已结束
+            </div>
+            <div v-else class="sign_btn" @click="toPic(content.activityId)">
+              晒&nbsp;图
+            </div>
+          </template>
+          <!-- 已开始 -->
+          <template v-else-if="content.activityState == 1">
+            <!-- 未报名 -->
+            <div v-if="content.joinStatus" class="sign_btn">
+              报名已结束
+            </div>
+            <!-- 已报名 -->
+            <div v-else class="sign_btn" @click="toPic(content.activityId)">
+              晒&nbsp;图
+            </div>
+          </template>
+          <!-- 已结束 -->
+          <template v-else-if="content.activityState == 2">
+            <div v-if="content.joinStatus" class="sign_btn">
+              活动已结束
+            </div>
+            <div v-else class="sign_btn" @click="toPic(content.activityId)">
+              晒&nbsp;图
+            </div>
+          </template>
         </div>
       </div>
-    </div>
-    <!--按钮控制E-->
+      <div class="sign_btn" v-else @click="cantWantGo">
+        报&nbsp;名
+      </div>
+      <!--按钮控制E-->
     </div>
     <div id="bg1" @click="bgbtn1" style="display: none;  position:fixed;  top: 0;  left: 0;  width: 100%;  height: 100%;  background-color: black;  z-index:1; opacity: 0;" />
   </div>
