@@ -175,9 +175,9 @@
             晒&nbsp;图
           </div>
         </template>
-      </div>
-      <div class="sign_btn" v-else @click="cantWantGo">
-        报&nbsp;名
+        <div class="sign_btn" v-else @click="cantWantGo">
+          报&nbsp;名
+        </div>
       </div>
     </div>
     <!--按钮控制E-->
