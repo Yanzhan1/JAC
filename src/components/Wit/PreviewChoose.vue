@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <header class="nav MobileHeight header ">
-      <div class="navBack" @click="goBack"><img style="width:.4rem;height:.4rem;" :src="'./static/images/back@2x.png'"></div>
+      <div v-show="this.$store.state.noback" class="navBack" @click="goBack"><img style="width:.4rem;height:.4rem;" :src="'./static/images/back@2x.png'"></div>
       <div class="navTitle"></div>
       <div></div>
     </header>
@@ -236,17 +236,24 @@
       resetChooseBtn(){
         this.$store.state.currentTitle = '梦想型';
         this.$store.state.powerTitle = '1.5T CVT 自动';
-        this.$store.state.priceTitle = 80800;
-        this.$store.state.powerTitle1 = '1.5T CVT 自动';
-        this.$store.state.powerTitle2 = '1.5T CVT 自动';
-        this.$store.state.powerTitle3 = '1.5T CVT 自动';
+        this.$store.state.priceTitle = 88800;
         this.$store.state.colorTitle = '典雅白';
         this.$store.state.rimTitle ='R17';
         this.$store.state.show = false;
         this.$store.state.show1 = false;
-        this.$router.push({
+        if(this.$store.state.noback){
+          this.$router.push({
           path: '/wit/tabChooseCar'
         })
+        }else{
+          this.$router.push({
+          path: '/wit/tabChooseCar',
+          query:{
+            lovecar:'notsplovecar'
+          }
+        })
+        }
+        
       },
       goBack(){
         this.$store.state.priceTitle2 = this.$route.query.priceTitleType;

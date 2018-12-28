@@ -107,29 +107,59 @@
       rimChooseBtn(){
 //          alert(this.$route.query.powerTitle);
 //        console.log('this.currentTitle',this.currentTitle)
-        this.$router.push({
-          path: '/VehicleChoose',
-          query: {
-            currentTitle:this.$route.query.currentTitle,
-            colorTitle:this.$route.query.colorTitle,
-            rimTitle:this.$store.state.rimTitle,
-            powerTitle:this.$route.query.powerTitle,
-            priceTitle:this.$store.state.priceTitle,
-            carName:this.$route.query.carName,
-          }
-        })
+        if(this.$store.state.noback){
+
+          this.$router.push({
+            path: '/VehicleChoose',
+            query: {
+              currentTitle:this.$route.query.currentTitle,
+              colorTitle:this.$route.query.colorTitle,
+              rimTitle:this.$store.state.rimTitle,
+              powerTitle:this.$route.query.powerTitle,
+              priceTitle:this.$store.state.priceTitle,
+              carName:this.$route.query.carName,
+            }
+          })
+        }else{
+          this.$router.push({
+            path: '/VehicleChoose',
+            query: {
+              currentTitle:this.$route.query.currentTitle,
+              colorTitle:this.$route.query.colorTitle,
+              rimTitle:this.$store.state.rimTitle,
+              powerTitle:this.$route.query.powerTitle,
+              priceTitle:this.$store.state.priceTitle,
+              carName:this.$route.query.carName,
+              lovecar:'notsplovecar'
+            }
+          })
+        }
       },
       backChooseBtn(){
-        this.$router.push({
-          path: '/ColorChoose',
-          query: {
-            currentTitle:this.$store.state.currentTitle,
-            powerTitle:this.$store.state.powerTitle,
-            priceTitle:this.$store.state.priceTitle,
-            colorTitle:this.$store.state.colorTitle,
-            carName:this.$route.query.carName
-          }
-        })
+        if(this.$store.state.noback){
+          this.$router.push({
+            path: '/ColorChoose',
+            query: {
+              currentTitle:this.$store.state.currentTitle,
+              powerTitle:this.$store.state.powerTitle,
+              priceTitle:this.$store.state.priceTitle,
+              colorTitle:this.$store.state.colorTitle,
+              carName:this.$route.query.carName
+            }
+          })
+        }else{
+          this.$router.push({
+            path: '/ColorChoose',
+            query: {
+              currentTitle:this.$store.state.currentTitle,
+              powerTitle:this.$store.state.powerTitle,
+              priceTitle:this.$store.state.priceTitle,
+              colorTitle:this.$store.state.colorTitle,
+              carName:this.$route.query.carName,
+              lovecar:'notsplovecar',
+            }
+          })
+        }
       }
     }
   }

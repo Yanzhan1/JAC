@@ -6,10 +6,10 @@
         <div class="find_nav_left">
           <div class="find_nav_list">
             <ul id="pagenavi1">
-              <li class="specilmain">
+              <li >
                 <a href="javascript:;" class="active">主推车型</a>
               </li>
-              <li class="specilall">
+              <li>
                 <a href="javascript:;">全部车型</a>
               </li>
               <li>
@@ -18,6 +18,9 @@
               <li>
                 <a href="javascript:;">维保网点</a>
               </li>					
+              <!-- <li>
+                <a href="javascript:;">维保预约</a>
+              </li>					 -->
               <li class="sideline"></li>
             </ul>
           </div>
@@ -75,6 +78,9 @@
           <li class="li_list" @click="Record(4)">
             <searchnet></searchnet>					
           </li>
+          <!-- <li class="li_list">
+            <preweib></preweib>				
+          </li> -->
         </ul>
       </div>
       <!--内容End-->
@@ -89,6 +95,7 @@ import dealer from "./dealer.vue";
 import searchnet from "./Search_net.vue";
 import Recomentbus from "./Recoment_bus.vue";
 import Allbus from "./Allbus.vue";
+import Preweib from "./pre_weib.vue";
 export default {
   name: "wit",
   data() {
@@ -109,10 +116,11 @@ export default {
     };
   },
   components: {
-    dealer,
-    searchnet,
-    Recomentbus,
-    Allbus
+    dealer,//经销商查询
+    searchnet,//维保网点
+    Recomentbus,//主推车型
+    Allbus,//全部车型
+    Preweib,//维保预约
   },
   methods: {
     sliderHeight() {
@@ -498,7 +506,7 @@ export default {
 <style scoped>
 .topb {
   width: 100%;
-  height: 0.5rem;
+  height: 0.7rem;
   position: fixed;
   background: #fff;
   top: 0;
@@ -506,10 +514,12 @@ export default {
 }
 .find_nav {
   width: 100%;
-  height: 0.7rem;
+  height: 0.8rem;
   background-color: #fff;
   position: fixed;
-  top: 0.5rem;
+  font-size: .28rem;
+  font-family: 'PingFangSC';
+  top: 0.7rem;
   z-index:888;
   display: flex;
   box-sizing: border-box;
@@ -543,7 +553,6 @@ export default {
   display: block;
   width: 100%;
   height: 100%;
-  line-height: 0.7rem;
   font-size: 0.28rem;
   text-align: center;
   color: #666;
@@ -559,10 +568,10 @@ export default {
   display: block;
   position: absolute;
   border: 0;
-  height: 0.02rem;
+  height: 0.03rem;
   background-color: #49bbff;
   left: 0;
-  top: 0.48rem;
+  top: 0.6rem;
   pointer-events: none;
 }
 
@@ -592,16 +601,16 @@ export default {
   display: table-cell;
   text-align: center;
   vertical-align: middle;
-  width: 1rem;
-  height: 1rem;
+  width: 1.3rem;
+  height: 1.3rem;
   z-index: 9999;
   top:50% ;
   right: 0.3rem;
   border-radius: 50%;
 }
 .roadrescue>img{
-  width: 1rem;
-  height: 1rem;
+  width: 1.3rem;
+  height: 1.3rem;
   position: absolute;
   top: 50%;
   left: 50%;

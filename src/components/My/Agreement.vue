@@ -286,7 +286,6 @@ export default {
   },
   methods:{
       isFromSource(a){
-          alert(a)
             this.flag=a
       },
       init(){

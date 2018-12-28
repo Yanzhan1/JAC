@@ -67,4 +67,5 @@ export default {
     show: false,
     show1: false,
     locationMes: '', //ios获取的地址
+    noback: true,
 }

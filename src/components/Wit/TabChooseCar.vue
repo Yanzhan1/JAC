@@ -10,12 +10,12 @@
     </header>
 
     <div class="headerHeight"></div>
-    <div v-if="!this.flag">
+    <div v-if="this.flag">
       <div v-if="this.$store.state.currentTitle != '自由型'" class="tab">
         <router-link tag="div" class="tabContent" :to="{path:'/CarChoose'}" >
           车型
         </router-link>
-        <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,}}" >
+        <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle}}" >
         颜色
         </router-link>
         <router-link tag="div" class="tabContent" :to="{path:'/RimChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,colorTitle:this.$store.state.colorTitle}}" >
@@ -36,16 +36,16 @@
     </div>
     <div v-else>
       <div v-if="this.$store.state.currentTitle != '自由型'" class="tab">
-        <router-link tag="div" class="tabContent" :to="{path:'/CarChoose'}" >
+        <router-link tag="div" class="tabContent" :to="{path:'/CarChoose',query:{lovecar:'notsplovecar'}}" >
           车型
         </router-link>
-        <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,lovecar:'#/lovecar'}}" >
+        <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,lovecar:'notsplovecar'}}" >
         颜色
         </router-link>
-        <router-link tag="div" class="tabContent" :to="{path:'/RimChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,colorTitle:this.$store.state.colorTitle,lovecar:'#/lovecar'}}" >
+        <router-link tag="div" class="tabContent" :to="{path:'/RimChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,colorTitle:this.$store.state.colorTitle,lovecar:'notsplovecar'}}" >
           轮辋
         </router-link>
-        <router-link tag="div" class="tabContent" :to="{path:'/VehicleChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,colorTitle:this.$store.state.colorTitle,rimTitle:this.$store.state.rimTitle,lovecar:'#/lovecar'}}" >
+        <router-link tag="div" class="tabContent" :to="{path:'/VehicleChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,colorTitle:this.$store.state.colorTitle,rimTitle:this.$store.state.rimTitle,lovecar:'notsplovecar'}}" >
         选装
         </router-link>
       </div>
@@ -53,7 +53,7 @@
         <router-link tag="div" class="tabContent" :to="{path:'/CarChoose'}" >
           车型
         </router-link>
-        <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,lovecar:'#/lovecar'}}" >
+        <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,lovecar:'notsplovecar'}}" >
           颜色
         </router-link>
       </div>
@@ -95,6 +95,7 @@
 
     },
     created(){
+            this.flag=this.$store.state.noback;
             window.showHeader = this.showHeader;
     },
     mounted(){
@@ -113,7 +114,8 @@
         this.$router.push('/wit/Characteristic');
       },
       showHeader(flag){
-        this.flag=flag.flag
+        this.flag=flag
+        this.$store.state.noback=false;
       },
     }
   }

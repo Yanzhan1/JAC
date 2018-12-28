@@ -190,8 +190,8 @@
       previeChooseBtn(){
         var outType= !this.$store.state.show1 ? '车身' : '双色车身';
         var LEDType= !this.$store.state.show ? '' : "LED前大灯";
-
-        this.$router.push({
+  
+          this.$router.push({
           path: '/wit/PreviewChoose',
           query: {
             currentTitle: this.$route.query.currentTitle,
@@ -203,20 +203,35 @@
             outType:outType,
             carName:this.$route.query.carName,
           }
-        })
+        })      
       },
       backChooseBtn(){
-        this.$router.push({
-          path: '/RimChoose',
-          query: {
-            currentTitle:this.$store.state.currentTitle,
-            powerTitle:this.$store.state.powerTitle,
-            priceTitle:this.$store.state.priceTitle,
-            colorTitle:this.$store.state.colorTitle,
-            rimTitle: this.$route.query.rimTitle,
-            carName:this.$route.query.carName
-          }
-        })
+        if(this.$store.state.noback){
+          this.$router.push({
+            path: '/RimChoose',
+            query: {
+              currentTitle:this.$store.state.currentTitle,
+              powerTitle:this.$store.state.powerTitle,
+              priceTitle:this.$store.state.priceTitle,
+              colorTitle:this.$store.state.colorTitle,
+              rimTitle: this.$route.query.rimTitle,
+              carName:this.$route.query.carName,
+            }
+          })
+        }else{
+          this.$router.push({
+            path: '/RimChoose',
+            query: {
+              currentTitle:this.$store.state.currentTitle,
+              powerTitle:this.$store.state.powerTitle,
+              priceTitle:this.$store.state.priceTitle,
+              colorTitle:this.$store.state.colorTitle,
+              rimTitle: this.$route.query.rimTitle,
+              carName:this.$route.query.carName,
+              lovecar:'notsplovecar'
+            }
+          })
+        }
       }
     }
   }
