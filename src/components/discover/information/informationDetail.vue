@@ -46,7 +46,6 @@
     </div>
     <div style="height: 1rem;"></div>
     <!--评论输入框S-->
-    <!--<DiscCommentBox ref="commentbox"></DiscCommentBox>-->
     <div id="commentBg" @click="closeComment" />
     <div class="flex contentcenter myInput" id="myInput">
       <input ref="commentfocus" id="comment" type="text" v-model="commentMsg" @click="commentbtn" placeholder="写评论..." />
@@ -57,7 +56,6 @@
 </template>
 
 <script>
-  import DiscCommentBox from '../component/DiscCommentBox.vue';
   import Comment from '@/components/components/Comment'
   import {
     MessageBox
@@ -95,7 +93,6 @@
     },
     components: {
       shareBox,
-      DiscCommentBox,
       Comment
     },
     methods: {
