@@ -186,7 +186,6 @@
       },
       //跳转到举报页面
       inform: function (manageId) {
-        debugger
         this.$router.push({
           path: '/component/inform',
           query: {

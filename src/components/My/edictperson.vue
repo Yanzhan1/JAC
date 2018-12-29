@@ -165,17 +165,24 @@ export default {
         });
         return;
       }
+      debugger
       this.changeInfo.userName = this.userInfo.userName; //赋值  参数 昵称
       this.changeInfo.personalSignature = this.userInfo.personalSignature;
       this.changeInfo.sex = this.userInfo.sex;
       this.changeInfo.no = this.$store.state.userId,
       this.changeInfo.imageUrl= this.changeInfo.imageUrl
-      var changeInfo = this.changeInfo;
+      var userName = this.userInfo.userName;
+      var imageUrl = this.changeInfo.imageUrl
       this.$http.post(My.UpUserinfo, this.changeInfo, {}).then(res => {
-        debugger
         if (res.data.code == 0) {
               // 更新用户信息时候，同步更新vuex中的值
-              this.$store.dispatch("updateUserInfo", changeInfo);
+              if(userName){
+                this.$store.dispatch("userName", userName);
+              }
+              if(imageUrl){
+                this.$store.dispatch("imgUrl", imageUrl);
+              }
+
               this.popupVisible = true;
               var data = {
 									ruleStr: 'REAL_NAME',
