@@ -1,7 +1,7 @@
 <template>
-<div class="main">
-  <div class="headerHeight"></div>
-
+<div class="mainContent">
+  <div class="headerHeight2"></div>
+  <div>
   <!--<transition name="slide1">-->
     <div class="contentImg">
       <div class="carImg">
@@ -50,19 +50,19 @@
         </div>
       <!--</transition>-->
       </div>
-      <div class="headerHeight3"></div>
+
     </div>
+    <div class="contentBtn">
+      <div class="contentText">
+        <div v-if="this.$store.state.priceTitle != ''" class="priceLabel">
+          {{this.$store.state.priceTitle}}元
+        </div>
+        <div class="contentColorBtn2">
 
-  <div class="contentBtn">
-    <div class="contentText">
-      <div v-if="this.$store.state.priceTitle != ''" class="priceLabel">
-        {{this.$store.state.priceTitle}}元
-      </div>
-      <div class="contentColorBtn2">
-
-      </div>
-      <div class="contentColorBtn" @click="colorChooseBtn">
-        颜色选择 >>
+        </div>
+        <div class="contentColorBtn" @click="colorChooseBtn">
+          颜色选择 >>
+        </div>
       </div>
     </div>
   </div>
@@ -446,7 +446,7 @@ export default{
 		border-top-style: solid;
 		box-sizing: content-box;
 	}
-.main{
+.mainContent{
   /*background-color: #ccc;*/
   height: 100%;
   background-color: #fff;
@@ -474,9 +474,10 @@ export default{
   height: 1.5rem;
 }
 .headerHeight2{
-  height:1.5rem;
+  height:0.8rem;
 }
 .headerHeight3{
+  width: 100%;
   height: 1.9rem;
 }
 .contentImg{

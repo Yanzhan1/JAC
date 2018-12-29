@@ -8,10 +8,10 @@
     <header v-else class="specilheader nav MobileHeight">
       <div >选购瑞风S4</div>
     </header>
-
     <div class="headerHeight"></div>
     <div v-if="this.flag">
       <div v-if="this.$store.state.currentTitle != '自由型'" class="tab">
+
         <router-link tag="div" class="tabContent" :to="{path:'/CarChoose'}" >
           车型
         </router-link>
@@ -130,13 +130,16 @@
     /*background-color: #ccc;*/
     height: 100%;
     background-color: #fff;
+
   }
+
   .nav{
     width: 100%;
     height:1rem;
     line-height: 1rem;
     position: fixed;
     background-color: #fff;
+    z-index: 1;
   }
   .nav div{
     flex: 1;
@@ -147,16 +150,20 @@
     padding-left: 0.15rem;
     font-size: 0.36rem;
   }
-  .headerHeight{
+ .headerHeight{
+    width: 100%;
     height: 1.5rem;
-    background-color: #fff;
+    z-index: 1;
+    background-color:#fff;
   }
   .tab{
+    margin-top: -0.44rem;
     width: 100%;
     position: fixed;
     height: 1rem;
     line-height:1rem;
     background-color: #fff;
+    z-index:3;
   }
   .tab .tabContent{
     display: inline-block;
