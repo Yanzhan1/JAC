@@ -123,6 +123,14 @@
           var headImgUrl = this.$store.state.imgUrl || 'http://poss.yunshicloud.com/CDVCLOUD/QMTNRK_YUNSHI/794EF2CC796447B48AEB1044DDB1CA74/4f15613484983e03412b777f86859969.png'
           var userName = this.$store.state.userName || '尚未设置昵称'
 
+          alert({
+            src: 'jh',
+            auth: auth ? 'yes' : 'no',
+            userId,
+            headImgUrl,
+            userName
+          })
+
           document.querySelector('#childframe').contentWindow.postMessage({
             src: 'jh',
             auth: auth ? 'yes' : 'no',
