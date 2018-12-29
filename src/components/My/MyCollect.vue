@@ -40,11 +40,11 @@
         <!--活动列表S-->
         <div v-for="(item) in activityList" :key="item.id">
           <div class="boxInfo">
-            <p class="listTitleInfo" @click="goActivityDetail(item.activityId)">
+            <p class="listTitleInfo" @click="goActivityDetail(item.activityId, item.activityType)">
               {{item.activityTitle.slice(0,46)}}
               <span v-if="item.activityTitle.length>46">...</span>
             </p>
-            <img class="listPic312" @click="goActivityDetail(item.activityId)" :src="item.imgUrl"/>
+            <img class="listPic312" @click="goActivityDetail(item.activityId, item.activityType)" :src="item.imgUrl"/>
             <div class="listIconActivity">
               <!--未开始-->
               <div v-if="item.activityState==0">
@@ -114,10 +114,18 @@
         });
       },
       // 进入活动详情
-      goActivityDetail: function (id) {
+      goActivityDetail: function (id, activityType) {
+        var path = '';
+        if(activityType == 2){
+          path = '/activity/activityLive';
+        }else{
+          path = '/activity/activityDetail';
+        }
         this.$router.push({
-          path:"/activity/activityDetail",
-          query:{activityId:id}
+          path: path,
+          query: {
+            activityId: id
+          }
         })
       },
       //资讯列表
