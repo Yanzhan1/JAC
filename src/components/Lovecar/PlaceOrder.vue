@@ -78,7 +78,7 @@ export default {
         };
         window.webkit.messageHandlers.js2android.postMessage(params);
       } else if (isMobile.Android()) {
-        js2android.js2android(tranData, merSignMsg, merCert);
+        js2android.startIcbcPay(tranData, merSignMsg, merCert);
       }
             
           }else{
