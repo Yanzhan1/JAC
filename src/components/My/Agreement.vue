@@ -1,6 +1,6 @@
 <template>
     <div class="box">
-        <div class="topfff"></div>
+        <div v-show="this.topbg" class="topfff"></div>
         <header class="header  bgcolor">
             <img @click="goback" class="header-left" :src="'./static/images/back@2x.png'">
             <span class='header-title' style="margin-right: .75rem;">用户注册协议</span>
@@ -280,6 +280,7 @@ export default {
         return{
             flag:false,
             top:0,
+            topbg:true,//头部的白框
         }
     },
     components: {
@@ -291,13 +292,12 @@ export default {
       },
       init(){
            if (isMobile.iOS()) {
+               this.topbg=false
                 var params = {};
                 window.webkit.messageHandlers.getStatusBarHeight.postMessage(params);
       } else if (isMobile.Android()) {
           this.top=js2android.getStatusBarHeight();
           this.top=this.top+'px'
-
-
       }
       },
       goback(){
