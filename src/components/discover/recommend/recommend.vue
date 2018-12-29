@@ -61,11 +61,11 @@
           <!--活动列表S-->
           <div v-if="item.recommendType==0">
             <div class="boxInfo">
-              <p class="listTitleInfo" @click="toActDetail(item.id)">
+              <p class="listTitleInfo" @click="toActDetail(item.id,item.manageType)">
                 {{item.title.slice(0,46)}}
                 <span v-if="item.title.length>46">...</span>
               </p>
-              <img class="listPic312" @click="toActDetail(item.id)" :src="item.pictureUrl" />
+              <img class="listPic312" @click="toActDetail(item.id,item.manageType)" :src="item.pictureUrl" />
               <div class="listIconActivity">
                 <!--未开始-->
                 <div v-if="item.activityState==0">
@@ -284,9 +284,15 @@
           }
         })
       },
-      toActDetail: function (id) {
+      toActDetail: function (id,activityType) {
+        var path = '';
+        if(activityType == 2){
+          path = '/activity/activityLive';
+        }else{
+          path = '/activity/activityDetail';
+        }
         this.$router.push({
-          path: "/activity/activityDetail",
+          path: path,
           query: {
             activityId: id
           }
