@@ -66,8 +66,8 @@ export default {
     rimTitle: 'R17',
     show: false,
     show1: false,
-    outType:'双色车身',
-    LEDType:'LED前大灯',
+    outType: '双色车身',
+    LEDType: 'LED前大灯',
     locationMes: '', //ios获取的地址
-    noback: true,
+    noback: false,
 }
