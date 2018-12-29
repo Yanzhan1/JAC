@@ -162,9 +162,17 @@
         this.flag = true;
       },
       RimChooseBtn(){
-        this.$router.push({
-          path: '/RimChoose'
-        })
+        if(this.$store.state.noback){
+          
+          this.$router.push({
+            path: '/RimChoose'
+          })
+        }else{
+          this.$router.push({
+            path: '/RimChoose',
+            query:{lovecar:'notsplovecar'}
+          })
+        }
       },
       previewBtn(){//如果是舒适型(自由型)直接跳转到在线订车页面
         this.$router.push({
@@ -178,10 +186,16 @@
         })
       },
       backChooseBtn(){
-
-        this.$router.push({
-          path: '/CarChoose'
-        })
+        if(this.$store.state.noback){
+          this.$router.push({
+            path: '/CarChoose'
+          })
+        }else{
+          this.$router.push({
+            path: '/CarChoose',
+            query:{lovecar:'notsplovecar'}
+          })
+        }
 //        if(this.$store.state.currentTitle == '自由型'){
 //          this.$router.push({
 //            path: '/CarChoose',

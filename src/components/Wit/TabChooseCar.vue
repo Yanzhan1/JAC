@@ -50,7 +50,7 @@
         </router-link>
       </div>
       <div v-else-if="this.$store.state.currentTitle == '自由型'"  class="tab">
-        <router-link tag="div" class="tabContent" :to="{path:'/CarChoose'}" >
+        <router-link tag="div" class="tabContent" :to="{path:'/CarChoose',query:{lovecar:'notsplovecar'}}" >
           车型
         </router-link>
         <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{lovecar:'notsplovecar'}}" >

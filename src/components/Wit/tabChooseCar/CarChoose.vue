@@ -418,9 +418,17 @@ export default{
       this.$store.state.priceTitle = labelTitle;
     },
     colorChooseBtn(){
+      if(this.$store.state.noback){
+
         this.$router.push({
           path: '/ColorChoose'
         })
+      }else{
+        this.$router.push({
+          path: '/ColorChoose',
+          query:{lovecar:'notsplovecar'}
+        })
+      }
     },
     goBack(){
       this.$router.push({
