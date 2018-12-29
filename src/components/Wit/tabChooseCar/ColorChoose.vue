@@ -1,29 +1,29 @@
 <template>
   <div class="main">
-    <div v-if="this.$route.query.currentTitle == '超越型' || this.$route.query.currentTitle == '梦想型' || this.$route.query.currentTitle == '探索型'">
+    <div v-if="this.$store.state.currentTitle == '超越型' || this.$store.state.currentTitle == '梦想型' || this.$store.state.currentTitle == '探索型'">
       <div class="headerHeight"></div>
       <!--<transition name="slide1">-->
-        <div class="contentImg">
-          <div class="carImg" v-for="(item,index) in carColorData" v-show="index === currentIndex">
-            <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="'./static/images/Wit/whiteBody.png'"/>
-            <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="'./static/images/Wit/white.png'"/>
-            <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="item.img"/>
-          </div>
+      <div class="contentImg">
+        <div class="carImg" v-for="(item,index) in carColorData" v-show="index === currentIndex">
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="'./static/images/Wit/whiteBody.png'"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="'./static/images/Wit/white.png'"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="item.img"/>
         </div>
+      </div>
       <!--</transition>-->
       <div class="headerHeight2"></div>
       <!--<transition name="slide">-->
-        <div class="contentCar">
-          <div class="contentCarBtn"  v-for="(item,index) in carData" :key="item.id" @click="carBtn(index,item.label)">
-            <div style="position: relative">
-              <img  v-if="item.label == '拉菲红'" class="colorTitle" :class="currentIndex == 0?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/redColor.png'">
-              <img v-if="item.label == '典雅白'" class="colorTitle" :class="currentIndex == 1 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/whiteColor.png'">
-              <img v-if="item.label == '极光紫'" class="colorTitle" :class="currentIndex == 2 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/purpleColor.png'">
-              <img v-if="item.label == '琥珀金'" class="colorTitle" :class="currentIndex == 3 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/goldColor.png'">
-              <div class="contentCarBtnTitle" :class="index == currentIndex ?'contentCarBtnTitle2':'contentCarBtnTitle'">{{item.label}}</div>
-            </div>
+      <div class="contentCar">
+        <div class="contentCarBtn"  v-for="(item,index) in carData" :key="item.id" @click="carBtn(index,item.label)">
+          <div style="position: relative">
+            <img  v-if="item.label == '拉菲红'" class="colorTitle" :class="currentIndex == 0?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/redColor.png'">
+            <img v-if="item.label == '典雅白'" class="colorTitle" :class="currentIndex == 1 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/whiteColor.png'">
+            <img v-if="item.label == '极光紫'" class="colorTitle" :class="currentIndex == 2 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/purpleColor.png'">
+            <img v-if="item.label == '琥珀金'" class="colorTitle" :class="currentIndex == 3 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/goldColor.png'">
+            <div class="contentCarBtnTitle" :class="index == currentIndex ?'contentCarBtnTitle2':'contentCarBtnTitle'">{{item.label}}</div>
           </div>
         </div>
+      </div>
       <!--</transition>-->
       <div class="contentBtn">
         <div class="contentText">
@@ -37,30 +37,30 @@
         </div>
       </div>
     </div>
-    <div v-else-if="this.$route.query.currentTitle == '自由型'">
+    <div v-else-if="this.$store.state.currentTitle == '自由型'">
       <div class="headerHeight"></div>
       <!--<transition name="slide1">-->
-        <div class="contentImg">
-          <div class="carImg" v-for="(item,index) in carColorData" v-show="index === currentIndex">
-            <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="'./static/images/Wit/whiteBody.png'"/>
-            <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="'./static/images/Wit/white.png'"/>
-            <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="item.img"/>
-          </div>
+      <div class="contentImg">
+        <div class="carImg" v-for="(item,index) in carColorData" v-show="index === currentIndex">
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="'./static/images/Wit/whiteBody.png'"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="'./static/images/Wit/white.png'"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0;left:0.25rem" :src="item.img"/>
         </div>
+      </div>
       <!--</transition>-->
       <div class="headerHeight2"></div>
       <!--<transition name="slide">-->
-        <div class="contentCar">
-          <div class="contentCarBtn"  v-for="(item,index) in carData" :key="item.id" @click="carBtn(index,item.label)">
-            <div style="position: relative">
-              <img  v-if="item.label == '拉菲红'" class="colorTitle" :class="currentIndex == 0?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/redColor.png'">
-              <img v-if="item.label == '典雅白'" class="colorTitle" :class="currentIndex == 1 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/whiteColor.png'">
-              <img v-if="item.label == '极光紫'" class="colorTitle" :class="currentIndex == 2 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/purpleColor.png'">
-              <img v-if="item.label == '琥珀金'" class="colorTitle" :class="currentIndex == 3 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/goldColor.png'">
-              <div class="contentCarBtnTitle" :class="index == currentIndex ?'contentCarBtnTitle2':'contentCarBtnTitle'">{{item.label}}</div>
-            </div>
+      <div class="contentCar">
+        <div class="contentCarBtn"  v-for="(item,index) in carData" :key="item.id" @click="carBtn(index,item.label)">
+          <div style="position: relative">
+            <img  v-if="item.label == '拉菲红'" class="colorTitle" :class="currentIndex == 0?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/redColor.png'">
+            <img v-if="item.label == '典雅白'" class="colorTitle" :class="currentIndex == 1 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/whiteColor.png'">
+            <img v-if="item.label == '极光紫'" class="colorTitle" :class="currentIndex == 2 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/purpleColor.png'">
+            <img v-if="item.label == '琥珀金'" class="colorTitle" :class="currentIndex == 3 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/goldColor.png'">
+            <div class="contentCarBtnTitle" :class="index == currentIndex ?'contentCarBtnTitle2':'contentCarBtnTitle'">{{item.label}}</div>
           </div>
         </div>
+      </div>
       <!--</transition>-->
       <div class="contentBtn">
         <div class="contentText">
@@ -132,16 +132,10 @@
 
     },
     mounted(){
-    $(".MobileHeight").css({
-					"borderTopWidth": this.$store.state.mobileStatusBar,
-					"borderTopColor": "#fff",
-				})
-      this.$store.state.currentTitle = '梦想型';
-      this.$store.state.colorTitle = '典雅白';
-      this.$store.state.powerTitle = '1.5T CVT 自动';
-      this.$store.state.rimTitle ='R17';
-      this.$store.state.show = false;
-      this.$store.state.show1 = false;
+      $(".MobileHeight").css({
+        "borderTopWidth": this.$store.state.mobileStatusBar,
+        "borderTopColor": "#fff",
+      })
       if(this.$store.state.colorTitle == "拉菲红"){
         this.currentIndex = 0
       }else if(this.$store.state.colorTitle == "典雅白"){
@@ -158,85 +152,36 @@
         this.currentIndex = index;
         this.$store.state.colorTitle = labelTitle;
 //        console.log('this.colorTitle',this.colorTitle)
+        if(this.$store.state.colorTitle == '极光紫' || this.$store.state.colorTitle == '琥珀金'){
+          if(this.$store.state.show1 == true){
+            this.$store.state.priceTitle = this.$store.state.priceTitle - 2000;
+            this.$store.state.show1 = false;
+          }
+        }
+
         this.flag = true;
       },
       RimChooseBtn(){
-        if(this.$store.state.noback){
-           this.$router.push({
-          path: '/RimChoose',
-          query: {
-            currentTitle:this.$store.state.currentTitle,
-            colorTitle:this.$store.state.colorTitle,
-            powerTitle:this.$route.query.powerTitle,
-            priceTitle:this.$store.state.priceTitle,
-            carName:this.$route.query.carName
-          }
+        this.$router.push({
+          path: '/RimChoose'
         })
-        }else{
-           this.$router.push({
-          path: '/RimChoose',
-          query: {
-            currentTitle:this.$store.state.currentTitle,
-            colorTitle:this.$store.state.colorTitle,
-            powerTitle:this.$route.query.powerTitle,
-            priceTitle:this.$store.state.priceTitle,
-            carName:this.$route.query.carName,
-            lovecar:'notsplovecar'
-          }
-        })
-        }
-       
       },
       previewBtn(){//如果是舒适型(自由型)直接跳转到在线订车页面
-      if(this.$store.state.noback){
-
         this.$router.push({
           path: '/wit/PreviewChoose',
           query: {
             currentTitle:this.$store.state.currentTitle,
             colorTitle:this.$store.state.colorTitle,
             powerTitle:this.$store.state.powerTitle,
-            priceTitle:this.$store.state.priceTitle,
-            carName:this.$route.query.carName
+            priceTitle:this.$store.state.priceTitle
           }
         })
-      }else{
-         this.$router.push({
-          path: '/wit/PreviewChoose',
-          query: {
-            currentTitle:this.$store.state.currentTitle,
-            colorTitle:this.$store.state.colorTitle,
-            powerTitle:this.$store.state.powerTitle,
-            priceTitle:this.$store.state.priceTitle,
-            carName:this.$route.query.carName,
-            lovecar:'notsplovecar'
-          }
-        })
-      }
       },
       backChooseBtn(){
-        if(this.$store.state.noback){
-          this.$router.push({
-            path: '/CarChoose',
-            query: {
-              currentTitle:this.$store.state.currentTitle,
-              powerTitle:this.$store.state.powerTitle,
-              priceTitle:this.$store.state.priceTitle,
-              carName:this.$route.query.carName
-            }
-          })
-        }else{
-          this.$router.push({
-            path: '/CarChoose',
-            query: {
-              currentTitle:this.$store.state.currentTitle,
-              powerTitle:this.$store.state.powerTitle,
-              priceTitle:this.$store.state.priceTitle,
-              carName:this.$route.query.carName,
-              lovecar:'notsplovecar',
-            }
-          })
-        }
+
+        this.$router.push({
+          path: '/CarChoose'
+        })
 //        if(this.$store.state.currentTitle == '自由型'){
 //          this.$router.push({
 //            path: '/CarChoose',
@@ -281,16 +226,16 @@
 
       },
       goBack(){
-          this.$router.go(-1);
+        this.$router.go(-1);
       }
     }
   }
 </script>
 <style scoped>
-	.MobileHeight {
-		border-top-style: solid;
-		box-sizing: content-box;
-	}
+  .MobileHeight {
+    border-top-style: solid;
+    box-sizing: content-box;
+  }
   .main{
     height: 100%;
     background-color: #fff;
@@ -303,7 +248,7 @@
     background-color: #fff;
   }
   /*.nav .navBack{*/
-    /*padding-left: 0.15rem;*/
+  /*padding-left: 0.15rem;*/
   /*}*/
   .headerHeight{
     height: 1.5rem;

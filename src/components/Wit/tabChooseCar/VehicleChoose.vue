@@ -1,15 +1,15 @@
 <template>
   <div class="main">
-    <div v-if="this.$route.query.currentTitle == '超越型' || this.$route.query.currentTitle == '梦想型' || this.$route.query.currentTitle == '探索型'">
+    <div v-if="this.$store.state.currentTitle == '超越型' || this.$store.state.currentTitle == '梦想型' || this.$store.state.currentTitle == '探索型'">
       <div class="headerHeight"></div>
       <transition name="slide1">
         <div class="contentImg" v-if="flag">
           <div class="carImg">
-            <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-if="$route.query.colorTitle=='典雅白'" :src="'./static/images/Wit/whiteBody.png'"/>
-            <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='极光紫'" :src="'./static/images/Wit/purpleBody.png'"/>
-            <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='琥珀金'" :src="'./static/images/Wit/goldBody.png'"/>
-            <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='拉菲红'" :src="'./static/images/Wit/redBody.png'"/>
-            <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-show="this.$store.state.show1 && ($route.query.colorTitle=='典雅白' || $route.query.colorTitle=='拉菲红')"  :src="carBody"/>
+            <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-if="this.$store.state.colorTitle=='典雅白'" :src="'./static/images/Wit/whiteBody.png'"/>
+            <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="this.$store.state.colorTitle=='极光紫'" :src="'./static/images/Wit/purpleBody.png'"/>
+            <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="this.$store.state.colorTitle=='琥珀金'" :src="'./static/images/Wit/goldBody.png'"/>
+            <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="this.$store.state.colorTitle=='拉菲红'" :src="'./static/images/Wit/redBody.png'"/>
+            <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-show="this.$store.state.show1 && (this.$store.state.colorTitle=='典雅白' || this.$store.state.colorTitle=='拉菲红')"  :src="carBody"/>
             <!--<img v-if="$route.query.rimTitle=='R18'" :src="'./static/images/Wit/R18.png'">-->
             <!--<img v-else-if="$route.query.rimTitle=='R17'" :src="'./static/images/Wit/R17.png'">-->
             <!--<img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-show="!show2"  :src="wheels"/>-->
@@ -29,18 +29,18 @@
               </div>
             </div>
           </div>
-          <div class="contentCarBtn" v-if="$route.query.colorTitle=='典雅白' || $route.query.colorTitle=='拉菲红' ">
+          <div class="contentCarBtn" v-if="this.$store.state.colorTitle=='典雅白' || this.$store.state.colorTitle=='拉菲红' ">
             <div>
-              <img class="leftImg" v-if="$route.query.colorTitle=='典雅白'" :src="imgBody2">
-              <img class="leftImg" v-if="$route.query.colorTitle=='极光紫'" :src="imgBody3">
-              <img class="leftImg" v-if="$route.query.colorTitle=='琥珀金'" :src="imgBody4">
-              <img class="leftImg" v-if="$route.query.colorTitle=='拉菲红'" :src="imgBody5">
+              <img class="leftImg" v-if="this.$store.state.colorTitle=='典雅白'" :src="imgBody2">
+              <img class="leftImg" v-if="this.$store.state.colorTitle=='极光紫'" :src="imgBody3">
+              <img class="leftImg" v-if="this.$store.state.colorTitle=='琥珀金'" :src="imgBody4">
+              <img class="leftImg" v-if="this.$store.state.colorTitle=='拉菲红'" :src="imgBody5">
               <!--<img class="leftImg" :src="this.show1 ? imgBody1 :carSmallBody">-->
             </div>
             <div class="middleTitle"><span>新潮双色车身</span><span>+&nbsp;¥2000</span></div>
             <div class="rightBtn" >
               <div  class="rightBtnContent" @click="carBtn(1)">
-                <img  style="width:.6rem;height:.7rem;padding-top: 0.1rem;padding-left: 0.02rem" v-if="$route.query.colorTitle=='典雅白' || $route.query.colorTitle=='拉菲红' " :src="this.$store.state.show1?url1:url">
+                <img  style="width:.6rem;height:.7rem;padding-top: 0.1rem;padding-left: 0.02rem" v-if="this.$store.state.colorTitle=='典雅白' || this.$store.state.colorTitle=='拉菲红' " :src="this.$store.state.show1?url1:url">
               </div>
             </div>
           </div>
@@ -145,7 +145,7 @@
       }else if(this.$store.state.show1 == true){
         this.currentIndex = 1;
       }
-
+//alert(this.$store.state.priceTitle);
 //      else if(this.$store.state.colorTitle == '琥珀金'){
 //
 //      }
@@ -165,7 +165,7 @@
           this.$store.state.priceTitle = this.$store.state.priceTitle + this.totalPrice;
           console.log('this.totalPrice ',this.totalPrice )
         }else if(this.currentIndex == 1){
-          var bodyColor = this.$route.query.colorTitle
+          var bodyColor = this.$store.state.colorTitle
           if(bodyColor == '典雅白'){
             this.$store.state.show1 = !this.$store.state.show1;
             this.carBody = !this.$store.state.show1?this.whiteNormal:this.whiteDouble;
@@ -174,9 +174,9 @@
             console.log('this.totalPrice2 ',this.totalPrice2 )
           } else if(bodyColor == '极光紫'){
             this.carBody = this.purpleNormal;
-
           }else if(bodyColor == '琥珀金'){
             this.carBody = this.goldNormal;
+
           }
           else if(bodyColor == '拉菲红'){
             this.$store.state.show1 = !this.$store.state.show1
@@ -188,50 +188,17 @@
 
       },
       previeChooseBtn(){
-        var outType= !this.$store.state.show1 ? '车身' : '双色车身';
-        var LEDType= !this.$store.state.show ? '' : "LED前大灯";
-  
-          this.$router.push({
+        this.$store.state.outType= !this.$store.state.show1 ? '车身' : '双色车身';
+        this.$store.state.LEDType= !this.$store.state.show ? '' : "LED前大灯";
+        alert(this.$store.state.priceTitle);
+        this.$router.push({
           path: '/wit/PreviewChoose',
-          query: {
-            currentTitle: this.$route.query.currentTitle,
-            colorTitle: this.$route.query.colorTitle,
-            rimTitle: this.$route.query.rimTitle,
-            powerTitle: this.$route.query.powerTitle,
-            priceTitle: this.$store.state.priceTitle,
-            ledType:LEDType,
-            outType:outType,
-            carName:this.$route.query.carName,
-          }
-        })      
+        })
       },
       backChooseBtn(){
-        if(this.$store.state.noback){
-          this.$router.push({
-            path: '/RimChoose',
-            query: {
-              currentTitle:this.$store.state.currentTitle,
-              powerTitle:this.$store.state.powerTitle,
-              priceTitle:this.$store.state.priceTitle,
-              colorTitle:this.$store.state.colorTitle,
-              rimTitle: this.$route.query.rimTitle,
-              carName:this.$route.query.carName,
-            }
-          })
-        }else{
-          this.$router.push({
-            path: '/RimChoose',
-            query: {
-              currentTitle:this.$store.state.currentTitle,
-              powerTitle:this.$store.state.powerTitle,
-              priceTitle:this.$store.state.priceTitle,
-              colorTitle:this.$store.state.colorTitle,
-              rimTitle: this.$route.query.rimTitle,
-              carName:this.$route.query.carName,
-              lovecar:'notsplovecar'
-            }
-          })
-        }
+        this.$router.push({
+          path: '/RimChoose'
+        })
       }
     }
   }

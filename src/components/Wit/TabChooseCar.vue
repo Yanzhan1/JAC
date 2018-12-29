@@ -15,13 +15,13 @@
         <router-link tag="div" class="tabContent" :to="{path:'/CarChoose'}" >
           车型
         </router-link>
-        <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle}}" >
+        <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose'}" >
         颜色
         </router-link>
-        <router-link tag="div" class="tabContent" :to="{path:'/RimChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,colorTitle:this.$store.state.colorTitle}}" >
+        <router-link tag="div" class="tabContent" :to="{path:'/RimChoose'}" >
           轮辋
         </router-link>
-        <router-link tag="div" class="tabContent" :to="{path:'/VehicleChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,colorTitle:this.$store.state.colorTitle,rimTitle:this.$store.state.rimTitle}}" >
+        <router-link tag="div" class="tabContent" :to="{path:'/VehicleChoose'}" >
         选装
         </router-link>
       </div>
@@ -29,7 +29,7 @@
         <router-link tag="div" class="tabContent" :to="{path:'/CarChoose'}" >
           车型
         </router-link>
-        <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle}}" >
+        <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose'}" >
           颜色
         </router-link>
       </div>
@@ -39,13 +39,13 @@
         <router-link tag="div" class="tabContent" :to="{path:'/CarChoose',query:{lovecar:'notsplovecar'}}" >
           车型
         </router-link>
-        <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,lovecar:'notsplovecar'}}" >
+        <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{lovecar:'notsplovecar'}}" >
         颜色
         </router-link>
-        <router-link tag="div" class="tabContent" :to="{path:'/RimChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,colorTitle:this.$store.state.colorTitle,lovecar:'notsplovecar'}}" >
+        <router-link tag="div" class="tabContent" :to="{path:'/RimChoose',query:{lovecar:'notsplovecar'}}" >
           轮辋
         </router-link>
-        <router-link tag="div" class="tabContent" :to="{path:'/VehicleChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,colorTitle:this.$store.state.colorTitle,rimTitle:this.$store.state.rimTitle,lovecar:'notsplovecar'}}" >
+        <router-link tag="div" class="tabContent" :to="{path:'/VehicleChoose',query:{lovecar:'notsplovecar'}}" >
         选装
         </router-link>
       </div>
@@ -53,12 +53,12 @@
         <router-link tag="div" class="tabContent" :to="{path:'/CarChoose'}" >
           车型
         </router-link>
-        <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{currentTitle:this.$store.state.currentTitle,powerTitle:this.$store.state.powerTitle,priceTitle:this.$store.state.priceTitle,lovecar:'notsplovecar'}}" >
+        <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{lovecar:'notsplovecar'}}" >
           颜色
         </router-link>
       </div>
     </div>
-    
+
     <router-view/>
   </div>
 </template>
@@ -149,13 +149,14 @@
   }
   .headerHeight{
     height: 1.5rem;
+    background-color: #fff;
   }
   .tab{
     width: 100%;
     position: fixed;
     height: 1rem;
     line-height:1rem;
-    /*background-color: red;*/
+    background-color: #fff;
   }
   .tab .tabContent{
     display: inline-block;
@@ -179,7 +180,7 @@
   }
   .specilheader{
     text-align: center;
-    
+
   }
   .specilheader>div{
     font-size: .36rem;

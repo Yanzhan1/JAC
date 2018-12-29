@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div v-if="this.$route.query.currentTitle == '超越型' || this.$route.query.currentTitle == '梦想型' || this.$route.query.currentTitle == '探索型'">
+    <div v-if="this.$store.state.currentTitle == '超越型' || this.$store.state.currentTitle == '梦想型' || this.$store.state.currentTitle == '探索型'">
       <div class="headerHeight"></div>
       <!--<transition name="slide1">-->
         <div class="contentImg">
@@ -60,7 +60,7 @@
             id:2,
             label:'R18' ,
             value:'轮辋:R18',
-            text:'+¥500',
+            text:'+ ¥500',
             img:'./static/images/Wit/R18common.png'
           }
         ],
@@ -107,59 +107,14 @@
       rimChooseBtn(){
 //          alert(this.$route.query.powerTitle);
 //        console.log('this.currentTitle',this.currentTitle)
-        if(this.$store.state.noback){
-
-          this.$router.push({
-            path: '/VehicleChoose',
-            query: {
-              currentTitle:this.$route.query.currentTitle,
-              colorTitle:this.$route.query.colorTitle,
-              rimTitle:this.$store.state.rimTitle,
-              powerTitle:this.$route.query.powerTitle,
-              priceTitle:this.$store.state.priceTitle,
-              carName:this.$route.query.carName,
-            }
-          })
-        }else{
-          this.$router.push({
-            path: '/VehicleChoose',
-            query: {
-              currentTitle:this.$route.query.currentTitle,
-              colorTitle:this.$route.query.colorTitle,
-              rimTitle:this.$store.state.rimTitle,
-              powerTitle:this.$route.query.powerTitle,
-              priceTitle:this.$store.state.priceTitle,
-              carName:this.$route.query.carName,
-              lovecar:'notsplovecar'
-            }
-          })
-        }
+        this.$router.push({
+          path: '/VehicleChoose'
+        })
       },
       backChooseBtn(){
-        if(this.$store.state.noback){
-          this.$router.push({
-            path: '/ColorChoose',
-            query: {
-              currentTitle:this.$store.state.currentTitle,
-              powerTitle:this.$store.state.powerTitle,
-              priceTitle:this.$store.state.priceTitle,
-              colorTitle:this.$store.state.colorTitle,
-              carName:this.$route.query.carName
-            }
-          })
-        }else{
-          this.$router.push({
-            path: '/ColorChoose',
-            query: {
-              currentTitle:this.$store.state.currentTitle,
-              powerTitle:this.$store.state.powerTitle,
-              priceTitle:this.$store.state.priceTitle,
-              colorTitle:this.$store.state.colorTitle,
-              carName:this.$route.query.carName,
-              lovecar:'notsplovecar',
-            }
-          })
-        }
+        this.$router.push({
+          path: '/ColorChoose'
+        })
       }
     }
   }

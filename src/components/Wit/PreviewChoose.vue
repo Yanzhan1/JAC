@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <header class="nav MobileHeight header ">
-      <div v-show="this.$store.state.noback" class="navBack" @click="goBack"><img style="width:.4rem;height:.4rem;" :src="'./static/images/back@2x.png'"></div>
+      <div class="navBack" @click="goBack"><img style="width:.4rem;height:.4rem;" :src="'./static/images/back@2x.png'"></div>
       <div class="navTitle"></div>
       <div></div>
     </header>
@@ -14,12 +14,12 @@
         <div class="contentSmallTitle">
           <div class="small">
             <span class="smallTitle">车型</span>
-            <span class="smallTitleContent">{{$route.query.currentTitle}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="smallTitleContent">{{$route.query.powerTitle}}</span>
+            <span class="smallTitleContent">{{this.$store.state.currentTitle}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="smallTitleContent">{{this.$store.state.powerTitle}}</span>
           </div>
           <div class="small">
             <span class="smallTitle">颜色</span>
-            <span class="smallTitleContent">{{$route.query.colorTitle}}</span>
+            <span class="smallTitleContent">{{this.$store.state.colorTitle}}</span>
           </div>
         </div>
       </div>
@@ -28,16 +28,16 @@
       <!--<transition name="slide1">-->
       <div class="contentImg">
         <div class="carImg">
-          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-if="$route.query.colorTitle=='典雅白'" :src="'./static/images/Wit/whiteBody.png'"/>
-          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='极光紫'" :src="'./static/images/Wit/purpleBody.png'"/>
-          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='琥珀金'" :src="'./static/images/Wit/goldBody.png'"/>
-          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='拉菲红'" :src="'./static/images/Wit/redBody.png'"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-if="this.$store.state.colorTitle=='典雅白'" :src="'./static/images/Wit/whiteBody.png'"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="this.$store.state.colorTitle=='极光紫'" :src="'./static/images/Wit/purpleBody.png'"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="this.$store.state.colorTitle=='琥珀金'" :src="'./static/images/Wit/goldBody.png'"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="this.$store.state.colorTitle=='拉菲红'" :src="'./static/images/Wit/redBody.png'"/>
         </div>
       </div>
       <!--</transition>-->
       <div class="contentBtn">
         <div class="contentText">
-          <div class="priceLabel">{{this.$route.query.priceTitle}}元</div>
+          <div class="priceLabel">{{this.$store.state.priceTitle}}元</div>
           <div class="contentColorBtn2" @click="resetChooseBtn">
             << 重新选择
           </div>
@@ -47,7 +47,7 @@
         </div>
       </div>
     </div>
-    <div v-if="this.$route.query.currentTitle == '超越型' || this.$route.query.currentTitle == '梦想型' || this.$route.query.currentTitle == '探索型'">
+    <div v-if="this.$store.state.currentTitle == '超越型' || this.$store.state.currentTitle == '梦想型' || this.$store.state.currentTitle == '探索型'">
       <div class="headerHeight3"></div>
       <!--<transition name="slide">-->
       <div class="content">
@@ -55,12 +55,12 @@
         <div class="contentSmallTitle">
           <div class="small">
             <span class="smallTitle">车型</span>
-            <span class="smallTitleContent">{{$route.query.currentTitle}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="smallTitleContent">{{$route.query.powerTitle}}</span>
+            <span class="smallTitleContent">{{this.$store.state.currentTitle}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="smallTitleContent">{{this.$store.state.powerTitle}}</span>
           </div>
           <div class="small">
             <span class="smallTitle">颜色</span>
-            <span class="smallTitleContent">{{$route.query.colorTitle}}</span>
+            <span class="smallTitleContent">{{this.$store.state.colorTitle}}</span>
           </div>
         </div>
       </div>
@@ -68,14 +68,14 @@
       <div class="contentImg">
         <!--<transition name="slide1">-->
         <div class="carImg">
-          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-if="$route.query.colorTitle=='典雅白'" :src="'./static/images/Wit/whiteBody.png'"/>
-          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='极光紫'" :src="'./static/images/Wit/purpleBody.png'"/>
-          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='琥珀金'" :src="'./static/images/Wit/goldBody.png'"/>
-          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="$route.query.colorTitle=='拉菲红'" :src="'./static/images/Wit/redBody.png'"/>
-          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-show="$route.query.colorTitle=='典雅白' && $route.query.outType == '双色车身'"  :src="whiteDouble"/>
-          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-show="$route.query.colorTitle=='拉菲红' && $route.query.outType == '双色车身'"  :src="redDouble"/>
-          <img v-if="$route.query.rimTitle=='R18'" :src="'./static/images/Wit/R18.png'">
-          <img v-else-if="$route.query.rimTitle=='R17'" :src="'./static/images/Wit/R17.png'">
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-if="this.$store.state.colorTitle=='典雅白'" :src="'./static/images/Wit/whiteBody.png'"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="this.$store.state.colorTitle=='极光紫'" :src="'./static/images/Wit/purpleBody.png'"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="this.$store.state.colorTitle=='琥珀金'" :src="'./static/images/Wit/goldBody.png'"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="this.$store.state.colorTitle=='拉菲红'" :src="'./static/images/Wit/redBody.png'"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-show="this.$store.state.colorTitle=='典雅白' && this.$store.state.outType == '双色车身'"  :src="whiteDouble"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-show="this.$store.state.colorTitle=='拉菲红' && this.$store.state.outType == '双色车身'"  :src="redDouble"/>
+          <img v-if="this.$store.state.rimTitle=='R18'" :src="'./static/images/Wit/R18.png'">
+          <img v-else-if="this.$store.state.rimTitle=='R17'" :src="'./static/images/Wit/R17.png'">
         </div>
         <!--</transition>-->
       </div>
@@ -85,24 +85,24 @@
         <div class="contentCarBtn" >
           <div>
             <!--<img class="leftImg" :src="carWheelCommonR17">-->
-            <img class="leftImg2" v-if="$route.query.rimTitle =='R17'" :src="carWheelCommonR17">
-            <img class="leftImg2" v-else-if="$route.query.rimTitle =='R18'" :src="carWheelCommonR18">
+            <img class="leftImg2" v-if="this.$store.state.rimTitle =='R17'" :src="carWheelCommonR17">
+            <img class="leftImg2" v-else-if="this.$store.state.rimTitle =='R18'" :src="carWheelCommonR18">
           </div>
-          <div class="middleTitle">{{this.$route.query.rimTitle}}</div>
+          <div class="middleTitle">{{this.$store.state.rimTitle}}</div>
         </div>
 
-        <div class="contentCarBtn" v-if="this.$route.query.ledType != ''">
+        <div class="contentCarBtn" v-if="this.$store.state.LEDType != ''">
           <div class="contentPic">
             <img class="leftImg" :src="imgLED">
           </div>
           <div class="middleTitle">LED前大灯&nbsp;&nbsp;¥1000</div>
         </div>
-        <div class="contentCarBtn" v-if="this.$route.query.outType == '双色车身'">
+        <div class="contentCarBtn" v-if="this.$store.state.outType == '双色车身'">
           <div>
-            <img class="leftImg3" v-if="$route.query.colorTitle=='典雅白'" :src="imgBody2">
-            <img class="leftImg3" v-if="$route.query.colorTitle=='极光紫'" :src="imgBody3">
-            <img class="leftImg3" v-if="$route.query.colorTitle=='琥珀金'" :src="imgBody4">
-            <img class="leftImg3" v-if="$route.query.colorTitle=='拉菲红'" :src="imgBody5">
+            <img class="leftImg3" v-if="this.$store.state.colorTitle=='典雅白'" :src="imgBody2">
+            <img class="leftImg3" v-if="this.$store.state.colorTitle=='极光紫'" :src="imgBody3">
+            <img class="leftImg3" v-if="this.$store.state.colorTitle=='琥珀金'" :src="imgBody4">
+            <img class="leftImg3" v-if="this.$store.state.colorTitle=='拉菲红'" :src="imgBody5">
             <!--<img class="leftImg" :src="this.show1 ? imgBody1 :carSmallBody">-->
           </div>
           <div class="middleTitle">双色车身&nbsp;&nbsp;¥2000</div>
@@ -111,7 +111,7 @@
       <!--</transition>-->
       <div class="contentBtn">
         <div class="contentText">
-          <div class="priceLabel">{{this.$route.query.priceTitle}}元</div>
+          <div class="priceLabel">{{this.$store.state.priceTitle}}元</div>
           <div class="contentColorBtn2" @click="resetChooseBtn">
             << 重新选择
           </div>
@@ -213,13 +213,13 @@
     methods:{
       confirmChooseBtn(){
         this.vehicleData = [];
-        var carType = "车型："+this.$route.query.currentTitle;
-        var carPowerType = "动力:"+this.$route.query.powerTitle;
-        var outType= "外观："+this.$route.query.outType+this.$route.query.colorTitle;
-        var wheelType = "轮辋："+this.$route.query.rimTitle;
-        var LEDLampType= this.$route.query.ledType;
+        var carType = "车型："+this.$store.state.currentTitle;
+        var carPowerType = "动力:"+this.$store.state.powerTitle;
+        var outType= "外观："+this.$store.state.outType+this.$store.state.colorTitle;
+        var wheelType = "轮辋："+this.$store.state.rimTitle;
+        var LEDLampType= this.$store.state.LEDType;
         var LEDType = "LED大灯:"+LEDLampType;
-        var priceType = "价格:"+ this.$route.query.priceTitle;
+        var priceType = "价格:"+ this.$store.state.priceTitle;
         if(LEDLampType != ''){
           this.vehicleData.push(LEDType);
         }
@@ -227,8 +227,7 @@
         this.$router.push({
           path: '/wit/Reserve',
           query: {
-            vehicleData:this.vehicleData,
-            carName:this.$route.query.carName,
+            vehicleData:this.vehicleData
           }
         })
 
@@ -241,35 +240,22 @@
         this.$store.state.rimTitle ='R17';
         this.$store.state.show = false;
         this.$store.state.show1 = false;
-        if(this.$store.state.noback){
-          this.$router.push({
+        this.$router.push({
           path: '/wit/tabChooseCar'
         })
-        }else{
-          this.$router.push({
-          path: '/wit/tabChooseCar',
-          query:{
-            lovecar:'notsplovecar'
-          }
-        })
-        }
-        
       },
       goBack(){
-        this.$store.state.priceTitle2 = this.$route.query.priceTitleType;
-        this.$router.push({
-          path: '/VehicleChoose',
-          query: {
-            currentTitle: this.$route.query.currentTitle,
-            colorTitle: this.$route.query.colorTitle,
-            rimTitle: this.$route.query.rimTitle,
-            powerTitle: this.$route.query.powerTitle,
-            priceTitle: this.$route.query.priceTitleType,
-            ledType:this.$route.query.LEDType,
-            outType:this.$route.query.outType,
-            carName:this.$route.query.carName,
-          }
-        })
+//        this.$store.state.priceTitle = this.$route.query.priceTitle;
+        if(this.$store.state.currentTitle == '自由型'){
+          this.$router.push({
+            path: '/ColorChoose'
+          })
+        }else if(this.$store.state.currentTitle != '自由型'){
+          this.$router.push({
+            path: '/VehicleChoose'
+          })
+        }
+
       }
     }
   }
