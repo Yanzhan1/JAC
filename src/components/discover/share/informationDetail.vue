@@ -103,7 +103,6 @@
     </div>
     <div style="height: 1rem;"></div>
     <!--评论输入框S-->
-    <!--<DiscCommentBox ref="commentbox"></DiscCommentBox>-->
     <!--<div id="commentBg"/>-->
     <!--<div class="flex contentcenter myInput" id="myInput">-->
     <!--<input autofocus="autofocus" ref="commentfocus" id="comment" type="text" v-model="commentMsg" placeholder="写评论..."/>-->
@@ -114,7 +113,6 @@
 </template>
 
 <script>
-  import DiscCommentBox from '../component/DiscCommentBox.vue';
   import {
     MessageBox
   } from 'mint-ui';
@@ -145,8 +143,7 @@
       this.manageId = this.$route.query.id;
     },
     components: {
-      shareBox,
-      DiscCommentBox
+      shareBox
     },
     methods: {
       CommentBoxchange() {
