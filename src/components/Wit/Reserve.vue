@@ -354,13 +354,13 @@ export default {
     },
     // 提交前 先判断用户输入的推荐码是否正确
     sub() {
-      var param = {
-        code: this.$store.state.userId
-      };
-      this.$http.post(My.RecomendCode, param).then(res => {
-        if (res.data.code == 0) {
-        }
-      });
+      // var param = {
+      //   userNo: this.$store.state.userId
+      // };
+      // this.$http.post(My.RecomendCode, param).then(res => {
+      //   if (res.data.code == 0) {
+      //   }
+      // });
       if(this.Distribution=='此地区暂无经销商'){
          Toast({
           message: "此地区暂无经销商",
@@ -420,7 +420,7 @@ export default {
               mobile: this.tell, //手机号
               email: this.email, //email
               address: this.address, //地址
-              comments: this.$route.query.vehicleData, //车型配置
+              comments: this.vehicleData, //车型配置
               province: this.provinceid, //省份ID
               series: this.$store.state.levelCode, //意向车系
               model: this.$store.state.srouceNo, //意向车型
@@ -605,15 +605,8 @@ export default {
       },
       //拼接
       Pikante(){
-        let vehicleData=this.$route.query.vehicleData
-        if(vehicleData[3]==undefined){
-          this.vehicleData=vehicleData[0]+','+vehicleData[1]+','+vehicleData[2]
-        }else if(vehicleData[2]==undefined){
-          this.vehicleData=vehicleData[0]+','+vehicleData[1]
-        }else{
-          this.vehicleData=vehicleData[0]+','+vehicleData[1]+','+vehicleData[2]+','+vehicleData[3]
-
-        }
+        this.vehicleData=this.$route.query.vehicleData+''
+        
       }
   },
   created(){

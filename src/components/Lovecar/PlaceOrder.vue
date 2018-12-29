@@ -18,6 +18,7 @@
 			</div>
 		</div>
 		<div class="linetwo"></div>
+    <div style="font:500 .2rem/.3rem 'PingFangSC-Regular';margin-left:.3rem;">客服电话：4008889933</div>
 		<!-- <div class="pay-method">
 			<p>支付方式</p>
 			<button class="money-way">微信支付</button>
@@ -28,7 +29,6 @@
 				<span style="font-size: .38rem;color: #49BBFF;">
 					<span style="font-size: .48rem;color: #49BBFF;">{{placeOrder.prize}}</span>元</span>
 			</div>
-      <div style="position:absolute;left:0.2rem;bottom:10rem;font:500 .2rem/.3rem 'PingFangSC-Regular'">客服电话：4008889933</div>
 			<div class="submit" style="background: #49BBFF;color: #FFFFFF;" @click="submit">
 				<span>去支付</span>
 			</div>

@@ -57,7 +57,7 @@
       <div class="gradientline"></div>
     </div>
     <div class="agreement">江淮汽车      
-        <a href="javascript:;" @click="goAgreement"><<用户注册协议>></a>
+        <a href="javascript:;" @click="goAgreement">用户注册协议</a>
       </div>
     <span class="submit" @click="changemessage">保存</span>
 
