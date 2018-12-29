@@ -127,7 +127,7 @@ export default {
       var wHeight = $(window).height();
       var sliderHeight = wHeight - 70;
 
-      $(".swipe li").height(sliderHeight);
+      $(".swipe>li").height(sliderHeight);
     },
     //道路救援
     confirmRevise() {
@@ -381,11 +381,13 @@ export default {
         x1 = touch1.pageX; //获取手指滑动开始的X位置
         y1 = touch1.pageY; //获取手指滑动开始的Y位置
         ty_left = parseInt($(this).css("left")); //获取手指滑动开始的定位left值
+        console.log(touch1,x1,y1,ty_left,'touchstart')
       });
       $(".find_nav_list").on("touchmove", function(e) {
         var touch2 = e.originalEvent.targetTouches[0];
         var x2 = touch2.pageX; //持续获得手指的X,Y的值
         var y2 = touch2.pageY;
+         console.log(touch2,x2,y2,ty_left,'touchstart')
         if (ty_left + x2 - x1 >= 0) {
           $(this).css("left", 0);
         } else if (ty_left + x2 - x1 <= flb_w - fl_w) {

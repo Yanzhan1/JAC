@@ -31,6 +31,17 @@ export default {
             levelCode:'',//车辆预定中的series
         }
     },
+    beforeRouteEnter:(to,from,next)=>{
+       if(from.fullPath=='/wit'){
+         next(vm =>{
+          //此时该组件被实例化了
+          vm.$store.state.noback=true 
+        })
+       }else{
+         next()
+       }
+        
+      },
     methods:{
         configure(){
             this.$router.push({

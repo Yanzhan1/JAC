@@ -50,6 +50,7 @@
         </div>
       <!--</transition>-->
       </div>
+      <div class="headerHeight3"></div>
     </div>
 
   <div class="contentBtn">
@@ -418,67 +419,18 @@ export default{
     },
     colorChooseBtn(){
       if(this.$store.state.noback){
-           this.$router.push({
-          path: '/ColorChoose',
-          query: {
-            currentTitle:this.$store.state.currentTitle,
-            powerTitle:this.$store.state.powerTitle,
-            priceTitle:this.$store.state.priceTitle
-          }
+
+        this.$router.push({
+          path: '/ColorChoose'
         })
       }else{
-           this.$router.push({
+        this.$router.push({
           path: '/ColorChoose',
-          query: {
-            currentTitle:this.$store.state.currentTitle,
-            powerTitle:this.$store.state.powerTitle,
-            priceTitle:this.$store.state.priceTitle,
-            lovecar:'notsplovecar'
-          }
+          query:{lovecar:'notsplovecar'}
         })
       }
-       
-//      if(this.$store.state.currentTitle == '自由型'){
-//        this.$router.push({
-//          path: '/ColorChoose',
-//          query: {
-//            currentTitle:this.$store.state.currentTitle,
-//            powerTitle:this.$store.state.powerTitle,
-//            priceTitle:this.priceTitle3
-//          }
-//        })
-//      }else if(this.$store.state.currentTitle == '超越型'){
-//        this.$router.push({
-//          path: '/ColorChoose',
-//          query: {
-//            currentTitle:this.$store.state.currentTitle,
-//            powerTitle:this.$store.state.powerTitle2,
-//            priceTitle:this.priceTitle4
-//          }
-//        })
-//      }else if(this.$store.state.currentTitle == '梦想型'){
-//        this.$router.push({
-//          path: '/ColorChoose',
-//          query: {
-//            currentTitle:this.$store.state.currentTitle,
-//            powerTitle:this.$store.state.powerTitle,
-//            priceTitle:this.priceTitle
-//          }
-//        })
-//      } else if(this.$store.state.currentTitle == '探索型'){
-//        this.$router.push({
-//          path: '/ColorChoose',
-//          query: {
-//            currentTitle:this.$store.state.currentTitle,
-//            powerTitle:this.$store.state.powerTitle2,
-//            priceTitle:this.priceTitle
-//          }
-//        })
-//      }
-
     },
     goBack(){
-
       this.$router.push({
         path: '/wit/TabChooseCar',
         query: {
@@ -525,7 +477,7 @@ export default{
   height:1.5rem;
 }
 .headerHeight3{
-  height: .9rem;
+  height: 1.9rem;
 }
 .contentImg{
   width: 100%;
