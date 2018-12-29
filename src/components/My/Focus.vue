@@ -14,19 +14,19 @@
         <span v-show="topStatus === 'loading'">Loading...</span>
       </div>
       <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
-    <ul class="wrap_92" v-for="item in focusList">
-      <li>
-        <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="headPic">
-        <img v-else src="../../../static/images/discover/normalhead.png" class="headPic">
-        <!--加V-->
-        <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../static/images/discover/v.png" class="head_22"/>
-        <div class="nameBox">
-          <span v-if="item.user" class="name">{{item.user.nick_name}}</span>
-          <span v-else class="name">尚未设置昵称</span>
-          <span v-if="item.user && item.user.vflag.indexOf('JAC') != -1" class="jac">JAC</span>
-        </div>
-      </li>
-    </ul>
+        <ul class="wrap_92" v-for="item in focusList">
+          <li>
+            <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="headPic">
+            <img v-else src="../../../static/images/discover/normalhead.png" class="headPic">
+            <!--加V-->
+            <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../static/images/discover/v.png" class="head_22"/>
+            <div class="nameBox">
+              <span v-if="item.user" class="name">{{item.user.nick_name}}</span>
+              <span v-else class="name">尚未设置昵称</span>
+              <span v-if="item.user && item.user.vflag.indexOf('JAC') != -1" class="jac">JAC</span>
+            </div>
+          </li>
+        </ul>
       </div>
     </mt-loadmore>
   </div>
@@ -40,7 +40,6 @@
     name: "fans",
     data() {
       return {
-        listNum: 9,
         focusList: [],
         userId: null,
         pageNum: 1,
@@ -48,7 +47,7 @@
         loadEnd: false,
         loading: false,
         topStatus: '',
-        list:15
+        list:20
       }
     },
     created() {},
@@ -99,7 +98,7 @@
         }).then(function (res) {
           _this.loadEnd = false;
           if (res.data.status) {
-            _this.focusList = _this.fansList.concat(res.data.data);
+            _this.focusList = _this.focusList.concat(res.data.data);
             var allPages = Math.ceil(res.data.recordsTotal / _this.list);
             if (allPages <= _this.pageNum) {
               _this.loading = true;
@@ -135,7 +134,9 @@
     mounted() {
       this.userId = this.$store.state.userId;
       //this.getFocusList();
-      this.getRefreshList()
+      this.$nextTick(function () {
+        this.getRefreshList()
+      })
     }
   }
 

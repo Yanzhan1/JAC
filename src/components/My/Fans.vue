@@ -66,7 +66,7 @@
         loadEnd: false,
         loading: false,
         topStatus: '',
-        list:15
+        list:20
       }
     },
     created() {},
@@ -103,6 +103,7 @@
       },
       //粉丝刷新翻页
       getNextList: function () {
+        console.log('翻页')
         let _this = this;
         if (this.loadEnd) {
           this.loadBottom();
@@ -118,6 +119,7 @@
           _this.loadEnd = false;
           if (res.data.status) {
             _this.fansList = _this.fansList.concat(res.data.data);
+            console.log(_this.fansList.length+'关注长度')
             var allPages = Math.ceil(res.data.recordsTotal / _this.list);
             if (allPages <= _this.pageNum) {
               _this.loading = true;
