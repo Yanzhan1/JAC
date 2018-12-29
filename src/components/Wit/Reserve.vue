@@ -6,7 +6,7 @@
                   <ul>
                       <li class="all">
                           <span>预定车型</span>
-                          <div>{{this.$store.state.seriesName?this.$store.state.seriesName:this.$route.query.carName}}</div>
+                          <div>{{this.$store.state.seriesName}}</div>
                       </li>
                       <li @click="regions" class="all">
                           <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>省</span>

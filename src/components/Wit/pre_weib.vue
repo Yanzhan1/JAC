@@ -1,58 +1,57 @@
 <template>
-	<div>
+	<div class="big_box" @touchmove.prevent>
 		<!--<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">维保预约</span>
 			<span class="header-right"></span>
 		</header>
 		<div style="height:.88rem"></div>-->
-		<mhead currentTitle="维保预约"></mhead>
-		<hr style="backgroun:rgba(241,241,241,1)">
+		<!-- <mhead currentTitle="维保预约"></mhead> -->
 		<div class="carmessage">车主信息</div>
-		<ul style="padding:0 .33rem">
-			<li class="flex row li_st between cocenter">
+		<div style="padding:0 .33rem">
+			<div class="flex row li_st between cocenter">
 				<p style="font-size:.27rem;color:#555">姓名</p>
 				<div class="flex row cocenter">
 					<input type="text" placeholder="请输入姓名"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
-			</li>
-			<li class="flex row li_st between cocenter">
+			</div>
+			<div class="flex row li_st between cocenter">
 				<p style="font-size:.27rem;color:#555">手机号</p>
 				<div class="flex row cocenter">
-					<input type="text" placeholder="请输入手机号"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">
+					<input type="text" placeholder="请输入手机号" v-model="this.mobile"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
-			</li>
-			<li class="flex row li_st between cocenter">
+			</div>
+			<div class="flex row li_st between cocenter">
 				<p style="font-size:.27rem;color:#555">品牌</p>
 				<div class="flex row cocenter">
 					<input type="text" placeholder="请输入品牌" style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
-			</li>
-			<li class="flex row li_st between cocenter">
+			</div>
+			<div class="flex row li_st between cocenter">
 				<p style="font-size:.27rem;color:#555">车型</p>
 				<div class="flex row cocenter">
 					<span>瑞风S4</span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
-			</li>
-			<li class="flex row li_st between cocenter" @click="chooseprovinces">
+			</div>
+			<div class="flex row li_st between cocenter" @click="chooseprovinces">
 				<p style="font-size:.27rem;color:#555">省份</p>
 				<div class="flex row cocenter">
 					<span>{{this.valuesprovince1}}</span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
-			</li>
-			<li class="flex row li_st between cocenter" @click="choosecitys">
+			</div>
+			<div class="flex row li_st between cocenter" @click="choosecitys">
 				<p style="font-size:.27rem;color:#555">城市</p>
 				<div class="flex row cocenter">
 					<span>{{this.valuescity1}}</span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
-			</li>
-		</ul>
+			</div>
+		</div>
     <mt-popup id="provinceLabel" class="region"  position="bottom">
                   <h3>选择省</h3>
                   <span @click="chooseprovinceone">确定</span>
@@ -64,29 +63,29 @@
                   <mt-picker :slots="slots2" @change="cityChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
     </mt-popup>
 		<div class="carmessage">预约信息</div>
-		<ul style="padding:0 .33rem">
-			<li class="flex row li_st between cocenter" @click="servicestatus">
+		<div style="padding:0 .33rem">
+			<div class="flex row li_st between cocenter" @click="servicestatus">
 				<p style="font-size:.27rem;color:#555">服务站</p>
 				<div class="flex row cocenter">
 					<span style="font-size:.26rem;color:#222">{{currentTitle}}</span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
-			</li>
-			<li class="flex row li_st between cocenter" @click="orderTimeStatus">
+			</div>
+			<div class="flex row li_st between cocenter" @click="orderTimeStatus">
 				<p style="font-size:.27rem;color:#555">预约时间</p>
 				<div class="flex row cocenter">
 					<span ref="Gettimes" style="font-size:.26rem;color:#222">{{currentTime}}</span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
-			</li>
-			<li class="flex row li_st between cocenter" >
+			</div>
+			<div class="flex row li_st between cocenter" >
 				<p style="font-size:.27rem;color:#555">维保类型</p>
 				<div class="flex row cocenter">
 					<span style="font-size:.26rem;color:#222"></span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
-			</li>
-		</ul>
+			</div>
+		</div>
 		<!-- 服务站弹出框 -->
 		<div class="service " v-if="servicezhan">
 			<h2 style="padding:.2rem; text-align: center;font:.4rem/.6rem 'PingFang-SC-Regular'">服务站</h2>
@@ -133,7 +132,7 @@
       </div>
       <mt-picker :slots="slotstime" @change="timeChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
     </div>
-		<span class="bottom-btn" style="background-color:#49BBFF;" >立即预约</span>
+		<span class="bottom-btn" >立即预约</span>
 
 		<div v-show="allback" class="black" @click='backgroundshow'></div>
 		<!-- 遮罩层  -->
@@ -151,6 +150,7 @@ export default {
   },
   data() {
     return {
+      mobile:'',//手机号
       servicezhan: false, //控制服务站
       orderTime:false,//控制时间
       allback: false, //遮罩层
@@ -187,132 +187,6 @@ export default {
         },
 
       ],
-      array31: [
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09",
-        "10",
-        "11",
-        "12",
-        "13",
-        "14",
-        "15",
-        "16",
-        "17",
-        "18",
-        "19",
-        "20",
-        "21",
-        "22",
-        "23",
-        "24",
-        "25",
-        "26",
-        "27",
-        "28",
-        "29",
-        "30",
-        "31"
-      ],
-      array30: [
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09",
-        "10",
-        "11",
-        "12",
-        "13",
-        "14",
-        "15",
-        "16",
-        "17",
-        "18",
-        "19",
-        "20",
-        "21",
-        "22",
-        "23",
-        "24",
-        "25",
-        "26",
-        "27",
-        "28",
-        "29",
-        "30"
-      ],
-      array29: [
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09",
-        "10",
-        "11",
-        "12",
-        "13",
-        "14",
-        "15",
-        "16",
-        "17",
-        "18",
-        "19",
-        "20",
-        "21",
-        "22",
-        "23",
-        "24",
-        "25",
-        "26",
-        "27",
-        "28",
-        "29"
-      ],
-      array28: [
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09",
-        "10",
-        "11",
-        "12",
-        "13",
-        "14",
-        "15",
-        "16",
-        "17",
-        "18",
-        "19",
-        "20",
-        "21",
-        "22",
-        "23",
-        "24",
-        "25",
-        "26",
-        "27",
-        "28"
-      ],
       slots1: [
         {
           flex: 1,
@@ -340,7 +214,9 @@ export default {
       dataList: [] //日期数组
     };
   },
-  mounted() {},
+  mounted() {
+    this.mobile=this.$store.state.mobile
+  },
   methods: {
     servicestatus() {
       this.servicezhan = true;
@@ -386,7 +262,7 @@ export default {
     choosecityone() {
       $("#cityLabel").hide();
       this.allback = false;
-      this.currentTime = this.valuescity;
+      this.valuescity1 = this.valuescity;
     },
     //选择城市
     choosecitys() {
@@ -439,7 +315,10 @@ export default {
     }
   },
   created() {
-  	this.getDateList(7)
+    this.getDateList(7)
+    
+    console.log(1)
+
   },
   watch: {
     onDateChangevalue() {}
@@ -456,7 +335,7 @@ export default {
   margin-left: 0.29rem;
   font: 0.32rem/0.38rem "PingFang-SC-Medium";
 }
-.one {
+/* .one {
   position: fixed;
   height: 1.7rem;
   width: 100%;
@@ -464,7 +343,7 @@ export default {
   top: 0.7rem;
   z-index: 1002;
   opacity: 0.7;
-}
+} */
 
 .li_st {
   height: 0.99rem;
@@ -709,5 +588,11 @@ export default {
   left: 0;
   bottom: 0;
   right: 0;
+}
+.big_box{
+  position: relative;
+  top: .5rem;
+  width: 100%;
+  height: 100%;
 }
 </style>

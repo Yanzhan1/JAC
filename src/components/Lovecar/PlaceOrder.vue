@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<div class="linetwo"></div>
-    <div style="font:500 .2rem/.3rem 'PingFangSC-Regular';margin-left:.3rem;">客服电话：4008889933</div>
+    <div @click="call" style="font:500 .2rem/.3rem 'PingFangSC-Regular';margin-left:.3rem;">客服电话：4008889933</div>
 		<!-- <div class="pay-method">
 			<p>支付方式</p>
 			<button class="money-way">微信支付</button>
@@ -78,7 +78,7 @@ export default {
         };
         window.webkit.messageHandlers.js2android.postMessage(params);
       } else if (isMobile.Android()) {
-        js2android.js2android(tranData, merSignMsg, merCert);
+        js2android.startIcbcPay(tranData, merSignMsg, merCert);
       }
             
           }else{
@@ -97,6 +97,14 @@ export default {
                            show:1
                 }
              })
+    },
+    call(){
+      let tell='4008889933'
+      if (isMobile.iOS()) {
+        window.webkit.messageHandlers.call.postMessage(tell);
+      } else if (isMobile.Android()) {
+        js2android.call(tell);
+      }
     }
   },
   mounted() {
