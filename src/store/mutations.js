@@ -45,6 +45,13 @@ export default {
             state.token = null
         }
     },
+    [types.UPDATEUSERINFO]: (state, payload) => {
+      debugger
+      if (payload) {
+        if(payload.userName) state.userName = payload.userName
+        if(payload.imageUrl) state.imageUrl = payload.imageUrl
+      }
+    },
     [types.LOADINGFLAG]: (state, payload) => {
         state.loadingflag = payload
     },

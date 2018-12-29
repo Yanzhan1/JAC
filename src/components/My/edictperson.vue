@@ -56,7 +56,7 @@
       </div>
       <div class="gradientline"></div>
     </div>
-    <div class="agreement">江淮汽车      
+    <div class="agreement">江淮汽车
         <a href="javascript:;" @click="goAgreement">用户注册协议</a>
       </div>
     <span class="submit" @click="changemessage">保存</span>
@@ -169,10 +169,13 @@ export default {
       this.changeInfo.personalSignature = this.userInfo.personalSignature;
       this.changeInfo.sex = this.userInfo.sex;
       this.changeInfo.no = this.$store.state.userId,
-       this.changeInfo.imageUrl= this.changeInfo.imageUrl
-      this.$http.post(My.UpUserinfo, this.changeInfo, {}).then(res => {      		
-            if (res.data.code == 0) {
-            		
+      this.changeInfo.imageUrl= this.changeInfo.imageUrl
+      var changeInfo = this.changeInfo;
+      this.$http.post(My.UpUserinfo, this.changeInfo, {}).then(res => {
+        debugger
+        if (res.data.code == 0) {
+              // 更新用户信息时候，同步更新vuex中的值
+              this.$store.dispatch("updateUserInfo", changeInfo);
               this.popupVisible = true;
               var data = {
 									ruleStr: 'REAL_NAME',
@@ -185,11 +188,11 @@ export default {
               		this.$store.state.integral = data.data
               		console.log(this.$store.state.integral )
               	} else {
-              		
+
               	}
               })
             	.catch( err => {
-            		
+
               })
               setTimeout(()=>{
                   this.popupVisible=false
