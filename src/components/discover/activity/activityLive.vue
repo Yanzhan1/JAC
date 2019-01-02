@@ -8,7 +8,7 @@
     <!--活动内容S-->
 
     <div class="container" :style="containerStyleObj">
-      <iframe id="childframe" :src="content.activityBody" frameborder="0" marginwidth="0" marginheight="0" border="0"
+      <iframe id="childframe" :src="content.activityBody" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" border="0"
         vspace="0" hspace="0" scrolling="no"></iframe>
     </div>
 
@@ -125,13 +125,15 @@
 
           localshow()
           setTimeout(()=>{
-            document.querySelector('#childframe').contentWindow.postMessage({
-              src: 'jh',
-              auth: auth ? 'yes' : 'no',
-              userId,
-              headImgUrl,
-              userName
-            }, targetOrigin)
+            setTimeout(()=>{
+              document.querySelector('#childframe').contentWindow.postMessage({
+                src: 'jh',
+                auth: auth ? 'yes' : 'no',
+                userId,
+                headImgUrl,
+                userName
+              }, targetOrigin)
+            },2000)
             localhide()
           }, 3000)
         }
