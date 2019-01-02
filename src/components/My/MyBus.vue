@@ -18,7 +18,8 @@
           <img :src="item.imageUrl" alt="" />
         </div>
         <div class="bus-right">
-          <p class="bus-untie" @click="unite(item.vin)" v-show="item.beAuthorized=='n'?'false':'true'">解绑</p>
+          <!-- <p class="bus-untie" @click="unite(item.vin)" v-show="item.beAuthorized=='n'?'false':'true'">解绑</p> -->
+          <p class="bus-untie"></p>
           <div style="display:flex;algin-item:center;">
             <div style="margin-right:.1rem">
               <!-- 若有车牌 解绑车牌 -->
@@ -307,7 +308,7 @@ li {
   height: 0.4rem;
   margin-bottom: 0.46rem;
   line-height: 0.4rem;
-  background: #49bbff;
+  /* background: #49bbff; */
   text-align: center;
   font-size: 0.22rem;
   color: #fff;
