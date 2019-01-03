@@ -8,7 +8,7 @@
     <header v-else class="specilheader nav MobileHeight">
       <div >选购瑞风S4</div>
     </header>
-    <div class="headerHeight"></div>
+    <!-- <div class="headerHeight"></div> -->
     <div v-if="this.flag">
       <div v-if="this.$store.state.currentTitle != '自由型'" class="tab">
 
@@ -99,6 +99,11 @@
             window.showHeader = this.showHeader;
     },
     mounted(){
+      // alert(this.$store.state.mobileStatusBar)
+      let top = 1+this.$store.state.mobileStatusBar/100+'rem'
+      $(".tab").css({
+        "top":top
+      })
       $(".MobileHeight").css({
         "borderTopWidth": this.$store.state.mobileStatusBar,
         "borderTopColor": "#fff",
@@ -157,7 +162,8 @@
     background-color:#fff;
   }
   .tab{
-    margin-top: -0.44rem;
+    /* margin-top: -0.24rem; */
+    /* top: 1.225rem; */
     width: 100%;
     position: fixed;
     height: 1rem;

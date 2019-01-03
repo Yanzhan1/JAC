@@ -47,6 +47,7 @@
         </div>
       </transition>
       <div class="headerHeight"></div>
+    
       <div class="contentBtn">
         <div class="contentText">
           <div class="priceLabel">{{this.$store.state.priceTitle}}元</div>
@@ -251,7 +252,7 @@ export default {
   font-size: 0.36rem;
 }
 .headerHeight {
-  height: 1.5rem;
+  height: 2rem;
 }
 .content {
   height: 1.5rem;
