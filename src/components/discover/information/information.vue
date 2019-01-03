@@ -40,7 +40,10 @@
                 {{item.manageTitle.slice(0,46)}}
                 <span v-if="item.manageTitle.length>46">...</span>
               </p>
-              <img class="listPic312" :src="item.imgUrl" />
+              <div class="listPic312">
+                <lazy-img :imgUrl="item.imgUrl"></lazy-img>
+              </div>
+              <!-- <img class="listPic312" :src="item.imgUrl" /> -->
             </div>
             <div class="listIconInfo">
               <!--阅读数量-->
@@ -68,6 +71,7 @@
   } from 'mint-ui';
   import shareBox from '../component/shareBox.vue';
   import MyVideo from '@/components/components/myVideo/MyVideo'
+  import LazyImg from '@/components/discover/component/LazyImg'
 
   let shareIndex = "";
   export default {
@@ -90,7 +94,8 @@
     },
     components: {
       shareBox,
-      MyVideo
+      MyVideo,
+      LazyImg
     },
     methods: {
       /**

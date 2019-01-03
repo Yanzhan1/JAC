@@ -44,7 +44,10 @@
                 {{item.title.slice(0,46)}}
                 <span v-if="item.title.length>46">...</span>
               </p>
-              <img class="listPic312" @click="toDetailInfo(item.id)" :src="item.pictureUrl" />
+              <div class="listPic312" @click="toDetailInfo(item.id)">
+                <lazy-img :imgUrl="item.pictureUrl"></lazy-img>
+              </div>
+              <!-- <img class="listPic312" @click="toDetailInfo(item.id)" :src="item.pictureUrl" /> -->
               <div class="listIconInfo">
                 <!--阅读数量-->
                 <img src="../../../../static/images/discover/eye.png" class="f_left" />
@@ -65,7 +68,10 @@
                 {{item.title.slice(0,46)}}
                 <span v-if="item.title.length>46">...</span>
               </p>
-              <img class="listPic312" @click="toActDetail(item.id,item.manageType)" :src="item.pictureUrl" />
+              <div class="listPic312" @click="toActDetail(item.id,item.manageType)">
+                <lazy-img :imgUrl="item.pictureUrl"></lazy-img>
+              </div>
+              <!-- <img class="listPic312" @click="toActDetail(item.id,item.manageType)" :src="item.pictureUrl" /> -->
               <div class="listIconActivity">
                 <!--未开始-->
                 <div v-if="item.activityState==0">
@@ -213,6 +219,7 @@
   import Header from '../../Header.vue';
   import shareBox from '../component/shareBox.vue';
   import MyVideo from '@/components/components/myVideo/MyVideo'
+  import LazyImg from '@/components/discover/component/LazyImg'
 
   export default {
     name: "Recommend",
@@ -236,7 +243,8 @@
     },
     components: {
       shareBox,
-      MyVideo
+      MyVideo,
+      LazyImg
     },
     methods: {
       /**

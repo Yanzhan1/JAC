@@ -14,7 +14,10 @@
               {{item.activityTitle.slice(0,46)}}
               <span v-if="item.activityTitle.length>46">...</span>
             </p>
-            <img class="listPic312" @click="toDetail(item.activityId,item.activityType)" :src="item.imgUrl" />
+            <div class="listPic312" @click="toDetail(item.activityId,item.activityType)">
+              <lazy-img :imgUrl="item.imgUrl"></lazy-img>
+            </div>
+            <!-- <img class="listPic312" @click="toDetail(item.activityId,item.activityType)" :src="item.imgUrl" /> -->
             <div class="listIconActivity">
               <!--未开始-->
               <div v-if="item.activityState==0">
@@ -47,6 +50,7 @@
 </template>
 
 <script>
+import LazyImg from '@/components/discover/component/LazyImg'
   import {
     mapState,
     mapMutations
@@ -59,6 +63,9 @@
   } from 'mint-ui';
   export default {
     name: "ActivityIndex",
+    components: {
+      LazyImg
+    },
     data() {
       return {
         userId: this.$store.state.userId,

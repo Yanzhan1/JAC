@@ -56,16 +56,34 @@
               <!--加精华-->
               <img v-if="item.supreme==1" src="../../../../static/images/discover/jinghua.png" class="jinghua"/>
               <div v-if="item.momentImgList.length==1" v-for="imgItem in item.momentImgList">
-                <img @click="toDetail(item.id)" :src="imgItem" class="pic1" />
+                <div class="pic1" @click="toDetail(item.id)">
+                  <lazy-img :imgUrl="imgItem"></lazy-img>
+                </div>
+                <!-- <img @click="toDetail(item.id)" :src="imgItem" class="pic1" /> -->
               </div>
               <div v-if="item.momentImgList.length==2">
-                <img @click="toDetail(item.id)" :src="item.momentImgList[0]" style="margin-right: 2%;" class="pic2_1" />
-                <img @click="toDetail(item.id)" :src="item.momentImgList[1]" class="pic2_2" />
+                <div style="margin-right: 2%;" class="pic2_1" @click="toDetail(item.id)">
+                  <lazy-img :imgUrl="item.momentImgList[0]"></lazy-img>
+                </div>
+                <div class="pic2_2" @click="toDetail(item.id)">
+                  <lazy-img :imgUrl="item.momentImgList[1]"></lazy-img>
+                </div> 
+                <!-- <img @click="toDetail(item.id)" :src="item.momentImgList[0]" style="margin-right: 2%;" class="pic2_1" />
+                <img @click="toDetail(item.id)" :src="item.momentImgList[1]" class="pic2_2" /> -->
               </div>
               <div v-if="item.momentImgList.length==3">
-                <img @click="toDetail(item.id)" :src="item.momentImgList[0]" style="margin-right: 2%;" class="pic3_1" />
+                <div style="margin-right: 2%;" class="pic3_1" @click="toDetail(item.id)">
+                  <lazy-img :imgUrl="item.momentImgList[0]"></lazy-img>
+                </div>
+                <div class="pic3_2" @click="toDetail(item.id)">
+                  <lazy-img :imgUrl="item.momentImgList[1]"></lazy-img>
+                </div>
+                <div class="pic3_3" @click="toDetail(item.id)">
+                  <lazy-img :imgUrl="item.momentImgList[2]"></lazy-img>
+                </div>
+                <!-- <img @click="toDetail(item.id)" :src="item.momentImgList[0]" style="margin-right: 2%;" class="pic3_1" />
                 <img @click="toDetail(item.id)" :src="item.momentImgList[1]" class="pic3_2" />
-                <img @click="toDetail(item.id)" :src="item.momentImgList[2]" class="pic3_3" />
+                <img @click="toDetail(item.id)" :src="item.momentImgList[2]" class="pic3_3" /> -->
               </div>
               <div v-if="item.momentImgList.length>3">
                 <div class="shequMore_box">
@@ -103,6 +121,8 @@
     MessageBox
   } from 'mint-ui';
   import shareBox from '../component/shareBox.vue';
+  import LazyImg from '@/components/discover/component/LazyImg'
+
   export default {
     name: "Now",
     data() {
@@ -126,7 +146,8 @@
       }
     },
     components: {
-      shareBox
+      shareBox,
+      LazyImg
     },
     watch: {
       getUserId(val) {
