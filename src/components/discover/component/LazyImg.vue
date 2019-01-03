@@ -26,12 +26,16 @@
         const img = new Image()
 
         img.onload = () => {
-          this.src = this.imgUrl
-          this.flag = true
+          setTimeout(() => {
+            this.src = this.imgUrl
+            this.flag = true
+          }, 500)
         }
         img.onerror = () => {
-          this.src = defaultImg
-          this.flag = true
+          setTimeout(() => {
+            this.src = defaultImg
+            this.flag = true
+          }, 500)
         }
         img.src = this.imgUrl
       }
