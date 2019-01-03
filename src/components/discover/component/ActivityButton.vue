@@ -5,9 +5,7 @@
 </template>
 
 <script>
-  Function.prototype.after = function (afterFn) {
-    var self = this
-
+  const after = function (self, afterFn) {
     return function () {
       var ret = self.apply(this, arguments)
 
@@ -56,9 +54,14 @@
     },
     computed: {
       finalState() {
-        return this.noUserId.after(this.sign).after(this.noSign).after(this.ing).after(this.end).after(this.pic).after(
-          this.normal).call(
-          this)
+        const fn1 = after(this.noUserId, this.sign)
+        const fn2 = after(fn1, this.noSign)
+        const fn3 = after(fn2, this.ing)
+        const fn4 = after(fn3, this.end)
+        const fn5 = after(fn4, this.pic)
+        const fn6 = after(fn5, this.normal)
+
+        return fn6.call(this) 
       }
     },
     methods: {
