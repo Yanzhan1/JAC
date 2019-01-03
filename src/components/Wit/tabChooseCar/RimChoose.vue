@@ -156,7 +156,7 @@ export default {
   line-height: 0.88rem;
 }
 .headerHeight {
-  height: 1.5rem;
+  height: 2rem;
 }
 .headerHeight2 {
   height: 1.5rem;

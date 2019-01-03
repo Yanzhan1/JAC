@@ -1,6 +1,6 @@
 <template>
 <div class="mainContent">
-  <div class="headerHeight2"></div>
+  <div class="headerHeight"></div>
   <div>
   <!--<transition name="slide1">-->
     <div class="contentImg">
@@ -471,7 +471,7 @@ export default{
   font-size: 0.36rem;
 }
 .headerHeight{
-  height: 1.5rem;
+  height: 2rem;
 }
 .headerHeight2{
   height:0.8rem;

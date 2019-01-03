@@ -1,10 +1,6 @@
 <template>
 	<div class="modify-likeman">
-		<header class="header">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-			<span class="header-title">修改联系人</span>
-			<span class="header-right"></span>
-		</header>
+		<mhead currentTitle="修改联系人"></mhead>
 		<div style="height:0.88rem"></div>
 		<div class="comment conpson-name">
 			<div class="name boxline flex-align-center">
@@ -27,6 +23,7 @@
 <script>
 	import { MessageBox } from 'mint-ui';
 	import { Toast } from 'mint-ui';
+	import PublicHead from '../publicmodel/PublicHead';
 	export default {
 		name: 'modifyLikeman',
 		data() {
@@ -36,6 +33,9 @@
 				emergencyContactPhone: '' //紧急联系人电话号码
 			}
 		},
+		components: {
+	  		mhead:PublicHead
+	    },
 		methods: {
 			confirm() { //更改用户信息→修改紧急联系人
 				MessageBox.confirm('', {

@@ -265,7 +265,7 @@
   /*padding-left: 0.15rem;*/
   /*}*/
   .headerHeight{
-    height: 1.5rem;
+    height: 2rem;
   }
   .headerHeight2{
     height: 0.5rem;
