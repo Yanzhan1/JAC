@@ -5,7 +5,7 @@
     <!-- <keep-alive v-if="flag"> -->
     <!-- <router-view v-if="flag" /> -->
     <!-- </keep-alive> -->
-    <my-swiper :placeholderHeight="placeholderHeight" :height="height" v-if="$store.state.islogin && flag"></my-swiper>
+    <my-swiper :placeholderHeight="placeholderHeight" :height="height" v-if="flag"></my-swiper>
   </div>
 </template>
 

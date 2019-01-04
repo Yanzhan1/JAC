@@ -66,7 +66,7 @@ export default {
         localStorage.setItem("mobile", JSON.stringify(userInfo.mobile));
         localStorage.setItem("userName", JSON.stringify(userInfo.userName));
       } else {
-        this.$store.dispatch("isLogin", true);
+        this.$store.dispatch("isLogin", false);
         this.$store.dispatch("userId", null);
         //      this.$store.dispatch('userInfo',null);
       }
