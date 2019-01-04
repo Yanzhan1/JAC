@@ -248,6 +248,12 @@
     },
     methods: {
       /**
+       * 记录index
+       */
+      handleRecordIndex(index) {
+        this._index = index
+      },
+      /**
        * 打开一个视频关闭其他视频
        */
       closeOther(index) {
