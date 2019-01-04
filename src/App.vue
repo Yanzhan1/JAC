@@ -31,6 +31,7 @@ export default {
     //   }
     // },
     isLogin(userInfo) {
+      this.$store.dispatch('change$FLAG', true)// 不要动 有用
       // if (isMobile.iOS()) {
       //   //     alert( JSON.stringify(userInfo))
       // }
@@ -66,7 +67,7 @@ export default {
         localStorage.setItem("mobile", JSON.stringify(userInfo.mobile));
         localStorage.setItem("userName", JSON.stringify(userInfo.userName));
       } else {
-        this.$store.dispatch("isLogin", true);
+        this.$store.dispatch("isLogin", false);
         this.$store.dispatch("userId", null);
         //      this.$store.dispatch('userInfo',null);
       }
