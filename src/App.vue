@@ -31,6 +31,7 @@ export default {
     //   }
     // },
     isLogin(userInfo) {
+      alert('来过')
       this.$root.eventHub.$emit('refresh') // 不要动 有用
       // if (isMobile.iOS()) {
       //   //     alert( JSON.stringify(userInfo))
