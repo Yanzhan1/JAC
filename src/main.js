@@ -64,11 +64,7 @@ Vue.prototype.$doubleShare = doubleShare
 Vue.prototype.$http = axios;
 Vue.prototype.$md5 = md5
 Vue.prototype.toLogin = function() {
-    MessageBox({
-        title: '提示',
-        message: '请登录',
-        confirmButtonText: '确定'
-    }).then(action => {
+  MessageBox.confirm('请登录').then(action => {
         console.log("跳转登录");
         /*if (isMobile.iOS()) {
             window.webkit.messageHandlers.login.postMessage("");
