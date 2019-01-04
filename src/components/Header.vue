@@ -161,6 +161,11 @@
       //发布心情
       publish: function () {
         // this.$router.push({path:"/now/addPic"})
+        var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         if (isMobile.iOS()) {
           let uuid = this.$store.state.uuid;
           let params = {

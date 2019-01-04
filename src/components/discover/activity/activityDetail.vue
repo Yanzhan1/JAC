@@ -186,7 +186,11 @@
         })
       },
       toPic: function (id) {
-        console.log("晒图", this.$store.state.userId, this.content.activityId)
+        var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         if (isMobile.iOS()) {
           window.webkit.messageHandlers.toPic.postMessage("");
         } else if (isMobile.Android()) {
