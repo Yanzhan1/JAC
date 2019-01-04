@@ -208,6 +208,10 @@
       //资讯点赞
       giveInformationLike: function (manageId, index) {
         var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         this.$http.post(DISCOVERMESSAGE.informationGiveLike, {
           "uid": this.$store.state.userId,
           "lid": manageId
@@ -216,17 +220,17 @@
             _this.informationList[index].likeNum = res.data.data.num;
             _this.informationList[index].likeStatus = 1;
           } else {
-            if (_this.$store.state.userId == null) {
-              _this.toLogin();
-            } else {
               MessageBox('提示', res.data.errorMsg);
-            }
           }
         });
       },
       //取消点赞
       removeInformationLike: function (manageId, index) {
         var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         this.$http.post(DISCOVERMESSAGE.informationRemoveLike, {
           "uid": this.$store.state.userId,
           "lid": manageId
@@ -235,17 +239,17 @@
             _this.informationList[index].likeNum = res.data.data.num;
             _this.informationList[index].likeStatus = 0;
           } else {
-            if (_this.$store.state.userId == null) {
-              _this.toLogin();
-            } else {
               MessageBox('提示', res.data.errorMsg);
-            }
           }
         });
       },
       //资讯收藏
       collection: function (manageId, index) {
         var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         this.$http.post(DISCOVERMESSAGE.informationCollection, {
           "uid": this.$store.state.userId,
           "lid": manageId
@@ -253,16 +257,17 @@
           if (res.data.status) {
             _this.informationList[index].collectionStatus = false;
           } else {
-            if (_this.$store.state.userId == null) {
-              _this.toLogin();
-            } else {
               MessageBox('提示', res.data.errorMsg);
-            }
           }
         });
       },
       //资讯取消收藏
       messageBoxCofirm: function (manageId, index) {
+        var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         MessageBox.confirm('确定取消收藏?').then(action => {
           var _this = this;
           this.$http.post(DISCOVERMESSAGE.informationRemoveCollection, {
@@ -273,11 +278,7 @@
               _this.informationList[index].collectionStatus = true;
               Toast('取消收藏成功');
             } else {
-              if (_this.$store.state.userId == null) {
-                _this.toLogin();
-              } else {
                 MessageBox('提示', res.data.errorMsg);
-              }
             }
           });
         });

@@ -329,9 +329,6 @@
         this.topStatus = status;
       },
       changeUserStartId(id) {
-        console.log(this.$store.state.userId + "本人id")
-        console.log(id + "获取id")
-        console.log(id == this.$store.state.userId)
         if (id == this.$store.state.userId) {
           this.$router.push({
             path: '/mystart'
@@ -346,6 +343,10 @@
       //加关注
       addFoucs: function (foucsId, index) {
         var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         console.log(this.$store.state.userId)
         this.$http.post(DISCOVERMESSAGE.focusOn, {
           "uid": this.$store.state.userId,
@@ -359,15 +360,17 @@
               }
             }
           } else {
-            _this.toLogin();
-            //MessageBox('提示', res.data.errorMsg);
+            MessageBox('提示', res.data.errorMsg);
           }
         });
       },
       //取消关注
       removeFoucs: function (foucsId, index) {
-        console.log(foucsId)
         var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         this.$http.post(DISCOVERMESSAGE.unFocus, {
           "uid": this.$store.state.userId,
           "focusId": foucsId
@@ -380,8 +383,7 @@
               }
             }
           } else {
-            _this.toLogin();
-            //MessageBox('提示', res.data.errorMsg);
+            MessageBox('提示', res.data.errorMsg);
           }
         });
       },
@@ -478,6 +480,10 @@
       //资讯点赞
       giveInformationLike: function (manageId, index, flag) {
         var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         this.$http.post(DISCOVERMESSAGE.informationGiveLike, {
           "uid": this.$store.state.userId,
           "lid": manageId
@@ -491,17 +497,17 @@
               _this.recommendList[index].likeStatus = false;
             }
           } else {
-            if (_this.$store.state.userId == null) {
-              _this.toLogin();
-            } else {
               MessageBox('提示', res.data.errorMsg);
-            }
           }
         });
       },
       //取消点赞
       removeInformationLike: function (manageId, index, flag) {
         var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         this.$http.post(DISCOVERMESSAGE.informationRemoveLike, {
           "uid": this.$store.state.userId,
           "lid": manageId
@@ -515,17 +521,17 @@
               _this.recommendList[index].likeStatus = true;
             }
           } else {
-            if (_this.$store.state.userId == null) {
-              _this.toLogin();
-            } else {
               MessageBox('提示', res.data.errorMsg);
-            }
           }
         });
       },
       //资讯收藏
       collection: function (manageId, index, flag) {
         var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         this.$http.post(DISCOVERMESSAGE.informationCollection, {
           "uid": this.$store.state.userId,
           "lid": manageId
@@ -537,16 +543,17 @@
               _this.recommendList[index].collectionStatus = false;
             }
           } else {
-            if (_this.$store.state.userId == null) {
-              _this.toLogin();
-            } else {
               MessageBox('提示', res.data.errorMsg);
-            }
           }
         });
       },
       //资讯取消收藏
       messageBoxCofirm: function (manageId, index, flag) {
+        var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         MessageBox.confirm('确定取消收藏?').then(action => {
           var _this = this;
           this.$http.post(DISCOVERMESSAGE.informationRemoveCollection, {
@@ -560,11 +567,7 @@
                 _this.recommendList[index].collectionStatus = true;
               }
             } else {
-              if (_this.$store.state.userId == null) {
-                _this.toLogin();
-              } else {
                 MessageBox('提示', res.data.errorMsg);
-              }
             }
           });
         });
@@ -572,6 +575,10 @@
       //此刻点赞
       giveMomentLike: function (manageId, index, flag) {
         var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         this.$http.post(DISCOVERMESSAGE.momentGiveLike, {
           "uid": this.$store.state.userId,
           "lid": manageId
@@ -585,17 +592,17 @@
               _this.recommendList[index].likeStatus = false;
             }
           } else {
-            if (_this.$store.state.userId == null) {
-              _this.toLogin();
-            } else {
               MessageBox('提示', res.data.errorMsg);
-            }
           }
         });
       },
       //取消点赞
       removeMomentLike: function (manageId, index, flag) {
         var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         this.$http.post(DISCOVERMESSAGE.momentRemoveLike, {
           "uid": this.$store.state.userId,
           "lid": manageId
@@ -609,11 +616,7 @@
               _this.recommendList[index].likeStatus = true;
             }
           } else {
-            if (_this.$store.state.userId == null) {
-              _this.toLogin();
-            } else {
               MessageBox('提示', res.data.errorMsg);
-            }
           }
         });
       },

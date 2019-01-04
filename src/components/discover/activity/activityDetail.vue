@@ -117,8 +117,8 @@
       <!--按钮控制S-->
       <activity-button
         :activityId="content.activityId"
-        :userId="userId" 
-        :activityType="content.activityType" 
+        :userId="userId"
+        :activityType="content.activityType"
         :activityState="content.activityState"
         :joinStatus="content.joinStatus"
         @cantWantGo="cantWantGo"
@@ -235,6 +235,10 @@
       //活动点赞
       giveActivityLike: function () {
         var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         this.$http.post(DISCOVERMESSAGE.activetyGiveLike, {
           "uid": _this.$store.state.userId,
           "lid": _this.activityId
@@ -243,11 +247,7 @@
             _this.content.likeNum = res.data.data.num;
             _this.content.likeStatus = false;
           } else {
-            if (_this.$store.state.userId == null) {
-              _this.toLogin();
-            } else {
               MessageBox('提示', res.data.errorMsg);
-            }
           }
         });
       },
