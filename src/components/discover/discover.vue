@@ -5,7 +5,7 @@
     <!-- <keep-alive v-if="flag"> -->
     <!-- <router-view v-if="flag" /> -->
     <!-- </keep-alive> -->
-    <my-swiper :placeholderHeight="placeholderHeight" :height="height" v-if="flag"></my-swiper>
+    <my-swiper :placeholderHeight="placeholderHeight" :height="height" v-if="$store.state.$flag && flag"></my-swiper>
   </div>
 </template>
 
@@ -37,10 +37,6 @@
       this.placeholderHeight = placeholder.getBoundingClientRect().height
       this.height = window.innerHeight - placeholder.getBoundingClientRect().height
       box.style.height = window.innerHeight + 'px'
-
-      this.$root.eventHub.$on('refresh', () => {
-        this.refresh()
-      })
     },
     components: {
       Header,
