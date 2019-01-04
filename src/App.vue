@@ -66,7 +66,7 @@ export default {
         localStorage.setItem("mobile", JSON.stringify(userInfo.mobile));
         localStorage.setItem("userName", JSON.stringify(userInfo.userName));
       } else {
-        this.$store.dispatch("isLogin", false);
+        this.$store.dispatch("isLogin", true);
         this.$store.dispatch("userId", null);
         //      this.$store.dispatch('userInfo',null);
       }
@@ -95,7 +95,7 @@ export default {
       }catch(err){
           console.log("无此方法")
       }
-      
+
     },
     localhide() {
       // 防止用户原生连点隐藏的遮罩层
@@ -109,7 +109,7 @@ export default {
       }catch(err){
         console.log('暂时没有此方法')
       }
-      
+
     },
     goActivityDetail(activityId) {
       this.$router.push({
