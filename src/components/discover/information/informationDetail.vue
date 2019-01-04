@@ -244,7 +244,7 @@
         }).then(function (res) {
           if (res.data.status) {
             _this.conmmentsList[index].likeNum = res.data.data.num;
-            _this.conmmentsList[index].likeStatus = 1;
+            _this.conmmentsList[index].likeStatus = false;
           } else {
             if (_this.$store.state.userId == null) {
               _this.toLogin();
@@ -263,7 +263,7 @@
         }).then(function (res) {
           if (res.data.status) {
             _this.conmmentsList[index].likeNum = res.data.data.num;
-            _this.conmmentsList[index].likeStatus = 0;
+            _this.conmmentsList[index].likeStatus = true;
           } else {
             if (_this.$store.state.userId == null) {
               _this.toLogin();

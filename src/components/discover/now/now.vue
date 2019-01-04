@@ -345,10 +345,6 @@
       //此刻点赞
       giveMomentLike: function (manageId, index) {
         var _this = this;
-        if(!_this.$store.state.userId){
-          _this.toLogin();
-          return false;
-        }
         this.$http.post(DISCOVERMESSAGE.momentGiveLike, {
           "uid": this.$store.state.userId,
           "lid": manageId
@@ -364,10 +360,6 @@
       //取消点赞
       removeMomentLike: function (manageId, index) {
         var _this = this;
-        if(!_this.$store.state.userId){
-          _this.toLogin();
-          return false;
-        }
         this.$http.post(DISCOVERMESSAGE.momentRemoveLike, {
           "uid": this.$store.state.userId,
           "lid": manageId
@@ -383,11 +375,6 @@
       //加关注
       addFoucs: function (foucsId, index) {
         var _this = this;
-        if(!_this.$store.state.userId){
-          _this.toLogin();
-          return false;
-        }
-        console.log(this.$store.state.userId)
         this.$http.post(DISCOVERMESSAGE.focusOn, {
           "uid": this.$store.state.userId,
           "focusId": foucsId
@@ -407,10 +394,6 @@
       //取消关注
       removeFoucs: function (foucsId, index) {
         var _this = this;
-        if(!_this.$store.state.userId){
-          _this.toLogin();
-          return false;
-        }
         this.$http.post(DISCOVERMESSAGE.unFocus, {
           "uid": this.$store.state.userId,
           "focusId": foucsId

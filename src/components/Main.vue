@@ -69,11 +69,11 @@
         switch (data.code) { //判断接口状态,403  token失效,重新登录,本地调试可注释掉,发布提交时必须解开
           case 403:
             _this.toLogin();
-            if (system == 'Android' && window.js2android) {
+            /*if (system == 'Android' && window.js2android) {
               window.js2android.login() //安卓退出App
             } else if (system == "IOS" && window.webkit) {
               window.webkit.messageHandlers.logout403.postMessage({}); //IOS退出app
-            }
+            }*/
             break;
         }
                   this.loadingnum=0

@@ -46,11 +46,7 @@ export default {
             })
         },
         goback(){
-           if(this.$store.state.shownum==1){
-               this.$router.push('/wit')
-           }else{
-               this.$router.push('/wit/recoment_bus')
-           }
+             this.$router.push('/wit') 
         },
         reserve(){
              if(this.seriesName=='瑞风S4'){

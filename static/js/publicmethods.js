@@ -149,23 +149,3 @@ function setIframeHeight(iframe) {
         }
     }
 };
-
-/*function localshow() {
-    // 防止用户原生连点隐藏的遮罩层
-    if (isMobile.iOS()) {
-        var params = {};
-        window.webkit.messageHandlers.scan.showProgressDialog(params);
-    } else if (isMobile.Android() && window.js2android) {
-          js2android.showProgressDialog();
-    }
-};
-
-function localhide() {
-    // 防止用户原生连点隐藏的遮罩层
-    if (isMobile.iOS()) {
-        var params = {};
-        window.webkit.messageHandlers.scan.dismissProgressDialog(params);
-    } else if (isMobile.Android() && window.js2android) {
-        js2android.dismissProgressDialog();
-    }
-}*/
