@@ -21,7 +21,7 @@ export default {
     userInfo: ({ commit, state }, payload) => {
         commit(types.USERINFO, payload)
     },
-    userName:({ commit, state }, payload) => {
+    userName: ({ commit, state }, payload) => {
         commit(types.USERNAME, payload)
     },
     LOADINGFLAG: ({ commit, state }, payload) => {
@@ -47,5 +47,8 @@ export default {
     },
     RECORD: ({ commit, state }, payload) => {
         commit(types.RECORD, payload)
+    },
+    GETLOCATIONINFO: ({ commit, state }, payload) => {
+        commit(types.GETLOCATIONINFO, payload)
     }
 }

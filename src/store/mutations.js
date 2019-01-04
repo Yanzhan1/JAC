@@ -23,7 +23,7 @@ export default {
         if (payload) {
             state.sign = payload.sign
             state.userName = payload.userName
-            // state.imgUrl = payload.imgUrl
+                // state.imgUrl = payload.imgUrl
             state.trueuserId = payload.userId
             state.no = payload.no
             state.mobile = payload.mobile
@@ -46,7 +46,7 @@ export default {
         }
     },
     [types.USERNAME]: (state, payload) => {
-          state.userName = payload
+        state.userName = payload
     },
     [types.LOADINGFLAG]: (state, payload) => {
         state.loadingflag = payload
@@ -83,6 +83,9 @@ export default {
     },
     [types.RECORD]: (state, payload) => {
         state.record = payload
+    },
+    [types.GETLOCATIONINFO]: (state, payload) => {
+        state.locationMes = payload
     },
     changeScrollY: (state, payload) => {
         state.changeScrollY = payload
