@@ -67,7 +67,7 @@
                 </div>
                 <div class="pic2_2" @click="toDetail(item.id)">
                   <lazy-img :imgUrl="item.momentImgList[1]"></lazy-img>
-                </div> 
+                </div>
                 <!-- <img @click="toDetail(item.id)" :src="item.momentImgList[0]" style="margin-right: 2%;" class="pic2_1" />
                 <img @click="toDetail(item.id)" :src="item.momentImgList[1]" class="pic2_2" /> -->
               </div>
@@ -345,6 +345,10 @@
       //此刻点赞
       giveMomentLike: function (manageId, index) {
         var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         this.$http.post(DISCOVERMESSAGE.momentGiveLike, {
           "uid": this.$store.state.userId,
           "lid": manageId
@@ -353,14 +357,17 @@
             _this.nowList[index].likeNum = res.data.data.num;
             _this.nowList[index].likeStatus = 1;
           } else {
-            _this.toLogin();
-            //MessageBox('提示', res.data.errorMsg);
+            MessageBox('提示', res.data.errorMsg);
           }
         });
       },
       //取消点赞
       removeMomentLike: function (manageId, index) {
         var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         this.$http.post(DISCOVERMESSAGE.momentRemoveLike, {
           "uid": this.$store.state.userId,
           "lid": manageId
@@ -369,14 +376,17 @@
             _this.nowList[index].likeNum = res.data.data.num;
             _this.nowList[index].likeStatus = 0;
           } else {
-            _this.toLogin();
-            //MessageBox('提示', res.data.errorMsg);
+            MessageBox('提示', res.data.errorMsg);
           }
         });
       },
       //加关注
       addFoucs: function (foucsId, index) {
         var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         console.log(this.$store.state.userId)
         this.$http.post(DISCOVERMESSAGE.focusOn, {
           "uid": this.$store.state.userId,
@@ -390,14 +400,17 @@
               }
             }
           } else {
-            _this.toLogin();
-            //MessageBox('提示', res.data.errorMsg);
+            MessageBox('提示', res.data.errorMsg);
           }
         });
       },
       //取消关注
       removeFoucs: function (foucsId, index) {
         var _this = this;
+        if(!_this.$store.state.userId){
+          _this.toLogin();
+          return false;
+        }
         this.$http.post(DISCOVERMESSAGE.unFocus, {
           "uid": this.$store.state.userId,
           "focusId": foucsId
@@ -411,8 +424,7 @@
               }
             }
           } else {
-            _this.toLogin();
-            //MessageBox('提示', res.data.errorMsg);
+            MessageBox('提示', res.data.errorMsg);
           }
         });
       },

@@ -70,11 +70,11 @@ Vue.prototype.toLogin = function() {
         confirmButtonText: '确定'
     }).then(action => {
         console.log("跳转登录");
-        if (isMobile.iOS()) {
+        /*if (isMobile.iOS()) {
             window.webkit.messageHandlers.login.postMessage("");
         } else if (isMobile.Android() && window.js2android) {
           window.js2android.login();
-        }
+        }*/
     });
 }
 
