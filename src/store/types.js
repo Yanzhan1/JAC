@@ -17,3 +17,4 @@ export const QRCODEPIN = 'QRCODEPIN'; //扫描二维码获取的vin,用于扫一
 export const GETWORDS = 'GETWORDS'; //获取各种提示
 export const RECORD = 'RECORD'; //记录wit部分页面跳转
 export const GETLOCATIONINFO = 'GETLOCATIONINFO'; //记录wit部分页面跳转
+export const CHANGE_$FLAG = 'CHANGE_$FLAG' // 有用别动

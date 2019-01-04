@@ -50,5 +50,8 @@ export default {
     },
     GETLOCATIONINFO: ({ commit, state }, payload) => {
         commit(types.GETLOCATIONINFO, payload)
+    },
+    change$FLAG: ({ commit, state }, payload) => {
+        commit(types.CHANGE_$FLAG, payload)
     }
 }

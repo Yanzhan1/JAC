@@ -70,4 +70,5 @@ export default {
     LEDType: 'LED前大灯',
     locationMes: '', //ios获取的地址
     noback: false,
+    $flag: false // 有用别动
 }

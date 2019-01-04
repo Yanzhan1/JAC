@@ -89,5 +89,8 @@ export default {
     },
     changeScrollY: (state, payload) => {
         state.changeScrollY = payload
+    },
+    [types.CHANGE_$FLAG]: (state, payload) => {
+        state.$flag = payload
     }
 }
