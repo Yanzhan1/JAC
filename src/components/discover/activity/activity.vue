@@ -6,7 +6,7 @@
         <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }" style="font-size: 0.3rem;visibility: hidden">下拉刷新</span>
         <span v-show="topStatus === 'loading'">Loading...</span>
       </div>
-      <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
+      <div v-infinite-scroll="loadmore" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
         <!--活动列表S-->
         <div v-for="(item) in activityList" :key="item.id">
           <div class="boxInfo">
@@ -44,13 +44,15 @@
           </div>
         </div>
         <!--活动列表E-->
+        <bottom-loading :loading="loading" :isLastPage="isLastPage"></bottom-loading>
       </div>
     </mt-loadmore>
   </div>
 </template>
 
 <script>
-import LazyImg from '@/components/discover/component/LazyImg'
+  import LazyImg from '@/components/discover/component/LazyImg'
+  import BottomLoading from '@/components/discover/component/BottomLoading'
   import {
     mapState,
     mapMutations
@@ -64,7 +66,8 @@ import LazyImg from '@/components/discover/component/LazyImg'
   export default {
     name: "ActivityIndex",
     components: {
-      LazyImg
+      LazyImg,
+      BottomLoading
     },
     data() {
       return {
@@ -76,8 +79,16 @@ import LazyImg from '@/components/discover/component/LazyImg'
         activityList: [],
         list: 3,
         topStatus: '',
-        value: null
+        value: null,
+        isLastPage: false, // 是不是最后一页
+        listParams: { // 获取列表的参数
+          pageNo: 1,
+          length: 4
+        }
       }
+    },
+    created(){
+      this.getList()
     },
     // props:['activityList'],
     // computed:{
@@ -108,8 +119,10 @@ import LazyImg from '@/components/discover/component/LazyImg'
         this.$store.dispatch("popupFalse")
       },
       loadTop() {
-        this.getRefreshList();
-        this.$refs.loadmore.onTopLoaded();
+        // this.getRefreshList();
+        // this.$refs.loadmore.onTopLoaded();
+        this.reset()
+        this.getList()
       },
       loadBottom() {},
       handleTopChange(status) {
@@ -152,6 +165,44 @@ import LazyImg from '@/components/discover/component/LazyImg'
           }
         });
       },
+      /**
+       * 重置
+       */
+      reset() {
+        this.listParams.pageNo = 1
+        this.isLastPage = false
+        this.activityList = []
+      },
+      /**
+       * 上拉加载更多
+       */
+      loadmore() {
+        if (this.isLastPage) {
+          return
+        }
+        this.listParams.pageNo++
+        this.getList()
+      },
+      /**
+       * 获取列表
+       */
+      getList() {
+        this.loading = true
+        this.$http.post(INDEXMESSAGE.getActivity, this.listParams).then((res) => {
+          this.loading = false
+          if (res.data.status !== 1) {
+            console.log(res.data.errorMsg)
+            return
+          }
+          this.activityList.push(...res.data.data)
+          if (this.activityList.length >= res.data.recordsTotal) {
+            this.isLastPage = true
+          }
+          this.$nextTick(() => {
+            this.$refs.loadmore.onTopLoaded()
+          })
+        })
+      },
       //活动刷新翻页
       getNextList: function () {
         if (this.$router.currentRoute.path != '/activity') {
@@ -193,18 +244,22 @@ import LazyImg from '@/components/discover/component/LazyImg'
     },
     watch: {
       getUserId(val) {
-        this.getRefreshList()
+        // this.getRefreshList()
         // if(val != null){
         //   alert(this.$store.state.userId)
         // }
+        this.reset()
+        this.getList()
       },
       selectLabelState() {
-        this.getRefreshList()
+        // this.getRefreshList()
+        this.reset()
+        this.getList()
       }
     },
-    mounted() {
-      this.getRefreshList();
-    },
+    // mounted() {
+    //   this.getRefreshList();
+    // },
   }
 
 </script>

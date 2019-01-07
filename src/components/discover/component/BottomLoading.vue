@@ -6,7 +6,7 @@
       </span>
       <span>loading</span>
     </template>
-    <span v-else-if="isLastPage">the end</span>
+    <span v-else-if="isLastPage">我也有是底线的</span>
   </div>
 </template>
 
@@ -26,6 +26,7 @@
   .bottom-loading {
     display: flex;
     justify-content: center;
+    padding: 0.1rem 0;
     font-size: 0.3rem;
     text-align: center;
     line-height: 0.64rem;

@@ -8,7 +8,7 @@
         <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }" style="font-size: 0.3rem;visibility: hidden">下拉刷新</span>
         <span v-show="topStatus === 'loading'">Loading...</span>
       </div>
-      <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
+      <div v-infinite-scroll="loadmore" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
         <div v-if="recommendList.length==0">
           <div style="height: 8rem;"></div>
         </div>
@@ -204,9 +204,10 @@
           <!--社区列表E-->
         </div>
         <!--内容E-->
+        <bottom-loading :loading="loading" :isLastPage="isLastPage"></bottom-loading>
       </div>
     </mt-loadmore>
-    <div style="height: 1rem;"></div>
+    <!-- <div style="height: 1rem;"></div> -->
   </div>
 </template>
 
@@ -220,6 +221,7 @@
   import shareBox from '../component/shareBox.vue';
   import MyVideo from '@/components/components/myVideo/MyVideo'
   import LazyImg from '@/components/discover/component/LazyImg'
+  import BottomLoading from '@/components/discover/component/BottomLoading'
 
   export default {
     name: "Recommend",
@@ -238,13 +240,22 @@
         flag: 'recommend',
         typeInfo: 'information',
         typeNow: 'now',
-        _index: null
+        _index: null,
+        isLastPage: false, // 是不是最后一页
+        listParams: { // 获取列表的参数
+          pageNo: 1,
+          length: 4
+        }
       }
+    },
+    created(){
+      this.getList()
     },
     components: {
       shareBox,
       MyVideo,
-      LazyImg
+      LazyImg,
+      BottomLoading
     },
     methods: {
       /**
@@ -327,8 +338,10 @@
         this.showImg = false;
       },
       loadTop() {
-        this.getRefreshList();
-        this.$refs.loadmore.onTopLoaded();
+        // this.getRefreshList();
+        // this.$refs.loadmore.onTopLoaded();
+        this.reset()
+        this.getList()
       },
       loadBottom() {},
       handleTopChange(status) {
@@ -447,6 +460,47 @@
             console.log(res.data.errorMsg);
           }
         });
+      },
+      /**
+       * 重置
+       */
+      reset() {
+        this.listParams.pageNo = 1
+        this.isLastPage = false
+        this.recommendList = []
+      },
+      /**
+       * 上拉加载更多
+       */
+      loadmore() {
+        if (this.isLastPage) {
+          return
+        }
+        this.listParams.pageNo++
+        this.getList()
+      },
+      /**
+       * 获取列表
+       */
+      getList() {
+        this.loading = true
+        this.$http.post(INDEXMESSAGE.getRecommend, this.listParams).then((res) => {
+          this.loading = false
+          if (res.data.status !== 1) {
+            console.log(res.data.errorMsg)
+            return
+          }
+          for (let i = 0; i < res.data.data.length; i++) {
+            res.data.data[i].createDate = this.convert(res.data.data[i].createDate)
+          }
+          this.recommendList.push(...res.data.data)
+          if (this.recommendList.length >= res.data.recordsTotal) {
+            this.isLastPage = true
+          }
+          this.$nextTick(() => {
+            this.$refs.loadmore.onTopLoaded()
+          })
+        })
       },
       //推荐刷新翻页
       getNextList: function () {
@@ -650,11 +704,15 @@
     watch: {
       getUserId(val) {
         if (val != null) {
-          this.getRefreshList()
+          // this.getRefreshList()
+          this.reset()
+          this.getList()
         }
       },
       selectLabelState() {
-        this.getRefreshList()
+        // this.getRefreshList()
+        this.reset()
+        this.getList()
       },
       ['$route'](to, from){
         if (!from.query.id) {
@@ -683,8 +741,8 @@
       }
     },
     mounted() {
-      console.log('recommend')
-      this.getRefreshList();
+      // console.log('recommend')
+      // this.getRefreshList();
       this.userId = this.$store.state.userId;
       // alert(this.$store.state.userId)
     }

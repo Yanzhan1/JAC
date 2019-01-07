@@ -7,7 +7,7 @@
         <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }" class="down-frash">下拉刷新</span>
         <span v-show="topStatus === 'loading'">Loading...</span>
       </div>
-      <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
+      <div v-infinite-scroll="loadmore" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
         <!--资讯列表S-->
         <div v-for="(item,index) in informationList" :key="index" @click="handleRecordIndex(index)">
 
@@ -59,6 +59,7 @@
 
         </div>
         <!--资讯列表E-->
+        <bottom-loading :loading="loading" :isLastPage="isLastPage"></bottom-loading>
       </div>
     </mt-loadmore>
   </div>
@@ -72,6 +73,7 @@
   import shareBox from '../component/shareBox.vue';
   import MyVideo from '@/components/components/myVideo/MyVideo'
   import LazyImg from '@/components/discover/component/LazyImg'
+  import BottomLoading from '@/components/discover/component/BottomLoading'
 
   let shareIndex = "";
   export default {
@@ -89,13 +91,22 @@
         flag: 'information',
         type: 'information',
         value: null,
-        _index: null
+        _index: null,
+        isLastPage: false, // 是不是最后一页
+        listParams: { // 获取列表的参数
+          pageNo: 1,
+          length: 4
+        }
       }
+    },
+    created(){
+      this.getList()
     },
     components: {
       shareBox,
       MyVideo,
-      LazyImg
+      LazyImg,
+      BottomLoading
     },
     methods: {
       /**
@@ -137,8 +148,10 @@
         })
       },
       loadTop() {
-        this.getRefreshList();
-        this.$refs.loadmore.onTopLoaded();
+        // this.getRefreshList();
+        // this.$refs.loadmore.onTopLoaded();
+        this.reset()
+        this.getList()
       },
       loadBottom() {},
       handleTopChange(status) {
@@ -171,6 +184,44 @@
             console.log(res.data.errorMsg);
           }
         });
+      },
+      /**
+       * 重置
+       */
+      reset() {
+        this.listParams.pageNo = 1
+        this.isLastPage = false
+        this.informationList = []
+      },
+      /**
+       * 上拉加载更多
+       */
+      loadmore() {
+        if (this.isLastPage) {
+          return
+        }
+        this.listParams.pageNo++
+        this.getList()
+      },
+      /**
+       * 获取列表
+       */
+      getList() {
+        this.loading = true
+        this.$http.post(INDEXMESSAGE.getInfomation, this.listParams).then((res) => {
+          this.loading = false
+          if (res.data.status !== 1) {
+            console.log(res.data.errorMsg)
+            return
+          }
+          this.informationList.push(...res.data.data)
+          if (this.informationList.length >= res.data.recordsTotal) {
+            this.isLastPage = true
+          }
+          this.$nextTick(() => {
+            this.$refs.loadmore.onTopLoaded()
+          })
+        })
       },
       //资讯刷新翻页
       getNextList: function () {
@@ -309,7 +360,9 @@
     },
     watch: {
       selectLabelState() {
-        this.getRefreshList()
+        // this.getRefreshList()
+        this.reset()
+        this.getList()
       },
       ['$route'](to, from) {
         if (from.path == '/information/informationDetail') {
@@ -335,12 +388,12 @@
         }
       }
     },
-    mounted() {
-      console.log('information')
-      this.$nextTick(function () {
-        this.getRefreshList()
-      })
-    }
+    // mounted() {
+    //   console.log('information')
+    //   this.$nextTick(function () {
+    //     this.getRefreshList()
+    //   })
+    // }
   }
 
 </script>
