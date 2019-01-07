@@ -46,7 +46,7 @@
 		</div>
 		<div style="width:100%;height:1.4rem;"></div>
 		<div class="dealer-wrapper" :style="{'-webkit-overflow-scrolling': scrollMode}">
-			<mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="80" :auto-fill="false">
+			<!-- <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="80" :auto-fill="false"> -->
 				<ul style="padding:.1rem .2rem" v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
 					<li ref="dataCon" class="ul_list flex row around " v-for="(item,index) in mainbus" :key="index" @click="setUpMap(item.latitude, item.longitude, item.dealerName, item.dealerAddress)">
 						<!--<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>-->
@@ -66,7 +66,7 @@
 						</div>
 					</li>
 				</ul>
-			</mt-loadmore>
+			<!-- </mt-loadmore> -->
 		</div>
 		<p id="showAll2" style="visibility: hidden">已加载全部</p>
 		<!--没有数据时,对用户进行提示-->
@@ -346,13 +346,13 @@ export default {
         }
       });
     },
-    loadTop() {
-      //列表顶部下拉刷新
-      this.$refs.loadmore.onTopLoaded();
-    },
-    loadBottom() {
-      //列表底部下拉刷新
-    },
+    // loadTop() {
+    //   //列表顶部下拉刷新
+    //   this.$refs.loadmore.onTopLoaded();
+    // },
+    // loadBottom() {
+    //   //列表底部下拉刷新
+    // },
     getNextList() {
       //上拉加载更多方法
       if (this.loadEnd) {
