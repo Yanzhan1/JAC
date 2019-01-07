@@ -31,7 +31,7 @@ export default {
     //   }
     // },
     isLogin(userInfo) {
-      // this.$store.dispatch('change$FLAG', true)// 不要动 有用
+      this.$store.dispatch('change$FLAG', true)// 不要动 有用
       // if (isMobile.iOS()) {
       //   //     alert( JSON.stringify(userInfo))
       // }

@@ -7,7 +7,7 @@
         <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }" class="down-frash">下拉刷新</span>
         <span v-show="topStatus === 'loading'">Loading...</span>
       </div>
-      <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
+      <div v-infinite-scroll="loadmore" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
         <!--社区列表S-->
         <div v-for="(item,index) in nowList" @click="handleRecordIndex(index)">
           <div class="boxInfo">
@@ -18,7 +18,8 @@
                   <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="head_72" />
                   <img v-else src="../../../../static/images/discover/normalhead.png" class="head_72" />
                   <!--加V-->
-                  <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../../static/images/discover/v.png" class="head_22"/>
+                  <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../../static/images/discover/v.png"
+                    class="head_22" />
                 </div>
               </div>
               <div class="user_info">
@@ -54,7 +55,7 @@
             <div @click="toDetail(item.id)" class="listTitleInfo">{{item.momentMessage}}</div>
             <div class="pics" v-if="item.momentImgList">
               <!--加精华-->
-              <img v-if="item.supreme==1" src="../../../../static/images/discover/jinghua.png" class="jinghua"/>
+              <img v-if="item.supreme==1" src="../../../../static/images/discover/jinghua.png" class="jinghua" />
               <div v-if="item.momentImgList.length==1" v-for="imgItem in item.momentImgList">
                 <div class="pic1" @click="toDetail(item.id)">
                   <lazy-img :imgUrl="imgItem"></lazy-img>
@@ -108,6 +109,7 @@
           </div>
         </div>
         <!--社区列表E-->
+        <bottom-loading :loading="loading" :isLastPage="isLastPage"></bottom-loading>
       </div>
     </mt-loadmore>
   </div>
@@ -122,6 +124,7 @@
   } from 'mint-ui';
   import shareBox from '../component/shareBox.vue';
   import LazyImg from '@/components/discover/component/LazyImg'
+  import BottomLoading from '@/components/discover/component/BottomLoading'
 
   export default {
     name: "Now",
@@ -143,19 +146,32 @@
         flag: 'now',
         type: 'now',
         _index: null,
+        isLastPage: false, // 是不是最后一页
+        listParams: { // 获取列表的参数
+          pageNo: 1,
+          length: 4
+        }
       }
+    },
+    created() {
+      this.getList()
     },
     components: {
       shareBox,
-      LazyImg
+      LazyImg,
+      BottomLoading
     },
     watch: {
       getUserId(val) {
-        this.getRefreshList()
+        // this.getRefreshList()
+        this.reset()
+        this.getList()
       },
       ['$route'](to, from) {
         if (from.path == '/mystart') {
-          this.getRefreshList();
+          // this.getRefreshList();
+          this.reset()
+          this.getList()
         }
         if (!from.query.id) {
           return
@@ -209,30 +225,31 @@
         this.showImg = false;
       },
       loadTop() {
-        //this.nowList=[];
-        this.getRefreshList();
-        this.$refs.loadmore.onTopLoaded();
+        this.reset()
+        this.getList()
+        // this.getRefreshList();
+        // this.$refs.loadmore.onTopLoaded();
       },
       loadBottom() {},
       handleTopChange(status) {
         this.topStatus = status;
       },
-     /* changeUserStartId(id) {
-        if (id == this.$store.state.userId) {
-          this.$router.push({
-            path: '/mystart'
-          });
-          // this.$router.push({path:'/myIndex'});
-        } else {
-          this.$store.state.UserStartId = id;
-          this.$router.push({
-            path: '/userstart',
-            query: {
-              id
-            }
-          });
-        }
-      },*/
+      /* changeUserStartId(id) {
+         if (id == this.$store.state.userId) {
+           this.$router.push({
+             path: '/mystart'
+           });
+           // this.$router.push({path:'/myIndex'});
+         } else {
+           this.$store.state.UserStartId = id;
+           this.$router.push({
+             path: '/userstart',
+             query: {
+               id
+             }
+           });
+         }
+       },*/
       changeUserStartId(id, id1, index) {
         if (id == this.$store.state.userId) {
           this.$router.push({
@@ -306,6 +323,47 @@
             console.log(res.data.errorMsg);
           }
         });
+      },
+      /**
+       * 重置
+       */
+      reset() {
+        this.listParams.pageNo = 1
+        this.isLastPage = false
+        this.nowList = []
+      },
+      /**
+       * 上拉加载更多
+       */
+      loadmore() {
+        if (this.isLastPage) {
+          return
+        }
+        this.listParams.pageNo++
+        this.getList()
+      },
+      /**
+       * 获取列表
+       */
+      getList() {
+        this.loading = true
+        this.$http.post(INDEXMESSAGE.getNow, this.listParams).then((res) => {
+          this.loading = false
+          if (res.data.status !== 1) {
+            console.log(res.data.errorMsg)
+            return
+          }
+          for (let i = 0; i < res.data.data.length; i++) {
+            res.data.data[i].createDate = this.convert(res.data.data[i].createDate)
+          }
+          this.nowList.push(...res.data.data)
+          if (this.nowList.length >= res.data.recordsTotal) {
+            this.isLastPage = true
+          }
+          this.$nextTick(() => {
+            this.$refs.loadmore.onTopLoaded()
+          })
+        })
       },
       //此刻刷新翻页
       getNextList: function () {
@@ -460,15 +518,9 @@
         return this.$store.state.userId
       }
     },
-    /*watch: {
-      getUserId(val) {
-        this.getRefreshList()
-      }
-    },*/
-    mounted() {
-      console.log('now')
-      this.getRefreshList()
-    }
+    // mounted() {
+    //   this.getRefreshList()
+    // }
   }
 
 </script>
@@ -476,17 +528,20 @@
 <style scoped>
   @import "./../../../../static/css/discover/all.css";
   @import "./../../../../static/css/discover/detail.css";
-  .head_22{
+
+  .head_22 {
     width: 0.2rem !important;
     height: 0.2rem !important;
     position: relative;
     right: -0.54rem;
     bottom: 0.12rem;
   }
-  .jinghua{
+
+  .jinghua {
     width: 1.12rem !important;
     height: 1.12rem !important;
     position: absolute;
     right: 0;
   }
+
 </style>
