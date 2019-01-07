@@ -91,6 +91,7 @@
 <script>
 import TouchSl from "../../../static/js/touchslider.js";
 import { MessageBox } from "mint-ui";
+import {Toast} from "mint-ui"
 import dealer from "./dealer.vue";
 import searchnet from "./Search_net.vue";
 import Recomentbus from "./Recoment_bus.vue";
@@ -131,51 +132,60 @@ export default {
     },
     //道路救援
     confirmRevise() {
-      MessageBox.confirm("", {
-        title: "是否允许",
-        message: "发送当前手机定位到呼叫中心？",
-        showConfirmButton: true,
-        showCancelButton: true,
-        cancelButtonClass: "cancelButton",
-        confirmButtonClass: "confirmButton",
-        confirmButtonText: "允许",
-        cancelButtonText: "不允许",
-        confirmButtonHighlight: true,
-        cancelButtonHighlight: true
-      })
-        .then(action => {
-          if (action == "confirm") {
-            this.flag = true;
-            if (isMobile.iOS()) {
-              window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
-              var param = {
-                latitude: this.latitude,
-                longitude: this.longitude,
-                positionTypeNo: this.$store.state.userId
-              };
-              this.$http.post(Wit.Help, param).then(res => {
-			  });
-            } else if (isMobile.Android()) {
-              var position = js2android.getLocationInfo();
-              var positions = JSON.parse(position);
+      if(this.$store.state.userId){
 
-              this.latitude = positions.latitude;
-              this.longitude = positions.longitude;
-              var param = {
-                latitude: this.latitude,
-                longitude: this.longitude,
-                positionTypeNo: this.$store.state.aaaid
-              };
-              this.$http.post(Wit.Help, param).then(res => {
-			  });
-            }
-          }
+        MessageBox.confirm("", {
+          title: "是否允许",
+          message: "发送当前手机定位到呼叫中心？",
+          showConfirmButton: true,
+          showCancelButton: true,
+          cancelButtonClass: "cancelButton",
+          confirmButtonClass: "confirmButton",
+          confirmButtonText: "允许",
+          cancelButtonText: "不允许",
+          confirmButtonHighlight: true,
+          cancelButtonHighlight: true
         })
-        .catch(err => {
-          if (err == "cancel") {
-            this.flag = true;
-          }
-        });
+          .then(action => {
+            if (action == "confirm") {
+              this.flag = true;
+              if (isMobile.iOS()) {
+                window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
+                var param = {
+                  latitude: this.latitude,
+                  longitude: this.longitude,
+                  positionTypeNo: this.$store.state.userId
+                };
+                this.$http.post(Wit.Help, param).then(res => {
+          });
+              } else if (isMobile.Android()) {
+                var position = js2android.getLocationInfo();
+                var positions = JSON.parse(position);
+  
+                this.latitude = positions.latitude;
+                this.longitude = positions.longitude;
+                var param = {
+                  latitude: this.latitude,
+                  longitude: this.longitude,
+                  positionTypeNo: this.$store.state.aaaid
+                };
+                this.$http.post(Wit.Help, param).then(res => {
+          });
+              }
+            }
+          })
+          .catch(err => {
+            if (err == "cancel") {
+              this.flag = true;
+            }
+          });
+      }else{
+          Toast({
+                  message: "请先登入",
+                  position: "middle",
+                  duration: 2000
+                });
+      }
     },
     //取消
     cancel() {
@@ -190,9 +200,8 @@ export default {
 		this.flag=false;
   },
   backwit(){
-    console.log($('.find_nav_list li').eq(0))
+    // console.log($('.find_nav_list li').eq(0))
     if(this.$store.state.record=='1'){
-      console.log('jinru1')
       $('.find_nav_list li').eq(0)
           .addClass("find_nav_cur")
           .siblings()
@@ -205,7 +214,6 @@ export default {
       200
     );
     }else if(this.$store.state.record=='2'){
-      console.log('jinru2')
       $('.find_nav_list li').eq(1)
           .addClass("find_nav_cur")
           .siblings()
@@ -312,7 +320,8 @@ export default {
       }
     },
     getIosLocation(locationMes){
-      this.$store.state.locationMes=locationMes
+      this.$store.dispatch("GETLOCATIONINFO", locationMes)
+      // this.$store.state.locationMes=locationMes
     },
     changeTap() {
       var fnl_x, x1, y1, ty_left;
@@ -381,13 +390,13 @@ export default {
         x1 = touch1.pageX; //获取手指滑动开始的X位置
         y1 = touch1.pageY; //获取手指滑动开始的Y位置
         ty_left = parseInt($(this).css("left")); //获取手指滑动开始的定位left值
-        console.log(touch1,x1,y1,ty_left,'touchstart')
+        // console.log(touch1,x1,y1,ty_left,'touchstart')
       });
       $(".find_nav_list").on("touchmove", function(e) {
         var touch2 = e.originalEvent.targetTouches[0];
         var x2 = touch2.pageX; //持续获得手指的X,Y的值
         var y2 = touch2.pageY;
-         console.log(touch2,x2,y2,ty_left,'touchstart')
+        //  console.log(touch2,x2,y2,ty_left,'touchstart')
         if (ty_left + x2 - x1 >= 0) {
           $(this).css("left", 0);
         } else if (ty_left + x2 - x1 <= flb_w - fl_w) {
@@ -488,7 +497,8 @@ export default {
     
     var system = this.isIOSOrAndroid();
     if (system == "Android") {
-      this.$store.state.locationMes=js2android.getLocationInfo()
+      this.$store.dispatch("GETLOCATIONINFO", js2android.getLocationInfo())
+      // this.$store.state.locationMes=js2android.getLocationInfo()
     } else if (system == "IOS") {
       window.getIosLocation = this.getIosLocation; //ios获取定位信息,放到window对象供ios调用
       setTimeout(() => {
