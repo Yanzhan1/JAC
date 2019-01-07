@@ -41,7 +41,7 @@ Vue.use(MyStart)
  */
 try {
     Vue.prototype.$statusBarHeightObj = {
-      paddingTop: 0,
+        paddingTop: 0,
     }
     if (isMobile.iOS()) {
         Vue.prototype.$statusBarHeightObj = {
@@ -64,12 +64,11 @@ Vue.prototype.$doubleShare = doubleShare
 Vue.prototype.$http = axios;
 Vue.prototype.$md5 = md5
 Vue.prototype.toLogin = function() {
-  MessageBox.confirm('请登录').then(action => {
-        console.log("跳转登录");
+    MessageBox.confirm('请登录').then(action => {
         if (isMobile.iOS()) {
-            window.webkit.messageHandlers.login.postMessage("");
+            // window.webkit.messageHandlers.login.postMessage("");
         } else if (isMobile.Android() && window.js2android) {
-          window.js2android.login();
+            window.js2android.login();
         }
     });
 }

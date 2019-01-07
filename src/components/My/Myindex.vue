@@ -15,8 +15,13 @@
           <img v-show="this.imgV" class="signimg" :src="Vimg" alt="">
           <div class="flex column" style="margin-left: 0.2rem;">
             <div class="flex cocenter" style="overflow: hidden">
-              <span v-if="Personal.userName" style="color: #fff;font-size: 0.32rem;font-weight: bold">{{Personal.userName}}</span>
-              <span v-else style="color: #fff;font-size: 0.32rem;font-weight: bold">尚未设置昵称</span>
+              <div v-if="this.$store.state.userId">
+                <span v-if="Personal.userName" style="color: #fff;font-size: 0.32rem;font-weight: bold">{{Personal.userName}}</span>
+                <span v-else style="color: #fff;font-size: 0.32rem;font-weight: bold">尚未设置昵称</span>
+              </div>
+              <div class="loginto" v-else>
+                <span @click="gologin">登入 / 注册</span>
+              </div>
               <!-- 控制jac图标的展示 -->
               <div v-show="imgJac" class="jacshow" >JAC</div>
               <img v-if="Personal.sex==1" src="../../../static/images/my/gender_man@2x.png" alt="" style="width: 0.28rem;height: 0.28rem">
@@ -412,6 +417,13 @@ export default {
           this.$store.dispatch("TSP", tsp);
         }
       });
+    },
+    gologin(){
+          if (isMobile.iOS()) {
+              // window.webkit.messageHandlers.login.postMessage("");
+          } else if (isMobile.Android() && window.js2android) {
+              window.js2android.login();
+          }
     }
   },
   computed: {
@@ -638,5 +650,9 @@ export default {
   font-weight: 520;
   /* -webkit-transform: scale(0.75);
   -o-transform: scale(.75) */
+}
+.loginto{
+  font:500 .6rem/.4rem 'PingFang-SC-Medium';
+  color: #fff;
 }
 </style>
