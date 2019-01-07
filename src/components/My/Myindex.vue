@@ -432,7 +432,7 @@ export default {
     }
   },
   created() {
-    this.getuserinfo();
+    
     // this.RecomendCode(); //获取推荐码
   },
   watch: {
@@ -452,9 +452,12 @@ export default {
     // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
     // }, 0);
     // this.getTokenAndNo();
-    this.myNum();
-    this.IsSign(); //判断是否签到
-    this.total(); //h获取用户总积分
+    if(this.$store.state.userId){
+      this.getuserinfo();
+      this.myNum();
+      this.IsSign(); //判断是否签到
+      this.total(); //h获取用户总积分
+    }
     window.getStatus = this.getStatus;
   }
 };
