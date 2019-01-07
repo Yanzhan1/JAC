@@ -70,13 +70,13 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
       </div>
-       <!--<router-link to="/myindex/wbrecode" class="mylist" tag="div">
+       <!-- <router-link to="/myindex/wbrecode" class="mylist" tag="div">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_record_maintanance@2x.png" alt="">
           <span>维保记录</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </router-link>-->
+      </router-link> -->
       <router-link to="/myCollect" tag="div" class="mylist">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_collection@2x.png" alt="">
@@ -179,12 +179,12 @@ export default {
       this.$http.post(My.SignIn, data).then(res => {
         if (res.data.code == 0) {
           this.num = res.data.data;
+          this.popupVisible = true;
+          setTimeout(() => {
+            this.popupVisible = false;
+            this.isShow = false;
+          }, 1000);
         }
-        this.popupVisible = true;
-        setTimeout(() => {
-          this.popupVisible = false;
-          this.isShow = false;
-        }, 1000);
         this.total();
       });
     },

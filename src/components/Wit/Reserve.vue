@@ -361,91 +361,101 @@ export default {
       //   if (res.data.code == 0) {
       //   }
       // });
-      if(this.Distribution=='此地区暂无经销商'){
-         Toast({
-          message: "此地区暂无经销商",
-          duration: 1000,
-          position: "middle"
-        });
-        return false;
-      }
-      var name = this.name;
-      if (name == "") {
-        Toast({
-          message: "姓名不能为空",
-          duration: 1000,
-          position: "middle"
-        });
-        return false;
-      }
-      var tell = this.tell; //手机号
-      let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
-      var numFlag = reg.test(tell);
-      if (!numFlag) {
-        Toast({
-          message: "手机号码格式不对！",
-          duration: 1000,
-          position: "middle"
-        });
-        return false;
-      }
-      var gender = this.smallname == "女" ? 1 : 2;
-      if(this.provinceid==''){
-          for(let value of this.myaddress){
-            if(value.name==this.localprovince){
-              this.provinceid=value.id
+      if(this.$store.state.userId){
+
+        if(this.Distribution=='此地区暂无经销商'){
+           Toast({
+            message: "此地区暂无经销商",
+            duration: 1000,
+            position: "middle"
+          });
+          return false;
+        }
+        var name = this.name;
+        if (name == "") {
+          Toast({
+            message: "姓名不能为空",
+            duration: 1000,
+            position: "middle"
+          });
+          return false;
+        }
+        var tell = this.tell; //手机号
+        let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+        var numFlag = reg.test(tell);
+        if (!numFlag) {
+          Toast({
+            message: "手机号码格式不对！",
+            duration: 1000,
+            position: "middle"
+          });
+          return false;
+        }
+        var gender = this.smallname == "女" ? 1 : 2;
+        if(this.provinceid==''){
+            for(let value of this.myaddress){
+              if(value.name==this.localprovince){
+                this.provinceid=value.id
+              }
             }
-          }
-             var data = {
-            parentId: this.provinceid,
-            level: 2,
-            size:100,
-          };
-          this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res=>{
-              let city=res.data.data.records
-              for(let values of city){
-                if(values.name==this.localcity){
-                  this.codecity=values.id
-                }
-              }
-             
-          })
-      }
-      if(this.showchecked){
-        setTimeout(()=>{
-            var param = {
-              customerName: this.name, //姓名
-              fkDealerId: this.business, //经销商编号
-              gender: gender, //性别
-              mobile: this.tell, //手机号
-              email: this.email, //email
-              address: this.address, //地址
-              comments: this.vehicleData, //车型配置
-              province: this.provinceid, //省份ID
-              series: this.$store.state.levelCode, //意向车系
-              model: this.$store.state.srouceNo, //意向车型
-              city: this.codecity, //城市ID
-              userNo: this.$store.state.userId,
-              code:this.Recommend,//推荐码
+               var data = {
+              parentId: this.provinceid,
+              level: 2,
+              size:100,
             };
-            this.$http.post(Wit.PreBus, param).then(res => {
-              if (res.data.code == 0) {
-                this.success = true;
-                this.region = true;
-              } else {
-                Toast({
-                  message: res.data.msg,
-                  duration: 3000,
-                  position: "middle"
-                });
-                return false;
-              }
-            });
-        },500)
+            this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res=>{
+                let city=res.data.data.records
+                for(let values of city){
+                  if(values.name==this.localcity){
+                    this.codecity=values.id
+                  }
+                }
+               
+            })
+        }
+        if(this.showchecked){
+          setTimeout(()=>{
+              var param = {
+                customerName: this.name, //姓名
+                fkDealerId: this.business, //经销商编号
+                gender: gender, //性别
+                mobile: this.tell, //手机号
+                email: this.email, //email
+                address: this.address, //地址
+                comments: this.vehicleData, //车型配置
+                province: this.provinceid, //省份ID
+                series: this.$store.state.levelCode, //意向车系
+                model: this.$store.state.srouceNo, //意向车型
+                city: this.codecity, //城市ID
+                userNo: this.$store.state.userId,
+                code:this.Recommend,//推荐码
+              };
+              this.$http.post(Wit.PreBus, param).then(res => {
+                if (res.data.code == 0) {
+                  this.success = true;
+                  this.region = true;
+                } else {
+                  Toast({
+                    message: res.data.msg,
+                    duration: 3000,
+                    position: "middle"
+                  });
+                  return false;
+                }
+              });
+          },500)
+        }else{
+          this.$router.push({
+           path:'/wit/Earnest'
+         });
+        }
       }else{
-        this.$router.push({
-         path:'/wit/Earnest'
-       });
+        //若用户未登入让用户去登入
+      //  if (isMobile.Android()) {
+      //         window.js2android.login() //安卓退出App
+      //       } else if (isMobile.iOS()) {
+      //         window.webkit.messageHandlers.logout403.postMessage({}); //IOS退出app
+      //       }
       }
     },
     	isIOSOrAndroid() { //判断ios和安卓机型的方法
