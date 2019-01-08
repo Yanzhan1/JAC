@@ -46,7 +46,7 @@
             fn: null
           },
           'normal': {
-            text: '活动已结&nbsp;束',
+            text: '活动已结束&nbsp;',
             fn: null
           }
         },
@@ -54,8 +54,8 @@
     },
     computed: {
       finalState() {
-        const fn1 = after(this.noUserId, this.sign)
-        const fn2 = after(fn1, this.noSign)
+        // const fn1 = after(this.noUserId, this.sign)
+        const fn2 = after(this.sign, this.noSign)
         const fn3 = after(fn2, this.ing)
         const fn4 = after(fn3, this.end)
         const fn5 = after(fn4, this.pic)
