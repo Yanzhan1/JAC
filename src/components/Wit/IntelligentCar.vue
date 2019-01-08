@@ -114,7 +114,7 @@
 
 <script>
 	import BScroll from "better-scroll";
-	import VerticalToggle from '../../../static/js/vertical-toggle.js'
+	import VerticalToggle from '../../../src/assets/vertical-toggle.js'
 	import { MessageBox } from 'mint-ui'
 	export default {
 		name: 'intelligentCar',

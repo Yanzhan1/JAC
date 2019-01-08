@@ -563,9 +563,6 @@ export default {
       this.publicrequst(); //请求该省份的经销商列表
     }
   },
-  updated() {
-    window.scroll(0, 100);
-  },
   computed: {
     locationMes() {
       return this.$store.state.locationMes;

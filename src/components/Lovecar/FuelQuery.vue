@@ -23,7 +23,7 @@
 				<div class="origin-pin">
 					<div class="flex-align-center revisePinCommon">
 						<span style="font-size: 0.26rem;color: #444444;">
-							本月总里程:
+							总里程:
 						</span>
 						<input :disabled="disabled" type="text" v-model="item.monthMileage" />
 					</div>

@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import { Createarc } from "../../../static/js/drawarc.js";
+import { Createarc } from "../../../src/assets/drawarc.js";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
 import PublicHead from "../publicmodel/PublicHead";

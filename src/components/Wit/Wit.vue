@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import TouchSl from "../../../static/js/touchslider.js";
+import TouchSl from "../../../src/assets/touchslider.js";
 import { MessageBox } from "mint-ui";
 import {Toast} from "mint-ui"
 import dealer from "./dealer.vue";
@@ -277,7 +277,6 @@ export default {
   up(){
     this.moveFlag = false; 
     if (!this.moveFlag) {
-      // alert('2222')
     }
   },
 	//打电话传号码

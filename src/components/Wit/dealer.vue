@@ -287,13 +287,6 @@ export default {
                           });
                         }
                       })
-                      .catch(err => {
-                        Toast({
-                          message: "系统异常",
-                          position: "middle",
-                          duration: 2000
-                        });
-                      });
                   }
                 }
               }
@@ -305,13 +298,6 @@ export default {
               });
             }
           })
-          .catch(err => {
-            Toast({
-              message: "系统异常",
-              position: "middle",
-              duration: 2000
-            });
-          });
     },
     //获取经销商列表
     mydeler() {
@@ -404,13 +390,6 @@ export default {
             });
           }
         })
-        .catch(err => {
-          Toast({
-            message: "系统异常",
-            position: "middle",
-            duration: 2000
-          });
-        });
     },
     //公共请求，
     publicrequst() {
@@ -570,9 +549,6 @@ export default {
     locationMes() {
       return this.$store.state.locationMes;
     }
-  },
-  updated() {
-    window.scroll(0, 100);
   },
   watch: {
     locationMes(newVal, oldVal) {
