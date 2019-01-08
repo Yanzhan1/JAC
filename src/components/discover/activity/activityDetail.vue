@@ -192,7 +192,11 @@
           return false;
         }
         if (isMobile.iOS()) {
-          window.webkit.messageHandlers.toPic.postMessage("");
+          let params = {
+            userId:_this.$store.state.userId,
+            activityId:_this.content.activityId
+          }
+          window.webkit.messageHandlers.toPic.postMessage(params);
         } else if (isMobile.Android()) {
           js2android.send("晒图", this.$store.state.userId, this.content.activityId);
         }
