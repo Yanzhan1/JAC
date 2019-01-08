@@ -429,6 +429,9 @@ export default {
   computed: {
     show() {
       return this.$store.state.aaaid;
+    },
+    userId(){
+      return this.$store.state.userId
     }
   },
   created() {
@@ -441,6 +444,14 @@ export default {
         // this.aaaid =JSON.parse(localStorage.getItem("aaaid"));
         // this.mobile = JSON.parse(localStorage.getItem("mobile"));
       // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
+    },
+    userId(newVal, oldVal){
+      if(newVal){
+        this.getuserinfo();
+        this.myNum();
+        this.IsSign(); //判断是否签到
+        this.total(); //h获取用户总积分
+      }
     }
   },
   mounted() {
