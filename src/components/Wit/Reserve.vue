@@ -290,7 +290,6 @@ export default {
                       this.everycode=this.data[i].code
                     }
           }
-              // alert(this.everycode)
               //经销商
               var param = {
                 dealerType: "01",
@@ -320,7 +319,6 @@ export default {
       this.areas = false;
       this.citys = false;
           //经销商
-          // alert(this.everycode)
       var param = {
         dealerType: "01",
         dealerCityCode: this.everycode,
@@ -480,13 +478,9 @@ export default {
     //选择省
     onValuesChange(picker, values) {
       this.num++;
-      // alert('sheng'+this.num)
-      // alert('进入')
       if(this.num == 4){
-        // alert('触发')
         this.area = this.localprovince
       }else{
-        // alert(values)
         this.area=values
           for (var i = 0; i < this.myaddress.length; i++) {
                 if (this.area[0] == this.myaddress[i].name) {
@@ -502,7 +496,6 @@ export default {
     //选择经销商
     onValuesChange2(picker, values) {
       this.num++;
-      // alert('jingxiao'+this.num)
       if(this.num == 3){
         this.Distribution='此地区暂无经销商'
       }else{
@@ -522,7 +515,6 @@ export default {
     onValuesChange3(picker, values) {
       
       this.num++
-      // alert('shi'+this.num)
       if(this.num == 5){
       
         this.city = this.localcity
