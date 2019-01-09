@@ -50,13 +50,7 @@
 							duration: 1000
 						});
 					}
-				}).catch((error) => {
-						let instance = Toast({
-							message: '系统异常',
-							position: 'middle',
-							duration: 1000
-						});
-				});
+				})
 			}
 		},
 		mounted () {

@@ -288,13 +288,6 @@ export default {
                         });
                       }
                     })
-                    .catch(err => {
-                      Toast({
-                        message: "系统异常",
-                        position: "middle",
-                        duration: 2000
-                      });
-                    });
                 }
               }
             }
@@ -306,13 +299,15 @@ export default {
             });
           }
         })
-        .catch(err => {
-          Toast({
-            message: "系统异常",
-            position: "middle",
-            duration: 2000
-          });
-        });
+    },
+    getbrand(){
+      let param={
+        lmscode:modelNo ,
+        levelCode:seriesNo
+      }
+      this.$http.post(Wit.SearchVehicleSeriesByVehicle,param).then((res)=>{
+          console.log(res)
+      })
     },
     //获取定位的省份,城市,经纬度
     getdefaultmessage() {
@@ -399,13 +394,6 @@ export default {
             });
           }
         })
-        .catch(err => {
-          Toast({
-            message: "系统异常",
-            position: "middle",
-            duration: 2000
-          });
-        });
       $("#provinceLabel").hide();
       this.allback = false;
       this.valuesprovince1 = this.valuesprovince;

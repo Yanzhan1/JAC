@@ -68,10 +68,9 @@
         var system = this.isIOSOrAndroid();
         switch (data.code) { //判断接口状态,403  token失效,重新登录,本地调试可注释掉,发布提交时必须解开
           case 403:
-           
             if(this.$store.state.userId){
                 if (isMobile.iOS()) {
-                    // window.webkit.messageHandlers.login.postMessage("");
+                    window.webkit.messageHandlers.logout403.postMessage("");
                 } else if (isMobile.Android() && window.js2android) {
                     window.js2android.reLogin();
                 }
@@ -121,18 +120,7 @@
         }
       }
     },
-		watch: {
-			'$route' (to, from) {
-//				alert(to.name)
-				if(to.name == '智享首页') {
-//					alert('滚动的距离: '+this.$store.state.changeScrollY)
-					let recruitScrollY = this.$store.state.changeScrollY
-//						alert(this.$store.state.changeScrollY)
-//					window.scroll(0, recruitScrollY)
-						this.scroll.scrollTo(0, recruitScrollY)
-				}
-			}
-		}
+
   }
 
 </script>

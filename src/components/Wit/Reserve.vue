@@ -450,12 +450,7 @@ export default {
          });
         }
       }else{
-        //若用户未登入让用户去登入
-      //  if (isMobile.Android()) {
-      //         window.js2android.login() //安卓退出App
-      //       } else if (isMobile.iOS()) {
-      //         window.webkit.messageHandlers.logout403.postMessage({}); //IOS退出app
-      //       }
+          this.toLogin()
       }
     },
     	isIOSOrAndroid() { //判断ios和安卓机型的方法
