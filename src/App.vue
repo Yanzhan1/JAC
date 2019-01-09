@@ -31,7 +31,7 @@ export default {
     //   }
     // },
     isLogin(userInfo) {
-      this.$store.dispatch('change$FLAG', true)// 不要动 有用
+      // this.$store.dispatch('change$FLAG', true)// 不要动 有用
       // if (isMobile.iOS()) {
       //   //     alert( JSON.stringify(userInfo))
       // }
@@ -74,6 +74,7 @@ export default {
       this.$http.defaults.headers.common["timaToken"] = this.$store.state.token;
       // 如果登录成功，获取用户头像
       if (this.$http.defaults.headers.common["timaToken"]) {
+        alert(this.$http.defaults.headers.common["timaToken"] + ',' + this.$store.state.token)
         var param = {
           no: this.$store.state.userId
         };
