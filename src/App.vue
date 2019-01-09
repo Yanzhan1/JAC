@@ -73,7 +73,9 @@ export default {
       }
       this.$http.defaults.headers.common["timaToken"] = this.$store.state.token;
       // 如果登录成功，获取用户头像
-      if (this.$http.defaults.headers.common["timaToken"]) {
+      
+      if (this.$store.state.token) {
+        console.log(userInfo)
         var param = {
           no: this.$store.state.userId
         };
