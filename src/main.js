@@ -66,7 +66,7 @@ Vue.prototype.$md5 = md5
 Vue.prototype.toLogin = function() {
     MessageBox.confirm('请登录').then(action => {
         if (isMobile.iOS()) {
-            // window.webkit.messageHandlers.login.postMessage("");
+            window.webkit.messageHandlers.login.postMessage("");
         } else if (isMobile.Android() && window.js2android) {
             window.js2android.login();
         }
