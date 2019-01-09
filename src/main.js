@@ -70,6 +70,8 @@ Vue.prototype.toLogin = function(msg = '请登录') {
         } else if (isMobile.Android() && window.js2android) {
             window.js2android.login();
         }
+    }).catch(() => {
+        console.log('一定别忘了这个')
     });
 }
 

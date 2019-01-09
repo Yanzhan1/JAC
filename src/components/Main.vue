@@ -75,7 +75,8 @@
                     window.js2android.reLogin();
                 }
             }else{
-               _this.toLogin();
+              delete response.data
+              _this.toLogin();
             }
             /*if (system == 'Android' && window.js2android) {
               window.js2android.login() //安卓退出App
