@@ -116,7 +116,7 @@ export default {
     //版本更新
     versionupdate() {
       if (isMobile.iOS()) {
-        window.webkit.messageHandlers.checkVersion.postMessage({}); //ios方法暂时没有提供,需后续跟踪
+        window.webkit.messageHandlers.checkVersion.postMessage({}); 
       } else if (isMobile.Android()) {
         window.js2android.checkVersion();
       }
