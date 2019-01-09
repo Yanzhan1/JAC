@@ -117,7 +117,7 @@
           var auth = this.$store.state.islogin
           var userId = this.$store.state.userId
           if(!auth || !userId){
-            this.toLogin()
+            this.toLogin('登陆后可发表评论')
             return
           }
           var headImgUrl = this.$store.state.imgUrl || 'http://poss.yunshicloud.com/CDVCLOUD/QMTNRK_YUNSHI/794EF2CC796447B48AEB1044DDB1CA74/4f15613484983e03412b777f86859969.png'

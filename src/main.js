@@ -63,8 +63,8 @@ import doubleShare from '@/utils/doubleShare'
 Vue.prototype.$doubleShare = doubleShare
 Vue.prototype.$http = axios;
 Vue.prototype.$md5 = md5
-Vue.prototype.toLogin = function() {
-    MessageBox.confirm('请登录').then(action => {
+Vue.prototype.toLogin = function(msg = '请登录') {
+    MessageBox.confirm(msg).then(action => {
         if (isMobile.iOS()) {
             window.webkit.messageHandlers.login.postMessage("");
         } else if (isMobile.Android() && window.js2android) {
