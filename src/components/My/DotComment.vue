@@ -96,13 +96,6 @@
 							})
 						}
 					})
-					.catch(err => {
-						Toast({
-							message: "系统异常",
-							position: "middle",
-							duration: 2000
-						})
-					})
 			},
 			evaluate(value) { //总体评价
 				this.evaluatePoint = value
@@ -191,13 +184,6 @@
 								})
 								this.chooseFlag = true
 							}
-						})
-						.catch(err => {
-							Toast({
-								message: '系统异常',
-								position: "middle",
-								duration: 2000
-							})
 						})
 				}
 			},

@@ -73,6 +73,7 @@ export default {
         .then(action => {
           if (action == "confirm") {
             localStorage.removeItem("Tip");
+            this.$store.state.userId=null
             var system = this.isIOSOrAndroid();
             if (system == "Android") {
               window.js2android.logout(); //安卓退出App
@@ -94,28 +95,15 @@ export default {
       this.update = value.versionName;
       this.update = "当前版本 " + this.update;
     },
-    // checkVersion(){},
-    // isIOSOrAndroid() { //判断ios和安卓机型的方法
-    // 	var u = navigator.userAgent,
-    // 		app = navigator.appVersion;
-    // 	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
-    // 	var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-    // 	if(isAndroid) {
-    // 		return "Android"
-    // 	} else if(isIOS) {
-    // 		return "IOS"
-    // 	}
-    // },
     //判断是否更新
     newphone() {
       if (isMobile.iOS()) {
-        window.webkit.messageHandlers.getVersionInfo.postMessage({}); //ios方法暂时没有提供,需后续跟踪
+        window.webkit.messageHandlers.getVersionInfo.postMessage({}); 
       } else if (isMobile.Android()) {
         if (this.update == "") {
           this.banben = false;
         }
         let Detectionupdate = JSON.parse(window.js2android.getVersionInfo());
-        console.log(window.js2android.getVersionInfo());
         this.flag = Detectionupdate.flag;
         this.flag = this.flag == "1" ? true : false;
         this.update = Detectionupdate.versionName;
@@ -187,10 +175,10 @@ export default {
     }
   },
   created() {
-    window.getvalue = this.getvalue;
+          window.getvalue = this.getvalue;
   },
   mounted() {
-    this.newphone();
+      this.newphone();
     // this.getCarLoginState()
   }
 };

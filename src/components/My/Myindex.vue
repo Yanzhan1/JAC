@@ -20,7 +20,7 @@
                 <span v-else style="color: #fff;font-size: 0.32rem;font-weight: bold">尚未设置昵称</span>
               </div>
               <div class="loginto" v-else>
-                <span @click="gologin">登入 / 注册</span>
+                <span @click="gologin">登录 / 注册</span>
               </div>
               <!-- 控制jac图标的展示 -->
               <div v-show="imgJac" class="jacshow" >JAC</div>
@@ -264,8 +264,6 @@ export default {
         js2android.scan();
       }
     },
-    getStatus(pp) {},
-
     // //获取原生的no和token
     // getTokenAndNo() {
     //   //js判断手机操作系统(ios或者是Android)
@@ -420,7 +418,7 @@ export default {
     },
     gologin(){
           if (isMobile.iOS()) {
-              // window.webkit.messageHandlers.login.postMessage("");
+              window.webkit.messageHandlers.login.postMessage("");
           } else if (isMobile.Android() && window.js2android) {
               window.js2android.login();
           }
@@ -455,21 +453,12 @@ export default {
     }
   },
   mounted() {
-    // this.Tsp()
-    // setTimeout(() => {
-        // this.userName = JSON.parse(localStorage.getItem("userName"));
-        // this.aaaid=JSON.parse(localStorage.getItem("aaaid"))
-        // this.mobile = JSON.parse(localStorage.getItem("mobile"))
-    // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
-    // }, 0);
-    // this.getTokenAndNo();
-    if(this.$store.state.userId){
+    if(this.$store.state.userId!=null){
       this.getuserinfo();
       this.myNum();
       this.IsSign(); //判断是否签到
       this.total(); //h获取用户总积分
     }
-    window.getStatus = this.getStatus;
   }
 };
 </script>
