@@ -12,8 +12,9 @@ var focusip = host + '/api/dk-pr-svr' //uat
 var point = 'http://192.168.1.141:8868' //埋点
     //服务器-智享
 var mip = host + '/api/jac-automobile-manage/automobilemanage' //智享
+var witlocal = 'http://172.21.4.99:8082/automobilemanage'
     //服务器-admin(跟用户有关即我的)
-var mips = host + '/api/jac-admin/' //地区
+var mips = host + '/api/jac-admin' //地区
 var jf = host + '/' //跟积分有关的
     // var love_car = host+'/jvconnectedcar' //爱车
 var love_car = host + '/api/jac-car-control' //爱车
@@ -136,7 +137,8 @@ window.Wit = {
         updateUserPassword: mips + '/admin/userBaseInformation/updateUserPassword', //用户修改密码
         getComAndSugDet: rec + '/enjoyservice/complaintsSuggestionsReply/getComAndSugDet', //反馈详情
         Help: rec + '/enjoyservice/position/savePosition', //道路救援定位传给后端
-        ValidateCode: mips + 'admin/recommendedCode/validateCode' //验证推荐码
+        ValidateCode: mips + 'admin/recommendedCode/validateCode', //验证推荐码
+        SearchVehicleSeriesByVehicle: witlocal + '/vehicleSeries/searchVehicleSeriesByVehicle' //品牌车型的获取
     }
     //我的 部分
 window.My = {
@@ -173,7 +175,7 @@ window.My = {
 window.Lovecar = {
         Support: love_car + '/vehicle/vehicle-support-function', //tsp用户返回所具有的车况功能
         vehicle: love_car + '/vehicle/sync-tsp-vehicle', //给后端同步车辆接口
-        TSP: mips + 'admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne', //获取tsp用户
+        TSP: mips + '/admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne', //获取tsp用户
         Carquery: love_car + '/vehicle/query-vehicle-condition', //车辆车况查询
         OperationId: love_car + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
         Changepin: love_car + '/vehicle/update-vehicle-pin', //修改pin码

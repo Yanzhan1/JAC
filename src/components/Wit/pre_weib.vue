@@ -26,14 +26,14 @@
 			<div class="flex row li_st between cocenter">
 				<p style="font-size:.27rem;color:#555">品牌</p>
 				<div class="flex row cocenter">
-					<input type="text" placeholder="请输入品牌" style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">
+					<span type="text"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">{{brandName}}</span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
 			</div>
 			<div class="flex row li_st between cocenter">
 				<p style="font-size:.27rem;color:#555">车型</p>
 				<div class="flex row cocenter">
-					<span>瑞风S4</span>
+					<span>{{seriesName}}</span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
 			</div>
@@ -163,6 +163,11 @@ export default {
       valuescity1: "", //被选中的城市
       choosecity: false, //控制城市弹框
       defaultvin: "", //默认的vin
+      seriesNo:"",//默认车辆拿到的数据用来请求品牌车型
+      modelNo:"",//默认车辆拿到的数据用来请求品牌车型
+      tspFlag:'',//默认车辆拿到的数据用来请求品牌车型
+      brandName:'',//品牌
+      seriesName:'',//车系
       num:false,//控制picker第一次进入获取不到数据
       flag: false,
       flag1: false,
@@ -302,11 +307,17 @@ export default {
     },
     getbrand(){
       let param={
-        lmscode:modelNo ,
-        levelCode:seriesNo
+        lmscode:this.modelNo ,
+        levelCode:this.seriesNo,
+        tspFlag:this.tspFlag,
       }
       this.$http.post(Wit.SearchVehicleSeriesByVehicle,param).then((res)=>{
-          console.log(res)
+          if(res.data.data.brandId==4||5||6){
+              this.brandName=res.data.data.brandName
+              this.seriesName=res.data.data.seriesName
+          }else{
+            
+          }
       })
     },
     //获取定位的省份,城市,经纬度
@@ -484,8 +495,12 @@ export default {
                 // this.carsysitem = res.data.data[i].seriesName || null;
                 var payload = res.data.data[i].vin;
                 this.defaultvin = res.data.data[i].vin;
+                this.modelNo =res.data.data[i].modelNo;
+                this.seriesNo =res.data.data[i].seriesNo;
+                this.tspFlag =res.data.data[i].tspFlag;
                 this.$store.state.brandName = res.data.data[i].brandName;
                 this.$store.dispatch("CARVINS", payload);
+                this.getbrand()
               }
             }
           } else {
