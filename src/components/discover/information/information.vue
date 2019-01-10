@@ -59,7 +59,7 @@
 
         </div>
         <!--资讯列表E-->
-        <bottom-loading :loading="loading" :isLastPage="isLastPage"></bottom-loading>
+        <bottom-loading :pageNo="listParams.pageNo" :loading="loading" :isLastPage="isLastPage"></bottom-loading>
       </div>
     </mt-loadmore>
   </div>

@@ -204,7 +204,7 @@
           <!--社区列表E-->
         </div>
         <!--内容E-->
-        <bottom-loading :loading="loading" :isLastPage="isLastPage"></bottom-loading>
+        <bottom-loading :pageNo="listParams.pageNo" :loading="loading" :isLastPage="isLastPage"></bottom-loading>
       </div>
     </mt-loadmore>
     <!-- <div style="height: 1rem;"></div> -->

@@ -12,10 +12,10 @@
 
 <script>
   export default {
-    props: ['loading', 'isLastPage'],
+    props: ['pageNo', 'loading', 'isLastPage'],
     computed: {
       isShow() {
-        return this.loading || this.isLastPage
+        return (this.pageNo != 1) && this.loading || this.isLastPage
       }
     }
   }
