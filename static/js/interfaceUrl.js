@@ -166,7 +166,7 @@ window.My = {
         addintegralRealName: host + '/api/pluto-membership/pluto-membership/integral-gather/addintegral-realName', //保存个人信息,增加积分
         orderList: host + '/api/pluto-membership/mall/information/orderList', //商城订单
         orderDetail: host + '/api/pluto-membership/mall/information/orderDetail', //商城订单详细
-        getwords: mips + 'admin/sysDictType/searchSysDictTypeList', //获取所有提示语
+        getwords: mips + '/admin/sysDictType/searchSysDictTypeList', //获取所有提示语
         searchSysDictTypeList: mips + '/admin/sysDictType/searchSysDictTypeList', //网点评分列表
         addBranchesEvaluation: mip + '/branchesEvaluation/addBranchesEvaluation', //提交评分
 
