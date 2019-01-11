@@ -37,6 +37,19 @@
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
 			</div>
+			<div class="flex row li_st between cocenter">
+				<p style="font-size:.27rem;color:#555">行驶里程</p>
+				<div class="flex row cocenter">
+          <!-- <input type="numberbox" name="" id="" v-model="km"> -->
+          <input type="text"
+              class="form-control match-rotation-input"
+              onkeyup="value=value.replace(/[^\d]/g,'')"     
+               onblur="value=value.replace(/[^\d]/g,'')"
+              ng-model="schedule.round"
+              placeholder="请输入数字" v-model="km">
+					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
+				</div>
+			</div>
 			<div class="flex row li_st between cocenter" @click="chooseprovinces">
 				<p style="font-size:.27rem;color:#555">省份</p>
 				<div class="flex row cocenter">
@@ -80,10 +93,14 @@
 			</div>
 			<div class="flex row li_st between cocenter" >
 				<p style="font-size:.27rem;color:#555">维保类型</p>
-				<div class="flex row cocenter">
-					<span style="font-size:.26rem;color:#222"></span>
+				<div class="flex row cocenter" @click="Maintenance">
+					<span ref="main" style="font-size:.26rem;color:#222">a型</span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
+        <div class="choosexing" v-show="choosexing">
+            <div ref="one" @click="chooseone">a型</div>
+            <div ref="two" @click="choosetwo">b型</div>
+        </div>
 			</div>
 		</div>
 		<!-- 服务站弹出框 -->
@@ -157,6 +174,8 @@ export default {
       servicezhan: false, //控制服务站
       orderTime: false, //控制时间
       allback: false, //遮罩层
+      km:'',//维保预约的里程数
+      choosexing:false,//控制保养类型的选择
       chooseserveimg: false, //控制选择服务站图片默认不选择
       chooseprovinceq: false, //控制省份弹框
       valuesprovince: "", //被选中的省份
@@ -191,23 +210,7 @@ export default {
       proid: "", //省份的id请求城市用到
       provinceCode: "", //省份的code
       city_id: "", //城市的code
-      addressArray: [
-        // {
-        //   id: "1",
-        //   title: "上海呼伦汽车",
-        //   addressTitle: "上海市闵行区啦啦啦"
-        // },
-        // {
-        //   id: "2",
-        //   title: "上海呼伦汽车1",
-        //   addressTitle: "上海市闵行区啦啦啦"
-        // },
-        // {
-        //   id: "3",
-        //   title: "上海呼伦汽车2",
-        //   addressTitle: "上海市闵行区啦啦啦"
-        // }
-      ],
+      addressArray: [],
       provinceSlot: [
         {
           flex: 1,
@@ -412,6 +415,9 @@ export default {
       $("#provinceLabel").show();
       this.allback = true;
     },
+    Maintenance(){
+      this.choosexing=!this.choosexing
+    },
     //确认省份
     chooseprovinceone() {
       if (this.valuesprovince == undefined) {
@@ -514,6 +520,14 @@ export default {
     rightBtn() {
       //右时间按钮
     },
+    chooseone(){
+        this.choosexing=!this.choosexing
+        this.$refs.main.innerText=this.$refs.one.innerText
+    },
+    choosetwo(){
+        this.choosexing=!this.choosexing
+        this.$refs.main.innerText=this.$refs.two.innerText
+    },
     //获取默认车辆的vin
     defaultvins() {
       this.$http
@@ -584,8 +598,14 @@ export default {
 } */
 
 .li_st {
+  position: relative;
   height: 0.99rem;
   border-bottom: 0.01rem solid #f1f1f1;
+}
+.li_st input{
+  border:none;
+  text-align: end;
+  outline: none;
 }
 .surebuttom {
   width: 1rem;
@@ -681,7 +701,15 @@ export default {
 .mid {
   padding: 0.2rem 0;
 }
-
+.choosexing{
+  position: absolute;
+  bottom: -1rem;
+  right: .25rem;
+  background: #fff;
+}
+.choosexing>div{
+  padding: .1rem;
+}
 .txt_top {
   font-size: 0.3rem;
   color: #222;
