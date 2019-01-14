@@ -155,6 +155,9 @@
           <button class="prev-button" @click="leftBtn"><</button>
        	</div>
       </div>
+      <div v-show="notime">
+          暂无预约时间
+      </div>
       <mt-picker :slots="slotstime" @change="timeChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
     </div>
 		<span class="bottom-btn" @click="appointment">立即预约</span>
@@ -181,6 +184,7 @@ export default {
       orderTime: false, //控制时间
       allback: false, //遮罩层
       km:'',//维保预约的里程数
+      notime:false,//若code为500的时候暂无预约时间
       yearmonthday:'',//选择的时间年月日
       choosexing:false,//控制保养类型的选择
       chooseserveimg: false, //控制选择服务站图片默认不选择
@@ -376,6 +380,7 @@ export default {
              }
              this.$http.post(Wit.selectDealerAndTime,param).then((res)=>{
                if(res.data.code==0){
+                  this.notime=false
                  this.alldata=res.data.data
                  let alldata=res.data.data
                  this.slotstime[0].values=[]
@@ -388,7 +393,8 @@ export default {
                    }
                  }
                }else if(res.data.code==500){
-                this.slotstime[0].values=this.everytime
+                 this.notime=true
+                this.slotstime[0].values=[]
                }
              })
     },

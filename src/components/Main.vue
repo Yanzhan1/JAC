@@ -33,7 +33,6 @@ export default {
         // if (config.url == Lovecar.OperationId) {
         //     localshow()
         // }
-        console.log(this.loadingnum);
         if (this.loadingnum == 0) {
           switch (arr[1]) {
             case "dk-dm-portal-api": // 发现
@@ -86,15 +85,9 @@ export default {
             }
             break;
         }
-        console.log(response.config.url);
         if (
-          response.config.url != Lovecar.OperationId &&
-          response.config.url != Lovecar.Support &&
-          response.config.url != Lovecar.TSP &&
-          response.config.url != Lovecar.vehiclestatus &&
-          response.config.url != Lovecar.Carquery
+          response.config.url != Lovecar.OperationId 
         ) {
-          console.log("not same");
           if (this.loadingnum == 0) {
             localhide();
             this.$forceUpdate();
