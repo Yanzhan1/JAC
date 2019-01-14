@@ -1653,234 +1653,237 @@ export default {
           .then(res => {
             // alert(1)
             // alert(res.data.returnSuccess)
-            if (res.data.returnSuccess) {
-              if (this.type == 1) {
-                //车辆锁定的接口
-                // alert(this.$store.state.vins)
-                // this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
-                var params = {
-                  vin: this.$store.state.vins,
-                  operationType: "LOCK",
-                  operation: 2 //操作项
-                };
-                this.$http
-                  .post(Lovecar.Control, params, this.$store.state.tsppin)
-                  .then(res => {
-                    this.operationIds = res.data.operationId;
-                    // alert(res.data.operationId)
-                    // alert(this.operationIdcar)
-                    if (res.data.returnSuccess) {
-                      Toast({
-                        message: this.open_lock[0].dictValue,
-                        position: "middle",
-                        duration: 2000
-                      });
-                      setTimeout(() => {
-                        this.getAsyReturn(res.data.operationId);
-                      }, 2000);
-                      // alert(this.isTrue)
-                    } else {
+            if(res.data){
+              if (res.data.returnSuccess) {
+                if (this.type == 1) {
+                  //车辆锁定的接口
+                  // alert(this.$store.state.vins)
+                  // this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
+                  var params = {
+                    vin: this.$store.state.vins,
+                    operationType: "LOCK",
+                    operation: 2 //操作项
+                  };
+                  this.$http
+                    .post(Lovecar.Control, params, this.$store.state.tsppin)
+                    .then(res => {
+                      this.operationIds = res.data.operationId;
+                      // alert(res.data.operationId)
+                      // alert(this.operationIdcar)
+                      if (res.data.returnSuccess) {
+                        Toast({
+                          message: this.open_lock[0].dictValue,
+                          position: "middle",
+                          duration: 2000
+                        });
+                        setTimeout(() => {
+                          this.getAsyReturn(res.data.operationId);
+                        }, 2000);
+                        // alert(this.isTrue)
+                      } else {
+                        Toast({
+                          message: this.open_lock[2].dictValue,
+                          position: "middle",
+                          duration: 2000
+                        });
+                      }
+                    })
+                    .catch(err => {
                       Toast({
                         message: this.open_lock[2].dictValue,
                         position: "middle",
                         duration: 2000
                       });
-                    }
-                  })
-                  .catch(err => {
-                    Toast({
-                      message: this.open_lock[2].dictValue,
-                      position: "middle",
-                      duration: 2000
                     });
-                  });
-              } else if (this.type == 5) {
-                //车辆锁定的接口
-                // alert(this.$store.state.vins)
-                // this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
-                var params = {
-                  vin: this.$store.state.vins,
-                  operationType: "LOCK",
-                  operation: 1 //操作项
-                };
-                this.$http
-                  .post(Lovecar.Control, params, this.$store.state.tsppin)
-                  .then(res => {
-                    this.operationIds = res.data.operationId;
-                    // alert(res.data.operationId)
-                    // alert(this.operationIdcar)
-                    if (res.data.returnSuccess) {
-                      Toast({
-                        message: this.close_lock[0].dictValue,
-                        position: "middle",
-                        duration: 2000
-                      });
-                      setTimeout(() => {
-                        this.getAsyReturn(res.data.operationId);
-                      }, 2000);
-                      // alert(this.isTrue)
-                    } else {
+                } else if (this.type == 5) {
+                  //车辆锁定的接口
+                  // alert(this.$store.state.vins)
+                  // this.isTrue ? (this.locknum = 1) : (this.locknum = 2);
+                  var params = {
+                    vin: this.$store.state.vins,
+                    operationType: "LOCK",
+                    operation: 1 //操作项
+                  };
+                  this.$http
+                    .post(Lovecar.Control, params, this.$store.state.tsppin)
+                    .then(res => {
+                      this.operationIds = res.data.operationId;
+                      // alert(res.data.operationId)
+                      // alert(this.operationIdcar)
+                      if (res.data.returnSuccess) {
+                        Toast({
+                          message: this.close_lock[0].dictValue,
+                          position: "middle",
+                          duration: 2000
+                        });
+                        setTimeout(() => {
+                          this.getAsyReturn(res.data.operationId);
+                        }, 2000);
+                        // alert(this.isTrue)
+                      } else {
+                        Toast({
+                          message: this.close_lock[2].dictValue,
+                          position: "middle",
+                          duration: 2000
+                        });
+                      }
+                    })
+                    .catch(err => {
                       Toast({
                         message: this.close_lock[2].dictValue,
                         position: "middle",
                         duration: 2000
                       });
-                    }
-                  })
-                  .catch(err => {
-                    Toast({
-                      message: this.close_lock[2].dictValue,
-                      position: "middle",
-                      duration: 2000
                     });
-                  });
-              } else if (this.type == 2) {
-                // 后备箱接口
-                this.isTrues ? (this.backnum = 1) : (this.backnum = 2);
-                var param = {
-                  vin: this.$store.state.vins,
-                  operationType: "TRUNK",
-                  operation: this.backnum
-                };
-                this.$http
-                  .post(Lovecar.Control, param, this.$store.state.tsppin)
-                  .then(res => {
-                    if (res.data.returnSuccess) {
-                      Toast({
-                        message: this.open_trunk[0].dictValue,
-                        position: "middle",
-                        duration: 2000
-                      });
-                      setTimeout(() => {
-                        this.getAsyReturn(res.data.operationId);
-                      }, 2000);
-                    } else {
+                } else if (this.type == 2) {
+                  // 后备箱接口
+                  this.isTrues ? (this.backnum = 1) : (this.backnum = 2);
+                  var param = {
+                    vin: this.$store.state.vins,
+                    operationType: "TRUNK",
+                    operation: this.backnum
+                  };
+                  this.$http
+                    .post(Lovecar.Control, param, this.$store.state.tsppin)
+                    .then(res => {
+                      if (res.data.returnSuccess) {
+                        Toast({
+                          message: this.open_trunk[0].dictValue,
+                          position: "middle",
+                          duration: 2000
+                        });
+                        setTimeout(() => {
+                          this.getAsyReturn(res.data.operationId);
+                        }, 2000);
+                      } else {
+                        Toast({
+                          message: this.open_trunk[2].dictValue,
+                          position: "middle",
+                          duration: 2000
+                        });
+                      }
+                    })
+                    .catch(err => {
                       Toast({
                         message: this.open_trunk[2].dictValue,
                         position: "middle",
                         duration: 2000
                       });
-                    }
-                  })
-                  .catch(err => {
-                    Toast({
-                      message: this.open_trunk[2].dictValue,
-                      position: "middle",
-                      duration: 2000
                     });
-                  });
-              } else if (this.type == 3) {
-                //引擎接口，熄火
-                var param = {
-                  vin: this.$store.state.vins,
-                  operationType: "ENGINE",
-                  operation: 1 //操作项
-                };
-                this.$http
-                  .post(Lovecar.Control, param, this.$store.state.tsppin)
-                  .then(res => {
-                    this.operationIdss = res.data.operationId;
-                    if (res.data.returnSuccess) {
-                      Toast({
-                        message: this.vehicle_launch[0].dictValue,
-                        position: "middle",
-                        duration: 2000
-                      });
-                      setTimeout(() => {
-                        this.getAsyReturn(res.data.operationId);
-                      }, 2000);
-                    } else {
+                } else if (this.type == 3) {
+                  //引擎接口，熄火
+                  var param = {
+                    vin: this.$store.state.vins,
+                    operationType: "ENGINE",
+                    operation: 1 //操作项
+                  };
+                  this.$http
+                    .post(Lovecar.Control, param, this.$store.state.tsppin)
+                    .then(res => {
+                      this.operationIdss = res.data.operationId;
+                      if (res.data.returnSuccess) {
+                        Toast({
+                          message: this.vehicle_launch[0].dictValue,
+                          position: "middle",
+                          duration: 2000
+                        });
+                        setTimeout(() => {
+                          this.getAsyReturn(res.data.operationId);
+                        }, 2000);
+                      } else {
+                        Toast({
+                          message: this.vehicle_launch[3].dictValue,
+                          position: "middle",
+                          duration: 2000
+                        });
+                      }
+                    })
+                    .catch(err => {
                       Toast({
                         message: this.vehicle_launch[3].dictValue,
                         position: "middle",
                         duration: 2000
                       });
-                    }
-                  })
-                  .catch(err => {
-                    Toast({
-                      message: this.vehicle_launch[3].dictValue,
-                      position: "middle",
-                      duration: 2000
                     });
-                  });
-              } else if (this.type == 6) {
-                //引擎接口，熄火
-                var param = {
-                  vin: this.$store.state.vins,
-                  operationType: "ENGINE",
-                  operation: 2 //操作项
-                };
-                this.$http
-                  .post(Lovecar.Control, param, this.$store.state.tsppin)
-                  .then(res => {
-                    this.operationIdss = res.data.operationId;
-                    if (res.data.returnSuccess) {
-                      Toast({
-                        message: this.vehicle_flameout[0].dictValue,
-                        position: "middle",
-                        duration: 2000
-                      });
-                      setTimeout(() => {
-                        this.getAsyReturn(res.data.operationId);
-                      }, 2000);
-                    } else {
+                } else if (this.type == 6) {
+                  //引擎接口，熄火
+                  var param = {
+                    vin: this.$store.state.vins,
+                    operationType: "ENGINE",
+                    operation: 2 //操作项
+                  };
+                  this.$http
+                    .post(Lovecar.Control, param, this.$store.state.tsppin)
+                    .then(res => {
+                      this.operationIdss = res.data.operationId;
+                      if (res.data.returnSuccess) {
+                        Toast({
+                          message: this.vehicle_flameout[0].dictValue,
+                          position: "middle",
+                          duration: 2000
+                        });
+                        setTimeout(() => {
+                          this.getAsyReturn(res.data.operationId);
+                        }, 2000);
+                      } else {
+                        Toast({
+                          message: this.vehicle_flameout[2].dictValue,
+                          position: "middle",
+                          duration: 2000
+                        });
+                      }
+                    })
+                    .catch(err => {
                       Toast({
                         message: this.vehicle_flameout[2].dictValue,
                         position: "middle",
                         duration: 2000
                       });
-                    }
-                  })
-                  .catch(err => {
-                    Toast({
-                      message: this.vehicle_flameout[2].dictValue,
-                      position: "middle",
-                      duration: 2000
                     });
-                  });
-              } else if (this.type == 4) {
-                var param = {
-                  vin: this.$store.state.vins,
-                  operationType: "FIND_VEHICLE"
-                };
-                this.$http
-                  .post(Lovecar.Control, param, this.$store.state.tsppin)
-                  .then(res => {
-                    this.operationIdses = res.data.operationId;
-                    if (res.data.returnSuccess) {
+                } else if (this.type == 4) {
+                  var param = {
+                    vin: this.$store.state.vins,
+                    operationType: "FIND_VEHICLE"
+                  };
+                  this.$http
+                    .post(Lovecar.Control, param, this.$store.state.tsppin)
+                    .then(res => {
+                      this.operationIdses = res.data.operationId;
+                      if (res.data.returnSuccess) {
+                        Toast({
+                          message: this.find_vehicle[0].dictValue,
+                          position: "middle",
+                          duration: 2000
+                        });
+                        setTimeout(() => {
+                          this.getAsyReturn(res.data.operationId);
+                        }, 2000);
+                      } else {
+                        Toast({
+                          message: this.find_vehicle[2].dictValue,
+                          position: "middle",
+                          duration: 2000
+                        });
+                      }
+                    })
+                    .catch(err => {
                       Toast({
                         message: this.find_vehicle[0].dictValue,
                         position: "middle",
                         duration: 2000
                       });
-                      setTimeout(() => {
-                        this.getAsyReturn(res.data.operationId);
-                      }, 2000);
-                    } else {
-                      Toast({
-                        message: this.find_vehicle[2].dictValue,
-                        position: "middle",
-                        duration: 2000
-                      });
-                    }
-                  })
-                  .catch(err => {
-                    Toast({
-                      message: this.find_vehicle[0].dictValue,
-                      position: "middle",
-                      duration: 2000
                     });
-                  });
+                }
+              } else {
+                this.popupbg = false;
+                Toast({
+                  message: res.data.returnErrMsg,
+                  position: "middle",
+                  duration: 2000
+                });
               }
-            } else {
-              this.popupbg = false;
-              Toast({
-                message: res.data.returnErrMsg,
-                position: "middle",
-                duration: 2000
-              });
             }
+
           })
           .catch(req => {
             Toast({
