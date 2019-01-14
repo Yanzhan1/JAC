@@ -4,9 +4,9 @@
 // console.log(`执行环境${apiHost}`)
 // var indexip = `${apiHost}/api/dk-dm-portal-api`
 // //测试环境域名
-var host = '//test.jac.timanetwork.net'
-    //生产环境域名403
-    // var host = '//jacsupperapp.jac.com.cn'
+// var host = '//test.jac.timanetwork.net'
+//生产环境域名403
+var host = '//jacsupperapp.jac.com.cn'
 var indexip = host + '/api/dk-dm-portal-api'
 var focusip = host + '/api/dk-pr-svr' //uat
 var point = 'http://192.168.1.141:8868' //埋点
@@ -138,7 +138,9 @@ window.Wit = {
         getComAndSugDet: rec + '/enjoyservice/complaintsSuggestionsReply/getComAndSugDet', //反馈详情
         Help: rec + '/enjoyservice/position/savePosition', //道路救援定位传给后端
         ValidateCode: mips + 'admin/recommendedCode/validateCode', //验证推荐码
-        SearchVehicleSeriesByVehicle: witlocal + '/vehicleSeries/searchVehicleSeriesByVehicle' //品牌车型的获取
+        SearchVehicleSeriesByVehicle: host + '/vehicleSeries/searchVehicleSeriesByVehicle', //品牌车型的获取
+        selectDealerAndTime: host + '/maintenanceAppointment/selectDealerAndTime', //获取维保预约当天的时间段
+        addMaintenanceAppointment: host + '/maintenanceAppointment/addMaintenanceAppointment' //维保预约提交
     }
     //我的 部分
 window.My = {

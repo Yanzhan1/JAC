@@ -51,7 +51,7 @@
 				<!--车况tap End-->
 
 				<!--车况主体 Start-->
-				<div class="bus_l">
+				<div class="bus_l" v-show="overall">
 					<img style="position:absolute;left: 50%; top: 10%;transform: translate(-50%, -2%);margin-top:.5rem;" src="../../../static/images/Wit/bus.png" alt="" class="bus_righgt">
 					<!--左边胎压状态Start-->
 					<span ref='open1' class='busl_r left_1 '>{{Condition.left_top=='undefinedkPa'?'':Condition.left_top}}</span>
@@ -98,7 +98,7 @@
 				<!--车况主体End-->
 			</div>
 			<!--功能轮播Start-->
-			<mt-swipe :auto="0" class="icon-container">
+			<mt-swipe v-show="overall" :auto="0" class="icon-container">
 				<!--轮播第一页Start-->
 				<mt-swipe-item>
 					<div class="content">
@@ -290,6 +290,7 @@ export default {
       MaskIsshow: false, //黑色遮罩层
       Rajtigo: false, //被授权状态
       num: 3,
+      overall:false,//接口加载完后显示车控
       isTrueopen: false, //控制开锁
       isTruessoff: false, //控制熄火
       isTrue: false, //控制闭锁
@@ -962,6 +963,7 @@ export default {
                         } else if (res.data.status == "SUCCEED") {
                           clearInterval(this.time);
                           localhide()
+                          this.overall=true
                           this.popupbg = false;
                           if (this.firstEnter) {
                             this.firstEnter = false;
@@ -1275,6 +1277,7 @@ export default {
             } else if (res.data.status == "SUCCEED") {
               clearInterval(this.time);
               localhide()
+              this.overall=true
               this.popupbg = false;
               if (this.firstEnter) {
                 this.firstEnter = false;
@@ -1936,13 +1939,22 @@ export default {
         });
     }
   },
+  // beforeRouteEnter:(to,from,next)=>{
+  //      if(to.fullPath=='/lovecar'){
+  //        next(vm =>{
+  //          localshow()
+  //         //此时该组件被实例化了
+  //       })
+  //      }else{
+  //        next()
+  //      }     
+  //     },
   beforeCreate() {
     clearInterval(this.time);
   },
   mounted() {
-       localshow()
     let params = {
-      userNo: this.$store.state.userId
+      userNo: this.$store.state.userId 
     };
     this.$http.post(Lovecar.TSP, params).then(res => {
       if (res.data.msg == "success") {
@@ -1956,11 +1968,6 @@ export default {
         };
       }
     });
-    // Toast({
-    // 	message: document.documentElement.style.fontSize,
-    // 	position: "middle",
-    // 	duration: 2000
-    // });
     $(".MobileHeight").css({
       marginTop: this.$store.state.mobileStatusBar
     });
