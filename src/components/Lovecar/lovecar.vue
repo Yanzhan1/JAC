@@ -531,52 +531,57 @@ export default {
       this.$http
         .post(Lovecar.Support, param, this.$store.state.tsppin)
         .then(res => {
-          let allnum = res.data.data;
-          this.allFunction = res.data.data;
-          for (let value of allnum) {
-            if (value.code == "WINDOW") {
-              this.WINDOW = true;
-            } else if (value.code == "SUNROOF") {
-              this.SUNROOF = true;
-            } else if (value.code == "EAIRCONDITIONER") {
-              this.Aircondtion_electricity = true;
-            } else if (value.code == "AIRCONDITIONER") {
-              this.Aircondtion = true;
-            } else if (value.code == "PURIFICATION") {
-              this.PURIFICTION = true;
-            } else if (value.code == "SEAT_HEAT") {
-              this.HOSTSEAT_HEAT = true;
-            } else if (value.code == "CAR_INFO") {
-              this.CAR_INFO = true;
-            } else if (value.code == "ENGINE") {
-              this.ENGINE = true;
-            } else if (value.code == "CAR_EXAMINATION") {
-              this.CAR_EXAMINATION = true;
-            } else if (value.code == "CAR_POINT_QUERY") {
-              this.CAR_POINT_QUERY = true;
-            } else if (value.code == "UPDATE_PIN") {
-              this.UPDATE_PIN = true;
-            } else if (value.code == "FLOW_QUERY") {
-              this.FLOW_QUERY = true;
-            } else if (value.code == "FUEL_STATISTICS") {
-              this.FUEL_STATISTICS = true;
-            } else if (value.code == "CONTROL_AUTH") {
-              this.CONTROL_AUTH = true;
-            } else if (value.code == "WIFI") {
-              this.WIFI = true;
-            } else if (value.code == "REAL_TIME_VIDEO_VIEW") {
-              this.REAL_TIME_VIDEO_VIEW = true;
-            } else if (value.code == "ELECTRIC_FENCE") {
-              this.ELECTRIC_FENCE = true;
-            } else if (value.code == "FIND_VEHICLE") {
-              this.FIND_VEHICLE = true;
-            } else if (value.code == "TRUNK") {
-              this.TRUNK = true;
-            } else if (value.code == "SEAT_VENTILATION") {
-              this.HOSTSEAT_HEAT = true;
-            } else if (value.code == "TACHOGRAPH") {
-              this.REAL_TIME_VIDEO_VIEW = true;
+          if(res.data.returnSuccess){
+            
+            let allnum = res.data.data;
+            this.allFunction = res.data.data;
+            for (let value of allnum) {
+              if (value.code == "WINDOW") {
+                this.WINDOW = true;
+              } else if (value.code == "SUNROOF") {
+                this.SUNROOF = true;
+              } else if (value.code == "EAIRCONDITIONER") {
+                this.Aircondtion_electricity = true;
+              } else if (value.code == "AIRCONDITIONER") {
+                this.Aircondtion = true;
+              } else if (value.code == "PURIFICATION") {
+                this.PURIFICTION = true;
+              } else if (value.code == "SEAT_HEAT") {
+                this.HOSTSEAT_HEAT = true;
+              } else if (value.code == "CAR_INFO") {
+                this.CAR_INFO = true;
+              } else if (value.code == "ENGINE") {
+                this.ENGINE = true;
+              } else if (value.code == "CAR_EXAMINATION") {
+                this.CAR_EXAMINATION = true;
+              } else if (value.code == "CAR_POINT_QUERY") {
+                this.CAR_POINT_QUERY = true;
+              } else if (value.code == "UPDATE_PIN") {
+                this.UPDATE_PIN = true;
+              } else if (value.code == "FLOW_QUERY") {
+                this.FLOW_QUERY = true;
+              } else if (value.code == "FUEL_STATISTICS") {
+                this.FUEL_STATISTICS = true;
+              } else if (value.code == "CONTROL_AUTH") {
+                this.CONTROL_AUTH = true;
+              } else if (value.code == "WIFI") {
+                this.WIFI = true;
+              } else if (value.code == "REAL_TIME_VIDEO_VIEW") {
+                this.REAL_TIME_VIDEO_VIEW = true;
+              } else if (value.code == "ELECTRIC_FENCE") {
+                this.ELECTRIC_FENCE = true;
+              } else if (value.code == "FIND_VEHICLE") {
+                this.FIND_VEHICLE = true;
+              } else if (value.code == "TRUNK") {
+                this.TRUNK = true;
+              } else if (value.code == "SEAT_VENTILATION") {
+                this.HOSTSEAT_HEAT = true;
+              } else if (value.code == "TACHOGRAPH") {
+                this.REAL_TIME_VIDEO_VIEW = true;
+              }
             }
+          }else{
+            localhide()
           }
         });
     },
@@ -773,6 +778,7 @@ export default {
             this.operationIdcar = res.data.operationId;
               this.getAsyReturn(res.data.operationId);
           } else {
+            localhide()
             Toast({
               message: this.vehicle_condition[2].dictValue,
               position: "middle",
@@ -1608,6 +1614,9 @@ export default {
             // this.Rajtigo=res.data.data[0].isLocking  //isLocking:true 代表已授权
             // this.vehicleState=res.data.data[0].vin
           }
+          else{
+            localhide()
+          }
         });
     }
   },
@@ -1913,14 +1922,6 @@ export default {
         )
         .then(res => {
           if (res.data.returnSuccess) {
-            // if(res.data==[]){
-            //   Toast({
-            //     message:'请先绑定车辆',
-            //     position:'middle',
-            //     duration:2000
-            //   })
-            // }else{
-            // alert(1)
             this.BusDetails = res.data.data;
             for (let i = 0; i < res.data.data.length; i++) {
               if (
@@ -1938,6 +1939,8 @@ export default {
             this.vinn = this.$store.state.vins;
             this.Support();
             this.Carquerry();
+          }else{
+            localhide()
           }
         });
     }
@@ -1969,6 +1972,8 @@ export default {
           userId: this.$store.state.trueuserId,
           phone: this.$store.state.mobile
         };
+      }else{
+        localhide()
       }
     });
     $(".MobileHeight").css({
@@ -2014,6 +2019,7 @@ export default {
             this.Support();
             this.Carquerry();
           } else {
+            localhide()
             Toast({
               message: res.data.returnErrMsg,
               position: "middle",

@@ -91,7 +91,7 @@
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
 			</div>
-			<div class="flex row li_st between cocenter" @click="orderTimeStatus">
+			<div class="flex row li_st between cocenter" @click="orderTimeStatus" v-show="this.currentTitle">
 				<p style="font-size:.27rem;color:#555">预约时间</p>
 				<div class="flex row cocenter">
 					<span ref="Gettimes" style="font-size:.26rem;color:#222">{{currentTime}}</span>
@@ -155,9 +155,6 @@
           <button class="prev-button" @click="leftBtn"><</button>
        	</div>
       </div>
-      <div v-show="notime">
-          暂无预约时间
-      </div>
       <mt-picker :slots="slotstime" @change="timeChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
     </div>
 		<span class="bottom-btn" @click="appointment">立即预约</span>
@@ -184,7 +181,6 @@ export default {
       orderTime: false, //控制时间
       allback: false, //遮罩层
       km:'',//维保预约的里程数
-      notime:false,//若code为500的时候暂无预约时间
       yearmonthday:'',//选择的时间年月日
       choosexing:false,//控制保养类型的选择
       chooseserveimg: false, //控制选择服务站图片默认不选择
@@ -380,7 +376,6 @@ export default {
              }
              this.$http.post(Wit.selectDealerAndTime,param).then((res)=>{
                if(res.data.code==0){
-                  this.notime=false
                  this.alldata=res.data.data
                  let alldata=res.data.data
                  this.slotstime[0].values=[]
@@ -393,8 +388,7 @@ export default {
                    }
                  }
                }else if(res.data.code==500){
-                 this.notime=true
-                this.slotstime[0].values=[]
+                this.slotstime[0].values=['暂无预约时间']
                }
              })
     },
@@ -634,6 +628,7 @@ export default {
         )
         .then(res => {
           if (res.data.returnSuccess) {
+            localhide()
             for (let i = 0; i < res.data.data.length; i++) {
               if (
                 res.data.data[i].def == 1 ||
@@ -652,6 +647,7 @@ export default {
               }
             }
           } else {
+            localhide()
             // Toast({
             //   message: res.data.returnErrMsg,
             //   position: "middle",
@@ -693,7 +689,7 @@ export default {
             });
             return false
       }
-      if(this.currentTime==''){
+      if(this.currentTime==''||this.valuestime=='暂无预约时间'){
         Toast({
               message: "请选择预约时间",
               position: "middle",
