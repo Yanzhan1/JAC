@@ -207,7 +207,7 @@
 				<img @click="Toasteach" class="question" style="width:.35rem;height:.35rem" :src="'./static/images/Lovecar/question.png'" alt="">
 				<div class="pin-code flex maincenter cocenter">
 					<div id="pinCon">
-						<input @click="onTypewriting" v-model="pinNumber" class="pin-input" maxlength="6" type="text" readonly/>
+						<input @click="onTypewriting" v-model="pinNumber" class="pin-input" maxlength="6" type="password" readonly/>
 					</div>
 				</div>
 			</div>

@@ -117,7 +117,7 @@
          <img @click="Toasteach"  class="question" style="width:.35rem;height:.35rem" :src="'./static/images/Lovecar/question.png'" alt="">
 				<div class="pin-code flex-center">
 					<div  v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
-						<input class="pin-input" maxlength="6" type="text" v-model="pinNumber" readonly/>
+						<input class="pin-input" maxlength="6" type="password" v-model="pinNumber" readonly/>
 					</div>
 					<div v-else class="pin">
 						<input v-model="ownKeyBoard.first"  type="text" maxlength="1" />

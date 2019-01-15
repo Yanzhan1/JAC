@@ -30,7 +30,7 @@
 						<span style="font-size: 0.26rem;color: #444444;">
 					剩余流量:
 				</span>
-						<input :disabled="disabled" type="text" v-model="surplusFlow" /><div style="margin-left:.26rem">MB</div>
+						<input :disabled="disabled" type="password" v-model="surplusFlow" /><div style="margin-left:.26rem">MB</div>
 					</div>
 				</div>
 			</div>
