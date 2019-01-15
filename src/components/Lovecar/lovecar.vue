@@ -973,7 +973,7 @@ export default {
                           this.popupbg = false;
                           if (this.firstEnter) {
                             this.firstEnter = false;
-                            if (res.data.data.accStatus == 1) {
+                            if (res.data.data.doorStsFrontLeft == 1) {
                               this.isTrue = false;
                               this.isTrueopen = true;
                             } else {
@@ -1287,7 +1287,7 @@ export default {
               this.popupbg = false;
               if (this.firstEnter) {
                 this.firstEnter = false;
-                if (res.data.data.accStatus == 1) {
+                if (res.data.data.doorStsFrontLeft == 1) {
                   this.isTrue = false;
                   this.isTrueopen = true;
                 } else {
@@ -1373,13 +1373,11 @@ export default {
               if (res.data.data) {
                 this.carcontrol = res.data.data;
 
-                // setTimeout(() => {
                 Toast({
                   message: this.vehicle_condition[1].dictValue,
                   position: "middle",
                   duration: 2000
                 });
-                // }, 4000);
                 this.carcontrol.engineHoodStsFront
                   ? (this.engineHoodStsFront = "已开")
                   : (this.engineHoodStsFront = "未开");

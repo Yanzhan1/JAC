@@ -85,7 +85,6 @@ export default {
             }
             break;
         }
-        console.log(response.config.url);
         if (
           response.config.url != Lovecar.OperationId 
           // response.config.url != Lovecar.TSP &&
