@@ -66,12 +66,12 @@
 					<!--胎压图片End-->
 
 					<!-- 控制天窗的线Start 分为激活和未激活 -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.skylightStatus=='已开'?true:false" v-show="activeshow=='3'?true:false" style="position:absolute;display:block;width:1.8rem;top:3.1rem;right:2.1rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.skylightStatus=='已打开'?true:false" v-show="activeshow=='3'?true:false" style="position:absolute;display:block;width:1.8rem;top:3.1rem;right:2.1rem;"></img>
 					<img class="" :src="'./static/images/Lovecar/blueright.png'" v-else v-show="activeshow=='3'?true:false" style="position:absolute;display:block;width:1.14rem;top:3.55rem;right:2.5rem;"></img>
 					<!--天窗线End-->
 
 					<!-- 尾门线Start 分为激活和未激活  -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.doorStsTrunk=='已开'?true:false" v-show="activeshow=='2'?true:false" style="position:absolute;display:block;width:1.8rem;top:5.05rem;right:2.1rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.doorStsTrunk=='已打开'?true:false" v-show="activeshow=='2'?true:false" style="position:absolute;display:block;width:1.8rem;top:5.05rem;right:2.1rem;"></img>
 					<img class="" :src="'./static/images/Lovecar/blueright.png'" v-else v-show="activeshow=='2'?true:false" style="position:absolute;display:block;width:1.14rem;top:5.5rem;right:2.5rem;"></img>
 					<!--尾门线End-->
 
@@ -1069,22 +1069,22 @@ export default {
                             );
                             this.engineHoodStsFront = this.carcontrol
                               .engineHoodStsFront
-                              ? (this.engineHoodStsFront = "已开")
-                              : (this.engineHoodStsFront = "未开");
+                              ? (this.engineHoodStsFront = "已打开")
+                              : (this.engineHoodStsFront = "已关闭");
                             // this.carcontrol.engineHoodStsFront ?
                             // 	$(".top_1").css("color", "#FC3B46") :
                             // 	$(".top_1").css("color", "#49BBFF");
                             this.acStatus = this.carcontrol.acStatus; //空调初始状态
                             this.skylightStatus = this.carcontrol.skylightStatus
-                              ? (this.skylightStatus = "已开")
-                              : (this.skylightStatus = "未开"); //天窗初始状态
+                              ? (this.skylightStatus = "已打开")
+                              : (this.skylightStatus = "已关闭"); //天窗初始状态
                             // this.carcontrol.skylightStatus ?
                             // 	$(".middle_1").css("color", "#FC3B46") :
                             // 	$(".middle_1").css("color", "#49BBFF");
                             this.backnum = this.carcontrol.doorStsTrunk;
                             this.backnum
-                              ? (this.doorStsTrunk = "已开")
-                              : (this.doorStsTrunk = "未开"); //后备箱的初始状态
+                              ? (this.doorStsTrunk = "已打开")
+                              : (this.doorStsTrunk = "已关闭"); //后备箱的初始状态
                             // this.backnum ?
                             // 	$(".bottom_1").css("color", "#FC3B46") :
                             // 	$(".bottom_1").css("color", "#49BBFF");
@@ -1379,22 +1379,22 @@ export default {
                   duration: 2000
                 });
                 this.carcontrol.engineHoodStsFront
-                  ? (this.engineHoodStsFront = "已开")
-                  : (this.engineHoodStsFront = "未开");
+                  ? (this.engineHoodStsFront = "已打开")
+                  : (this.engineHoodStsFront = "已关闭");
                 this.acStatus = this.carcontrol.acStatus; //空调初始状态
                 // this.carcontrol.engineHoodStsFront ?
                 // 	$(".top_1").css("color", "#FC3B46") :
                 // 	$(".top_1").css("color", "#49BBFF");
                 this.carcontrol.skylightStatus
-                  ? (this.skylightStatus = "已开")
-                  : (this.skylightStatus = "未开"); //天窗初始状态
+                  ? (this.skylightStatus = "已打开")
+                  : (this.skylightStatus = "已关闭"); //天窗初始状态
                 // this.carcontrol.skylightStatus ?
                 // 	$(".middle_1").css("color", "#FC3B46") :
                 // 	$(".middle_1").css("color", "#49BBFF");
                 this.backnum = this.carcontrol.doorStsTrunk;
                 this.backnum
-                  ? (this.doorStsTrunk = "已开")
-                  : (this.doorStsTrunk = "未开"); //后备箱的初始状态
+                  ? (this.doorStsTrunk = "已打开")
+                  : (this.doorStsTrunk = "已关闭"); //后备箱的初始状态
                 // this.backnum ?
                 // 	$(".bottom_1").css("color", "#FC3B46") :
                 // 	$(".bottom_1").css("color", "#49BBFF");

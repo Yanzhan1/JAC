@@ -338,6 +338,7 @@ export default {
         no: this.$store.state.userId
       };
       this.$http.post(My.UserInfo, param).then(res => {
+
         if (res.data.code == 0) {
           this.Personal = res.data.data;
           for (let val of this.Personal.entitys) {
@@ -349,7 +350,7 @@ export default {
             }
           }
         }
-      });
+      })
     },
     //获赞、关注、发布、粉丝数量
     // getuserinfo() {
