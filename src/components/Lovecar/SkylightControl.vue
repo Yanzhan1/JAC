@@ -49,7 +49,7 @@
 					<img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
 					<div class="wind-count">
 						<button disabled="this.curveState" @click=" windReduce" class="addWind conmmon-style"><</button>
-						<input class="wind-input" type="text" v-model="windNum[skylightSpace]" readonly/>
+						<input class="wind-input" type="password" v-model="windNum[skylightSpace]" readonly/>
 						<button disabled="this.curveState" @click="windAdd" class="reduceWind conmmon-style">></button>
 					</div>
 					<img :src="'./static/images/Lovecar/right@2x.png'" alt="" />

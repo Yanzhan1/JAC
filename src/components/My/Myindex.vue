@@ -118,7 +118,7 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
       </div> -->
-      <router-link tag="div" class="mylist" :to="{path:'/myindex/mySetUp', query:{no:$store.state.no}}">
+      <div class="mylist"  @click="gologinal">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_set@2x.png" alt="">
           <span>设置</span>
@@ -127,7 +127,7 @@
           <span></span>
           <img src="../../../static/images/my/next@2x.png" alt="">
         </div>
-      </router-link>
+      </div>
     </div>
     <mt-popup v-model="popupVisible" position="middle">
       <div style="display: flex;justify-content: center;align-items: center;  margin-top:.3rem">
@@ -283,11 +283,11 @@ export default {
     },
     //跳转到商城
     tobuy() {
-        this.userName = JSON.parse(localStorage.getItem("userName"));
-        this.aaaid=JSON.parse(localStorage.getItem("aaaid"));
-        if(localStorage.getItem("mobile")!='undefined'){
-          this.mobile = JSON.parse(localStorage.getItem("mobile"));
-          this.add = "JAC" + this.aaaid + this.mobile + this.userName + "APP";
+        if(this.$store.state.userId){
+        this.userName = this.$store.state.userName
+        this.aaaid=this.$store.state.aaaid
+        this.mobile = this.$store.state.mobile
+        this.add = "JAC" + this.aaaid + this.mobile + this.userName + "APP";
         this.add = this.$md5(this.add);
         let Stringurl="http://gift.jac.com.cn/app/authLogin" +
           "?" +
@@ -306,13 +306,8 @@ export default {
           js2android.gotoMallOrderWeb(Stringurl);
         }
         }else{
-          Toast({
-								message: '请完善信息',
-								position: "middle",
-								duration: 2000
-							});
-        }
-        
+          this.toLogin()
+        }       
     },
     //粉丝
     toFans: function() {
@@ -326,12 +321,24 @@ export default {
     mypublish: function() {
       this.$router.push({ path: "/myPublish" });
     },
+    //游客模式下直接跳登入
+    gologinal(){
+      if(this.$store.state.userId!=null){
+        this.$router.push({
+          path:'/myindex/mySetUp',
+          query:{no:this.$store.state.no}
+        })
+      }else{
+        this.toLogin()
+      }
+    },
     // 获取我的基本信息
     getuserinfo() {
       var param = {
         no: this.$store.state.userId
       };
       this.$http.post(My.UserInfo, param).then(res => {
+
         if (res.data.code == 0) {
           this.Personal = res.data.data;
           for (let val of this.Personal.entitys) {
@@ -343,7 +350,7 @@ export default {
             }
           }
         }
-      });
+      })
     },
     //获赞、关注、发布、粉丝数量
     // getuserinfo() {

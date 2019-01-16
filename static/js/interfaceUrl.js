@@ -5,15 +5,21 @@
 // var indexip = `${apiHost}/api/dk-dm-portal-api`
 // //测试环境域名
 var host = '//test.jac.timanetwork.net'
-    //生产环境域名403
-    // var host = '//jacsupperapp.jac.com.cn'
+
+//云环境域名
+// var host = '//jacsupperappuat.jac.com.cn'
+
+//生产环境域名403
+// var host = '//jacsupperapp.jac.com.cn'
+
 var indexip = host + '/api/dk-dm-portal-api'
 var focusip = host + '/api/dk-pr-svr' //uat
 var point = 'http://192.168.1.141:8868' //埋点
     //服务器-智享
 var mip = host + '/api/jac-automobile-manage/automobilemanage' //智享
+var witlocal = 'http://172.21.4.99:8082/automobilemanage'
     //服务器-admin(跟用户有关即我的)
-var mips = host + '/api/jac-admin/' //地区
+var mips = host + '/api/jac-admin' //地区
 var jf = host + '/' //跟积分有关的
     // var love_car = host+'/jvconnectedcar' //爱车
 var love_car = host + '/api/jac-car-control' //爱车
@@ -136,7 +142,10 @@ window.Wit = {
         updateUserPassword: mips + '/admin/userBaseInformation/updateUserPassword', //用户修改密码
         getComAndSugDet: rec + '/enjoyservice/complaintsSuggestionsReply/getComAndSugDet', //反馈详情
         Help: rec + '/enjoyservice/position/savePosition', //道路救援定位传给后端
-        ValidateCode: mips + 'admin/recommendedCode/validateCode' //验证推荐码
+        ValidateCode: mips + 'admin/recommendedCode/validateCode', //验证推荐码
+        SearchVehicleSeriesByVehicle: mip + '/vehicleSeries/searchVehicleSeriesByVehicle', //品牌车型的获取
+        selectDealerAndTime: mip + '/maintenanceAppointment/selectDealerAndTime', //获取维保预约当天的时间段
+        addMaintenanceAppointment: mip + '/maintenanceAppointment/addMaintenanceAppointment' //维保预约提交
     }
     //我的 部分
 window.My = {
@@ -164,7 +173,7 @@ window.My = {
         addintegralRealName: host + '/api/pluto-membership/pluto-membership/integral-gather/addintegral-realName', //保存个人信息,增加积分
         orderList: host + '/api/pluto-membership/mall/information/orderList', //商城订单
         orderDetail: host + '/api/pluto-membership/mall/information/orderDetail', //商城订单详细
-        getwords: mips + 'admin/sysDictType/searchSysDictTypeList', //获取所有提示语
+        getwords: mips + '/admin/sysDictType/searchSysDictTypeList', //获取所有提示语
         searchSysDictTypeList: mips + '/admin/sysDictType/searchSysDictTypeList', //网点评分列表
         addBranchesEvaluation: mip + '/branchesEvaluation/addBranchesEvaluation', //提交评分
 
@@ -173,7 +182,7 @@ window.My = {
 window.Lovecar = {
         Support: love_car + '/vehicle/vehicle-support-function', //tsp用户返回所具有的车况功能
         vehicle: love_car + '/vehicle/sync-tsp-vehicle', //给后端同步车辆接口
-        TSP: mips + 'admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne', //获取tsp用户
+        TSP: mips + '/admin/thirdPartyUserBaseInformation/searchThirdPartyUserBaseInformationOne', //获取tsp用户
         Carquery: love_car + '/vehicle/query-vehicle-condition', //车辆车况查询
         OperationId: love_car + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
         Changepin: love_car + '/vehicle/update-vehicle-pin', //修改pin码

@@ -34,13 +34,13 @@
             var scrollTop;
             return {
                 afterOpen: function() {
-                    scrollTop = document.scrollingElement.scrollTop;
+                    scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
                     document.body.classList.add(bodyCls);
                     document.body.style.top = -scrollTop + 'px';
                 },
                 beforeClose: function() {
                     document.body.classList.remove(bodyCls);
-                    document.scrollingElement.scrollTop = scrollTop;
+                    document.body.scrollTop = scrollTop;
                 }
             };
         })('dialog-open');

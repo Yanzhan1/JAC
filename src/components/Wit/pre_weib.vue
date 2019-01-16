@@ -12,7 +12,7 @@
 			<div class="flex row li_st between cocenter">
 				<p style="font-size:.27rem;color:#555">姓名</p>
 				<div class="flex row cocenter">
-					<input type="text" placeholder="请输入姓名"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">
+					<input type="text" placeholder="请输入姓名"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222" v-model="hostname">
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
 			</div>
@@ -26,14 +26,34 @@
 			<div class="flex row li_st between cocenter">
 				<p style="font-size:.27rem;color:#555">品牌</p>
 				<div class="flex row cocenter">
-					<input type="text" placeholder="请输入品牌" style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">
+					<span type="text"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">{{brandName}}</span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
 			</div>
 			<div class="flex row li_st between cocenter">
 				<p style="font-size:.27rem;color:#555">车型</p>
 				<div class="flex row cocenter">
-					<span>瑞风S4</span>
+					<span>{{seriesName}}</span>
+					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
+				</div>
+			</div>
+			<div class="flex row li_st between cocenter">
+				<p style="font-size:.27rem;color:#555">车牌</p>
+				<div class="flex row cocenter">
+					<input type="text" v-model="plateLicenseNo">
+					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
+				</div>
+			</div>
+			<div class="flex row li_st between cocenter">
+				<p style="font-size:.27rem;color:#555">行驶里程</p>
+				<div class="flex row cocenter">
+          <!-- <input type="numberbox" name="" id="" v-model="km"> -->
+          <input type="text"
+              class="form-control match-rotation-input"
+              onkeyup="value=value.replace(/[^\d]/g,'')"     
+               onblur="value=value.replace(/[^\d]/g,'')"
+              ng-model="schedule.round"
+              placeholder="请输入数字" v-model="km">
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
 			</div>
@@ -71,7 +91,7 @@
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
 			</div>
-			<div class="flex row li_st between cocenter" @click="orderTimeStatus">
+			<div class="flex row li_st between cocenter" @click="orderTimeStatus" v-show="this.currentTitle">
 				<p style="font-size:.27rem;color:#555">预约时间</p>
 				<div class="flex row cocenter">
 					<span ref="Gettimes" style="font-size:.26rem;color:#222">{{currentTime}}</span>
@@ -80,33 +100,40 @@
 			</div>
 			<div class="flex row li_st between cocenter" >
 				<p style="font-size:.27rem;color:#555">维保类型</p>
-				<div class="flex row cocenter">
-					<span style="font-size:.26rem;color:#222"></span>
+				<div class="flex row cocenter" @click="Maintenance">
+					<span ref="main" style="font-size:.26rem;color:#222">维修</span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
 				</div>
+        <div class="choosexing" v-show="choosexing">
+            <div ref="one" @click="chooseone">维修</div>
+            <div ref="two" @click="choosetwo">保养</div>
+        </div>
 			</div>
 		</div>
 		<!-- 服务站弹出框 -->
 		<div class="service " v-if="servicezhan">
 			<h2 style="padding:.2rem; text-align: center;font:.4rem/.6rem 'PingFang-SC-Regular'">服务站</h2>
-			<span class="surebuttom" @click="subsub">确定</span>
-			<ul style="padding:.1rem .2rem" >
-					<li class="ul_list flex row around " v-for="(item,index) in addressArray">
-            <label class="chooseimages" :class="index == currentIndex ? 'active' : ''" @click="chooseimage(index,item.title)"></label>
-						<div class="flex column around  mid">
-							<span class="txt_top dian">{{item.title}}</span>
-							<span class="flex row cocenter">
-		                        <img style="width:.25rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">
-		                        <span class="txt_m dian" style="margin-top:.1rem">{{item.addressTitle}}</span>
-							</span>
-						</div>
-						<div class="cocenter flex-center">
-							<div class="flex-column-align">
-								<span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">距离</span><span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">0.2</span>
-							</div>
-						</div>
-					</li>
-				</ul>
+      <span class="surebuttom" @click="subsub">确定</span>
+      <div v-if="this.nodealer">
+        <ul style="padding:.1rem .2rem" >
+            <li class="ul_list flex row around " v-for="(item,index) in addressArray">
+              <label class="chooseimages" :class="index == currentIndex ? 'active' : ''" @click="chooseimage(index,item.dealerName)"></label>
+              <div class="flex column around  mid">
+                <span class="txt_top dian">{{item.dealerName}}</span>
+                <span class="flex row cocenter">
+                              <img style="width:.25rem;margin-right:.1rem;" src="../../../static/images/Wit/list_position_icon.png" alt="">
+                              <span class="txt_m dian" style="margin-top:.1rem">{{item.dealerAddress}}</span>
+                </span>
+              </div>
+              <div class="cocenter flex-center">
+                <div class="flex-column-align">
+                  <span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">距离</span><span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">0.2</span>
+                </div>
+              </div>
+            </li>
+        </ul>
+      </div>
+      <div class="nodelerclass" v-else>此地暂无经销商</div>
 		</div>
     <!-- 预约时间出框 -->
     <div class="service " v-if="orderTime">
@@ -120,19 +147,17 @@
         	:continuous="false"
       	>
 				  <mt-swipe-item v-for="(item, index) in dataList" :key="index">
-				  	<p class="timeget">
-				  		{{item}}
-				  	</p>
+				  	<p class="timeget">{{item}}</p>
 				  </mt-swipe-item>
 				</mt-swipe>
 				<div class="button-wrapper">
-          <button class="next-button" @click="$refs.swiperWrap.next()">></button>
-          <button class="prev-button" @click="$refs.swiperWrap.prev()"><</button>
+          <button class="next-button" @click="rightBtn">></button>
+          <button class="prev-button" @click="leftBtn"><</button>
        	</div>
       </div>
       <mt-picker :slots="slotstime" @change="timeChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
     </div>
-		<span class="bottom-btn" >立即预约</span>
+		<span class="bottom-btn" @click="appointment">立即预约</span>
 
 		<div v-show="allback" class="black" @click='backgroundshow'></div>
 		<!-- 遮罩层  -->
@@ -150,10 +175,14 @@ export default {
   },
   data() {
     return {
+      hostname:'',//车主姓名
       mobile: "", //手机号
       servicezhan: false, //控制服务站
       orderTime: false, //控制时间
       allback: false, //遮罩层
+      km:'',//维保预约的里程数
+      yearmonthday:'',//选择的时间年月日
+      choosexing:false,//控制保养类型的选择
       chooseserveimg: false, //控制选择服务站图片默认不选择
       chooseprovinceq: false, //控制省份弹框
       valuesprovince: "", //被选中的省份
@@ -163,7 +192,20 @@ export default {
       valuescity1: "", //被选中的城市
       choosecity: false, //控制城市弹框
       defaultvin: "", //默认的vin
-      num:false,//控制picker第一次进入获取不到数据
+      chooseno:'',//被选择的服务站的no的存贮
+      seriesNo: "", //默认车辆拿到的数据用来请求品牌车型
+      modelNo: "", //默认车辆拿到的数据用来请求品牌车型
+      tspFlag: "", //默认车辆拿到的数据用来请求品牌车型
+      brandNo: "", //品牌的no
+      seriesNo: "", //车系的no
+      brandName: "", //品牌
+      plateLicenseNo:'',//车牌号
+      brandId:'',//'0'+品牌的id
+      seriesName: "", //车系
+      time_ID:'',//时间的id
+      dataindex:0,//默认日期选择当天
+      nodealer:false,//判断经销商是否为空
+      num: false, //控制picker第一次进入获取不到数据
       flag: false,
       flag1: false,
       flag2: false,
@@ -179,22 +221,34 @@ export default {
       searchCountryAreaCodeListPage: "", //请求省份拿到的对象
       proid: "", //省份的id请求城市用到
       provinceCode: "", //省份的code
-      addressArray: [
-        {
-          id: "1",
-          title: "上海呼伦汽车",
-          addressTitle: "上海市闵行区啦啦啦"
-        },
-        {
-          id: "2",
-          title: "上海呼伦汽车1",
-          addressTitle: "上海市闵行区啦啦啦"
-        },
-        {
-          id: "3",
-          title: "上海呼伦汽车2",
-          addressTitle: "上海市闵行区啦啦啦"
-        }
+      city_id: "", //城市的code
+      alldata:[],//所有的时间信息
+      addressArray: [],
+      everytime:[
+        "0:00-1:00",
+        "1:00-2:00",
+        "2:00-3:00",
+        "3:00-4:00",
+        "4:00-5:00",
+        "5:00-6:00",
+        "6:00-7:00",
+        "7:00-8:00",
+        "8:00-9:00",
+        "9:00-10:00",
+        "10:00-11:00",
+        "11:00-12:00",
+        "12:00-13:00",
+        "13:00-14:00",
+        "14:00-15:00",
+        "15:00-16:00",
+        "16:00-17:00",
+        "17:00-18:00",
+        "18:00-19:00",
+        "19:00-20:00",
+        "20:00-21:00",
+        "21:00-22:00",
+        "22:00-23:00",
+        "23:00-00:00",
       ],
       provinceSlot: [
         {
@@ -208,11 +262,6 @@ export default {
         {
           flex: 1,
           values: [
-            "7:00-8:00",
-            "8:00-9:00",
-            "9:00-10:00",
-            "10:00-11:00",
-            "11:00-12:00"
           ],
           className: "slot1",
           textAlign: "center"
@@ -221,7 +270,7 @@ export default {
       citySlot: [
         {
           flex: 1,
-          values: ["杭州", "金华", "丽水", "南京"],
+          values: [],
           className: "slot1",
           textAlign: "center"
         }
@@ -233,10 +282,10 @@ export default {
     this.init();
     this.mobile = this.$store.state.mobile;
     this.locationMes = this.$store.state.locationMes;
-    this.num=true
+    this.num = true;
     this.getdefaultmessage();
     this.defaultvins();
-  },
+  },      
   methods: {
     init() {
       //请求省份列表   原生拿到的省份name  去对比省份列表 找到对应的省份code
@@ -245,69 +294,103 @@ export default {
         level: 1,
         size: 50
       };
-      this.$http
-        .post(Wit.searchCountryAreaCodeListPage, data)
-        .then(res => {
-          const data = res.data;
-          if (data.code == 0) {
-            this.searchCountryAreaCodeListPage = data.data.records;
-            for (
-              let i = 0;
-              i < this.searchCountryAreaCodeListPage.length;
-              i++
+      this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
+        const data = res.data;
+        if (data.code == 0) {
+          this.searchCountryAreaCodeListPage = data.data.records;
+          for (let i = 0; i < this.searchCountryAreaCodeListPage.length; i++) {
+            this.provinceSlot[0].values.push(
+              this.searchCountryAreaCodeListPage[i].name
+            );
+            if (
+              this.searchCountryAreaCodeListPage[i].name == this.provinceName
             ) {
-              this.provinceSlot[0].values.push(
-                this.searchCountryAreaCodeListPage[i].name
-              );
-              if (
-                this.searchCountryAreaCodeListPage[i].name == this.provinceName
-              ) {
-                this.provinceCode = this.searchCountryAreaCodeListPage[i].code;
-                this.proid = this.searchCountryAreaCodeListPage[i].id;
-                if (this.provinceCode) {
-                  let datas = {
-                    parentId: this.proid, //传参省份的id,请求该省份的城市列表
-                    level: 2,
-                    size: 100
-                  };
-                  this.$http
-                    .post(Wit.searchCountryAreaCodeListPage, datas)
-                    .then(res => {
-                      //请求城市列表
-                      const data = res.data;
-                      if (data.code == 0) {
-                        this.citySlot[0].values = []; //清除上一次城市的选择
-                        data.data.records.forEach((item, index) => {
-                          this.citySlot[0].values.push(item.name);
-                        });
-                      } else {
-                        Toast({
-                          message: "初始化城市列表报错",
-                          position: "middle",
-                          duration: 2000
-                        });
-                      }
-                    })
-                }
+              this.provinceCode = this.searchCountryAreaCodeListPage[i].code;
+              this.proid = this.searchCountryAreaCodeListPage[i].id;
+              if (this.provinceCode) {
+                let datas = {
+                  parentId: this.proid, //传参省份的id,请求该省份的城市列表
+                  level: 2,
+                  size: 100
+                };
+                this.$http
+                  .post(Wit.searchCountryAreaCodeListPage, datas)
+                  .then(res => {
+                    //请求城市列表
+                    const data = res.data;
+                    if (data.code == 0) {
+                      this.citySlot[0].values = []; //清除上一次城市的选择
+                      data.data.records.forEach((item, index) => {
+                        this.citySlot[0].values.push(item.name);
+                        this.city_id = item.code;
+                      });
+                      this.brandName();
+                    } else {
+                      Toast({
+                        message: "初始化城市列表报错",
+                        position: "middle",
+                        duration: 2000
+                      });
+                    }
+                  });
               }
             }
-          } else {
-            Toast({
-              message: "初始化省份列表报错",
-              position: "middle",
-              duration: 2000
-            });
           }
-        })
+        } else {
+          Toast({
+            message: "初始化省份列表报错",
+            position: "middle",
+            duration: 2000
+          });
+        }
+      });
     },
-    getbrand(){
-      let param={
-        lmscode:modelNo ,
-        levelCode:seriesNo
-      }
-      this.$http.post(Wit.SearchVehicleSeriesByVehicle,param).then((res)=>{
-          console.log(res)
-      })
+    getbrand() {
+      let param = {
+        lmscode: this.modelNo,
+        levelCode: this.seriesNo,
+        tspFlag: this.tspFlag
+      };
+      this.$http.post(Wit.SearchVehicleSeriesByVehicle, param).then(res => {
+        if (res.data.data.brandId == 4 || 5 || 6) {
+          this.brandName = res.data.data.brandName;
+          this.seriesName = res.data.data.seriesName;
+          this.brandNo = res.data.data.brandNo;
+          this.brandId="0"+res.data.data.brandId
+          this.seriesNo = res.data.data.no;
+          this.mydeler();
+        } else {
+          Toast({
+            message: "此系列站不支持维保预约",
+            position: "middle",
+            duration: 2000
+          });
+        }
+      });
+    },
+    //通过日期获取具体的时间段
+    getdayreal(){
+             let param={
+               revervationDate:this.dataList[this.dataindex],
+               dealerNo: this.chooseno,
+             }
+             this.$http.post(Wit.selectDealerAndTime,param).then((res)=>{
+               if(res.data.code==0){
+                 this.alldata=res.data.data
+                 let alldata=res.data.data
+                 this.slotstime[0].values=[]
+                 for(let val of alldata){
+                   if(val.completeAMOUNT>=val.max_NUM){
+                       val.revervation_TIME=val.revervation_TIME+' 爆满'
+                       this.slotstime[0].values.push(val.revervation_TIME)
+                   }else{
+                     this.slotstime[0].values.push(val.revervation_TIME)
+                   }
+                 }
+               }else if(res.data.code==500){
+                this.slotstime[0].values=['暂无预约时间']
+               }
+             })
     },
     //获取定位的省份,城市,经纬度
     getdefaultmessage() {
@@ -326,6 +409,39 @@ export default {
       this.latitude = JSON.parse(this.$store.state.locationMes).latitude; //精
       this.longitude = JSON.parse(this.$store.state.locationMes).longitude; //韦
     },
+    //获取服务站内容
+    mydeler() {
+      var param = {
+        brandNo: this.brandNo, //品牌no
+        vehicleSeridesNo: this.seriesNo, //车系no
+        dealerProvinceCode: this.provinceCode, //省编码
+        dealerCityCode: this.city_id, //城市id
+        longitude: this.longitude, //经度
+        latitude: this.latitude, //维度
+        dealerDmsType:this.brandId,
+        dealerType: "02",
+        size: 10,
+        current: 1
+      };
+      this.$http.post(Wit.Dealer, param).then(res => {
+        const data = res.data;
+        if (data.code == 0) {
+
+            (this.addressArray = data.data.records);
+          if (this.addressArray.length == 0) {
+            this.nodealer = false;
+          } else {
+            this.nodealer = true;
+          }
+        } else {
+          Toast({
+            message: "报错",
+            position: "middle",
+            duration: 2000
+          });
+        }
+      });
+    },
     servicestatus() {
       this.servicezhan = true;
       this.allback = true;
@@ -334,7 +450,9 @@ export default {
       this.pickerVisible = true;
       this.orderTime = true;
       this.allback = true;
+      this.currentIndex=-1;
       $("#timeLabel").show();
+      this.getdayreal()
     },
     //选择确定服务站
     subsub() {
@@ -345,7 +463,8 @@ export default {
     confirmBtn() {
       this.allback = false;
       this.orderTime = false;
-      this.currentTime = $(".timeget").html() + this.valuestime;
+      this.yearmonthday=$(".timeget").html()
+      this.currentTime = $(".timeget").html() + ' ' + this.valuestime;
     },
     //点击遮罩层消失
     backgroundshow() {
@@ -360,14 +479,18 @@ export default {
       $("#provinceLabel").show();
       this.allback = true;
     },
+    Maintenance(){
+      this.choosexing=!this.choosexing
+    },
     //确认省份
     chooseprovinceone() {
-      if(this.valuesprovince==undefined){
-        this.valuesprovince=this.provinceSlot[0].values[0]
+      if (this.valuesprovince == undefined) {
+        this.valuesprovince = this.provinceSlot[0].values[0];
       }
       for (let value of this.searchCountryAreaCodeListPage) {
         if (value.name == this.valuesprovince) {
           this.proid = value.id;
+          this.provinceCode = value.code;
         }
       }
       let datas = {
@@ -375,26 +498,28 @@ export default {
         level: 2,
         size: 100
       };
-      this.$http
-        .post(Wit.searchCountryAreaCodeListPage, datas)
-        .then(res => {
-          //请求城市列表
-          let data = res.data;
-          if (data.code == 0) {
-            this.citySlot[0].values = []; //清除上一次城市的选择
-            data.data.records.forEach((item, index) => {
-              this.citySlot[0].values.push(item.name);
-            });
-            this.valuescity1=this.citySlot[0].values[0]
-          } else {
-            Toast({
-              message: "初始化城市列表报错",
-              position: "middle",
-              duration: 2000
-            });
-          }
-        })
+      this.$http.post(Wit.searchCountryAreaCodeListPage, datas).then(res => {
+        //请求城市列表
+        let data = res.data;
+        if (data.code == 0) {
+          this.citySlot[0].values = []; //清除上一次城市的选择
+          data.data.records.forEach((item, index) => {
+            this.citySlot[0].values.push(item.name);
+            this.city_id = item.code;
+          });
+          this.valuescity1 = this.citySlot[0].values[0];
+          this.mydeler();
+        } else {
+          Toast({
+            message: "初始化城市列表报错",
+            position: "middle",
+            duration: 2000
+          });
+        }
+      });
       $("#provinceLabel").hide();
+      this.currentTitle=''
+      this.currentIndex=-1
       this.allback = false;
       this.valuesprovince1 = this.valuesprovince;
     },
@@ -411,17 +536,23 @@ export default {
     },
     //省份的滑动选择
     provinceChange(picker, values) {
-      if(this.num){
-        this.valuesprovince1=this.provinceName
-        this.valuescity1=this.cityName
-        this.num=false
-      }else{
+      if (this.num) {
+        this.valuesprovince1 = this.provinceName;
+        this.valuescity1 = this.cityName;
+        this.num = false;
+      } else {
         this.valuesprovince = values[0];
       }
       picker.setSlotValue(1, values[0]);
     },
     timeChange(picker, values) {
       this.valuestime = values[0];
+        console.log(this.alldata,1)
+      for(let val of this.alldata){
+        if(this.valuestime==val.revervation_TIME){
+          this.time_ID=val.time_ID
+        }
+      }
       picker.setSlotValue(1, values[0]);
     },
     //城市的滑动选择
@@ -432,6 +563,7 @@ export default {
     chooseimage(index, title) {
       this.currentIndex = index;
       this.currentTitle = title;
+      this.chooseno=this.addressArray[index].no
     },
     imageselect() {
       this.chooseserveimg = false;
@@ -457,9 +589,29 @@ export default {
     },
     leftBtn() {
       //左时间按钮
+      this.$refs.swiperWrap.prev()
+      this.dataindex--
+      if(this.dataindex<0){
+        this.dataindex=0
+      }
+      this.getdayreal()
     },
     rightBtn() {
       //右时间按钮
+      this.dataindex++
+      if(this.dataindex>7){
+        this.dataindex=7
+      }
+      this.$refs.swiperWrap.next()
+      this.getdayreal()
+    },
+    chooseone(){
+        this.choosexing=!this.choosexing
+        this.$refs.main.innerText=this.$refs.one.innerText
+    },
+    choosetwo(){
+        this.choosexing=!this.choosexing
+        this.$refs.main.innerText=this.$refs.two.innerText
     },
     //获取默认车辆的vin
     defaultvins() {
@@ -476,6 +628,7 @@ export default {
         )
         .then(res => {
           if (res.data.returnSuccess) {
+            localhide()
             for (let i = 0; i < res.data.data.length; i++) {
               if (
                 res.data.data[i].def == 1 ||
@@ -484,11 +637,17 @@ export default {
                 // this.carsysitem = res.data.data[i].seriesName || null;
                 var payload = res.data.data[i].vin;
                 this.defaultvin = res.data.data[i].vin;
+                this.modelNo = res.data.data[i].modelNo;
+                this.seriesNo = res.data.data[i].seriesNo;
+                this.tspFlag = res.data.data[i].tspFlag;
+                this.plateLicenseNo=res.data.data[i].plateLicenseNo
                 this.$store.state.brandName = res.data.data[i].brandName;
                 this.$store.dispatch("CARVINS", payload);
+                this.getbrand();
               }
             }
           } else {
+            localhide()
             // Toast({
             //   message: res.data.returnErrMsg,
             //   position: "middle",
@@ -496,14 +655,74 @@ export default {
             // });
           }
         });
+    },
+    appointment(){
+      if(this.hostname==''){
+        Toast({
+                message: "请输入姓名",
+                position: "middle",
+                duration: 2000
+              });
+              return false
+      }
+      if(this.mobile==''){
+        Toast({
+              message: "请输入手机号",
+              position: "middle",
+              duration: 2000
+            });
+            return false
+      }
+      if(this.km==''){
+        Toast({
+              message: "请填写里程数",
+              position: "middle",
+              duration: 2000
+            });
+            return false
+      }
+      if(this.currentTitle==''){
+        Toast({
+              message: "请选择服务站",
+              position: "middle",
+              duration: 2000
+            });
+            return false
+      }
+      if(this.currentTime==''||this.valuestime=='暂无预约时间'){
+        Toast({
+              message: "请选择预约时间",
+              position: "middle",
+              duration: 2000
+            });
+            return false
+      }
+      let param={
+          	ownerName: this.hostname,
+            ownerMobile: this.mobile,
+            vin: this.defaultvin,
+            licenseNumber:this.plateLicenseNo,
+            mileage: this.km,
+            dealerNo: this.chooseno,
+            revervationTypeName: this.$refs.main.innerText,
+            revervationDate: this.yearmonthday,
+            revervationTime: this.time_ID
+      }
+      this.$http.post(Wit.addMaintenanceAppointment,param).then((res)=>{
+        console.log(res.data)
+          if(res.data.code==0){
+               Toast({
+                  message: res.data.data,
+                  position: "middle",
+                  duration: 2000
+                });
+          }
+      })  
     }
   },
   created() {
     this.getDateList(7);
   },
-  watch: {
-    onDateChangevalue() {}
-  }
 };
 </script>
 <style scoped>
@@ -527,8 +746,14 @@ export default {
 } */
 
 .li_st {
+  position: relative;
   height: 0.99rem;
   border-bottom: 0.01rem solid #f1f1f1;
+}
+.li_st input{
+  border:none;
+  text-align: end;
+  outline: none;
 }
 .surebuttom {
   width: 1rem;
@@ -624,7 +849,15 @@ export default {
 .mid {
   padding: 0.2rem 0;
 }
-
+.choosexing{
+  position: absolute;
+  bottom: -1rem;
+  right: .25rem;
+  background: #fff;
+}
+.choosexing>div{
+  padding: .1rem;
+}
 .txt_top {
   font-size: 0.3rem;
   color: #222;
@@ -685,7 +918,10 @@ export default {
 .mint-popup {
   width: 100%;
 }
-
+.nodelerclass{
+    text-align: center;
+    padding: 1rem;
+}
 .submit {
   position: absolute;
   top: 3.31rem;

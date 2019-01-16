@@ -268,7 +268,6 @@ export default {
                         const data = res.data;
                         if (data.code == 0) {
                           this.cityList = data.data.records;
-                          //												alert(JSON.stringify(this.cityList))
                           this.citySlot[0].values = []; //清除上一次城市的选择
                           this.cityList.forEach((item, index) => {
                             this.citySlot[0].values.push(item.name);
