@@ -8,7 +8,7 @@ Es6Promise.polyfill()
 import Vue from 'vue'
 import App from './App'
 
-
+import './utils/formateDate'
 
 //导入mint-ui
 import mintui from 'mint-ui'
