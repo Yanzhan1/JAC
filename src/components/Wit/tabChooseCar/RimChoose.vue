@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       currentIndex: 0,
-      rimTitlePrice: 500,
+      rimTitlePrice: 800,
       rimTitlePriceTotal: 0,
       flag: false,
       carData: [
@@ -60,7 +60,7 @@ export default {
           id: 2,
           label: "R18",
           value: "轮辋:R18",
-          text: "+ ¥500",
+          text: "+ ¥800",
           img: "./static/images/Wit/R18common.png"
         }
       ],
