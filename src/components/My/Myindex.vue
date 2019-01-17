@@ -459,13 +459,15 @@ export default {
     //   }
     // }
   },
-  created() {
-    if(this.$store.state.userId!=null){
-      this.getuserinfo();
-      this.myNum();
-      this.IsSign(); //判断是否签到
-      this.total(); //h获取用户总积分
-    }
+  mounted() {
+     setTimeout(()=>{
+        if(this.$store.state.userId!=null){
+          this.getuserinfo();
+          this.myNum();
+          this.IsSign(); //判断是否签到
+          this.total(); //h获取用户总积分
+        }
+      },500)
   }
 };
 </script>

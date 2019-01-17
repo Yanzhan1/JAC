@@ -74,7 +74,7 @@ export default {
             this.num++;
             if (this.$store.state.userId) {          
               if (this.num == 1) {
-                this.$store.state.userId=null
+                // this.$store.state.userId=null
                 this.$store.state.code403=100
                 if (isMobile.iOS()) {
                   window.webkit.messageHandlers.logout403.postMessage("");
