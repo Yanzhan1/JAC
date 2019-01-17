@@ -99,7 +99,7 @@
                 </div>
               </div>
               <div class="user_date">
-                {{item.commentTime}}
+                {{item.commentTime | formatDate('YYYY-MM-DD HH:mm:ss')}}
                 <span v-if="item.user && userId == item.user.user_id && item.deleteFlag != 1">
                   <span @click="deleteComment(item.id)" class="font_1">删除</span>
                 </span>
