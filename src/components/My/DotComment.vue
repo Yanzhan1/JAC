@@ -88,6 +88,7 @@
 						const data = res.data;
 						if(data.code == 0) {
 							this.questionList = data.data[0].sysDictDataVOs
+
 						} else {
 							Toast({
 								message: "服务器内部错误",
@@ -171,6 +172,7 @@
 					self.$http.post(My.addBranchesEvaluation, data).then(res => {
 							const data = res.data
 							if(data.code == 0) {
+								this.$store.dispatch("RECORDNO", data.data.recordNo);								
 								Toast({
 									message: "评价成功",
 									position: "middle",

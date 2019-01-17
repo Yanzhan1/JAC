@@ -92,5 +92,8 @@ export default {
     },
     [types.CHANGE_$FLAG]: (state, payload) => {
         state.$flag = payload
+    },
+    [types.RECORDNO]: (state, payload) => {
+        state.recordNo = payload
     }
 }

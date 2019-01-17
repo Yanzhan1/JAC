@@ -18,7 +18,8 @@ export default {
       loadingflag: false,
       loadingnum: 0,
       reg: /\/api\/(.*?)\//,
-      num: 0
+      num: 0,
+      flag:true,
     };
   },
   components: {
@@ -71,17 +72,19 @@ export default {
         switch (data.code) { //判断接口状态,403  token失效,重新登录,本地调试可注释掉,发布提交时必须解开
           case 403:
             this.num++;
-            if (this.$store.state.userId) {
+            if (this.$store.state.userId) {          
               if (this.num == 1) {
+                this.$store.state.userId=null
+                this.$store.state.code403=100
                 if (isMobile.iOS()) {
                   window.webkit.messageHandlers.logout403.postMessage("");
                 } else if (isMobile.Android() && window.js2android) {
                   window.js2android.reLogin();
                 }
               }
-            } else {
-              delete response.data;
-              _this.toLogin();
+            } else if(this.$store.state.code403!=100) {
+                // delete response.data;
+                  _this.toLogin();
             }
             break;
         }
@@ -94,7 +97,6 @@ export default {
           // response.config.url != Lovecar.Carquery
         ) {
           if (this.loadingnum == 0) {
-            console.log("jinru");
             localhide();
             this.$forceUpdate();
           }

@@ -18,3 +18,4 @@ export const GETWORDS = 'GETWORDS'; //获取各种提示
 export const RECORD = 'RECORD'; //记录wit部分页面跳转
 export const GETLOCATIONINFO = 'GETLOCATIONINFO'; //记录wit部分页面跳转
 export const CHANGE_$FLAG = 'CHANGE_$FLAG' // 有用别动
+export const RECORDNO = 'RECORDNO' // 网点评价成功后的RECORDNO
