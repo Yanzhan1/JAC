@@ -110,7 +110,8 @@
 			toggleClass(value) { //多选问题
 				if(this.nowIndex.indexOf(value) == -1) {
 					this.nowIndex.push(value)
-					this.question = this.nowIndex.join(',')
+					console.log(this.nowIndex)
+					// this.question = this.nowIndex.join(',')
 				} else {
 					this.nowIndex = this.nowIndex.filter((val) => {
 						return val != value
@@ -164,7 +165,7 @@
 						evaluationOne: self.evaluatePoint,
 						evluationThree: self.servicePoin,
 						evluationTwo: self.repairePoin,
-						notSatisfiedReason: self.question,
+						notSatisfiedReason: self.nowIndex,
 						recordNo: "AU182139219837218",
 						userNo: "AD022018091010154751445",
 						remark: self.introduction

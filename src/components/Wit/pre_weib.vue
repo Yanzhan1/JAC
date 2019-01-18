@@ -167,6 +167,7 @@
 import { Picker } from "mint-ui";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
+import { MessageBox } from "mint-ui";
 import PublicHead from "../publicmodel/PublicHead";
 export default {
   name: "preWeib",
@@ -175,14 +176,14 @@ export default {
   },
   data() {
     return {
-      hostname:'',//车主姓名
+      hostname: "", //车主姓名
       mobile: "", //手机号
       servicezhan: false, //控制服务站
       orderTime: false, //控制时间
       allback: false, //遮罩层
-      km:'',//维保预约的里程数
-      yearmonthday:'',//选择的时间年月日
-      choosexing:false,//控制保养类型的选择
+      km: "", //维保预约的里程数
+      yearmonthday: "", //选择的时间年月日
+      choosexing: false, //控制保养类型的选择
       chooseserveimg: false, //控制选择服务站图片默认不选择
       chooseprovinceq: false, //控制省份弹框
       valuesprovince: "", //被选中的省份
@@ -192,19 +193,19 @@ export default {
       valuescity1: "", //被选中的城市
       choosecity: false, //控制城市弹框
       defaultvin: "", //默认的vin
-      chooseno:'',//被选择的服务站的no的存贮
+      chooseno: "", //被选择的服务站的no的存贮
       seriesNo: "", //默认车辆拿到的数据用来请求品牌车型
       modelNo: "", //默认车辆拿到的数据用来请求品牌车型
       tspFlag: "", //默认车辆拿到的数据用来请求品牌车型
       brandNo: "", //品牌的no
       seriesNo: "", //车系的no
       brandName: "", //品牌
-      plateLicenseNo:'',//车牌号
-      brandId:'',//'0'+品牌的id
+      plateLicenseNo: "", //车牌号
+      brandId: "", //'0'+品牌的id
       seriesName: "", //车系
-      time_ID:'',//时间的id
-      dataindex:0,//默认日期选择当天
-      nodealer:false,//判断经销商是否为空
+      time_ID: "", //时间的id
+      dataindex: 0, //默认日期选择当天
+      nodealer: false, //判断经销商是否为空
       num: false, //控制picker第一次进入获取不到数据
       flag: false,
       flag1: false,
@@ -222,9 +223,9 @@ export default {
       proid: "", //省份的id请求城市用到
       provinceCode: "", //省份的code
       city_id: "", //城市的code
-      alldata:[],//所有的时间信息
+      alldata: [], //所有的时间信息
       addressArray: [],
-      everytime:[
+      everytime: [
         "0:00-1:00",
         "1:00-2:00",
         "2:00-3:00",
@@ -248,7 +249,7 @@ export default {
         "20:00-21:00",
         "21:00-22:00",
         "22:00-23:00",
-        "23:00-00:00",
+        "23:00-00:00"
       ],
       provinceSlot: [
         {
@@ -261,8 +262,7 @@ export default {
       slotstime: [
         {
           flex: 1,
-          values: [
-          ],
+          values: [],
           className: "slot1",
           textAlign: "center"
         }
@@ -285,7 +285,7 @@ export default {
     this.num = true;
     this.getdefaultmessage();
     this.defaultvins();
-  },      
+  },
   methods: {
     init() {
       //请求省份列表   原生拿到的省份name  去对比省份列表 找到对应的省份code
@@ -356,7 +356,7 @@ export default {
           this.brandName = res.data.data.brandName;
           this.seriesName = res.data.data.seriesName;
           this.brandNo = res.data.data.brandNo;
-          this.brandId="0"+res.data.data.brandId
+          this.brandId = "0" + res.data.data.brandId;
           this.seriesNo = res.data.data.no;
           this.mydeler();
         } else {
@@ -369,28 +369,28 @@ export default {
       });
     },
     //通过日期获取具体的时间段
-    getdayreal(){
-             let param={
-               revervationDate:this.dataList[this.dataindex],
-               dealerNo: this.chooseno,
-             }
-             this.$http.post(Wit.selectDealerAndTime,param).then((res)=>{
-               if(res.data.code==0){
-                 this.alldata=res.data.data
-                 let alldata=res.data.data
-                 this.slotstime[0].values=[]
-                 for(let val of alldata){
-                   if(val.completeAMOUNT>=val.max_NUM){
-                       val.revervation_TIME=val.revervation_TIME+' 爆满'
-                       this.slotstime[0].values.push(val.revervation_TIME)
-                   }else{
-                     this.slotstime[0].values.push(val.revervation_TIME)
-                   }
-                 }
-               }else if(res.data.code==500){
-                this.slotstime[0].values=['暂无预约时间']
-               }
-             })
+    getdayreal() {
+      let param = {
+        revervationDate: this.dataList[this.dataindex],
+        dealerNo: this.chooseno
+      };
+      this.$http.post(Wit.selectDealerAndTime, param).then(res => {
+        if (res.data.code == 0) {
+          this.alldata = res.data.data;
+          let alldata = res.data.data;
+          this.slotstime[0].values = [];
+          for (let val of alldata) {
+            if (val.completeAMOUNT >= val.max_NUM) {
+              val.revervation_TIME = val.revervation_TIME + " 爆满";
+              this.slotstime[0].values.push(val.revervation_TIME);
+            } else {
+              this.slotstime[0].values.push(val.revervation_TIME);
+            }
+          }
+        } else if (res.data.code == 500) {
+          this.slotstime[0].values = ["暂无预约时间"];
+        }
+      });
     },
     //获取定位的省份,城市,经纬度
     getdefaultmessage() {
@@ -418,7 +418,7 @@ export default {
         dealerCityCode: this.city_id, //城市id
         longitude: this.longitude, //经度
         latitude: this.latitude, //维度
-        dealerDmsType:this.brandId,
+        dealerDmsType: this.brandId,
         dealerType: "02",
         size: 10,
         current: 1
@@ -426,8 +426,7 @@ export default {
       this.$http.post(Wit.Dealer, param).then(res => {
         const data = res.data;
         if (data.code == 0) {
-
-            (this.addressArray = data.data.records);
+          this.addressArray = data.data.records;
           if (this.addressArray.length == 0) {
             this.nodealer = false;
           } else {
@@ -450,9 +449,9 @@ export default {
       this.pickerVisible = true;
       this.orderTime = true;
       this.allback = true;
-      this.currentIndex=-1;
+      this.currentIndex = -1;
       $("#timeLabel").show();
-      this.getdayreal()
+      this.getdayreal();
     },
     //选择确定服务站
     subsub() {
@@ -463,8 +462,8 @@ export default {
     confirmBtn() {
       this.allback = false;
       this.orderTime = false;
-      this.yearmonthday=$(".timeget").html()
-      this.currentTime = $(".timeget").html() + ' ' + this.valuestime;
+      this.yearmonthday = $(".timeget").html();
+      this.currentTime = $(".timeget").html() + " " + this.valuestime;
     },
     //点击遮罩层消失
     backgroundshow() {
@@ -479,8 +478,8 @@ export default {
       $("#provinceLabel").show();
       this.allback = true;
     },
-    Maintenance(){
-      this.choosexing=!this.choosexing
+    Maintenance() {
+      this.choosexing = !this.choosexing;
     },
     //确认省份
     chooseprovinceone() {
@@ -518,8 +517,8 @@ export default {
         }
       });
       $("#provinceLabel").hide();
-      this.currentTitle=''
-      this.currentIndex=-1
+      this.currentTitle = "";
+      this.currentIndex = -1;
       this.allback = false;
       this.valuesprovince1 = this.valuesprovince;
     },
@@ -547,10 +546,10 @@ export default {
     },
     timeChange(picker, values) {
       this.valuestime = values[0];
-        console.log(this.alldata,1)
-      for(let val of this.alldata){
-        if(this.valuestime==val.revervation_TIME){
-          this.time_ID=val.time_ID
+      console.log(this.alldata, 1);
+      for (let val of this.alldata) {
+        if (this.valuestime == val.revervation_TIME) {
+          this.time_ID = val.time_ID;
         }
       }
       picker.setSlotValue(1, values[0]);
@@ -563,7 +562,7 @@ export default {
     chooseimage(index, title) {
       this.currentIndex = index;
       this.currentTitle = title;
-      this.chooseno=this.addressArray[index].no
+      this.chooseno = this.addressArray[index].no;
     },
     imageselect() {
       this.chooseserveimg = false;
@@ -589,29 +588,29 @@ export default {
     },
     leftBtn() {
       //左时间按钮
-      this.$refs.swiperWrap.prev()
-      this.dataindex--
-      if(this.dataindex<0){
-        this.dataindex=0
+      this.$refs.swiperWrap.prev();
+      this.dataindex--;
+      if (this.dataindex < 0) {
+        this.dataindex = 0;
       }
-      this.getdayreal()
+      this.getdayreal();
     },
     rightBtn() {
       //右时间按钮
-      this.dataindex++
-      if(this.dataindex>7){
-        this.dataindex=7
+      this.dataindex++;
+      if (this.dataindex > 7) {
+        this.dataindex = 7;
       }
-      this.$refs.swiperWrap.next()
-      this.getdayreal()
+      this.$refs.swiperWrap.next();
+      this.getdayreal();
     },
-    chooseone(){
-        this.choosexing=!this.choosexing
-        this.$refs.main.innerText=this.$refs.one.innerText
+    chooseone() {
+      this.choosexing = !this.choosexing;
+      this.$refs.main.innerText = this.$refs.one.innerText;
     },
-    choosetwo(){
-        this.choosexing=!this.choosexing
-        this.$refs.main.innerText=this.$refs.two.innerText
+    choosetwo() {
+      this.choosexing = !this.choosexing;
+      this.$refs.main.innerText = this.$refs.two.innerText;
     },
     //获取默认车辆的vin
     defaultvins() {
@@ -628,7 +627,7 @@ export default {
         )
         .then(res => {
           if (res.data.returnSuccess) {
-            localhide()
+            localhide();
             for (let i = 0; i < res.data.data.length; i++) {
               if (
                 res.data.data[i].def == 1 ||
@@ -640,14 +639,14 @@ export default {
                 this.modelNo = res.data.data[i].modelNo;
                 this.seriesNo = res.data.data[i].seriesNo;
                 this.tspFlag = res.data.data[i].tspFlag;
-                this.plateLicenseNo=res.data.data[i].plateLicenseNo
+                this.plateLicenseNo = res.data.data[i].plateLicenseNo;
                 this.$store.state.brandName = res.data.data[i].brandName;
                 this.$store.dispatch("CARVINS", payload);
                 this.getbrand();
               }
             }
           } else {
-            localhide()
+            localhide();
             // Toast({
             //   message: res.data.returnErrMsg,
             //   position: "middle",
@@ -656,73 +655,92 @@ export default {
           }
         });
     },
-    appointment(){
-      if(this.hostname==''){
+    appointment() {
+      if (this.hostname == "") {
         Toast({
-                message: "请输入姓名",
-                position: "middle",
-                duration: 2000
-              });
-              return false
+          message: "请输入姓名",
+          position: "middle",
+          duration: 2000
+        });
+        return false;
       }
-      if(this.mobile==''){
+      if (this.mobile == "") {
         Toast({
-              message: "请输入手机号",
-              position: "middle",
-              duration: 2000
+          message: "请输入手机号",
+          position: "middle",
+          duration: 2000
+        });
+        return false;
+      }
+      if (this.km == "") {
+        Toast({
+          message: "请填写里程数",
+          position: "middle",
+          duration: 2000
+        });
+        return false;
+      }
+      if (this.currentTitle == "") {
+        Toast({
+          message: "请选择服务站",
+          position: "middle",
+          duration: 2000
+        });
+        return false;
+      }
+      if (this.currentTime == "" || this.valuestime == "暂无预约时间") {
+        Toast({
+          message: "请选择预约时间",
+          position: "middle",
+          duration: 2000
+        });
+        return false;
+      }
+      let param = {
+        ownerName: this.hostname,
+        ownerMobile: this.mobile,
+        vin: this.defaultvin,
+        licenseNumber: this.plateLicenseNo,
+        mileage: this.km,
+        dealerNo: this.chooseno,
+        revervationTypeName: this.$refs.main.innerText,
+        revervationDate: this.yearmonthday,
+        revervationTime: this.time_ID
+      };
+      this.$http.post(Wit.addMaintenanceAppointment, param).then(res => {
+        console.log(res.data);
+        if (res.data.code == 0) {
+          //  Toast({
+          //     message: res.data.data,
+          //     position: "middle",
+          //     duration: 2000
+          //   });
+          MessageBox.confirm("", {
+            title: "提示",
+            message: "预约成功!",
+            showConfirmButton: true,
+            showCancelButton: true,
+            cancelButtonClass: "cancelButton",
+            confirmButtonClass: "confirmButton",
+            confirmButtonText: "确认",
+            cancelButtonText: "查看详情",
+            confirmButtonHighlight: true,
+            cancelButtonHighlight: true
+          })
+            .then(action => {
+              if (action == "confirm") {
+              }
+            })
+            .catch(() => {
+              this.$router.push("/myindex/wbrecode");
             });
-            return false
-      }
-      if(this.km==''){
-        Toast({
-              message: "请填写里程数",
-              position: "middle",
-              duration: 2000
-            });
-            return false
-      }
-      if(this.currentTitle==''){
-        Toast({
-              message: "请选择服务站",
-              position: "middle",
-              duration: 2000
-            });
-            return false
-      }
-      if(this.currentTime==''||this.valuestime=='暂无预约时间'){
-        Toast({
-              message: "请选择预约时间",
-              position: "middle",
-              duration: 2000
-            });
-            return false
-      }
-      let param={
-          	ownerName: this.hostname,
-            ownerMobile: this.mobile,
-            vin: this.defaultvin,
-            licenseNumber:this.plateLicenseNo,
-            mileage: this.km,
-            dealerNo: this.chooseno,
-            revervationTypeName: this.$refs.main.innerText,
-            revervationDate: this.yearmonthday,
-            revervationTime: this.time_ID
-      }
-      this.$http.post(Wit.addMaintenanceAppointment,param).then((res)=>{
-        console.log(res.data)
-          if(res.data.code==0){
-               Toast({
-                  message: res.data.data,
-                  position: "middle",
-                  duration: 2000
-                });
-          }
-      })  
+        }
+      });
     }
   },
   created() {
     this.getDateList(7);
-  },
+  }
 };
 </script>
 <style scoped>
@@ -750,8 +768,8 @@ export default {
   height: 0.99rem;
   border-bottom: 0.01rem solid #f1f1f1;
 }
-.li_st input{
-  border:none;
+.li_st input {
+  border: none;
   text-align: end;
   outline: none;
 }
@@ -849,14 +867,14 @@ export default {
 .mid {
   padding: 0.2rem 0;
 }
-.choosexing{
+.choosexing {
   position: absolute;
   bottom: -1rem;
-  right: .25rem;
+  right: 0.25rem;
   background: #fff;
 }
-.choosexing>div{
-  padding: .1rem;
+.choosexing > div {
+  padding: 0.1rem;
 }
 .txt_top {
   font-size: 0.3rem;
@@ -918,9 +936,9 @@ export default {
 .mint-popup {
   width: 100%;
 }
-.nodelerclass{
-    text-align: center;
-    padding: 1rem;
+.nodelerclass {
+  text-align: center;
+  padding: 1rem;
 }
 .submit {
   position: absolute;

@@ -1,4 +1,5 @@
 <template>
+<div>
 	<div class="start">
 		<div class="form-group clearfix">
 			<!--<label class="control-label col-md-4">星星数量:{{starNum}}分</label>-->
@@ -10,6 +11,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
@@ -42,9 +44,30 @@
 				starNum: 0,
 			}
 		},
+		props:{
+			evaluationOne:Array,
+			evaluationTwo:Array,
+			evaluationThree:Array
+		},
 		methods: {
 			//评分
 			rating: function(index) {
+				console.log(this.evaluationOne)
+				if(this.evaluationOne){
+					if(this.evaluationOne[1]=='evaluationOne'){
+						index=this.evaluationOne[0]-1
+					}
+				}
+				if(this.evaluationTwo){
+					if(this.evaluationTwo[1]=='evaluationTwo'){
+						index=this.evaluationTwo[0]-1
+					}
+				}
+				if(this.evaluationThree){
+					if(this.evaluationThree[1]=='evaluationThree'){
+						index=this.evaluationThree[0]-1
+					}
+				}
 				var total = this.stars.length; //星星总数
 				var idx = index + 1; //这代表选的第idx颗星-也代表应该显示的星星数量
 
@@ -89,6 +112,9 @@
 					this.$emit('numChange', this.starNum)
 				}
 			}
+		},
+		mounted(){
+			this.rating()
 		},
 		computed: {
 			evaluationContent() {

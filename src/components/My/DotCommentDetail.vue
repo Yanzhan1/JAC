@@ -13,17 +13,18 @@
 					</div>
 
 					<div class="score-body">
+            <div class="noclick"></div>
 						<div class="score">
 							<p>总体评价</p>
-							<my-start ></my-start>
+							<my-start v-if="this.allmsg.evaluationOne" :evaluationOne="[this.allmsg.evaluationOne,'evaluationOne']"></my-start>
 						</div>
 						<div>
 							<p>服务态度</p>
-							<my-start></my-start>
+							<my-start v-if="this.allmsg.evaluationTwo" :evaluationTwo="[this.allmsg.evaluationTwo,'evaluationTwo']"></my-start>
 						</div>
 						<div>
 							<p>维修质量</p>
-							<my-start></my-start>
+							<my-start v-if="this.allmsg.evaluationThree" :evaluationThree="[this.allmsg.evaluationThree,'evaluationThree']"></my-start>
 						</div>
 					</div>
 
@@ -60,13 +61,11 @@ export default {
   },
   data() {
     return {
-      evaluatePoint: 5, //总体评价得分,默认>2不显示问题选择按钮
-      servicePoin: "", //服务得分
-      repairePoin: "", //维修得分
       questionList: [], //问题列表,展示用
       nowIndex: [], //多选问题列表内容(数组形式)
-      question: "", //真正传给后台的内容,要求字符串形式
-      proposal: "123dasdhfjhdsafhdsahfdsahfidsahdshafdsjfhkjhiuewqhfiu", //客户意见的展示
+      question: "2", 
+      proposal: "", //客户意见的展示
+      allmsg:{},
       screenHeight: $(window).height(),
       recordNo: this.$store.state.recordNo
     };
@@ -79,23 +78,13 @@ export default {
         recordNo: "AU182139219837218"
       };
       this.$http.post(My.searchBranchesEvaluationOne, data).then(res => {
-		  let data=res.data
+      let data=res.data
+      this.allmsg=data.data
         if(data.code==0){
-				this.proposal=data.data.remark
+        this.proposal=data.data.remark
+        this.questionList=data.data.notSatisfiedReason
 		}
       });
-    },
-    evaluate(value) {
-      //总体评价
-      this.evaluatePoint = value;
-    },
-    service(value) {
-      //服务分
-      this.servicePoin = value;
-    },
-    repair(value) {
-      //维修分
-      this.repairePoin = value;
     },
     beforeEnter(el) {
       //动画
@@ -127,7 +116,7 @@ export default {
     }
   },
   mounted() {
-    this.init();
+    this.init()
   },
   beforeDestroy() {}
 };
@@ -160,6 +149,7 @@ export default {
 }
 
 .score-body {
+  position: relative;
   padding: 0 0.38rem;
 }
 
@@ -224,5 +214,17 @@ textarea {
   outline: 0;
   width: 90%;
   font-size: inherit;
+}
+.noclick{
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  background:#fff;
+  z-index: 999;
 }
 </style>

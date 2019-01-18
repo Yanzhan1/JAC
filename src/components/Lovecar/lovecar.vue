@@ -637,9 +637,6 @@ export default {
     navtip() {
       this.MaskIsshow = true;
     },
-    islogin() {
-      this.$router.push("/islogin");
-    },
     //随机数
     randomnum(min, max) {
       var num = Math.floor(Math.random() * (max - min) + min);
