@@ -52,7 +52,6 @@
 		methods: {
 			//评分
 			rating: function(index) {
-				console.log(this.evaluationOne)
 				if(this.evaluationOne){
 					if(this.evaluationOne[1]=='evaluationOne'){
 						index=this.evaluationOne[0]-1
