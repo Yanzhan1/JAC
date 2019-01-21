@@ -450,24 +450,24 @@ export default {
         // this.mobile = JSON.parse(localStorage.getItem("mobile"));
       // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
     },
-    // userId(newVal, oldVal){
-    //   if(newVal){
-    //     this.getuserinfo();
-    //     this.myNum();
-    //     this.IsSign(); //判断是否签到
-    //     this.total(); //h获取用户总积分
-    //   }
-    // }
+    userId(newVal, oldVal){
+        this.getuserinfo();
+        this.myNum();
+        this.IsSign(); //判断是否签到
+        this.total(); //h获取用户总积分
+    }
   },
   mounted() {
-     setTimeout(()=>{
-        if(this.$store.state.userId!=null){
-          this.getuserinfo();
-          this.myNum();
-          this.IsSign(); //判断是否签到
-          this.total(); //h获取用户总积分
-        }
-      },500)
+    // console.log(JSON.parse(localStorage.getItem(userInfo)))
+    setTimeout(()=>{
+      if(this.$store.state.userId!=null){
+        this.getuserinfo();
+        this.myNum();
+        this.IsSign(); //判断是否签到
+        this.total(); //h获取用户总积分
+      }
+    },500)
+
   }
 };
 </script>

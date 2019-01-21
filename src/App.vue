@@ -30,11 +30,21 @@ export default {
     //     this.$router.push({ path: "/wit/CarChoose" });//买车页面
     //   }
     // },
+    init(){
+      if (isMobile.iOS()) {
+        var params = {};
+        window.webkit.messageHandlers.init.postMessage(params);
+      } else if (isMobile.Android()) {
+        // js2android.scan();
+      }
+    },
     isLogin(userInfo) {
       // this.$store.dispatch('change$FLAG', true)// 不要动 有用
       // if (isMobile.iOS()) {
-      // }
+      // }       
+        console.log('调用islogin')
       if (userInfo && userInfo.no) {
+        console.log(userInfo)
         this.$store.dispatch("isLogin", true);
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
         // const secUid = Secret.Encrypt(userInfo.no)
@@ -46,6 +56,7 @@ export default {
           userNo: userInfo.no
         };
         this.$http.post(Lovecar.TSP, params).then(res => {
+          console.log('jinrujiekou')
           if (res.data.msg == "success") {
             var tsp = res.data.data;
             this.$store.dispatch("TSP", tsp);
@@ -54,14 +65,9 @@ export default {
               "aaaid",
               JSON.stringify(this.$store.state.aaaid)
             );
-            params = {
-              aaaUserID: this.$store.state.aaaid,
-              tspUserId: this.$store.state.tspId,
-              userId: this.$store.state.trueuserId,
-              phone: this.$store.state.mobile
-            };
           }
         });
+        // localStorage.setItem("userInfo", JSON.stringify(userInfo));
         localStorage.setItem("mobile", JSON.stringify(userInfo.mobile));
         localStorage.setItem("userName", JSON.stringify(userInfo.userName));
       } else {
@@ -122,8 +128,10 @@ export default {
   created() {
     window.goActivityDetail = this.goActivityDetail;
     window.isLogin = this.isLogin;
+    window.goindex = this.goindex;
     window.localshow = this.localshow;
     window.localhide = this.localhide;
+    this.init()
     // window.loadTab = this.loadTab;
   },
   mounted() {
