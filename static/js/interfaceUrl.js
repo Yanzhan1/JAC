@@ -145,7 +145,9 @@ window.Wit = {
         ValidateCode: mips + 'admin/recommendedCode/validateCode', //验证推荐码
         SearchVehicleSeriesByVehicle: mip + '/vehicleSeries/searchVehicleSeriesByVehicle', //品牌车型的获取
         selectDealerAndTime: mip + '/maintenanceAppointment/selectDealerAndTime', //获取维保预约当天的时间段
-        addMaintenanceAppointment: mip + '/maintenanceAppointment/addMaintenanceAppointment' //维保预约提交
+        addMaintenanceAppointment: mip + '/maintenanceAppointment/addMaintenanceAppointment', //维保预约提交
+        synchronousMaintenanceAppointmentByDms: mip + '/maintenanceAppointment/synchronousMaintenanceAppointmentByDms', //维保预约记录first
+        searchMaintenanceAppointmentListPage: mip + '/maintenanceAppointment/searchMaintenanceAppointmentListPage', //维保预约记录next
     }
     //我的 部分
 window.My = {
@@ -174,8 +176,9 @@ window.My = {
         orderList: host + '/api/pluto-membership/mall/information/orderList', //商城订单
         orderDetail: host + '/api/pluto-membership/mall/information/orderDetail', //商城订单详细
         getwords: mips + '/admin/sysDictType/searchSysDictTypeList', //获取所有提示语
-        searchSysDictTypeList: mips + '/admin/sysDictType/searchSysDictTypeList', //网点评分列表
+        searchReasonsForDissatisfactionList: mip + '/reasonsForDissatisfaction/searchReasonsForDissatisfactionList', //网点评分列表
         addBranchesEvaluation: mip + '/branchesEvaluation/addBranchesEvaluation', //提交评分
+        searchBranchesEvaluationOne: mip + '/branchesEvaluation/searchBranchesEvaluationOne', //网点评分详情
 
     }
     //爱车
