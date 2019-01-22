@@ -365,6 +365,8 @@ export default{
         }else if(this.$store.state.powerTitle == '1.5T 6MT 手动'){
           this.currentIndex3 = 2;
           this.$store.state.priceTitle = 89800;
+        }else{
+          this.$store.state.priceTitle = 98800;
         }
       }
     },
