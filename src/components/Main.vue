@@ -67,6 +67,9 @@ export default {
     let _this = this;
     this.$http.interceptors.response.use(
       response => {
+
+        let flag = true
+
         this.loadingnum--;
         const data = response.data;
         switch (data.code) { //判断接口状态,403  token失效,重新登录,本地调试可注释掉,发布提交时必须解开
@@ -84,9 +87,11 @@ export default {
               }
             } else if(this.$store.state.code403!=100) {
                 // delete response.data;
+
+                  flag = false
+
                   _this.toLogin();
             }
-            return Promise.reject(403);
             break;
         }
         if (
@@ -107,7 +112,11 @@ export default {
         if (response.config.url.indexOf("dk-dm-portal-api") == -1) {
           ModalHelper.beforeClose(); //解决遮罩层穿透
         }
-        return response;
+        if(flag){
+          return response;
+        }else {
+          return Promise.reject(403);
+        }
       },
       error => {
         this.loadingnum--;
