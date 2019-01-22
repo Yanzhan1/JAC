@@ -72,7 +72,7 @@ export default {
         switch (data.code) { //判断接口状态,403  token失效,重新登录,本地调试可注释掉,发布提交时必须解开
           case 403:
             this.num++;
-            if (this.$store.state.userId) {          
+            if (this.$store.state.userId) {
               if (this.num == 1) {
                 // this.$store.state.userId=null
                 this.$store.state.code403=100
@@ -86,10 +86,11 @@ export default {
                 // delete response.data;
                   _this.toLogin();
             }
+            return Promise.reject(403);
             break;
         }
         if (
-          response.config.url != Lovecar.OperationId 
+          response.config.url != Lovecar.OperationId
           // response.config.url != Lovecar.TSP &&
           // response.config.url != Lovecar.vehiclestatus &&
           // response.config.url != My.My_Bus &&
