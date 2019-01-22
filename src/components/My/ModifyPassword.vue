@@ -12,7 +12,7 @@
 				<span style="font-size: 0.26rem;color: #444444;">
 					旧密码:
 				</span>
-				<input  v-model="condition.oldPassword" placeholder="请输入旧密码" type="text" />
+				<input  v-model="condition.oldPassword" placeholder="请输入旧密码" type="password" />
 			</div>
 		</div>
 		<div class="origin-pin">
@@ -20,7 +20,7 @@
 				<span style="font-size: 0.26rem;color: #444444;">
 					新密码:
 				</span>
-				<input v-model="condition.newPassword" placeholder="请输入新密码" type="text" />
+				<input v-model="condition.newPassword" placeholder="请输入新密码" type="password" />
 			</div>
 		</div>
 		<button class="bottom-btn" @click="modifyPwd">确认修改</button>
@@ -46,6 +46,14 @@
 		},
 		methods: {
 			modifyPwd () { //修改密码
+				if(this.condition.oldPassword=this.condition.newPassword){
+						Toast({
+							message: '新密码不可与旧密码相同',
+							position: 'middle',
+							duration: 2000
+						});
+						return false
+				}
 				var regPwd = /^((?=.*[0-9].*)(?=.*[A-Za-z].*))[0-9A-Za-z]{6,20}$/
 				if (this.condition.newPassword == null || this.condition.oldPassword == null) {
 						Toast({
