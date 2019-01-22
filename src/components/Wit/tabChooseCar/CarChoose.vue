@@ -333,7 +333,7 @@ export default{
           this.$store.state.priceTitle = 84800;
         } else if(this.$store.state.powerTitle == '1.6L CVT 自动'){
           this.currentIndex4 = 1;
-          this.$store.state.priceTitle = 84800;
+          this.$store.state.priceTitle = 80800;
         }else if(this.$store.state.powerTitle == '1.5T 6MT 手动'){
           this.currentIndex4 = 2;
           this.$store.state.priceTitle = 75800;
