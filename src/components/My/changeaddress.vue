@@ -85,10 +85,12 @@ export default {
       selected: true,
       name: "",
       num: "",
+      pag:0,//控制选择城市的默认情况
       isShow: false,
       everyid: "",
       i: "",
       isChange: false, //检测是change事件是否第一次触发
+      cityid:'',//查询城市用的id
       Originaladdress: {},
       provinceNo: "", //返回给后端的code
       provinceName: "", //返回给后端的name
@@ -116,7 +118,7 @@ export default {
       slots1: [
         {
           flex: 1,
-          values: ["市辖区"],
+          values: [],
           className: "slot1",
           textAlign: "center"
         }
@@ -139,14 +141,29 @@ export default {
       .then(res => {
         this.allarea = res.data.data.records;
         this.slots[0].values = [];
-        for (var i = 0; i < this.allarea.length; i++) {
+        for (var i = 0; i < this.allarea.length; i++) {    
           this.slots[0].values.push(this.allarea[i].name);
-        }
-      });
+          if(this.allarea[i].name==this.choosedarea){
+              this.cityid=this.allarea[i].id
+          }
+        }      
+            var param = {
+                      parentId: this.cityid,
+                      level: 2,
+                      size:100,
+                    };
+                    this.$http.post(Wit.searchCountryAreaCodeListPage, param).then(res => {
+                      let data = res.data.data.records;
+                      this.slots1[0].values = [];
+                      for(let val of data){
+                        this.slots1[0].values.push(val.name);
+                      }
+                    });
+                });
   },
   created() {
     this.choosedarea = this.$route.params.provinceName;
-    this.choosecity = this.$route.params.cityName;
+    // this.choosecity = this.$route.params.cityName;  
     this.cityCode = this.$route.params.cityCode;
   },
   methods: {
@@ -253,17 +270,18 @@ export default {
       }
     },
     onValuesChanges(picker, values) {
-      if (this.choosecity) {
-        if (this.isChange) {
-          this.choosecity = values[0];
-          this.cityList.forEach((item, index) => {
-            if (item.name == this.choosecity) {
-              this.cityCode = item.code; //获取城市code
-            }
-          });
+      this.pag++
+      this.choosecity=this.$route.params.cityName
+        if(this.pag>2){
+          if (this.isChange) {
+            this.choosecity = values[0];
+            this.cityList.forEach((item, index) => {
+              if (item.name == this.choosecity) {
+                this.cityCode = item.code; //获取城市code
+              }
+            });
+          }
         }
-      }
-
     }
   }
 };

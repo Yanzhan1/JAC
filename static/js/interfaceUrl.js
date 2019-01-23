@@ -13,6 +13,7 @@ var host = '//test.jac.timanetwork.net'
 // var host = '//jacsupperapp.jac.com.cn'
 
 var indexip = host + '/api/dk-dm-portal-api'
+var userip = host + '/api'
 var focusip = host + '/api/dk-pr-svr' //uat
 var point = 'http://192.168.1.141:8868' //埋点
     //服务器-智享
@@ -116,6 +117,7 @@ window.DISCOVERMESSAGE = {
         deleteMoment: indexip + '/moment/deleteMoment', //删除我的此刻
         deleteComment: indexip + '/userComment/deleteComment', //删除评论
         getOneComment: indexip + '/userComment/getOneComment', //进入评论页获取当前评论所有回复
+        searchUserBaseInformationMany: userip + '/jac-admin/admin/userBaseInformation/searchUserBaseInformationMany',
     }
     // 智享
 window.Wit = {
