@@ -181,7 +181,9 @@ window.My = {
         searchReasonsForDissatisfactionList: mip + '/reasonsForDissatisfaction/searchReasonsForDissatisfactionList', //网点评分列表
         addBranchesEvaluation: mip + '/branchesEvaluation/addBranchesEvaluation', //提交评分
         searchBranchesEvaluationOne: mip + '/branchesEvaluation/searchBranchesEvaluationOne', //网点评分详情
-
+        sendSMS: mips + '/admin/thirdPartyRequest/sendSMS', //获取修改手机的验证码
+        updateUserCode: mips + '/admin/userBaseInformation/updateUserCode', //手机号码修改的提交
+        addLabelEntityToUser: mips + '/admin/labelEntity/addLabelEntityToUser', //登入app后同步会员等级
     }
     //爱车
 window.Lovecar = {
@@ -191,7 +193,7 @@ window.Lovecar = {
         Carquery: love_car + '/vehicle/query-vehicle-condition', //车辆车况查询
         OperationId: love_car + '/vehicle/vehicle-async-results', //获取车辆车况查询返回的operationId发送给后端
         Changepin: love_car + '/vehicle/update-vehicle-pin', //修改pin码
-        Getphonepin: love_car + '/vehicle//identify-code', //获取验证码
+        Getphonepin: love_car + '/vehicle//identify-code', //获取车控验证码
         Checkphonepin: love_car + '/vehicle/check-vehicle-pin', //验证pin码
         BusTest: love_car + '/vehicle/query-cyc-car-examination', //车辆体检
         Fuel: love_car + '/vehicle/query-vehicle-fuel-statistics', //燃油接口
