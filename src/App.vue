@@ -33,7 +33,9 @@ export default {
     init(){
       if (isMobile.iOS()) {
         var params = {};
+        console.log('通知ios调用login')
         window.webkit.messageHandlers.init.postMessage(params);
+        console.log('结束ios调用login')
       } else if (isMobile.Android()) {
         // js2android.scan();
       }
@@ -42,7 +44,6 @@ export default {
       // this.$store.dispatch('change$FLAG', true)// 不要动 有用
       // if (isMobile.iOS()) {
       // }       
-        console.log('调用islogin')
       if (userInfo && userInfo.no) {
         console.log(userInfo)
         this.$store.dispatch("isLogin", true);
@@ -87,6 +88,7 @@ export default {
           }
         });
       }
+      this.synchronization()
     },
     localshow() {
       var system = IOSAndAndroid.isIOSOrAndroid();
@@ -116,6 +118,12 @@ export default {
       }
 
     },
+    //同步用户标签
+    synchronization(){
+      this.$http.post(My.addLabelEntityToUser,{}).then((res)=>{
+        console.log(res)
+      })
+    },
     goActivityDetail(activityId) {
       this.$router.push({
         path: "/activity/activityLive",
@@ -135,6 +143,10 @@ export default {
     // window.loadTab = this.loadTab;
   },
   mounted() {
+    localStorage.setItem(
+              "time",
+              '60'
+      );
     // this.isLogin({name:'',no:'AD022018121402494457431'})
     // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTU0NDc3MDE4NDAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6NDkyLFwiaW5pdFVzZXJcIjowLFwibGFzdE1vZGlmaWVkRGF0ZVwiOjE1NDQ3NzA1NjYwMDAsXCJub1wiOlwiQUQwMjIwMTgxMjE0MDI0OTQ0NTc0MzFcIixcInBob25lXCI6XCIxNTAyNjU2Njk5MlwiLFwidXNlckNvZGVcIjpcIjE1MDI2NTY2OTkyXCIsXCJ1c2VyTmFtZVwiOlwiWVlGXCIsXCJ1c2VyU3RhdHVzXCI6MCxcInVzZXJUeXBlXCI6XCIwMVwifSIsImNyZWF0ZWQiOjE1NDUwNjMzNTM4NTgsInVzZXJObyI6IkFEMDIyMDE4MTIxNDAyNDk0NDU3NDMxIiwidXNlclR5cGUiOiIwMSIsInVzZXJOYW1lIjoiWVlGIiwiZXhwIjoxNTQ1OTI3MzUzLCJ1c2VySWQiOjQ5Mn0.QRPXVmMziV1tH4KcakZ7KcoVg1mx9dhDLVetoMEGhgI'
     // 获取用户
