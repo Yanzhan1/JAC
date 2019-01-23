@@ -214,28 +214,6 @@ export default{
           value:'1.5T 6MT 手动',
           text:89800
         }
-      ],
-      priceData:[
-        {
-          id:1,
-          label:'8.08' ,
-          value:'8.08'
-        },
-        {
-          id:2,
-          label:'7.68' ,
-          value:'7.68'
-        },
-        {
-          id:3,
-          label:'7.18' ,
-          value:'7.18'
-        },
-        {
-          id:4,
-          label:'6.78' ,
-          value:'6.78'
-        }
       ]
     }
 
@@ -250,7 +228,7 @@ export default{
     this.$store.state.currentTitle = '梦想型';
     this.$store.state.colorTitle = '典雅白';
     this.$store.state.powerTitle = '1.5T CVT 自动';
-    this.$store.state.priceTitle = 80800;
+    this.$store.state.priceTitle = 88800;
     this.$store.state.rimTitle ='R17';
     this.$store.state.show = false;
     this.$store.state.show1 = false;
@@ -324,6 +302,7 @@ export default{
 
     this.flag  = true;
     console.log(" this.$store.state.currentTitle",this.$store.state.currentTitle)
+    console.log(" this.$store.state.powerTitle",this.$store.state.powerTitle)
   },
   methods:{
     carBtn(index,labelTitle,carIntroduceTitle,carIntroduceTitle2){
@@ -335,44 +314,59 @@ export default{
       this.flag  = true;
       if(this.$store.state.currentTitle == '自由型'){
           if(this.$store.state.powerTitle == '1.5T CVT 自动'){
-            this.$store.state.priceTitle = this.priceTitle3;
+            this.currentIndex2 = 0;
+            this.$store.state.priceTitle = 80800;
           } else if(this.$store.state.powerTitle == '1.6L CVT 自动'){
-            this.$store.state.priceTitle = this.priceTitle3;
+            this.currentIndex2 = 1;
+            this.$store.state.priceTitle = 76800;
           }else if(this.$store.state.powerTitle == '1.5T 6MT 手动'){
-            this.$store.state.priceTitle = this.priceTitle3;
+            this.currentIndex2 = 2;
+            this.$store.state.priceTitle = 71800;
           }else if(this.$store.state.powerTitle == '1.6L 6MT 手动'){
-            this.$store.state.priceTitle = this.priceTitle3;
+            this.currentIndex2 = 3;
+            this.$store.state.priceTitle = 67800;
           }
 
       }else if(this.$store.state.currentTitle == '超越型'){
         if(this.$store.state.powerTitle == '1.5T CVT 自动'){
-          this.$store.state.priceTitle = this.priceTitle4;
+          this.currentIndex4 = 0;
+          this.$store.state.priceTitle = 84800;
         } else if(this.$store.state.powerTitle == '1.6L CVT 自动'){
-          this.$store.state.priceTitle = this.priceTitle4;
+          this.currentIndex4 = 1;
+          this.$store.state.priceTitle = 80800;
         }else if(this.$store.state.powerTitle == '1.5T 6MT 手动'){
-          this.$store.state.priceTitle = this.priceTitle4;
+          this.currentIndex4 = 2;
+          this.$store.state.priceTitle = 75800;
         }else if(this.$store.state.powerTitle == '1.6L 6MT 手动'){
-          this.$store.state.priceTitle = this.priceTitle4;
+          this.currentIndex4 = 3;
+          this.$store.state.priceTitle = 71800;
         }
       }else if(this.$store.state.currentTitle == '梦想型'){
         if(this.$store.state.powerTitle == '1.5T CVT 自动'){
-          this.$store.state.priceTitle = this.priceTitle;
+          this.currentIndex5 = 0;
+          this.$store.state.priceTitle = 88800;
         } else if(this.$store.state.powerTitle == '1.6L CVT 自动'){
-          this.$store.state.priceTitle = this.priceTitle;
+          this.currentIndex5 = 1;
+          this.$store.state.priceTitle = 84800;
         }else if(this.$store.state.powerTitle == '1.5T 6MT 手动'){
-          this.$store.state.priceTitle = this.priceTitle;
+          this.currentIndex5 = 2;
+          this.$store.state.priceTitle = 79800;
         }else if(this.$store.state.powerTitle == '1.6L 6MT 手动'){
-          this.$store.state.priceTitle = this.priceTitle;
+          this.currentIndex5 = 3;
+          this.$store.state.priceTitle = 75800;
         }
       }else if(this.$store.state.currentTitle == '探索型'){
         if(this.$store.state.powerTitle == '1.5T CVT 自动'){
-          this.$store.state.priceTitle = this.priceTitle2;
+          this.currentIndex3 = 0;
+          this.$store.state.priceTitle = 98800;
         } else if(this.$store.state.powerTitle == '1.6L CVT 自动'){
-          this.$store.state.priceTitle = this.priceTitle2;
+          this.currentIndex3 = 1;
+          this.$store.state.priceTitle = 94800;
         }else if(this.$store.state.powerTitle == '1.5T 6MT 手动'){
-          this.$store.state.priceTitle = this.priceTitle2;
-        }else if(this.$store.state.powerTitle == '1.6L 6MT 手动'){
-          this.$store.state.priceTitle = this.priceTitle2;
+          this.currentIndex3 = 2;
+          this.$store.state.priceTitle = 89800;
+        }else{
+          this.$store.state.priceTitle = 98800;
         }
       }
     },

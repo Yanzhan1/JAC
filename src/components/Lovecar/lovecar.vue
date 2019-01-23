@@ -2332,13 +2332,13 @@ input:focus {
 
 .bottom_1 {
   top: 5.4rem;
-  right: 2rem;
+  right: 1.7rem;
   font-size: 0.24rem;
 }
 
 .middle_1 {
   top: 3.45rem;
-  right: 2rem;
+  right: 1.7rem;
   color: #49bbff;
   font-size: 0.24rem;
 }
