@@ -14,7 +14,7 @@
     <div class="box" style="box-sizing: content-box;" :style="$statusBarHeightObj"></div> -->
     <div class="startbg">
       <div :class="['wrapbg' ,vFlag ? 'left4' : '']">
-        <img v-if="userInfo && userInfo.headUrl" :src="userInfo.headUrl" alt="">
+        <img v-if="userInfo && userInfo.imageUrl" :src="userInfo.imageUrl" alt="">
         <img v-else src="../../../static/images/discover/normalhead.png" />
         <!--加V-->
         <img v-if="userInfo && vFlag" src="../../../static/images/discover/v.png" class="head_22"/>
@@ -217,11 +217,12 @@
       },
       init() {
         let _this = this;
-        _this.$http.post(My.UserInfo, {
-          "no": _this.$store.state.UserStartId
+        let nos = [_this.$store.state.UserStartId];
+        _this.$http.post(DISCOVERMESSAGE.searchUserBaseInformationMany, {
+          "nos": nos
         }).then(function (res) {
           if (res.data.code == 0) {
-            _this.userInfo = res.data.data;
+            _this.userInfo = res.data.data[0];
             for(var item in _this.userInfo.entitys){
               if(_this.userInfo.entitys[item].entity.indexOf('V') != -1){
                 _this.vFlag = true;
