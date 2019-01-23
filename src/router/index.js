@@ -159,6 +159,8 @@ const DotComment = lazyLoad('/My/DotComment.vue') //网点评分
 const Agreement = lazyLoad('/My/Agreement.vue') //用户协议
     // import Agreement from '../components/My/Agreement.vue' //用户协议
 import DotCommentDetail from '../components/My/DotCommentDetail.vue' //网点评分详情页
+// const Changemobile = lazyLoad('My/Changemobile.vue') //修改手机号
+import Changemobile from '../components/My/Changemobile.vue'
 
 /**
  * 消息
@@ -567,6 +569,11 @@ const router = new Router({
             {
                 path: "/focus",
                 component: Focus
+            },
+            {
+                path: "/myindex/changeMobile",
+                name: "修改手机号",
+                component: Changemobile
             },
             {
                 path: "/myCollect",
