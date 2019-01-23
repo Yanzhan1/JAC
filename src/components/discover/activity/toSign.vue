@@ -117,7 +117,7 @@
           return false;
         }
         //手机号正则
-        var phoneReg = /(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/;
+        var phoneReg = /^1\d{10}$/;
         //大于0的正整数正则
         var peopleReg = /^([1-9]|10)$/;
         //电话
