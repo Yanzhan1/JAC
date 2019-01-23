@@ -542,6 +542,7 @@
     height: 1.12rem !important;
     position: absolute;
     right: 0;
+    z-index: 1;
   }
 
 </style>
