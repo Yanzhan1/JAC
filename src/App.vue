@@ -87,8 +87,8 @@ export default {
             this.$store.dispatch("imgUrl", res.data.data.headUrl);
           }
         });
+          this.synchronization()
       }
-      this.synchronization()
     },
     localshow() {
       var system = IOSAndAndroid.isIOSOrAndroid();
