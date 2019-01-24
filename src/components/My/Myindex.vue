@@ -75,11 +75,11 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
       </div>
-       <router-link to="/myindex/wbrecode" class="mylist" tag="div">
+       <!-- <router-link to="/myindex/wbrecode" class="mylist" tag="div">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_record_maintanance@2x.png" alt="">
           <span>维保记录</span>
-        </div>
+        </div> -->
         <img src="../../../static/images/my/next@2x.png" alt="">
       </router-link>
       <router-link to="/myCollect" tag="div" class="mylist">
@@ -451,6 +451,7 @@ export default {
       // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
     },
     userId(newVal, oldVal){
+      console.log('jinru')
         this.getuserinfo();
         this.myNum();
         this.IsSign(); //判断是否签到
@@ -458,7 +459,6 @@ export default {
     }
   },
   mounted() {
-    // console.log(JSON.parse(localStorage.getItem(userInfo)))
     setTimeout(()=>{
       if(this.$store.state.userId!=null){
         this.getuserinfo();

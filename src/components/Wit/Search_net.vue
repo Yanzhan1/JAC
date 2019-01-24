@@ -1,55 +1,50 @@
 <template>
 	<div class="box_last">
-		<!-- <header class="header MobileHeight bgcolor" style="z-index: 100!important;">
-			<img class="header-left" src="../../../static/images/back@2x.png" @click="$router.go(-1)">
-			<span class="header-title" style="margin-right: 0.65rem;">查询维保网点</span>
-			<span class="header-right"></span>
-		</header> -->
-		<div class="flex row around con cocenter title">
-			<div class="flex row cocenter">
-				<!-- 品牌 -->
-				<div class="selection-show " @click="bottomPicker(1)">
-					<div class="headlines">
-						<div> {{brandName}} </div>
-					</div>
-					<div class="arrow"></div>
-				</div>
-			</div>
-			<div class="flex row cocenter">
-				<!-- 车型 -->
-				<div class="selection-show" @click="bottomPicker(2)">
-					<div class="headlines">
-						<div> {{carName}} </div>
-					</div>
-					<div class="arrow"></div>
-				</div>
-			</div>
-			<div class="flex row cocenter">
-				<!-- 省份 -->
-				<div class="selection-show" @click="bottomPicker(3)">
-					<div class="headlines">
-						<div> {{provinceName}} </div>
-					</div>
-					<div class="arrow"></div>
-				</div>
-			</div>
-			<div class="flex row cocenter">
-				<!--城市-->
-				<div class="selection-show" @click="bottomPicker(4)">
-					<div class="headlines">
-						<div> {{cityName}} </div>
-					</div>
+      <div class="title">
+        <div class="flex row around con cocenter ">
+        <div class="flex row cocenter">
+          <!-- 品牌 -->
+          <div class="selection-show " @click="bottomPicker(1)">
+            <div class="headlines">
+              <div> {{brandName}} </div>
+            </div>
+            <div class="arrow"></div>
+          </div>
+        </div>
+        <div class="flex row cocenter">
+          <!-- 车型 -->
+          <div class="selection-show" @click="bottomPicker(2)">
+            <div class="headlines">
+              <div> {{carName}} </div>
+            </div>
+            <div class="arrow"></div>
+          </div>
+        </div>
+        <div class="flex row cocenter">
+          <!-- 省份 -->
+          <div class="selection-show" @click="bottomPicker(3)">
+            <div class="headlines">
+              <div> {{provinceName}} </div>
+            </div>
+            <div class="arrow"></div>
+          </div>
+        </div>
+        <div class="flex row cocenter">
+          <!--城市-->
+          <div class="selection-show" @click="bottomPicker(4)">
+            <div class="headlines">
+              <div> {{cityName}} </div>
+            </div>
 
-					<div class="arrow"></div>
-				</div>
-			</div>
-		</div>
-		<div style="width:100%;height:1.4rem;"></div>
-		<div class="dealer-wrapper" :style="{'-webkit-overflow-scrolling': scrollMode}">
-			<!-- <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :topDistance="80" :auto-fill="false"> -->
+            <div class="arrow"></div>
+          </div>
+        </div>
+        </div>
+      </div>
+		<div style="width:100%;height:.5rem;"></div>
+		<div class="dealer-wrapper" >
 				<ul style="padding:.1rem .2rem" v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
 					<li ref="dataCon" class="ul_list flex row around " v-for="(item,index) in mainbus" :key="index" @click="setUpMap(item.latitude, item.longitude, item.dealerName, item.dealerAddress)">
-						<!--<div class="ul_list flex cocenter"> <img class="pic" v-lazy="imgSrc" alt=""></div>-->
 						<div class="flex column around  mid">
 							<span class="txt_top dian">{{item.dealerName}}</span>
 							<span class="txt_m">电话： </span>
@@ -66,7 +61,6 @@
 						</div>
 					</li>
 				</ul>
-			<!-- </mt-loadmore> -->
 		</div>
 		<p id="showAll2" style="visibility: hidden">已加载全部</p>
 		<!--没有数据时,对用户进行提示-->
@@ -641,14 +635,12 @@ export default {
 .row {
   flex-direction: row;
 }
-
-.title {
+.box_last .title {
   position: fixed;
   width: 100%;
   height: 0.88rem;
   line-height: 0.88rem;
   z-index: 999;
-  top: 1.4rem;
   background: #fff;
 }
 

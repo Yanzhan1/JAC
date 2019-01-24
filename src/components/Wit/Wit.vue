@@ -28,9 +28,9 @@
       </div>
       <!--nav导航End-->
       <div
-      class="roadrescue" 
-             ref="moveDiv"
-      >
+        class="roadrescue" 
+              ref="moveDiv"
+        >
         <img
         @mousedown="down"
         @mousemove.prevent="move"
@@ -65,7 +65,7 @@
       </ul>
       <!--内容Start-->
       <div id="slider1" class="swipe">
-        <ul class="box01_list" >
+        <ul class="box01_list" style="margin-top:.7rem;">
           <li class="li_list " @click="Record(1)">
             <Recomentbus ></Recomentbus>
           </li>
@@ -531,7 +531,7 @@ export default {
   font-size: .28rem;
   font-family: 'PingFangSC';
   top: 0.7rem;
-  z-index:888;
+  z-index:9999;
   display: flex;
   box-sizing: border-box;
 }
