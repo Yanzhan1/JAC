@@ -161,6 +161,7 @@ const Agreement = lazyLoad('/My/Agreement.vue') //用户协议
 import DotCommentDetail from '../components/My/DotCommentDetail.vue' //网点评分详情页
 // const Changemobile = lazyLoad('My/Changemobile.vue') //修改手机号
 import Changemobile from '../components/My/Changemobile.vue'
+import Maintenancedetail from '../components/My/Maintenancedetail.vue'
 
 /**
  * 消息
@@ -744,6 +745,11 @@ const router = new Router({
                 path: "DotCommentDetail",
                 name: '网点详情',
                 component: DotCommentDetail
+            },
+            {
+                path: "/myindex/Maintenancedetail",
+                name: '维保详情',
+                component: Maintenancedetail
             },
             // 消息
             {

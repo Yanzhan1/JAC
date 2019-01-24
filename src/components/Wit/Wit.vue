@@ -531,7 +531,7 @@ export default {
   font-size: .28rem;
   font-family: 'PingFangSC';
   top: 0.7rem;
-  z-index:9999;
+  z-index:888;
   display: flex;
   box-sizing: border-box;
 }
