@@ -11,7 +11,7 @@
 				<span :class="{active:1==condition.complaintsType}" @click="change(1)">问题</span>
 				<span :class="{active:2==condition.complaintsType}" @click="change(2)" style="margin-left: 0.25rem;">意见</span>
 			</div>
-			<textarea class="freedback-content" placeholder="请输入您的问题或意见" name="" rows="" cols="" v-model="condition.complaintsContent"></textarea>
+			<textarea class="freedback-content" placeholder="请输入您的问题或意见"  v-model="condition.complaintsContent"></textarea>
 			<div class="flex-column person-info">
 				<span>姓名</span>
 				<input class="nameInput" @focus="focus" ref="input" v-model="condition.contact" type="text" />
@@ -206,7 +206,6 @@
 		width: 100%;
 		height: 4.2rem;
 		background: #F5F5F5;
-		text-indent: 0.2rem;
 		padding: 0.2rem;
 		border: none;
 		border-radius: 0.08rem;
