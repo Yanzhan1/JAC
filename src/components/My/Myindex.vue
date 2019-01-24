@@ -79,9 +79,9 @@
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_record_maintanance@2x.png" alt="">
           <span>维保记录</span>
-        </div> -->
+        </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </router-link>
+      </router-link> -->
       <router-link to="/myCollect" tag="div" class="mylist">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_collection@2x.png" alt="">
