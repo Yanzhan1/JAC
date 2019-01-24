@@ -75,13 +75,13 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
       </div>
-       <!-- <router-link to="/myindex/wbrecode" class="mylist" tag="div">
+       <!-- <div class="mylist" @click="wbrecode">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_record_maintanance@2x.png" alt="">
           <span>维保记录</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </router-link> -->
+      </div> -->
       <router-link to="/myCollect" tag="div" class="mylist">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_collection@2x.png" alt="">
@@ -205,6 +205,10 @@ export default {
         }
       });
     },
+    //跳转维保详情
+    wbrecode(){
+      this.$router.push('/myindex/wbrecode')
+    },
     // 获取用户总积分
     total() {
       var data = {
@@ -272,7 +276,6 @@ export default {
     //     let tokenAndNo = js2android.getUserInfo();
     //     let tokensandno = JSON.parse(tokenAndNo);
     //     this.$store.dispatch("TOKEN", tokensandno);
-    //     //						alert(this.$store.state.token.no)
     //   } else if (system == "IOS") {
     //     let Iostoken = getCookie("token");
     //     let Iosno = getCookie("no");
@@ -450,13 +453,12 @@ export default {
         // this.mobile = JSON.parse(localStorage.getItem("mobile"));
       // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
     },
-    userId(newVal, oldVal){
-      console.log('jinru')
-        this.getuserinfo();
-        this.myNum();
-        this.IsSign(); //判断是否签到
-        this.total(); //h获取用户总积分
-    }
+    // userId(newVal, oldVal){
+    //     this.getuserinfo();
+    //     this.myNum();
+    //     this.IsSign(); //判断是否签到
+    //     this.total(); //h获取用户总积分
+    // }
   },
   mounted() {
     setTimeout(()=>{

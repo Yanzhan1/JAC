@@ -10,77 +10,89 @@
 		<ul style="padding:0 .32rem;border-bottom:.2rem solid #F9F9F9">
 			<li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
 				<div class="order-title">
-					<img src="../../../static/images/my/start.png" alt="" />
-					<span>预定车型</span>
+					<!-- <img src="../../../static/images/my/start.png" alt="" /> -->
+					<span>预约编码:</span>
 				</div>
-
-				<span>{{userinfo.seriesName}}</span>
+				<span>{{userinfo.revervationCode}}</span>				
 			</li>
 			<li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
 				<div class="order-title">
-					<img src="../../../static/images/my/start.png" alt="" />
-					<span>省</span>
+					<!-- <img src="../../../static/images/my/start.png" alt="" /> -->
+					<span>预约状态:</span>
 				</div>
-				<span>{{userinfo.provinceName}}</span>
+				<span>{{userinfo.revervationStatus}}</span>				
 			</li>
 			<li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
 				<div class="order-title">
-					<img src="../../../static/images/my/start.png" alt="" />
-					<span>市</span>
+					<!-- <img src="../../../static/images/my/start.png" alt="" /> -->
+					<span>服务商:</span>
 				</div>
-
-				<span>{{userinfo.cityName}}</span>
+				<span>{{userinfo.dealerName}}</span>				
 			</li>
-			<li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
+            <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
 				<div class="order-title">
-					<img src="../../../static/images/my/start.png" alt="" />
-					<span>经销商</span>
+					<!-- <img src="../../../static/images/my/start.png" alt="" /> -->
+					<span>服务类型:</span>
 				</div>
-				<span>{{userinfo.dealerName}}</span>
+				<span>{{userinfo.revervationTypeName}}</span>
 			</li>
-
-		</ul>
-		<ul style="padding:0 .32rem;border-bottom:.2rem solid #F9F9F9">
-			<li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
+            <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
 				<div class="order-title">
-					<img src="../../../static/images/my/start.png" alt="" />
-					<span>姓名</span>
+					<!-- <img src="../../../static/images/my/start.png" alt="" /> -->
+					<span>预约日期:</span>
 				</div>
-				<span>{{userinfo.customerName}}</span>
+				<span>{{userinfo.revervationDate}}</span>
 			</li>
-			<li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
+            <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
 				<div class="order-title">
-					<img src="../../../static/images/my/start.png" alt="" />
-					<span>称谓</span>
+					<!-- <img src="../../../static/images/my/start.png" alt="" /> -->
+					<span>预约时间:</span>
 				</div>
-				<span>{{userinfo.gender}}</span>
+				<span>{{userinfo.revervationTime}}</span>
 			</li>
-			<li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
+            <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
 				<div class="order-title">
-					<img src="../../../static/images/my/start.png" alt="" />
-					<span>手机号</span>
+					<!-- <img src="../../../static/images/my/start.png" alt="" /> -->
+					<span>车主名称:</span>
+				</div>
+				<span>{{userinfo.ownerName}}</span>
+			</li>
+            <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
+				<div class="order-title">
+					<!-- <img src="../../../static/images/my/start.png" alt="" /> -->
+					<span>车主电话:</span>
 				</div>
 				<span>{{userinfo.ownerMobile}}</span>
 			</li>
-		</ul>
-		<ul style="padding:0 .32rem;border-bottom:.2rem solid #F9F9F9">
 			<li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
-				<span>电子邮箱</span>
-				<span>{{userinfo.email}}</span>
+				<div class="order-title">
+					<!-- <img src="../../../static/images/my/start.png" alt="" /> -->
+					<span>VIN:</span>
+				</div>
+				<span>{{userinfo.vin}}</span>
 			</li>
-
 			<li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
-				<span>地址</span>
-				<span>{{userinfo.address}}</span>
+				<div class="order-title">
+					<!-- <img src="../../../static/images/my/start.png" alt="" /> -->
+					<span>预约顾问名称:</span>
+				</div>
+				<span>{{userinfo.server}}</span>
 			</li>
+			<li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
+				<div class="order-title">
+					<!-- <img src="../../../static/images/my/start.png" alt="" /> -->
+					<span>预约专员ID:</span>
+				</div>
+				<span>{{userinfo.serverId}}</span>
+			</li>
+			<li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
+				<div class="order-title">
+					<!-- <img src="../../../static/images/my/start.png" alt="" /> -->
+					<span>反馈日期:</span>
+				</div>
+				<span>{{userinfo.feedbackTime}}</span>
+			</li>			
 		</ul>
-		<!-- <div style="padding:0 .3rem">
-			<p style="font-size:.27rem;color:#222;padding:.3rem 0">备注说明</p>
-			<div class="content">
-				{{userinfo.comments}}
-			</div>
-		</div> -->
-
 	</div>
 </template>
 

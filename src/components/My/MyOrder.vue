@@ -81,7 +81,7 @@
 								<img src="../../../static/images/next@2x.png" alt="">
 							</div>
 						</div>
-						<!-- <div class="flex row between bt">
+						<div class="flex row between bt">
 							<span></span>
 							<div v-if="item.paymentStatus">
 								<span class="cancel" :class=" item.paymentStatus == 1 ? 'active' : ''">付款</span>
@@ -91,27 +91,33 @@
 								<span class="cancel">再次充值</span>
 								<span class="cancel">删除订单</span>
 							</div>							
-						</div> -->
+						</div>
 					</router-link >
 				</ul>
         <ul v-show="this.Maintenance" style="margin-top:.7rem;">
-          <router-link tag="li" class="flex column" v-for="(item,index) in allflowbuy" :key="index"  :to="{path:'/myindex/flowOrderDetails', query: {flowDetail: item}}">
-						<p class="flex row tim between">
-							<span class="times">{{item.purchaseTime}}</span>
-							<span class="times" >{{trafficOrder[item.paymentStatus]}}</span>
-						</p>
-						<div class="cont">
-							<div class="flex column tp">
-								<!--<span class="bus_right">地址：上海市徐汇区田林路200号</span>-->
-								<span class="flowPacket-title">{{item.packetName}}</span>
-								<span class="bus_right">维保网点:{{item.orderId}}</span>
-								<span class="bus_right">维保类型：{{item.price}}元</span>
-							</div>
-							<div class="flex column bus_left">
-								<img src="../../../static/images/next@2x.png" alt="">
-							</div>
-						</div>
-					</router-link >
+          <li class="flex column sigleli" v-for="(item,index) in datalist" :key="index">
+              <div @click="goMaintenancedetail(item)">
+                  <p class="flex row tim between">
+                    <span class="times">{{item.revervationDate}}&nbsp&nbsp{{item.revervationTime}}</span>
+                    <span :class="item.revervationStatus=='已确认'?'makedone':'makedtwo'" >{{item.revervationStatus}}</span>
+                  </p>
+                  <div class="cont">
+                    <div class="flex column tp">
+                      <!--<span class="bus_right">地址：上海市徐汇区田林路200号</span>-->
+                      <span class="flowPacket-title">{{item.dealerName}}</span>
+                      <span class="bus_right">维保类型：{{item.revervationTypeName}}</span>
+                      <span class="bus_right">车牌号:{{item.licenseNumber}}</span>
+                      <span class="bus_right">车辆VIN:{{item.vin}}</span>
+                    </div>
+                    <div class="flex column bus_left">
+                      <img src="../../../static/images/next@2x.png" alt="">
+                    </div>
+                  </div>
+              </div>
+              <div class="cancellation flex cocenter" v-if="item.revervationStatus=='已确认'">
+                <div>取消订单</div>
+              </div>
+					</li >
         </ul>
 			<!-- </mt-tab-container-item>
 		</mt-tab-container> -->
@@ -134,6 +140,7 @@ export default {
       list: false, //线索展示
       flow: false, //流量展示
       Maintenance: false, //维保展示
+      datalist:[],//维保预约数据
       allflowbuy: [],
       allmaintenance: [],
       shoppingMall: [], //商城订单
@@ -165,6 +172,13 @@ export default {
       this.Maintenance = true;
       this.flow = false;
       this.list = false;
+    },
+    //跳转维保详情
+    goMaintenancedetail(item){
+      this.$router.push({
+        path:'/myindex/Maintenancedetail',
+        query:item
+      })
     },
     //跳转商城详情
     todetail() {
@@ -233,6 +247,34 @@ export default {
           console.log(this.allflowbuy);
         });
     },
+    //维保预约订单
+    appointment(){
+      let param = {
+        vin: "LJ12EKR21J4931800",
+        revervationStatus: ""
+        // vin:this.$state.store.vins,
+      };
+       this.$http
+        .post(Wit.synchronousMaintenanceAppointmentByDms, param)
+        .then(res => {
+          if (res.data.code == 0) {
+            let data = {
+              size: 99,
+              current: 1,
+              vin: "LJ12EKR21J4931800"
+              // vin:this.$state.store.vins,
+            };
+            this.$http
+              .post(Wit.searchMaintenanceAppointmentListPage, data)
+              .then(res => {
+                if (res.data.code == 0) {
+                  this.datalist = res.data.data.records;
+                }
+              });
+          }
+        });
+    
+    },
     //线索订单
     GetXorder() {
       // alert()
@@ -285,6 +327,7 @@ export default {
   created() {
     this.GetXorder();
     this.flowbuy();
+    this.appointment();
     // this.getShoppingMall();
   },
   mounted() {
@@ -329,6 +372,16 @@ export default {
 .times {
   padding: 0.3rem 0;
   font-size: 0.24rem;
+  color: #888;
+}
+.makedone{
+  padding: 0.3rem 0;
+  font-size: 0.3rem;
+  color: #49bbff;
+}
+.makedtwo{
+  padding: 0.3rem 0;
+  font-size: 0.3rem;
   color: #888;
 }
 .order {
@@ -433,5 +486,22 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+.cancellation{
+  width: 100%;
+  height: .5rem;
+  flex-direction:row-reverse;
+  padding: .4rem;
+}
+.cancellation>div{
+  width: 1.5rem;
+  height: .5rem;
+  border: .02rem solid #eee;
+  border-radius:.5rem;
+  text-align: center;
+  line-height: .5rem;
+}
+.sigleli{
+  border-bottom: .1rem solid #eee;
 }
 </style>
