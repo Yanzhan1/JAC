@@ -70,18 +70,20 @@
 <script>
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
-import PublicHead from '../publicmodel/PublicHead';
+import PublicHead from "../publicmodel/PublicHead";
 export default {
-	name: 'addMyDress',
-	components: {
-  	mhead:PublicHead
+  name: "addMyDress",
+  components: {
+    mhead: PublicHead
   },
   data() {
     return {
-      numadd:0,
+      numadd: 0,
+      numcityadd:0,
+      change:false,
       bgcolor: false,
-      provinceName:'',//当地的省份
-      cityName:'',//当地的市
+      provinceName: "", //当地的省份
+      cityName: "", //当地的市
       shows: false, //控制选择地区显示
       showss: false, //控制选择城市显示
       selected: true,
@@ -101,9 +103,9 @@ export default {
       provinceName: "北京",
       address: "",
       options: [],
-	  no:'',
-      cityList: [''], //城市列表
-      cityCode: 110100000000, //城市code
+      no: "",
+      cityList: [""], //城市列表
+      cityCode: '', //城市code
       slots: [
         {
           flex: 1,
@@ -122,42 +124,76 @@ export default {
       ]
     };
   },
-  created(){
-      window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
-            var system = this.isIOSOrAndroid();
-            if(system == 'Android') {
-              var Position = js2android.getLocationInfo() //获取安卓定位信息
-              var NewPosition = JSON.parse(Position)
-              this.provinceName = NewPosition.province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '') //省
-              this.cityName = NewPosition.city.replace('市', '') //市
-              // this.latitude = NewPosition.latitude //经度
-              // this.longitude = NewPosition.longitude //纬度
-            } else if(system == "IOS") {
-              window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
-            }
+  created() {
+    //获取定位信息
+    window.getIosLocation = this.getIosLocation; //ios获取定位信息,放到window对象供ios调用
+    var system = this.isIOSOrAndroid();
+    if (system == "Android") {
+      var Position = js2android.getLocationInfo(); //获取安卓定位信息
+      var NewPosition = JSON.parse(Position);
+      this.provinceName = NewPosition.province
+        .replace("自治区", "")
+        .replace("省", "")
+        .replace("市", "")
+        .replace("壮族", "")
+        .replace("回族", ""); //省
+      this.cityName = NewPosition.city.replace("市", ""); //市
+      this.choosedarea = this.provinceName
+      // this.latitude = NewPosition.latitude //经度
+      // this.longitude = NewPosition.longitude //纬度
+    } else if (system == "IOS") {
+      window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
+    }
   },
   mounted() {
-    $('.gobottom').height($('.gobottom').height())
+    $(".gobottom").height($(".gobottom").height());
     this.info = this.$route.query;
-    this.$http
-      .post(My.Area, {
-        size: 1000,
-        parentId: null,
-        level: 1
-      })
-      .then(res => {
-        this.allarea = res.data.data.records;
-        this.slots[0].values = [];
-        for (var i = 0; i < this.allarea.length; i++) {
-          this.slots[0].values.push(this.allarea[i].name);
-        }
-      });
+    this.init()
   },
   methods: {
-      getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
-				this.provinceName = JSON.parse(locationMes).province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '')
-				this.cityName = JSON.parse(locationMes).city.replace('市', '')
-			},
+    //IOS调用,H5获取ios定位信息
+    getIosLocation(locationMes) {
+      this.provinceName = JSON.parse(locationMes)
+        .province.replace("自治区", "")
+        .replace("省", "")
+        .replace("市", "")
+        .replace("壮族", "")
+        .replace("回族", "");
+      this.choosedarea = this.provinceName
+      this.cityName = JSON.parse(locationMes).city.replace("市", "");
+    },
+    init() {
+      this.$http
+        .post(My.Area, { size: 1000, parentId: null, level: 1 })
+        .then(res => {
+          this.allarea = res.data.data.records;
+          this.slots[0].values = [];
+          for (var i = 0; i < this.allarea.length; i++) {
+            this.slots[0].values.push(this.allarea[i].name);
+            if (this.allarea[i].name == this.choosedarea) {
+              this.cityid = this.allarea[i].id;
+            }
+          }
+          var param = {
+            parentId: this.cityid,
+            level: 2,
+            size: 100
+          };
+          this.$http
+            .post(Wit.searchCountryAreaCodeListPage, param)
+            .then(res => {
+              let data = res.data.data.records;
+              this.slots1[0].values = [];
+              for (let val of data) {
+                if(this.cityName==val.name){
+                  this.cityCode=val.code
+                }
+                this.slots1[0].values.push(val.name);
+              }
+            });
+        });
+    },
+    //保存提交
     async handleSubmit() {
       var self = this;
       var flag = 0;
@@ -201,9 +237,8 @@ export default {
       };
       await this.$http.post(My.AddAddress, param).then(res => {
         if (res.data.code == 0) {
-		 this.no = res.data.data.no;
+          this.no = res.data.data.no;
           this.$router.go(-1);
-       
         }
       });
       if (flag == 1) {
@@ -215,22 +250,23 @@ export default {
           provinceCode: this.everycode, //所在地区的code
           cityCode: this.cityCode, //城市code
           address: this.address, //用户手动输入的地址
-		  no:this.no
+          no: this.no
         };
         await this.$http.post(My.Defaultaddress, param).then(res => {});
       }
     },
-    isIOSOrAndroid() { //判断ios和安卓机型的方法
-				var u = navigator.userAgent,
-					app = navigator.appVersion;
-				var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
-				var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-				if(isAndroid) {
-					return "Android"
-				} else if(isIOS) {
-					return "IOS"
-				}
-			},
+    isIOSOrAndroid() {
+      //判断ios和安卓机型的方法
+      var u = navigator.userAgent,
+        app = navigator.appVersion;
+      var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Linux") > -1; //g
+      var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+      if (isAndroid) {
+        return "Android";
+      } else if (isIOS) {
+        return "IOS";
+      }
+    },
     choosearea() {
       this.shows = true;
       this.bgcolor = true;
@@ -243,19 +279,20 @@ export default {
       this.bgcolor = false;
       this.shows = false;
       this.showss = false;
-      if(this.everyid==''){
-        this.choosedarea='四川'
-        this.choosecity='阿坝'
+      if(!this.change){
+        this.choosedarea=this.allarea[0].name;
+        this.everyid=this.allarea[0].id;
       }
       let data = {
-        parentId:this.everyid, //被检测的省份id
+        parentId: this.everyid, //被检测的省份id
         level: 2
       };
       this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
-        this.city = res.data.data.records; //获取的城市列表
-        this.slots1[0].values = []; //清除上一次选择的城市列表
-        for (var i = 0; i < this.city.length; i++) {
-          this.slots1[0].values.push(this.city[i].name);
+        var city = res.data.data.records;
+        this.cityList = city;
+        this.slots1[0].values = [];
+        for (var i = 0; i < city.length; i++) {
+          this.slots1[0].values.push(city[i].name);         
         }
       });
     },
@@ -269,46 +306,33 @@ export default {
       this.showss = false;
     },
     onValuesChange(picker, values) {
+      
       this.numadd++
-      if(values[0]===undefined||this.numadd=='3'){
-        this.choosedarea=this.provinceName
-         this.everycode='024'
-         this.cityCode='0228'
+      if(this.numadd>2){      
+        this.choosedarea=values[0]
+        this.change=true
       }else{
-        this.choosedarea = values[0];
-      for (var i = 0; i < this.allarea.length; i++) {
-        if (this.allarea[i].name == this.choosedarea) {
-          this.everycode = this.allarea[i].code;
-          this.everyid = this.allarea[i].id;
-        }
+        this.choosedarea=this.provinceName
       }
-      }
-      // let data = {
-      //   parentId: this.everyid, //被检测的省份id
-      //   level: 2
-      // };
-      // this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
-      //   this.city = res.data.data.records; //获取的城市列表
-      //   this.slots1[0].values = []; //清除上一次选择的城市列表
-      //   for (var i = 0; i < this.allarea.length; i++) {
-      //     this.slots1[0].values.push(this.city[i].name);
-      //   }
-      // });
+          for (var i = 0; i < this.allarea.length; i++) {
+                if (this.choosedarea == this.allarea[i].name) {
+                  this.provinceName = this.allarea[i].name;
+                  this.everycode = this.allarea[i].code;
+                  this.everyid = this.allarea[i].id;
+                }
+              }
     },
     onValuesChanges(picker, values) {
-      this.numadd++
-      // alert(this.numadd+'shi')
-      if(values[0]===undefined){
-        // alert(this.cityName)
-        this.choosecity=this.cityName
-        // alert(this.choosecity)
+      this.numcityadd++
+      if(this.numcityadd>2){
+        this.choosecity=values[0]
       }else{
-        this.choosecity = values[0];
-        this.city.forEach((item, index) => {
-          if (item.name == this.choosecity) {
-            this.cityCode = item.code; //获取城市code
-          }
-        });
+        this.choosecity=this.cityName
+        }
+          for(let val of this.cityList){
+            if(this.choosecity==val.name){
+              this.cityCode=val.code
+            }
       }
     }
   }
@@ -470,8 +494,8 @@ input {
 .inputcontent {
   z-index: 999;
 }
-.bottom-btn{
-  position:absolute;
+.bottom-btn {
+  position: absolute;
   bottom: 0;
   left: 0;
 }

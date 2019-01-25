@@ -163,7 +163,6 @@ export default {
   },
   created() {
     this.choosedarea = this.$route.params.provinceName;
-    // this.choosecity = this.$route.params.cityName;  
     this.cityCode = this.$route.params.cityCode;
   },
   methods: {
@@ -231,6 +230,10 @@ export default {
     hides() {
       this.bgcolor = false;
       this.shows = false;
+      if(!this.everyid){
+        this.everyid=this.allarea[0].id
+        this.choosedarea=this.allarea[0].name
+      }
       let data = {
         parentId: this.everyid, //被检测的省份id
         level: 2
