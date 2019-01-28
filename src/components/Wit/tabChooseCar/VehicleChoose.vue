@@ -47,7 +47,7 @@
         </div>
       </transition>
       <div class="headerHeight"></div>
-    
+
       <div class="contentBtn">
         <div class="contentText">
           <div class="priceLabel">{{this.$store.state.priceTitle}}元</div>
@@ -186,7 +186,7 @@ export default {
           this.carBody = this.goldNormal;
         } else if (bodyColor == "拉菲红") {
           this.$store.state.show1 = !this.$store.state.show1;
-          this.carBody = this.$store.state.show1
+          this.carBody = !this.$store.state.show1
             ? this.redNormal
             : this.redDouble;
           this.totalPrice2 = !this.$store.state.show1
@@ -205,7 +205,7 @@ export default {
       // alert(this.$store.state.priceTitle);
         this.$router.push({
           path: "/wit/PreviewChoose"
-        }); 
+        });
     },
     backChooseBtn() {
       if (this.$store.state.noback) {
