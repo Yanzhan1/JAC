@@ -19,7 +19,7 @@
         <input v-model="phoneNum" placeholder="请输入手机号"/>
       </div>
       <div class="f5_line1"></div>
-      <div class="sign_cell">
+     <!-- <div class="sign_cell">
         <p>预约人数</p>
         <input v-model="peopleNumber" placeholder="请输入预约人数"/>
       </div>
@@ -32,7 +32,7 @@
             :options="['是','否']">
           </mt-radio>
         </div>
-      </div>
+      </div>-->
       <div class="tosign_btn" @click="sublime" id="send">
         提 交
       </div>
@@ -107,11 +107,11 @@
       sublime: function () {
         var _this = this;
         var child = 0;
-        if(_this.value=='是'){
+        /*if(_this.value=='是'){
           child = 1;
         }else{
           child = 0;
-        }
+        }*/
         if(_this.msgIsNull(_this.user)){
           MessageBox('提示', "姓名不能为空");
           return false;
@@ -126,12 +126,11 @@
           MessageBox('提示', "请输入有效的手机号码");
           return false;
         }
-        console.log(_this.peopleNumber)
-        if (!peopleReg.test(_this.peopleNumber)) {
+       /* if (!peopleReg.test(_this.peopleNumber)) {
           console.log(_this.peopleNumber)
           MessageBox('提示', "报名人数最多10人");
           return false;
-        }
+        }*/
         var joinInfo = {"uid": _this.userId,"aid": _this.activityId,"reservationNum":_this.peopleNumber,"childFlag":child,"name":_this.user,"phone":_this.phoneNum};
         this.$http.post(DISCOVERMESSAGE.activetyWantGo, joinInfo).then(function (res) {
           if (res.data.status) {
