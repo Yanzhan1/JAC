@@ -181,6 +181,8 @@ window.My = {
         searchReasonsForDissatisfactionList: mip + '/reasonsForDissatisfaction/searchReasonsForDissatisfactionList', //网点评分列表
         addBranchesEvaluation: mip + '/branchesEvaluation/addBranchesEvaluation', //提交评分
         searchBranchesEvaluationOne: mip + '/branchesEvaluation/searchBranchesEvaluationOne', //网点评分详情
+        cancelMaintenanceAppointment: mip + '/maintenanceAppointment/cancelMaintenanceAppointment', //取消维保申请
+        searchMaintenanceRecordList: mip + '/maintenanceRecord/searchMaintenanceRecordList', //维保记录
         sendSMS: mips + '/admin/thirdPartyRequest/sendSMS', //获取修改手机的验证码
         updateUserCode: mips + '/admin/userBaseInformation/updateUserCode', //手机号码修改的提交
         addLabelEntityToUser: mips + '/admin/labelEntity/addLabelEntityToUser', //登入app后同步会员等级

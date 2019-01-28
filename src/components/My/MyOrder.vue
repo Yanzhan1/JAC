@@ -24,10 +24,10 @@
           <div>流量</div>
           <div v-show="this.flow" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
         </div>
-        <!-- <div @click="showMaintenance" >
+        <div @click="showMaintenance" >
           <div>维保</div>
           <div v-show="this.Maintenance" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
-        </div> -->
+        </div>
       </div>
     </div>
 		
@@ -114,7 +114,7 @@
                     </div>
                   </div>
               </div>
-              <div class="cancellation flex cocenter" v-if="item.revervationStatus=='已确认'">
+              <div class="cancellation flex cocenter" v-if="item.revervationStatus=='已确认'" @click="cancelbable(item.no)">
                 <div>取消订单</div>
               </div>
 					</li >
@@ -235,6 +235,28 @@ export default {
     //     })
     //     .catch(err => {});
     // },
+    //取消订单
+    cancelbable(val){
+      let data={
+        no:val
+      }
+      this.$http.post(My.cancelMaintenanceAppointment,data).then((res)=>{
+        if(res.data.code==0){
+                Toast({
+                  message: '已成功取消',
+                  duration: 1000,
+                  position: "middle"
+                });
+                this.appointment()
+        }else{
+          Toast({
+                  message: res.data.msg,
+                  duration: 1000,
+                  position: "middle"
+                });
+        }
+      })
+    },
     //流量订单
     flowbuy() {
       var params = {
@@ -250,9 +272,9 @@ export default {
     //维保预约订单
     appointment(){
       let param = {
-        vin: "LJ12EKR21J4931800",
-        revervationStatus: ""
-        // vin:this.$state.store.vins,
+        // vin: "LJ12EKR21J4931800",
+        revervationStatus: "",
+        vin:this.$state.store.vins,
       };
        this.$http
         .post(Wit.synchronousMaintenanceAppointmentByDms, param)
@@ -261,8 +283,8 @@ export default {
             let data = {
               size: 99,
               current: 1,
-              vin: "LJ12EKR21J4931800"
-              // vin:this.$state.store.vins,
+              // vin: "LJ12EKR21J4931800"
+              vin:this.$state.store.vins,
             };
             this.$http
               .post(Wit.searchMaintenanceAppointmentListPage, data)

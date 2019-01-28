@@ -23,6 +23,14 @@
 				<input v-model="condition.newPassword" placeholder="请输入新密码" type="password" />
 			</div>
 		</div>
+		<div class="origin-pin">
+			<div class="flex-center-between revisePinCommon">
+				<span style="font-size: 0.26rem;color: #444444;">
+					确认新密码:
+				</span>
+				<input v-model="condition.newAgainpassword" placeholder="请输入新密码" type="password" />
+			</div>
+		</div>
 		<button class="bottom-btn" @click="modifyPwd">确认修改</button>
 	</div>
 </template>
@@ -40,15 +48,32 @@
 				condition: { //用户信息
 					oldPassword: '',
 					newPassword: '',
+					newAgainpassword:'',
 					no: this.$store.state.userId
 				}
 			}
 		},
 		methods: {
 			modifyPwd () { //修改密码
-				if(this.condition.oldPassword=this.condition.newPassword){
+				if(this.condition.oldPassword==this.condition.newPassword){
 						Toast({
 							message: '新密码不可与旧密码相同',
+							position: 'middle',
+							duration: 2000
+						});
+						return false
+				}
+				if(this.condition.newAgainpassword==null){
+					Toast({
+							message: '请确认密码',
+							position: 'middle',
+							duration: 2000
+						});
+						return false
+				}
+				if(this.condition.newPassword!=this.condition.newAgainpassword){
+						Toast({
+							message: '请保持新密码一致',
 							position: 'middle',
 							duration: 2000
 						});
