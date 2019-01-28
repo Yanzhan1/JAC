@@ -61,7 +61,7 @@
         const fn5 = after(fn4, this.pic)
         const fn6 = after(fn5, this.normal)
 
-        return fn6.call(this) 
+        return fn6.call(this)
       }
     },
     methods: {
@@ -155,7 +155,7 @@
        * 报名
        */
       toSign() {
-        this.$emit('toSign', this.activityId)
+        this.$emit('toSign', this.activityId, this.activityType)
       },
       /**
        * 晒图

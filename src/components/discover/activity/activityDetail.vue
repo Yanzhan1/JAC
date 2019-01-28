@@ -177,7 +177,7 @@
           }
         })
       },
-      toSign: function (id) {
+      toSign: function (id,activityType) {
         if(!this.$store.state.userId){
           this.toLogin()
           return
@@ -185,7 +185,8 @@
         this.$router.push({
           path: "/activity/toSign",
           query: {
-            activityId: id
+            activityId: id,
+            activityType:activityType
           }
         })
       },
