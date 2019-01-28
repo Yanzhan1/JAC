@@ -104,10 +104,16 @@
         <img src="../../../static/images/my/next@2x.png" alt="">
       </router-link>
       <div class="mylist" @click="recommended">
-
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_recommend@2x.png" alt="">
           <span>推荐码</span>
+        </div>
+        <img src="../../../static/images/my/next@2x.png" alt="">
+      </div>
+      <div class="mylist" @click="myFeedback">
+        <div class="flex cocenter">
+          <img src="../../../static/images/my/fankui@3x.png" alt="">
+          <span>我的反馈</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
       </div>
@@ -204,6 +210,9 @@ export default {
           this.isShow = false;
         }
       });
+    },
+    myFeedback(){
+      this.$router.push('/myindex/myFeedback')
     },
     //跳转维保详情
     wbrecode(){

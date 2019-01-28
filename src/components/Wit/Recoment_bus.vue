@@ -27,7 +27,7 @@
 <script>
 import { Popup } from "mint-ui";
 import { Radio } from "mint-ui";
-import Dingzi from "../../../static/images/Wit/dingzi.png"
+import Dingzi from "../../../static/images/Wit/dingzi.png";
 export default {
   data() {
     return {
@@ -42,25 +42,24 @@ export default {
       gender: "", //主推车型 选中的No
       good_list: [],
       gender: this.$store.state.busNo, //主推车型全选默认选中，
-      no:''
-     };
+      no: ""
+    };
   },
   methods: {
     tode(item) {
-     this.$store.dispatch("NONAME", item);
-     this.$store.state.shownum=2
+      this.$store.dispatch("NONAME", item);
+      this.$store.state.shownum = 2;
       this.$router.push({
         name: "车系特色",
-        params: {
-          }
+        params: {}
       });
     },
 
     getcarbus() {
       var param = {
-        highlyRecommend: '1',
+        highlyRecommend: "1"
       };
-   this.$http.post(Wit.MainBus, param).then(res => {
+      this.$http.post(Wit.MainBus, param).then(res => {
         if (res.data.code == 0) {
           var arr = res.data.data;
           for (let i = 0; i < arr.length; i++) {
@@ -68,9 +67,9 @@ export default {
               for (let j = 0; j < arr[i].imageRelationVO.length; j++) {
                 if (arr[i].imageRelationVO[j].isDefault == 1) {
                   arr[i].imgUrl = arr[i].imageRelationVO[j].imageUrl;
-                  } 
-               }
-             } else {
+                }
+              }
+            } else {
               arr[i].imgUrl = "";
             }
           }
@@ -80,44 +79,41 @@ export default {
       });
     }
   },
-  created() {
-    //获取全部车型，主推车型
+  created() {},
+  mounted() {
     this.getcarbus();
-   
-  },
-  mounted(){
-  	
-     $(".MobileHeight").css({
-				"borderTopWidth": this.$store.state.mobileStatusBar,
-				"borderTopColor": "#fff",
-			})
-  },
-  activated(){
+    //获取全部车型，主推车型
+    $(".MobileHeight").css({
+      borderTopWidth: this.$store.state.mobileStatusBar,
+      borderTopColor: "#fff"
+    });
     //做了缓存,主推车型的埋点
-    	  let time=new Date().getTime()
-          let params={
-            "uid":this.$store.state.aaaid,
-            "start_time":time,
-            "sign":this.$store.state.sign,
-            "moduleName":"recommendCar"
-          }
-            this.$http.post(POINT.addpoint,params).then((res)=>{
-                console.log(res)
-            }).catch((err)=>{
-
-            })
-  }
+    let time = new Date().getTime();
+    let params = {
+      uid: this.$store.state.aaaid,
+      start_time: time,
+      sign: this.$store.state.sign,
+      moduleName: "recommendCar"
+    };
+    this.$http
+      .post(POINT.addpoint, params)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {});
+  },
+  activated() {}
 };
 </script>
  <style scoped>
- 	.MobileHeight {  
-		border-top-style: solid;
-		box-sizing: content-box;
-	}
+.MobileHeight {
+  border-top-style: solid;
+  box-sizing: content-box;
+}
 .mint-popup {
   width: 80%;
 }
-.bgcolor{
+.bgcolor {
   background: #fff;
 }
 .fot {
@@ -187,7 +183,7 @@ export default {
   align-items: center;
 }
 .bus_li img {
-  width:100%;
+  width: 100%;
   height: 2.37rem;
 }
 .bus_1 {
@@ -198,57 +194,57 @@ export default {
   justify-content: space-between;
   align-items: center;
 }
-.bus_n{
-   width: 100%;
+.bus_n {
+  width: 100%;
   height: 1.2rem;
   display: flex;
   flex: 1;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
 }
-.bus_n>div>img{
-  width: .28rem;
-  height: .28rem;
+.bus_n > div > img {
+  width: 0.28rem;
+  height: 0.28rem;
 }
-.bus_1>div>img{
-  width: .28rem;
-  height: .28rem;
-  margin-left: .3rem;
+.bus_1 > div > img {
+  width: 0.28rem;
+  height: 0.28rem;
+  margin-left: 0.3rem;
 }
-.bus_n>div{
+.bus_n > div {
   display: flex;
   align-items: center;
   padding: 0.3rem;
 }
-.bus_1>div{
+.bus_1 > div {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   padding: 0.3rem;
 }
 .bus_2 {
-    color: #222;
-		padding: .2rem;
-		font-size:.32rem;
-		font-family:'PingFang-SC-Bold';
-		font-weight:bold;
-		color:rgba(34,34,34,1);
+  color: #222;
+  padding: 0.2rem;
+  font-size: 0.32rem;
+  font-family: "PingFang-SC-Bold";
+  font-weight: bold;
+  color: rgba(34, 34, 34, 1);
 }
 .bus_3 {
-  margin-right: .33rem;
-		display: flex;
-		align-items: center;
-		font-size:.28rem;
-		font-family:'PingFang-SC-Bold';
-		font-weight:bold;
-		color:rgba(73,187,255,1);
+  margin-right: 0.33rem;
+  display: flex;
+  align-items: center;
+  font-size: 0.28rem;
+  font-family: "PingFang-SC-Bold";
+  font-weight: bold;
+  color: rgba(73, 187, 255, 1);
 }
-.bus_3>div{
-    font-size:.24rem;
-		font-family:'PingFangSC-Regular';
-		font-weight:400;
-		color:rgba(153,153,153,1);
-    margin-right: .2rem;
+.bus_3 > div {
+  font-size: 0.24rem;
+  font-family: "PingFangSC-Regular";
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  margin-right: 0.2rem;
 }
 .input-label {
   display: block;
