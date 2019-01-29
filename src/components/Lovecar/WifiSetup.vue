@@ -162,7 +162,7 @@ export default {
     },
 
     confirm() {
-      var regNum =  /^[a-zA-Z\d]{8,16}$/;
+      var regNum =  /^[_a-zA-Z\d]{8,16}$/;
       if (this.wifiData.name == '' || this.wifiData.pwd == '') {
   			Toast({
               message: "输入不能为空",
@@ -171,7 +171,7 @@ export default {
             });
       } else if (!regNum.test(this.wifiData.name) || !regNum.test(this.wifiData.pwd)) {
       		Toast({
-              message: "请输入8-16位数字或字母wifi名称和密码",
+              message: "请输入8-16位数字或字母或_wifi名称和密码",
               position: "middle",
               duration: 2000
             });
