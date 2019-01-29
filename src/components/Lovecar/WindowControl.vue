@@ -1,5 +1,5 @@
 <template>
-	<div class="window-control">
+	<div class="window-control" @touchmove.prevent>
 		<mhead currentTitle="车窗控制"></mhead>
 		<div class="window-header">
 			<!--<div class="window-btn">
