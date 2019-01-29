@@ -91,7 +91,8 @@ export default {
             this.$store.dispatch("imgUrl", res.data.data.headUrl);
           }
         });
-          this.synchronization()
+        //暂时不上uat
+          // this.synchronization()
       }
     },
     localshow() {
