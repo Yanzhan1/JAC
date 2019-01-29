@@ -221,13 +221,14 @@ export default {
       loop: 0, //传给后台循环的index
       compressors: 0, //传给后台的控制压缩机数值
       operationIds: "",
-      marginTop: this.$store.state.mobileStatusBar
+      marginTop: this.$store.state.mobileStatusBar,
+      beforeturnon:0,
     };
   },
   methods: {
     //空调控制开关方法
     turn() {
-      this.turnon = 1;
+      this.beforeturnon = 1;
       if (this.activeShowImg) {
         this.value = true;
       } else {
@@ -1262,6 +1263,9 @@ export default {
   watch: {
     pinNumber(newVal, oldVal) {
       if (this.pinNumber.length == 6) {
+        if(this.beforeturnon==1){
+          this.turnon=1
+        }
         var PIN = this.pinNumber;
         this.$http
           .post(
@@ -1310,6 +1314,10 @@ export default {
     },
     fullValue(newVal, oldVal) {
       if (this.fullValue.length == 6) {
+        if(this.beforeturnon==1){
+          this.turnon=1
+          this.beforeturnon=10
+        }
         var PIN = this.fullValue;
         this.$http
           .post(
