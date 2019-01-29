@@ -162,7 +162,7 @@ export default {
     },
 
     confirm() {
-      var regNum =  /^[x00-x7f]{8,16}$/;
+      var regNum =  /^[a-zA-Z\d]{8,16}$/;
       if (this.wifiData.name == '' || this.wifiData.pwd == '') {
   			Toast({
               message: "输入不能为空",
