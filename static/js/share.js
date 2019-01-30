@@ -26,7 +26,7 @@
       var conf = data.WXconfig;
       
       wx.config({
-        debug: true,
+        debug: false,
         appId: conf.appId,
         timestamp: conf.timestamp,
         nonceStr: conf.nonceStr,

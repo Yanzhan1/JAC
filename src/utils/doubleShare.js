@@ -36,7 +36,7 @@ export default function (that, title, summary, pic, url) {
 
       setShareInfo({
         title,
-        summary,
+        summary: title,
         pic,
         url,
         // 微信权限验证配置信息，若不在微信传播，可忽略

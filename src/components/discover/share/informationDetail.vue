@@ -223,6 +223,17 @@
         }).then(function (res) {
           if (res.data.status) {
             _this.content = res.data.data;
+
+            /**
+             * 二次分享配置
+            */
+            var {
+              manageTitle,
+              manageBody,
+              imgUrl
+            } = res.data.data
+            _this.$doubleShare(_this, manageTitle, manageBody, imgUrl, window.location.href)
+
           } else {
             console.log(res.data.errorMsg);
           }
