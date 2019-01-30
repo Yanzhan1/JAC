@@ -23,8 +23,8 @@
         <ul>
           <li>姓名: <span>{{info.name}}</span></li>
           <li>手机号码: <span>{{info.phone}}</span></li>
-          <li>预约人数: <span>{{info.reservationNum}}</span></li>
-          <li>是否携带儿童: <span v-if="info.childFlag==0">否</span><span v-else>是</span></li>
+          <li v-if="info.activityType != 3">预约人数: <span>{{info.reservationNum}}</span></li>
+          <li v-if="info.activityType != 3">是否携带儿童: <span v-if="info.childFlag==0">否</span><span v-else>是</span></li>
         </ul>
       </div>
     </div>
