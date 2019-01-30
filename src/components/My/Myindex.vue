@@ -211,12 +211,12 @@ export default {
         }
       });
     },
-    myFeedback(){
-      this.$router.push('/myindex/myFeedback')
+    myFeedback() {
+      this.$router.push("/myindex/myFeedback");
     },
     //跳转维保详情
-    wbrecode(){
-      this.$router.push('/myindex/wbrecode')
+    wbrecode() {
+      this.$router.push("/myindex/wbrecode");
     },
     // 获取用户总积分
     total() {
@@ -256,7 +256,7 @@ export default {
     },
     ton() {
       if (isMobile.iOS()) {
-        let params={}
+        let params = {};
         window.webkit.messageHandlers.gotoOnlineWeb.postMessage(params);
       } else if (isMobile.Android()) {
         js2android.gotoOnlineWeb();
@@ -295,31 +295,43 @@ export default {
     },
     //跳转到商城
     tobuy() {
-        if(this.$store.state.userId){
-        this.userName = this.$store.state.userName
-        this.aaaid=this.$store.state.aaaid
-        this.mobile = this.$store.state.mobile
-        this.add = "JAC" + this.aaaid + this.mobile + this.userName + "APP";
-        this.add = this.$md5(this.add);
-        let Stringurl="http://gift.jac.com.cn/app/authLogin" +
-          "?" +
-          "uid=" +
-          this.aaaid +
-          "&mobile=" +
-          this.mobile +
-          "&userName=" +
-          this.userName +
-          "&toOrderList=suc&token=" +
-          this.add
-        if (isMobile.iOS()) {
-        var params = {Stringurl:Stringurl};
-          window.webkit.messageHandlers.gotoMallOrderWeb.postMessage(params);
-        } else if (isMobile.Android()) {
-          js2android.gotoMallOrderWeb(Stringurl);
-        }
-        }else{
-          this.toLogin()
-        }       
+      if (this.$store.state.userId) {
+        let params = {
+          userNo: this.$store.state.userId
+        };
+        this.$http.post(Lovecar.TSP, params).then(res => {
+          if (res.data.msg == "success") {
+            var tsp = res.data.data;
+            this.aaaid = tsp.aaaid;
+            this.$store.dispatch("TSP", tsp);
+            this.userName = this.$store.state.userName;
+            this.mobile = this.$store.state.mobile;
+            this.add = "JAC" + this.aaaid + this.mobile + this.userName + "APP";
+            this.add = this.$md5(this.add);
+            let Stringurl =
+              "http://gift.jac.com.cn/app/authLogin" +
+              "?" +
+              "uid=" +
+              this.aaaid +
+              "&mobile=" +
+              this.mobile +
+              "&userName=" +
+              this.userName +
+              "&toOrderList=suc&token=" +
+              this.add;
+            if (isMobile.iOS()) {
+              var params = { Stringurl: Stringurl };
+              window.webkit.messageHandlers.gotoMallOrderWeb.postMessage(
+                params
+              );
+            } else if (isMobile.Android()) {
+              js2android.gotoMallOrderWeb(Stringurl);
+            }
+          }
+        });
+      } else {
+        this.toLogin();
+      }
     },
     //粉丝
     toFans: function() {
@@ -334,14 +346,14 @@ export default {
       this.$router.push({ path: "/myPublish" });
     },
     //游客模式下直接跳登入
-    gologinal(){
-      if(this.$store.state.userId!=null){
+    gologinal() {
+      if (this.$store.state.userId != null) {
         this.$router.push({
-          path:'/myindex/mySetUp',
-          query:{no:this.$store.state.no}
-        })
-      }else{
-        this.toLogin()
+          path: "/myindex/mySetUp",
+          query: { no: this.$store.state.no }
+        });
+      } else {
+        this.toLogin();
       }
     },
     // 获取我的基本信息
@@ -350,7 +362,6 @@ export default {
         no: this.$store.state.userId
       };
       this.$http.post(My.UserInfo, param).then(res => {
-
         if (res.data.code == 0) {
           this.Personal = res.data.data;
           for (let val of this.Personal.entitys) {
@@ -362,7 +373,7 @@ export default {
             }
           }
         }
-      })
+      });
     },
     //获赞、关注、发布、粉丝数量
     // getuserinfo() {
@@ -435,33 +446,32 @@ export default {
         }
       });
     },
-    gologin(){
-          if (isMobile.iOS()) {
-              window.webkit.messageHandlers.login.postMessage("");
-          } else if (isMobile.Android() && window.js2android) {
-              window.js2android.login();
-          }
+    gologin() {
+      if (isMobile.iOS()) {
+        window.webkit.messageHandlers.login.postMessage("");
+      } else if (isMobile.Android() && window.js2android) {
+        window.js2android.login();
+      }
     }
   },
   computed: {
     show() {
       return this.$store.state.aaaid;
     },
-    userId(){
-      return this.$store.state.userId
+    userId() {
+      return this.$store.state.userId;
     }
   },
   created() {
-    
     // this.RecomendCode(); //获取推荐码
   },
   watch: {
     show(newVal, oldVal) {
-        // this.userName = JSON.parse(localStorage.getItem("userName"));
-        // this.aaaid =JSON.parse(localStorage.getItem("aaaid"));
-        // this.mobile = JSON.parse(localStorage.getItem("mobile"));
+      // this.userName = JSON.parse(localStorage.getItem("userName"));
+      // this.aaaid =JSON.parse(localStorage.getItem("aaaid"));
+      // this.mobile = JSON.parse(localStorage.getItem("mobile"));
       // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
-    },
+    }
     // userId(newVal, oldVal){
     //     this.getuserinfo();
     //     this.myNum();
@@ -470,15 +480,14 @@ export default {
     // }
   },
   mounted() {
-    setTimeout(()=>{
-      if(this.$store.state.userId!=null){
+    setTimeout(() => {
+      if (this.$store.state.userId != null) {
         this.getuserinfo();
         this.myNum();
         this.IsSign(); //判断是否签到
         this.total(); //h获取用户总积分
       }
-    },500)
-
+    }, 500);
   }
 };
 </script>
@@ -668,14 +677,14 @@ export default {
   text-align: center;
   border: 0.02rem solid #fff;
   border-radius: 0.1rem;
-  color:#fff;
+  color: #fff;
   font-size: 0.2rem;
   font-weight: 520;
   /* -webkit-transform: scale(0.75);
   -o-transform: scale(.75) */
 }
-.loginto{
-  font:500 .6rem/.4rem 'PingFang-SC-Medium';
+.loginto {
+  font: 500 0.6rem/.4rem "PingFang-SC-Medium";
   color: #fff;
 }
 </style>
