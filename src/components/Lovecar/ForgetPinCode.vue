@@ -10,7 +10,7 @@
 		<div class="revisePinCommon flex-center revise-pin-mes ">
 			<div class="">
 				<span>
-					您的手机号码是{{userPhone ? userPhone : '' | toFormat() }}，请输入原PIN码和新PIN码，并点击“获取验证码”:
+					您的手机号码是{{userPhone ? userPhone : '' | toFormat() }}，请输入绑定手机号和新PIN码，并点击“获取验证码”:
 				</span>
 			</div>
 

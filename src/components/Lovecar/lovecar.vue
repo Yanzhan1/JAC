@@ -52,7 +52,7 @@
 
 				<!--车况主体 Start-->
 				<div class="bus_l" v-show="overall">
-					<img style="position:absolute;left: 50%; top: 10%;transform: translate(-50%, -2%);margin-top:.5rem;" src="../../../static/images/Wit/bus.png" alt="" class="bus_righgt">
+					<img style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;" src="../../../static/images/Lovecar/lovecar.png" alt="" class="bus_righgt">
 					<!--左边胎压状态Start-->
 					<span ref='open1' class='busl_r left_1 '>{{Condition.left_top=='undefinedkPa'?'':Condition.left_top}}</span>
 					<span ref='open2' class='busl_r  left_2 '>{{Condition.left_bottom=='undefinedkPa'?'':Condition.left_bottom}}</span>
@@ -841,6 +841,7 @@ export default {
           var tS = new Date().getTime() - this.sjc; //时间戳 差
           var tSS = parseInt((tS / 1000) % 60); // 时间差
           if (res.data.returnSuccess == true) {
+            this.popupbg = false;
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
               if (tSS >= 56) {
@@ -889,8 +890,7 @@ export default {
                     duration: 2000
                   });
                 }
-                localhide()
-                this.popupbg = false;
+                localhide()               
               } else {
                 this.time = setInterval(() => {
                   this.$http
@@ -960,14 +960,12 @@ export default {
                               });
                             }
                             clearInterval(this.time);
-                            this.popupbg = false;
                             localhide()
                           }
                         } else if (res.data.status == "SUCCEED") {
                           clearInterval(this.time);
                           localhide()
                           this.overall=true
-                          this.popupbg = false;
                           if (this.firstEnter) {
                             this.firstEnter = false;
                             if (res.data.data.doorStsFrontLeft == 1) {
@@ -1262,7 +1260,6 @@ export default {
                           }
                           clearInterval(this.time);
                           localhide()
-                          this.popupbg = false;
                         }
                       } else {
                         Toast({
@@ -1271,7 +1268,6 @@ export default {
                           duration: 2000
                         });
                         clearInterval(this.time);
-                        this.popupbg = false;
                         localhide()
                       }
                     });
@@ -1281,7 +1277,6 @@ export default {
               clearInterval(this.time);
               localhide()
               this.overall=true
-              this.popupbg = false;
               if (this.firstEnter) {
                 this.firstEnter = false;
                 if (res.data.data.doorStsFrontLeft == 1) {
@@ -1566,7 +1561,6 @@ export default {
 
               clearInterval(this.time);
              localhide()
-              this.popupbg = false;
             }
           } else {
             // alert(4)

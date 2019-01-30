@@ -2,7 +2,7 @@
   <div>
     <ul>
       <li class="bus_li" v-for="(item,index) in this.mainbus" :key="index" @click="tode(item)">
-        <img :src="item.imgUrl" alt="">
+        <img v-lazy="item.imgUrl" alt="">
         <div class="bus_1" >
           <div>
             <img :src="Dingzi" alt="">
