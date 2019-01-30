@@ -14,6 +14,11 @@ import './utils/formateDate'
 import mintui from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import '../static/style/mint-ui.css'
+import VueLazyload from 'vue-lazyload'
+Vue.use(VueLazyload, {
+    error: './../static/images/Lovecar/break.png',
+    loading: './../static/images/Lovecar/loading.gif'
+})
 Vue.use(mintui)
 Vue.use(Lazyload)
 import router from './router'

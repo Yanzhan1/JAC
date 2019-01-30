@@ -14,12 +14,18 @@
 		<router-link tag="div" class="setup-ctcperson" to="/myindex/contactPerson">
 			<mt-cell title="紧急联系人" is-link></mt-cell>
 		</router-link>
-		<router-link tag="div" class="setup-feedback" to="/myindex/myFeedback">
+		<!-- <router-link tag="div" class="setup-feedback" to="/myindex/myFeedback">
 			<mt-cell title="我的反馈" is-link></mt-cell>
-		</router-link>
+		</router-link> -->
 		<router-link tag="div" class="setup-modifypwd" to="/myindex/modifyPassword">
 			<mt-cell title="修改密码" is-link></mt-cell>
 		</router-link>
+		<router-link tag="div" class="setup-modifypwd" to="/myindex/changeMobile">
+			<mt-cell title="修改手机号" is-link></mt-cell>
+		</router-link>
+		<!-- <router-link tag="div" class="setup-modifypwd" to="/DotCommentDetail">
+			<mt-cell title="查看网点评分" is-link></mt-cell>
+		</router-link> -->
 		<!-- <router-link v-if="vehicleState" tag="div" class="setup-vehiclestate" :to="{path:'/myindex/loginVehicleState',query:{vin:this.vin}}">
 			<mt-cell title="车机登录状态" is-link></mt-cell>
 		</router-link> -->

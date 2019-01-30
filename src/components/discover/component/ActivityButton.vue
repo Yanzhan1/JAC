@@ -87,7 +87,7 @@
             console.log('报名')
             return 'sign'
           }
-        } else {
+        } else if (this.activityType == 1) {
           if (this.activityState == 0 && this.joinStatus) {
             console.log('报名')
             return 'sign'
@@ -99,7 +99,7 @@
        * 取消报名
        */
       noSign() {
-        if (this.activityType != 3 && this.activityState == 0 && !this.joinStatus) {
+        if (this.activityState == 0 && !this.joinStatus) {
           console.log('取消报名')
           return 'noSign'
         }
@@ -119,7 +119,7 @@
        * 活动进行中
        */
       ing() {
-        if (this.activityType != 3 && this.activityState == 1 && this.joinStatus) {
+        if (this.activityType == 1 && this.activityState == 1 && this.joinStatus) {
           console.log('活动进行中')
           return 'ing'
         }
@@ -129,16 +129,9 @@
        * 晒图
        */
       pic() {
-        if (this.activityType == 3) {
-          if (!this.joinStatus) {
-            console.log('晒图')
-            return 'pic'
-          }
-        } else {
-          if (this.activityState != 0 && !this.joinStatus) {
-            console.log('晒图')
-            return 'pic'
-          }
+        if (this.activityState != 0 && !this.joinStatus) {
+          console.log('晒图')
+          return 'pic'
         }
         return 'nextSuccessor'
       },

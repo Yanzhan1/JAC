@@ -31,13 +31,17 @@ export default {
     //   }
     // },
     init(){
-      if (isMobile.iOS()) {
-        var params = {};
-        console.log('通知ios调用login')
-        window.webkit.messageHandlers.init.postMessage(params);
-        console.log('结束ios调用login')
-      } else if (isMobile.Android()) {
-        // js2android.scan();
+      try{
+          if (isMobile.iOS()) {
+          var params = {};
+          console.log('通知ios调用login')
+          window.webkit.messageHandlers.init.postMessage(params);
+          console.log('结束ios调用login')
+        } else if (isMobile.Android()) {
+          // js2android.scan();
+        }
+      }catch(err){
+          console.log("无此方法")
       }
     },
     isLogin(userInfo) {
@@ -87,7 +91,8 @@ export default {
             this.$store.dispatch("imgUrl", res.data.data.headUrl);
           }
         });
-          this.synchronization()
+        //暂时不上uat
+          // this.synchronization()
       }
     },
     localshow() {
