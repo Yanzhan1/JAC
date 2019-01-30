@@ -24,8 +24,9 @@
         wx = window.wx;
       }
       var conf = data.WXconfig;
+      
       wx.config({
-        debug: false,
+        debug: true,
         appId: conf.appId,
         timestamp: conf.timestamp,
         nonceStr: conf.nonceStr,

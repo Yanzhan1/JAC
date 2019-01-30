@@ -216,7 +216,7 @@
               activityBody,
               imgUrl
             } = res.data.data
-            _this.$doubleShare(activityTitle, activityBody, imgUrl, window.location.href)
+            _this.$doubleShare(_this, activityTitle, activityBody, imgUrl, window.location.href)
 
             if (res.data.data.joinList) {
               _this.showJoinList = res.data.data.joinList.slice(0, 10);

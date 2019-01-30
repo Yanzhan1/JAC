@@ -43,6 +43,7 @@ window.INDEXMESSAGE = {
     getQuestion: indexip + '/question/indexList', //首页-问答
 }
 window.DISCOVERMESSAGE = {
+        weiSignGetWeiSign: indexip + '/weiSign/getWeiSign', // 获取微信二次分享的参数
         /*标签*/
         getLabels: indexip + '/label/getLabels', //获取标签
         /*资讯*/
