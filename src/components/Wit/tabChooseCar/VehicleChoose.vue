@@ -144,6 +144,11 @@ export default {
       this.currentIndex = 0;
     } else if (this.$store.state.show1 == true) {
       this.currentIndex = 1;
+      if(this.$store.state.colorTitle == '拉菲红'){
+        this.carBody = this.redDouble;
+      }else if(this.$store.state.colorTitle == '典雅白'){
+        this.carBody = this.whiteDouble;
+      }
     }
     //alert(this.$store.state.priceTitle);
     //      else if(this.$store.state.colorTitle == '琥珀金'){
