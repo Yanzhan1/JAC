@@ -80,7 +80,7 @@ export default {
           if (action == "confirm") {
             localStorage.removeItem("Tip");
             this.$store.state.userId=null
-            this.$http.defaults.headers.common["timaToken"] = '';
+            // this.$http.defaults.headers.common["timaToken"] = '';
             var system = this.isIOSOrAndroid();
             if (system == "Android") {
               window.js2android.logout(); //安卓退出App
