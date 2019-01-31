@@ -1886,8 +1886,10 @@ export default {
       }
     },
     userId(newVal, oldVal) {
+      console.log(newVal,oldVal)
       this.vehiclestatus();
       this.tspid = this.$store.state.tspId;
+      console.log(this.tspid)
       if (this.$store.state.tspId == undefined) {
         this.tspid = 0;
       }
