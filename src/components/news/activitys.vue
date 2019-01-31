@@ -74,6 +74,9 @@ export default {
       this.getNextList();
       this.$refs.loadmore.onTopLoaded();
     },
+    loadBottom(){
+
+    },
     //1，通知 2、评论 3、活动
     //readState 已读状态
     init(){
@@ -84,7 +87,7 @@ export default {
       this.$http.post(IMFORMATION.getList, {"uid": this.$store.state.userId,"pageNo":_this.pageNum, "length":_this.length,type:3}).then(function (res) {
         // console.log(res.data.data[0])
         if(res.data.data.length > 0){
-         this.noactivity=false
+         _this.noactivity=false
         }
         if (res.data.status) {
           _this.pageNum=1;

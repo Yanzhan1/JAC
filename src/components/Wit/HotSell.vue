@@ -88,7 +88,16 @@
 			}
 		},
 		methods: {
-			
+			getcarlist() {
+				let data = {
+					hotCar:1,
+					size: 100,
+					current: 1
+				};
+				this.$http.post(Wit.searchHeavyCarModelListPage,data).then(res => {
+					console.log(res);
+				});
+				},
 		},
 		mounted() {
 			this.$nextTick(() => {
@@ -109,6 +118,7 @@
 							complete: () => {
 							}
 			})*/
+			this.getcarlist()
 		}
 	}
 </script>
