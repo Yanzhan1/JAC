@@ -1265,6 +1265,7 @@ export default {
       if (this.pinNumber.length == 6) {
         if(this.beforeturnon==1){
           this.turnon=1
+          this.beforeturnon=10
         }
         var PIN = this.pinNumber;
         this.$http

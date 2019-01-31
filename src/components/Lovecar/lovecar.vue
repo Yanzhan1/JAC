@@ -1959,8 +1959,8 @@ export default {
     $(".MobileHeight").css({
       marginTop: this.$store.state.mobileStatusBar
     });
-    if (this.userId) {
       this.Getmarkedwords();
+    if (this.userId) {
       this.vehiclestatus();
       this.$http
         .post(
@@ -1968,7 +1968,7 @@ export default {
           {
             userId: this.$store.state.userId,
             phone: this.$store.state.mobile,
-            tspUserId: this.tspid,
+            tspUserId: this.$store.state.tspId,
             aaaUserID: this.$store.state.aaaid
           },
           this.$store.state.tsppin
