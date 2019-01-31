@@ -20,9 +20,9 @@
 		<router-link tag="div" class="setup-modifypwd" to="/myindex/modifyPassword">
 			<mt-cell title="修改密码" is-link></mt-cell>
 		</router-link>
-		<router-link tag="div" class="setup-modifypwd" to="/myindex/changeMobile">
+		<!-- <router-link tag="div" class="setup-modifypwd" to="/myindex/changeMobile">
 			<mt-cell title="修改手机号" is-link></mt-cell>
-		</router-link>
+		</router-link> -->
 		<!-- <router-link tag="div" class="setup-modifypwd" to="/DotCommentDetail">
 			<mt-cell title="查看网点评分" is-link></mt-cell>
 		</router-link> -->
@@ -79,11 +79,7 @@ export default {
         .then(action => {
           if (action == "confirm") {
             localStorage.removeItem("Tip");
-            // 登出时候清空vuex中用户信息和登录状态，清空axios的token
-            this.$store.dispatch("isLogin", false);
-            this.$store.dispatch("userId", null);
-            this.$store.dispatch('userInfo',null);
-            this.$http.defaults.headers.common["timaToken"] = '';
+            this.$store.state.userId=null
             var system = this.isIOSOrAndroid();
             if (system == "Android") {
               window.js2android.logout(); //安卓退出App
