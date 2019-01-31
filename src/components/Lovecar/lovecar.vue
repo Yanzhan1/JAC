@@ -580,8 +580,6 @@ export default {
                 this.REAL_TIME_VIDEO_VIEW = true;
               }
             }
-          }else{
-            localhide()
           }
         });
     },
@@ -775,7 +773,6 @@ export default {
             this.operationIdcar = res.data.operationId;
               this.getAsyReturn(res.data.operationId);
           } else {
-            localhide()
             Toast({
               message: this.vehicle_condition[2].dictValue,
               position: "middle",
@@ -889,8 +886,7 @@ export default {
                     position: "middle",
                     duration: 2000
                   });
-                }
-                localhide()               
+                }           
               } else {
                 this.time = setInterval(() => {
                   this.$http
@@ -1603,9 +1599,6 @@ export default {
             // this.Rajtigo=res.data.data[0].isLocking  //isLocking:true 代表已授权
             // this.vehicleState=res.data.data[0].vin
           }
-          else{
-            localhide()
-          }
         });
     }
   },
@@ -1928,8 +1921,6 @@ export default {
             this.vinn = this.$store.state.vins;
             this.Support();
             this.Carquerry();
-          }else{
-            localhide()
           }
         });
     }
@@ -1961,20 +1952,14 @@ export default {
           userId: this.$store.state.trueuserId,
           phone: this.$store.state.mobile
         };
-      }else{
-        localhide()
       }
     });
     $(".MobileHeight").css({
       marginTop: this.$store.state.mobileStatusBar
     });
-    this.Getmarkedwords();
     if (this.userId) {
+      this.Getmarkedwords();
       this.vehiclestatus();
-      this.tspid = this.$store.state.tspId;
-      if (this.$store.state.tspId == undefined) {
-        this.tspid = 0;
-      }
       this.$http
         .post(
           My.My_Bus,
@@ -2008,7 +1993,6 @@ export default {
             this.Support();
             this.Carquerry();
           } else {
-            localhide()
             Toast({
               message: res.data.returnErrMsg,
               position: "middle",
