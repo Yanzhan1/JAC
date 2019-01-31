@@ -79,8 +79,11 @@ export default {
         .then(action => {
           if (action == "confirm") {
             localStorage.removeItem("Tip");
-            this.$store.state.userId=null
-            // this.$http.defaults.headers.common["timaToken"] = '';
+            // 登出时候清空vuex中用户信息和登录状态，清空axios的token
+            this.$store.dispatch("isLogin", false);
+            this.$store.dispatch("userId", null);
+            this.$store.dispatch('userInfo',null);
+            this.$http.defaults.headers.common["timaToken"] = '';
             var system = this.isIOSOrAndroid();
             if (system == "Android") {
               window.js2android.logout(); //安卓退出App
