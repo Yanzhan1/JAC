@@ -18,7 +18,7 @@ var focusip = host + '/api/dk-pr-svr' //uat
 var point = 'http://192.168.1.141:8868' //埋点
     //服务器-智享
 var mip = host + '/api/jac-automobile-manage/automobilemanage' //智享
-var witlocal = 'http://172.21.4.99:8082/automobilemanage'
+var witlocal = 'http://172.21.4.75:8082/automobilemanage'
     //服务器-admin(跟用户有关即我的)
 var mips = host + '/api/jac-admin' //地区
 var jf = host + '/' //跟积分有关的
@@ -151,6 +151,8 @@ window.Wit = {
         addMaintenanceAppointment: mip + '/maintenanceAppointment/addMaintenanceAppointment', //维保预约提交
         synchronousMaintenanceAppointmentByDms: mip + '/maintenanceAppointment/synchronousMaintenanceAppointmentByDms', //维保预约记录first
         searchMaintenanceAppointmentListPage: mip + '/maintenanceAppointment/searchMaintenanceAppointmentListPage', //维保预约记录next
+        selectValueByType: witlocal + '/vehicleConfigurationValue/selectValueByType', //智能选车筛选
+        searchHeavyCarModelListPage: witlocal + '/heavyCarModel/searchHeavyCarModelListPage', //智能选车列表
     }
     //我的 部分
 window.My = {
