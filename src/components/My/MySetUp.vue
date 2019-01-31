@@ -10,7 +10,7 @@
 		<!--<mt-cell :title="title">
 			<mt-switch @change="turn" v-model="value"><span></span></mt-switch>
 		</mt-cell>-->
-		
+
 		<router-link tag="div" class="setup-ctcperson" to="/myindex/contactPerson">
 			<mt-cell title="紧急联系人" is-link></mt-cell>
 		</router-link>
@@ -80,6 +80,7 @@ export default {
           if (action == "confirm") {
             localStorage.removeItem("Tip");
             this.$store.state.userId=null
+            this.$http.defaults.headers.common["timaToken"] = '';
             var system = this.isIOSOrAndroid();
             if (system == "Android") {
               window.js2android.logout(); //安卓退出App
@@ -104,7 +105,7 @@ export default {
     //判断是否更新
     newphone() {
       if (isMobile.iOS()) {
-        window.webkit.messageHandlers.getVersionInfo.postMessage({}); 
+        window.webkit.messageHandlers.getVersionInfo.postMessage({});
       } else if (isMobile.Android()) {
         if (this.update == "") {
           this.banben = false;
@@ -122,7 +123,7 @@ export default {
     //版本更新
     versionupdate() {
       if (isMobile.iOS()) {
-        window.webkit.messageHandlers.checkVersion.postMessage({}); 
+        window.webkit.messageHandlers.checkVersion.postMessage({});
       } else if (isMobile.Android()) {
         window.js2android.checkVersion();
       }
