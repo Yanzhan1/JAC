@@ -536,49 +536,116 @@ export default {
             let allnum = res.data.data;
             this.allFunction = res.data.data;
             for (let value of allnum) {
-              if (value.code == "WINDOW") {
-                this.WINDOW = true;
-              } else if (value.code == "SUNROOF") {
-                this.SUNROOF = true;
-              } else if (value.code == "EAIRCONDITIONER") {
-                this.Aircondtion_electricity = true;
-              } else if (value.code == "AIRCONDITIONER") {
-                this.Aircondtion = true;
-              } else if (value.code == "PURIFICATION") {
-                this.PURIFICTION = true;
-              } else if (value.code == "SEAT_HEAT") {
-                this.HOSTSEAT_HEAT = true;
-              } else if (value.code == "CAR_INFO") {
-                this.CAR_INFO = true;
-              } else if (value.code == "ENGINE") {
-                this.ENGINE = true;
-              } else if (value.code == "CAR_EXAMINATION") {
-                this.CAR_EXAMINATION = true;
-              } else if (value.code == "CAR_POINT_QUERY") {
-                this.CAR_POINT_QUERY = true;
-              } else if (value.code == "UPDATE_PIN") {
-                this.UPDATE_PIN = true;
-              } else if (value.code == "FLOW_QUERY") {
-                this.FLOW_QUERY = true;
-              } else if (value.code == "FUEL_STATISTICS") {
-                this.FUEL_STATISTICS = true;
-              } else if (value.code == "CONTROL_AUTH") {
-                this.CONTROL_AUTH = true;
-              } else if (value.code == "WIFI") {
-                this.WIFI = true;
-              } else if (value.code == "REAL_TIME_VIDEO_VIEW") {
-                this.REAL_TIME_VIDEO_VIEW = true;
-              } else if (value.code == "ELECTRIC_FENCE") {
-                this.ELECTRIC_FENCE = true;
-              } else if (value.code == "FIND_VEHICLE") {
-                this.FIND_VEHICLE = true;
-              } else if (value.code == "TRUNK") {
-                this.TRUNK = true;
-              } else if (value.code == "SEAT_VENTILATION") {
-                this.HOSTSEAT_HEAT = true;
-              } else if (value.code == "TACHOGRAPH") {
-                this.REAL_TIME_VIDEO_VIEW = true;
-              }
+              console.log(value.code)
+              switch (value.code) {
+                  case "WINDOW":
+                     this.WINDOW = true;
+                    break;
+                  case "SUNROOF": 
+                    this.SUNROOF = true;
+                    break;
+                  case "EAIRCONDITIONER": 
+                    this.Aircondtion_electricity = true;
+                    break;
+                  case "AIRCONDITIONER": 
+                    this.Aircondtion = true;
+                    break;
+                  case "PURIFICATION": 
+                    this.PURIFICTION = true;
+                    break;
+                  case "SEAT_HEAT": 
+                    this.HOSTSEAT_HEAT = true;
+                    break;
+                  case "CAR_INFO": 
+                    this.CAR_INFO = true;
+                    break;
+                  case "ENGINE": 
+                    this.ENGINE = true;
+                    break;
+                  case "CAR_EXAMINATION": 
+                    this.CAR_EXAMINATION = true;
+                    break;
+                  case "CAR_POINT_QUERY": 
+                    this.CAR_POINT_QUERY = true;
+                    break;
+                  case "UPDATE_PIN": 
+                    this.UPDATE_PIN = true;
+                    break;
+                  case "FLOW_QUERY": 
+                    this.FLOW_QUERY = true;
+                    break;
+                  case "FUEL_STATISTICS": 
+                    this.FUEL_STATISTICS = true;
+                    break;
+                  case "CONTROL_AUTH": 
+                    this.CONTROL_AUTH = true;
+                    break;
+                  case "WIFI": 
+                    this.WIFI = true;
+                    break;
+                  case "REAL_TIME_VIDEO_VIEW": 
+                    this.REAL_TIME_VIDEO_VIEW = true;
+                    break;
+                  case "ELECTRIC_FENCE": 
+                    this.ELECTRIC_FENCE = true;
+                    break;
+                  case "FIND_VEHICLE": 
+                    this.FIND_VEHICLE = true;
+                    break;
+                  case "TRUNK": 
+                    this.TRUNK = true;
+                    break;
+                  case "SEAT_VENTILATION": 
+                    this.HOSTSEAT_HEAT = true;
+                    break;
+                  case "TACHOGRAPH": 
+                    this.REAL_TIME_VIDEO_VIEW = true;
+                    break;
+                  default:                  
+                }
+              // if (value.code == "WINDOW") {
+              //   this.WINDOW = true;
+              // } else if (value.code == "SUNROOF") {
+              //   this.SUNROOF = true;
+              // } else if (value.code == "EAIRCONDITIONER") {
+              //   this.Aircondtion_electricity = true;
+              // } else if (value.code == "AIRCONDITIONER") {
+              //   this.Aircondtion = true;
+              // } else if (value.code == "PURIFICATION") {
+              //   this.PURIFICTION = true;
+              // } else if (value.code == "SEAT_HEAT") {
+              //   this.HOSTSEAT_HEAT = true;
+              // } else if (value.code == "CAR_INFO") {
+              //   this.CAR_INFO = true;
+              // } else if (value.code == "ENGINE") {
+              //   this.ENGINE = true;
+              // } else if (value.code == "CAR_EXAMINATION") {
+              //   this.CAR_EXAMINATION = true;
+              // } else if (value.code == "CAR_POINT_QUERY") {
+              //   this.CAR_POINT_QUERY = true;
+              // } else if (value.code == "UPDATE_PIN") {
+              //   this.UPDATE_PIN = true;
+              // } else if (value.code == "FLOW_QUERY") {
+              //   this.FLOW_QUERY = true;
+              // } else if (value.code == "FUEL_STATISTICS") {
+              //   this.FUEL_STATISTICS = true;
+              // } else if (value.code == "CONTROL_AUTH") {
+              //   this.CONTROL_AUTH = true;
+              // } else if (value.code == "WIFI") {
+              //   this.WIFI = true;
+              // } else if (value.code == "REAL_TIME_VIDEO_VIEW") {
+              //   this.REAL_TIME_VIDEO_VIEW = true;
+              // } else if (value.code == "ELECTRIC_FENCE") {
+              //   this.ELECTRIC_FENCE = true;
+              // } else if (value.code == "FIND_VEHICLE") {
+              //   this.FIND_VEHICLE = true;
+              // } else if (value.code == "TRUNK") {
+              //   this.TRUNK = true;
+              // } else if (value.code == "SEAT_VENTILATION") {
+              //   this.HOSTSEAT_HEAT = true;
+              // } else if (value.code == "TACHOGRAPH") {
+              //   this.REAL_TIME_VIDEO_VIEW = true;
+              // }
             }
           }
         });
@@ -713,25 +780,12 @@ export default {
     Toasteach() {
       if (this.typebefore == 1) {
         MessageBox("提示", this.close_lock[3].dictValue);
-
-        // Toast({
-        //   message:
-        //     "在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁",
-        //   position: "middle",
-        //   duration: 3000
-        // });
       }
       if (this.typebefore == 5) {
         MessageBox("提示", this.open_lock[3].dictValue);
       }
       if (this.typebefore == 2) {
         MessageBox("提示", this.open_trunk[3].dictValue);
-        // Toast({
-        //   message:
-        //     "在使用遥控钥匙锁车键锁车条件下，远程开锁，车辆四门全部解锁，30秒内车门无操作，将会自动闭锁",
-        //   position: "middle",
-        //   duration: 3000
-        // });
       }
       if (this.typebefore == 3) {
         if (this.isTruess) {
@@ -739,23 +793,12 @@ export default {
         } else {
           MessageBox("提示", this.vehicle_launch[5].dictValue);
         }
-        // Toast({
-        //   message:
-        //     "请确保档位处于P或空挡，手刹拉起；在档位为空挡或P档，电子或机械手刹拉起情况下且车辆处于闭锁状态下，可以远程启动发送机，10分钟内车辆无操作，将会自动熄火",
-        //   position: "middle",
-        //   duration: 4000
-        // });
       }
       if (this.typebefore == 6) {
         MessageBox("提示", this.vehicle_flameout[3].dictValue);
       }
       if (this.typebefore == 4) {
         MessageBox("提示", this.find_vehicle[3].dictValue);
-        // Toast({
-        //   message: "左右转向灯先闪烁3次并伴有喇叭响3次",
-        //   position: "middle",
-        //   duration: 2000
-        // });
       }
     },
     //调用车况接口
