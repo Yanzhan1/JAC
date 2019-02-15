@@ -81,17 +81,18 @@
 				<!--温度数值End-->
 			</div>
 			<!--风量计数器Start-->
-      <div style="position:fixed;top:8rem;"
-      >空调风量</div>
-			<div class="air-change flex-center">
-				<img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
-				<div class="wind-count">
-					<button  @click=" windReduce" class="addWind conmmon-style"><</button>
-					<input class="wind-input" ref="Air" type="text" v-model="windNum[winIndex]" readonly />
-					<button  @click="windAdd" class="reduceWind conmmon-style">></button>
-				</div>
-				<img :src="'./static/images/Lovecar/right@2x.png'" alt="" />
-			</div>
+      <div class="flex cocenter">
+        <div class="air-change flex-center">
+          <img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
+          <div class="wind-count">
+            <button  @click=" windReduce" class="addWind conmmon-style"><</button>
+            <input class="wind-input" ref="Air" type="text" v-model="windNum[winIndex]" readonly />
+            <button  @click="windAdd" class="reduceWind conmmon-style">></button>
+          </div>
+          <img :src="'./static/images/Lovecar/right@2x.png'" alt="" />
+        </div>
+        <div style="margin-left:.23rem;font-size:.12rem;color:#222;">风量</div>
+      </div>
 			<!--风量计数器End-->
 		</div>
 		<!--空调主体End-->
