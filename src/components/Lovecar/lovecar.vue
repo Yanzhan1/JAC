@@ -536,7 +536,6 @@ export default {
             let allnum = res.data.data;
             this.allFunction = res.data.data;
             for (let value of allnum) {
-              console.log(value.code)
               switch (value.code) {
                   case "WINDOW":
                      this.WINDOW = true;

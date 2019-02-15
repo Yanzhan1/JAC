@@ -10,7 +10,7 @@
 		<router-link tag="div" class="comment conpson-mobile flex-align-center" to="">
 			<div class="telphone boxline flex-align-center">
 				<span style="padding-left: 0.1rem;color: #444444;font-size: 0.28rem;">电话号码:</span>
-				<span style="color: #888888;font-size: 0.24rem;margin-left: 0.6rem;">{{userInfor.emergencyContactPhone ? userInfor.emergencyContactPhone : '您还没有设置紧急联系人号码'}}</span>
+				<span style="color: #888888;font-size: 0.24rem;margin-left: 0.6rem;">{{userInfor.emergencyContactPhone ? userInfor.emergencyContactPhone  : '您还没有设置紧急联系人号码'|jiami()}}</span>
 			</div>
 		</router-link>
 		<router-link class="bottom-btn" tag='div' :to="{name: '修改联系人', params:{modify:userInfor}}">
@@ -51,6 +51,14 @@
 						});
 					}
 				})
+			}
+		},
+		filters:{
+			jiami(val){
+				let mobile1=val.slice(0,3);
+				let mobile2=val.slice(7,11);
+				let newtell=`${mobile1}****${mobile2}`
+				return newtell
 			}
 		},
 		mounted () {
