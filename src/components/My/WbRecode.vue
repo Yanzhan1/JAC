@@ -56,26 +56,13 @@ export default {
     init() {
       let param = {
         vin: "LJ12EKR21J4931800",
-        revervationStatus: ""
         // vin:this.$state.store.vins,
       };
       this.$http
-        .post(Wit.synchronousMaintenanceAppointmentByDms, param)
+        .post(My.searchMaintenanceRecordList, param)
         .then(res => {
           if (res.data.code == 0) {
-            let data = {
-              size: 99,
-              current: 1,
-              vin: "LJ12EKR21J4931800"
-              // vin:this.$state.store.vins,
-            };
-            this.$http
-              .post(Wit.searchMaintenanceAppointmentListPage, data)
-              .then(res => {
-                if (res.data.code == 0) {
-                  this.datalist = res.data.data.records;
-                }
-              });
+
           }
         });
     }

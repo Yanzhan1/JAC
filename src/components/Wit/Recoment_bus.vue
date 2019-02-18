@@ -98,7 +98,6 @@ export default {
     this.$http
       .post(POINT.addpoint, params)
       .then(res => {
-        console.log(res);
       })
       .catch(err => {});
   },

@@ -95,7 +95,7 @@
 					current: 1
 				};
 				this.$http.post(Wit.searchHeavyCarModelListPage,data).then(res => {
-					console.log(res);
+					// console.log(res);
 				});
 				},
 		},

@@ -79,10 +79,10 @@ export default {
     carBtn(index, labelTitle) {
       this.currentIndex = index;
       this.currentTitle = labelTitle;
-      console.log("this.currentTitle", this.currentTitle);
+      // console.log("this.currentTitle", this.currentTitle);
     },
     colorChooseBtn() {
-      console.log("this.currentTitle", this.currentTitle);
+      // console.log("this.currentTitle", this.currentTitle);
       this.$router.push({
         path: "/wit/ColorChoose",
         query: {

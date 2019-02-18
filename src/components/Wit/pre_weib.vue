@@ -546,7 +546,7 @@ export default {
     },
     timeChange(picker, values) {
       this.valuestime = values[0];
-      console.log(this.alldata, 1);
+      // console.log(this.alldata, 1);
       for (let val of this.alldata) {
         if (this.valuestime == val.revervation_TIME) {
           this.time_ID = val.time_ID;
@@ -708,7 +708,7 @@ export default {
         revervationTime: this.time_ID
       };
       this.$http.post(Wit.addMaintenanceAppointment, param).then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.code == 0) {
           //  Toast({
           //     message: res.data.data,

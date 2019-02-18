@@ -62,6 +62,9 @@ export default {
     [types.SELECTLABELSTATE]: (state, payload) => {
         state.selectLabelState = payload
     },
+    [types.NOMARLSERISENAME]: (state, payload) => {
+        state.nomarlseriseName = payload
+    },
     [types.TSP]: (state, payload) => {
         state.aaaid = payload.aaaid
         var str = JSON.parse(state.tsppin.headers.identityParam)

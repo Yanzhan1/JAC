@@ -98,6 +98,7 @@ export default {
             for (let i = 0; i < res.data.data.length; i++) {
               if (res.data.data[i].def == 1||res.data.data[i].defToNathor==1) {
                 this.$store.state.vins = res.data.data[i].vin;
+                this.$store.state.nomarlseriseName = res.data.data[i].seriesName;
               }
             }
           }

@@ -200,7 +200,6 @@ export default {
 		this.flag=false;
   },
   backwit(){
-    // console.log($('.find_nav_list li').eq(0))
     if(this.$store.state.record=='1'){
       $('.find_nav_list li').eq(0)
           .addClass("find_nav_cur")
@@ -346,7 +345,6 @@ export default {
       let nav_all=$(".find_nav_list li")
       $(".find_nav_list li").on("click", function() {
         //点击头部li
-        // console.log($(this).position().left); //打印出点击li的定位left值
         nav_w = $(this).width(); //获取点击li的宽度
         $(".sideline").stop(true); //先停止底部导航条动画
         $(".sideline").animate(
@@ -389,13 +387,11 @@ export default {
         x1 = touch1.pageX; //获取手指滑动开始的X位置
         y1 = touch1.pageY; //获取手指滑动开始的Y位置
         ty_left = parseInt($(this).css("left")); //获取手指滑动开始的定位left值
-        // console.log(touch1,x1,y1,ty_left,'touchstart')
       });
       $(".find_nav_list").on("touchmove", function(e) {
         var touch2 = e.originalEvent.targetTouches[0];
         var x2 = touch2.pageX; //持续获得手指的X,Y的值
         var y2 = touch2.pageY;
-        //  console.log(touch2,x2,y2,ty_left,'touchstart')
         if (ty_left + x2 - x1 >= 0) {
           $(this).css("left", 0);
         } else if (ty_left + x2 - x1 <= flb_w - fl_w) {
@@ -476,8 +472,6 @@ export default {
         });
         tt.page = page;
         tt.p = 0;
-        //console.dir(tt); console.dir(tt.__proto__);
-
         for (var i = 0; i < as.length; i++) {
           (function() {
             var j = i;

@@ -506,7 +506,7 @@ export default {
       this.$http.post(Wit.selectValueByType, data).then(res => {
         if (res.data.code == 0) {
           this.chooseList = res.data.data;
-          console.log(this.chooseList);
+          // console.log(this.chooseList);
         }
 	  });
 	  this.getcarlist()
@@ -524,7 +524,7 @@ export default {
         current: 1
       };
       this.$http.post(Wit.searchHeavyCarModelListPage,data).then(res => {
-        console.log(res);
+        // console.log(res);
       });
     },
     close() {
@@ -606,7 +606,7 @@ export default {
       this.$http.post(Wit.selectValueByType, dataThree).then(res => {
         if (res.data.code == 0) {
           this.chooseListFive = res.data.data;
-          console.log(this.chooseListFive);
+          // console.log(this.chooseListFive);
         }
       });
     },

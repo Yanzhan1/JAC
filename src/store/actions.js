@@ -30,6 +30,9 @@ export default {
     CARVINS: ({ commit, state }, payload) => {
         commit(types.CARVINS, payload)
     },
+    nomarlseriseName: ({ commit, state }, payload) => {
+        commit(types.NOMARLSERISENAME, payload)
+    },
     selectLabelState: ({ commit, state }, payload) => {
         commit(types.SELECTLABELSTATE, payload)
     },

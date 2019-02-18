@@ -34,9 +34,7 @@ export default {
       try{
           if (isMobile.iOS()) {
           var params = {};
-          console.log('通知ios调用login')
           window.webkit.messageHandlers.init.postMessage(params);
-          console.log('结束ios调用login')
         } else if (isMobile.Android()) {
           // js2android.scan();
         }
@@ -48,24 +46,24 @@ export default {
       // this.$store.dispatch('change$FLAG', true)// 不要动 有用
       // if (isMobile.iOS()) {
       // }       
+      console.log('调用islogin')
       if (userInfo && userInfo.no) {
-        console.log(userInfo)
         this.$store.dispatch("isLogin", true);
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
         // const secUid = Secret.Encrypt(userInfo.no)
-        // console.log(secUid)
         // this.$store.dispatch("userId", secUid);
         this.$store.dispatch("userId", userInfo.no);
         this.$store.dispatch("userInfo", userInfo);
+        console.log(userInfo)
+        this.$store.dispatch("CARVINS", userInfo.vin);
+        this.$store.dispatch("nomarlseriseName", userInfo.seriesName);
         let params = {
           userNo: userInfo.no
         };
         this.$http.post(Lovecar.TSP, params).then(res => {
-          console.log('jinrujiekou')
           if (res.data.msg == "success") {
             var tsp = res.data.data;
             this.$store.dispatch("TSP", tsp);
-            // console.log(tsp);
             localStorage.setItem(
               "aaaid",
               JSON.stringify(this.$store.state.aaaid)
@@ -92,7 +90,7 @@ export default {
           }
         });
         //暂时不上uat
-          // this.synchronization()
+          this.synchronization()
       }
     },
     localshow() {
@@ -126,7 +124,7 @@ export default {
     //同步用户标签
     synchronization(){
       this.$http.post(My.addLabelEntityToUser,{}).then((res)=>{
-        console.log(res)
+        // alert(JSON.stringify(res))
       })
     },
     goActivityDetail(activityId) {
@@ -152,8 +150,8 @@ export default {
               "time",
               '60'
       );
-    // this.isLogin({name:'',no:'AD022018121402494457431'})
-    // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTU0NDc3MDE4NDAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6NDkyLFwiaW5pdFVzZXJcIjowLFwibGFzdE1vZGlmaWVkRGF0ZVwiOjE1NDQ3NzA1NjYwMDAsXCJub1wiOlwiQUQwMjIwMTgxMjE0MDI0OTQ0NTc0MzFcIixcInBob25lXCI6XCIxNTAyNjU2Njk5MlwiLFwidXNlckNvZGVcIjpcIjE1MDI2NTY2OTkyXCIsXCJ1c2VyTmFtZVwiOlwiWVlGXCIsXCJ1c2VyU3RhdHVzXCI6MCxcInVzZXJUeXBlXCI6XCIwMVwifSIsImNyZWF0ZWQiOjE1NDUwNjMzNTM4NTgsInVzZXJObyI6IkFEMDIyMDE4MTIxNDAyNDk0NDU3NDMxIiwidXNlclR5cGUiOiIwMSIsInVzZXJOYW1lIjoiWVlGIiwiZXhwIjoxNTQ1OTI3MzUzLCJ1c2VySWQiOjQ5Mn0.QRPXVmMziV1tH4KcakZ7KcoVg1mx9dhDLVetoMEGhgI'
+    // this.isLogin({name:'',no:'AD022018112104124524505'})
+    // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTU0Mjc4Nzk2NjAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6NDYyLFwiaW5pdFVzZXJcIjowLFwibGFzdE1vZGlmaWVkRGF0ZVwiOjE1NDI3ODg1MTcwMDAsXCJub1wiOlwiQUQwMjIwMTgxMTIxMDQxMjQ1MjQ1MDVcIixcInBlcnNvbmFsU2lnbmF0dXJlXCI6XCJcIixcInBob25lXCI6XCIxMzg1NTE3OTYzMVwiLFwicmVhbFBob25lXCI6XCIxMzgqKioqOTYzMVwiLFwic2V4XCI6MSxcInVzZXJDb2RlXCI6XCIxMzg1NTE3OTYzMVwiLFwidXNlck5hbWVcIjpcIueCueaoquaSh-aNulwiLFwidXNlclN0YXR1c1wiOjAsXCJ1c2VyVHlwZVwiOlwiMDFcIn0iLCJjcmVhdGVkIjoxNTQ4OTQ1Nzc0Mjc4LCJ1c2VyTm8iOiJBRDAyMjAxODExMjEwNDEyNDUyNDUwNSIsInVzZXJUeXBlIjoiMDEiLCJ1c2VyTmFtZSI6IueCueaoquaSh-aNuiIsImV4cCI6MTU0OTgwOTc3NCwidXNlcklkIjo0NjJ9.88bSCctYO3hrIvampGAg7VWn8MkgmTCLJ2fWWlaNQNs'
     // 获取用户
     // this.Getmarkedwords()
     // this.getNo()

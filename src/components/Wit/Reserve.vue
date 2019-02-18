@@ -630,9 +630,7 @@ export default {
         this.longitude = NewPosition.longitude //纬度
         this.getcity()
 			} else if(system == "IOS") {
-        // console.log('ios')
         window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
-        // console.log('通知结束')
           window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
       }
   },
