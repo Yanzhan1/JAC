@@ -60,7 +60,7 @@
 					<img src="../../../static/images/my/start.png" alt="" />
 					<span>手机号</span>
 				</div>
-				<span>{{this.mobile}}</span>
+				<span>{{userinfo.realMobile}}</span>
 			</li>
 		</ul>
 		<ul style="padding:0 .32rem;border-bottom:.2rem solid #F9F9F9">
@@ -97,17 +97,19 @@
 			};
 		},
 		methods:{
-			jiami(val){
-				val=val+''
-				let mobile1=val.slice(0,3);
-				let mobile2=val.slice(7,11);
-				let newtell=`${mobile1}****${mobile2}`
-				this.mobile=newtell
-			}
+			// jiami(val){
+			// 	val=val+''
+			// 	let mobile1=val.slice(0,3);
+			// 	let mobile2=val.slice(7,11);
+			// 	let newtell=`${mobile1}****${mobile2}`
+			// 	this.mobile=newtell
+			// }
 		},
 		created() {
 			this.userinfo = this.$route.query
-			this.jiami(this.userinfo.mobile)
+			// console.log(this.userinfo)
+			// this.mobile=this.userinfo.realMobile
+			// this.jiami(this.userinfo.mobile)
 			if(this.userinfo.gender == 1) {
 				this.userinfo.gender = '女'
 			} else {
