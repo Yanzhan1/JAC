@@ -11,7 +11,7 @@
 		<div class="comment conpson-mobile">
 			<div class="telphone boxline flex-align-center">
 				<span style="padding-left: 0.1rem;color: #444444;font-size: 0.28rem;">手机号:</span>
-				<input style="color: #222222;font-size: 0.32rem;margin-left: 0.8rem;" type="text" v-model="emergencyContactPhone" />
+				<input  style="color: #222222;font-size: 0.32rem;margin-left: 0.8rem;"  v-model="emergencyContactPhone" />
 			</div>
 		</div>
 		<router-link class="bottom-btn" tag='div' @click.native="confirm" to="">
@@ -30,14 +30,32 @@
 			return {
 				modifyinfo: this.$route.params.modify, //路由传参获取紧急联系人信息
 				emergencyContactName: '', //紧急联系人姓名
-				emergencyContactPhone: '' //紧急联系人电话号码
+				emergencyContactPhone: '', //紧急联系人电话号码
+				nojiamiphone:'',//传给后台代替的phone变量,无加密
+				newtell:'',//加密后的手机号
+				change:false,//控制不修改联系人传给后台值不能加密
 			}
 		},
 		components: {
 	  		mhead:PublicHead
 	    },
 		methods: {
-			confirm() { //更改用户信息→修改紧急联系人
+			confirm() { //更改用户信息→修改紧急联系人g
+				this.nojiamiphone=this.emergencyContactPhone
+				if(this.nojiamiphone!=this.newtell){
+					let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+					var numFlag = reg.test(this.nojiamiphone);
+					if (!numFlag) {
+					Toast({
+						message: "手机号码格式不对！",
+						duration: 1000,
+						position: "middle"
+					});
+					return false;
+					}
+				}else{
+					this.nojiamiphone=this.modifyinfo.emergencyContactPhone
+				}
 				MessageBox.confirm('', {
 					title: '提示',
 					message: '请再次确定联系人信息',
@@ -52,10 +70,11 @@
 				}).then(action => {
 					if(action == 'confirm') {
 						//跳转修改成功页面
+						this.change=false
 						let data = {
 							no: this.$store.state.userId,
 							emergencyContactName: this.emergencyContactName,
-							emergencyContactPhone: this.emergencyContactPhone
+							emergencyContactPhone: this.nojiamiphone
 						}
 						this.$http.post(Wit.updateUserBaseInformation, data).then(res => {
 							const data = res.data;
@@ -94,11 +113,20 @@
 			},
 			getFocus() { //进入页面自动获取输入框的焦点
 				this.$refs.content.focus()
-			}
+			},
+			//对手机号码进行加密
+			jiami(val){
+				let mobile1=val.slice(0,3);
+				let mobile2=val.slice(7,11);
+				let newtell=`${mobile1}****${mobile2}`
+				this.newtell=newtell
+			},
 		},
 		mounted() {
 			this.emergencyContactName = this.modifyinfo.emergencyContactName
-			this.emergencyContactPhone = this.modifyinfo.emergencyContactPhone
+			this.jiami(this.modifyinfo.emergencyContactPhone)
+			this.emergencyContactPhone=this.newtell
+			// this.emergencyContactPhone = this.modifyinfo.emergencyContactPhone
 			this.getFocus()
 		}
 	}
