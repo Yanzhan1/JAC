@@ -8,7 +8,7 @@ import axios from 'axios'
 
 /**
  * 懒加载的工厂
- * @param {*} path 
+ * @param {*} path
  */
 const lazyLoad = (path) => () =>
     import (`@/components${path}`)
@@ -40,7 +40,7 @@ const FlowQuery = lazyLoad('/Lovecar/FlowQuery') //流量查询
     // import FlowQuery from "@/components/Lovecar/FlowQuery" //流量查询
 const FlowBuy = lazyLoad('/Lovecar/FlowBuy') //流量购买
     // import FlowBuy from "@/components/Lovecar/FlowBuy" //流量购买
-const PlaceOrder = lazyLoad('/Lovecar/PlaceOrder') //提交流量订单 
+const PlaceOrder = lazyLoad('/Lovecar/PlaceOrder') //提交流量订单
     // import PlaceOrder from "@/components/Lovecar/PlaceOrder" //提交流量订单
 const PurchaseRecord = lazyLoad('/Lovecar/PurchaseRecord') //流量购买记录
     // import PurchaseRecord from "@/components/Lovecar/PurchaseRecord" //流量购买记录
@@ -389,7 +389,7 @@ const router = new Router({
             // {
             //     path: "/now/addPic",
             //     component: AddPic
-            // }, 
+            // },
             {
                 path: "/activity/toSign",
                 component: ToSign
@@ -963,6 +963,7 @@ router.beforeEach((to, from, next) => {
                 // TODO 跳转至登录页面 待处理
             }
             //          alert($store.state.token)
+          console.log($store.state.token)
             $http.defaults.headers.common['timaToken'] = $store.state.token;
             // this.$http.post(Lovecar.vehicle, {}).then((res) => {
             //         console.log(res)

@@ -42,7 +42,7 @@ export default {
             state.no = null
             state.mobile = null
                 // state.vinst = null
-            state.token = null
+            state.token = ''
         }
     },
     [types.USERNAME]: (state, payload) => {

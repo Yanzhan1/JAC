@@ -13,7 +13,7 @@ export default {
     UserStartId: null,
     mobile: '', //用户手机号
     softkeyboard: true, //默认软键盘开启
-    token: null, //用户token
+    token: '', //用户token
     refreshToken: '', //查询是否tsp用户接口拿到的刷新token
     integral: '', //用户总积分
     everyno: '', //智享主页点击时候每个车的no
