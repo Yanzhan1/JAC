@@ -54,20 +54,20 @@
       </div>
     </div>
     <div class="mybottom">
-      <router-link tag="div" class="mylist" to="/myindex/myBus">
+      <div class="mylist" @click="tomybus">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_car@2x.png" alt="">
           <span>我的爱车</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </router-link>
-      <router-link class="mylist" tag="div" to="/myorder">
+      </div>
+      <div class="mylist" @click="tomyorder">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_list@2x.png" alt="">
           <span>我的订单</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </router-link>
+      </div>
       <div class="mylist" @click="tobuy">
         <div class="flex cocenter">
           <img src="../../../static/images/my/shoppingbuy.png" alt="">
@@ -82,27 +82,27 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
       </div> -->
-      <router-link to="/myCollect" tag="div" class="mylist">
+      <div class="mylist" @click="tomycollect">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_collection@2x.png" alt="">
           <span>我的收藏</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </router-link>
-      <router-link to="/myactivity" tag="div" class="mylist">
+      </div>
+      <div class="mylist" @click="tomyactivity">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_activity@2x.png" alt="">
           <span>我的活动</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </router-link>
-      <router-link to="/my_dealer" tag="div" class="mylist">
+      </div>
+      <div class="mylist" @click="tomydealer">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_agency@2x.png" alt="">
           <span>我的经销商</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </router-link>
+      </div>
       <!-- <div class="mylist" @click="recommended">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_recommend@2x.png" alt="">
@@ -352,6 +352,51 @@ export default {
       } else {
         this.toLogin();
       }
+    },
+    //我的爱车
+    tomybus: function() {
+      // 检查登录状态,如果没登陆，弹出提示框并且return false
+      if (!this.$store.state.islogin) {
+        this.toLogin();
+        return false;
+      }
+      this.$router.push({ path: "/myindex/myBus" });
+    },
+    //我的订单
+    tomyorder: function() {
+      // 检查登录状态,如果没登陆，弹出提示框并且return false
+      if (!this.$store.state.islogin) {
+        this.toLogin();
+        return false;
+      }
+      this.$router.push({ path: "/myorder" });
+    },
+    //我的收藏
+    tomycollect: function() {
+        // 检查登录状态,如果没登陆，弹出提示框并且return false
+        if (!this.$store.state.islogin) {
+          this.toLogin();
+          return false;
+        }
+        this.$router.push({ path: "/myCollect" });
+      },
+    //我的活动
+    tomyactivity: function() {
+      // 检查登录状态,如果没登陆，弹出提示框并且return false
+      if (!this.$store.state.islogin) {
+        this.toLogin();
+        return false;
+      }
+      this.$router.push({ path: "/myactivity" });
+    },
+    //我的经销商
+    tomydealer: function() {
+      // 检查登录状态,如果没登陆，弹出提示框并且return false
+      if (!this.$store.state.islogin) {
+        this.toLogin();
+        return false;
+      }
+      this.$router.push({ path: "/my_dealer" });
     },
     //粉丝
     toFans: function() {
