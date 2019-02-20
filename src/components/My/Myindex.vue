@@ -179,6 +179,11 @@ export default {
   methods: {
     // 签到
     sign() {
+      // 检查登录状态,如果没登陆，弹出提示框并且return false
+      if (!this.$store.state.islogin) {
+        this.toLogin();
+        return false;
+      }
       var data = {
         ruleStr: "SIGN_IN",
         serviceTypeStr: "SERVICE_FIXED",
@@ -239,10 +244,20 @@ export default {
 
     //积分详情
     ToScore() {
+      // 检查登录状态,如果没登陆，弹出提示框并且return false
+      if (!this.$store.state.islogin) {
+        this.toLogin();
+        return false;
+      }
       this.$router.push("/my/scoredetails");
     },
     //编辑个人信息
     edict() {
+      // 检查登录状态,如果没登陆，弹出提示框并且return false
+      if (!this.$store.state.islogin) {
+        this.toLogin();
+        return false;
+      }
       this.$router.push({
         path: "/edictperson",
         query: {
@@ -295,6 +310,11 @@ export default {
     },
     //跳转到商城
     tobuy() {
+      // 检查登录状态,如果没登陆，弹出提示框并且return false
+      if (!this.$store.state.islogin) {
+        this.toLogin();
+        return false;
+      }
       if (this.$store.state.userId) {
         let params = {
           userNo: this.$store.state.userId
@@ -335,14 +355,29 @@ export default {
     },
     //粉丝
     toFans: function() {
+      // 检查登录状态,如果没登陆，弹出提示框并且return false
+      if (!this.$store.state.islogin) {
+        this.toLogin();
+        return false;
+      }
       this.$router.push({ path: "/fans" });
     },
     //关注
     toFocus: function() {
+      // 检查登录状态,如果没登陆，弹出提示框并且return false
+      if (!this.$store.state.islogin) {
+        this.toLogin();
+        return false;
+      }
       this.$router.push({ path: "/focus" });
     },
     //我的发布
     mypublish: function() {
+      // 检查登录状态,如果没登陆，弹出提示框并且return false
+      if (!this.$store.state.islogin) {
+        this.toLogin();
+        return false;
+      }
       this.$router.push({ path: "/myPublish" });
     },
     //游客模式下直接跳登入
@@ -480,14 +515,12 @@ export default {
     // }
   },
   mounted() {
-    setTimeout(() => {
-      if (this.$store.state.userId != null) {
-        this.getuserinfo();
-        this.myNum();
-        this.IsSign(); //判断是否签到
-        this.total(); //h获取用户总积分
-      }
-    }, 500);
+    if (this.$store.state.islogin) {
+      this.getuserinfo();
+      this.myNum();
+      this.IsSign(); //判断是否签到
+      this.total(); //h获取用户总积分
+    }
   }
 };
 </script>
