@@ -11,6 +11,7 @@
             <img v-if="Personal.headUrl" :src="Personal.headUrl" alt="" style="width:100%;height:100%">
             <img v-else src="../../../static/images/discover/normalhead.png" alt="" style="width:100%;height:100%">
           </div>
+          <div class="Membershipshow">{{this.Membership}}</div>
           <!-- 控制V图标的展示 -->
           <img v-show="this.imgV" class="signimg" :src="Vimg" alt="">
           <div class="flex column" style="margin-left: 0.2rem;">
@@ -163,6 +164,7 @@ export default {
       focusNum: 0,
       momentNum: 0,
       myList: [],
+      Membership:'',//会员等级标志
       Vimg, //V图片
       imgV: "", //控制V图片是否展示
       imgJac: false, //控制jac是否展示
@@ -179,6 +181,7 @@ export default {
   methods: {
     // 签到
     sign() {
+          console.log(this.$store.state.token)
       var data = {
         ruleStr: "SIGN_IN",
         serviceTypeStr: "SERVICE_FIXED",
@@ -371,6 +374,23 @@ export default {
             if (val.entity == "JAC") {
               this.imgJac = true;
             }
+            switch(val.id){
+               case 1:
+                this.Membership=1
+               break
+               case 2:
+                this.Membership=2
+               break
+               case 3:
+                this.Membership=3
+               break
+               case 4:
+                this.Membership=4
+               break
+               case 5:
+                this.Membership=5
+               break
+            }
           }
         }
       });
@@ -516,6 +536,12 @@ export default {
   position: absolute;
   top: 0.8rem;
   left: 1.05rem;
+}
+/* 会员等级展示 */
+.Membershipshow{
+  position: absolute;
+  top: 0;
+  left:0.5rem;
 }
 .btns {
   width: 1.8rem;
