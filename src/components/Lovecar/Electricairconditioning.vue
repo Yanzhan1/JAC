@@ -1477,12 +1477,14 @@ export default {
 /*空调主体*/
 
 .air-wrap {
+  position: relative;
   height: 6.3rem;
   padding: 0 0.68rem;
 }
 
 .air-content {
   width: 100%;
+  position: relative;
 }
 
 .temperature {
@@ -1516,8 +1518,8 @@ export default {
 /*风扇部分*/
 
 .wind-blows {
-  position: fixed;
-  top: 5.7rem;
+  position: absolute;
+  top:2rem;
   align-self: flex-end;
 }
 .wind-blows > div {

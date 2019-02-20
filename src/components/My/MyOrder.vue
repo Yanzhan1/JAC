@@ -24,10 +24,10 @@
           <div>流量</div>
           <div v-show="this.flow" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
         </div>
-        <div @click="showMaintenance" >
+        <!-- <div @click="showMaintenance" >
           <div>维保</div>
           <div v-show="this.Maintenance" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
-        </div>
+        </div> -->
       </div>
     </div>
 		
@@ -266,7 +266,6 @@ export default {
         .post(Lovecar.Getoederlist, params, this.$store.state.tsppin)
         .then(res => {
           this.allflowbuy = res.data.data;
-          console.log(this.allflowbuy);
         });
     },
     //维保预约订单
@@ -299,7 +298,6 @@ export default {
     },
     //线索订单
     GetXorder() {
-      // alert()
       var no = this.$store.state.userId;
       var dealerType = "01";
       this.$http
@@ -313,6 +311,7 @@ export default {
               this.flag = false;
             }
             this.Xorder = res.data.data.records;
+            console.log(this.Xorder)
             for (let i = 0; i < this.Xorder.length; i++) {
               this.Xorder[i].time = operationTime.getTime(
                 this.Xorder[i].createdDate,
@@ -342,14 +341,14 @@ export default {
         vin: this.$store.state.vins
       };
       this.$http.post(Lovecar.Getoederlist, params).then(res => {
-        console.log(res);
+        // console.log(res);
       });
     }
   },
   created() {
     this.GetXorder();
     this.flowbuy();
-    this.appointment();
+    // this.appointment();
     // this.getShoppingMall();
   },
   mounted() {

@@ -1,5 +1,5 @@
 <template>
-	<div class="hot-sell">
+	<d class="hot-sell">
 		<header class="header MobileHeight">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<router-link tag='span' class="seatAeration active" to="/wit/hotSell">热销车型<span></span></router-link>
@@ -7,7 +7,7 @@
 		</header>
 		<div style="height:0.88rem" class="MobileHeight"></div>
 		<!--车型列表Start-->
-		<div class="car-wrapper" ref="carWrapper">
+		<d class="car-wrapper" ref="carWrapper">
 			<ul>
 			<!--<transition-group name="staggered-fade" tag="ul" v-bind:css="false" v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave">-->
 					<li class="car-content" v-for="(item, index) in carList"  
@@ -17,24 +17,24 @@
 						<div class="car-img">
 							<img :src="item.src"/>
 						</div>
-						<div class="car-body">
-							<h3 style="color: #222222;font-size: .33rem;">{{item.title}}</h3>
+						<d class="car-body">
+							<h3 style="color: #222222;font-size: .33rem;">{{item.modelName}}</h3>
 							<div class="car-special">
-								<span>{{item.infoone}}</span>
-								<span>{{item.infoType}}</span>
+								<div>{{item.seriesName}}</div>
+								<div>{{item.road}}</div>
 							</div>
 							<div class="car-info">
 								<span>目标行业:</span>
-								<span style="color: #666666;">{{item.desc}}</span>
+								<span style="color: #666666;">{{item.targetIndustry}}</span>
 							</div>
-						</div>
+						</d>
 						<img class="car-return" src="../../../static/images/my/next@2x.png" alt="" />
 					</li>		
 					</ul>
 			<!--</transition-group>-->
-		</div>
+		</d>
 		<!--车型列表End-->
-	</div>
+	</d>
 </template>
 
 <script>
@@ -43,48 +43,7 @@
 		name: 'hotSell',
 		data() {
 			return {
-				carList: [
-					{
-						src: '../../../static/images/my/car_ruifeng_s5@2x.png',
-						title: '格尔发A5II',
-						infoone: '8×4',
-						infoType: '自卸车',
-						desc: '农副散杂（含绿通）',
-						id: 1
-					},
-					{
-						src: '../../../static/images/my/car_ruifeng_s5@2x.png',
-						title: '格尔发A5II',
-						infoone: '8×4',
-						infoType: '自卸车',
-						desc: '农副散杂（含绿通）',
-						id: 2
-					},
-					{
-						src: '../../../static/images/my/car_ruifeng_s5@2x.png',
-						title: '格尔发A5II',
-						infoone: '8×4',
-						infoType: '自卸车',
-						desc: '农副散杂（含绿通）',
-						id: 3
-					},
-					{
-						src: '../../../static/images/my/car_ruifeng_s5@2x.png',
-						title: '格尔发A5II',
-						infoone: '8×4',
-						infoType: '自卸车',
-						desc: '农副散杂（含绿通）',
-						id: 4
-					},
-					{
-						src: '../../../static/images/my/car_ruifeng_s5@2x.png',
-						title: '格尔发A5II',
-						infoone: '8×4',
-						infoType: '自卸车',
-						desc: '农副散杂（含绿通）',
-						id: 5
-					},
-				] //车型列表
+				carList: [] //车型列表
 			}
 		},
 		methods: {
@@ -95,7 +54,7 @@
 					current: 1
 				};
 				this.$http.post(Wit.searchHeavyCarModelListPage,data).then(res => {
-					// console.log(res);
+					this.carList=res.data.data.records
 				});
 				},
 		},
@@ -191,19 +150,13 @@
 		font-size: .26rem;
 		color: #49BBFF;
 	}
-	.car-special span {
+	.car-special div {
 		display: inline-block;
 		height: .4rem;
 		line-height: .4rem;
 		background: #ECF8FF;
 		border-radius: .08rem;
 		text-align: center;
-	}
-	.car-special span:nth-of-type(1) {
-		width: .8rem;
-	}
-	.car-special span:nth-of-type(2) {
-		width: 1.1rem;
 	}
 	.car-info {
 		color: #999999;

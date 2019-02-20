@@ -11,7 +11,7 @@
             <img v-if="Personal.headUrl" :src="Personal.headUrl" alt="" style="width:100%;height:100%">
             <img v-else src="../../../static/images/discover/normalhead.png" alt="" style="width:100%;height:100%">
           </div>
-          <div class="Membershipshow">{{this.Membership}}</div>
+          <!-- <div class="Membershipshow">{{this.Membership}}</div> -->
           <!-- 控制V图标的展示 -->
           <img v-show="this.imgV" class="signimg" :src="Vimg" alt="">
           <div class="flex column" style="margin-left: 0.2rem;">
@@ -453,23 +453,23 @@ export default {
             if (val.entity == "JAC") {
               this.imgJac = true;
             }
-            switch(val.id){
-               case 1:
-                this.Membership=1
-               break
-               case 2:
-                this.Membership=2
-               break
-               case 3:
-                this.Membership=3
-               break
-               case 4:
-                this.Membership=4
-               break
-               case 5:
-                this.Membership=5
-               break
-            }
+            // switch(val.id){
+            //    case 1:
+            //     this.Membership=1
+            //    break
+            //    case 2:
+            //     this.Membership=2
+            //    break
+            //    case 3:
+            //     this.Membership=3
+            //    break
+            //    case 4:
+            //     this.Membership=4
+            //    break
+            //    case 5:
+            //     this.Membership=5
+            //    break
+            // }
           }
         }
       });
