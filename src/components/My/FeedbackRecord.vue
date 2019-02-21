@@ -42,6 +42,10 @@ export default {
   },
   methods: {
     init() {
+      if (!this.$store.state.islogin) {
+        this.toLogin();
+        return false;
+      }
       this.$http
         .post(Wit.searchComplaintsSuggestionsList, this.condition)
         .then(res => {
@@ -56,13 +60,6 @@ export default {
             });
           }
         })
-        .catch(error => {
-          let instance = Toast({
-            message: "系统异常",
-            position: "middle",
-            duration: 1000
-          });
-        });
     },
     getTime(date) {
       //转化时间戳
