@@ -124,8 +124,13 @@
 		},
 		mounted() {
 			this.emergencyContactName = this.modifyinfo.emergencyContactName
-			this.jiami(this.modifyinfo.emergencyContactPhone)
-			this.emergencyContactPhone=this.newtell
+			if(this.modifyinfo.emergencyContactPhone){
+				this.jiami(this.modifyinfo.emergencyContactPhone)
+				this.emergencyContactPhone=this.newtell
+			}else{
+				this.emergencyContactPhone=this.modifyinfo.emergencyContactPhone
+			}
+			console.log(this.modifyinfo)
 			// this.emergencyContactPhone = this.modifyinfo.emergencyContactPhone
 			this.getFocus()
 		}
