@@ -101,7 +101,7 @@ export default {
       .post(Lovecar.BusTest, param, this.$store.state.tsppin)
       .then(res => {
         if (res.data.returnSuccess) {
-         console.log(res)
+         
         } else {
             Toast({
               message: res.data.returnErrMsg,
@@ -135,7 +135,7 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              // console.log(tSS);
+             
               if (tSS >= 56) {
                 Toast({
                   message: "请求超时",
@@ -157,7 +157,7 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          console.log(tSS);
+                          
                           if (tSS >= 56) {
                             Toast({
                               message: "请求超时",
