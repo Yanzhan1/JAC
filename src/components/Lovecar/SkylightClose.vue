@@ -125,9 +125,7 @@ export default {
       }
     },
     Toasteach() {
-      console.log(1);
       MessageBox("提示", this.skywords[3].dictValue);
-      console.log(2);
     },
     //点击遮罩或者'x'移除popup
     removeMask() {
@@ -214,7 +212,6 @@ export default {
     },
     //控制天窗起始状态
     carcontrolskylight() {
-      // console.log("jinru");
       if (this.$route.query.carcontrol.skylightStatus == "1") {
         //pin码正确激活弧线
         this.curveState = true;
@@ -238,7 +235,6 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              console.log(tSS);
               if (tSS >= 56) {
                 Toast({
                   message: this.skywords[2].dictValue,
@@ -260,7 +256,6 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          console.log(tSS);
                           if (tSS >= 56) {
                             Toast({
                               message: this.skywords[2].dictValue,
@@ -354,7 +349,6 @@ export default {
       this.$http
         .post(Lovecar.Control, param, this.$store.state.tsppin)
         .then(res => {
-          // console.log(res);
           this.operationIds = res.data.operationId;
           if (res.data.returnSuccess) {
             Toast({
@@ -428,7 +422,6 @@ export default {
   },
   watch: {
     pinNumber(newVal, oldVal) {
-      //console.log(this.pinNumber.length)
       if (this.pinNumber.length == 6) {
         var nums = this.pinNumber;
         this.$http
@@ -442,7 +435,6 @@ export default {
           .then(res => {
             if (res.data.returnSuccess) {
               // this.value = !this.value;
-              console.log(1)
               this.httpsky();
               // this.refreshPmData(),
               //消失遮罩
@@ -451,7 +443,6 @@ export default {
               (this.showTyper = 0),
                 //清空pin码
                 (this.pinNumber = "");
-              // console.log(1)
             } else {
               //消失遮罩
               this.popupVisible = !this.popupVisible;
@@ -493,7 +484,6 @@ export default {
             this.$store.state.tsppin
           )
           .then(res => {
-            console.log(res.data.returnSuccess);
             if (res.data.returnSuccess) {
               // this.value = !this.value;
               this.httpsky();

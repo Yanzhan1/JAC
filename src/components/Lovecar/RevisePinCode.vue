@@ -98,9 +98,7 @@
 				}).then(action => {
 					if(action == 'confirm') {
 						//跳转修改成功页面
-						// console.log(Lovecar.Changepin)
 						this.$http.post(Lovecar.Changepin,{newPin:this.condition.newPin,oldPin:this.condition.oldPin},this.$store.state.tsppin).then((res)=>{
-							console.log(res)
 							if(res.data.returnSuccess){
 								Toast({
 									message: '修改成功',
@@ -118,7 +116,6 @@
 					}
 				}).catch(err => {
 					if(err == 'cancel') {
-						// console.log('123');
 					}
 				});
 			},

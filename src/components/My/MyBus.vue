@@ -122,6 +122,12 @@ export default {
         .post(My.SetOneDefault, param, this.$store.state.tsppin)
         .then(res => {
           if (res.data.returnSuccess) {
+            if (isMobile.iOS()) {
+                var params = {};
+                window.webkit.messageHandlers.syncVehicleList.postMessage(params);
+              } else if (isMobile.Android()) {
+                js2android.syncVehicleList();
+              }
             this.$store.state.vins = vin;
             this.MyBus();
           }

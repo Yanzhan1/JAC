@@ -123,7 +123,6 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.$route.params)
     // if(this.$route.params.begintime){
     var accpect = this.$route.params;
     if (accpect.begintime == null) {
