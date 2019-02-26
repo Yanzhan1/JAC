@@ -242,9 +242,7 @@ export default {
       this.allwords = this.$store.state.GETWORDS;
       for (let value of this.allwords) {
         if (value.dictType == "vehicle_window") {
-          // console.log(value)
           this.windowwords = value.sysDictDataVOs;
-          // console.log(this.windowwords)
         }
       }
     },
@@ -314,7 +312,6 @@ export default {
     //页面进入提示框中'不在提醒'状态
     remind() {
       this.remindState = !this.remindState;
-      // console.log(this.remindState);
     },
     //修改车窗高度弹出框-取消
     winConfirm() {
@@ -322,7 +319,6 @@ export default {
     },
     //修改车窗高度弹出框-确定，remindState为true，'不在提醒'未激活，false，'不在提醒'激活
     reduceWindow() {
-      // console.log(this.remindState);
       if (this.remindState == false) {
         localStorage.Tip = true;
       }
@@ -586,7 +582,6 @@ export default {
               if (this.fluctuationType == "1") {
                 this.flags = false;
                 // this.windNum[windowSpace]='100%'
-                console.log(111);
                 //车窗图片关闭
                 this.activeShowImg = false;
                 //canvas的关闭
@@ -600,7 +595,6 @@ export default {
               if (this.fluctuationType == "3") {
                 this.flags = true;
                 // this.windNum[windowSpace]='0%'
-                console.log(222);
                 //车窗图片激活
                 this.activeShowImg = true;
                 //canvas的激活

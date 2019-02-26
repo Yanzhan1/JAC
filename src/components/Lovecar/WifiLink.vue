@@ -66,7 +66,6 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              console.log(tSS);
               if (tSS >= 56) {
                 Toast({
                   message: "请求超时",
@@ -88,7 +87,6 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          console.log(tSS);
                           if (tSS >= 56) {
                             Toast({
                               message: "请求超时",
@@ -163,8 +161,6 @@ export default {
     },
     turn() {
       this.value ? (this.nums = 1) : (this.nums = 2);
-      console.log(this.value);
-      console.log(this.nums);
       var param = {
         vin: this.$store.state.vins,
         operationType: "WIFI",
@@ -225,7 +221,6 @@ export default {
           duration: 1000
         });
       });
-    // console.log(this.$route.params.userCategory)
     this.names = this.$route.params.wifiname;
   },
    beforeDestroy(){

@@ -47,6 +47,7 @@
 		<!--筛选列表End-->
 		<div style="height: 1.2rem" v-show="showTitleFilter"></div>
 		<!--筛选条模块Start-->
+    <!-- 车型选择 -->
 		<vertical-toggle>
 			<div class="filter-wrapper" v-show="contentTypeCar">
 				<div class="flter-content">
@@ -54,6 +55,7 @@
 				</div>
 			</div>
 		</vertical-toggle>
+    <!-- 行业选择 -->
 		<vertical-toggle>
 			<div class="filter-wrapper" v-show="contentIndustry">
 				<div class="flter-content">
@@ -61,6 +63,7 @@
 				</div>
 			</div>
 		</vertical-toggle>
+    <!-- 驱动选择 -->
 		<vertical-toggle>
 			<div class="filter-wrapper" v-show="contentDrive">
 				<div class="flter-content">
@@ -68,6 +71,7 @@
 				</div>
 			</div>
 		</vertical-toggle>
+    <!-- 载重选择 -->
 		<vertical-toggle>
 			<div class="filter-wrapper" v-show="contentLoad">
 				<div class="flter-content">
@@ -75,6 +79,7 @@
 				</div>
 			</div>
 		</vertical-toggle>
+    <!-- 路况选择 -->
 		<vertical-toggle>
 			<div class="filter-wrapper" v-show="contentTraffic">
 				<div class="flter-content">
@@ -93,14 +98,14 @@
 						<img :src="item.src" />
 					</div>
 					<div class="car-body">
-						<h3 style="color: #222222;font-size: .33rem;">{{item.title}}</h3>
+						<h3 style="color: #222222;font-size: .33rem;">{{item.modelName}}</h3>
 						<div class="car-special">
-							<span>{{item.infoone}}</span>
-							<span>{{item.infoType}}</span>
+							<div>{{item.seriesName}}</div>
+							<div>{{item.road}}</div>
 						</div>
 						<div class="car-info">
 							<span>目标行业:</span>
-							<span style="color: #666666;">{{item.desc}}</span>
+							<span style="color: #666666;">{{item.targetIndustry}}</span>
 						</div>
 					</div>
 					<img class="car-return" src="../../../static/images/my/next@2x.png" alt="" />
@@ -147,16 +152,12 @@ export default {
       chooseListFour: [], //选择列表
       chooseListFive: [], //选择列表
       carList: [
-        {
-          src: "../../../static/images/my/car_ruifeng_s5@2x.png",
-          title: "格尔发A5II",
-          infoone: "8×4",
-          infoType: "自卸车",
-          desc: "农副散杂（含绿通）",
-          id: 1
-        },
-      
-      ] //车型列表
+      ], //车型列表
+      modelNameCode:null,//传给后台的车型code
+      targetIndustryCode:null,//传给后台的目标行业code
+      roadCode:null,//传给后台的路况code
+      loadCode:null,//传给后台的载重code
+      diveCode:null,//传给后台的驱动code
     };
   },
   created() {
@@ -506,7 +507,6 @@ export default {
       this.$http.post(Wit.selectValueByType, data).then(res => {
         if (res.data.code == 0) {
           this.chooseList = res.data.data;
-          // console.log(this.chooseList);
         }
 	  });
 	  this.getcarlist()
@@ -514,17 +514,16 @@ export default {
     //获取列表
     getcarlist() {
       let data = {
-        modelName: null,
-        drive: null,
-        targetIndustry:null,
-        road:null,
-        load:null,
-        hotCar:null,
+        modelName: this.modelNameCode,
+        drive: this.diveCode,
+        targetIndustry:this.targetIndustryCode,
+        road:this.roadCode,
+        load:this.loadCode,
         size: 10,
         current: 1
       };
       this.$http.post(Wit.searchHeavyCarModelListPage,data).then(res => {
-        // console.log(res);
+        this.carList=res.data.data.records
       });
     },
     close() {
@@ -549,6 +548,36 @@ export default {
       this.bagMask = false;
     },
     closeFilterList(key) {
+      // traffic  路况
+      // load 载重
+      // drive 驱动
+      // industry 行业
+      // carType 车型
+      switch(key){
+        case 'traffic':
+          this.roadCode=null;
+        break;
+        case 'load':
+          this.loadCode=null;
+        break;
+        case 'drive':
+          this.diveCode=null;
+          this.loadCode=null;
+        break;
+        case 'industry':
+          this.targetIndustryCode=null;
+        break;
+        case 'carType':
+          this.targetIndustryCode=null;
+          this.diveCode=null;
+          this.loadCode=null;
+          this.roadCode=null;
+          this.modelNameCode=null;
+        break;
+        default:
+        break;
+      }
+      this.getcarlist()
       //关闭筛选列表
       var that = this;
       Velocity(
@@ -606,9 +635,10 @@ export default {
       this.$http.post(Wit.selectValueByType, dataThree).then(res => {
         if (res.data.code == 0) {
           this.chooseListFive = res.data.data;
-          // console.log(this.chooseListFive);
         }
       });
+      this.modelNameCode=val.code
+      this.getcarlist()     
     },
     chooseIndustry(val) {
       //选择行业
@@ -617,6 +647,8 @@ export default {
       $(".industryImg").removeClass("iconTrans");
       //				Vue.$set(this.filterList, 'industry', val.con)
       this.filterList.industry = val.valueName;
+      this.targetIndustryCode=val.code
+      this.getcarlist()
     },
     chooseDrive(val) {
       //选择驱动
@@ -635,6 +667,8 @@ export default {
           this.chooseListFour = res.data.data;
         }
       });
+      this.diveCode=val.code
+      this.getcarlist()
     },
     chooseLoad(val) {
       //选择载重
@@ -643,6 +677,8 @@ export default {
       $(".loadImg").removeClass("iconTrans");
       //				Vue.$set(this.filterList, 'load', val.con)
       this.filterList.load = val.valueName;
+      this.loadCode=val.code
+      this.getcarlist()
     },
     chooseTraffic(val) {
       //选择路况
@@ -651,6 +687,8 @@ export default {
       $(".trafficImg").removeClass("iconTrans");
       //				Vue.$set(this.filterList, 'traffic', val.con)
       this.filterList.traffic = val.valueName;
+      this.roadCode=val.code;
+      this.getcarlist()
     }
   }
 };
@@ -855,21 +893,13 @@ export default {
   color: #49bbff;
 }
 
-.car-special span {
+.car-special div {
   display: inline-block;
   height: 0.4rem;
   line-height: 0.4rem;
   background: #ecf8ff;
   border-radius: 0.08rem;
   text-align: center;
-}
-
-.car-special span:nth-of-type(1) {
-  width: 0.8rem;
-}
-
-.car-special span:nth-of-type(2) {
-  width: 1.1rem;
 }
 
 .car-info {

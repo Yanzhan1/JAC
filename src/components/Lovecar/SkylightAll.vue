@@ -17,12 +17,14 @@
 		<div class="skylight-wrap flex-column-align">
 			<div class="skylight-content flex-center-between">
 				<div class="wind-blows">
-					<img v-if="!hasNOClick" :src="'./static/images/Lovecar/skylight@2x.png'" alt="" />
+					<img v-if="hasNOClick" :src="'./static/images/Lovecar/skylight@2x.png'" alt="" />
 					<img v-else  :src="'./static/images/Lovecar/skylight1@2x.png'" alt="" />
 				</div>
 			</div>
 			<div class="close-skylight" @click="popupVisible=true">
-				<button :disabled="this.curveState" :class="!this.curveState === false ? 'active' : ''">点击关闭天窗</button>
+				<button   :class="!this.curveState?'noactive':'active'" @click="windowclose">关闭</button>
+        <div style="width:.5rem"></div>
+				<button   :class="this.curveState?'noactive':'active'" @click="windowopen">开启</button>
 			</div>
 		</div>
 		
@@ -78,7 +80,8 @@ export default {
       time: "", //定时器命名
       //天窗控制按钮开关
       //				value: false,
-      curveState: false,
+      curveState: false, //控制开关状态
+      windowcontrol: false, //控制开关上传状态
       //移动端键盘值
       allwords: [], //所有提示
       skywords: [], //天窗提示
@@ -102,13 +105,18 @@ export default {
       //自定义软键盘状态 0 消失 2 键盘开启
       showTyper: 0,
       //软键盘内容-12位随机数组
-      keyNums: [],
-      operationIds: ""
+      keyNums: []
     };
   },
   methods: {
     end() {
       this.httpsky();
+    },
+    windowclose() {
+      this.windowcontrol = true;
+    },
+    windowopen() {
+      this.windowcontrol = false;
     },
     //路由跳转的时候清除轮询loading
     goback() {
@@ -218,6 +226,8 @@ export default {
         //pin码正确激活空调图
         this.activeShowImg = true;
       } else {
+        this.curveState = false;
+        this.activeShowImg = false;
       }
     },
     //重复调用异步接口
@@ -266,10 +276,15 @@ export default {
                             localhide();
                           }
                         } else if (res.data.status == "SUCCEED") {
-                          //  pin码正确激活弧线
-                          this.curveState = false;
-                          //pin码正确激活空调图
-                          this.activeShowImg = false;
+                          if (this.windowcontrol) {
+                            //执行关闭天窗操作
+                            this.curveState = false;
+                            this.activeShowImg = false;
+                          } else {
+                            //执行开启天窗操作
+                            this.curveState = true;
+                            this.activeShowImg = true;
+                          }
                           Toast({
                             message: this.skywords[1].dictValue,
                             position: "middle",
@@ -302,10 +317,15 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              //pin码正确激活弧线
-              this.curveState = false;
-              //pin码正确激活空调图
-              this.activeShowImg = false;
+              if (this.windowcontrol) {
+                //执行关闭天窗操作
+                this.curveState = false;
+                this.activeShowImg = false;
+              } else {
+                //执行开启天窗操作
+                this.curveState = true;
+                this.activeShowImg = true;
+              }
               Toast({
                 message: this.skywords[1].dictValue,
                 position: "middle",
@@ -336,20 +356,19 @@ export default {
         });
     },
     httpsky() {
-      // let gear = this.activeShowImg ? "1" : "0";
+      let gear = this.windowcontrol ? "2" : "1";
       var param = {
         vin: this.$store.state.vins,
         operationType: "SUNROOF",
         extParams: {
           fluctuationType: 1, //档位qg
           // percent: this.windNum[this.skylightSpace].replace(/%/g, ""), //0-100
-          gear: '2' //车窗1是开,2是关
+          gear: "2" //车窗1是开,2是关
         }
       };
       this.$http
         .post(Lovecar.Control, param, this.$store.state.tsppin)
         .then(res => {
-          this.operationIds = res.data.operationId;
           if (res.data.returnSuccess) {
             Toast({
               message: this.skywords[0].dictValue,
@@ -360,19 +379,11 @@ export default {
               this.getAsyReturn(res.data.operationId);
             }, 2000);
           } else {
-            if (res.data.returnErrCode == 400) {
-              Toast({
-                message: "token验证失败",
-                position: "middle",
-                duration: 2000
-              });
-            } else {
-              Toast({
-                message: this.skywords[2].dictValue,
-                position: "middle",
-                duration: 2000
-              });
-            }
+            Toast({
+              message: this.skywords[2].dictValue,
+              position: "middle",
+              duration: 2000
+            });
           }
         })
         .catch(err => {
@@ -388,10 +399,10 @@ export default {
     //  this.produCurve();
     this.inputs();
     this.getskywords();
-    // this.carcontrolskylight();
+    this.carcontrolskylight();
   },
-  beforeDestroy(){
-     clearInterval(this.time);
+  beforeDestroy() {
+    clearInterval(this.time);
   },
   computed: {
     fullValue: {
@@ -485,13 +496,7 @@ export default {
           )
           .then(res => {
             if (res.data.returnSuccess) {
-              // this.value = !this.value;
               this.httpsky();
-              //pin码正确激活弧线
-              // this.curveState = !this.curveState;
-              // //pin码正确激活空调图
-              // (this.activeShowImg = !this.activeShowImg),
-              // this.refreshPmData(),
               //消失遮罩
               this.popupVisible = !this.popupVisible;
               //消失软键盘
@@ -661,10 +666,13 @@ export default {
 }
 /*关闭按钮*/
 .close-skylight {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 .close-skylight > button {
   display: block;
-  width: 3rem;
+  width: 2rem;
   height: 0.8rem;
   font-size: 0.32rem;
   color: #ffff;
@@ -675,6 +683,9 @@ export default {
 }
 .close-skylight > button.active {
   background: #cccccc;
+  opacity: 0.5;
+}
+.close-skylight > button.noactive {
   color: #fff;
   opacity: 0.5;
 }

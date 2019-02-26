@@ -46,7 +46,6 @@ export default {
       // this.$store.dispatch('change$FLAG', true)// 不要动 有用
       // if (isMobile.iOS()) {
       // }       
-      console.log('调用islogin')
       if (userInfo && userInfo.no) {
         this.$store.dispatch("isLogin", true);
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
@@ -54,7 +53,6 @@ export default {
         // this.$store.dispatch("userId", secUid);
         this.$store.dispatch("userId", userInfo.no);
         this.$store.dispatch("userInfo", userInfo);
-        console.log(userInfo)
         this.$store.dispatch("CARVINS", userInfo.vin);
         this.$store.dispatch("nomarlseriseName", userInfo.seriesName);
         let params = {

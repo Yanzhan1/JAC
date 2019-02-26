@@ -306,7 +306,6 @@ export default {
     },
     //执行判定
     inputs() {
-      console.log(111);
       var _this = this;
       $(".pin input").on("input propertychange", function() {
         _this.inputFun($(this));
@@ -353,7 +352,6 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              console.log(tSS);
               if (tSS >= 56) {
                 Toast({
                   message: "请求超时",
@@ -375,7 +373,6 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          console.log(tSS);
                           if (tSS >= 56) {
                             Toast({
                               message: "请求超时",
@@ -495,7 +492,6 @@ export default {
         .post(Lovecar.Control, param, this.$store.state.tsppin)
         .then(res => {
           this.operationIds = res.data.operationId;
-          console.log(this.operationIds);
           if (res.data.returnSuccess) {
             this.getAsyReturn(res.data.operationId);
           } else {
@@ -549,7 +545,6 @@ export default {
         .post(Lovecar.Control, param, this.$store.state.tsppin)
         .then(res => {
           this.operationIdss = res.data.operationId;
-          console.log(this.operationIdss);
           if (res.data.returnSuccess) {
             this.getAsyReturn(res.data.operationId);
           } else {
@@ -567,7 +562,6 @@ export default {
           //         this.$store.state.tsppin
           //       )
           //       .then(res => {
-          //         console.log(res);
           //       }, 1000);
           //   });
         });

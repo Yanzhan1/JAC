@@ -106,7 +106,6 @@ export default {
                 )
                 .then(res => {
                   if(res.data.returnSuccess){      
-                    console.log(res.data.data)
                     this.packageTotalFlow=res.data.data[0].packageTotalFlow;
                     this.usedFlow=res.data.data[0].usedFlow;
                     this.surplusFlow=res.data.data[0].surplusFlow;

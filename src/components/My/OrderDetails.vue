@@ -51,7 +51,7 @@
 			<li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
 				<div class="order-title">
 					<img src="../../../static/images/my/start.png" alt="" />
-					<span>称谓</span>
+					<span>性别</span>
 				</div>
 				<span>{{userinfo.gender}}</span>
 			</li>

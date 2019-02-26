@@ -45,14 +45,12 @@
 			}
 			this.$http.post(Lovecar.FlowBuy, {}, this.$store.state.tsppin).then((res) => { //获取所有流量类型
 				const data = res.data
-				console.log(data)
 				if (data.returnSuccess) {
 					var count = [];
 					this.flowData = data.data;
 					this.$nextTick(()=>{
 						var info = $(".flow-info");
 						var mess = $(".content");
-//						alert(mess.length)
 						var len = info.length;
 						for(let i = 0 ;i <= len; i++){
 							if(i%2){

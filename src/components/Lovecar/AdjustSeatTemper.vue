@@ -364,7 +364,6 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              console.log(tSS);
               if (tSS >= 56) {
                 Toast({
                   message: "请求超时",
@@ -386,7 +385,6 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          console.log(tSS);
                           if (tSS >= 56) {
                             Toast({
                               message: "请求超时",
@@ -554,7 +552,6 @@ export default {
         .post(Lovecar.Control, param, this.$store.state.tsppin)
         .then(res => {
           this.operationIdss = res.data.operationId;
-          console.log(this.operationIdss);
           if (res.data.returnSuccess) {
             this.getAsyReturn(res.data.operationId);
           } else {

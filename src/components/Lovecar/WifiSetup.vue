@@ -66,7 +66,6 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              console.log(tSS);
               if (tSS >= 56) {
                 Toast({
                   message: "请求超时",
@@ -88,7 +87,6 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          console.log(tSS);
                           if (tSS >= 56) {
                             Toast({
                               message: "请求超时",
@@ -203,9 +201,7 @@ export default {
             this.$http
               .post(Lovecar.Control, param, this.$store.state.tsppin)
               .then(res => {
-                console.log(res);
                 this.operationIds = res.data.operationId;
-                console.log(this.operationIds);
                 if (res.data.returnSuccess) {
                   this.getAsyReturn(res.data.operationId);
                 } else {
@@ -251,7 +247,7 @@ export default {
         })
         .catch(err => {
           if (err == "cancel") {
-            console.log("cancel");
+            
           }
         });
       }     
@@ -260,7 +256,6 @@ export default {
   mounted() {
     // this.$route.params.userCategory?this.userCategory=1:this.userCategory=2
     this.wifiData.name = this.$route.params.names;
-    // console.log(this.userCategory)
   },
    beforeDestroy(){
      clearInterval(this.time);

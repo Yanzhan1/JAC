@@ -193,7 +193,6 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              console.log(tSS);
               if (tSS >= 56) {
                 Toast({
                   message: "请求超时",
@@ -215,7 +214,6 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          console.log(tSS);
                           if (tSS >= 56) {
                             Toast({
                               message: "请求超时",
@@ -643,7 +641,6 @@ export default {
             this.$store.state.tsppin
           )
           .then(res => {
-            console.log(res.data.returnSuccess);
             if (res.data.returnSuccess) {
               // this.value = !this.value;
               this.httpairevolution();

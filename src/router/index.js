@@ -64,6 +64,8 @@ const SkylightControl = lazyLoad('/Lovecar/SkylightControl') //天窗控制
     // import SkylightControl from "@/components/Lovecar/SkylightControl" //天窗控制
 const SkylightClose = lazyLoad('/Lovecar/SkylightClose') //天窗关闭
     // import SkylightClose from "@/components/Lovecar/SkylightClose" //天窗关闭
+const SkylightAll = lazyLoad('/Lovecar/SkylightAll') //天窗关闭
+    // import SkylightAll from "@/components/Lovecar/SkylightAll" //天窗可开关
 const AirEvoluor = lazyLoad('/Lovecar/AirEvoluor') //空气进化器
     // import AirEvoluor from "@/components/Lovecar/AirEvoluor" //空气进化器
 const Electricairconditioning = lazyLoad('/Lovecar/Electricairconditioning') //电动空调调控
@@ -535,6 +537,11 @@ const router = new Router({
                 component: SkylightClose
             },
             {
+                path: "/lovecar/SkylightAll",
+                name: '天窗可开关',
+                component: SkylightAll
+            },
+            {
                 path: "/lovecar/airEvoluor",
                 name: '空气净化器',
                 component: AirEvoluor
@@ -963,7 +970,7 @@ router.beforeEach((to, from, next) => {
                 // TODO 跳转至登录页面 待处理
             }
             //          alert($store.state.token)
-          console.log($store.state.token)
+            console.log($store.state.token)
             $http.defaults.headers.common['timaToken'] = $store.state.token;
             // this.$http.post(Lovecar.vehicle, {}).then((res) => {
             //         console.log(res)

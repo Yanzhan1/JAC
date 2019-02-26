@@ -246,7 +246,6 @@ export default {
       } else {
         this.compressor = false;
       }
-      // console.log(this.compressor)
       this.compressor ? (this.compressors = 2) : (this.compressors = 1);
       this.httpair();
     },
@@ -475,7 +474,6 @@ export default {
       this.debouncedGetAnswer();
       //				var start = $('#rightColorful').on('touchstart)
       // this.httpair();
-      // console.log(this.temperNum[this.airSpace]);
     },
     //激活空调图,进行旋转
     refreshPmData() {
@@ -519,7 +517,6 @@ export default {
     //拿到空调的提示语
     getairconditionwords() {
       this.allwords = this.$store.state.GETWORDS;
-      console.log(this.allwords);
       for (let value of this.allwords) {
         if (value.dictType == "air_conditioning") {
           this.airconditionwords = value.sysDictDataVOs;
@@ -557,7 +554,6 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              console.log(tSS);
               if (tSS >= 56) {
                 if (this.turnon == "1") {
                   if (this.value) {
@@ -632,7 +628,6 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          console.log(tSS);
                           if (tSS >= 56) {
                             if (this.turnon == "1") {
                               if (this.value) {
@@ -906,7 +901,6 @@ export default {
                         }
                         clearInterval(this.time);
                         localhide();
-                        console.log("jieshu2");
                       }
                     });
                 }, 4000);
@@ -1128,7 +1122,6 @@ export default {
           ac: this.compressors
         }
       };
-      // console.log(this.compressors);
       this.$http
         .post(Lovecar.Control, param, this.$store.state.tsppin)
         .then(res => {
@@ -1289,8 +1282,6 @@ export default {
               (this.showTyper = 0),
                 //清空pin码
                 (this.pinNumber = "");
-              /*console.log(this.Compressors);
-              console.log(this.temperNum[this.airSpace]);*/
             } else {
               //消失遮罩
               this.popupVisible = !this.popupVisible;
@@ -1477,12 +1468,14 @@ export default {
 /*空调主体*/
 
 .air-wrap {
+  position: relative;
   height: 6.3rem;
   padding: 0 0.68rem;
 }
 
 .air-content {
   width: 100%;
+  position: relative;
 }
 
 .temperature {
@@ -1516,8 +1509,8 @@ export default {
 /*风扇部分*/
 
 .wind-blows {
-  position: fixed;
-  top: 5.7rem;
+  position: absolute;
+  top:2rem;
   align-self: flex-end;
 }
 .wind-blows > div {

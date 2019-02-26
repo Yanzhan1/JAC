@@ -87,10 +87,6 @@ export default {
     };
   },
   methods:{
-      //授权成功后调用的方法
-      syncVehicleList(a){
-          console.log(a)
-      },
       next(){
           //获得时间戳
           this.shang = this.start.replace(/\-/g, '/').split(' ')[0]
@@ -126,10 +122,8 @@ export default {
                     endTime: this.xia,
                 }
             }
-            console.log(param)
         this.$http.post(Lovecar.Longrange,param,this.$store.state.tsppin).then((res)=>{
             if(res.data.returnSuccess){
-                this.syncVehicleList()
                    Toast({
                     message:'友情提示：请告知被授权用户重新登入APP，即可体验远程车控功能',
                     position:'middle',

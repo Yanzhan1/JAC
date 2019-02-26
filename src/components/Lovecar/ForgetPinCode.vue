@@ -115,7 +115,6 @@
 								this.Verification = res.data.data;
 								this.body=res.data.body
 								this.timeStamp = session.getAttribute('firstTime')
-								// console.log(this.timeStamp)
 							} else {
 								let instance = Toast({
 									message: data.returnErrMsg,
@@ -144,7 +143,6 @@
 							requestId:this.body,
 							phoneIdentifyCode: this.pin.verificationCode,
 						}, this.$store.state.tsppin).then((res) => {
-							console.log(res)
 							this.$router.push('/lovecar/reviseSuccess')
 						})
 					} else {
