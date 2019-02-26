@@ -1,5 +1,5 @@
 <template>
-	<div class="big_box" @touchmove.prevent>
+	<div class="big_box">
 		<!--<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">维保预约</span>
@@ -8,7 +8,7 @@
 		<div style="height:.88rem"></div>-->
 		<!-- <mhead currentTitle="维保预约"></mhead> -->
 		<div class="carmessage">车主信息</div>
-		<div style="padding:0 .33rem">
+		<div style="padding:0.33rem">
 			<div class="flex row li_st between cocenter">
 				<p style="font-size:.27rem;color:#555">姓名</p>
 				<div class="flex row cocenter">
@@ -1026,7 +1026,6 @@ export default {
 }
 .big_box {
   position: relative;
-  top: 0.5rem;
   width: 100%;
   height: 100%;
 }
