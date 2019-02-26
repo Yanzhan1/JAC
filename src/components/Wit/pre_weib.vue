@@ -432,12 +432,6 @@ export default {
           } else {
             this.nodealer = true;
           }
-        } else {
-          Toast({
-            message: "报错",
-            position: "middle",
-            duration: 2000
-          });
         }
       });
     },
