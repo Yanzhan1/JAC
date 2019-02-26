@@ -10,42 +10,42 @@
 		<div class="carmessage">车主信息</div>
 		<div style="padding:0.33rem">
 			<div class="flex row li_st between cocenter">
-				<p style="font-size:.27rem;color:#555">姓名</p>
+				<p style="font-size:.27rem;color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>姓名</p>
 				<div class="flex row cocenter">
 					<input type="text" placeholder="请输入姓名"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222" v-model="hostname">
-					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
+					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
 			<div class="flex row li_st between cocenter">
-				<p style="font-size:.27rem;color:#555">手机号</p>
+				<p style="font-size:.27rem;color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>手机号</p>
 				<div class="flex row cocenter">
 					<input type="text" placeholder="请输入手机号" v-model="this.mobile"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">
-					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
+					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
 			<div class="flex row li_st between cocenter">
-				<p style="font-size:.27rem;color:#555">品牌</p>
+				<p style="font-size:.27rem;color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>品牌</p>
 				<div class="flex row cocenter">
 					<span type="text"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">{{brandName}}</span>
-					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
+					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
 			<div class="flex row li_st between cocenter">
-				<p style="font-size:.27rem;color:#555">车型</p>
+				<p style="font-size:.27rem;color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>车型</p>
 				<div class="flex row cocenter">
 					<span>{{seriesName}}</span>
-					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
+					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
 			<div class="flex row li_st between cocenter">
-				<p style="font-size:.27rem;color:#555">车牌</p>
+				<p style="font-size:.27rem;color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>车牌</p>
 				<div class="flex row cocenter">
 					<input type="text" v-model="plateLicenseNo">
-					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
+					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
 			<div class="flex row li_st between cocenter">
-				<p style="font-size:.27rem;color:#555">行驶里程</p>
+				<p style="font-size:.27rem;color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>行驶里程</p>
 				<div class="flex row cocenter">
           <!-- <input type="numberbox" name="" id="" v-model="km"> -->
           <input type="text"
@@ -54,21 +54,21 @@
                onblur="value=value.replace(/[^\d]/g,'')"
               ng-model="schedule.round"
               placeholder="请输入数字" v-model="km">
-					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
+					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
 			<div class="flex row li_st between cocenter" @click="chooseprovinces">
-				<p style="font-size:.27rem;color:#555">省份</p>
+				<p style="font-size:.27rem;color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>省份</p>
 				<div class="flex row cocenter">
 					<span>{{this.valuesprovince1}}</span>
-					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
+					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
 			<div class="flex row li_st between cocenter" @click="choosecitys">
-				<p style="font-size:.27rem;color:#555">城市</p>
+				<p style="font-size:.27rem;color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>城市</p>
 				<div class="flex row cocenter">
 					<span>{{this.valuescity1}}</span>
-					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
+					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
 		</div>
@@ -85,24 +85,24 @@
 		<div class="carmessage">预约信息</div>
 		<div style="padding:0 .33rem">
 			<div class="flex row li_st between cocenter" @click="servicestatus">
-				<p style="font-size:.27rem;color:#555">服务站</p>
+				<p style="font-size:.27rem;color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>服务站</p>
 				<div class="flex row cocenter">
 					<span style="font-size:.26rem;color:#222">{{currentTitle}}</span>
-					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
+					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
 			<div class="flex row li_st between cocenter" @click="orderTimeStatus" v-show="this.currentTitle">
-				<p style="font-size:.27rem;color:#555">预约时间</p>
+				<p style="font-size:.27rem;color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>预约时间</p>
 				<div class="flex row cocenter">
 					<span ref="Gettimes" style="font-size:.26rem;color:#222">{{currentTime}}</span>
-					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
+					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
 			<div class="flex row li_st between cocenter" >
-				<p style="font-size:.27rem;color:#555">维保类型</p>
+				<p style="font-size:.27rem;color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>维保类型</p>
 				<div class="flex row cocenter" @click="Maintenance">
 					<span ref="main" style="font-size:.26rem;color:#222">维修</span>
-					<img src="../../../static/images/next@2x.png" alt="" style="width:.4rem;height:.4rem">
+					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
         <div class="choosexing" v-show="choosexing">
             <div ref="one" @click="chooseone">维修</div>

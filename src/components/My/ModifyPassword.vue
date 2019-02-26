@@ -8,15 +8,15 @@
 		<div style="height:0.88rem"></div>-->
 		<mhead currentTitle="修改密码"></mhead>
 		<div class="origin-pin">
-			<div class="flex-center-between revisePinCommon">
+			<div class="flex-center-between revisePinCommon" >
 				<span style="font-size: 0.26rem;color: #444444;">
 					旧密码:
 				</span>
-				<input  v-model="condition.oldPassword" placeholder="请输入旧密码" type="password" />
+				<input   v-model="condition.oldPassword" placeholder="请输入旧密码" type="password"  />
 			</div>
 		</div>
 		<div class="origin-pin">
-			<div class="flex-center-between revisePinCommon">
+			<div class="flex-center-between revisePinCommon" >
 				<span style="font-size: 0.26rem;color: #444444;">
 					新密码:
 				</span>
@@ -24,7 +24,7 @@
 			</div>
 		</div>
 		<div class="origin-pin">
-			<div class="flex-center-between revisePinCommon">
+			<div class="flex-center-between revisePinCommon" >
 				<span style="font-size: 0.26rem;color: #444444;">
 					确认新密码:
 				</span>
@@ -50,7 +50,9 @@
 					newPassword: '',
 					newAgainpassword:'',
 					no: this.$store.state.userId
-				}
+				},
+				// isok:false,//区分ios和安卓只读和可读
+				// num:0,
 			}
 		},
 		methods: {
@@ -119,9 +121,59 @@
 					});
 				});
 				}	
-			}
+			},
+			// keyupOne(){
+			// 	if (isMobile.iOS()) {
+			// 		this.num=1;
+			// 		var params = {};
+			// 		window.webkit.messageHandlers.showKeyboard.postMessage(params);
+			// 	} else if (isMobile.Android()) {
+					
+			// 	}
+			// },
+			// keyupTwo(){
+			// 	if (isMobile.iOS()) {
+			// 		this.num=2;
+			// 		var params = {};
+			// 		window.webkit.messageHandlers.showKeyboard.postMessage(params);
+			// 	} else if (isMobile.Android()) {
+					
+			// 	}
+			// },
+			// keyupThree(){
+			// 	if (isMobile.iOS()) {
+			// 		this.num=3;
+			// 		var params = {};
+			// 		window.webkit.messageHandlers.showKeyboard.postMessage(params);
+			// 	} else if (isMobile.Android()) {
+					
+			// 	}
+			// },
+			// getVal(val){
+			// 	console.log(this.num)
+			// 	let value=val
+			// 	switch(this.num){
+			// 		case 1:
+			// 		console.log(value)
+			// 		this.condition.oldPassword+=value;
+			// 		break;
+			// 		case 2:
+			// 		this.condition.newPassword+=value;
+			// 		break;
+			// 		case 3:
+			// 		this.condition.newAgainpassword+=value;
+			// 		break;
+			// 		default:
+			// 	}
+			// }
 		},
 		created () {
+			// if (isMobile.iOS()) {
+			// 	window.getVal = this.getVal;
+			// 	this.isok=true
+			// } else if (isMobile.Android()) {
+			// 	this.isok=false;
+			// }
 		}
 	}
 </script>

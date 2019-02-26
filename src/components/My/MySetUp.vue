@@ -17,9 +17,9 @@
 		<!-- <router-link tag="div" class="setup-feedback" to="/myindex/myFeedback">
 			<mt-cell title="我的反馈" is-link></mt-cell>
 		</router-link> -->
-		<router-link tag="div" class="setup-modifypwd" to="/myindex/modifyPassword">
+		<div tag="div" class="setup-modifypwd" @click="changeWord">
 			<mt-cell title="修改密码" is-link></mt-cell>
-		</router-link>
+		</div>
 		<!-- <router-link tag="div" class="setup-modifypwd" to="/myindex/changeMobile">
 			<mt-cell title="修改手机号" is-link></mt-cell>
 		</router-link> -->
@@ -136,6 +136,15 @@ export default {
       this.value
         ? this.$store.dispatch("SOFTKEYBOARD", true)
         : this.$store.dispatch("SOFTKEYBOARD", false);
+    },
+    //修改跳转
+    changeWord(){
+      if (isMobile.iOS()) {
+        let params={}
+				window.webkit.messageHandlers.showKeyboard.postMessage(params);
+			} else if (isMobile.Android()) {
+				this.$router.push('/myindex/modifyPassword')
+			}
     },
     isIOSOrAndroid() {
       //判断ios和安卓机型的方法
