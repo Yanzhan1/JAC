@@ -106,6 +106,11 @@
 				<img v-else :src="'./static/images/Lovecar/waioff.png'" />
 				<span :class="activeShowImg==3?'active':'actives'">外循环</span>
 			</button>
+      <!-- <button :disabled="!value" class="tabar flex-column-align" @click="change(1)">
+				<img v-if="activeShowImg == 1" :src="'./static/images/Lovecar/no-off@2x.png'" />
+				<img v-else :src="'./static/images/Lovecar/no-off2@2x.png'" />
+        <span :class="activeShowImg==1?'active':'actives'">除霜</span>
+			</button> -->
 			<!--底部导航End-->
 		</div>
 		<!--pin码弹出框Start-->
@@ -223,7 +228,7 @@ export default {
       //曲线状态
       curveState: false,
       //空调默认点
-      airSpace: 0,
+      airSpace: 8,
       //空调图旋转状态
       rotateState: false,
       nums: 2,
@@ -259,7 +264,8 @@ export default {
     //激活底部图标方法
     change(val) {
       if (val == 1) {
-        this.loop = 0;
+        this.turnon = 7;
+        this.defrost = !this.defrost;
       }
       if (val == 2) {
         this.turnon = 3;
@@ -477,7 +483,6 @@ export default {
       //				var start = $('#rightColorful').on('touchstart)
       this.debouncedGetAnswer();
       // this.httpair();
-      // console.log(this.temperNum[this.airSpace]);
     },
     //激活空调图,进行旋转
     refreshPmData() {
@@ -544,7 +549,6 @@ export default {
     },
     //重复调用异步接口
     getAsyReturn(operationId) {
-      var flag = true;
       this.sjc = new Date().getTime();
       this.$http
         .post(
@@ -616,6 +620,22 @@ export default {
                     position: "middle",
                     duration: 2000
                   });
+                }
+                if (this.turnon == "7") {
+                  this.defrost = !this.defrost;
+                  if (this.defrost) {
+                    Toast({
+                      message: "除霜关闭失败",
+                      position: "middle",
+                      duration: 2000
+                    });
+                  } else {
+                    Toast({
+                      message: "除霜开启失败",
+                      position: "middle",
+                      duration: 2000
+                    });
+                  }
                 }
                 localhide();
               } else {
@@ -692,6 +712,22 @@ export default {
                                 position: "middle",
                                 duration: 2000
                               });
+                            }
+                            if (this.turnon == "7") {
+                              this.defrost = !this.defrost;
+                              if (this.defrost) {
+                                Toast({
+                                  message: "除霜关闭失败",
+                                  position: "middle",
+                                  duration: 2000
+                                });
+                              } else {
+                                Toast({
+                                  message: "除霜开启失败",
+                                  position: "middle",
+                                  duration: 2000
+                                });
+                              }
                             }
                             clearInterval(this.time);
                             localhide();
@@ -774,6 +810,27 @@ export default {
                               duration: 2000
                             });
                           }
+                          if (this.turnon == "7") {
+                            if (this.defrost) {
+                              this.activeShowImg
+                                ? (this.activeShowImg = 0)
+                                : (this.activeShowImg = 1);
+                              Toast({
+                                message: "开启除霜模式",
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else {
+                              this.activeShowImg
+                                ? (this.activeShowImg = 0)
+                                : (this.activeShowImg = 1);
+                              Toast({
+                                message: "关闭除霜模式",
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
+                          }
                           this.refreshPmData(), clearInterval(this.time);
                           localhide();
                         } else if (res.data.status == "FAILED") {
@@ -836,6 +893,22 @@ export default {
                               position: "middle",
                               duration: 2000
                             });
+                          }
+                          if (this.turnon == "7") {
+                            this.defrost = !this.defrost;
+                            if (this.defrost) {
+                              Toast({
+                                message: "除霜关闭失败",
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else {
+                              Toast({
+                                message: "除霜开启失败",
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
                           }
                           clearInterval(this.time);
                           localhide();
@@ -901,7 +974,22 @@ export default {
                             duration: 2000
                           });
                         }
-
+                        if (this.turnon == "7") {
+                          this.defrost = !this.defrost;
+                          if (this.defrost) {
+                            Toast({
+                              message: "除霜关闭失败",
+                              position: "middle",
+                              duration: 2000
+                            });
+                          } else {
+                            Toast({
+                              message: "除霜开启失败",
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
+                        }
                         clearInterval(this.time);
                         localhide();
                       }
@@ -984,6 +1072,27 @@ export default {
                   duration: 2000
                 });
               }
+              if (this.turnon == "7") {
+                if (this.defrost) {
+                  this.activeShowImg
+                    ? (this.activeShowImg = 0)
+                    : (this.activeShowImg = 1);
+                  Toast({
+                    message: "开启除霜模式",
+                    position: "middle",
+                    duration: 2000
+                  });
+                } else {
+                  this.activeShowImg
+                    ? (this.activeShowImg = 0)
+                    : (this.activeShowImg = 1);
+                  Toast({
+                    message: "关闭除霜模式",
+                    position: "middle",
+                    duration: 2000
+                  });
+                }
+              }
               this.refreshPmData(), clearInterval(this.time);
               localhide();
             } else if (res.data.status == "FAILED") {
@@ -1044,6 +1153,22 @@ export default {
                   position: "middle",
                   duration: 2000
                 });
+              }
+              if (this.turnon == "7") {
+                this.defrost = !this.defrost;
+                if (this.defrost) {
+                  Toast({
+                    message: "除霜关闭失败",
+                    position: "middle",
+                    duration: 2000
+                  });
+                } else {
+                  Toast({
+                    message: "除霜开启失败",
+                    position: "middle",
+                    duration: 2000
+                  });
+                }
               }
               clearInterval(this.time);
               localhide();
@@ -1107,6 +1232,22 @@ export default {
                 duration: 2000
               });
             }
+            if (this.turnon == "7") {
+              this.defrost = !this.defrost;
+              if (this.defrost) {
+                Toast({
+                  message: "除霜关闭失败",
+                  position: "middle",
+                  duration: 2000
+                });
+              } else {
+                Toast({
+                  message: "除霜开启失败",
+                  position: "middle",
+                  duration: 2000
+                });
+              }
+            }
             clearInterval(this.time);
             localhide();
           }
@@ -1114,6 +1255,7 @@ export default {
     },
     //每次改变请求的方法
     httpair() {
+      let defrostVal = this.defrost ? "2" : "1";
       var param = {
         vin: this.$store.state.vins,
         operationType: "AIRCONDITIONER",
@@ -1123,7 +1265,8 @@ export default {
           loop: this.loop,
           temperature: this.temperNum[this.airSpace],
           airType: 0,
-          ac: this.compressors
+          ac: this.compressors,
+          defrost: defrostVal
         }
       };
       this.$http
