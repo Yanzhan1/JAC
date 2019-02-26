@@ -375,12 +375,16 @@
               const {
                 data: {
                   data: {
-                    readNum
+                    readNum,
+                    likeStatus,
+                    likeNum
                   }
                 }
               } = res
 
               this.informationList[this._index].readNum = readNum
+              this.informationList[this._index].likeStatus = likeStatus
+              this.informationList[this._index].likeNum = likeNum
             } else {
               console.log(res.data.errorMsg);
             }
