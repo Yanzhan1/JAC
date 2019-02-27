@@ -91,8 +91,9 @@
           </div>
           <img :src="'./static/images/Lovecar/right@2x.png'" alt="" />
         </div>
-        <div style="margin-left:.23rem;font-size:.12rem;color:#222;">风量</div>
+        <!-- <div style="margin-left:.23rem;font-size:.12rem;color:#222;">风量</div> -->
       </div>
+      <div style="color:#222;position:absolute;top:5rem;">风量</div>
 			<!--风量计数器End-->
 		</div>
 		<!--空调主体End-->
@@ -1769,8 +1770,8 @@ export default {
   outline: none;
 }
 .tabar > img {
-  width: 0.88rem;
-  height: 0.88rem;
+  width: 1.2rem;
+  height: 1.2rem;
   margin-bottom: 0.13rem;
 }
 

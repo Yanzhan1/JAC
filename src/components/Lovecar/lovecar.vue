@@ -3,7 +3,7 @@
 		<div class="lovecar tophead">
 			<div class="nav MobileHeight">
 				<div style="color:#fff;font: .3rem/.5rem 'PingFang-SC-Regular'" @click="navtip">更多车控</div>
-				<span class="txt_m" style="margin-right: 1.8rem;">&nbsp;&nbsp;&nbsp;&nbsp;{{this.carsysitem}}</span>
+				<span class="txt_m" style="margin-right: 1.8rem;">&nbsp;&nbsp;&nbsp;&nbsp;{{this.$store.state.nomarlseriseName}}</span>
 				<span class="txt_r"></span>
 			</div>
 			<div class="navs navs_h">
@@ -171,12 +171,18 @@
 							</div>
 						</router-link>
 						<!-- <router-link v-show="this.SUNROOF" :to="{path:'/lovecar/skylightControl',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
-						<div class="navs">
-							<img class="picc skylight" src="../../../static/images/Wit/tianchuang.png" alt="">
-							<span class="pic_txt">天窗</span>
-						</div>
-					</router-link> -->
-						<router-link v-show="this.SUNROOF" :to="{path:'/lovecar/skylightClose',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
+              <div class="navs">
+                <img class="picc skylight" src="../../../static/images/Wit/tianchuang.png" alt="">
+                <span class="pic_txt">天窗</span>
+              </div>
+            </router-link> -->
+						<router-link v-show="this.REMOTE_CLOSE_SUNROOF" :to="{path:'/lovecar/skylightClose',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
+							<div class="navs">
+								<img class="picc skylight" src="../../../static/images/Wit/tianchuang.png" alt="">
+								<span class="pic_txt">天窗</span>
+							</div>
+						</router-link>
+						<router-link v-show="this.SUNROOF"  :to="{path:'/lovecar/skylightALL',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc skylight" src="../../../static/images/Wit/tianchuang.png" alt="">
 								<span class="pic_txt">天窗</span>
@@ -350,7 +356,8 @@ export default {
       Aircondtion: false, //自动空调
       TRUNK: false, //尾门控制
       HOSTSEAT_HEAT: false, //座椅控制
-      SUNROOF: false, //天窗控制
+      SUNROOF: false, //可开关的天窗控制
+      REMOTE_CLOSE_SUNROOF:false,//只能关闭的天窗控制
       PURIFICTION: false, //空气净化器控制
       WIFI: false, //wifi控制
       ELECTRIC_FENCE: false, //电子围栏
@@ -542,6 +549,9 @@ export default {
                     break;
                   case "SUNROOF": 
                     this.SUNROOF = true;
+                    break;
+                  case "REMOTE_CLOSE_SUNROOF": 
+                    this.REMOTE_CLOSE_SUNROOF = true;
                     break;
                   case "EAIRCONDITIONER": 
                     this.Aircondtion_electricity = true;
@@ -1928,45 +1938,43 @@ export default {
       }
     },
     userId(newVal, oldVal) {
-      console.log(newVal,oldVal)
       this.vehiclestatus();
       this.tspid = this.$store.state.tspId;
-      console.log(this.tspid)
       if (this.$store.state.tspId == undefined) {
         this.tspid = 0;
       }
-      this.$http
-        .post(
-          My.My_Bus,
-          {
-            userId: this.$store.state.userId,
-            aaaUserID: this.$store.state.aaaid,
-            phone: this.$store.state.mobile,
-            tspUserId: this.tspid
-          },
-          this.$store.state.tsppin
-        )
-        .then(res => {
-          if (res.data.returnSuccess) {
-            this.BusDetails = res.data.data;
-            for (let i = 0; i < res.data.data.length; i++) {
-              if (
-                res.data.data[i].def == 1 ||
-                res.data.data[i].defToNathor == 1
-              ) {
-                this.carsysitem = res.data.data[i].seriesName;
-                var payload = res.data.data[i].vin;
-                this.$store.dispatch("CARVINS", payload);
-                // this.$store.state.vins = res.data.data[i].vin;
-              }
-              // }
-            }
+      // this.$http
+      //   .post(
+      //     My.My_Bus,
+      //     {
+      //       userId: this.$store.state.userId,
+      //       aaaUserID: this.$store.state.aaaid,
+      //       phone: this.$store.state.mobile,
+      //       tspUserId: this.tspid
+      //     },
+      //     this.$store.state.tsppin
+      //   )
+      //   .then(res => {
+      //     if (res.data.returnSuccess) {
+      //       this.BusDetails = res.data.data;
+      //       for (let i = 0; i < res.data.data.length; i++) {
+      //         if (
+      //           res.data.data[i].def == 1 ||
+      //           res.data.data[i].defToNathor == 1
+      //         ) {
+      //           this.carsysitem = res.data.data[i].seriesName;
+      //           var payload = res.data.data[i].vin;
+      //           this.$store.dispatch("CARVINS", payload);
+      //           // this.$store.state.vins = res.data.data[i].vin;
+      //         }
+      //         // }
+      //       }
             this.firstEnter = true;
             this.vinn = this.$store.state.vins;
             this.Support();
             this.Carquerry();
-          }
-        });
+        //   }
+        // });
     }
   },
   // beforeRouteEnter:(to,from,next)=>{
@@ -1983,6 +1991,7 @@ export default {
     clearInterval(this.time);
   },
   mounted() {
+    
     let params = {
       userNo: this.$store.state.userId 
     };
@@ -2004,46 +2013,46 @@ export default {
       this.Getmarkedwords();
     if (this.userId) {
       this.vehiclestatus();
-      this.$http
-        .post(
-          My.My_Bus,
-          {
-            userId: this.$store.state.userId,
-            phone: this.$store.state.mobile,
-            tspUserId: this.$store.state.tspId,
-            aaaUserID: this.$store.state.aaaid
-          },
-          this.$store.state.tsppin
-        )
-        .then(res => {
-          if (res.data.returnSuccess) {
-            this.BusDetails = res.data.data;
-            for (let i = 0; i < res.data.data.length; i++) {
-              if (
-                res.data.data[i].def == 1 ||
-                res.data.data[i].defToNathor == 1
-              ) {
-                this.carsysitem = res.data.data[i].seriesName || null;
-                var payload = res.data.data[i].vin;
-                this.defaultvin = res.data.data[i].vin;
-                this.$store.state.brandName = res.data.data[i].brandName;
-                this.$store.dispatch("CARVINS", payload);
-                //获取机车 登录登出状态
-                //  	       this.getCarLoginState()
-              }
-            }
+      // this.$http
+      //   .post(
+      //     My.My_Bus,
+      //     {
+      //       userId: this.$store.state.userId,
+      //       phone: this.$store.state.mobile,
+      //       tspUserId: this.$store.state.tspId,
+      //       aaaUserID: this.$store.state.aaaid
+      //     },
+      //     this.$store.state.tsppin
+      //   )
+      //   .then(res => {
+      //     if (res.data.returnSuccess) {
+      //       this.BusDetails = res.data.data;
+      //       for (let i = 0; i < res.data.data.length; i++) {
+      //         if (
+      //           res.data.data[i].def == 1 ||
+      //           res.data.data[i].defToNathor == 1
+      //         ) {
+      //           this.carsysitem = res.data.data[i].seriesName || null;
+      //           var payload = res.data.data[i].vin;
+      //           this.defaultvin = res.data.data[i].vin;
+      //           this.$store.state.brandName = res.data.data[i].brandName;
+      //           this.$store.dispatch("CARVINS", payload);
+      //           //获取机车 登录登出状态
+      //           //  	       this.getCarLoginState()
+      //         }
+      //       }
             this.firstEnter = true;
             this.vinn = this.$store.state.vins;
             this.Support();
             this.Carquerry();
-          } else {
-            Toast({
-              message: res.data.returnErrMsg,
-              position: "middle",
-              duration: 2000
-            });
-          }
-        });
+          // } else {
+          //   Toast({
+          //     message: res.data.returnErrMsg,
+          //     position: "middle",
+          //     duration: 2000
+          //   });
+          // }
+        // });
     }
   },
   beforeDestroy() {
