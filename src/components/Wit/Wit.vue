@@ -18,9 +18,9 @@
               <li>
                 <a href="javascript:;">维保网点</a>
               </li>					
-              <li v-if="this.$store.state.islogin">
+              <!-- <li v-if="this.$store.state.islogin">
                 <a href="javascript:;">维保预约</a>
-              </li>					
+              </li>					 -->
               <li class="sideline"></li>
             </ul>
           </div>
@@ -78,9 +78,9 @@
           <li class="li_list" @click="Record(4)">
             <searchnet></searchnet>					
           </li>
-          <li class="li_list" v-if="this.$store.state.islogin">
+          <!-- <li class="li_list" v-if="this.$store.state.islogin">
             <preweib></preweib>				
-          </li>
+          </li> -->
         </ul>
       </div>
       <!--内容End-->
