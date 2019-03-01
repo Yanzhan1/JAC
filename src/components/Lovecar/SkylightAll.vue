@@ -267,11 +267,21 @@ export default {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
                           if (tSS >= 56) {
-                            Toast({
-                              message: this.skywords[2].dictValue,
-                              position: "middle",
-                              duration: 2000
-                            });
+                            if (this.windowcontrol) {
+                              //关闭失败
+                              Toast({
+                                message: this.skywords[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else {
+                              //打开失败
+                              Toast({
+                                message: this.skywords[5].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
                             clearInterval(this.time);
                             localhide();
                           }
@@ -280,36 +290,59 @@ export default {
                             //执行关闭天窗操作
                             this.curveState = false;
                             this.activeShowImg = false;
+                            Toast({
+                              message: this.skywords[1].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
                           } else {
                             //执行开启天窗操作
                             this.curveState = true;
                             this.activeShowImg = true;
+                            Toast({
+                              message: this.skywords[4].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
                           }
-                          Toast({
-                            message: this.skywords[1].dictValue,
-                            position: "middle",
-                            duration: 2000
-                          });
                           this.value = !this.value;
                           clearInterval(this.time);
                           localhide();
                         } else if (res.data.status == "FAILED") {
-                          flag = false;
+                          if (this.windowcontrol) {
+                            //关闭失败
+                            Toast({
+                              message: this.skywords[2].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          } else {
+                            //打开失败
+                            Toast({
+                              message: this.skywords[5].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
+                          clearInterval(this.time);
+                          localhide();
+                        }
+                      } else {
+                        if (this.windowcontrol) {
+                          //关闭失败
                           Toast({
                             message: this.skywords[2].dictValue,
                             position: "middle",
                             duration: 2000
                           });
-                          clearInterval(this.time);
-                          localhide();
+                        } else {
+                          //打开失败
+                          Toast({
+                            message: this.skywords[5].dictValue,
+                            position: "middle",
+                            duration: 2000
+                          });
                         }
-                      } else {
-                        Toast({
-                          message: this.skywords[2].dictValue,
-                          position: "middle",
-                          duration: 2000
-                        });
-                        flag = false;
                         clearInterval(this.time);
                         localhide();
                       }
@@ -321,35 +354,60 @@ export default {
                 //执行关闭天窗操作
                 this.curveState = false;
                 this.activeShowImg = false;
+                Toast({
+                  message: this.skywords[1].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
               } else {
                 //执行开启天窗操作
                 this.curveState = true;
                 this.activeShowImg = true;
+                Toast({
+                  message: this.skywords[4].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
               }
-              Toast({
-                message: this.skywords[1].dictValue,
-                position: "middle",
-                duration: 2000
-              });
+
               this.value = !this.value;
               clearInterval(this.time);
               localhide();
             } else if (res.data.status == "FAILED") {
+              if (this.windowcontrol) {
+                //关闭失败
+                Toast({
+                  message: this.skywords[2].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              } else {
+                //打开失败
+                Toast({
+                  message: this.skywords[5].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              }
+              clearInterval(this.time);
+              localhide();
+            }
+          } else {
+            if (this.windowcontrol) {
+              //关闭失败
               Toast({
                 message: this.skywords[2].dictValue,
                 position: "middle",
                 duration: 2000
               });
-              clearInterval(this.time);
-              localhide();
+            } else {
+              //打开失败
+              Toast({
+                message: this.skywords[5].dictValue,
+                position: "middle",
+                duration: 2000
+              });
             }
-          } else {
-            Toast({
-              message: this.skywords[2].dictValue,
-              position: "middle",
-              duration: 2000
-            });
-            flag = false;
             clearInterval(this.time);
             localhide();
           }

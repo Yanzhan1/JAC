@@ -279,7 +279,6 @@ export default {
                           clearInterval(this.time);
                           localhide();
                         } else if (res.data.status == "FAILED") {
-                          flag = false;
                           Toast({
                             message: this.skywords[2].dictValue,
                             position: "middle",
@@ -294,7 +293,6 @@ export default {
                           position: "middle",
                           duration: 2000
                         });
-                        flag = false;
                         clearInterval(this.time);
                         localhide();
                       }
@@ -329,7 +327,6 @@ export default {
               position: "middle",
               duration: 2000
             });
-            flag = false;
             clearInterval(this.time);
             localhide();
           }
