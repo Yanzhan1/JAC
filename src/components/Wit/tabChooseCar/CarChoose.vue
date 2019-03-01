@@ -5,7 +5,7 @@
   <!--<transition name="slide1">-->
     <div class="contentImg">
       <div class="carImg">
-        <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;left: 0.25rem" :src="'./static/images/Wit/whiteBody.png'"/>
+        <img style="width:100%;height: 4rem;background-size: 100% 100%;position: absolute;left: 0.25rem" :src="'./static/images/Wit/whiteBody.png'"/>
       </div>
     </div>
   <!--</transition>-->
