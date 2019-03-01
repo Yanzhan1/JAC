@@ -114,11 +114,11 @@
 				<img v-else :src="'./static/images/Lovecar/waioff.png'" />
 				<span :class="activeShowImg==3?'active':'actives'">外循环</span>
 			</button>
-			<!-- <button :disabled="!value" class="tabar flex-column-align" @click="change()">
-				<img v-if="activeShowImg == 1" :src="'./static/images/Lovecar/no-off@2x.png'" />
-				<img v-else :src="'./static/images/Lovecar/no-off2@2x.png'" />
+			<button :disabled="!value" class="tabar flex-column-align" @click="change(1)">
+				<img v-if="activeShowImg == 1" :src="'./static/images/Lovecar/defroston@2x.png'" />
+				<img v-else :src="'./static/images/Lovecar/defrostoff@2x.png'" />
         <span :class="activeShowImg==1?'active':'actives'">除霜</span>
-			</button> -->
+			</button>
 			<!--底部导航End-->
 		</div>
 		<!--pin码弹出框Start-->
@@ -185,6 +185,7 @@ export default {
       air_regulation: [], //风量调节提示
       internal_cycle_regulation: [], //内循环调节提示
       external_circulation_regulation: [], //外循环调节提示
+      vehicle_defrost:[],//除霜提示
       ownKeyBoard: {
         first: "",
         second: "",
@@ -540,6 +541,9 @@ export default {
         if (value.dictType == "external_circulation_regulation") {
           this.external_circulation_regulation = value.sysDictDataVOs;
         }
+        if(value.dictType=="vehicle_defrost"){
+          this.vehicle_defrost=value.sysDictDataVOs;
+        }
       }
     },
     //重复调用异步接口
@@ -620,13 +624,13 @@ export default {
                   this.defrost = !this.defrost;
                   if (this.defrost) {
                     Toast({
-                      message: "除霜关闭失败",
+                      message: this.vehicle_defrost[1].dictValue,
                       position: "middle",
                       duration: 2000
                     });
                   } else {
                     Toast({
-                      message: "除霜开启失败",
+                      message: this.vehicle_defrost[1].dictValue,
                       position: "middle",
                       duration: 2000
                     });
@@ -712,13 +716,13 @@ export default {
                               this.defrost = !this.defrost;
                               if (this.defrost) {
                                 Toast({
-                                  message: "除霜关闭失败",
+                                  message: this.vehicle_defrost[1].dictValue,
                                   position: "middle",
                                   duration: 2000
                                 });
                               } else {
                                 Toast({
-                                  message: "除霜开启失败",
+                                  message: this.vehicle_defrost[1].dictValue,
                                   position: "middle",
                                   duration: 2000
                                 });
@@ -813,7 +817,7 @@ export default {
                                 ? (this.activeShowImg = 0)
                                 : (this.activeShowImg = 1);
                               Toast({
-                                message: "开启除霜模式",
+                                message: this.vehicle_defrost[1].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
@@ -822,7 +826,7 @@ export default {
                                 ? (this.activeShowImg = 0)
                                 : (this.activeShowImg = 1);
                               Toast({
-                                message: "关闭除霜模式",
+                                message: this.vehicle_defrost[2].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
@@ -895,13 +899,13 @@ export default {
                             this.defrost = !this.defrost;
                             if (this.defrost) {
                               Toast({
-                                message: "除霜关闭失败",
+                                message: this.vehicle_defrost[1].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
                             } else {
                               Toast({
-                                message: "除霜开启失败",
+                                message: this.vehicle_defrost[1].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
@@ -975,13 +979,13 @@ export default {
                           this.defrost = !this.defrost;
                           if (this.defrost) {
                             Toast({
-                              message: "除霜关闭失败",
+                              message: this.vehicle_defrost[1].dictValue,
                               position: "middle",
                               duration: 2000
                             });
                           } else {
                             Toast({
-                              message: "除霜开启失败",
+                              message: this.vehicle_defrost[1].dictValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -1075,7 +1079,7 @@ export default {
                     ? (this.activeShowImg = 0)
                     : (this.activeShowImg = 1);
                   Toast({
-                    message: "开启除霜模式",
+                    message: this.vehicle_defrost[0].dictValue,
                     position: "middle",
                     duration: 2000
                   });
@@ -1084,7 +1088,7 @@ export default {
                     ? (this.activeShowImg = 0)
                     : (this.activeShowImg = 1);
                   Toast({
-                    message: "关闭除霜模式",
+                    message: this.vehicle_defrost[1].dictValue,
                     position: "middle",
                     duration: 2000
                   });
@@ -1155,13 +1159,13 @@ export default {
                 this.defrost = !this.defrost;
                 if (this.defrost) {
                   Toast({
-                    message: "除霜关闭失败",
+                    message: this.vehicle_defrost[1].dictValue,
                     position: "middle",
                     duration: 2000
                   });
                 } else {
                   Toast({
-                    message: "除霜开启失败",
+                    message: this.vehicle_defrost[1].dictValue,
                     position: "middle",
                     duration: 2000
                   });
@@ -1232,13 +1236,13 @@ export default {
               this.defrost = !this.defrost;
               if (this.defrost) {
                 Toast({
-                  message: "除霜关闭失败",
+                  message: this.vehicle_defrost[3].dictValue,
                   position: "middle",
                   duration: 2000
                 });
               } else {
                 Toast({
-                  message: "除霜开启失败",
+                  message: this.vehicle_defrost[1].dictValue,
                   position: "middle",
                   duration: 2000
                 });
