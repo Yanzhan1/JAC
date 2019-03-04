@@ -104,6 +104,7 @@ export default {
       flag: false,
       moveFlag: false,
       clickFlag: false,
+      control:false,
       position: {
       x: 0,
       y: 0
@@ -501,10 +502,21 @@ export default {
     }
   },
   mounted() {
-    console.log('q',this.$store.state.defaultInformation.vin)
+    console.log('wit',this.$store.state.enterMaintenance)
     this.init();
     this.changeTap();
   },
+  // computed:{
+  //     enterMaintenance(){
+  //       return  this.$store.state.enterMaintenance
+  //     }
+  // },
+  // watch:{
+  //     enterMaintenance(newVal, oldVal){
+  //       this.control=newVal
+  //       console.log(newVal, oldVal)
+  //     }
+  // },
   beforeDestroy() {}
 };
 </script>

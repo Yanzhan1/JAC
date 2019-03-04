@@ -31,7 +31,7 @@ export default {
     }, //非爱车发送请求时的token,暂用
     getpin: {
         headers: {
-            "identityParam": '{ "userId": "", "token": "", "phone": "" }',
+            "identityParam": '{ "userId": "", "token": "Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcIkFBQUlkXCI6MjA5LFwiYXV0aGVudGljYXRpb25TdGF0dXNcIjowLFwiY3JlYXRlZERhdGVcIjoxNTQ1NzI5NzY0MDAwLFwiZW1lcmdlbmN5Q29udGFjdE5hbWVcIjpcInl5ZlwiLFwiZW1lcmdlbmN5Q29udGFjdFBob25lXCI6XCIxNTk2ODgzODM4OVwiLFwiaWRcIjo0OTIsXCJpbml0VXNlclwiOjAsXCJsYXN0TW9kaWZpZWREYXRlXCI6MTU1MDY1Mzc0OTAwMCxcIm5vXCI6XCJBRDAyMjAxODA4MjEwNTEzNDY5Mzc1N1wiLFwicGVyc29uYWxTaWduYXR1cmVcIjpcImhlbGxvV29ybGRcIixcInBob25lXCI6XCIxNTAyNjU2Njk5MlwiLFwicmVhbFBob25lXCI6XCIxNTAqKioqNjk5MlwiLFwic2V4XCI6MSxcInVzZXJDb2RlXCI6XCIxNTAyNjU2Njk5MlwiLFwidXNlck5hbWVcIjpcIllZRlwiLFwidXNlclN0YXR1c1wiOjAsXCJ1c2VyVHlwZVwiOlwiMDFcIn0iLCJjcmVhdGVkIjoxNTUxNzMzNDA0MTQwLCJ1c2VyTm8iOiJBRDAyMjAxODA4MjEwNTEzNDY5Mzc1NyIsInVzZXJUeXBlIjoiMDEiLCJ1c2VyTmFtZSI6IllZRiIsImV4cCI6MTU1MjU5NzQwNCwidXNlcklkIjo0OTJ9.tzKGd3LAX2lxRg_8DQUDkCD9p9jmFxlZtvrSJTKp_kY", "phone": "" }',
         }
     }, //爱车发送请求时的token,暂用
     //调用部分tsp接口用到的token
@@ -69,5 +69,6 @@ export default {
     recordNo: "", //网点评分的RECORDNO
     $flag: false, // 有用别动
     code403: 0,
-    defaultInformation:{}//存贮默认车辆的所有信息
+    defaultInformation: {}, //存贮默认车辆的所有信息
+    enterMaintenance: false,
 }
