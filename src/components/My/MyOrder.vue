@@ -24,10 +24,10 @@
           <div>流量</div>
           <div v-show="this.flow" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
         </div>
-        <!-- <div @click="showMaintenance" >
+        <div @click="showMaintenance" >
           <div>维保</div>
           <div v-show="this.Maintenance" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
-        </div> -->
+        </div>
       </div>
     </div>
 		
@@ -224,7 +224,6 @@ export default {
     //       const data = res.data;
     //       if (data.code == 0) {
     //         this.shoppingMall = data.data;
-    //         console.log(this.shoppingMall);
     //       }else{
     //           Toast({
     //               message: data.msg,
@@ -273,7 +272,7 @@ export default {
       let param = {
         // vin: "LJ12EKR21J4931800",
         revervationStatus: "",
-        vin:this.$state.store.vins,
+        vin:this.$store.state.defaultInformation.vin,
       };
        this.$http
         .post(Wit.synchronousMaintenanceAppointmentByDms, param)
@@ -283,7 +282,7 @@ export default {
               size: 99,
               current: 1,
               // vin: "LJ12EKR21J4931800"
-              vin:this.$state.store.vins,
+              vin:this.$store.state.defaultInformation.vin,
             };
             this.$http
               .post(Wit.searchMaintenanceAppointmentListPage, data)
@@ -311,7 +310,6 @@ export default {
               this.flag = false;
             }
             this.Xorder = res.data.data.records;
-            console.log(this.Xorder)
             for (let i = 0; i < this.Xorder.length; i++) {
               this.Xorder[i].time = operationTime.getTime(
                 this.Xorder[i].createdDate,
@@ -338,30 +336,32 @@ export default {
     },
     Getoederlist() {
       let params = {
-        vin: this.$store.state.vins
+        vin: this.$store.state.defaultInformation.vin
       };
       this.$http.post(Lovecar.Getoederlist, params).then(res => {
-        // console.log(res);
       });
     }
   },
   created() {
     this.GetXorder();
     this.flowbuy();
-    // this.appointment();
+    this.appointment();
     // this.getShoppingMall();
   },
   mounted() {
-    // alert(this.url)
     //			console.log('加密:' + this.$md5('uid=1jac.com'))
+  
+    console.log(this.$route.query)
     $(".MobileHeight").css({
       borderTopWidth: this.$store.state.mobileStatusBar,
       borderTopColor: "#fff"
     });
     if (this.$route.params.show == 1) {
       this.showflow();
-    } else {
-      this.list = true;
+    }  else  if(this.$route.query.show == '2'){
+        this.showMaintenance();
+    }else{
+      this.list=true
     }
   }
 };

@@ -724,6 +724,9 @@ export default {
             .catch(() => {
               this.$router.push({
                 path:"/myorder",
+                query:{
+                  show:'2'
+                }
                 });
             });
         }
