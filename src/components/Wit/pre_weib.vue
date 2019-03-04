@@ -124,11 +124,11 @@
                               <span class="txt_m dian" style="margin-top:.1rem">{{item.dealerAddress}}</span>
                 </span>
               </div>
-              <div class="cocenter flex-center">
+              <!-- <div class="cocenter flex-center">
                 <div class="flex-column-align">
                   <span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">距离</span><span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">0.2</span>
                 </div>
-              </div>
+              </div> -->
             </li>
         </ul>
       </div>
@@ -431,6 +431,7 @@ export default {
         const data = res.data;
         if (data.code == 0) {
           this.addressArray = data.data.records;
+          console.log(this.addressArray)
           if (this.addressArray.length == 0) {
             this.nodealer = false;
           } else {
