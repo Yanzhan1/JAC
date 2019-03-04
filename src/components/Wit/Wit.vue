@@ -14,12 +14,12 @@
               </li>
               <li>
                 <a href="javascript:;" >经销网点</a>
-              </li>
-              <li>
-                <a href="javascript:;">维保网点</a>
-              </li>					
+              </li>            			
               <li v-if="this.$store.state.userId">
                 <a href="javascript:;">维保预约</a>
+              </li>		
+              <li>
+                <a href="javascript:;">维保网点</a>
               </li>					
               <li class="sideline"></li>
             </ul>
@@ -75,12 +75,12 @@
           <li class="li_list" @click="Record(3)">
             <dealer></dealer>					
           </li>
-          <li class="li_list" @click="Record(4)">
-            <searchnet></searchnet>					
-          </li>
           <li class="li_list" v-if="this.$store.state.userId">
             <preweib></preweib>				
           </li>
+          <li class="li_list" @click="Record(4)">
+            <searchnet></searchnet>					
+          </li>          
         </ul>
       </div>
       <!--内容End-->
