@@ -12,8 +12,8 @@
             <img v-else src="../../../static/images/discover/normalhead.png" alt="" style="width:100%;height:100%">
           </div>
           <!-- <div class="Membershipshow">{{this.Membership}}</div> -->
-          <!-- 控制V图标的展示 -->
-          <img  class="signimg" :src="Vimg" alt="">
+          <!-- 控制会员等级图标的展示 -->
+          <!-- <img v-show="this.$store.state.islogin" class="signimg" :src="Vimg" alt=""> -->
           <div class="flex column" style="margin-left: 0.2rem;">
             <div class="flex cocenter" style="overflow: hidden">
               <div v-if="this.$store.state.userId">
@@ -165,8 +165,8 @@ export default {
       momentNum: 0,
       myList: [],
       Membership:'',//会员等级标志
-      Vimg:'', //V图片
-      imgV: false, //控制V图片是否展示
+      Vimg:'', //会员等级图标的展示
+      imgV: false, //控制会员等级图标的展示
       imgJac: false, //控制jac是否展示
       num: "", //添加的积分量
       flag: false, //隐藏推荐码
