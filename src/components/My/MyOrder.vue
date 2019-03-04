@@ -99,7 +99,7 @@
               <div @click="goMaintenancedetail(item)">
                   <p class="flex row tim between">
                     <span class="times">{{item.revervationDate}}&nbsp&nbsp{{item.revervationTime}}</span>
-                    <span :class="item.revervationStatus=='已确认'?'makedone':'makedtwo'" >{{item.revervationStatus}}</span>
+                    <span :class="item.revervationStatus=='已取消'?'makedtwo':'makedone'" >{{item.revervationStatus}}</span>
                   </p>
                   <div class="cont">
                     <div class="flex column tp">
@@ -114,7 +114,7 @@
                     </div>
                   </div>
               </div>
-              <div class="cancellation flex cocenter" v-if="item.revervationStatus=='已确认'" @click="cancelbable(item.no)">
+              <div class="cancellation flex cocenter" v-if="item.revervationStatus!='已取消'" @click="cancelbable(item.no)">
                 <div>取消订单</div>
               </div>
 					</li >
