@@ -182,7 +182,7 @@
 								<span class="pic_txt">天窗</span>
 							</div>
 						</router-link>
-						<router-link v-show="this.SUNROOF"  :to="{path:'/lovecar/skylightALL',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
+						<router-link v-show="this.REMOTE_OPEN_OR_CLOSE_SUNROOF"  :to="{path:'/lovecar/skylightALL',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc skylight" src="../../../static/images/Wit/tianchuang.png" alt="">
 								<span class="pic_txt">天窗</span>
@@ -356,7 +356,7 @@ export default {
       Aircondtion: false, //自动空调
       TRUNK: false, //尾门控制
       HOSTSEAT_HEAT: false, //座椅控制
-      SUNROOF: false, //可开关的天窗控制
+      REMOTE_OPEN_OR_CLOSE_SUNROOF: false, //可开关的天窗控制
       REMOTE_CLOSE_SUNROOF:false,//只能关闭的天窗控制
       PURIFICTION: false, //空气净化器控制
       WIFI: false, //wifi控制
@@ -547,8 +547,8 @@ export default {
                   case "WINDOW":
                      this.WINDOW = true;
                     break;
-                  case "SUNROOF": 
-                    this.SUNROOF = true;
+                  case "REMOTE_OPEN_OR_CLOSE_SUNROOF": 
+                    this.REMOTE_OPEN_OR_CLOSE_SUNROOF = true;
                     break;
                   case "REMOTE_CLOSE_SUNROOF": 
                     this.REMOTE_CLOSE_SUNROOF = true;
@@ -1971,6 +1971,8 @@ export default {
       //       }
             this.firstEnter = true;
             this.vinn = this.$store.state.vins;
+            // this.vinn = this.$store.state.defaultInformation.vin;
+            console.log(this.vinn)
             this.Support();
             this.Carquerry();
         //   }
@@ -2043,6 +2045,7 @@ export default {
       //       }
             this.firstEnter = true;
             this.vinn = this.$store.state.vins;
+            // this.vinn = this.$store.state.defaultInformation.vin;
             this.Support();
             this.Carquerry();
           // } else {
