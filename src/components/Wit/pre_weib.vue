@@ -78,6 +78,11 @@
                   <span @click="choosecityone">确定</span>
                   <mt-picker :slots="citySlot" @change="cityChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
     </mt-popup>
+    <mt-popup v-show="this.typeChoose" id="tpyeLabel" class="region"  position="bottom">
+                  <h3>类型选择</h3>
+                  <span @click="choosetypeone">确定</span>
+                  <mt-picker :slots="typeSlot" @change="typeChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
+    </mt-popup>
 		<div class="carmessage" style="margin-top:.3rem">预约信息</div>
 		<div style="padding:0 .33rem">
 			<div class="flex row li_st between cocenter" @click="servicestatus">
@@ -94,16 +99,16 @@
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
-			<div class="flex row li_st between cocenter" >
+			<div class="flex row li_st between cocenter" @click="Maintenance">
 				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>维保类型</p>
-				<div class="flex row cocenter" @click="Maintenance">
-					<span ref="main" style="font-size:.26rem;color:#222">维修</span>
+				<div class="flex row cocenter" >
+					<span ref="main" style="font-size:.26rem;color:#222">{{this.chooseType}}</span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
-        <div class="choosexing" v-show="choosexing">
+        <!-- <div class="choosexing" v-show="choosexing">
             <div ref="one" @click="chooseone">维修</div>
             <div ref="two" @click="choosetwo">保养</div>
-        </div>
+        </div> -->
 			</div>
 		</div>
     <div style="width:100%;height:1rem;">
@@ -124,11 +129,11 @@
                               <span class="txt_m dian" style="margin-top:.1rem">{{item.dealerAddress}}</span>
                 </span>
               </div>
-              <!-- <div class="cocenter flex-center">
+              <div class="cocenter flex-center">
                 <div class="flex-column-align">
-                  <span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">距离</span><span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">0.2</span>
+                  <span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">距离</span><span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">{{item.juli}}</span>
                 </div>
-              </div> -->
+              </div>
             </li>
         </ul>
       </div>
@@ -158,7 +163,7 @@
     </div>
 		<span class="bottom-btn" @click="appointment">立即预约</span>
 
-		<div v-show="allback" class="black" @click='backgroundshow'></div>
+		<div v-show="allback" class="black" @click='backgroundshow' @touchmove.prevent></div>
 		<!-- 遮罩层  -->
 	</div>
 </template>
@@ -175,9 +180,11 @@ export default {
   },
   data() {
     return {
+      chooseType:'',
       hostname: "", //车主姓名
       mobile: "", //手机号
       servicezhan: false, //控制服务站
+      typeChoose:false,//控制维保类型选择
       orderTime: false, //控制时间
       allback: false, //遮罩层
       km: "", //维保预约的里程数
@@ -222,6 +229,7 @@ export default {
       proid: "", //省份的id请求城市用到
       provinceCode: "", //省份的code
       city_id: "", //城市的code
+      allcityList:[],//储存被选择省份的所有城市
       alldata: [], //所有的时间信息
       addressArray: [],
       everytime: [
@@ -270,6 +278,14 @@ export default {
         {
           flex: 1,
           values: [],
+          className: "slot1",
+          textAlign: "center"
+        }
+      ],
+      typeSlot: [
+        {
+          flex: 1,
+          values: ['维修','保养'],
           className: "slot1",
           textAlign: "center"
         }
@@ -347,6 +363,18 @@ export default {
           });
         }
       });
+    },
+    //选择维保类型
+    choosetypeone(){
+        if(this.chooseType==undefined){
+          this.chooseType='保养'
+        }
+        this.allback=false;
+        this.typeChoose=false;
+    },
+    //选择单个维保类型
+    typeChange(picker, values){
+      this.chooseType=values[0]
     },
     getbrand() {
       let param = {
@@ -471,6 +499,7 @@ export default {
       $("#provinceLabel").hide();
       $("#cityLabel").hide();
       this.orderTime = false;
+      this.typeChoose=false;
     },
     //选择省份
     chooseprovinces() {
@@ -478,6 +507,8 @@ export default {
       this.allback = true;
     },
     Maintenance() {
+      this.typeChoose=true;
+      this.allback=true;
       this.choosexing = !this.choosexing;
     },
     //确认省份
@@ -498,15 +529,18 @@ export default {
       };
       this.$http.post(Wit.searchCountryAreaCodeListPage, datas).then(res => {
         //请求城市列表
-        let data = res.data;
-        if (data.code == 0) {
+        this.allcityList=res.data.data.records
+        console.log(this.allcityList)
+        if (res.data.code == 0) {
           this.citySlot[0].values = []; //清除上一次城市的选择
-          data.data.records.forEach((item, index) => {
+           this.allcityList.forEach((item, index) => {
             this.citySlot[0].values.push(item.name);
-            this.city_id = item.code;
+            
           });
+          this.city_id = this.allcityList[0].code;
           this.valuescity1 = this.citySlot[0].values[0];
           this.mydeler();
+          
         } else {
           Toast({
             message: "初始化城市列表报错",
@@ -523,6 +557,13 @@ export default {
     },
     //确认城市
     choosecityone() {
+        this.allcityList.forEach((item, index) => {
+            if(this.valuescity==item.name){
+                this.city_id = item.code;
+                this.mydeler();
+
+            }
+          });
       $("#cityLabel").hide();
       this.allback = false;
       this.valuescity1 = this.valuescity;
@@ -1025,8 +1066,9 @@ export default {
 }
 
 .black {
+  position: fixed;
   width: 100%;
-  height: 110%;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
   position: absolute;
