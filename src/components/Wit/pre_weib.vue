@@ -105,10 +105,6 @@
 					<span ref="main" style="font-size:.26rem;color:#222">{{this.chooseType}}</span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
-        <!-- <div class="choosexing" v-show="choosexing">
-            <div ref="one" @click="chooseone">维修</div>
-            <div ref="two" @click="choosetwo">保养</div>
-        </div> -->
 			</div>
 		</div>
     <div style="width:100%;height:1rem;">
@@ -151,7 +147,7 @@
         	:continuous="false"
       	>
 				  <mt-swipe-item v-for="(item, index) in dataList" :key="index">
-				  	<p class="timeget">{{item}}</p>
+				  	<p ref="inchoosedate" class="timeget">{{item}}</p>
 				  </mt-swipe-item>
 				</mt-swipe>
 				<div class="button-wrapper">
@@ -459,7 +455,6 @@ export default {
         const data = res.data;
         if (data.code == 0) {
           this.addressArray = data.data.records;
-          console.log(this.addressArray)
           if (this.addressArray.length == 0) {
             this.nodealer = false;
           } else {
@@ -491,8 +486,8 @@ export default {
     confirmBtn() {
       this.allback = false;
       this.orderTime = false;
-      this.yearmonthday = $(".timeget").html();
-      this.currentTime = $(".timeget").html() + " " + this.valuestime;
+      this.yearmonthday = $(".is-active").text();
+      this.currentTime = $(".is-active").text() + " " + this.valuestime;
     },
     //点击遮罩层消失
     backgroundshow() {
@@ -533,7 +528,6 @@ export default {
       this.$http.post(Wit.searchCountryAreaCodeListPage, datas).then(res => {
         //请求城市列表
         this.allcityList=res.data.data.records
-        console.log(this.allcityList)
         if (res.data.code == 0) {
           this.citySlot[0].values = []; //清除上一次城市的选择
            this.allcityList.forEach((item, index) => {
@@ -606,7 +600,6 @@ export default {
       this.currentIndex = index;
       this.currentTitle = title;
       this.chooseno = this.addressArray[index].no;
-      console.log(this.chooseno)
     },
     imageselect() {
       this.chooseserveimg = false;
@@ -647,14 +640,6 @@ export default {
       }
       this.$refs.swiperWrap.next();
       this.getdayreal();
-    },
-    chooseone() {
-      this.choosexing = !this.choosexing;
-      this.$refs.main.innerText = this.$refs.one.innerText;
-    },
-    choosetwo() {
-      this.choosexing = !this.choosexing;
-      this.$refs.main.innerText = this.$refs.two.innerText;
     },
     //获取默认车辆的vin
     defaultvins() {
