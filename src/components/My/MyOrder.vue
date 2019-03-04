@@ -351,7 +351,6 @@ export default {
   mounted() {
     //			console.log('加密:' + this.$md5('uid=1jac.com'))
   
-    console.log(this.$route.query)
     $(".MobileHeight").css({
       borderTopWidth: this.$store.state.mobileStatusBar,
       borderTopColor: "#fff"

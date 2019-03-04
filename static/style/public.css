@@ -63,6 +63,11 @@ body {
     font-family: 'PingFangSC'
 }
 
+body.dialog-open {
+    position: fixed;
+    width: 100%;
+}
+
 
 /*解决所有图片比实际高3px问题*/
 

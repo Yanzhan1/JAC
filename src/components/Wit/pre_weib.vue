@@ -38,7 +38,7 @@
 				</div>
 			</div>
 			<div class="flex row li_st between cocenter">
-				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>车牌</p>
+				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">&nbsp</span>车牌</p>
 				<div class="flex row cocenter">
 					<input type="text" v-model="plateLicenseNo">
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
@@ -83,7 +83,7 @@
                   <span @click="choosetypeone">确定</span>
                   <mt-picker :slots="typeSlot" @change="typeChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
     </mt-popup>
-		<div class="carmessage" style="margin-top:.3rem">预约信息</div>
+		<div class="carmessage" style="margin-top:.01rem">预约信息</div>
 		<div style="padding:0 .33rem">
 			<div class="flex row li_st between cocenter" @click="servicestatus">
 				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>服务站</p>
@@ -119,7 +119,7 @@
 			<h2 style="padding:.2rem; text-align: center;font:.4rem/.6rem 'PingFang-SC-Regular'">服务站</h2>
       <span class="surebuttom" @click="subsub">确定</span>
       <div v-if="this.nodealer">
-        <ul style="padding:.1rem .2rem" >
+        <ul style="padding:.1rem .2rem;width:100%;height:4rem;OVERFLOW-Y: auto; OVERFLOW-X:hidden;overflow:auto;" >
             <li class="ul_list flex row around " v-for="(item,index) in addressArray">
               <label class="chooseimages" :class="index == currentIndex ? 'active' : ''" @click="chooseimage(index,item.dealerName)"></label>
               <div class="flex column around  mid">
@@ -131,7 +131,7 @@
               </div>
               <div class="cocenter flex-center">
                 <div class="flex-column-align">
-                  <span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">距离</span><span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">{{item.juli}}</span>
+                  <span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">距离</span><span class="txt_m" style="display:inline-block;margin-top:.2rem;height:0.3rem;line-height:0.3rem;">{{item.juli| toFixed(2)}}km</span>
                 </div>
               </div>
             </li>
@@ -343,7 +343,7 @@ export default {
                         this.citySlot[0].values.push(item.name);
                         this.city_id = item.code;
                       });
-                      this.brandName();
+                      this.getbrand();
                     } else {
                       Toast({
                         message: "初始化城市列表报错",
@@ -471,6 +471,7 @@ export default {
     servicestatus() {
       this.servicezhan = true;
       this.allback = true;
+      ModalHelper.afterOpen()
     },
     orderTimeStatus() {
       this.pickerVisible = true;
@@ -482,6 +483,7 @@ export default {
     },
     //选择确定服务站
     subsub() {
+      ModalHelper.beforeClose()
       this.allback = false;
       this.servicezhan = false;
     },
@@ -494,6 +496,7 @@ export default {
     },
     //点击遮罩层消失
     backgroundshow() {
+      ModalHelper.beforeClose()
       this.allback = false;
       this.servicezhan = false;
       $("#provinceLabel").hide();
@@ -773,6 +776,12 @@ export default {
             });
         }
       });
+    }
+  },
+  filters: {
+    toFixed(input, param1) {
+      //可以有好多的自定义过滤器，这里的this指向的是window
+      return input.toFixed(param1);
     }
   },
   // computed:{
