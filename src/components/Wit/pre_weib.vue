@@ -49,7 +49,7 @@
 				<div class="flex row cocenter">
           <!-- <input type="numberbox" name="" id="" v-model="km"> -->
           <input type="number"
-              placeholder="请输入数字" v-model="km">
+              placeholder="请输入数字" v-model="km">&nbsp km
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
