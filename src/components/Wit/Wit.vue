@@ -18,7 +18,7 @@
               <li>
                 <a href="javascript:;">维保网点</a>
               </li>					
-              <li v-if="this.$store.state.userId&&this.$store.state.defaultInformation.vin">
+              <li v-if="this.$store.state.userId">
                 <a href="javascript:;">维保预约</a>
               </li>					
               <li class="sideline"></li>
@@ -78,7 +78,7 @@
           <li class="li_list" @click="Record(4)">
             <searchnet></searchnet>					
           </li>
-          <li class="li_list" v-if="this.$store.state.userId&&this.$store.state.defaultInformation.vin">
+          <li class="li_list" v-if="this.$store.state.userId">
             <preweib></preweib>				
           </li>
         </ul>
@@ -501,6 +501,7 @@ export default {
     }
   },
   mounted() {
+    console.log('q',this.$store.state.defaultInformation.vin)
     this.init();
     this.changeTap();
   },
