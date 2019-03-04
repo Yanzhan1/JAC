@@ -55,8 +55,8 @@ export default {
     },
     init() {
       let param = {
-        vin: "LJ12EKR21J4931800",
-        // vin:this.$state.store.vins,
+        // vin: "LJ12EKR21J4931800",
+        vin:this.$store.state.defaultInformation.vin,
       };
       this.$http
         .post(My.searchMaintenanceRecordList, param)

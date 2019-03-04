@@ -97,8 +97,14 @@ export default {
             console.log(this.BusDetails);
             for (let i = 0; i < res.data.data.length; i++) {
               if (res.data.data[i].def == 1||res.data.data[i].defToNathor==1) {
-                this.$store.state.vins = res.data.data[i].vin;
-                this.$store.state.nomarlseriseName = res.data.data[i].seriesName;
+                // this.$store.state.vins = res.data.data[i].vin;
+                this.$store.state.defaultInformation[vin] = res.data.data[i].vin;
+                // this.$store.state.nomarlseriseName = res.data.data[i].seriesName;
+                this.$store.state.defaultInformation[seriseName] = res.data.data[i].seriesName;
+                this.$store.state.defaultInformation[seriesNo] = res.data.data[i].seriesNo;
+                this.$store.state.defaultInformation[tspFlag] = res.data.data[i].tspFlag;
+                this.$store.state.defaultInformation[plateLicenseNo] = res.data.data[i].plateLicenseNo;
+                this.$store.state.defaultInformation[modelNo] = res.data.data[i].modelNo;
               }
             }
           }

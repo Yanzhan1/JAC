@@ -47,14 +47,31 @@ export default {
       // if (isMobile.iOS()) {
       // }       
       if (userInfo && userInfo.no) {
+        
         this.$store.dispatch("isLogin", true);
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
         // const secUid = Secret.Encrypt(userInfo.no)
         // this.$store.dispatch("userId", secUid);
         this.$store.dispatch("userId", userInfo.no);
         this.$store.dispatch("userInfo", userInfo);
+          //获取原生给你默认车辆的所有信息
+          if (isMobile.iOS()) {
+            if(userInfo.defaultInformation){
+              this.$store.dispatch("defaultInformation", JSON.parse(userInfo.defaultInformation));
+            }else{
+              console.log('无默认车辆')
+            }
+          } else if (isMobile.Android()) {
+            if(userInfo.defaultInformation.vin){
+              this.$store.dispatch("defaultInformation", userInfo.defaultInformation);
+            }else{
+              console.log('无默认车辆')
+            }
+          }
+       
         this.$store.dispatch("CARVINS", userInfo.vin);
         this.$store.dispatch("nomarlseriseName", userInfo.seriesName);
+        
         let params = {
           userNo: userInfo.no
         };
@@ -122,7 +139,6 @@ export default {
     //同步用户标签
     synchronization(){
       this.$http.post(My.addLabelEntityToUser,{}).then((res)=>{
-        // alert(JSON.stringify(res))
       })
     },
     goActivityDetail(activityId) {

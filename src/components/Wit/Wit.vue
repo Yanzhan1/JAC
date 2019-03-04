@@ -18,7 +18,7 @@
               <li>
                 <a href="javascript:;">维保网点</a>
               </li>					
-              <li v-if="this.$store.state.userId">
+              <li v-if="this.$store.state.userId&&this.$store.state.defaultInformation.vin">
                 <a href="javascript:;">维保预约</a>
               </li>					
               <li class="sideline"></li>
@@ -78,7 +78,7 @@
           <li class="li_list" @click="Record(4)">
             <searchnet></searchnet>					
           </li>
-          <li class="li_list" v-if="this.$store.state.userId">
+          <li class="li_list" v-if="this.$store.state.userId&&this.$store.state.defaultInformation.vin">
             <preweib></preweib>				
           </li>
         </ul>

@@ -279,10 +279,9 @@ export default {
   },
   mounted() {
     setTimeout(() => {   
-      console.log('a:',this.$store.state.locationMes)
       this.getdefaultmessage();
       this.init();
-    }, 100);
+    }, 500);
     this.defaultvins(); 
     this.mobile = this.$store.state.mobile;
     this.locationMes = this.$store.state.locationMes;
@@ -353,7 +352,8 @@ export default {
       let param = {
         lmscode: this.modelNo,
         levelCode: this.seriesNo,
-        tspFlag: this.tspFlag
+        tspFlag: this.tspFlag,
+        seriesName:this.$store.getters.defaultInformation.seriesName
       };
       this.$http.post(Wit.SearchVehicleSeriesByVehicle, param).then(res => {
         if (res.data.data.brandId == 4 || 5 || 6) {
@@ -561,6 +561,7 @@ export default {
       this.currentIndex = index;
       this.currentTitle = title;
       this.chooseno = this.addressArray[index].no;
+      console.log(this.chooseno)
     },
     imageselect() {
       this.chooseserveimg = false;
@@ -612,47 +613,37 @@ export default {
     },
     //获取默认车辆的vin
     defaultvins() {
-      this.$http
-        .post(
-          My.My_Bus,
-          {
-            userId: this.$store.state.userId,
-            phone: this.$store.state.mobile,
-            tspUserId: this.tspid,
-            aaaUserID: this.$store.state.aaaid
-          },
-          this.$store.state.tsppin
-        )
-        .then(res => {
-          if (res.data.returnSuccess) {
-            localhide();
-            for (let i = 0; i < res.data.data.length; i++) {
-              if (
-                res.data.data[i].def == 1 ||
-                res.data.data[i].defToNathor == 1
-              ) {
-                // this.carsysitem = res.data.data[i].seriesName || null;
-                var payload = res.data.data[i].vin;
-                this.defaultvin = res.data.data[i].vin;
-                this.modelNo = res.data.data[i].modelNo;
-                console.log(this.modelNo)
-                this.seriesNo = res.data.data[i].seriesNo;
-                this.tspFlag = res.data.data[i].tspFlag;
-                this.plateLicenseNo = res.data.data[i].plateLicenseNo;
-                this.$store.state.brandName = res.data.data[i].brandName;
-                this.$store.dispatch("CARVINS", payload);
+      // this.$http
+      //   .post(
+      //     My.My_Bus,
+      //     {
+      //       userId: this.$store.state.userId,
+      //       phone: this.$store.state.mobile,
+      //       tspUserId: this.tspid,
+      //       aaaUserID: this.$store.state.aaaid
+      //     },
+      //     this.$store.state.tsppin
+      //   )
+      //   .then(res => {
+      //     if (res.data.returnSuccess) {
+      //       for (let i = 0; i < res.data.data.length; i++) {
+      //         if (
+      //           res.data.data[i].def == 1 ||
+      //           res.data.data[i].defToNathor == 1
+      //         ) {
+      //           // this.carsysitem = res.data.data[i].seriesName || null;
+              setTimeout(()=>{
+                this.defaultvin = this.$store.getters.defaultInformation.vin;
+                this.modelNo =this.$store.getters.defaultInformation.modelNo;
+                this.seriesNo = this.$store.getters.defaultInformation.seriesNo;
+                this.tspFlag = this.$store.getters.defaultInformation.tspFlag;
+                this.plateLicenseNo = this.$store.getters.defaultInformation.plateLicenseNo;
                 this.getbrand();
-              }
-            }
-          } else {
-            localhide();
-            // Toast({
-            //   message: res.data.returnErrMsg,
-            //   position: "middle",
-            //   duration: 2000
-            // });
-          }
-        });
+              },500)
+        //       }
+        //     }
+        //   }
+        // });
     },
     appointment() {
       if (this.hostname == "") {
@@ -737,6 +728,16 @@ export default {
       });
     }
   },
+  // computed:{
+  //     locationMes(){
+  //       return this.$store.state.locationMes
+  //     }
+  // },
+  // watch:{
+  //     locationMes(newVal, oldVal){
+
+  //     }
+  // },
   created() {
     this.getDateList(7);
   }

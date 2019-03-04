@@ -1970,9 +1970,8 @@ export default {
       //         // }
       //       }
             this.firstEnter = true;
-            this.vinn = this.$store.state.vins;
-            // this.vinn = this.$store.state.defaultInformation.vin;
-            console.log(this.vinn)
+            // this.vinn = this.$store.state.vins;
+            this.vinn = this.$store.state.defaultInformation.vin;
             this.Support();
             this.Carquerry();
         //   }
@@ -2044,8 +2043,8 @@ export default {
       //         }
       //       }
             this.firstEnter = true;
-            this.vinn = this.$store.state.vins;
-            // this.vinn = this.$store.state.defaultInformation.vin;
+            // this.vinn = this.$store.state.vins;
+            this.vinn = this.$store.state.defaultInformation.vin;
             this.Support();
             this.Carquerry();
           // } else {
