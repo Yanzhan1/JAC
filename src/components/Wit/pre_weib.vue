@@ -48,11 +48,7 @@
 				<p style="font-size:.27rem;color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>行驶里程</p>
 				<div class="flex row cocenter">
           <!-- <input type="numberbox" name="" id="" v-model="km"> -->
-          <input type="text"
-              class="form-control match-rotation-input"
-              onkeyup="value=value.replace(/[^\d]/g,'')"     
-               onblur="value=value.replace(/[^\d]/g,'')"
-              ng-model="schedule.round"
+          <input type="number"
               placeholder="请输入数字" v-model="km">
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
@@ -110,6 +106,9 @@
         </div>
 			</div>
 		</div>
+    <div style="width:100%;height:1rem;">
+
+    </div>
 		<!-- 服务站弹出框 -->
 		<div class="service " v-if="servicezhan">
 			<h2 style="padding:.2rem; text-align: center;font:.4rem/.6rem 'PingFang-SC-Regular'">服务站</h2>
@@ -279,12 +278,17 @@ export default {
     };
   },
   mounted() {
-    this.init();
+    setTimeout(() => {   
+      console.log('a:',this.$store.state.locationMes)
+      this.getdefaultmessage();
+      this.init();
+    }, 100);
+    this.defaultvins(); 
     this.mobile = this.$store.state.mobile;
     this.locationMes = this.$store.state.locationMes;
     this.num = true;
-    this.getdefaultmessage();
-    this.defaultvins();
+    
+   
   },
   methods: {
     init() {
@@ -631,6 +635,7 @@ export default {
                 var payload = res.data.data[i].vin;
                 this.defaultvin = res.data.data[i].vin;
                 this.modelNo = res.data.data[i].modelNo;
+                console.log(this.modelNo)
                 this.seriesNo = res.data.data[i].seriesNo;
                 this.tspFlag = res.data.data[i].tspFlag;
                 this.plateLicenseNo = res.data.data[i].plateLicenseNo;
@@ -864,8 +869,10 @@ export default {
 .choosexing {
   position: absolute;
   bottom: -1rem;
-  right: 0.25rem;
+  right: 0rem;
   background: #fff;
+  border:.02rem solid #000;
+  border-radius: 20%;
 }
 .choosexing > div {
   padding: 0.1rem;
