@@ -335,9 +335,12 @@ export default {
                     const data = res.data;
                     if (data.code == 0) {
                       this.citySlot[0].values = []; //清除上一次城市的选择
+                      console.log(res.data.data.records)
                       data.data.records.forEach((item, index) => {
                         this.citySlot[0].values.push(item.name);
-                        this.city_id = item.code;
+                        if(this.cityName==item.name){
+                          this.city_id = item.code;
+                        }
                       });
                       this.getbrand();
                     } else {
