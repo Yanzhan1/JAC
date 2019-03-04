@@ -68,8 +68,6 @@ export default {
     [types.TSP]: (state, payload) => {
         state.aaaid = payload.aaaid
         var str = JSON.parse(state.tsppin.headers.identityParam)
-            // alert(JSON.stringify(payload))
-            // alert(typeof payload.token)
         str.userId = payload.aaaid + '';
         str.token = payload.token;
         state.refreshToken = payload.refreshToken
@@ -98,5 +96,8 @@ export default {
     },
     [types.RECORDNO]: (state, payload) => {
         state.recordNo = payload
-    }
+    },
+    [types.DEFAULTINFORMATION]: (state, payload) => {
+        state.defaultInformation = payload
+    },
 }

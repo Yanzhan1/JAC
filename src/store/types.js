@@ -20,3 +20,4 @@ export const GETLOCATIONINFO = 'GETLOCATIONINFO'; //记录wit部分页面跳转
 export const CHANGE_$FLAG = 'CHANGE_$FLAG' // 有用别动
 export const RECORDNO = 'RECORDNO' // 网点评价成功后的RECORDNO
 export const NOMARLSERISENAME = 'NOMARLSERISENAME' // 爱车页面默认的seriseName
+export const DEFAULTINFORMATION = 'DEFAULTINFORMATION' // 默认车辆的所有信息

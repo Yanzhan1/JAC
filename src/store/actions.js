@@ -57,6 +57,9 @@ export default {
     RECORDNO: ({ commit, state }, payload) => {
         commit(types.RECORDNO, payload)
     },
+    defaultInformation: ({ commit, state }, payload) => {
+        commit(types.DEFAULTINFORMATION, payload)
+    },
     change$FLAG: ({ commit, state }, payload) => {
         commit(types.CHANGE_$FLAG, payload)
     }

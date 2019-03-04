@@ -69,4 +69,5 @@ export default {
     recordNo: "", //网点评分的RECORDNO
     $flag: false, // 有用别动
     code403: 0,
+    defaultInformation:{}//存贮默认车辆的所有信息
 }
