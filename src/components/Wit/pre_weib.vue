@@ -629,6 +629,11 @@ export default {
       this.dataindex--;
       if (this.dataindex < 0) {
         this.dataindex = 0;
+        Toast({
+          message: "预约不能超过当前日期",
+          position: "middle",
+          duration: 2000
+        });
       }
       this.getdayreal();
     },
@@ -637,6 +642,11 @@ export default {
       this.dataindex++;
       if (this.dataindex > 7) {
         this.dataindex = 7;
+        Toast({
+          message: "预约七天之内日期",
+          position: "middle",
+          duration: 2000
+        });
       }
       this.$refs.swiperWrap.next();
       this.getdayreal();
@@ -759,10 +769,10 @@ export default {
           //       }
           //       });
           //   });
-          this.$messagebox.alert("预约成功").then(action => {
+          MessageBox.alert("预约成功").then(action => {
                   this.$router.push({
-                path:"/wit",
-                });
+                    path:'/wit',
+                    });
               });
         }
       });
