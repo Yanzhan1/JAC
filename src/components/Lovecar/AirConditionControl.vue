@@ -817,8 +817,8 @@ export default {
                           if (this.turnon == "7") {
                             if (this.defrost) {
                               this.activeShowImg
-                                ? (this.activeShowImg = 0)
-                                : (this.activeShowImg = 1);
+                                ? (this.activeShowImg = 1)
+                                : (this.activeShowImg = 0);
                               Toast({
                                 message: this.vehicle_defrost[0].dictValue,
                                 position: "middle",
@@ -1079,10 +1079,10 @@ export default {
               if (this.turnon == "7") {
                 if (this.defrost) {
                   this.activeShowImg
-                    ? (this.activeShowImg = 0)
-                    : (this.activeShowImg = 1);
+                    ? (this.activeShowImg = 1)
+                    : (this.activeShowImg = 0);
                   Toast({
-                    message: this.vehicle_defrost[3].dictValue,
+                    message: this.vehicle_defrost[0].dictValue,
                     position: "middle",
                     duration: 2000
                   });
@@ -1091,7 +1091,7 @@ export default {
                     ? (this.activeShowImg = 0)
                     : (this.activeShowImg = 1);
                   Toast({
-                    message: this.vehicle_defrost[3].dictValue,
+                    message: this.vehicle_defrost[2].dictValue,
                     position: "middle",
                     duration: 2000
                   });
