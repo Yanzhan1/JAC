@@ -51,80 +51,98 @@ export default {
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
         // const secUid = Secret.Encrypt(userInfo.no)
         // this.$store.dispatch("userId", secUid);
-        this.$store.dispatch(
-              "defaultInformation",
-              userInfo.defaultInformation
-            );
+        this.$store.dispatch("defaultInformation", userInfo.defaultInformation);
         this.$store.dispatch("userId", userInfo.no);
         this.$store.dispatch("userInfo", userInfo);
-         this.$http.defaults.headers.common["timaToken"] = userInfo.token;
+        this.$http.defaults.headers.common["timaToken"] = userInfo.token;
         //获取原生给你默认车辆的所有信息
         if (isMobile.iOS()) {
           if (userInfo.defaultInformation) {
             this.$store.dispatch(
               "defaultInformation",
               JSON.parse(userInfo.defaultInformation)
-              
             );
-            if( JSON.parse(userInfo.defaultInformation).tspFlag!=1){
-                  let params={
-                    vin: JSON.parse(userInfo.defaultInformation.vin)
+            if (JSON.parse(userInfo.defaultInformation).tspFlag != 1) {
+              let params = {
+                vin: JSON.parse(userInfo.defaultInformation.vin)
+              };
+              this.$http
+                .post(Lovecar.vehiclebyvin, params, this.$store.state.getpin)
+                .then(res => {
+                  this.$store.state.defaultInformation[modelNo] =
+                    res.data.modelNo;
+                  this.$store.state.defaultInformation[seriesNo] =
+                    res.data.seriesNo;
+                });
+            }
+            let param = {
+              lmscode:
+                userInfo.defaultInformation.modelNo ||
+                this.$store.state.defaultInformation.modelNo,
+              levelCode:
+                userInfo.defaultInformation.seriesNo ||
+                this.$store.state.defaultInformation.seriesNo,
+              tspFlag: userInfo.defaultInformation.tspFlag,
+              seriesName: userInfo.defaultInformation.seriesName
+            };
+            this.$http
+              .post(Wit.SearchVehicleSeriesByVehicle, param)
+              .then(res => {
+                if (res.data.data.brandId == 4 || 5 || 6) {
+                  // this.brandName = res.data.data.brandName;
+                  // this.seriesName = res.data.data.seriesName;
+                  // this.brandNo = res.data.data.brandNo;
+                  // this.brandId = "0" + res.data.data.brandId;
+                  // this.seriesNo = res.data.data.no;
+                  if (userInfo.no) {
+                    this.$store.state.enterMaintenance = true;
+                    
                   }
-                  this.$http.post(Lovecar.vehiclebyvin, params,this.$store.state.getpin).then(res => {
-                        this.$store.state.defaultInformation[modelNo]=res.data.modelNo
-                        this.$store.state.defaultInformation[seriesNo]=res.data.seriesNo
-                        });
-                        this.$http
-                  .post(Wit.SearchVehicleSeriesByVehicle, param)
-                  .then(res => {
-                    console.log(res)
-                    if (res.data.data.brandId == 4 || 5 || 6) {
-                      // this.brandName = res.data.data.brandName;
-                      // this.seriesName = res.data.data.seriesName;
-                      // this.brandNo = res.data.data.brandNo;
-                      // this.brandId = "0" + res.data.data.brandId;
-                      // this.seriesNo = res.data.data.no;
-                      if(userInfo.no){
-                          this.$store.state.enterMaintenance=true;
-                      }
-                    }
-                  });
                 }
+              });
           } else {
             console.log("无默认车辆");
           }
         } else if (isMobile.Android()) {
           if (userInfo.defaultInformation.vin) {
-                if(userInfo.defaultInformation.tspFlag!=1){
-                  let params={
-                    vin:userInfo.defaultInformation.vin
+            if (userInfo.defaultInformation.tspFlag != 1) {
+              let params = {
+                vin: userInfo.defaultInformation.vin
+              };
+              this.$http
+                .post(Lovecar.vehiclebyvin, params, this.$store.state.getpin)
+                .then(res => {
+                  this.$store.state.defaultInformation[modelNo] =
+                    res.data.modelNo;
+                  this.$store.state.defaultInformation[seriesNo] =
+                    res.data.seriesNo;
+                });
+            }
+            let param = {
+              lmscode:
+                userInfo.defaultInformation.modelNo ||
+                this.$store.state.defaultInformation.modelNo,
+              levelCode:
+                userInfo.defaultInformation.seriesNo ||
+                this.$store.state.defaultInformation.seriesNo,
+              tspFlag: userInfo.defaultInformation.tspFlag,
+              seriesName: userInfo.defaultInformation.seriesName
+            };
+            this.$http
+              .post(Wit.SearchVehicleSeriesByVehicle, param)
+              .then(res => {
+                if (res.data.data.brandId == 4 || 5 || 6) {
+                  // this.brandName = res.data.data.brandName;
+                  // this.seriesName = res.data.data.seriesName;
+                  // this.brandNo = res.data.data.brandNo;
+                  // this.brandId = "0" + res.data.data.brandId;
+                  // this.seriesNo = res.data.data.no;
+                  if (userInfo.no) {
+                    this.$store.state.enterMaintenance = true;
+                    console.log("app",this.$store.state.enterMaintenance)
                   }
-                  this.$http.post(Lovecar.vehiclebyvin, params,this.$store.state.getpin).then(res => {
-                        this.$store.state.defaultInformation[modelNo]=res.data.modelNo
-                        this.$store.state.defaultInformation[seriesNo]=res.data.seriesNo
-                        });
                 }
-                let param = {
-                  lmscode: userInfo.defaultInformation.modelNo||this.$store.state.defaultInformation.modelNo,
-                  levelCode: userInfo.defaultInformation.seriesNo||this.$store.state.defaultInformation.seriesNo,
-                  tspFlag: userInfo.defaultInformation.tspFlag,
-                  seriesName: userInfo.defaultInformation.seriesName
-                };
-                this.$http
-                  .post(Wit.SearchVehicleSeriesByVehicle, param)
-                  .then(res => {
-                    console.log(res)
-                    if (res.data.data.brandId == 4 || 5 || 6) {
-                      // this.brandName = res.data.data.brandName;
-                      // this.seriesName = res.data.data.seriesName;
-                      // this.brandNo = res.data.data.brandNo;
-                      // this.brandId = "0" + res.data.data.brandId;
-                      // this.seriesNo = res.data.data.no;
-                      if(userInfo.no){
-                          this.$store.state.enterMaintenance=true;
-                      }
-                    }
-                  });
+              });
           } else {
             console.log("无默认车辆");
           }
