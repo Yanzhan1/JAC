@@ -13,7 +13,7 @@
           </div>
           <!-- <div class="Membershipshow">{{this.Membership}}</div> -->
           <!-- 控制V图标的展示 -->
-          <img v-show="this.imgV" class="signimg" :src="Vimg" alt="">
+          <img  class="signimg" :src="Vimg" alt="">
           <div class="flex column" style="margin-left: 0.2rem;">
             <div class="flex cocenter" style="overflow: hidden">
               <div v-if="this.$store.state.userId">
@@ -150,7 +150,7 @@
 <script>
 import { Popup } from "mint-ui";
 import { Toast } from "mint-ui";
-import Vimg from "../../../static/images/my/signVV.png";
+// import Vimg from "../../../static/images/my/signVV.png";
 export default {
   name: "Myindex",
   data() {
@@ -165,8 +165,8 @@ export default {
       momentNum: 0,
       myList: [],
       Membership:'',//会员等级标志
-      Vimg, //V图片
-      imgV: "", //控制V图片是否展示
+      Vimg:'', //V图片
+      imgV: false, //控制V图片是否展示
       imgJac: false, //控制jac是否展示
       num: "", //添加的积分量
       flag: false, //隐藏推荐码
@@ -447,29 +447,53 @@ export default {
         if (res.data.code == 0) {
           this.Personal = res.data.data;
           for (let val of this.Personal.entitys) {
-            if (val.entity == "V") {
-              this.imgV = true;
-            }
             if (val.entity == "JAC") {
               this.imgJac = true;
             }
-            // switch(val.id){
-            //    case 1:
-            //     this.Membership=1
-            //    break
-            //    case 2:
-            //     this.Membership=2
-            //    break
-            //    case 3:
-            //     this.Membership=3
-            //    break
-            //    case 4:
-            //     this.Membership=4
-            //    break
-            //    case 5:
-            //     this.Membership=5
-            //    break
-            // }
+            if(val.entity=="V"){
+              this.imgV=true;
+            }
+            setTimeout(()=>{
+              switch(val.id){
+                 case 1:
+                  if (this.imgV) {
+                       this.Vimg="./../../../static/images/my/member1_v.png"
+                   }else{
+                       this.Vimg="./../../../static/images/my/member1.png"
+                   }
+                 break;
+                 case 2:
+                  if (this.imgV) {
+                       this.Vimg="./../../../static/images/my/member2_v.png"
+                   }else{
+                       this.Vimg="./../../../static/images/my/member2.png"
+                   }
+                 break;
+                 case 3:
+                  if (this.imgV) {
+                       this.Vimg="./../../../static/images/my/member3_v.png"
+                   }else{
+                       this.Vimg="./../../../static/images/my/member3.png"
+                   }
+                 break;
+                 case 4:
+                  if (this.imgV) {
+                       this.Vimg="./../../../static/images/my/member4_v.png"
+                   }else{
+                       this.Vimg="./../../../static/images/my/member4.png"
+                   }
+                 break;
+                 case 5:
+                   if (this.imgV) {
+                       this.Vimg="./../../../static/images/my/member5_v.png"
+                   }else{
+                       this.Vimg="./../../../static/images/my/member5.png"
+                   }
+                 break;
+                 default:
+
+              }
+            },0)
           }
         }
       });
@@ -554,29 +578,13 @@ export default {
     }
   },
   computed: {
-    show() {
-      return this.$store.state.aaaid;
-    },
-    userId() {
-      return this.$store.state.userId;
-    }
+    
   },
   created() {
     // this.RecomendCode(); //获取推荐码
   },
   watch: {
-    show(newVal, oldVal) {
-      // this.userName = JSON.parse(localStorage.getItem("userName"));
-      // this.aaaid =JSON.parse(localStorage.getItem("aaaid"));
-      // this.mobile = JSON.parse(localStorage.getItem("mobile"));
-      // this.token=JSON.parse(this.$store.state.tsppin.headers.identityParam).token
-    }
-    // userId(newVal, oldVal){
-    //     this.getuserinfo();
-    //     this.myNum();
-    //     this.IsSign(); //判断是否签到
-    //     this.total(); //h获取用户总积分
-    // }
+    
   },
   mounted() {
     if (this.$store.state.islogin) {
@@ -608,11 +616,11 @@ export default {
 }
 .signimg {
   display: block;
-  /* width: .4rem;
-  height: .4rem; */
+  width: 1rem;
+  height: .25rem;
+  top: 1rem;
+  left: .41rem;
   position: absolute;
-  top: 0.8rem;
-  left: 1.05rem;
 }
 /* 会员等级展示 */
 .Membershipshow{
