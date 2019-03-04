@@ -298,8 +298,6 @@ export default {
     this.mobile = this.$store.state.mobile;
     this.locationMes = this.$store.state.locationMes;
     this.num = true;
-    
-   
   },
   methods: {
     init() {
@@ -335,7 +333,6 @@ export default {
                     const data = res.data;
                     if (data.code == 0) {
                       this.citySlot[0].values = []; //清除上一次城市的选择
-                      console.log(res.data.data.records)
                       data.data.records.forEach((item, index) => {
                         this.citySlot[0].values.push(item.name);
                         if(this.cityName==item.name){
@@ -676,6 +673,8 @@ export default {
       //         ) {
       //           // this.carsysitem = res.data.data[i].seriesName || null;
               setTimeout(()=>{
+                console.log('wit')
+                console.log(this.$store.getters.defaultInformation)
                 this.defaultvin = this.$store.getters.defaultInformation.vin;
                 this.modelNo =this.$store.getters.defaultInformation.modelNo;
                 this.seriesNo = this.$store.getters.defaultInformation.seriesNo;

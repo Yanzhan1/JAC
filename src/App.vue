@@ -30,48 +30,77 @@ export default {
     //     this.$router.push({ path: "/wit/CarChoose" });//买车页面
     //   }
     // },
-    init(){
-      try{
-          if (isMobile.iOS()) {
+    init() {
+      try {
+        if (isMobile.iOS()) {
           var params = {};
           window.webkit.messageHandlers.init.postMessage(params);
         } else if (isMobile.Android()) {
           // js2android.scan();
         }
-      }catch(err){
-          console.log("无此方法")
+      } catch (err) {
+        console.log("无此方法");
       }
     },
     isLogin(userInfo) {
       // this.$store.dispatch('change$FLAG', true)// 不要动 有用
       // if (isMobile.iOS()) {
-      // }       
+      // }
       if (userInfo && userInfo.no) {
-        
         this.$store.dispatch("isLogin", true);
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
         // const secUid = Secret.Encrypt(userInfo.no)
         // this.$store.dispatch("userId", secUid);
         this.$store.dispatch("userId", userInfo.no);
         this.$store.dispatch("userInfo", userInfo);
-          //获取原生给你默认车辆的所有信息
-          if (isMobile.iOS()) {
-            if(userInfo.defaultInformation){
-              this.$store.dispatch("defaultInformation", JSON.parse(userInfo.defaultInformation));
-            }else{
-              console.log('无默认车辆')
-            }
-          } else if (isMobile.Android()) {
-            if(userInfo.defaultInformation.vin){
-              this.$store.dispatch("defaultInformation", userInfo.defaultInformation);
-            }else{
-              console.log('无默认车辆')
-            }
+        //获取原生给你默认车辆的所有信息
+        console.log(userInfo)
+        if (isMobile.iOS()) {
+          if (userInfo.defaultInformation) {
+            this.$store.dispatch(
+              "defaultInformation",
+              JSON.parse(userInfo.defaultInformation)
+            );
+          } else {
+            console.log("无默认车辆");
           }
-       
+        } else if (isMobile.Android()) {
+          if (userInfo.defaultInformation.vin) {
+            
+            // let param = {
+            //   lmscode: userInfo.defaultInformation.modelNo,
+            //   levelCode: userInfo.defaultInformation.seriesNo,
+            //   tspFlag: userInfo.defaultInformation.tspFlag,
+            //   seriesName: this.$store.getters.defaultInformation.seriesName
+            // };
+            // this.$http
+            //   .post(Wit.SearchVehicleSeriesByVehicle, param)
+            //   .then(res => {
+            //     if (res.data.data.brandId == 4 || 5 || 6) {
+            //       // this.brandName = res.data.data.brandName;
+            //       // this.seriesName = res.data.data.seriesName;
+            //       // this.brandNo = res.data.data.brandNo;
+            //       // this.brandId = "0" + res.data.data.brandId;
+            //       // this.seriesNo = res.data.data.no;
+            //       if(userInfo.no){
+
+            //           this.$store.state.enterMaintenance=true;
+            //           console.log("app",this.$store.state.enterMaintenance)
+            //       }
+            //     }
+            //   });
+              this.$store.dispatch(
+              "defaultInformation",
+              userInfo.defaultInformation
+            );
+          } else {
+            console.log("无默认车辆");
+          }
+        }
+
         this.$store.dispatch("CARVINS", userInfo.vin);
         this.$store.dispatch("nomarlseriseName", userInfo.seriesName);
-        
+
         let params = {
           userNo: userInfo.no
         };
@@ -95,7 +124,10 @@ export default {
       }
       this.$http.defaults.headers.common["timaToken"] = this.$store.state.token;
       // 如果登录成功，获取用户头像
-      if (this.$http.defaults.headers.common["timaToken"] && this.$store.state.userId) {
+      if (
+        this.$http.defaults.headers.common["timaToken"] &&
+        this.$store.state.userId
+      ) {
         var param = {
           no: this.$store.state.userId
         };
@@ -105,41 +137,40 @@ export default {
           }
         });
         //暂时不上uat
-          this.synchronization()
+        this.synchronization();
       }
     },
     localshow() {
       var system = IOSAndAndroid.isIOSOrAndroid();
-      try{
-          if (system == "IOS") {
-                  var params = {};
-                  window.webkit.messageHandlers.showProgressDialog.postMessage(params);
-                } else if (isMobile.Android() && window.js2android) {
-                  js2android.showProgressDialog();
-                }
-      }catch(err){
-          console.log("无此方法")
+      try {
+        if (system == "IOS") {
+          var params = {};
+          window.webkit.messageHandlers.showProgressDialog.postMessage(params);
+        } else if (isMobile.Android() && window.js2android) {
+          js2android.showProgressDialog();
+        }
+      } catch (err) {
+        console.log("无此方法");
       }
-
     },
     localhide() {
       // 防止用户原生连点隐藏的遮罩层
-      try{
-          if (isMobile.iOS()) {
-            var params = {};
-            window.webkit.messageHandlers.dismissProgressDialog.postMessage(params);
-          } else if (isMobile.Android() && window.js2android) {
-            js2android.dismissProgressDialog();
-          }
-      }catch(err){
-        console.log('暂时没有此方法')
+      try {
+        if (isMobile.iOS()) {
+          var params = {};
+          window.webkit.messageHandlers.dismissProgressDialog.postMessage(
+            params
+          );
+        } else if (isMobile.Android() && window.js2android) {
+          js2android.dismissProgressDialog();
+        }
+      } catch (err) {
+        console.log("暂时没有此方法");
       }
-
     },
     //同步用户标签
-    synchronization(){
-      this.$http.post(My.addLabelEntityToUser,{}).then((res)=>{
-      })
+    synchronization() {
+      this.$http.post(My.addLabelEntityToUser, {}).then(res => {});
     },
     goActivityDetail(activityId) {
       this.$router.push({
@@ -156,14 +187,11 @@ export default {
     window.goindex = this.goindex;
     window.localshow = this.localshow;
     window.localhide = this.localhide;
-    this.init()
+    this.init();
     // window.loadTab = this.loadTab;
   },
   mounted() {
-    localStorage.setItem(
-              "time",
-              '60'
-      );
+    localStorage.setItem("time", "60");
     // this.isLogin({name:'',no:'AD022018112104124524505'})
     // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTU0Mjc4Nzk2NjAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6NDYyLFwiaW5pdFVzZXJcIjowLFwibGFzdE1vZGlmaWVkRGF0ZVwiOjE1NDI3ODg1MTcwMDAsXCJub1wiOlwiQUQwMjIwMTgxMTIxMDQxMjQ1MjQ1MDVcIixcInBlcnNvbmFsU2lnbmF0dXJlXCI6XCJcIixcInBob25lXCI6XCIxMzg1NTE3OTYzMVwiLFwicmVhbFBob25lXCI6XCIxMzgqKioqOTYzMVwiLFwic2V4XCI6MSxcInVzZXJDb2RlXCI6XCIxMzg1NTE3OTYzMVwiLFwidXNlck5hbWVcIjpcIueCueaoquaSh-aNulwiLFwidXNlclN0YXR1c1wiOjAsXCJ1c2VyVHlwZVwiOlwiMDFcIn0iLCJjcmVhdGVkIjoxNTQ4OTQ1Nzc0Mjc4LCJ1c2VyTm8iOiJBRDAyMjAxODExMjEwNDEyNDUyNDUwNSIsInVzZXJUeXBlIjoiMDEiLCJ1c2VyTmFtZSI6IueCueaoquaSh-aNuiIsImV4cCI6MTU0OTgwOTc3NCwidXNlcklkIjo0NjJ9.88bSCctYO3hrIvampGAg7VWn8MkgmTCLJ2fWWlaNQNs'
     // 获取用户
