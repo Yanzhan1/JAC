@@ -735,30 +735,35 @@ export default {
           //     position: "middle",
           //     duration: 2000
           //   });
-          MessageBox.confirm("", {
-            title: "提示",
-            message: "预约成功!",
-            showConfirmButton: true,
-            showCancelButton: true,
-            cancelButtonClass: "cancelButton",
-            confirmButtonClass: "confirmButton",
-            confirmButtonText: "确认",
-            cancelButtonText: "查看详情",
-            confirmButtonHighlight: true,
-            cancelButtonHighlight: true
-          })
-            .then(action => {
-              if (action == "confirm") {
-              }
-            })
-            .catch(() => {
-              this.$router.push({
-                path:"/myorder",
-                query:{
-                  show:'2'
-                }
+          // MessageBox.confirm("", {
+          //   title: "提示",
+          //   message: "预约成功!",
+          //   showConfirmButton: true,
+          //   showCancelButton: true,
+          //   cancelButtonClass: "cancelButton",
+          //   confirmButtonClass: "confirmButton",
+          //   confirmButtonText: "确认",
+          //   cancelButtonText: "查看详情",
+          //   confirmButtonHighlight: true,
+          //   cancelButtonHighlight: true
+          // })
+          //   .then(action => {
+          //     if (action == "confirm") {
+          //     }
+          //   })
+          //   .catch(() => {
+          //     this.$router.push({
+          //       path:"/myorder",
+          //       query:{
+          //         show:'2'
+          //       }
+          //       });
+          //   });
+          this.$messagebox.alert("预约成功").then(action => {
+                  this.$router.push({
+                path:"/wit",
                 });
-            });
+              });
         }
       });
     }
