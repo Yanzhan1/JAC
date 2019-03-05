@@ -18,7 +18,7 @@ var focusip = host + '/api/dk-pr-svr' //uat
 var point = 'http://192.168.1.141:8868' //埋点
     //服务器-智享
 var mip = host + '/api/jac-automobile-manage/automobilemanage' //智享
-var witlocal = 'http://172.21.4.75:8082/automobilemanage'
+var witlocal = 'http://172.21.12.74:8082/automobilemanage' //杨毅飞本地服务器
     //服务器-admin(跟用户有关即我的)
 var mips = host + '/api/jac-admin' //地区
 var jf = host + '/' //跟积分有关的
@@ -220,7 +220,7 @@ window.Lovecar = {
         // vehiclestatus: 'http://172.21.12.35:8084' + '/vehicle/vehicle-status', //车辆授权状态查询
         loginOut: love_car + '/vehicle/remote-vehicle-loginOut', //车辆远程登出
         showcallbackmessage: love_car + '/call-back/show-callback-message', //超过电子围栏警告
-
+        vehiclebyvin: love_car + '/vehicle/vehicle-by-vin', //当tspflag为0的时候调用
 
     }
     //消息接口

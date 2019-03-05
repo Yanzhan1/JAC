@@ -186,7 +186,7 @@ export default {
           }
         });
         //暂时不上uat
-        this.synchronization();
+        // this.synchronization();
       }
     },
     localshow() {
