@@ -366,7 +366,6 @@
           _this.toLogin();
           return false;
         }
-        console.log(this.$store.state.userId)
         this.$http.post(DISCOVERMESSAGE.focusOn, {
           "uid": this.$store.state.userId,
           "focusId": foucsId
@@ -449,7 +448,6 @@
               _this.$root.eventHub.$emit('closePlayer', '/recommend')
             })
 
-            //console.log(res.data.data)
             for (let i = 0; i < _this.recommendList.length; i++) {
               _this.recommendList[i].issuedDate = _this.convert(_this.recommendList[i].issuedDate)
             }
@@ -457,7 +455,6 @@
               _this.loadEnd = true;
             }
           } else {
-            console.log(res.data.errorMsg);
           }
         });
       },
@@ -487,7 +484,6 @@
         this.$http.post(INDEXMESSAGE.getRecommend, this.listParams).then((res) => {
           this.loading = false
           if (res.data.status !== 1) {
-            console.log(res.data.errorMsg)
             return
           }
           for (let i = 0; i < res.data.data.length; i++) {
@@ -733,7 +729,7 @@
                 }
               }
             } else {
-              console.log(data.errorMsg);
+           
               //MessageBox('提示', res.data.errorMsg);
             }
           });

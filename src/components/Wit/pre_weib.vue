@@ -38,7 +38,7 @@
 				</div>
 			</div>
 			<div class="flex row li_st between cocenter">
-				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">&nbsp</span>车牌</p>
+				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>车牌</p>
 				<div class="flex row cocenter">
 					<input type="text" v-model="plateLicenseNo">
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
@@ -732,7 +732,7 @@ export default {
         ownerName: this.hostname,
         ownerMobile: this.mobile,
         vin: this.defaultvin,
-        licenseNumber: this.plateLicenseNo,
+        licenseNumber: this.plateLicenseNo||'无',
         mileage: this.km,
         dealerNo: this.chooseno,
         revervationTypeName: this.$refs.main.innerText,
@@ -1093,4 +1093,8 @@ export default {
   width: 100%;
   height: 100%;
 }
+/* .bottom-btn{
+  position: absolute;
+  bottom: -1rem;
+} */
 </style>

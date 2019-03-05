@@ -52,10 +52,10 @@ export default {
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
         // const secUid = Secret.Encrypt(userInfo.no)
         // this.$store.dispatch("userId", secUid);
-        this.$store.dispatch("defaultInformation", userInfo.defaultInformation);
         this.$store.dispatch("userId", userInfo.no);
         this.$store.dispatch("userInfo", userInfo);
         this.$http.defaults.headers.common["timaToken"] = userInfo.token;
+        console.log(userInfo.defaultInformation)
         //获取原生给你默认车辆的所有信息
         if (isMobile.iOS()) {
           if (userInfo.defaultInformation) {
@@ -63,26 +63,14 @@ export default {
               "defaultInformation",
               JSON.parse(userInfo.defaultInformation)
             );
-            if (JSON.parse(userInfo.defaultInformation).tspFlag != 1) {
-              let params = {
-                vin: JSON.parse(userInfo.defaultInformation.vin)
-              };
-              this.$http
-                .post(Lovecar.vehiclebyvin, params, this.$store.state.getpin)
-                .then(res => {
-                  this.$store.state.defaultInformation[modelNo] =
-                    res.data.modelNo;
-                  this.$store.state.defaultInformation[seriesNo] =
-                    res.data.seriesNo;
-                });
-            }
+            // localStorage.setItem({
+            //   "defaultInformation":userInfo.defaultInformation
+            // })
             let param = {
               lmscode:
-                userInfo.defaultInformation.modelNo ||
-                this.$store.state.defaultInformation.modelNo,
+                userInfo.defaultInformation.modelNo,
               levelCode:
-                userInfo.defaultInformation.seriesNo ||
-                this.$store.state.defaultInformation.seriesNo,
+                userInfo.defaultInformation.seriesNo,
               tspFlag: userInfo.defaultInformation.tspFlag,
               seriesName: userInfo.defaultInformation.seriesName
             };
@@ -110,26 +98,15 @@ export default {
           }
         } else if (isMobile.Android()) {
           if (userInfo.defaultInformation.vin) {
-            if (userInfo.defaultInformation.tspFlag != 1) {
-              let params = {
-                vin: userInfo.defaultInformation.vin
-              };
-              this.$http
-                .post(Lovecar.vehiclebyvin, params, this.$store.state.getpin)
-                .then(res => {
-                  this.$store.state.defaultInformation[modelNo] =
-                    res.data.modelNo;
-                  this.$store.state.defaultInformation[seriesNo] =
-                    res.data.seriesNo;
-                });
-            }
+            this.$store.dispatch("defaultInformation", userInfo.defaultInformation);
+            // localStorage.setItem({
+            //   "defaultInformation":JSON.stringify(userInfo.defaultInformation)
+            // })
             let param = {
               lmscode:
-                userInfo.defaultInformation.modelNo ||
-                this.$store.state.defaultInformation.modelNo,
+                userInfo.defaultInformation.modelNo,
               levelCode:
-                userInfo.defaultInformation.seriesNo ||
-                this.$store.state.defaultInformation.seriesNo,
+                userInfo.defaultInformation.seriesNo,
               tspFlag: userInfo.defaultInformation.tspFlag,
               seriesName: userInfo.defaultInformation.seriesName
             };
