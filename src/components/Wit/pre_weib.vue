@@ -673,8 +673,8 @@ export default {
       //         ) {
       //           // this.carsysitem = res.data.data[i].seriesName || null;
               setTimeout(()=>{
-                console.log('wit')
-                console.log(this.$store.getters.defaultInformation)
+                // console.log('wit')
+                // console.log(this.$store.getters.defaultInformation)
                 this.defaultvin = this.$store.getters.defaultInformation.vin;
                 this.modelNo =this.$store.getters.defaultInformation.modelNo;
                 this.seriesNo = this.$store.getters.defaultInformation.seriesNo;

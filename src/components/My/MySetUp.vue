@@ -83,6 +83,7 @@ export default {
             this.$store.dispatch("isLogin", false);
             this.$store.dispatch("userId", null);
             this.$store.dispatch('userInfo',null);
+            this.$store.state.enterMaintenance = false;
             this.$http.defaults.headers.common["timaToken"] = '';
             var system = this.isIOSOrAndroid();
             if (system == "Android") {

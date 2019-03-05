@@ -46,6 +46,7 @@ export default {
       // this.$store.dispatch('change$FLAG', true)// 不要动 有用
       // if (isMobile.iOS()) {
       // }
+      console.log('z执行islogin')
       if (userInfo && userInfo.no) {
         this.$store.dispatch("isLogin", true);
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
@@ -95,12 +96,16 @@ export default {
                   // this.brandId = "0" + res.data.data.brandId;
                   // this.seriesNo = res.data.data.no;
                   if (userInfo.no) {
-                    this.$store.state.enterMaintenance = true;
-                    
+                    this.$store.state.enterMaintenance = true;                   
+                  }else{
+                    this.$store.state.enterMaintenance = false;
                   }
-                }
+                }else{
+                    this.$store.state.enterMaintenance = false;
+                  }
               });
           } else {
+                  this.$store.state.enterMaintenance = false;
             console.log("无默认车辆");
           }
         } else if (isMobile.Android()) {
@@ -140,10 +145,15 @@ export default {
                   if (userInfo.no) {
                     this.$store.state.enterMaintenance = true;
                     console.log("app",this.$store.state.enterMaintenance)
+                  }else{
+                    this.$store.state.enterMaintenance = false;
                   }
-                }
+                }else{
+                    this.$store.state.enterMaintenance = false;
+                  }
               });
           } else {
+                    this.$store.state.enterMaintenance = false;
             console.log("无默认车辆");
           }
         }

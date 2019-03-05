@@ -15,7 +15,7 @@
               <li>
                 <a href="javascript:;" >经销网点</a>
               </li>            			
-              <li v-if="this.$store.state.userId">
+              <li v-if="enterMaintenance">
                 <a href="javascript:;">维保预约</a>
               </li>		
               <li>
@@ -75,7 +75,7 @@
           <li class="li_list" @click="Record(3)">
             <dealer></dealer>					
           </li>
-          <li class="li_list" v-if="this.$store.state.userId">
+          <li class="li_list" v-if="enterMaintenance">
             <preweib></preweib>				
           </li>
           <li class="li_list" @click="Record(4)">
@@ -488,7 +488,6 @@ export default {
     }
   },
   created() {
-    
     var system = this.isIOSOrAndroid();
     if (system == "Android") {
       this.$store.dispatch("GETLOCATIONINFO", js2android.getLocationInfo())
@@ -506,17 +505,22 @@ export default {
     this.init();
     this.changeTap();
   },
-  // computed:{
-  //     enterMaintenance(){
-  //       return  this.$store.state.enterMaintenance
-  //     }
-  // },
-  // watch:{
-  //     enterMaintenance(newVal, oldVal){
-  //       this.control=newVal
-  //       console.log(newVal, oldVal)
-  //     }
-  // },
+  computed:{
+      enterMaintenance(){
+        return  this.$store.state.enterMaintenance
+      }
+  },
+  watch:{
+      enterMaintenance(newVal, oldVal){
+        
+       
+       this.$nextTick(()=>{
+          this.$forceUpdate();
+          console.log(1111)
+       })
+
+      }
+  },
   beforeDestroy() {}
 };
 </script>
