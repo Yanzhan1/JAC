@@ -59,9 +59,6 @@
 						</div>
 					</li>
 				</ul>
-				<ul v-else>
-					<div style="text-align:center;margin-top:.2rem">暂无线索订单</div>
-				</ul>
 			<!-- </mt-tab-container-item> -->
 			<!-- <mt-tab-container-item id="five"> -->
 				<ul v-show="this.flow" style="margin-top:.7rem;">
@@ -164,6 +161,7 @@ export default {
       this.Maintenance = false;
     },
     showflow() {
+      this.flowbuy();
       this.list = false;
       this.flow = true;
       this.Maintenance = false;
@@ -172,6 +170,7 @@ export default {
       this.Maintenance = true;
       this.flow = false;
       this.list = false;
+      this.appointment();
     },
     //跳转维保详情
     goMaintenancedetail(item){
@@ -344,8 +343,8 @@ export default {
   },
   created() {
     this.GetXorder();
-    this.flowbuy();
-    this.appointment();
+    // this.flowbuy();
+    // this.appointment();
     // this.getShoppingMall();
   },
   mounted() {

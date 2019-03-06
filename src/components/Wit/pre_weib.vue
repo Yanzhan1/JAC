@@ -494,6 +494,7 @@ export default {
     },
     //选择确定预约时间
     confirmBtn() {
+      this.dataindex=0
       this.allback = false;
       this.orderTime = false;
       this.yearmonthday = $(".is-active").text();
@@ -508,6 +509,7 @@ export default {
       $("#cityLabel").hide();
       this.orderTime = false;
       this.typeChoose=false;
+      this.dataindex=0;
     },
     //选择省份
     chooseprovinces() {
