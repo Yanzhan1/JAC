@@ -55,7 +55,7 @@ export default {
         this.$store.dispatch("userId", userInfo.no);
         this.$store.dispatch("userInfo", userInfo);
         this.$http.defaults.headers.common["timaToken"] = userInfo.token;
-        console.log(userInfo.defaultInformation)
+        console.log("a",userInfo)
         //获取原生给你默认车辆的所有信息
         if (isMobile.iOS()) {
           if (userInfo.defaultInformation) {
@@ -66,13 +66,14 @@ export default {
             // localStorage.setItem({
             //   "defaultInformation":userInfo.defaultInformation
             // })
+            console.log('jinru')
             let param = {
               lmscode:
-                userInfo.defaultInformation.modelNo,
+                JSON.parse(userInfo.defaultInformation).modelNo,
               levelCode:
-                userInfo.defaultInformation.seriesNo,
-              tspFlag: userInfo.defaultInformation.tspFlag,
-              seriesName: userInfo.defaultInformation.seriesName
+                JSON.parse(userInfo.defaultInformation).seriesNo,
+              tspFlag: JSON.parse(userInfo.defaultInformation).tspFlag,
+              seriesName:JSON.parse(userInfo.defaultInformation).seriesName
             };
             this.$http
               .post(Wit.SearchVehicleSeriesByVehicle, param)
@@ -155,6 +156,7 @@ export default {
         localStorage.setItem("mobile", JSON.stringify(userInfo.mobile));
         localStorage.setItem("userName", JSON.stringify(userInfo.userName));
       } else {
+        this.$store.state.enterMaintenance = false;
         this.$store.dispatch("isLogin", false);
         this.$store.dispatch("userId", null);
         //      this.$store.dispatch('userInfo',null);

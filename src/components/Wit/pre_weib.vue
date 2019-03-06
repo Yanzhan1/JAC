@@ -157,7 +157,7 @@
       </div>
       <mt-picker :slots="slotstime" @change="timeChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
     </div>
-		<span class="bottom-btn" @click="appointment">立即预约</span>
+		<div class="bottom-bt" @click="appointment">立即预约</div>
 
 		<div v-show="allback" class="black" @click='backgroundshow' @touchmove.prevent></div>
 		<!-- 遮罩层  -->
@@ -290,13 +290,16 @@ export default {
     };
   },
   mounted() {
-    setTimeout(() => {   
-      this.getdefaultmessage();
-      this.init();
-    }, 500);
-    this.defaultvins(); 
-    this.mobile = this.$store.state.mobile;
-    this.locationMes = this.$store.state.locationMes;
+    setTimeout(() => {
+      this.locationMes = this.$store.state.locationMes;
+      console.log('preweib',this.locationMes)
+      if (this.$store.state.islogin) {
+        this.init();
+        this.getdefaultmessage();
+        this.defaultvins(); 
+      }
+      this.mobile = this.$store.state.mobile;
+    }, 100);
     this.num = true;
   },
   methods: {
@@ -422,20 +425,20 @@ export default {
     },
     //获取定位的省份,城市,经纬度
     getdefaultmessage() {
-      this.provinceName = JSON.parse(this.$store.state.locationMes)
+      this.provinceName = JSON.parse(this.locationMes)
         .province.replace("自治区", "")
         .replace("省", "")
         .replace("市", "")
         .replace("壮族", "")
         .replace("回族", "");
-      this.cityName = JSON.parse(this.$store.state.locationMes).city.replace(
+      this.cityName = JSON.parse(this.locationMes).city.replace(
         "市",
         ""
       );
       // this.valuescity1 = this.cityName;
       // this.valuesprovince1 = this.provinceName;
-      this.latitude = JSON.parse(this.$store.state.locationMes).latitude; //精
-      this.longitude = JSON.parse(this.$store.state.locationMes).longitude; //韦
+      this.latitude = JSON.parse(this.locationMes).latitude; //精
+      this.longitude = JSON.parse(this.locationMes).longitude; //韦
     },
     //获取服务站内容
     mydeler() {
@@ -1093,8 +1096,15 @@ export default {
   width: 100%;
   height: 100%;
 }
-/* .bottom-btn{
-  position: absolute;
-  bottom: -1rem;
-} */
+.bottom-bt{
+    width: 100%;
+    height: 0.88rem;
+    line-height: 0.88rem;
+    text-align: center;
+    background: #49BBFF;
+    font-size: 0.3rem;
+    color: #ffffff;
+    border: none;
+    outline: none;
+}
 </style>

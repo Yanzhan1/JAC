@@ -76,7 +76,7 @@
             <dealer></dealer>					
           </li>
           <li class="li_list" v-if="enterMaintenance">
-            <preweib></preweib>				
+            <preweib v-if="enterMaintenance"></preweib>				
           </li>
           <li class="li_list" @click="Record(4)">
             <searchnet></searchnet>					
@@ -488,20 +488,32 @@ export default {
     }
   },
   created() {
-    var system = this.isIOSOrAndroid();
-    if (system == "Android") {
-      this.$store.dispatch("GETLOCATIONINFO", js2android.getLocationInfo())
-      // this.$store.state.locationMes=js2android.getLocationInfo()
-    } else if (system == "IOS") {
-      window.getIosLocation = this.getIosLocation; //ios获取定位信息,放到window对象供ios调用
-      setTimeout(() => {
-        
-        window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
-      }, 0);
-    }
+    this.$nextTick(()=>{
+      var system = this.isIOSOrAndroid();
+      if (system == "Android") {
+        this.$store.dispatch("GETLOCATIONINFO", js2android.getLocationInfo())
+        // this.$store.state.locationMes=js2android.getLocationInfo()
+      } else if (system == "IOS") {
+        window.getIosLocation = this.getIosLocation; //ios获取定位信息,放到window对象供ios调用
+        setTimeout(() => {
+          window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
+        }, 0);
+      }
+    })
   },
   mounted() {
-    console.log('wit',this.$store.state.enterMaintenance)
+    this.$nextTick(()=>{
+      try {
+        if (isMobile.iOS()) {
+          var params = {};
+          window.webkit.messageHandlers.init.postMessage(params);
+        } else if (isMobile.Android()) {
+          js2android.isLogin();
+        }
+      } catch (err) {
+        console.log("无此方法");
+      }
+    })
     this.init();
     this.changeTap();
   },
@@ -510,17 +522,17 @@ export default {
         return  this.$store.state.enterMaintenance
       }
   },
-  watch:{
-      enterMaintenance(newVal, oldVal){
+  // watch:{
+  //     enterMaintenance(newVal, oldVal){
         
        
-       this.$nextTick(()=>{
-          this.$forceUpdate();
-          console.log(1111)
-       })
+  //      this.$nextTick(()=>{
+  //         this.$forceUpdate();
+  //         console.log(1111)
+  //      })
 
-      }
-  },
+  //     }
+  // },
   beforeDestroy() {}
 };
 </script>
