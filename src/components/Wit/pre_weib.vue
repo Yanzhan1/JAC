@@ -9,6 +9,13 @@
 		<!-- <mhead currentTitle="维保预约"></mhead> -->
 		<div class="carmessage">车主信息</div>
 		<div style="padding:0.33rem">
+      <div class="flex row li_st between cocenter">
+				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>VIN</p>
+				<div class="flex row cocenter">
+					<input type="text" v-model="defaultvin"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222" readonly>
+					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
+				</div>
+			</div>
 			<div class="flex row li_st between cocenter">
 				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>姓名</p>
 				<div class="flex row cocenter">
@@ -19,7 +26,7 @@
 			<div class="flex row li_st between cocenter">
 				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>手机号</p>
 				<div class="flex row cocenter">
-					<input type="text" placeholder="请输入手机号" v-model="this.mobile"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">
+					<input type="text" placeholder="请输入手机号" v-model="mobile"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
@@ -33,7 +40,7 @@
 			<div class="flex row li_st between cocenter">
 				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>车型</p>
 				<div class="flex row cocenter">
-					<span>{{seriesName}}</span>
+					<span>{{this.seriesName}}</span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
@@ -292,14 +299,13 @@ export default {
   mounted() {
     setTimeout(() => {
       this.locationMes = this.$store.state.locationMes;
-      console.log('preweib',this.locationMes)
       if (this.$store.state.islogin) {
         this.init();
         this.getdefaultmessage();
         this.defaultvins(); 
       }
       this.mobile = this.$store.state.mobile;
-    }, 100);
+    }, 300);
     this.num = true;
   },
   methods: {
@@ -783,9 +789,7 @@ export default {
           //       });
           //   });
           MessageBox.alert("预约成功").then(action => {
-                  this.$router.push({
-                    path:'/wit',
-                    });
+                  // this.$emit("child")
               });
         }
       });
