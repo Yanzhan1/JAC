@@ -297,6 +297,7 @@ export default {
     };
   },
   mounted() {
+    console.log(1)
     setTimeout(() => {
       this.locationMes = this.$store.state.locationMes;
       if (this.$store.state.islogin) {
@@ -636,35 +637,41 @@ export default {
       //左时间按钮
       this.$refs.swiperWrap.prev();
       this.dataindex--;
-      
+      console.log(this.dataindex)
       if (this.dataindex < 1) {
         this.dataindex = 0;
          $('.prev-button').css('color','#cccccc')
-        Toast({
-          message: "请往后预约日期",
-          position: "middle",
-          duration: 2000
-        });
+        // Toast({
+        //   message: "请往后预约日期",
+        //   position: "middle",
+        //   duration: 2000
+        // });
       }else{
         $('.next-button').css('color','#000')
         this.getdayreal();
+      }
+      if(this.dataindex==1){
+        $('.next-button').css('color','#000')
       }
     },
     rightBtn() {
       //右时间按钮
       this.dataindex++;
-        
+      console.log(this.dataindex)
       if (this.dataindex >6) {
         this.dataindex = 7;
         $('.next-button').css('color','#cccccc')
-        Toast({
-          message: "预约七天之内日期",
-          position: "middle",
-          duration: 2000
-        });
+        // Toast({
+        //   message: "预约七天之内日期",
+        //   position: "middle",
+        //   duration: 2000
+        // });
       }else{
         $('.prev-button').css('color','#000')
         this.getdayreal();
+      }
+      if(this.dataindex==6){
+        $('.next-button').css('color','#cccccc')
       }
         this.$refs.swiperWrap.next();
     },
@@ -924,6 +931,7 @@ export default {
   outline: none;
   padding: 0.3rem;
   background: none;
+  color:#ccc;
 }
 .every_times > .button-wrapper > .next-button {
   position: absolute;
