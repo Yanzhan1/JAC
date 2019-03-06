@@ -904,9 +904,9 @@ const router = new Router({
                 path: '/wit/pre_weib',
                 name: '维保预约',
                 component: Pre_weib,
-                meta: {
-                    keepAlive: true
-                }
+                // meta: {
+                //     keepAlive: true
+                // }
             },
             {
                 path: '/wit/Characteristic',
