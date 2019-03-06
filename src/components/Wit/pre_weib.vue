@@ -630,29 +630,37 @@ export default {
       //左时间按钮
       this.$refs.swiperWrap.prev();
       this.dataindex--;
-      if (this.dataindex < 0) {
+      
+      if (this.dataindex < 1) {
         this.dataindex = 0;
+         $('.prev-button').css('color','#cccccc')
         Toast({
-          message: "预约不能超过当前日期",
+          message: "请往后预约日期",
           position: "middle",
           duration: 2000
         });
+      }else{
+        $('.next-button').css('color','#000')
+        this.getdayreal();
       }
-      this.getdayreal();
     },
     rightBtn() {
       //右时间按钮
       this.dataindex++;
-      if (this.dataindex > 7) {
+        
+      if (this.dataindex >6) {
         this.dataindex = 7;
+        $('.next-button').css('color','#cccccc')
         Toast({
           message: "预约七天之内日期",
           position: "middle",
           duration: 2000
         });
+      }else{
+        $('.prev-button').css('color','#000')
+        this.getdayreal();
       }
-      this.$refs.swiperWrap.next();
-      this.getdayreal();
+        this.$refs.swiperWrap.next();
     },
     //获取默认车辆的vin
     defaultvins() {
@@ -923,8 +931,11 @@ export default {
   outline: none;
   padding: 0.3rem;
   background: none;
+  color: #000
 }
-
+.buttom_active{
+    color: #ccc;
+}
 .center {
   position: absolute;
 }
