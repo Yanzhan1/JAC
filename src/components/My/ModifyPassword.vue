@@ -83,7 +83,9 @@ export default {
       // 		});
       // 		return false
       // }
-      var regPwd = /^((?=.*[0-9].*)(?=.*[A-Za-z].*))[0-9A-Za-z]{6,20}$/;
+      // var regPwd = /^((?=.*[0-9].*)(?=.*[A-Za-z].*))[0-9A-Za-z]{6,20}$/;
+      var regPwd = /^((?=.*[0-9].*)(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*[`~!@%():;,.?].*))[0-9a-zA-Z`~!@%():;,.?]{8,16}$/;
+      
       if (
         this.condition.newPassword == null ||
         this.condition.oldPassword == null
@@ -96,7 +98,7 @@ export default {
         return;
       } else if (!regPwd.test(this.condition.newPassword)) {
         Toast({
-          message: "密码须包含数字和字母，且长度不少于6位",
+          message: "密码须包含大小写字母、数字和字符，长度8-16位，其中字符包括：`~!@%():;.?']",
           position: "middle",
           duration: 2000
         });
@@ -109,6 +111,7 @@ export default {
         });
         return false;
       } else if (this.condition.newAgainpassword == null) {
+        // console.log(this.condition.newAgainpassword)
         Toast({
           message: "请确认密码",
           position: "middle",
