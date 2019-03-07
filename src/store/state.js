@@ -22,6 +22,7 @@ export default {
     nomarlseriseName: '', //爱车部分默认的seriseName
     srouceNo: '', //智享主页点击时候车的每一个srouceNo
     levelCode: '',
+    lmsCode: '',
     // userNo: 'AD022018081504171568405', //userNo
     tsppin: {
         headers: {

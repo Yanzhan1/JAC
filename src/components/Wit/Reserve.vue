@@ -640,7 +640,7 @@ export default {
     // this.jiami(this.$store.state.mobile)
 
     this.Pikante();
-    if(this.$store.state.levelCode=='CY001'){
+    if(this.$store.state.lmsCode=='CYRF016'){
         this.moneypay=true
     }
     //地区

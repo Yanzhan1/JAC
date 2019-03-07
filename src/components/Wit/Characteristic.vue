@@ -87,6 +87,7 @@ export default {
             this.seriesName=res.data.data.seriesName
             this.srouceNo=res.data.data.lmscode
             this.$store.state.levelCode=res.data.data.lmslevelCode
+            this.$store.state.lmsCode=res.data.data.lmscode
             for(let i=0;i<allimage.length;i++){
                 if(allimage[i].imageType==4){
                     this.everyimage.push(allimage[i].imageUrl)
