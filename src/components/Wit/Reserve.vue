@@ -49,7 +49,8 @@
                       <li class="phone all">
                           <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>手机</span>
                           <div class="allflex">
-                              <input placeholder="点击输入手机号" v-model="tell" @blur="changetell">
+                              <!-- <input placeholder="点击输入手机号" v-model="tell" @blur="changetell"> -->
+                              <input placeholder="点击输入手机号" v-model="tell">
                               <img src="../../../static/images/next@2x.png" alt="">
                           </div>
                       </li>
@@ -219,10 +220,10 @@ export default {
       this.citys = true;
       this.region = true;
     },
-    changetell(){
-      this.notell=this.tell
-      this.jiami(this.tell)
-    },
+    // changetell(){
+    //   this.notell=this.tell
+    //   this.jiami(this.tell)
+    // },
     Codigo(){
       if(this.Recommend==''){
 
@@ -383,9 +384,9 @@ export default {
           });
           return false;
         }
-        var tell = this.notell; //手机号
+        // var tell = this.notell; //手机号
         let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
-        var numFlag = reg.test(tell);
+        var numFlag = reg.test(this.tell);
         if (!numFlag) {
           Toast({
             message: "手机号码格式不对！",
@@ -422,7 +423,7 @@ export default {
                 customerName: this.name, //姓名
                 fkDealerId: this.business, //经销商编号
                 gender: gender, //性别
-                mobile: this.notell, //手机号
+                mobile: this.tell, //手机号
                 email: this.email, //email
                 address: this.address, //地址
                 comments: this.vehicleData, //车型配置
@@ -599,12 +600,12 @@ export default {
  
     },
     //对手机号码进行加密
-    jiami(val){
-      let mobile1=val.slice(0,3);
-      let mobile2=val.slice(7,11);
-      let newtell=`${mobile1}****${mobile2}`
-      this.tell=newtell
-    },
+    // jiami(val){
+    //   let mobile1=val.slice(0,3);
+    //   let mobile2=val.slice(7,11);
+    //   let newtell=`${mobile1}****${mobile2}`
+    //   this.tell=newtell
+    // },
     getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
 				this.localprovince = JSON.parse(locationMes).province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '')
 				this.localcity = JSON.parse(locationMes).city.replace('市', '')
@@ -635,8 +636,8 @@ export default {
       }
   },
   mounted() {
-    this.notell=this.$store.state.mobile
-    this.jiami(this.$store.state.mobile)
+    this.tell=this.$store.state.mobile
+    // this.jiami(this.$store.state.mobile)
 
     this.Pikante();
     if(this.$store.state.levelCode=='CY001'){
