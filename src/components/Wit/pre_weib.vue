@@ -55,7 +55,7 @@
 				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>行驶里程</p>
 				<div class="flex row cocenter">
           <!-- <input type="numberbox" name="" id="" v-model="km"> -->
-          <input type="number"
+          <input type="tel"
               placeholder="请输入数字" v-model="km"><span>公里</span> 
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
@@ -297,7 +297,6 @@ export default {
     };
   },
   mounted() {
-    console.log(1)
     setTimeout(() => {
       this.locationMes = this.$store.state.locationMes;
       if (this.$store.state.islogin) {
@@ -417,11 +416,18 @@ export default {
           this.alldata = res.data.data;
           let alldata = res.data.data;
           this.slotstime[0].values = [];
+          console.log(alldata)
           for (let val of alldata) {
             if (val.completeAMOUNT >= val.max_NUM) {
               val.revervation_TIME = val.revervation_TIME + " 爆满";
               this.slotstime[0].values.push(val.revervation_TIME);
             } else {
+              
+              // console.log(val.revervation_TIME.substring(0, 2))
+              // console.log(new Date().getHours())
+              // if(val.revervation_TIME.substring(0, 1)){
+
+              // }             
               this.slotstime[0].values.push(val.revervation_TIME);
             }
           }
@@ -730,6 +736,16 @@ export default {
         });
         return false;
       }
+      let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+        var numFlag = reg.test(this.mobile);
+        if (!numFlag) {
+          Toast({
+            message: "手机号码格式不对！",
+            duration: 1000,
+            position: "middle"
+          });
+          return false;
+        }
       if (this.km == "") {
         Toast({
           message: "请填写里程数",
@@ -815,11 +831,12 @@ export default {
   //       return this.$store.state.locationMes
   //     }
   // },
-  // watch:{
-  //     locationMes(newVal, oldVal){
-
-  //     }
-  // },
+  watch:{
+    //检测行驶里程只能输入数字
+      km(newVal, oldVal){
+        this.km= newVal.replace(/[^0-9]/ig, "")
+      }
+  },
   created() {
     this.getDateList(7);
   }
