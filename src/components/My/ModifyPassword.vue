@@ -32,6 +32,9 @@
 			</div>
 		</div>
 		<button class="bottom-btn" @click="modifyPwd">确认修改</button>
+    <div  style="width:100%;padding:.3rem;text-indent:.2rem;font-size:.26rem;">
+      *密码必须包含大小写字母、数字和字符,长度8-16位,其中字符包括:`~!@%():;,.?
+    </div>
 	</div>
 </template>
 
@@ -98,7 +101,7 @@ export default {
         return;
       } else if (!regPwd.test(this.condition.newPassword)) {
         Toast({
-          message: "密码须包含大小写字母、数字和字符，长度8-16位，其中字符包括：`~!@%():;.?']",
+          message: "密码须包含大小写字母、数字和字符，长度8-16位，其中字符包括：`~!@%():;.?",
           position: "middle",
           duration: 2000
         });

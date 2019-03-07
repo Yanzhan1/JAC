@@ -106,11 +106,11 @@
 				<img v-else :src="'./static/images/Lovecar/waioff.png'" />
 				<span :class="activeShowImg==3?'active':'actives'">外循环</span>
 			</button>
-      <!-- <button :disabled="!value" class="tabar flex-column-align" @click="change(1)">
-				<img v-if="activeShowImg == 1" :src="'./static/images/Lovecar/no-off@2x.png'" />
+      <button :disabled="!value" class="tabar flex-column-align" @click="change(1)">
+				<img v-if="this.controldefrost&&value" :src="'./static/images/Lovecar/no-off@2x.png'" />
 				<img v-else :src="'./static/images/Lovecar/no-off2@2x.png'" />
-        <span :class="activeShowImg==1?'active':'actives'">除霜</span>
-			</button> -->
+        <span :class="this.controldefrost&&value?'active':'actives'">除霜</span>
+			</button>
 			<!--底部导航End-->
 		</div>
 		<!--pin码弹出框Start-->
@@ -166,6 +166,7 @@ export default {
     return {
       turnon: 0, //辨别不同的指令1空调2压缩机3内循环4外循环5档位6风量
       time: "", //定时器命名
+      controldefrost:false,//控制除霜开关
       timer: null, //防止用户连点出现重复请求
       //移动端键盘值
       allwords: [], //所有的提示
@@ -816,18 +817,14 @@ export default {
                           }
                           if (this.turnon == "7") {
                             if (this.defrost) {
-                              this.activeShowImg
-                                ? (this.activeShowImg = 1)
-                                : (this.activeShowImg = 0);
+                              this.controldefrost=true;
                               Toast({
                                 message: this.vehicle_defrost[0].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
                             } else {
-                              this.activeShowImg
-                                ? (this.activeShowImg = 0)
-                                : (this.activeShowImg = 1);
+                              this.controldefrost=false;
                               Toast({
                                 message: this.vehicle_defrost[2].dictValue,
                                 position: "middle",
