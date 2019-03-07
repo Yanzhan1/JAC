@@ -186,6 +186,7 @@ export default {
       chooseType:'',
       hostname: "", //车主姓名
       mobile: "", //手机号
+      nowdateshow:true,//判断当天如果没有维保预约时间的控制键
       servicezhan: false, //控制服务站
       typeChoose:false,//控制维保类型选择
       orderTime: false, //控制时间
@@ -407,6 +408,7 @@ export default {
     },
     //通过日期获取具体的时间段
     getdayreal() {
+      console.log('kk',this.dataList[this.dataindex])
       let param = {
         revervationDate: this.dataList[this.dataindex],
         dealerNo: this.chooseno
@@ -422,13 +424,38 @@ export default {
               val.revervation_TIME = val.revervation_TIME + " 爆满";
               this.slotstime[0].values.push(val.revervation_TIME);
             } else {
-              
-              // console.log(val.revervation_TIME.substring(0, 2))
+              this.slotstime[0].values=[]
+              let year=new Date().getFullYear();
+              let month=new Date().getMonth()+1;
+              month=month<10?'0'+month:month;
+              let date =new Date().getDate();
+              date=date<10?'0'+date:date;
+              let year_month_date=year+'-'+month+'-'+date;
+              setTimeout(() => {       
+                if(year_month_date==$(".is-active").text()){
+                    if(val.revervation_TIME.split(':')[0]-new Date().getHours()>=4){
+                      if(this.nowdateshow){
+                        this.slotstime[0].values=[]
+                      }
+                        this.nowdateshow=false;
+                        this.slotstime[0].values.push(val.revervation_TIME);
+                        console.log('jinru')
+
+                    }else{
+                      console.log(this.nowdateshow)
+                      if(this.nowdateshow){
+                          this.slotstime[0].values = ["暂无预约时间"];
+                      }
+                    }
+                }else{
+                  this.slotstime[0].values.push(val.revervation_TIME);
+                }
+              }, 700);
               // console.log(new Date().getHours())
               // if(val.revervation_TIME.substring(0, 1)){
 
               // }             
-              this.slotstime[0].values.push(val.revervation_TIME);
+              // this.slotstime[0].values.push(val.revervation_TIME);
             }
           }
         } else if (res.data.code == 500) {
@@ -645,19 +672,18 @@ export default {
       //左时间按钮
       this.$refs.swiperWrap.prev();
       this.dataindex--;
+      if(this.dataindex==0){
+        this.getdayreal();
+      }
       console.log(this.dataindex)
       if (this.dataindex < 1) {
         this.dataindex = 0;
          $('.prev-button').css('color','#cccccc')
-        // Toast({
-        //   message: "请往后预约日期",
-        //   position: "middle",
-        //   duration: 2000
-        // });
       }else{
         $('.next-button').css('color','#000')
         this.getdayreal();
       }
+      
       if(this.dataindex==1){
         $('.next-button').css('color','#000')
       }
@@ -667,13 +693,8 @@ export default {
       this.dataindex++;
       console.log(this.dataindex)
       if (this.dataindex >6) {
-        this.dataindex = 7;
+        this.dataindex = 6;
         $('.next-button').css('color','#cccccc')
-        // Toast({
-        //   message: "预约七天之内日期",
-        //   position: "middle",
-        //   duration: 2000
-        // });
       }else{
         $('.prev-button').css('color','#000')
         this.getdayreal();
@@ -681,6 +702,7 @@ export default {
       if(this.dataindex==6){
         $('.next-button').css('color','#cccccc')
       }
+      
         this.$refs.swiperWrap.next();
     },
     //获取默认车辆的vin
