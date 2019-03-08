@@ -155,7 +155,6 @@
 		</mt-popup>
 		</div>
 		<!--自定义软键盘End-->
-
 	</div>
 </template>
 
@@ -202,7 +201,7 @@ export default {
       //压缩机switch按钮激活变量
       compressor: false,
       //图片激活变量
-      activeShowImg: false,
+      activeShowImg: true,
       //温度调节最大值
       max: 14,
       //温度调节最小值
@@ -223,7 +222,7 @@ export default {
       //软键盘内容12位随机数组
       keyNums: [],
       //曲线状态
-      curveState: false,
+      curveState: true,
       //空调默认点
       airSpace: 8,
       //空调图旋转状态
@@ -1604,6 +1603,7 @@ export default {
   left: 50%;
   top: 0.9rem;
   margin-left: -7%;
+  z-index: 9;
 }
 /*空调主体*/
 
