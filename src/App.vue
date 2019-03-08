@@ -43,8 +43,6 @@ export default {
       }
     },
     isLogin(userInfo) {
-      this.$store.state.kim="456"
-      console.log('appp',this.$store.state.kim)
       // this.$store.dispatch('change$FLAG', true)// 不要动 有用
       console.log('z执行islogin')
       if (userInfo && userInfo.no) {
@@ -76,20 +74,25 @@ export default {
             this.$http
               .post(Wit.SearchVehicleSeriesByVehicle, param)
               .then(res => {
-                if (res.data.data.brandId == 4 || 5 || 6) {
-                  // this.brandName = res.data.data.brandName;
-                  // this.seriesName = res.data.data.seriesName;
-                  // this.brandNo = res.data.data.brandNo;
-                  // this.brandId = "0" + res.data.data.brandId;
-                  // this.seriesNo = res.data.data.no;
-                  if (userInfo.no) {
-                    this.$store.state.enterMaintenance = true;                   
+                if(res.data.code==0){
+
+                  if (res.data.data.brandId == 4 || 5 || 6) {
+                    // this.brandName = res.data.data.brandName;
+                    // this.seriesName = res.data.data.seriesName;
+                    // this.brandNo = res.data.data.brandNo;
+                    // this.brandId = "0" + res.data.data.brandId;
+                    // this.seriesNo = res.data.data.no;
+                    if (userInfo.no) {
+                      this.$store.state.enterMaintenance = true;                   
+                    }else{
+                      this.$store.state.enterMaintenance = false;
+                    }
                   }else{
-                    this.$store.state.enterMaintenance = false;
-                  }
+                      this.$store.state.enterMaintenance = false;
+                    }
                 }else{
-                    this.$store.state.enterMaintenance = false;
-                  }
+                  this.$store.state.enterMaintenance = false;
+                }
               });
           } else {
                   this.$store.state.enterMaintenance = false;
@@ -112,20 +115,25 @@ export default {
             this.$http
               .post(Wit.SearchVehicleSeriesByVehicle, param)
               .then(res => {
-                if (res.data.data.brandId == 4 || 5 || 6) {
-                  // this.brandName = res.data.data.brandName;
-                  // this.seriesName = res.data.data.seriesName;
-                  // this.brandNo = res.data.data.brandNo;
-                  // this.brandId = "0" + res.data.data.brandId;
-                  // this.seriesNo = res.data.data.no;
-                  if (userInfo.no) {
-                    this.$store.state.enterMaintenance = true;
+                if(res.data==0){
+                  if (res.data.data.brandId == 4 || 5 || 6) {
+                    // this.brandName = res.data.data.brandName;
+                    // this.seriesName = res.data.data.seriesName;
+                    // this.brandNo = res.data.data.brandNo;
+                    // this.brandId = "0" + res.data.data.brandId;
+                    // this.seriesNo = res.data.data.no;
+                    if (userInfo.no) {
+                      this.$store.state.enterMaintenance = true;
+                    }else{
+                      this.$store.state.enterMaintenance = false;
+                    }
                   }else{
-                    this.$store.state.enterMaintenance = false;
-                  }
+                    
+                      this.$store.state.enterMaintenance = false;
+                    }
                 }else{
-                    this.$store.state.enterMaintenance = false;
-                  }
+                  this.$store.state.enterMaintenance = false;
+                }
               });
           } else {
                     this.$store.state.enterMaintenance = false;
@@ -154,7 +162,6 @@ export default {
         localStorage.setItem("userName", JSON.stringify(userInfo.userName));
       } else {
         this.$store.state.enterMaintenance = false;
-        console.log(this.$store.state.enterMaintenance)
         this.$store.dispatch("isLogin", false);
         this.$store.dispatch("userId", null);
         //      this.$store.dispatch('userInfo',null);
