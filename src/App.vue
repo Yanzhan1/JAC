@@ -154,6 +154,7 @@ export default {
         localStorage.setItem("userName", JSON.stringify(userInfo.userName));
       } else {
         this.$store.state.enterMaintenance = false;
+        console.log(this.$store.state.enterMaintenance)
         this.$store.dispatch("isLogin", false);
         this.$store.dispatch("userId", null);
         //      this.$store.dispatch('userInfo',null);
