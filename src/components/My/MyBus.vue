@@ -131,8 +131,10 @@ export default {
             if (isMobile.iOS()) {
                 var params = {};
                 window.webkit.messageHandlers.syncVehicleList.postMessage(params);
+                
               } else if (isMobile.Android()) {
-                js2android.syncVehicleList();
+                window.js2android.syncVehicleList();
+                
               }
             this.$store.state.vins = vin;
             this.MyBus();

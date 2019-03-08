@@ -589,12 +589,7 @@ export default {
       //     window.js2android.isLogin();
       //   }
       // })
-    console.log('myindexx',this.$store.state.kim)
-    this.$store.state.kim='567'
     // this.RecomendCode(); //获取推荐码
-  },
-  watch: {
-    
   },
   mounted() {
     if (this.$store.state.islogin) {
