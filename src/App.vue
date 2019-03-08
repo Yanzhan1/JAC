@@ -76,20 +76,24 @@ export default {
             this.$http
               .post(Wit.SearchVehicleSeriesByVehicle, param)
               .then(res => {
-                if (res.data.data.brandId == 4 || 5 || 6) {
-                  // this.brandName = res.data.data.brandName;
-                  // this.seriesName = res.data.data.seriesName;
-                  // this.brandNo = res.data.data.brandNo;
-                  // this.brandId = "0" + res.data.data.brandId;
-                  // this.seriesNo = res.data.data.no;
-                  if (userInfo.no) {
-                    this.$store.state.enterMaintenance = true;                   
+                if(res.data.code==0){
+                  if (res.data.data.brandId == 4 || 5 || 6) {
+                    // this.brandName = res.data.data.brandName;
+                    // this.seriesName = res.data.data.seriesName;
+                    // this.brandNo = res.data.data.brandNo;
+                    // this.brandId = "0" + res.data.data.brandId;
+                    // this.seriesNo = res.data.data.no;
+                    if (userInfo.no) {
+                      this.$store.state.enterMaintenance = true;                   
+                    }else{
+                      this.$store.state.enterMaintenance = false;
+                    }
                   }else{
-                    this.$store.state.enterMaintenance = false;
-                  }
+                      this.$store.state.enterMaintenance = false;
+                    }
                 }else{
                     this.$store.state.enterMaintenance = false;
-                  }
+                }
               });
           } else {
                   this.$store.state.enterMaintenance = false;
@@ -112,20 +116,24 @@ export default {
             this.$http
               .post(Wit.SearchVehicleSeriesByVehicle, param)
               .then(res => {
-                if (res.data.data.brandId == 4 || 5 || 6) {
-                  // this.brandName = res.data.data.brandName;
-                  // this.seriesName = res.data.data.seriesName;
-                  // this.brandNo = res.data.data.brandNo;
-                  // this.brandId = "0" + res.data.data.brandId;
-                  // this.seriesNo = res.data.data.no;
-                  if (userInfo.no) {
-                    this.$store.state.enterMaintenance = true;
+                if(res.data.code==0){
+                  if (res.data.data.brandId == 4 || 5 || 6) {
+                    // this.brandName = res.data.data.brandName;
+                    // this.seriesName = res.data.data.seriesName;
+                    // this.brandNo = res.data.data.brandNo;
+                    // this.brandId = "0" + res.data.data.brandId;
+                    // this.seriesNo = res.data.data.no;
+                    if (userInfo.no) {
+                      this.$store.state.enterMaintenance = true;
+                    }else{
+                      this.$store.state.enterMaintenance = false;
+                    }
                   }else{
-                    this.$store.state.enterMaintenance = false;
-                  }
+                      this.$store.state.enterMaintenance = false;
+                    }
                 }else{
                     this.$store.state.enterMaintenance = false;
-                  }
+                }
               });
           } else {
                     this.$store.state.enterMaintenance = false;
