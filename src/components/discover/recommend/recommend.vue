@@ -737,7 +737,7 @@
       }
     },
     mounted() {
-      console.log('recommend',this.$store.state.AAA)
+      console.log('recommend',this.$store.state.kim)
       // this.getRefreshList();
       this.userId = this.$store.state.userId;
       // alert(this.$store.state.userId)

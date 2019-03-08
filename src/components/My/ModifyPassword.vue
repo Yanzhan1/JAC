@@ -32,7 +32,7 @@
 			</div>
 		</div>
 		<button class="bottom-btn" @click="modifyPwd">确认修改</button>
-    <div  style="width:100%;padding:.3rem;text-indent:.2rem;font-size:.26rem;">
+    <div  style="width:100%;padding:.2rem;font-size:.24rem;">
       *密码必须包含大小写字母、数字和字符,长度8-16位,其中字符包括:`~!@%():;,.?
     </div>
 	</div>

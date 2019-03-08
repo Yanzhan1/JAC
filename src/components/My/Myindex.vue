@@ -581,14 +581,22 @@ export default {
     
   },
   created() {
+      // this.$nextTick(()=>{
+      //   if (isMobile.iOS()) {
+      //     var params = {};
+      //     window.webkit.messageHandlers.init.postMessage(params);
+      //   } else if (isMobile.Android()) {
+      //     window.js2android.isLogin();
+      //   }
+      // })
+    console.log('myindex',this.$store.state.kim)
+    this.$store.state.kim='567'
     // this.RecomendCode(); //获取推荐码
   },
   watch: {
     
   },
   mounted() {
-    localStorage.setItem("ceshi", "bbb");
-    this.$store.state.AAA='aaa'
     if (this.$store.state.islogin) {
       this.getuserinfo();
       this.myNum();

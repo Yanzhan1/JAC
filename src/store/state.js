@@ -73,4 +73,6 @@ export default {
     defaultInformation: {}, //存贮默认车辆的所有信息
     enterMaintenance: true,
     AAA: 1,
+
+    kim: ''
 }

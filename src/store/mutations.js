@@ -57,7 +57,7 @@ export default {
     [types.NONAME]: (state, payload) => {
         state.seriesName = payload.seriesName
         state.everyno = payload.no
-        state.srouceNo = payload.srouceNo
+        state.srouceNo = payload.lmscode
     },
     [types.SELECTLABELSTATE]: (state, payload) => {
         state.selectLabelState = payload
