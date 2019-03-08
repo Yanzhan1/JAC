@@ -44,10 +44,11 @@ export default {
     },
     isLogin(userInfo) {
       // this.$store.dispatch('change$FLAG', true)// 不要动 有用
-      // if (isMobile.iOS()) {
-      // }
       console.log('z执行islogin')
       if (userInfo && userInfo.no) {
+        this.$store.state.AAA=12
+         localStorage.setItem("ceshi", "aaa");
+        console.log('app',this.$store.state.AAA)
         this.$store.dispatch("isLogin", true);
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
         // const secUid = Secret.Encrypt(userInfo.no)
@@ -55,7 +56,6 @@ export default {
         this.$store.dispatch("userId", userInfo.no);
         this.$store.dispatch("userInfo", userInfo);
         this.$http.defaults.headers.common["timaToken"] = userInfo.token;
-        console.log("a",userInfo)
         //获取原生给你默认车辆的所有信息
         if (isMobile.iOS()) {
           if (userInfo.defaultInformation) {
@@ -66,7 +66,6 @@ export default {
             // localStorage.setItem({
             //   "defaultInformation":userInfo.defaultInformation
             // })
-            console.log('jinru')
             let param = {
               lmscode:
                 JSON.parse(userInfo.defaultInformation).modelNo,
@@ -122,7 +121,6 @@ export default {
                   // this.seriesNo = res.data.data.no;
                   if (userInfo.no) {
                     this.$store.state.enterMaintenance = true;
-                    console.log("app",this.$store.state.enterMaintenance)
                   }else{
                     this.$store.state.enterMaintenance = false;
                   }

@@ -587,6 +587,8 @@ export default {
     
   },
   mounted() {
+    localStorage.setItem("ceshi", "bbb");
+    this.$store.state.AAA='aaa'
     if (this.$store.state.islogin) {
       this.getuserinfo();
       this.myNum();
