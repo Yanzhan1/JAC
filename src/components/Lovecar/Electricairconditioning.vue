@@ -201,7 +201,7 @@ export default {
       //压缩机switch按钮激活变量
       compressor: false,
       //图片激活变量
-      activeShowImg: true,
+      activeShowImg: false,
       //温度调节最大值
       max: 14,
       //温度调节最小值
@@ -222,7 +222,7 @@ export default {
       //软键盘内容12位随机数组
       keyNums: [],
       //曲线状态
-      curveState: true,
+      curveState: false,
       //空调默认点
       airSpace: 8,
       //空调图旋转状态
