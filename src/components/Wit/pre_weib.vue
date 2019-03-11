@@ -55,8 +55,8 @@
 				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>行驶里程</p>
 				<div class="flex row cocenter">
           <!-- <input type="numberbox" name="" id="" v-model="km"> -->
-          <input type="tel"
-              placeholder="请输入数字" v-model="km"><span>公里</span> 
+          <input type="tel" style="line-height:.5rem;"
+              placeholder="请输入数字" v-model="km"><span style="display:block">公里</span> 
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
