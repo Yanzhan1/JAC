@@ -165,8 +165,7 @@
       <mt-picker :slots="slotstime" @change="timeChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
     </div>
 		<div class="bottom-bt" @click="appointment">立即预约</div>
-
-		<div v-show="allback" class="black" @click='backgroundshow' @touchmove.prevent></div>
+		<div v-show="allback" class="black" @click='backgroundshow' @touchmove.stop></div>
 		<!-- 遮罩层  -->
 	</div>
 </template>
@@ -840,7 +839,7 @@ export default {
               });
         }
       });
-    }
+    },
   },
   filters: {
     toFixed(input, param1) {

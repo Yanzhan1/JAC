@@ -484,7 +484,7 @@ export default {
           })();
         }
       }
-      this.backwit()
+      // this.backwit()
     }
   },
   created() {
