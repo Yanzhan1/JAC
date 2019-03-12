@@ -835,6 +835,7 @@ export default {
           //       });
           //   });
           MessageBox.alert("预约成功").then(action => {
+                  this.$router.go(0)
                   // this.$emit("child")
               });
         }

@@ -77,7 +77,10 @@ const Remotecharging = lazyLoad('/Lovecar/newenergy/Remotecharging') //充电功
     // import Remotecharging from "@/components/Lovecar/newenergy/Remotecharging" //充电功能页面
 const Preheat = lazyLoad('/Lovecar/newenergy/Preheat') //充电功能页面
     // import Preheat from "@/components/Lovecar/newenergy/Preheat" //充电功能页面
-const NewenergyCar = lazyLoad('/Lovecar/newenergy/newenergyCar') //充电功能页面
+const NewenergyCar = lazyLoad('/Lovecar/newenergy/newenergyCar') //新能源车控主页
+const Airwindow = lazyLoad('/Lovecar/newenergy/Airwindow') //充电功能页面
+const Newaircondition = lazyLoad('/Lovecar/newenergy/Newaircondition') //新能源空调
+const Newcarwindow = lazyLoad('/Lovecar/newenergy/Newcarwindow') //新能源空调
 
 /**
  * 我的部分
@@ -565,6 +568,21 @@ const router = new Router({
                 path: "/newenergyCar",
                 name: '新能源主页',
                 component: NewenergyCar
+            },
+            {
+                path: "/newenergyCar/airwindow",
+                name: '新能源天窗可开关',
+                component: Airwindow
+            },
+            {
+                path: "/newenergyCar/newaircondition",
+                name: '新能源空调',
+                component: Newaircondition
+            },
+            {
+                path: "/newenergyCar/newcarwindow",
+                name: '新能源车窗',
+                component: Newcarwindow
             },
 
             //我的页面
