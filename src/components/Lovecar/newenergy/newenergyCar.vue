@@ -8,16 +8,12 @@
 			</div>
 			<div class="navs navs_h">
 				<div class="navs_t">
-					<span class="num">111</span>
-					<span class="txt">剩余油量（%）</span>
+					<span class="num">90%</span>
+					<span class="txt">剩余电量（%）</span>
 				</div>
 				<div class="navs_t">
 					<span class="num">222</span>
 					<span class="txt">行驶里程（KM）</span>
-				</div>
-				<div class="navs_t">
-					<span class="num">333</span>
-					<span class="txt">续航里程（KM）</span>
 				</div>
 			</div>
 		</div>
@@ -116,21 +112,21 @@
 						</div>
 						<div  class="content_1" @click="doorsoppen">
 							<!-- <div class="content_1" @click="doors"> -->
-							<img v-if="true" class="content_carDoor" :src="'./static/images/Lovecar/nolockon.png'" alt="">
+							<img v-if="!true" class="content_carDoor" :src="'./static/images/Lovecar/nolockon.png'" alt="">
 							<img v-else class="content_carDoor" :src="'./static/images/Lovecar/nolockoff.png'" alt="">
-							<span :class="true?'act':'activess'">开锁</span>
+							<span :class="!true?'act':'activess'">开锁</span>
 						</div>
 						<!-- <div class="content_1" @click="backbox"> -->
 						<div  class="content_1" @click="backbox">
-							<img v-if="true" class="tailgate" :src="'./static/images/Wit/button5@3x_86.png'" alt="">
+							<img v-if="!true" class="tailgate" :src="'./static/images/Wit/button5@3x_86.png'" alt="">
 							<img v-else class="tailgate" :src="'./static/images/Wit/button5@3x.png'" alt="">
-							<span :class="true?'act':'activess'">尾门</span>
+							<span :class="!true?'act':'activess'">尾门</span>
 						</div>
 						<!-- <div class="content_1" @click="closefire"> -->
 						<div  class="content_1" @click="closefire">
-							<img v-if="true" class="Flameout" :src="'./static/images/Lovecar/fireon.png'" alt="">
+							<img v-if="!true" class="Flameout" :src="'./static/images/Lovecar/fireon.png'" alt="">
 							<img v-else class="Flameout" :src="'./static/images/Lovecar/fireoff.png'" alt="">
-							<span :class="true?'act':'activess'">启动</span>
+							<span :class="!true?'act':'activess'">启动</span>
 						</div>
 						<!-- <div class="content_1" @click="closefire"> -->
 						<div  class="content_1" @click="closefireoff">
@@ -140,9 +136,9 @@
 						</div>
 						<!-- <div class="content_1" @click="enter()"> -->
 						<div class="content_1" @click="enter()">
-							<img v-if="true" class="content_pic" :src="'./static/images/Wit/button7@3x_2.png'" alt="">
+							<img v-if="!true" class="content_pic" :src="'./static/images/Wit/button7@3x_2.png'" alt="">
 							<img v-else class="content_pic" :src="'./static/images/Wit/button7@3x.png'" alt="">
-							<span :class="true?'act':'activess'">寻车</span>
+							<span :class="!true?'act':'activess'">寻车</span>
 						</div>
 					</div>
 				</mt-swipe-item>
@@ -151,47 +147,34 @@
 				<!--轮播第二页Start-->
 				<mt-swipe-item>
 					<div class="action-content">
-						<router-link  to="/lovecar/Electricairconditioning" tag="div" class="navs air">
+						<router-link  to="/newenergyCar/newaircondition" tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc" src="../../../../static/images/Wit/ari.png" alt="">
 								<span class="pic_txt">空调</span>
 							</div>
 						</router-link>
-						<!-- 跳转到自动空调 -->
-						<router-link  to="/lovecar/AirConditionControl" tag="div" class="navs air">
-							<div class="navs">
-								<img class="picc" src="../../../../static/images/Wit/ari.png" alt="">
-								<span class="pic_txt">空调</span>
-							</div>
-						</router-link>
-						<router-link to="/lovecar/adjustSeatTemper" tag="div" class="navs air">
-							<div class="navs">
-								<img class="picc" src="../../../../static/images/Wit/zuoyi.png" alt="">
-								<span class="pic_txt">座椅</span>
-							</div>
-						</router-link>
-						<router-link  :to="{path:'/lovecar/windowControl',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
+						<router-link  :to="{path:'/newenergyCar/newcarwindow',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc" src="../../../../static/images/Wit/chechuang.png" alt="">
 								<span class="pic_txt">车窗</span>
 							</div>
 						</router-link>
-						<router-link  :to="{path:'/lovecar/skylightClose',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
+						<router-link  :to="{path:'/newenergyCar/airwindow',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc skylight" src="../../../../static/images/Wit/tianchuang.png" alt="">
 								<span class="pic_txt">天窗</span>
 							</div>
 						</router-link>
-						<router-link  :to="{path:'/lovecar/skylightALL',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
+						<router-link  :to="{path:'/newenergy/preheat',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc skylight" src="../../../../static/images/Wit/tianchuang.png" alt="">
-								<span class="pic_txt">天窗</span>
+								<span class="pic_txt">预热</span>
 							</div>
 						</router-link>
-						<router-link   to="/lovecar/airEvoluor" tag="div" class="navs air">
+						<router-link  :to="{path:'/newenergy/remotecharging',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
 							<div class="navs">
-								<img class="picc air_contr" src="../../../../static/images/Wit/icon5@3x.png" alt="">
-								<span class="pic_txt">净化器</span>
+								<img class="picc skylight" src="../../../../static/images/Wit/tianchuang.png" alt="">
+								<span class="pic_txt">充电</span>
 							</div>
 						</router-link>
 					</div>
