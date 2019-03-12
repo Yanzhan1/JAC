@@ -140,12 +140,12 @@ export default {
     },
     //修改跳转
     changeWord(){
-      if (isMobile.iOS()) {
-        let params={}
-				window.webkit.messageHandlers.showKeyboard.postMessage(params);
-			} else if (isMobile.Android()) {
+      // if (isMobile.iOS()) {
+      //   let params={}
+			// 	window.webkit.messageHandlers.showKeyboard.postMessage(params);
+			// } else if (isMobile.Android()) {
 				this.$router.push('/myindex/modifyPassword')
-			}
+			// }
     },
     isIOSOrAndroid() {
       //判断ios和安卓机型的方法

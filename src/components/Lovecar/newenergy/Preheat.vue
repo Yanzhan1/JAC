@@ -2,31 +2,12 @@
     <div>
         <mhead currentTitle="远程预热"></mhead>
         <div style="width:100%;height:.01rem;background:#f1f1f1"></div>
-        <div class="box flex cocenter">
-            <div class="boxtest">当前车辆预热状态</div>
-            <div class="minbox flex cocenter" v-show="this.type==1?true:false">
-                <div style="width:.12rem;height:.12rem;background:#999999;border-radius:50%;"></div>
-                <div style="font-size:.24rem;color:rgba(102,102,102,1);margin-right:.3rem;margin-left:.1rem">无状态</div>
-            </div>
-            <div class="minbox flex cocenter" v-show="this.type==2?true:false">
-                <div style="width:.12rem;height:.12rem;background:#FFCC00;border-radius:50%;"></div>
-                <div style="font-size:.24rem;color:#FFCC00;margin-right:.3rem;margin-left:.1rem">等待预热</div>
-            </div>
-            <div class="minbox flex cocenter" v-show="this.type==3?true:false">
-                <div style="width:.12rem;height:.12rem;background:#49BBFF;border-radius:50%;"></div>
-                <div style="font-size:.24rem;color:#49BBFF;margin-right:.3rem;margin-left:.1rem">预热中</div>
-            </div>
-        </div>
-        <div class="sethot">预热时间设置</div>
         <div class="flex cocenter between nextbox" @click="openPicker">
             <span>预热开始时间</span>
             <div >
                 <div>{{this.hottimes}}</div>
                 <img :src="'./../../../../static/images/next@2x.png'" alt="">
             </div>
-        </div>
-        <div class="hotset">
-            预热档位设置
         </div>
         <mt-datetime-picker
             ref="picker"
@@ -41,11 +22,6 @@
             :endDate="endtime"
             >
         </mt-datetime-picker>
-        <div class="flex cocenter around setdangwei">
-            <div @click="setlow" :class="this.chooseGear?'activelow':'activehigh'">低档</div>
-            <div @click="sethigh" :class="!this.chooseGear?'activelow':'activehigh'">高档</div>
-        </div>
-        <div class="botsub">开始预热</div>
 
     </div>
 </template>
@@ -55,8 +31,6 @@ import PublicHead from "../../publicmodel/PublicHead";
 export default {
   data() {
     return {
-      type:1,//判断预热的状态1为无状态2为等待预热3为预热中
-      chooseGear: true, //true为默认低档
       hottimes:'',//选择得到的预热时间
       startday:new Date(),//限定开始时间的选择
       endtime:'',//限定结束时间的选择
@@ -64,17 +38,6 @@ export default {
     };
   },
   methods: {
-    //低档
-    setlow() {
-      this.chooseGear = !this.chooseGear;
-    },
-    //高档
-    sethigh() {
-      this.chooseGear = !this.chooseGear;
-    },
-    choosehottime(){
-
-    },
     openPicker() {
         this.$refs.picker.open();
     },
@@ -130,21 +93,6 @@ export default {
   margin-top: 0.5rem;
   justify-content: space-between;
 }
-.boxtest {
-  font-size: 0.3rem;
-  font-family: "PingFang-SC-Medium";
-  font-weight: 500;
-  color: rgba(34, 34, 34, 1);
-  margin-left: 0.43rem;
-}
-.sethot {
-  font-size: 0.32rem;
-  font-family: "PingFang-SC-Medium";
-  font-weight: 500;
-  color: rgba(34, 34, 34, 1);
-  margin-top: 0.69rem;
-  margin-left: 0.46rem;
-}
 .nextbox {
   width: 6.9rem;
   height: 1rem;
@@ -163,58 +111,10 @@ export default {
 .nextbox > div > div {
   padding: 0 0.1rem;
 }
-.hotset {
-  font-size: 0.32rem;
-  font-family: "PingFang-SC-Medium";
-  font-weight: 500;
-  color: rgba(34, 34, 34, 1);
-  margin-top: 0.69rem;
-  margin-left: 0.46rem;
-}
-.setdangwei {
-  width: 80%;
-  height: 0.8rem;
-  margin-top: 0.7rem;
-}
-.setdangwei > div {
-  width: 2.2rem;
-  height: 0.8rem;
-  box-shadow: 0px 4px 24px 0px rgba(0, 60, 230, 0.12);
-  border-radius: 0.08rem;
-  text-align: center;
-  line-height: 0.8rem;
-  font-size: 0.3rem;
-  font-family: "PingFang-SC-Medium";
-  font-weight: 500;
-}
-div.activelow {
-  background: rgba(73, 187, 255, 1);
-  box-shadow: 0px 4px 24px 0px rgba(0, 60, 230, 0.12);
-  color: #fff;
-}
-div.activehigh {
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0px 4px 24px 0px rgba(79, 79, 79, 0.08);
-  color: #4f4f4f;
-}
-.suretime {
-  display: block;
-  text-align: right;
-  margin-right: 0.3rem;
-  color: #49bbff;
-}
-.botsub {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 0.98rem;
-  background: rgba(73, 187, 255, 1);
-  box-shadow: 0px 0px 15px 0px rgba(68, 68, 68, 0.2);
-  font-size: 0.34rem;
-  font-family: "PingFang-SC-Medium";
-  font-weight: 500;
-  color: rgba(255, 255, 255, 1);
-  line-height: 0.98rem;
-  text-align: center;
+.mint-popup{
+    bottom: 4rem;
+    width: 82%;
+    height: 40%;
+    border-radius: 5%
 }
 </style>

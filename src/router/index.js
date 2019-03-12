@@ -70,10 +70,14 @@ const AirEvoluor = lazyLoad('/Lovecar/AirEvoluor') //空气进化器
     // import AirEvoluor from "@/components/Lovecar/AirEvoluor" //空气进化器
 const Electricairconditioning = lazyLoad('/Lovecar/Electricairconditioning') //电动空调调控
     // import Electricairconditioning from '@/components/Lovecar/Electricairconditioning' //电动空调调控
+
+
+// 新能源部分
 const Remotecharging = lazyLoad('/Lovecar/newenergy/Remotecharging') //充电功能页面
     // import Remotecharging from "@/components/Lovecar/newenergy/Remotecharging" //充电功能页面
 const Preheat = lazyLoad('/Lovecar/newenergy/Preheat') //充电功能页面
     // import Preheat from "@/components/Lovecar/newenergy/Preheat" //充电功能页面
+const NewenergyCar = lazyLoad('/Lovecar/newenergy/newenergyCar') //充电功能页面
 
 /**
  * 我的部分
@@ -546,15 +550,21 @@ const router = new Router({
                 name: '空气净化器',
                 component: AirEvoluor
             },
+            //新能源
             {
-                path: "/lovecar/remotecharging",
+                path: "/newenergy/remotecharging",
                 name: '充电功能',
                 component: Remotecharging
             },
             {
-                path: "/lovecar/preheat",
+                path: "/newenergy/preheat",
                 name: '远程预热',
                 component: Preheat
+            },
+            {
+                path: "/newenergyCar",
+                name: '新能源主页',
+                component: NewenergyCar
             },
 
             //我的页面

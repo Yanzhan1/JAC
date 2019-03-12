@@ -7,7 +7,7 @@
 var host = '//test.jac.timanetwork.net'
 
 //云环境域名
-// var host = '//jacsupperappuat.jac.com.cn'
+// var host = 'https://jacsupperappuat.jac.com.cn.jac.com.cn'
 
 //生产环境域名403
 // var host = '//jacsupperapp.jac.com.cn'
