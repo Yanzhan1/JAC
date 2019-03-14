@@ -1604,7 +1604,7 @@ export default {
   left: 50%;
   top: 0.9rem;
   margin-left: -7%;
-  z-index: 9;
+  z-index: 999;
 }
 /*空调主体*/
 
