@@ -133,7 +133,6 @@ export default {
     },
     //左按钮低档加热
     lowon(){
-      console.log(this.$refs.commenttext.innerHTML)
       if(this.$refs.commenttext.innerHTML=='高'){      
         this.$refs.control_bottom.style.left=2.2+'rem'
         this.$refs.commenttext.innerHTML='低'
@@ -142,7 +141,6 @@ export default {
     },
     //右按钮高档加热
     highon(){
-      console.log(this.$refs.commenttext.innerHTML)
       if(this.$refs.commenttext.innerHTML=='低'){
         this.$refs.control_bottom.style.left=3+'rem'
         this.$refs.commenttext.innerHTML='高'

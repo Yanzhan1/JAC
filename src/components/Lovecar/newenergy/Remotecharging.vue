@@ -56,7 +56,7 @@
             <mt-switch v-model="value" @change="turn"  style="padding:.2rem;"></mt-switch>
         </div>
         <div ref="showtime" v-show="value" class="showtime">{{this.showhour}}{{this.showminute}}后开始充电</div>
-        <div v-if="!value" class="lastdian" @click="Charging">
+        <div v-if="!controlcharge" class="lastdian" @click="Charging">
           <img :src="'./../../../../static/images/Lovecar/btndian@2x.png'" alt="">
           <div>立即充电</div>
         </div>
@@ -78,6 +78,7 @@
 <script>
 import PublicHead from "../../publicmodel/PublicHead";
 import { MessageBox } from "mint-ui";
+import { Toast } from "mint-ui";
 export default {
   data() {
     return {
@@ -85,6 +86,8 @@ export default {
       value:false,//控制开关
       showhour:'',
       showminute:'',
+      controlcharge:false,//控制底下充电图标
+      //占时储存所有充电数据
       allbetterymessage:{
         Surpluselectricity:'30%',
         openmileage:'266km',
@@ -103,19 +106,31 @@ export default {
     },
     //改变开关
     turn(){
-      if(this.value){
-        this.begintime()
+      if(this.controlcharge){
+        setTimeout(() => {       
+          this.value=false;
+           Toast({
+              message: '充电中,请先停止充电',
+              position: "middle",
+              duration: 2000
+            });
+        },0);
       }else{
-        MessageBox.confirm('预约充电已开启，确认关闭吗?').then(action => {
-            if(action == 'confirm') {
-              this.value=false;
-              //立即充电
+        if(this.value){
+          this.begintime()
+        }else{
+          MessageBox.confirm('预约充电已开启，确认关闭吗?').then(action => {
+              if(action == 'confirm') {
+                this.value=false;
+                console.log('jin')
+                //立即充电
+              }
+          }).catch(err => {
+            if(err == 'cancel') {
+                this.value=true
             }
-        }).catch(err => {
-					if(err == 'cancel') {
-              this.value=true
-					}
-				});
+          });
+        }
       }
     },
     //刷新按钮
@@ -123,6 +138,7 @@ export default {
 
     },
     handleConfirmstart(data) {
+      console.log(data)
       this.showhour=data.split(':')[0]+'小时';
       this.showminute=data.split(':')[1]+'分钟'
     },
@@ -154,22 +170,22 @@ export default {
         MessageBox.confirm('预约充电已开启，确认关闭吗?').then(action => {
             if(action == 'confirm') {
               this.value=false;
+              this.controlcharge=true
               //立即充电
             }
         }).catch(err => {
 					if(err == 'cancel') {
-              
+              this.controlcharge=false
 					}
 				});;
       }else{
         //立即充电
+        this.controlcharge=!this.controlcharge
       }
     },
     //获取电池状态
     batteryStatis(){
-      
       let top=1.9*(100-this.allbetterymessage.Surpluselectricity.replace(/%/ig, ''))/100+'rem'
-      console.log(top)
       $('.showElectricquantity').css('top',top)
     }
   },
