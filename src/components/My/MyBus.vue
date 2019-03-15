@@ -199,26 +199,13 @@ export default {
         cancelButtonHighlight: true
       }).then(action => {
         if (action == "confirm") {
-          var param = {
-            vin: vin,
-            extParams: { plateLicenseNo: plateLicenseNo },
-            operationType: "PLATE_NO",
-            operation: 0 //解绑
-          };
-
-          this.$http
-            .post(My.planbus, param, this.$store.state.tsppin)
-            .then(res => {
-              if (res.data.returnSuccess) {
-                this.MyBus();
-              } else {
-                Toast({
-                  message: "解绑失败，请稍后重试！",
-                  duration: 1000,
-                  position: "middle"
-                });
-              }
-            });
+          this.$router.push({
+                  path:'/myindex/plateBind',
+                  query:{
+                    vin:vin,
+                    plateLicenseNo:plateLicenseNo
+                  }
+                })
         }
       });
     }

@@ -224,7 +224,7 @@ export default {
       //曲线状态
       curveState: false,
       //空调默认点
-      airSpace: 8,
+      airSpace: 7,
       //空调图旋转状态
       rotateState: false,
       nums: 2,

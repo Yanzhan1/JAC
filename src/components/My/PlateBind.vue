@@ -17,11 +17,11 @@
 
 <script>
 import { Toast } from "mint-ui";
-import PublicHead from '../publicmodel/PublicHead';
+import PublicHead from "../publicmodel/PublicHead";
 export default {
   name: "plateBind",
   components: {
-  	mhead:PublicHead
+    mhead: PublicHead
   },
   data() {
     return {
@@ -33,39 +33,63 @@ export default {
   },
   methods: {
     // 添加车辆
-   add() {
-     if(!this.plate){
+    add() {
+      if (!this.plate) {
         Toast({
-            message: "车牌不能为空",
-            duration: 1000,
-            position: "middle"
-          });
-     }else{
-       var param = {
-          vin: this.vin,
-          extParams: { plateLicenseNo: this.plate },
-          operationType: "PLATE_NO",
-          operation: 1 //绑定
-        };
-        this.$http.post(My.planbus, param, this.$store.state.tsppin).then(res => {
-          if (res.data.returnSuccess) {
-            Toast({
-              message: "添加成功",
-              duration: 1000,
-              position: "middle"
-            });
-            this.$router.go(-1);
-          }else{
-            Toast({
-              message:res.data.returnErrMsg,
-              duration:1000,
-              position:'middle'
-            })
-          }
+          message: "车牌不能为空",
+          duration: 1000,
+          position: "middle"
         });
-     }
-	}
-},
+      } else {
+        console.log(this.$route.query.plateLicenseNo)
+        var params = {
+          vin: this.$route.query.vin,
+          extParams: { plateLicenseNo: this.$route.query.plateLicenseNo },
+          operationType: "PLATE_NO",
+          operation: 0 //解绑
+        };
+
+        this.$http
+          .post(My.planbus, params, this.$store.state.tsppin)
+          .then(res => {
+            if (res.data.returnSuccess) {
+              var param = {
+                vin: this.vin,
+                extParams: { plateLicenseNo: this.plate },
+                operationType: "PLATE_NO",
+                operation: 1 //绑定
+              };
+              this.$http
+                .post(My.planbus, param, this.$store.state.tsppin)
+                .then(res => {
+                  if (res.data.returnSuccess) {
+                    Toast({
+                      message: "添加成功",
+                      duration: 1000,
+                      position: "middle"
+                    });
+                    setTimeout(()=>{
+                      this.$router.go(-1);
+                    },1000)
+                  } else {
+                    Toast({
+                      message: res.data.returnErrMsg,
+                      duration: 1000,
+                      position: "middle"
+                    });
+                  }
+                });
+            } else {
+              Toast({
+                message: "添加失败请稍后重试",
+                duration: 1000,
+                position: "middle"
+              });
+            }
+          });
+      }
+    }
+  },
   created() {}
 };
 </script>
