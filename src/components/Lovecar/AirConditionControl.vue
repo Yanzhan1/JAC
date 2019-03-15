@@ -107,9 +107,9 @@
 				<span :class="activeShowImg==3?'active':'actives'">外循环</span>
 			</button>
       <button :disabled="!value" class="tabar flex-column-align" @click="change(1)">
-				<img v-if="this.controldefrost&&value" :src="'./static/images/Lovecar/no-off@2x.png'" />
-				<img v-else :src="'./static/images/Lovecar/no-off2@2x.png'" />
-        <span :class="this.controldefrost&&value?'active':'actives'">除霜</span>
+				<img v-if="this.controldefrost&&value" :src="'./static/images/Lovecar/defroston@2x.png'" />
+				<img v-else :src="'./static/images/Lovecar/defrostoff@2x.png'" />
+        <span :class="this.controldefrost&&value?'active':'actives'">前除霜</span>
 			</button>
 			<!--底部导航End-->
 		</div>
@@ -1257,6 +1257,7 @@ export default {
     //每次改变请求的方法
     httpair() {
       let defrostVal = this.defrost ? "2" : "1";
+      console.log('传给后台的温度',this.temperNum[this.airSpace])
       var param = {
         vin: this.$store.state.vins,
         operationType: "AIRCONDITIONER",
@@ -1747,7 +1748,7 @@ export default {
 .sing-line {
   width: 6.18rem;
   height: 1px;
-  margin: 1rem auto 0.4rem auto;
+  margin: 0.3rem auto 0.4rem auto;
   background: rgba(153, 153, 153, 0.3);
 }
 /*空调底部*/
@@ -1767,7 +1768,6 @@ export default {
 .tabar > img {
   width: 1.2rem;
   height: 1.2rem;
-  margin-bottom: 0.13rem;
 }
 
 .tabar > span {
