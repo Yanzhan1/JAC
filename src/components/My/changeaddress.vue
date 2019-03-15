@@ -236,7 +236,8 @@ export default {
       }
       let data = {
         parentId: this.everyid, //被检测的省份id
-        level: 2
+        level: 2,
+        size:99,
       };
       this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
         var city = res.data.data.records;
