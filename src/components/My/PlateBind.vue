@@ -41,7 +41,6 @@ export default {
           position: "middle"
         });
       } else {
-        console.log(this.$route.query.plateLicenseNo)
         var params = {
           vin: this.$route.query.vin,
           extParams: { plateLicenseNo: this.$route.query.plateLicenseNo },
@@ -90,7 +89,9 @@ export default {
       }
     }
   },
-  created() {}
+  created() {
+    this.plate=this.$route.query.plateLicenseNo
+  }
 };
 </script>
 
