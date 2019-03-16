@@ -59,6 +59,7 @@
             hourFormat="{value} 时"
             minuteFormat="{value} 分"
             @confirm="handleConfirm"
+            :visible-item-count='5'
             >
         </mt-datetime-picker>
 
@@ -176,7 +177,14 @@ export default {
                     M =  (date.getMonth()+1)+ '-';
                     D = date.getDate();
                     return Y+M+D;
-           }
+           },
+    loadcss(){
+      this.$nextTick(()=>{
+       $('.mint-datetime .picker-toolbar').css('position','relative').css('top','3.3rem')
+       $('.mint-datetime-cancel').css('border-right','solid 1px #eaeaea')
+      $('.mint-datetime .picker-items').css('position','relative').css('top','-.7rem').css('border-bottom','solid 1px #eaeaea')
+    })
+    }
   },
   components: {
     mhead: PublicHead
@@ -187,6 +195,8 @@ export default {
   //     }
   // },
   created(){
+    this.loadcss()
+    
     // this.endtime=this.toDate()
     let time= new Date().getTime()+1000*60*60*24*7
     this.endtime=new Date(this.Conversiontime(time)+'') 
@@ -287,5 +297,8 @@ export default {
 .dangwei{
   font:600 .24rem/.6rem 'PingFang-SC-Medium';
   color: #222;
+}
+.mint-popup{
+  height: 30%;
 }
 </style>

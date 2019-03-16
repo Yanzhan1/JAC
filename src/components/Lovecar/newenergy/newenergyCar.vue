@@ -8,12 +8,16 @@
 			</div>
 			<div class="navs navs_h">
 				<div class="navs_t">
-					<span class="num">90%</span>
+					<span class="num">30%</span>
 					<span class="txt">剩余电量（%）</span>
 				</div>
 				<div class="navs_t">
+					<span class="num">222km</span>
+					<span class="txt">空调开启剩余里程</span>
+				</div>
+				<div class="navs_t">
 					<span class="num">222</span>
-					<span class="txt">行驶里程（KM）</span>
+					<span class="txt">空调关闭剩余里程</span>
 				</div>
 			</div>
 		</div>
@@ -24,6 +28,12 @@
 				<!--车况tap Start-->
 				<div class="content-title">
 					<div class="left_bus1">
+            <div class="left_bus" @click="fn(4)">
+							<img v-if="activeshow==4" class="pic1" src="../../../../static/images/Lovecar/batteryindex1@2x.png" alt="">
+							<img v-else class="pic1" src="../../../../static/images/Lovecar/batteryindex@2x.png" alt="">&nbsp;&nbsp;
+							<span :class="activeshow==4?'active':'actives'" class="txt1">电池</span>
+							<div v-show="activeshow==4?true:false" style="width:.7rem;height:.03rem;position:absolute;background:#49bbff;top:.7rem;left: 50%;transform: translate(-50%, -50%);"></div>
+						</div>
 						<div class="left_bus" @click="fn(1)">
 							<img v-if="activeshow==1" class="pic1" src="../../../../static/images/Wit/taiya.png" alt="">
 							<img v-else class="pic1" src="../../../../static/images/Wit/taiya1.png" alt="">&nbsp;&nbsp;
@@ -42,23 +52,79 @@
 							<span :class="activeshow==3?'active':'actives'" class="txt1">车窗</span>
 							<div v-show="activeshow==3?true:false" style="width:.7rem;height:.03rem;position:absolute;background:#49bbff;top:.7rem;left: 50%;transform: translate(-50%, -50%);"></div>
 						</div>
-						<div class="left_bus" @click="fn(4)">
-							<img v-if="activeshow==4" class="pic1" src="../../../../static/images/Wit/chechuang.png" alt="">
-							<img v-else class="pic1" src="../../../../static/images/Wit/chechuang1.png" alt="">&nbsp;&nbsp;
-							<span :class="activeshow==4?'active':'actives'" class="txt1">未定义</span>
-							<div v-show="activeshow==4?true:false" style="width:.7rem;height:.03rem;position:absolute;background:#49bbff;top:.7rem;left: 50%;transform: translate(-50%, -50%);"></div>
-						</div>
 					</div>
 				</div>
 				<!--车况tap End-->
 
 				<!--车况主体 Start-->
-				<div class="bus_l" >
+        <!-- 电池部分主体 -->
+        <div v-show="activeshow==4" class="bus_l">
+          <img class="loadingcar " style="width:.88rem;height:.88rem;margin-top:.2rem" src="../../../../static/images/Lovecar/loading@2x.png" alt="" @click="loading">
+          <div class="bus_l_bettery flex">
+              <div style="position:absolute;width:1.4rem;height:1.9rem;top:.2rem;left:.1rem;overflow:hidden;">
+                <div class="bus_l_bettery_left">
+                    {{this.allbetterymessage.Surpluselectricity}}
+                </div>
+              </div>
+              <img style="width:1.6rem;height:2.2rem;position:absolute"  :src="'./../../../../static/images/Lovecar/bgbattery@2x.png'" alt="">
+              <div class="bus_l_bettery_right">
+                  <div>
+                      <div>剩余电量</div>
+                      <span>{{this.allbetterymessage.Surpluselectricity}}</span>
+                  </div>
+                  <div>
+                      <div>总里程</div>
+                      <span>4444km</span>
+                  </div>
+              </div>
+          </div>
+          <ul class="betteryStatus">
+            <li>
+                <div>
+                  <div>充电状态</div>
+                  <span>{{this.allbetterymessage.Charginggunstatus}}</span>
+                </div>
+                <div>
+                  <div>当前充电状态</div>
+                  <span>{{this.allbetterymessage.Chargingstate}}</span>
+                </div>
+            </li>
+            <li>
+                <div>
+                  <div>预计慢充时间</div>
+                  <span>{{this.allbetterymessage.Slowchargingtime}}</span>
+                </div>
+                <div>
+                  <div>预计快充时间</div>
+                  <span>{{this.allbetterymessage.Fastchargingtime}}</span>
+                </div>
+            </li>
+          </ul>
+        </div>
+        <!-- 非电池部分主体 -->
+				<div v-show="activeshow!=4" class="bus_l" >
 					<img style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;" src="../../../../static/images/Lovecar/lovecar.png" alt="" class="bus_righgt">
 					<!--左边胎压状态Start-->
 					<span ref='open1' class='busl_r left_1 '>{{33}}</span>
 					<span ref='open2' class='busl_r  left_2 '>{{44}}</span>
 					<!--左边胎压状态End-->
+					<!--右边胎压状态Start-->
+					<span ref='open3' class='busl_r right_1 '>{{11}}</span>
+					<span ref='open4' class='busl_r right_2 '>{{22}}</span>
+					<!--右边胎压状态End-->
+          
+          <!-- 车门展示 -->
+          <img v-show="activeshow==2" style="position:absolute;display:block;width:.53rem;height:.88rem;top:2.83rem;left:2.45rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
+          <img v-show="activeshow==2" style="position:absolute;display:block;width:.53rem;height:.88rem;top:4.03rem;left:2.45rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
+          <img v-show="activeshow==2" style="transform:rotateY(180deg);position:absolute;display:block;width:.53rem;height:.88rem;top:2.8rem;left:4.3rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
+          <img v-show="activeshow==2" style="transform:rotateY(180deg);position:absolute;display:block;width:.53rem;height:.88rem;top:4.0rem;left:4.3rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
+
+          <!-- 轮胎温度start -->
+          <span v-show="activeshow==1"  class='busl_r tiretemperature_left1'>11℃</span>
+					<span v-show="activeshow==1"  class='busl_r tiretemperature_left2'>22℃</span>
+          <span v-show="activeshow==1"  class='busl_r tiretemperature_right1'>11℃</span>
+					<span v-show="activeshow==1"  class='busl_r tiretemperature_right2'>22℃</span>
+          <!-- 轮胎温度en -->
 
 					<!--胎压图片Start-->
 					<img class="" v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 2.6rem;right:2.4rem;" alt="">
@@ -85,10 +151,6 @@
 					<img class="" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_top=='已打开'?true:false" style="position:absolute;display:block;width:1rem;left: 1.9rem;top: 2.5rem;"></img>
 					<!-- 控制左后车门线 -->
 					<img class="" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1rem;left: 1.9rem;top: 4.2rem;"></img>
-					<!--右边胎压状态Start-->
-					<span ref='open3' class='busl_r right_1 '>{{11}}</span>
-					<span ref='open4' class='busl_r right_2 '>{{22}}</span>
-					<!--右边胎压状态End-->
 
 					<!-- <span class='busl_r top_1'>{{this.engineHoodStsFront}}</span> -->
 					<!--天窗And尾门状态Start-->
@@ -96,7 +158,7 @@
 					<span v-show="activeshow=='3'?true:false" class='busl_r middle_1 '>qwer</span>
 					<!--天窗And尾门状态End-->
 					<img class="loadingcar " style="width:.88rem;height:.88rem;margin-top:.2rem" src="../../../../static/images/Lovecar/loading@2x.png" alt="" @click="loading">
-				</div>
+				</div>        
 				<!--车况主体End-->
 			</div>
 			<!--功能轮播Start-->
@@ -143,23 +205,48 @@
 					</div>
 				</mt-swipe-item>
 				<!--轮播第一页end-->
-
 				<!--轮播第二页Start-->
 				<mt-swipe-item>
+					<div class="content">
+						<div  class="content_1" @click="openNearLight">
+							<img v-if="!true" class="content_carDoor" :src="'./static/images/Lovecar/light_nearopenon@2x.png'" alt="">
+							<img v-else class="content_carDoor" :src="'./static/images/Lovecar/light_nearopenoff.png'" alt="">
+							<span :class="!true?'act':'activess'">打开近光</span>
+						</div>
+						<div  class="content_1" @click="closeNearLight">
+							<img v-if="!true" class="content_carDoor" :src="'./static/images/Lovecar/light_nearcloseon@2x.png'" alt="">
+							<img v-else class="content_carDoor" :src="'./static/images/Lovecar/light_nearcloseoff@2x.png'" alt="">
+							<span :class="!true?'act':'activess'">关闭近光</span>
+						</div>
+						<div  class="content_1" @click="openFarLight">
+							<img v-if="!true" class="tailgate" :src="'./static/images/Lovecar/light_faropenon@2x.png'" alt="">
+							<img v-else class="tailgate" :src="'./static/images/Lovecar/light_faropenoff@2x.png'" alt="">
+							<span :class="!true?'act':'activess'">打开远光</span>
+						</div>
+						<div  class="content_1" @click="closeFarLight">
+							<img v-if="!true" class="Flameout" :src="'./static/images/Lovecar/light_farcloseon@2x.png'" alt="">
+							<img v-else class="Flameout" :src="'./static/images/Lovecar/light_farcloseoff@2x.png'" alt="">
+							<span :class="!true?'act':'activess'">关闭远光</span>
+						</div>
+					</div>
+				</mt-swipe-item>
+				<!--轮播第二页End-->
+				<!--轮播第三页Start-->
+				<mt-swipe-item>
 					<div class="action-content">
-						<router-link  to="/newenergyCar/newaircondition" tag="div" class="navs air">
+						<router-link  to="/newenergy/newaircondition" tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc" src="../../../../static/images/Wit/ari.png" alt="">
 								<span class="pic_txt">空调</span>
 							</div>
 						</router-link>
-						<router-link  :to="{path:'/newenergyCar/newcarwindow',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
+						<router-link  :to="{path:'/newenergy/newcarwindow',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc" src="../../../../static/images/Wit/chechuang.png" alt="">
 								<span class="pic_txt">车窗</span>
 							</div>
 						</router-link>
-						<router-link  :to="{path:'/newenergyCar/airwindow',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
+						<router-link  :to="{path:'/newenergy/airwindow',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc skylight" src="../../../../static/images/Wit/tianchuang.png" alt="">
 								<span class="pic_txt">天窗</span>
@@ -167,68 +254,20 @@
 						</router-link>
 						<router-link  :to="{path:'/newenergy/preheat',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
 							<div class="navs">
-								<img class="picc skylight" src="../../../../static/images/Wit/tianchuang.png" alt="">
+								<img class="picc skylight" src="../../../../static/images/Lovecar/hotindex@2x.png" alt="">
 								<span class="pic_txt">预热</span>
 							</div>
 						</router-link>
 						<router-link  :to="{path:'/newenergy/remotecharging',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
 							<div class="navs">
-								<img class="picc skylight" src="../../../../static/images/Wit/tianchuang.png" alt="">
+								<img class="picc skylight" src="../../../../static/images/Lovecar/powerindex@2x.png" alt="">
 								<span class="pic_txt">充电</span>
 							</div>
 						</router-link>
 					</div>
 				</mt-swipe-item>
-				<!--轮播第二页End-->
-				<!--轮播第三页Start-->
-				<mt-swipe-item>
-					<div class="action-content">
-						<router-link  to="/lovecar/Electricairconditioning" tag="div" class="navs air">
-							<div class="navs">
-								<img class="picc" src="../../../../static/images/Wit/ari.png" alt="">
-								<span class="pic_txt">空调</span>
-							</div>
-						</router-link>
-						<!-- 跳转到自动空调 -->
-						<router-link  to="/lovecar/AirConditionControl" tag="div" class="navs air">
-							<div class="navs">
-								<img class="picc" src="../../../../static/images/Wit/ari.png" alt="">
-								<span class="pic_txt">空调</span>
-							</div>
-						</router-link>
-						<router-link to="/lovecar/adjustSeatTemper" tag="div" class="navs air">
-							<div class="navs">
-								<img class="picc" src="../../../../static/images/Wit/zuoyi.png" alt="">
-								<span class="pic_txt">座椅</span>
-							</div>
-						</router-link>
-						<router-link  :to="{path:'/lovecar/windowControl',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
-							<div class="navs">
-								<img class="picc" src="../../../../static/images/Wit/chechuang.png" alt="">
-								<span class="pic_txt">车窗</span>
-							</div>
-						</router-link>
-						<router-link  :to="{path:'/lovecar/skylightClose',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
-							<div class="navs">
-								<img class="picc skylight" src="../../../../static/images/Wit/tianchuang.png" alt="">
-								<span class="pic_txt">天窗</span>
-							</div>
-						</router-link>
-						<router-link  :to="{path:'/lovecar/skylightALL',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
-							<div class="navs">
-								<img class="picc skylight" src="../../../../static/images/Wit/tianchuang.png" alt="">
-								<span class="pic_txt">天窗</span>
-							</div>
-						</router-link>
-						<router-link   to="/lovecar/airEvoluor" tag="div" class="navs air">
-							<div class="navs">
-								<img class="picc air_contr" src="../../../../static/images/Wit/icon5@3x.png" alt="">
-								<span class="pic_txt">净化器</span>
-							</div>
-						</router-link>
-					</div>
-				</mt-swipe-item>
 				<!--轮播第三页End-->
+
 			</mt-swipe>
 		</div>
 			<!--功能轮播End-->
@@ -314,7 +353,7 @@ export default {
   name: "lovecar",
   data() {
     return {
-      activeshow: 1, //默认第一个高亮
+      activeshow: 4, //默认第一个高亮
       tspid: "",
       popupbg: false,
       allwords: [], //贮存所有的提示语
@@ -345,7 +384,16 @@ export default {
       vehicle_flameout: [], //车辆熄火的所有提示语
       find_vehicle: [], //寻车的所有提示语
       vehicle_condition: [], //车况的所有提示语
-      allFunction: [] //存储所有的车控功能
+      allFunction: [], //存储所有的车控功能
+      allbetterymessage:{
+        Surpluselectricity:'30%',
+        openmileage:'266km',
+        closemileage:'300km',
+        Charginggunstatus:'未连接',
+        Chargingstate:'待命',
+        Slowchargingtime:'14小时22分钟',
+        Fastchargingtime:'12小时22分钟',
+      }
     };
   },
   methods: {
@@ -366,7 +414,7 @@ export default {
       var window = {
         
       };
-      var unno={
+      var bettery={
 
       }
       if (this.activeshow == 1) {
@@ -376,7 +424,7 @@ export default {
       } else if (this.activeshow == 3) {
         this.Condition = window;
       }else if(this.activeshow == 4){
-        this.Condition = unno;
+        this.Condition = bettery;
       }
 	},
     //获取此车所具有的车况功能
@@ -430,6 +478,26 @@ export default {
     },
     // 寻车 事件
     enter() {
+      this.popupVisible = true;
+      this.popupbg = true;
+    },
+    //打开近光灯
+    openNearLight(){
+      this.popupVisible = true;
+      this.popupbg = true;
+    },
+    //关闭近光灯
+    closeNearLight(){
+      this.popupVisible = true;
+      this.popupbg = true;
+    },
+    //打开远光灯
+    openFarLight(){
+      this.popupVisible = true;
+      this.popupbg = true;
+    },
+    //关闭远光灯
+    closeFarLight(){
       this.popupVisible = true;
       this.popupbg = true;
     },
@@ -656,6 +724,12 @@ export default {
             }
           }
         });
+    },
+    //获取电池状态
+    batteryStatis(){
+      let top=1.9*(100-this.allbetterymessage.Surpluselectricity.replace(/%/ig, ''))/100+'rem'
+      console.log(top)
+      $('.bus_l_bettery_left').css('top',top)
     }
   },
   filters: {
@@ -821,6 +895,7 @@ export default {
     $(".MobileHeight").css({
       marginTop: this.$store.state.mobileStatusBar
     });
+    this.batteryStatis()
     this.vehiclestatus();
     this.firstEnter = true;
     this.vinn = this.$store.state.defaultInformation.vin;
@@ -1100,7 +1175,67 @@ input:focus {
   width: 100%;
   height: 6.14rem;
 }
-
+.bus_l .bus_l_bettery{
+  position: relative;
+  width: 1.6rem;
+  height: 2.2rem;
+  left: 1.2rem;
+  top: .71rem;
+  width: 100%;
+  height: 3.5rem;
+}
+.betteryStatus{
+  width: 100%;
+  height: 2.4rem;
+  position: relative
+}
+.betteryStatus>li{
+  width: 100%;
+  height: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+.betteryStatus>li>div{
+  width: 2.2rem;
+  margin: 0 0 0 .7rem;
+  font-family: 'PingFang-SC-Medium'
+}
+.betteryStatus>li>div div{
+   font-size: .24rem;
+   color: #222;
+   padding: .15rem;
+}
+.betteryStatus>li>div span{
+   font-size: .28rem;
+   color:#49BBFF;
+   padding: .15rem;
+}
+.bus_l .bus_l_bettery .bus_l_bettery_left{
+  width:1.4rem;
+  height: 1.9rem;
+  position:absolute;
+  background:linear-gradient(135deg,rgba(74,255,245,1),rgba(73,187,255,1));
+  z-index:2;
+  text-align: center;
+  border-radius: .06rem;
+  font-size: .36rem;
+  color: #49BBFF;
+}
+.bus_l .bus_l_bettery .bus_l_bettery_right{
+  position: absolute;
+  left: 2.6rem;
+}
+.bus_l .bus_l_bettery .bus_l_bettery_right>div{
+  width: 2rem;
+  height: 1.2rem;
+}
+.bus_l .bus_l_bettery .bus_l_bettery_right div{
+  font-size: .22rem;
+}
+.bus_l .bus_l_bettery .bus_l_bettery_right span{
+    font-size: .4rem;
+    color: #49BBFF;
+}
 .busl_r {
   position: absolute;
   font-size: 0.25rem;
@@ -1110,24 +1245,35 @@ input:focus {
 .left_1 {
   left: 1.2rem;
   top: 2.63rem;
-  /*background: skyblue;*/
 }
-
+.tiretemperature_left1{
+  left: 1.2rem;
+  top: 3.13rem;
+}
 .left_2 {
   left: 1.2rem;
   top: 4.3rem;
 }
-
+.tiretemperature_left2{
+  left: 1.2rem;
+  top: 4.8rem;
+}
 .right_1 {
   right: 1.5rem;
   top: 2.63rem;
 }
-
+.tiretemperature_right1{
+  right: 1.5rem;
+  top: 3.13rem;
+}
 .right_2 {
   right: 1.5rem;
   top: 4.3rem;
 }
-
+.tiretemperature_right2{
+  right: 1.5rem;
+  top: 4.8rem;
+}
 .top_1 {
   top: 0.3rem;
   left: 0.8rem;

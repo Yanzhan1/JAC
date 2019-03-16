@@ -570,17 +570,17 @@ const router = new Router({
                 component: NewenergyCar
             },
             {
-                path: "/newenergyCar/airwindow",
+                path: "/newenergy/airwindow",
                 name: '新能源天窗可开关',
                 component: Airwindow
             },
             {
-                path: "/newenergyCar/newaircondition",
+                path: "/newenergy/newaircondition",
                 name: '新能源空调',
                 component: Newaircondition
             },
             {
-                path: "/newenergyCar/newcarwindow",
+                path: "/newenergy/newcarwindow",
                 name: '新能源车窗',
                 component: Newcarwindow
             },

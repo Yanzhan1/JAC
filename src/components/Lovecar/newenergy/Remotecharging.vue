@@ -70,6 +70,8 @@
             hourFormat="{value} 时"
             minuteFormat="{value} 分"
             @confirm="handleConfirmstart"
+            @cancel="cancelchoose"
+            :visible-item-count='5'
             >
         </mt-datetime-picker>
     </div>
@@ -133,12 +135,14 @@ export default {
         }
       }
     },
+    cancelchoose(){
+      this.value=false;
+    },
     //刷新按钮
     refish(){
 
     },
     handleConfirmstart(data) {
-      console.log(data)
       this.showhour=data.split(':')[0]+'小时';
       this.showminute=data.split(':')[1]+'分钟'
     },
@@ -187,10 +191,18 @@ export default {
     batteryStatis(){
       let top=1.9*(100-this.allbetterymessage.Surpluselectricity.replace(/%/ig, ''))/100+'rem'
       $('.showElectricquantity').css('top',top)
+    },
+    loadcss(){
+      this.$nextTick(()=>{
+       $('.mint-datetime .picker-toolbar').css('position','relative').css('top','3.3rem')
+       $('.mint-datetime-cancel').css('border-right','solid 1px #eaeaea')
+      $('.mint-datetime .picker-items').css('position','relative').css('top','-.7rem').css('border-bottom','solid 1px #eaeaea')
+    })
     }
   },
   created() {
     // this.endtime=this.toDate()
+    this.loadcss()
     let time = new Date().getTime() + 1000 * 60 * 60 * 24 * 7;
     this.endtime = new Date(this.Conversiontime(time) + "");
   },
@@ -325,5 +337,8 @@ export default {
   width: 100%;
   text-align: center;
   color: #49BBFF;
+}
+.mint-popup{
+  height: 30%;
 }
 </style>

@@ -12,51 +12,20 @@
 				<span style="width: 0.54rem;height: 1px; background: rgba(153,153,153,1);margin-bottom: 0.4rem;"></span>
 			</div>
 		</div>
-		
-		<!--曲线Start-->
-		<div class="curve">
-			<div class="cureve-text">
-				<span style="left: 3.1rem;top: 2.6rem;">0%</span>
-				<!--<span style="left: 2.2rem;top: 0.3rem;">50%</span>-->
-				<span style="left: 0rem;top: -0.3rem;">100%</span>
-			</div>
-			<div class="curveActive" v-show="curveState" @touchend="end">
-				<canvas id="rightColorful"></canvas>
-			</div>
-			<div class="curveLoseActive" v-show="!curveState">
-				<canvas id="rightGray"></canvas>
-			</div>
-		</div>
-		<!--曲线End-->
-		
+				
 		<!--天窗主体Start-->
 		<div class="skylight-wrap flex-column-align">
 			<div class="skylight-content flex-center-between">
-				<div class="temperature">
-					<span style="font-size: 0.68rem;color: #222222;">{{windNum[this.skylightSpace]}}</span>
-				</div>
 				<div class="wind-blows">
-					<img v-if="activeShowImg" :src="'./static/images/Lovecar/skylight@2x.png'" alt="" />
-					<img v-else :src="'./static/images/Lovecar/skylight1@2x.png'" alt="" />
-				</div>
-				<div class="num">
-					<!--<span :class="activeShowImg?'fontActive':'loseActives'">{{number}}</span>-->
+					<img v-if="hasNOClick" :src="'./static/images/Lovecar/skylight@2x.png'" alt="" />
+					<img v-else  :src="'./static/images/Lovecar/skylight1@2x.png'" alt="" />
 				</div>
 			</div>
-			<!--天窗宽度计数器Start-->
-			<div class="skylight-change">
-				<div style="margin-bottom: 0.36rem;" class="flex-center">
-					<img :src="'./static/images/Lovecar/left@2x.png'" alt="" />
-					<div class="wind-count">
-						<button disabled="this.curveState" @click=" windReduce" class="addWind conmmon-style"><</button>
-						<input class="wind-input" type="password" v-model="windNum[skylightSpace]" readonly/>
-						<button disabled="this.curveState" @click="windAdd" class="reduceWind conmmon-style">></button>
-					</div>
-					<img :src="'./static/images/Lovecar/right@2x.png'" alt="" />
-				</div>
-				<span style="color: #222222;font-size: 0.24rem;">天窗宽度</span>
+			<div class="close-skylight" @click="popupVisible=true">
+				<button   :class="!this.curveState?'noactive':'active'" @click="windowclose">关闭</button>
+        <div style="width:.5rem"></div>
+				<button   :class="this.curveState?'noactive':'active'" @click="windowopen">开启</button>
 			</div>
-			<!--天窗宽度计数器End-->
 		</div>
 		
 		<!--pin码弹出框Start-->
@@ -71,7 +40,7 @@
         <img @click="Toasteach"  class="question" style="width:.35rem;height:.35rem" :src="'./static/images/Lovecar/question.png'" alt="">
 				<div class="pin-code flex-center">
 					<div v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
-						<input class="pin-input" maxlength="6" type="text" v-model="pinNumber" readonly/>
+						<input class="pin-input" maxlength="6" type="password" v-model="pinNumber" readonly/>
 					</div>
 					<div v-else class="pin">
 						<input v-model="ownKeyBoard.first"  type="text" maxlength="1" />
@@ -99,21 +68,23 @@
 import { Createarc } from "../../../../src/assets/drawarc.js";
 import { Toast } from "mint-ui";
 import { Popup } from "mint-ui";
-import {MessageBox} from "mint-ui";
-import PublicHead from '../../publicmodel/PublicHead'
+import { MessageBox } from "mint-ui";
+import PublicHead from "../../publicmodel/PublicHead";
 export default {
-  name: "skylightControl",
+  name: "neneryairwindow",
   components: {
-  	mhead:PublicHead
+    mhead: PublicHead
   },
   data() {
     return {
       time: "", //定时器命名
       //天窗控制按钮开关
       //				value: false,
+      curveState: false, //控制开关状态
+      windowcontrol: false, //控制开关上传状态
       //移动端键盘值
-      allwords:[],//所有提示
-      skywords:[],//天窗提示
+      allwords: [], //所有提示
+      skywords: [], //天窗提示
       ownKeyBoard: {
         first: "",
         second: "",
@@ -134,132 +105,35 @@ export default {
       //自定义软键盘状态 0 消失 2 键盘开启
       showTyper: 0,
       //软键盘内容-12位随机数组
-      keyNums: [],
-      //曲线状态 true彩色 false灰色
-      curveState: false,
-      //曲线滑动默认点
-      skylightSpace: 0,
-      operationIds: ""
+      keyNums: []
     };
   },
   methods: {
-    //天窗控制开关方法
-    turn() {
-      //				this.activeShowImg = !this.activeShowImg
-    },
     end() {
-      this.debouncedGetAnswer()
-      // this.httpsky();
+      this.httpsky();
+    },
+    windowclose() {
+      this.windowcontrol = true;
+    },
+    windowopen() {
+      this.windowcontrol = false;
     },
     //路由跳转的时候清除轮询loading
-    goback () {
-    	this.$router.go(-1);
-    	this.$store.dispatch('LOADINGFLAG', false)
+    goback() {
+      this.$router.go(-1);
+      localhide();
     },
     //拿到天窗的提示
-    getskywords(){
-      this.allwords=this.$store.state.GETWORDS
-      for(let value of this.allwords){
-        if(value.dictType=='skylight'){
-          this.skywords=value.sysDictDataVOs
+    getskywords() {
+      this.allwords = this.$store.state.GETWORDS;
+      for (let value of this.allwords) {
+        if (value.dictType == "skylight") {
+          this.skywords = value.sysDictDataVOs;
         }
       }
     },
-    //天窗宽度增加
-    windAdd() {
-      if (this.activeShowImg) {
-        this.popupVisible = false;
-        if (this.skylightSpace >= this.windNum.length - 1) {
-          this.skylightSpace = this.windNum.length - 1;
-        } else {
-          this.skylightSpace++;
-          //计数器控制曲线
-          new Createarc({
-            el: "rightColorful", //canvas id
-            vuethis: this, //使用位置的this指向
-            num: "skylightSpace", //data数值
-            type: "right", //圆弧方向  left right
-            tempdel: 2, //总差值
-            ratio: 0.4, //宽度比例
-            iscontrol: true, //控制是否能滑动，可以滑动
-            color: {
-              start: "#49bbff", //圆弧下边颜色
-              end: "#04e8db", //圆弧上边颜色
-              num: 2
-            }
-          });
-        }
-      } else {
-        this.popupVisible = true;
-        return;
-      }
-      this.httpsky();
-    },
-    Toasteach(){
-       MessageBox("提示", this.skywords[3].dictValue);
-    },
-    //天窗宽度减少
-    windReduce() {
-      if (this.activeShowImg) {
-        this.popupVisible = false;
-        if (this.skylightSpace <= this.winMin) {
-          this.skylightSpace = this.winMin;
-        } else {
-          this.skylightSpace--;
-          //计数器控制曲线
-          new Createarc({
-            el: "rightColorful", //canvas id
-            vuethis: this, //使用位置的this指向
-            num: "skylightSpace", //data数值
-            type: "right", //圆弧方向  left right
-            tempdel: 2, //总差值
-            ratio: 0.4, //宽度比例
-            iscontrol: true, //控制是否能滑动，可以滑动
-            color: {
-              start: "#49bbff", //圆弧下边颜色
-              end: "#04e8db", //圆弧上边颜色
-              num: 2
-            }
-          });
-        }
-      } else {
-        this.popupVisible = true;
-        return;
-      }
-      this.httpsky();
-    },
-    //产生曲线
-    produCurve() {
-      //天窗激活弧线
-      new Createarc({
-        el: "rightColorful", //canvas id
-        vuethis: this, //使用位置的this指向
-        num: "skylightSpace", //data数值
-        type: "right", //圆弧方向  left right
-        tempdel: 2, //总差值
-        ratio: 0.4, //宽度比例
-        iscontrol: true, //控制是否能滑动，可以滑动
-        color: {
-          start: "#49bbff", //圆弧下边颜色
-          end: "#04e8db", //圆弧上边颜色
-          num: 2
-        }
-      });
-      //天窗未激活弧线
-      new Createarc({
-        el: "rightGray", //canvas id
-        vuethis: this, //使用位置的this指向
-        num: "skylightSpace", //data数值
-        type: "right", //圆弧方向  left right
-        tempdel: 2, //总差值
-        ratio: 0.4, //宽度比例
-        iscontrol: false, //控制是否能滑动，禁止滑动
-        color: {
-          start: "#EEEEEE", //圆弧下边颜色
-          end: "#EEEEEE", //圆弧上边颜色
-          num: 2
-        }
-      });
+    Toasteach() {
+      MessageBox("提示", this.skywords[3].dictValue);
     },
     //点击遮罩或者'x'移除popup
     removeMask() {
@@ -344,6 +218,18 @@ export default {
         return false;
       }
     },
+    //控制天窗起始状态
+    carcontrolskylight() {
+      if (this.$route.query.carcontrol.skylightStatus == "1") {
+        //pin码正确激活弧线
+        this.curveState = true;
+        //pin码正确激活空调图
+        this.activeShowImg = true;
+      } else {
+        this.curveState = false;
+        this.activeShowImg = false;
+      }
+    },
     //重复调用异步接口
     getAsyReturn(operationId) {
       this.sjc = new Date().getTime();
@@ -361,7 +247,7 @@ export default {
               //60s  后 清除定时器，不在发请求
               if (tSS >= 56) {
                 Toast({
-                  message:this.skywords[2].dictValue,
+                  message: this.skywords[2].dictValue,
                   position: "middle",
                   duration: 2000
                 });
@@ -381,45 +267,82 @@ export default {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
                           if (tSS >= 56) {
-                            Toast({
-                              message:this.skywords[2].dictValue,
-                              position: "middle",
-                              duration: 2000
-                            });
+                            if (this.windowcontrol) {
+                              //关闭失败
+                              Toast({
+                                message: this.skywords[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else {
+                              //打开失败
+                              Toast({
+                                message: this.skywords[5].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
                             clearInterval(this.time);
                             localhide();
                           }
                         } else if (res.data.status == "SUCCEED") {
-                          // flag = false;
-                                 //pin码正确激活弧线
-              this.curveState = !this.curveState;
-              //pin码正确激活空调图
-              this.activeShowImg = !this.activeShowImg;
-                          Toast({
-                            message: this.skywords[1].dictValue,
-                            position: "middle",
-                            duration: 2000
-                          });
+                          if (this.windowcontrol) {
+                            //执行关闭天窗操作
+                            this.curveState = false;
+                            this.activeShowImg = false;
+                            Toast({
+                              message: this.skywords[1].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          } else {
+                            //执行开启天窗操作
+                            this.curveState = true;
+                            this.activeShowImg = true;
+                            Toast({
+                              message: this.skywords[4].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
                           this.value = !this.value;
                           clearInterval(this.time);
                           localhide();
                         } else if (res.data.status == "FAILED") {
-                          flag = false;
+                          if (this.windowcontrol) {
+                            //关闭失败
+                            Toast({
+                              message: this.skywords[2].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          } else {
+                            //打开失败
+                            Toast({
+                              message: this.skywords[5].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
+                          clearInterval(this.time);
+                          localhide();
+                        }
+                      } else {
+                        if (this.windowcontrol) {
+                          //关闭失败
                           Toast({
                             message: this.skywords[2].dictValue,
                             position: "middle",
                             duration: 2000
                           });
-                          clearInterval(this.time);
-                          localhide();
+                        } else {
+                          //打开失败
+                          Toast({
+                            message: this.skywords[5].dictValue,
+                            position: "middle",
+                            duration: 2000
+                          });
                         }
-                      } else {
-                        Toast({
-                          message: this.skywords[2].dictValue,
-                          position: "middle",
-                          duration: 2000
-                        });
-                        flag = false;
                         clearInterval(this.time);
                         localhide();
                       }
@@ -427,131 +350,117 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              // flag = false;
-                     //pin码正确激活弧线
-              this.curveState = !this.curveState;
-              //pin码正确激活空调图
-              this.activeShowImg = !this.activeShowImg;
-              Toast({
-                message: this.skywords[1].dictValue,
-                position: "middle",
-                duration: 2000
-              });
+              if (this.windowcontrol) {
+                //执行关闭天窗操作
+                this.curveState = false;
+                this.activeShowImg = false;
+                Toast({
+                  message: this.skywords[1].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              } else {
+                //执行开启天窗操作
+                this.curveState = true;
+                this.activeShowImg = true;
+                Toast({
+                  message: this.skywords[4].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              }
+
               this.value = !this.value;
-               clearInterval(this.time);
+              clearInterval(this.time);
               localhide();
             } else if (res.data.status == "FAILED") {
+              if (this.windowcontrol) {
+                //关闭失败
+                Toast({
+                  message: this.skywords[2].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              } else {
+                //打开失败
+                Toast({
+                  message: this.skywords[5].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              }
+              clearInterval(this.time);
+              localhide();
+            }
+          } else {
+            if (this.windowcontrol) {
+              //关闭失败
               Toast({
                 message: this.skywords[2].dictValue,
                 position: "middle",
                 duration: 2000
               });
-               clearInterval(this.time);
-              localhide();
+            } else {
+              //打开失败
+              Toast({
+                message: this.skywords[5].dictValue,
+                position: "middle",
+                duration: 2000
+              });
             }
+            clearInterval(this.time);
+            localhide();
+          }
+        });
+    },
+    httpsky() {
+      let gear = this.windowcontrol ? "2" : "1";
+      var param = {
+        vin: this.$store.state.vins,
+        operationType: "SUNROOF",
+        extParams: {
+          fluctuationType: 1, //档位qg
+          // percent: this.windNum[this.skylightSpace].replace(/%/g, ""), //0-100
+          gear: "2" //车窗1是开,2是关
+        }
+      };
+      this.$http
+        .post(Lovecar.Control, param, this.$store.state.tsppin)
+        .then(res => {
+          if (res.data.returnSuccess) {
+            Toast({
+              message: this.skywords[0].dictValue,
+              position: "middle",
+              duration: 2000
+            });
+            setTimeout(() => {
+              this.getAsyReturn(res.data.operationId);
+            }, 2000);
           } else {
             Toast({
               message: this.skywords[2].dictValue,
               position: "middle",
               duration: 2000
             });
-            flag = false;
-            clearInterval(this.time);
-            localhide();
-          }
-        });
-    },
-    carcontrolskylight(){
-        if(this.$route.query.carcontrol){
-            if(this.$route.query.carcontrol.skylightStatus=='0'){
-      
-              }else if(this.$route.query.carcontrol.skylightStatus=='1'){
-              //pin码正确激活弧线
-              this.curveState = true;
-              //pin码正确激活空调图
-              this.activeShowImg = true;
-            }
-        }
-    },
-    httpsky() {
-      var param = {
-        vin: this.$store.state.vins,
-        operationType: "SUNROOF",
-        extParams: {
-          fluctuationType: 2, //档位百分比
-          percent: this.windNum[this.skylightSpace].replace(/%/g, "") //0-100
-          // gear:'',//车窗1,2,3,4,5档可选
-        }
-      };
-      this.$http
-        .post(Lovecar.Control, param, this.$store.state.tsppin)
-        .then(res => {
-          this.operationIds = res.data.operationId;
-          if (res.data.returnSuccess) {
-              Toast({
-                  message: this.skywords[0].dictValue,
-                  position: "middle",
-                  duration: 2000
-                });
-                setTimeout(() => {                 
-                  this.getAsyReturn(res.data.operationId);
-                }, 2000);
-          } else {
-         
-          		Toast({
-	              message: res.data.returnErrMsg,
-	              position: "middle",
-	              duration: 2000
-	            });
-          	
           }
         })
         .catch(err => {
-        	Toast({
-              message:  res.data.returnErrMsg,
-              position: "middle",
-              duration: 2000
-            });
+          Toast({
+            message: this.skywords[2].dictValue,
+            position: "middle",
+            duration: 2000
+          });
         });
     }
   },
-  created(){
-    this.debouncedGetAnswer =_.debounce(this.httpsky, 3000)
-  },
   mounted() {
-  	clearInterval(this.time)
-    this.produCurve();
+    //  this.produCurve();
     this.inputs();
     this.getskywords();
-    this.carcontrolskylight()
-    //调取车况
-    // this.$http
-    //   .post(
-    //     Lovecar.Carquery,
-    //     { vins: [this.$store.state.vins] },
-    //     this.$store.state.tsppin
-    //   )
-    //   .then(res => {
-    //     if (res.data.returnSuccess) {
-    //    		// this.getAsyReturn(res.data.operationId);
-    //     } else {
-    //       Toast({
-    //         message: res.data.returnErrMsg,
-    //         position: "middle",
-    //         duration: 2000
-    //       });
-    //     }
-    //   })
-    //   .catch( err => {
-    //   	Toast({
-    //         message: '系统异常',
-    //         position: "middle",
-    //         duration: 2000
-    //       });
-    //   })
+    this.carcontrolskylight();
   },
-   beforeDestroy(){
-     clearInterval(this.time);
+  beforeDestroy() {
+    clearInterval(this.time);
   },
   computed: {
     fullValue: {
@@ -574,6 +483,10 @@ export default {
         this.ownKeyBoard.fifth = newVal;
         this.ownKeyBoard.sixth = newVal;
       }
+    },
+    hasNOClick() {
+      //判断图片的与隐藏
+      return this.activeShowImg;
     }
   },
   watch: {
@@ -591,10 +504,7 @@ export default {
           .then(res => {
             if (res.data.returnSuccess) {
               // this.value = !this.value;
-
               this.httpsky();
-
-       
               // this.refreshPmData(),
               //消失遮罩
               this.popupVisible = !this.popupVisible;
@@ -605,6 +515,7 @@ export default {
             } else {
               //消失遮罩
               this.popupVisible = !this.popupVisible;
+
               //消失软键盘
               (this.showTyper = 0),
                 //清空pin码
@@ -618,10 +529,15 @@ export default {
           })
           .catch(err => {
             Toast({
-              message:  res.data.returnErrMsg,
+              message: res.data.returnErrMsg,
               position: "middle",
               duration: 1000
             });
+            this.popupVisible = !this.popupVisible;
+            //消失软键盘
+            (this.showTyper = 0),
+              //清空pin码
+              (this.pinNumber = "");
           });
       }
     },
@@ -638,15 +554,9 @@ export default {
           )
           .then(res => {
             if (res.data.returnSuccess) {
-              // this.value = !this.value;
               this.httpsky();
-              //pin码正确激活弧线
-              // this.curveState = !this.curveState;
-              // //pin码正确激活空调图
-              // (this.activeShowImg = !this.activeShowImg),
-                // this.refreshPmData(),
-                //消失遮罩
-                (this.popupVisible = !this.popupVisible);
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
               //消失软键盘
               (this.showTyper = 0),
                 //清空pin码
@@ -667,7 +577,7 @@ export default {
           })
           .catch(err => {
             Toast({
-              message:  res.data.returnErrMsg,
+              message: res.data.returnErrMsg,
               position: "middle",
               duration: 1000
             });
@@ -677,6 +587,7 @@ export default {
   }
 };
 </script>
+
 <style scoped>
 /*flex*/
 
@@ -717,12 +628,13 @@ export default {
   border-radius: 0.1rem;
 }
 
-.conmmon-style { /*公共样式*/
-	border: none;
-	outline: none;
-	appearance: none;
-	-webkit-appearance: none;
-	background: none;
+.conmmon-style {
+  /*公共样式*/
+  border: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
 }
 /*天窗头部*/
 
@@ -780,13 +692,14 @@ export default {
 /*天窗主体*/
 
 .skylight-wrap {
-  height: 8.6rem;
+  height: 7.6rem;
   padding: 0.45rem 0.68rem;
 }
 
 .skylight-content {
   height: 4.6rem;
   width: 100%;
+  justify-content: center;
 }
 /*天窗宽度*/
 
@@ -797,8 +710,8 @@ export default {
 /*天窗图片*/
 
 .wind-blows {
-  margin-right: 0.5rem;
-  align-self: flex-end;
+  /*margin-right: 0.5rem;*/
+  /*align-self: flex-end;*/
 }
 .wind-blows > img {
   width: 1.95rem;
@@ -809,54 +722,30 @@ export default {
   width: 2.66rem;
   height: 1.89rem;
 }
-/*天窗宽度计数器*/
-
-.skylight-change {
+/*关闭按钮*/
+.close-skylight {
   display: flex;
-  justify-content: center;
-  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
 }
-
-.skylight-change > div > img {
-  width: 0.8rem;
-  height: 1px;
-}
-
-.wind-count {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 2.1rem;
-  margin: 0 auto;
-  border: 1px solid #999999;
-  border-radius: 0.3rem;
-}
-
-.skylight-change .wind-input {
-  width: 0.9rem;
-  height: 0.6rem;
-  outline: none;
+.close-skylight > button {
+  display: block;
+  width: 2rem;
+  height: 0.8rem;
+  font-size: 0.32rem;
+  color: #ffff;
   border: none;
-  text-align: center;
+  outline: none;
+  border-radius: 0.4rem;
+  background: #49bbff;
 }
-
-.addWind {
-  display: block;
-  width: 0.6rem;
-  height: 0.6rem;
-  line-height: 0.6rem;
-  text-align: center;
-  border-right: 1px solid #999999;
+.close-skylight > button.active {
+  background: #cccccc;
+  opacity: 0.5;
 }
-
-.reduceWind {
-  display: block;
-  width: 0.6rem;
-  height: 0.6rem;
-  line-height: 0.6rem;
-  text-align: center;
-  border-left: 1px solid #999999;
+.close-skylight > button.noactive {
+  color: #fff;
+  opacity: 0.5;
 }
 /*pin码提示框*/
 
