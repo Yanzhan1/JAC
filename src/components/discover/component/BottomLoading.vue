@@ -6,7 +6,7 @@
       </span>
       <span>loading</span>
     </template>
-    <span v-else-if="isLastPage">我也有是底线的</span>
+    <span v-else-if="isLastPage">我也是有底线的</span>
   </div>
 </template>
 
