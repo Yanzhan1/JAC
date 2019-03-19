@@ -12,7 +12,7 @@
       <li class="bus-content flex-center-between" v-for="(item,index) in BusDetails" :key="index">
         <div class="bus-left">
           <div class="bus-name flex-align-center">
-            <label for="foot-check" class="input-label deft_0" :class="{active:item.def==1||item.defToNathor}" @click="setOneDefault(item.vin,item.def,item.beAuthorized)"> </label>
+            <label for="foot-check" class="input-label deft_0" :class="{active:item.def==1||item.defToNathor}" @click="setOneDefault(item.vin,item.def,item.beAuthorized,index)"> </label>
             <span style="color: #49BBFF;">{{item.vehicleName}}{{item.def==1||item.defToNathor==1?'（默认）':''}}</span>
           </div>
           <img :src="item.imageUrl" alt="" />
@@ -94,7 +94,6 @@ export default {
         .then(res => {
           if (res.data.returnSuccess) {
             this.BusDetails = res.data.data;
-            console.log(this.BusDetails);
             for (let i = 0; i < res.data.data.length; i++) {
               if (res.data.data[i].def == 1||res.data.data[i].defToNathor==1) {
                 // this.$store.state.vins = res.data.data[i].vin;
@@ -111,7 +110,7 @@ export default {
         });
     },
     //设为默认
-    setOneDefault(vin, def, beAuthorized) {
+    setOneDefault(vin, def, beAuthorized,index) {
       var vin = vin;
       var def = def;
       var beAuthorized = beAuthorized;
@@ -130,14 +129,18 @@ export default {
           if (res.data.returnSuccess) {
             if (isMobile.iOS()) {
                 var params = {};
-                window.webkit.messageHandlers.syncVehicleList.postMessage(params);
-                
+                window.webkit.messageHandlers.syncVehicleList.postMessage(params);             
               } else if (isMobile.Android()) {
-                window.js2android.syncVehicleList();
-                
+                window.js2android.syncVehicleList();              
               }
             this.$store.state.vins = vin;
-            this.MyBus();
+            for(let i=0;i<this.BusDetails.length;i++){
+                if(this.BusDetails[i].def==1){
+                    this.BusDetails[i].def=0
+                }
+            }
+            this.BusDetails[index].def=1
+            // this.MyBus();
           }
         });
     },
