@@ -119,11 +119,13 @@
             <div>空调已打开</div>
             <img :src="'./../../../../static/images/Lovecar/light_faropenon@2x.png'" alt="">
           </div>
-
+          <!-- 远光灯开启展示 -->
           <div class="controlLight">
             <div>远光灯已打开</div>
             <img :src="'./../../../../static/images/Lovecar/light_faropenon@2x.png'" alt="">
           </div>
+
+          <img v-show="true" style="display:block;position:absolute;width:3.52rem;height:2.9rem;top:-1.2rem;left:1.85rem;" :src="'./../../../../static/images/Lovecar/lightforword@2x.png'" alt="">  
 
           <!-- 车门展示 -->
           <img v-show="activeshow==2" style="position:absolute;display:block;width:.53rem;height:.88rem;top:2.83rem;left:2.45rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
