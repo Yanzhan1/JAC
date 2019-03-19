@@ -140,7 +140,6 @@ export default {
                 }
             }
             this.BusDetails[index].def=1
-            // this.MyBus();
           }
         });
     },

@@ -113,6 +113,18 @@
 					<span ref='open4' class='busl_r right_2 '>{{22}}</span>
 					<!--右边胎压状态End-->
           
+
+          <!-- 控制页面空调展示与否 -->
+          <div class="controlCondition">
+            <div>空调已打开</div>
+            <img :src="'./../../../../static/images/Lovecar/light_faropenon@2x.png'" alt="">
+          </div>
+
+          <div class="controlLight">
+            <div>远光灯已打开</div>
+            <img :src="'./../../../../static/images/Lovecar/light_faropenon@2x.png'" alt="">
+          </div>
+
           <!-- 车门展示 -->
           <img v-show="activeshow==2" style="position:absolute;display:block;width:.53rem;height:.88rem;top:2.83rem;left:2.45rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
           <img v-show="activeshow==2" style="position:absolute;display:block;width:.53rem;height:.88rem;top:4.03rem;left:2.45rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
@@ -698,7 +710,6 @@ export default {
             }
           } else {
             clearInterval(this.time);
-            this.popupbg = false;
             localhide()
           }
         });
@@ -1514,7 +1525,29 @@ input:focus {
   transform: translate(-50%, -50%);
   z-index: 9999999;
 }
-
+.controlCondition{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  line-height: .5rem;
+}
+.controlCondition img{
+  width: .3rem;
+  height: .3rem;
+}
+.controlLight{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  line-height: .5rem;
+  top: 1rem;
+}
+.controlLight img{
+  width: .3rem;
+  height: .3rem;
+}
 .question {
   position: absolute;
   top: 0.3rem;

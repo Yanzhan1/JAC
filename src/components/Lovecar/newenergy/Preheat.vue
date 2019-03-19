@@ -81,9 +81,88 @@ export default {
       num:0,
       showhour:'',
       showminute:'',
+      sjc:'',
     };
   },
   methods: {
+    init(){
+      let data={
+
+      }
+      this.$http.post(Newenergy.energyremotevehiclecontrol,data,this.$store.sate.tsppin).then((res)=>{
+        if(res.data.code==0){
+            this.getAsyReturn(res.data.opationId)
+        }
+      })
+    },
+    getAsyReturn(operationId) {
+      this.sjc = new Date().getTime();
+      this.$http
+        .post(
+          Newenergy.OperationId,
+          {
+            operationId: operationId
+          },
+          this.$store.state.tsppin
+        )
+        .then(res => {
+          var tS = new Date().getTime() - this.sjc; //时间戳 差
+          var tSS = parseInt((tS / 1000) % 60); // 时间差
+          if (res.data.returnSuccess == true) {
+            if (res.data.status == "IN_PROGRESS") {
+              //60s  后 清除定时器，不在发请求
+              if (tSS >= 56) {
+                    //超时提示         
+              } else {
+                this.time = setInterval(() => {
+                  this.$http
+                    .post(
+                      Lovecar.OperationId,
+                      {
+                        operationId: operationId
+                      },
+                      this.$store.state.tsppin
+                    )
+                    .then(res => {
+                      var tS = new Date().getTime() - this.sjc; //时间戳 差
+                      var tSS = parseInt((tS / 1000) % 60); // 时间差
+                      if (res.data.returnSuccess == true) {
+                        if (res.data.status == "IN_PROGRESS") {
+                          //60s  后 清除定时器，不在发请求
+                          if (tSS >= 56) {
+                            //超时提示并且清除定时器关闭遮罩层
+                            clearInterval(this.time);
+                            localhide()
+                          }
+                        } else if (res.data.status == "SUCCEED") {
+                          clearInterval(this.time);
+                          localhide()
+                        } else if (res.data.status == "FAILED") {
+
+                          clearInterval(this.time);
+                          localhide()
+                        }
+                      } else {
+
+                        clearInterval(this.time);
+                        localhide()
+                      }
+                    });
+                }, 4000);
+              }
+            } else if (res.data.status == "SUCCEED") {
+              clearInterval(this.time);
+              localhide()
+            } else if (res.data.status == "FAILED") {
+              clearInterval(this.time);
+              localhide()
+            }
+          } else {
+            clearInterval(this.time);
+            localhide()
+          }
+        });
+    },
     turn(){
       //改变加热开关
       if(this.num==1){
@@ -195,7 +274,7 @@ export default {
   //     }
   // },
   created(){
-    this.loadcss()
+    // this.loadcss()
     
     // this.endtime=this.toDate()
     let time= new Date().getTime()+1000*60*60*24*7
@@ -299,6 +378,6 @@ export default {
   color: #222;
 }
 .mint-popup{
-  height: 30%;
+  height: 5rem;
 }
 </style>

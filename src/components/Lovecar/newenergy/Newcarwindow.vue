@@ -143,10 +143,6 @@ export default {
       this.popupVisible = true;
       // this.httpwindowall();
     },
-    end() {
-      this.debouncedGetAnswer();
-      // this.httpwindow();
-    },
     //路由跳转的时候清除轮询loading
     goback() {
       this.$router.go(-1);
@@ -307,7 +303,6 @@ export default {
     },
     //重复调用异步接口
     getAsyReturn(operationId) {
-      var flag = true;
       this.sjc = new Date().getTime();
       this.$http
         .post(

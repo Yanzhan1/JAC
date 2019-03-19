@@ -82,6 +82,7 @@ export default {
       //value: false,
       windowwords: [], //车窗提示语
       allwords: [], //所有提示语
+      sjc:'',
       //移动端键盘值
       ownKeyBoard: {
         first: "",
@@ -261,7 +262,6 @@ export default {
     },
     //重复调用异步接口
     getAsyReturn(operationId) {
-      var flag = true;
       this.sjc = new Date().getTime();
       this.$http
         .post(

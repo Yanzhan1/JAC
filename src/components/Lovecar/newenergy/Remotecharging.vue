@@ -89,6 +89,7 @@ export default {
       showhour:'',
       showminute:'',
       controlcharge:false,//控制底下充电图标
+      sjc:'',
       //占时储存所有充电数据
       allbetterymessage:{
         Surpluselectricity:'30%',
@@ -102,6 +103,84 @@ export default {
     };
   },
   methods: {
+    init(){
+      let data={
+
+      }
+      this.$http.post(Newenergy.energyremotevehiclecontrol,data,this.$store.sate.tsppin).then((res)=>{
+        if(res.data.code==0){
+            this.getAsyReturn(res.data.opationId)
+        }
+      })
+    },
+    getAsyReturn(operationId) {
+      this.sjc = new Date().getTime();
+      this.$http
+        .post(
+          Newenergy.OperationId,
+          {
+            operationId: operationId
+          },
+          this.$store.state.tsppin
+        )
+        .then(res => {
+          var tS = new Date().getTime() - this.sjc; //时间戳 差
+          var tSS = parseInt((tS / 1000) % 60); // 时间差
+          if (res.data.returnSuccess == true) {
+            if (res.data.status == "IN_PROGRESS") {
+              //60s  后 清除定时器，不在发请求
+              if (tSS >= 56) {
+                    //超时提示         
+              } else {
+                this.time = setInterval(() => {
+                  this.$http
+                    .post(
+                      Lovecar.OperationId,
+                      {
+                        operationId: operationId
+                      },
+                      this.$store.state.tsppin
+                    )
+                    .then(res => {
+                      var tS = new Date().getTime() - this.sjc; //时间戳 差
+                      var tSS = parseInt((tS / 1000) % 60); // 时间差
+                      if (res.data.returnSuccess == true) {
+                        if (res.data.status == "IN_PROGRESS") {
+                          //60s  后 清除定时器，不在发请求
+                          if (tSS >= 56) {
+                            //超时提示并且清除定时器关闭遮罩层
+                            clearInterval(this.time);
+                            localhide()
+                          }
+                        } else if (res.data.status == "SUCCEED") {
+                          clearInterval(this.time);
+                          localhide()
+                        } else if (res.data.status == "FAILED") {
+
+                          clearInterval(this.time);
+                          localhide()
+                        }
+                      } else {
+
+                        clearInterval(this.time);
+                        localhide()
+                      }
+                    });
+                }, 4000);
+              }
+            } else if (res.data.status == "SUCCEED") {
+              clearInterval(this.time);
+              localhide()
+            } else if (res.data.status == "FAILED") {
+              clearInterval(this.time);
+              localhide()
+            }
+          } else {
+            clearInterval(this.time);
+            localhide()
+          }
+        });
+    },
     //选择充电开始时间
     begintime() {
       this.$refs.pickerstart.open();
@@ -198,11 +277,11 @@ export default {
        $('.mint-datetime-cancel').css('border-right','solid 1px #eaeaea')
       $('.mint-datetime .picker-items').css('position','relative').css('top','-.7rem').css('border-bottom','solid 1px #eaeaea')
     })
-    }
+    },
   },
   created() {
     // this.endtime=this.toDate()
-    this.loadcss()
+    // this.loadcss()
     let time = new Date().getTime() + 1000 * 60 * 60 * 24 * 7;
     this.endtime = new Date(this.Conversiontime(time) + "");
   },
@@ -339,6 +418,6 @@ export default {
   color: #49BBFF;
 }
 .mint-popup{
-  height: 30%;
+  height: 5rem;
 }
 </style>

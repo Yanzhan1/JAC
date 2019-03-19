@@ -82,6 +82,7 @@ export default {
       //				value: false,
       curveState: false, //控制开关状态
       windowcontrol: false, //控制开关上传状态
+      sjc:'',
       //移动端键盘值
       allwords: [], //所有提示
       skywords: [], //天窗提示
@@ -109,8 +110,87 @@ export default {
     };
   },
   methods: {
-    end() {
-      this.httpsky();
+    init(){
+      let param = {
+        vin: this.$store.state.vins,
+        operationType: "SUNROOF",
+        extParams: {
+          
+        }
+      }
+      this.$http.post(Newenergy.energyremotevehiclecontrol,data,this.$store.sate.tsppin).then((res)=>{
+        if(res.data.code==0){
+            this.getAsyReturn(res.data.opationId)
+        }
+      })
+    },
+    getAsyReturn(operationId) {
+      this.sjc = new Date().getTime();
+      this.$http
+        .post(
+          Newenergy.OperationId,
+          {
+            operationId: operationId
+          },
+          this.$store.state.tsppin
+        )
+        .then(res => {
+          var tS = new Date().getTime() - this.sjc; //时间戳 差
+          var tSS = parseInt((tS / 1000) % 60); // 时间差
+          if (res.data.returnSuccess == true) {
+            if (res.data.status == "IN_PROGRESS") {
+              //60s  后 清除定时器，不在发请求
+              if (tSS >= 56) {
+                    //超时提示         
+              } else {
+                this.time = setInterval(() => {
+                  this.$http
+                    .post(
+                      Lovecar.OperationId,
+                      {
+                        operationId: operationId
+                      },
+                      this.$store.state.tsppin
+                    )
+                    .then(res => {
+                      var tS = new Date().getTime() - this.sjc; //时间戳 差
+                      var tSS = parseInt((tS / 1000) % 60); // 时间差
+                      if (res.data.returnSuccess == true) {
+                        if (res.data.status == "IN_PROGRESS") {
+                          //60s  后 清除定时器，不在发请求
+                          if (tSS >= 56) {
+                            //超时提示并且清除定时器关闭遮罩层
+                            clearInterval(this.time);
+                            localhide()
+                          }
+                        } else if (res.data.status == "SUCCEED") {
+                          clearInterval(this.time);
+                          localhide()
+                        } else if (res.data.status == "FAILED") {
+
+                          clearInterval(this.time);
+                          localhide()
+                        }
+                      } else {
+
+                        clearInterval(this.time);
+                        localhide()
+                      }
+                    });
+                }, 4000);
+              }
+            } else if (res.data.status == "SUCCEED") {
+              clearInterval(this.time);
+              localhide()
+            } else if (res.data.status == "FAILED") {
+              clearInterval(this.time);
+              localhide()
+            }
+          } else {
+            clearInterval(this.time);
+            localhide()
+          }
+        });
     },
     windowclose() {
       this.windowcontrol = true;
@@ -230,228 +310,6 @@ export default {
         this.activeShowImg = false;
       }
     },
-    //重复调用异步接口
-    getAsyReturn(operationId) {
-      this.sjc = new Date().getTime();
-      this.$http
-        .post(
-          Lovecar.OperationId,
-          { operationId: operationId },
-          this.$store.state.tsppin
-        )
-        .then(res => {
-          var tS = new Date().getTime() - this.sjc; //时间戳 差
-          var tSS = parseInt((tS / 1000) % 60); // 时间差
-          if (res.data.returnSuccess == true) {
-            if (res.data.status == "IN_PROGRESS") {
-              //60s  后 清除定时器，不在发请求
-              if (tSS >= 56) {
-                Toast({
-                  message: this.skywords[2].dictValue,
-                  position: "middle",
-                  duration: 2000
-                });
-                localhide();
-              } else {
-                this.time = setInterval(() => {
-                  this.$http
-                    .post(
-                      Lovecar.OperationId,
-                      { operationId: operationId },
-                      this.$store.state.tsppin
-                    )
-                    .then(res => {
-                      var tS = new Date().getTime() - this.sjc; //时间戳 差
-                      var tSS = parseInt((tS / 1000) % 60); // 时间差
-                      if (res.data.returnSuccess == true) {
-                        if (res.data.status == "IN_PROGRESS") {
-                          //60s  后 清除定时器，不在发请求
-                          if (tSS >= 56) {
-                            if (this.windowcontrol) {
-                              //关闭失败
-                              Toast({
-                                message: this.skywords[2].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                            } else {
-                              //打开失败
-                              Toast({
-                                message: this.skywords[5].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                            }
-                            clearInterval(this.time);
-                            localhide();
-                          }
-                        } else if (res.data.status == "SUCCEED") {
-                          if (this.windowcontrol) {
-                            //执行关闭天窗操作
-                            this.curveState = false;
-                            this.activeShowImg = false;
-                            Toast({
-                              message: this.skywords[1].dictValue,
-                              position: "middle",
-                              duration: 2000
-                            });
-                          } else {
-                            //执行开启天窗操作
-                            this.curveState = true;
-                            this.activeShowImg = true;
-                            Toast({
-                              message: this.skywords[4].dictValue,
-                              position: "middle",
-                              duration: 2000
-                            });
-                          }
-                          this.value = !this.value;
-                          clearInterval(this.time);
-                          localhide();
-                        } else if (res.data.status == "FAILED") {
-                          if (this.windowcontrol) {
-                            //关闭失败
-                            Toast({
-                              message: this.skywords[2].dictValue,
-                              position: "middle",
-                              duration: 2000
-                            });
-                          } else {
-                            //打开失败
-                            Toast({
-                              message: this.skywords[5].dictValue,
-                              position: "middle",
-                              duration: 2000
-                            });
-                          }
-                          clearInterval(this.time);
-                          localhide();
-                        }
-                      } else {
-                        if (this.windowcontrol) {
-                          //关闭失败
-                          Toast({
-                            message: this.skywords[2].dictValue,
-                            position: "middle",
-                            duration: 2000
-                          });
-                        } else {
-                          //打开失败
-                          Toast({
-                            message: this.skywords[5].dictValue,
-                            position: "middle",
-                            duration: 2000
-                          });
-                        }
-                        clearInterval(this.time);
-                        localhide();
-                      }
-                    });
-                }, 4000);
-              }
-            } else if (res.data.status == "SUCCEED") {
-              if (this.windowcontrol) {
-                //执行关闭天窗操作
-                this.curveState = false;
-                this.activeShowImg = false;
-                Toast({
-                  message: this.skywords[1].dictValue,
-                  position: "middle",
-                  duration: 2000
-                });
-              } else {
-                //执行开启天窗操作
-                this.curveState = true;
-                this.activeShowImg = true;
-                Toast({
-                  message: this.skywords[4].dictValue,
-                  position: "middle",
-                  duration: 2000
-                });
-              }
-
-              this.value = !this.value;
-              clearInterval(this.time);
-              localhide();
-            } else if (res.data.status == "FAILED") {
-              if (this.windowcontrol) {
-                //关闭失败
-                Toast({
-                  message: this.skywords[2].dictValue,
-                  position: "middle",
-                  duration: 2000
-                });
-              } else {
-                //打开失败
-                Toast({
-                  message: this.skywords[5].dictValue,
-                  position: "middle",
-                  duration: 2000
-                });
-              }
-              clearInterval(this.time);
-              localhide();
-            }
-          } else {
-            if (this.windowcontrol) {
-              //关闭失败
-              Toast({
-                message: this.skywords[2].dictValue,
-                position: "middle",
-                duration: 2000
-              });
-            } else {
-              //打开失败
-              Toast({
-                message: this.skywords[5].dictValue,
-                position: "middle",
-                duration: 2000
-              });
-            }
-            clearInterval(this.time);
-            localhide();
-          }
-        });
-    },
-    httpsky() {
-      let gear = this.windowcontrol ? "2" : "1";
-      var param = {
-        vin: this.$store.state.vins,
-        operationType: "SUNROOF",
-        extParams: {
-          fluctuationType: 1, //档位qg
-          // percent: this.windNum[this.skylightSpace].replace(/%/g, ""), //0-100
-          gear: "2" //车窗1是开,2是关
-        }
-      };
-      this.$http
-        .post(Lovecar.Control, param, this.$store.state.tsppin)
-        .then(res => {
-          if (res.data.returnSuccess) {
-            Toast({
-              message: this.skywords[0].dictValue,
-              position: "middle",
-              duration: 2000
-            });
-            setTimeout(() => {
-              this.getAsyReturn(res.data.operationId);
-            }, 2000);
-          } else {
-            Toast({
-              message: this.skywords[2].dictValue,
-              position: "middle",
-              duration: 2000
-            });
-          }
-        })
-        .catch(err => {
-          Toast({
-            message: this.skywords[2].dictValue,
-            position: "middle",
-            duration: 2000
-          });
-        });
-    }
   },
   mounted() {
     //  this.produCurve();
@@ -504,7 +362,7 @@ export default {
           .then(res => {
             if (res.data.returnSuccess) {
               // this.value = !this.value;
-              this.httpsky();
+              this.init();
               // this.refreshPmData(),
               //消失遮罩
               this.popupVisible = !this.popupVisible;
@@ -554,7 +412,7 @@ export default {
           )
           .then(res => {
             if (res.data.returnSuccess) {
-              this.httpsky();
+              this.init();
               //消失遮罩
               this.popupVisible = !this.popupVisible;
               //消失软键盘
