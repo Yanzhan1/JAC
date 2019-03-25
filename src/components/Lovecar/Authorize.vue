@@ -87,6 +87,49 @@ export default {
     };
   },
   methods:{
+       MyBus() {
+       let tspid = this.$store.state.tspId;
+      if (this.$store.state.tspId == undefined) {
+        tspid = 0;
+      }
+      this.$http
+        .post(
+          My.My_Bus,
+          {
+            userId: this.$store.state.userId,
+            phone: this.$store.state.mobile,
+            tspUserId:tspid,
+            aaaUserID: this.$store.state.aaaid,
+          },
+          this.$store.state.tsppin
+        )
+        .then(res => {
+          if (res.data.returnSuccess) {
+              Toast({
+                    message:'友情提示：请告知被授权用户重新登入APP，即可体验远程车控功能',
+                    position:'middle',
+                    duration:3000,
+                })
+                setTimeout(() => {
+                    
+                    this.$router.push({
+                    name:'Authorize_next',
+                    params:{
+                            a:operationTime.getTime(this.shang),
+                            b:operationTime.getTime(this.xia),
+                            count: this.Account
+                }
+             })
+                }, 4000);
+          }else{
+              Toast({
+                    message:'授权成功,同步失败,请稍后重试',
+                    position:'middle',
+                    duration:3000,
+                })
+          }
+        });
+    },
       next(){
           //获得时间戳
           this.shang = this.start.replace(/\-/g, '/').split(' ')[0]
@@ -123,23 +166,9 @@ export default {
                 }
             }
         this.$http.post(Lovecar.Longrange,param,this.$store.state.tsppin).then((res)=>{
+
             if(res.data.returnSuccess){
-                   Toast({
-                    message:'友情提示：请告知被授权用户重新登入APP，即可体验远程车控功能',
-                    position:'middle',
-                    duration:3000,
-                })
-                setTimeout(() => {
-                    
-                    this.$router.push({
-                    name:'Authorize_next',
-                    params:{
-                            a:operationTime.getTime(this.shang),
-                            b:operationTime.getTime(this.xia),
-                            count: this.Account
-                }
-             })
-                }, 4000);
+                this.MyBus()
             }else{
                 Toast({
                     message:res.data.returnErrMsg,
