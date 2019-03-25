@@ -55,42 +55,42 @@ export default {
       // authTime:'',//起始时间
       // endauthTime:'',//结束时间
       userName: "", //账号
-      toAuthperson: "", //展示的昵称
-     
+      toAuthperson: "" //展示的昵称
     };
   },
-  created(){
+  created() {
     // this.tochangeTime(1577793600000)
     // console.log(this.tochangeTime(1577793600000))
   },
-   mounted() {
+  mounted() {
     // alert(JSON.stringify(this.$store.state.tsppin))
     if (this.$route.params.count) {
       this.count = this.$route.params.count;
-    this.gettime = this.$route.params.a;
-    this.overtime = this.$route.params.b;
-    }else{
+      this.gettime = this.$route.params.a;
+      this.overtime = this.$route.params.b;
+    } else {
       this.vehiclestatus();
     }
     this.userName = this.$store.state.userName;
-     
   },
   methods: {
-     tochangeTime(inputTime) {
-            var date = new Date(inputTime);
-            var y = date.getFullYear();
-            var m = date.getMonth() + 1;
-            m = m < 10 ? ('0' + m) : m;
-            var d = date.getDate();
-            d = d < 10 ? ('0' + d) : d;
-            var h = date.getHours();
-            h = h < 10 ? ('0' + h) : h;
-            var minute = date.getMinutes();
-            var second = date.getSeconds();
-            minute = minute < 10 ? ('0' + minute) : minute;
-            second = second < 10 ? ('0' + second) : second;
-            return y + '-' + m + '-' + d + ' ' + '　' + h + ':' + minute + ':' + second;
-      },
+    tochangeTime(inputTime) {
+      var date = new Date(inputTime);
+      var y = date.getFullYear();
+      var m = date.getMonth() + 1;
+      m = m < 10 ? "0" + m : m;
+      var d = date.getDate();
+      d = d < 10 ? "0" + d : d;
+      var h = date.getHours();
+      h = h < 10 ? "0" + h : h;
+      var minute = date.getMinutes();
+      var second = date.getSeconds();
+      minute = minute < 10 ? "0" + minute : minute;
+      second = second < 10 ? "0" + second : second;
+      return (
+        y + "-" + m + "-" + d + " " + "　" + h + ":" + minute + ":" + second
+      );
+    },
     //车辆授权状态
     vehiclestatus() {
       this.$http
@@ -99,10 +99,10 @@ export default {
           if (res.data.returnSuccess) {
             for (let i = 0; i < res.data.data.length; i++) {
               if (res.data.data[i].isLocking == true) {
-                var authTime =parseInt(res.data.data[i].authTime) ;
+                var authTime = parseInt(res.data.data[i].authTime);
                 var endauthTime = parseInt(res.data.data[i].endAuthTime);
                 this.gettime = this.tochangeTime(authTime);
-                this.overtime =this.tochangeTime(endauthTime);
+                this.overtime = this.tochangeTime(endauthTime);
                 this.toAuthperson = res.data.data[i].toAuthPerson;
                 this.count = res.data.data[i].phone;
               }
@@ -112,7 +112,46 @@ export default {
           }
         });
     },
-     
+    MyBus() {
+      let tspid = this.$store.state.tspId;
+      if (this.$store.state.tspId == undefined) {
+        tspid = 0;
+      }
+      this.$http
+        .post(
+          My.My_Bus,
+          {
+            userId: this.$store.state.userId,
+            phone: this.$store.state.mobile,
+            tspUserId: tspid,
+            aaaUserID: this.$store.state.aaaid
+          },
+          this.$store.state.tsppin
+        )
+        .then(res => {
+          if (res.data.returnSuccess) {
+            Toast({
+              message: "解除授权成功",
+              position: "middle",
+              duration: 1000
+            });
+            if (isMobile.iOS()) {
+              window.webkit.messageHandlers.gotoMyIndex.postMessage();
+            } else if (isMobile.Android()) {
+              js2android.gotoMyIndex();
+            }
+            setTimeout(() => {
+              this.$router.push("/myindex");
+            }, 3000);
+          } else {
+            Toast({
+              message: "解除授权成功,同步失败,请稍后重试",
+              position: "middle",
+              duration: 3000
+            });
+          }
+        });
+    },
     confirmRevise() {
       MessageBox.confirm("", {
         title: "提示",
@@ -143,19 +182,7 @@ export default {
                 .post(Lovecar.Longrange, data, this.$store.state.tsppin)
                 .then(res => {
                   if (res.data.returnSuccess) {
-                    Toast({
-                      message: "解除授权成功",
-                      position: "middle",
-                      duration: 1000
-                    });
-                     if (isMobile.iOS()) {
-                          window.webkit.messageHandlers.gotoMyIndex.postMessage();
-                        } else if (isMobile.Android()) {
-                          js2android.gotoMyIndex();
-                        }
-                    setTimeout(() => {
-                      this.$router.push("/myindex");
-                    }, 3000);
+                    this.MyBus();
                   } else {
                     Toast({
                       message: res.data.returnErrMsg,
@@ -179,8 +206,7 @@ export default {
           }
         });
     }
-  },
- 
+  }
 };
 </script>
  <style scoped>
