@@ -44,9 +44,7 @@ export default {
     },
     isLogin(userInfo) {
       this.$store.state.kim="456"
-      console.log('appp',this.$store.state.kim)
       // this.$store.dispatch('change$FLAG', true)// 不要动 有用
-      console.log('z执行islogin')
       if (userInfo && userInfo.no) {
         this.$store.dispatch("isLogin", true);
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
