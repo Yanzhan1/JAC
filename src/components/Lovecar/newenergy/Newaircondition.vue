@@ -205,30 +205,23 @@ export default {
     },
     //车窗接口一键系列
     httpwindowall() {
-      let percent = this.fluctuationType == "1" ? "0" : "100";
+      let percent = this.fluctuationType == "1" ? 1 : 2;
       var param = {
-        vin: this.$store.state.vins,
-        operationType: "WINDOW",
-        // operation: this.nums, //操作项
-        extParams: {
-          windowNum: 5,
-          fluctuationType: 2,
-          percent: percent
-          // gear:''
-        }
+        vin: "LJ12EKS4XF4727391",
+        operationType: "AIRCONDITIONER",
+        operation: percent, //操作项
       };
       this.$http
-        .post(Lovecar.Control, param, this.$store.state.tsppin)
+        .post(Newenergy.energyremotevehiclecontrol, param, this.$store.state.tsppin)
         .then(res => {
-          this.operationIds = res.data.operationId;
           if (res.data.returnSuccess) {
-            Toast({
-              message: this.windowwords[0].dictValue,
-              position: "middle",
-              duration: 2000
-            });
+            // Toast({
+            //   message: this.windowwords[0].dictValue,
+            //   position: "middle",
+            //   duration: 2000
+            // });
             setTimeout(() => {
-              this.getAsyReturn(res.data.operationId);
+              this.getAsyReturn('1401418212');
             }, 2000);
           } else {
             Toast({
@@ -265,7 +258,7 @@ export default {
       this.sjc = new Date().getTime();
       this.$http
         .post(
-          Lovecar.OperationId,
+          Newenergy.energyvehicleasyncresults,
           { operationId: operationId },
           this.$store.state.tsppin
         )
@@ -276,17 +269,12 @@ export default {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
               if (tSS >= 56) {
-                Toast({
-                  message: this.windowwords[2].dictValue,
-                  position: "middle",
-                  duration: 2000
-                });
                 localhide();
               } else {
                 this.time = setInterval(() => {
                   this.$http
                     .post(
-                      Lovecar.OperationId,
+                      Newenergy.energyvehicleasyncresults,
                       { operationId: operationId },
                       this.$store.state.tsppin
                     )
@@ -309,22 +297,15 @@ export default {
                           if (this.fluctuationType == "1") {
                             //车窗图片关闭
                             this.activeShowImg = false;
+                            this.flags=false
                             //canvas的关闭
-                            Toast({
-                              message: this.windowwords[4].dictValue,
-                              position: "middle",
-                              duration: 2000
-                            });
+                            
                           }
                           if (this.fluctuationType == "3") {
                             //车窗图片激活
                             this.activeShowImg = true;
-                            //canvas的激活
-                            Toast({
-                              message: this.windowwords[5].dictValue,
-                              position: "middle",
-                              duration: 2000
-                            });
+                            this.flags=true
+                            
                           }
                           clearInterval(this.time);
                           localhide();
@@ -353,20 +334,22 @@ export default {
               if (this.fluctuationType == "1") {
                 //车窗图片关闭
                 this.activeShowImg = false;
-                Toast({
-                  message: this.windowwords[4].dictValue,
-                  position: "middle",
-                  duration: 2000
-                });
+                this.flags=false
+                // Toast({
+                //   message: this.windowwords[4].dictValue,
+                //   position: "middle",
+                //   duration: 2000
+                // });
               }
               if (this.fluctuationType == "3") {
                 //车窗图片激活
                 this.activeShowImg = true;
-                Toast({
-                  message: this.windowwords[1].dictValue,
-                  position: "middle",
-                  duration: 2000
-                });
+                this.flags=true;
+                // Toast({
+                //   message: this.windowwords[1].dictValue,
+                //   position: "middle",
+                //   duration: 2000
+                // });
               }
               clearInterval(this.time);
               localhide();
@@ -462,16 +445,16 @@ export default {
       if (this.pinNumber.length == 6) {
         var nums = this.pinNumber;
         //      alert(this.$store.state.tsppin.headers.identityParam.token)
-        this.$http
-          .post(
-            Lovecar.Checkphonepin,
-            {
-              pin: nums
-            },
-            this.$store.state.tsppin
-          )
-          .then(res => {
-            if (res.data.returnSuccess) {
+        // this.$http
+        //   .post(
+        //     Lovecar.Checkphonepin,
+        //     {
+        //       pin: nums
+        //     },
+        //     this.$store.state.tsppin
+        //   )
+        //   .then(res => {
+        //     if (res.data.returnSuccess) {
               // this.value = !this.value;\
               this.httpwindowall();
               //pin码正确激活弧线
@@ -484,27 +467,27 @@ export default {
               (this.showTyper = 0),
                 //清空pin码
                 (this.pinNumber = "");
-            } else {
-              //消失遮罩
-              this.popupVisible = !this.popupVisible;
-              //消失软键盘
-              (this.showTyper = 0),
-                //清空pin码
-                (this.pinNumber = "");
-              Toast({
-                message: res.data.returnErrMsg,
-                position: "middle",
-                duration: 1000
-              });
-            }
-          })
-          .catch(err => {
-            Toast({
-              message: res.data.returnErrMsg,
-              position: "middle",
-              duration: 1000
-            });
-          });
+            // } else {
+            //   //消失遮罩
+            //   this.popupVisible = !this.popupVisible;
+            //   //消失软键盘
+            //   (this.showTyper = 0),
+            //     //清空pin码
+            //     (this.pinNumber = "");
+            //   Toast({
+            //     message: res.data.returnErrMsg,
+            //     position: "middle",
+            //     duration: 1000
+            //   });
+            // }
+          // })
+          // .catch(err => {
+          //   Toast({
+          //     message: res.data.returnErrMsg,
+          //     position: "middle",
+          //     duration: 1000
+          //   });
+          // });
       }
     },
     fullValue(newVal, oldVal) {
