@@ -63,7 +63,6 @@ export default {
             //   "defaultInformation":userInfo.defaultInformation
             // })
             if(userInfo.token){
-
               let param = {
                 lmscode:
                   JSON.parse(userInfo.defaultInformation).modelNo,
@@ -100,11 +99,13 @@ export default {
             console.log("无默认车辆");
           }
         } else if (isMobile.Android()) {
+          
           if (userInfo.defaultInformation.vin) {
             this.$store.dispatch("defaultInformation", userInfo.defaultInformation);
             // localStorage.setItem({
             //   "defaultInformation":JSON.stringify(userInfo.defaultInformation)
             // })
+              
             if(userInfo.token){
               let param = {
                 lmscode:
