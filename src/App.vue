@@ -159,7 +159,6 @@ export default {
         localStorage.setItem("userName", JSON.stringify(userInfo.userName));
       } else {
         this.$store.state.enterMaintenance = false;
-        console.log(this.$store.state.enterMaintenance)
         this.$store.dispatch("isLogin", false);
         this.$store.dispatch("userId", null);
         //      this.$store.dispatch('userInfo',null);
@@ -169,7 +168,7 @@ export default {
         this.$http.defaults.headers.common["timaToken"] &&
         this.$store.state.userId
       ) {
-        console.log(UserInfo.token)
+        console.log(this.$http.defaults.headers.common["timaToken"])
         var param = {
           no: this.$store.state.userId
         };
