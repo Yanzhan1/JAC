@@ -43,6 +43,8 @@ export default {
       }
     },
     isLogin(userInfo) {
+      this.$store.state.kim="456"
+      console.log('appp',this.$store.state.kim)
       // this.$store.dispatch('change$FLAG', true)// 不要动 有用
       console.log('z执行islogin')
       if (userInfo && userInfo.no) {
@@ -53,8 +55,6 @@ export default {
         this.$store.dispatch("userId", userInfo.no);
         this.$store.dispatch("userInfo", userInfo);
         this.$http.defaults.headers.common["timaToken"] = userInfo.token;
-        
-        // this.$http.defaults.headers.common["identityParam"] = userInfo.token;
         //获取原生给你默认车辆的所有信息
         if (isMobile.iOS()) {
           if (userInfo.defaultInformation) {
@@ -62,6 +62,9 @@ export default {
               "defaultInformation",
               JSON.parse(userInfo.defaultInformation)
             );
+            // localStorage.setItem({
+            //   "defaultInformation":userInfo.defaultInformation
+            // })
             let param = {
               lmscode:
                 JSON.parse(userInfo.defaultInformation).modelNo,
@@ -70,30 +73,28 @@ export default {
               tspFlag: JSON.parse(userInfo.defaultInformation).tspFlag,
               seriesName:JSON.parse(userInfo.defaultInformation).seriesName
             };
-            if(userInfo.token){
-              this.$http
-                .post(Wit.SearchVehicleSeriesByVehicle, param)
-                .then(res => {
-                  if(res.data.code==0){
-                    if (res.data.data.brandId == 4 || 5 || 6) {
-                      // this.brandName = res.data.data.brandName;
-                      // this.seriesName = res.data.data.seriesName;
-                      // this.brandNo = res.data.data.brandNo;
-                      // this.brandId = "0" + res.data.data.brandId;
-                      // this.seriesNo = res.data.data.no;
-                      if (userInfo.no) {
-                        this.$store.state.enterMaintenance = true;                   
-                      }else{
-                        this.$store.state.enterMaintenance = false;
-                      }
+            this.$http
+              .post(Wit.SearchVehicleSeriesByVehicle, param)
+              .then(res => {
+                if(res.data.code==0){
+                  if (res.data.data.brandId == 4 || 5 || 6) {
+                    // this.brandName = res.data.data.brandName;
+                    // this.seriesName = res.data.data.seriesName;
+                    // this.brandNo = res.data.data.brandNo;
+                    // this.brandId = "0" + res.data.data.brandId;
+                    // this.seriesNo = res.data.data.no;
+                    if (userInfo.no) {
+                      this.$store.state.enterMaintenance = true;                   
                     }else{
-                        this.$store.state.enterMaintenance = false;
-                      }
+                      this.$store.state.enterMaintenance = false;
+                    }
                   }else{
                       this.$store.state.enterMaintenance = false;
-                  }
-                });
-            }
+                    }
+                }else{
+                    this.$store.state.enterMaintenance = false;
+                }
+              });
           } else {
                   this.$store.state.enterMaintenance = false;
             console.log("无默认车辆");
@@ -101,38 +102,39 @@ export default {
         } else if (isMobile.Android()) {
           if (userInfo.defaultInformation.vin) {
             this.$store.dispatch("defaultInformation", userInfo.defaultInformation);
-            if(userInfo.token){
-              let param = {
-                lmscode:
-                  userInfo.defaultInformation.modelNo,
-                levelCode:
-                  userInfo.defaultInformation.seriesNo,
-                tspFlag: userInfo.defaultInformation.tspFlag,
-                seriesName: userInfo.defaultInformation.seriesName
-              };
-              this.$http
-                .post(Wit.SearchVehicleSeriesByVehicle, param)
-                .then(res => {
-                  if(res.data.code==0){
-                    if (res.data.data.brandId == 4 || 5 || 6) {
-                      // this.brandName = res.data.data.brandName;
-                      // this.seriesName = res.data.data.seriesName;
-                      // this.brandNo = res.data.data.brandNo;
-                      // this.brandId = "0" + res.data.data.brandId;
-                      // this.seriesNo = res.data.data.no;
-                      if (userInfo.no) {
-                        this.$store.state.enterMaintenance = true;
-                      }else{
-                        this.$store.state.enterMaintenance = false;
-                      }
+            // localStorage.setItem({
+            //   "defaultInformation":JSON.stringify(userInfo.defaultInformation)
+            // })
+            let param = {
+              lmscode:
+                userInfo.defaultInformation.modelNo,
+              levelCode:
+                userInfo.defaultInformation.seriesNo,
+              tspFlag: userInfo.defaultInformation.tspFlag,
+              seriesName: userInfo.defaultInformation.seriesName
+            };
+            this.$http
+              .post(Wit.SearchVehicleSeriesByVehicle, param)
+              .then(res => {
+                if(res.data.code==0){
+                  if (res.data.data.brandId == 4 || 5 || 6) {
+                    // this.brandName = res.data.data.brandName;
+                    // this.seriesName = res.data.data.seriesName;
+                    // this.brandNo = res.data.data.brandNo;
+                    // this.brandId = "0" + res.data.data.brandId;
+                    // this.seriesNo = res.data.data.no;
+                    if (userInfo.no) {
+                      this.$store.state.enterMaintenance = true;
                     }else{
-                        this.$store.state.enterMaintenance = false;
-                      }
+                      this.$store.state.enterMaintenance = false;
+                    }
                   }else{
                       this.$store.state.enterMaintenance = false;
-                  }
-                });
-            }
+                    }
+                }else{
+                    this.$store.state.enterMaintenance = false;
+                }
+              });
           } else {
                     this.$store.state.enterMaintenance = false;
             console.log("无默认车辆");
@@ -160,6 +162,7 @@ export default {
         localStorage.setItem("userName", JSON.stringify(userInfo.userName));
       } else {
         this.$store.state.enterMaintenance = false;
+        console.log(this.$store.state.enterMaintenance)
         this.$store.dispatch("isLogin", false);
         this.$store.dispatch("userId", null);
         //      this.$store.dispatch('userInfo',null);
