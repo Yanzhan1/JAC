@@ -4,10 +4,10 @@
 // console.log(`执行环境${apiHost}`)
 // var indexip = `${apiHost}/api/dk-dm-portal-api`
 // //测试环境域名
-var host = '//test.jac.timanetwork.net'
+// var host = '//test.jac.timanetwork.net'
 
 //云环境域名
-// var host = 'https://jacsupperappuat.jac.com.cn.jac.com.cn'
+var host = 'https://jacsupperappuat.jac.com.cn/'
 
 //生产环境域名403
 // var host = '//jacsupperapp.jac.com.cn'
@@ -18,7 +18,7 @@ var focusip = host + '/api/dk-pr-svr' //uat
 var point = 'http://192.168.1.141:8868' //埋点
     //服务器-智享
 var mip = host + '/api/jac-automobile-manage/automobilemanage' //智享
-var witlocal = 'http://172.21.12.74:8082/automobilemanage' //杨毅飞本地服务器
+var witlocal = 'http://172.21.12.74:8086/jacenergy' //杨毅飞本地服务器
     //服务器-admin(跟用户有关即我的)
 var mips = host + '/api/jac-admin' //地区
 var jf = host + '/' //跟积分有关的
@@ -222,6 +222,12 @@ window.Lovecar = {
         showcallbackmessage: love_car + '/call-back/show-callback-message', //超过电子围栏警告
         vehiclebyvin: love_car + '/vehicle/vehicle-by-vin', //当tspflag为0的时候调用
 
+    }
+    //新能源接口
+window.Newenergy = {
+        energyremotevehiclecontrol: witlocal + '/vehicleControl/energy-remote-vehicle-control', //新能源车辆控制查询optionid
+        energyqueryvehiclecondition: witlocal + '/vehicleInformation/energy-query-vehicle-condition', //新能源车况查询optionid
+        energyvehicleasyncresults: witlocal + '/callBack/energy-vehicle-async-results', //optionid回调
     }
     //消息接口
 window.IMFORMATION = {
