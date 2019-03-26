@@ -22,9 +22,9 @@
 				</div>
 			</div>
 			<div class="close-skylight" @click="popupVisible=true">
-				<button   :class="!this.curveState?'noactive':'active'" @click="windowclose">关闭</button>
+				<button   :class="this.windowcontrol?'noactive':'active'" @click="windowclose">关闭</button>
         <div style="width:.5rem"></div>
-				<button   :class="this.curveState?'noactive':'active'" @click="windowopen">开启</button>
+				<button   :class="!this.windowcontrol?'noactive':'active'" @click="windowopen">开启</button>
 			</div>
 		</div>
 		
@@ -78,10 +78,12 @@ export default {
   data() {
     return {
       time: "", //定时器命名
+      buttoncontrol:'',
+      operationgive:'',
       //天窗控制按钮开关
       //				value: false,
       curveState: false, //控制开关状态
-      windowcontrol: false, //控制开关上传状态
+      windowcontrol: true, //控制开关上传状态
       sjc:'',
       //移动端键盘值
       allwords: [], //所有提示
@@ -112,15 +114,16 @@ export default {
   methods: {
     init(){
       let param = {
-        vin: this.$store.state.vins,
+        vin: "LJ12EKS4XF4727391",
         operationType: "SUNROOF",
+        "operation":this.operationgive,
         extParams: {
-          
+          "openLevel":this.buttoncontrol
         }
       }
-      this.$http.post(Newenergy.energyremotevehiclecontrol,data,this.$store.sate.tsppin).then((res)=>{
-        if(res.data.code==0){
-            this.getAsyReturn(res.data.opationId)
+      this.$http.post(Newenergy.energyremotevehiclecontrol,param,this.$store.state.tsppin).then((res)=>{
+        if(res.data.returnSuccess){
+            this.getAsyReturn('1352081029')
         }
       })
     },
@@ -128,7 +131,7 @@ export default {
       this.sjc = new Date().getTime();
       this.$http
         .post(
-          Newenergy.OperationId,
+          Newenergy.energyvehicleasyncresults,
           {
             operationId: operationId
           },
@@ -146,7 +149,7 @@ export default {
                 this.time = setInterval(() => {
                   this.$http
                     .post(
-                      Lovecar.OperationId,
+                      Newenergy.energyvehicleasyncresults,
                       {
                         operationId: operationId
                       },
@@ -164,6 +167,11 @@ export default {
                             localhide()
                           }
                         } else if (res.data.status == "SUCCEED") {
+                          if(this.buttoncontrol){
+                            this.windowcontrol=false
+                          }else{
+                            this.windowcontrol=true
+                          }
                           clearInterval(this.time);
                           localhide()
                         } else if (res.data.status == "FAILED") {
@@ -180,6 +188,11 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
+              if(this.buttoncontrol){
+                            this.windowcontrol=false
+                          }else{
+                            this.windowcontrol=true
+                          }
               clearInterval(this.time);
               localhide()
             } else if (res.data.status == "FAILED") {
@@ -193,10 +206,14 @@ export default {
         });
     },
     windowclose() {
-      this.windowcontrol = true;
+      this.buttoncontrol=0
+      this.operationgive=1
+      // this.windowcontrol = true;
     },
     windowopen() {
-      this.windowcontrol = false;
+      this.buttoncontrol=100
+      this.operationgive=2
+      // this.windowcontrol = false;
     },
     //路由跳转的时候清除轮询loading
     goback() {
@@ -218,7 +235,7 @@ export default {
     //点击遮罩或者'x'移除popup
     removeMask() {
       this.popupVisible = !this.popupVisible;
-      this.showTyper = 0;
+      // this.showTyper = 0;
     },
     //产生随机数
     randomnum(min, max) {
@@ -300,15 +317,15 @@ export default {
     },
     //控制天窗起始状态
     carcontrolskylight() {
-      if (this.$route.query.carcontrol.skylightStatus == "1") {
-        //pin码正确激活弧线
-        this.curveState = true;
-        //pin码正确激活空调图
-        this.activeShowImg = true;
-      } else {
-        this.curveState = false;
-        this.activeShowImg = false;
-      }
+      // if (this.$route.query.carcontrol.skylightStatus == "1") {
+      //   //pin码正确激活弧线
+      //   this.curveState = true;
+      //   //pin码正确激活空调图
+      //   this.activeShowImg = true;
+      // } else {
+      //   this.curveState = false;
+      //   this.activeShowImg = false;
+      // }
     },
   },
   mounted() {
@@ -351,16 +368,16 @@ export default {
     pinNumber(newVal, oldVal) {
       if (this.pinNumber.length == 6) {
         var nums = this.pinNumber;
-        this.$http
-          .post(
-            Lovecar.Checkphonepin,
-            {
-              pin: nums
-            },
-            this.$store.state.tsppin
-          )
-          .then(res => {
-            if (res.data.returnSuccess) {
+        // this.$http
+        //   .post(
+        //     Lovecar.Checkphonepin,
+        //     {
+        //       pin: nums
+        //     },
+        //     this.$store.state.tsppin
+        //   )
+        //   .then(res => {
+        //     if (res.data.returnSuccess) {
               // this.value = !this.value;
               this.init();
               // this.refreshPmData(),
@@ -370,34 +387,7 @@ export default {
               (this.showTyper = 0),
                 //清空pin码
                 (this.pinNumber = "");
-            } else {
-              //消失遮罩
-              this.popupVisible = !this.popupVisible;
-
-              //消失软键盘
-              (this.showTyper = 0),
-                //清空pin码
-                (this.pinNumber = "");
-              Toast({
-                message: res.data.returnErrMsg,
-                position: "middle",
-                duration: 1000
-              });
             }
-          })
-          .catch(err => {
-            Toast({
-              message: res.data.returnErrMsg,
-              position: "middle",
-              duration: 1000
-            });
-            this.popupVisible = !this.popupVisible;
-            //消失软键盘
-            (this.showTyper = 0),
-              //清空pin码
-              (this.pinNumber = "");
-          });
-      }
     },
     fullValue(newVal, oldVal) {
       if (this.fullValue.length == 6) {
@@ -416,14 +406,14 @@ export default {
               //消失遮罩
               this.popupVisible = !this.popupVisible;
               //消失软键盘
-              (this.showTyper = 0),
+              // (this.showTyper = 0),
                 //清空pin码
                 (this.fullValue = "");
             } else {
               //消失遮罩
               this.popupVisible = !this.popupVisible;
               //消失软键盘
-              (this.showTyper = 0),
+              // (this.showTyper = 0),
                 //清空pin码
                 (this.fullValue = "");
               Toast({
