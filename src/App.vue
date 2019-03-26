@@ -43,7 +43,6 @@ export default {
       }
     },
     isLogin(userInfo) {
-      this.$store.state.kim="456"
       // this.$store.dispatch('change$FLAG', true)// 不要动 有用
       if (userInfo && userInfo.no) {
         this.$store.dispatch("isLogin", true);
@@ -170,6 +169,7 @@ export default {
         this.$http.defaults.headers.common["timaToken"] &&
         this.$store.state.userId
       ) {
+        console.log(UserInfo.token)
         var param = {
           no: this.$store.state.userId
         };
