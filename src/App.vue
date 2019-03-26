@@ -168,7 +168,7 @@ export default {
         this.$http.defaults.headers.common["timaToken"] &&
         this.$store.state.userId
       ) {
-        console.log(this.$http.defaults.headers.common["timaToken"])
+        alert(this.$http.defaults.headers.common["timaToken"])
         var param = {
           no: this.$store.state.userId
         };
