@@ -62,36 +62,39 @@ export default {
             // localStorage.setItem({
             //   "defaultInformation":userInfo.defaultInformation
             // })
-            let param = {
-              lmscode:
-                JSON.parse(userInfo.defaultInformation).modelNo,
-              levelCode:
-                JSON.parse(userInfo.defaultInformation).seriesNo,
-              tspFlag: JSON.parse(userInfo.defaultInformation).tspFlag,
-              seriesName:JSON.parse(userInfo.defaultInformation).seriesName
-            };
-            this.$http
-              .post(Wit.SearchVehicleSeriesByVehicle, param)
-              .then(res => {
-                if(res.data.code==0){
-                  if (res.data.data.brandId == 4 || 5 || 6) {
-                    // this.brandName = res.data.data.brandName;
-                    // this.seriesName = res.data.data.seriesName;
-                    // this.brandNo = res.data.data.brandNo;
-                    // this.brandId = "0" + res.data.data.brandId;
-                    // this.seriesNo = res.data.data.no;
-                    if (userInfo.no) {
-                      this.$store.state.enterMaintenance = true;                   
+            if(userInfo.token){
+
+              let param = {
+                lmscode:
+                  JSON.parse(userInfo.defaultInformation).modelNo,
+                levelCode:
+                  JSON.parse(userInfo.defaultInformation).seriesNo,
+                tspFlag: JSON.parse(userInfo.defaultInformation).tspFlag,
+                seriesName:JSON.parse(userInfo.defaultInformation).seriesName
+              };
+              this.$http
+                .post(Wit.SearchVehicleSeriesByVehicle, param)
+                .then(res => {
+                  if(res.data.code==0){
+                    if (res.data.data.brandId == 4 || 5 || 6) {
+                      // this.brandName = res.data.data.brandName;
+                      // this.seriesName = res.data.data.seriesName;
+                      // this.brandNo = res.data.data.brandNo;
+                      // this.brandId = "0" + res.data.data.brandId;
+                      // this.seriesNo = res.data.data.no;
+                      if (userInfo.no) {
+                        this.$store.state.enterMaintenance = true;                   
+                      }else{
+                        this.$store.state.enterMaintenance = false;
+                      }
                     }else{
-                      this.$store.state.enterMaintenance = false;
-                    }
+                        this.$store.state.enterMaintenance = false;
+                      }
                   }else{
                       this.$store.state.enterMaintenance = false;
-                    }
-                }else{
-                    this.$store.state.enterMaintenance = false;
-                }
-              });
+                  }
+                });
+            }
           } else {
                   this.$store.state.enterMaintenance = false;
             console.log("无默认车辆");
@@ -102,36 +105,38 @@ export default {
             // localStorage.setItem({
             //   "defaultInformation":JSON.stringify(userInfo.defaultInformation)
             // })
-            let param = {
-              lmscode:
-                userInfo.defaultInformation.modelNo,
-              levelCode:
-                userInfo.defaultInformation.seriesNo,
-              tspFlag: userInfo.defaultInformation.tspFlag,
-              seriesName: userInfo.defaultInformation.seriesName
-            };
-            this.$http
-              .post(Wit.SearchVehicleSeriesByVehicle, param)
-              .then(res => {
-                if(res.data.code==0){
-                  if (res.data.data.brandId == 4 || 5 || 6) {
-                    // this.brandName = res.data.data.brandName;
-                    // this.seriesName = res.data.data.seriesName;
-                    // this.brandNo = res.data.data.brandNo;
-                    // this.brandId = "0" + res.data.data.brandId;
-                    // this.seriesNo = res.data.data.no;
-                    if (userInfo.no) {
-                      this.$store.state.enterMaintenance = true;
+            if(userInfo.token){
+              let param = {
+                lmscode:
+                  userInfo.defaultInformation.modelNo,
+                levelCode:
+                  userInfo.defaultInformation.seriesNo,
+                tspFlag: userInfo.defaultInformation.tspFlag,
+                seriesName: userInfo.defaultInformation.seriesName
+              };
+              this.$http
+                .post(Wit.SearchVehicleSeriesByVehicle, param)
+                .then(res => {
+                  if(res.data.code==0){
+                    if (res.data.data.brandId == 4 || 5 || 6) {
+                      // this.brandName = res.data.data.brandName;
+                      // this.seriesName = res.data.data.seriesName;
+                      // this.brandNo = res.data.data.brandNo;
+                      // this.brandId = "0" + res.data.data.brandId;
+                      // this.seriesNo = res.data.data.no;
+                      if (userInfo.no) {
+                        this.$store.state.enterMaintenance = true;
+                      }else{
+                        this.$store.state.enterMaintenance = false;
+                      }
                     }else{
-                      this.$store.state.enterMaintenance = false;
-                    }
+                        this.$store.state.enterMaintenance = false;
+                      }
                   }else{
                       this.$store.state.enterMaintenance = false;
-                    }
-                }else{
-                    this.$store.state.enterMaintenance = false;
-                }
-              });
+                  }
+                });
+            }
           } else {
                     this.$store.state.enterMaintenance = false;
             console.log("无默认车辆");
@@ -168,7 +173,6 @@ export default {
         this.$http.defaults.headers.common["timaToken"] &&
         this.$store.state.userId
       ) {
-        alert(this.$http.defaults.headers.common["timaToken"])
         var param = {
           no: this.$store.state.userId
         };
