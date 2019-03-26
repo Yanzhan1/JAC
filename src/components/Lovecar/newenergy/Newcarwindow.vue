@@ -252,10 +252,7 @@ export default {
         operationType: "WINDOW",
         // operation: this.nums, //操作项
         extParams: {
-          windowNum: 5,
-          fluctuationType: 2,
-          percent: percent
-          // gear:''
+          "openLevel":"0",
         }
       };
       this.$http
