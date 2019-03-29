@@ -161,7 +161,7 @@ export default {
     //调用充电接口
     charged() {
       let data = {
-        vin: "LS5A3CJC9JF830022",
+        vin: this.$store.state.vins,
         operationType: "RESERVATION_RECHARGE",
         operation: this.operation,
         extParams: {
@@ -176,7 +176,7 @@ export default {
         )
         .then(res => {
           if (res.data.returnSuccess) {
-            this.getAsyReturn("1422139788");
+            this.getAsyReturn(res.data.operationId);
           }
         }).catch((err)=>{
           if(this.operation==2){

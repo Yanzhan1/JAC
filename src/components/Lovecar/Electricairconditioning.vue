@@ -435,7 +435,8 @@ export default {
       that.keyNums = arr2;
     },
     Toasteach() {
-      MessageBox("提示", this.airconditionwords[3].dictValue);
+      console.log(this.airconditionwords)
+      MessageBox("提示", this.airconditionwords[3].remark);
     },
     //产生曲线
     produCurve() {

@@ -320,7 +320,7 @@ export default {
       }, 1000);
     },
     Toasteach() {
-      MessageBox("提示", this.airconditionwords[3].dictValue);
+      MessageBox("提示", this.airconditionwords[3].remark);
     },
     //温度减少
     reduce() {

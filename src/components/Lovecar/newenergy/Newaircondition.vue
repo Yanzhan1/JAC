@@ -207,7 +207,7 @@ export default {
     httpwindowall() {
       let percent = this.fluctuationType == "1" ? 1 : 2;
       var param = {
-        vin: "LJ12EKS4XF4727391",
+        vin: this.$store.state.vins,
         operationType: "AIRCONDITIONER",
         operation: percent, //操作项
       };
@@ -221,7 +221,7 @@ export default {
             //   duration: 2000
             // });
             setTimeout(() => {
-              this.getAsyReturn('1401418212');
+              this.getAsyReturn(res.data.operationId);
             }, 2000);
           } else {
             Toast({
@@ -372,32 +372,6 @@ export default {
             localhide();
           }
         });
-    },
-    Carquery() {
-      this.$http
-        .post(
-          Lovecar.Carquery,
-          { vins: [this.$store.state.vins] },
-          this.$store.state.tsppin
-        )
-        .then(res => {
-          if (res.data.returnSuccess) {
-            // this.getAsyReturn(res.data.operationId);
-          } else {
-            Toast({
-              message: res.data.returnErrMsg,
-              position: "middle",
-              duration: 2000
-            });
-          }
-        })
-        .catch(err => {
-          Toast({
-            message: res.data.returnErrMsg,
-            position: "middle",
-            duration: 2000
-          });
-        });
     }
   },
   mounted() {
@@ -406,7 +380,6 @@ export default {
   created() {
     this.getwindowwords();
     this.inputs();
-    // this.Carquery()
   },
   beforeDestroy() {
     clearInterval(this.time);

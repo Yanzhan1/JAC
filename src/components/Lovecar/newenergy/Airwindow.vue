@@ -114,7 +114,7 @@ export default {
   methods: {
     init(){
       let param = {
-        vin: "LJ12EKS4XF4727391",
+        vin: this.$store.state.vins,
         operationType: "SUNROOF",
         "operation":this.operationgive,
         extParams: {
@@ -123,7 +123,7 @@ export default {
       }
       this.$http.post(Newenergy.energyremotevehiclecontrol,param,this.$store.state.tsppin).then((res)=>{
         if(res.data.returnSuccess){
-            this.getAsyReturn('1352081029')
+            this.getAsyReturn(res.data.operationId)
         }
       })
     },

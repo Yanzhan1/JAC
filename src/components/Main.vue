@@ -35,16 +35,19 @@ export default {
         //     localshow()
         // }
         if (this.loadingnum == 0) {
-          switch (arr[1]) {
-            case "dk-dm-portal-api": // 发现
-              if (!(params.pageNo && params.pageNo > 1)) {
+          if(arr){
+
+            switch (arr[1]) {
+              case "dk-dm-portal-api": // 发现
+                if (!(params.pageNo && params.pageNo > 1)) {
+                  localshow();
+                }
+                break;
+              case "jac-car-control": //爱车
                 localshow();
-              }
-              break;
-            case "jac-car-control": //爱车
-              localshow();
-            default:
-              localshow();
+              default:
+                localshow();
+            }
           }
         }
         this.loadingnum++;

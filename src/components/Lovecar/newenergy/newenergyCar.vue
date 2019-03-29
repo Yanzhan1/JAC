@@ -63,18 +63,18 @@
           <div class="bus_l_bettery flex">
               <div style="position:absolute;width:1.4rem;height:1.9rem;top:.2rem;left:.1rem;overflow:hidden;">
                 <div class="bus_l_bettery_left">
-                    {{this.carcontrol.soc==-1?0:this.carcontrol.soc}}
+                    {{this.carcontrol.soc==-1?0:this.carcontrol.soc}}%
                 </div>
               </div>
               <img style="width:1.6rem;height:2.2rem;position:absolute"  :src="'./../../../../static/images/Lovecar/bgbattery@2x.png'" alt="">
               <div class="bus_l_bettery_right">
                   <div>
                       <div>剩余电量</div>
-                      <span>{{this.carcontrol.soc==-1?0:this.carcontrol.soc}}</span>
+                      <span>{{this.carcontrol.soc==-1?0:this.carcontrol.soc}}%</span>
                   </div>
                   <div>
                       <div>总里程</div>
-                      <span>{{this.carcontrol.totalMileage}}</span>
+                      <span>{{this.carcontrol.totalMileage}}KM</span>
                   </div>
               </div>
           </div>
@@ -92,11 +92,11 @@
             <li>
                 <div>
                   <div>预计慢充时间</div>
-                  <span>{{this.carcontrol.slowChgLeftTime}}</span>
+                  <span>{{this.carcontrol.slowChgLeftTime}}分钟</span>
                 </div>
                 <div>
                   <div>预计快充时间</div>
-                  <span>{{this.carcontrol.quickChgLeftTime}}</span>
+                  <span>{{this.carcontrol.quickChgLeftTime}}分钟</span>
                 </div>
             </li>
           </ul>
@@ -110,34 +110,34 @@
 					<span ref='open4' class='busl_r right_2 '>{{this.Condition.rrWindowOpen}}</span> 
 
           <!-- 控制页面空调展示与否 -->
-          <div v-show="true" class="controlCondition">
+          <div v-show="this.carcontrol.acStatus==1?true:false" class="controlCondition">
             <img :src="'./../../../../static/images/Lovecar/airenergyopen@2x.png'" alt="">
             <div style="color:#49bbff">空调已打开</div>
           </div>
-          <div v-show="!true" class="controlCondition">
+          <div v-show="this.carcontrol.acStatus==2?true:false" class="controlCondition">
             <img :src="'./../../../../static/images/Lovecar/airenergyclose@2x.png'" alt="">
             <div style="color:#222">空调已关闭</div>
           </div>
           <!-- 远光灯开启展示 -->
-          <div v-show="!true" class="controlLight">
+          <div v-show="this.carcontrol.highlightStatus==1" class="controlLight">
             <img :src="'./../../../../static/images/Lovecar/light_nearopenon@2x.png'" alt="">
-            <div v-show="!true" style="color:#49bbff">远光灯已打开</div>
-            <div v-show="true" style="color:#49bbff">近光灯已打开</div>
+            <div  style="color:#49bbff">远光灯已打开</div>
           </div>
-          <div v-show="true" class="controlLight">
-            <img :src="'./../../../../static/images/Lovecar/light_nearopenoff.png'" alt="">
-            <div v-show="!true" style="color:#222">远光灯已关闭</div>
-            <div v-show="true" style="color:#222">近光灯已关闭</div>
+          <div v-show="this.carcontrol.lightnearcontrol==1" class="controlLight">
+            <img :src="'./../../../../static/images/Lovecar/light_nearopenon@2x.png'" alt="">
+            <div  style="color:#49bbff">近光灯已打开</div>
           </div>
 
-          <img v-show="!true" style="display:block;position:absolute;z-index:-1;width:3.52rem;height:2.9rem;top:-1.1rem;left:2.03rem;" :src="'./../../../../static/images/Lovecar/lightforword@2x.png'" alt="">  
-          <img v-show="true" style="display:block;position:absolute;z-index:-1;width:2.98rem;height:1.70rem;top:0rem;left:2.25rem;" :src="'./../../../../static/images/Lovecar/lightnear@2x.png'" alt="">  
+
+          <!-- 探照灯 -->
+          <img v-show="this.carcontrol.highlightStatus==1" style="display:block;position:absolute;z-index:-1;width:3.52rem;height:2.9rem;top:-1.1rem;left:2.03rem;" :src="'./../../../../static/images/Lovecar/lightforword@2x.png'" alt="">  
+          <img v-show="this.carcontrol.lightnearcontrol==1" style="display:block;position:absolute;z-index:-1;width:2.98rem;height:1.70rem;top:0rem;left:2.25rem;" :src="'./../../../../static/images/Lovecar/lightnear@2x.png'" alt="">  
 
           <!-- 车门展示 -->
-          <img v-show="activeshow==2&&this.carcontrol.doorStsFrontLeft" style="position:absolute;display:block;width:.53rem;height:.88rem;top:2.95rem;left:2.6rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
-          <img v-show="activeshow==2&&this.carcontrol.doorStsRearLeft" style="position:absolute;display:block;width:.53rem;height:.88rem;top:4.15rem;left:2.6rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
-          <img v-show="activeshow==2&&this.carcontrol.doorStsFrontRight" style="transform:rotateY(180deg);position:absolute;display:block;width:.53rem;height:.88rem;top:2.95rem;left:4.55rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
-          <img v-show="activeshow==2&&this.carcontrol.doorStsRearRight" style="transform:rotateY(180deg);position:absolute;display:block;width:.53rem;height:.88rem;top:4.15rem;left:4.55rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
+          <img v-show="activeshow==2&&this.carcontrol.doorStsFrontLeft" style="position:absolute;display:block;width:.53rem;height:.88rem;top:2.95rem;left:2.5rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
+          <img v-show="activeshow==2&&this.carcontrol.doorStsRearLeft" style="position:absolute;display:block;width:.53rem;height:.88rem;top:4.15rem;left:2.5rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
+          <img v-show="activeshow==2&&this.carcontrol.doorStsFrontRight" style="transform:rotateY(180deg);position:absolute;display:block;width:.53rem;height:.88rem;top:2.95rem;left:4.45rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
+          <img v-show="activeshow==2&&this.carcontrol.doorStsRearRight" style="transform:rotateY(180deg);position:absolute;display:block;width:.53rem;height:.88rem;top:4.15rem;left:4.45rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
 
           <!-- 轮胎温度start -->
           <!-- <span v-show="activeshow==1"  class='busl_r tiretemperature_left1'>11℃</span>
@@ -154,19 +154,19 @@
 					<!--胎压图片End-->
 
 					<!-- 控制天窗的线Start 分为激活和未激活 -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'"  v-show="activeshow=='3'&&this.carcontrol.topWindowOpen?true:false" style="position:absolute;display:block;width:1.8rem;top:3.1rem;right:2.1rem;"></img>
-					<img class="" :src="'./static/images/Lovecar/blueright.png'"  v-show="activeshow=='3'?true:false" style="position:absolute;display:block;width:1.14rem;top:3.55rem;right:2.5rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'"  v-show="activeshow=='3'&&this.carcontrol.topWindowOpen==1" style="position:absolute;display:block;width:1.8rem;top:3.1rem;right:2.1rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/blueright.png'"  v-show="activeshow=='3'&&this.carcontrol.topWindowOpen!=1" style="position:absolute;display:block;width:1.14rem;top:3.55rem;right:2.5rem;"></img>
 					<!--天窗线End-->
 
 					<!-- 尾门线Start 分为激活和未激活  -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'"  v-show="activeshow=='2'&&this.carcontrol.trunkLockStatus?true:false" style="position:absolute;display:block;width:1.8rem;top:5.05rem;right:2.1rem;"></img>
-					<img class="" :src="'./static/images/Lovecar/blueright.png'"  v-show="activeshow=='2'?true:false" style="position:absolute;display:block;width:1.14rem;top:5.5rem;right:2.5rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'"  v-show="activeshow=='2'&&this.carcontrol.trunkLockStatus==1" style="position:absolute;display:block;width:1.8rem;top:5.05rem;right:2.1rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/blueright.png'"  v-show="activeshow=='2'&&this.carcontrol.trunkLockStatus!=1" style="position:absolute;display:block;width:1.14rem;top:5.5rem;right:2.5rem;"></img>
 					<!--尾门线End-->
 
 					<!-- 控制右前车门线 -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.rfWindowOpen=='已打开'?true:false" style="position:absolute;display:block;width:1rem;right:2.1rem;top: 2.5rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.rfWindowOpen=='已打开'?true:false" style="position:absolute;display:block;width:1rem;right:1.9rem;top: 2.5rem;"></img>
 					<!-- 控制右后车门线 -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.rrWindowOpen2=='已打开'?true:false" style="position:absolute;display:block;width:1rem;right:2.1rem;top: 4.2rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.rrWindowOpen=='已打开'?true:false" style="position:absolute;display:block;width:1rem;right:1.9rem;top: 4.2rem;"></img>
 					<!-- 控制左前车门线 -->
 					<img class="" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.lfWindowOpen=='已打开'?true:false" style="position:absolute;display:block;width:1rem;left: 1.9rem;top: 2.5rem;"></img>
 					<!-- 控制左后车门线 -->
@@ -218,24 +218,24 @@
 				<mt-swipe-item>
 					<div class="content">
 						<div  class="content_1" @click="openNearLight">
-							<img v-if="!this.lightfarcontrol" class="content_carDoor" :src="'./static/images/Lovecar/light_nearopenon@2x.png'" alt="">
+							<img v-if="!this.lightnearcontrol" class="content_carDoor" :src="'./static/images/Lovecar/light_nearopenon@2x.png'" alt="">
 							<img v-else class="content_carDoor" :src="'./static/images/Lovecar/light_nearopenoff.png'" alt="">
-							<span :class="!this.lightfarcontrol?'act':'activess'">打开近光</span>
+							<span :class="!this.lightnearcontrol?'act':'activess'">打开近光</span>
 						</div>
 						<div  class="content_1" @click="closeNearLight">
-							<img v-if="this.lightfarcontrol" class="content_carDoor" :src="'./static/images/Lovecar/light_nearcloseon@2x.png'" alt="">
+							<img v-if="this.lightnearcontrol" class="content_carDoor" :src="'./static/images/Lovecar/light_nearcloseon@2x.png'" alt="">
 							<img v-else class="content_carDoor" :src="'./static/images/Lovecar/light_nearcloseoff@2x.png'" alt="">
-							<span :class="this.lightfarcontrol?'act':'activess'">关闭近光</span>
+							<span :class="this.lightnearcontrol?'act':'activess'">关闭近光</span>
 						</div>
 						<div  class="content_1" @click="openFarLight">
-							<img v-if="!this.lightnearcontrol" class="tailgate" :src="'./static/images/Lovecar/light_faropenon@2x.png'" alt="">
+							<img v-if="!this.lightfarcontrol" class="tailgate" :src="'./static/images/Lovecar/light_faropenon@2x.png'" alt="">
 							<img v-else class="tailgate" :src="'./static/images/Lovecar/light_faropenoff@2x.png'" alt="">
-							<span :class="!this.lightnearcontrol?'act':'activess'">打开远光</span>
+							<span :class="!this.lightfarcontrol?'act':'activess'">打开远光</span>
 						</div>
 						<div  class="content_1" @click="closeFarLight">
-							<img v-if="this.lightnearcontrol" class="Flameout" :src="'./static/images/Lovecar/light_farcloseon@2x.png'" alt="">
+							<img v-if="this.lightfarcontrol" class="Flameout" :src="'./static/images/Lovecar/light_farcloseon@2x.png'" alt="">
 							<img v-else class="Flameout" :src="'./static/images/Lovecar/light_farcloseoff@2x.png'" alt="">
-							<span :class="this.lightnearcontrol?'act':'activess'">关闭远光</span>
+							<span :class="this.lightfarcontrol?'act':'activess'">关闭远光</span>
 						</div>
 					</div>
 				</mt-swipe-item>
@@ -316,15 +316,6 @@
 					<img src="../../../../static/images/Lovecar/xiupin.png" alt="">
 					<span>修改PIN</span>
 				</router-link>
-				<router-link tag="li" to="/Bus_test">
-				<!-- 暂时解除车辆体检权限调接口 -->
-					<img src="../../../../static/images/Lovecar/chejian.png" alt="">
-					<span>车辆体检</span>
-				</router-link>
-				<router-link tag='li' to="/Authorize_next" >
-					<img src="../../../../static/images/Lovecar/yuancheng.png" alt="">
-					<span>远程授权</span>
-				</router-link>
 				<li  @click="turnPosition">
 					<img src="../../../../static/images/Lovecar/dingwei.png" alt="">
 					<span>定位</span>
@@ -332,22 +323,6 @@
 				<router-link  tag='li' to="/lovecar/flowQuery">
 					<img src="../../../../static/images/Lovecar/liuliang.png" alt="">
 					<span>流量查询</span>
-				</router-link>
-				<router-link  tag='li' to="/lovecar/fuelQuery">
-					<img src="../../../../static/images/Lovecar/ranyou.png" alt="">
-					<span>燃油统计</span>
-				</router-link>
-				<li  @click="turnPage">
-					<img src="../../../../static/images/Lovecar/dianzi.png" alt="">
-					<span>电子围栏</span>
-				</li>
-				<router-link  tag='li' to="/lovecar/wifiLink">
-					<img src="../../../../static/images/Lovecar/wifi.png" alt="">
-					<span>wifi直连</span>
-				</router-link>
-				<router-link tag="li" to='/lovecar/intelligenceParking'>
-					<img src="../../../../static/images/Lovecar/zhiting.png" alt="">
-					<span>智能停车</span>
 				</router-link>
 			</ul>
 		</div>
@@ -362,6 +337,11 @@ export default {
   name: "lovecar",
   data() {
     return {
+      carcontrol: {
+        acStatus: 1,
+        doorStsTrunk: 0,
+        soc: 10
+      }, //车控返回的东西
       beforetype: "",
       activeshow: 4, //默认第一个高亮
       tspid: "",
@@ -376,11 +356,10 @@ export default {
       firstEnter: false, //第一次调用车况
       vehicleState: "", //被授权车辆的vin
       doorcontrol: true, //控制车门锁状态
-      trunkcontrol: true, //控制尾门状态
+      trunkcontrol: true, //控制尾门状态  所有车控的true 都是关闭的状态
       findcarcontrol: true, //控制寻车状态
       lightfarcontrol: true, //远光灯状态
       lightnearcontrol: true, //近光灯状态
-      airconditioncontrol: true, //空调控制状态
       pinNumber: "",
       type: "", //判断点击事件
       typebefore: "",
@@ -393,7 +372,6 @@ export default {
       time: "",
       sjc: "",
       vinn: "",
-      carcontrol: {}, //车控返回的东西
       open_lock: [], //开锁的所有提示语
       close_lock: [], //闭锁的所有提示语
       open_trunk: [], //后备箱的所有提示语
@@ -404,9 +382,24 @@ export default {
       allFunction: [], //存储所有的车控功能
       chgStatus: "", //当前充电状态
       chgPlugStatus: "", //充电状态
-      tai: {}, //胎压赋值
-      door: {}, //车门赋值
-      window: {} //车窗赋值
+      tai: {
+        lfWindowOpen: "左前kpa", //左前窗
+        lrWindowOpen: "左后kpa", //左后窗
+        rfWindowOpen: "右前kpa", //右前窗
+        rrWindowOpen: "右后kpa" //右后窗
+      }, //胎压赋值
+      door: {
+        lfWindowOpen: "已打开", //左前窗
+        lrWindowOpen: "已打开", //左后窗
+        rfWindowOpen: "已打开", //右前窗
+        rrWindowOpen: "已打开" //右后窗
+      }, //车门赋值
+      window: {
+        lfWindowOpen: "已打开", //左前窗
+        lrWindowOpen: "已打开", //左后窗
+        rfWindowOpen: "已打开", //右前窗
+        rrWindowOpen: "已打开" //右后窗
+      } //车窗赋值
     };
   },
   methods: {
@@ -419,7 +412,6 @@ export default {
     fn(type) {
       this.activeshow = type;
       if (this.activeshow == 1) {
-        console.log(this.tai);
         this.Condition = this.tai;
       } else if (this.activeshow == 2) {
         this.Condition = this.door;
@@ -427,27 +419,6 @@ export default {
         this.Condition = this.window;
       } else if (this.activeshow == 4) {
       }
-    },
-    //获取此车所具有的车况功能
-    Support() {
-      let param = {
-        vin: this.vinn
-      };
-      this.$http
-        .post(Lovecar.Support, param, this.$store.state.energypin)
-        .then(res => {
-          if (res.data.returnSuccess) {
-            let allnum = res.data.data;
-            for (let value of allnum) {
-              switch (value.code) {
-                case "WINDOW":
-                  this.WINDOW = true;
-                  break;
-                default:
-              }
-            }
-          }
-        });
     },
     moved() {
       this.MaskIsshow = false;
@@ -612,13 +583,13 @@ export default {
         .post(
           Newenergy.energyqueryvehiclecondition,
           {
-            vins: ["LJ12EKS4XF4727391"]
+            vins: this.vin
           },
           this.$store.state.tsppin
         )
         .then(res => {
           if (res.data.returnSuccess) {
-            this.getAsyReturn("1037198406");
+            this.getAsyReturn(res.data.operationId);
           } else {
             // Toast({
             //   message: this.vehicle_condition[2].dictValue,
@@ -680,8 +651,8 @@ export default {
                           }
                         } else if (res.data.status == "SUCCEED") {
                           // if (res.data.data) {
-                          this.carcontrol = res.data.data;
-                          this.batteryStatis();
+                            this.carcontrol=res.data.data;
+                            this.batteryStatis()
                           if (this.carcontrol.chgPlugStatus == 1) {
                             this.chgPlugStatus = "未插入";
                           } else if (this.carcontrol.chgPlugStatus == 2) {
@@ -750,13 +721,15 @@ export default {
                               this.findcarcontrol = true;
                             }, 4000);
                           } else if (this.type == 6) {
-                            this.lightnearcontrol = true;
-                          } else if (this.type == 7) {
                             this.lightnearcontrol = false;
-                          } else if (this.type == 8) {
                             this.lightfarcontrol = true;
-                          } else if (this.type == 9) {
+                          } else if (this.type == 7) {
+                            this.lightnearcontrol = true;
+                          } else if (this.type == 8) {
                             this.lightfarcontrol = false;
+                            this.lightnearcontrol = true;
+                          } else if (this.type == 9) {
+                            this.lightfarcontrol = true;
                           }
                           // }
                           clearInterval(this.time);
@@ -774,8 +747,8 @@ export default {
               }
             } else if (res.data.status == "SUCCEED") {
               // if (res.data.data) {
-              this.carcontrol = res.data.data;
-              this.batteryStatis();
+                this.carcontrol=res.data.data;
+                this.batteryStatis()
               if (this.carcontrol.chgPlugStatus == 1) {
                 this.chgPlugStatus = "未插入";
               } else if (this.carcontrol.chgPlugStatus == 2) {
@@ -841,13 +814,15 @@ export default {
                   this.findcarcontrol = true;
                 }, 4000);
               } else if (this.type == 6) {
-                this.lightnearcontrol = true;
-              } else if (this.type == 7) {
                 this.lightnearcontrol = false;
-              } else if (this.type == 8) {
                 this.lightfarcontrol = true;
-              } else if (this.type == 9) {
+              } else if (this.type == 7) {
+                this.lightnearcontrol = true;
+              } else if (this.type == 8) {
                 this.lightfarcontrol = false;
+                this.lightnearcontrol = true;
+              } else if (this.type == 9) {
+                this.lightfarcontrol = true;
               }
               // }
               clearInterval(this.time);
@@ -862,29 +837,82 @@ export default {
           }
         });
     },
+    //同步车况不用拿operationId
+    getcarvalue() {
+      let params = {
+        vins: ["LJ1EEASPXJ5000403"]
+      };
+      this.$http
+        .post(
+          Newenergy.energyqueryvehiclenewcondition,
+          params,
+          this.$store.state.tsppin
+        )
+        .then(res => {
+          if (res.data.returnSuccess) {
+            this.carcontrol = res.data.data;
+
+            //控制尾门的状态
+            this.trunkcontrol=this.carcontrol.trunkLockStatus?false:true
+            //控制远光灯的状态
+            this.batteryStatis();
+            if (this.carcontrol.chgPlugStatus == 1) {
+              this.chgPlugStatus = "未插入";
+            } else if (this.carcontrol.chgPlugStatus == 2) {
+              this.chgPlugStatus = "插入未充电";
+            } else if (this.carcontrol.chgPlugStatus == 3) {
+              this.chgPlugStatus = "插入充电";
+            }
+
+            if (this.carcontrol.chgStatus == 1) {
+              this.chgStatus = "慢充充电开始";
+            } else if (this.carcontrol.chgStatus == 2) {
+              this.chgStatus = "慢充充电结束";
+            } else if (this.carcontrol.chgStatus == 3) {
+              this.chgStatus = "快充充电开始";
+            } else if (this.carcontrol.chgStatus == 4) {
+              this.chgStatus = "快充充电结束";
+            }
+            this.window = {
+              lfWindowOpen: this.carcontrol.lfWindowOpen ? "已打开" : "已关闭", //左前窗
+              lrWindowOpen: this.carcontrol.lrWindowOpen ? "已打开" : "已关闭", //左后窗
+              rfWindowOpen: this.carcontrol.rfWindowOpen ? "已打开" : "已关闭", //右前窗
+              rrWindowOpen: this.carcontrol.rrWindowOpen ? "已打开" : "已关闭" //右后窗
+            };
+
+            this.tai = {
+              lfWindowOpen: this.carcontrol.lfTirePresure + "kpa", //左前 胎压
+              lrWindowOpen: this.carcontrol.lrTirePresure + "kpa", //左后 胎压
+              rfWindowOpen: this.carcontrol.rfTirePresure + "kpa", //右前 胎压
+              rrWindowOpen: this.carcontrol.rrTirePresure + "kpa" //右后 胎压
+            };
+            this.door = {
+              lfWindowOpen: this.carcontrol.doorStsFrontLeft
+                ? "已打开"
+                : "已关闭", //左前 门
+              lrWindowOpen: this.carcontrol.doorStsRearLeft
+                ? "已打开"
+                : "已关闭", //左后 门
+              rfWindowOpen: this.carcontrol.doorStsFrontRight
+                ? "已打开"
+                : "已关闭", //右前 门
+              rrWindowOpen: this.carcontrol.doorStsRearRight
+                ? "已打开"
+                : "已关闭" //右后 门
+            };
+          }
+        });
+    },
     //手动刷新
     loading() {
       this.type = 10;
       this.Carquerry();
       this.activeshow = this.activeshow;
     },
-    //车辆授权状态
-    vehiclestatus() {
-      this.$http
-        .post(Lovecar.vehiclestatus, {}, this.$store.state.energypin)
-        .then(res => {
-          if (res.data.returnSuccess) {
-            for (let i = 0; i < res.data.data.length; i++) {
-              if (res.data.data[i].isLocking == true) {
-                this.Rajtigo = !this.Rajtigo;
-                this.vehicleState = res.data.data[i].vin;
-              }
-            }
-          }
-        });
-    },
     //获取电池状态
     batteryStatis() {
+      this.carcontrol.soc =
+        this.carcontrol.soc >= 100 ? 100 : this.carcontrol.soc;
       let top = 1.9 * (100 - this.carcontrol.soc) / 100 + "rem";
       $(".bus_l_bettery_left").css("top", top);
     }
@@ -940,21 +968,21 @@ export default {
         this.popupVisible = !this.popupVisible;
         this.popupbg = false;
         (this.IsShow = false), (this.pinNumber = "");
-        // this.$http
-        //   .post(
-        //     Lovecar.Checkphonepin,
-        //     {
-        //       pin: PIN
-        //     },
-        //     this.$store.state.energypin
-        //   )
-        //   .then(res => {
-        //     if(res.data){
-        //       if (res.data.returnSuccess) {
+        this.$http
+          .post(
+            Newenergy.energyvehiclePINvalidation,
+            {
+              pin: PIN
+            },
+            this.$store.state.tsppin
+          )
+          .then(res => {
+            if(res.data){
+              if (res.data.returnSuccess) {
 
         if (this.type == 1) {
           var params = {
-            vin: "LJ12EKS4XF4727391",
+            vin: this.vin,
             operationType: "LOCK",
             operation: 2 //操作项
           };
@@ -967,14 +995,19 @@ export default {
             .then(res => {
               if (res.data.returnSuccess) {
                 setTimeout(() => {
-                  this.getAsyReturn('1258247109');
+                  this.getAsyReturn(res.data.operationId);
                 }, 2000);
               } else {
+                Toast({
+                    message: res.data.returnErrMsg,
+                    position: "middle",
+                    duration: 2000
+                  });
               }
             });
         } else if (this.type == 2) {
           var params = {
-            vin: "LJ12EKS4XF4727391",
+            vin: this.vin,
             operationType: "LOCK",
             operation: 1 //操作项
           };
@@ -987,14 +1020,19 @@ export default {
             .then(res => {
               if (res.data.returnSuccess) {
                 setTimeout(() => {
-                  this.getAsyReturn('1301209176');
+                  this.getAsyReturn(res.data.operationId);
                 }, 2000);
               } else {
+                Toast({
+                    message: res.data.returnErrMsg,
+                    position: "middle",
+                    duration: 2000
+                  });
               }
             });
         } else if (this.type == 3) {
           var param = {
-            vin: "LJ12EKS4XF4727391",
+            vin: this.vin,
             operationType: "TRUNK",
             operation: 2
           };
@@ -1007,14 +1045,19 @@ export default {
             .then(res => {
               if (res.data.returnSuccess) {
                 setTimeout(() => {
-                  this.getAsyReturn('1304275866');
+                  this.getAsyReturn(res.data.operationId);
                 }, 2000);
               } else {
+                Toast({
+                    message: res.data.returnErrMsg,
+                    position: "middle",
+                    duration: 2000
+                  });
               }
             });
         } else if (this.type == 4) {
           var param = {
-            vin: "LJ12EKS4XF4727391",
+            vin: this.vin,
             operationType: "TRUNK",
             operation: 1
           };
@@ -1027,14 +1070,19 @@ export default {
             .then(res => {
               if (res.data.returnSuccess) {
                 setTimeout(() => {
-                  this.getAsyReturn('1306334694');
+                  this.getAsyReturn(res.data.operationId);
                 }, 2000);
               } else {
+                Toast({
+                    message: res.data.returnErrMsg,
+                    position: "middle",
+                    duration: 2000
+                  });
               }
             });
         } else if (this.type == 5) {
           var param = {
-            vin: "LJ12EKS4XF4727391",
+            vin: this.vin,
             operationType: "FIND_VEHICLE",
             operation: "1"
           };
@@ -1045,43 +1093,136 @@ export default {
               this.$store.state.tsppin
             )
             .then(res => {
-              this.operationIdses = res.data.operationId;
               if (res.data.returnSuccess) {
                 setTimeout(() => {
-                  this.getAsyReturn("1134478754");
+                  this.getAsyReturn(res.data.operationId);
                 }, 2000);
               } else {
+                Toast({
+                    message: res.data.returnErrMsg,
+                    position: "middle",
+                    duration: 2000
+                  });
+              }
+            });
+        }else if(this.type==6){
+          var param = {
+                vin: "LS5A3CJC9JF830022",
+                operationType: "DIPPED_HEADLIGHT",
+                operation:"2"
+              }
+          this.$http
+            .post(
+              Newenergy.energyremotevehiclecontrol,
+              param,
+              this.$store.state.tsppin
+            )
+            .then(res => {
+              if (res.data.returnSuccess) {
+                setTimeout(() => {
+                  this.getAsyReturn('1543059419');
+                }, 2000);
+              } else {
+                  Toast({
+                    message: res.data.returnErrMsg,
+                    position: "middle",
+                    duration: 2000
+                  });
+              }
+            });
+        }else if(this.type==7){
+          var param = {
+                vin: "LS5A3CJC9JF830022",
+                operationType: "DIPPED_HEADLIGHT",
+                operation:"1"
+              }
+          this.$http
+            .post(
+              Newenergy.energyremotevehiclecontrol,
+              param,
+              this.$store.state.tsppin
+            )
+            .then(res => {
+              if (res.data.returnSuccess) {
+                setTimeout(() => {
+                  this.getAsyReturn('1543059419');
+                }, 2000);
+              } else {
+                  Toast({
+                    message: res.data.returnErrMsg,
+                    position: "middle",
+                    duration: 2000
+                  });
+              }
+            });
+        }else if(this.type==8){
+          var param = {
+                vin: "LS5A3CJC9JF830022",
+                operationType: "HIGH_BEAM",
+                operation:"1"
+              }
+          this.$http
+            .post(
+              Newenergy.energyremotevehiclecontrol,
+              param,
+              this.$store.state.tsppin
+            )
+            .then(res => {
+              if (res.data.returnSuccess) {
+                setTimeout(() => {
+                  this.getAsyReturn('1543059419');
+                }, 2000);
+              } else {
+                  Toast({
+                    message: res.data.returnErrMsg,
+                    position: "middle",
+                    duration: 2000
+                  });
+              }
+            });
+        }else if(this.type==9){
+          var param = {
+                vin: "LS5A3CJC9JF830022",
+                operationType: "HIGH_BEAM",
+                operation:"2"
+              }
+          this.$http
+            .post(
+              Newenergy.energyremotevehiclecontrol,
+              param,
+              this.$store.state.tsppin
+            )
+            .then(res => {
+              if (res.data.returnSuccess) {
+                setTimeout(() => {
+                  this.getAsyReturn('1543059419');
+                }, 2000);
+              } else {
+                  Toast({
+                    message: res.data.returnErrMsg,
+                    position: "middle",
+                    duration: 2000
+                  });
               }
             });
         }
-        //     }
-        //   }
+            }
+          }
 
-        // })
+        })
       }
     }
   },
-  // beforeRouteEnter:(to,from,next)=>{
-  //      if(to.fullPath=='/lovecar'){
-  //        next(vm =>{
-  //          localshow()
-  //         //此时该组件被实例化了
-  //       })
-  //      }else{
-  //        next()
-  //      }
-  //     },
   beforeCreate() {
     clearInterval(this.time);
   },
   mounted() {
-    // $(".MobileHeight").css({
-    //   marginTop: this.$store.state.mobileStatusBar
-    // });
-    // this.vehiclestatus();
-    // this.vinn = this.$store.state.defaultInformation.vin;
-    // this.Support();
-    this.Carquerry();
+    $(".MobileHeight").css({
+      marginTop: this.$store.state.mobileStatusBar
+    });
+    this.getcarvalue();
+    this.vinn = this.$store.state.defaultInformation.vin;
+    // this.Carquerry();
   },
   beforeDestroy() {
     clearInterval(this.time);
@@ -1243,7 +1384,6 @@ export default {
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-
   box-sizing: border-box;
 }
 .tipcontent li {
@@ -1281,7 +1421,6 @@ export default {
   align-items: center;
   padding: 0.4rem 0;
 }
-
 .one input {
   width: 20%;
   height: 0.7rem;
@@ -1608,9 +1747,9 @@ input:focus {
 }
 .loadingcar {
   position: absolute;
-  width:.88rem;
-  height:.88rem;
-  top: .8rem;
+  width: 0.88rem;
+  height: 0.88rem;
+  top: 0.8rem;
   right: 0.45rem;
 }
 .skylight {
@@ -1646,8 +1785,8 @@ input:focus {
   line-height: 0.24rem;
   top: 1.15rem;
 }
-.controlCondition div{
-  font-size: .24rem;
+.controlCondition div {
+  font-size: 0.24rem;
 }
 .controlCondition img {
   width: 0.3rem;
@@ -1660,10 +1799,10 @@ input:focus {
   align-items: center;
   position: absolute;
   line-height: 0.24rem;
-  top: .53rem;
+  top: 0.53rem;
 }
-.controlLight div{
-  font-size: .24rem;
+.controlLight div {
+  font-size: 0.24rem;
 }
 .controlLight img {
   width: 0.3rem;
