@@ -757,7 +757,7 @@ export default {
         });
         return false;
       }
-      let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+      let reg = /^[1][0-9]{10}$/;
         var numFlag = reg.test(this.mobile);
         if (!numFlag) {
           Toast({
