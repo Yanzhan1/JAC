@@ -82,7 +82,7 @@ export default {
       //value: false,
       windowwords: [], //车窗提示语
       allwords: [], //所有提示语
-      sjc:'',
+      sjc: "",
       //移动端键盘值
       ownKeyBoard: {
         first: "",
@@ -125,9 +125,11 @@ export default {
     //拿到车窗的提示语
     getwindowwords() {
       this.allwords = this.$store.state.GETWORDS;
+      console.log(this.allwords);
       for (let value of this.allwords) {
-        if (value.dictType == "vehicle_window") {
+        if (value.dictType == "air_conditioning") {
           this.windowwords = value.sysDictDataVOs;
+          console.log(this.windowwords);
         }
       }
     },
@@ -209,10 +211,14 @@ export default {
       var param = {
         vin: this.$store.state.vins,
         operationType: "AIRCONDITIONER",
-        operation: percent, //操作项
+        operation: percent //操作项
       };
       this.$http
-        .post(Newenergy.energyremotevehiclecontrol, param, this.$store.state.tsppin)
+        .post(
+          Newenergy.energyremotevehiclecontrol,
+          param,
+          this.$store.state.tsppin
+        )
         .then(res => {
           if (res.data.returnSuccess) {
             // Toast({
@@ -285,11 +291,21 @@ export default {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
                           if (tSS >= 56) {
-                            Toast({
-                              message: this.windowwords[2].dictValue,
-                              position: "middle",
-                              duration: 2000
-                            });
+                            if (this.fluctuationType == "1") {
+                              Toast({
+                                message: this.windowwords[4].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              //canvas的关闭
+                            }
+                            if (this.fluctuationType == "3") {
+                              Toast({
+                                message: this.windowwords[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
                             clearInterval(this.time);
                             localhide();
                           }
@@ -297,33 +313,61 @@ export default {
                           if (this.fluctuationType == "1") {
                             //车窗图片关闭
                             this.activeShowImg = false;
-                            this.flags=false
+                            this.flags = false;
+                            Toast({
+                              message: this.windowwords[3].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
                             //canvas的关闭
-                            
                           }
                           if (this.fluctuationType == "3") {
                             //车窗图片激活
                             this.activeShowImg = true;
-                            this.flags=true
-                            
+                            this.flags = true;
+                            Toast({
+                              message: this.windowwords[1].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
                           }
                           clearInterval(this.time);
                           localhide();
                         } else if (res.data.status == "FAILED") {
+                          if (this.fluctuationType == "1") {
+                            Toast({
+                              message: this.windowwords[4].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                            //canvas的关闭
+                          }
+                          if (this.fluctuationType == "3") {
+                            Toast({
+                              message: this.windowwords[2].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
+                          clearInterval(this.time);
+                          localhide();
+                        }
+                      } else {
+                        if (this.fluctuationType == "1") {
+                          Toast({
+                            message: this.windowwords[4].dictValue,
+                            position: "middle",
+                            duration: 2000
+                          });
+                          //canvas的关闭
+                        }
+                        if (this.fluctuationType == "3") {
                           Toast({
                             message: this.windowwords[2].dictValue,
                             position: "middle",
                             duration: 2000
                           });
-                          clearInterval(this.time);
-                          localhide();
                         }
-                      } else {
-                        Toast({
-                          message: this.windowwords[2].dictValue,
-                          position: "middle",
-                          duration: 2000
-                        });
                         clearInterval(this.time);
                         localhide();
                       }
@@ -334,49 +378,68 @@ export default {
               if (this.fluctuationType == "1") {
                 //车窗图片关闭
                 this.activeShowImg = false;
-                this.flags=false
-                // Toast({
-                //   message: this.windowwords[4].dictValue,
-                //   position: "middle",
-                //   duration: 2000
-                // });
+                this.flags = false;
+                Toast({
+                  message: this.windowwords[3].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+                //canvas的关闭
               }
               if (this.fluctuationType == "3") {
                 //车窗图片激活
                 this.activeShowImg = true;
-                this.flags=true;
-                // Toast({
-                //   message: this.windowwords[1].dictValue,
-                //   position: "middle",
-                //   duration: 2000
-                // });
+                this.flags = true;
+                Toast({
+                  message: this.windowwords[1].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
               }
               clearInterval(this.time);
               localhide();
             } else if (res.data.status == "FAILED") {
+              if (this.fluctuationType == "1") {
+                Toast({
+                  message: this.windowwords[4].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+                //canvas的关闭
+              }
+              if (this.fluctuationType == "3") {
+                Toast({
+                  message: this.windowwords[2].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              }
+              clearInterval(this.time);
+              localhide();
+            }
+          } else {
+            if (this.fluctuationType == "1") {
+              Toast({
+                message: this.windowwords[4].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+              //canvas的关闭
+            }
+            if (this.fluctuationType == "3") {
               Toast({
                 message: this.windowwords[2].dictValue,
                 position: "middle",
                 duration: 2000
               });
-              clearInterval(this.time);
-              localhide();
             }
-          } else {
-            Toast({
-              message: this.windowwords[2].dictValue,
-              position: "middle",
-              duration: 2000
-            });
             clearInterval(this.time);
             localhide();
           }
         });
     }
   },
-  mounted() {
-    
-  },
+  mounted() {},
   created() {
     this.getwindowwords();
     this.inputs();
@@ -428,39 +491,39 @@ export default {
         //   )
         //   .then(res => {
         //     if (res.data.returnSuccess) {
-              // this.value = !this.value;\
-              this.httpwindowall();
-              //pin码正确激活弧线
-              // //pin码正确激活空调图
-              // (this.activeShowImg = !this.activeShowImg),
-              // this.refreshPmData(),
-              //消失遮罩
-              this.popupVisible = !this.popupVisible;
-              //消失软键盘
-              (this.showTyper = 0),
-                //清空pin码
-                (this.pinNumber = "");
-            // } else {
-            //   //消失遮罩
-            //   this.popupVisible = !this.popupVisible;
-            //   //消失软键盘
-            //   (this.showTyper = 0),
-            //     //清空pin码
-            //     (this.pinNumber = "");
-            //   Toast({
-            //     message: res.data.returnErrMsg,
-            //     position: "middle",
-            //     duration: 1000
-            //   });
-            // }
-          // })
-          // .catch(err => {
-          //   Toast({
-          //     message: res.data.returnErrMsg,
-          //     position: "middle",
-          //     duration: 1000
-          //   });
-          // });
+        // this.value = !this.value;\
+        this.httpwindowall();
+        //pin码正确激活弧线
+        // //pin码正确激活空调图
+        // (this.activeShowImg = !this.activeShowImg),
+        // this.refreshPmData(),
+        //消失遮罩
+        this.popupVisible = !this.popupVisible;
+        //消失软键盘
+        (this.showTyper = 0),
+          //清空pin码
+          (this.pinNumber = "");
+        // } else {
+        //   //消失遮罩
+        //   this.popupVisible = !this.popupVisible;
+        //   //消失软键盘
+        //   (this.showTyper = 0),
+        //     //清空pin码
+        //     (this.pinNumber = "");
+        //   Toast({
+        //     message: res.data.returnErrMsg,
+        //     position: "middle",
+        //     duration: 1000
+        //   });
+        // }
+        // })
+        // .catch(err => {
+        //   Toast({
+        //     message: res.data.returnErrMsg,
+        //     position: "middle",
+        //     duration: 1000
+        //   });
+        // });
       }
     },
     fullValue(newVal, oldVal) {

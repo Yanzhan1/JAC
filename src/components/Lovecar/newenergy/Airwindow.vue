@@ -78,13 +78,13 @@ export default {
   data() {
     return {
       time: "", //定时器命名
-      buttoncontrol:'',
-      operationgive:'',
+      buttoncontrol: "",
+      operationgive: "",
       //天窗控制按钮开关
       //				value: false,
       curveState: false, //控制开关状态
       windowcontrol: true, //控制开关上传状态
-      sjc:'',
+      sjc: "",
       //移动端键盘值
       allwords: [], //所有提示
       skywords: [], //天窗提示
@@ -112,20 +112,26 @@ export default {
     };
   },
   methods: {
-    init(){
+    init() {
       let param = {
         vin: this.$store.state.vins,
         operationType: "SUNROOF",
-        "operation":this.operationgive,
+        operation: this.operationgive,
         extParams: {
-          "openLevel":this.buttoncontrol
+          openLevel: this.buttoncontrol
         }
-      }
-      this.$http.post(Newenergy.energyremotevehiclecontrol,param,this.$store.state.tsppin).then((res)=>{
-        if(res.data.returnSuccess){
-            this.getAsyReturn(res.data.operationId)
-        }
-      })
+      };
+      this.$http
+        .post(
+          Newenergy.energyremotevehiclecontrol,
+          param,
+          this.$store.state.tsppin
+        )
+        .then(res => {
+          if (res.data.returnSuccess) {
+            this.getAsyReturn(res.data.operationId);
+          }
+        });
     },
     getAsyReturn(operationId) {
       this.sjc = new Date().getTime();
@@ -144,7 +150,7 @@ export default {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
               if (tSS >= 56) {
-                    //超时提示         
+                //超时提示
               } else {
                 this.time = setInterval(() => {
                   this.$http
@@ -164,55 +170,138 @@ export default {
                           if (tSS >= 56) {
                             //超时提示并且清除定时器关闭遮罩层
                             clearInterval(this.time);
-                            localhide()
+                            localhide();
+                            if (this.buttoncontrol) {
+                              Toast({
+                                message: this.allwords[5].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else {
+                              Toast({
+                                message: this.allwords[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
                           }
                         } else if (res.data.status == "SUCCEED") {
-                          if(this.buttoncontrol){
-                            this.windowcontrol=false
-                          }else{
-                            this.windowcontrol=true
+                          if (this.buttoncontrol) {
+                            this.windowcontrol = false;
+                            Toast({
+                              message: this.allwords[4].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          } else {
+                            this.windowcontrol = true;
+                            Toast({
+                              message: this.allwords[1].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
                           }
                           clearInterval(this.time);
-                          localhide()
+                          localhide();
                         } else if (res.data.status == "FAILED") {
-
                           clearInterval(this.time);
-                          localhide()
+                          localhide();
+                          if (this.buttoncontrol) {
+                            Toast({
+                              message: this.allwords[5].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          } else {
+                            Toast({
+                              message: this.allwords[2].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          }
                         }
                       } else {
-
+                        if (this.buttoncontrol) {
+                          Toast({
+                            message: this.allwords[5].dictValue,
+                            position: "middle",
+                            duration: 2000
+                          });
+                        } else {
+                          Toast({
+                            message: this.allwords[2].dictValue,
+                            position: "middle",
+                            duration: 2000
+                          });
+                        }
                         clearInterval(this.time);
-                        localhide()
+                        localhide();
                       }
                     });
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              if(this.buttoncontrol){
-                            this.windowcontrol=false
-                          }else{
-                            this.windowcontrol=true
-                          }
+              if (this.buttoncontrol) {
+                this.windowcontrol = false;
+                Toast({
+                  message: this.allwords[4].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              } else {
+                this.windowcontrol = true;
+                Toast({
+                  message: this.allwords[1].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              }
               clearInterval(this.time);
-              localhide()
+              localhide();
             } else if (res.data.status == "FAILED") {
               clearInterval(this.time);
-              localhide()
+              localhide();
+              if (this.buttoncontrol) {
+                Toast({
+                  message: this.allwords[5].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              } else {
+                Toast({
+                  message: this.allwords[2].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
+              }
             }
           } else {
+            if (this.buttoncontrol) {
+              Toast({
+                message: this.allwords[5].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+            } else {
+              Toast({
+                message: this.allwords[2].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+            }
             clearInterval(this.time);
-            localhide()
+            localhide();
           }
         });
     },
     windowclose() {
-      this.buttoncontrol=0
-      this.operationgive=1
+      this.buttoncontrol = 0;
+      this.operationgive = 1;
       // this.windowcontrol = true;
     },
     windowopen() {
-      this.buttoncontrol=100
-      this.operationgive=2
+      this.buttoncontrol = 100;
+      this.operationgive = 2;
       // this.windowcontrol = false;
     },
     //路由跳转的时候清除轮询loading
@@ -326,7 +415,7 @@ export default {
       //   this.curveState = false;
       //   this.activeShowImg = false;
       // }
-    },
+    }
   },
   mounted() {
     //  this.produCurve();
@@ -378,16 +467,16 @@ export default {
         //   )
         //   .then(res => {
         //     if (res.data.returnSuccess) {
-              // this.value = !this.value;
-              this.init();
-              // this.refreshPmData(),
-              //消失遮罩
-              this.popupVisible = !this.popupVisible;
-              //消失软键盘
-              (this.showTyper = 0),
-                //清空pin码
-                (this.pinNumber = "");
-            }
+        // this.value = !this.value;
+        this.init();
+        // this.refreshPmData(),
+        //消失遮罩
+        this.popupVisible = !this.popupVisible;
+        //消失软键盘
+        (this.showTyper = 0),
+          //清空pin码
+          (this.pinNumber = "");
+      }
     },
     fullValue(newVal, oldVal) {
       if (this.fullValue.length == 6) {
@@ -407,15 +496,15 @@ export default {
               this.popupVisible = !this.popupVisible;
               //消失软键盘
               // (this.showTyper = 0),
-                //清空pin码
-                (this.fullValue = "");
+              //清空pin码
+              this.fullValue = "";
             } else {
               //消失遮罩
               this.popupVisible = !this.popupVisible;
               //消失软键盘
               // (this.showTyper = 0),
-                //清空pin码
-                (this.fullValue = "");
+              //清空pin码
+              this.fullValue = "";
               Toast({
                 message: res.data.returnErrMsg,
                 position: "middle",
@@ -620,7 +709,8 @@ export default {
   /*text-align: center;*/
   border: none;
   outline: none;
-  background: url(../../../../static/images/Lovecar/border@2x.png) no-repeat center;
+  background: url(../../../../static/images/Lovecar/border@2x.png) no-repeat
+    center;
   background-size: 100%;
 }
 .pin-code > .pin {

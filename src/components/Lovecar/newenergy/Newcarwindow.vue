@@ -345,10 +345,8 @@ export default {
                           }
                         } else if (res.data.status == "SUCCEED") {
                           if (this.fluctuationType == "1") {
-                           
-                            //车窗图片关闭
+
                             this.activeShowImg = false;
-                            //canvas的关闭
                             Toast({
                               message: this.windowwords[4].dictValue,
                               position: "middle",
@@ -434,33 +432,8 @@ export default {
     clearInterval(this.time);
     this.getwindowwords();
     this.inputs();
-    this.$http
-      .post(
-        Lovecar.Carquery,
-        { vins: [this.$store.state.vins] },
-        this.$store.state.tsppin
-      )
-      .then(res => {
-        if (res.data.returnSuccess) {
-          // this.getAsyReturn(res.data.operationId);
-        } else {
-          Toast({
-            message: res.data.returnErrMsg,
-            position: "middle",
-            duration: 2000
-          });
-        }
-      })
-      .catch(err => {
-        Toast({
-          message: res.data.returnErrMsg,
-          position: "middle",
-          duration: 2000
-        });
-      });
   },
   created() {
-    this.debouncedGetAnswer = _.debounce(this.httpwindow, 3000);
     if (localStorage.Tip) {
       this.popupInfo = false;
     } else {

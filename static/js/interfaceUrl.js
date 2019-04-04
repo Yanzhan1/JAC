@@ -24,7 +24,7 @@ var mips = host + '/api/jac-admin' //地区
 var jf = host + '/' //跟积分有关的
     // var love_car = host+'/jvconnectedcar' //爱车
 var love_car = host + '/api/jac-car-control' //爱车
-    // var love_car = 'http://172.21.4.114:8084' //爱车
+    // var love_car = 'http://172.21.12.74:8086' //爱车
     //服务器→反馈记录
 var rec = host + '/api/jac-enjoy-service/'
     // H5外网地址，分享用
@@ -225,9 +225,15 @@ window.Lovecar = {
     }
     //新能源接口
 window.Newenergy = {
-        energyremotevehiclecontrol: witlocal + '/vehicleControl/energy-remote-vehicle-control', //新能源车辆控制查询optionid
-        energyqueryvehiclecondition: witlocal + '/vehicleInformation/energy-query-vehicle-condition', //新能源车况查询optionid
-        energyvehicleasyncresults: witlocal + '/callBack/energy-vehicle-async-results', //optionid回调
+        energyremotevehiclecontrol: witlocal + '/vehicleControl/energy-remote-vehicle-control', //新能源车辆控制查询operationId
+        energyqueryvehiclecondition: witlocal + '/vehicleInformation/energy-query-vehicle-condition', //新能源车况查询operationId
+        energyvehicleasyncresults: witlocal + '/callBack/energy-vehicle-async-results', //operationId回调
+        energyqueryvehiclenewcondition: witlocal + '/vehicleInformation/energy-query-vehicle-new-condition', //同步的车况不用operationId
+        energyvehiclePINupdate: witlocal + '/vehicleInformation/energy-vehicle-PIN-update', //修改pin码的接口
+        energysendSMS: witlocal + '/vehicleInformation/energy-send-SMS', //短信验证接口
+        energyforgetvehiclepin: witlocal + '/vehicleInformation/energy-forget-vehicle-pin', //忘记pin码接口
+        energyvehiclePINvalidation: witlocal + '/vehicleInformation/energy-vehicle-PIN-validation', //验证pin码
+        energyvehiclecycflowquery: witlocal + '/vehicleInformation/energy-vehicle-cyc-flow-query', //流量查询接口
     }
     //消息接口
 window.IMFORMATION = {

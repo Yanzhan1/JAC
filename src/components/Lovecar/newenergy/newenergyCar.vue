@@ -58,7 +58,7 @@
 
 				<!--车况主体 Start-->
         <!-- 电池部分主体 -->
-        <div v-show="activeshow==4" class="bus_l">
+        <div v-show="activeshow==4" class="bus_l" @touchmove.prevent>
           <img class="loadingcar "  src="../../../../static/images/Lovecar/loading@2x.png" alt="" @click="loading">
           <div class="bus_l_bettery flex">
               <div style="position:absolute;width:1.4rem;height:1.9rem;top:.2rem;left:.1rem;overflow:hidden;">
@@ -159,8 +159,8 @@
 					<!--天窗线End-->
 
 					<!-- 尾门线Start 分为激活和未激活  -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'"  v-show="activeshow=='2'&&this.carcontrol.trunkLockStatus==1" style="position:absolute;display:block;width:1.8rem;top:5.05rem;right:2.1rem;"></img>
-					<img class="" :src="'./static/images/Lovecar/blueright.png'"  v-show="activeshow=='2'&&this.carcontrol.trunkLockStatus!=1" style="position:absolute;display:block;width:1.14rem;top:5.5rem;right:2.5rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'"  v-show="activeshow=='2'&&this.carcontrol.trunkLockStatus!=1" style="position:absolute;display:block;width:1.8rem;top:5.05rem;right:2.1rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/blueright.png'"  v-show="activeshow=='2'&&this.carcontrol.trunkLockStatus==1" style="position:absolute;display:block;width:1.14rem;top:5.5rem;right:2.5rem;"></img>
 					<!--尾门线End-->
 
 					<!-- 控制右前车门线 -->
@@ -338,9 +338,9 @@ export default {
   data() {
     return {
       carcontrol: {
-        acStatus: 1,
-        doorStsTrunk: 0,
-        soc: 10
+        // acStatus: 1,
+        // doorStsTrunk: 0,
+        // soc: 10
       }, //车控返回的东西
       beforetype: "",
       activeshow: 4, //默认第一个高亮
@@ -364,10 +364,10 @@ export default {
       type: "", //判断点击事件
       typebefore: "",
       Condition: {
-        lfWindowOpen: "已打开", //左前窗
-        lrWindowOpen: "已打开", //左后窗
-        rfWindowOpen: "已打开", //右前窗
-        rrWindowOpen: "已打开" //右后窗
+        // lfWindowOpen: "已打开", //左前窗
+        // lrWindowOpen: "已打开", //左后窗
+        // rfWindowOpen: "已打开", //右前窗
+        // rrWindowOpen: "已打开" //右后窗
       },
       time: "",
       sjc: "",
@@ -383,22 +383,22 @@ export default {
       chgStatus: "", //当前充电状态
       chgPlugStatus: "", //充电状态
       tai: {
-        lfWindowOpen: "左前kpa", //左前窗
-        lrWindowOpen: "左后kpa", //左后窗
-        rfWindowOpen: "右前kpa", //右前窗
-        rrWindowOpen: "右后kpa" //右后窗
+        // lfWindowOpen: "左前kpa", //左前窗
+        // lrWindowOpen: "左后kpa", //左后窗
+        // rfWindowOpen: "右前kpa", //右前窗
+        // rrWindowOpen: "右后kpa" //右后窗
       }, //胎压赋值
       door: {
-        lfWindowOpen: "已打开", //左前窗
-        lrWindowOpen: "已打开", //左后窗
-        rfWindowOpen: "已打开", //右前窗
-        rrWindowOpen: "已打开" //右后窗
+        // lfWindowOpen: "已打开", //左前窗
+        // lrWindowOpen: "已打开", //左后窗
+        // rfWindowOpen: "已打开", //右前窗
+        // rrWindowOpen: "已打开" //右后窗
       }, //车门赋值
       window: {
-        lfWindowOpen: "已打开", //左前窗
-        lrWindowOpen: "已打开", //左后窗
-        rfWindowOpen: "已打开", //右前窗
-        rrWindowOpen: "已打开" //右后窗
+        // lfWindowOpen: "已打开", //左前窗
+        // lrWindowOpen: "已打开", //左后窗
+        // rfWindowOpen: "已打开", //右前窗
+        // rrWindowOpen: "已打开" //右后窗
       } //车窗赋值
     };
   },
@@ -554,27 +554,20 @@ export default {
     },
     //各种点击问好的提示
     Toasteach() {
-      if (this.typebefore == 1) {
-        MessageBox("提示", this.close_lock[3].dictValue);
-      }
-      if (this.typebefore == 5) {
+      if (this.beforetype == 1) {
         MessageBox("提示", this.open_lock[3].dictValue);
       }
-      if (this.typebefore == 2) {
+      if (this.beforetype == 5) {
+        MessageBox("提示", this.find_vehicle[3].dictValue);
+      }
+      if (this.beforetype == 2) {
+        MessageBox("提示", this.close_lock[3].dictValue);
+      }
+      if (this.beforetype == 3) {
         MessageBox("提示", this.open_trunk[3].dictValue);
       }
-      if (this.typebefore == 3) {
-        if (this.isTruess) {
-          MessageBox("提示", this.vehicle_launch[2].dictValue);
-        } else {
-          MessageBox("提示", this.vehicle_launch[5].dictValue);
-        }
-      }
-      if (this.typebefore == 6) {
-        MessageBox("提示", this.vehicle_flameout[3].dictValue);
-      }
-      if (this.typebefore == 4) {
-        MessageBox("提示", this.find_vehicle[3].dictValue);
+      if (this.beforetype == 4) {
+        MessageBox("提示", this.open_trunk[3].dictValue);
       }
     },
     //调用车况接口
@@ -583,7 +576,7 @@ export default {
         .post(
           Newenergy.energyqueryvehiclecondition,
           {
-            vins: this.vin
+            vins: this.vinn
           },
           this.$store.state.tsppin
         )
@@ -645,14 +638,83 @@ export default {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
                           if (tSS >= 56) {
+                            if (this.type == 1) {
+                              // this.doorcontrol = true;
+                              Toast({
+                                message: this.close_lock[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else if (this.type == 2) {
+                              // this.doorcontrol = false;
+                              Toast({
+                                message: this.open_lock[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else if (this.type == 3) {
+                              // this.trunkcontrol = false;
+                              Toast({
+                                message: this.open_trunk[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else if (this.type == 4) {
+                              // this.trunkcontrol = true;
+                              Toast({
+                                message: this.open_trunk[3].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else if (this.type == 5) {
+                              Toast({
+                                message: this.find_vehicle[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.findcarcontrol = false;
+                              setTimeout(() => {
+                                this.findcarcontrol = true;
+                              }, 4000);
+                            } else if (this.type == 6) {
+                              Toast({
+                                message: this.open_trunk[3].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.lightnearcontrol = false;
+                              // this.lightfarcontrol = true;
+                            } else if (this.type == 7) {
+                              Toast({
+                                message: this.open_trunk[3].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.lightnearcontrol = true;
+                            } else if (this.type == 8) {
+                              Toast({
+                                message: this.open_trunk[3].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.lightfarcontrol = false;
+                              // this.lightnearcontrol = true;
+                            } else if (this.type == 9) {
+                              Toast({
+                                message: this.open_trunk[3].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.lightfarcontrol = true;
+                            }
                             //超时提示并且清除定时器关闭遮罩层
                             clearInterval(this.time);
                             localhide();
                           }
                         } else if (res.data.status == "SUCCEED") {
                           // if (res.data.data) {
-                            this.carcontrol=res.data.data;
-                            this.batteryStatis()
+                          this.carcontrol = res.data.data;
+                          this.batteryStatis();
                           if (this.carcontrol.chgPlugStatus == 1) {
                             this.chgPlugStatus = "未插入";
                           } else if (this.carcontrol.chgPlugStatus == 2) {
@@ -709,26 +771,71 @@ export default {
 
                           if (this.type == 1) {
                             this.doorcontrol = true;
+                            Toast({
+                              message: this.close_lock[1].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
                           } else if (this.type == 2) {
                             this.doorcontrol = false;
+                            Toast({
+                              message: this.open_lock[1].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
                           } else if (this.type == 3) {
                             this.trunkcontrol = false;
+                            Toast({
+                              message: this.open_trunk[1].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
                           } else if (this.type == 4) {
                             this.trunkcontrol = true;
+                            Toast({
+                              message: this.open_trunk[3].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
                           } else if (this.type == 5) {
+                            Toast({
+                              message: this.find_vehicle[1].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
                             this.findcarcontrol = false;
                             setTimeout(() => {
                               this.findcarcontrol = true;
                             }, 4000);
                           } else if (this.type == 6) {
+                            Toast({
+                              message: this.open_trunk[3].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
                             this.lightnearcontrol = false;
                             this.lightfarcontrol = true;
                           } else if (this.type == 7) {
+                            Toast({
+                              message: this.open_trunk[3].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
                             this.lightnearcontrol = true;
                           } else if (this.type == 8) {
+                            Toast({
+                              message: this.open_trunk[3].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
                             this.lightfarcontrol = false;
                             this.lightnearcontrol = true;
                           } else if (this.type == 9) {
+                            Toast({
+                              message: this.open_trunk[3].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
                             this.lightfarcontrol = true;
                           }
                           // }
@@ -737,18 +844,156 @@ export default {
                         } else if (res.data.status == "FAILED") {
                           clearInterval(this.time);
                           localhide();
+                          if (this.type == 1) {
+                            // this.doorcontrol = true;
+                            Toast({
+                              message: this.close_lock[2].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          } else if (this.type == 2) {
+                            // this.doorcontrol = false;
+                            Toast({
+                              message: this.open_lock[2].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          } else if (this.type == 3) {
+                            // this.trunkcontrol = false;
+                            Toast({
+                              message: this.open_trunk[2].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          } else if (this.type == 4) {
+                            // this.trunkcontrol = true;
+                            Toast({
+                              message: this.open_trunk[3].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          } else if (this.type == 5) {
+                            Toast({
+                              message: this.find_vehicle[2].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                            // this.findcarcontrol = false;
+                            setTimeout(() => {
+                              this.findcarcontrol = true;
+                            }, 4000);
+                          } else if (this.type == 6) {
+                            Toast({
+                              message: this.open_trunk[3].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                            // this.lightnearcontrol = false;
+                            // this.lightfarcontrol = true;
+                          } else if (this.type == 7) {
+                            Toast({
+                              message: this.open_trunk[3].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                            // this.lightnearcontrol = true;
+                          } else if (this.type == 8) {
+                            Toast({
+                              message: this.open_trunk[3].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                            // this.lightfarcontrol = false;
+                            // this.lightnearcontrol = true;
+                          } else if (this.type == 9) {
+                            Toast({
+                              message: this.open_trunk[3].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                            // this.lightfarcontrol = true;
+                          }
                         }
                       } else {
+                        if (this.type == 1) {
+                          // this.doorcontrol = true;
+                          Toast({
+                            message: this.close_lock[2].dictValue,
+                            position: "middle",
+                            duration: 2000
+                          });
+                        } else if (this.type == 2) {
+                          // this.doorcontrol = false;
+                          Toast({
+                            message: this.open_lock[2].dictValue,
+                            position: "middle",
+                            duration: 2000
+                          });
+                        } else if (this.type == 3) {
+                          // this.trunkcontrol = false;
+                          Toast({
+                            message: this.open_trunk[2].dictValue,
+                            position: "middle",
+                            duration: 2000
+                          });
+                        } else if (this.type == 4) {
+                          // this.trunkcontrol = true;
+                          Toast({
+                            message: this.open_trunk[3].dictValue,
+                            position: "middle",
+                            duration: 2000
+                          });
+                        } else if (this.type == 5) {
+                          Toast({
+                            message: this.find_vehicle[2].dictValue,
+                            position: "middle",
+                            duration: 2000
+                          });
+                          // this.findcarcontrol = false;
+                          setTimeout(() => {
+                            this.findcarcontrol = true;
+                          }, 4000);
+                        } else if (this.type == 6) {
+                          Toast({
+                            message: this.open_trunk[3].dictValue,
+                            position: "middle",
+                            duration: 2000
+                          });
+                          // this.lightnearcontrol = false;
+                          // this.lightfarcontrol = true;
+                        } else if (this.type == 7) {
+                          Toast({
+                            message: this.open_trunk[3].dictValue,
+                            position: "middle",
+                            duration: 2000
+                          });
+                          // this.lightnearcontrol = true;
+                        } else if (this.type == 8) {
+                          Toast({
+                            message: this.open_trunk[3].dictValue,
+                            position: "middle",
+                            duration: 2000
+                          });
+                          // this.lightfarcontrol = false;
+                          // this.lightnearcontrol = true;
+                        } else if (this.type == 9) {
+                          Toast({
+                            message: this.open_trunk[3].dictValue,
+                            position: "middle",
+                            duration: 2000
+                          });
+                          // this.lightfarcontrol = true;
+                        }
                         clearInterval(this.time);
                         localhide();
                       }
                     });
-                }, 30000);
+                }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
               // if (res.data.data) {
-                this.carcontrol=res.data.data;
-                this.batteryStatis()
+              this.carcontrol = res.data.data;
+              this.batteryStatis();
               if (this.carcontrol.chgPlugStatus == 1) {
                 this.chgPlugStatus = "未插入";
               } else if (this.carcontrol.chgPlugStatus == 2) {
@@ -802,26 +1047,71 @@ export default {
 
               if (this.type == 1) {
                 this.doorcontrol = true;
+                Toast({
+                  message: this.close_lock[1].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
               } else if (this.type == 2) {
                 this.doorcontrol = false;
+                Toast({
+                  message: this.open_lock[1].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
               } else if (this.type == 3) {
                 this.trunkcontrol = false;
+                Toast({
+                  message: this.open_trunk[1].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
               } else if (this.type == 4) {
                 this.trunkcontrol = true;
+                Toast({
+                  message: this.open_trunk[3].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
               } else if (this.type == 5) {
+                Toast({
+                  message: this.find_vehicle[1].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
                 this.findcarcontrol = false;
                 setTimeout(() => {
                   this.findcarcontrol = true;
                 }, 4000);
               } else if (this.type == 6) {
+                Toast({
+                  message: this.open_trunk[3].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
                 this.lightnearcontrol = false;
                 this.lightfarcontrol = true;
               } else if (this.type == 7) {
+                Toast({
+                  message: this.open_trunk[3].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
                 this.lightnearcontrol = true;
               } else if (this.type == 8) {
+                Toast({
+                  message: this.open_trunk[3].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
                 this.lightfarcontrol = false;
                 this.lightnearcontrol = true;
               } else if (this.type == 9) {
+                Toast({
+                  message: this.open_trunk[3].dictValue,
+                  position: "middle",
+                  duration: 2000
+                });
                 this.lightfarcontrol = true;
               }
               // }
@@ -839,9 +1129,11 @@ export default {
     },
     //同步车况不用拿operationId
     getcarvalue() {
+          console.log(this.vinn)
       let params = {
-        vins: ["LJ1EEASPXJ5000403"]
+        vins: [this.vinn]
       };
+     
       this.$http
         .post(
           Newenergy.energyqueryvehiclenewcondition,
@@ -853,7 +1145,7 @@ export default {
             this.carcontrol = res.data.data;
 
             //控制尾门的状态
-            this.trunkcontrol=this.carcontrol.trunkLockStatus?false:true
+            this.trunkcontrol = this.carcontrol.trunkLockStatus ? false : true;
             //控制远光灯的状态
             this.batteryStatis();
             if (this.carcontrol.chgPlugStatus == 1) {
@@ -903,6 +1195,38 @@ export default {
           }
         });
     },
+    //拿到所有的提示语
+    Getmarkedwords() {
+      this.$http.post(My.getwords, {}).then(res => {
+        if (res.data.msg == "success") {
+          this.allwords = res.data.data;
+          this.$store.dispatch("getWords", this.allwords);
+          for (let value of this.allwords) {
+            if (value.dictType == "open_lock") {
+              this.open_lock = value.sysDictDataVOs;
+            }
+            if (value.dictType == "close_lock") {
+              this.close_lock = value.sysDictDataVOs;
+            }
+            if (value.dictType == "open_trunk") {
+              this.open_trunk = value.sysDictDataVOs;
+            }
+            if (value.dictType == "vehicle_launch") {
+              this.vehicle_launch = value.sysDictDataVOs;
+            }
+            if (value.dictType == "vehicle_flameout") {
+              this.vehicle_flameout = value.sysDictDataVOs;
+            }
+            if (value.dictType == "find_vehicle") {
+              this.find_vehicle = value.sysDictDataVOs;
+            }
+            if (value.dictType == "vehicle_condition") {
+              this.vehicle_condition = value.sysDictDataVOs;
+            }
+          }
+        }
+      });
+    },
     //手动刷新
     loading() {
       this.type = 10;
@@ -913,6 +1237,7 @@ export default {
     batteryStatis() {
       this.carcontrol.soc =
         this.carcontrol.soc >= 100 ? 100 : this.carcontrol.soc;
+        this.carcontrol.soc<0?0:this.carcontrol.soc
       let top = 1.9 * (100 - this.carcontrol.soc) / 100 + "rem";
       $(".bus_l_bettery_left").css("top", top);
     }
@@ -977,239 +1302,237 @@ export default {
             this.$store.state.tsppin
           )
           .then(res => {
-            if(res.data){
+            if (res.data) {
               if (res.data.returnSuccess) {
-
-        if (this.type == 1) {
-          var params = {
-            vin: this.vin,
-            operationType: "LOCK",
-            operation: 2 //操作项
-          };
-          this.$http
-            .post(
-              Newenergy.energyremotevehiclecontrol,
-              params,
-              this.$store.state.tsppin
-            )
-            .then(res => {
-              if (res.data.returnSuccess) {
-                setTimeout(() => {
-                  this.getAsyReturn(res.data.operationId);
-                }, 2000);
-              } else {
-                Toast({
-                    message: res.data.returnErrMsg,
-                    position: "middle",
-                    duration: 2000
-                  });
+                if (this.type == 1) {
+                  var params = {
+                    vin: this.vinn,
+                    operationType: "LOCK",
+                    operation: 2 //操作项
+                  };
+                  this.$http
+                    .post(
+                      Newenergy.energyremotevehiclecontrol,
+                      params,
+                      this.$store.state.tsppin
+                    )
+                    .then(res => {
+                      if (res.data.returnSuccess) {
+                        setTimeout(() => {
+                          this.getAsyReturn(res.data.operationId);
+                        }, 2000);
+                      } else {
+                        Toast({
+                          message: res.data.returnErrMsg,
+                          position: "middle",
+                          duration: 2000
+                        });
+                      }
+                    });
+                } else if (this.type == 2) {
+                  var params = {
+                    vin: this.vinn,
+                    operationType: "LOCK",
+                    operation: 1 //操作项
+                  };
+                  this.$http
+                    .post(
+                      Newenergy.energyremotevehiclecontrol,
+                      params,
+                      this.$store.state.tsppin
+                    )
+                    .then(res => {
+                      if (res.data.returnSuccess) {
+                        setTimeout(() => {
+                          this.getAsyReturn(res.data.operationId);
+                        }, 2000);
+                      } else {
+                        Toast({
+                          message: res.data.returnErrMsg,
+                          position: "middle",
+                          duration: 2000
+                        });
+                      }
+                    });
+                } else if (this.type == 3) {
+                  var param = {
+                    vin: this.vinn,
+                    operationType: "TRUNK",
+                    operation: 2
+                  };
+                  this.$http
+                    .post(
+                      Newenergy.energyremotevehiclecontrol,
+                      param,
+                      this.$store.state.tsppin
+                    )
+                    .then(res => {
+                      if (res.data.returnSuccess) {
+                        setTimeout(() => {
+                          this.getAsyReturn(res.data.operationId);
+                        }, 2000);
+                      } else {
+                        Toast({
+                          message: res.data.returnErrMsg,
+                          position: "middle",
+                          duration: 2000
+                        });
+                      }
+                    });
+                } else if (this.type == 4) {
+                  var param = {
+                    vin: this.vinn,
+                    operationType: "TRUNK",
+                    operation: 1
+                  };
+                  this.$http
+                    .post(
+                      Newenergy.energyremotevehiclecontrol,
+                      param,
+                      this.$store.state.tsppin
+                    )
+                    .then(res => {
+                      if (res.data.returnSuccess) {
+                        setTimeout(() => {
+                          this.getAsyReturn(res.data.operationId);
+                        }, 2000);
+                      } else {
+                        Toast({
+                          message: res.data.returnErrMsg,
+                          position: "middle",
+                          duration: 2000
+                        });
+                      }
+                    });
+                } else if (this.type == 5) {
+                  var param = {
+                    vin: this.vinn,
+                    operationType: "FIND_VEHICLE",
+                    operation: "1"
+                  };
+                  this.$http
+                    .post(
+                      Newenergy.energyremotevehiclecontrol,
+                      param,
+                      this.$store.state.tsppin
+                    )
+                    .then(res => {
+                      if (res.data.returnSuccess) {
+                        setTimeout(() => {
+                          this.getAsyReturn(res.data.operationId);
+                        }, 2000);
+                      } else {
+                        Toast({
+                          message: res.data.returnErrMsg,
+                          position: "middle",
+                          duration: 2000
+                        });
+                      }
+                    });
+                } else if (this.type == 6) {
+                  var param = {
+                    vin: this.vinn,
+                    operationType: "DIPPED_HEADLIGHT",
+                    operation: "2"
+                  };
+                  this.$http
+                    .post(
+                      Newenergy.energyremotevehiclecontrol,
+                      param,
+                      this.$store.state.tsppin
+                    )
+                    .then(res => {
+                      if (res.data.returnSuccess) {
+                        setTimeout(() => {
+                          this.getAsyReturn("1543059419");
+                        }, 2000);
+                      } else {
+                        Toast({
+                          message: res.data.returnErrMsg,
+                          position: "middle",
+                          duration: 2000
+                        });
+                      }
+                    });
+                } else if (this.type == 7) {
+                  var param = {
+                    vin:this.vinn,
+                    operationType: "DIPPED_HEADLIGHT",
+                    operation: "1"
+                  };
+                  this.$http
+                    .post(
+                      Newenergy.energyremotevehiclecontrol,
+                      param,
+                      this.$store.state.tsppin
+                    )
+                    .then(res => {
+                      if (res.data.returnSuccess) {
+                        setTimeout(() => {
+                          this.getAsyReturn("1543059419");
+                        }, 2000);
+                      } else {
+                        Toast({
+                          message: res.data.returnErrMsg,
+                          position: "middle",
+                          duration: 2000
+                        });
+                      }
+                    });
+                } else if (this.type == 8) {
+                  var param = {
+                    vin: this.vinn,
+                    operationType: "HIGH_BEAM",
+                    operation: "1"
+                  };
+                  this.$http
+                    .post(
+                      Newenergy.energyremotevehiclecontrol,
+                      param,
+                      this.$store.state.tsppin
+                    )
+                    .then(res => {
+                      if (res.data.returnSuccess) {
+                        setTimeout(() => {
+                          this.getAsyReturn("1543059419");
+                        }, 2000);
+                      } else {
+                        Toast({
+                          message: res.data.returnErrMsg,
+                          position: "middle",
+                          duration: 2000
+                        });
+                      }
+                    });
+                } else if (this.type == 9) {
+                  var param = {
+                    vin: this.vinn,
+                    operationType: "HIGH_BEAM",
+                    operation: "2"
+                  };
+                  this.$http
+                    .post(
+                      Newenergy.energyremotevehiclecontrol,
+                      param,
+                      this.$store.state.tsppin
+                    )
+                    .then(res => {
+                      if (res.data.returnSuccess) {
+                        setTimeout(() => {
+                          this.getAsyReturn("1543059419");
+                        }, 2000);
+                      } else {
+                        Toast({
+                          message: res.data.returnErrMsg,
+                          position: "middle",
+                          duration: 2000
+                        });
+                      }
+                    });
+                }
               }
-            });
-        } else if (this.type == 2) {
-          var params = {
-            vin: this.vin,
-            operationType: "LOCK",
-            operation: 1 //操作项
-          };
-          this.$http
-            .post(
-              Newenergy.energyremotevehiclecontrol,
-              params,
-              this.$store.state.tsppin
-            )
-            .then(res => {
-              if (res.data.returnSuccess) {
-                setTimeout(() => {
-                  this.getAsyReturn(res.data.operationId);
-                }, 2000);
-              } else {
-                Toast({
-                    message: res.data.returnErrMsg,
-                    position: "middle",
-                    duration: 2000
-                  });
-              }
-            });
-        } else if (this.type == 3) {
-          var param = {
-            vin: this.vin,
-            operationType: "TRUNK",
-            operation: 2
-          };
-          this.$http
-            .post(
-              Newenergy.energyremotevehiclecontrol,
-              param,
-              this.$store.state.tsppin
-            )
-            .then(res => {
-              if (res.data.returnSuccess) {
-                setTimeout(() => {
-                  this.getAsyReturn(res.data.operationId);
-                }, 2000);
-              } else {
-                Toast({
-                    message: res.data.returnErrMsg,
-                    position: "middle",
-                    duration: 2000
-                  });
-              }
-            });
-        } else if (this.type == 4) {
-          var param = {
-            vin: this.vin,
-            operationType: "TRUNK",
-            operation: 1
-          };
-          this.$http
-            .post(
-              Newenergy.energyremotevehiclecontrol,
-              param,
-              this.$store.state.tsppin
-            )
-            .then(res => {
-              if (res.data.returnSuccess) {
-                setTimeout(() => {
-                  this.getAsyReturn(res.data.operationId);
-                }, 2000);
-              } else {
-                Toast({
-                    message: res.data.returnErrMsg,
-                    position: "middle",
-                    duration: 2000
-                  });
-              }
-            });
-        } else if (this.type == 5) {
-          var param = {
-            vin: this.vin,
-            operationType: "FIND_VEHICLE",
-            operation: "1"
-          };
-          this.$http
-            .post(
-              Newenergy.energyremotevehiclecontrol,
-              param,
-              this.$store.state.tsppin
-            )
-            .then(res => {
-              if (res.data.returnSuccess) {
-                setTimeout(() => {
-                  this.getAsyReturn(res.data.operationId);
-                }, 2000);
-              } else {
-                Toast({
-                    message: res.data.returnErrMsg,
-                    position: "middle",
-                    duration: 2000
-                  });
-              }
-            });
-        }else if(this.type==6){
-          var param = {
-                vin: "LS5A3CJC9JF830022",
-                operationType: "DIPPED_HEADLIGHT",
-                operation:"2"
-              }
-          this.$http
-            .post(
-              Newenergy.energyremotevehiclecontrol,
-              param,
-              this.$store.state.tsppin
-            )
-            .then(res => {
-              if (res.data.returnSuccess) {
-                setTimeout(() => {
-                  this.getAsyReturn('1543059419');
-                }, 2000);
-              } else {
-                  Toast({
-                    message: res.data.returnErrMsg,
-                    position: "middle",
-                    duration: 2000
-                  });
-              }
-            });
-        }else if(this.type==7){
-          var param = {
-                vin: "LS5A3CJC9JF830022",
-                operationType: "DIPPED_HEADLIGHT",
-                operation:"1"
-              }
-          this.$http
-            .post(
-              Newenergy.energyremotevehiclecontrol,
-              param,
-              this.$store.state.tsppin
-            )
-            .then(res => {
-              if (res.data.returnSuccess) {
-                setTimeout(() => {
-                  this.getAsyReturn('1543059419');
-                }, 2000);
-              } else {
-                  Toast({
-                    message: res.data.returnErrMsg,
-                    position: "middle",
-                    duration: 2000
-                  });
-              }
-            });
-        }else if(this.type==8){
-          var param = {
-                vin: "LS5A3CJC9JF830022",
-                operationType: "HIGH_BEAM",
-                operation:"1"
-              }
-          this.$http
-            .post(
-              Newenergy.energyremotevehiclecontrol,
-              param,
-              this.$store.state.tsppin
-            )
-            .then(res => {
-              if (res.data.returnSuccess) {
-                setTimeout(() => {
-                  this.getAsyReturn('1543059419');
-                }, 2000);
-              } else {
-                  Toast({
-                    message: res.data.returnErrMsg,
-                    position: "middle",
-                    duration: 2000
-                  });
-              }
-            });
-        }else if(this.type==9){
-          var param = {
-                vin: "LS5A3CJC9JF830022",
-                operationType: "HIGH_BEAM",
-                operation:"2"
-              }
-          this.$http
-            .post(
-              Newenergy.energyremotevehiclecontrol,
-              param,
-              this.$store.state.tsppin
-            )
-            .then(res => {
-              if (res.data.returnSuccess) {
-                setTimeout(() => {
-                  this.getAsyReturn('1543059419');
-                }, 2000);
-              } else {
-                  Toast({
-                    message: res.data.returnErrMsg,
-                    position: "middle",
-                    duration: 2000
-                  });
-              }
-            });
-        }
             }
-          }
-
-        })
+          });
       }
     }
   },
@@ -1220,8 +1543,12 @@ export default {
     $(".MobileHeight").css({
       marginTop: this.$store.state.mobileStatusBar
     });
-    this.getcarvalue();
     this.vinn = this.$store.state.defaultInformation.vin;
+    this.Getmarkedwords();
+    new Promise(()=>{
+      this.getcarvalue();
+    })
+    
     // this.Carquerry();
   },
   beforeDestroy() {

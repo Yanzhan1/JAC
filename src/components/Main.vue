@@ -18,6 +18,7 @@ export default {
       loadingflag: false,
       loadingnum: 0,
       reg: /\/api\/(.*?)\//,
+      regg:/\/jacenergy\/(.*?)\//,
       num: 0,
       flag:true,
     };
@@ -30,13 +31,13 @@ export default {
       config => {
         const params = config.method == "post" ? config.data : config.params;
         const arr = config.url.match(this.reg);
+        const arrr=config.url.match(this.regg);
         // 在发送请求之前做些什么
         // if (config.url == Lovecar.OperationId) {
         //     localshow()
         // }
         if (this.loadingnum == 0) {
           if(arr){
-
             switch (arr[1]) {
               case "dk-dm-portal-api": // 发现
                 if (!(params.pageNo && params.pageNo > 1)) {
@@ -48,6 +49,11 @@ export default {
               default:
                 localshow();
             }
+          }
+          if(arrr){
+             if(arrr[1]=='callBack'){
+                localshow()
+             }
           }
         }
         this.loadingnum++;

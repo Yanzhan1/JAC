@@ -135,6 +135,7 @@ export default {
     this.num = this.Originaladdress.receiveMobile;
     this.address = this.Originaladdress.address;
     this.choosedarea = this.Originaladdress.provinceName;
+    this.provinceName=this.Originaladdress.provinceName
     this.no = this.Originaladdress.no;
     this.$http
       .post(My.Area, { size: 1000, parentId: null, level: 1 })
