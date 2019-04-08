@@ -97,22 +97,41 @@
 					cancelButtonHighlight: true
 				}).then(action => {
 					if(action == 'confirm') {
-						//跳转修改成功页面
-						this.$http.post(Lovecar.Changepin,{newPin:this.condition.newPin,oldPin:this.condition.oldPin},this.$store.state.tsppin).then((res)=>{
-							if(res.data.returnSuccess){
-								Toast({
-									message: '修改成功',
-									position: 'middle',
-									duration: 1000
-								});
-							}else{
-								Toast({
-									message: res.data.returnErrMsg,
-									position: 'middle',
-									duration: 1000
-								});
-							}
-						})
+						//跳转修改成功页面				
+						if(JSON.parse(this.$store.state.tsppin.headers.identityParam).tspType){
+
+							this.$http.post(Newenergy.energyvehiclePINupdate,{newPin:this.condition.newPin,oldPin:this.condition.oldPin},this.$store.state.tsppin).then((res)=>{
+								if(res.data.returnSuccess){
+									Toast({
+										message: '修改成功',
+										position: 'middle',
+										duration: 1000
+									});
+								}else{
+									Toast({
+										message: res.data.returnErrMsg,
+										position: 'middle',
+										duration: 1000
+									});
+								}
+							})
+						}else{
+							this.$http.post(Lovecar.Changepin,{newPin:this.condition.newPin,oldPin:this.condition.oldPin},this.$store.state.tsppin).then((res)=>{
+								if(res.data.returnSuccess){
+									Toast({
+										message: '修改成功',
+										position: 'middle',
+										duration: 1000
+									});
+								}else{
+									Toast({
+										message: res.data.returnErrMsg,
+										position: 'middle',
+										duration: 1000
+									});
+								}
+							})
+						}
 					}
 				}).catch(err => {
 					if(err == 'cancel') {

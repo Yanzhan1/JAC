@@ -1129,7 +1129,6 @@ export default {
     },
     //同步车况不用拿operationId
     getcarvalue() {
-          console.log(this.vinn)
       let params = {
         vins: [this.vinn]
       };

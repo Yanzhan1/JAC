@@ -72,6 +72,15 @@ export default {
               "defaultInformation",
               JSON.parse(userInfo.defaultInformation)
             );
+             if(JSON.parse(userInfo.defaultInformation).brandId==5){
+                let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
+                identityParam.tspType='NEUSOFT_ENERGY'
+                this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
+            }else{
+                let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
+                identityParam.tspType=''
+                this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
+            }
             if (
               JSON.parse(userInfo.defaultInformation).brandId == 4 ||
               5 ||
@@ -111,7 +120,6 @@ export default {
             // }
           } else {
             this.$store.state.enterMaintenance = false;
-            console.log("无默认车辆");
           }
         } else if (isMobile.Android()) {
           if (userInfo.defaultInformation.vin) {
@@ -119,6 +127,15 @@ export default {
               "defaultInformation",
               userInfo.defaultInformation
             );
+            if(userInfo.defaultInformation.brandId==5){
+                let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
+                identityParam.tspType='NEUSOFT_ENERGY'
+                this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
+            }else{
+                let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
+                identityParam.tspType=''
+                this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
+            }
             if (userInfo.defaultInformation.brandId == 4 || 5 || 6) {
               this.$store.state.enterMaintenance = true;
             } else {
@@ -153,7 +170,6 @@ export default {
             // }
           } else {
             this.$store.state.enterMaintenance = false;
-            console.log("无默认车辆");
           }
         }
 

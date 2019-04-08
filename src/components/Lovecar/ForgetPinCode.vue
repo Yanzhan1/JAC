@@ -106,26 +106,26 @@
 					//				localStorage.setItem('check', true)
 					this.countDown();
 					var phone = this.pin.phone
-					// if(!true){
-					// 	this.$http.post(Newenergy.energysendSMS, {
-					// 			phoneNum: phone
-					// 		}, this.$store.state.tsppin)
-					// 		.then((res) => {
-					// 			const data = res.data;
-					// 			if(data.returnSuccess) {
-					// 				this.Verification = res.data.phoneIdentifyCode;
-					// 				this.body=res.data.requestId
-					// 				this.timeStamp = session.getAttribute('firstTime')
-					// 			} else {
-					// 				let instance = Toast({
-					// 					message: data.returnErrMsg,
-					// 					position: 'middle',
-					// 					duration: 1000
-					// 				});
-					// 			}
-					// 		})
+					if(JSON.parse(this.$store.state.tsppin.headers.identityParam).tspType){
+						this.$http.post(Newenergy.energysendSMS, {
+								phoneNum: phone
+							}, this.$store.state.tsppin)
+							.then((res) => {
+								const data = res.data;
+								if(data.returnSuccess) {
+									this.Verification = res.data.phoneIdentifyCode;
+									this.body=res.data.requestId
+									this.timeStamp = session.getAttribute('firstTime')
+								} else {
+									let instance = Toast({
+										message: data.returnErrMsg,
+										position: 'middle',
+										duration: 1000
+									});
+								}
+							})
 
-					// }else{
+					}else{
 						this.$http.post(Lovecar.Getphonepin, {
 								phoneNum: phone
 							}, this.$store.state.tsppin)
@@ -144,7 +144,7 @@
 								}
 							})
 					}
-				// }
+				}
 
 			},
 			//底部确认提交
