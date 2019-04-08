@@ -76,13 +76,13 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
       </div>
-       <div class="mylist" @click="wbrecode">
+       <!-- <div class="mylist" @click="wbrecode">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_record_maintanance@2x.png" alt="">
           <span>维保记录</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt="">
-      </div>
+      </div> -->
       <div class="mylist" @click="tomycollect">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_collection@2x.png" alt="">
