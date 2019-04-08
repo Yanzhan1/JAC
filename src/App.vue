@@ -16,20 +16,6 @@ export default {
     return {};
   },
   methods: {
-    // loadTab(type) {
-    //   if (type == 0) {
-    //     this.$router.push({ path: "/recommend" });//主页
-    //   } else if (type == 1) {
-    //     this.$router.push({ path: "/wit" })//智享
-    //   } else if (type == 2) {
-    //     this.$router.push({ path: "/lovecar" });//爱车
-    //   }  else if (type == 3) {
-    //     this.$router.push({ path: "/myindex" });//我的
-    //   }
-    //    else if (type == 4) {
-    //     this.$router.push({ path: "/wit/CarChoose" });//买车页面
-    //   }
-    // },
     init() {
       try {
         if (isMobile.iOS()) {
@@ -72,52 +58,52 @@ export default {
               "defaultInformation",
               JSON.parse(userInfo.defaultInformation)
             );
-             if(JSON.parse(userInfo.defaultInformation).brandId==5){
-                let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
-                identityParam.tspType='NEUSOFT_ENERGY'
-                this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
-            }else{
-                let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
-                identityParam.tspType=''
-                this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
-            }
-            if (
-              JSON.parse(userInfo.defaultInformation).brandId == 4 ||
-              5 ||
-              6
-            ) {
-              this.$store.state.enterMaintenance = true;
-            } else {
-              this.$store.state.enterMaintenance = false;
-            }
-            // if(userInfo.token){
-            //   let param = {
-            //     lmscode:
-            //       JSON.parse(userInfo.defaultInformation).modelNo,
-            //     levelCode:
-            //       JSON.parse(userInfo.defaultInformation).seriesNo,
-            //     tspFlag: JSON.parse(userInfo.defaultInformation).tspFlag,
-            //     seriesName:JSON.parse(userInfo.defaultInformation).seriesName
-            //   };
-            //   this.$http
-            //     .post(Wit.SearchVehicleSeriesByVehicle, param)
-            //     .then(res => {
-            //       if(res.data.code==0){
-            //         if (res.data.data.brandId == 4 || 5 || 6) {
-
-            //           if (userInfo.no) {
-            //             this.$store.state.enterMaintenance = true;
-            //           }else{
-            //             this.$store.state.enterMaintenance = false;
-            //           }
-            //         }else{
-            //             this.$store.state.enterMaintenance = false;
-            //           }
-            //       }else{
-            //           this.$store.state.enterMaintenance = false;
-            //       }
-            //     });
+            //  if(JSON.parse(userInfo.defaultInformation).brandId==5){
+            //     let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
+            //     identityParam.tspType='NEUSOFT_ENERGY'
+            //     this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
+            //   }else{
+            //       let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
+            //       identityParam.tspType=''
+            //       this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
+            //   }
+            // if (
+            //   JSON.parse(userInfo.defaultInformation).brandId == 4 ||
+            //   5 ||
+            //   6
+            // ) {
+            //   this.$store.state.enterMaintenance = true;
+            // } else {
+            //   this.$store.state.enterMaintenance = false;
             // }
+            if(userInfo.token){
+              let param = {
+                lmscode:
+                  JSON.parse(userInfo.defaultInformation).modelNo,
+                levelCode:
+                  JSON.parse(userInfo.defaultInformation).seriesNo,
+                tspFlag: JSON.parse(userInfo.defaultInformation).tspFlag,
+                seriesName:JSON.parse(userInfo.defaultInformation).seriesName
+              };
+              this.$http
+                .post(Wit.SearchVehicleSeriesByVehicle, param)
+                .then(res => {
+                  if(res.data.code==0){
+                    if (res.data.data.brandId == 4 || 5 || 6) {
+
+                      if (userInfo.no) {
+                        this.$store.state.enterMaintenance = true;
+                      }else{
+                        this.$store.state.enterMaintenance = false;
+                      }
+                    }else{
+                        this.$store.state.enterMaintenance = false;
+                      }
+                  }else{
+                      this.$store.state.enterMaintenance = false;
+                  }
+                });
+            }
           } else {
             this.$store.state.enterMaintenance = false;
           }
@@ -127,47 +113,47 @@ export default {
               "defaultInformation",
               userInfo.defaultInformation
             );
-            if(userInfo.defaultInformation.brandId==5){
-                let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
-                identityParam.tspType='NEUSOFT_ENERGY'
-                this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
-            }else{
-                let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
-                identityParam.tspType=''
-                this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
-            }
-            if (userInfo.defaultInformation.brandId == 4 || 5 || 6) {
-              this.$store.state.enterMaintenance = true;
-            } else {
-              this.$store.state.enterMaintenance = false;
-            }
-            // if(userInfo.token){
-            //   let param = {
-            //     lmscode:
-            //       userInfo.defaultInformation.modelNo,
-            //     levelCode:
-            //       userInfo.defaultInformation.seriesNo,
-            //     tspFlag: userInfo.defaultInformation.tspFlag,
-            //     seriesName: userInfo.defaultInformation.seriesName
-            //   };
-            //   this.$http
-            //     .post(Wit.SearchVehicleSeriesByVehicle, param)
-            //     .then(res => {
-            //       if(res.data.code==0){
-            //         if (res.data.data.brandId == 4 || 5 || 6) {
-            //           if (userInfo.no) {
-            //             this.$store.state.enterMaintenance = true;
-            //           }else{
-            //             this.$store.state.enterMaintenance = false;
-            //           }
-            //         }else{
-            //             this.$store.state.enterMaintenance = false;
-            //           }
-            //       }else{
-            //           this.$store.state.enterMaintenance = false;
-            //       }
-            //     });
+            // if(userInfo.defaultInformation.brandId==5){
+            //     let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
+            //     identityParam.tspType='NEUSOFT_ENERGY'
+            //     this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
+            // }else{
+            //     let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
+            //     identityParam.tspType=''
+            //     this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
             // }
+            // if (userInfo.defaultInformation.brandId == 4 || 5 || 6) {
+            //   this.$store.state.enterMaintenance = true;
+            // } else {
+            //   this.$store.state.enterMaintenance = false;
+            // }
+            if(userInfo.token){
+              let param = {
+                lmscode:
+                  userInfo.defaultInformation.modelNo,
+                levelCode:
+                  userInfo.defaultInformation.seriesNo,
+                tspFlag: userInfo.defaultInformation.tspFlag,
+                seriesName: userInfo.defaultInformation.seriesName
+              };
+              this.$http
+                .post(Wit.SearchVehicleSeriesByVehicle, param)
+                .then(res => {
+                  if(res.data.code==0){
+                    if (res.data.data.brandId == 4 || 5 || 6) {
+                      if (userInfo.no) {
+                        this.$store.state.enterMaintenance = true;
+                      }else{
+                        this.$store.state.enterMaintenance = false;
+                      }
+                    }else{
+                        this.$store.state.enterMaintenance = false;
+                      }
+                  }else{
+                      this.$store.state.enterMaintenance = false;
+                  }
+                });
+            }
           } else {
             this.$store.state.enterMaintenance = false;
           }
