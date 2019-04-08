@@ -1025,29 +1025,6 @@ export default {
                           clearInterval(this.time);
                           localhide()
                           this.overall=true
-                          if (this.firstEnter) {
-                            this.firstEnter = false;
-                            if (res.data.data.doorStsFrontLeft == 0) {
-                              this.isTrue = false;
-                              this.isTrueopen = true;
-                            } else {
-                              this.isTrue = true;
-                              this.isTrueopen = false;
-                            }
-                            if (res.data.data.engineStatus == 1) {
-                              this.isTruess = true;
-                              this.isTruessoff = false;
-                            } else {
-                              this.isTruess = false;
-                              this.isTruessoff = true;
-                            }
-                            if (res.data.data.doorStsTrunk == 1) {
-                              this.isTrues = true;
-                            } else {
-                              this.isTrues = false;
-                            }
-                          }
-
                           if (this.type == 1) {
                             this.isTrue = true;
                             this.isTrueopen = false;
@@ -1121,6 +1098,25 @@ export default {
                               },
                               2000
                             );
+                            if (res.data.data.doorStsFrontLeft == 1) {
+                              this.isTrue = false;
+                              this.isTrueopen = true;
+                            } else {
+                              this.isTrue = true;
+                              this.isTrueopen = false;
+                            }
+                            if (res.data.data.engineStatus == 1) {
+                              this.isTruess = true;
+                              this.isTruessoff = false;
+                            } else {
+                              this.isTruess = false;
+                              this.isTruessoff = true;
+                            }
+                            if (res.data.data.doorStsTrunk == 1) {
+                              this.isTrues = true;
+                            } else {
+                              this.isTrues = false;
+                            }
                             this.engineHoodStsFront = this.carcontrol
                               .engineHoodStsFront
                               ? (this.engineHoodStsFront = "已打开")
@@ -1336,28 +1332,6 @@ export default {
               clearInterval(this.time);
               localhide()
               this.overall=true
-              if (this.firstEnter) {
-                this.firstEnter = false;
-                if (res.data.data.doorStsFrontLeft == 0) {
-                  this.isTrue = false;
-                  this.isTrueopen = true;
-                } else {
-                  this.isTrue = true;
-                  this.isTrueopen = false;
-                }
-                if (res.data.data.engineStatus == 1) {
-                  this.isTruess = true;
-                  this.isTruessoff = false;
-                } else {
-                  this.isTruess = false;
-                  this.isTruessoff = true;
-                }
-                if (res.data.data.doorStsTrunk == 1) {
-                  this.isTrues = true;
-                } else {
-                  this.isTrues = false;
-                }
-              }
               if (this.type == 1) {
                 this.isTrue = true;
                 this.isTrueopen = false;
@@ -1429,6 +1403,25 @@ export default {
                   position: "middle",
                   duration: 2000
                 });
+                if (res.data.data.doorStsFrontLeft == 1) {
+                  this.isTrue = false;
+                  this.isTrueopen = true;
+                } else {
+                  this.isTrue = true;
+                  this.isTrueopen = false;
+                }
+                if (res.data.data.engineStatus == 1) {
+                  this.isTruess = true;
+                  this.isTruessoff = false;
+                } else {
+                  this.isTruess = false;
+                  this.isTruessoff = true;
+                }
+                if (res.data.data.doorStsTrunk == 1) {
+                  this.isTrues = true;
+                } else {
+                  this.isTrues = false;
+                }
                 this.carcontrol.engineHoodStsFront
                   ? (this.engineHoodStsFront = "已打开")
                   : (this.engineHoodStsFront = "已关闭");
