@@ -35,17 +35,6 @@ export default {
             "identityParam": '{ "userId": "", "token": "", "phone": "" }',
         }
     }, //新能源车发送请求时的token
-    energypin: {
-        headers: {
-            "identityParam": '{ "userId": "", "token": "", "phone": "","type":"NEUSOFT_ENERGY" }',
-        }
-    }, //爱车发送请求时的token
-    //调用部分tsp接口用到的token
-    buding: {
-        headers: {
-            "token": ''
-        }
-    },
     vins: '', //车辆的pin码暂时用，登入后拿到放这里
     loadingflag: false, //loading动画状态
     selectLabelState: null, //选择的频道
