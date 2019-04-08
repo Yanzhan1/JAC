@@ -6,7 +6,11 @@
             <span class="header-right"></span>
         </header>
         <div style="height:.88rem"></div>-->
-		<mhead class="MobileHeight" currentTitle="维保记录"></mhead>
+		<header class="header MobileHeight bgcolor">
+      <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+      <span class="header-title">维保记录</span>
+      <span class="header-right"></span>
+    </header>
 		<div ref="wrapper" class="wrapper">
 			<ul>
 				<li v-for="(item, index) in this.datalist" :key="item.id">
@@ -15,19 +19,19 @@
 						<span class="tim">{{item.dealerName}}</span>
 					</div>
 					<div class="record-wrap" style="padding:.52rem .5rem 0 .8rem">
-						<p class="record-name">维保类型：<span class="record-con">{{item.revervationTypeName}}</span> </p>
-						<p class="record-name">送修人：<span class="record-con">{{item.ownerName}}</span></p>
-						<p class="record-name">车牌号：<span class="record-con">{{item.licenseNumber}}</span></p>
+						<p class="record-name">维保类型：<span class="record-con">{{item.repairType}}</span> </p>
+						<p class="record-name">送修人：<span class="record-con">{{item.deliverer}}</span></p>
+						<p class="record-name">车牌号：<span class="record-con">{{item.license}}</span></p>
 						<p class="record-name">VIN：<span class="record-con">{{item.vin}}</span></p>
 						<div style="height: 1px;width: 100%;margin: 0 auto;background: #F1F1F1;"></div>
 					</div>
 					<div class="record-footer">
 						<div style="display: flex;justify-content: center;align-items: center;">
 							<img src="../../../static/images/Wit/shijian.png" style="width: .3rem;height: .3rem;margin-bottom: 0;" />
-							<p style="color: #999999;margin-left: .2rem;">{{item.revervationDate}} {{item.reverationTime}}</p>
+							<p style="color: #999999;margin-left: .2rem;">{{item.forBalanceTime}}</p>
 						</div>
 
-						<router-link tag="p" :to="{path:'/myindex/dotcomment'}" class="dot-score">网点评分</router-link>
+						<!-- <router-link tag="p" :to="{path:'/myindex/dotcomment'}" class="dot-score">网点评分</router-link> -->
 					</div>
 				</li>
 			</ul>
@@ -37,6 +41,7 @@
 </template>
 <script>
 import { Popup } from "mint-ui";
+import {Toast} from 'mint-ui'
 import PublicHead from "../publicmodel/PublicHead";
 import BScroll from "better-scroll";
 export default {
@@ -54,15 +59,22 @@ export default {
       this.$router.push("/myindex/dotcomment");
     },
     init() {
+      console.log(this.$store.state.vins)
       let param = {
-        // vin: "LJ12EKR21J4931800",
-        vin:this.$store.state.defaultInformation.vin,
+        // vin: "LJ16AA33777028846",
+        vin:this.$store.state.vins,
       };
       this.$http
         .post(My.searchMaintenanceRecordList, param)
         .then(res => {
           if (res.data.code == 0) {
-
+            this.datalist=res.data.data
+          }else{
+            Toast({
+                  message: '无预约记录',
+                  position: "middle",
+                  duration: 1000
+                });
           }
         });
     }
@@ -75,19 +87,22 @@ export default {
       borderTopWidth: this.$store.state.mobileStatusBar,
       borderTopColor: "#fff"
     });
-    this.$nextTick(() => {
-      this.scroll = new BScroll(this.$refs.wrapper, {
-        click: true
-      });
-    });
+    // this.$nextTick(() => {
+    //   this.scroll = new BScroll(this.$refs.wrapper, {
+    //     click: true
+    //   });
+    // });
   }
 };
 </script>
 <style scoped>
 .wb-recode {
-  height: 90vh;
+  height: 100vh;
 }
-
+.MobileHeight {  
+		border-top-style: solid;
+		box-sizing: content-box;
+	}
 .wrapper {
   position: absolute;
   top: 1.3rem;
@@ -175,7 +190,10 @@ export default {
   font-weight: 500;
   color: rgba(34, 34, 34, 1);
 }
-
+.bgcolor{
+  background:#fff;
+  padding: 0;
+}
 .leftname {
   font-size: 0.24rem;
   color: #555;
