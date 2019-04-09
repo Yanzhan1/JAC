@@ -1098,7 +1098,7 @@ export default {
                               },
                               2000
                             );
-                            if (res.data.data.doorStsFrontLeft == 1) {
+                            if (res.data.data.doorLockStsFrontLeft == 0) {
                               this.isTrue = false;
                               this.isTrueopen = true;
                             } else {
@@ -1403,7 +1403,7 @@ export default {
                   position: "middle",
                   duration: 2000
                 });
-                if (res.data.data.doorStsFrontLeft == 1) {
+                if (res.data.data.doorLockStsFrontLeft == 0) {
                   this.isTrue = false;
                   this.isTrueopen = true;
                 } else {
