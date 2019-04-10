@@ -19,20 +19,16 @@ export default {
         state.uuid = payload
     },
     [types.USERINFO]: (state, payload) => {
-        // alert(JSON.stringify(payload))
         if (payload) {
             state.sign = payload.sign
             state.userName = payload.userName
-                // state.imgUrl = payload.imgUrl
             state.trueuserId = payload.userId
             state.no = payload.no
             state.mobile = payload.mobile
-                // state.vins = payload.vin
             state.token = payload.token
             var str = JSON.parse(state.tsppin.headers.identityParam)
             str.phone = payload.mobile
             state.tsppin.headers.identityParam = JSON.stringify(str)
-                // alert(JSON.stringify(str))
             var strr = JSON.parse(state.getpin.headers.identityParam)
             strr.phone = payload.mobile
             strr.token = payload.token
@@ -41,7 +37,6 @@ export default {
         } else {
             state.no = null
             state.mobile = null
-                // state.vinst = null
             state.token = ''
         }
     },
@@ -73,8 +68,6 @@ export default {
         state.refreshToken = payload.refreshToken
         state.tsppin.headers.identityParam = JSON.stringify(str)
         state.tspId = payload.tspId
-        state.buding.headers.token = payload.token;
-
     },
     [types.MOBILESTATUSBAR]: (state, payload) => {
         state.mobileStatusBar = payload / 4

@@ -58,6 +58,18 @@
 					<span ref='open2' class='busl_r  left_2 '>{{Condition.left_bottom=='undefinedkPa'?'':Condition.left_bottom}}</span>
 					<!--左边胎压状态End-->
 
+          <!--右边胎压状态Start-->
+					<span ref='open3' class='busl_r right_1 '>{{Condition.right_top=='undefinedkPa'?'':Condition.right_top}}</span>
+					<span ref='open4' class='busl_r right_2 '>{{Condition.right_bottom=='undefinedkPa'?'':Condition.right_bottom}}</span>
+					<!--右边胎压状态End-->
+
+          <!-- 轮胎温度start -->
+          <!-- <span v-show="activeshow==1"  class='busl_r tiretemperature_left1'>{{Condition.tirePressureFrontLeft=='undefined℃'?'':Condition.tirePressureFrontLeft}}</span>
+					<span v-show="activeshow==1"  class='busl_r tiretemperature_left2'>{{Condition.tirePressureRearLeft=='undefined℃'?'':Condition.tirePressureRearLeft}}</span>
+          <span v-show="activeshow==1"  class='busl_r tiretemperature_right1'>{{Condition.tirePressureFrontRight=='undefined℃'?'':Condition.tirePressureFrontRight}}</span>
+					<span v-show="activeshow==1"  class='busl_r tiretemperature_right2'>{{Condition.tirePressureRearRight=='undefined℃'?'':Condition.tirePressureRearRight}}</span> -->
+          <!-- 轮胎温度en -->
+
 					<!--胎压图片Start-->
 					<img class="" v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 2.6rem;right:2.4rem;" alt="">
 					<img class="" v-show="activeshow==1" :src="'./static/images/Lovecar/taiya.png'" style="position:absolute;display:block;width:.36rem;height:.36rem;top: 2.6rem;left:2.2rem;" alt="">
@@ -83,11 +95,6 @@
 					<img class="" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_top=='已打开'?true:false" style="position:absolute;display:block;width:1rem;left: 1.9rem;top: 2.5rem;"></img>
 					<!-- 控制左后车门线 -->
 					<img class="" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1rem;left: 1.9rem;top: 4.2rem;"></img>
-					<!--右边胎压状态Start-->
-					<span ref='open3' class='busl_r right_1 '>{{Condition.right_top=='undefinedkPa'?'':Condition.right_top}}</span>
-					<span ref='open4' class='busl_r right_2 '>{{Condition.right_bottom=='undefinedkPa'?'':Condition.right_bottom}}</span>
-					<!--右边胎压状态End-->
-
 					<!-- <span class='busl_r top_1'>{{this.engineHoodStsFront}}</span> -->
 					<!--天窗And尾门状态Start-->
 					<span v-show="activeshow=='2'?true:false" class='busl_r bottom_1 '>{{this.doorStsTrunk}}</span>
@@ -397,11 +404,15 @@ export default {
     fn(type) {
       this.activeshow = type;
       var tai = {
-        left_top: this.carcontrol.tirePressureFrontLeft + "kPa",
-        right_top: this.carcontrol.tirePressureFrontRight + "kPa",
-        left_bottom: this.carcontrol.tirePressureRearLeft + "kPa",
-        right_bottom: this.carcontrol.tirePressureRearRight + "kPa"
-      };
+                  left_top: this.carcontrol.tirePressureFrontLeft + "kPa",
+                  right_top: this.carcontrol.tirePressureFrontRight + "kPa",
+                  left_bottom: this.carcontrol.tirePressureRearLeft + "kPa",
+                  right_bottom: this.carcontrol.tirePressureRearRight + "kPa",
+                  // left_top_temperature:this.carcontrol.tirePressureFrontLeft+'℃',
+                  // right_top_temperature: this.carcontrol.tirePressureFrontRight+'℃',
+                  // left_bottom_temperature: this.carcontrol.tirePressureRearLeft+'℃',
+                  // right_bottom_temperature: this.carcontrol. tirePressureRearRight+'℃'
+                };
       //车门状态
       // this.doorStsFrontLeft = this.carcontrol.doorStsFrontLeft==1
       //   ? (this.doorStsFrontLeft = "未锁")
@@ -1014,29 +1025,6 @@ export default {
                           clearInterval(this.time);
                           localhide()
                           this.overall=true
-                          if (this.firstEnter) {
-                            this.firstEnter = false;
-                            if (res.data.data.doorStsFrontLeft == 1) {
-                              this.isTrue = false;
-                              this.isTrueopen = true;
-                            } else {
-                              this.isTrue = true;
-                              this.isTrueopen = false;
-                            }
-                            if (res.data.data.engineStatus == 1) {
-                              this.isTruess = true;
-                              this.isTruessoff = false;
-                            } else {
-                              this.isTruess = false;
-                              this.isTruessoff = true;
-                            }
-                            if (res.data.data.doorStsTrunk == 1) {
-                              this.isTrues = true;
-                            } else {
-                              this.isTrues = false;
-                            }
-                          }
-
                           if (this.type == 1) {
                             this.isTrue = true;
                             this.isTrueopen = false;
@@ -1110,6 +1098,25 @@ export default {
                               },
                               2000
                             );
+                            if (res.data.data.doorLockStsFrontLeft == 0) {
+                              this.isTrue = false;
+                              this.isTrueopen = true;
+                            } else {
+                              this.isTrue = true;
+                              this.isTrueopen = false;
+                            }
+                            if (res.data.data.engineStatus == 1) {
+                              this.isTruess = true;
+                              this.isTruessoff = false;
+                            } else {
+                              this.isTruess = false;
+                              this.isTruessoff = true;
+                            }
+                            if (res.data.data.doorStsTrunk == 1) {
+                              this.isTrues = true;
+                            } else {
+                              this.isTrues = false;
+                            }
                             this.engineHoodStsFront = this.carcontrol
                               .engineHoodStsFront
                               ? (this.engineHoodStsFront = "已打开")
@@ -1133,14 +1140,14 @@ export default {
                             // 	$(".bottom_1").css("color", "#49BBFF");
                             this.engineStatus = this.carcontrol.engineStatus;
                             var tai = {
-                              left_top:
-                                this.carcontrol.tirePressureFrontLeft + "kPa",
-                              right_top:
-                                this.carcontrol.tirePressureFrontRight + "kPa",
-                              left_bottom:
-                                this.carcontrol.tirePressureRearLeft + "kPa",
-                              right_bottom:
-                                this.carcontrol.tirePressureRearRight + "kPa"
+                                  left_top: this.carcontrol.tirePressureFrontLeft + "kPa",
+                                  right_top: this.carcontrol.tirePressureFrontRight + "kPa",
+                                  left_bottom: this.carcontrol.tirePressureRearLeft + "kPa",
+                                  right_bottom: this.carcontrol.tirePressureRearRight + "kPa",
+                                  // left_top_temperature:this.carcontrol.tirePressureFrontLeft+'℃',
+                                  // right_top_temperature: this.carcontrol.tirePressureFrontRight+'℃',
+                                  // left_bottom_temperature: this.carcontrol.tirePressureRearLeft+'℃',
+                                  // right_bottom_temperature: this.carcontrol. tirePressureRearRight+'℃'
                             };
                             //车门状态
                             if (this.carcontrol.doorStsFrontLeft == 1) {
@@ -1325,28 +1332,6 @@ export default {
               clearInterval(this.time);
               localhide()
               this.overall=true
-              if (this.firstEnter) {
-                this.firstEnter = false;
-                if (res.data.data.doorStsFrontLeft == 1) {
-                  this.isTrue = false;
-                  this.isTrueopen = true;
-                } else {
-                  this.isTrue = true;
-                  this.isTrueopen = false;
-                }
-                if (res.data.data.engineStatus == 1) {
-                  this.isTruess = true;
-                  this.isTruessoff = false;
-                } else {
-                  this.isTruess = false;
-                  this.isTruessoff = true;
-                }
-                if (res.data.data.doorStsTrunk == 1) {
-                  this.isTrues = true;
-                } else {
-                  this.isTrues = false;
-                }
-              }
               if (this.type == 1) {
                 this.isTrue = true;
                 this.isTrueopen = false;
@@ -1418,6 +1403,25 @@ export default {
                   position: "middle",
                   duration: 2000
                 });
+                if (res.data.data.doorLockStsFrontLeft == 0) {
+                  this.isTrue = false;
+                  this.isTrueopen = true;
+                } else {
+                  this.isTrue = true;
+                  this.isTrueopen = false;
+                }
+                if (res.data.data.engineStatus == 1) {
+                  this.isTruess = true;
+                  this.isTruessoff = false;
+                } else {
+                  this.isTruess = false;
+                  this.isTruessoff = true;
+                }
+                if (res.data.data.doorStsTrunk == 1) {
+                  this.isTrues = true;
+                } else {
+                  this.isTrues = false;
+                }
                 this.carcontrol.engineHoodStsFront
                   ? (this.engineHoodStsFront = "已打开")
                   : (this.engineHoodStsFront = "已关闭");
@@ -1450,7 +1454,11 @@ export default {
                   left_top: this.carcontrol.tirePressureFrontLeft + "kPa",
                   right_top: this.carcontrol.tirePressureFrontRight + "kPa",
                   left_bottom: this.carcontrol.tirePressureRearLeft + "kPa",
-                  right_bottom: this.carcontrol.tirePressureRearRight + "kPa"
+                  right_bottom: this.carcontrol.tirePressureRearRight + "kPa",
+                  // left_top_temperature:this.carcontrol.tirePressureFrontLeft+'℃',
+                  // right_top_temperature: this.carcontrol.tirePressureFrontRight+'℃',
+                  // left_bottom_temperature: this.carcontrol.tirePressureRearLeft+'℃',
+                  // right_bottom_temperature: this.carcontrol. tirePressureRearRight+'℃'
                 };
                 //车门状态t
                 if (this.carcontrol.doorStsFrontLeft == 1) {
@@ -2339,24 +2347,31 @@ input:focus {
 .left_1 {
   left: 1.2rem;
   top: 2.63rem;
-  /*background: skyblue;*/
 }
-
+.tiretemperature_left1{
+  left: 1.2rem;
+  top: 3.13rem;
+}
 .left_2 {
   left: 1.2rem;
   top: 4.3rem;
 }
-
+.tiretemperature_left2{
+  left: 1.2rem;
+  top: 4.8rem;
+}
 .right_1 {
   right: 1.5rem;
   top: 2.63rem;
 }
-
+.tiretemperature_right1{
+  right: 1.5rem;
+  top: 3.13rem;
+}
 .right_2 {
   right: 1.5rem;
   top: 4.3rem;
 }
-
 .top_1 {
   top: 0.3rem;
   left: 0.8rem;

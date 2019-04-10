@@ -43,7 +43,7 @@
 			confirm() { //更改用户信息→修改紧急联系人g
 				this.nojiamiphone=this.emergencyContactPhone
 				if(this.nojiamiphone!=this.newtell){
-					let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+					let reg =  /^1\d{10}$/;;
 					var numFlag = reg.test(this.nojiamiphone);
 					if (!numFlag) {
 					Toast({

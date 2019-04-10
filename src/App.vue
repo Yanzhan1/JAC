@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <keep-alive>
-    	<router-view v-if="$route.meta.keepAlive" />
+      <router-view v-if="$route.meta.keepAlive"/>
     </keep-alive>
-      <router-view v-if="!$route.meta.keepAlive" />
- </div>
+    <router-view v-if="!$route.meta.keepAlive"/>
+  </div>
 </template>
 
 <script>
@@ -16,20 +16,6 @@ export default {
     return {};
   },
   methods: {
-    // loadTab(type) {
-    //   if (type == 0) {
-    //     this.$router.push({ path: "/recommend" });//主页
-    //   } else if (type == 1) {
-    //     this.$router.push({ path: "/wit" })//智享
-    //   } else if (type == 2) {
-    //     this.$router.push({ path: "/lovecar" });//爱车
-    //   }  else if (type == 3) {
-    //     this.$router.push({ path: "/myindex" });//我的
-    //   }
-    //    else if (type == 4) {
-    //     this.$router.push({ path: "/wit/CarChoose" });//买车页面
-    //   }
-    // },
     init() {
       try {
         if (isMobile.iOS()) {
@@ -43,10 +29,7 @@ export default {
       }
     },
     isLogin(userInfo) {
-      this.$store.state.kim="456"
-      console.log('appp',this.$store.state.kim)
       // this.$store.dispatch('change$FLAG', true)// 不要动 有用
-      console.log('z执行islogin')
       if (userInfo && userInfo.no) {
         this.$store.dispatch("isLogin", true);
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
@@ -55,95 +38,6 @@ export default {
         this.$store.dispatch("userId", userInfo.no);
         this.$store.dispatch("userInfo", userInfo);
         this.$http.defaults.headers.common["timaToken"] = userInfo.token;
-        //获取原生给你默认车辆的所有信息
-        if (isMobile.iOS()) {
-          if (userInfo.defaultInformation) {
-            this.$store.dispatch(
-              "defaultInformation",
-              JSON.parse(userInfo.defaultInformation)
-            );
-            // localStorage.setItem({
-            //   "defaultInformation":userInfo.defaultInformation
-            // })
-            let param = {
-              lmscode:
-                JSON.parse(userInfo.defaultInformation).modelNo,
-              levelCode:
-                JSON.parse(userInfo.defaultInformation).seriesNo,
-              tspFlag: JSON.parse(userInfo.defaultInformation).tspFlag,
-              seriesName:JSON.parse(userInfo.defaultInformation).seriesName
-            };
-            this.$http
-              .post(Wit.SearchVehicleSeriesByVehicle, param)
-              .then(res => {
-                if(res.data.code==0){
-                  if (res.data.data.brandId == 4 || 5 || 6) {
-                    // this.brandName = res.data.data.brandName;
-                    // this.seriesName = res.data.data.seriesName;
-                    // this.brandNo = res.data.data.brandNo;
-                    // this.brandId = "0" + res.data.data.brandId;
-                    // this.seriesNo = res.data.data.no;
-                    if (userInfo.no) {
-                      this.$store.state.enterMaintenance = true;                   
-                    }else{
-                      this.$store.state.enterMaintenance = false;
-                    }
-                  }else{
-                      this.$store.state.enterMaintenance = false;
-                    }
-                }else{
-                    this.$store.state.enterMaintenance = false;
-                }
-              });
-          } else {
-                  this.$store.state.enterMaintenance = false;
-            console.log("无默认车辆");
-          }
-        } else if (isMobile.Android()) {
-          if (userInfo.defaultInformation.vin) {
-            this.$store.dispatch("defaultInformation", userInfo.defaultInformation);
-            // localStorage.setItem({
-            //   "defaultInformation":JSON.stringify(userInfo.defaultInformation)
-            // })
-            let param = {
-              lmscode:
-                userInfo.defaultInformation.modelNo,
-              levelCode:
-                userInfo.defaultInformation.seriesNo,
-              tspFlag: userInfo.defaultInformation.tspFlag,
-              seriesName: userInfo.defaultInformation.seriesName
-            };
-            this.$http
-              .post(Wit.SearchVehicleSeriesByVehicle, param)
-              .then(res => {
-                if(res.data.code==0){
-                  if (res.data.data.brandId == 4 || 5 || 6) {
-                    // this.brandName = res.data.data.brandName;
-                    // this.seriesName = res.data.data.seriesName;
-                    // this.brandNo = res.data.data.brandNo;
-                    // this.brandId = "0" + res.data.data.brandId;
-                    // this.seriesNo = res.data.data.no;
-                    if (userInfo.no) {
-                      this.$store.state.enterMaintenance = true;
-                    }else{
-                      this.$store.state.enterMaintenance = false;
-                    }
-                  }else{
-                      this.$store.state.enterMaintenance = false;
-                    }
-                }else{
-                    this.$store.state.enterMaintenance = false;
-                }
-              });
-          } else {
-                    this.$store.state.enterMaintenance = false;
-            console.log("无默认车辆");
-          }
-        }
-
-        this.$store.dispatch("CARVINS", userInfo.vin);
-        this.$store.dispatch("nomarlseriseName", userInfo.seriesName);
-
         let params = {
           userNo: userInfo.no
         };
@@ -157,15 +51,123 @@ export default {
             );
           }
         });
-        // localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        //获取原生给你默认车辆的所有信息
+        if (isMobile.iOS()) {
+          if (userInfo.defaultInformation) {
+            this.$store.dispatch(
+              "defaultInformation",
+              JSON.parse(userInfo.defaultInformation)
+            );
+            //  if(JSON.parse(userInfo.defaultInformation).brandId==5){
+            //     let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
+            //     identityParam.tspType='NEUSOFT_ENERGY'
+            //     this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
+            //   }else{
+            //       let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
+            //       identityParam.tspType=''
+            //       this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
+            //   }
+            // if (
+            //   JSON.parse(userInfo.defaultInformation).brandId == 4 ||
+            //   5 ||
+            //   6
+            // ) {
+            //   this.$store.state.enterMaintenance = true;
+            // } else {
+            //   this.$store.state.enterMaintenance = false;
+            // }
+            if(userInfo.token){
+              let param = {
+                lmscode:
+                  JSON.parse(userInfo.defaultInformation).modelNo,
+                levelCode:
+                  JSON.parse(userInfo.defaultInformation).seriesNo,
+                tspFlag: JSON.parse(userInfo.defaultInformation).tspFlag,
+                seriesName:JSON.parse(userInfo.defaultInformation).seriesName
+              };
+              this.$http
+                .post(Wit.SearchVehicleSeriesByVehicle, param)
+                .then(res => {
+                  if(res.data.code==0){
+                    if (res.data.data.brandId == 4 || 5 || 6) {
+
+                      if (userInfo.no) {
+                        this.$store.state.enterMaintenance = true;
+                      }else{
+                        this.$store.state.enterMaintenance = false;
+                      }
+                    }else{
+                        this.$store.state.enterMaintenance = false;
+                      }
+                  }else{
+                      this.$store.state.enterMaintenance = false;
+                  }
+                });
+            }
+          } else {
+            this.$store.state.enterMaintenance = false;
+          }
+        } else if (isMobile.Android()) {
+          if (userInfo.defaultInformation.vin) {
+            this.$store.dispatch(
+              "defaultInformation",
+              userInfo.defaultInformation
+            );
+            // if(userInfo.defaultInformation.brandId==5){
+            //     let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
+            //     identityParam.tspType='NEUSOFT_ENERGY'
+            //     this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
+            // }else{
+            //     let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
+            //     identityParam.tspType=''
+            //     this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
+            // }
+            // if (userInfo.defaultInformation.brandId == 4 || 5 || 6) {
+            //   this.$store.state.enterMaintenance = true;
+            // } else {
+            //   this.$store.state.enterMaintenance = false;
+            // }
+            if(userInfo.token){
+              let param = {
+                lmscode:
+                  userInfo.defaultInformation.modelNo,
+                levelCode:
+                  userInfo.defaultInformation.seriesNo,
+                tspFlag: userInfo.defaultInformation.tspFlag,
+                seriesName: userInfo.defaultInformation.seriesName
+              };
+              this.$http
+                .post(Wit.SearchVehicleSeriesByVehicle, param)
+                .then(res => {
+                  if(res.data.code==0){
+                    if (res.data.data.brandId == 4 || 5 || 6) {
+                      if (userInfo.no) {
+                        this.$store.state.enterMaintenance = true;
+                      }else{
+                        this.$store.state.enterMaintenance = false;
+                      }
+                    }else{
+                        this.$store.state.enterMaintenance = false;
+                      }
+                  }else{
+                      this.$store.state.enterMaintenance = false;
+                  }
+                });
+            }
+          } else {
+            this.$store.state.enterMaintenance = false;
+          }
+        }
+
+        this.$store.dispatch("CARVINS", userInfo.vin);
+        this.$store.dispatch("nomarlseriseName", userInfo.seriesName);
+
         localStorage.setItem("mobile", JSON.stringify(userInfo.mobile));
         localStorage.setItem("userName", JSON.stringify(userInfo.userName));
       } else {
         this.$store.state.enterMaintenance = false;
-        console.log(this.$store.state.enterMaintenance)
         this.$store.dispatch("isLogin", false);
         this.$store.dispatch("userId", null);
-        //      this.$store.dispatch('userInfo',null);
       }
       // 如果登录成功，获取用户头像
       if (
@@ -236,8 +238,8 @@ export default {
   },
   mounted() {
     localStorage.setItem("time", "60");
-    // this.isLogin({name:'',no:'AD022018112104124524505'})
-    // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTU0Mjc4Nzk2NjAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6NDYyLFwiaW5pdFVzZXJcIjowLFwibGFzdE1vZGlmaWVkRGF0ZVwiOjE1NDI3ODg1MTcwMDAsXCJub1wiOlwiQUQwMjIwMTgxMTIxMDQxMjQ1MjQ1MDVcIixcInBlcnNvbmFsU2lnbmF0dXJlXCI6XCJcIixcInBob25lXCI6XCIxMzg1NTE3OTYzMVwiLFwicmVhbFBob25lXCI6XCIxMzgqKioqOTYzMVwiLFwic2V4XCI6MSxcInVzZXJDb2RlXCI6XCIxMzg1NTE3OTYzMVwiLFwidXNlck5hbWVcIjpcIueCueaoquaSh-aNulwiLFwidXNlclN0YXR1c1wiOjAsXCJ1c2VyVHlwZVwiOlwiMDFcIn0iLCJjcmVhdGVkIjoxNTQ4OTQ1Nzc0Mjc4LCJ1c2VyTm8iOiJBRDAyMjAxODExMjEwNDEyNDUyNDUwNSIsInVzZXJUeXBlIjoiMDEiLCJ1c2VyTmFtZSI6IueCueaoquaSh-aNuiIsImV4cCI6MTU0OTgwOTc3NCwidXNlcklkIjo0NjJ9.88bSCctYO3hrIvampGAg7VWn8MkgmTCLJ2fWWlaNQNs'
+    // this.isLogin({name:'',no:'AD022018101009093840922'})
+    // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcIkFBQUlkXCI6MTMzMjkzMjk2MSxcIlRTUElkXCI6MTMzMjkzMjk2MSxcImFhYVRva2VuXCI6XCJiMjM4MDBjNC00ZDRjLTRjNjQtYjQ3Yi02ODJjZWRlNTM3MTFcIixcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTUzOTEzMzc3ODAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6MzAyLFwiaW5pdFVzZXJcIjowLFwibGFzdE1vZGlmaWVkRGF0ZVwiOjE1NTA0ODczMTMwMDAsXCJub1wiOlwiQUQwMjIwMTgxMDEwMDkwOTM4NDA5MjJcIixcInBob25lXCI6XCIxNzMzMzIxOTg1MlwiLFwicmVhbFBob25lXCI6XCIxNzMqKioqOTg1MlwiLFwidXNlckNvZGVcIjpcIjE3MzMzMjE5ODUyXCIsXCJ1c2VyU3RhdHVzXCI6MCxcInVzZXJUeXBlXCI6XCIwMVwifSIsImNyZWF0ZWQiOjE1NTQzNjE0OTc0NzksInVzZXJObyI6IkFEMDIyMDE4MTAxMDA5MDkzODQwOTIyIiwidXNlclR5cGUiOiIwMSIsImV4cCI6MTU1NTIyNTQ5NywidXNlcklkIjozMDJ9.5DQ8qpPIdztF2eq33znqyNKlyrTu9AH9BeoDqHqzxIc'
     // 获取用户
     // this.Getmarkedwords()
     // this.getNo()

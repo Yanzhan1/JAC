@@ -81,7 +81,7 @@
 			},
 			//获取验证码
 			submitCode() {
-				var reg=11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/
+				var reg= /^1\d{10}$/;
 				if(this.pin.phone == '') {
 //					this.dis = true
 					Toast({
@@ -106,23 +106,44 @@
 					//				localStorage.setItem('check', true)
 					this.countDown();
 					var phone = this.pin.phone
-					this.$http.post(Lovecar.Getphonepin, {
-							phoneNum: phone
-						}, this.$store.state.tsppin)
-						.then((res) => {
-							const data = res.data;
-							if(data.returnSuccess) {
-								this.Verification = res.data.data;
-								this.body=res.data.body
-								this.timeStamp = session.getAttribute('firstTime')
-							} else {
-								let instance = Toast({
-									message: data.returnErrMsg,
-									position: 'middle',
-									duration: 1000
-								});
-							}
-						})
+					if(JSON.parse(this.$store.state.tsppin.headers.identityParam).tspType){
+						this.$http.post(Newenergy.energysendSMS, {
+								phoneNum: phone
+							}, this.$store.state.tsppin)
+							.then((res) => {
+								const data = res.data;
+								if(data.returnSuccess) {
+									this.Verification = res.data.phoneIdentifyCode;
+									this.body=res.data.requestId
+									this.timeStamp = session.getAttribute('firstTime')
+								} else {
+									let instance = Toast({
+										message: data.returnErrMsg,
+										position: 'middle',
+										duration: 1000
+									});
+								}
+							})
+
+					}else{
+						this.$http.post(Lovecar.Getphonepin, {
+								phoneNum: phone
+							}, this.$store.state.tsppin)
+							.then((res) => {
+								const data = res.data;
+								if(data.returnSuccess) {
+									this.Verification = res.data.data;
+									this.body=res.data.body
+									this.timeStamp = session.getAttribute('firstTime')
+								} else {
+									let instance = Toast({
+										message: data.returnErrMsg,
+										position: 'middle',
+										duration: 1000
+									});
+								}
+							})
+					}
 				}
 
 			},
@@ -137,14 +158,31 @@
 					return false;
 				} else {
 					if(this.pin.verificationCode == this.Verification) {
-						this.$http.post(Lovecar.Findcode, {
-							newPin: this.pin.newPin,
-							phoneNum: this.pin.phone,
-							requestId:this.body,
-							phoneIdentifyCode: this.pin.verificationCode,
-						}, this.$store.state.tsppin).then((res) => {
-							this.$router.push('/lovecar/reviseSuccess')
-						})
+						// if(true){
+						// 	this.$http.post(Newenergy.energyforgetvehiclepin, {
+						// 		newPin: this.pin.newPin,
+						// 		phoneNum: this.pin.phone,
+						// 		requestId:this.body,
+						// 		phoneIdentifyCode: this.pin.verificationCode,
+						// 	}, this.$store.state.tsppin).then((res) => {
+						// 		if(res.data.returnSuccess){
+						// 			this.$router.push('/lovecar/reviseSuccess')
+						// 		}
+						// 	})
+
+						// }else{
+							this.$http.post(Lovecar.Findcode, {
+								newPin: this.pin.newPin,
+								phoneNum: this.pin.phone,
+								requestId:this.body,
+								phoneIdentifyCode: this.pin.verificationCode,
+							}, this.$store.state.tsppin).then((res) => {
+								if(res.data.returnSuccess){
+									this.$router.push('/lovecar/reviseSuccess')
+								}
+							})
+
+						// }
 					} else {
 						Toast({
 							message: '请输入正确的验证码',

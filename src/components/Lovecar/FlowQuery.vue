@@ -93,31 +93,60 @@ export default {
               let month=oDate.getMonth()+1
               month=month<10?'0'+month:''+month;
               let totime=year+month
-              this.$http
-                .post(
-                  Lovecar.Flow,
-                  {
-                    vin: this.$store.state.vins, //车辆vin码
-                    queryDate:totime//传给后台的查询时间
-                    // vin: 'LJ12EKS10J00001S4', //车辆vin码
-                    // queryDate:'201810'//传给后台的查询时间
-                  },
-                  this.$store.state.tsppin
-                )
-                .then(res => {
-                  if(res.data.returnSuccess){      
-                    this.packageTotalFlow=res.data.data[0].packageTotalFlow;
-                    this.usedFlow=res.data.data[0].usedFlow;
-                    this.surplusFlow=res.data.data[0].surplusFlow;
-                    this.Flowpacket=res.data.data[0].packageName;
-                  }else{
-                    	Toast({
-                        message: res.data.returnErrMsg,
-                        position: "middle",
-                        duration: 1000
-                      });
-                  }
-				});
+              if(JSON.parse(this.$store.state.tsppin.headers.identityParam).tspType){             
+                this.$http
+                  .post(
+                    Newenergy.energyvehiclecycflowquery,
+                    {
+                      vin: this.$store.state.vins, //车辆vin码
+                      queryDate:totime//传给后台的查询时间
+                      // vin: 'LJ12EKS10J00001S4', //车辆vin码
+                      // queryDate:'201810'//传给后台的查询时间
+                    },
+                    this.$store.state.tsppin
+                  )
+                  .then(res => {
+                    if(res.data.returnSuccess){      
+                      this.packageTotalFlow=res.data.data[0].packageTotalFlow;
+                      this.usedFlow=res.data.data[0].usedFlow;
+                      this.surplusFlow=res.data.data[0].surplusFlow;
+                      this.Flowpacket=res.data.data[0].packageName;
+                    }else{
+                        Toast({
+                          message: res.data.returnErrMsg,
+                          position: "middle",
+                          duration: 1000
+                        });
+                    }
+                });
+              }else{
+
+                this.$http
+                  .post(
+                    Lovecar.Flow,
+                    {
+                      vin: this.$store.state.vins, //车辆vin码
+                      queryDate:totime//传给后台的查询时间
+                      // vin: 'LJ12EKS10J00001S4', //车辆vin码
+                      // queryDate:'201810'//传给后台的查询时间
+                    },
+                    this.$store.state.tsppin
+                  )
+                  .then(res => {
+                    if(res.data.returnSuccess){      
+                      this.packageTotalFlow=res.data.data[0].packageTotalFlow;
+                      this.usedFlow=res.data.data[0].usedFlow;
+                      this.surplusFlow=res.data.data[0].surplusFlow;
+                      this.Flowpacket=res.data.data[0].packageName;
+                    }else{
+                      	Toast({
+                          message: res.data.returnErrMsg,
+                          position: "middle",
+                          duration: 1000
+                        });
+                    }
+                  });
+              }
   },
 
 };
@@ -193,7 +222,7 @@ input {
   padding: 0 0.3rem;
 }
 .flow-wrap input{
- width: 20%;
+ width: 25%;
 }
 .apn-title {
   height: 0.86rem;

@@ -48,7 +48,7 @@
 			},
 			//提交反馈信息
 			submitFeedback() {
-				let regMobile = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
+				let regMobile =  /^1\d{10}$/;
 				let checkName = /^[\u4e00-\u9fa5]{2,4}$/
 				if(this.condition.complaintsContent == '' && this.condition.contact == '' && this.condition.contactInformation == '') {
 					Toast({

@@ -69,7 +69,7 @@ export default {
   methods:{
       //手机号的验证
       check(){
-          var reg=11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/
+          var reg= /^1\d{10}$/;
 				if(this.newphone == '') {
 					Toast({
 						message: '手机号输入不能为空',

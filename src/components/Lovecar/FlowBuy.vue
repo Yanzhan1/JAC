@@ -58,14 +58,12 @@
 								info.eq(i).css("borderRight","none");
 							}
 						}
-						if(len%2){ //最后一行是奇数,即一个
-//							mess.eq(len).css("borderBottom","none");
-							mess.eq(len-1).css("borderBottom","none");
-						}else{ //最后一行是偶数,两个
-							
-							mess.eq(len).css("borderBottom","none");
-							mess.eq(len-1).css("borderBottom","none");
-						}
+						// if(len%2){ //最后一行是奇数,即一个
+						// 	mess.eq(len-1).css("borderBottom","none");
+						// }else{ //最后一行是偶数,两个
+						// 	console.log(len)
+						// 	mess.eq(len-1).css("borderBottom","none");
+						// }
 //						this.lastIndex = count.pop()
 ////						alert(this.lastIndex)
 //						mess.eq(this.lastIndex-1).css("borderBottom","none")

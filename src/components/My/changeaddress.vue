@@ -135,6 +135,7 @@ export default {
     this.num = this.Originaladdress.receiveMobile;
     this.address = this.Originaladdress.address;
     this.choosedarea = this.Originaladdress.provinceName;
+    this.provinceName=this.Originaladdress.provinceName
     this.no = this.Originaladdress.no;
     this.$http
       .post(My.Area, { size: 1000, parentId: null, level: 1 })
@@ -179,7 +180,7 @@ export default {
         });
         return false;
       }
-      let reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+      let reg =  /^1\d{10}$/;
       var numFlag = reg.test(this.num);
       if (!numFlag) {
         Toast({
