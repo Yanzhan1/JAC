@@ -8,14 +8,14 @@
         <div style="" class="head-tab" :class="{ recommand: isRecommand }" @click.stop.prevent="goIsRecommand">
           <span>推荐</span>
         </div>
+        <div style="" class="head-tab" :class="{ now: isNow }" @click.stop.prevent="goIsNow">
+          <span>社区</span>
+        </div>
         <div style="" class="head-tab" :class="{ information: isInformation }" @click.stop.prevent="goInformation">
           <span class="size_36">资讯</span>
         </div>
         <div style="" class="head-tab" :class="{ allActivity: isAllActivity }" @click.stop.prevent="goAllActivity">
           <span>活动</span>
-        </div>
-        <div style="" class="head-tab" :class="{ now: isNow }" @click.stop.prevent="goIsNow">
-          <span>社区</span>
         </div>
         <div style="position: relative;">
           <div style="position: absolute;top: 0;left: 0;z-index: 1;width: 100%;height: 100%;" @click="publish"></div>
@@ -62,9 +62,9 @@
         labelState: 11, //标签默认值为11
         obj: { //tab状态的映射表
           '/recommend': this.goIsRecommand,
+          '/now': this.goIsNow,
           '/information': this.goInformation,
-          '/activity': this.goAllActivity,
-          '/now': this.goIsNow
+          '/activity': this.goAllActivity
         }
       }
     },
@@ -114,7 +114,7 @@
         this.isAllActivity = false
         this.isNow = false
         this.isQuestion = false
-        this.changeSlide(1)
+        this.changeSlide(2)
         this.addPoint('inform');
       },
       goAllActivity: function () {
@@ -124,7 +124,7 @@
         this.isInformation = false
         this.isNow = false
         this.isQuestion = false
-        this.changeSlide(2)
+        this.changeSlide(3)
         this.addPoint('activity');
       },
       goIsNow: function () {
@@ -134,7 +134,7 @@
         this.isInformation = false
         this.isAllActivity = false
         this.isQuestion = false
-        this.changeSlide(3)
+        this.changeSlide(1)
         this.addPoint('community');
       },
       goQuestion: function () {
@@ -218,7 +218,7 @@
       // 设置tab状态
       onChangeTab() {
         this.$root.eventHub.$on('changeTab', (index) => {
-          const list = ['goIsRecommand', 'goInformation', 'goAllActivity', 'goIsNow']
+          const list = ['goIsRecommand', 'goIsNow', 'goInformation', 'goAllActivity']
 
           this[list[index]]()
         })
