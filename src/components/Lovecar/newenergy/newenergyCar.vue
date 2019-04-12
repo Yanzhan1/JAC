@@ -66,7 +66,7 @@
                     {{this.carcontrol.soc==-1?0:this.carcontrol.soc}}%
                 </div>
               </div>
-              <img style="width:1.6rem;height:2.2rem;position:absolute"  :src="'./../../../../static/images/Lovecar/bgbattery@2x.png'" alt="">
+              <img style="width:1.6rem;height:2.2rem;position:absolute"  src="../../../../static/images/Lovecar/bgbattery@2x.png" alt="">
               <div class="bus_l_bettery_right">
                   <div>
                       <div>剩余电量</div>
