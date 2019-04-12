@@ -1,11 +1,11 @@
 <template>
     <div style="">
-      <!--<div class="header">
-        <img class="header-left" src="../../../static/images/back@2x.png" alt="" @click="$router.go(-1)">
+      <header class="header MobileHeight bgcolor">
+        <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
         <span class="header-title">我的活动</span>
-        <div class="header-right"></div>
-      </div>-->
-      <mhead currentTitle="我的活动"></mhead>
+        <span class="header-right"></span>
+      </header>
+      <div style="height:.88rem"></div>
       <div style="padding: 0.16rem 4%;">
         <!--活动列表S-->
         <div v-for="(item) in myActivityList" :key="item.id">
@@ -130,6 +130,10 @@
       },
       mounted(){
         this.$nextTick(function () {
+           $(".MobileHeight").css({
+              "borderTopWidth": this.$store.state.mobileStatusBar,
+              "borderTopColor": "#fff",
+            })
           //初始化数据
           this.getList();
         })
@@ -145,6 +149,10 @@
     background: #fff;
     margin-left: -0.3rem;
   }
+  .MobileHeight {
+		border-top-style: solid;
+		box-sizing: content-box;
+	}
   .reconerbox{
     padding: 0.02rem 0.1rem;
     border-radius: 0.08rem;

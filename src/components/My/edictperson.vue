@@ -157,15 +157,14 @@ export default {
     //点击保存
     changemessage() {
       //  alert( this.changeInfo.imageUrl)
-       if (this.userInfo.userName == "") {
+       if (!this.userInfo.userName) {
         let instance = Toast({
           message: "昵称不能为空",
           position: "middle",
           duration: 1000
         });
-        return;
+        return false;
       }
-      debugger
       this.changeInfo.userName = this.userInfo.userName; //赋值  参数 昵称
       this.changeInfo.personalSignature = this.userInfo.personalSignature;
       this.changeInfo.sex = this.userInfo.sex;
