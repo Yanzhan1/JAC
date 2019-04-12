@@ -339,21 +339,21 @@ const router = new Router({
                     component: Activity,
                     meta: {
                         keepAlive: true,
-                        index: 2
+                        index: 3
                     }
                 }, {
                     path: "/information",
                     component: Information,
                     meta: {
                         keepAlive: true,
-                        index: 1
+                        index: 2
                     }
                 }, {
                     path: "/now",
                     component: Now,
                     meta: {
                         keepAlive: true,
-                        index: 3
+                        index: 1
                     }
                 }]
             },

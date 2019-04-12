@@ -30,16 +30,16 @@
             component: Recommend
           },
           {
+            path: '/now',
+            component: Now
+          },
+          {
             path: '/information',
             component: Information
           },
           {
             path: '/activity',
             component: Activity
-          },
-          {
-            path: '/now',
-            component: Now
           }
         ]
       }
