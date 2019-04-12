@@ -199,6 +199,7 @@ export default {
   },
   mounted() {
       this.newphone();
+      
     // this.getCarLoginState()
   }
 };
