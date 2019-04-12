@@ -1676,7 +1676,7 @@ export default {
   left: 1.6rem;
   width: 1.1rem;
   height: 1.1rem;
-  z-index: -1;
+  z-index: 9;
 }
 /*温度部分*/
 
