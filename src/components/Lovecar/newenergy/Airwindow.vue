@@ -173,13 +173,13 @@ export default {
                             localhide();
                             if (this.buttoncontrol) {
                               Toast({
-                                message: this.allwords[5].dictValue,
+                                message: this.skywords[5].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
                             } else {
                               Toast({
-                                message: this.allwords[2].dictValue,
+                                message: this.skywords[2].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
@@ -189,14 +189,14 @@ export default {
                           if (this.buttoncontrol) {
                             this.windowcontrol = false;
                             Toast({
-                              message: this.allwords[4].dictValue,
+                              message: this.skywords[4].dictValue,
                               position: "middle",
                               duration: 2000
                             });
                           } else {
                             this.windowcontrol = true;
                             Toast({
-                              message: this.allwords[1].dictValue,
+                              message: this.skywords[1].dictValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -208,13 +208,13 @@ export default {
                           localhide();
                           if (this.buttoncontrol) {
                             Toast({
-                              message: this.allwords[5].dictValue,
+                              message: this.skywords[5].dictValue,
                               position: "middle",
                               duration: 2000
                             });
                           } else {
                             Toast({
-                              message: this.allwords[2].dictValue,
+                              message: this.skywords[2].dictValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -223,13 +223,13 @@ export default {
                       } else {
                         if (this.buttoncontrol) {
                           Toast({
-                            message: this.allwords[5].dictValue,
+                            message: this.skywords[5].dictValue,
                             position: "middle",
                             duration: 2000
                           });
                         } else {
                           Toast({
-                            message: this.allwords[2].dictValue,
+                            message: this.skywords[2].dictValue,
                             position: "middle",
                             duration: 2000
                           });
@@ -244,14 +244,14 @@ export default {
               if (this.buttoncontrol) {
                 this.windowcontrol = false;
                 Toast({
-                  message: this.allwords[4].dictValue,
+                  message: this.skywords[4].dictValue,
                   position: "middle",
                   duration: 2000
                 });
               } else {
                 this.windowcontrol = true;
                 Toast({
-                  message: this.allwords[1].dictValue,
+                  message: this.skywords[1].dictValue,
                   position: "middle",
                   duration: 2000
                 });
@@ -263,13 +263,13 @@ export default {
               localhide();
               if (this.buttoncontrol) {
                 Toast({
-                  message: this.allwords[5].dictValue,
+                  message: this.skywords[5].dictValue,
                   position: "middle",
                   duration: 2000
                 });
               } else {
                 Toast({
-                  message: this.allwords[2].dictValue,
+                  message: this.skywords[2].dictValue,
                   position: "middle",
                   duration: 2000
                 });
@@ -278,13 +278,13 @@ export default {
           } else {
             if (this.buttoncontrol) {
               Toast({
-                message: this.allwords[5].dictValue,
+                message: this.skywords[5].dictValue,
                 position: "middle",
                 duration: 2000
               });
             } else {
               Toast({
-                message: this.allwords[2].dictValue,
+                message: this.skywords[2].dictValue,
                 position: "middle",
                 duration: 2000
               });
@@ -317,6 +317,7 @@ export default {
           this.skywords = value.sysDictDataVOs;
         }
       }
+      console.log(this.skywords)
     },
     Toasteach() {
       MessageBox("提示", this.skywords[3].dictValue);
@@ -457,26 +458,39 @@ export default {
     pinNumber(newVal, oldVal) {
       if (this.pinNumber.length == 6) {
         var nums = this.pinNumber;
-        // this.$http
-        //   .post(
-        //     Lovecar.Checkphonepin,
-        //     {
-        //       pin: nums
-        //     },
-        //     this.$store.state.tsppin
-        //   )
-        //   .then(res => {
-        //     if (res.data.returnSuccess) {
-        // this.value = !this.value;
-        this.init();
-        // this.refreshPmData(),
-        //消失遮罩
-        this.popupVisible = !this.popupVisible;
-        //消失软键盘
-        (this.showTyper = 0),
-          //清空pin码
-          (this.pinNumber = "");
-      }
+        this.$http
+          .post(
+            Newenergy.energyvehiclePINvalidation,
+            {
+              pin: nums
+            },
+            this.$store.state.tsppin
+          )
+          .then(res => {
+            if (res.data.returnSuccess) {
+              // this.value = !this.value;
+              this.init();
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
+              //消失软键盘
+              (this.showTyper = 0),
+                //清空pin码
+                (this.pinNumber = "");
+            }else{
+                localhide();
+                //消失遮罩
+              this.popupVisible = !this.popupVisible;
+              //消失软键盘
+              (this.showTyper = 0),
+                //清空pin码
+                (this.pinNumber = "");
+                Toast({
+                          message: 'PIN码验证失败',
+                          position: "middle",
+                          duration: 2000
+                        });          
+              }
+        })}
     },
     fullValue(newVal, oldVal) {
       if (this.fullValue.length == 6) {

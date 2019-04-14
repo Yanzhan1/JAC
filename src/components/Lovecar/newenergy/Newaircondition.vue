@@ -22,8 +22,8 @@
 				</div>
 			</div>
       <div class="allcontrol">
-        <div :class="this.flags?'':'allchangecolor'" @click="alloff">全关</div>
-        <div :class="this.flags?'allchangecolor':''" @click="allon">全开</div>
+        <div :class="this.flags?'':'allchangecolor'" @click="alloff">关</div>
+        <div :class="this.flags?'allchangecolor':''" @click="allon">开</div>
       </div>
 		</div>
 		<!--pin码弹出框Start-->
@@ -481,49 +481,47 @@ export default {
       if (this.pinNumber.length == 6) {
         var nums = this.pinNumber;
         //      alert(this.$store.state.tsppin.headers.identityParam.token)
-        // this.$http
-        //   .post(
-        //     Lovecar.Checkphonepin,
-        //     {
-        //       pin: nums
-        //     },
-        //     this.$store.state.tsppin
-        //   )
-        //   .then(res => {
-        //     if (res.data.returnSuccess) {
+        this.$http
+          .post(
+            Newenergy.energyvehiclePINvalidation,
+            {
+              pin: nums
+            },
+            this.$store.state.tsppin
+          )
+          .then(res => {
+            if (res.data.returnSuccess) {
         // this.value = !this.value;\
         this.httpwindowall();
-        //pin码正确激活弧线
-        // //pin码正确激活空调图
-        // (this.activeShowImg = !this.activeShowImg),
-        // this.refreshPmData(),
         //消失遮罩
         this.popupVisible = !this.popupVisible;
         //消失软键盘
         (this.showTyper = 0),
           //清空pin码
           (this.pinNumber = "");
-        // } else {
-        //   //消失遮罩
-        //   this.popupVisible = !this.popupVisible;
-        //   //消失软键盘
-        //   (this.showTyper = 0),
-        //     //清空pin码
-        //     (this.pinNumber = "");
-        //   Toast({
-        //     message: res.data.returnErrMsg,
-        //     position: "middle",
-        //     duration: 1000
-        //   });
-        // }
-        // })
-        // .catch(err => {
-        //   Toast({
-        //     message: res.data.returnErrMsg,
-        //     position: "middle",
-        //     duration: 1000
-        //   });
-        // });
+        } else {
+          //消失遮罩
+          this.popupVisible = !this.popupVisible;
+          //消失软键盘
+          (this.showTyper = 0),
+            //清空pin码
+            (this.pinNumber = "");
+            localhide();
+          Toast({
+            message: res.data.returnErrMsg,
+            position: "middle",
+            duration: 1000
+          });
+        }
+        })
+        .catch(err => {
+          localhide();
+          Toast({
+            message: res.data.returnErrMsg,
+            position: "middle",
+            duration: 1000
+          });
+        });
       }
     },
     fullValue(newVal, oldVal) {

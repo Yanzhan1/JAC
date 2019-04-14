@@ -576,7 +576,7 @@ export default {
         .post(
           Newenergy.energyqueryvehiclecondition,
           {
-            vins: this.vinn
+            vins: [this.vinn]
           },
           this.$store.state.tsppin
         )
@@ -619,8 +619,77 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              if (tSS >= 56) {
+              if (tSS >= 16) {
                 //超时提示
+                if (this.type == 1) {
+                              // this.doorcontrol = true;
+                              Toast({
+                                message: this.close_lock[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else if (this.type == 2) {
+                              // this.doorcontrol = false;
+                              Toast({
+                                message: this.open_lock[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else if (this.type == 3) {
+                              // this.trunkcontrol = false;
+                              Toast({
+                                message: this.open_trunk[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else if (this.type == 4) {
+                              // this.trunkcontrol = true;
+                              Toast({
+                                message: this.open_trunk[3].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else if (this.type == 5) {
+                              Toast({
+                                message: this.find_vehicle[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.findcarcontrol = false;
+                              setTimeout(() => {
+                                this.findcarcontrol = true;
+                              }, 4000);
+                            } else if (this.type == 6) {
+                              Toast({
+                                message: this.open_trunk[3].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.lightnearcontrol = false;
+                              // this.lightfarcontrol = true;
+                            } else if (this.type == 7) {
+                              Toast({
+                                message: this.open_trunk[3].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.lightnearcontrol = true;
+                            } else if (this.type == 8) {
+                              Toast({
+                                message: this.open_trunk[3].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.lightfarcontrol = false;
+                              // this.lightnearcontrol = true;
+                            } else if (this.type == 9) {
+                              Toast({
+                                message: this.open_trunk[3].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.lightfarcontrol = true;
+                            }
               } else {
                 this.time = setInterval(() => {
                   this.$http
@@ -637,7 +706,7 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          if (tSS >= 56) {
+                          if (tSS >= 16) {
                             if (this.type == 1) {
                               // this.doorcontrol = true;
                               Toast({
@@ -709,6 +778,7 @@ export default {
                             }
                             //超时提示并且清除定时器关闭遮罩层
                             clearInterval(this.time);
+                            console.log('aaa')
                             localhide();
                           }
                         } else if (res.data.status == "SUCCEED") {
@@ -840,9 +910,11 @@ export default {
                           }
                           // }
                           clearInterval(this.time);
+                          console.log('bbbb')
                           localhide();
                         } else if (res.data.status == "FAILED") {
                           clearInterval(this.time);
+                          console.log('cccc')
                           localhide();
                           if (this.type == 1) {
                             // this.doorcontrol = true;
@@ -914,79 +986,80 @@ export default {
                             // this.lightfarcontrol = true;
                           }
                         }
-                      } else {
-                        if (this.type == 1) {
-                          // this.doorcontrol = true;
-                          Toast({
-                            message: this.close_lock[2].dictValue,
-                            position: "middle",
-                            duration: 2000
-                          });
-                        } else if (this.type == 2) {
-                          // this.doorcontrol = false;
-                          Toast({
-                            message: this.open_lock[2].dictValue,
-                            position: "middle",
-                            duration: 2000
-                          });
-                        } else if (this.type == 3) {
-                          // this.trunkcontrol = false;
-                          Toast({
-                            message: this.open_trunk[2].dictValue,
-                            position: "middle",
-                            duration: 2000
-                          });
-                        } else if (this.type == 4) {
-                          // this.trunkcontrol = true;
-                          Toast({
-                            message: this.open_trunk[3].dictValue,
-                            position: "middle",
-                            duration: 2000
-                          });
-                        } else if (this.type == 5) {
-                          Toast({
-                            message: this.find_vehicle[2].dictValue,
-                            position: "middle",
-                            duration: 2000
-                          });
-                          // this.findcarcontrol = false;
-                          setTimeout(() => {
-                            this.findcarcontrol = true;
-                          }, 4000);
-                        } else if (this.type == 6) {
-                          Toast({
-                            message: this.open_trunk[3].dictValue,
-                            position: "middle",
-                            duration: 2000
-                          });
-                          // this.lightnearcontrol = false;
-                          // this.lightfarcontrol = true;
-                        } else if (this.type == 7) {
-                          Toast({
-                            message: this.open_trunk[3].dictValue,
-                            position: "middle",
-                            duration: 2000
-                          });
-                          // this.lightnearcontrol = true;
-                        } else if (this.type == 8) {
-                          Toast({
-                            message: this.open_trunk[3].dictValue,
-                            position: "middle",
-                            duration: 2000
-                          });
-                          // this.lightfarcontrol = false;
-                          // this.lightnearcontrol = true;
-                        } else if (this.type == 9) {
-                          Toast({
-                            message: this.open_trunk[3].dictValue,
-                            position: "middle",
-                            duration: 2000
-                          });
-                          // this.lightfarcontrol = true;
-                        }
-                        clearInterval(this.time);
-                        localhide();
-                      }
+                          } else {
+                            if (this.type == 1) {
+                              // this.doorcontrol = true;
+                              Toast({
+                                message: this.close_lock[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else if (this.type == 2) {
+                              // this.doorcontrol = false;
+                              Toast({
+                                message: this.open_lock[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else if (this.type == 3) {
+                              // this.trunkcontrol = false;
+                              Toast({
+                                message: this.open_trunk[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else if (this.type == 4) {
+                              // this.trunkcontrol = true;
+                              Toast({
+                                message: this.open_trunk[3].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else if (this.type == 5) {
+                              Toast({
+                                message: this.find_vehicle[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.findcarcontrol = false;
+                              setTimeout(() => {
+                                this.findcarcontrol = true;
+                              }, 4000);
+                            } else if (this.type == 6) {
+                              Toast({
+                                message: this.open_trunk[3].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.lightnearcontrol = false;
+                              // this.lightfarcontrol = true;
+                            } else if (this.type == 7) {
+                              Toast({
+                                message: this.open_trunk[3].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.lightnearcontrol = true;
+                            } else if (this.type == 8) {
+                              Toast({
+                                message: this.open_trunk[3].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.lightfarcontrol = false;
+                              // this.lightnearcontrol = true;
+                            } else if (this.type == 9) {
+                              Toast({
+                                message: this.open_trunk[3].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.lightfarcontrol = true;
+                            }
+                            clearInterval(this.time);
+                            console.log('ddddd')
+                            localhide();
+                          }
                     });
                 }, 4000);
               }
@@ -1116,13 +1189,16 @@ export default {
               }
               // }
               clearInterval(this.time);
+              console.log('eeeee')
               localhide();
             } else if (res.data.status == "FAILED") {
               clearInterval(this.time);
+              console.log('ffff')
               localhide();
             }
           } else {
             clearInterval(this.time);
+            console.log('gggg')
             localhide();
           }
         });
@@ -1142,7 +1218,6 @@ export default {
         .then(res => {
           if (res.data.returnSuccess) {
             this.carcontrol = res.data.data;
-
             //控制尾门的状态
             this.trunkcontrol = this.carcontrol.trunkLockStatus ? false : true;
             //控制远光灯的状态
@@ -1307,7 +1382,7 @@ export default {
                   var params = {
                     vin: this.vinn,
                     operationType: "LOCK",
-                    operation: 2 //操作项
+                    operation: 1 //操作项关闭
                   };
                   this.$http
                     .post(
@@ -1332,7 +1407,7 @@ export default {
                   var params = {
                     vin: this.vinn,
                     operationType: "LOCK",
-                    operation: 1 //操作项
+                    operation: 2 //操作项 开启
                   };
                   this.$http
                     .post(
@@ -1529,6 +1604,13 @@ export default {
                       }
                     });
                 }
+              }else{
+                localhide();
+                Toast({
+                          message: 'PIN码验证失败',
+                          position: "middle",
+                          duration: 2000
+                        });          
               }
             }
           });
@@ -1542,7 +1624,8 @@ export default {
     $(".MobileHeight").css({
       marginTop: this.$store.state.mobileStatusBar
     });
-    this.vinn = this.$store.state.defaultInformation.vin;
+    // this.vinn = this.$store.state.defaultInformation.vin;
+    this.vinn = 'LJ1EEASPXJ5000403';
     this.Getmarkedwords();
     new Promise(()=>{
       this.getcarvalue();
@@ -2077,6 +2160,7 @@ input:focus {
   height: 0.88rem;
   top: 0.8rem;
   right: 0.45rem;
+  z-index: 1000;
 }
 .skylight {
   width: 0.34rem;

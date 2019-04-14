@@ -522,17 +522,16 @@ export default {
       if (this.pinNumber.length == 6) {
         
         var nums = this.pinNumber;
-        //      alert(this.$store.state.tsppin.headers.identityParam.token)
-        // this.$http
-        //   .post(
-        //     Lovecar.Checkphonepin,
-        //     {
-        //       pin: nums
-        //     },
-        //     this.$store.state.tsppin
-        //   )
-        //   .then(res => {
-        //     if (res.data.returnSuccess) {
+        this.$http
+          .post(
+            Newenergy.energyvehiclePINvalidation,
+            {
+              pin: nums
+            },
+            this.$store.state.tsppin
+          )
+          .then(res => {
+            if (res.data.returnSuccess) {
               // this.value = !this.value;\
               //pin码正确激活弧线
               // //pin码正确激活空调图
@@ -546,27 +545,29 @@ export default {
                 (this.pinNumber = "");
                 alert(this.operation)
                 this.charged()
-            // } else {
-            //   //消失遮罩
-            //   this.popupVisible = !this.popupVisible;
-            //   //消失软键盘
-            //   (this.showTyper = 0),
-            //     //清空pin码
-            //     (this.pinNumber = "");
-            //   Toast({
-            //     message: res.data.returnErrMsg,
-            //     position: "middle",
-            //     duration: 1000
-            //   });
-            // }
-          // })
-          // .catch(err => {
-          //   Toast({
-          //     message: res.data.returnErrMsg,
-          //     position: "middle",
-          //     duration: 1000
-          //   });
-          // });
+            } else {
+               localhide();
+              //消失遮罩
+              this.popupVisible = !this.popupVisible;
+              //消失软键盘
+              (this.showTyper = 0),
+                //清空pin码
+                (this.pinNumber = "");
+              Toast({
+                message: res.data.returnErrMsg,
+                position: "middle",
+                duration: 1000
+              });
+            }
+          })
+          .catch(err => {
+             localhide();
+            Toast({
+              message: res.data.returnErrMsg,
+              position: "middle",
+              duration: 1000
+            });
+          });
       }
     },
     fullValue(newVal, oldVal) {

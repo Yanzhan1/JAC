@@ -479,7 +479,7 @@ export default {
         //      alert(this.$store.state.tsppin.headers.identityParam.token)
         this.$http
           .post(
-            Lovecar.Checkphonepin,
+            Newenergy.energyvehiclePINvalidation,
             {
               pin: nums
             },
@@ -500,6 +500,7 @@ export default {
                 //清空pin码
                 (this.pinNumber = "");
             } else {
+              localhide();
               //消失遮罩
               this.popupVisible = !this.popupVisible;
               //消失软键盘
@@ -514,6 +515,7 @@ export default {
             }
           })
           .catch(err => {
+            localhide();
             Toast({
               message: res.data.returnErrMsg,
               position: "middle",
