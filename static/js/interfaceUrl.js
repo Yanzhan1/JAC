@@ -18,7 +18,7 @@ var focusip = host + '/api/dk-pr-svr' //uat
 var point = 'http://192.168.1.141:8868' //埋点
     //服务器-智享
 var mip = host + '/api/jac-automobile-manage/automobilemanage' //智享
-var witlocal = host + '/api/jacenergy' //杨毅飞本地服务器
+var witlocal = host + '/api/jac-energy/jacenergy' //新能源
     // var witlocal = 'http://172.21.12.74:8086/jacenergy' //杨毅飞本地服务器
     //服务器-admin(跟用户有关即我的)
 var mips = host + '/api/jac-admin' //地区
