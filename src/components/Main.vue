@@ -18,7 +18,7 @@ export default {
       loadingflag: false,
       loadingnum: 0,
       reg: /\/api\/(.*?)\//,
-      regg:/\/jacenergy\/(.*?)\//,
+      // regg:/\/jacenergy\/(.*?)\//,
       num: 0,
       flag:true,
     };
@@ -31,11 +31,6 @@ export default {
       config => {
         const params = config.method == "post" ? config.data : config.params;
         const arr = config.url.match(this.reg);
-        const arrr=config.url.match(this.regg);
-        // 在发送请求之前做些什么
-        // if (config.url == Lovecar.OperationId) {
-        //     localshow()
-        // }
         if (this.loadingnum == 0) {
           if(arr){
             switch (arr[1]) {
@@ -46,15 +41,12 @@ export default {
                 break;
               case "jac-car-control": //爱车
                 localshow();
+                break;
               default:
                 localshow();
             }
           }
-          if(arrr){
-             if(arrr[1]=='callBack'){
-                localshow()
-             }
-          }
+
         }
         this.loadingnum++;
         if (config.url.indexOf("dk-dm-portal-api") == -1) {
@@ -68,7 +60,6 @@ export default {
         if (this.loadingnum == 0) {
           localhide();
         }
-        // localhide()
         return Promise.reject(error);
       }
     );
@@ -103,20 +94,22 @@ export default {
             }
             break;
         }
+        console.log(response.config.url)
+        console.log(Newenergy.energyvehiclePINvalidation)
+        console.log(Newenergy.energyremotevehiclecontrol)
         if (
-          response.config.url != Lovecar.OperationId
-          // response.config.url != Lovecar.TSP &&
-          // response.config.url != Lovecar.vehiclestatus &&
-          // response.config.url != My.My_Bus &&
-          // response.config.url != Lovecar.Support &&
-          // response.config.url != Lovecar.Carquery
+          response.config.url != Lovecar.OperationId&&
+          response.config.url != Newenergy.energyvehicleasyncresults &&
+          response.config.url != Newenergy.energyvehiclePINvalidation&&
+          response.config.url != Newenergy.energyremotevehiclecontrol
         ) {
+          console.log(111)
           if (this.loadingnum == 0) {
             localhide();
             this.$forceUpdate();
           }
         } else {
-          // localhide()
+          console.log(123)
         }
         if (response.config.url.indexOf("dk-dm-portal-api") == -1) {
           ModalHelper.beforeClose(); //解决遮罩层穿透
@@ -133,7 +126,6 @@ export default {
         if (this.loadingnum == 0) {
           localhide();
         }
-        // localhide()
         return Promise.reject(error);
       }
     );

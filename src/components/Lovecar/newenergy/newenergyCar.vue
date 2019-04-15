@@ -619,7 +619,7 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              if (tSS >= 16) {
+              if (tSS >= 56) {
                 //超时提示
                 if (this.type == 1) {
                               // this.doorcontrol = true;
@@ -706,7 +706,7 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          if (tSS >= 16) {
+                          if (tSS >= 56) {
                             if (this.type == 1) {
                               // this.doorcontrol = true;
                               Toast({
@@ -1624,8 +1624,8 @@ export default {
     $(".MobileHeight").css({
       marginTop: this.$store.state.mobileStatusBar
     });
-    // this.vinn = this.$store.state.defaultInformation.vin;
-    this.vinn = 'LJ1EEASPXJ5000403';
+    this.vinn = this.$store.state.defaultInformation.vin;
+    // this.vinn = 'LJ1EEASPXJ5000403';
     this.Getmarkedwords();
     new Promise(()=>{
       this.getcarvalue();

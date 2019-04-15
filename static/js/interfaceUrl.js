@@ -6,6 +6,10 @@
 // //测试环境域名
 var host = '//test.jac.timanetwork.net'
 
+// //江淮测试环境
+// var host = '//jacsupperapptest.jac.com.cn/'
+
+
 //云环境域名
 // var host = 'https://jacsupperappuat.jac.com.cn/'
 
