@@ -65,14 +65,14 @@
 					<router-link tag="li" class="flex column" v-for="(item,index) in allflowbuy" :key="index"  :to="{path:'/myindex/flowOrderDetails', query: {flowDetail: item}}">
 						<p class="flex row tim between">
 							<span class="times">{{item.purchaseTime}}</span>
-							<span class="times" :class=" true ? 'order': ''">{{trafficOrder[item.paymentStatus]}}</span>
+							<span class="times" >{{trafficOrder[item.paymentStatus]}}</span>
 						</p>
 						<div class="cont">
 							<div class="flex column tp">
 								<!--<span class="bus_right">地址：上海市徐汇区田林路200号</span>-->
 								<span class="flowPacket-title">{{item.packetName}}</span>
 								<span class="bus_right">订单编号：{{item.orderId}}</span>
-								<span class="bus_right">流量价格：{{item.price}}元</span>
+								<span class="bus_right">流量价格：{{item.price|toyuan}}元</span>
 							</div>
 							<div class="flex column bus_left">
 								<img src="../../../static/images/next@2x.png" alt="">
@@ -80,14 +80,10 @@
 						</div>
 						<div class="flex row between bt">
 							<span></span>
-							<div v-if="item.paymentStatus">
-								<span class="cancel" :class=" item.paymentStatus == 1 ? 'active' : ''">付款</span>
-								<span class="cancel">取消订单</span>
+							<div>
+								<!-- <span class="cancel" :class=" item.paymentStatus == 0? 'active' : ''">付款</span> -->
+								<!-- <span class="cancel">取消订单</span> -->
 							</div>
-							<div v-else>
-								<span class="cancel">再次充值</span>
-								<span class="cancel">删除订单</span>
-							</div>							
 						</div>
 					</router-link >
 				</ul>
@@ -142,8 +138,8 @@ export default {
       allmaintenance: [],
       shoppingMall: [], //商城订单
       trafficOrder: {
-        "0": "已完成",
-        "1": "待付款"
+        "0": "付款失败",
+        "1": "已完成"
       },
       url: ""
     };
@@ -340,6 +336,11 @@ export default {
       this.$http.post(Lovecar.Getoederlist, params).then(res => {
       });
     }
+  },
+  filters:{
+        toyuan(moy){
+          return moy/100
+        }
   },
   created() {
     this.GetXorder();
