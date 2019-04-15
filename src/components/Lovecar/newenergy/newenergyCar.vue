@@ -1518,7 +1518,7 @@ export default {
                     .then(res => {
                       if (res.data.returnSuccess) {
                         setTimeout(() => {
-                          this.getAsyReturn("1543059419");
+                          this.getAsyReturn(res.data.operationId);
                         }, 2000);
                       } else {
                         Toast({
@@ -1543,7 +1543,7 @@ export default {
                     .then(res => {
                       if (res.data.returnSuccess) {
                         setTimeout(() => {
-                          this.getAsyReturn("1543059419");
+                          this.getAsyReturn(res.data.operationId);
                         }, 2000);
                       } else {
                         Toast({
@@ -1568,7 +1568,7 @@ export default {
                     .then(res => {
                       if (res.data.returnSuccess) {
                         setTimeout(() => {
-                          this.getAsyReturn("1543059419");
+                          this.getAsyReturn(res.data.operationId);
                         }, 2000);
                       } else {
                         Toast({
@@ -1593,7 +1593,7 @@ export default {
                     .then(res => {
                       if (res.data.returnSuccess) {
                         setTimeout(() => {
-                          this.getAsyReturn("1543059419");
+                          this.getAsyReturn(res.data.operationId);
                         }, 2000);
                       } else {
                         Toast({

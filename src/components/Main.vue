@@ -94,22 +94,18 @@ export default {
             }
             break;
         }
-        console.log(response.config.url)
-        console.log(Newenergy.energyvehiclePINvalidation)
-        console.log(Newenergy.energyremotevehiclecontrol)
         if (
           response.config.url != Lovecar.OperationId&&
           response.config.url != Newenergy.energyvehicleasyncresults &&
           response.config.url != Newenergy.energyvehiclePINvalidation&&
           response.config.url != Newenergy.energyremotevehiclecontrol
         ) {
-          console.log(111)
           if (this.loadingnum == 0) {
             localhide();
             this.$forceUpdate();
           }
         } else {
-          console.log(123)
+
         }
         if (response.config.url.indexOf("dk-dm-portal-api") == -1) {
           ModalHelper.beforeClose(); //解决遮罩层穿透
