@@ -32,6 +32,8 @@
            <img v-show="!mainhotimg" :src="'./../../../../static/images/Lovecar/hoton@2x.png'" alt="">
         </div>
         <div class="control">
+           <div class="control_dianleft"></div>
+           <div class="control_dianright"></div>     
            <div class="control_bg"></div>
            <div class="control_on" ref="control_bottom">
               <span @click="lowon"><</span>
@@ -39,7 +41,7 @@
               <span @click="highon">></span>
            </div>
         </div>
-        <div style="text-align: center">加热档位</div>
+        <div style="text-align: center;margin-top:.4rem;">加热档位</div>
         <mt-datetime-picker
             ref="picker"
             type="time"
@@ -617,6 +619,7 @@ export default {
 }
 .switch {
   width: 100%;
+  margin-top:.4rem;
   flex-direction: column;
 }
 .switch span {
@@ -654,11 +657,29 @@ export default {
 .control .control_bg {
   width: 3.6rem;
   position: absolute;
-  height: 0.01rem;
+  height: 0.02rem;
   background: #999;
   left: 50%;
   margin-left: -1.8rem;
   top: 0.5rem;
+}
+.control .control_dianleft{
+  position: absolute;
+  width: .08rem;
+  height: .08rem;
+  background: #999;
+  border-radius: 50%;
+  left: 25%;
+  top:.46rem;
+}
+.control .control_dianright{
+  position: absolute;
+  width: .08rem;
+  height: .08rem;
+  background: #999;
+  border-radius: 50%;
+  right: 25%;
+  top:.46rem;
 }
 .control .control_on {
   position: absolute;
@@ -666,7 +687,7 @@ export default {
   height: 0.6rem;
   left: 2.2rem;
   border-radius: 9.99rem;
-  border: 0.01rem solid #999;
+  border: 0.02rem solid #999;
   display: flex;
   justify-content: space-around;
   align-items: center;
