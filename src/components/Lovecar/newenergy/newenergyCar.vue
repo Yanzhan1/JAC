@@ -103,7 +103,7 @@
         </div>
         <!-- 非电池部分主体 -->
 				<div v-show="activeshow!=4" class="bus_l" >
-					<img style="position:absolute;left: 50%; top: .96rem;transform: translate(-50%, 0%);" src="../../../../static/images/Lovecar/energyCar@2x.png" alt="" class="bus_righgt">
+					<img style="position:absolute;left: 50%; top: .96rem;transform: translate(-50%, 0%);" src="../../../../static/images/Lovecar/newenergyLovecar.png" alt="" class="bus_righgt">
 					<span ref='open1' class='busl_r left_1 '>{{this.Condition.lfWindowOpen}}</span>
 					<span ref='open2' class='busl_r  left_2 '>{{this.Condition.lrWindowOpen}}</span>
 					<span ref='open3' class='busl_r right_1 '>{{this.Condition.rfWindowOpen}}</span>
@@ -134,10 +134,10 @@
           <img v-show="this.carcontrol.lightnearcontrol==1" style="display:block;position:absolute;z-index:-1;width:2.98rem;height:1.70rem;top:0rem;left:2.25rem;" :src="'./../../../../static/images/Lovecar/lightnear@2x.png'" alt="">  
 
           <!-- 车门展示 -->
-          <img v-show="activeshow==2&&this.carcontrol.doorStsFrontLeft" style="position:absolute;display:block;width:.53rem;height:.88rem;top:2.95rem;left:2.5rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
+          <!-- <img v-show="activeshow==2&&this.carcontrol.doorStsFrontLeft" style="position:absolute;display:block;width:.53rem;height:.88rem;top:2.95rem;left:2.5rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
           <img v-show="activeshow==2&&this.carcontrol.doorStsRearLeft" style="position:absolute;display:block;width:.53rem;height:.88rem;top:4.15rem;left:2.5rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
           <img v-show="activeshow==2&&this.carcontrol.doorStsFrontRight" style="transform:rotateY(180deg);position:absolute;display:block;width:.53rem;height:.88rem;top:2.95rem;left:4.45rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
-          <img v-show="activeshow==2&&this.carcontrol.doorStsRearRight" style="transform:rotateY(180deg);position:absolute;display:block;width:.53rem;height:.88rem;top:4.15rem;left:4.45rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
+          <img v-show="activeshow==2&&this.carcontrol.doorStsRearRight" style="transform:rotateY(180deg);position:absolute;display:block;width:.53rem;height:.88rem;top:4.15rem;left:4.45rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt=""> -->
 
           <!-- 轮胎温度start -->
           <!-- <span v-show="activeshow==1"  class='busl_r tiretemperature_left1'>11℃</span>

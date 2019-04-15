@@ -670,7 +670,7 @@ export default {
   background: #999;
   border-radius: 50%;
   left: 25%;
-  top:.46rem;
+  top:.465rem;
 }
 .control .control_dianright{
   position: absolute;
@@ -679,7 +679,7 @@ export default {
   background: #999;
   border-radius: 50%;
   right: 25%;
-  top:.46rem;
+  top:.465rem;
 }
 .control .control_on {
   position: absolute;
