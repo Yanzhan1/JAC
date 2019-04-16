@@ -1885,10 +1885,8 @@ input:focus {
 .bus_l .bus_l_bettery {
   position: relative;
   width: 1.6rem;
-  height: 2.2rem;
   left: 1.2rem;
   top: 0.71rem;
-  width: 100%;
   height: 3.5rem;
 }
 .betteryStatus {
