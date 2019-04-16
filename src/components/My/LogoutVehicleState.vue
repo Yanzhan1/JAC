@@ -1,20 +1,20 @@
 <template>
-	<div>
-		<mhead currentTitle="车机扫码登录"></mhead>
-		<div class="vehicle-show">
-			<img class="state-car" src="../../../static/images/my/qrcode@2x.png" alt="" />
-			<div>
-				<!-- <h5 class="car-title">账号还未在车机登录</h5> -->
-				<div class="car-info">
-					<h3 style="font: 800 .3rem/.5rem 'PingFang-SC-Medium'">点击扫码登录，登录账号到车机</h3>
-				</div>
-			</div>
-		</div>
-			<div class="bottom-btn" @click="login">
-				<img :src="'./static/images/my/code@2x.png'" alt="" />
-				<span>扫码登录</span>
-			</div>
-</div>
+  <div>
+    <mhead currentTitle="车机扫码登录"></mhead>
+    <div class="vehicle-show">
+      <img class="state-car" src="../../../static/images/my/qrcode@2x.png" alt>
+      <div>
+        <!-- <h5 class="car-title">账号还未在车机登录</h5> -->
+        <div class="car-info">
+          <h3 style="font: 800 .3rem/.5rem 'PingFang-SC-Medium'">点击扫码登录，登录账号到车机</h3>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-btn" @click="login">
+      <img :src="'./static/images/my/code@2x.png'" alt>
+      <span>扫码登录</span>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -44,12 +44,114 @@ export default {
       this.$store.dispatch("QRCODEPIN", status);
     },
     //暴露方法给ios拿数据
-    getiosStatus(iosstatus){
-     let status= JSON.parse(iosstatus)
-     this.$store.dispatch("QRCODEPIN", status);
+    getiosStatus(iosstatus) {
+      let status = JSON.parse(iosstatus);
+      this.$store.dispatch("QRCODEPIN", status);
     },
+    // getAsyReturn(operationId) {
+    //   this.sjc = new Date().getTime();
+    //   this.$http
+    //     .post(
+    //       Lovecar.OperationId,
+    //       { operationId: operationId },
+    //       this.$store.state.tsppin
+    //     )
+    //     .then(res => {
+    //       var tS = new Date().getTime() - this.sjc; //时间戳 差
+    //       var tSS = parseInt((tS / 1000) % 60); // 时间差
+    //       if (res.data.returnSuccess == true) {
+    //         if (res.data.status == "IN_PROGRESS") {
+    //           //60s  后 清除定时器，不在发请求
+    //           console.log(tSS);
+    //           if (tSS >= 56) {
+    //             Toast({
+    //               message: "超时",
+    //               position: "middle",
+    //               duration: 2000
+    //             });
+    //             localhide();
+    //           } else {
+    //             this.time = setInterval(() => {
+    //               this.$http
+    //                 .post(
+    //                   Lovecar.OperationId,
+    //                   { operationId: operationId },
+    //                   this.$store.state.tsppin
+    //                 )
+    //                 .then(res => {
+    //                   var tS = new Date().getTime() - this.sjc; //时间戳 差
+    //                   var tSS = parseInt((tS / 1000) % 60); // 时间差
+    //                   if (res.data.returnSuccess == true) {
+    //                     if (res.data.status == "IN_PROGRESS") {
+    //                       //60s  后 清除定时器，不在发请求
+    //                       console.log(tSS);
+    //                       if (tSS >= 56) {
+    //                         Toast({
+    //                           message: "超时",
+    //                           position: "middle",
+    //                           duration: 2000
+    //                         });
+    //                         clearInterval(this.time);
+    //                         localhide();
+    //                       }
+    //                     } else if (res.data.status == "SUCCEED") {
+    //                       Toast({
+    //                         message: "登入成功",
+    //                         position: "middle",
+    //                         duration: 2000
+    //                       });
+    //                       clearInterval(this.time);
+    //                       localhide();
+    //                     } else if (res.data.status == "FAILED") {
+    //                       Toast({
+    //                         message: "登入失败",
+    //                         position: "middle",
+    //                         duration: 2000
+    //                       });
+    //                       clearInterval(this.time);
+    //                       localhide();
+    //                     }
+    //                   } else {
+    //                     Toast({
+    //                       message: "登入失败",
+    //                       position: "middle",
+    //                       duration: 2000
+    //                     });
+    //                     clearInterval(this.time);
+    //                     localhide();
+    //                   }
+    //                 });
+    //             }, 4000);
+    //           }
+    //         } else if (res.data.status == "SUCCEED") {
+    //           Toast({
+    //             message: "登入成功",
+    //             position: "middle",
+    //             duration: 2000
+    //           });
+    //            clearInterval(this.time);
+    //           localhide();
+    //         } else if (res.data.status == "FAILED") {
+    //           Toast({
+    //             message: "登入失败",
+    //             position: "middle",
+    //             duration: 2000
+    //           });
+    //            clearInterval(this.time);
+    //           localhide();
+    //         }
+    //       } else {
+    //         Toast({
+    //           message: "登入失败",
+    //           position: "middle",
+    //           duration: 2000
+    //         });
+    //         clearInterval(this.time);
+    //         localhide();
+    //       }
+    //     });
+    // },
     getAsyReturn(operationId) {
-      this.sjc = new Date().getTime();
       this.$http
         .post(
           Lovecar.OperationId,
@@ -57,109 +159,32 @@ export default {
           this.$store.state.tsppin
         )
         .then(res => {
-          var tS = new Date().getTime() - this.sjc; //时间戳 差
-          var tSS = parseInt((tS / 1000) % 60); // 时间差
           if (res.data.returnSuccess == true) {
-            if (res.data.status == "IN_PROGRESS") {
-              //60s  后 清除定时器，不在发请求
-              console.log(tSS);
-              if (tSS >= 56) {
-                Toast({
-                  message: "超时",
-                  position: "middle",
-                  duration: 2000
-                });
-                localhide();
-              } else {
-                this.time = setInterval(() => {
-                  this.$http
-                    .post(
-                      Lovecar.OperationId,
-                      { operationId: operationId },
-                      this.$store.state.tsppin
-                    )
-                    .then(res => {
-                      var tS = new Date().getTime() - this.sjc; //时间戳 差
-                      var tSS = parseInt((tS / 1000) % 60); // 时间差
-                      if (res.data.returnSuccess == true) {
-                        if (res.data.status == "IN_PROGRESS") {
-                          //60s  后 清除定时器，不在发请求
-                          console.log(tSS);
-                          if (tSS >= 56) {
-                            Toast({
-                              message: "超时",
-                              position: "middle",
-                              duration: 2000
-                            });
-                            clearInterval(this.time);
-                            localhide();
-                          }
-                        } else if (res.data.status == "SUCCEED") {
-                          Toast({
-                            message: "登入成功",
-                            position: "middle",
-                            duration: 2000
-                          });
-                          clearInterval(this.time);
-                          localhide();
-                        } else if (res.data.status == "FAILED") {
-                          Toast({
-                            message: "登入失败",
-                            position: "middle",
-                            duration: 2000
-                          });
-                          clearInterval(this.time);
-                          localhide();
-                        }
-                      } else {
-                        Toast({
-                          message: "登入失败",
-                          position: "middle",
-                          duration: 2000
-                        });
-                        clearInterval(this.time);
-                        localhide();
-                      }
-                    });
-                }, 4000);
-              }
-            } else if (res.data.status == "SUCCEED") {
+            if (res.data.status == "SUCCEED") {
               Toast({
                 message: "登入成功",
                 position: "middle",
                 duration: 2000
               });
-               clearInterval(this.time);
+              clearInterval(this.time);
               localhide();
-            } else if (res.data.status == "FAILED") {
-              Toast({
-                message: "登入失败",
-                position: "middle",
-                duration: 2000
-              });
-               clearInterval(this.time);
+            } else {
+              clearInterval(this.time);
               localhide();
             }
           } else {
-            Toast({
-              message: "登入失败",
-              position: "middle",
-              duration: 2000
-            });
             clearInterval(this.time);
             localhide();
           }
         });
-    },
+    }
   },
   created() {
     window.getStatus = this.getStatus;
     window.getiosStatus = this.getiosStatus;
     // window.getStatus2 = this.getStatus2;
   },
-  mounted() {
-
-  },
+  mounted() {},
   computed: {
     qrCode() {
       return this.$store.state.qrCodeDate;
@@ -178,18 +203,18 @@ export default {
           .then(res => {
             const data = res.data;
             if (data.returnSuccess) {
-              this.getAsyReturn(data.operationId)
-            //   Toast({
-            //     message: "登录成功",
-            //     position: "middle",
-            //     duration: 2000
-            //   });
-            // }else{
-            //   Toast({
-            //     message: "登入失败",
-            //     position: "middle",
-            //     duration: 2000
-            //   });
+              this.getAsyReturn(data.operationId);
+              //   Toast({
+              //     message: "登录成功",
+              //     position: "middle",
+              //     duration: 2000
+              //   });
+              // }else{
+              //   Toast({
+              //     message: "登入失败",
+              //     position: "middle",
+              //     duration: 2000
+              //   });
             }
           })
           .catch(err => {});
@@ -234,8 +259,8 @@ export default {
   left: 50%;
   margin-top: 3.2rem;
   margin-left: -50%;
-   color: #444444;
-  font: 600 .4rem/.6rem 'PingFang-SC-Medium'
+  color: #444444;
+  font: 600 0.4rem/.6rem "PingFang-SC-Medium";
 }
 .bottom-btn {
   display: flex;
