@@ -8,7 +8,7 @@
               <!-- <div class="showElectricquantity" >{{this.carcontrol.soc==-1?0:this.carcontrol.soc}}</div> -->
               <div class="showElectricquantity" >20%</div>
             </div>
-            <img style="width:1.6rem;height:2.2rem;position:absolute"  :src="'./../../../../static/images/Lovecar/bgbattery@2x.png'" alt="">
+            <img style="width:1.6rem;height:2.2rem;position:absolute"  src="./../../../../static/images/Lovecar/bgbattery@2x.png" alt="">
           </div>
             <div class="tilte_right">
               <div class="flex between" style="margin-top:.6rem;">
@@ -17,7 +17,7 @@
                     <!-- <span style="padding:.15rem;">{{this.carcontrol.soc==-1?0:this.carcontrol.soc}}</span> -->
                     <span style="padding:.15rem;"></span>20%</span>
                   </div>
-                  <img @click="refish" style="width:.38rem;height:.32rem;position:absolute;left:3.5rem" :src="'./../../../../static/images/Lovecar/refreshagain@2x.png'" alt="">
+                  <img @click="refish" style="width:.38rem;height:.32rem;position:absolute;left:3.5rem" src="./../../../../static/images/Lovecar/refreshagain@2x.png" alt="">
               </div>
               <div class="flex contentcenter around title_right_bottom">
                   <div>
@@ -65,11 +65,11 @@
         </div>
         <div ref="showtime" v-show="value" class="showtime">{{this.showhour}}{{this.showminute}}后开始充电</div>
         <div v-if="!controlcharge" class="lastdian" @click="Charging">
-          <img :src="'./../../../../static/images/Lovecar/btndian@2x.png'" alt="">
+          <img src="./../../../../static/images/Lovecar/btndian@2x.png" alt="">
           <div>立即充电</div>
         </div>
         <div v-else class="lastdian" @click="Charging">
-          <img :src="'./../../../../static/images/Lovecar/btnoff@2x.png'" alt="">
+          <img src="./../../../../static/images/Lovecar/btnoff@2x.png" alt="">
           <div>停止充电</div>
         </div>
          <mt-datetime-picker

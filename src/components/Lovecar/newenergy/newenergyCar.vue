@@ -1507,7 +1507,7 @@ export default {
                   var param = {
                     vin: this.vinn,
                     operationType: "DIPPED_HEADLIGHT",
-                    operation: "2"
+                    operation: "1"
                   };
                   this.$http
                     .post(
@@ -1532,7 +1532,7 @@ export default {
                   var param = {
                     vin:this.vinn,
                     operationType: "DIPPED_HEADLIGHT",
-                    operation: "1"
+                    operation: "2"
                   };
                   this.$http
                     .post(

@@ -12,12 +12,12 @@
         </div>
         <div v-show="num==0" class="flex cocenter  nextbox" @click="openPicker">
             <span>预约加热</span>
-            <img :src="'./../../../../static/images/nextblue@2x.png'" alt="">
+            <img src="./../../../../static/images/nextblue@2x.png" alt="">
         </div>
         <div v-show='num==1' class="  nextbox" @click="Tips">
           <div class="flex cocenter">
             <span>预约加热已开启</span>
-            <img :src="'./../../../../static/images/nextblue@2x.png'" alt="">
+            <img src="./../../../../static/images/nextblue@2x.png" alt="">
           </div>
           <div class="flex cocenter">
             <div ref="nextbox_dang" style="color:#222;padding:.1rem 0 0 .3rem;font-size:.22rem;width:1rem;">低档 ,</div>
@@ -28,8 +28,8 @@
             <span style="color:#222">远程预热中…</span>
         </div>
         <div class="mainimg">
-           <img v-show="mainhotimg" :src="'./../../../../static/images/Lovecar/hot@2x.png'" alt="">
-           <img v-show="!mainhotimg" :src="'./../../../../static/images/Lovecar/hoton@2x.png'" alt="">
+           <img v-show="mainhotimg" src="./../../../../static/images/Lovecar/hot@2x.png" alt="">
+           <img v-show="!mainhotimg" src="./../../../../static/images/Lovecar/hoton@2x.png" alt="">
         </div>
         <div class="control">
            <div class="control_dianleft"></div>

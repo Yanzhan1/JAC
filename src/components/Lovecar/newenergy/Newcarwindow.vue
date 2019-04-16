@@ -246,17 +246,18 @@ export default {
     },
     //车窗接口一键系列
     httpwindowall() {
-      let percent = this.fluctuationType == "1" ? "0" : "100";
+      let percent = this.fluctuationType == "1" ? "1" : "2";
+      let opernLevel=this.fluctuationType == "1" ? "0" : "1";
       var param = {
         vin: this.$store.state.vins,
         operationType: "WINDOW",
-        // operation: this.nums, //操作项
+        operation: percent, //操作项
         extParams: {
-          "openLevel":"0",
+          "openLevel":opernLevel,
         }
       };
       this.$http
-        .post(Lovecar.Control, param, this.$store.state.tsppin)
+        .post(Newenergy.energyremotevehiclecontrol, param, this.$store.state.tsppin)
         .then(res => {
           this.operationIds = res.data.operationId;
           if (res.data.returnSuccess) {
@@ -269,6 +270,7 @@ export default {
               this.getAsyReturn(res.data.operationId);
             }, 2000);
           } else {
+            localhide()
             Toast({
               message: res.data.returnErrMsg,
               position: "middle",
@@ -313,7 +315,7 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              if (tSS >= 56) {
+              if (tSS >= 16) {
                 Toast({
                   message: this.windowwords[2].dictValue,
                   position: "middle",
@@ -334,7 +336,7 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          if (tSS >= 56) {
+                          if (tSS >= 16) {
                             Toast({
                               message: this.windowwords[2].dictValue,
                               position: "middle",
