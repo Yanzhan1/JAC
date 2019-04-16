@@ -12,7 +12,7 @@
 			</div>
 			<div class="detail-box">
 				<span>流量价格</span>
-				<span>{{flowDetail.price}}(元)</span>
+				<span>{{flowDetail.price|toyuan}}(元)</span>
 			</div>
 			<div class="detail-box">
 				<span>流量大小</span>
@@ -61,7 +61,12 @@
 		mounted() {
 			console.log(this.flowDetail)
 			// this.detail()
-		}
+		},
+		filters:{
+			toyuan(moy){
+			return moy/100
+			}
+  },
 	}
 </script>
 
