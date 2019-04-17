@@ -379,6 +379,7 @@ export default {
       vehicle_flameout: [], //车辆熄火的所有提示语
       find_vehicle: [], //寻车的所有提示语
       vehicle_condition: [], //车况的所有提示语
+      distance_light:[],//远近光灯提示语
       allFunction: [], //存储所有的车控功能
       chgStatus: "", //当前充电状态
       chgPlugStatus: "", //充电状态
@@ -584,11 +585,12 @@ export default {
           if (res.data.returnSuccess) {
             this.getAsyReturn(res.data.operationId);
           } else {
-            // Toast({
-            //   message: this.vehicle_condition[2].dictValue,
-            //   position: "middle",
-            //   duration: 2000
-            // });
+            localhide()
+            Toast({
+              message: this.vehicle_condition[2].dictValue,
+              position: "middle",
+              duration: 2000
+            });
           }
         });
     },
@@ -619,7 +621,7 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              if (tSS >= 56) {
+              if (tSS >= 6) {
                 //超时提示
                 if (this.type == 1) {
                               // this.doorcontrol = true;
@@ -661,7 +663,7 @@ export default {
                   }, 4000);
                 } else if (this.type == 6) {
                   Toast({
-                    message: this.open_trunk[3].dictValue,
+                    message: this.distance_light[6].dictValue,
                     position: "middle",
                     duration: 2000
                   });
@@ -669,14 +671,14 @@ export default {
                   // this.lightfarcontrol = true;
                 } else if (this.type == 7) {
                   Toast({
-                    message: this.open_trunk[3].dictValue,
+                    message: this.distance_light[8].dictValue,
                     position: "middle",
                     duration: 2000
                   });
                   // this.lightnearcontrol = true;
                 } else if (this.type == 8) {
                   Toast({
-                    message: this.open_trunk[3].dictValue,
+                    message: this.distance_light[2].dictValue,
                     position: "middle",
                     duration: 2000
                   });
@@ -684,7 +686,7 @@ export default {
                   // this.lightnearcontrol = true;
                 } else if (this.type == 9) {
                   Toast({
-                    message: this.open_trunk[3].dictValue,
+                    message: this.distance_light[4].dictValue,
                     position: "middle",
                     duration: 2000
                   });
@@ -696,6 +698,9 @@ export default {
                     duration: 2000
                   });
                 }
+                clearInterval(this.time);
+                localhide();
+
               } else {
                 this.time = setInterval(() => {
                   this.$http
@@ -753,7 +758,7 @@ export default {
                               }, 4000);
                             } else if (this.type == 6) {
                               Toast({
-                                message: this.open_trunk[3].dictValue,
+                                message: this.distance_light[6].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
@@ -761,14 +766,14 @@ export default {
                               // this.lightfarcontrol = true;
                             } else if (this.type == 7) {
                               Toast({
-                                message: this.open_trunk[3].dictValue,
+                                message: this.distance_light[8].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
                               // this.lightnearcontrol = true;
                             } else if (this.type == 8) {
                               Toast({
-                                message: this.open_trunk[3].dictValue,
+                                message: this.distance_light[2].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
@@ -776,7 +781,7 @@ export default {
                               // this.lightnearcontrol = true;
                             } else if (this.type == 9) {
                               Toast({
-                                message: this.open_trunk[3].dictValue,
+                                message: this.distance_light[4].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
@@ -788,7 +793,6 @@ export default {
                                 duration: 2000
                               });
                             }
-                            //超时提示并且清除定时器关闭遮罩层
                             clearInterval(this.time);
                             localhide();
                           }
@@ -925,10 +929,8 @@ export default {
                           console.log('bbbb')
                           localhide();
                         } else if (res.data.status == "FAILED") {
-                          clearInterval(this.time);
-                          localhide();
                           if (this.type == 1) {
-                            // this.doorcontrol = true;
+                              // this.doorcontrol = true;
                             Toast({
                               message: this.close_lock[2].dictValue,
                               position: "middle",
@@ -967,7 +969,7 @@ export default {
                             }, 4000);
                           } else if (this.type == 6) {
                             Toast({
-                              message: this.open_trunk[3].dictValue,
+                              message: this.distance_light[6].dictValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -975,14 +977,14 @@ export default {
                             // this.lightfarcontrol = true;
                           } else if (this.type == 7) {
                             Toast({
-                              message: this.open_trunk[3].dictValue,
+                              message: this.distance_light[8].dictValue,
                               position: "middle",
                               duration: 2000
                             });
                             // this.lightnearcontrol = true;
                           } else if (this.type == 8) {
                             Toast({
-                              message: this.open_trunk[3].dictValue,
+                              message: this.distance_light[2].dictValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -990,7 +992,7 @@ export default {
                             // this.lightnearcontrol = true;
                           } else if (this.type == 9) {
                             Toast({
-                              message: this.open_trunk[3].dictValue,
+                              message: this.distance_light[4].dictValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -1002,9 +1004,11 @@ export default {
                               duration: 2000
                             });
                           }
+                          clearInterval(this.time);
+                          localhide();
                         }
                           } else {
-                            if (this.type == 1) {
+                           if (this.type == 1) {
                               // this.doorcontrol = true;
                               Toast({
                                 message: this.close_lock[2].dictValue,
@@ -1044,7 +1048,7 @@ export default {
                               }, 4000);
                             } else if (this.type == 6) {
                               Toast({
-                                message: this.open_trunk[3].dictValue,
+                                message: this.distance_light[6].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
@@ -1052,14 +1056,14 @@ export default {
                               // this.lightfarcontrol = true;
                             } else if (this.type == 7) {
                               Toast({
-                                message: this.open_trunk[3].dictValue,
+                                message: this.distance_light[8].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
                               // this.lightnearcontrol = true;
                             } else if (this.type == 8) {
                               Toast({
-                                message: this.open_trunk[3].dictValue,
+                                message: this.distance_light[2].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
@@ -1067,7 +1071,7 @@ export default {
                               // this.lightnearcontrol = true;
                             } else if (this.type == 9) {
                               Toast({
-                                message: this.open_trunk[3].dictValue,
+                                message: this.distance_light[4].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
@@ -1214,12 +1218,166 @@ export default {
               console.log('eeeee')
               localhide();
             } else if (res.data.status == "FAILED") {
-              clearInterval(this.time);
-              localhide();
-            }
+
+                if (this.type == 1) {
+                  // this.doorcontrol = true;
+                  Toast({
+                    message: this.close_lock[2].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                } else if (this.type == 2) {
+                  // this.doorcontrol = false;
+                  Toast({
+                    message: this.open_lock[2].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                } else if (this.type == 3) {
+                  // this.trunkcontrol = false;
+                  Toast({
+                    message: this.open_trunk[2].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                } else if (this.type == 4) {
+                  // this.trunkcontrol = true;
+                  Toast({
+                    message: this.open_trunk[3].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                } else if (this.type == 5) {
+                  Toast({
+                    message: this.find_vehicle[2].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                  // this.findcarcontrol = false;
+                  setTimeout(() => {
+                    this.findcarcontrol = true;
+                  }, 4000);
+                } else if (this.type == 6) {
+                  Toast({
+                    message: this.distance_light[6].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                  // this.lightnearcontrol = false;
+                  // this.lightfarcontrol = true;
+                } else if (this.type == 7) {
+                  Toast({
+                    message: this.distance_light[8].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                  // this.lightnearcontrol = true;
+                } else if (this.type == 8) {
+                  Toast({
+                    message: this.distance_light[2].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                  // this.lightfarcontrol = false;
+                  // this.lightnearcontrol = true;
+                } else if (this.type == 9) {
+                  Toast({
+                    message: this.distance_light[4].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                  // this.lightfarcontrol = true;
+                }else {
+                  Toast({
+                    message: this.vehicle_condition[2].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                }
+                clearInterval(this.time);
+                localhide();
+              }
+            
           } else {
-            clearInterval(this.time);
-            localhide();
+             if (tSS >= 6) {
+                            if (this.type == 1) {
+                              // this.doorcontrol = true;
+                              Toast({
+                                message: this.close_lock[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else if (this.type == 2) {
+                              // this.doorcontrol = false;
+                              Toast({
+                                message: this.open_lock[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else if (this.type == 3) {
+                              // this.trunkcontrol = false;
+                              Toast({
+                                message: this.open_trunk[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else if (this.type == 4) {
+                              // this.trunkcontrol = true;
+                              Toast({
+                                message: this.open_trunk[3].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else if (this.type == 5) {
+                              Toast({
+                                message: this.find_vehicle[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.findcarcontrol = false;
+                              setTimeout(() => {
+                                this.findcarcontrol = true;
+                              }, 4000);
+                            } else if (this.type == 6) {
+                              Toast({
+                                message: this.distance_light[6].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.lightnearcontrol = false;
+                              // this.lightfarcontrol = true;
+                            } else if (this.type == 7) {
+                              Toast({
+                                message: this.distance_light[8].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.lightnearcontrol = true;
+                            } else if (this.type == 8) {
+                              Toast({
+                                message: this.distance_light[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.lightfarcontrol = false;
+                              // this.lightnearcontrol = true;
+                            } else if (this.type == 9) {
+                              Toast({
+                                message: this.distance_light[4].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                              // this.lightfarcontrol = true;
+                            }else {
+                              Toast({
+                                message: this.vehicle_condition[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
+                            clearInterval(this.time);
+                            localhide();
+                          }
           }
         });
     },
@@ -1295,6 +1453,7 @@ export default {
       this.$http.post(My.getwords, {}).then(res => {
         if (res.data.msg == "success") {
           this.allwords = res.data.data;
+          console.log(this.allwords)
           this.$store.dispatch("getWords", this.allwords);
           for (let value of this.allwords) {
             if (value.dictType == "open_lock") {
@@ -1318,7 +1477,11 @@ export default {
             if (value.dictType == "vehicle_condition") {
               this.vehicle_condition = value.sysDictDataVOs;
             }
+            if (value.dictType == "distance_light") {
+              this.distance_light = value.sysDictDataVOs;
+            }
           }
+          console.log(this.distance_light)
         }
       });
     },
@@ -1417,6 +1580,7 @@ export default {
                           this.getAsyReturn(res.data.operationId);
                         }, 2000);
                       } else {
+                        localhide();
                         Toast({
                           message: res.data.returnErrMsg,
                           position: "middle",
@@ -1442,6 +1606,7 @@ export default {
                           this.getAsyReturn(res.data.operationId);
                         }, 2000);
                       } else {
+                        localhide();
                         Toast({
                           message: res.data.returnErrMsg,
                           position: "middle",
@@ -1467,6 +1632,7 @@ export default {
                           this.getAsyReturn(res.data.operationId);
                         }, 2000);
                       } else {
+                        localhide();
                         Toast({
                           message: res.data.returnErrMsg,
                           position: "middle",
@@ -1492,6 +1658,7 @@ export default {
                           this.getAsyReturn(res.data.operationId);
                         }, 2000);
                       } else {
+                        localhide();
                         Toast({
                           message: res.data.returnErrMsg,
                           position: "middle",
@@ -1517,6 +1684,7 @@ export default {
                           this.getAsyReturn(res.data.operationId);
                         }, 2000);
                       } else {
+                        localhide()                
                         Toast({
                           message: res.data.returnErrMsg,
                           position: "middle",
@@ -1542,6 +1710,7 @@ export default {
                           this.getAsyReturn(res.data.operationId);
                         }, 2000);
                       } else {
+                        localhide();
                         Toast({
                           message: res.data.returnErrMsg,
                           position: "middle",
@@ -1567,6 +1736,7 @@ export default {
                           this.getAsyReturn(res.data.operationId);
                         }, 2000);
                       } else {
+                        localhide();
                         Toast({
                           message: res.data.returnErrMsg,
                           position: "middle",
@@ -1592,6 +1762,7 @@ export default {
                           this.getAsyReturn(res.data.operationId);
                         }, 2000);
                       } else {
+                        localhide();
                         Toast({
                           message: res.data.returnErrMsg,
                           position: "middle",
@@ -1617,6 +1788,7 @@ export default {
                           this.getAsyReturn(res.data.operationId);
                         }, 2000);
                       } else {
+                        localhide();
                         Toast({
                           message: res.data.returnErrMsg,
                           position: "middle",
