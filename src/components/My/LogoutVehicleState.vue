@@ -63,7 +63,7 @@ export default {
             console.log(tSS);
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              if (tSS >= 1) {
+              if (tSS >= 5) {
                 localhide();
               } else {
                 this.time = setInterval(() => {
@@ -79,7 +79,7 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          if (tSS >= 1) {
+                          if (tSS >= 5) {
                             clearInterval(this.time);
                             localhide();
                           }
