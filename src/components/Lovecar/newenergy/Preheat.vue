@@ -230,6 +230,8 @@ export default {
         .then(res => {
           if (res.data.returnSuccess) {
             this.getAsyReturn('1806385781');
+          }else{
+            localhide()
           }
         });
     },
@@ -314,7 +316,7 @@ export default {
                 this.time = setInterval(() => {
                   this.$http
                     .post(
-                      Lovecar.OperationId,
+                      Newenergy.energyvehicleasyncresults,
                       {
                         operationId: operationId
                       },
