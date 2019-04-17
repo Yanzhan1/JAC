@@ -619,9 +619,10 @@ export default {
           var tS = new Date().getTime() - this.sjc; //时间戳 差
           var tSS = parseInt((tS / 1000) % 60); // 时间差
           if (res.data.returnSuccess == true) {
+           
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              if (tSS >= 6) {
+              if (tSS >= 56) {
                 //超时提示
                 if (this.type == 1) {
                               // this.doorcontrol = true;
@@ -715,6 +716,7 @@ export default {
                       var tS = new Date().getTime() - this.sjc; //时间戳 差
                       var tSS = parseInt((tS / 1000) % 60); // 时间差
                       if (res.data.returnSuccess == true) {
+                         console.log(tSS)
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
                           if (tSS >= 56) {
@@ -926,7 +928,6 @@ export default {
                           }
                           // }
                           clearInterval(this.time);
-                          console.log('bbbb')
                           localhide();
                         } else if (res.data.status == "FAILED") {
                           if (this.type == 1) {
@@ -1215,7 +1216,6 @@ export default {
               }
               // }
               clearInterval(this.time);
-              console.log('eeeee')
               localhide();
             } else if (res.data.status == "FAILED") {
 
@@ -1453,7 +1453,6 @@ export default {
       this.$http.post(My.getwords, {}).then(res => {
         if (res.data.msg == "success") {
           this.allwords = res.data.data;
-          console.log(this.allwords)
           this.$store.dispatch("getWords", this.allwords);
           for (let value of this.allwords) {
             if (value.dictType == "open_lock") {
@@ -1481,7 +1480,6 @@ export default {
               this.distance_light = value.sysDictDataVOs;
             }
           }
-          console.log(this.distance_light)
         }
       });
     },
