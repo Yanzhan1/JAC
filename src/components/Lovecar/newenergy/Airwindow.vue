@@ -130,6 +130,13 @@ export default {
         .then(res => {
           if (res.data.returnSuccess) {
             this.getAsyReturn(res.data.operationId);
+          }else{
+            localhide()
+            Toast({
+                  message: res.data.returnErrMsg,
+                  position: "middle",
+                  duration: 2000
+                });
           }
         });
     },
@@ -150,7 +157,22 @@ export default {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
               if (tSS >= 56) {
-                //超时提示
+                //超时提示并且清除定时器关闭遮罩层
+                            clearInterval(this.time);
+                            localhide();
+                            if (this.buttoncontrol) {
+                              Toast({
+                                message: this.skywords[5].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            } else {
+                              Toast({
+                                message: this.skywords[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
+                            }
               } else {
                 this.time = setInterval(() => {
                   this.$http
@@ -485,19 +507,20 @@ export default {
                 //清空pin码
                 (this.pinNumber = "");
                 Toast({
-                          message: 'PIN码验证失败',
+                          message: res.data.returnErrMsg,
                           position: "middle",
                           duration: 2000
                         });          
               }
-        })}
+        })
+      }
     },
     fullValue(newVal, oldVal) {
       if (this.fullValue.length == 6) {
         var nums = this.fullValue;
         this.$http
           .post(
-            Lovecar.Checkphonepin,
+            Newenergy.energyvehiclePINvalidation,
             {
               pin: nums
             },
@@ -505,34 +528,29 @@ export default {
           )
           .then(res => {
             if (res.data.returnSuccess) {
+              // this.value = !this.value;
               this.init();
               //消失遮罩
               this.popupVisible = !this.popupVisible;
               //消失软键盘
-              // (this.showTyper = 0),
-              //清空pin码
-              this.fullValue = "";
-            } else {
-              //消失遮罩
+              (this.showTyper = 0),
+                //清空pin码
+                (this.fullValue = "");
+            }else{
+                localhide();
+                //消失遮罩
               this.popupVisible = !this.popupVisible;
               //消失软键盘
-              // (this.showTyper = 0),
-              //清空pin码
-              this.fullValue = "";
-              Toast({
-                message: res.data.returnErrMsg,
-                position: "middle",
-                duration: 1000
-              });
-            }
-          })
-          .catch(err => {
-            Toast({
-              message: res.data.returnErrMsg,
-              position: "middle",
-              duration: 1000
-            });
-          });
+              (this.showTyper = 0),
+                //清空pin码
+                (this.fullValue = "");
+                Toast({
+                          message: res.data.returnErrMsg,
+                          position: "middle",
+                          duration: 2000
+                        });          
+              }
+        })
       }
     }
   }

@@ -212,7 +212,7 @@ export default {
     //远程加热接口
     hotted() {
       let data = {
-        vin: "LS5A3CJC9JF830022",
+        vin: this.$store.state.vins,
         operationType: "PREHEAT",
         operation:this.operation,
         extParams: {
@@ -228,13 +228,12 @@ export default {
         )
         .then(res => {
           if (res.data.returnSuccess) {
-            this.getAsyReturn("1034548346");
+            this.getAsyReturn(res.data.operationId);
           }
         });
     },
     getAsyReturn(operationId) {
       this.sjc = new Date().getTime();
-      console.log(Newenergy);
       this.$http
         .post(
           Newenergy.energyvehicleasyncresults,
@@ -438,10 +437,7 @@ export default {
     pinNumber(newVal, oldVal) {
       if (this.pinNumber.length == 6) {
         this.popupVisible = !this.popupVisible;
-        //消失软键盘
-        (this.showTyper = 0),
-          //清空pin码
-          (this.pinNumber = "");
+        console.log(this.pinNumber)
         var nums = this.pinNumber;
         //改变加热开关
         this.$http
@@ -454,12 +450,9 @@ export default {
           )
           .then(res => {
             if (res.data.returnSuccess) {
-        // this.value = !this.value;\
-        //pin码正确激活弧线
-        // //pin码正确激活空调图
-        // (this.activeShowImg = !this.activeShowImg),
-        // this.refreshPmData(),
-        //消失遮罩
+         this.showTyper = 0
+            //清空pin码
+            this.pinNumber = ""
         if (this.choose == "立即预约加热") {
           this.totime = 0;
           if(this.onoff){
@@ -497,12 +490,10 @@ export default {
         
         } else {
           localhide();
-          //消失遮罩
-          this.popupVisible = !this.popupVisible;
           //消失软键盘
-          (this.showTyper = 0),
+          this.showTyper = 0
             //清空pin码
-            (this.pinNumber = "");
+            this.pinNumber = ""
           Toast({
             message: res.data.returnErrMsg,
             position: "middle",
@@ -521,11 +512,13 @@ export default {
       }
     },
     fullValue(newVal, oldVal) {
-      if (this.fullValue.length == 6) {
+       if (this.fullValue.length == 6) {
+        this.popupVisible = !this.popupVisible;
         var nums = this.fullValue;
+        //改变加热开关
         this.$http
           .post(
-            Lovecar.Checkphonepin,
+            Newenergy.energyvehiclePINvalidation,
             {
               pin: nums
             },
@@ -533,44 +526,65 @@ export default {
           )
           .then(res => {
             if (res.data.returnSuccess) {
-              // this.value = !this.value;
-
-              // //pin码正确激活空调图
-              // (this.activeShowImg = !this.activeShowImg),
-              // this.refreshPmData(),
-              //消失遮罩
-              this.popupVisible = !this.popupVisible;
-              //消失软键盘
-              (this.showTyper = 0),
-                //清空pin码
-                (this.fullValue = "");
-            } else {
-              //消失遮罩
-              this.popupVisible = !this.popupVisible;
-              //消失软键盘
-              (this.showTyper = 0),
-                //清空pin码
-                (this.fullValue = "");
-              Toast({
-                message: res.data.returnErrMsg,
-                position: "middle",
-                duration: 1000
-              });
-            }
-          })
-          .catch(err => {
-            //消失遮罩
-            this.popupVisible = !this.popupVisible;
-            //消失软键盘
-            (this.showTyper = 0),
-              //清空pin码
-              (this.fullValue = "");
-            Toast({
-              message: res.data.returnErrMsg,
-              position: "middle",
-              duration: 1000
-            });
+         this.showTyper = 0
+            //清空pin码
+            this.fullValue = ""
+        if (this.choose == "立即预约加热") {
+          this.totime = 0;
+          if(this.onoff){
+            this.operation=1;
+          }else{
+            this.operation=2;
+          }
+        } else if (this.choose == "准备预约加热") {
+          this.operation=2;
+        } else if (this.choose == "档位调低") {
+          if(this.operation==0){
+                Toast({
+                  message: '请先选择预热时间或者直接预热',
+                  position: "middle",
+                  duration: 2000
+                });
+            return false
+          }
+          this.level = 1;
+        } else if (this.choose == "档位调高") {
+          if(this.operation==0){
+                Toast({
+                  message: '请先选择预热时间或者直接预热',
+                  position: "middle",
+                  duration: 2000
+                });
+            return false
+          }
+          this.level = 2;
+        } else if (this.choose == "准备关闭预约加热") {
+          this.operation=1
+        }
+        this.hotted();
+        
+        
+        } else {
+          localhide();
+          //消失软键盘
+          this.showTyper = 0
+            //清空pin码
+            this.fullValue = ""
+          Toast({
+            message: res.data.returnErrMsg,
+            position: "middle",
+            duration: 1000
           });
+        }
+        })
+        .catch(err => {
+          localhide();
+          Toast({
+            message: res.data.returnErrMsg,
+            position: "middle",
+            duration: 1000
+          });
+        });
       }
     }
   },
@@ -581,7 +595,9 @@ export default {
     this.inputs();
     // this.loadcss()
   },
-  mounted() {}
+  mounted() {
+
+  }
 };
 </script>
 

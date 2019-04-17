@@ -315,7 +315,7 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              if (tSS >= 16) {
+              if (tSS >= 56) {
                 Toast({
                   message: this.windowwords[2].dictValue,
                   position: "middle",
@@ -336,7 +336,7 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          if (tSS >= 16) {
+                          if (tSS >= 56) {
                             Toast({
                               message: this.windowwords[2].dictValue,
                               position: "middle",
@@ -519,7 +519,7 @@ export default {
           .catch(err => {
             localhide();
             Toast({
-              message: res.data.returnErrMsg,
+              message: res.data.msg,
               position: "middle",
               duration: 1000
             });
@@ -529,9 +529,10 @@ export default {
     fullValue(newVal, oldVal) {
       if (this.fullValue.length == 6) {
         var nums = this.fullValue;
+        //      alert(this.$store.state.tsppin.headers.identityParam.token)
         this.$http
           .post(
-            Lovecar.Checkphonepin,
+            Newenergy.energyvehiclePINvalidation,
             {
               pin: nums
             },
@@ -539,8 +540,9 @@ export default {
           )
           .then(res => {
             if (res.data.returnSuccess) {
-              // this.value = !this.value;
+              // this.value = !this.value;\
                 this.httpwindowall();
+              //pin码正确激活弧线
               // //pin码正确激活空调图
               // (this.activeShowImg = !this.activeShowImg),
               // this.refreshPmData(),
@@ -551,6 +553,7 @@ export default {
                 //清空pin码
                 (this.fullValue = "");
             } else {
+              localhide();
               //消失遮罩
               this.popupVisible = !this.popupVisible;
               //消失软键盘
@@ -565,8 +568,9 @@ export default {
             }
           })
           .catch(err => {
+            localhide();
             Toast({
-              message: res.data.returnErrMsg,
+              message: res.data.msg,
               position: "middle",
               duration: 1000
             });

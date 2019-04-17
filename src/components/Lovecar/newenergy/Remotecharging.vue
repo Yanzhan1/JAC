@@ -572,10 +572,11 @@ export default {
     },
     fullValue(newVal, oldVal) {
       if (this.fullValue.length == 6) {
+        
         var nums = this.fullValue;
         this.$http
           .post(
-            Lovecar.Checkphonepin,
+            Newenergy.energyvehiclePINvalidation,
             {
               pin: nums
             },
@@ -583,8 +584,8 @@ export default {
           )
           .then(res => {
             if (res.data.returnSuccess) {
-              // this.value = !this.value;
-              
+              // this.value = !this.value;\
+              //pin码正确激活弧线
               // //pin码正确激活空调图
               // (this.activeShowImg = !this.activeShowImg),
               // this.refreshPmData(),
@@ -594,7 +595,10 @@ export default {
               (this.showTyper = 0),
                 //清空pin码
                 (this.fullValue = "");
+                alert(this.operation)
+                this.charged()
             } else {
+               localhide();
               //消失遮罩
               this.popupVisible = !this.popupVisible;
               //消失软键盘
@@ -609,12 +613,7 @@ export default {
             }
           })
           .catch(err => {
-            //消失遮罩
-              this.popupVisible = !this.popupVisible;
-              //消失软键盘
-              (this.showTyper = 0),
-                //清空pin码
-                (this.fullValue = "");
+             localhide();
             Toast({
               message: res.data.returnErrMsg,
               position: "middle",

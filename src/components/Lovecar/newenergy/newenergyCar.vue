@@ -623,73 +623,79 @@ export default {
                 //超时提示
                 if (this.type == 1) {
                               // this.doorcontrol = true;
-                              Toast({
-                                message: this.close_lock[2].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                            } else if (this.type == 2) {
-                              // this.doorcontrol = false;
-                              Toast({
-                                message: this.open_lock[2].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                            } else if (this.type == 3) {
-                              // this.trunkcontrol = false;
-                              Toast({
-                                message: this.open_trunk[2].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                            } else if (this.type == 4) {
-                              // this.trunkcontrol = true;
-                              Toast({
-                                message: this.open_trunk[3].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                            } else if (this.type == 5) {
-                              Toast({
-                                message: this.find_vehicle[2].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                              // this.findcarcontrol = false;
-                              setTimeout(() => {
-                                this.findcarcontrol = true;
-                              }, 4000);
-                            } else if (this.type == 6) {
-                              Toast({
-                                message: this.open_trunk[3].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                              // this.lightnearcontrol = false;
-                              // this.lightfarcontrol = true;
-                            } else if (this.type == 7) {
-                              Toast({
-                                message: this.open_trunk[3].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                              // this.lightnearcontrol = true;
-                            } else if (this.type == 8) {
-                              Toast({
-                                message: this.open_trunk[3].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                              // this.lightfarcontrol = false;
-                              // this.lightnearcontrol = true;
-                            } else if (this.type == 9) {
-                              Toast({
-                                message: this.open_trunk[3].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                              // this.lightfarcontrol = true;
-                            }
+                  Toast({
+                    message: this.close_lock[2].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                } else if (this.type == 2) {
+                  // this.doorcontrol = false;
+                  Toast({
+                    message: this.open_lock[2].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                } else if (this.type == 3) {
+                  // this.trunkcontrol = false;
+                  Toast({
+                    message: this.open_trunk[2].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                } else if (this.type == 4) {
+                  // this.trunkcontrol = true;
+                  Toast({
+                    message: this.open_trunk[3].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                } else if (this.type == 5) {
+                  Toast({
+                    message: this.find_vehicle[2].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                  // this.findcarcontrol = false;
+                  setTimeout(() => {
+                    this.findcarcontrol = true;
+                  }, 4000);
+                } else if (this.type == 6) {
+                  Toast({
+                    message: this.open_trunk[3].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                  // this.lightnearcontrol = false;
+                  // this.lightfarcontrol = true;
+                } else if (this.type == 7) {
+                  Toast({
+                    message: this.open_trunk[3].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                  // this.lightnearcontrol = true;
+                } else if (this.type == 8) {
+                  Toast({
+                    message: this.open_trunk[3].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                  // this.lightfarcontrol = false;
+                  // this.lightnearcontrol = true;
+                } else if (this.type == 9) {
+                  Toast({
+                    message: this.open_trunk[3].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                  // this.lightfarcontrol = true;
+                }else {
+                  Toast({
+                    message: this.vehicle_condition[2].dictValue,
+                    position: "middle",
+                    duration: 2000
+                  });
+                }
               } else {
                 this.time = setInterval(() => {
                   this.$http
@@ -775,10 +781,15 @@ export default {
                                 duration: 2000
                               });
                               // this.lightfarcontrol = true;
+                            }else {
+                              Toast({
+                                message: this.vehicle_condition[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
                             }
                             //超时提示并且清除定时器关闭遮罩层
                             clearInterval(this.time);
-                            console.log('aaa')
                             localhide();
                           }
                         } else if (res.data.status == "SUCCEED") {
@@ -837,6 +848,7 @@ export default {
                               ? "已打开"
                               : "已关闭" //右后 门
                           };
+                          this.doorcontrol=this.carcontrol.mainLockStatus==1?false:true
                           // } else {
 
                           if (this.type == 1) {
@@ -914,7 +926,6 @@ export default {
                           localhide();
                         } else if (res.data.status == "FAILED") {
                           clearInterval(this.time);
-                          console.log('cccc')
                           localhide();
                           if (this.type == 1) {
                             // this.doorcontrol = true;
@@ -984,6 +995,12 @@ export default {
                               duration: 2000
                             });
                             // this.lightfarcontrol = true;
+                          }else {
+                            Toast({
+                              message: this.vehicle_condition[2].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
                           }
                         }
                           } else {
@@ -1055,9 +1072,14 @@ export default {
                                 duration: 2000
                               });
                               // this.lightfarcontrol = true;
+                            }else {
+                              Toast({
+                                message: this.vehicle_condition[2].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
                             }
                             clearInterval(this.time);
-                            console.log('ddddd')
                             localhide();
                           }
                     });
@@ -1117,7 +1139,7 @@ export default {
                   : "已关闭" //右后 门
               };
               // } else {
-
+                this.doorcontrol=this.carcontrol.mainLockStatus==1?false:true
               if (this.type == 1) {
                 this.doorcontrol = true;
                 Toast({
@@ -1193,12 +1215,10 @@ export default {
               localhide();
             } else if (res.data.status == "FAILED") {
               clearInterval(this.time);
-              console.log('ffff')
               localhide();
             }
           } else {
             clearInterval(this.time);
-            console.log('gggg')
             localhide();
           }
         });
@@ -1218,6 +1238,7 @@ export default {
         .then(res => {
           if (res.data.returnSuccess) {
             this.carcontrol = res.data.data;
+            this.doorcontrol= this.carcontrol.mainLockStatus==1?false:true
             //控制尾门的状态
             this.trunkcontrol = this.carcontrol.trunkLockStatus ? false : true;
             //控制远光灯的状态
