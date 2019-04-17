@@ -339,7 +339,6 @@ export default {
           this.skywords = value.sysDictDataVOs;
         }
       }
-      console.log(this.skywords)
     },
     Toasteach() {
       MessageBox("提示", this.skywords[3].dictValue);

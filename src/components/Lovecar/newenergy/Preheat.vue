@@ -119,7 +119,8 @@ export default {
       //自定义软键盘状态 0 消失 2 键盘开启
       showTyper: 0,
       //软键盘内容12位随机数组
-      keyNums: []
+      keyNums: [],
+      battery_heating:[],//预热的所有提示语
     };
   },
   methods: {
@@ -228,7 +229,7 @@ export default {
         )
         .then(res => {
           if (res.data.returnSuccess) {
-            this.getAsyReturn(res.data.operationId);
+            this.getAsyReturn('1806385781');
           }
         });
     },
@@ -250,6 +251,65 @@ export default {
               //60s  后 清除定时器，不在发请求
               if (tSS >= 56) {
                 //超时提示
+                if (this.choose == "立即预约加热") {
+                    if (!this.onoff) {
+                      Toast({
+                        message: this.battery_heating[6].dictValue,
+                        position: "middle",
+                        duration: 1000
+                      });
+                      // this.mainhotimg = false;
+                      // this.onoff = true;
+                      // this.num = 2;
+                    } else {
+                      Toast({
+                        message: this.battery_heating[8].dictValue,
+                        position: "middle",
+                        duration: 1000
+                      });
+                      // this.num = 0;
+                      // this.onoff = false;
+                      // this.mainhotimg = true;
+                    }
+                } else if (this.choose == "准备预约加热") {
+                  // this.num = 1;
+                  Toast({
+                      message: this.battery_heating[2].dictValue,
+                      position: "middle",
+                      duration: 1000
+                    });
+                } else if (this.choose == "档位调高") {
+                  // if (this.$refs.commenttext.innerHTML == "低") {
+                  //   this.$refs.control_bottom.style.left = 3 + "rem";
+                  //   this.$refs.commenttext.innerHTML = "高";
+                  //   this.$refs.nextbox_dang.innerHTML = "高档 ,";
+                  // }
+                    Toast({
+                      message: this.battery_heating[12].dictValue,
+                      position: "middle",
+                      duration: 1000
+                    });
+                } else if (this.choose == "档位调低") {
+                  // if (this.$refs.commenttext.innerHTML == "高") {
+                  //   this.$refs.control_bottom.style.left = 2.2 + "rem";
+                  //   this.$refs.commenttext.innerHTML = "低";
+                  //   this.$refs.nextbox_dang.innerHTML = "低档 ,";
+                  // }
+                  Toast({
+                      message: this.battery_heating[10].dictValue,
+                      position: "middle",
+                      duration: 1000
+                    });
+                }else if(this.choose == "准备关闭预热"){
+                  // this.num = 0;
+                  Toast({
+                      message: this.battery_heating[4].dictValue,
+                      position: "middle",
+                      duration: 1000
+                    });
+                }
+                clearInterval(this.time);
+                localhide();
               } else {
                 this.time = setInterval(() => {
                   this.$http
@@ -267,59 +327,430 @@ export default {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
                           if (tSS >= 56) {
-                            //超时提示并且清除定时器关闭遮罩层
-                            clearInterval(this.time);
-                            localhide();
+                                if (this.choose == "立即预约加热") {
+                                if (!this.onoff) {
+                                  Toast({
+                                    message: this.battery_heating[6].dictValue,
+                                    position: "middle",
+                                    duration: 1000
+                                  });
+                                  // this.mainhotimg = false;
+                                  // this.onoff = true;
+                                  // this.num = 2;
+                                } else {
+                                  Toast({
+                                    message: this.battery_heating[8].dictValue,
+                                    position: "middle",
+                                    duration: 1000
+                                  });
+                                  // this.num = 0;
+                                  // this.onoff = false;
+                                  // this.mainhotimg = true;
+                                }
+                              } else if (this.choose == "准备预约加热") {
+                                // this.num = 1;
+                                Toast({
+                                    message: this.battery_heating[2].dictValue,
+                                    position: "middle",
+                                    duration: 1000
+                                  });
+                              } else if (this.choose == "档位调高") {
+                                // if (this.$refs.commenttext.innerHTML == "低") {
+                                //   this.$refs.control_bottom.style.left = 3 + "rem";
+                                //   this.$refs.commenttext.innerHTML = "高";
+                                //   this.$refs.nextbox_dang.innerHTML = "高档 ,";
+                                // }
+                                  Toast({
+                                    message: this.battery_heating[12].dictValue,
+                                    position: "middle",
+                                    duration: 1000
+                                  });
+                              } else if (this.choose == "档位调低") {
+                                // if (this.$refs.commenttext.innerHTML == "高") {
+                                //   this.$refs.control_bottom.style.left = 2.2 + "rem";
+                                //   this.$refs.commenttext.innerHTML = "低";
+                                //   this.$refs.nextbox_dang.innerHTML = "低档 ,";
+                                // }
+                                Toast({
+                                    message: this.battery_heating[10].dictValue,
+                                    position: "middle",
+                                    duration: 1000
+                                  });
+                              }else if(this.choose == "准备关闭预热"){
+                                // this.num = 0;
+                                Toast({
+                                    message: this.battery_heating[4].dictValue,
+                                    position: "middle",
+                                    duration: 1000
+                                  });
+                              }
+                              clearInterval(this.time);
+                              localhide();
                           }
                         } else if (res.data.status == "SUCCEED") {
+                            if (this.choose == "立即预约加热") {
+                            if (!this.onoff) {
+                              Toast({
+                                  message: this.battery_heating[5].dictValue,
+                                  position: "middle",
+                                  duration: 1000
+                                });
+                              this.mainhotimg = false;
+                              this.onoff = true;
+                              this.num = 2;
+                            } else {
+                              Toast({
+                                  message: this.battery_heating[7].dictValue,
+                                  position: "middle",
+                                  duration: 1000
+                                });
+                              this.num = 0;
+                              this.onoff = false;
+                              this.mainhotimg = true;
+                            }
+                          } else if (this.choose == "准备预约加热") {
+                            Toast({
+                                  message: this.battery_heating[1].dictValue,
+                                  position: "middle",
+                                  duration: 1000
+                                });
+                            this.num = 1;
+                          } else if (this.choose == "档位调高") {
+                            Toast({
+                                  message: this.battery_heating[11].dictValue,
+                                  position: "middle",
+                                  duration: 1000
+                                });
+                            if (this.$refs.commenttext.innerHTML == "低") {
+                              this.$refs.control_bottom.style.left = 3 + "rem";
+                              this.$refs.commenttext.innerHTML = "高";
+                              this.$refs.nextbox_dang.innerHTML = "高档 ,";
+                            }
+                          } else if (this.choose == "档位调低") {
+                            Toast({
+                                  message: this.battery_heating[9].dictValue,
+                                  position: "middle",
+                                  duration: 1000
+                                });
+                            if (this.$refs.commenttext.innerHTML == "高") {
+                              this.$refs.control_bottom.style.left = 2.2 + "rem";
+                              this.$refs.commenttext.innerHTML = "低";
+                              this.$refs.nextbox_dang.innerHTML = "低档 ,";
+                            }
+                          }else if(this.choose == "准备关闭预热"){
+                            Toast({
+                                  message: this.battery_heating[3].dictValue,
+                                  position: "middle",
+                                  duration: 1000
+                                });
+                            this.num = 0;
+                          }
                           clearInterval(this.time);
                           localhide();
                         } else if (res.data.status == "FAILED") {
+                          if (this.choose == "立即预约加热") {
+                                if (!this.onoff) {
+                                  Toast({
+                                    message: this.battery_heating[6].dictValue,
+                                    position: "middle",
+                                    duration: 1000
+                                  });
+                                  // this.mainhotimg = false;
+                                  // this.onoff = true;
+                                  // this.num = 2;
+                                } else {
+                                  Toast({
+                                    message: this.battery_heating[8].dictValue,
+                                    position: "middle",
+                                    duration: 1000
+                                  });
+                                  // this.num = 0;
+                                  // this.onoff = false;
+                                  // this.mainhotimg = true;
+                                }
+                          } else if (this.choose == "准备预约加热") {
+                            // this.num = 1;
+                            Toast({
+                                message: this.battery_heating[2].dictValue,
+                                position: "middle",
+                                duration: 1000
+                              });
+                          } else if (this.choose == "档位调高") {
+                            // if (this.$refs.commenttext.innerHTML == "低") {
+                            //   this.$refs.control_bottom.style.left = 3 + "rem";
+                            //   this.$refs.commenttext.innerHTML = "高";
+                            //   this.$refs.nextbox_dang.innerHTML = "高档 ,";
+                            // }
+                              Toast({
+                                message: this.battery_heating[12].dictValue,
+                                position: "middle",
+                                duration: 1000
+                              });
+                          } else if (this.choose == "档位调低") {
+                            // if (this.$refs.commenttext.innerHTML == "高") {
+                            //   this.$refs.control_bottom.style.left = 2.2 + "rem";
+                            //   this.$refs.commenttext.innerHTML = "低";
+                            //   this.$refs.nextbox_dang.innerHTML = "低档 ,";
+                            // }
+                            Toast({
+                                message: this.battery_heating[10].dictValue,
+                                position: "middle",
+                                duration: 1000
+                              });
+                          }else if(this.choose == "准备关闭预热"){
+                            // this.num = 0;
+                            Toast({
+                                message: this.battery_heating[4].dictValue,
+                                position: "middle",
+                                duration: 1000
+                              });
+                          }
                           clearInterval(this.time);
-                          localhide();
+                          localhide();;
                         }
                       } else {
-                        clearInterval(this.time);
-                        localhide();
+                        if (this.choose == "立即预约加热") {
+                                if (!this.onoff) {
+                                  Toast({
+                                    message: this.battery_heating[6].dictValue,
+                                    position: "middle",
+                                    duration: 1000
+                                  });
+                                  // this.mainhotimg = false;
+                                  // this.onoff = true;
+                                  // this.num = 2;
+                                } else {
+                                  Toast({
+                                    message: this.battery_heating[8].dictValue,
+                                    position: "middle",
+                                    duration: 1000
+                                  });
+                                  // this.num = 0;
+                                  // this.onoff = false;
+                                  // this.mainhotimg = true;
+                                }
+                              } else if (this.choose == "准备预约加热") {
+                                // this.num = 1;
+                                Toast({
+                                    message: this.battery_heating[2].dictValue,
+                                    position: "middle",
+                                    duration: 1000
+                                  });
+                              } else if (this.choose == "档位调高") {
+                                // if (this.$refs.commenttext.innerHTML == "低") {
+                                //   this.$refs.control_bottom.style.left = 3 + "rem";
+                                //   this.$refs.commenttext.innerHTML = "高";
+                                //   this.$refs.nextbox_dang.innerHTML = "高档 ,";
+                                // }
+                                  Toast({
+                                    message: this.battery_heating[12].dictValue,
+                                    position: "middle",
+                                    duration: 1000
+                                  });
+                              } else if (this.choose == "档位调低") {
+                                // if (this.$refs.commenttext.innerHTML == "高") {
+                                //   this.$refs.control_bottom.style.left = 2.2 + "rem";
+                                //   this.$refs.commenttext.innerHTML = "低";
+                                //   this.$refs.nextbox_dang.innerHTML = "低档 ,";
+                                // }
+                                Toast({
+                                    message: this.battery_heating[10].dictValue,
+                                    position: "middle",
+                                    duration: 1000
+                                  });
+                              }else if(this.choose == "准备关闭预热"){
+                                // this.num = 0;
+                                Toast({
+                                    message: this.battery_heating[4].dictValue,
+                                    position: "middle",
+                                    duration: 1000
+                                  });
+                              }
+                              clearInterval(this.time);
+                              localhide();
                       }
                     });
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              if (this.choose == "立即预约加热") {
-                if (!this.onoff) {
-                  this.mainhotimg = false;
-                  this.onoff = true;
-                  this.num = 2;
-                } else {
+                if (this.choose == "立即预约加热") {
+                      if (!this.onoff) {
+                        Toast({
+                            message: this.battery_heating[5].dictValue,
+                            position: "middle",
+                            duration: 1000
+                          });
+                        this.mainhotimg = false;
+                        this.onoff = true;
+                        this.num = 2;
+                      } else {
+                        Toast({
+                            message: this.battery_heating[7].dictValue,
+                            position: "middle",
+                            duration: 1000
+                          });
+                        this.num = 0;
+                        this.onoff = false;
+                        this.mainhotimg = true;
+                      }
+                } else if (this.choose == "准备预约加热") {
+                  Toast({
+                        message: this.battery_heating[1].dictValue,
+                        position: "middle",
+                        duration: 1000
+                      });
+                  this.num = 1;
+                } else if (this.choose == "档位调高") {
+                  Toast({
+                        message: this.battery_heating[11].dictValue,
+                        position: "middle",
+                        duration: 1000
+                      });
+                  if (this.$refs.commenttext.innerHTML == "低") {
+                    this.$refs.control_bottom.style.left = 3 + "rem";
+                    this.$refs.commenttext.innerHTML = "高";
+                    this.$refs.nextbox_dang.innerHTML = "高档 ,";
+                  }
+                } else if (this.choose == "档位调低") {
+                  Toast({
+                        message: this.battery_heating[9].dictValue,
+                        position: "middle",
+                        duration: 1000
+                      });
+                  if (this.$refs.commenttext.innerHTML == "高") {
+                    this.$refs.control_bottom.style.left = 2.2 + "rem";
+                    this.$refs.commenttext.innerHTML = "低";
+                    this.$refs.nextbox_dang.innerHTML = "低档 ,";
+                  }
+                }else if(this.choose == "准备关闭预热"){
+                  Toast({
+                        message: this.battery_heating[3].dictValue,
+                        position: "middle",
+                        duration: 1000
+                      });
                   this.num = 0;
-                  this.onoff = false;
-                  this.mainhotimg = true;
                 }
-              } else if (this.choose == "准备预约加热") {
-                this.num = 1;
-              } else if (this.choose == "档位调高") {
-                if (this.$refs.commenttext.innerHTML == "低") {
-                  this.$refs.control_bottom.style.left = 3 + "rem";
-                  this.$refs.commenttext.innerHTML = "高";
-                  this.$refs.nextbox_dang.innerHTML = "高档 ,";
-                }
-              } else if (this.choose == "档位调低") {
-                if (this.$refs.commenttext.innerHTML == "高") {
-                  this.$refs.control_bottom.style.left = 2.2 + "rem";
-                  this.$refs.commenttext.innerHTML = "低";
-                  this.$refs.nextbox_dang.innerHTML = "低档 ,";
-                }
-              }else if(this.choose == "准备关闭预热"){
-                this.num = 0;
-              }
-              clearInterval(this.time);
-              localhide();
+                clearInterval(this.time);
+                localhide();
             } else if (res.data.status == "FAILED") {
+              if (this.choose == "立即预约加热") {
+                      if (!this.onoff) {
+                        Toast({
+                          message: this.battery_heating[6].dictValue,
+                          position: "middle",
+                          duration: 1000
+                        });
+                        // this.mainhotimg = false;
+                        // this.onoff = true;
+                        // this.num = 2;
+                      } else {
+                        Toast({
+                          message: this.battery_heating[8].dictValue,
+                          position: "middle",
+                          duration: 1000
+                        });
+                        // this.num = 0;
+                        // this.onoff = false;
+                        // this.mainhotimg = true;
+                      }
+              } else if (this.choose == "准备预约加热") {
+                // this.num = 1;
+                Toast({
+                    message: this.battery_heating[2].dictValue,
+                    position: "middle",
+                    duration: 1000
+                  });
+              } else if (this.choose == "档位调高") {
+                // if (this.$refs.commenttext.innerHTML == "低") {
+                //   this.$refs.control_bottom.style.left = 3 + "rem";
+                //   this.$refs.commenttext.innerHTML = "高";
+                //   this.$refs.nextbox_dang.innerHTML = "高档 ,";
+                // }
+                  Toast({
+                    message: this.battery_heating[12].dictValue,
+                    position: "middle",
+                    duration: 1000
+                  });
+              } else if (this.choose == "档位调低") {
+                // if (this.$refs.commenttext.innerHTML == "高") {
+                //   this.$refs.control_bottom.style.left = 2.2 + "rem";
+                //   this.$refs.commenttext.innerHTML = "低";
+                //   this.$refs.nextbox_dang.innerHTML = "低档 ,";
+                // }
+                Toast({
+                    message: this.battery_heating[10].dictValue,
+                    position: "middle",
+                    duration: 1000
+                  });
+              }else if(this.choose == "准备关闭预热"){
+                // this.num = 0;
+                Toast({
+                    message: this.battery_heating[4].dictValue,
+                    position: "middle",
+                    duration: 1000
+                  });
+              }
               clearInterval(this.time);
               localhide();
             }
           } else {
+            if (this.choose == "立即预约加热") {
+                  if (!this.onoff) {
+                    Toast({
+                      message: this.battery_heating[6].dictValue,
+                      position: "middle",
+                      duration: 1000
+                    });
+                    // this.mainhotimg = false;
+                    // this.onoff = true;
+                    // this.num = 2;
+                  } else {
+                    Toast({
+                      message: this.battery_heating[8].dictValue,
+                      position: "middle",
+                      duration: 1000
+                    });
+                    // this.num = 0;
+                    // this.onoff = false;
+                    // this.mainhotimg = true;
+                  }
+            } else if (this.choose == "准备预约加热") {
+              // this.num = 1;
+              Toast({
+                  message: this.battery_heating[2].dictValue,
+                  position: "middle",
+                  duration: 1000
+                });
+            } else if (this.choose == "档位调高") {
+              // if (this.$refs.commenttext.innerHTML == "低") {
+              //   this.$refs.control_bottom.style.left = 3 + "rem";
+              //   this.$refs.commenttext.innerHTML = "高";
+              //   this.$refs.nextbox_dang.innerHTML = "高档 ,";
+              // }
+                Toast({
+                  message: this.battery_heating[12].dictValue,
+                  position: "middle",
+                  duration: 1000
+                });
+            } else if (this.choose == "档位调低") {
+              // if (this.$refs.commenttext.innerHTML == "高") {
+              //   this.$refs.control_bottom.style.left = 2.2 + "rem";
+              //   this.$refs.commenttext.innerHTML = "低";
+              //   this.$refs.nextbox_dang.innerHTML = "低档 ,";
+              // }
+              Toast({
+                  message: this.battery_heating[10].dictValue,
+                  position: "middle",
+                  duration: 1000
+                });
+            }else if(this.choose == "准备关闭预热"){
+              // this.num = 0;
+              Toast({
+                  message: this.battery_heating[4].dictValue,
+                  position: "middle",
+                  duration: 1000
+                });
+            }
             clearInterval(this.time);
             localhide();
           }
@@ -431,7 +862,16 @@ export default {
           .css("top", "-.7rem")
           .css("border-bottom", "solid 1px #eaeaea");
       });
-    }
+    },
+    //拿到预热
+    getskywords() {
+      this.allwords = this.$store.state.GETWORDS;
+      for (let value of this.allwords) {
+        if (value.dictType == "battery_heating") {
+          this.battery_heating = value.sysDictDataVOs;
+        }
+      }
+    },
   },
   watch: {
     pinNumber(newVal, oldVal) {
@@ -593,6 +1033,7 @@ export default {
   },
   created() {
     this.inputs();
+    this.getskywords();
     // this.loadcss()
   },
   mounted() {

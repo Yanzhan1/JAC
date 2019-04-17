@@ -897,22 +897,22 @@ export default {
                             }, 4000);
                           } else if (this.type == 6) {
                             Toast({
-                              message: this.open_trunk[3].dictValue,
-                              position: "middle",
-                              duration: 2000
-                            });
+                                message: this.distance_light[5].dictValue,
+                                position: "middle",
+                                duration: 2000
+                              });
                             this.lightnearcontrol = false;
                             this.lightfarcontrol = true;
                           } else if (this.type == 7) {
                             Toast({
-                              message: this.open_trunk[3].dictValue,
+                              message: this.distance_light[7].dictValue,
                               position: "middle",
                               duration: 2000
                             });
                             this.lightnearcontrol = true;
                           } else if (this.type == 8) {
                             Toast({
-                              message: this.open_trunk[3].dictValue,
+                              message: this.distance_light[1].dictValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -920,7 +920,7 @@ export default {
                             this.lightnearcontrol = true;
                           } else if (this.type == 9) {
                             Toast({
-                              message: this.open_trunk[3].dictValue,
+                              message: this.distance_light[3].dictValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -1079,7 +1079,7 @@ export default {
                               // this.lightfarcontrol = true;
                             }else {
                               Toast({
-                                message: this.vehicle_condition[2].dictValue,
+                                message: this.distance_light[2].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
@@ -1185,7 +1185,7 @@ export default {
                 }, 4000);
               } else if (this.type == 6) {
                 Toast({
-                  message: this.open_trunk[3].dictValue,
+                  message: this.distance_light[5].dictValue,
                   position: "middle",
                   duration: 2000
                 });
@@ -1193,14 +1193,14 @@ export default {
                 this.lightfarcontrol = true;
               } else if (this.type == 7) {
                 Toast({
-                  message: this.open_trunk[3].dictValue,
+                  message: this.distance_light[7].dictValue,
                   position: "middle",
                   duration: 2000
                 });
                 this.lightnearcontrol = true;
               } else if (this.type == 8) {
                 Toast({
-                  message: this.open_trunk[3].dictValue,
+                  message: this.distance_light[1].dictValue,
                   position: "middle",
                   duration: 2000
                 });
@@ -1208,7 +1208,7 @@ export default {
                 this.lightnearcontrol = true;
               } else if (this.type == 9) {
                 Toast({
-                  message: this.open_trunk[3].dictValue,
+                  message: this.distance_light[3].dictValue,
                   position: "middle",
                   duration: 2000
                 });
@@ -1480,6 +1480,7 @@ export default {
               this.distance_light = value.sysDictDataVOs;
             }
           }
+          console.log(this.distance_light)
         }
       });
     },
@@ -1694,7 +1695,7 @@ export default {
                   var param = {
                     vin: this.vinn,
                     operationType: "DIPPED_HEADLIGHT",
-                    operation: "1"
+                    operation: "2"
                   };
                   this.$http
                     .post(
@@ -1720,7 +1721,7 @@ export default {
                   var param = {
                     vin:this.vinn,
                     operationType: "DIPPED_HEADLIGHT",
-                    operation: "2"
+                    operation: "1"
                   };
                   this.$http
                     .post(
@@ -1746,7 +1747,7 @@ export default {
                   var param = {
                     vin: this.vinn,
                     operationType: "HIGH_BEAM",
-                    operation: "1"
+                    operation: "2"
                   };
                   this.$http
                     .post(
@@ -1772,7 +1773,7 @@ export default {
                   var param = {
                     vin: this.vinn,
                     operationType: "HIGH_BEAM",
-                    operation: "2"
+                    operation: "1"
                   };
                   this.$http
                     .post(

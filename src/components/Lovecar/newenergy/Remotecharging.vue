@@ -5,8 +5,7 @@
         <div class="title_show flex">
           <div style="position:relative;width:1.6rem;height:2.2rem;top:.6rem;left:.4rem;">
             <div style="position:absolute;width:1.4rem;height:1.9rem;top:.2rem;left:.1rem;overflow:hidden;">
-              <!-- <div class="showElectricquantity" >{{this.carcontrol.soc==-1?0:this.carcontrol.soc}}</div> -->
-              <div class="showElectricquantity" >20%</div>
+              <div class="showElectricquantity" >{{this.carcontrol.soc==-1?0:this.carcontrol.soc}}%</div>
             </div>
             <img style="width:1.6rem;height:2.2rem;position:absolute"  src="./../../../../static/images/Lovecar/bgbattery@2x.png" alt="">
           </div>
@@ -14,21 +13,18 @@
               <div class="flex between" style="margin-top:.6rem;">
                   <div >
                     <div style="padding:.15rem">剩余电量</div>
-                    <!-- <span style="padding:.15rem;">{{this.carcontrol.soc==-1?0:this.carcontrol.soc}}</span> -->
-                    <span style="padding:.15rem;"></span>20%</span>
+                    <span style="padding:.15rem;">{{this.carcontrol.soc==-1?0:this.carcontrol.soc}}%</span>
                   </div>
                   <img @click="refish" style="width:.38rem;height:.32rem;position:absolute;left:3.5rem" src="./../../../../static/images/Lovecar/refreshagain@2x.png" alt="">
               </div>
               <div class="flex contentcenter around title_right_bottom">
                   <div>
                       <div>空调关闭剩余里程</div>
-                      <!-- <span>{{this.carcontrol.acOffMile}}</span> -->
-                      <span>111km</span>
+                      <span>{{this.carcontrol.acOffMile}}KM</span>
                   </div>
                   <div>
                       <div>空调开启剩余里程</div>
-                      <span>80km</span>
-                      <!-- <span>{{this.carcontrol.acOnMile}}</span> -->
+                      <span>{{this.carcontrol.acOnMile}}KM</span>
                   </div>
               </div>
             </div>
@@ -37,25 +33,21 @@
           <li>
             <div>  
               <div>充电枪状态</div>
-              <!-- <span>{{this.chgPlugStatus}}</span> -->
-              <span>sile</span>
+              <span>{{this.chgPlugStatus}}</span>
             </div>
             <div>  
               <div>当前充电状态</div>
-              <span>guale</span>
-              <!-- <span>{{this.chgStatus}}</span> -->
+              <span>{{this.chgStatus}}</span>
             </div>
           </li>
           <li>
             <div>  
               <div>预计慢充时间</div>
-              <!-- <span>{{this.carcontrol.slowChgLeftTime}}</span> -->
-              <span>adsf</span>
+              <span>{{this.carcontrol.slowChgLeftTime}}分钟</span>
             </div>
             <div>  
               <div>预计快充时间</div>
-              <!-- <span>{{this.carcontrol.quickChgLeftTime}}</span> -->
-              <span>jsafkas</span>
+              <span>{{this.carcontrol.quickChgLeftTime}}分钟</span>
             </div>
           </li>
         </ul>
@@ -144,6 +136,9 @@ export default {
         fifth: "",
         sixth: ""
       },
+      choose_loading:null,
+      chgPlugStatus:'',//充电枪状态
+      chgStatus:'',//充电状态
       //pin码弹出框控制变量
       popupVisible: false,
       //pin码值
@@ -155,6 +150,7 @@ export default {
       //存储所有充电数据,以及变动数据
       carcontrol:{
       },
+      battery_charging:[],//电池的所有提示语
     };
   },
   methods: {
@@ -270,6 +266,23 @@ export default {
       }
       that.keyNums = arr2;
     },
+    //调用车况接口
+    Carquerry() {
+      this.choose_loading=true
+      this.$http
+        .post(
+          Newenergy.energyqueryvehiclecondition,
+          {
+            vins: [this.$store.state.vins]
+          },
+          this.$store.state.tsppin
+        )
+        .then(res => {
+          if (res.data.returnSuccess) {
+            this.getAsyReturn(res.data.operationId);
+          }
+        });
+    },
     getAsyReturn(operationId) {
       this.sjc = new Date().getTime();
       this.$http
@@ -287,6 +300,12 @@ export default {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
               if (tSS >= 56) {
+                if(this.choose_loading){
+                    this.choose_loading=false
+                }else{
+
+                }  
+                localhide();
                 //超时提示
               } else {
                 this.time = setInterval(() => {
@@ -305,32 +324,189 @@ export default {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
                           if (tSS >= 56) {
+                            if(this.choose_loading){
+                                this.choose_loading=false
+                            }else{
+                                  if (this.flag) {
+                                    if (this.chargeimg == 1) {
+                                      Toast({
+                                          message: this.battery_heating[8].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.controlcharge = false;
+                                    } else {
+                                      Toast({
+                                          message: this.battery_charging[6].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.controlcharge = true;
+                                    }
+                                  } else {
+                                    if (this.operation == 1) {
+                                      Toast({
+                                          message: this.battery_charging[4].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.value = false;
+                                    } else {
+                                      Toast({
+                                          message: this.battery_charging[2].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.value=true
+                                      // this.flag = false;
+                                    }
+                                  }
+                            }
                             //超时提示并且清除定时器关闭遮罩层
                             clearInterval(this.time);
                             localhide();
                           }
                         } else if (res.data.status == "SUCCEED") {
-                          if (this.flag) {
-                            if (this.chargeimg == 1) {
-                              this.controlcharge = false;
+                          if(this.choose_loading){
+                            this.carcontrol=res.data.data
+                             if (this.carcontrol.chgPlugStatus == 1) {
+                                this.chgPlugStatus = "未插入";
+                              } else if (this.carcontrol.chgPlugStatus == 2) {
+                                this.chgPlugStatus = "插入未充电";
+                              } else if (this.carcontrol.chgPlugStatus == 3) {
+                                this.chgPlugStatus = "插入充电";
+                              }
+
+                              if (this.carcontrol.chgStatus == 1) {
+                                this.chgStatus = "慢充充电开始";
+                              } else if (this.carcontrol.chgStatus == 2) {
+                                this.chgStatus = "慢充充电结束";
+                              } else if (this.carcontrol.chgStatus == 3) {
+                                this.chgStatus = "快充充电开始";
+                              } else if (this.carcontrol.chgStatus == 4) {
+                                this.chgStatus = "快充充电结束";
+                              }
+                            this.batteryStatis(this.carcontrol.soc)
+                            this.choose_loading=false
+                          }else{
+                            if (this.flag) {
+                              if (this.chargeimg == 1) {
+                                Toast({
+                                    message: this.battery_heating[7].dictValue,
+                                    position: "middle",
+                                    duration: 2000
+                                  });
+                                this.controlcharge = false;
+                              } else {
+                                Toast({
+                                    message: this.battery_charging[5].dictValue,
+                                    position: "middle",
+                                    duration: 2000
+                                  });
+                                this.controlcharge = true;
+                              }
                             } else {
-                              this.controlcharge = true;
-                            }
-                          } else {
-                            if (this.operation == 1) {
-                              this.value = false;
-                            } else {
-                              this.value=true
-                              this.flag = false;
+                              if (this.operation == 1) {
+                                Toast({
+                                    message: this.battery_charging[3].dictValue,
+                                    position: "middle",
+                                    duration: 2000
+                                  });
+                                this.value = false;
+                              } else {
+                                Toast({
+                                    message: this.battery_charging[1].dictValue,
+                                    position: "middle",
+                                    duration: 2000
+                                  });
+                                this.value=true
+                                this.flag = false;
+                              }
                             }
                           }
                           clearInterval(this.time);
                           localhide();
                         } else if (res.data.status == "FAILED") {
+                          if(this.choose_loading){
+                                this.choose_loading=false
+                            }else{
+                                  if (this.flag) {
+                                    if (this.chargeimg == 1) {
+                                      Toast({
+                                          message: this.battery_heating[8].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.controlcharge = false;
+                                    } else {
+                                      Toast({
+                                          message: this.battery_charging[6].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.controlcharge = true;
+                                    }
+                                  } else {
+                                    if (this.operation == 1) {
+                                      Toast({
+                                          message: this.battery_charging[4].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.value = false;
+                                    } else {
+                                      Toast({
+                                          message: this.battery_charging[2].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.value=true
+                                      // this.flag = false;
+                                    }
+                                  }
+                            }  
                           clearInterval(this.time);
                           localhide();
                         }
                       } else {
+                        if(this.choose_loading){
+                                this.choose_loading=false
+                            }else{
+                                  if (this.flag) {
+                                    if (this.chargeimg == 1) {
+                                      Toast({
+                                          message: this.battery_heating[8].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.controlcharge = false;
+                                    } else {
+                                      Toast({
+                                          message: this.battery_charging[6].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.controlcharge = true;
+                                    }
+                                  } else {
+                                    if (this.operation == 1) {
+                                      Toast({
+                                          message: this.battery_charging[4].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.value = false;
+                                    } else {
+                                      Toast({
+                                          message: this.battery_charging[2].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.value=true
+                                      // this.flag = false;
+                                    }
+                                  }
+                            } 
                         clearInterval(this.time);
                         localhide();
                       }
@@ -338,27 +514,146 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              if (this.flag) {
-                if (this.chargeimg == 1) {
-                  this.controlcharge = false;
-                } else {
-                  this.controlcharge = true;
+              if(this.choose_loading){
+              this.carcontrol=res.data.data
+                if (this.carcontrol.chgPlugStatus == 1) {
+                  this.chgPlugStatus = "未插入";
+                } else if (this.carcontrol.chgPlugStatus == 2) {
+                  this.chgPlugStatus = "插入未充电";
+                } else if (this.carcontrol.chgPlugStatus == 3) {
+                  this.chgPlugStatus = "插入充电";
                 }
-              } else {
-                if (this.operation == 1) {
-                  this.value = false;
-                } else {
-                  this.value=true
-                  this.flag = false;
+
+                if (this.carcontrol.chgStatus == 1) {
+                  this.chgStatus = "慢充充电开始";
+                } else if (this.carcontrol.chgStatus == 2) {
+                  this.chgStatus = "慢充充电结束";
+                } else if (this.carcontrol.chgStatus == 3) {
+                  this.chgStatus = "快充充电开始";
+                } else if (this.carcontrol.chgStatus == 4) {
+                  this.chgStatus = "快充充电结束";
                 }
-              }
-              clearInterval(this.time);
-              localhide();
+              this.batteryStatis(this.carcontrol.soc)
+              this.choose_loading=false
+                    }else{
+                      if (this.flag) {
+                        if (this.chargeimg == 1) {
+                          Toast({
+                              message: this.battery_heating[7].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          this.controlcharge = false;
+                        } else {
+                          Toast({
+                              message: this.battery_charging[5].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          this.controlcharge = true;
+                        }
+                      } else {
+                        if (this.operation == 1) {
+                          Toast({
+                              message: this.battery_charging[3].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          this.value = false;
+                        } else {
+                          Toast({
+                              message: this.battery_charging[1].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
+                          this.value=true
+                          this.flag = false;
+                        }
+                      }
+                    }
+                    clearInterval(this.time);
+                    localhide();
             } else if (res.data.status == "FAILED") {
+              if(this.choose_loading){
+                                this.choose_loading=false
+                            }else{
+                                  if (this.flag) {
+                                    if (this.chargeimg == 1) {
+                                      Toast({
+                                          message: this.battery_heating[8].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.controlcharge = false;
+                                    } else {
+                                      Toast({
+                                          message: this.battery_charging[6].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.controlcharge = true;
+                                    }
+                                  } else {
+                                    if (this.operation == 1) {
+                                      Toast({
+                                          message: this.battery_charging[4].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.value = false;
+                                    } else {
+                                      Toast({
+                                          message: this.battery_charging[2].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.value=true
+                                      // this.flag = false;
+                                    }
+                                  }
+                            }
               clearInterval(this.time);
               localhide();
             }
           } else {
+            if(this.choose_loading){
+                                this.choose_loading=false
+                            }else{
+                                  if (this.flag) {
+                                    if (this.chargeimg == 1) {
+                                      Toast({
+                                          message: this.battery_heating[8].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.controlcharge = false;
+                                    } else {
+                                      Toast({
+                                          message: this.battery_charging[6].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.controlcharge = true;
+                                    }
+                                  } else {
+                                    if (this.operation == 1) {
+                                      Toast({
+                                          message: this.battery_charging[4].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.value = false;
+                                    } else {
+                                      Toast({
+                                          message: this.battery_charging[2].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.value=true
+                                      // this.flag = false;
+                                    }
+                                  }
+                            } 
             clearInterval(this.time);
             localhide();
           }
@@ -484,10 +779,10 @@ export default {
       }
     },
     //获取电池状态
-    batteryStatis() {
+    batteryStatis(data) {
       let top =
         1.9 *
-          (100 - 20) /
+          (100 - data) /
           100 +
         "rem";
       $(".showElectricquantity").css("top", top);
@@ -503,18 +798,46 @@ export default {
           .css("top", "-.7rem")
           .css("border-bottom", "solid 1px #eaeaea");
       });
-    }
+    },
+    //拿到充电提示
+    getskywords() {
+      this.allwords = this.$store.state.GETWORDS;
+      for (let value of this.allwords) {
+        if (value.dictType == "battery_charging") {
+          this.battery_charging = value.sysDictDataVOs;
+        }
+      }
+      console.log(this.battery_charging)
+    },
   },
   created() {
     // this.endtime=this.toDate()
     // this.loadcss()
     this.carcontrol=this.$route.query.carcontrol
+    if (this.carcontrol.chgPlugStatus == 1) {
+      this.chgPlugStatus = "未插入";
+    } else if (this.carcontrol.chgPlugStatus == 2) {
+      this.chgPlugStatus = "插入未充电";
+    } else if (this.carcontrol.chgPlugStatus == 3) {
+      this.chgPlugStatus = "插入充电";
+    }
+
+    if (this.carcontrol.chgStatus == 1) {
+      this.chgStatus = "慢充充电开始";
+    } else if (this.carcontrol.chgStatus == 2) {
+      this.chgStatus = "慢充充电结束";
+    } else if (this.carcontrol.chgStatus == 3) {
+      this.chgStatus = "快充充电开始";
+    } else if (this.carcontrol.chgStatus == 4) {
+      this.chgStatus = "快充充电结束";
+    }
     let time = new Date().getTime() + 1000 * 60 * 60 * 24 * 7;
     this.endtime = new Date(this.Conversiontime(time) + "");
     this.inputs();
   },
   mounted() {
-    this.batteryStatis();
+    this.batteryStatis(this.carcontrol.soc);
+    this.getskywords()
     // this.starttimes=this.tochangeTime(new Date().getTime())
   },
   watch: {
@@ -543,7 +866,6 @@ export default {
               (this.showTyper = 0),
                 //清空pin码
                 (this.pinNumber = "");
-                alert(this.operation)
                 this.charged()
             } else {
                localhide();

@@ -261,11 +261,6 @@ export default {
         .then(res => {
           this.operationIds = res.data.operationId;
           if (res.data.returnSuccess) {
-            Toast({
-              message: this.windowwords[0].dictValue,
-              position: "middle",
-              duration: 2000
-            });
             setTimeout(() => {
               this.getAsyReturn(res.data.operationId);
             }, 2000);
