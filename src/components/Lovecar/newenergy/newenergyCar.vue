@@ -716,7 +716,6 @@ export default {
                       var tS = new Date().getTime() - this.sjc; //时间戳 差
                       var tSS = parseInt((tS / 1000) % 60); // 时间差
                       if (res.data.returnSuccess == true) {
-                         console.log(tSS)
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
                           if (tSS >= 56) {
@@ -1299,85 +1298,85 @@ export default {
               }
             
           } else {
-             if (tSS >= 6) {
-                            if (this.type == 1) {
-                              // this.doorcontrol = true;
-                              Toast({
-                                message: this.close_lock[2].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                            } else if (this.type == 2) {
-                              // this.doorcontrol = false;
-                              Toast({
-                                message: this.open_lock[2].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                            } else if (this.type == 3) {
-                              // this.trunkcontrol = false;
-                              Toast({
-                                message: this.open_trunk[2].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                            } else if (this.type == 4) {
-                              // this.trunkcontrol = true;
-                              Toast({
-                                message: this.open_trunk[3].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                            } else if (this.type == 5) {
-                              Toast({
-                                message: this.find_vehicle[2].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                              // this.findcarcontrol = false;
-                              setTimeout(() => {
-                                this.findcarcontrol = true;
-                              }, 4000);
-                            } else if (this.type == 6) {
-                              Toast({
-                                message: this.distance_light[6].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                              // this.lightnearcontrol = false;
-                              // this.lightfarcontrol = true;
-                            } else if (this.type == 7) {
-                              Toast({
-                                message: this.distance_light[8].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                              // this.lightnearcontrol = true;
-                            } else if (this.type == 8) {
-                              Toast({
-                                message: this.distance_light[2].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                              // this.lightfarcontrol = false;
-                              // this.lightnearcontrol = true;
-                            } else if (this.type == 9) {
-                              Toast({
-                                message: this.distance_light[4].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                              // this.lightfarcontrol = true;
-                            }else {
-                              Toast({
-                                message: this.vehicle_condition[2].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
-                            }
-                            clearInterval(this.time);
-                            localhide();
-                          }
+             
+            if (this.type == 1) {
+              // this.doorcontrol = true;
+              Toast({
+                message: this.close_lock[2].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+            } else if (this.type == 2) {
+              // this.doorcontrol = false;
+              Toast({
+                message: this.open_lock[2].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+            } else if (this.type == 3) {
+              // this.trunkcontrol = false;
+              Toast({
+                message: this.open_trunk[2].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+            } else if (this.type == 4) {
+              // this.trunkcontrol = true;
+              Toast({
+                message: this.open_trunk[3].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+            } else if (this.type == 5) {
+              Toast({
+                message: this.find_vehicle[2].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+              // this.findcarcontrol = false;
+              setTimeout(() => {
+                this.findcarcontrol = true;
+              }, 4000);
+            } else if (this.type == 6) {
+              Toast({
+                message: this.distance_light[6].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+              // this.lightnearcontrol = false;
+              // this.lightfarcontrol = true;
+            } else if (this.type == 7) {
+              Toast({
+                message: this.distance_light[8].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+              // this.lightnearcontrol = true;
+            } else if (this.type == 8) {
+              Toast({
+                message: this.distance_light[2].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+              // this.lightfarcontrol = false;
+              // this.lightnearcontrol = true;
+            } else if (this.type == 9) {
+              Toast({
+                message: this.distance_light[4].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+              // this.lightfarcontrol = true;
+            }else {
+              Toast({
+                message: this.vehicle_condition[2].dictValue,
+                position: "middle",
+                duration: 2000
+              });
+            }
+            clearInterval(this.time);
+            localhide();
+                          
           }
         });
     },
