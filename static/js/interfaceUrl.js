@@ -47,6 +47,10 @@ window.DISCOVERMESSAGE = {
         weiSignGetWeiSign: indexip + '/weiSign/getWeiSign', // 获取微信二次分享的参数
         /*标签*/
         getLabels: indexip + '/label/getLabels', //获取标签
+        /*新增用户兴趣车型*/
+        addUserBindingOtherModules: mips + '/admin/userBindingOtherModules/addUserBindingOtherModules',
+        /*查询用户兴趣车型*/
+        searchUserBindingOtherModulesOne: mips + '/admin/userBindingOtherModules/searchUserBindingOtherModulesOne',
         /*资讯*/
         informationGiveLike: indexip + '/userLike/giveInformationLike', //资讯点赞
         informationRemoveLike: indexip + '/userLike/removeInformationLike', //资讯取消点赞
