@@ -60,7 +60,7 @@
 					<div style="font-size:.36rem;color:#222">请输入PIN码</div>
 					<span></span>
 				</div>
-        <img @click="Toasteach"  class="question" style="width:.35rem;height:.35rem" :src="'./static/images/Lovecar/question.png'" alt="">
+        <!-- <img @click="Toasteach"  class="question" style="width:.35rem;height:.35rem" :src="'./static/images/Lovecar/question.png'" alt=""> -->
 				<div class="pin-code flex-center">
 					<div v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
 						<input class="pin-input" maxlength="6" type="password" v-model="pinNumber" readonly/>
@@ -124,9 +124,9 @@ export default {
     };
   },
   methods: {
-    Toasteach() {
-      MessageBox("提示", this.windowwords[3].dictValue);
-    },
+    // Toasteach() {
+    //   MessageBox("提示", this.windowwords[3].dictValue);
+    // },
     //监听backspace事件
     keyupFun(value, e) {
       var k = e.keyCode;
@@ -229,7 +229,7 @@ export default {
         )
         .then(res => {
           if (res.data.returnSuccess) {
-            this.getAsyReturn('1806385781');
+            this.getAsyReturn(res.data.operationId);
           }else{
             localhide()
           }
@@ -879,7 +879,6 @@ export default {
     pinNumber(newVal, oldVal) {
       if (this.pinNumber.length == 6) {
         this.popupVisible = !this.popupVisible;
-        console.log(this.pinNumber)
         var nums = this.pinNumber;
         //改变加热开关
         this.$http

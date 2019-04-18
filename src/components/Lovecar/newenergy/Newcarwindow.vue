@@ -261,9 +261,7 @@ export default {
         .then(res => {
           this.operationIds = res.data.operationId;
           if (res.data.returnSuccess) {
-            setTimeout(() => {
               this.getAsyReturn(res.data.operationId);
-            }, 2000);
           } else {
             localhide()
             Toast({
@@ -300,7 +298,7 @@ export default {
       this.sjc = new Date().getTime();
       this.$http
         .post(
-          Lovecar.OperationId,
+          Newenergy.energyvehicleasyncresults,
           { operationId: operationId },
           this.$store.state.tsppin
         )
@@ -310,7 +308,7 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              if (tSS >= 56) {
+              if (tSS >= 6) {
                 Toast({
                   message: this.windowwords[2].dictValue,
                   position: "middle",
@@ -321,7 +319,7 @@ export default {
                 this.time = setInterval(() => {
                   this.$http
                     .post(
-                      Lovecar.OperationId,
+                      Newenergy.energyvehicleasyncresults,
                       { operationId: operationId },
                       this.$store.state.tsppin
                     )

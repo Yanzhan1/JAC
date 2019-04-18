@@ -564,12 +564,12 @@ export default {
       if (this.beforetype == 2) {
         MessageBox("提示", this.close_lock[3].dictValue);
       }
-      if (this.beforetype == 3) {
-        MessageBox("提示", this.open_trunk[3].dictValue);
-      }
-      if (this.beforetype == 4) {
-        MessageBox("提示", this.open_trunk[3].dictValue);
-      }
+      // if (this.beforetype == 3) {
+      //   MessageBox("提示", this.open_trunk[3].dictValue);
+      // }
+      // if (this.beforetype == 4) {
+      //   MessageBox("提示", this.open_trunk[3].dictValue);
+      // }
     },
     //调用车况接口
     Carquerry() {
