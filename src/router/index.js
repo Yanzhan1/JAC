@@ -198,7 +198,7 @@ const Others = lazyLoad('/news/others.vue')
  * 发现部分
  */
 const Discover = lazyLoad('/discover/discover')
-
+import SetChannel from '@/components/discover/component/setChannel' //选择频道
 import Recommend from '@/components/discover/recommend/recommend' //推荐首页
 import Activity from '@/components/discover/activity/activity' //活动首页
 import Information from '@/components/discover/information/information' //资讯首页
@@ -356,6 +356,11 @@ const router = new Router({
                         index: 3
                     }
                 }]
+            },
+
+            {
+              path: "/setChannel",
+              component: SetChannel
             },
             {
                 path: "/activity/activityDetail",
