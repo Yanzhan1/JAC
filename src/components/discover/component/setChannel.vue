@@ -45,6 +45,7 @@
       allCheckedFunc() {
         this.allChecked = !this.allChecked
         if(this.allChecked) {
+          this.picked = []   
           this.labels.map((item) => {
             item.checked = true
             this.picked.push(item.labelCode)
@@ -55,6 +56,8 @@
           })
           this.picked = []      
         }
+
+        console.log("this.picked",this.picked)
       },
       // 单选
       CheckedFunc(item,index) {
@@ -69,6 +72,8 @@
             }
           })
         }
+
+        console.log("this.picked",this.picked)
       },
       getTtInfo:function(par){
         this.objInfo.tt= par;
