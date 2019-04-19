@@ -14,7 +14,7 @@
       <div class="check">
         <div v-for="(item,index) in labels" :key="item.id" class="round" v-bind:class="item.checked ? 'check-css' : 'nocheck-css'">
           <label :for="'picked_'+item.labelId">{{item.labelName}}</label>
-          <img src="../../../../static/images/discover/tick_1.png" alt="" v-if="item.checked" @click="CheckedFunc(item,index)">
+          <img src="../../../../static/images/discover/tick_1.png" alt="" v-if="item.checked" @click="CheckedFunc(item,item.labelCode,index)">
           <img src="../../../../static/images/discover/tick_0.png" alt="" v-else  @click="CheckedFunc(item,index)">
         </div>
       </div>
@@ -48,7 +48,7 @@
           this.picked = []   
           this.labels.map((item) => {
             item.checked = true
-            this.picked.push(item.labelCode)
+            this.picked.push(item)
           })
         } else {
           this.labels.map((item) => {
@@ -56,14 +56,12 @@
           })
           this.picked = []      
         }
-
-        console.log("this.picked",this.picked)
       },
       // 单选
       CheckedFunc(item,index) {
         item.checked = !item.checked
         if(item.checked) {
-          this.picked.push(item.labelCode)
+          this.picked.push(item)
         } else {
           this.picked.map((list) => {
             if(list == item) {
@@ -72,8 +70,6 @@
             }
           })
         }
-
-        console.log("this.picked",this.picked)
       },
       getTtInfo:function(par){
         this.objInfo.tt= par;
@@ -101,9 +97,13 @@
       },
       confirm: function () {
         if (this.picked) {
-          this.$store.dispatch('selectLabelState', this.picked);
+          let pickData = []
+          pickData = this.picked.map((item) => {
+            return item.labelCode
+          })
+          this.$store.dispatch('selectLabelState', pickData);
           this.$http.post(DISCOVERMESSAGE.addUserBindingOtherModules, {
-            brandNos: this.picked
+            brandNos: pickData
           }).then(function (res) {
             if (res.data.status) {
               Toast('保存成功');
