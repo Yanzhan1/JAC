@@ -303,7 +303,40 @@ export default {
                 if(this.choose_loading){
                     this.choose_loading=false
                 }else{
-
+                    if (this.flag) {
+                                    if (this.chargeimg == 1) {
+                                      Toast({
+                                          message: this.battery_charging[8].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.controlcharge = false;
+                                    } else {
+                                      Toast({
+                                          message: this.battery_charging[6].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.controlcharge = true;
+                                    }
+                                  } else {
+                                    if (this.operation == 1) {
+                                      Toast({
+                                          message: this.battery_charging[4].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.value = false;
+                                    } else {
+                                      Toast({
+                                          message: this.battery_charging[2].dictValue,
+                                          position: "middle",
+                                          duration: 2000
+                                        });
+                                      // this.value=true
+                                      // this.flag = false;
+                                    }
+                                  }
                 }  
                 localhide();
                 //超时提示
@@ -330,7 +363,7 @@ export default {
                                   if (this.flag) {
                                     if (this.chargeimg == 1) {
                                       Toast({
-                                          message: this.battery_heating[8].dictValue,
+                                          message: this.battery_charging[8].dictValue,
                                           position: "middle",
                                           duration: 2000
                                         });
@@ -392,7 +425,7 @@ export default {
                             if (this.flag) {
                               if (this.chargeimg == 1) {
                                 Toast({
-                                    message: this.battery_heating[7].dictValue,
+                                    message: this.battery_charging[7].dictValue,
                                     position: "middle",
                                     duration: 2000
                                   });
@@ -433,7 +466,7 @@ export default {
                                   if (this.flag) {
                                     if (this.chargeimg == 1) {
                                       Toast({
-                                          message: this.battery_heating[8].dictValue,
+                                          message: this.battery_charging[8].dictValue,
                                           position: "middle",
                                           duration: 2000
                                         });
@@ -475,7 +508,7 @@ export default {
                                   if (this.flag) {
                                     if (this.chargeimg == 1) {
                                       Toast({
-                                          message: this.battery_heating[8].dictValue,
+                                          message: this.battery_charging[8].dictValue,
                                           position: "middle",
                                           duration: 2000
                                         });
@@ -539,7 +572,7 @@ export default {
                       if (this.flag) {
                         if (this.chargeimg == 1) {
                           Toast({
-                              message: this.battery_heating[7].dictValue,
+                              message: this.battery_charging[7].dictValue,
                               position: "middle",
                               duration: 2000
                             });
@@ -580,7 +613,7 @@ export default {
                                   if (this.flag) {
                                     if (this.chargeimg == 1) {
                                       Toast({
-                                          message: this.battery_heating[8].dictValue,
+                                          message: this.battery_charging[8].dictValue,
                                           position: "middle",
                                           duration: 2000
                                         });
@@ -622,7 +655,7 @@ export default {
                                   if (this.flag) {
                                     if (this.chargeimg == 1) {
                                       Toast({
-                                          message: this.battery_heating[8].dictValue,
+                                          message: this.battery_charging[8].dictValue,
                                           position: "middle",
                                           duration: 2000
                                         });
