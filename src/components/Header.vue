@@ -219,7 +219,11 @@
         let _this = this
         this.$http.post(DISCOVERMESSAGE.searchUserBindingOtherModulesOne, {}).then(function (res) {
           if (res.data.code == 0) {
-            _this.picked = res.data.data.brandsNo.split(',');
+            if(res.data.data){
+              _this.picked = res.data.data.brandsNo.split(',');
+            }else{
+              _this.$router.push('/setChannel')
+            }
           }
         });
       },
@@ -248,8 +252,8 @@
     watch: {
       loginState(loginState) {
         if (loginState) {
-          this.getLabels()
           this.searchUserBindingOtherModulesOne()
+          this.getLabels()
         }
       },
       $route(newVal, oldVla) {

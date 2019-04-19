@@ -1,17 +1,17 @@
 <template>
   <div>
-    <div style="width:100%;text-align:center;box-sizing:border-box;font-size:.36rem;color:#555555;">
-      选择频道
+    <div class="title">
+      选择您感兴趣的车型
     </div>
-    <p style="height:.02rem;background:#F1F1F1;width:100%;"></p>
-    <div>
+    <Multicheckbox :source='labels' :busValue="picked" @getTt="getTtInfo"></Multicheckbox>
+
+    <div style="display:grid;">
       <div v-for="(item,index) in labels" style="margin-left:10%;width:40%;display:inline-block">
         <input type="checkbox" :id="'picked_'+item.labelId" :value="item.labelCode" v-model="picked">
         <label :for="'picked_'+item.labelId">{{item.labelName}}</label>
       </div>
     </div>
     <div style="width:100%;display:flex;text-align:center;">
-      <p style="felx:1;width:100%;font-size:.32rem;color:#888888;" @click="cancle">取消</p>
       <p style="felx:1;width:100%;font-size:.32rem;color:#49BBFF;" @click="confirm">确定</p>
     </div>
   </div>
@@ -20,6 +20,7 @@
 <script>
   import { MessageBox } from 'mint-ui';
   import { Toast } from 'mint-ui';
+  import Multicheckbox from '../component/Multicheckbox';
   export default {
     name: "setChannel",
     data(){
@@ -29,7 +30,11 @@
         labelState: 11, //标签默认值为11
       }
     },
+    components:{Multicheckbox},
     methods:{
+      getTtInfo:function(par){
+        this.objInfo.tt= par;
+      },
       // 获取初始化标签列表
       getLabels: function () {
         let _this = this
@@ -63,15 +68,22 @@
           this.$store.dispatch('selectLabelState', null);
         }
       },
-      cancle: function () {
-      },
     },
     mounted(){
       this.getLabels()
     }
+
   }
 </script>
 
 <style scoped>
 
+.title{
+  color:#555555;
+  width:100%;
+  text-align:center;
+  margin-top:20%;
+  font-size:0.35rem;
+  font-weight: 600;
+}
 </style>
