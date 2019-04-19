@@ -1,18 +1,26 @@
 <template>
-  <div>
-    <div class="title">
+  <div class="setChannel">
+    <h1 class="title">
       选择您感兴趣的车型
-    </div>
-    <Multicheckbox :source='labels' :busValue="picked" @getTt="getTtInfo"></Multicheckbox>
+    </h1>
+    <!-- <Multicheckbox :source='labels' :busValue="picked" @getTt="getTtInfo"></Multicheckbox> -->
 
-    <div style="display:grid;">
-      <div v-for="(item,index) in labels" style="margin-left:10%;width:40%;display:inline-block">
-        <input type="checkbox" :id="'picked_'+item.labelId" :value="item.labelCode" v-model="picked">
-        <label :for="'picked_'+item.labelId">{{item.labelName}}</label>
+    <div class="content">
+      <div class="all-check" v-bind:class="allChecked ? 'allcheck-css' : 'noallcheck-css'">
+        全选
+        <img src="../../../../static/images/discover/tick_1.png" alt="" v-if="allChecked" @click="allCheckedFunc">
+        <img src="../../../../static/images/discover/tick_0.png" alt="" v-else  @click="allCheckedFunc">
+      </div>
+      <div class="check">
+        <div v-for="(item,index) in labels" :key="item.id" class="round" v-bind:class="item.checked ? 'check-css' : 'nocheck-css'">
+          <label :for="'picked_'+item.labelId">{{item.labelName}}</label>
+          <img src="../../../../static/images/discover/tick_1.png" alt="" v-if="item.checked" @click="CheckedFunc(item,index)">
+          <img src="../../../../static/images/discover/tick_0.png" alt="" v-else  @click="CheckedFunc(item,index)">
+        </div>
       </div>
     </div>
-    <div style="width:100%;display:flex;text-align:center;">
-      <p style="felx:1;width:100%;font-size:.32rem;color:#49BBFF;" @click="confirm">确定</p>
+    <div class="footer">
+      <p class="confirm" @click="confirm">确定</p>
     </div>
   </div>
 </template>
@@ -25,6 +33,7 @@
     name: "setChannel",
     data(){
       return{
+        allChecked: false, //全选
         labels: [],
         picked:this.$store.state.selectLabelState ? this.$store.state.selectLabelState : [],
         labelState: 11, //标签默认值为11
@@ -32,6 +41,35 @@
     },
     components:{Multicheckbox},
     methods:{
+      // 全选
+      allCheckedFunc() {
+        this.allChecked = !this.allChecked
+        if(this.allChecked) {
+          this.labels.map((item) => {
+            item.checked = true
+            this.picked.push(item.labelCode)
+          })
+        } else {
+          this.labels.map((item) => {
+            item.checked = false
+          })
+          this.picked = []      
+        }
+      },
+      // 单选
+      CheckedFunc(item,index) {
+        item.checked = !item.checked
+        if(item.checked) {
+          this.picked.push(item.labelCode)
+        } else {
+          this.picked.map((list) => {
+            if(list == item) {
+              const index = this.picked.indexOf(item)
+              this.picked.splice(index, 1)
+            }
+          })
+        }
+      },
       getTtInfo:function(par){
         this.objInfo.tt= par;
       },
@@ -49,6 +87,10 @@
             })
 
             _this.labels = arr
+
+            _this.labels.map((item) => {
+              _this.$set(item, 'checked', false)
+            })
           }
         });
       },
@@ -60,6 +102,7 @@
           }).then(function (res) {
             if (res.data.status) {
               Toast('保存成功');
+              this.$router.push("/recommend");
             } else {
               MessageBox('提示', res.data.errorMsg);
             }
@@ -77,13 +120,74 @@
 </script>
 
 <style scoped>
-
-.title{
+.setChannel .title{
   color:#555555;
   width:100%;
   text-align:center;
   margin-top:20%;
   font-size:0.35rem;
   font-weight: 600;
+}
+.setChannel .content .all-check {
+  text-align:center;
+  font-size:.34rem;
+  font-family:PingFang-SC-Medium;
+  font-weight:500;
+  margin-top:.6rem;
+  margin-bottom:.4rem;
+}
+.setChannel .content img {
+  width:.34rem;
+  height:.34rem;
+  display:inline-block;
+}
+.setChannel .content .check{
+  margin:0 auto;
+  display: grid;
+  justify-items:center;
+  align-items:center;
+  grid-template-columns:50% 50%;
+  grid-template-rows: 100px 100px 100px; 
+  font-size:.28rem;
+  color:rgba(85,85,85,1); 
+}
+.setChannel .content .check .round {
+  width:2rem;
+  height:1rem;
+  background:rgba(255,255,255,1);
+  border-radius:8px; 
+  display: grid;
+  justify-items:center;
+  align-items:center;
+  position:relative; 
+}
+.setChannel .content .check .round img {
+  position:absolute;
+  right:-9px;
+}
+.setChannel .footer {
+  position:fixed;
+  bottom:0;
+  width:100%;
+  height:.98rem;
+  line-height: .98rem;
+  text-align: center;
+  background:rgba(73,187,255,1);
+  color:rgba(255,255,255,1);
+  font-size:32px;
+}
+.check-css {
+  border:2px solid rgba(73,187,255,1);
+  color:rgba(73,187,255,1);
+}
+.nocheck-css {
+  border:2px solid rgba(238,238,238,1);
+  color:rgba(153,153,153,1);
+}
+.allcheck-css {
+  color:rgba(73,187,255,1);  
+}
+.noallcheck-css {
+  color:rgba(153,153,153,1);
 }
 </style>
