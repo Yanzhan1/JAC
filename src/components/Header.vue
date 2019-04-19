@@ -217,13 +217,14 @@
       // 查询用户兴趣车型
       searchUserBindingOtherModulesOne: function () {
         let _this = this
-        this.$http.post(DISCOVERMESSAGE.searchUserBindingOtherModulesOne, {}).then(function (res) {
-          if (res.data.code == 0) {
-            if(res.data.data){
-              _this.picked = res.data.data.brandsNo.split(',');
-            }else{
-              _this.$router.push('/setChannel')
-            }
+        this.$http.post(DISCOVERMESSAGE.searchUserBindingOtherModulesOne, {}).then(function ({data}) {
+          if(!data.data){
+            _this.$router.push({
+              path: "/setChannel"
+            })
+          }
+          if (data.data.code == 0) {
+            _this.picked = data.data.data.brandsNo.split(',');
           }
         });
       },
