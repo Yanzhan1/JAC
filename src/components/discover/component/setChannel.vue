@@ -14,7 +14,7 @@
       <div class="check">
         <div v-for="(item,index) in labels" :key="item.id" class="round" v-bind:class="item.checked ? 'check-css' : 'nocheck-css'">
           <label :for="'picked_'+item.labelId">{{item.labelName}}</label>
-          <img src="../../../../static/images/discover/tick_1.png" alt="" v-if="item.checked" @click="CheckedFunc(item,item.labelCode,index)">
+          <img src="../../../../static/images/discover/tick_1.png" alt="" v-if="item.checked" @click="CheckedFunc(item,index)">
           <img src="../../../../static/images/discover/tick_0.png" alt="" v-else  @click="CheckedFunc(item,index)">
         </div>
       </div>
