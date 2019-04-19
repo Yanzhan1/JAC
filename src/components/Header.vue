@@ -27,12 +27,8 @@
           </div>
           <p style="height:.02rem;background:#F1F1F1;width:100%;"></p>
           <div>
-            <div style="margin-left:10%;">
-              <input type="radio" id="picked" v-model="picked">
-              <label for="picked">全部</label>
-            </div>
             <div v-for="(item,index) in labels" style="margin-left:10%;width:40%;display:inline-block">
-              <input type="radio" :id="'picked_'+item.labelId" :value="item.labelId" v-model="picked">
+              <input type="checkbox" :id="'picked_'+item.labelId" :value="item.labelCode" v-model="picked">
               <label :for="'picked_'+item.labelId">{{item.labelName}}</label>
             </div>
           </div>
@@ -57,7 +53,9 @@
         isNow: true,
         isQuestion: true,
         labels: [],
-        picked: this.$store.state.selectLabelState ? this.$store.state.selectLabelState[0] : null,
+        //picked:['VB2018071807034931233','VB2018071905375732834'],
+        picked:this.$store.state.selectLabelState ? this.$store.state.selectLabelState : [],
+        //picked: this.$store.state.selectLabelState ? this.$store.state.selectLabelState[0] : null,
         popup: false,
         labelState: 11, //标签默认值为11
         obj: { //tab状态的映射表
@@ -182,7 +180,16 @@
       confirm: function () {
         this.popup = false
         if (this.picked) {
-          this.$store.dispatch('selectLabelState', [this.picked]);
+          this.$store.dispatch('selectLabelState', this.picked);
+          this.$http.post(DISCOVERMESSAGE.addUserBindingOtherModules, {
+            brandNos: this.picked
+          }).then(function (res) {
+            if (res.data.status) {
+              Toast('保存成功');
+            } else {
+              MessageBox('提示', res.data.errorMsg);
+            }
+          });
         } else {
           this.$store.dispatch('selectLabelState', null);
         }
@@ -204,6 +211,19 @@
             })
 
             _this.labels = arr
+          }
+        });
+      },
+      // 查询用户兴趣车型
+      searchUserBindingOtherModulesOne: function () {
+        let _this = this
+        this.$http.post(DISCOVERMESSAGE.searchUserBindingOtherModulesOne, {}).then(function (res) {
+          if (res.data.code == 0) {
+            if(res.data.data){
+              _this.picked = res.data.data.brandsNo.split(',');
+            }else{
+              _this.$router.push('/setChannel')
+            }
           }
         });
       },
@@ -232,6 +252,7 @@
     watch: {
       loginState(loginState) {
         if (loginState) {
+          this.searchUserBindingOtherModulesOne()
           this.getLabels()
         }
       },
