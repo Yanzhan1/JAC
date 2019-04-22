@@ -41,6 +41,19 @@ export default {
         let params = {
           userNo: userInfo.no
         };
+
+        var _this = this;
+        this.$http.post(DISCOVERMESSAGE.searchUserBindingOtherModulesOne, {}).then(function ({data}) {
+          if(!data.data){
+            _this.$router.push({
+              path: "/setChannel"
+            })
+          }
+          else if (data.code == 0) {
+            _this.$store.state.selectLabelState = data.data.brandsNo.split(',');
+          }
+        });
+
         this.$http.post(Lovecar.TSP, params).then(res => {
           if (res.data.msg == "success") {
             var tsp = res.data.data;
