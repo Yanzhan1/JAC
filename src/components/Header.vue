@@ -278,6 +278,9 @@
         this.$emit('refresh')
       }
       this.onChangeTab()
+      if (this.$store.state.islogin) {
+        this.searchUserBindingOtherModulesOne()
+      }
     }
   }
 
