@@ -6,16 +6,16 @@
     <!-- <Multicheckbox :source='labels' :busValue="picked" @getTt="getTtInfo"></Multicheckbox> -->
 
     <div class="content">
-      <div class="all-check" v-bind:class="allChecked ? 'allcheck-css' : 'noallcheck-css'">
+      <div class="all-check" v-bind:class="allChecked ? 'allcheck-css' : 'noallcheck-css'" @click="allCheckedFunc">
         全选
-        <img src="../../../../static/images/discover/tick_1.png" alt="" v-if="allChecked" @click="allCheckedFunc">
-        <img src="../../../../static/images/discover/tick_0.png" alt="" v-else  @click="allCheckedFunc">
+        <img src="../../../../static/images/discover/tick_1.png" alt="" v-if="allChecked">
+        <img src="../../../../static/images/discover/tick_0.png" alt="" v-else>
       </div>
       <div class="check">
-        <div v-for="(item,index) in labels" :key="item.id" class="round" v-bind:class="item.checked ? 'check-css' : 'nocheck-css'">
+        <div v-for="(item,index) in labels" :key="item.id" class="round" v-bind:class="item.checked ? 'check-css' : 'nocheck-css'" @click="CheckedFunc(item,index)">
           <label :for="'picked_'+item.labelId">{{item.labelName}}</label>
-          <img src="../../../../static/images/discover/tick_1.png" alt="" v-if="item.checked" @click="CheckedFunc(item,index)">
-          <img src="../../../../static/images/discover/tick_0.png" alt="" v-else  @click="CheckedFunc(item,index)">
+          <img src="../../../../static/images/discover/tick_1.png" alt="" v-if="item.checked">
+          <img src="../../../../static/images/discover/tick_0.png" alt="" v-else>
         </div>
       </div>
     </div>
