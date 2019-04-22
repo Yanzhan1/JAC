@@ -158,6 +158,7 @@
         this.topStatus = status;
       },
       getRefreshList: function () {
+        console.log("getRefreshList")
         //获取资讯列表第一页
         let _this = this;
         this.loading = true;
@@ -207,6 +208,7 @@
        * 获取列表
        */
       getList() {
+        console.log("getList")
         this.loading = true
         this.$http.post(INDEXMESSAGE.getInfomation, {
           "uid": this.$store.state.userId,
@@ -230,6 +232,7 @@
       },
       //资讯刷新翻页
       getNextList: function () {
+        console.log("getNextList")
         if (this.$router.currentRoute.path != '/information') {
           return
         }
