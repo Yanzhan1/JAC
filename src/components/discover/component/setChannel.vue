@@ -97,27 +97,27 @@
       },
       confirm: function () {
         var _this = this
-        if (this.picked) {
-          let pickData = []
-          pickData = this.picked.map((item) => {
-            return item.labelCode
-          })
-          _this.$store.dispatch('selectLabelState', pickData);
-          _this.$http.post(DISCOVERMESSAGE.addUserBindingOtherModules, {
-            brandNos: pickData
-          }).then(function (res) {
-            if (res.data.code == 0) {
-              Toast('保存成功');
-              _this.$router.push({
-                path: "/recommend"
-              })
-            } else {
-              MessageBox('提示', res.data.errorMsg);
-            }
-          });
-        } else {
-          this.$store.dispatch('selectLabelState', null);
+        //如果客户不选择车型，直接点击确认，默认全选
+        if (!this.picked) {
+          this.picked = this.labels;
         }
+        let pickData = []
+        pickData = this.picked.map((item) => {
+          return item.labelCode
+        })
+        _this.$store.dispatch('selectLabelState', pickData);
+        _this.$http.post(DISCOVERMESSAGE.addUserBindingOtherModules, {
+          brandNos: pickData
+        }).then(function (res) {
+          if (res.data.code == 0) {
+            Toast('保存成功');
+            _this.$router.push({
+              path: "/recommend"
+            })
+          } else {
+            MessageBox('提示', res.data.errorMsg);
+          }
+        });
       },
     },
     mounted(){
