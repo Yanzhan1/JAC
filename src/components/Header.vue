@@ -217,7 +217,7 @@
         });
       },
       // 查询用户兴趣车型
-      /*searchUserBindingOtherModulesOne: function () {
+      searchUserBindingOtherModulesOne: function () {
         let _this = this
         this.$http.post(DISCOVERMESSAGE.searchUserBindingOtherModulesOne, {}).then(function ({data}) {
           if(!data.data){
@@ -229,7 +229,7 @@
             _this.picked = data.data.brandsNo.split(',');
           }
         });
-      },*/
+      },
       // 设置tab状态
       setTabStatu() {
         const {
@@ -279,6 +279,8 @@
         this.$emit('refresh')
       }
       this.onChangeTab()
+
+      this.searchUserBindingOtherModulesOne();
     }
   }
 

@@ -183,17 +183,6 @@ export default {
             this.$store.dispatch("imgUrl", res.data.data.headUrl);
           }
         });
-        /*判断是否第一次进入，如果第一次进入，设置用户频道*/
-        var _this = this;
-        this.$http.post(DISCOVERMESSAGE.searchUserBindingOtherModulesOne, {}).then(function ({data}) {
-          if(!data.data){
-            _this.$router.push({
-              path: "/setChannel"
-            })
-          } else if (data.code == 0) {
-            _this.$store.state.selectLabelState = data.data.brandsNo.split(',');
-          }
-        });
         //暂时不上uat
         // this.synchronization();
       }
