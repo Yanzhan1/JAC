@@ -481,7 +481,12 @@
        */
       getList() {
         this.loading = true
-        this.$http.post(INDEXMESSAGE.getRecommend, this.listParams).then((res) => {
+        this.$http.post(INDEXMESSAGE.getRecommend, {
+          "uid": this.$store.state.userId,
+          "pageNo": 1,
+          "length": 4,
+          labelIds: this.$store.state.selectLabelState
+        }).then((res) => {
           this.loading = false
           if (res.data.status !== 1) {
             return
@@ -737,7 +742,6 @@
       }
     },
     mounted() {
-      console.log('recommendd',this.$store.state.kim)
       // this.getRefreshList();
       this.userId = this.$store.state.userId;
       // alert(this.$store.state.userId)

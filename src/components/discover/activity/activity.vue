@@ -188,7 +188,12 @@
        */
       getList() {
         this.loading = true
-        this.$http.post(INDEXMESSAGE.getActivity, this.listParams).then((res) => {
+        this.$http.post(INDEXMESSAGE.getActivity, {
+          "uid": this.$store.state.userId,
+          "pageNo": 1,
+          "length": 4,
+          labelIds: this.$store.state.selectLabelState
+        }).then((res) => {
           this.loading = false
           if (res.data.status !== 1) {
             console.log(res.data.errorMsg)
