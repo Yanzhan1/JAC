@@ -100,7 +100,6 @@
       }
     },
     created(){
-      console.log("created")
       this.getList()
     },
     components: {
@@ -150,10 +149,9 @@
       },
       loadTop() {
         // this.getRefreshList();
-        // this.$refs.loadmore.onTopLoaded();
         this.reset()
-        console.log("loadTop")
         this.getList()
+        this.$refs.loadmore.onTopLoaded();
       },
       loadBottom() {},
       handleTopChange(status) {
@@ -225,9 +223,6 @@
           if (this.informationList.length >= res.data.recordsTotal) {
             this.isLastPage = true
           }
-          this.$nextTick(() => {
-            this.$refs.loadmore.onTopLoaded()
-          })
         })
       },
       //资讯刷新翻页
@@ -369,7 +364,6 @@
       selectLabelState() {
         // this.getRefreshList()
         this.reset()
-        console.log("selectLabelState")
         this.getList()
       },
       ['$route'](to, from) {
