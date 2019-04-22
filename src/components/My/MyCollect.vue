@@ -46,11 +46,11 @@
             </p>
             <img class="listPic312" @click="goActivityDetail(item.activityId, item.activityType)" :src="item.imgUrl"/>
             <div class="listIconActivity">
-              <!--未开始-->
+              <!--报名中-->
               <div v-if="item.activityState==0">
                 <img src="../../../static/images/discover/date1.png" class="f_left"/>
                 <span class="f_left">{{item.planDate}}</span>
-                <span class="f_right">未开始</span>
+                <span class="f_right">报名中</span>
                 <img src="../../../static/images/discover/start1.png" class="f_right"/>
               </div>
               <!--已开始-->

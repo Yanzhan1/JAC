@@ -45,7 +45,7 @@
       allCheckedFunc() {
         this.allChecked = !this.allChecked
         if(this.allChecked) {
-          this.picked = []   
+          this.picked = []
           this.labels.map((item) => {
             item.checked = true
             this.picked.push(item)
@@ -54,7 +54,7 @@
           this.labels.map((item) => {
             item.checked = false
           })
-          this.picked = []      
+          this.picked = []
         }
       },
       // 单选
@@ -96,20 +96,21 @@
         });
       },
       confirm: function () {
+        var _this = this
         if (this.picked) {
           let pickData = []
           pickData = this.picked.map((item) => {
             return item.labelCode
           })
-          console.log("pickData",pickData)
-          return
-          this.$store.dispatch('selectLabelState', pickData);
-          this.$http.post(DISCOVERMESSAGE.addUserBindingOtherModules, {
+          _this.$store.dispatch('selectLabelState', pickData);
+          _this.$http.post(DISCOVERMESSAGE.addUserBindingOtherModules, {
             brandNos: pickData
           }).then(function (res) {
-            if (res.data.status) {
+            if (res.data.code == 0) {
               Toast('保存成功');
-              this.$router.push("/recommend");
+              _this.$router.push({
+                path: "/recommend"
+              })
             } else {
               MessageBox('提示', res.data.errorMsg);
             }
@@ -154,19 +155,19 @@
   justify-items:center;
   align-items:center;
   grid-template-columns:50% 50%;
-  grid-template-rows: 100px 100px 100px; 
+  grid-template-rows: 100px 100px 100px;
   font-size:.28rem;
-  color:rgba(85,85,85,1); 
+  color:rgba(85,85,85,1);
 }
 .setChannel .content .check .round {
   width:2rem;
   height:1rem;
   background:rgba(255,255,255,1);
-  border-radius:8px; 
+  border-radius:8px;
   display: grid;
   justify-items:center;
   align-items:center;
-  position:relative; 
+  position:relative;
 }
 .setChannel .content .check .round img {
   position:absolute;
@@ -192,7 +193,7 @@
   color:rgba(153,153,153,1);
 }
 .allcheck-css {
-  color:rgba(73,187,255,1);  
+  color:rgba(73,187,255,1);
 }
 .noallcheck-css {
   color:rgba(153,153,153,1);

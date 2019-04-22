@@ -16,7 +16,7 @@
             </p>
             <img class="listPic312" @click="toDetail(item.activityId)" :src="item.imgUrl"/>
             <div class="listIconActivity">
-              <!--未开始-->
+              <!--报名中-->
               <div v-if="item.activityState==0">
                 <img src="../../../static/images/discover/date1.png" class="f_left"/>
                 <span class="f_left">{{item.planDate}}开始</span>

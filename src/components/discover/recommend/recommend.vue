@@ -73,11 +73,11 @@
               </div>
               <!-- <img class="listPic312" @click="toActDetail(item.id,item.manageType)" :src="item.pictureUrl" /> -->
               <div class="listIconActivity">
-                <!--未开始-->
+                <!--报名中-->
                 <div v-if="item.activityState==0">
                   <img src="../../../../static/images/discover/date1.png" class="f_left" />
                   <span class="f_left">{{item.planDate}}</span>
-                  <span class="f_right">未开始</span>
+                  <span class="f_right">报名中</span>
                   <img src="../../../../static/images/discover/start1.png" class="f_right" />
                 </div>
                 <!--已开始-->
@@ -687,7 +687,17 @@
         var showId = '#share_recommend' + this.indexNum;
         $(showId).hide();
         $("#bgShareReco").hide();
-      }
+      },
+      // 查询用户兴趣车型
+      searchUserBindingOtherModulesOne: function () {
+        let _this = this
+        this.$http.post(DISCOVERMESSAGE.searchUserBindingOtherModulesOne, {}).then(function ({data}) {
+          if (data.code == 0) {
+            _this.$store.dispatch('selectLabelState', data.data.brandsNo.split(','));
+            console.log(this.$store.state.selectLabelState+'已赋值')
+          }
+        });
+      },
     },
     computed: {
       getUserId() {
@@ -714,6 +724,9 @@
         if (!from.query.id) {
           return
         }
+        if (from.path == '/setChannel'){
+          this.searchUserBindingOtherModulesOne()
+        }
         if (to.path == '/recommend' && from.path == '/information/informationDetail') {
           this.$http.post(DISCOVERMESSAGE.informationDetail, {
             "uid": this.$store.state.userId,
@@ -729,7 +742,7 @@
                 }
               }
             } else {
-           
+
               //MessageBox('提示', res.data.errorMsg);
             }
           });

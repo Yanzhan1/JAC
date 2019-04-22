@@ -53,9 +53,8 @@
         isNow: true,
         isQuestion: true,
         labels: [],
-        //picked:['VB2018071807034931233','VB2018071905375732834'],
-        picked:this.$store.state.selectLabelState ? this.$store.state.selectLabelState : [],
-        //picked: this.$store.state.selectLabelState ? this.$store.state.selectLabelState[0] : null,
+        picked:[],
+        //picked:this.$store.state.selectLabelState ? this.$store.state.selectLabelState : [],
         popup: false,
         labelState: 11, //标签默认值为11
         obj: { //tab状态的映射表
@@ -178,18 +177,24 @@
         this.popup = true
       },
       confirm: function () {
+
         this.popup = false
         if (this.picked) {
           this.$store.dispatch('selectLabelState', this.picked);
-          this.$http.post(DISCOVERMESSAGE.addUserBindingOtherModules, {
-            brandNos: this.picked
-          }).then(function (res) {
-            if (res.data.status) {
-              Toast('保存成功');
-            } else {
-              MessageBox('提示', res.data.errorMsg);
-            }
-          });
+            /*if(this.$store.state.userId){*/
+
+              this.$http.post(DISCOVERMESSAGE.addUserBindingOtherModules, {
+                  brandNos: this.picked
+                }).then(function (res) {
+                  if (res.data.status) {
+                    Toast('保存成功');
+                  } else {
+                    MessageBox('提示', res.data.errorMsg);
+                  }
+                });
+
+            /*}*/
+
         } else {
           this.$store.dispatch('selectLabelState', null);
         }
