@@ -101,8 +101,10 @@
           pickData = this.picked.map((item) => {
             return item.labelCode
           })
-          console.log("pickData",pickData)
-          return
+          if(pickData.length == 0) {
+            Toast('请至少选择一个兴趣车型')
+            return false
+          }
           this.$store.dispatch('selectLabelState', pickData);
           this.$http.post(DISCOVERMESSAGE.addUserBindingOtherModules, {
             brandNos: pickData
