@@ -223,8 +223,8 @@
               path: "/setChannel"
             })
           }
-          if (data.data.code == 0) {
-            _this.picked = data.data.data.brandsNo.split(',');
+          else if (data.code == 0) {
+            _this.picked = data.data.brandsNo.split(',');
           }
         });
       },
