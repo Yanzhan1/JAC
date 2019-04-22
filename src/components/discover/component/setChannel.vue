@@ -33,7 +33,7 @@
     name: "setChannel",
     data(){
       return{
-        allChecked: true, //全选
+        allChecked: false, //全选
         labels: [],
         picked:this.$store.state.selectLabelState ? this.$store.state.selectLabelState : [],
         labelState: 11, //标签默认值为11
@@ -90,7 +90,7 @@
             _this.labels = arr
 
             _this.labels.map((item) => {
-              _this.$set(item, 'checked', true)
+              _this.$set(item, 'checked', false)
             })
           }
         });
@@ -101,6 +101,8 @@
           pickData = this.picked.map((item) => {
             return item.labelCode
           })
+          console.log("pickData",pickData)
+          return
           this.$store.dispatch('selectLabelState', pickData);
           this.$http.post(DISCOVERMESSAGE.addUserBindingOtherModules, {
             brandNos: pickData
