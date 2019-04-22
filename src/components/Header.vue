@@ -256,10 +256,9 @@
       }
     },
     watch: {
-      loginState(loginState) {
-        if (loginState) {
+      loginState() {
+        if (this.$store.state.islogin) {
           this.searchUserBindingOtherModulesOne()
-          this.getLabels()
         }
       },
       selectLabelState() {

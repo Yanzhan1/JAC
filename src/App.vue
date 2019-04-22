@@ -109,7 +109,7 @@ export default {
             this.$store.state.enterMaintenance = false;
           }
         } else if (isMobile.Android()) {
-          if (userInfo.defaultInformation.vin) {
+          if (userInfo.defaultInformation && userInfo.defaultInformation.vin) {
             this.$store.dispatch(
               "defaultInformation",
               userInfo.defaultInformation
@@ -159,7 +159,6 @@ export default {
             this.$store.state.enterMaintenance = false;
           }
         }
-
         this.$store.dispatch("CARVINS", userInfo.vin);
         this.$store.dispatch("nomarlseriseName", userInfo.seriesName);
 
