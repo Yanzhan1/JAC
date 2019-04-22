@@ -55,6 +55,7 @@ export default {
         state.srouceNo = payload.lmscode
     },
     [types.SELECTLABELSTATE]: (state, payload) => {
+        console.log("SELECTLABELSTATE 值由"+state.selectLabelState+"变更为"+JSON.stringify(payload))
         state.selectLabelState = payload
     },
     [types.NOMARLSERISENAME]: (state, payload) => {

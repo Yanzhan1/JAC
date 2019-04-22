@@ -225,8 +225,8 @@
               path: "/setChannel"
             })
           }
-          else if (data.code == 0) {
-            _this.picked = data.data.brandsNo.split(',');
+          else if (data.code == 0 && data.data.brandsNo) {
+            _this.$store.dispatch('selectLabelState', data.data.brandsNo.split(','));
           }
         });
       },
@@ -258,7 +258,7 @@
     watch: {
       loginState(loginState) {
         if (loginState) {
-          //this.searchUserBindingOtherModulesOne()
+          this.searchUserBindingOtherModulesOne()
           this.getLabels()
         }
       },
@@ -279,8 +279,6 @@
         this.$emit('refresh')
       }
       this.onChangeTab()
-
-      this.searchUserBindingOtherModulesOne();
     }
   }
 
