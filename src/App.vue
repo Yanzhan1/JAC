@@ -165,18 +165,6 @@ export default {
 
         localStorage.setItem("mobile", JSON.stringify(userInfo.mobile));
         localStorage.setItem("userName", JSON.stringify(userInfo.userName));
-        /*判断是否第一次进入，如果第一次进入，设置用户频道*/
-        var _this = this;
-        this.$http.post(DISCOVERMESSAGE.searchUserBindingOtherModulesOne, {}).then(function ({data}) {
-          if(!data.data){
-            _this.$router.push({
-              path: "/setChannel"
-            })
-          }
-          else if (data.code == 0) {
-            _this.$store.state.selectLabelState = data.data.brandsNo.split(',');
-          }
-        });
       } else {
         this.$store.state.enterMaintenance = false;
         this.$store.dispatch("isLogin", false);
@@ -193,6 +181,17 @@ export default {
         this.$http.post(My.UserInfo, param).then(res => {
           if (res.data.code == 0) {
             this.$store.dispatch("imgUrl", res.data.data.headUrl);
+          }
+        });
+        /*判断是否第一次进入，如果第一次进入，设置用户频道*/
+        var _this = this;
+        this.$http.post(DISCOVERMESSAGE.searchUserBindingOtherModulesOne, {}).then(function ({data}) {
+          if(!data.data){
+            _this.$router.push({
+              path: "/setChannel"
+            })
+          } else if (data.code == 0) {
+            _this.$store.state.selectLabelState = data.data.brandsNo.split(',');
           }
         });
         //暂时不上uat
