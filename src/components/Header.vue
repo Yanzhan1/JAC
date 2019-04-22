@@ -177,24 +177,21 @@
         this.popup = true
       },
       confirm: function () {
-
         this.popup = false
         if (this.picked) {
           this.$store.dispatch('selectLabelState', this.picked);
-            /*if(this.$store.state.userId){*/
-
-              this.$http.post(DISCOVERMESSAGE.addUserBindingOtherModules, {
-                  brandNos: this.picked
-                }).then(function (res) {
-                  if (res.data.status) {
-                    Toast('保存成功');
-                  } else {
-                    MessageBox('提示', res.data.errorMsg);
-                  }
-                });
-
-            /*}*/
-
+          if(!this.$store.state.islogin){
+            return false;
+          }
+          this.$http.post(DISCOVERMESSAGE.addUserBindingOtherModules, {
+              brandNos: this.picked
+            }).then(function (res) {
+              if (res.data.status) {
+                Toast('保存成功');
+              } else {
+                MessageBox('提示', res.data.errorMsg);
+              }
+            });
         } else {
           this.$store.dispatch('selectLabelState', null);
         }
@@ -253,6 +250,9 @@
     computed: {
       loginState() {
         return this.$store.state.islogin
+      },
+      selectLabelState() {
+        return this.$store.state.selectLabelState
       }
     },
     watch: {
@@ -261,6 +261,9 @@
           this.searchUserBindingOtherModulesOne()
           this.getLabels()
         }
+      },
+      selectLabelState() {
+        this.picked = this.$store.state.selectLabelState
       },
       $route(newVal, oldVla) {
         this.setTabStatu()

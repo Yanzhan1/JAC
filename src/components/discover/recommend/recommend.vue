@@ -688,16 +688,6 @@
         $(showId).hide();
         $("#bgShareReco").hide();
       },
-      // 查询用户兴趣车型
-      searchUserBindingOtherModulesOne: function () {
-        let _this = this
-        this.$http.post(DISCOVERMESSAGE.searchUserBindingOtherModulesOne, {}).then(function ({data}) {
-          if (data.code == 0) {
-            _this.$store.dispatch('selectLabelState', data.data.brandsNo.split(','));
-            console.log(this.$store.state.selectLabelState+'已赋值')
-          }
-        });
-      },
     },
     computed: {
       getUserId() {
@@ -723,9 +713,6 @@
       ['$route'](to, from){
         if (!from.query.id) {
           return
-        }
-        if (from.path == '/setChannel'){
-          this.searchUserBindingOtherModulesOne()
         }
         if (to.path == '/recommend' && from.path == '/information/informationDetail') {
           this.$http.post(DISCOVERMESSAGE.informationDetail, {
