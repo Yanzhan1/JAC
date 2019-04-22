@@ -97,14 +97,17 @@
       },
       confirm: function () {
         var _this = this
-        //如果客户不选择车型，直接点击确认，默认全选
-        if (!this.picked) {
-          this.picked = this.labels;
-        }
         let pickData = []
-        pickData = this.picked.map((item) => {
-          return item.labelCode
-        })
+        //如果客户不选择车型，直接点击确认，默认全选
+        if (this.picked.length === 0) {
+          pickData = this.labels.map((item) => {
+            return item.labelCode
+          })
+        }else{
+          pickData = this.picked.map((item) => {
+            return item.labelCode
+          })
+        }
         _this.$store.dispatch('selectLabelState', pickData);
         _this.$http.post(DISCOVERMESSAGE.addUserBindingOtherModules, {
           brandNos: pickData
