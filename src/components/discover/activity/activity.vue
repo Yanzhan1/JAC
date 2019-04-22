@@ -190,8 +190,8 @@
         this.loading = true
         this.$http.post(INDEXMESSAGE.getActivity, {
           "uid": this.$store.state.userId,
-          "pageNo": 1,
-          "length": 4,
+          "pageNo": this.listParams.pageNo,
+          "length": this.listParams.length,
           labelIds: this.$store.state.selectLabelState
         }).then((res) => {
           this.loading = false

@@ -149,9 +149,9 @@
       },
       loadTop() {
         // this.getRefreshList();
+        // this.$refs.loadmore.onTopLoaded();
         this.reset()
         this.getList()
-        this.$refs.loadmore.onTopLoaded();
       },
       loadBottom() {},
       handleTopChange(status) {
@@ -210,8 +210,8 @@
         this.loading = true
         this.$http.post(INDEXMESSAGE.getInfomation, {
           "uid": this.$store.state.userId,
-          "pageNo": 1,
-          "length": 4,
+          "pageNo": this.listParams.pageNo,
+          "length": this.listParams.length,
           labelIds: this.$store.state.selectLabelState
         }).then((res) => {
           this.loading = false
@@ -223,6 +223,9 @@
           if (this.informationList.length >= res.data.recordsTotal) {
             this.isLastPage = true
           }
+          this.$nextTick(() => {
+            this.$refs.loadmore.onTopLoaded()
+          })
         })
       },
       //资讯刷新翻页
