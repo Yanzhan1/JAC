@@ -177,6 +177,9 @@
       },
       open: function () {
         this.popup = true
+        if(this.selectLabelState){
+          this.picked = [...this.selectLabelState]
+        }
       },
       confirm: function () {
         this.popup = false
