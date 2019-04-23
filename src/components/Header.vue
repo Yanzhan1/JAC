@@ -178,23 +178,30 @@
       },
       confirm: function () {
         this.popup = false
-        if (this.picked) {
-          this.$store.dispatch('selectLabelState', this.picked);
-          if(!this.$store.state.islogin){
-            return false;
-          }
-          this.$http.post(DISCOVERMESSAGE.addUserBindingOtherModules, {
-              brandNos: this.picked
-            }).then(function (res) {
-              if (res.data.status) {
-                Toast('保存成功');
-              } else {
-                MessageBox('提示', res.data.errorMsg);
-              }
-            });
-        } else {
-          this.$store.dispatch('selectLabelState', null);
+        let pickData = []
+        if (this.picked.length === 0) {
+          pickData = this.labels.map((item) => {
+            return item.labelCode
+          })
+        }else{
+          pickData = this.picked.map((item) => {
+            return item.labelCode
+          })
         }
+        this.picked = pickData
+        this.$store.dispatch('selectLabelState', pickData);
+        if(!this.$store.state.islogin){
+          return false;
+        }
+        this.$http.post(DISCOVERMESSAGE.addUserBindingOtherModules, {
+            brandNos: pickData
+          }).then(function (res) {
+            if (res.data.status) {
+              Toast('保存成功');
+            } else {
+              MessageBox('提示', res.data.errorMsg);
+            }
+          });
       },
       cancle: function () {
         this.popup = false
