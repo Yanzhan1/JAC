@@ -43,6 +43,8 @@
 </template>
 
 <script>
+  import { MessageBox } from 'mint-ui';
+  import { Toast } from 'mint-ui';
   export default {
     data() {
       return {
@@ -196,7 +198,7 @@
         this.$http.post(DISCOVERMESSAGE.addUserBindingOtherModules, {
             brandNos: pickData
           }).then(function (res) {
-            if (res.data.status) {
+            if (res.data.code == 0) {
               Toast('保存成功');
             } else {
               MessageBox('提示', res.data.errorMsg);
