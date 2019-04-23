@@ -185,7 +185,7 @@
           })
         }else{
           pickData = this.picked.map((item) => {
-            return item.labelCode
+            return item
           })
         }
         this.picked = pickData
