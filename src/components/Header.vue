@@ -39,12 +39,17 @@
         </mt-popup>
       </div>
     </div>
+
+    <set-channel v-if="setChannelFlag"></set-channel>
+
   </div>
 </template>
 
 <script>
   import { MessageBox } from 'mint-ui';
   import { Toast } from 'mint-ui';
+  import setChannel from './discover/component/setChannel' 
+  
   export default {
     data() {
       return {
@@ -64,10 +69,12 @@
           '/now': this.goIsNow,
           '/information': this.goInformation,
           '/activity': this.goAllActivity
-        }
+        },
+        setChannelFlag: false
       }
     },
     components: {
+      setChannel
       /*Mine*/
     },
     computed: {},
@@ -228,14 +235,20 @@
           }
         });
       },
+      changeSetChannelFlag(){
+        this.setChannelFlag = false
+      },
       // 查询用户兴趣车型
       searchUserBindingOtherModulesOne: function () {
         let _this = this
         this.$http.post(DISCOVERMESSAGE.searchUserBindingOtherModulesOne, {}).then(function ({data}) {
           if(!data.data){
-            _this.$router.push({
-              path: "/setChannel"
-            })
+            // setTimeout(()=>{
+            //   _this.$router.push({
+            //     path: "/setChannel"
+            //   })
+            // }, 500)
+            _this.setChannelFlag = true
           }
           else if (data.code == 0 && data.data.brandsNo) {
             _this.$store.dispatch('selectLabelState', data.data.brandsNo.split(','));

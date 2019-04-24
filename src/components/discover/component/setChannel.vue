@@ -12,7 +12,7 @@
         <img src="../../../../static/images/discover/tick_0.png" alt="" v-else>
       </div>
       <div class="check">
-        <div v-for="(item,index) in labels" :key="item.id" class="round" v-bind:class="item.checked ? 'check-css' : 'nocheck-css'" @click="CheckedFunc(item,index)">
+        <div v-for="(item,index) in labels" :key="item.id" class="round" v-bind:class="item.checked ? 'check-css' : 'nocheck-css'" @click.stop="CheckedFunc(item,index)">
           <label :for="'picked_'+item.labelId">{{item.labelName}}</label>
           <img src="../../../../static/images/discover/tick_1.png" alt="" v-if="item.checked">
           <img src="../../../../static/images/discover/tick_0.png" alt="" v-else>
@@ -35,7 +35,7 @@
       return{
         allChecked: false, //全选
         labels: [],
-        picked:this.$store.state.selectLabelState ? this.$store.state.selectLabelState : [],
+        picked:[],
         labelState: 11, //标签默认值为11
       }
     },
@@ -114,9 +114,10 @@
         }).then(function (res) {
           if (res.data.code == 0) {
             Toast('保存成功');
-            _this.$router.push({
-              path: "/recommend"
-            })
+            // _this.$router.push({
+            //   path: "/recommend"
+            // })
+            _this.$parent.changeSetChannelFlag()
           } else {
             MessageBox('提示', res.data.errorMsg);
           }
@@ -131,6 +132,15 @@
 </script>
 
 <style scoped>
+.setChannel {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+  background-color: #fff;
+}
 .setChannel .title{
   color:#555555;
   width:100%;
@@ -179,6 +189,7 @@
 .setChannel .footer {
   position:fixed;
   bottom:0;
+  z-index: 1001;
   width:100%;
   height:.98rem;
   line-height: .98rem;
