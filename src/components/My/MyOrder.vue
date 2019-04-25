@@ -232,7 +232,8 @@ export default {
     //取消订单
     cancelbable(val){
       let data={
-        no:val
+        no:val,
+        brandNo:this.$store.getters.defaultInformation.brandNo
       }
       this.$http.post(My.cancelMaintenanceAppointment,data).then((res)=>{
         if(res.data.code==0){
@@ -266,6 +267,7 @@ export default {
     appointment(){
       let param = {
         // vin: "LJ12EKR21J4931800",
+        brandNo:this.$store.getters.defaultInformation.brandNo,
         revervationStatus: "",
         vin:this.$store.state.defaultInformation.vin,
       };

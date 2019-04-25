@@ -359,8 +359,8 @@ const router = new Router({
             },
 
             {
-              path: "/setChannel",
-              component: SetChannel
+                path: "/setChannel",
+                component: SetChannel
             },
             {
                 path: "/activity/activityDetail",
@@ -1003,10 +1003,8 @@ router.beforeEach((to, from, next) => {
                 // TODO 跳转至登录页面 待处理
             }
             //          alert($store.state.token)
-            console.log($store.state.token)
             $http.defaults.headers.common['timaToken'] = $store.state.token;
             // this.$http.post(Lovecar.vehicle, {}).then((res) => {
-            //         console.log(res)
             //     })
             //             alert("axios里面的token值： "+$http.defaults.headers.common['timaToken'])
         }
