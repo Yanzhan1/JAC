@@ -23,6 +23,18 @@
         placeholderHeight: 0
       }
     },
+    computed: {
+      islogin() {
+        return this.$store.state.islogin
+      }
+    },
+    watch: {
+      islogin(newVal) {
+        if (newVal) {
+          this.flag = false
+        }
+      }
+    },
     methods: {
       refresh() {
         this.flag = false
@@ -31,7 +43,7 @@
         })
       }
     },
-    mounted(){
+    mounted() {
       const box = document.querySelector('#box')
       const placeholder = document.querySelector('#placeholder')
 

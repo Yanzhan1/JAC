@@ -237,6 +237,7 @@
       },
       changeSetChannelFlag(){
         this.setChannelFlag = false
+        this.$parent.refresh()
       },
       // 查询用户兴趣车型
       searchUserBindingOtherModulesOne: function () {
@@ -252,6 +253,7 @@
           }
           else if (data.code == 0 && data.data.brandsNo) {
             _this.$store.dispatch('selectLabelState', data.data.brandsNo.split(','));
+            _this.$parent.refresh()
           }
         });
       },
