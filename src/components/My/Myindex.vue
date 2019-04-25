@@ -13,7 +13,7 @@
           </div>
           <!-- <div class="Membershipshow">{{this.Membership}}</div> -->
           <!-- 控制会员等级图标的展示 -->
-          <img v-show="this.$store.state.islogin" class="signimg" :src="Vimg" alt="">
+          <!-- <img v-show="this.$store.state.islogin" class="signimg" :src="Vimg" alt=""> -->
           <div class="flex column" style="margin-left: 0.2rem;">
             <div class="flex cocenter" style="overflow: hidden">
               <div v-if="this.$store.state.userId">
