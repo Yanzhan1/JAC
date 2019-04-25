@@ -155,7 +155,7 @@
   font-family:PingFang-SC-Medium;
   font-weight:500;
   margin-top:.6rem;
-  margin-bottom:.4rem;
+  margin-bottom:.88rem;
 }
 .setChannel .content img {
   width:.34rem;
@@ -163,28 +163,29 @@
   display:inline-block;
 }
 .setChannel .content .check{
-  margin:0 auto;
-  display: grid;
-  justify-items:center;
-  align-items:center;
-  grid-template-columns:50% 50%;
-  grid-template-rows: 100px 100px 100px;
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
   font-size:.28rem;
   color:rgba(85,85,85,1);
+  padding:0 1rem 0 1rem;
 }
 .setChannel .content .check .round {
   width:2rem;
   height:1rem;
   background:rgba(255,255,255,1);
   border-radius:8px;
-  display: grid;
-  justify-items:center;
-  align-items:center;
+  line-height: 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
   position:relative;
 }
 .setChannel .content .check .round img {
   position:absolute;
-  right:-9px;
+  right: -0.18rem;
+  top: 0.27rem;
 }
 .setChannel .footer {
   position:fixed;
