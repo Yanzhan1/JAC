@@ -13,7 +13,7 @@
           </div>
           <!-- <div class="Membershipshow">{{this.Membership}}</div> -->
           <!-- 控制会员等级图标的展示 -->
-          <!-- <img v-show="this.$store.state.islogin" class="signimg" :src="Vimg" alt=""> -->
+          <img v-show="this.$store.state.islogin" class="signimg" :src="Vimg" alt="">
           <div class="flex column" style="margin-left: 0.2rem;">
             <div class="flex cocenter" style="overflow: hidden">
               <div v-if="this.$store.state.userId">
@@ -175,17 +175,19 @@ export default {
       mobile: "",
       add: "",
       userName: "",
-      token: ""
+      token: "",
+      timer:null
     };
   },
   methods: {
     // 签到
+    
     sign() {
       // 检查登录状态,如果没登陆，弹出提示框并且return false
-      if (!this.$store.state.islogin) {
-        this.toLogin();
-        return false;
-      }
+      // if (!this.$store.state.islogin) {
+      //   this.toLogin();
+      //   return false;
+      // }
       var data = {
         ruleStr: "SIGN_IN",
         serviceTypeStr: "SERVICE_FIXED",
@@ -193,18 +195,20 @@ export default {
         no: this.$store.state.userId
         // no:'AD11201809030320353266'
       };
-      //  var param=JSON.stringify(data)
-      this.$http.post(My.SignIn, data).then(res => {
-        if (res.data.code == 0) {
-          this.num = res.data.data;
-          this.popupVisible = true;
-          setTimeout(() => {
-            this.popupVisible = false;
-            this.isShow = false;
-          }, 1000);
-        }
-        this.total();
-      });
+      clearTimeout(this.timer)
+      this.timer=setTimeout(()=>{ 
+          this.$http.post(My.SignIn, data).then(res => {
+            if (res.data.code == 0) {
+              this.num = res.data.data;
+              this.popupVisible = true;
+              setTimeout(() => {
+                this.popupVisible = false;
+                this.isShow = false;
+              }, 1000);
+            }
+            this.total();
+          });
+      },1000)
     },
     // 判断是否签到
     IsSign() {
@@ -457,30 +461,30 @@ export default {
               switch(val.id){
                  case 1:
                   if (this.imgV) {
-                       this.Vimg="./../../../static/images/my/member1_v.png"
+                       this.Vimg="/static/images/my/member1_v.png"
                    }else{
-                       this.Vimg="./../../../static/images/my/member1.png"
+                       this.Vimg="/static/images/my/member1.png"
                    }
                  break;
                  case 2:
                   if (this.imgV) {
-                       this.Vimg="./../../../static/images/my/member2_v.png"
+                       this.Vimg="/static/images/my/member2_v.png"
                    }else{
-                       this.Vimg="./../../../static/images/my/member2.png"
+                       this.Vimg="/static/images/my/member2.png"
                    }
                  break;
                  case 3:
                   if (this.imgV) {
-                       this.Vimg="./../../../static/images/my/member3_v.png"
+                       this.Vimg="/static/images/my/member3_v.png"
                    }else{
-                       this.Vimg="./../../../static/images/my/member3.png"
+                       this.Vimg="/static/images/my/member3.png"
                    }
                  break;
                  case 4:
                   if (this.imgV) {
-                       this.Vimg="./../../../static/images/my/member4_v.png"
+                       this.Vimg="/static/images/my/member4_v.png"
                    }else{
-                       this.Vimg="./../../../static/images/my/member4.png"
+                       this.Vimg="/static/images/my/member4.png"
                    }
                  break;
                  case 5:
