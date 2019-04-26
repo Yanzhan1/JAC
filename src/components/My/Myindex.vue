@@ -13,7 +13,7 @@
           </div>
           <!-- <div class="Membershipshow">{{this.Membership}}</div> -->
           <!-- 控制会员等级图标的展示 -->
-          <img v-show="this.$store.state.islogin" class="signimg" :src="Vimg" alt="">
+          <img v-show="this.$store.state.islogin" class="signimg" :src='this.Vimg' alt="">
           <div class="flex column" style="margin-left: 0.2rem;">
             <div class="flex cocenter" style="overflow: hidden">
               <div v-if="this.$store.state.userId">
@@ -461,37 +461,37 @@ export default {
               switch(val.id){
                  case 1:
                   if (this.imgV) {
-                       this.Vimg="/static/images/my/member1_v.png"
+                       this.Vimg="./static/images/my/member1_v.png"
                    }else{
-                       this.Vimg="/static/images/my/member1.png"
+                       this.Vimg="./static/images/my/member1.png'"
                    }
                  break;
                  case 2:
                   if (this.imgV) {
-                       this.Vimg="/static/images/my/member2_v.png"
+                       this.Vimg="./static/images/my/member2_v.png"
                    }else{
-                       this.Vimg="/static/images/my/member2.png"
+                       this.Vimg="./static/images/my/member2.png"
                    }
                  break;
                  case 3:
                   if (this.imgV) {
-                       this.Vimg="/static/images/my/member3_v.png"
+                       this.Vimg="./static/images/my/member3_v.png"
                    }else{
-                       this.Vimg="/static/images/my/member3.png"
+                       this.Vimg="./static/images/my/member3.png"
                    }
                  break;
                  case 4:
                   if (this.imgV) {
-                       this.Vimg="/static/images/my/member4_v.png"
+                       this.Vimg="./static/images/my/member4_v.png"
                    }else{
-                       this.Vimg="/static/images/my/member4.png"
+                       this.Vimg="./static/images/my/member4.png"
                    }
                  break;
                  case 5:
                    if (this.imgV) {
-                       this.Vimg="./../../../static/images/my/member5_v.png"
+                       this.Vimg="./static/images/my/member5_v.png"
                    }else{
-                       this.Vimg="./../../../static/images/my/member5.png"
+                       this.Vimg="./static/images/my/member5.png"
                    }
                  break;
                  default:
