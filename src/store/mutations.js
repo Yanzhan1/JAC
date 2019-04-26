@@ -20,6 +20,8 @@ export default {
     },
     [types.USERINFO]: (state, payload) => {
         if (payload) {
+            state.brandName = payload.brandName
+            state.brandNo = payload.brandNo
             state.sign = payload.sign
             state.userName = payload.userName
             state.trueuserId = payload.userId

@@ -18,6 +18,7 @@ export default {
     integral: '', //用户总积分
     everyno: '', //智享主页点击时候每个车的no
     brandName: '', //爱车页面默认车辆的车名
+    brandNo: "", //默认车辆的no
     seriesName: '瑞风S4', //智享主页点击时候车的每一个seriesName
     nomarlseriseName: '', //爱车部分默认的seriseName
     srouceNo: '', //智享主页点击时候车的每一个srouceNo
