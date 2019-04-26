@@ -13,7 +13,7 @@
           </div>
           <!-- <div class="Membershipshow">{{this.Membership}}</div> -->
           <!-- 控制会员等级图标的展示 -->
-          <img v-show="this.$store.state.islogin" class="signimg" :src='this.Vimg' alt="">
+          <img v-show="this.$store.state.islogin" :class="this.imgV?'signVimg':'signimg'" :src='this.Vimg' alt="">
           <div class="flex column" style="margin-left: 0.2rem;">
             <div class="flex cocenter" style="overflow: hidden">
               <div v-if="this.$store.state.userId">
@@ -208,7 +208,7 @@ export default {
             }
             this.total();
           });
-      },1000)
+      },300)
     },
     // 判断是否签到
     IsSign() {
@@ -627,6 +627,13 @@ export default {
   display: block;
   width: 1rem;
   height: .25rem;
+  top: 1rem;
+  left: .41rem;
+  position: absolute;
+}
+.signVimg{
+  display: block;
+  width: 1rem;
   top: 1rem;
   left: .41rem;
   position: absolute;
