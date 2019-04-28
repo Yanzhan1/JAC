@@ -342,6 +342,7 @@ export default {
                           if (this.fluctuationType == "1") {
 
                             this.activeShowImg = false;
+                            this.flags=false
                             Toast({
                               message: this.windowwords[4].dictValue,
                               position: "middle",
@@ -351,6 +352,7 @@ export default {
                           if (this.fluctuationType == "3") {
                             //车窗图片激活
                             this.activeShowImg = true;
+                            this.flags=true
                             //canvas的激活
                             Toast({
                               message: this.windowwords[5].dictValue,
@@ -385,6 +387,7 @@ export default {
               if (this.fluctuationType == "1") {
                 //车窗图片关闭
                 this.activeShowImg = false;
+                this.flags=false;
                 Toast({
                   message: this.windowwords[4].dictValue,
                   position: "middle",
@@ -394,6 +397,7 @@ export default {
               if (this.fluctuationType == "3") {
                 //车窗图片激活
                 this.activeShowImg = true;
+                this.flags=true;
                 Toast({
                   message: this.windowwords[1].dictValue,
                   position: "middle",

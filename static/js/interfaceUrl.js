@@ -239,6 +239,7 @@ window.Newenergy = {
         energyforgetvehiclepin: witlocal + '/vehicleInformation/energy-forget-vehicle-pin', //忘记pin码接口
         energyvehiclePINvalidation: witlocal + '/vehicleInformation/energy-vehicle-PIN-validation', //验证pin码
         energyvehiclecycflowquery: witlocal + '/vehicleInformation/energy-vehicle-cyc-flow-query', //流量查询接口
+        energyvehiclesupportfunction: witlocal + '/vehicleInformation/energy-vehicle-support-function', //流量查询接口
     }
     //消息接口
 window.IMFORMATION = {

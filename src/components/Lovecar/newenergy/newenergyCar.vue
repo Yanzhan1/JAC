@@ -1447,6 +1447,19 @@ export default {
           }
         });
     },
+    getcarcontrol(){    
+      let params={
+        vin:'LJ1EEASP9K5000037'
+      }
+      this.$http
+        .post(
+          Newenergy.energyvehiclesupportfunction,
+          params,
+          this.$store.state.tsppin
+        ).then((res)=>{
+            console.log(res)
+        })
+    },
     //拿到所有的提示语
     Getmarkedwords() {
       this.$http.post(My.getwords, {}).then(res => {
@@ -1816,6 +1829,7 @@ export default {
       marginTop: this.$store.state.mobileStatusBar
     });
     this.vinn = this.$store.state.defaultInformation.vin;
+    this.getcarcontrol()
     // this.vinn = 'LJ1EEASPXJ5000403';
     this.Getmarkedwords();
     new Promise(()=>{
