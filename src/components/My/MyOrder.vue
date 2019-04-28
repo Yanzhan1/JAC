@@ -233,7 +233,7 @@ export default {
     cancelbable(val){
       let data={
         no:val,
-        brandNo:this.$store.getters.defaultInformation.brandNo
+        brandNo:this.$store.state.brandNo
       }
       this.$http.post(My.cancelMaintenanceAppointment,data).then((res)=>{
         if(res.data.code==0){
@@ -267,7 +267,7 @@ export default {
     appointment(){
       let param = {
         // vin: "LJ12EKR21J4931800",
-        brandNo:this.$store.getters.defaultInformation.brandNo,
+        brandNo:this.$store.state.brandNo,
         revervationStatus: "",
         vin:this.$store.state.defaultInformation.vin,
       };

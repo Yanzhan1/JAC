@@ -22,6 +22,7 @@ export default {
         if (payload) {
             state.brandName = payload.brandName
             state.brandNo = payload.brandNo
+            state.brandId = payload.brandId
             state.sign = payload.sign
             state.userName = payload.userName
             state.trueuserId = payload.userId
