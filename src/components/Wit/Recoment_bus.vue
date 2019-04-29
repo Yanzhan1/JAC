@@ -57,7 +57,8 @@ export default {
 
     getcarbus() {
       var param = {
-        highlyRecommend: "1"
+        highlyRecommend: "1",
+        flagType:1
       };
       this.$http.post(Wit.MainBus, param).then(res => {
         if (res.data.code == 0) {

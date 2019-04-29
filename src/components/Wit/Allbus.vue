@@ -45,12 +45,15 @@ export default {
       this.$store.state.shownum = 2;
       this.$router.push({
         name: "车系特色",
-        params: {}
+        params: {
+        }
       });
     },
 
     getcarbus() {
-      var param = {};
+      var param = {
+        flagType:1
+      };
       this.$http.post(Wit.MainBus, param).then(res => {
         if (res.data.code == 0) {
           var arr = res.data.data;
