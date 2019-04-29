@@ -1447,18 +1447,91 @@ export default {
           }
         });
     },
-    getcarcontrol(){    
-      let params={
-        vin:'LJ1EEASP9K5000037'
-      }
+    getcarcontrol() {
+      let param = {
+        vin: this.vinn,
+        // vin:'LJ1EEASP9K5000037'
+      };
       this.$http
-        .post(
-          Newenergy.energyvehiclesupportfunction,
-          params,
-          this.$store.state.tsppin
-        ).then((res)=>{
-            console.log(res)
-        })
+        .post(Newenergy.energyvehiclesupportfunction, param, this.$store.state.tsppin)
+        .then(res => {
+          if(res.data.returnSuccess){
+            
+            let allnum = res.data.data;
+            this.allFunction = res.data.data;
+            // for (let value of allnum) {
+            //   switch (value.code) {
+            //       case "WINDOW":
+            //          this.WINDOW = true;
+            //         break;
+            //       case "REMOTE_OPEN_OR_CLOSE_SUNROOF": 
+            //         this.REMOTE_OPEN_OR_CLOSE_SUNROOF = true;
+            //         break;
+            //       case "REMOTE_CLOSE_SUNROOF": 
+            //         this.REMOTE_CLOSE_SUNROOF = true;
+            //         break;
+            //       case "EAIRCONDITIONER": 
+            //         this.Aircondtion_electricity = true;
+            //         break;
+            //       case "AIRCONDITIONER": 
+            //         this.Aircondtion = true;
+            //         break;
+            //       case "PURIFICATION": 
+            //         this.PURIFICTION = true;
+            //         break;
+            //       case "SEAT_HEAT": 
+            //         this.HOSTSEAT_HEAT = true;
+            //         break;
+            //       case "CAR_INFO": 
+            //         this.CAR_INFO = true;
+            //         break;
+            //       case "ENGINE": 
+            //         this.ENGINE = true;
+            //         break;
+            //       case "CAR_EXAMINATION": 
+            //         this.CAR_EXAMINATION = true;
+            //         break;
+            //       case "CAR_POINT_QUERY": 
+            //         this.CAR_POINT_QUERY = true;
+            //         break;
+            //       case "UPDATE_PIN": 
+            //         this.UPDATE_PIN = true;
+            //         break;
+            //       case "FLOW_QUERY": 
+            //         this.FLOW_QUERY = true;
+            //         break;
+            //       case "FUEL_STATISTICS": 
+            //         this.FUEL_STATISTICS = true;
+            //         break;
+            //       case "CONTROL_AUTH": 
+            //         this.CONTROL_AUTH = true;
+            //         break;
+            //       case "WIFI": 
+            //         this.WIFI = true;
+            //         break;
+            //       case "REAL_TIME_VIDEO_VIEW": 
+            //         this.REAL_TIME_VIDEO_VIEW = true;
+            //         break;
+            //       case "ELECTRIC_FENCE": 
+            //         this.ELECTRIC_FENCE = true;
+            //         break;
+            //       case "FIND_VEHICLE": 
+            //         this.FIND_VEHICLE = true;
+            //         break;
+            //       case "TRUNK": 
+            //         this.TRUNK = true;
+            //         break;
+            //       case "SEAT_VENTILATION": 
+            //         this.HOSTSEAT_HEAT = true;
+            //         break;
+            //       case "TACHOGRAPH": 
+            //         this.REAL_TIME_VIDEO_VIEW = true;
+            //         break;
+            //       default:                  
+            //     }
+            // }
+          }
+        });
     },
     //拿到所有的提示语
     Getmarkedwords() {
