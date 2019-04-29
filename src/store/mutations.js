@@ -23,6 +23,7 @@ export default {
             state.brandName = payload.brandName
             state.brandNo = payload.brandNo
             state.brandId = payload.brandId
+            state.series_No = payload.series_No
             state.sign = payload.sign
             state.userName = payload.userName
             state.trueuserId = payload.userId
