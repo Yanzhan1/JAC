@@ -186,27 +186,27 @@
 				<!--轮播第一页Start-->
 				<mt-swipe-item>
 					<div class="content">
-						<div  class="content_1" @click="doors">
+						<div v-show="LOCK" class="content_1" @click="doors">
 							<img v-if="this.doorcontrol" class="content_carDoor" :src="'./static/images/Lovecar/lockon.png'" alt="">
 							<img v-else class="content_carDoor" :src="'./static/images/Lovecar/lockoff.png'" alt="">
 							<span :class="this.doorcontrol?'act':'activess'">闭锁</span>
 						</div>
-						<div  class="content_1" @click="doorsoppen">
+						<div v-show="LOCK" class="content_1" @click="doorsoppen">
 							<img v-if="!this.doorcontrol" class="content_carDoor" :src="'./static/images/Lovecar/nolockon.png'" alt="">
 							<img v-else class="content_carDoor" :src="'./static/images/Lovecar/nolockoff.png'" alt="">
 							<span :class="!this.doorcontrol?'act':'activess'">开锁</span>
 						</div>
-						<div  class="content_1" @click="backboxopen">
+						<div  v-show="REMOTE_END_OPEN_OR_CLOSE" class="content_1" @click="backboxopen">
 							<img v-if="!this.trunkcontrol" class="tailgate" :src="'./static/images/Lovecar/tailgate_open_blue@2x.png'" alt="">
 							<img v-else class="tailgate" :src="'./static/images/Lovecar/tailgate_open@2x.png'" alt="">
 							<span :class="!this.trunkcontrol?'act':'activess'">尾门开</span>
 						</div>
-						<div  class="content_1" @click="backboxclose">
+						<div v-show="REMOTE_END_OPEN_OR_CLOSE" class="content_1" @click="backboxclose">
 							<img v-if="this.trunkcontrol" class="tailgate" :src="'./static/images/Lovecar/tailgate_close_blue@2x.png'" alt="">
 							<img v-else class="tailgate" :src="'./static/images/Lovecar/tailgate_close@2x.png'" alt="">
 							<span :class="this.trunkcontrol?'act':'activess'">尾门关</span>
 						</div>
-						<div class="content_1" @click="enter()">
+						<div v-show="FIND_VEHICLE" class="content_1" @click="enter()">
 							<img v-if="!this.findcarcontrol" class="content_pic" :src="'./static/images/Wit/button7@3x_2.png'" alt="">
 							<img v-else class="content_pic" :src="'./static/images/Wit/button7@3x.png'" alt="">
 							<span :class="!this.findcarcontrol?'act':'activess'">寻车</span>
@@ -217,22 +217,22 @@
 				<!--轮播第二页Start-->
 				<mt-swipe-item>
 					<div class="content">
-						<div  class="content_1" @click="openNearLight">
+						<div v-show="REMOTE_NEAR_LIGHT_OPEN_OR_CLOSE"  class="content_1" @click="openNearLight">
 							<img v-if="!this.lightnearcontrol" class="content_carDoor" :src="'./static/images/Lovecar/light_nearopenon@2x.png'" alt="">
 							<img v-else class="content_carDoor" :src="'./static/images/Lovecar/light_nearopenoff.png'" alt="">
 							<span :class="!this.lightnearcontrol?'act':'activess'">打开近光</span>
 						</div>
-						<div  class="content_1" @click="closeNearLight">
+						<div v-show="REMOTE_NEAR_LIGHT_OPEN_OR_CLOSE"  class="content_1" @click="closeNearLight">
 							<img v-if="this.lightnearcontrol" class="content_carDoor" :src="'./static/images/Lovecar/light_nearcloseon@2x.png'" alt="">
 							<img v-else class="content_carDoor" :src="'./static/images/Lovecar/light_nearcloseoff@2x.png'" alt="">
 							<span :class="this.lightnearcontrol?'act':'activess'">关闭近光</span>
 						</div>
-						<div  class="content_1" @click="openFarLight">
+						<div v-show="REMOTE_HIGH_LIGHT_OPEN_OR_CLOSE"  class="content_1" @click="openFarLight">
 							<img v-if="!this.lightfarcontrol" class="tailgate" :src="'./static/images/Lovecar/light_faropenon@2x.png'" alt="">
 							<img v-else class="tailgate" :src="'./static/images/Lovecar/light_faropenoff@2x.png'" alt="">
 							<span :class="!this.lightfarcontrol?'act':'activess'">打开远光</span>
 						</div>
-						<div  class="content_1" @click="closeFarLight">
+						<div v-show="REMOTE_HIGH_LIGHT_OPEN_OR_CLOSE"  class="content_1" @click="closeFarLight">
 							<img v-if="this.lightfarcontrol" class="Flameout" :src="'./static/images/Lovecar/light_farcloseon@2x.png'" alt="">
 							<img v-else class="Flameout" :src="'./static/images/Lovecar/light_farcloseoff@2x.png'" alt="">
 							<span :class="this.lightfarcontrol?'act':'activess'">关闭远光</span>
@@ -243,31 +243,31 @@
 				<!--轮播第三页Start-->
 				<mt-swipe-item>
 					<div class="action-content">
-						<router-link  to="/newenergy/newaircondition" tag="div" class="navs air">
+						<router-link v-show="AIRCONDITIONER"  to="/newenergy/newaircondition" tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc" src="../../../../static/images/Wit/ari.png" alt="">
 								<span class="pic_txt">空调</span>
 							</div>
 						</router-link>
-						<router-link  :to="{path:'/newenergy/newcarwindow',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
+						<router-link v-show="REMOTE_OPEN_OR_CLOSE_WINDOW"  :to="{path:'/newenergy/newcarwindow',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc" src="../../../../static/images/Wit/chechuang.png" alt="">
 								<span class="pic_txt">车窗</span>
 							</div>
 						</router-link>
-						<router-link  :to="{path:'/newenergy/airwindow',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
+						<router-link v-show="REMOTE_OPEN_OR_CLOSE_SUNROOF"  :to="{path:'/newenergy/airwindow',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc skylight" src="../../../../static/images/Wit/tianchuang.png" alt="">
 								<span class="pic_txt">天窗</span>
 							</div>
 						</router-link>
-						<router-link  :to="{path:'/newenergy/preheat',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
+						<router-link v-show="REMOTE_CELL_OPEN_OR_CLOSE"  :to="{path:'/newenergy/preheat',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc skylight" src="../../../../static/images/Lovecar/hotindex@2x.png" alt="">
 								<span class="pic_txt">预热</span>
 							</div>
 						</router-link>
-						<router-link  :to="{path:'/newenergy/remotecharging',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
+						<router-link v-show="REMOTE_CELL_RECHARGE_OPEN_OR_CLOSE"  :to="{path:'/newenergy/remotecharging',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc skylight" src="../../../../static/images/Lovecar/powerindex@2x.png" alt="">
 								<span class="pic_txt">充电</span>
@@ -308,19 +308,19 @@
 		<img class="cancel" v-if="MaskIsshow" @click="delde" src="../../../../static/images/Lovecar/button9@2x.png" alt="" style="width:.28rem">
 		<div v-if="MaskIsshow" class="mask_content">
 			<ul class="tipcontent">
-				<li  @click="turnDing">
+				<li v-show="REAL_TIME_VIDEO_VIEW"  @click="turnDing">
 					<img src="../../../../static/images/Lovecar/ding.png" alt="">
 					<span>途记宝</span>
 				</li>
-				<router-link  tag='li' to="/lovecar/revisePinCode">
+				<router-link v-show="UPDATE_PIN"  tag='li' to="/lovecar/revisePinCode">
 					<img src="../../../../static/images/Lovecar/xiupin.png" alt="">
 					<span>修改PIN</span>
 				</router-link>
-				<li  @click="turnPosition">
+				<li v-show="CAR_POINT_QUERY"  @click="turnPosition">
 					<img src="../../../../static/images/Lovecar/dingwei.png" alt="">
 					<span>定位</span>
 				</li>
-				<router-link  tag='li' to="/lovecar/flowQuery">
+				<router-link v-show="FLOW_PACKAGE_QUERY"  tag='li' to="/lovecar/flowQuery">
 					<img src="../../../../static/images/Lovecar/liuliang.png" alt="">
 					<span>流量查询</span>
 				</router-link>
@@ -400,7 +400,21 @@ export default {
         // lrWindowOpen: "已打开", //左后窗
         // rfWindowOpen: "已打开", //右前窗
         // rrWindowOpen: "已打开" //右后窗
-      } //车窗赋值
+      }, //车窗赋值
+      REMOTE_NEAR_LIGHT_OPEN_OR_CLOSE:false,//控制近光灯开闭
+      REMOTE_HIGH_LIGHT_OPEN_OR_CLOSE:false,//控制远光灯开闭
+      REMOTE_CELL_RECHARGE_OPEN_OR_CLOSE:false,//控制远程电池
+      REMOTE_CELL_OPEN_OR_CLOSE:false,//远程预热控制
+      REMOTE_END_OPEN_OR_CLOSE:false,//控制尾门开闭
+      REMOTE_OPEN_OR_CLOSE_WINDOW:false,//远程车窗
+      REMOTE_OPEN_OR_CLOSE_SUNROOF:false,//远程天窗
+      AIRCONDITIONER:false,//自动空调
+      REAL_TIME_VIDEO_VIEW:false,//途记宝
+      FLOW_PACKAGE_QUERY:false,//流量查询
+      UPDATE_PIN:false,//修改pin码
+      LOCK:false,//远程开闭锁
+      FIND_VEHICLE:false,//远程寻车
+      CAR_POINT_QUERY:false,//车辆定位
     };
   },
   methods: {
@@ -1459,77 +1473,53 @@ export default {
             
             let allnum = res.data.data;
             this.allFunction = res.data.data;
-            // for (let value of allnum) {
-            //   switch (value.code) {
-            //       case "WINDOW":
-            //          this.WINDOW = true;
-            //         break;
-            //       case "REMOTE_OPEN_OR_CLOSE_SUNROOF": 
-            //         this.REMOTE_OPEN_OR_CLOSE_SUNROOF = true;
-            //         break;
-            //       case "REMOTE_CLOSE_SUNROOF": 
-            //         this.REMOTE_CLOSE_SUNROOF = true;
-            //         break;
-            //       case "EAIRCONDITIONER": 
-            //         this.Aircondtion_electricity = true;
-            //         break;
-            //       case "AIRCONDITIONER": 
-            //         this.Aircondtion = true;
-            //         break;
-            //       case "PURIFICATION": 
-            //         this.PURIFICTION = true;
-            //         break;
-            //       case "SEAT_HEAT": 
-            //         this.HOSTSEAT_HEAT = true;
-            //         break;
-            //       case "CAR_INFO": 
-            //         this.CAR_INFO = true;
-            //         break;
-            //       case "ENGINE": 
-            //         this.ENGINE = true;
-            //         break;
-            //       case "CAR_EXAMINATION": 
-            //         this.CAR_EXAMINATION = true;
-            //         break;
-            //       case "CAR_POINT_QUERY": 
-            //         this.CAR_POINT_QUERY = true;
-            //         break;
-            //       case "UPDATE_PIN": 
-            //         this.UPDATE_PIN = true;
-            //         break;
-            //       case "FLOW_QUERY": 
-            //         this.FLOW_QUERY = true;
-            //         break;
-            //       case "FUEL_STATISTICS": 
-            //         this.FUEL_STATISTICS = true;
-            //         break;
-            //       case "CONTROL_AUTH": 
-            //         this.CONTROL_AUTH = true;
-            //         break;
-            //       case "WIFI": 
-            //         this.WIFI = true;
-            //         break;
-            //       case "REAL_TIME_VIDEO_VIEW": 
-            //         this.REAL_TIME_VIDEO_VIEW = true;
-            //         break;
-            //       case "ELECTRIC_FENCE": 
-            //         this.ELECTRIC_FENCE = true;
-            //         break;
-            //       case "FIND_VEHICLE": 
-            //         this.FIND_VEHICLE = true;
-            //         break;
-            //       case "TRUNK": 
-            //         this.TRUNK = true;
-            //         break;
-            //       case "SEAT_VENTILATION": 
-            //         this.HOSTSEAT_HEAT = true;
-            //         break;
-            //       case "TACHOGRAPH": 
-            //         this.REAL_TIME_VIDEO_VIEW = true;
-            //         break;
-            //       default:                  
-            //     }
-            // }
+            for (let value of allnum) {
+              switch (value.code) {
+                  case "REMOTE_NEAR_LIGHT_OPEN_OR_CLOSE":
+                     this.REMOTE_NEAR_LIGHT_OPEN_OR_CLOSE = true;
+                    break;
+                  case "REMOTE_HIGH_LIGHT_OPEN_OR_CLOSE": 
+                    this.REMOTE_HIGH_LIGHT_OPEN_OR_CLOSE = true;
+                    break;
+                  case "REMOTE_CELL_RECHARGE_OPEN_OR_CLOSE": 
+                    this.REMOTE_CELL_RECHARGE_OPEN_OR_CLOSE = true;
+                    break;
+                  case "REMOTE_CELL_OPEN_OR_CLOSE": 
+                    this.REMOTE_CELL_OPEN_OR_CLOSE = true;
+                    break;
+                  case "REMOTE_END_OPEN_OR_CLOSE": 
+                    this.REMOTE_END_OPEN_OR_CLOSE = true;
+                    break;
+                  case "REMOTE_OPEN_OR_CLOSE_WINDOW": 
+                    this.REMOTE_OPEN_OR_CLOSE_WINDOW = true;
+                    break;
+                  case "REMOTE_OPEN_OR_CLOSE_SUNROOF": 
+                    this.REMOTE_OPEN_OR_CLOSE_SUNROOF = true;
+                    break;
+                  case "AIRCONDITIONER": 
+                    this.AIRCONDITIONER = true;
+                    break;
+                  case "REAL_TIME_VIDEO_VIEW": 
+                    this.REAL_TIME_VIDEO_VIEW = true;
+                    break;
+                  case "FLOW_PACKAGE_QUERY": 
+                    this.FLOW_PACKAGE_QUERY = true;
+                    break;
+                  case "UPDATE_PIN": 
+                    this.UPDATE_PIN = true;
+                    break;
+                  case "LOCK": 
+                    this.LOCK = true;
+                    break;
+                  case "FIND_VEHICLE": 
+                    this.FIND_VEHICLE = true;
+                    break;
+                  case "CAR_POINT_QUERY": 
+                    this.CAR_POINT_QUERY = true;
+                    break;
+                  default:                  
+                }
+            }
           }
         });
     },
@@ -2050,12 +2040,12 @@ export default {
 }
 .mask_content {
   position: fixed;
-  top: 28%;
+  top: 20%;
   left: 50%;
   right: 50%;
   transform: translate3d(-50%, -50%, 0);
   background-color: #fff;
-  height: 4.1rem;
+  height: 1.6rem;
   width: 90%;
   z-index: 10000;
   border-radius: 3px;
