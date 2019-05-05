@@ -466,7 +466,7 @@ export default {
                   if (this.imgV) {
                        this.Vimg="./static/images/my/member1_v.png"
                    }else{
-                       this.Vimg="./static/images/my/member1.png'"
+                       this.Vimg="./static/images/my/member1.png"
                    }
                  break;
                  case 2:

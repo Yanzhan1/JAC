@@ -18,8 +18,18 @@
                   <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="head_72" />
                   <img v-else src="../../../../static/images/discover/normalhead.png" class="head_72" />
                   <!--加V-->
-                  <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../../static/images/discover/v.png"
-                    class="head_22" />
+                  <!-- <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../../static/images/discover/v.png"
+                    class="head_22" /> -->
+                  <img class="heade_99" v-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('普通会员')!=-1" src="../../../../static/images/my/member1_v.png" alt="">
+                  <img class="heade_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('认证会员')!=-1" src="../../../../static/images/my/member2_v.png" alt="">
+                  <img class="heade_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('白银会员')!=-1" src="../../../../static/images/my/member3_v.png" alt="">
+                  <img class="heade_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('黄金会员')!=-1" src="../../../../static/images/my/member4_v.png" alt="">
+                  <img class="heade_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('钻石会员')!=-1" src="../../../../static/images/my/member5_v.png" alt="">
+                  <img class="heade_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('普通会员')!=-1" src="../../../../static/images/my/member1.png" alt="">
+                  <img class="heade_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('认证会员')!=-1" src="../../../../static/images/my/member2.png" alt="">
+                  <img class="heade_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('白银会员')!=-1" src="../../../../static/images/my/member3.png" alt="">
+                  <img class="heade_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('黄金会员')!=-1" src="../../../../static/images/my/member4.png" alt="">
+                  <img class="heade_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('钻石会员')!=-1" src="../../../../static/images/my/member5.png" alt="">            
                 </div>
               </div>
               <div class="user_info">
@@ -313,6 +323,7 @@
             _this.pageNum = 1;
             _this.loading = false;
             _this.nowList = res.data.data;
+            console.log(_this.nowList)
             for (let i = 0; i < _this.nowList.length; i++) {
               _this.nowList[i].createDate = _this.convert(_this.nowList[i].createDate)
             }
@@ -357,6 +368,16 @@
             res.data.data[i].createDate = this.convert(res.data.data[i].createDate)
           }
           this.nowList.push(...res.data.data)
+          console.log(this.nowList)
+          // let vflagarr=[]
+          // for(let val of this.nowList){
+          //   vflagarr.push(val.user.vflag)
+          // }
+          // for(let i of vflagarr){
+          //   for(let j of i){
+          //     console.log(j)
+          //   }
+          // }
           if (this.nowList.length >= res.data.recordsTotal) {
             this.isLastPage = true
           }
@@ -536,7 +557,20 @@
     right: -0.54rem;
     bottom: 0.12rem;
   }
-
+  .heade_99{
+    display: block;
+    width: .7rem !important;
+    height: 0.25rem !important;
+    bottom: .1rem;
+    position: relative;
+  }
+  .heade_98{
+    display: block;
+    width: .7rem !important;
+    height: 0.2rem !important;
+    bottom: .1rem;
+    position: relative;
+  }
   .jinghua {
     width: 1.12rem !important;
     height: 1.12rem !important;

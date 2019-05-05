@@ -18,7 +18,17 @@
               <img v-if="content.user && content.user.head_image" :src="content.user.head_image" />
               <img v-else src="../../../../static/images/discover/normalhead.png" />
               <!--加V-->
-              <img v-if="content.user && content.user.vflag.indexOf('V') != -1" src="../../../../static/images/discover/v.png" class="head_22"/>
+              <!-- <img v-if="content.user && content.user.vflag.indexOf('V') != -1" src="../../../../static/images/discover/v.png" class="head_22"/> -->
+              <img class="head_99" v-if="content.user&&content.user.vflag.indexOf('V') != -1&&content.user.vflag.indexOf('普通会员')!=-1" src="../../../../static/images/my/member1_v.png" alt="">
+              <img class="head_99" v-else-if="content.user&&content.user.vflag.indexOf('V') != -1&&content.user.vflag.indexOf('认证会员')!=-1" src="../../../../static/images/my/member2_v.png" alt="">
+              <img class="head_99" v-else-if="content.user&&content.user.vflag.indexOf('V') != -1&&content.user.vflag.indexOf('白银会员')!=-1" src="../../../../static/images/my/member3_v.png" alt="">
+              <img class="head_99" v-else-if="content.user&&content.user.vflag.indexOf('V') != -1&&content.user.vflag.indexOf('黄金会员')!=-1" src="../../../../static/images/my/member4_v.png" alt="">
+              <img class="head_99" v-else-if="content.user&&content.user.vflag.indexOf('V') != -1&&content.user.vflag.indexOf('钻石会员')!=-1" src="../../../../static/images/my/member5_v.png" alt="">
+              <img class="head_99" v-else-if="content.user&&content.user.vflag.indexOf('V') == -1&&content.user.vflag.indexOf('普通会员')!=-1" src="../../../../static/images/my/member1.png" alt="">
+              <img class="head_99" v-else-if="content.user&&content.user.vflag.indexOf('V') == -1&&content.user.vflag.indexOf('认证会员')!=-1" src="../../../../static/images/my/member2.png" alt="">
+              <img class="head_99" v-else-if="content.user&&content.user.vflag.indexOf('V') == -1&&content.user.vflag.indexOf('白银会员')!=-1" src="../../../../static/images/my/member3.png" alt="">
+              <img class="head_99" v-else-if="content.user&&content.user.vflag.indexOf('V') == -1&&content.user.vflag.indexOf('黄金会员')!=-1" src="../../../../static/images/my/member4.png" alt="">
+              <img class="head_99" v-else-if="content.user&&content.user.vflag.indexOf('V') == -1&&content.user.vflag.indexOf('钻石会员')!=-1" src="../../../../static/images/my/member5.png" alt="">
             </div>
           </div>
           <div class="user_info">
@@ -219,9 +229,9 @@
         }).then(function (res) {
           if (res.data.status) {
             _this.myList = res.data.data;
-            console.log(_this.myList);
+
           } else {
-            console.log(res.data.errorMsg);
+            
           }
         });
       },
@@ -254,6 +264,7 @@
           if (res.data.status) {
             _this.content.issuedDate = res.data.data.issuedDate
             _this.content = res.data.data;
+            console.log(res.data.data)
             if (res.data.data.user.user_id == _this.$store.state.userId) {
               _this.actions[0].name = '删除';
               _this.actions[0].method = _this.deleteNow;
@@ -453,7 +464,7 @@
           if (res.data.status) {
             _this.conmmentsList = res.data.data;
           } else {
-            console.log(res.data.errorMsg);
+           
           }
         });
       },
@@ -567,7 +578,6 @@
         this.indexNum = index;
         var showId = '#share_person' + index;
         $(showId).show();
-        console.log(showId)
         $("#bgShare").show();
         $("#myInput").hide();
       },
@@ -604,7 +614,6 @@
     },*/
     mounted() {
       this.$store.dispatch("hideFoot"),
-        console.log(this.$store.state.UserStartId);
       this.$nextTick(function () {
         //初始化数据
         this.getDetail();
@@ -635,5 +644,12 @@
     position: relative;
     right: -0.54rem;
     bottom: 0.1rem;
+  }
+  .head_99{
+    display: block;
+    width: .7rem !important;
+    height: 0.25rem !important;
+    bottom: .1rem;
+    position: relative;
   }
 </style>
