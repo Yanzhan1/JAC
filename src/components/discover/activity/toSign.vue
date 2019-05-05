@@ -140,7 +140,6 @@
             Toast('报名成功');
             //_this.$router.push({path:"/discover/allActivity"});
             _this.$router.go(-1);
-            _this.$store.dispatch('showFoot');
           } else {
             console.log(res.data.errorMsg);
           }

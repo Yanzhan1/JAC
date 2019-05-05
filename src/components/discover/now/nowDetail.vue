@@ -601,7 +601,6 @@
           this.$store.state.UserStartId = id;
         }
         this.$router.go(-1);
-        this.$store.dispatch("showFoot")
       }
     },
     /*beforeRouteLeave(to, from, next) {

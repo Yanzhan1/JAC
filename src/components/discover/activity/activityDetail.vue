@@ -460,7 +460,6 @@
       //返回上一级
       goBack: function () {
         this.$router.go(-1);
-        this.$store.dispatch("showFoot")
       },
       handleScroll() {
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;

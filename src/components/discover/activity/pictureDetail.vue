@@ -488,7 +488,6 @@
       //返回上一级
       goBack: function () {
         this.$router.go(-1);
-        this.$store.dispatch("showFoot")
       }
     },
     /*beforeRouteLeave(to, from, next) {
