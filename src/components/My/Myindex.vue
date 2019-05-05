@@ -244,6 +244,9 @@ export default {
             this.integral = res.data.data[0].count;
             this.$store.state.integral = res.data.data[0].count;
           }
+          this.getuserinfo()
+        }else{
+          this.getuserinfo()
         }
       });
     },
@@ -267,7 +270,7 @@ export default {
       this.$router.push({
         path: "/edictperson",
         query: {
-          imgV: this.imgV
+          Vimg: this.Vimg
         }
       });
     },
@@ -597,10 +600,10 @@ export default {
   },
   mounted() {
     if (this.$store.state.islogin) {
-      this.getuserinfo();
       this.myNum();
       this.IsSign(); //判断是否签到
-      this.total(); //h获取用户总积分
+      this.total(); //h获取用户总积分  
+      this.getuserinfo();
     }
   }
 };

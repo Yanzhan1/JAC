@@ -5,7 +5,7 @@
       <div class="contentList">
         <span class="contentList-left">头像</span>
         <div class="contentList-right">
-          <img v-show="this.$route.query.imgV" class="imgVa" :src="Vimg" alt="">
+          <img  class="imgVa" :src="this.$route.query.Vimg" alt="">
           <div style="width:.76rem;height:.76rem">
             <img   id="img" alt="" style="margin-right: .1rem;width: 0.76rem;height: 0.76rem;border-radius:50%">
           </div>
@@ -238,6 +238,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.$route.query.Vimg)
     window.getimgsrc = this.getimgsrc;
     //获取用户基本信息
     var param = {
@@ -398,10 +399,8 @@ textarea:hover {
 }
 .imgVa{
   position: absolute;
-  width: .3rem;
-  height: .3rem;
-  left: .5rem;
-  top: .5rem;
+  width: .8rem;
+  top: .6rem;
 }
 .agreement{
   width: 100%;
