@@ -237,11 +237,8 @@
             for(let item in _this.userInfo.entitys){
               if(_this.userInfo.entitys[item].entity==='V'){
                _this.imgV=true
-               console.log(213)
               }
-              console.log(_this.userInfo.entitys[item].entity)
               setTimeout(()=>{
-                console.log(_this.imgV)
                 if(_this.userInfo.entitys[item].entity.indexOf('普通会员') != -1){
                   if(_this.imgV){
                     _this.Vimg = "/static/images/my/member1_v.png";
@@ -507,7 +504,6 @@
               res.data.data[i].createDate = _this.convert(res.data.data[i].createDate)
             }
             _this.myList = res.data.data;
-            console.log(res.data.data)
           } else {
           }
         });
