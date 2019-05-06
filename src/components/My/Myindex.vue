@@ -524,7 +524,7 @@ export default {
                     let success='恭喜您晋升'+Congratulations
                      Toast({
                           message:success ,
-                          duration: 2000,
+                          duration: 4000,
                           position: "middle"
                         });
                   }

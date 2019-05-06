@@ -12,7 +12,7 @@
       <div class="flex row li_st between cocenter">
 				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>VIN</p>
 				<div class="flex row cocenter">
-					<input type="text" v-model="defaultvin"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222" readonly>
+					<input type="text" v-model="defaultvin"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222" >
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
@@ -30,17 +30,17 @@
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
-			<div class="flex row li_st between cocenter">
+			<div class="flex row li_st between cocenter" @click="brandchoose">
 				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>品牌</p>
 				<div class="flex row cocenter">
-					<span type="text"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">{{brandName}}</span>
+					<input type="text"  v-model="brandName" style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222" readonly>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
-			<div class="flex row li_st between cocenter">
+			<div class="flex row li_st between cocenter" @click="carchoose">
 				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>车型</p>
 				<div class="flex row cocenter">
-					<span>{{this.seriesName}}</span>
+          <input v-model="seriesName" type="text"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222" readonly>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
@@ -75,6 +75,16 @@
 				</div>
 			</div>
 		</div>
+    <mt-popup v-show="showbrand"  class="region"  position="bottom">
+                  <h3>选择品牌</h3>
+                  <span @click="brandsure">确定</span>
+                  <mt-picker :slots="brandSlot" @change="brandChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
+    </mt-popup>
+    <mt-popup v-show="showcar"  class="region"  position="bottom">
+                  <h3>选择车型</h3>
+                  <span @click="carsure">确定</span>
+                  <mt-picker :slots="carSlot" @change="carChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
+    </mt-popup>
     <mt-popup id="provinceLabel" class="region"  position="bottom">
                   <h3>选择省</h3>
                   <span @click="chooseprovinceone">确定</span>
@@ -162,7 +172,7 @@
           <button class="prev-button" @click="leftBtn"><</button>
        	</div>
       </div>
-      <mt-picker :slots="slotstime" @change="timeChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
+      <mt-picker v-show="this.detailtime" :slots="slotstime" @change="timeChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
     </div>
 		<div class="bottom-bt" @click="appointment">立即预约</div>
 		<div v-show="allback" class="black" @click='backgroundshow' @touchmove.stop></div>
@@ -185,6 +195,8 @@ export default {
       chooseType:'',
       hostname: "", //车主姓名
       mobile: "", //手机号
+      showbrand:false,//控制车牌的选择
+      showcar:false,//控制车型的选择
       nowdateshow:true,//判断当天如果没有维保预约时间的控制键
       servicezhan: false, //控制服务站
       typeChoose:false,//控制维保类型选择
@@ -203,12 +215,13 @@ export default {
       choosecity: false, //控制城市弹框
       defaultvin: "", //默认的vin
       chooseno: "", //被选择的服务站的no的存贮
-      seriesNo: "", //默认车辆拿到的数据用来请求品牌车型
       modelNo: "", //默认车辆拿到的数据用来请求品牌车型
-      tspFlag: "", //默认车辆拿到的数据用来请求品牌车型
+      brandlist:[],//品牌的所有参数
+      carList:[],//所有车型list
       brandNo: "", //品牌的no
       seriesNo: "", //车系的no
       brandName: "", //品牌
+      brandNamefirst:'',
       plateLicenseNo: "", //车牌号
       brandId: "", //'0'+品牌的id
       seriesName: "", //车系
@@ -219,6 +232,7 @@ export default {
       flag: false,
       flag1: false,
       flag2: false,
+      detailtime:true,//控制车型来展示是否有具体时间,重卡没有
       currentIndex: -1,
       currentTitle: "",
       currentTime: "", //被选中的时间
@@ -269,6 +283,22 @@ export default {
           textAlign: "center"
         }
       ],
+      brandSlot:[
+        {
+          flex: 1,
+          values: [],
+          className: "slot1",
+          textAlign: "center"
+        }
+      ],
+      carSlot:[
+        {
+          flex: 1,
+          values: [],
+          className: "slot1",
+          textAlign: "center"
+        }
+      ],
       slotstime: [
         {
           flex: 1,
@@ -297,13 +327,12 @@ export default {
     };
   },
   mounted() {
+    this.defaultvins()
     setTimeout(() => {
       this.locationMes = this.$store.state.locationMes;
-      if (this.$store.state.islogin) {
         this.init();
         this.getdefaultmessage();
-        this.defaultvins(); 
-      }
+
       this.mobile = this.$store.state.mobile;
     }, 300);
     this.num = true;
@@ -348,7 +377,6 @@ export default {
                           this.city_id = item.code;
                         }
                       });
-                      this.getbrand();
                     } else {
                       Toast({
                         message: "初始化城市列表报错",
@@ -368,6 +396,94 @@ export default {
           });
         }
       });
+      var param = {
+        parentId: null,
+        level: 1,
+        size: 50
+      };
+      //请求品牌列表
+      this.$http.post(Wit.searchVehicleBrandList, param).then((res)=>{
+          const data=res.data.data
+          this.brandlist=data
+          for(let val of data){
+              if(val.id==1||val.id==3||val.id==4){
+                  this.brandSlot[0].values.push(val.brandName)
+              }
+          }
+      })
+    },
+    //获取默认车辆的vin
+    defaultvins() {
+                this.defaultvin = this.$store.getters.defaultInformation.vin||'';
+                this.modelNo =this.$store.getters.defaultInformation.modelNo||'';
+                this.seriesNo = this.$store.state.series_No||'';
+                this.plateLicenseNo = this.$store.getters.defaultInformation.plateLicenseNo||'';
+                this.seriesName= this.$store.getters.defaultInformation.seriesName||''
+                this.brandName=this.$store.state.brandName||'';
+                this.brandNo=this.$store.state.brandNo||'';
+                this.brandId="0"+this.$store.state.brandId||'';
+
+                let data = {
+                    no: this.brandNo
+                  };
+                  //请求车型列表
+                  this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
+                    const data = res.data.data;
+                    this.carList=data
+                    this.carSlot[0].values=[]
+                    for(let val of data){
+                      this.carSlot[0].values.push(val.seriesName)
+                    }
+                  });
+    },
+    //品牌选择
+    brandchoose(){
+        this.showbrand=true;
+        this.allback = true;
+    },
+    //品牌确认
+    brandsure(){
+        if(this.brandNamefirst){
+          this.brandName=this.brandNamefirst
+        }else{
+          this.brandName=this.brandSlot[0].values[0]
+        }
+        if(this.brandName=='乘用车'){
+            this.detailtime=true
+        }else{
+          this.detailtime=false
+        }
+        for(let val of this.brandlist){
+            if(val.brandName==this.brandName){
+              this.brandNo=val.no
+              this.brandId="0"+val.id
+              this.$store.state.brandNo=this.brandNo
+            }
+        }
+        let data = {
+          no: this.brandNo
+        };
+        //请求车型列表
+        this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
+          const data = res.data.data;
+          this.carList=data
+          this.carSlot[0].values=[]
+          for(let val of data){
+            this.carSlot[0].values.push(val.seriesName)
+          }
+        });
+        this.showbrand=false;
+        this.allback = false;
+    },
+    //车型选择
+    carchoose(){ 
+        this.showcar=true;
+        this.allback = true;
+    },
+    //车型的确认
+    carsure(){
+        this.showcar=false;
+        this.allback = false;
     },
     //选择维保类型
     choosetypeone(){
@@ -381,33 +497,8 @@ export default {
     typeChange(picker, values){
       this.chooseType=values[0]
     },
-    getbrand() {
-      let param = {
-        lmscode: this.modelNo,
-        levelCode: this.seriesNo,
-        tspFlag: this.tspFlag,
-        seriesName:this.$store.getters.defaultInformation.seriesName
-      };
-      this.$http.post(Wit.SearchVehicleSeriesByVehicle, param).then(res => {
-        if (res.data.data.brandId == 4 || 5 || 6) {
-          this.brandName = res.data.data.brandName;
-          this.seriesName = res.data.data.seriesName;
-          this.brandNo = res.data.data.brandNo;
-          this.brandId = "0" + res.data.data.brandId;
-          this.seriesNo = res.data.data.no;
-          this.mydeler();
-        } else {
-          Toast({
-            message: "此系列站不支持维保预约",
-            position: "middle",
-            duration: 2000
-          });
-        }
-      });
-    },
     //通过日期获取具体的时间段
     getdayreal() {
-      console.log('kk',this.dataList[this.dataindex])
       let param = {
         revervationDate: this.dataList[this.dataindex],
         dealerNo: this.chooseno
@@ -417,7 +508,6 @@ export default {
           this.alldata = res.data.data;
           let alldata = res.data.data;
           this.slotstime[0].values = [];
-          console.log(alldata)
           for (let val of alldata) {
             if (val.completeAMOUNT >= val.max_NUM) {
               val.revervation_TIME = val.revervation_TIME + " 爆满";
@@ -438,10 +528,8 @@ export default {
                       }
                         this.nowdateshow=false;
                         this.slotstime[0].values.push(val.revervation_TIME);
-                        console.log('jinru')
 
                     }else{
-                      console.log(this.nowdateshow)
                       if(this.nowdateshow){
                           this.slotstime[0].values = ["暂无预约时间"];
                       }
@@ -450,7 +538,6 @@ export default {
                   this.slotstime[0].values.push(val.revervation_TIME);
                 }
               }, 700);
-              // console.log(new Date().getHours())
               // if(val.revervation_TIME.substring(0, 1)){
 
               // }             
@@ -464,20 +551,20 @@ export default {
     },
     //获取定位的省份,城市,经纬度
     getdefaultmessage() {
-      this.provinceName = JSON.parse(this.locationMes)
-        .province.replace("自治区", "")
-        .replace("省", "")
-        .replace("市", "")
-        .replace("壮族", "")
-        .replace("回族", "");
-      this.cityName = JSON.parse(this.locationMes).city.replace(
-        "市",
-        ""
-      );
-      // this.valuescity1 = this.cityName;
-      // this.valuesprovince1 = this.provinceName;
-      this.latitude = JSON.parse(this.locationMes).latitude; //精
-      this.longitude = JSON.parse(this.locationMes).longitude; //韦
+        this.provinceName = JSON.parse(this.locationMes)
+          .province.replace("自治区", "")
+          .replace("省", "")
+          .replace("市", "")
+          .replace("壮族", "")
+          .replace("回族", "");
+        this.cityName = JSON.parse(this.locationMes).city.replace(
+          "市",
+          ""
+        );
+        // this.valuescity1 = this.cityName;
+        // this.valuesprovince1 = this.provinceName;
+        this.latitude = JSON.parse(this.locationMes).latitude; //精
+        this.longitude = JSON.parse(this.locationMes).longitude; //韦
     },
     //获取服务站内容
     mydeler() {
@@ -516,7 +603,9 @@ export default {
       this.allback = true;
       this.currentIndex = -1;
       $("#timeLabel").show();
-      this.getdayreal();
+      if(this.detailtime){
+        this.getdayreal();
+      }
     },
     //选择确定服务站
     subsub() {
@@ -530,7 +619,11 @@ export default {
       this.allback = false;
       this.orderTime = false;
       this.yearmonthday = $(".is-active").text();
-      this.currentTime = $(".is-active").text() + " " + this.valuestime;
+      if(this.detailtime){
+        this.currentTime = $(".is-active").text() + " " + this.valuestime;
+      }else{
+        this.currentTime = $(".is-active").text()
+      }
     },
     //点击遮罩层消失
     backgroundshow() {
@@ -541,6 +634,8 @@ export default {
       $("#cityLabel").hide();
       this.orderTime = false;
       this.typeChoose=false;
+      this.showbrand=false;
+      this.showcar=false;
       this.dataindex=0;
     },
     //选择省份
@@ -625,9 +720,28 @@ export default {
       }
       picker.setSlotValue(1, values[0]);
     },
+    brandChange(picker, values) {
+      this.brandNamefirst=values[0]
+      picker.setSlotValue(1, values[0]);
+    },
+    carChange(picker, values){
+      if(this.num){
+          this.seriesName=this.$store.getters.defaultInformation.seriesName||''
+      }else{
+        this.seriesName=values[0]
+      }
+      for(let val of this.carList){
+        if(this.seriesName==val.seriesName){
+          this.seriesNo=val.no
+        }
+      }
+      setTimeout(() => { 
+        this.mydeler()
+      }, 1000);
+      picker.setSlotValue(1, values[0]);
+    },
     timeChange(picker, values) {
       this.valuestime = values[0];
-      // console.log(this.alldata, 1);
       for (let val of this.alldata) {
         if (this.valuestime == val.revervation_TIME) {
           this.time_ID = val.time_ID;
@@ -672,15 +786,18 @@ export default {
       this.$refs.swiperWrap.prev();
       this.dataindex--;
       if(this.dataindex==0){
-        this.getdayreal();
+        if(this.detailtime){
+          this.getdayreal();
+        }
       }
-      console.log(this.dataindex)
       if (this.dataindex < 1) {
         this.dataindex = 0;
          $('.prev-button').css('color','#cccccc')
       }else{
         $('.next-button').css('color','#000')
-        this.getdayreal();
+        if(this.detailtime){
+          this.getdayreal();
+        }
       }
       
       if(this.dataindex==1){
@@ -690,13 +807,14 @@ export default {
     rightBtn() {
       //右时间按钮
       this.dataindex++;
-      console.log(this.dataindex)
       if (this.dataindex >6) {
         this.dataindex = 6;
         $('.next-button').css('color','#cccccc')
       }else{
         $('.prev-button').css('color','#000')
-        this.getdayreal();
+        if(this.detailtime){
+          this.getdayreal();
+        }
       }
       if(this.dataindex==6){
         $('.next-button').css('color','#cccccc')
@@ -704,43 +822,31 @@ export default {
       
         this.$refs.swiperWrap.next();
     },
-    //获取默认车辆的vin
-    defaultvins() {
-      // this.$http
-      //   .post(
-      //     My.My_Bus,
-      //     {
-      //       userId: this.$store.state.userId,
-      //       phone: this.$store.state.mobile,
-      //       tspUserId: this.tspid,
-      //       aaaUserID: this.$store.state.aaaid
-      //     },
-      //     this.$store.state.tsppin
-      //   )
-      //   .then(res => {
-      //     if (res.data.returnSuccess) {
-      //       for (let i = 0; i < res.data.data.length; i++) {
-      //         if (
-      //           res.data.data[i].def == 1 ||
-      //           res.data.data[i].defToNathor == 1
-      //         ) {
-      //           // this.carsysitem = res.data.data[i].seriesName || null;
-              setTimeout(()=>{
-                // console.log('wit')
-                // console.log(this.$store.getters.defaultInformation)
-                this.defaultvin = this.$store.getters.defaultInformation.vin;
-                this.modelNo =this.$store.getters.defaultInformation.modelNo;
-                this.seriesNo = this.$store.getters.defaultInformation.seriesNo;
-                this.tspFlag = this.$store.getters.defaultInformation.tspFlag;
-                this.plateLicenseNo = this.$store.getters.defaultInformation.plateLicenseNo;
-                this.getbrand();
-              },500)
-        //       }
-        //     }
-        //   }
-        // });
-    },
     appointment() {
+      if (this.defaultvin == "") {
+        Toast({
+          message: "VIN不能为空",
+          position: "middle",
+          duration: 2000
+        });
+        return false;
+      }
+      if (this.brandName == "") {
+        Toast({
+          message: "品牌不能为空",
+          position: "middle",
+          duration: 2000
+        });
+        return false;
+      }
+      if (this.seriesName == "") {
+        Toast({
+          message: "车型不能为空",
+          position: "middle",
+          duration: 2000
+        });
+        return false;
+      }
       if (this.hostname == "") {
         Toast({
           message: "请输入姓名",
@@ -800,10 +906,10 @@ export default {
         dealerNo: this.chooseno,
         revervationTypeName: this.$refs.main.innerText,
         revervationDate: this.yearmonthday,
-        revervationTime: this.time_ID
+        revervationTime: this.time_ID,
+        brandNo:this.brandNo
       };
       this.$http.post(Wit.addMaintenanceAppointment, param).then(res => {
-        // console.log(res.data);
         if (res.data.code == 0) {
           //  Toast({
           //     message: res.data.data,
@@ -1149,7 +1255,6 @@ export default {
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
-  position: absolute;
   top: 0;
   left: 0;
   bottom: 0;

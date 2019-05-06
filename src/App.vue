@@ -77,37 +77,38 @@ export default {
             // } else {
             //   this.$store.state.enterMaintenance = false;
             // }
-            if(userInfo.token){
-              let param = {
-                lmscode:
-                  JSON.parse(userInfo.defaultInformation).modelNo,
-                levelCode:
-                  JSON.parse(userInfo.defaultInformation).seriesNo,
-                tspFlag: JSON.parse(userInfo.defaultInformation).tspFlag,
-                seriesName:JSON.parse(userInfo.defaultInformation).seriesName
-              };
-              this.$http
-                .post(Wit.SearchVehicleSeriesByVehicle, param)
-                .then(res => {
-                  if(res.data.code==0){
-                    if (res.data.data.brandId == 4 || 5 || 6) {
+            // if(userInfo.token){
+            //   let param = {
+            //     lmscode:
+            //       JSON.parse(userInfo.defaultInformation).modelNo,
+            //     levelCode:
+            //       JSON.parse(userInfo.defaultInformation).seriesNo,
+            //     tspFlag: JSON.parse(userInfo.defaultInformation).tspFlag,
+            //     seriesName:JSON.parse(userInfo.defaultInformation).seriesName
+            //   };
+            //   this.$http
+            //     .post(Wit.SearchVehicleSeriesByVehicle, param)
+            //     .then(res => {
+            //       if(res.data.code==0){
+            //         if (res.data.data.brandId == 4 || 5 || 6) {
 
-                      if (userInfo.no) {
-                        this.$store.state.enterMaintenance = true;
-                      }else{
-                        this.$store.state.enterMaintenance = false;
-                      }
-                    }else{
-                        this.$store.state.enterMaintenance = false;
-                      }
-                  }else{
-                      this.$store.state.enterMaintenance = false;
-                  }
-                });
-            }
-          } else {
-            this.$store.state.enterMaintenance = false;
-          }
+            //           if (userInfo.no) {
+            //             this.$store.state.enterMaintenance = true;
+            //           }else{
+            //             this.$store.state.enterMaintenance = false;
+            //           }
+            //         }else{
+            //             this.$store.state.enterMaintenance = false;
+            //           }
+            //       }else{
+            //           this.$store.state.enterMaintenance = false;
+            //       }
+            //     });
+            // }
+          } 
+          // else {
+          //   this.$store.state.enterMaintenance = false;
+          // }
         } else if (isMobile.Android()) {
           if (userInfo.defaultInformation && userInfo.defaultInformation.vin) {
             this.$store.dispatch(
@@ -128,36 +129,37 @@ export default {
             // } else {
             //   this.$store.state.enterMaintenance = false;
             // }
-            if(userInfo.token){
-              let param = {
-                lmscode:
-                  userInfo.defaultInformation.modelNo,
-                levelCode:
-                  userInfo.defaultInformation.seriesNo,
-                tspFlag: userInfo.defaultInformation.tspFlag,
-                seriesName: userInfo.defaultInformation.seriesName
-              };
-              this.$http
-                .post(Wit.SearchVehicleSeriesByVehicle, param)
-                .then(res => {
-                  if(res.data.code==0){
-                    if (res.data.data.brandId == 4 || 5 || 6) {
-                      if (userInfo.no) {
-                        this.$store.state.enterMaintenance = true;
-                      }else{
-                        this.$store.state.enterMaintenance = false;
-                      }
-                    }else{
-                        this.$store.state.enterMaintenance = false;
-                      }
-                  }else{
-                      this.$store.state.enterMaintenance = false;
-                  }
-                });
-            }
-          } else {
-            this.$store.state.enterMaintenance = false;
+            // if(userInfo.token){
+            //   let param = {
+            //     lmscode:
+            //       userInfo.defaultInformation.modelNo,
+            //     levelCode:
+            //       userInfo.defaultInformation.seriesNo,
+            //     tspFlag: userInfo.defaultInformation.tspFlag,
+            //     seriesName: userInfo.defaultInformation.seriesName
+            //   };
+            //   this.$http
+            //     .post(Wit.SearchVehicleSeriesByVehicle, param)
+            //     .then(res => {
+            //       if(res.data.code==0){
+            //         if (res.data.data.brandId == 4 || 5 || 6) {
+            //           if (userInfo.no) {
+            //             this.$store.state.enterMaintenance = true;
+            //           }else{
+            //             this.$store.state.enterMaintenance = false;
+            //           }
+            //         }else{
+            //             this.$store.state.enterMaintenance = false;
+            //           }
+            //       }else{
+            //           this.$store.state.enterMaintenance = false;
+            //       }
+            //     });
+            // }
           }
+          //  else {
+          //   this.$store.state.enterMaintenance = false;
+          // }
         }
         this.$store.dispatch("CARVINS", userInfo.vin);
         this.$store.dispatch("nomarlseriseName", userInfo.seriesName);
@@ -165,7 +167,7 @@ export default {
         localStorage.setItem("mobile", JSON.stringify(userInfo.mobile));
         localStorage.setItem("userName", JSON.stringify(userInfo.userName));
       } else {
-        this.$store.state.enterMaintenance = false;
+        // this.$store.state.enterMaintenance = false;
         this.$store.dispatch("isLogin", false);
         this.$store.dispatch("userId", null);
       }

@@ -15,9 +15,12 @@
               <li>
                 <a href="javascript:;" >经销网点</a>
               </li>            			
-              <li v-if="enterMaintenance">
+              <li>
                 <a href="javascript:;">维保预约</a>
               </li>		
+              <!-- <li v-if="enterMaintenance">
+                <a href="javascript:;">维保预约</a>
+              </li>		 -->
               <li>
                 <a href="javascript:;">维保网点</a>
               </li>					
@@ -75,9 +78,12 @@
           <li class="li_list" @click="Record(3)">
             <dealer></dealer>					
           </li>
-          <li class="li_list" v-if="enterMaintenance">
-            <preweib v-if="enterMaintenance"></preweib>				
+          <li class="li_list">
+            <preweib></preweib>				
           </li>
+          <!-- <li class="li_list" v-if="enterMaintenance">
+            <preweib v-if="enterMaintenance"></preweib>				
+          </li> -->
           <li class="li_list" @click="Record(4)">
             <searchnet></searchnet>					
           </li>          
@@ -492,6 +498,7 @@ export default {
       var system = this.isIOSOrAndroid();
       if (system == "Android") {
         this.$store.dispatch("GETLOCATIONINFO", js2android.getLocationInfo())
+        console.log(js2android.getLocationInfo(),1231)
         // this.$store.state.locationMes=js2android.getLocationInfo()
       } else if (system == "IOS") {
         window.getIosLocation = this.getIosLocation; //ios获取定位信息,放到window对象供ios调用
@@ -518,9 +525,9 @@ export default {
     this.changeTap();
   },
   computed:{
-      enterMaintenance(){
-        return  this.$store.state.enterMaintenance
-      }
+      // enterMaintenance(){
+      //   return  this.$store.state.enterMaintenance
+      // }
   },
   // watch:{
   //     enterMaintenance(newVal, oldVal){
@@ -528,7 +535,6 @@ export default {
        
   //      this.$nextTick(()=>{
   //         this.$forceUpdate();
-  //         console.log(1111)
   //      })
 
   //     }
