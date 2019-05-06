@@ -651,7 +651,7 @@
     bottom: .1rem;
     position: relative;
   }
-  .heade_98{
+  .head_98{
     display: block;
     width: .7rem !important;
     height: 0.2rem !important;
