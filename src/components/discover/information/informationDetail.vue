@@ -296,6 +296,7 @@
         }).then(function (res) {
           if (res.data.status) {
             _this.conmmentsList = res.data.data;
+            console.log(_this.conmmentsList)
           } else {
             console.log(res.data.errorMsg);
           }

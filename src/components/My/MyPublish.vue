@@ -17,7 +17,7 @@
               <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="head_72" />
               <img v-else src="../../../static/images/discover/normalhead.png" class="head_72" />
               <!--加V-->
-              <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../static/images/discover/v.png" class="head_list"/>
+              <img  class="heade_98" :src="$route.query.Vimg" alt="">
             </div>
           </div>
           <div class="user_info">
@@ -239,5 +239,12 @@
     position: relative;
     right: -0.54rem;
     bottom: 0.1rem;
+  } 
+  .heade_98{
+    display: block;
+    width: .7rem !important;
+    height: 0.25rem !important;
+    bottom: .1rem;
+    position: relative;
   }
 </style>

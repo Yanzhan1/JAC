@@ -15,11 +15,21 @@
       </div>
       <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
         <ul class="wrap_92" v-for="item in fansList">
-          <li>
+          <li style="position:relative">
             <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="headPic">
             <img v-else src="../../../static/images/discover/normalhead.png" class="headPic">
             <!--加V-->
-            <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../static/images/discover/v.png" class="head_22"/>
+            <!-- <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../static/images/discover/v.png" class="head_22"/> -->
+              <img class="heade_99" v-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('普通会员')!=-1" src="../../../static/images/my/member1_v.png" alt="">
+              <img class="heade_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('认证会员')!=-1" src="../../../static/images/my/member2_v.png" alt="">
+              <img class="heade_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('白银会员')!=-1" src="../../../static/images/my/member3_v.png" alt="">
+              <img class="heade_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('黄金会员')!=-1" src="../../../static/images/my/member4_v.png" alt="">
+              <img class="heade_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('钻石会员')!=-1" src="../../../static/images/my/member5_v.png" alt="">
+              <img class="heade_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('普通会员')!=-1" src="../../../static/images/my/member1.png" alt="">
+              <img class="heade_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('认证会员')!=-1" src="../../../static/images/my/member2.png" alt="">
+              <img class="heade_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('白银会员')!=-1" src="../../../static/images/my/member3.png" alt="">
+              <img class="heade_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('黄金会员')!=-1" src="../../../static/images/my/member4.png" alt="">
+              <img class="heade_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('钻石会员')!=-1" src="../../../static/images/my/member5.png" alt="">
             <div class="nameBox">
               <span v-if="item.user && item.user.nick_name" class="name">{{item.user.nick_name}}</span>
               <span v-else class="name">尚未设置昵称</span>
@@ -196,5 +206,20 @@
     right: 0.15rem;
     bottom: -0.58rem;
   }
-
+  .heade_99{
+    display: block;
+    width: .6rem !important;
+    height: 0.25rem !important;
+    bottom: .1rem;
+    left: 0rem;
+    position: absolute;
+  }
+  .heade_98{
+    display: block;
+    width: .6rem !important;
+    height: 0.2rem !important;
+    bottom: .1rem;
+    left: 0rem;
+    position: absolute;
+  }
 </style>
