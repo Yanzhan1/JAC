@@ -244,37 +244,37 @@
                 console.log(_this.imgV)
                 if(_this.userInfo.entitys[item].entity.indexOf('普通会员') != -1){
                   if(_this.imgV){
-                    _this.Vimg = "../../../static/images/my/member1_v.png";
+                    _this.Vimg = "/static/images/my/member1_v.png";
                   }else{
-                    _this.Vimg = '../../../static/images/my/member1.png';
+                    _this.Vimg = '/static/images/my/member1.png';
                   }
                 }
                 if(_this.userInfo.entitys[item].entity.indexOf('认证会员') != -1){
                   if(_this.imgV){
-                    _this.Vimg = "../../../static/images/my/member2_v.png";
+                    _this.Vimg = "/static/images/my/member2_v.png";
                   }else{
-                    _this.Vimg = '../../../static/images/my/member2.png';
+                    _this.Vimg = '/static/images/my/member2.png';
                   }
                 }
                 if(_this.userInfo.entitys[item].entity.indexOf('白银会员') != -1){
                   if(_this.imgV){
-                    _this.Vimg = "../../../static/images/my/member3_v.png";
+                    _this.Vimg = "/static/images/my/member3_v.png";
                   }else{
-                    _this.Vimg = '../../../static/images/my/member3.png';
+                    _this.Vimg = '/static/images/my/member3.png';
                   }
                 }
                 if(_this.userInfo.entitys[item].entity.indexOf('黄金会员') != -1){
                   if(_this.imgV){
-                    _this.Vimg = "../../../static/images/my/member4_v.png";
+                    _this.Vimg = "/static/images/my/member4_v.png";
                   }else{
-                    _this.Vimg = '../../../static/images/my/member4.png';
+                    _this.Vimg = '/static/images/my/member4.png';
                   }
                 }
                 if(_this.userInfo.entitys[item].entity.indexOf('钻石会员') != -1){
                   if(_this.imgV){
-                    _this.Vimg = "../../../static/images/my/member5_v.png";
+                    _this.Vimg = "/static/images/my/member5_v.png";
                   }else{
-                    _this.Vimg = '../../../static/images/my/member5.png';
+                    _this.Vimg = '/static/images/my/member5.png';
                   }
                 }
               },0)
