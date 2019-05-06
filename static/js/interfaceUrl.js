@@ -198,6 +198,8 @@ window.My = {
         sendSMS: mips + '/admin/thirdPartyRequest/sendSMS', //获取修改手机的验证码
         updateUserCode: mips + '/admin/userBaseInformation/updateUserCode', //手机号码修改的提交
         addLabelEntityToUser: mips + '/admin/labelEntity/addLabelEntityToUser', //登入app后同步会员等级
+        searchLevelChangesRecordList: mips + '/admin/levelChangesRecord/searchLevelChangesRecordList', //会员等级升级提醒
+        updateLevelChangesRecord: mips + '/admin/levelChangesRecord/updateLevelChangesRecord', //会员等级提升后通知后台
     }
     //爱车
 window.Lovecar = {

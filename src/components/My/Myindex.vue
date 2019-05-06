@@ -505,6 +505,34 @@ export default {
         }
       });
     },
+    // 会员等级提升提醒
+    Rankpromotion(){
+        this.$http.post(My.searchLevelChangesRecordList,{}).then((res)=>{
+          if(res.data.code==0){
+            console.log(res.data.data.length)
+            let noArr=[]
+            if(res.data.data.length!=0){
+              for(let val of res.data.data){
+                  noArr.push(val.no)
+              }
+              let Congratulations=res.data.data.pop().labelNewName
+              let param={
+                  nos:noArr
+                }
+                this.$http.post(My.updateLevelChangesRecord,param).then((res)=>{
+                  if(res.data.code==0){
+                    let success='恭喜您晋升'+Congratulations
+                     Toast({
+                          message:success ,
+                          duration: 2000,
+                          position: "middle"
+                        });
+                  }
+                })
+            }
+          }
+        })
+    },
     //获赞、关注、发布、粉丝数量
     // getuserinfo() {
     //   var param = {
@@ -604,6 +632,7 @@ export default {
       this.IsSign(); //判断是否签到
       this.total(); //h获取用户总积分  
       this.getuserinfo();
+      this.Rankpromotion()
     }
   }
 };
