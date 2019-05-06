@@ -26,7 +26,7 @@
 			<div class="flex row li_st between cocenter">
 				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>手机号</p>
 				<div class="flex row cocenter">
-					<input type="text" placeholder="请输入手机号" v-model="mobile"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">
+					<input type="number" placeholder="请输入手机号" v-model="mobile"  style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222">
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
@@ -830,6 +830,16 @@ export default {
           duration: 2000
         });
         return false;
+      }else{
+        let reg=/^[0-9a-zA-Z]$/
+        if(!reg.test(this.defaultvin)){
+            Toast({
+              message: "VIN只允许输入数字,字母",
+              position: "middle",
+              duration: 2000
+            });
+            return false
+        }
       }
       if (this.brandName == "") {
         Toast({
