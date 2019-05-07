@@ -31,7 +31,7 @@
 				</div>
 			</div>
 			<div class="flex row li_st between cocenter" @click="brandchoose">
-				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>品牌类型</p>
+				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>车辆类型</p>
 				<div class="flex row cocenter">
 					<input type="text"  v-model="brandName" style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222" readonly>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
