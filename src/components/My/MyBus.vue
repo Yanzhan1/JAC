@@ -324,4 +324,7 @@ li {
   height: 0.24rem;
   margin-left: 0.2rem;
 }
+.header{
+  background: #fff;
+}
 </style>
