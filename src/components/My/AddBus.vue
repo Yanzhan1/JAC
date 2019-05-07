@@ -65,11 +65,12 @@ export default {
             position: "middle"
           });
            if (isMobile.iOS()) {
-          var params = {};
-              window.webkit.messageHandlers.syncVehicleList.postMessage();
-            } else if (isMobile.Android()) {
-              js2android.syncVehicleList();
-          }
+            var params = {};
+                window.webkit.messageHandlers.syncVehicleList.postMessage(params);
+                console.log('jieshu')
+              } else if (isMobile.Android()) {
+                js2android.syncVehicleList();
+            }
           var self = this;
           setTimeout(function() {
             self.$router.go(-1);

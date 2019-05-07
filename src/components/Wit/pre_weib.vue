@@ -7,8 +7,8 @@
 		</header>
 		<div style="height:.88rem"></div>-->
 		<!-- <mhead currentTitle="维保预约"></mhead> -->
-		<div class="carmessage">车主信息</div>
-		<div style="padding:0.33rem">
+		<!-- <div class="carmessage">车主信息</div> -->
+		<div style="padding:0 0.33rem">
       <div class="flex row li_st between cocenter">
 				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>VIN</p>
 				<div class="flex row cocenter">
@@ -100,7 +100,7 @@
                   <span @click="choosetypeone">确定</span>
                   <mt-picker :slots="typeSlot" @change="typeChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
     </mt-popup>
-		<div class="carmessage" style="margin-top:.01rem">预约信息</div>
+		<!-- <div class="carmessage" style="margin-top:.01rem">预约信息</div> -->
 		<div style="padding:0 .33rem">
 			<div class="flex row li_st between cocenter" @click="servicestatus">
 				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>服务站</p>
