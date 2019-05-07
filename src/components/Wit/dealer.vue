@@ -574,18 +574,20 @@ export default {
     });
   },
   created() {
-    this.provinceName = JSON.parse(this.$store.state.locationMes)
-      .province.replace("自治区", "")
-      .replace("省", "")
-      .replace("市", "")
-      .replace("壮族", "")
-      .replace("回族", "");
-    this.cityName = JSON.parse(this.$store.state.locationMes).city.replace(
-      "市",
-      ""
-    );
-    this.latitude = JSON.parse(this.$store.state.locationMes).latitude; //精
-    this.longitude = JSON.parse(this.$store.state.locationMes).longitude; //韦
+    if(this.provinceName){
+      this.provinceName = JSON.parse(this.$store.state.locationMes)
+        .province.replace("自治区", "")
+        .replace("省", "")
+        .replace("市", "")
+        .replace("壮族", "")
+        .replace("回族", "");
+      this.cityName = JSON.parse(this.$store.state.locationMes).city.replace(
+        "市",
+        ""
+      );
+      this.latitude = JSON.parse(this.$store.state.locationMes).latitude; //精
+      this.longitude = JSON.parse(this.$store.state.locationMes).longitude; //韦
+    }
   },
   filters: {
     toFixed(input, param1) {

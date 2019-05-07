@@ -247,6 +247,7 @@ export default {
             }, 1000);
           }
           this.total();
+          this.Rankpromotion()
         });
       }, 300);
     },

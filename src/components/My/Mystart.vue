@@ -16,7 +16,8 @@
         <img v-if="userInfo && userInfo.headUrl" :src="userInfo.headUrl" alt="">
         <img v-else src="../../../static/images/discover/normalhead.png" />
         <!--加V-->
-        <img v-if="userInfo && vFlag" src="../../../static/images/discover/v.png" class="head_22"/>
+        <!-- <img v-if="userInfo && vFlag" src="../../../static/images/discover/v.png" class="head_22"/> -->
+        <img class="head_22" :src='this.Vimg' />
       </div>
       <div class="user_info">
         <p class="font_36 mb_16">
@@ -57,7 +58,17 @@
               <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="head_72" />
               <img v-else src="../../../static/images/discover/normalhead.png" class="head_72" />
               <!--加V-->
-              <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../static/images/discover/v.png" class="head_list"/>
+              <!-- <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../static/images/discover/v.png" class="head_list"/> -->
+              <img class="heade_99" v-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('普通会员')!=-1" src="../../../static/images/my/member1_v.png" alt="">
+              <img class="heade_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('认证会员')!=-1" src="../../../static/images/my/member2_v.png" alt="">
+              <img class="heade_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('白银会员')!=-1" src="../../../static/images/my/member3_v.png" alt="">
+              <img class="heade_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('黄金会员')!=-1" src="../../../static/images/my/member4_v.png" alt="">
+              <img class="heade_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('钻石会员')!=-1" src="../../../static/images/my/member5_v.png" alt="">
+              <img class="heade_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('普通会员')!=-1" src="../../../static/images/my/member1.png" alt="">
+              <img class="heade_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('认证会员')!=-1" src="../../../static/images/my/member2.png" alt="">
+              <img class="heade_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('白银会员')!=-1" src="../../../static/images/my/member3.png" alt="">
+              <img class="heade_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('黄金会员')!=-1" src="../../../static/images/my/member4.png" alt="">
+              <img class="heade_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('钻石会员')!=-1" src="../../../static/images/my/member5.png" alt="">
             </div>
           </div>
           <div class="user_info">
@@ -148,7 +159,9 @@
         bgImgHeight: 0,
         title: '',
         isShow: true,
-        vFlag: false
+        vFlag: false,
+        imgV:false,
+        Vimg:'',
       }
     },
     components: {},
@@ -183,12 +196,54 @@
         }).then(function (res) {
           if (res.data.code == 0) {
             _this.userInfo = res.data.data;
-            for(var item in _this.userInfo.entitys){
-              if(_this.userInfo.entitys[item].entity.indexOf('V') != -1){
-                _this.vFlag = true;
-                console.log(_this.vFlag+"是否加V")
+            console.log(res.data.data)
+            for(let item in _this.userInfo.entitys){
+              if(_this.userInfo.entitys[item].entity==='V'){
+               _this.imgV=true
               }
+              setTimeout(()=>{
+                if(_this.userInfo.entitys[item].entity.indexOf('普通会员') != -1){
+                  if(_this.imgV){
+                    _this.Vimg = "./static/images/my/member1_v.png";
+                  }else{
+                    _this.Vimg = './static/images/my/member1.png';
+                  }
+                }
+                if(_this.userInfo.entitys[item].entity.indexOf('认证会员') != -1){
+                  if(_this.imgV){
+                    _this.Vimg = "./static/images/my/member2_v.png";
+                  }else{
+                    _this.Vimg = './static/images/my/member2.png';
+                  }
+                }
+                if(_this.userInfo.entitys[item].entity.indexOf('白银会员') != -1){
+                  if(_this.imgV){
+                    _this.Vimg = "./static/images/my/member3_v.png";
+                  }else{
+                    _this.Vimg = './static/images/my/member3.png';
+                  }
+                }
+                if(_this.userInfo.entitys[item].entity.indexOf('黄金会员') != -1){
+                  if(_this.imgV){
+                    _this.Vimg = "./static/images/my/member4_v.png";
+                  }else{
+                    _this.Vimg = './static/images/my/member4.png';
+                  }
+                }
+                if(_this.userInfo.entitys[item].entity.indexOf('钻石会员') != -1){
+                  if(_this.imgV){
+                    _this.Vimg = "./static/images/my/member5_v.png";
+                  }else{
+                    _this.Vimg = './static/images/my/member5.png';
+                  }
+                }
+              },0)
             }
+            // for(var item in _this.userInfo.entitys){
+            //   if(_this.userInfo.entitys[item].entity.indexOf('V') != -1){
+            //     _this.vFlag = true;
+            //   }
+            // }
           }
         });
       },
@@ -205,6 +260,7 @@
         }).then((res) => {
           if (res.data.success) {
             this.userInfo = res.data.data;
+            console.log(this.userInfo)
             //            this.$store.state.userstartUuid = res.data.account.uuid;
           }
         }).catch(() => {
@@ -234,7 +290,6 @@
           if (res.data.status) {
             _this.focsNum = res.data.data;
           } else {
-            console.log(res.data.errorMsg);
             // MessageBox('提示', res.data.errorMsg);
           }
         });
@@ -248,7 +303,6 @@
           if (res.data.status) {
             _this.fansNum = res.data.data;
           } else {
-            console.log(res.data.errorMsg);
             //MessageBox('提示', res.data.errorMsg);
           }
         });
@@ -263,7 +317,6 @@
             _this.likeNum = res.data.data;
             //
           } else {
-            console.log(res.data.errorMsg);
           }
         });
       },
@@ -279,7 +332,6 @@
             }
             _this.myList = res.data.data;
           } else {
-            console.log(res.data.errorMsg);
           }
         });
       },
@@ -338,7 +390,6 @@
       myNum: function () {
         var _this = this;
         // const uid = this.$route.query.id
-        console.log(111111111111)
         this.$http
           .post(DISCOVERMESSAGE.count, {
             uid: _this.$store.state.userId
@@ -350,7 +401,6 @@
               _this.likeNum = res.data.data.likeNum;
               // _this.momentNum = res.data.data.momentNum;
             } else {
-              console.log(res.data.errorMsg);
               // MessageBox('提示', res.data.errorMsg);
             }
           });
@@ -392,13 +442,12 @@
       },
     },
     mounted() {
-      this.$store.dispatch('hideFoot');
       //悬浮,更换头部背景透明度和文字
       window.addEventListener('scroll', this.handleScroll)
       this.init();
       this.myNum()
       this.getMineList();
-      this.getuserMessage();
+      // this.getuserMessage();
       // this.myFocusNum();
       // this.myFansNum();
       // this.myLikeNum();
@@ -423,10 +472,12 @@
     height: 0.88rem;
   }
   .head_22{
-    width: 0.4rem !important;
-    height: 0.4rem !important;
-    position: relative;
-    right: 0.48rem;
+    width: 1.2rem !important;
+    height: .35rem !important;
+    position: absolute;
+    border-radius: 0 !important;
+    top: 2.5rem;
+    right: 3.15rem;
   }
   .head_list{
     width: 0.2rem !important;
@@ -454,5 +505,19 @@
   }
   .left4{
     padding-left: 0.4rem;
+  }
+  .heade_99{
+    display: block;
+    width: .7rem !important;
+    height: 0.25rem !important;
+    bottom: .1rem;
+    position: relative;
+  }
+  .heade_98{
+    display: block;
+    width: .7rem !important;
+    height: 0.2rem !important;
+    bottom: .1rem;
+    position: relative;
   }
 </style>

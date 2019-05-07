@@ -31,7 +31,7 @@
 				</div>
 			</div>
 			<div class="flex row li_st between cocenter" @click="brandchoose">
-				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>类型</p>
+				<p style="color:#555"><span style="display:inline-block;font-size:.31rem;color:red">*</span>品牌类型</p>
 				<div class="flex row cocenter">
 					<input type="text"  v-model="brandName" style="border:none;outline:none;text-align:right;font-size:.26rem;color:#222" readonly>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
@@ -465,6 +465,8 @@ export default {
         };
         //请求车型列表
         this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
+            this.currentTitle=''
+            this.currentTime=''
           const data = res.data.data;
           this.carList=data
           this.carSlot[0].values=[]
@@ -551,6 +553,7 @@ export default {
     },
     //获取定位的省份,城市,经纬度
     getdefaultmessage() {
+      if(this.locationMes){
         this.provinceName = JSON.parse(this.locationMes)
           .province.replace("自治区", "")
           .replace("省", "")
@@ -565,6 +568,7 @@ export default {
         // this.valuesprovince1 = this.provinceName;
         this.latitude = JSON.parse(this.locationMes).latitude; //精
         this.longitude = JSON.parse(this.locationMes).longitude; //韦
+      }
     },
     //获取服务站内容
     mydeler() {
@@ -620,7 +624,10 @@ export default {
       this.orderTime = false;
       this.yearmonthday = $(".is-active").text();
       if(this.detailtime){
-        this.currentTime = $(".is-active").text() + " " + this.valuestime;
+        if(this.valuestime!='暂无预约时间'&&this.valuestime){
+
+          this.currentTime = $(".is-active").text() + " " + this.valuestime;
+        }
       }else{
         this.currentTime = $(".is-active").text()
       }
@@ -831,7 +838,8 @@ export default {
         });
         return false;
       }else{
-        let reg=/^[0-9a-zA-Z]$/
+        let reg=/^[0-9a-zA-Z]+$/
+        console.log(reg.test(this.defaultvin))
         if(!reg.test(this.defaultvin)){
             Toast({
               message: "VIN只允许输入数字,字母",
