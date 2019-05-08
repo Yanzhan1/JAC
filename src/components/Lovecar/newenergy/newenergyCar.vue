@@ -867,6 +867,13 @@ export default {
                               ? "已打开"
                               : "已关闭" //右后 门
                           };
+                          if (this.activeshow == 1) {
+                            this.Condition = this.tai;
+                          } else if (this.activeshow == 2) {
+                            this.Condition = this.door;
+                          } else if (this.activeshow == 3) {
+                            this.Condition = this.window;
+                          }
                           this.doorcontrol=this.carcontrol.mainLockStatus==1?false:true
                           // } else {
 
@@ -1156,6 +1163,13 @@ export default {
                   ? "已打开"
                   : "已关闭" //右后 门
               };
+              if (this.activeshow == 1) {
+                this.Condition = this.tai;
+              } else if (this.activeshow == 2) {
+                this.Condition = this.door;
+              } else if (this.activeshow == 3) {
+                this.Condition = this.window;
+              }
               // } else {
                 this.doorcontrol=this.carcontrol.mainLockStatus==1?false:true
               if (this.type == 1) {
