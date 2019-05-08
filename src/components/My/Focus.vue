@@ -191,7 +191,7 @@
 .head_99{
     display: block;
     width: .6rem !important;
-    height: 0.25rem !important;
+    height: 0.23rem !important;
     top: 0.5rem;
     left: -0.6rem;
     position: relative;

@@ -574,7 +574,7 @@ export default {
     });
   },
   created() {
-    if(this.provinceName){
+    if(this.$store.state.locationMes){
       this.provinceName = JSON.parse(this.$store.state.locationMes)
         .province.replace("自治区", "")
         .replace("省", "")
