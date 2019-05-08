@@ -1893,7 +1893,7 @@ export default {
     });
     this.vinn = this.$store.state.defaultInformation.vin;
     this.getcarcontrol()
-    // this.vinn = 'LJ1EEASPXJ5000403';
+    // this.vinn = 'LJ1EEASP9K5000037';
     this.Getmarkedwords();
     new Promise(()=>{
       this.getcarvalue();
