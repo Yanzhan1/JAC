@@ -1555,7 +1555,7 @@ export default {
               this.distance_light = value.sysDictDataVOs;
             }
           }
-          console.log(this.distance_light)
+          console.log(this.vehicle_condition)
         }
       });
     },
