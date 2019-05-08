@@ -327,12 +327,11 @@ export default {
     };
   },
   mounted() {
-    this.defaultvins()
     setTimeout(() => {
-      this.locationMes = this.$store.state.locationMes;
+        this.defaultvins()
+        this.locationMes = this.$store.state.locationMes;
         this.init();
         this.getdefaultmessage();
-
       this.mobile = this.$store.state.mobile;
     }, 300);
     this.num = true;
@@ -422,19 +421,23 @@ export default {
                 this.brandName=this.$store.state.brandName||'';
                 this.brandNo=this.$store.state.brandNo||'';
                 this.brandId="0"+this.$store.state.brandId||'';
-                console.log(this.$store.getters.defaultInformation)
-                let data = {
-                    no: this.brandNo
-                  };
-                  //请求车型列表
-                  this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
-                    const data = res.data.data;
-                    this.carList=data
-                    this.carSlot[0].values=[]
-                    for(let val of data){
-                      this.carSlot[0].values.push(val.seriesName)
-                    }
-                  });
+                if(this.brandName=='轻卡'||''){
+                    this.brandName=''
+                    this.seriesName=''
+                }else{
+                  let data = {
+                      no: this.brandNo
+                    };
+                    //请求车型列表
+                    this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
+                      const data = res.data.data;
+                      this.carList=data
+                      this.carSlot[0].values=[]
+                      for(let val of data){
+                        this.carSlot[0].values.push(val.seriesName)
+                      }
+                    });
+                  }
     },
     //品牌选择
     brandchoose(){
@@ -732,6 +735,7 @@ export default {
       picker.setSlotValue(1, values[0]);
     },
     carChange(picker, values){
+      console.log('jinru',this.num)
       if(this.num){
           this.seriesName=this.$store.getters.defaultInformation.seriesName||''
       }else{
@@ -740,6 +744,7 @@ export default {
       for(let val of this.carList){
         if(this.seriesName==val.seriesName){
           this.seriesNo=val.no
+          console.log('sdafhdsafha')
         }
       }
       setTimeout(() => { 
