@@ -83,8 +83,7 @@ export default {
             this.$store.dispatch("isLogin", false);
             this.$store.dispatch("userId", null);
             this.$store.dispatch('userInfo',null);
-            console.log(this.$store.state.islogin)
-            this.$http.defaults.headers.common["timaToken"] = '';
+            this.$http.defaults.headers.common["timaToken"]=null;
             var system = this.isIOSOrAndroid();
             if (system == "Android") {
               window.js2android.logout(); //安卓退出App
