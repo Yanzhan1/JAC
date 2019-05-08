@@ -13,6 +13,16 @@
             <div @click="changeUserStartId(item.user.user_id)">
               <img v-if="item.user && item.user.head_image" :src="item.user.head_image" />
               <img v-else src="../../../../static/images/discover/normalhead.png" />
+              <img class="head_99" v-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('普通会员')!=-1" src="../../../../static/images/my/member1_v.png" alt="">
+              <img class="head_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('认证会员')!=-1" src="../../../../static/images/my/member2_v.png" alt="">
+              <img class="head_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('白银会员')!=-1" src="../../../../static/images/my/member3_v.png" alt="">
+              <img class="head_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('黄金会员')!=-1" src="../../../../static/images/my/member4_v.png" alt="">
+              <img class="head_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('钻石会员')!=-1" src="../../../../static/images/my/member5_v.png" alt="">
+              <img class="head_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('普通会员')!=-1" src="../../../../static/images/my/member1.png" alt="">
+              <img class="head_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('认证会员')!=-1" src="../../../../static/images/my/member2.png" alt="">
+              <img class="head_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('白银会员')!=-1" src="../../../../static/images/my/member3.png" alt="">
+              <img class="head_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('黄金会员')!=-1" src="../../../../static/images/my/member4.png" alt="">
+              <img class="head_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('钻石会员')!=-1" src="../../../../static/images/my/member5.png" alt="">
             </div>
           </div>
           <div class="user_info">
@@ -69,7 +79,7 @@
     </div>
     <!--评论输入框S-->
     <div id="commentBg" @click="closeComment" />
-    <div class="flex contentcenter myInput">
+    <div class="flex itemcenter myInput">
       <input autofocus="autofocus" ref="commentfocus" id="comment" type="text" v-model="commentMsg" @click="commentbtn" />
       <span class="send" @click="comment">发送</span>
     </div>
@@ -90,7 +100,7 @@
       return {
         listNum: 1,
         manageId: '',
-        content: [],
+        item: [],
         conmmentsList: [],
         fId: null,
         bId: null,
@@ -125,12 +135,10 @@
           "id": _this.manageId
         }).then(function (res) {
           if (res.data.status) {
-            console.log(_this.$store.state.userId)
-            console.log(_this.manageId)
+
             _this.conmmentsList = res.data.data;
             console.log(res.data.data)
           } else {
-            console.log(res.data.errorMsg);
           }
         });
       },
@@ -267,5 +275,18 @@
     width: 90%;
     margin: 0 auto;
   }
-
+  .head_99{
+    display: block;
+    width: .7rem !important;
+    height: 0.25rem !important;
+    bottom: .1rem;
+    position: relative;
+  }
+  .head_98{
+    display: block;
+    width: .7rem !important;
+    height: 0.2rem !important;
+    bottom: .1rem;
+    position: relative;
+  }
 </style>

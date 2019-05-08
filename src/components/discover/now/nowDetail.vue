@@ -90,7 +90,17 @@
                 <img v-if="item.user && item.user.head_image" :src="item.user.head_image" />
                 <img v-else src="../../../../static/images/discover/normalhead.png" />
                 <!--加V-->
-                <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../../static/images/discover/v.png" class="head_list"/>
+                <!-- <img v-if="item.user && item.user.vflag.indexOf('V') != -1" src="../../../../static/images/discover/v.png" class="head_list"/> -->
+                  <img class="head_99" v-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('普通会员')!=-1" src="../../../../static/images/my/member1_v.png" alt="">
+                  <img class="head_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('认证会员')!=-1" src="../../../../static/images/my/member2_v.png" alt="">
+                  <img class="head_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('白银会员')!=-1" src="../../../../static/images/my/member3_v.png" alt="">
+                  <img class="head_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('黄金会员')!=-1" src="../../../../static/images/my/member4_v.png" alt="">
+                  <img class="head_99" v-else-if="item.user&&item.user.vflag.indexOf('V') != -1&&item.user.vflag.indexOf('钻石会员')!=-1" src="../../../../static/images/my/member5_v.png" alt="">
+                  <img class="head_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('普通会员')!=-1" src="../../../../static/images/my/member1.png" alt="">
+                  <img class="head_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('认证会员')!=-1" src="../../../../static/images/my/member2.png" alt="">
+                  <img class="head_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('白银会员')!=-1" src="../../../../static/images/my/member3.png" alt="">
+                  <img class="head_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('黄金会员')!=-1" src="../../../../static/images/my/member4.png" alt="">
+                  <img class="head_98" v-else-if="item.user&&item.user.vflag.indexOf('V') == -1&&item.user.vflag.indexOf('钻石会员')!=-1" src="../../../../static/images/my/member5.png" alt="">
               </div>
             </div>
             <div class="user_info">
