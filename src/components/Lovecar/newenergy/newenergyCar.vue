@@ -1029,7 +1029,7 @@ export default {
                           localhide();
                         }
                           } else {
-                           if (this.type == 1) {
+                            if (this.type == 1) {
                               // this.doorcontrol = true;
                               Toast({
                                 message: this.close_lock[2].dictValue,
@@ -1099,7 +1099,7 @@ export default {
                               // this.lightfarcontrol = true;
                             }else {
                               Toast({
-                                message: this.distance_light[2].dictValue,
+                                message: this.vehicle_condition[2].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
