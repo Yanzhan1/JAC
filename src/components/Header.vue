@@ -243,12 +243,10 @@
       searchUserBindingOtherModulesOne: function () {
         let _this = this
         this.$http.post(DISCOVERMESSAGE.searchUserBindingOtherModulesOne, {}).then(function ({data}) {
+          if(data.code == 403){
+            return
+          }
           if(!data.data){
-            // setTimeout(()=>{
-            //   _this.$router.push({
-            //     path: "/setChannel"
-            //   })
-            // }, 500)
             _this.setChannelFlag = true
           }
           else if (data.code == 0 && data.data.brandsNo) {
