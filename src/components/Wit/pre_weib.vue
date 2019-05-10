@@ -397,6 +397,7 @@ export default {
                   this.brandSlot[0].values.push(val.brandName)
               }
           }
+          this.mydeler()
       })
     },
     //获取默认车辆的vin
@@ -413,6 +414,10 @@ export default {
                 if(this.brandName=='轻卡'||''){
                     // this.brandName=''
                     this.seriesName=''
+                }
+                if(this.brandName=='轻卡'||'重卡'){
+                    // this.brandName=''
+                    this.detailtime=false
                 }
                   let data = {
                       no: this.brandNo
@@ -479,6 +484,10 @@ export default {
     },
     //车型的确认
     carsure(){
+        this.currentTitle=''
+        this.currentTime=''
+        this.mydeler()
+        this.seriesName=this.seriesName?this.seriesName:this.carSlot[0].values[0]
         this.showcar=false;
         this.allback = false;
     },
@@ -592,9 +601,20 @@ export default {
       });
     },
     servicestatus() {
-      this.servicezhan = true;
-      this.allback = true;
+      console.log(this.plateLicenseNo,this.seriesName)
       ModalHelper.afterOpen()
+      if(this.plateLicenseNo&&this.seriesName){
+        this.servicezhan = true;
+        this.allback = true;
+      }else{
+        Toast({
+            message: "请先选择车辆类型,车型",
+            position: "middle",
+            duration: 2000
+          });
+        return false
+      }
+      
     },
     orderTimeStatus() {
       this.pickerVisible = true;
@@ -738,12 +758,11 @@ export default {
       for(let val of this.carList){
         if(this.seriesName==val.seriesName){
           this.seriesNo=val.no
-          console.log('sdafhdsafha')
         }
       }
-      setTimeout(() => { 
-        this.mydeler()
-      }, 1000);
+      // setTimeout(() => { 
+      //   this.mydeler()
+      // }, 1000);
       picker.setSlotValue(1, values[0]);
     },
     timeChange(picker, values) {
