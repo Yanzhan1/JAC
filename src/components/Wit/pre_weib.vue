@@ -330,11 +330,11 @@ export default {
     setTimeout(() => {
         this.defaultvins()
         this.locationMes = this.$store.state.locationMes;
-        this.init();
         this.getdefaultmessage();
+        // this.init();
       this.mobile = this.$store.state.mobile;
     }, 300);
-    this.num = true;
+    
   },
   methods: {
     init() {
@@ -376,23 +376,11 @@ export default {
                           this.city_id = item.code;
                         }
                       });
-                    } else {
-                      Toast({
-                        message: "初始化城市列表报错",
-                        position: "middle",
-                        duration: 2000
-                      });
                     }
                   });
               }
             }
           }
-        } else {
-          Toast({
-            message: "初始化省份列表报错",
-            position: "middle",
-            duration: 2000
-          });
         }
       });
       var param = {
@@ -421,10 +409,11 @@ export default {
                 this.brandName=this.$store.state.brandName||'';
                 this.brandNo=this.$store.state.brandNo||'';
                 this.brandId="0"+this.$store.state.brandId||'';
+                console.log(this.$store.getters.defaultInformation)
                 if(this.brandName=='轻卡'||''){
-                    this.brandName=''
+                    // this.brandName=''
                     this.seriesName=''
-                }else{
+                }
                   let data = {
                       no: this.brandNo
                     };
@@ -436,8 +425,11 @@ export default {
                       for(let val of data){
                         this.carSlot[0].values.push(val.seriesName)
                       }
+                      this.num = true;
+                      this.init()
+                      // this.carSlot[0].values.unshift(' ')
                     });
-                  }
+                  
     },
     //品牌选择
     brandchoose(){
@@ -721,11 +713,14 @@ export default {
     },
     //省份的滑动选择
     provinceChange(picker, values) {
+      
       if (this.num) {
+        console.log('1111')
         this.valuesprovince1 = this.provinceName;
         this.valuescity1 = this.cityName;
         this.num = false;
       } else {
+        console.log('2222')
         this.valuesprovince = values[0];
       }
       picker.setSlotValue(1, values[0]);
@@ -735,9 +730,8 @@ export default {
       picker.setSlotValue(1, values[0]);
     },
     carChange(picker, values){
-      console.log('jinru',this.num)
       if(this.num){
-          this.seriesName=this.$store.getters.defaultInformation.seriesName||''
+          this.seriesName=this.seriesName
       }else{
         this.seriesName=values[0]
       }
