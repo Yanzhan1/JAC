@@ -97,7 +97,7 @@ export default {
         sixth: ""
       },
       //图片激活变量
-      activeShowImg: 0,
+      activeShowImg: false,
       //天窗宽度展示
       windNum: ["0%", "100%"],
       winMin: 0,
@@ -210,6 +210,7 @@ export default {
                         } else if (res.data.status == "SUCCEED") {
                           if (this.buttoncontrol) {
                             this.windowcontrol = false;
+                            this.activeShowImg=true;
                             Toast({
                               message: this.skywords[4].dictValue,
                               position: "middle",
@@ -217,6 +218,7 @@ export default {
                             });
                           } else {
                             this.windowcontrol = true;
+                            this.activeShowImg=false;
                             Toast({
                               message: this.skywords[1].dictValue,
                               position: "middle",
@@ -265,6 +267,7 @@ export default {
             } else if (res.data.status == "SUCCEED") {
               if (this.buttoncontrol) {
                 this.windowcontrol = false;
+                this.activeShowImg=true;
                 Toast({
                   message: this.skywords[4].dictValue,
                   position: "middle",
@@ -272,6 +275,7 @@ export default {
                 });
               } else {
                 this.windowcontrol = true;
+                this.activeShowImg=false;
                 Toast({
                   message: this.skywords[1].dictValue,
                   position: "middle",

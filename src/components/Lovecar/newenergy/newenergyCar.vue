@@ -243,7 +243,7 @@
 				<!--轮播第三页Start-->
 				<mt-swipe-item>
 					<div class="action-content">
-						<router-link v-show="AIRCONDITIONER"  to="/newenergy/newaircondition" tag="div" class="navs air">
+						<router-link v-show="AIRCONDITIONER"  :to="{path:'/newenergy/newaircondition',query:{carcontrol:this.carcontrol}}"  tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc" src="../../../../static/images/Wit/ari.png" alt="">
 								<span class="pic_txt">空调</span>

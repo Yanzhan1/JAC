@@ -69,7 +69,7 @@ import { Popup } from "mint-ui";
 import PublicHead from "../../publicmodel/PublicHead";
 import { MessageBox } from "mint-ui";
 export default {
-  name: "windowControl",
+  name: "空调远控",
   components: {
     mhead: PublicHead
   },
@@ -94,7 +94,7 @@ export default {
       },
       operationIds: "",
       //图片激活变量
-      activeShowImg: 0,
+      activeShowImg: false,
       winMin: 0,
       //pin码弹出框控制变量
       popupVisible: false,
@@ -439,7 +439,9 @@ export default {
         });
     }
   },
-  mounted() {},
+  mounted() {
+    this.flags=this.$route.query.carcontrol.acStatus==1?true:false
+  },
   created() {
     this.getwindowwords();
     this.inputs();
