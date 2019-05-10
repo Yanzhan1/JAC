@@ -350,7 +350,7 @@ export default {
     //点击遮罩或者'x'移除popup
     removeMask() {
       this.popupVisible = !this.popupVisible;
-      // this.showTyper = 0;
+      this.showTyper = 0;
     },
     //产生随机数
     randomnum(min, max) {
@@ -432,15 +432,13 @@ export default {
     },
     //控制天窗起始状态
     carcontrolskylight() {
-      // if (this.$route.query.carcontrol.skylightStatus == "1") {
-      //   //pin码正确激活弧线
-      //   this.curveState = true;
-      //   //pin码正确激活空调图
-      //   this.activeShowImg = true;
-      // } else {
-      //   this.curveState = false;
-      //   this.activeShowImg = false;
-      // }
+      if (this.$route.query.carcontrol.topWindowOpen != 0) {
+        this.windowcontrol = false;
+        this.activeShowImg=true;
+      } else {
+        this.windowcontrol = true;
+        this.activeShowImg=false;
+      }
     }
   },
   mounted() {

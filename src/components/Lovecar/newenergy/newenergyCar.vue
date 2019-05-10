@@ -154,13 +154,13 @@
 					<!--胎压图片End-->
 
 					<!-- 控制天窗的线Start 分为激活和未激活 -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'"  v-show="activeshow=='3'&&this.carcontrol.topWindowOpen==1" style="position:absolute;display:block;width:1.8rem;top:3.1rem;right:2.1rem;"></img>
-					<img class="" :src="'./static/images/Lovecar/blueright.png'"  v-show="activeshow=='3'&&this.carcontrol.topWindowOpen!=1" style="position:absolute;display:block;width:1.14rem;top:3.55rem;right:2.5rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'"  v-show="activeshow=='3'&&this.carcontrol.topWindowOpen!=0" style="position:absolute;display:block;width:1.8rem;top:3.1rem;right:2.1rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/blueright.png'"  v-show="activeshow=='3'&&this.carcontrol.topWindowOpen==0" style="position:absolute;display:block;width:1.14rem;top:3.55rem;right:2.5rem;"></img>
 					<!--天窗线End-->
 
 					<!-- 尾门线Start 分为激活和未激活  -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'"  v-show="activeshow=='2'&&this.carcontrol.trunkLockStatus!=1" style="position:absolute;display:block;width:1.8rem;top:5.05rem;right:2.1rem;"></img>
-					<img class="" :src="'./static/images/Lovecar/blueright.png'"  v-show="activeshow=='2'&&this.carcontrol.trunkLockStatus==1" style="position:absolute;display:block;width:1.14rem;top:5.5rem;right:2.5rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'"  v-show="activeshow=='2'&&this.carcontrol.trunkLockStatus!=0" style="position:absolute;display:block;width:1.8rem;top:5.05rem;right:2.1rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/blueright.png'"  v-show="activeshow=='2'&&this.carcontrol.trunkLockStatus==0" style="position:absolute;display:block;width:1.14rem;top:5.5rem;right:2.5rem;"></img>
 					<!--尾门线End-->
 
 					<!-- 控制右前车门线 -->
@@ -174,7 +174,7 @@
 
 					<!-- <span class='busl_r top_1'>{{this.engineHoodStsFront}}</span> -->
 					<!--天窗And尾门状态Start-->
-					<span v-show="activeshow=='2'?true:false" class='busl_r bottom_1 '>{{this.carcontrol.topWindowOpen?'已打开':'已关闭'}}</span>
+					<span v-show="activeshow=='2'?true:false" class='busl_r bottom_1 '>{{this.carcontrol.topWindowOpen!=0?'已打开':'已关闭'}}</span>
 					<span v-show="activeshow=='3'?true:false" class='busl_r middle_1 '>{{this.carcontrol.trunkLockStatus?'已打开':'已关闭'}}</span>
 					<!--天窗And尾门状态End-->
 					<img class="loadingcar "  src="../../../../static/images/Lovecar/loading@2x.png" alt="" @click="loading">
@@ -815,6 +815,7 @@ export default {
                           // if (res.data.data) {
                           this.carcontrol = res.data.data;
                           this.batteryStatis();
+                          this.trunkcontrol = this.carcontrol.trunkLockStatus ? false : true;
                           if (this.carcontrol.chgPlugStatus == 1) {
                             this.chgPlugStatus = "未插入";
                           } else if (this.carcontrol.chgPlugStatus == 2) {
@@ -1114,6 +1115,7 @@ export default {
               // if (res.data.data) {
               this.carcontrol = res.data.data;
               this.batteryStatis();
+              this.trunkcontrol = this.carcontrol.trunkLockStatus ? false : true;
               if (this.carcontrol.chgPlugStatus == 1) {
                 this.chgPlugStatus = "未插入";
               } else if (this.carcontrol.chgPlugStatus == 2) {
