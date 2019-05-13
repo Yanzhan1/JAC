@@ -111,27 +111,27 @@
 
           <!-- 控制页面空调展示与否 -->
           <div v-show="this.carcontrol.acStatus==1?true:false" class="controlCondition">
-            <img :src="'./../../../../static/images/Lovecar/airenergyopen@2x.png'" alt="">
+            <img :src="'./static/images/Lovecar/airenergyopen@2x.png'" alt="">
             <div style="color:#49bbff">空调已打开</div>
           </div>
           <div v-show="this.carcontrol.acStatus==2?true:false" class="controlCondition">
-            <img :src="'./../../../../static/images/Lovecar/airenergyclose@2x.png'" alt="">
+            <img :src="'./static/images/Lovecar/airenergyclose@2x.png'" alt="">
             <div style="color:#222">空调已关闭</div>
           </div>
           <!-- 远光灯开启展示 -->
           <div v-show="this.carcontrol.highlightStatus==1" class="controlLight">
-            <img :src="'./../../../../static/images/Lovecar/light_nearopenon@2x.png'" alt="">
+            <img :src="'./static/images/Lovecar/light_nearopenon@2x.png'" alt="">
             <div  style="color:#49bbff">远光灯已打开</div>
           </div>
-          <div v-show="this.carcontrol.lightnearcontrol==1" class="controlLight">
-            <img :src="'./../../../../static/images/Lovecar/light_nearopenon@2x.png'" alt="">
+          <div v-show="this.carcontrol.lowlightStatus==1" class="controlLight">
+            <img :src="'./static/images/Lovecar/light_nearopenon@2x.png'" alt="">
             <div  style="color:#49bbff">近光灯已打开</div>
           </div>
 
 
           <!-- 探照灯 -->
-          <img v-show="this.carcontrol.highlightStatus==1" style="display:block;position:absolute;z-index:-1;width:3.52rem;height:2.9rem;top:-1.1rem;left:2.03rem;" :src="'./../../../../static/images/Lovecar/lightforword@2x.png'" alt="">  
-          <img v-show="this.carcontrol.lightnearcontrol==1" style="display:block;position:absolute;z-index:-1;width:2.98rem;height:1.70rem;top:0rem;left:2.25rem;" :src="'./../../../../static/images/Lovecar/lightnear@2x.png'" alt="">  
+          <img v-show="this.carcontrol.highlightStatus==1" style="display:block;position:absolute;z-index:-1;width:3.52rem;height:2.9rem;top:-1.1rem;left:2.03rem;" :src="'./static/images/Lovecar/lightforword@2x.png'" alt="">  
+          <img v-show="this.carcontrol.lowlightStatus==1" style="display:block;position:absolute;z-index:-1;width:2.98rem;height:1.70rem;top:0rem;left:2.25rem;" :src="'./static/images/Lovecar/lightnear@2x.png'" alt="">  
 
           <!-- 车门展示 -->
           <!-- <img v-show="activeshow==2&&this.carcontrol.doorStsFrontLeft" style="position:absolute;display:block;width:.53rem;height:.88rem;top:2.95rem;left:2.5rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
@@ -174,8 +174,8 @@
 
 					<!-- <span class='busl_r top_1'>{{this.engineHoodStsFront}}</span> -->
 					<!--天窗And尾门状态Start-->
-					<span v-show="activeshow=='2'?true:false" class='busl_r bottom_1 '>{{this.carcontrol.topWindowOpen!=0?'已打开':'已关闭'}}</span>
-					<span v-show="activeshow=='3'?true:false" class='busl_r middle_1 '>{{this.carcontrol.trunkLockStatus?'已打开':'已关闭'}}</span>
+					<span v-show="activeshow=='2'?true:false" class='busl_r bottom_1 '>{{this.carcontrol.trunkLockStatus!=0?'已打开':'已关闭'}}</span>
+					<span v-show="activeshow=='3'?true:false" class='busl_r middle_1 '>{{this.carcontrol.topWindowOpen!=0?'已打开':'已关闭'}}</span>
 					<!--天窗And尾门状态End-->
 					<img class="loadingcar "  src="../../../../static/images/Lovecar/loading@2x.png" alt="" @click="loading">
 				</div>        
@@ -1907,9 +1907,9 @@ export default {
     $(".MobileHeight").css({
       marginTop: this.$store.state.mobileStatusBar
     });
+    // this.vinn = 'LJ1EEASP9K5000037';
     this.vinn = this.$store.state.defaultInformation.vin;
     this.getcarcontrol()
-    // this.vinn = 'LJ1EEASP9K5000037';
     this.Getmarkedwords();
     new Promise(()=>{
       this.getcarvalue();
