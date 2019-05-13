@@ -71,27 +71,24 @@
 				</div>
 				<span>{{userinfo.vin}}</span>
 			</li>
-			<li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
+			<!-- <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
 				<div class="order-title">
-					<!-- <img src="../../../static/images/my/start.png" alt="" /> -->
 					<span>预约顾问名称:</span>
 				</div>
 				<span>{{userinfo.server}}</span>
 			</li>
 			<li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
 				<div class="order-title">
-					<!-- <img src="../../../static/images/my/start.png" alt="" /> -->
 					<span>预约专员ID:</span>
 				</div>
 				<span>{{userinfo.serverId}}</span>
 			</li>
 			<li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
 				<div class="order-title">
-					<!-- <img src="../../../static/images/my/start.png" alt="" /> -->
 					<span>反馈日期:</span>
 				</div>
 				<span>{{userinfo.feedbackTime}}</span>
-			</li>			
+			</li>			 -->
 		</ul>
 	</div>
 </template>
