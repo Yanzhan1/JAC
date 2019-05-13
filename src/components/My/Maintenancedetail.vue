@@ -48,7 +48,7 @@
 					<!-- <img src="../../../static/images/my/start.png" alt="" /> -->
 					<span>预约时间:</span>
 				</div>
-				<span>{{userinfo.revervationTime}}</span>
+				<span>{{userinfo.revervationTime?userinfo.revervationTime:'全天'}}</span>
 			</li>
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
 				<div class="order-title">
