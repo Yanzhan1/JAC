@@ -1,5 +1,5 @@
 <template>
-	<div class="big_box">
+	<div class="big_box" @click="gohome">
 		<!--<header class="header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
 			<span class="header-title">维保预约</span>
@@ -397,7 +397,6 @@ export default {
                   this.brandSlot[0].values.push(val.brandName)
               }
           }
-          this.mydeler()
       })
     },
     //获取默认车辆的vin
@@ -410,7 +409,6 @@ export default {
                 this.brandName=this.$store.state.brandName||'';
                 this.brandNo=this.$store.state.brandNo||'';
                 this.brandId="0"+this.$store.state.brandId||'';
-                console.log(this.$store.getters.defaultInformation)
                 if(this.brandName=='轻卡'||''){
                     // this.brandName=''
                     this.seriesName=''
@@ -474,6 +472,7 @@ export default {
             this.carSlot[0].values.push(val.seriesName)
           }
         });
+        this.mydeler()
         this.showbrand=false;
         this.allback = false;
     },
@@ -601,9 +600,8 @@ export default {
       });
     },
     servicestatus() {
-      console.log(this.plateLicenseNo,this.seriesName)
       ModalHelper.afterOpen()
-      if(this.plateLicenseNo&&this.seriesName){
+      if(this.brandName&&this.seriesName){
         this.servicezhan = true;
         this.allback = true;
       }else{
@@ -735,12 +733,10 @@ export default {
     provinceChange(picker, values) {
       
       if (this.num) {
-        console.log('1111')
         this.valuesprovince1 = this.provinceName;
         this.valuescity1 = this.cityName;
         this.num = false;
       } else {
-        console.log('2222')
         this.valuesprovince = values[0];
       }
       picker.setSlotValue(1, values[0]);
@@ -760,9 +756,9 @@ export default {
           this.seriesNo=val.no
         }
       }
-      // setTimeout(() => { 
-      //   this.mydeler()
-      // }, 1000);
+      setTimeout(() => { 
+        this.mydeler()
+      }, 100);
       picker.setSlotValue(1, values[0]);
     },
     timeChange(picker, values) {
@@ -857,7 +853,6 @@ export default {
         return false;
       }else{
         let reg=/^[0-9a-zA-Z]+$/
-        console.log(reg.test(this.defaultvin))
         if(!reg.test(this.defaultvin)){
             Toast({
               message: "VIN只允许输入数字,字母",
@@ -989,6 +984,12 @@ export default {
         }
       });
     },
+    gohome(){   
+      // if(!this.$store.state.userId){
+      //     this.toLogin();
+      //     return false;
+      // }
+    }
   },
   filters: {
     toFixed(input, param1) {

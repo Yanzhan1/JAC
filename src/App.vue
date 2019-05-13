@@ -35,6 +35,7 @@ export default {
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
         // const secUid = Secret.Encrypt(userInfo.no)
         // this.$store.dispatch("userId", secUid);
+        this.$store.state.enterMaintenance = true;
         this.$store.dispatch("userId", userInfo.no);
         this.$store.dispatch("userInfo", userInfo);
         this.$http.defaults.headers.common["timaToken"] = userInfo.token;
@@ -59,107 +60,14 @@ export default {
               "defaultInformation",
               JSON.parse(userInfo.defaultInformation)
             );
-            //  if(JSON.parse(userInfo.defaultInformation).brandId==5){
-            //     let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
-            //     identityParam.tspType='NEUSOFT_ENERGY'
-            //     this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
-            //   }else{
-            //       let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
-            //       identityParam.tspType=''
-            //       this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
-            //   }
-            // if (
-            //   JSON.parse(userInfo.defaultInformation).brandId == 4 ||
-            //   5 ||
-            //   6
-            // ) {
-            //   this.$store.state.enterMaintenance = true;
-            // } else {
-            //   this.$store.state.enterMaintenance = false;
-            // }
-            // if(userInfo.token){
-            //   let param = {
-            //     lmscode:
-            //       JSON.parse(userInfo.defaultInformation).modelNo,
-            //     levelCode:
-            //       JSON.parse(userInfo.defaultInformation).seriesNo,
-            //     tspFlag: JSON.parse(userInfo.defaultInformation).tspFlag,
-            //     seriesName:JSON.parse(userInfo.defaultInformation).seriesName
-            //   };
-            //   this.$http
-            //     .post(Wit.SearchVehicleSeriesByVehicle, param)
-            //     .then(res => {
-            //       if(res.data.code==0){
-            //         if (res.data.data.brandId == 4 || 5 || 6) {
-
-            //           if (userInfo.no) {
-            //             this.$store.state.enterMaintenance = true;
-            //           }else{
-            //             this.$store.state.enterMaintenance = false;
-            //           }
-            //         }else{
-            //             this.$store.state.enterMaintenance = false;
-            //           }
-            //       }else{
-            //           this.$store.state.enterMaintenance = false;
-            //       }
-            //     });
-            // }
           } 
-          // else {
-          //   this.$store.state.enterMaintenance = false;
-          // }
         } else if (isMobile.Android()) {
           if (userInfo.defaultInformation && userInfo.defaultInformation.vin) {
             this.$store.dispatch(
               "defaultInformation",
               userInfo.defaultInformation
             );
-            // if(userInfo.defaultInformation.brandId==5){
-            //     let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
-            //     identityParam.tspType='NEUSOFT_ENERGY'
-            //     this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
-            // }else{
-            //     let identityParam=JSON.parse(this.$store.state.tsppin.headers.identityParam)
-            //     identityParam.tspType=''
-            //     this.$store.state.tsppin.headers.identityParam = JSON.stringify(identityParam)
-            // }
-            // if (userInfo.defaultInformation.brandId == 4 || 5 || 6) {
-            //   this.$store.state.enterMaintenance = true;
-            // } else {
-            //   this.$store.state.enterMaintenance = false;
-            // }
-            // if(userInfo.token){
-            //   let param = {
-            //     lmscode:
-            //       userInfo.defaultInformation.modelNo,
-            //     levelCode:
-            //       userInfo.defaultInformation.seriesNo,
-            //     tspFlag: userInfo.defaultInformation.tspFlag,
-            //     seriesName: userInfo.defaultInformation.seriesName
-            //   };
-            //   this.$http
-            //     .post(Wit.SearchVehicleSeriesByVehicle, param)
-            //     .then(res => {
-            //       if(res.data.code==0){
-            //         if (res.data.data.brandId == 4 || 5 || 6) {
-            //           if (userInfo.no) {
-            //             this.$store.state.enterMaintenance = true;
-            //           }else{
-            //             this.$store.state.enterMaintenance = false;
-            //           }
-            //         }else{
-            //             this.$store.state.enterMaintenance = false;
-            //           }
-            //       }else{
-            //           this.$store.state.enterMaintenance = false;
-            //       }
-            //     });
-            // }
           }
-          //  else {
-          //   this.$store.state.enterMaintenance = false;
-          // }
         }
         this.$store.dispatch("CARVINS", userInfo.vin);
         this.$store.dispatch("nomarlseriseName", userInfo.seriesName);
@@ -167,7 +75,7 @@ export default {
         localStorage.setItem("mobile", JSON.stringify(userInfo.mobile));
         localStorage.setItem("userName", JSON.stringify(userInfo.userName));
       } else {
-        // this.$store.state.enterMaintenance = false;
+        this.$store.state.enterMaintenance = false;
         this.$store.dispatch("isLogin", false);
         this.$store.dispatch("userId", null);
       }
