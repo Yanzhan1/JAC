@@ -33,6 +33,7 @@ export default {
         const arr = config.url.match(this.reg);
         if (this.loadingnum == 0) {
           if(arr){
+            console.log(arr)
             switch (arr[1]) {
               case "dk-dm-portal-api": // 发现
                 if (!(params.pageNo && params.pageNo > 1)) {
@@ -98,7 +99,8 @@ export default {
           response.config.url != Lovecar.OperationId&&
           response.config.url != Newenergy.energyvehicleasyncresults &&
           response.config.url != Newenergy.energyvehiclePINvalidation&&
-          response.config.url != Newenergy.energyremotevehiclecontrol
+          response.config.url != Newenergy.energyremotevehiclecontrol&&
+          response.config.url !=Newenergy.energyqueryvehiclecondition
         ) {
           if (this.loadingnum == 0) {
             localhide();

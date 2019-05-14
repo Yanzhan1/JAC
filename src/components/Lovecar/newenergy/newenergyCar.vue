@@ -946,6 +946,12 @@ export default {
                               duration: 2000
                             });
                             this.lightfarcontrol = true;
+                          }else {
+                            Toast({
+                              message: this.vehicle_condition[1].dictValue,
+                              position: "middle",
+                              duration: 2000
+                            });
                           }
                           // }
                           clearInterval(this.time);
@@ -1242,7 +1248,13 @@ export default {
                   duration: 2000
                 });
                 this.lightfarcontrol = true;
-              }
+              }else {
+                    Toast({
+                      message: this.vehicle_condition[1].dictValue,
+                      position: "middle",
+                      duration: 2000
+                    });
+                  }
               // }
               clearInterval(this.time);
               localhide();
