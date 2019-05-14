@@ -413,10 +413,12 @@ export default {
                     // this.brandName=''
                     this.seriesName=''
                 }
-                if(this.brandName=='轻卡'||'重卡'){
+                
+                if(this.brandName=='轻卡'||this.brandName=='重卡'){
                     // this.brandName=''
                     this.detailtime=false
                 }
+                console.log(this.detailtime)
                   let data = {
                       no: this.brandNo
                     };
@@ -465,6 +467,7 @@ export default {
         this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
             this.currentTitle=''
             this.currentTime=''
+            this.currentIndex=-1
           const data = res.data.data;
           this.carList=data
           this.carSlot[0].values=[]
@@ -485,6 +488,7 @@ export default {
     carsure(){
         this.currentTitle=''
         this.currentTime=''
+        this.currentIndex=-1
         this.mydeler()
         this.seriesName=this.seriesName?this.seriesName:this.carSlot[0].values[0]
         this.showcar=false;
@@ -706,8 +710,8 @@ export default {
         }
       });
       $("#provinceLabel").hide();
-      this.currentTitle = "";
-      this.currentIndex = -1;
+      this.currentTitle=''
+      this.currentTime=''
       this.allback = false;
       this.valuesprovince1 = this.valuesprovince;
     },
@@ -716,6 +720,9 @@ export default {
         this.allcityList.forEach((item, index) => {
             if(this.valuescity==item.name){
                 this.city_id = item.code;
+                this.currentTitle=''
+                this.currentTime=''
+                this.currentIndex=-1
                 this.mydeler();
 
             }
@@ -1054,6 +1061,7 @@ export default {
   font-weight: 400;
   color: rgba(73, 187, 255, 1);
   float: right;
+  margin-bottom: .3rem;
 }
 .chooseimages {
   display: block;
