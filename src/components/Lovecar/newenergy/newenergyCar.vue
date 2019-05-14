@@ -876,6 +876,8 @@ export default {
                             this.Condition = this.window;
                           }
                           this.doorcontrol=this.carcontrol.mainLockStatus==1?false:true
+                          this.lightfarcontrol=this.carcontrol.highlightStatus==1?false:true
+                          this.lightnearcontrol=this.carcontrol.lowlightStatus==1?false:true
                           // } else {
 
                           if (this.type == 1) {
@@ -1180,6 +1182,8 @@ export default {
               }
               // } else {
                 this.doorcontrol=this.carcontrol.mainLockStatus==1?false:true
+                this.lightfarcontrol=this.carcontrol.highlightStatus==1?false:true
+                this.lightnearcontrol=this.carcontrol.lowlightStatus==1?false:true
               if (this.type == 1) {
                 this.doorcontrol = true;
                 Toast({
@@ -1440,6 +1444,8 @@ export default {
             this.doorcontrol= this.carcontrol.mainLockStatus==1?false:true
             //控制尾门的状态
             this.trunkcontrol = this.carcontrol.trunkLockStatus ? false : true;
+            this.lightfarcontrol=this.carcontrol.highlightStatus==1?false:true;
+            this.lightnearcontrol=this.carcontrol.lowlightStatus==1?false:true;
             //控制远光灯的状态
             this.batteryStatis();
             if (this.carcontrol.chgPlugStatus == 1) {
@@ -1919,8 +1925,8 @@ export default {
     $(".MobileHeight").css({
       marginTop: this.$store.state.mobileStatusBar
     });
-    // this.vinn = 'LJ1EEASP9K5000037';
-    this.vinn = this.$store.state.defaultInformation.vin;
+    this.vinn = 'LJ1EEASP9K5000037';
+    // this.vinn = this.$store.state.defaultInformation.vin;
     this.getcarcontrol()
     this.Getmarkedwords();
     new Promise(()=>{
