@@ -1496,6 +1496,7 @@ export default {
         });
     },
     getcarcontrol() {
+      console.log(Newenergy.energyvehiclesupportfunction)
       let param = {
         vin: this.vinn,
         // vin:'LJ1EEASP9K5000037'
@@ -1925,8 +1926,8 @@ export default {
     $(".MobileHeight").css({
       marginTop: this.$store.state.mobileStatusBar
     });
-    this.vinn = 'LJ1EEASP9K5000037';
-    // this.vinn = this.$store.state.defaultInformation.vin;
+    // this.vinn = 'LJ1EEASP9K5000037';
+    this.vinn = this.$store.state.defaultInformation.vin;
     this.getcarcontrol()
     this.Getmarkedwords();
     new Promise(()=>{
