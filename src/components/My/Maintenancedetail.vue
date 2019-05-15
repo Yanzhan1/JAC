@@ -53,14 +53,14 @@
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
 				<div class="order-title">
 					<!-- <img src="../../../static/images/my/start.png" alt="" /> -->
-					<span>车主名称:</span>
+					<span>预约人:</span>
 				</div>
 				<span>{{userinfo.ownerName}}</span>
 			</li>
             <li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
 				<div class="order-title">
 					<!-- <img src="../../../static/images/my/start.png" alt="" /> -->
-					<span>车主电话:</span>
+					<span>预约电话:</span>
 				</div>
 				<span>{{userinfo.ownerMobile}}</span>
 			</li>
