@@ -1,10 +1,10 @@
 <template>
 	<div>
-		<header class="header">
-            <img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
-            <span class="header-title">维保详情</span>
-            <span class="header-right"></span>
-        </header>
+		<header class="header MobileHeight bgcolor">
+			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
+			<span class="header-title">维保详情</span>
+			<span class="header-right"></span>
+			</header>
         <div style="height:.88rem"></div>
 		<!-- <mhead currentTitle="维保详情"></mhead> -->
 		<ul style="padding:0 .32rem;border-bottom:.2rem solid #F9F9F9">
@@ -106,7 +106,10 @@
 		},
 		created() {
 			this.userinfo = this.$route.query
-			console.log(this.userinfo)
+			$(".MobileHeight").css({
+				borderTopWidth: this.$store.state.mobileStatusBar,
+				borderTopColor: "#fff"
+			});
 		},
 		methods:{
 			goback(){
@@ -122,6 +125,10 @@
 </script>
 
 <style scoped>
+	.MobileHeight {  
+		border-top-style: solid;
+		box-sizing: content-box;
+	}
 	.order-title {
 		display: flex;
 		justify-content: center;
@@ -153,7 +160,8 @@
 		color: #222;
 		font-size: .36rem
 	}
-	.header{
-		background: #fff;
+	.bgcolor{
+		background:#fff;
+		padding: 0;
 	}
 </style>
