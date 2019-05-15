@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<header class="header MobileHeight header">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.push({path:'/myindex'})">
 			<span class="header-title" style="margin-right: 0.65rem;">我的订单</span>
 			<span class="header-right"></span>
 		</header>
