@@ -63,6 +63,7 @@ export default {
       let param = {
         // vin: "LJ16AA33777028846",
         vin:this.$store.state.vins,
+        brandNo:this.$store.state.brandNo
       };
       this.$http
         .post(My.searchMaintenanceRecordList, param)

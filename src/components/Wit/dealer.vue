@@ -489,7 +489,8 @@ export default {
       this.brandNo = this.bno; //改变经销商列表请求 品牌参数brandNo
 
       let data = {
-        no: this.bno
+        no: this.bno,
+        onLine:1,
       };
       //请求车型列表
       this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {

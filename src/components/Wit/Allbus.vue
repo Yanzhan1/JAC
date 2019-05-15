@@ -52,7 +52,8 @@ export default {
 
     getcarbus() {
       var param = {
-        flagType:1
+        flagType:1,
+        onLine:1,
       };
       this.$http.post(Wit.MainBus, param).then(res => {
         if (res.data.code == 0) {
