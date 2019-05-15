@@ -1,12 +1,12 @@
 <template>
 	<div>
-		<!--<header class="header">
-            <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-            <span class="header-title">订单详情</span>
+		<header class="header">
+            <img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
+            <span class="header-title">维保详情</span>
             <span class="header-right"></span>
         </header>
-        <div style="height:.88rem"></div>-->
-		<mhead currentTitle="维保详情"></mhead>
+        <div style="height:.88rem"></div>
+		<!-- <mhead currentTitle="维保详情"></mhead> -->
 		<ul style="padding:0 .32rem;border-bottom:.2rem solid #F9F9F9">
 			<li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
 				<div class="order-title">
@@ -107,6 +107,16 @@
 		created() {
 			this.userinfo = this.$route.query
 			console.log(this.userinfo)
+		},
+		methods:{
+			goback(){
+				this.$router.push({
+					path:'/myorder',
+					query:{
+						show:2
+					}
+				})
+			}
 		}
 	};
 </script>
@@ -142,5 +152,8 @@
 		padding: .3rem;
 		color: #222;
 		font-size: .36rem
+	}
+	.header{
+		background: #fff;
 	}
 </style>

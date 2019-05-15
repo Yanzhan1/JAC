@@ -88,6 +88,7 @@
 					</router-link >
 				</ul>
         <ul v-show="this.Maintenance" style="margin-top:.7rem;">
+          <marquee class="reminder" scrollamount='3' dircetion='left' behavior='scroll' >温馨提示:当前仅展示默认车辆的维保订单</marquee>
           <li class="flex column sigleli" v-for="(item,index) in datalist" :key="index">
               <div @click="goMaintenancedetail(item)">
                   <p class="flex row tim between">
@@ -359,7 +360,7 @@ export default {
     });
     if (this.$route.params.show == 1) {
       this.showflow();
-    }  else  if(this.$route.query.show == '2'){
+    }  else  if(this.$route.query.show == 2){
         this.showMaintenance();
     }else{
       this.list=true
@@ -525,5 +526,11 @@ export default {
 }
 .sigleli{
   border-bottom: .1rem solid #eee;
+}
+.reminder{
+  text-align: center;
+  position:fixed;
+  width: 100%;
+  font-size: .2rem;
 }
 </style>

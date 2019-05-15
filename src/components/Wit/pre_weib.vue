@@ -420,7 +420,8 @@ export default {
                 }
                 console.log(this.detailtime)
                   let data = {
-                      no: this.brandNo
+                      no: this.brandNo,
+                      size:99,
                     };
                     //请求车型列表
                     this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
@@ -461,7 +462,8 @@ export default {
             }
         }
         let data = {
-          no: this.brandNo
+          no: this.brandNo,
+          size:99
         };
         //请求车型列表
         this.$http.post(Wit.searchVehicleSeriesList, data).then(res => {
