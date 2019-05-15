@@ -119,11 +119,11 @@
             <div style="color:#222">空调已关闭</div>
           </div>
           <!-- 远光灯开启展示 -->
-          <div v-show="this.carcontrol.highlightStatus==1" class="controlLight">
-            <img :src="'./static/images/Lovecar/light_nearopenon@2x.png'" alt="">
+          <div v-show="this.carcontrol.highlightStatus==1" class="controlLightfar">
+            <img :src="'./static/images/Lovecar/light_faropenon@2x.png'" alt="">
             <div  style="color:#49bbff">远光灯已打开</div>
           </div>
-          <div v-show="this.carcontrol.lowlightStatus==1" class="controlLight">
+          <div v-show="this.carcontrol.lowlightStatus==1" class="controlLightnear">
             <img :src="'./static/images/Lovecar/light_nearopenon@2x.png'" alt="">
             <div  style="color:#49bbff">近光灯已打开</div>
           </div>
@@ -924,30 +924,30 @@ export default {
                                 position: "middle",
                                 duration: 2000
                               });
-                            this.lightnearcontrol = false;
-                            this.lightfarcontrol = true;
+                            // this.lightnearcontrol = false;
+                            // this.lightfarcontrol = true;
                           } else if (this.type == 7) {
                             Toast({
                               message: this.distance_light[7].dictValue,
                               position: "middle",
                               duration: 2000
                             });
-                            this.lightnearcontrol = true;
+                            // this.lightnearcontrol = true;
                           } else if (this.type == 8) {
                             Toast({
                               message: this.distance_light[1].dictValue,
                               position: "middle",
                               duration: 2000
                             });
-                            this.lightfarcontrol = false;
-                            this.lightnearcontrol = true;
+                            // this.lightfarcontrol = false;
+                            // this.lightnearcontrol = true;
                           } else if (this.type == 9) {
                             Toast({
                               message: this.distance_light[3].dictValue,
                               position: "middle",
                               duration: 2000
                             });
-                            this.lightfarcontrol = true;
+                            // this.lightfarcontrol = true;
                           }else {
                             Toast({
                               message: this.vehicle_condition[1].dictValue,
@@ -1228,30 +1228,30 @@ export default {
                   position: "middle",
                   duration: 2000
                 });
-                this.lightnearcontrol = false;
-                this.lightfarcontrol = true;
+                // this.lightnearcontrol = false;
+                // this.lightfarcontrol = true;
               } else if (this.type == 7) {
                 Toast({
                   message: this.distance_light[7].dictValue,
                   position: "middle",
                   duration: 2000
                 });
-                this.lightnearcontrol = true;
+                // this.lightnearcontrol = true;
               } else if (this.type == 8) {
                 Toast({
                   message: this.distance_light[1].dictValue,
                   position: "middle",
                   duration: 2000
                 });
-                this.lightfarcontrol = false;
-                this.lightnearcontrol = true;
+                // this.lightfarcontrol = false;
+                // this.lightnearcontrol = true;
               } else if (this.type == 9) {
                 Toast({
                   message: this.distance_light[3].dictValue,
                   position: "middle",
                   duration: 2000
                 });
-                this.lightfarcontrol = true;
+                // this.lightfarcontrol = true;
               }else {
                     Toast({
                       message: this.vehicle_condition[1].dictValue,
@@ -2493,7 +2493,7 @@ input:focus {
   align-items: center;
   position: absolute;
   line-height: 0.24rem;
-  top: 1.15rem;
+  top: 1.35rem;
 }
 .controlCondition div {
   font-size: 0.24rem;
@@ -2503,7 +2503,7 @@ input:focus {
   height: 0.3rem;
   margin: 0 0.1rem 0 0.57rem;
 }
-.controlLight {
+.controlLightnear {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2511,12 +2511,28 @@ input:focus {
   line-height: 0.24rem;
   top: 0.53rem;
 }
-.controlLight div {
+.controlLightnear div {
   font-size: 0.24rem;
 }
-.controlLight img {
+.controlLightnear img {
   width: 0.3rem;
-  height: 0.3rem;
+  height: 0.25rem;
+  margin: 0 0.1rem 0 0.57rem;
+}
+.controlLightfar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  line-height: 0.24rem;
+  top: 0.93rem;
+}
+.controlLightfar div {
+  font-size: 0.24rem;
+}
+.controlLightfar img {
+  width: 0.3rem;
+  height: 0.2rem;
   margin: 0 0.1rem 0 0.57rem;
 }
 .question {
