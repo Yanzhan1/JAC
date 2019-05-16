@@ -178,7 +178,8 @@
         this.getList()
       },
       ['$route'](to, from) {
-        if (from.path == '/mystart' || from.path == '/myindex') {
+        console.log('会员是否升级'+this.$store.state.member)
+        if (from.path == '/mystart' || (from.path == '/myindex' && this.$store.state.member)) {
           // this.getRefreshList();
           this.reset()
           this.getList()

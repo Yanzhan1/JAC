@@ -69,5 +69,6 @@ export default {
     code403: 0,
     defaultInformation: {}, //存贮默认车辆的所有信息
     enterMaintenance: true, //判断维保预约是否展示
-    addiflogin:null
+    addiflogin:null,
+    member: false, //判断会员是否升级
 }

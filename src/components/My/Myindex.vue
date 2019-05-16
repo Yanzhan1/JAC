@@ -588,6 +588,7 @@ export default {
             this.$http.post(My.updateLevelChangesRecord, param).then(res => {
               if (res.data.code == 0) {
                 let success = "恭喜您晋升" + Congratulations;
+                this.$store.state.member = true;
                 Toast({
                   message: success,
                   duration: 4000,
