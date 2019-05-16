@@ -28,7 +28,7 @@
               <span class="f_left">{{item.readNum}}</span>
               <!--是否点赞以及点赞数量-->
               <span class="f_right">{{item.likeNum}}</span>
-              <img v-if="item.likeStatus" src="../../../static/images/discover/nozan.png" class="f_right" @click="giveInformationLike(item.manageId,index)"/>
+              <img v-if="item.likeStatus == 0" src="../../../static/images/discover/nozan.png" class="f_right" @click="giveInformationLike(item.manageId,index)"/>
               <img v-else src="../../../static/images/discover/zan.png" class="f_right" @click="removeInformationLike(item.manageId,index)"/>
             </div>
           </div>
@@ -155,7 +155,7 @@
         this.$http.post(DISCOVERMESSAGE.informationGiveLike, {"uid": _this.$store.state.userId,"lid": manageId,"uuid":_this.$store.state.uuid}).then(function (res) {
           if (res.data.status) {
             _this.articleList[index].likeNum = res.data.data.num;
-            _this.articleList[index].likeStatus = false;
+            _this.articleList[index].likeStatus = 1;
           } else {
             MessageBox('提示', res.data.errorMsg);
           }
@@ -167,7 +167,7 @@
         this.$http.post(DISCOVERMESSAGE.informationRemoveLike, {"uid": _this.$store.state.userId,"lid": manageId,"uuid":_this.$store.state.uuid}).then(function (res) {
           if (res.data.status) {
             _this.articleList[index].likeNum = res.data.data.num;
-            _this.articleList[index].likeStatus = true;
+            _this.articleList[index].likeStatus = 0;
           } else {
             MessageBox('提示', res.data.errorMsg);
           }
