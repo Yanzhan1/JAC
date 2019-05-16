@@ -88,7 +88,7 @@
 					</router-link >
 				</ul>
         <ul v-show="this.Maintenance" style="margin-top:.7rem;">
-          <marquee class="reminder" scrollamount='3' dircetion='left' behavior='scroll' bgcolor='#fff'>温馨提示:当前仅展示默认车辆的维保订单</marquee>
+          <marquee class="reminder" scrollamount='3' dircetion='left' behavior='scroll' bgcolor='#fff'>温馨提示:当前仅展示默认车辆的预约维保订单</marquee>
           <li class="flex column sigleli" v-for="(item,index) in datalist" :key="index">
               <div @click="goMaintenancedetail(item)">
                   <p class="flex row tim between">

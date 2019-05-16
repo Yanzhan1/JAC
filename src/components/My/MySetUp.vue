@@ -36,9 +36,9 @@
 			<div v-show="this.flag" style="position:absolute;z-index:2;width:.1rem;height:.1rem;border-radius:50%;background:red;left:2.4rem;top:.3rem;"></div>
 			<mt-cell  :title="this.update" is-link></mt-cell>
 		</div>
-		<router-link tag="div" class="setup-loginout" to="">
+		<div tag="div" class="setup-loginout" to="">
 			<mt-cell @click.native="signOut" title="退出登录" is-link></mt-cell>
-		</router-link>
+		</div>
 	</div>
 </template>
 
@@ -80,17 +80,19 @@ export default {
           if (action == "confirm") {
             localStorage.removeItem("Tip");
             // 登出时候清空vuex中用户信息和登录状态，清空axios的token
-            this.$store.dispatch("isLogin", false);
-            this.$store.dispatch("userId", null);
-            this.$store.dispatch('userInfo',null);
-            this.$http.defaults.headers.common["timaToken"]=null;
-            this.$store.state.enterMaintenance=false;
+            // this.$store.dispatch("isLogin", false);
+            // this.$store.dispatch("userId", null);
+            // this.$store.dispatch('userInfo',null);
+            // this.$http.defaults.headers.common["timaToken"]=null;
+            // this.$store.state.enterMaintenance=false;
+            this.$store.state.addiflogin=false
+            // this.$store.state.defaultInformation={};
             var system = this.isIOSOrAndroid();
-            this.$store.state.defaultInformation={};
             if (system == "Android") {
               window.js2android.logout(); //安卓退出App
             } else if (system == "IOS") {
-              window.webkit.messageHandlers.logout.postMessage({});
+              let param={}
+              window.webkit.messageHandlers.logout.postMessage(param);
             }
           }
         })
@@ -100,7 +102,6 @@ export default {
         });
     },
     getvalue(value) {
-      console.log(value);
       value = JSON.parse(value);
       this.flag = value.flag;
       this.flag = this.flag == "1" ? true : false;

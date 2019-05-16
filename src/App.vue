@@ -36,7 +36,9 @@ export default {
         // const secUid = Secret.Encrypt(userInfo.no)
         // this.$store.dispatch("userId", secUid);
         this.$store.state.enterMaintenance = true;
+        console.log('why?')
         this.$store.dispatch("userId", userInfo.no);
+        this.$store.state.addiflogin=true
         this.$store.dispatch("userInfo", userInfo);
         this.$http.defaults.headers.common["timaToken"] = userInfo.token;
         let params = {
@@ -78,6 +80,7 @@ export default {
         this.$store.state.enterMaintenance = false;
         this.$store.dispatch("isLogin", false);
         this.$store.dispatch("userId", null);
+        this.$store.state.addiflogin=false
       }
       // 如果登录成功，获取用户头像
       if (

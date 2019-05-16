@@ -25,7 +25,7 @@
           <!-- <div class="Membershipshow">{{this.Membership}}</div> -->
           <!-- 控制会员等级图标的展示 -->
           <img
-            v-show="this.$store.state.islogin"
+            v-show="this.$store.state.addiflogin"
             :class="this.imgV?'signVimg':'signimg'"
             :src="this.Vimg"
             alt
@@ -224,7 +224,7 @@ export default {
 
     sign() {
       // 检查登录状态,如果没登陆，弹出提示框并且return false
-      // if (!this.$store.state.islogin) {
+      // if (!this.$store.state.addiflogin) {
       //   this.toLogin();
       //   return false;
       // }
@@ -264,10 +264,18 @@ export default {
       });
     },
     myFeedback() {
+      if (!this.$store.state.addiflogin) {
+        this.toLogin();
+        return false;
+        }
       this.$router.push("/myindex/myFeedback");
     },
     //跳转维保详情
     wbrecode() {
+      if (!this.$store.state.addiflogin) {
+        this.toLogin();
+        return false;
+      }
       this.$router.push("/myindex/wbrecode");
     },
     // 获取用户总积分
@@ -295,7 +303,7 @@ export default {
     //积分详情
     ToScore() {
       // 检查登录状态,如果没登陆，弹出提示框并且return false
-      if (!this.$store.state.islogin) {
+      if (!this.$store.state.addiflogin) {
         this.toLogin();
         return false;
       }
@@ -304,7 +312,7 @@ export default {
     //编辑个人信息
     edict() {
       // 检查登录状态,如果没登陆，弹出提示框并且return false
-      if (!this.$store.state.islogin) {
+      if (!this.$store.state.addiflogin) {
         this.toLogin();
         return false;
       }
@@ -317,6 +325,10 @@ export default {
     },
     //消息
     tonews() {
+      if (!this.$store.state.addiflogin) {
+        this.toLogin();
+        return false;
+      }
       this.$router.push("/news");
     },
     ton() {
@@ -361,7 +373,7 @@ export default {
     //跳转到商城
     tobuy() {
       // 检查登录状态,如果没登陆，弹出提示框并且return false
-      if (!this.$store.state.islogin) {
+      if (!this.$store.state.addiflogin) {
         this.toLogin();
         return false;
       }
@@ -406,7 +418,7 @@ export default {
     //我的爱车
     tomybus: function() {
       // 检查登录状态,如果没登陆，弹出提示框并且return false
-      if (!this.$store.state.islogin) {
+      if (!this.$store.state.addiflogin) {
         this.toLogin();
         return false;
       }
@@ -415,7 +427,7 @@ export default {
     //我的订单
     tomyorder: function() {
       // 检查登录状态,如果没登陆，弹出提示框并且return false
-      if (!this.$store.state.islogin) {
+      if (!this.$store.state.addiflogin) {
         this.toLogin();
         return false;
       }
@@ -424,7 +436,7 @@ export default {
     //我的收藏
     tomycollect: function() {
       // 检查登录状态,如果没登陆，弹出提示框并且return false
-      if (!this.$store.state.islogin) {
+      if (!this.$store.state.addiflogin) {
         this.toLogin();
         return false;
       }
@@ -433,7 +445,7 @@ export default {
     //我的活动
     tomyactivity: function() {
       // 检查登录状态,如果没登陆，弹出提示框并且return false
-      if (!this.$store.state.islogin) {
+      if (!this.$store.state.addiflogin) {
         this.toLogin();
         return false;
       }
@@ -442,7 +454,7 @@ export default {
     //我的经销商
     tomydealer: function() {
       // 检查登录状态,如果没登陆，弹出提示框并且return false
-      if (!this.$store.state.islogin) {
+      if (!this.$store.state.addiflogin) {
         this.toLogin();
         return false;
       }
@@ -451,7 +463,7 @@ export default {
     //粉丝
     toFans: function() {
       // 检查登录状态,如果没登陆，弹出提示框并且return false
-      if (!this.$store.state.islogin) {
+      if (!this.$store.state.addiflogin) {
         this.toLogin();
         return false;
       }
@@ -465,7 +477,7 @@ export default {
     //关注
     toFocus: function() {
       // 检查登录状态,如果没登陆，弹出提示框并且return false
-      if (!this.$store.state.islogin) {
+      if (!this.$store.state.addiflogin) {
         this.toLogin();
         return false;
       }
@@ -479,7 +491,7 @@ export default {
     //我的发布
     mypublish: function() {
       // 检查登录状态,如果没登陆，弹出提示框并且return false
-      if (!this.$store.state.islogin) {
+      if (!this.$store.state.addiflogin) {
         this.toLogin();
         return false;
       }
@@ -564,7 +576,6 @@ export default {
     Rankpromotion() {
       this.$http.post(My.searchLevelChangesRecordList, {}).then(res => {
         if (res.data.code == 0) {
-          console.log(res.data.data.length);
           let noArr = [];
           if (res.data.data.length != 0) {
             for (let val of res.data.data) {
@@ -674,13 +685,14 @@ export default {
     //     var params = {};
     //     window.webkit.messageHandlers.init.postMessage(params);
     //   } else if (isMobile.Android()) {
-    //     window.js2android.isLogin();
+    //     window.js2android.addiflogin();
     //   }
     // })
     // this.RecomendCode(); //获取推荐码
   },
   mounted() {
-    if (this.$store.state.islogin) {
+    console.log(this.$store.state.addiflogin)
+    if (this.$store.state.addiflogin) {
       this.myNum();
       this.IsSign(); //判断是否签到
       this.total(); //h获取用户总积分
