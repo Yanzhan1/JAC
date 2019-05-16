@@ -75,17 +75,17 @@
 				</div>
 			</div>
 		</div>
-    <mt-popup v-show="showbrand"  class="region"  position="bottom">
+    <mt-popup v-show="showbrand"  class="region"  position="bottom" @touchmove.stop>
                   <h3>选择品牌</h3>
                   <span @click="brandsure">确定</span>
                   <mt-picker :slots="brandSlot" @change="brandChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
     </mt-popup>
-    <mt-popup v-show="showcar"  class="region"  position="bottom">
+    <mt-popup v-show="showcar"  class="region"  position="bottom" @touchmove.stop>
                   <h3>选择车型</h3>
                   <span @click="carsure">确定</span>
                   <mt-picker :slots="carSlot" @change="carChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
     </mt-popup>
-    <mt-popup id="provinceLabel" class="region"  position="bottom">
+    <mt-popup id="provinceLabel" class="region"  position="bottom" @touchmove.stop>
                   <h3>选择省</h3>
                   <span @click="chooseprovinceone">确定</span>
                   <mt-picker :slots="provinceSlot" @change="provinceChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
@@ -128,7 +128,7 @@
 
     </div>
 		<!-- 服务站弹出框 -->
-		<div class="service " v-if="servicezhan">
+		<div class="service " v-if="servicezhan" @touchmove.stop>
 			<h2 style="padding:.2rem; text-align: center;font:.4rem/.6rem 'PingFang-SC-Regular'">服务站</h2>
       <span class="surebuttom" @click="subsub">确定</span>
       <div v-if="this.nodealer">
@@ -153,7 +153,7 @@
       <div class="nodelerclass" v-else>此地暂无经销商</div>
 		</div>
     <!-- 预约时间出框 -->
-    <div class="service " v-if="orderTime">
+    <div class="service " v-if="orderTime" @touchmove.stop>
       <div style="height: 0.28rem"></div>
       <span style="display: inline-block;width: 1rem;height: 0.28rem;text-align: center" @click="cancalBtn">取消</span>
       <span class="surebuttom" @click="confirmBtn">确定</span>
@@ -666,6 +666,7 @@ export default {
     },
     //选择省份
     chooseprovinces() {
+      ModalHelper.afterOpen()
       $("#provinceLabel").show();
       this.allback = true;
     },
@@ -676,6 +677,7 @@ export default {
     },
     //确认省份
     chooseprovinceone() {
+      ModalHelper.beforeClose()
       if (this.valuesprovince == undefined) {
         this.valuesprovince = this.provinceSlot[0].values[0];
       }
