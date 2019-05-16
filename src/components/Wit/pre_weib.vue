@@ -75,30 +75,40 @@
 				</div>
 			</div>
 		</div>
-    <mt-popup v-show="showbrand"  class="region"  position="bottom" @touchmove.stop>
+    <mt-popup v-show="showbrand"  class="region"  position="bottom" >
+            <div @touchmove.stop>
                   <h3>选择品牌</h3>
                   <span @click="brandsure">确定</span>
                   <mt-picker :slots="brandSlot" @change="brandChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
+            </div>
     </mt-popup>
-    <mt-popup v-show="showcar"  class="region"  position="bottom" @touchmove.stop>
+    <mt-popup v-show="showcar"  class="region"  position="bottom" >
+            <div @touchmove.stop>
                   <h3>选择车型</h3>
                   <span @click="carsure">确定</span>
                   <mt-picker :slots="carSlot" @change="carChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
+            </div>
     </mt-popup>
-    <mt-popup id="provinceLabel" class="region"  position="bottom" @touchmove.stop>
+    <mt-popup id="provinceLabel" class="region"  position="bottom" >
+              <div @touchmove.stop>
                   <h3>选择省</h3>
                   <span @click="chooseprovinceone">确定</span>
                   <mt-picker :slots="provinceSlot" @change="provinceChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
+              </div>
     </mt-popup>
     <mt-popup id="cityLabel" class="region"  position="bottom">
+              <div @touchmove.stop>
                   <h3>选择市</h3>
                   <span @click="choosecityone">确定</span>
                   <mt-picker :slots="citySlot" @change="cityChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
+              </div>
     </mt-popup>
     <mt-popup v-show="this.typeChoose" id="tpyeLabel" class="region"  position="bottom">
+            <div @touchmove.stop>
                   <h3>类型选择</h3>
                   <span @click="choosetypeone">确定</span>
                   <mt-picker :slots="typeSlot" @change="typeChange" :visible-item-count="3" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
+            </div>
     </mt-popup>
 		<!-- <div class="carmessage" style="margin-top:.01rem">预约信息</div> -->
 		<div style="padding:0 .33rem">
@@ -439,11 +449,13 @@ export default {
     },
     //品牌选择
     brandchoose(){
+      ModalHelper.afterOpen()
         this.showbrand=true;
         this.allback = true;
     },
     //品牌确认
     brandsure(){
+      ModalHelper.beforeClose()
         if(this.brandNamefirst){
           this.brandName=this.brandNamefirst
         }else{
@@ -483,11 +495,15 @@ export default {
     },
     //车型选择
     carchoose(){ 
+      ModalHelper.afterOpen()
         this.showcar=true;
         this.allback = true;
     },
     //车型的确认
     carsure(){
+      ModalHelper.beforeClose()
+      // document.body.removeEventListener('touchmove',this.bodyScroll,false);   
+      $("body").css({"position":"initial","height":"auto"});
         this.currentTitle=''
         this.currentTime=''
         this.currentIndex=-1
@@ -721,6 +737,7 @@ export default {
     },
     //确认城市
     choosecityone() {
+      ModalHelper.beforeClose()
         this.allcityList.forEach((item, index) => {
             if(this.valuescity==item.name){
                 this.city_id = item.code;
@@ -737,6 +754,7 @@ export default {
     },
     //选择城市
     choosecitys() {
+      ModalHelper.afterOpen()
       this.allback = true;
       $("#cityLabel").show();
     },
@@ -1268,14 +1286,14 @@ export default {
   font-family: "PingFangSC-Regular";
   z-index: 1001;
 }
-.region > h3 {
+.region  h3 {
   text-align: center;
   margin-top: 0.42rem;
   font-size: 0.36rem;
   color: #222;
   line-height: 0.36rem;
 }
-.region > span {
+.region  span {
   /* position: absolute; */
   float: right;
   margin-right: 0.5rem;
