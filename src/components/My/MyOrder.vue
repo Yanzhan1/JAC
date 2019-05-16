@@ -13,7 +13,7 @@
 			<mt-tab-item id="five">流量</mt-tab-item>
 		  </mt-navbar>
     </div> -->
-    <div style="position:fixed;width:100%;background:#fff;">
+    <div style="position:fixed;width:100%;background:#fff;z-index:999">
 
       <div class="box">
         <div @click="showlist" >
@@ -29,6 +29,7 @@
           <div v-show="this.Maintenance" style="width:100%;height:.04rem;background:#49BBFF;margin-top:.1rem;"></div>
         </div>
       </div>
+      <div style="width:100%;height:.2rem;background:#fff"></div>
     </div>
 		
 		<!-- <mt-tab-container v-model="selected"> -->
@@ -88,7 +89,7 @@
 					</router-link >
 				</ul>
         <ul v-show="this.Maintenance" style="margin-top:.7rem;">
-          <marquee class="reminder" scrollamount='3' dircetion='left' behavior='scroll' bgcolor='#fff'>温馨提示：当前展示默认车辆的预约维保订单</marquee>
+          <marquee class="reminder" scrollamount='3' dircetion='left' behavior='scroll' >温馨提示：当前展示默认车辆的预约维保订单</marquee>
           <li class="flex column sigleli" v-for="(item,index) in datalist" :key="index">
               <div @click="goMaintenancedetail(item)">
                   <p class="flex row tim between">
@@ -358,6 +359,11 @@ export default {
       borderTopWidth: this.$store.state.mobileStatusBar,
       borderTopColor: "#fff"
     });
+    // if (isMobile.iOS()) {
+    //     $('.reminder').css({'top':80})
+    //   } else if (isMobile.Android()) {
+    //     $('.reminder').css({'top':85})
+    //   }
     if (this.$route.params.show == 1) {
       this.showflow();
     }  else  if(this.$route.query.show == 2){
@@ -532,6 +538,5 @@ export default {
   position:fixed;
   width: 100%;
   font-size: .2rem;
-  top:1.47rem;;
 }
 </style>

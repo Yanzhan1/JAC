@@ -4,8 +4,8 @@
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
 			<span class="header-title">维保详情</span>
 			<span class="header-right"></span>
-			</header>
-        <div style="height:.88rem"></div>
+		</header>
+		<div style="height:0.88rem" class="MobileHeight"></div>
 		<!-- <mhead currentTitle="维保详情"></mhead> -->
 		<ul style="padding:0 .32rem;border-bottom:.2rem solid #F9F9F9">
 			<li class="flex row between cocenter" style="height:.99rem;border-bottom:.01rem solid #f1f1f1">
@@ -106,10 +106,13 @@
 		},
 		created() {
 			this.userinfo = this.$route.query
-			$(".MobileHeight").css({
-				borderTopWidth: this.$store.state.mobileStatusBar,
-				borderTopColor: "#fff"
-			});
+		},
+		mounted(){
+			if (isMobile.iOS()) {
+				$(".MobileHeight").css({"marginTop": 0})
+			} else if (isMobile.Android()) {
+				$(".MobileHeight").css({"margin-top": this.$store.state.mobileStatusBar+'px'})
+      		}
 		},
 		methods:{
 			goback(){
@@ -125,10 +128,6 @@
 </script>
 
 <style scoped>
-	.MobileHeight {  
-		border-top-style: solid;
-		box-sizing: content-box;
-	}
 	.order-title {
 		display: flex;
 		justify-content: center;
@@ -162,6 +161,5 @@
 	}
 	.bgcolor{
 		background:#fff;
-		padding: 0;
 	}
 </style>
