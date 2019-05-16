@@ -79,8 +79,8 @@
     </div>
     <!--评论输入框S-->
     <div id="commentBg" @click="closeComment" />
-    <div class="flex itemcenter myInput">
-      <input autofocus="autofocus" ref="commentfocus" id="comment" type="text" v-model="commentMsg" @click="commentbtn" />
+    <div class="flex contentcenter myInput">
+      <input autofocus="autofocus" ref="commentfocus" id="comment" type="text" v-model="commentMsg" @click="commentbtn" placeholder="写评论..."/>
       <span class="send" @click="comment">发送</span>
     </div>
     <!--评论输入框E-->
