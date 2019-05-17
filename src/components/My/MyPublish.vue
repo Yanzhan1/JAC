@@ -242,7 +242,7 @@
   } 
   .heade_98{
     display: block;
-    width: .7rem !important;
+    width: .72rem !important;
     height: 0.2rem !important;
     bottom: .1rem;
     position: relative;

@@ -208,18 +208,28 @@
   }
   .heade_99{
     display: block;
-    width: .6rem !important;
-    height: 0.25rem !important;
-    bottom: .1rem;
-    left: 0rem;
-    position: absolute;
+    width: .82rem !important;
+    height: 0.26rem !important;
+    top: 0.5rem;
+    left: -.7rem;
+    position: relative;
+    z-index: 99999;
   }
   .heade_98{
     display: block;
-    width: .6rem !important;
+    width: .72rem !important;
     height: 0.2rem !important;
-    bottom: .1rem;
-    left: 0rem;
-    position: absolute;
+    top: 0.5rem;
+    left: -0.65rem;
+    position: relative;
+  }
+   .wrap_92{
+    position: relative;
+    z-index: 100;
+  }
+  .wrap_92>li{
+    position: relative;
+    z-index: 999;
+    padding:0 .1rem;
   }
 </style>

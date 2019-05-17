@@ -14,8 +14,8 @@
         <span v-show="topStatus === 'loading'">Loading...</span>
       </div>
       <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
-        <ul class="wrap_92" v-for="item in focusList">
-          <li>
+        <ul  class="wrap_92" v-for="item in focusList">
+          <li >
             <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="headPic">
             <img v-else src="../../../static/images/discover/normalhead.png" class="headPic">
             <!--加V-->
@@ -190,21 +190,28 @@
   }
 .head_99{
     display: block;
-    width: .6rem !important;
-    height: 0.23rem !important;
+    width: .82rem !important;
+    height: 0.26rem !important;
     top: 0.5rem;
-    left: -0.6rem;
+    left: -.7rem;
     position: relative;
+    z-index: 99999;
   }
   .head_98{
     display: block;
-    width: .6rem !important;
+    width: .72rem !important;
     height: 0.2rem !important;
     top: 0.5rem;
-    left: -0.6rem;
+    left: -0.65rem;
     position: relative;
   }
   .wrap_92{
     position: relative;
+    z-index: 100;
+  }
+  .wrap_92>li{
+    position: relative;
+    z-index: 999;
+    padding:0 .1rem;
   }
 </style>
