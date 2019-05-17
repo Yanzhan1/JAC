@@ -33,7 +33,6 @@ export default {
         const arr = config.url.match(this.reg);
         if (this.loadingnum == 0) {
           if(arr){
-            console.log(arr)
             switch (arr[1]) {
               case "dk-dm-portal-api": // 发现
                 if (!(params.pageNo && params.pageNo > 1)) {

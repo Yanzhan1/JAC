@@ -93,7 +93,7 @@ export default {
               let month=oDate.getMonth()+1
               month=month<10?'0'+month:''+month;
               let totime=year+month
-              if(JSON.parse(this.$store.state.tsppin.headers.identityParam).tspType){             
+              if(this.$store.state.brandId==5){             
                 this.$http
                   .post(
                     Newenergy.energyvehiclecycflowquery,

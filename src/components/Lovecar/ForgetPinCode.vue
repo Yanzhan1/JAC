@@ -106,7 +106,7 @@
 					//				localStorage.setItem('check', true)
 					this.countDown();
 					var phone = this.pin.phone
-					if(JSON.parse(this.$store.state.tsppin.headers.identityParam).tspType){
+					if(this.$store.state.brandId==5){
 						this.$http.post(Newenergy.energysendSMS, {
 								phoneNum: phone
 							}, this.$store.state.tsppin)

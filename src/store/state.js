@@ -29,7 +29,7 @@ export default {
     // userNo: 'AD022018081504171568405', //userNo
     tsppin: {
         headers: {
-            "identityParam": '{ "userId": "", "token": "", "phone": "","tspType":""}',
+            "identityParam": '{ "userId": "", "token": "", "phone": ""}',
             // "identityParam": '{ "userId": "177", "token": "1c3ec1e7-44e9-462e-aa85-fe264cdefe50", "phone": "17775099071" }',
         }
     }, //非爱车发送请求时的token

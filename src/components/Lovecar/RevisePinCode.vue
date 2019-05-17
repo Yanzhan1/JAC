@@ -98,7 +98,7 @@
 				}).then(action => {
 					if(action == 'confirm') {
 						//跳转修改成功页面				
-						if(JSON.parse(this.$store.state.tsppin.headers.identityParam).tspType){
+						if(this.$store.state.brandId==5){
 
 							this.$http.post(Newenergy.energyvehiclePINupdate,{newPin:this.condition.newPin,oldPin:this.condition.oldPin},this.$store.state.tsppin).then((res)=>{
 								if(res.data.returnSuccess){

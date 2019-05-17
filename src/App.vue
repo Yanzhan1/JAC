@@ -36,9 +36,8 @@ export default {
         // const secUid = Secret.Encrypt(userInfo.no)
         // this.$store.dispatch("userId", secUid);
         this.$store.state.enterMaintenance = true;
-        console.log('why?')
         this.$store.dispatch("userId", userInfo.no);
-        this.$store.state.addiflogin=true
+        this.$store.state.addiflogin=true;
         this.$store.dispatch("userInfo", userInfo);
         this.$http.defaults.headers.common["timaToken"] = userInfo.token;
         let params = {
