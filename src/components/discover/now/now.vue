@@ -351,6 +351,7 @@
         if (this.isLastPage) {
           return
         }
+        console.log(123213,this.isLastPage)
         this.listParams.pageNo++
         this.getList()
       },
@@ -358,7 +359,7 @@
        * 获取列表
        */
       getList() {
-        this.loading = true
+        // this.loading = true
         this.$http.post(INDEXMESSAGE.getNow, this.listParams).then((res) => {
           this.loading = false
           if (res.data.status !== 1) {
