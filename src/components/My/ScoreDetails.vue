@@ -61,7 +61,7 @@ export default {
                   $(".changecolor").eq(i).css("color",'#49BBFF')
                })
              }
-               this.details[i].times=operationTime.getTime( this.details[i].time, 2  )
+               this.details[i].times=operationTime.getTime( this.details[i].createTime, 2  )
            }
         }
     //     console.log(this.details)
