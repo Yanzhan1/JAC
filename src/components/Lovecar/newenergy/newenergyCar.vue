@@ -3,7 +3,7 @@
 		<div class="lovecar tophead">
 			<div class="nav MobileHeight">
 				<div style="color:#fff;font: .3rem/.5rem 'PingFang-SC-Regular'" @click="navtip">更多车控</div>
-				<span class="txt_m" style="margin-right: 1.8rem;">&nbsp;&nbsp;&nbsp;&nbsp;{{this.$store.state.nomarlseriseName}}</span>
+				<span class="txt_m" style="margin-right: 1.8rem;">&nbsp;&nbsp;&nbsp;&nbsp;{{this.$store.state.defaultInformation.seriesName}}</span>
 				<span class="txt_r"></span>
 			</div>
 			<div class="navs navs_h">
@@ -34,19 +34,19 @@
 							<span :class="activeshow==4?'active':'actives'" class="txt1">电池</span>
 							<div v-show="activeshow==4?true:false" style="width:.7rem;height:.03rem;position:absolute;background:#49bbff;top:.7rem;left: 50%;transform: translate(-50%, -50%);"></div>
 						</div>
-						<div class="left_bus" @click="fn(1)">
+						<div class="left_bus" @click="fn(1)" >
 							<img v-if="activeshow==1" class="pic1" src="../../../../static/images/Wit/taiya.png" alt="">
 							<img v-else class="pic1" src="../../../../static/images/Wit/taiya1.png" alt="">&nbsp;&nbsp;
 							<span :class="activeshow==1?'active':'actives'" class="txt1">胎压</span>
 							<div v-show="activeshow==1?true:false" style="width:.7rem;height:.03rem;position:absolute;background:#49bbff;top:.7rem;left: 50%;transform: translate(-50%, -50%);"></div>
 						</div>
-						<div class="left_bus" @click="fn(2)">
+						<div class="left_bus" @click="fn(2)" >
 							<img v-if="activeshow==2" class="pic1" src="../../../../static/images/Wit/chemen.png" alt="">
 							<img v-else class="pic1" src="../../../../static/images/Wit/chemen1.png" alt="">&nbsp;&nbsp;
 							<span :class="activeshow==2?'active':'actives'" class="txt1">车门</span>
 							<div v-show="activeshow==2?true:false" style="width:.7rem;height:.03rem;position:absolute;background:#49bbff;top:.7rem;left: 50%;transform: translate(-50%, -50%);"></div>
 						</div>
-						<div class="left_bus" @click="fn(3)">
+						<div class="left_bus" @click="fn(3)" >
 							<img v-if="activeshow==3" class="pic1" src="../../../../static/images/Wit/chechuang.png" alt="">
 							<img v-else class="pic1" src="../../../../static/images/Wit/chechuang1.png" alt="">&nbsp;&nbsp;
 							<span :class="activeshow==3?'active':'actives'" class="txt1">车窗</span>

@@ -71,7 +71,7 @@ export default {
           }
         }
         this.$store.dispatch("CARVINS", userInfo.vin);
-        this.$store.dispatch("nomarlseriseName", userInfo.seriesName);
+        // this.$store.dispatch("nomarlseriseName", userInfo.seriesName);
 
         localStorage.setItem("mobile", JSON.stringify(userInfo.mobile));
         localStorage.setItem("userName", JSON.stringify(userInfo.userName));
@@ -150,8 +150,8 @@ export default {
   },
   mounted() {
     localStorage.setItem("time", "60");
-    // this.isLogin({name:'',no:'AD022018101009093840922'})
-    // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcIkFBQUlkXCI6MTMzMjkzMjk2MSxcIlRTUElkXCI6MTMzMjkzMjk2MSxcImFhYVRva2VuXCI6XCJiMjM4MDBjNC00ZDRjLTRjNjQtYjQ3Yi02ODJjZWRlNTM3MTFcIixcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTUzOTEzMzc3ODAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6MzAyLFwiaW5pdFVzZXJcIjowLFwibGFzdE1vZGlmaWVkRGF0ZVwiOjE1NTA0ODczMTMwMDAsXCJub1wiOlwiQUQwMjIwMTgxMDEwMDkwOTM4NDA5MjJcIixcInBob25lXCI6XCIxNzMzMzIxOTg1MlwiLFwicmVhbFBob25lXCI6XCIxNzMqKioqOTg1MlwiLFwidXNlckNvZGVcIjpcIjE3MzMzMjE5ODUyXCIsXCJ1c2VyU3RhdHVzXCI6MCxcInVzZXJUeXBlXCI6XCIwMVwifSIsImNyZWF0ZWQiOjE1NTQzNjE0OTc0NzksInVzZXJObyI6IkFEMDIyMDE4MTAxMDA5MDkzODQwOTIyIiwidXNlclR5cGUiOiIwMSIsImV4cCI6MTU1NTIyNTQ5NywidXNlcklkIjozMDJ9.5DQ8qpPIdztF2eq33znqyNKlyrTu9AH9BeoDqHqzxIc'
+    // this.isLogin({name:'',no:'AD022019050611000638089'})
+    // this.$http.defaults.headers.common['timaToken'] = 'Tima eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySW5mbyI6IntcIkFBQUlkXCI6MTMzMjkzMjk2MSxcIlRTUElkXCI6MTMzMjkzMjk2MSxcImFhYVRva2VuXCI6XCIwZGExYWYyZC0wZjM0LTQxZmUtOWE0NS1iMDRkZGQxZTgxYjJcIixcImF1dGhlbnRpY2F0aW9uU3RhdHVzXCI6MCxcImNyZWF0ZWREYXRlXCI6MTU1NzExMTYwNjAwMCxcImRlbGV0ZUZsYWdcIjpcIjBcIixcImlkXCI6MTM2MzQsXCJpbml0VXNlclwiOjAsXCJsYXN0TW9kaWZpZWREYXRlXCI6MTU1NzExMzYyOTAwMCxcIm5vXCI6XCJBRDAyMjAxOTA1MDYxMTAwMDYzODA4OVwiLFwicGVyc29uYWxTaWduYXR1cmVcIjpcIlwiLFwicGhvbmVcIjpcIjE3MzMzMjE5ODUyXCIsXCJyZWFsUGhvbmVcIjpcIjE3MyoqKio5ODUyXCIsXCJzZXhcIjoxLFwidXNlckNvZGVcIjpcIjE3MzMzMjE5ODUyXCIsXCJ1c2VyTmFtZVwiOlwicWFxXCIsXCJ1c2VyU3RhdHVzXCI6MCxcInVzZXJUeXBlXCI6XCIwMVwifSIsImNyZWF0ZWQiOjE1NTg1NzczNTQyMTcsInVzZXJObyI6IkFEMDIyMDE5MDUwNjExMDAwNjM4MDg5IiwidXNlclR5cGUiOiIwMSIsInVzZXJOYW1lIjoicWFxIiwiZXhwIjoxNTU5NDQxMzU0LCJ1c2VySWQiOjEzNjM0fQ.fv7x5ORcygqmZ98YfkqXfL-nitw8L_C4u-Yu8iMGEh0'
     // 获取用户
     // this.Getmarkedwords()
     // this.getNo()

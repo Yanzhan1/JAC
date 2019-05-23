@@ -21,7 +21,7 @@ export default {
     brandId: '',
     brandNo: "", //默认车辆的no
     seriesName: '瑞风S4', //智享主页点击时候车的每一个seriesName
-    nomarlseriseName: '', //爱车部分默认的seriseName
+    // nomarlseriseName: '', //爱车部分默认的seriseName
     srouceNo: '', //智享主页点击时候车的每一个srouceNo
     series_No: "", //车系的唯一标识
     levelCode: '',
