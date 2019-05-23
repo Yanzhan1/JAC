@@ -261,7 +261,7 @@
 								<span class="pic_txt">天窗</span>
 							</div>
 						</router-link>
-						<router-link v-show="REMOTE_CELL_OPEN_OR_CLOSE"  :to="{path:'/newenergy/preheat',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
+						<router-link v-show="REMOTE_CELL_HOT_OPEN_OR_CLOSE"  :to="{path:'/newenergy/preheat',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc skylight" src="../../../../static/images/Lovecar/hotindex@2x.png" alt="">
 								<span class="pic_txt">预热</span>
@@ -404,7 +404,7 @@ export default {
       REMOTE_NEAR_LIGHT_OPEN_OR_CLOSE:false,//控制近光灯开闭
       REMOTE_HIGH_LIGHT_OPEN_OR_CLOSE:false,//控制远光灯开闭
       REMOTE_CELL_RECHARGE_OPEN_OR_CLOSE:false,//控制远程电池
-      REMOTE_CELL_OPEN_OR_CLOSE:false,//远程预热控制
+      REMOTE_CELL_HOT_OPEN_OR_CLOSE:false,//远程预热控制
       REMOTE_END_OPEN_OR_CLOSE:false,//控制尾门开闭
       REMOTE_OPEN_OR_CLOSE_WINDOW:false,//远程车窗
       REMOTE_OPEN_OR_CLOSE_SUNROOF:false,//远程天窗
@@ -1519,8 +1519,8 @@ export default {
                   case "REMOTE_CELL_RECHARGE_OPEN_OR_CLOSE": 
                     this.REMOTE_CELL_RECHARGE_OPEN_OR_CLOSE = true;
                     break;
-                  case "REMOTE_CELL_OPEN_OR_CLOSE": 
-                    this.REMOTE_CELL_OPEN_OR_CLOSE = true;
+                  case "REMOTE_CELL_HOT_OPEN_OR_CLOSE": 
+                    this.REMOTE_CELL_HOT_OPEN_OR_CLOSE = true;
                     break;
                   case "REMOTE_END_OPEN_OR_CLOSE": 
                     this.REMOTE_END_OPEN_OR_CLOSE = true;
