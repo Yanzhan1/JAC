@@ -107,7 +107,7 @@
 					<span ref='open1' class='busl_r left_1 '>{{this.Condition.lfWindowOpen}}</span>
 					<span ref='open2' class='busl_r  left_2 '>{{this.Condition.lrWindowOpen}}</span>
 					<span ref='open3' class='busl_r right_1 '>{{this.Condition.rfWindowOpen}}</span>
-					<span ref='open4' class='busl_r right_2 '>{{this.Condition.rrWindowOpen}}</span> 
+					<span ref='open4' class='busl_r right_2 '>{{this.Condition.rrWindowOpen}}</span>
 
           <!-- 控制页面空调展示与否 -->
           <div v-show="this.carcontrol.acStatus==1?true:false" class="controlCondition">
@@ -130,8 +130,8 @@
 
 
           <!-- 探照灯 -->
-          <img v-show="this.carcontrol.highlightStatus==1" style="display:block;position:absolute;z-index:-1;width:3.52rem;height:2.9rem;top:-1.1rem;left:2.03rem;" :src="'./static/images/Lovecar/lightforword@2x.png'" alt="">  
-          <img v-show="this.carcontrol.lowlightStatus==1" style="display:block;position:absolute;z-index:-1;width:2.98rem;height:1.70rem;top:0rem;left:2.25rem;" :src="'./static/images/Lovecar/lightnear@2x.png'" alt="">  
+          <img v-show="this.carcontrol.highlightStatus==1" style="display:block;position:absolute;z-index:-1;width:3.52rem;height:2.9rem;top:-1.1rem;left:2.03rem;" :src="'./static/images/Lovecar/lightforword@2x.png'" alt="">
+          <img v-show="this.carcontrol.lowlightStatus==1" style="display:block;position:absolute;z-index:-1;width:2.98rem;height:1.70rem;top:0rem;left:2.25rem;" :src="'./static/images/Lovecar/lightnear@2x.png'" alt="">
 
           <!-- 车门展示 -->
           <!-- <img v-show="activeshow==2&&this.carcontrol.doorStsFrontLeft" style="position:absolute;display:block;width:.53rem;height:.88rem;top:2.95rem;left:2.5rem" :src="'./../../../../static/images/Lovecar/leftdoorindex@2x.png'" alt="">
@@ -178,7 +178,7 @@
 					<span v-show="activeshow=='3'?true:false" class='busl_r middle_1 '>{{this.carcontrol.topWindowOpen!=0?'已打开':'已关闭'}}</span>
 					<!--天窗And尾门状态End-->
 					<img class="loadingcar "  src="../../../../static/images/Lovecar/loading@2x.png" alt="" @click="loading">
-				</div>        
+				</div>
 				<!--车况主体End-->
 			</div>
 			<!--功能轮播Start-->
@@ -633,7 +633,7 @@ export default {
           var tS = new Date().getTime() - this.sjc; //时间戳 差
           var tSS = parseInt((tS / 1000) % 60); // 时间差
           if (res.data.returnSuccess == true) {
-           
+
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
               if (tSS >= 56) {
@@ -1342,9 +1342,9 @@ export default {
                 clearInterval(this.time);
                 localhide();
               }
-            
+
           } else {
-             
+
             if (this.type == 1) {
               // this.doorcontrol = true;
               Toast({
@@ -1422,7 +1422,7 @@ export default {
             }
             clearInterval(this.time);
             localhide();
-                          
+
           }
         });
     },
@@ -1431,7 +1431,7 @@ export default {
       let params = {
         vins: [this.vinn]
       };
-     
+
       this.$http
         .post(
           Newenergy.energyqueryvehiclenewcondition,
@@ -1505,7 +1505,7 @@ export default {
         .post(Newenergy.energyvehiclesupportfunction, param, this.$store.state.tsppin)
         .then(res => {
           if(res.data.returnSuccess){
-            
+
             let allnum = res.data.data;
             this.allFunction = res.data.data;
             for (let value of allnum) {
@@ -1513,46 +1513,46 @@ export default {
                   case "REMOTE_NEAR_LIGHT_OPEN_OR_CLOSE":
                      this.REMOTE_NEAR_LIGHT_OPEN_OR_CLOSE = true;
                     break;
-                  case "REMOTE_HIGH_LIGHT_OPEN_OR_CLOSE": 
+                  case "REMOTE_HIGH_LIGHT_OPEN_OR_CLOSE":
                     this.REMOTE_HIGH_LIGHT_OPEN_OR_CLOSE = true;
                     break;
-                  case "REMOTE_CELL_RECHARGE_OPEN_OR_CLOSE": 
+                  case "REMOTE_CELL_RECHARGE_OPEN_OR_CLOSE":
                     this.REMOTE_CELL_RECHARGE_OPEN_OR_CLOSE = true;
                     break;
-                  case "REMOTE_CELL_HOT_OPEN_OR_CLOSE": 
+                  case "REMOTE_CELL_HOT_OPEN_OR_CLOSE":
                     this.REMOTE_CELL_HOT_OPEN_OR_CLOSE = true;
                     break;
-                  case "REMOTE_END_OPEN_OR_CLOSE": 
+                  case "REMOTE_END_OPEN_OR_CLOSE":
                     this.REMOTE_END_OPEN_OR_CLOSE = true;
                     break;
-                  case "REMOTE_OPEN_OR_CLOSE_WINDOW": 
+                  case "REMOTE_OPEN_OR_CLOSE_WINDOW":
                     this.REMOTE_OPEN_OR_CLOSE_WINDOW = true;
                     break;
-                  case "REMOTE_OPEN_OR_CLOSE_SUNROOF": 
+                  case "REMOTE_OPEN_OR_CLOSE_SUNROOF":
                     this.REMOTE_OPEN_OR_CLOSE_SUNROOF = true;
                     break;
-                  case "AIRCONDITIONER": 
+                  case "AIRCONDITIONER":
                     this.AIRCONDITIONER = true;
                     break;
-                  case "REAL_TIME_VIDEO_VIEW": 
+                  case "REAL_TIME_VIDEO_VIEW":
                     this.REAL_TIME_VIDEO_VIEW = true;
                     break;
-                  case "FLOW_PACKAGE_QUERY": 
+                  case "FLOW_PACKAGE_QUERY":
                     this.FLOW_PACKAGE_QUERY = true;
                     break;
-                  case "UPDATE_PIN": 
+                  case "UPDATE_PIN":
                     this.UPDATE_PIN = true;
                     break;
-                  case "LOCK": 
+                  case "LOCK":
                     this.LOCK = true;
                     break;
-                  case "FIND_VEHICLE": 
+                  case "FIND_VEHICLE":
                     this.FIND_VEHICLE = true;
                     break;
-                  case "CAR_POINT_QUERY": 
+                  case "CAR_POINT_QUERY":
                     this.CAR_POINT_QUERY = true;
                     break;
-                  default:                  
+                  default:
                 }
             }
           }
@@ -1793,7 +1793,7 @@ export default {
                           this.getAsyReturn(res.data.operationId);
                         }, 2000);
                       } else {
-                        localhide()                
+                        localhide()
                         Toast({
                           message: res.data.returnErrMsg,
                           position: "middle",
@@ -1912,7 +1912,7 @@ export default {
                           message: 'PIN码验证失败',
                           position: "middle",
                           duration: 2000
-                        });          
+                        });
               }
             }
           });
@@ -1933,7 +1933,7 @@ export default {
     new Promise(()=>{
       this.getcarvalue();
     })
-    
+
     // this.Carquerry();
   },
   beforeDestroy() {
