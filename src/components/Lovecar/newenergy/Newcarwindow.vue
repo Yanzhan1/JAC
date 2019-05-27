@@ -77,7 +77,7 @@
 		<!--自定义软键盘Start-->
 		<mt-popup class="typer" v-show="showTyper!=0" position="bottom">
 			<ul v-show="showTyper==2">
-				<li class="typer-num" v-for="item in keyNums" :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}" @click="input(item)">{{item}}</li>
+				<li class="typer-num" v-for="(item,index) in keyNums" :key="index" :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}" @click="input(item)">{{item}}</li>
 			</ul>
 		</mt-popup>
 		<!--自定义软键盘End-->
@@ -699,7 +699,7 @@ export default {
 /*车窗图*/
 
 .wind-blows {
-  
+
 }
 
 .wind-blows > img {

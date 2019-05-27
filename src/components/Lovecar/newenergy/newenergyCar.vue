@@ -46,7 +46,7 @@
 							<span :class="activeshow==2?'active':'actives'" class="txt1">车门</span>
 							<div v-show="activeshow==2?true:false" style="width:.7rem;height:.03rem;position:absolute;background:#49bbff;top:.7rem;left: 50%;transform: translate(-50%, -50%);"></div>
 						</div>
-						<div class="left_bus" @click="fn(3)" >
+						<div class="left_bus" @click="fn(3)" v-show="false">
 							<img v-if="activeshow==3" class="pic1" src="../../../../static/images/Wit/chechuang.png" alt="">
 							<img v-else class="pic1" src="../../../../static/images/Wit/chechuang1.png" alt="">&nbsp;&nbsp;
 							<span :class="activeshow==3?'active':'actives'" class="txt1">车窗</span>
@@ -154,24 +154,23 @@
 					<!--胎压图片End-->
 
 					<!-- 控制天窗的线Start 分为激活和未激活 -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'"  v-show="activeshow=='3'&&this.carcontrol.topWindowOpen!=0" style="position:absolute;display:block;width:1.8rem;top:3.1rem;right:2.1rem;"></img>
-					<img class="" :src="'./static/images/Lovecar/blueright.png'"  v-show="activeshow=='3'&&this.carcontrol.topWindowOpen==0" style="position:absolute;display:block;width:1.14rem;top:3.55rem;right:2.5rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'"  v-show="activeshow=='3'&&this.carcontrol.topWindowOpen!=0" style="position:absolute;display:block;width:1.8rem;top:3.1rem;right:2.1rem;">
+					<img class="" :src="'./static/images/Lovecar/blueright.png'"  v-show="activeshow=='3'&&this.carcontrol.topWindowOpen==0" style="position:absolute;display:block;width:1.14rem;top:3.55rem;right:2.5rem;">
 					<!--天窗线End-->
 
 					<!-- 尾门线Start 分为激活和未激活  -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'"  v-show="activeshow=='2'&&this.carcontrol.trunkLockStatus!=0" style="position:absolute;display:block;width:1.8rem;top:5.05rem;right:2.1rem;"></img>
-					<img class="" :src="'./static/images/Lovecar/blueright.png'"  v-show="activeshow=='2'&&this.carcontrol.trunkLockStatus==0" style="position:absolute;display:block;width:1.14rem;top:5.5rem;right:2.5rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'"  v-show="activeshow=='2'&&this.carcontrol.trunkLockStatus!=0" style="position:absolute;display:block;width:1.8rem;top:5.05rem;right:2.1rem;">
+					<img class="" :src="'./static/images/Lovecar/blueright.png'"  v-show="activeshow=='2'&&this.carcontrol.trunkLockStatus==0" style="position:absolute;display:block;width:1.14rem;top:5.5rem;right:2.5rem;">
 					<!--尾门线End-->
 
 					<!-- 控制右前车门线 -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.rfWindowOpen=='已打开'?true:false" style="position:absolute;display:block;width:1rem;right:1.9rem;top: 2.5rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.rfWindowOpen=='已打开'?true:false" style="position:absolute;display:block;width:1rem;right:1.9rem;top: 2.5rem;">
 					<!-- 控制右后车门线 -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.rrWindowOpen=='已打开'?true:false" style="position:absolute;display:block;width:1rem;right:1.9rem;top: 4.2rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.rrWindowOpen=='已打开'?true:false" style="position:absolute;display:block;width:1rem;right:1.9rem;top: 4.2rem;">
 					<!-- 控制左前车门线 -->
-					<img class="" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.lfWindowOpen=='已打开'?true:false" style="position:absolute;display:block;width:1rem;left: 1.9rem;top: 2.5rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.lfWindowOpen=='已打开'?true:false" style="position:absolute;display:block;width:1rem;left: 1.9rem;top: 2.5rem;">
 					<!-- 控制左后车门线 -->
-					<img class="" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.lrWindowOpen=='已打开'?true:false" style="position:absolute;display:block;width:1rem;left: 1.9rem;top: 4.2rem;"></img>
-
+					<img class="" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.lrWindowOpen=='已打开'?true:false" style="position:absolute;display:block;width:1rem;left: 1.9rem;top: 4.2rem;">
 					<!-- <span class='busl_r top_1'>{{this.engineHoodStsFront}}</span> -->
 					<!--天窗And尾门状态Start-->
 					<span v-show="activeshow=='2'?true:false" class='busl_r bottom_1 '>{{this.carcontrol.trunkLockStatus!=0?'已打开':'已关闭'}}</span>
@@ -854,19 +853,32 @@ export default {
                             rfWindowOpen: this.carcontrol.rfTirePresure + "kpa", //右前 胎压
                             rrWindowOpen: this.carcontrol.rrTirePresure + "kpa" //右后 胎压
                           };
+                          let windowlf,windowlr,windowrf,windowrr
+                          if(this.carcontrol.doorStsFrontLeft){
+                            windowlf=this.carcontrol.doorStsFrontLeft?'已打开':'已关闭'
+                          }else{
+                            windowlf=''
+                          }
+                          if(this.carcontrol.doorStsRearLeft){
+                            windowlr=this.carcontrol.doorStsFrontLeft?'已打开':'已关闭'
+                          }else{
+                            windowlr=''
+                          }
+                          if(this.carcontrol.doorStsFrontRight){
+                            windowrf=this.carcontrol.doorStsFrontLeft?'已打开':'已关闭'
+                          }else{
+                            windowrf=''
+                          }
+                          if(this.carcontrol.doorStsRearRight){
+                            windowrr=this.carcontrol.doorStsFrontLeft?'已打开':'已关闭'
+                          }else{
+                            windowrr=''
+                          }
                           this.door = {
-                            lfWindowOpen: this.carcontrol.doorStsFrontLeft
-                              ? "已打开"
-                              : "已关闭", //左前 门
-                            lrWindowOpen: this.carcontrol.doorStsRearLeft
-                              ? "已打开"
-                              : "已关闭", //左后 门
-                            rfWindowOpen: this.carcontrol.doorStsFrontRight
-                              ? "已打开"
-                              : "已关闭", //右前 门
-                            rrWindowOpen: this.carcontrol.doorStsRearRight
-                              ? "已打开"
-                              : "已关闭" //右后 门
+                            lfWindowOpen:windowlf, //左前 门
+                            lrWindowOpen:windowlr, //左后 门
+                            rfWindowOpen:windowrf, //右前 门
+                            rrWindowOpen:windowrr//右后 门
                           };
                           if (this.activeshow == 1) {
                             this.Condition = this.tai;
@@ -1159,19 +1171,32 @@ export default {
                 rfWindowOpen: this.carcontrol.rfTirePresure + "kpa", //右前 胎压
                 rrWindowOpen: this.carcontrol.rrTirePresure + "kpa" //右前 胎压
               };
+              let windowlf,windowlr,windowrf,windowrr
+              if(this.carcontrol.doorStsFrontLeft){
+                windowlf=this.carcontrol.doorStsFrontLeft?'已打开':'已关闭'
+              }else{
+                windowlf=''
+              }
+              if(this.carcontrol.doorStsRearLeft){
+                windowlr=this.carcontrol.doorStsFrontLeft?'已打开':'已关闭'
+              }else{
+                windowlr=''
+              }
+              if(this.carcontrol.doorStsFrontRight){
+                windowrf=this.carcontrol.doorStsFrontLeft?'已打开':'已关闭'
+              }else{
+                windowrf=''
+              }
+              if(this.carcontrol.doorStsRearRight){
+                windowrr=this.carcontrol.doorStsFrontLeft?'已打开':'已关闭'
+              }else{
+                windowrr=''
+              }
               this.door = {
-                lfWindowOpen: this.carcontrol.doorStsFrontLeft
-                  ? "已打开"
-                  : "已关闭", //左前 门
-                lrWindowOpen: this.carcontrol.doorStsRearLeft
-                  ? "已打开"
-                  : "已关闭", //左后 门
-                rfWindowOpen: this.carcontrol.doorStsFrontRight
-                  ? "已打开"
-                  : "已关闭", //右前 门
-                rrWindowOpen: this.carcontrol.doorStsRearRight
-                  ? "已打开"
-                  : "已关闭" //右后 门
+                lfWindowOpen:windowlf, //左前 门
+                lrWindowOpen:windowlr, //左后 门
+                rfWindowOpen:windowrf, //右前 门
+                rrWindowOpen:windowrr//右后 门
               };
               if (this.activeshow == 1) {
                 this.Condition = this.tai;

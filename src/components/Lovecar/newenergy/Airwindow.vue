@@ -12,7 +12,7 @@
 				<span style="width: 0.54rem;height: 1px; background: rgba(153,153,153,1);margin-bottom: 0.4rem;"></span>
 			</div>
 		</div>
-				
+
 		<!--天窗主体Start-->
 		<div class="skylight-wrap flex-column-align">
 			<div class="skylight-content flex-center-between">
@@ -27,7 +27,7 @@
 				<button   :class="!this.windowcontrol?'noactive':'active'" @click="windowopen">开启</button>
 			</div>
 		</div>
-		
+
 		<!--pin码弹出框Start-->
 		<div class="bgMask" v-if="popupVisible" @click="removeMask"></div>
 		<mt-popup v-model="popupVisible" :modal="false" popup-transition="popup-fade">
@@ -57,7 +57,7 @@
 		<!--自定义软键盘Start-->
 		<mt-popup class="typer" v-show="showTyper!=0" position="bottom">
 			<ul v-show="showTyper==2">
-				<li class="typer-num" v-for="item in keyNums" :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}" @click="input(item)">{{item}}</li>
+				<li class="typer-num" v-for="(item,index) in keyNums" :key="index" :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}" @click="input(item)">{{item}}</li>
 			</ul>
 		</mt-popup>
 		<!--自定义软键盘End-->
@@ -511,7 +511,7 @@ export default {
                           message: res.data.returnErrMsg,
                           position: "middle",
                           duration: 2000
-                        });          
+                        });
               }
         })
       }
@@ -549,7 +549,7 @@ export default {
                           message: res.data.returnErrMsg,
                           position: "middle",
                           duration: 2000
-                        });          
+                        });
               }
         })
       }

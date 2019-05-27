@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    <set-channel v-if="setChannelFlag"></set-channel>
+    <!-- <set-channel v-if="setChannelFlag"></set-channel> -->
 
   </div>
 </template>
@@ -48,8 +48,8 @@
 <script>
   import { MessageBox } from 'mint-ui';
   import { Toast } from 'mint-ui';
-  import setChannel from './discover/component/setChannel' 
-  
+  import setChannel from './discover/component/setChannel'
+
   export default {
     data() {
       return {
