@@ -78,23 +78,23 @@
 					<!--胎压图片End-->
 
 					<!-- 控制天窗的线Start 分为激活和未激活 -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.skylightStatus=='已打开'?true:false" v-show="activeshow=='3'?true:false" style="position:absolute;display:block;width:1.8rem;top:3.1rem;right:2.1rem;"></img>
-					<img class="" :src="'./static/images/Lovecar/blueright.png'" v-else v-show="activeshow=='3'?true:false" style="position:absolute;display:block;width:1.14rem;top:3.55rem;right:2.5rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.skylightStatus=='已打开'?true:false" v-show="activeshow=='3'?true:false" style="position:absolute;display:block;width:1.8rem;top:3.1rem;right:2.1rem;">
+					<img class="" :src="'./static/images/Lovecar/blueright.png'" v-else v-show="activeshow=='3'?true:false" style="position:absolute;display:block;width:1.14rem;top:3.55rem;right:2.5rem;">
 					<!--天窗线End-->
 
 					<!-- 尾门线Start 分为激活和未激活  -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.doorStsTrunk=='已打开'?true:false" v-show="activeshow=='2'?true:false" style="position:absolute;display:block;width:1.8rem;top:5.05rem;right:2.1rem;"></img>
-					<img class="" :src="'./static/images/Lovecar/blueright.png'" v-else v-show="activeshow=='2'?true:false" style="position:absolute;display:block;width:1.14rem;top:5.5rem;right:2.5rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-if="this.doorStsTrunk=='已打开'?true:false" v-show="activeshow=='2'?true:false" style="position:absolute;display:block;width:1.8rem;top:5.05rem;right:2.1rem;">
+					<img class="" :src="'./static/images/Lovecar/blueright.png'" v-else v-show="activeshow=='2'?true:false" style="position:absolute;display:block;width:1.14rem;top:5.5rem;right:2.5rem;">
 					<!--尾门线End-->
 
 					<!-- 控制右前车门线 -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.right_top=='已打开'?true:false" style="position:absolute;display:block;width:1rem;right:2.1rem;top: 2.5rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.right_top=='已打开'?true:false" style="position:absolute;display:block;width:1rem;right:2.1rem;top: 2.5rem;">
 					<!-- 控制右后车门线 -->
-					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.right_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1rem;right:2.1rem;top: 4.2rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/rightshan.gif'" v-show="Condition.right_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1rem;right:2.1rem;top: 4.2rem;">
 					<!-- 控制左前车门线 -->
-					<img class="" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_top=='已打开'?true:false" style="position:absolute;display:block;width:1rem;left: 1.9rem;top: 2.5rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_top=='已打开'?true:false" style="position:absolute;display:block;width:1rem;left: 1.9rem;top: 2.5rem;">
 					<!-- 控制左后车门线 -->
-					<img class="" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1rem;left: 1.9rem;top: 4.2rem;"></img>
+					<img class="" :src="'./static/images/Lovecar/leftshan.gif'" v-show="Condition.left_bottom=='已打开'?true:false" style="position:absolute;display:block;width:1rem;left: 1.9rem;top: 4.2rem;">
 					<!-- <span class='busl_r top_1'>{{this.engineHoodStsFront}}</span> -->
 					<!--天窗And尾门状态Start-->
 					<span v-show="activeshow=='2'?true:false" class='busl_r bottom_1 '>{{this.doorStsTrunk}}</span>
@@ -550,7 +550,7 @@ export default {
         .post(Lovecar.Support, param, this.$store.state.tsppin)
         .then(res => {
           if(res.data.returnSuccess){
-            
+
             let allnum = res.data.data;
             this.allFunction = res.data.data;
             for (let value of allnum) {
@@ -558,70 +558,70 @@ export default {
                   case "WINDOW":
                      this.WINDOW = true;
                     break;
-                  case "REMOTE_OPEN_OR_CLOSE_SUNROOF": 
+                  case "REMOTE_OPEN_OR_CLOSE_SUNROOF":
                     this.REMOTE_OPEN_OR_CLOSE_SUNROOF = true;
                     break;
-                  case "REMOTE_CLOSE_SUNROOF": 
+                  case "REMOTE_CLOSE_SUNROOF":
                     this.REMOTE_CLOSE_SUNROOF = true;
                     break;
-                  case "EAIRCONDITIONER": 
+                  case "EAIRCONDITIONER":
                     this.Aircondtion_electricity = true;
                     break;
-                  case "AIRCONDITIONER": 
+                  case "AIRCONDITIONER":
                     this.Aircondtion = true;
                     break;
-                  case "PURIFICATION": 
+                  case "PURIFICATION":
                     this.PURIFICTION = true;
                     break;
-                  case "SEAT_HEAT": 
+                  case "SEAT_HEAT":
                     this.HOSTSEAT_HEAT = true;
                     break;
-                  case "CAR_INFO": 
+                  case "CAR_INFO":
                     this.CAR_INFO = true;
                     break;
-                  case "ENGINE": 
+                  case "ENGINE":
                     this.ENGINE = true;
                     break;
-                  case "CAR_EXAMINATION": 
+                  case "CAR_EXAMINATION":
                     this.CAR_EXAMINATION = true;
                     break;
-                  case "CAR_POINT_QUERY": 
+                  case "CAR_POINT_QUERY":
                     this.CAR_POINT_QUERY = true;
                     break;
-                  case "UPDATE_PIN": 
+                  case "UPDATE_PIN":
                     this.UPDATE_PIN = true;
                     break;
-                  case "FLOW_QUERY": 
+                  case "FLOW_QUERY":
                     this.FLOW_QUERY = true;
                     break;
-                  case "FUEL_STATISTICS": 
+                  case "FUEL_STATISTICS":
                     this.FUEL_STATISTICS = true;
                     break;
-                  case "CONTROL_AUTH": 
+                  case "CONTROL_AUTH":
                     this.CONTROL_AUTH = true;
                     break;
-                  case "WIFI": 
+                  case "WIFI":
                     this.WIFI = true;
                     break;
-                  case "REAL_TIME_VIDEO_VIEW": 
+                  case "REAL_TIME_VIDEO_VIEW":
                     this.REAL_TIME_VIDEO_VIEW = true;
                     break;
-                  case "ELECTRIC_FENCE": 
+                  case "ELECTRIC_FENCE":
                     this.ELECTRIC_FENCE = true;
                     break;
-                  case "FIND_VEHICLE": 
+                  case "FIND_VEHICLE":
                     this.FIND_VEHICLE = true;
                     break;
-                  case "TRUNK": 
+                  case "TRUNK":
                     this.TRUNK = true;
                     break;
-                  case "SEAT_VENTILATION": 
+                  case "SEAT_VENTILATION":
                     this.HOSTSEAT_HEAT = true;
                     break;
-                  case "TACHOGRAPH": 
+                  case "TACHOGRAPH":
                     this.REAL_TIME_VIDEO_VIEW = true;
                     break;
-                  default:                  
+                  default:
                 }
               // if (value.code == "WINDOW") {
               //   this.WINDOW = true;
@@ -949,7 +949,7 @@ export default {
                     position: "middle",
                     duration: 2000
                   });
-                }           
+                }
               } else {
                 this.time = setInterval(() => {
                   this.$http
@@ -1994,15 +1994,15 @@ export default {
   //       })
   //      }else{
   //        next()
-  //      }     
+  //      }
   //     },
   beforeCreate() {
     clearInterval(this.time);
   },
   mounted() {
-    
+
     let params = {
-      userNo: this.$store.state.userId 
+      userNo: this.$store.state.userId
     };
     this.$http.post(Lovecar.TSP, params).then(res => {
       if (res.data.msg == "success") {

@@ -56,7 +56,7 @@
 				<div class="flex row cocenter">
           <!-- <input type="numberbox" name="" id="" v-model="km"> -->
           <input type="tel" style="line-height:.5rem;"
-              placeholder="请输入数字" v-model="km"><span style="display:block">公里</span> 
+              placeholder="请输入数字" v-model="km"><span style="display:block">公里</span>
 					<img src="../../../static/images/next@2x.png" alt="" style="width:.16rem;height:.3rem">
 				</div>
 			</div>
@@ -143,7 +143,7 @@
       <span class="surebuttom" @click="subsub">确定</span>
       <div v-if="this.nodealer">
         <ul style="padding:.1rem .2rem;width:100%;height:4rem;OVERFLOW-Y: auto; OVERFLOW-X:hidden;overflow:auto;" >
-            <li class="ul_list flex row around " v-for="(item,index) in addressArray">
+            <li class="ul_list flex row around " v-for="(item,index) in addressArray" :key="index">
               <label class="chooseimages" :class="index == currentIndex ? 'active' : ''" @click="chooseimage(index,item.dealerName)"></label>
               <div class="flex column around  mid">
                 <span class="txt_top dian">{{item.dealerName}}</span>
@@ -168,9 +168,9 @@
       <span style="display: inline-block;width: 1rem;height: 0.28rem;text-align: center" @click="cancalBtn">取消</span>
       <span class="surebuttom" @click="confirmBtn">确定</span>
       <div class="every_times">
-        <mt-swipe class="time-swiper" ref="swiperWrap" 
-        	:auto="0" 
-        	:showIndicators="false" 
+        <mt-swipe class="time-swiper" ref="swiperWrap"
+        	:auto="0"
+        	:showIndicators="false"
         	:continuous="false"
       	>
 				  <mt-swipe-item v-for="(item, index) in dataList" :key="index">
@@ -344,7 +344,7 @@ export default {
         // this.init();
       this.mobile = this.$store.state.mobile;
     }, 300);
-    
+
   },
   methods: {
     init() {
@@ -423,7 +423,7 @@ export default {
                     // this.brandName=''
                     this.seriesName=''
                 }
-                
+
                 if(this.brandName=='轻卡'||this.brandName=='重卡'){
                     // this.brandName=''
                     this.detailtime=false
@@ -445,7 +445,7 @@ export default {
                       this.init()
                       // this.carSlot[0].values.unshift(' ')
                     });
-                  
+
     },
     //品牌选择
     brandchoose(){
@@ -494,7 +494,7 @@ export default {
         this.allback = false;
     },
     //车型选择
-    carchoose(){ 
+    carchoose(){
       ModalHelper.afterOpen()
         this.showcar=true;
         this.allback = true;
@@ -502,7 +502,7 @@ export default {
     //车型的确认
     carsure(){
       ModalHelper.beforeClose()
-      // document.body.removeEventListener('touchmove',this.bodyScroll,false);   
+      // document.body.removeEventListener('touchmove',this.bodyScroll,false);
       $("body").css({"position":"initial","height":"auto"});
         this.currentTitle=''
         this.currentTime=''
@@ -547,7 +547,7 @@ export default {
               let date =new Date().getDate();
               date=date<10?'0'+date:date;
               let year_month_date=year+'-'+month+'-'+date;
-              setTimeout(() => {       
+              setTimeout(() => {
                 if(year_month_date==$(".is-active").text()){
                     if(val.revervation_TIME.split(':')[0]-new Date().getHours()>=4){
                       if(this.nowdateshow){
@@ -567,7 +567,7 @@ export default {
               }, 700);
               // if(val.revervation_TIME.substring(0, 1)){
 
-              // }             
+              // }
               // this.slotstime[0].values.push(val.revervation_TIME);
             }
           }
@@ -634,7 +634,7 @@ export default {
           });
         return false
       }
-      
+
     },
     orderTimeStatus() {
       this.pickerVisible = true;
@@ -715,12 +715,12 @@ export default {
           this.citySlot[0].values = []; //清除上一次城市的选择
            this.allcityList.forEach((item, index) => {
             this.citySlot[0].values.push(item.name);
-            
+
           });
           this.city_id = this.allcityList[0].code;
           this.valuescity1 = this.citySlot[0].values[0];
           this.mydeler();
-          
+
         } else {
           Toast({
             message: "初始化城市列表报错",
@@ -760,7 +760,7 @@ export default {
     },
     //省份的滑动选择
     provinceChange(picker, values) {
-      
+
       if (this.num) {
         this.valuesprovince1 = this.provinceName;
         this.valuescity1 = this.cityName;
@@ -785,7 +785,7 @@ export default {
           this.seriesNo=val.no
         }
       }
-      setTimeout(() => { 
+      setTimeout(() => {
         this.mydeler()
       }, 100);
       picker.setSlotValue(1, values[0]);
@@ -849,7 +849,7 @@ export default {
           this.getdayreal();
         }
       }
-      
+
       if(this.dataindex==1){
         $('.next-button').css('color','#000')
       }
@@ -869,7 +869,7 @@ export default {
       if(this.dataindex==6){
         $('.next-button').css('color','#cccccc')
       }
-      
+
         this.$refs.swiperWrap.next();
     },
     appointment() {
@@ -1001,8 +1001,7 @@ export default {
           //       });
           //   });
           MessageBox.alert("预约成功").then(action => {
-                  this.$router.go(0)
-                  // this.$emit("child")
+                  window.location.reload()
               });
         }else{
            Toast({
@@ -1013,7 +1012,7 @@ export default {
         }
       });
     },
-    gohome(){   
+    gohome(){
       // if(!this.$store.state.userId){
       //     this.toLogin();
       //     return false;
