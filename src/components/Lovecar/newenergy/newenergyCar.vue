@@ -848,10 +848,10 @@ export default {
                           };
 
                           this.tai = {
-                            lfWindowOpen: this.carcontrol.lfTirePresure + "kpa", //左前 胎压
-                            lrWindowOpen: this.carcontrol.lrTirePresure + "kpa", //左后 胎压
-                            rfWindowOpen: this.carcontrol.rfTirePresure + "kpa", //右前 胎压
-                            rrWindowOpen: this.carcontrol.rrTirePresure + "kpa" //右后 胎压
+                            lfWindowOpen: this.carcontrol.lfTirePresure==65535?'-':(this.carcontrol.lfTirePresure+"kpa"), //左前 胎压
+                            lrWindowOpen: this.carcontrol.lrTirePresure==65535?'-':(this.carcontrol.lrTirePresure+"kpa"), //左后 胎压
+                            rfWindowOpen: this.carcontrol.rfTirePresure==65535?'-':(this.carcontrol.rfTirePresure+"kpa"), //右前 胎压
+                            rrWindowOpen: this.carcontrol.rrTirePresure==65535?'-':(this.carcontrol.rrTirePresure+"kpa") //右后 胎压
                           };
                           let windowlf,windowlr,windowrf,windowrr
                           if(this.carcontrol.doorStsFrontLeft){
@@ -1166,10 +1166,10 @@ export default {
                 rrWindowOpen: this.carcontrol.rrWindowOpen ? "已打开" : "已关闭" //右后窗
               };
               this.tai = {
-                lfWindowOpen: this.carcontrol.lfTirePresure + "kpa", //左前 胎压
-                lrWindowOpen: this.carcontrol.lrTirePresure + "kpa", //左后 胎压
-                rfWindowOpen: this.carcontrol.rfTirePresure + "kpa", //右前 胎压
-                rrWindowOpen: this.carcontrol.rrTirePresure + "kpa" //右前 胎压
+                lfWindowOpen: this.carcontrol.lfTirePresure==65535?'-':(this.carcontrol.lfTirePresure+"kpa"), //左前 胎压
+                lrWindowOpen: this.carcontrol.lrTirePresure==65535?'-':(this.carcontrol.lrTirePresure+"kpa"), //左后 胎压
+                rfWindowOpen: this.carcontrol.rfTirePresure==65535?'-':(this.carcontrol.rfTirePresure+"kpa"), //右前 胎压
+                rrWindowOpen: this.carcontrol.rrTirePresure==65535?'-':(this.carcontrol.rrTirePresure+"kpa") //右后 胎压
               };
               let windowlf,windowlr,windowrf,windowrr
               if(this.carcontrol.doorStsFrontLeft){
@@ -1496,12 +1496,11 @@ export default {
               rfWindowOpen: this.carcontrol.rfWindowOpen ? "已打开" : "已关闭", //右前窗
               rrWindowOpen: this.carcontrol.rrWindowOpen ? "已打开" : "已关闭" //右后窗
             };
-
             this.tai = {
-              lfWindowOpen: this.carcontrol.lfTirePresure + "kpa", //左前 胎压
-              lrWindowOpen: this.carcontrol.lrTirePresure + "kpa", //左后 胎压
-              rfWindowOpen: this.carcontrol.rfTirePresure + "kpa", //右前 胎压
-              rrWindowOpen: this.carcontrol.rrTirePresure + "kpa" //右后 胎压
+              lfWindowOpen: this.carcontrol.lfTirePresure==65535?'-':(this.carcontrol.lfTirePresure+"kpa"), //左前 胎压
+              lrWindowOpen: this.carcontrol.lrTirePresure==65535?'-':(this.carcontrol.lrTirePresure+"kpa"), //左后 胎压
+              rfWindowOpen: this.carcontrol.rfTirePresure==65535?'-':(this.carcontrol.rfTirePresure+"kpa"), //右前 胎压
+              rrWindowOpen: this.carcontrol.rrTirePresure==65535?'-':(this.carcontrol.rrTirePresure+"kpa") //右后 胎压
             };
             this.door = {
               lfWindowOpen: this.carcontrol.doorStsFrontLeft
