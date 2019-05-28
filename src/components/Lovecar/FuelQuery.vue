@@ -16,7 +16,7 @@
 		</div>
 		<div class="line"></div>
 		<div class="fuel-wrap">
-			<div v-for="(item,index) in count" class="fuel-apnone">
+			<div v-for="(item,index) in count" :key="index" class="fuel-apnone">
 				<div class="apn-title">
 					<span>统计总量</span>
 				</div>
@@ -71,7 +71,7 @@
 						<input :disabled="disabled" type="text" v-model="item.dayOilConsumer" />
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>

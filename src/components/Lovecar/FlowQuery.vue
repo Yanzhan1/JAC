@@ -8,7 +8,7 @@
 		</div>
 		<div class="line"></div>
 		<div class="flow-wrap">
-			<div v-for="(item,index) in 1" class="flow-apnone">
+			<div v-for="(item,index) in 1" :key="index" class="flow-apnone">
 				<div class="origin-pin">
 					<div class="flex-align-center revisePinCommon">
 						<span style="font-size: 0.26rem;color: #444444;">
@@ -93,7 +93,7 @@ export default {
               let month=oDate.getMonth()+1
               month=month<10?'0'+month:''+month;
               let totime=year+month
-              if(this.$store.state.brandId==5){             
+              if(this.$store.state.brandId==5){
                 this.$http
                   .post(
                     Newenergy.energyvehiclecycflowquery,
@@ -106,7 +106,7 @@ export default {
                     this.$store.state.tsppin
                   )
                   .then(res => {
-                    if(res.data.returnSuccess){      
+                    if(res.data.returnSuccess){
                       this.packageTotalFlow=res.data.data[0].packageTotalFlow;
                       this.usedFlow=res.data.data[0].usedFlow;
                       this.surplusFlow=res.data.data[0].surplusFlow;
@@ -133,7 +133,7 @@ export default {
                     this.$store.state.tsppin
                   )
                   .then(res => {
-                    if(res.data.returnSuccess){      
+                    if(res.data.returnSuccess){
                       this.packageTotalFlow=res.data.data[0].packageTotalFlow;
                       this.usedFlow=res.data.data[0].usedFlow;
                       this.surplusFlow=res.data.data[0].surplusFlow;
