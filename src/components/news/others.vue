@@ -20,7 +20,7 @@
             <div style="height: 8rem;"></div>
           </div>-->
           <ul class="content">
-            <li class="area" v-for="(item,index) in List" @click="todetail(item.lid,item.id)" style="">
+            <li class="area" v-for="(item,index) in List" :key="index" @click="todetail(item.lid,item.id)" style="">
               <div class="content_p">
                 <span class="content_t"><span style="width: 0.16rem;height: 0.16rem;border-radius: 50%;background: red;display: inline-block" v-if="item.readState"></span>{{item.title}}</span>
                 <span class="content_x">{{item.createTime}}</span>
@@ -176,7 +176,7 @@ export default {
   padding: 0;
   margin: 0;
 }
-.MobileHeight {  
+.MobileHeight {
 		border-top-style: solid;
 		box-sizing: content-box;
 	}
@@ -233,7 +233,7 @@ li {
   color: rgba(252, 87, 31);
 }
 #showAll2{
-  display: none; 
+  display: none;
   font-size: 0.3rem;
   margin: auto;
   text-align: center

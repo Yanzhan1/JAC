@@ -70,6 +70,8 @@ const AirEvoluor = lazyLoad('/Lovecar/AirEvoluor') //空气进化器
     // import AirEvoluor from "@/components/Lovecar/AirEvoluor" //空气进化器
 const Electricairconditioning = lazyLoad('/Lovecar/Electricairconditioning') //电动空调调控
     // import Electricairconditioning from '@/components/Lovecar/Electricairconditioning' //电动空调调控
+const SevenwindowControl = lazyLoad('/Lovecar/SevenwindowControl')//S7系列车窗页面
+    // import SevenwindowControl from '@/components/Lovecar/SevenwindowControl'
 
 
 // 新能源部分
@@ -168,9 +170,12 @@ const DotComment = lazyLoad('/My/DotComment.vue') //网点评分
 const Agreement = lazyLoad('/My/Agreement.vue') //用户协议
     // import Agreement from '../components/My/Agreement.vue' //用户协议
 import DotCommentDetail from '../components/My/DotCommentDetail.vue' //网点评分详情页
-// const Changemobile = lazyLoad('My/Changemobile.vue') //修改手机号
-import Changemobile from '../components/My/Changemobile.vue'
-import Maintenancedetail from '../components/My/Maintenancedetail.vue'
+const Changemobile = lazyLoad('/My/Changemobile.vue') //修改手机号
+// import Changemobile from '../components/My/Changemobile.vue'
+const Maintenancedetail = lazyLoad('/My/Maintenancedetail.vue')
+// import Maintenancedetail from '../components/My/Maintenancedetail.vue'
+const Management = lazyLoad('/My/Management.vue')
+// import Management from '../components/My/Management.vue'
 
 /**
  * 消息
@@ -193,6 +198,8 @@ const Comments = lazyLoad('/news/comments.vue')
     // import Comments from '../components/news/comments.vue'
 const Others = lazyLoad('/news/others.vue')
     // import Others from '../components/news/others.vue'
+const Vehiclealarm=lazyLoad('/news/Vehiclealarm.vue')  //车辆报警
+//  import Vehiclealarm from '../components/news/Vehiclealarm.vue'
 
 /**
  * 发现部分
@@ -558,6 +565,11 @@ const router = new Router({
                 name: '空气净化器',
                 component: AirEvoluor
             },
+            {
+                path: "/lovecar/sevenwindowControl",
+                name: 'S7车窗',
+                component: SevenwindowControl
+            },
             //新能源
             {
                 path: "/newenergy/remotecharging",
@@ -791,6 +803,11 @@ const router = new Router({
                 name: '维保详情',
                 component: Maintenancedetail
             },
+            {
+                path: "/myindex/Management",
+                name: '车队管理',
+                component: Management
+            },
             // 消息
             {
                 path: "/news",
@@ -831,10 +848,16 @@ const router = new Router({
                 path: "/activenew",
                 name: '活动',
                 component: ActiveNew
-            }, {
+            },
+             {
                 path: "/discuss",
                 name: '评论',
                 component: Discuss
+            },
+             {
+                path: "/vehiclealarm",
+                name: '车辆报警',
+                component: Vehiclealarm
             },
 
             //智享部分
