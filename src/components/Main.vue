@@ -64,7 +64,6 @@ export default {
       }
     );
     // 添加响应拦截器
-    let _this = this;
     this.$http.interceptors.response.use(
       response => {
 
@@ -87,10 +86,8 @@ export default {
               }
             } else if(this.$store.state.code403!=100) {
                 // delete response.data;
-
                   flag = false
-
-                  _this.toLogin();
+                  this.toLogin();
             }
             break;
         }
