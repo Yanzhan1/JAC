@@ -3,7 +3,7 @@
 		<div class="lovecar tophead">
 			<div class="nav MobileHeight">
 				<div style="color:#fff;font: .3rem/.5rem 'PingFang-SC-Regular'" @click="navtip">更多车控</div>
-				<span class="txt_m" style="margin-right: 1.8rem;">&nbsp;&nbsp;&nbsp;&nbsp;{{this.$store.state.nomarlseriseName}}</span>
+				<span class="txt_m" style="margin-right: 1.8rem;">&nbsp;&nbsp;&nbsp;&nbsp;{{this.$store.state.defaultInformation.seriesName}}</span>
 				<span class="txt_r"></span>
 			</div>
 			<div class="navs navs_h">
@@ -40,7 +40,7 @@
 							<span :class="activeshow==2?'active':'actives'" class="txt1">车门</span>
 							<div v-show="activeshow==2?true:false" style="width:.7rem;height:.03rem;position:absolute;background:#49bbff;top:.7rem;left: 50%;transform: translate(-50%, -50%);"></div>
 						</div>
-						<div class="left_bus" @click="fn(3)">
+						<div class="left_bus" @click="fn(3)" v-show='nowindow'>
 							<img v-if="activeshow==3" class="pic1" src="../../../static/images/Wit/chechuang.png" alt="">
 							<img v-else class="pic1" src="../../../static/images/Wit/chechuang1.png" alt="">&nbsp;&nbsp;
 							<span :class="activeshow==3?'active':'actives'" class="txt1">车窗</span>
@@ -52,7 +52,8 @@
 
 				<!--车况主体 Start-->
 				<div class="bus_l" v-show="overall">
-					<img style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;" src="../../../static/images/Lovecar/lovecar.png" alt="" class="bus_righgt">
+					<img v-show="!this.ToS7" style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;" src="../../../static/images/Lovecar/seven.png" alt="" class="bus_righgt">
+					<img v-show="this.ToS7&&this.nowindow" style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;" src="../../../static/images/Lovecar/lovecar.png" alt="" class="bus_righgt">
 					<!--左边胎压状态Start-->
 					<span ref='open1' class='busl_r left_1 '>{{Condition.left_top=='undefinedkPa'?'':Condition.left_top}}</span>
 					<span ref='open2' class='busl_r  left_2 '>{{Condition.left_bottom=='undefinedkPa'?'':Condition.left_bottom}}</span>
@@ -171,7 +172,13 @@
 								<span class="pic_txt">座椅</span>
 							</div>
 						</router-link>
-						<router-link v-show="this.WINDOW" :to="{path:'/lovecar/windowControl',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
+						<router-link v-show="this.WINDOW||this.ToS7" :to="{path:'/lovecar/windowControl',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
+							<div class="navs">
+								<img class="picc" src="../../../static/images/Wit/chechuang.png" alt="">
+								<span class="pic_txt">车窗</span>
+							</div>
+						</router-link>
+						<router-link v-show="this.WINDOW||!this.ToS7" :to="{path:'/lovecar/windowControl',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc" src="../../../static/images/Wit/chechuang.png" alt="">
 								<span class="pic_txt">车窗</span>
@@ -243,9 +250,9 @@
 					<img src="../../../static/images/Lovecar/xiupin.png" alt="">
 					<span>修改PIN</span>
 				</router-link>
-				<router-link v-show="this.CAR_EXAMINATION" tag="li" to="/Bus_test">
+				<!-- <router-link v-show="this.CAR_EXAMINATION" tag="li" to="/Bus_test"> -->
 				<!-- 暂时解除车辆体检权限调接口 -->
-				<!-- <router-link  tag="li" to="/Bus_test"> -->
+				<router-link  tag="li" to="/Bus_test">
 					<img src="../../../static/images/Lovecar/chejian.png" alt="">
 					<span>车辆体检</span>
 				</router-link>
@@ -298,6 +305,8 @@ export default {
       activeshows: 1,
       tspid: "",
       popupbg: false,
+      nowindow:true,//控制车窗有无
+      ToS7:true,
       allwords: [], //贮存所有的提示语
       popupVisible: false,
       MaskIsshow: false, //黑色遮罩层
@@ -1951,56 +1960,17 @@ export default {
       if (this.$store.state.tspId == undefined) {
         this.tspid = 0;
       }
-      // this.$http
-      //   .post(
-      //     My.My_Bus,
-      //     {
-      //       userId: this.$store.state.userId,
-      //       aaaUserID: this.$store.state.aaaid,
-      //       phone: this.$store.state.mobile,
-      //       tspUserId: this.tspid
-      //     },
-      //     this.$store.state.tsppin
-      //   )
-      //   .then(res => {
-      //     if (res.data.returnSuccess) {
-      //       this.BusDetails = res.data.data;
-      //       for (let i = 0; i < res.data.data.length; i++) {
-      //         if (
-      //           res.data.data[i].def == 1 ||
-      //           res.data.data[i].defToNathor == 1
-      //         ) {
-      //           this.carsysitem = res.data.data[i].seriesName;
-      //           var payload = res.data.data[i].vin;
-      //           this.$store.dispatch("CARVINS", payload);
-      //           // this.$store.state.vins = res.data.data[i].vin;
-      //         }
-      //         // }
-      //       }
             this.firstEnter = true;
             // this.vinn = this.$store.state.vins;
             this.vinn = this.$store.state.defaultInformation.vin;
             this.Support();
             this.Carquerry();
-        //   }
-        // });
     }
   },
-  // beforeRouteEnter:(to,from,next)=>{
-  //      if(to.fullPath=='/lovecar'){
-  //        next(vm =>{
-  //          localshow()
-  //         //此时该组件被实例化了
-  //       })
-  //      }else{
-  //        next()
-  //      }
-  //     },
   beforeCreate() {
     clearInterval(this.time);
   },
   mounted() {
-
     let params = {
       userNo: this.$store.state.userId
     };
@@ -2022,47 +1992,20 @@ export default {
       this.Getmarkedwords();
     if (this.userId) {
       this.vehiclestatus();
-      // this.$http
-      //   .post(
-      //     My.My_Bus,
-      //     {
-      //       userId: this.$store.state.userId,
-      //       phone: this.$store.state.mobile,
-      //       tspUserId: this.$store.state.tspId,
-      //       aaaUserID: this.$store.state.aaaid
-      //     },
-      //     this.$store.state.tsppin
-      //   )
-      //   .then(res => {
-      //     if (res.data.returnSuccess) {
-      //       this.BusDetails = res.data.data;
-      //       for (let i = 0; i < res.data.data.length; i++) {
-      //         if (
-      //           res.data.data[i].def == 1 ||
-      //           res.data.data[i].defToNathor == 1
-      //         ) {
-      //           this.carsysitem = res.data.data[i].seriesName || null;
-      //           var payload = res.data.data[i].vin;
-      //           this.defaultvin = res.data.data[i].vin;
-      //           this.$store.state.brandName = res.data.data[i].brandName;
-      //           this.$store.dispatch("CARVINS", payload);
-      //           //获取机车 登录登出状态
-      //           //  	       this.getCarLoginState()
-      //         }
-      //       }
-            this.firstEnter = true;
-            // this.vinn = this.$store.state.vins;
-            this.vinn = this.$store.state.defaultInformation.vin;
-            this.Support();
-            this.Carquerry();
-          // } else {
-          //   Toast({
-          //     message: res.data.returnErrMsg,
-          //     position: "middle",
-          //     duration: 2000
-          //   });
-          // }
-        // });
+      this.firstEnter = true;
+      this.vinn = this.$store.state.defaultInformation.vin;
+      console.log(this.$store.state.defaultInformation)
+      if(this.$store.state.defaultInformation.seriesName=='瑞风S7'){
+        this.ToS7=false
+            //更换爱车主图片,等待图
+      }else if(this.$store.state.defaultInformation.seriesName=='瑞风M4'){
+        //M4车无车窗
+          this.nowindow=false
+           //更换爱车主图片,等待图
+      }
+      this.Support();
+      this.Carquerry();
+
     }
   },
   beforeDestroy() {
