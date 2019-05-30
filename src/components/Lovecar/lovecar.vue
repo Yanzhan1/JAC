@@ -1994,7 +1994,6 @@ export default {
       this.vehiclestatus();
       this.firstEnter = true;
       this.vinn = this.$store.state.defaultInformation.vin;
-      console.log(this.$store.state.defaultInformation)
       if(this.$store.state.defaultInformation.seriesName=='瑞风S7'){
         this.ToS7=false
             //更换爱车主图片,等待图

@@ -111,18 +111,15 @@ export default {
     this.$store.state.srouceNo = "CYRF016";
     this.$store.state.everyno = "AU112018110106375078380";
     this.$store.state.seriesName = "瑞风S4";
-    // console.log("this.$store.state.currentTitle",this.$store.state.currentTitle);
   },
   methods: {
     goBack() {
       this.$router.push("/wit/Characteristic");
     },
     showHeader(flag) {
-      Vue.nextTick().then(function() {
         this.flag = flag;
         this.$store.state.noback = false;
         // DOM 更新了
-      });
     }
   }
 };
