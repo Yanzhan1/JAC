@@ -156,7 +156,7 @@
         flag: 'now',
         type: 'now',
         _index: null,
-        isLastPage: false, // 是不是最后一页
+        isLastPage: true, // 初始值设置为true,待首次请求成功后根据总数设置是不是最后一页
         listParams: { // 获取列表的参数
           pageNo: 1,
           length: 4
@@ -341,7 +341,7 @@
        */
       reset() {
         this.listParams.pageNo = 1
-        this.isLastPage = false
+        this.isLastPage = true
         this.nowList = []
       },
       /**
@@ -383,8 +383,12 @@
           //     console.log(j)
           //   }
           // }
+          debugger;
+          console.log(this.nowList.length)
           if (this.nowList.length >= res.data.recordsTotal) {
             this.isLastPage = true
+          }else{
+            this.isLastPage = false
           }
           this.$nextTick(() => {
             this.$refs.loadmore.onTopLoaded()
