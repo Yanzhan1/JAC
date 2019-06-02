@@ -360,7 +360,10 @@
        */
       getList() {
         // this.loading = true
-        this.$http.post(INDEXMESSAGE.getNow, this.listParams).then((res) => {
+        this.$http.post(INDEXMESSAGE.getNow,{
+          "pageNo": this.listParams.pageNo,
+          "length": this.listParams.length
+        }).then((res) => {
           this.loading = false
           if (res.data.status !== 1) {
             console.log(res.data.errorMsg)
