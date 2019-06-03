@@ -97,4 +97,7 @@ export default {
     [types.DEFAULTINFORMATION]: (state, payload) => {
         state.defaultInformation = payload
     },
+    [types.POSITION]: (state, payload) => {
+        state.position = payload
+    },
 }

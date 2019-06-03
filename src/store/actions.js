@@ -62,5 +62,8 @@ export default {
     },
     change$FLAG: ({ commit, state }, payload) => {
         commit(types.CHANGE_$FLAG, payload)
+    },
+    position: ({ commit, state }, payload) => {
+        commit(types.POSITION, payload)
     }
 }

@@ -71,4 +71,6 @@ export default {
     enterMaintenance: true, //判断维保预约是否展示
     addiflogin:null,
     member: false, //判断会员是否升级
+    position:{
+    }//拿到定位省份城市经纬度,若拿不到定位为安徽合肥
 }

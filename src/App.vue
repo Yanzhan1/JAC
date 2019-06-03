@@ -28,6 +28,27 @@ export default {
         console.log("无此方法");
       }
     },
+    getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
+        let position={}
+        if(locationMes){
+          let localprovince = JSON.parse(locationMes).province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '')
+          let localcity = JSON.parse(locationMes).city.replace('市', '')
+          let latitude = JSON.parse(locationMes).latitude //精
+          let longitude = JSON.parse(locationMes).longitude //韦
+            position.localprovince=localprovince
+            position.localcity=localcity
+            position.latitude=latitude
+            position.longitude=longitude
+        }else{
+           position={
+              localprovince:'安徽',
+              localcity:'合肥',
+              latitude:'000',
+              longitude:'000'
+            }
+        }
+        this.$store.dispatch("position",position)
+      },
     isLogin(userInfo) {
       // this.$store.dispatch('change$FLAG', true)// 不要动 有用
       if (userInfo && userInfo.no) {
@@ -61,7 +82,9 @@ export default {
               "defaultInformation",
               JSON.parse(userInfo.defaultInformation)
             );
-          } 
+          }
+          window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
+          window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用
         } else if (isMobile.Android()) {
           if (userInfo.defaultInformation && userInfo.defaultInformation.vin) {
             this.$store.dispatch(
@@ -69,6 +92,27 @@ export default {
               userInfo.defaultInformation
             );
           }
+          let position={}
+          if(js2android.getLocationInfo()){
+            let locationMes=JSON.parse(js2android.getLocationInfo())
+            let localprovince = locationMes.province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '')
+            let localcity = locationMes.city.replace('市', '')
+            let latitude =locationMes.latitude //精
+            let longitude = locationMes.longitude //韦
+
+            position.localprovince=localprovince
+            position.localcity=localcity
+            position.latitude=latitude
+            position.longitude=longitude
+          }else{
+            position={
+              localprovince:'安徽',
+              localcity:'合肥',
+              latitude:'000',
+              longitude:'000'
+            }
+          }
+          this.$store.dispatch("position",position)
         }
         this.$store.dispatch("CARVINS", userInfo.vin);
         // this.$store.dispatch("nomarlseriseName", userInfo.seriesName);

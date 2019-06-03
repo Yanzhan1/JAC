@@ -98,7 +98,6 @@
       send(){
         var _this = this;
         var imgStr = _this.image;
-        console.log(_this.message.length)
         if(_this.message.length>400){
           MessageBox('提示', "字数不得超过400");
           return false;
@@ -107,7 +106,6 @@
           if (res.data.status) {
             _this.$router.push({path:"/mystart"});
           } else {
-            console.log(res.data.errorMsg);
           }
         });
       }
