@@ -156,7 +156,7 @@
         flag: 'now',
         type: 'now',
         _index: null,
-        isLastPage: true, // 初始值设置为true,待首次请求成功后根据总数设置是不是最后一页
+        isLastPage: false, // 初始值设置为true,待首次请求成功后根据总数设置是不是最后一页
         listParams: { // 获取列表的参数
           pageNo: 1,
           length: 4
@@ -173,14 +173,12 @@
     },
     watch: {
       getUserId(val) {
-        // this.getRefreshList()
         this.reset()
         this.getList()
       },
       ['$route'](to, from) {
         console.log('会员是否升级'+this.$store.state.member)
         if (from.path == '/mystart' || (from.path == '/myindex' && this.$store.state.member)) {
-          // this.getRefreshList();
           this.reset()
           this.getList()
         }
@@ -238,29 +236,11 @@
       loadTop() {
         this.reset()
         this.getList()
-        // this.getRefreshList();
-        // this.$refs.loadmore.onTopLoaded();
       },
       loadBottom() {},
       handleTopChange(status) {
         this.topStatus = status;
       },
-      /* changeUserStartId(id) {
-         if (id == this.$store.state.userId) {
-           this.$router.push({
-             path: '/mystart'
-           });
-           // this.$router.push({path:'/myIndex'});
-         } else {
-           this.$store.state.UserStartId = id;
-           this.$router.push({
-             path: '/userstart',
-             query: {
-               id
-             }
-           });
-         }
-       },*/
       changeUserStartId(id, id1, index) {
         if (id == this.$store.state.userId) {
           this.$router.push({
@@ -341,7 +321,7 @@
        */
       reset() {
         this.listParams.pageNo = 1
-        this.isLastPage = true
+        this.isLastPage = false
         this.nowList = []
       },
       /**
@@ -359,10 +339,9 @@
        * 获取列表
        */
       getList() {
-        // this.loading = true
+        this.loading = true
         this.$http.post(INDEXMESSAGE.getNow,{
-          "pageNo": this.listParams.pageNo,
-          "length": this.listParams.length
+          ...this.listParams
         }).then((res) => {
           this.loading = false
           if (res.data.status !== 1) {
@@ -373,22 +352,8 @@
             res.data.data[i].createDate = this.convert(res.data.data[i].createDate)
           }
           this.nowList.push(...res.data.data)
-          console.log(this.nowList)
-          // let vflagarr=[]
-          // for(let val of this.nowList){
-          //   vflagarr.push(val.user.vflag)
-          // }
-          // for(let i of vflagarr){
-          //   for(let j of i){
-          //     console.log(j)
-          //   }
-          // }
-          debugger;
-          console.log(this.nowList.length)
           if (this.nowList.length >= res.data.recordsTotal) {
             this.isLastPage = true
-          }else{
-            this.isLastPage = false
           }
           this.$nextTick(() => {
             this.$refs.loadmore.onTopLoaded()
@@ -547,10 +512,7 @@
       getUserId() {
         return this.$store.state.userId
       }
-    },
-    // mounted() {
-    //   this.getRefreshList()
-    // }
+    }
   }
 
 </script>
