@@ -51,9 +51,6 @@ export default {
     RECORD: ({ commit, state }, payload) => {
         commit(types.RECORD, payload)
     },
-    GETLOCATIONINFO: ({ commit, state }, payload) => {
-        commit(types.GETLOCATIONINFO, payload)
-    },
     RECORDNO: ({ commit, state }, payload) => {
         commit(types.RECORDNO, payload)
     },

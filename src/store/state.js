@@ -62,7 +62,6 @@ export default {
     show1: false,
     outType: '双色车身',
     LEDType: 'LED前大灯',
-    locationMes: '', //ios获取的地址
     noback: false,
     recordNo: "", //网点评分的RECORDNO
     $flag: false, // 有用别动
