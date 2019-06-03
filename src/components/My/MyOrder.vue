@@ -31,7 +31,7 @@
       </div>
       <div style="width:100%;height:.2rem;background:#fff"></div>
     </div>
-		
+
 		<!-- <mt-tab-container v-model="selected"> -->
 			<!-- <mt-tab-container-item id="one"> -->
 				<ul v-if="flag" v-show="this.list" style="margin-top:.7rem;">
@@ -292,7 +292,7 @@ export default {
               });
           }
         });
-    
+
     },
     //线索订单
     GetXorder() {
@@ -353,8 +353,7 @@ export default {
     // this.getShoppingMall();
   },
   mounted() {
-    //			console.log('加密:' + this.$md5('uid=1jac.com'))
-  
+
     $(".MobileHeight").css({
       borderTopWidth: this.$store.state.mobileStatusBar,
       borderTopColor: "#fff"

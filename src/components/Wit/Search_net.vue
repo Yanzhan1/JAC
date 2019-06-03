@@ -105,7 +105,7 @@
 				<mt-picker :slots="citySlot" @change="chooseCity" :visible-item-count="5" style="margin-top:.69rem;font-size:.34rem;lin-height:.36rem;text-algin:center;"></mt-picker>
 			</div>
 		</mt-popup>
-		
+
 	</div>
 </template>
 <script>
@@ -536,49 +536,16 @@ export default {
       this.publicrequst(); //请求该省份的经销商列表
     }
   },
-  computed: {
-    locationMes() {
-      return this.$store.state.locationMes;
-    }
-  },
-  watch: {
-    locationMes(newVal, oldVal) {
-      this.provinceName = JSON.parse(this.$store.state.locationMes)
-        .province.replace("自治区", "")
-        .replace("省", "")
-        .replace("市", "")
-        .replace("壮族", "")
-        .replace("回族", "");
-      this.cityName = JSON.parse(this.$store.state.locationMes).city.replace(
-        "市",
-        ""
-      );
-      this.latitude = JSON.parse(this.$store.state.locationMes).latitude; //精
-      this.longitude = JSON.parse(this.$store.state.locationMes).longitude; //韦
-    }
-  },
   mounted() {
-    this.init();
     $(".MobileHeight").css({
       borderTopWidth: this.$store.state.mobileStatusBar,
       borderTopColor: "#fff"
     });
-  },
-  created() {
-    if(this.$store.state.locationMes){
-      this.provinceName = JSON.parse(this.$store.state.locationMes)
-        .province.replace("自治区", "")
-        .replace("省", "")
-        .replace("市", "")
-        .replace("壮族", "")
-        .replace("回族", "");
-      this.cityName = JSON.parse(this.$store.state.locationMes).city.replace(
-        "市",
-        ""
-      );
-      this.latitude = JSON.parse(this.$store.state.locationMes).latitude; //精
-      this.longitude = JSON.parse(this.$store.state.locationMes).longitude; //韦
-    }
+    this.provinceName=this.$store.state.position.localprovince
+    this.cityName=this.$store.state.position.localcity
+    this.latitude=this.$store.state.position.latitude
+    this.longitude=this.$store.state.position.longitude
+    this.init();
   },
   filters: {
     toFixed(input, param1) {

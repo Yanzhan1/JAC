@@ -91,7 +91,6 @@ export default {
 		  for(let val of data.data){
 			  this.questionList.push(val.name)
 		  }
-		  console.log(this.questionList)
         } else {
           Toast({
             message: "服务器内部错误",
@@ -146,7 +145,6 @@ export default {
       } else if (IOSAndAndroid.isIOSOrAndroid() === "Android") {
         var windheight = $(window).height();
         var docheight = $(window).height();
-        // console.log("Android resize后高度:" + docheight);
         if (docheight < this.screenHeight) {
           //						$('.btn').css('position', 'fixed')
           //						$(".score-time").css("bottom", "1.14rem");

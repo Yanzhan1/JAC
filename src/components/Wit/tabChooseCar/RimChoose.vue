@@ -89,13 +89,11 @@ export default {
       this.currentIndex = 1;
     }
     this.flag = true;
-    console.log(" this.$store.state.rimTitle", this.$store.state.rimTitle);
   },
   methods: {
     carBtn(index, labelTitle) {
       this.currentIndex = index;
       this.$store.state.rimTitle = labelTitle;
-      console.log("this.rimTitle", this.$store.state.rimTitle);
       if (this.$store.state.rimTitle == "R18") {
         this.$store.state.priceTitle =
           this.$store.state.priceTitle + this.rimTitlePrice;
@@ -106,8 +104,6 @@ export default {
       }
     },
     rimChooseBtn() {
-      //          alert(this.$route.query.powerTitle);
-      //        console.log('this.currentTitle',this.currentTitle)
       if (this.$store.state.noback) {
         this.$router.push({
           path: "/VehicleChoose"

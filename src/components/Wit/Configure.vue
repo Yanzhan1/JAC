@@ -14,7 +14,7 @@
         <div style="width:100%;height:1.53rem"></div>
         <div class="every_img" >
             <!-- <img style="display:block;width:100%;" class="nav" :src="this.allimage[this.current]" alt=""> -->
-            <img v-for="(item,index) in this.arr[this.current]" style="display:block;width:100%;" class="nav" :src="item" alt="">
+            <img v-for="(item,index) in this.arr[this.current]" :key="index" style="display:block;width:100%;" class="nav" :src="item" alt="">
         </div>
         <div style="height:.88rem"></div>
         <div class="bottom-btn" @click="reserve" >在线订车</div>
@@ -46,7 +46,7 @@ export default {
             })
         },
         goback(){
-             this.$router.push('/wit') 
+             this.$router.push('/wit')
         },
         reserve(){
              if(this.seriesName=='瑞风S4'){
@@ -80,13 +80,11 @@ export default {
         this.$http.post(Wit.searchVehicleSeriesOne,params).then((res)=>{
             let allimage=res.data.data.imageRelationVO
             this.seriesName=res.data.data.seriesName
-            // console.log(allimage)
             this.nav=[]
             for(let i=0;i<allimage.length;i++){
                 if(allimage[i].imageType==5&&allimage[i].imageTitle!=undefined){
                     // this.arrr=allimage[i].imgUrls
                     this.arr.push(allimage[i].imgUrls)
-                    // console.log(this.arr)
                     // for(let j=0;j<allimage[i].imgUrls.length;j++){
                     //     this.allimage.push(allimage[i].imgUrls[j])
                     // }
@@ -99,7 +97,7 @@ export default {
 </script>
 
 <style scoped>
-	.MobileHeight {  
+	.MobileHeight {
 		border-top-style: solid;
 		box-sizing: content-box;
 	}

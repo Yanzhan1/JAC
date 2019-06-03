@@ -95,7 +95,7 @@
 									duration: 1000
 								});
 							}
-							
+
 						}).catch((error) => {
 							let instance = Toast({
 								message: '系统异常',
@@ -106,7 +106,6 @@
 					}
 				}).catch(err => {
 					if(err == 'cancel') {
-						console.log('123');
 					}
 				});
 
@@ -130,7 +129,6 @@
 			}else{
 				this.emergencyContactPhone=this.modifyinfo.emergencyContactPhone
 			}
-			console.log(this.modifyinfo)
 			// this.emergencyContactPhone = this.modifyinfo.emergencyContactPhone
 			this.getFocus()
 		}
@@ -142,18 +140,18 @@
 		outline: none;
 		border: none
 	}
-	
+
 	.comment {
 		height: 1rem;
 		padding: 0rem 0.16rem;
 	}
-	
+
 	.boxline {
 		width: 100%;
 		height: 100%;
 		border-bottom: 1px solid #F1F1F1;
 	}
-	
+
 	.flex-align-center {
 		/*垂直居中*/
 		display: flex;

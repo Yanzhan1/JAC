@@ -126,24 +126,9 @@ export default {
   },
   created() {
     //获取定位信息
-    window.getIosLocation = this.getIosLocation; //ios获取定位信息,放到window对象供ios调用
-    var system = this.isIOSOrAndroid();
-    if (system == "Android") {
-      var Position = js2android.getLocationInfo(); //获取安卓定位信息
-      var NewPosition = JSON.parse(Position);
-      this.provinceName = NewPosition.province
-        .replace("自治区", "")
-        .replace("省", "")
-        .replace("市", "")
-        .replace("壮族", "")
-        .replace("回族", ""); //省
-      this.cityName = NewPosition.city.replace("市", ""); //市
-      this.choosedarea = this.provinceName
-      // this.latitude = NewPosition.latitude //经度
-      // this.longitude = NewPosition.longitude //纬度
-    } else if (system == "IOS") {
-      window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
-    }
+    this.provinceName=this.$store.state.position.localprovince
+    this.cityName=this.$store.state.position.localcity
+    this.choosedarea = this.provinceName
   },
   mounted() {
     $(".gobottom").height($(".gobottom").height());
@@ -151,17 +136,6 @@ export default {
     this.init()
   },
   methods: {
-    //IOS调用,H5获取ios定位信息
-    getIosLocation(locationMes) {
-      this.provinceName = JSON.parse(locationMes)
-        .province.replace("自治区", "")
-        .replace("省", "")
-        .replace("市", "")
-        .replace("壮族", "")
-        .replace("回族", "");
-      this.choosedarea = this.provinceName
-      this.cityName = JSON.parse(locationMes).city.replace("市", "");
-    },
     init() {
       this.$http
         .post(My.Area, { size: 1000, parentId: null, level: 1 })
@@ -293,7 +267,7 @@ export default {
         this.cityList = city;
         this.slots1[0].values = [];
         for (var i = 0; i < city.length; i++) {
-          this.slots1[0].values.push(city[i].name);         
+          this.slots1[0].values.push(city[i].name);
         }
       });
     },
@@ -307,9 +281,9 @@ export default {
       this.showss = false;
     },
     onValuesChange(picker, values) {
-      
+
       this.numadd++
-      if(this.numadd>2){      
+      if(this.numadd>2){
         this.choosedarea=values[0]
         this.change=true
       }else{

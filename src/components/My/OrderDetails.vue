@@ -107,7 +107,6 @@
 		},
 		created() {
 			this.userinfo = this.$route.query
-			// console.log(this.userinfo)
 			// this.mobile=this.userinfo.realMobile
 			// this.jiami(this.userinfo.mobile)
 			if(this.userinfo.gender == 1) {
@@ -124,26 +123,26 @@
 		display: flex;
 		justify-content: center;
 	}
-	
+
 	.order-title img {
 		width: 0.1rem;
 		height: 0.1rem;
 	}
-	
+
 	ul li:last-child {
 		border-bottom: none !important;
 	}
-	
+
 	ul li span:first-child {
 		color: #555;
 		font-size: 0.26rem;
 	}
-	
+
 	ul li span:last-child {
 		color: #222;
 		font-size: 0.26rem;
 	}
-	
+
 	.content {
 		height: 1.14rem;
 		background-color: #f8f8f8;

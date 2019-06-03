@@ -430,7 +430,6 @@ export default {
     },
     setUpMap(latitude, longitude, adress, des) {
       //唤起原生地图
-      //				console.log(latitude, longitude, adress, des)
       var system = this.isIOSOrAndroid();
       if (system == "Android") {
         window.js2android.sendLocation2Map(latitude, longitude, adress, des);
@@ -545,28 +544,6 @@ export default {
       this.publicrequst(); //请求该省份的经销商列表
     }
   },
-  computed: {
-    locationMes() {
-      return this.$store.state.locationMes;
-    }
-  },
-  watch: {
-    locationMes(newVal, oldVal) {
-      this.provinceName = JSON.parse(this.$store.state.locationMes)
-        .province.replace("自治区", "")
-        .replace("省", "")
-        .replace("市", "")
-        .replace("壮族", "")
-        .replace("回族", "");
-      this.cityName = JSON.parse(this.$store.state.locationMes).city.replace(
-        "市",
-        ""
-      );
-      this.latitude = JSON.parse(this.$store.state.locationMes).latitude; //精
-      this.longitude = JSON.parse(this.$store.state.locationMes).longitude; //韦
-    }
-  },
-
   mounted() {
     this.init();
     $(".MobileHeight").css({
@@ -575,20 +552,10 @@ export default {
     });
   },
   created() {
-    if(this.$store.state.locationMes){
-      this.provinceName = JSON.parse(this.$store.state.locationMes)
-        .province.replace("自治区", "")
-        .replace("省", "")
-        .replace("市", "")
-        .replace("壮族", "")
-        .replace("回族", "");
-      this.cityName = JSON.parse(this.$store.state.locationMes).city.replace(
-        "市",
-        ""
-      );
-      this.latitude = JSON.parse(this.$store.state.locationMes).latitude; //精
-      this.longitude = JSON.parse(this.$store.state.locationMes).longitude; //韦
-    }
+      this.provinceName=this.$store.state.position.localprovince
+      this.cityName=this.$store.state.position.localcity
+      this.latitude=this.$store.state.position.latitude
+      this.longitude=this.$store.state.position.longitude
   },
   filters: {
     toFixed(input, param1) {

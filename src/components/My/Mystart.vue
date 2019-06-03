@@ -24,7 +24,7 @@
           {{userInfo.userName}}</p>
         <!--加V-->
         <div class="tagstopbottom flex" v-if="userInfo.entitys">
-          <div v-for="item in userInfo.entitys" class="tags">{{item.entity}}</div>
+          <div v-for="(item,index) in userInfo.entitys" :key="index" class="tags">{{item.entity}}</div>
         </div>
         <div style="clear: both"></div>
         <p class="font_24fff">{{userInfo.personalSignature}}</p>
@@ -49,7 +49,7 @@
       <p class="font_5 f_left">我的发布</p>
       <p class="font_6 f_right">共{{myList.length}}条发布</p>
     </div>
-    <div v-for="(item,index) in myList">
+    <div v-for="(item,index) in myList" :key="index">
       <div class="boxInfo wrap_92 pt_4">
         <!--发布者信息S-->
         <div class="comment_userinfo">
@@ -196,7 +196,6 @@
         }).then(function (res) {
           if (res.data.code == 0) {
             _this.userInfo = res.data.data;
-            console.log(res.data.data)
             for(let item in _this.userInfo.entitys){
               if(_this.userInfo.entitys[item].entity==='V'){
                _this.imgV=true
@@ -260,7 +259,6 @@
         }).then((res) => {
           if (res.data.success) {
             this.userInfo = res.data.data;
-            console.log(this.userInfo)
             //            this.$store.state.userstartUuid = res.data.account.uuid;
           }
         }).catch(() => {

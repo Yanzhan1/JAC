@@ -8,7 +8,7 @@
       </div> -->
     <!-- <div style="height: 0.88rem;"></div> -->
     <!--社区列表S-->
-    <div v-for="(item,index) in myList">
+    <div v-for="(item,index) in myList" :key="index">
       <div class="boxInfo">
         <!--发布者信息S-->
         <div class="comment_userinfo">
@@ -112,7 +112,6 @@
     methods: {
       //删除此刻
       deleteNow: function (manageId) {
-        console.log(manageId)
         var _this = this;
         MessageBox.confirm('确定删除?').then(action => {
           this.$http.post(DISCOVERMESSAGE.deleteMoment, {
@@ -135,7 +134,6 @@
           if (res.data.status) {
             _this.myList = res.data.data;
           } else {
-            console.log(res.data.errorMsg);
           }
         });
       },
@@ -151,7 +149,6 @@
       //加关注
       addFoucs: function (foucsId, index) {
         var _this = this;
-        console.log(this.$store.state.userId)
         this.$http.post(DISCOVERMESSAGE.focusOn, {
           "uid": _this.$store.state.userId,
           "focusId": foucsId
@@ -239,7 +236,7 @@
     position: relative;
     right: -0.54rem;
     bottom: 0.1rem;
-  } 
+  }
   .heade_98{
     display: block;
     width: .72rem !important;

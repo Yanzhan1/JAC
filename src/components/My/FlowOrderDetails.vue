@@ -59,7 +59,6 @@
 			}
 		},
 		mounted() {
-			console.log(this.flowDetail)
 			// this.detail()
 		},
 		filters:{
@@ -74,7 +73,7 @@
 	.wrapper {
 		padding: 0 .27rem
 	}
-	
+
 	.detail-box {
 		display: flex;
 		justify-content: space-between;

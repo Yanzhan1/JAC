@@ -62,31 +62,6 @@ export default {
   methods: {
     modifyPwd() {
       //修改密码
-      // if(this.condition.oldPassword==this.condition.newPassword){
-      // 		Toast({
-      // 			message: '新密码不可与旧密码相同',
-      // 			position: 'middle',
-      // 			duration: 2000
-      // 		});
-      // 		return false
-      // }
-      // if(this.condition.newAgainpassword==null){
-      // 	Toast({
-      // 			message: '请确认密码',
-      // 			position: 'middle',
-      // 			duration: 2000
-      // 		});
-      // 		return false
-      // }
-      // if(this.condition.newPassword!=this.condition.newAgainpassword){
-      // 		Toast({
-      // 			message: '请保持新密码一致',
-      // 			position: 'middle',
-      // 			duration: 2000
-      // 		});
-      // 		return false
-      // }
-      // var regPwd = /^((?=.*[0-9].*)(?=.*[A-Za-z].*))[0-9A-Za-z]{6,20}$/;
       var regPwd = /^((?=.*[0-9].*)(?=.*[a-zA-Z].*)(?=.*[`~!@%():;,.?].*))[0-9a-zA-Z`~!@%():;,.?]{8,16}$/;
       if (
         this.condition.newPassword == null ||
@@ -113,7 +88,6 @@ export default {
         });
         return false;
       } else if (this.condition.newAgainpassword == null) {
-        // console.log(this.condition.newAgainpassword)
         Toast({
           message: "请确认密码",
           position: "middle",
@@ -158,58 +132,8 @@ export default {
           });
       }
     }
-    // keyupOne(){
-    // 	if (isMobile.iOS()) {
-    // 		this.num=1;
-    // 		var params = {};
-    // 		window.webkit.messageHandlers.showKeyboard.postMessage(params);
-    // 	} else if (isMobile.Android()) {
-
-    // 	}
-    // },
-    // keyupTwo(){
-    // 	if (isMobile.iOS()) {
-    // 		this.num=2;
-    // 		var params = {};
-    // 		window.webkit.messageHandlers.showKeyboard.postMessage(params);
-    // 	} else if (isMobile.Android()) {
-
-    // 	}
-    // },
-    // keyupThree(){
-    // 	if (isMobile.iOS()) {
-    // 		this.num=3;
-    // 		var params = {};
-    // 		window.webkit.messageHandlers.showKeyboard.postMessage(params);
-    // 	} else if (isMobile.Android()) {
-
-    // 	}
-    // },
-    // getVal(val){
-    // 	console.log(this.num)
-    // 	let value=val
-    // 	switch(this.num){
-    // 		case 1:
-    // 		console.log(value)
-    // 		this.condition.oldPassword+=value;
-    // 		break;
-    // 		case 2:
-    // 		this.condition.newPassword+=value;
-    // 		break;
-    // 		case 3:
-    // 		this.condition.newAgainpassword+=value;
-    // 		break;
-    // 		default:
-    // 	}
-    // }
   },
   created() {
-    // if (isMobile.iOS()) {
-    // 	window.getVal = this.getVal;
-    // 	this.isok=true
-    // } else if (isMobile.Android()) {
-    // 	this.isok=false;
-    // }
   }
 };
 </script>

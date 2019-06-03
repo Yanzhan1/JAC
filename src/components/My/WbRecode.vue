@@ -59,7 +59,6 @@ export default {
       this.$router.push("/myindex/dotcomment");
     },
     init() {
-      console.log(this.$store.state.vins)
       let param = {
         // vin: "LJ16AA33777028846",
         vin:this.$store.state.vins,
@@ -100,7 +99,7 @@ export default {
 .wb-recode {
   height: 100vh;
 }
-.MobileHeight {  
+.MobileHeight {
 		border-top-style: solid;
 		box-sizing: content-box;
 	}

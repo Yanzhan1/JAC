@@ -8,7 +8,7 @@
 					<h5 class="car-title">您已登录账号到车机</h5>
 					<div class="car-info">
 						<span style="font-size: .26rem;color: #999999;margin-right: .3rem;">车辆VIN:</span><span style="font-size: .32rem;color: #49BBFF;">{{vin}}</span>
-					</div>			
+					</div>
 				</div>
 			</div>
 		</div>
@@ -40,7 +40,6 @@ export default {
       this.$http
         .post(Lovecar.loginOut, data, this.$store.state.tsppin)
         .then(res => {
-          console.log(res);
           if (res.data.returnSuccess) {
             MessageBox.confirm("", {
               title: "提示",
@@ -70,7 +69,6 @@ export default {
               })
               .catch(err => {
                 if (err == "cancel") {
-                  console.log("123");
                 }
               });
           }else{

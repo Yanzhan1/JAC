@@ -339,8 +339,10 @@ export default {
   mounted() {
     setTimeout(() => {
         this.defaultvins()
-        this.locationMes = this.$store.state.locationMes;
-        this.getdefaultmessage();
+        this.provinceName=this.$store.state.position.localprovince
+        this.cityName=this.$store.state.position.localcity
+        this.latitude=this.$store.state.position.latitude
+        this.longitude=this.$store.state.position.longitude
         // this.init();
       this.mobile = this.$store.state.mobile;
     }, 300);
@@ -428,7 +430,6 @@ export default {
                     // this.brandName=''
                     this.detailtime=false
                 }
-                console.log(this.detailtime)
                   let data = {
                       no: this.brandNo,
                       size:99,
@@ -575,25 +576,6 @@ export default {
           this.slotstime[0].values = ["暂无预约时间"];
         }
       });
-    },
-    //获取定位的省份,城市,经纬度
-    getdefaultmessage() {
-      if(this.locationMes){
-        this.provinceName = JSON.parse(this.locationMes)
-          .province.replace("自治区", "")
-          .replace("省", "")
-          .replace("市", "")
-          .replace("壮族", "")
-          .replace("回族", "");
-        this.cityName = JSON.parse(this.locationMes).city.replace(
-          "市",
-          ""
-        );
-        // this.valuescity1 = this.cityName;
-        // this.valuesprovince1 = this.provinceName;
-        this.latitude = JSON.parse(this.locationMes).latitude; //精
-        this.longitude = JSON.parse(this.locationMes).longitude; //韦
-      }
     },
     //获取服务站内容
     mydeler() {
@@ -1025,11 +1007,6 @@ export default {
       return input.toFixed(param1);
     }
   },
-  // computed:{
-  //     locationMes(){
-  //       return this.$store.state.locationMes
-  //     }
-  // },
   watch:{
     //检测行驶里程只能输入数字
       km(newVal, oldVal){
