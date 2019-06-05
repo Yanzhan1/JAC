@@ -1994,10 +1994,10 @@ export default {
       this.vehiclestatus();
       this.firstEnter = true;
       this.vinn = this.$store.state.defaultInformation.vin;
-      if(this.$store.state.defaultInformation.seriesName=='瑞风S7'){
+      if(this.$store.state.defaultInformation.seriesName=='瑞风S7待定'){
         this.ToS7=false
             //更换爱车主图片,等待图
-      }else if(this.$store.state.defaultInformation.seriesName=='瑞风M4'){
+      }else if(this.$store.state.defaultInformation.seriesName=='瑞风M4待定'){
         //M4车无车窗
           this.nowindow=false
            //更换爱车主图片,等待图
