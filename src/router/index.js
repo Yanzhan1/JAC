@@ -73,6 +73,9 @@ const Electricairconditioning = lazyLoad('/Lovecar/Electricairconditioning') //�
 const SevenwindowControl = lazyLoad('/Lovecar/SevenwindowControl')//S7系列车窗页面
     // import SevenwindowControl from '@/components/Lovecar/SevenwindowControl'
 
+//轻卡部分
+const LightMain = lazyLoad('/Lovecar/lightcar/lightMain')//S7系列车窗页面
+
 
 // 新能源部分
 const Remotecharging = lazyLoad('/Lovecar/newenergy/Remotecharging') //充电功能页面
@@ -177,6 +180,12 @@ const Maintenancedetail = lazyLoad('/My/Maintenancedetail.vue')
 const Management = lazyLoad('/My/Management.vue')
 // import Management from '../components/My/Management.vue'
 
+//车队管理部分
+const FelltManagement = lazyLoad('/My/Fleetenter/FelltManagement.vue')//车队管理主页
+const Createateam = lazyLoad('/My/Fleetenter/Createateam.vue')//创建车队
+const Drivermanagemen = lazyLoad('/My/Fleetenter/Drivermanagemen.vue')//司机管理
+const Fleetmodification = lazyLoad('/My/Fleetenter/Fleetmodification.vue')//编辑车队
+const Vehiclemanagement = lazyLoad('/My/Fleetenter/Vehiclemanagement.vue')//车队管理
 /**
  * 消息
  */
@@ -601,7 +610,12 @@ const router = new Router({
                 name: '新能源车窗',
                 component: Newcarwindow
             },
-
+            //轻卡
+              {
+                  path: "/light/main",
+                  name: '轻卡主入口',
+                  component: LightMain
+              },
             //我的页面
             {
                 path: "/myindex",
@@ -807,6 +821,32 @@ const router = new Router({
                 path: "/myindex/Management",
                 name: '车队管理',
                 component: Management
+            },
+            //车队管理
+            {
+                path: "/felltManagement",
+                name: '车队管理主入口',
+                component: FelltManagement
+            },
+            {
+                path: "/felltManagement/createateam",
+                name: '创建车队',
+                component: Createateam
+            },
+            {
+                path: "/felltManagement/drivermanagemen",
+                name: '司机管理',
+                component: Drivermanagemen
+            },
+            {
+                path: "/felltManagement/fleetmodification",
+                name: '车队编辑',
+                component: Fleetmodification
+            },
+            {
+                path: "/felltManagement/vehiclemanagement",
+                name: '车队管理',
+                component: Vehiclemanagement
             },
             // 消息
             {
