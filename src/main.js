@@ -10,6 +10,10 @@ import App from './App'
 
 import './utils/formateDate'
 
+import './../static/mui/css/mui.css'
+import mui from './../static/mui/js/mui.js'
+Vue.prototype.$mui=mui
+
 //导入mint-ui
 import mintui from 'mint-ui'
 import 'mint-ui/lib/style.css'
@@ -33,6 +37,9 @@ import '../static/css/myVideo/myVideo.css' // 重置vue-video-player部分样式
 import axios from 'axios'
 //导入md5加密
 import md5 from 'js-md5';
+//导入echarts图表
+import echarts from 'echarts'
+Vue.prototype.$echarts=echarts
 //导入复制功能
 import Clipboard from 'clipboard'
 import _ from "lodash" //工具库
