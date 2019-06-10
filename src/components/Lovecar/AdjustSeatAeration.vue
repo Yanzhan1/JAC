@@ -65,7 +65,7 @@
 				<div class="seat-active" >
 					<div style="display: flex;margin-bottom: 0.23rem;justify-content: space-around;">
 						<img :style="{visibility:value?'visible':'hidden'}" :src="'./static/images/Lovecar/Chair2@2x.png'" alt="" />
-						<img :style="{visibility:aeraValue?'visible':'hidden'}" :src="'./static/images/Lovecar/Chair2@2x.png'" alt="" />					
+						<img :style="{visibility:aeraValue?'visible':'hidden'}" :src="'./static/images/Lovecar/Chair2@2x.png'" alt="" />
 					</div>
 				</div>
 				<div class="seat-loseactive">
@@ -105,7 +105,7 @@
 		<!--自定义软键盘Start-->
 		<mt-popup class="typer" v-show="showTyper!=0" position="bottom">
 			<ul v-show="showTyper==2">
-				<li class="typer-num" v-for="item in keyNums" :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}" @click="input(item)">{{item}}</li>
+				<li class="typer-num" v-for="(item,index) in keyNums" :key="index" :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}" @click="input(item)">{{item}}</li>
 			</ul>
 		</mt-popup>
 		<!--自定义软键盘End-->
@@ -643,7 +643,7 @@ export default {
                 //主驾通风激活
                 // this.value = !this.value;
                 this.httpcoolmain();
-              
+
                   //消失遮罩
                   (this.popupVisible = !this.popupVisible);
                 //消失软键盘
@@ -654,7 +654,7 @@ export default {
                 //副驾通风激活
                 // this.aeraValue = !this.aeraValue;
                 this.httpcoolnext();
-                
+
                   //消失遮罩
                   (this.popupVisible = !this.popupVisible);
                 //消失软键盘
