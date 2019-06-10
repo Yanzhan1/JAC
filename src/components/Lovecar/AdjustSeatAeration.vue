@@ -572,30 +572,6 @@ export default {
   	clearInterval(this.time)
     this.produCurve();
     this.inputs();
-    this.$http
-      .post(
-        Lovecar.Carquery,
-        { vins: [this.$store.state.vins] },
-        this.$store.state.tsppin
-      )
-      .then(res => {
-        if (res.data.returnSuccess) {
-       		// this.getAsyReturn(res.data.operationId);
-        } else {
-          Toast({
-            message: res.data.returnErrMsg,
-            position: "middle",
-            duration: 2000
-          });
-        }
-      })
-      .catch( err => {
-      	Toast({
-            message: res.data.returnErrMsg,
-            position: "middle",
-            duration: 2000
-          });
-      })
   },
    beforeDestroy(){
      clearInterval(this.time);

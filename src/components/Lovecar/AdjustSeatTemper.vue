@@ -584,31 +584,6 @@ export default {
     clearInterval(this.time);
     this.produCurve();
     this.inputs();
-    //调取车况
-    // this.$http
-    //   .post(
-    //     Lovecar.Carquery,
-    //     { vins: [this.$store.state.vins] },
-    //     this.$store.state.tsppin
-    //   )
-    //   .then(res => {
-    //     if (res.data.returnSuccess) {
-    //       // this.getAsyReturn(res.data.operationId);
-    //     } else {
-    //       Toast({
-    //         message: res.data.returnErrMsg,
-    //         position: "middle",
-    //         duration: 2000
-    //       });
-    //     }
-    //   })
-    //   .catch(err => {
-    //     Toast({
-    //       message: "系统异常",
-    //       position: "middle",
-    //       duration: 2000
-    //     });
-    //   });
   },
    beforeDestroy(){
      clearInterval(this.time);
@@ -641,6 +616,7 @@ export default {
       //监听一个input输入值(与自定义软键盘配合)，激活对应状态
       if (this.pinNumber.length == 6) {
         var nums = this.pinNumber;
+        console.log(this.btnContent)
         this.$http
           .post(
             Lovecar.Checkphonepin,
