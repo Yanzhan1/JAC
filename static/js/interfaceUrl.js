@@ -3,17 +3,17 @@
 
 // console.log(`执行环境${apiHost}`)
 // var indexip = `${apiHost}/api/dk-dm-portal-api`
-// //测试环境域名
-var host = '//test.jac.timanetwork.net'
+//测试环境域名
+// var host = '//test.jac.timanetwork.net'
 
-// //江淮内网测试环境域名
+//江淮内网测试环境域名
 // var host = '//jacsupperapptest.jac.com.cn'
 
 //云环境域名
 // var host = 'https://jacsupperappuat.jac.com.cn/'
 
 //生产环境域名403
-// var host = '//jacsupperapp.jac.com.cn'
+var host = '//jacsupperapp.jac.com.cn'
 
 var indexip = host + '/api/dk-dm-portal-api'
 var userip = host + '/api'
@@ -23,6 +23,7 @@ let versionNumber = '?versionNumber=1.0.0' //添加版本号尝试解决cdn缓�
     //服务器-智享
 var mip = host + '/api/jac-automobile-manage/automobilemanage' //智享
 var witlocal = host + '/api/jac-energy/jacenergy' //新能源
+var light =host +'/api/jac-truck/jactruck'
     // var witlocal = 'http://172.21.12.74:8086/jacenergy' //杨毅飞本地服务器
     //服务器-admin(跟用户有关即我的)
 var mips = host + '/api/jac-admin' //地区
@@ -247,6 +248,9 @@ window.Newenergy = {
         energyvehiclecycflowquery: witlocal + '/vehicleInformation/energy-vehicle-cyc-flow-query', //流量查询接口
         energyvehiclesupportfunction: witlocal + '/vehicleInformation/energy-vehicle-support-function', //流量查询接口
     }
+window.Lightcar={
+        truckvehiclecycflowquery:light+'/vehicleInformation/truck-vehicle-cyc-flow-query'
+}
     //消息接口
 window.IMFORMATION = {
         getList: indexip + '/sendMessageController/getList', //通知list
