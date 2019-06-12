@@ -1,12 +1,12 @@
 <template>
   <div>
-    <!--<header class="header">
-      <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+    <header class="header">
+      <img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
       <span class="header-title">车辆体检</span>
       <span class="header-right"></span>
     </header>
-    <div style="height:.88rem"></div>-->
-    <mhead currentTitle="车辆体检"></mhead>
+    <div style="height:.88rem"></div>
+    <!-- <mhead currentTitle="车辆体检"></mhead> -->
     <!-- <h2>诊断时间：06-29 17:33</h2> -->
     <!-- <mt-button type="primary" size="large" @click.native="bustest">刷新</mt-button> -->
     <mt-loadmore :top-method="loadTop" ref="loadmore" @top-status-change="handleTopChange">
@@ -58,6 +58,18 @@ export default {
     this.starttest()
   },
   methods: {
+    goback(){
+      if(this.$route.query.id=='diagnosis'){
+        if (isMobile.iOS()) {
+          var params = {};
+          window.webkit.messageHandlers.exit.postMessage(params);
+      } else if (isMobile.Android()) {
+        js2android.exit();
+      }
+      }else{
+        this.$router.go(-1)
+      }
+    },
      handleTopChange(status) {
         this.topStatus = status;
       },
@@ -101,7 +113,7 @@ export default {
       .post(Lovecar.BusTest, param, this.$store.state.tsppin)
       .then(res => {
         if (res.data.returnSuccess) {
-         
+
         } else {
             Toast({
               message: res.data.returnErrMsg,
@@ -135,7 +147,7 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-             
+
               if (tSS >= 56) {
                 Toast({
                   message: "请求超时",
@@ -157,7 +169,7 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          
+
                           if (tSS >= 56) {
                             Toast({
                               message: "请求超时",

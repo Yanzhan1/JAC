@@ -35,7 +35,7 @@
 
             </div>
             <div style="display: flex;align-items: center;">
-              <!-- n是车主   isLocking=1 是已授权给他人，2是未授权给他人--> 
+              <!-- n是车主   isLocking=1 是已授权给他人，2是未授权给他人-->
               <!-- beAuthorized=n 是车主 y是别人授权给他的车 -->
               <img  v-show="item.isLocking==1&&item.beAuthorized=='n'" class="flex-align-center" style="width:.8rem;height:.3rem;align-items: center;"  :src="'./static/images/my/already.png'" alt="">
               <!-- y是授权车 -->
@@ -45,7 +45,7 @@
           </div>
 
           <div class="flex row cocenter">
-            <span class="commonFontSize">车架号：{{item.vin}}</span> 
+            <span class="commonFontSize">车架号：{{item.vin}}</span>
           </div>
           <div>
             <span class="commonFontSize">发动机号：{{item.engineNo}}</span>
@@ -72,7 +72,16 @@ export default {
   },
   methods: {
     goindex(){
+      if(this.$route.query.id=='tabbus'){
+        if (isMobile.iOS()) {
+          var params = {};
+          window.webkit.messageHandlers.exit.postMessage(params);
+      } else if (isMobile.Android()) {
+        js2android.exit();
+      }
+      }else{
         this.$router.replace("/myindex")
+      }
     },
     //我的车辆
     MyBus() {
@@ -129,9 +138,9 @@ export default {
           if (res.data.returnSuccess) {
             if (isMobile.iOS()) {
                 var params = {};
-                window.webkit.messageHandlers.syncVehicleList.postMessage(params);             
+                window.webkit.messageHandlers.syncVehicleList.postMessage(params);
               } else if (isMobile.Android()) {
-                window.js2android.syncVehicleList();              
+                window.js2android.syncVehicleList();
               }
             this.$store.state.vins = vin;
             for(let i=0;i<this.BusDetails.length;i++){
@@ -257,7 +266,7 @@ li {
 }
 .flex-align-center {
   /*垂直居中*/
-  display: flex; 
+  display: flex;
   align-items: center;
 }
 .flex-center-between {

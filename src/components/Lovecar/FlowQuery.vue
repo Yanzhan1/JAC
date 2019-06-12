@@ -1,6 +1,12 @@
 <template>
   <div class="flow-query">
-    <mhead currentTitle="流量查询"></mhead>
+    <header class="header">
+			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
+			<span class="header-title">流量查询</span>
+			<span class="header-right"></span>
+		</header>
+		<div style="height:0.88rem"></div>
+    <!-- <mhead currentTitle="流量查询"></mhead> -->
     <div class="line"></div>
     <div class="flow-title">
       <span>流量包名称</span>
@@ -82,6 +88,18 @@ export default {
     },
     flowbuy() {
       this.$router.push("/lovecar/FlowBuy");
+    },
+    goback(){
+      if(this.$route.query.id=='traffic'){
+        if (isMobile.iOS()) {
+          var params = {};
+          window.webkit.messageHandlers.exit.postMessage(params);
+        } else if (isMobile.Android()) {
+          js2android.exit();
+        }
+        }else{
+          this.$router.go(-1)
+      }
     }
   },
   mounted() {
@@ -122,7 +140,8 @@ export default {
           Lightcar.truckvehiclecycflowquery,
           {
             vin: this.$store.state.vins, //车辆vin码
-            queryDate: totime //传给后台的查询时间
+            queryDate: totime, //传给后台的查询时间
+            brandId:this.$store.state.brandId
             // vin: 'LJ12EKS10J00001S4', //车辆vin码
             // queryDate:'201810'//传给后台的查询时间
           },

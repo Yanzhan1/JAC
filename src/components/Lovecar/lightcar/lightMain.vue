@@ -12,17 +12,44 @@ export default {
     },
     methods:{
       onloaded(){
-        window.location.hash.split('?')[1]
         if(window.location.hash.split('?')[1]=='traffic'){
-            this.$router.push("/Lovecar/FlowQuery");
+            this.$router.push({
+              path:"/Lovecar/FlowQuery",
+              query:{
+                id:'traffic'
+              }
+            });
         }else if(window.location.hash.split('?')[1]=='diagnosis'){
-            this.$router.push("/Bus_test");
+            this.$router.push({
+              path:"/Bus_test",
+              query:{
+                id:'diagnosis'
+              }
+            });
+        }else if(window.location.hash.split('?')[1]=='tabbus'){
+            this.$router.push({
+              path:"/myindex/myBus",
+              query:{
+                id:'tabbus'
+              }
+            });
         }
       }
     },
-    created(){
-      window.onloaded=this.onloaded
-
+    computed:{
+        no(){
+          return this.$store.state.token
+        }
+    },
+    watch:{
+        no(newVal,oldVal){
+          if(newVal){
+            this.onloaded()
+          }
+        }
+    },
+    mounted(){
+        // this.onloaded()
     }
 }
 </script>
