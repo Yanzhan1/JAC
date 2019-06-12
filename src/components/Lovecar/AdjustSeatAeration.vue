@@ -1,115 +1,178 @@
 <template>
-	<div class="adjust-seat-temper">
-		<header class="header MobileHeight">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
-			<router-link tag='span' class="seatAeration active" to="/lovecar/adjustSeatAeration">座椅通风<span></span></router-link>
-			<router-link tag='span' class="seatHeating" style="margin-right: 1.3rem;" to="/lovecar/adjustSeatTemper">座椅加热<span></span></router-link>
-		</header>
-		<div style="height:0.88rem" class="MobileHeight"></div>
-		<div class="seat-header">
-			<div class="seat-btn">
-				<div class="seat-warm flex-center-between" style="width: 2.2rem;">
-					<span>主驾</span>
-					<mt-switch id="mainDri" @click.native="changeState('主驾')" v-model="value" @change="turn"><span></span></mt-switch>
-				</div>
-				<div class="car-aeration flex-center-between" style="width: 2.2rem;">
-					<span>副驾</span>
-					<mt-switch id="viceDri" @click.native="changeState('副驾')" data-index="2" v-model="aeraValue" @change="ventilatingSwitch"><span></span></mt-switch>
-				</div>
+  <div class="adjust-seat-temper">
+    <header class="header MobileHeight">
+      <img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
+      <router-link tag="span" class="seatAeration active" to="/lovecar/adjustSeatAeration">
+        座椅通风
+        <span></span>
+      </router-link>
+      <router-link
+        tag="span"
+        class="seatHeating"
+        style="margin-right: 1.3rem;"
+        to="/lovecar/adjustSeatTemper"
+      >
+        座椅加热
+        <span></span>
+      </router-link>
+    </header>
+    <div style="height:0.88rem" class="MobileHeight"></div>
+    <div class="seat-header">
+      <div class="seat-btn">
+        <div class="seat-warm flex-center-between" style="width: 2.2rem;">
+          <span>主驾</span>
+          <mt-switch
+            id="mainDri"
+            @click.native="changeState('主驾','主驾按钮')"
+            v-model="value"
+            @change="turn"
+          >
+            <span></span>
+          </mt-switch>
+        </div>
+        <div class="car-aeration flex-center-between" style="width: 2.2rem;">
+          <span>副驾</span>
+          <mt-switch
+            id="viceDri"
+            @click.native="changeState('副驾','副驾按钮')"
+            data-index="2"
+            v-model="aeraValue"
+            @change="ventilatingSwitch"
+          >
+            <span></span>
+          </mt-switch>
+        </div>
+      </div>
+      <div class="seat-sign flex-column">
+        <span class="seat-ch">座椅通风</span>
+        <span class="seat-en">CHAIRAERATION</span>
+        <span
+          style="width: 0.54rem;height: 1px; background: rgba(153,153,153,1);margin-bottom: 0.4rem;"
+        ></span>
+      </div>
+    </div>
+    <!--主副驾驶位温度展示Start-->
+    <div class="seat-remind">
+      <span :class="activeShowImgLeft?'fontActive':'loseActives'">{{windNum[seatTemperSpace]}}</span>
+      <span :class="activeShowImgRight?'fontActive':'loseActives'">{{fuWindNum[fuSeatTemperSpace]}}</span>
+    </div>
+    <!--主副驾驶位温度展示End-->
 
-			</div>
-			<div class="seat-sign flex-column">
-				<span class="seat-ch">座椅通风</span>
-				<span class="seat-en">CHAIRAERATION</span>
-				<span style="width: 0.54rem;height: 1px; background: rgba(153,153,153,1);margin-bottom: 0.4rem;"></span>
-			</div>
-		</div>
-		<!--主副驾驶位温度展示Start-->
-		<div class="seat-remind">
-			<span :class="activeShowImgLeft?'fontActive':'loseActives'">{{windNum[seatTemperSpace]}}</span>
-			<span :class="activeShowImgRight?'fontActive':'loseActives'">{{fuWindNum[fuSeatTemperSpace]}}</span>
-		</div>
-		<!--主副驾驶位温度展示End-->
+    <!--曲线Start-->
+    <div class="curve">
+      <div class="cureve-text">
+        <span style="left: 1.8rem;top: -0.3rem;">高</span>
+        <span style="left: 2.5rem;top: -0.3rem;">高</span>
+        <span style="left: 0.2rem;top: 0.4rem;">中</span>
+        <span style="left: 4.1rem;top: 0.4rem;">中</span>
+        <span style="left: -0.3rem;top: 1.7rem;">低</span>
+        <span style="left: 4.6rem;top: 1.7rem;">低</span>
+      </div>
+      <div class="curveActive" style="z-index: 100;">
+        <canvas
+          :style="{visibility:value?'visible':'hidden'}"
+          id="leftColorful"
+          @touchend="endleft"
+        ></canvas>
+        <canvas
+          :style="{visibility:aeraValue?'visible':'hidden'}"
+          id="rightColorful"
+          @touchend="endright"
+        ></canvas>
+      </div>
+      <div class="curveLoseActive" style="z-index: 50;">
+        <canvas :style="{visibility:value?'hidden':'visible'}" id="leftGray"></canvas>
+        <canvas :style="{visibility:aeraValue?'hidden':'visible'}" id="rightGray"></canvas>
+      </div>
+    </div>
 
-		<!--曲线Start-->
-		<div class="curve">
-			<div class="cureve-text">
-				<span style="left: 1.8rem;top: -0.3rem;">高</span>
-				<span style="left: 2.5rem;top: -0.3rem;">高</span>
-				<span style="left: 0.2rem;top: 0.4rem;">中</span>
-				<span style="left: 4.1rem;top: 0.4rem;">中</span>
-				<span style="left: -0.3rem;top: 1.7rem;">低</span>
-				<span style="left: 4.6rem;top: 1.7rem;">低</span>
-			</div>
-			<div class="curveActive" style="z-index: 100;">
-				<canvas :style="{visibility:value?'visible':'hidden'}" id="leftColorful" @touchend='endleft'></canvas>
-				<canvas :style="{visibility:aeraValue?'visible':'hidden'}"  id="rightColorful" @touchend='endright'></canvas>
-			</div>
-			<div class="curveLoseActive" style="z-index: 50;">
-				<canvas :style="{visibility:value?'hidden':'visible'}" id="leftGray"></canvas>
-				<canvas :style="{visibility:aeraValue?'hidden':'visible'}" id="rightGray"></canvas>
-			</div>
-		</div>
+    <!--曲线End-->
 
-		<!--曲线End-->
-
-		<!--座椅主体Start-->
-		<div class="seat-wrap flex-column-align">
-			<div class="wind-blows">
-				<div class="seat-text">
-					<div style="display: flex;justify-content: space-around;">
-						<span  style="color: #666666;font-size:0.26rem;left: 0.3rem;">主驾驶</span>
-						<span  style="color: #666666;font-size:0.26rem;left: 1.6rem;">副驾驶</span>
-					</div>
-				</div>
-				<div class="seat-active" >
-					<div style="display: flex;margin-bottom: 0.23rem;justify-content: space-around;">
-						<img :style="{visibility:value?'visible':'hidden'}" :src="'./static/images/Lovecar/Chair2@2x.png'" alt="" />
-						<img :style="{visibility:aeraValue?'visible':'hidden'}" :src="'./static/images/Lovecar/Chair2@2x.png'" alt="" />
-					</div>
-				</div>
-				<div class="seat-loseactive">
-					<div style="display: flex;margin-bottom: 0.23rem;justify-content: space-around;">
-						<img :style="{visibility:value?'hidden':'visible'}" style="width: 1.34rem;" :src="'./static/images/Lovecar/Chair3@2x.png'" alt="" />
-						<img :style="{visibility:aeraValue?'hidden':'visible'}" style="width: 1.34rem;" :src="'./static/images/Lovecar/Chair3@2x.png'" alt="" />
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--座椅主体End-->
-		<!--pin码弹出框Start-->
-		<div class="bgMask" v-if="popupVisible" @click="removeMask"></div>
-		<mt-popup v-model="popupVisible" :modal="false" popup-transition="popup-fade">
-			<div class="pin-remain">
-				<div class="flex-center-between">
-					<img @click="removeMask" :src="'./static/images/Wit/delete@3x.png'" alt="" style="width:.28rem">
-					<div style="font-size:.36rem;color:#222">请输入PIN码</div>
-					<span></span>
-				</div>
-				<div class="pin-code flex-center">
-					<div v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
-						<input class="pin-input" maxlength="6" type="password" v-model="pinNumber" readonly/>
-					</div>
-					<div v-else class="pin">
-						<input v-model="ownKeyBoard.first"  type="text" maxlength="1" />
-						<input v-model="ownKeyBoard.second"  type="text" maxlength="1" />
-						<input v-model="ownKeyBoard.third"  type="text" maxlength="1" />
-						<input v-model="ownKeyBoard.fourth"  type="text" maxlength="1" />
-						<input v-model="ownKeyBoard.fifth"  type="text" maxlength="1" />
-						<input v-model="ownKeyBoard.sixth"  type="text" maxlength="1" />
-					</div>
-				</div>
-			</div>
-		</mt-popup>
-		<!--pin码弹出框End-->
-		<!--自定义软键盘Start-->
-		<mt-popup class="typer" v-show="showTyper!=0" position="bottom">
-			<ul v-show="showTyper==2">
-				<li class="typer-num" v-for="(item,index) in keyNums" :key="index" :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}" @click="input(item)">{{item}}</li>
-			</ul>
-		</mt-popup>
-		<!--自定义软键盘End-->
-	</div>
+    <!--座椅主体Start-->
+    <div class="seat-wrap flex-column-align">
+      <div class="wind-blows">
+        <div class="seat-text">
+          <div style="display: flex;justify-content: space-around;">
+            <span style="color: #666666;font-size:0.26rem;left: 0.3rem;">主驾驶</span>
+            <span style="color: #666666;font-size:0.26rem;left: 1.6rem;">副驾驶</span>
+          </div>
+        </div>
+        <div class="seat-active">
+          <div style="display: flex;margin-bottom: 0.23rem;justify-content: space-around;">
+            <img
+              :style="{visibility:value?'visible':'hidden'}"
+              :src="'./static/images/Lovecar/Chair2@2x.png'"
+              alt
+            >
+            <img
+              :style="{visibility:aeraValue?'visible':'hidden'}"
+              :src="'./static/images/Lovecar/Chair2@2x.png'"
+              alt
+            >
+          </div>
+        </div>
+        <div class="seat-loseactive">
+          <div style="display: flex;margin-bottom: 0.23rem;justify-content: space-around;">
+            <img
+              :style="{visibility:value?'hidden':'visible'}"
+              style="width: 1.34rem;"
+              :src="'./static/images/Lovecar/Chair3@2x.png'"
+              alt
+            >
+            <img
+              :style="{visibility:aeraValue?'hidden':'visible'}"
+              style="width: 1.34rem;"
+              :src="'./static/images/Lovecar/Chair3@2x.png'"
+              alt
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--座椅主体End-->
+    <!--pin码弹出框Start-->
+    <div class="bgMask" v-if="popupVisible" @click="removeMask"></div>
+    <mt-popup v-model="popupVisible" :modal="false" popup-transition="popup-fade">
+      <div class="pin-remain">
+        <div class="flex-center-between">
+          <img
+            @click="removeMask"
+            :src="'./static/images/Wit/delete@3x.png'"
+            alt
+            style="width:.28rem"
+          >
+          <div style="font-size:.36rem;color:#222">请输入PIN码</div>
+          <span></span>
+        </div>
+        <div class="pin-code flex-center">
+          <div v-if="$store.state.softkeyboard" id="pinCon" @click="onTypewriting">
+            <input class="pin-input" maxlength="6" type="password" v-model="pinNumber" readonly>
+          </div>
+          <div v-else class="pin">
+            <input v-model="ownKeyBoard.first" type="text" maxlength="1">
+            <input v-model="ownKeyBoard.second" type="text" maxlength="1">
+            <input v-model="ownKeyBoard.third" type="text" maxlength="1">
+            <input v-model="ownKeyBoard.fourth" type="text" maxlength="1">
+            <input v-model="ownKeyBoard.fifth" type="text" maxlength="1">
+            <input v-model="ownKeyBoard.sixth" type="text" maxlength="1">
+          </div>
+        </div>
+      </div>
+    </mt-popup>
+    <!--pin码弹出框End-->
+    <!--自定义软键盘Start-->
+    <mt-popup class="typer" v-show="showTyper!=0" position="bottom">
+      <ul v-show="showTyper==2">
+        <li
+          class="typer-num"
+          v-for="item in keyNums"
+          :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}"
+          @click="input(item)"
+        >{{item}}</li>
+      </ul>
+    </mt-popup>
+    <!--自定义软键盘End-->
+  </div>
 </template>
 
 <script>
@@ -120,6 +183,7 @@ export default {
   name: "adjustSeatAeration",
   data() {
     return {
+      clickwitch: "",
       //移动端键盘值
       ownKeyBoard: {
         first: "",
@@ -165,30 +229,23 @@ export default {
   methods: {
     //主驾座椅通风开关方法
     turn() {
-      if (this.activeShowImgLeft) {
-        this.value = true;
-      } else {
-        this.value = false;
-      }
+      this.value = !this.value;
       this.popupVisible = !this.popupVisible;
     },
     //副驾座椅通风开关方法
     ventilatingSwitch() {
-      if (this.activeShowImgRight) {
-        this.aeraValue = true;
-      } else {
-        this.aeraValue = false;
-      }
+      this.aeraValue = !this.aeraValue;
       this.popupVisible = !this.popupVisible;
     },
     //路由跳转的时候清除轮询loading
-    goback () {
-    	this.$router.push('/lovecar');
-    	this.$store.dispatch('LOADINGFLAG', false)
+    goback() {
+      this.$router.push("/lovecar");
+      this.$store.dispatch("LOADINGFLAG", false);
     },
     //判断点击是左边还是右边
-    changeState(val) {
+    changeState(val,btn) {
       this.btnContent = val;
+      this.clickwitch=btn
     },
     //点击遮罩或者'x'移除popup
     removeMask() {
@@ -383,19 +440,22 @@ export default {
                             localhide();
                           }
                         } else if (res.data.status == "SUCCEED") {
-                          // Toast({
-                          //   message: "下达指令成功",
-                          //   position: "middle",
-                          //   duration: 2000
-                          // });
-                          if(this.btnContent == "主驾"){
-                              this.value = !this.value;
-                                //pin码正确激活主驾座椅图
-                (this.activeShowImgLeft = !this.activeShowImgLeft)
-                          }else{
-                            //pin码正确激活座椅图
-                (this.activeShowImgRight = !this.activeShowImgRight)
-                              this.aeraValue = !this.aeraValue;
+                          if (this.btnContent == "主驾") {
+                            if (this.maincool) {
+                              this.value = true;
+                              this.activeShowImgLeft = true;
+                            } else {
+                              this.value = false;
+                              this.activeShowImgLeft = true;
+                            }
+                          } else {
+                            if (this.nextcool) {
+                              this.aeraValue = true;
+                              this.activeShowImgRight = false;
+                            } else {
+                              this.aeraValue = false;
+                              this.activeShowImgRight = false;
+                            }
                           }
                           clearInterval(this.time);
                           localhide();
@@ -422,21 +482,24 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              // Toast({
-              //   message: "下达指令成功",
-              //   position: "middle",
-              //   duration: 2000
-              // });
-              if(this.btnContent == "主驾"){
-                              this.value = !this.value;
-                                //pin码正确激活主驾座椅图
-                (this.activeShowImgLeft = !this.activeShowImgLeft)
-                          }else{
-                            //pin码正确激活座椅图
-                (this.activeShowImgRight = !this.activeShowImgRight)
-                              this.aeraValue = !this.aeraValue;
-                          }
-               clearInterval(this.time);
+              if (this.btnContent == "主驾") {
+                if (this.maincool) {
+                  this.value = true;
+                  this.activeShowImgLeft = true;
+                } else {
+                  this.value = false;
+                  this.activeShowImgLeft = false;
+                }
+              } else {
+                if (this.nextcool) {
+                  this.aeraValue = true;
+                  this.activeShowImgRight = true;
+                } else {
+                  this.aeraValue = false;
+                  this.activeShowImgRight = false;
+                }
+              }
+              clearInterval(this.time);
               localhide();
             } else if (res.data.status == "FAILED") {
               Toast({
@@ -444,7 +507,7 @@ export default {
                 position: "middle",
                 duration: 2000
               });
-               clearInterval(this.time);
+              clearInterval(this.time);
               localhide();
             }
           } else {
@@ -460,14 +523,16 @@ export default {
         });
     },
     endleft() {
+      this.clickwitch = "主驾滑动";
       this.httpcoolmain();
     },
     endright() {
+      this.clickwitch = "副驾滑动";
       this.httpcoolnext();
     },
     //主驾通风接口
     httpcoolmain() {
-      if (this.value) {
+      if (this.clickwitch == "主驾滑动") {
         if (this.windNum[this.seatTemperSpace] == "低") {
           this.maincool = 1;
         }
@@ -477,9 +542,14 @@ export default {
         if (this.windNum[this.seatTemperSpace] == "高") {
           this.maincool = 3;
         }
-      }else{
-        this.maincool=0;
       }
+      if (this.clickwitch == "主驾按钮" && !this.value) {
+        this.maincool = 1;
+      }
+      if (this.clickwitch == "主驾按钮" && this.value) {
+        this.maincool = 0;
+      }
+      console.log(this.clickwitch,this.value,this.maincool)
       var param = {
         vin: this.$store.state.vins,
         operationType: "HOSTSEAT_HEAT",
@@ -496,31 +566,31 @@ export default {
             this.getAsyReturn(res.data.operationId);
           } else {
             if (res.data.returnErrCode == 400) {
-          		Toast({
-	              message: "token验证失败",
-	              position: "middle",
-	              duration: 2000
-	            });
-          	} else {
-          		Toast({
-	              message: res.data.returnErrMsg,
-	              position: "middle",
-	              duration: 2000
-	            });
-          	}
+              Toast({
+                message: "token验证失败",
+                position: "middle",
+                duration: 2000
+              });
+            } else {
+              Toast({
+                message: res.data.returnErrMsg,
+                position: "middle",
+                duration: 2000
+              });
+            }
           }
         })
         .catch(err => {
-        	Toast({
-              message:res.data.returnErrMsg,
-              position: "middle",
-              duration: 2000
-            });
+          Toast({
+            message: res.data.returnErrMsg,
+            position: "middle",
+            duration: 2000
+          });
         });
     },
     //副驾通风接口
     httpcoolnext() {
-      if (this.aeraValue) {
+      if (this.clickwitch == "副驾滑动") {
         if (this.fuWindNum[this.fuSeatTemperSpace] == "低") {
           this.nextcool = 1;
         }
@@ -530,9 +600,14 @@ export default {
         if (this.fuWindNum[this.fuSeatTemperSpace] == "高") {
           this.nextcool = 3;
         }
-      }else{
-        this.nextcool=0;
       }
+      if (this.clickwitch == "副驾按钮" && !this.aeraValue) {
+        this.nextcool = 1;
+      }
+      if (this.clickwitch == "副驾按钮" && this.aeraValue) {
+        this.nextcool = 0;
+      }
+      console.log(this.clickwitch,this.aeraValue,this.nextcool)
       var param = {
         vin: this.$store.state.vins,
         operationType: "VICESEAT_HEAT",
@@ -568,13 +643,13 @@ export default {
     }
   },
   mounted() {
-  	$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar}) //头部挤出一定高度,配合原生做沉浸式开发
-  	clearInterval(this.time)
+    $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar }); //头部挤出一定高度,配合原生做沉浸式开发
+    clearInterval(this.time);
     this.produCurve();
     this.inputs();
   },
-   beforeDestroy(){
-     clearInterval(this.time);
+  beforeDestroy() {
+    clearInterval(this.time);
   },
   computed: {
     fullValue: {
@@ -620,8 +695,8 @@ export default {
                 // this.value = !this.value;
                 this.httpcoolmain();
 
-                  //消失遮罩
-                  (this.popupVisible = !this.popupVisible);
+                //消失遮罩
+                this.popupVisible = !this.popupVisible;
                 //消失软键盘
                 (this.showTyper = 0),
                   //清空pin码
@@ -631,8 +706,8 @@ export default {
                 // this.aeraValue = !this.aeraValue;
                 this.httpcoolnext();
 
-                  //消失遮罩
-                  (this.popupVisible = !this.popupVisible);
+                //消失遮罩
+                this.popupVisible = !this.popupVisible;
                 //消失软键盘
                 (this.showTyper = 0),
                   //清空pin码
@@ -680,8 +755,8 @@ export default {
                 // this.value = !this.value;
                 //pin码正确激活主驾座椅图
                 // (this.activeShowImgLeft = !this.activeShowImgLeft),
-                  //消失遮罩
-                  (this.popupVisible = !this.popupVisible);
+                //消失遮罩
+                this.popupVisible = !this.popupVisible;
                 //消失软键盘
                 (this.showTyper = 0),
                   //清空pin码
