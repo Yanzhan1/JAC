@@ -445,6 +445,7 @@ export default {
                               this.value = true;
                               this.activeShowImgLeft = true;
                             } else {
+                              this.seatTemperSpace=0;
                               this.value = false;
                               this.activeShowImgLeft = true;
                             }
@@ -453,6 +454,7 @@ export default {
                               this.aeraValue = true;
                               this.activeShowImgRight = false;
                             } else {
+                              this.fuSeatTemperSpace=0;
                               this.aeraValue = false;
                               this.activeShowImgRight = false;
                             }
@@ -487,6 +489,7 @@ export default {
                   this.value = true;
                   this.activeShowImgLeft = true;
                 } else {
+                  this.seatTemperSpace=0;
                   this.value = false;
                   this.activeShowImgLeft = false;
                 }
@@ -495,6 +498,7 @@ export default {
                   this.aeraValue = true;
                   this.activeShowImgRight = true;
                 } else {
+                  this.fuSeatTemperSpace=0
                   this.aeraValue = false;
                   this.activeShowImgRight = false;
                 }

@@ -411,6 +411,7 @@ export default {
                               this.value=true
                               this.activeShowImgLeft=true
                             }else{
+                              this.seatTemperSpace=0
                               this.value=false
                               this.activeShowImgLeft=false
                             }
@@ -420,6 +421,7 @@ export default {
                               this.activeShowImgRight =true;
                               this.aeraValue = true;
                             }else{
+                              this.fuSeatTemperSpace=0
                               this.activeShowImgRight = false;
                               this.aeraValue = false;
                             }
@@ -461,6 +463,7 @@ export default {
                     this.value=true
                     this.activeShowImgLeft=true
                   }else{
+                    this.seatTemperSpace=0
                     this.value=false
                     this.activeShowImgLeft=false
                   }
@@ -470,6 +473,7 @@ export default {
                     this.activeShowImgRight =true;
                     this.aeraValue = true;
                   }else{
+                    this.fuSeatTemperSpace=0
                     this.activeShowImgRight = false;
                     this.aeraValue = false;
                   }
