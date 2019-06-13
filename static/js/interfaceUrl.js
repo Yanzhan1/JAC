@@ -23,7 +23,7 @@ let versionNumber = '?versionNumber=1.0.0' //添加版本号尝试解决cdn缓�
     //服务器-智享
 var mip = host + '/api/jac-automobile-manage/automobilemanage' //智享
 var witlocal = host + '/api/jac-energy/jacenergy' //新能源
-var light =host +'/api/jac-truck/jactruck'
+var light =host +'/api/jac-truck/truck'
     // var witlocal = 'http://172.21.12.74:8086/jacenergy' //杨毅飞本地服务器
     //服务器-admin(跟用户有关即我的)
 var mips = host + '/api/jac-admin' //地区
