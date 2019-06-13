@@ -24,6 +24,7 @@ let versionNumber = '?versionNumber=1.0.0' //添加版本号尝试解决cdn缓�
 var mip = host + '/api/jac-automobile-manage/automobilemanage' //智享
 var witlocal = host + '/api/jac-energy/jacenergy' //新能源
 var light =host +'/api/jac-truck/truck'
+let lightlocal='http://172.20.20.70:8087/truck'
     // var witlocal = 'http://172.21.12.74:8086/jacenergy' //杨毅飞本地服务器
     //服务器-admin(跟用户有关即我的)
 var mips = host + '/api/jac-admin' //地区
@@ -249,7 +250,8 @@ window.Newenergy = {
         energyvehiclesupportfunction: witlocal + '/vehicleInformation/energy-vehicle-support-function', //流量查询接口
     }
 window.Lightcar={
-        truckvehiclecycflowquery:light+'/vehicleInformation/truck-vehicle-cyc-flow-query'
+        truckvehiclecycflowquery:light+'/vehicleInformation/truck-vehicle-cyc-flow-query',//流量查询
+        findteamlist:lightlocal+'/VehicleTeamController/find-team-list'//车队管理列表查询
 }
     //消息接口
 window.IMFORMATION = {

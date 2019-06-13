@@ -13,18 +13,18 @@
             <div style="color:#EEEEEE">|</div>
             <div class="persioncontrol" @click="toDrivermanagemen">司机管理</div>
         </div>
-        <div class="showcarteam" v-for="(item,index) in 3" :key="index">
+        <div class="showcarteam" v-for="(item,index) in this.list" :key="index">
             <div>
               <div class="top">
                 <div>
-                  <div class="title">我的车队{{index+1}}</div>
+                  <div class="title">{{item.teamName}}</div>
                   <div class="title_leader">
                     <span>车队长</span>
                     <span>车辆数</span>
                   </div>
                   <div class="title_name">
-                    <span>洛小鱼</span>
-                    <span>1000</span>
+                    <span>{{item.contact}}</span>
+                    <span>{{item.vehicleNum}}</span>
                   </div>
                 </div>
                 <img src="/static/images/carteam/goldBody.png" alt=""/>
@@ -40,12 +40,32 @@
 export default {
 		data() {
 			return {
-        list:[{
-
-        }]
+        list:[]
       };
     },
     methods:{
+      init(){
+        let params={
+          userid:'1333298182',
+          teamId:'',
+          brandId:'1'
+        }
+        console.log(Lightcar.findteamlist)
+          this.$http
+        .post(
+          Lightcar.findteamlist,
+          {
+            userId:'1333298182',
+            teamId:'',
+            brandId:'1'
+          }
+        )
+        .then(res => {
+          if(res.data.code==0){
+            this.list=res.data.data
+          }
+        });
+      },
       goindex(){
         this.$router.push({
           path:'/myindex'
@@ -67,13 +87,19 @@ export default {
         })
       }
     },
+    created(){
+      this.init()
+    },
     mounted(){
-        $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
+      $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
     }
 }
 </script>
 
 <style scoped>
+  .MobileHeight{
+    background: #ffffff;
+  }
   .control{
     display: flex;
     justify-content: space-around;
@@ -131,7 +157,7 @@ export default {
   }
   .showcarteam .top .title_name span{
     font-size: .3rem;
-    padding: .3rem;
+    margin: .4rem;
   }
   .showcarteam .bottom{
     text-align: center;
