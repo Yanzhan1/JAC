@@ -43,13 +43,17 @@ export default {
     },
     watch:{
         no(newVal,oldVal){
+          console.log(newVal,oldVal)
           if(newVal){
+            console.log('jinru')
             this.onloaded()
           }
         }
     },
     mounted(){
-        // this.onloaded()
+      if(this.$store.state.token){
+        this.onloaded()
+      }
     }
 }
 </script>

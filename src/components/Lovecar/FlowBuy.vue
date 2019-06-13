@@ -39,11 +39,11 @@
 		mounted() {
 			let system = this.isIOSOrAndroid()
 			if (system == 'Android') {
-				$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})	
+				$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
 			} else if (system == "IOS") {
 				$(".MobileHeight").css({"marginTop": 0})
 			}
-			this.$http.post(Lovecar.FlowBuy, {}, this.$store.state.tsppin).then((res) => { //获取所有流量类型
+			this.$http.post(Lovecar.FlowBuy, {brandId:this.$store.state.brandId}, this.$store.state.tsppin).then((res) => { //获取所有流量类型
 				const data = res.data
 				if (data.returnSuccess) {
 					var count = [];
@@ -68,7 +68,7 @@
 ////						alert(this.lastIndex)
 //						mess.eq(this.lastIndex-1).css("borderBottom","none")
 					})
-					
+
 				}
 			})
 		},

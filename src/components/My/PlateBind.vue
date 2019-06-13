@@ -43,7 +43,7 @@ export default {
       } else {
         var params = {
           vin: this.$route.query.vin,
-          extParams: { plateLicenseNo: this.$route.query.plateLicenseNo },
+          extParams: { plateLicenseNo: this.$route.query.plateLicenseNo,brandId:this.$store.state.brandId },
           operationType: "PLATE_NO",
           operation: 0 //解绑
         };
@@ -54,7 +54,7 @@ export default {
             if (res.data.returnSuccess) {
               var param = {
                 vin: this.vin,
-                extParams: { plateLicenseNo: this.plate },
+                extParams: { plateLicenseNo: this.plate ,brandId:this.$store.state.brandId },
                 operationType: "PLATE_NO",
                 operation: 1 //绑定
               };
