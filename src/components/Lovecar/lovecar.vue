@@ -52,7 +52,7 @@
 
 				<!--车况主体 Start-->
 				<div class="bus_l" v-show="overall">
-					<img v-show="!this.ToS7" style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;" src="../../../static/images/Lovecar/seven.png" alt="" class="bus_righgt">
+					<img v-show="!this.ToS7" style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;" src="../../../static/images/Lovecar/seven1.png" alt="" class="bus_righgt">
 					<img v-show="this.ToS7&&this.nowindow" style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;" src="../../../static/images/Lovecar/lovecar.png" alt="" class="bus_righgt">
 					<!--左边胎压状态Start-->
 					<span ref='open1' class='busl_r left_1 '>{{Condition.left_top=='undefinedkPa'?'':Condition.left_top}}</span>
