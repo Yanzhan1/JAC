@@ -42,8 +42,8 @@
 				<span style="left: 4.6rem;top: 1.7rem;">低</span>
 			</div>
 			<div class="curveActive" style="z-index: 100;">
-				<canvas :style="{visibility:value?'visible':'hidden'}" id="leftColorful" @touchend='endleft'></canvas>
-				<canvas :style="{visibility:aeraValue?'visible':'hidden'}"  id="rightColorful" @touchend='endright'></canvas>
+				<canvas width="112" height="112" :style="{visibility:value?'visible':'hidden'}" id="leftColorful" @touchend='endleft'></canvas>
+				<canvas width="112" height="112" :style="{visibility:aeraValue?'visible':'hidden'}"  id="rightColorful" @touchend='endright'></canvas>
 			</div>
 			<div class="curveLoseActive" style="z-index: 50;">
 				<canvas :style="{visibility:value?'hidden':'visible'}" id="leftGray"></canvas>
@@ -251,37 +251,37 @@ export default {
     //产生曲线
     produCurve() {
       //主驾激活弧线
-      new Createarc({
-        el: "leftColorful", //canvas id
-        vuethis: this, //使用位置的this指向
-        num: "seatTemperSpace", //data数值
-        type: "left", //圆弧方向  left right
-        tempdel: 3, //总差值
-        ratio: 0.3, //宽度比例
-        iscontrol: true, //控制是否能滑动，可以滑动
-        color: {
-          start: "#e22e10", //圆弧下边颜色
-          center: "#f39310",
-          end: "#04e8db", //圆弧上边颜色
-          num: 3
-        }
-      });
+      // new Createarc({
+      //   el: "leftColorful", //canvas id
+      //   vuethis: this, //使用位置的this指向
+      //   num: "seatTemperSpace", //data数值
+      //   type: "left", //圆弧方向  left right
+      //   tempdel: 3, //总差值
+      //   ratio: 0.3, //宽度比例
+      //   iscontrol: true, //控制是否能滑动，可以滑动
+      //   color: {
+      //     start: "#e22e10", //圆弧下边颜色
+      //     center: "#f39310",
+      //     end: "#04e8db", //圆弧上边颜色
+      //     num: 3
+      //   }
+      // });
       //副驾激活弧线
-      new Createarc({
-        el: "rightColorful", //canvas id
-        vuethis: this, //使用位置的this指向
-        num: "fuSeatTemperSpace", //data数值
-        type: "right", //圆弧方向  left right
-        tempdel: 3, //总差值
-        ratio: 0.3, //宽度比例
-        iscontrol: true, //控制是否能滑动，可以滑动
-        color: {
-          start: "#e22e10", //圆弧下边颜色
-          center: "#f39310",
-          end: "#04e8db", //圆弧上边颜色
-          num: 3
-        }
-      });
+      // new Createarc({
+      //   el: "rightColorful", //canvas id
+      //   vuethis: this, //使用位置的this指向
+      //   num: "fuSeatTemperSpace", //data数值
+      //   type: "right", //圆弧方向  left right
+      //   tempdel: 3, //总差值
+      //   ratio: 0.3, //宽度比例
+      //   iscontrol: true, //控制是否能滑动，可以滑动
+      //   color: {
+      //     start: "#e22e10", //圆弧下边颜色
+      //     center: "#f39310",
+      //     end: "#04e8db", //圆弧上边颜色
+      //     num: 3
+      //   }
+      // });
       //主驾未激活弧线
       new Createarc({
         el: "leftGray", //canvas id
@@ -516,6 +516,21 @@ export default {
       }
        if(this.clickwitch=='主驾按钮'&&!this.value){
         this.mainheat = 1;
+        new Createarc({
+            el: "leftColorful", //canvas id
+            vuethis: this, //使用位置的this指向
+            num: "seatTemperSpace", //data数值
+            type: "left", //圆弧方向  left right
+            tempdel: 3, //总差值
+            ratio: 0.3, //宽度比例
+            iscontrol: true, //控制是否能滑动，可以滑动
+            color: {
+              start: "#e22e10", //圆弧下边颜色
+              center: "#f39310",
+              end: "#04e8db", //圆弧上边颜色
+              num: 3
+            }
+          });
       }
        if(this.clickwitch=='主驾按钮'&&this.value){
         this.mainheat = 0;
@@ -574,6 +589,21 @@ export default {
       }
       if(this.clickwitch=='副驾按钮'&&!this.aeraValue){
         this.nextheat = 1;
+        new Createarc({
+            el: "rightColorful", //canvas id
+            vuethis: this, //使用位置的this指向
+            num: "fuSeatTemperSpace", //data数值
+            type: "right", //圆弧方向  left right
+            tempdel: 3, //总差值
+            ratio: 0.3, //宽度比例
+            iscontrol: true, //控制是否能滑动，可以滑动
+            color: {
+              start: "#e22e10", //圆弧下边颜色
+              center: "#f39310",
+              end: "#04e8db", //圆弧上边颜色
+              num: 3
+            }
+          });
       }
       if(this.clickwitch=='副驾按钮'&&this.aeraValue){
         this.nextheat = 0;
