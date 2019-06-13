@@ -54,6 +54,7 @@
 				<div class="bus_l" v-show="overall">
 					<img v-show="!this.ToS7" style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;" src="../../../static/images/Lovecar/seven1.png" alt="" class="bus_righgt">
 					<img v-show="this.ToS7&&this.nowindow" style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;" src="../../../static/images/Lovecar/lovecar.png" alt="" class="bus_righgt">
+					<img v-show="!this.nowindow" style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;" src="../../../static/images/Lovecar/mfour.png" alt="" class="bus_righgt">
 					<!--左边胎压状态Start-->
 					<span ref='open1' class='busl_r left_1 '>{{Condition.left_top=='undefinedkPa'?'':Condition.left_top}}</span>
 					<span ref='open2' class='busl_r  left_2 '>{{Condition.left_bottom=='undefinedkPa'?'':Condition.left_bottom}}</span>
@@ -1966,7 +1967,7 @@ export default {
             if(this.$store.state.defaultInformation.seriesName=='瑞风S7-2019款'){
               this.ToS7=false
                   //更换爱车主图片,等待图
-            }else if(this.$store.state.defaultInformation.seriesName=='瑞风M4待定'){
+            }else if(this.$store.state.defaultInformation.seriesName=='瑞风M4'){
               //M4车无车窗
                 this.nowindow=false
                 //更换爱车主图片,等待图
@@ -2007,7 +2008,7 @@ export default {
       if(this.$store.state.defaultInformation.seriesName=='瑞风S7-2019款'){
         this.ToS7=false
             //更换爱车主图片,等待图
-      }else if(this.$store.state.defaultInformation.seriesName=='瑞风M4待定'){
+      }else if(this.$store.state.defaultInformation.seriesName=='瑞风M4'){
         //M4车无车窗
           this.nowindow=false
            //更换爱车主图片,等待图
