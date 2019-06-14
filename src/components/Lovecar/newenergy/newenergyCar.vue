@@ -46,7 +46,7 @@
 							<span :class="activeshow==2?'active':'actives'" class="txt1">车门</span>
 							<div v-show="activeshow==2?true:false" style="width:.7rem;height:.03rem;position:absolute;background:#49bbff;top:.7rem;left: 50%;transform: translate(-50%, -50%);"></div>
 						</div>
-						<div class="left_bus" @click="fn(3)" v-show="false">
+						<div class="left_bus" @click="fn(3)">
 							<img v-if="activeshow==3" class="pic1" src="../../../../static/images/Wit/chechuang.png" alt="">
 							<img v-else class="pic1" src="../../../../static/images/Wit/chechuang1.png" alt="">&nbsp;&nbsp;
 							<span :class="activeshow==3?'active':'actives'" class="txt1">车窗</span>

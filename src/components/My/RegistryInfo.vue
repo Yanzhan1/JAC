@@ -47,17 +47,13 @@
       //报名信息
       getList: function () {
         var _this = this;
-        console.log(_this.$store.state.userId)
-        console.log(_this.activityId)
         this.$http.post(DISCOVERMESSAGE.myRegistrationInfo, {
           "uid": _this.$store.state.userId,
           "lid": _this.activityId
         }).then(function (res) {
           if (res.data.status) {
             _this.info = res.data.data;
-            //console.log(res.data.data)
           } else {
-            console.log(res.data.errorMsg);
           }
         });
       }

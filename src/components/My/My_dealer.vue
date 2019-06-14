@@ -8,7 +8,7 @@
     <div style="height:.88rem"></div>
    	<!-- <mhead currentTitle="我的经销商" ></mhead> -->
         <ul v-for="(item,index) in mydealer" :key="index" class="flex column " style="padding:.3rem;border-bottom:.1rem solid #f5f5f5">
-          
+
           <li class="flex column">
             <p class="mydelar" v-if="item.dealerType=='01'">购车经销商</p>
             <p class="mydelar" v-if="item.dealerType=='02'">维保经销商</p>
@@ -28,7 +28,7 @@
               	<div class="flex-column-align">
               		<img @click="search(item.latitude, item.longitude, item.dealerName, item.dealerAddress)" style="width:.42rem;" src="../../../static/images/Wit/nav_btn.png" alt="">
               		<span style="font-size:.19rem;color:#888;margin-top:.3rem">0.3km</span>
-              	</div>               
+              	</div>
               </div>
             </div>
           </li>
@@ -90,10 +90,10 @@ export default {
     cancel() {
       this.popupVisible = false;
     },
-  
+
     //我的经销商列表
     GetMyDealer() {
-     
+
       this.loading = true;
       this.loadEnd = false;
       var param = {
@@ -104,18 +104,15 @@ export default {
       this.$http.post(My.MyDealer, param).then(res => {
         if (res.data.code == 0) {
            this.mydealer = res.data.data;
-           console.log(this.mydealer)
            if(this.mydealer[0].dealerName==undefined){
-             console.log(1)
              this.shows=true
            }else{
-             console.log(2)
              this.shows=false
            }
        }
       });
     },
- 
+
   },
   mounted() {
     $(".MobileHeight").css({
@@ -137,7 +134,7 @@ export default {
 	  flex-direction: column;
 	  align-items: center;
 	}
-  .MobileHeight {  
+  .MobileHeight {
 		border-top-style: solid;
 		box-sizing: content-box;
 	}

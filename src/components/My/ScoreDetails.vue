@@ -4,8 +4,8 @@
             <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
             <span class="header-title">会员积分</span>
             <span class="header-right"></span>
-        </header>      
-        <div style="width:100%;height:.88rem"></div>  
+        </header>
+        <div style="width:100%;height:.88rem"></div>
           <!-- <mhead currentTitle="会员积分"></mhead> -->
           <div class="flex column arounds">
               <span class="mycore">当前积分</span>
@@ -23,7 +23,7 @@
                 <!-- <div style="color:#49BBFF;font-size:.36rem;margin-right:.3rem" ref="changecolor" id="changecolor">{{item.integral}}</div> -->
                 <div style="font-size:.36rem;margin-right:.3rem"  class="changecolor">{{item.integral}}</div>
             </li>
-            
+
         </ul>
     </div>
 </template>
@@ -49,13 +49,12 @@ export default {
      this.$http.post(My.CreditDetail,data).then(res=>{
        if(res.data.code==0){
             this.details=res.data.data
-            console.log(this.details)
            for(let i=0;i<this.details.length;i++){
              if(this.details[i].ruleId=='8'){
                this.$nextTick(()=>{
                   $(".changecolor").eq(i).css("color",'#ccc')
                })
-               
+
              }else{
                 this.$nextTick(()=>{
                   $(".changecolor").eq(i).css("color",'#49BBFF')
@@ -64,7 +63,6 @@ export default {
                this.details[i].times=operationTime.getTime( this.details[i].createTime, 2  )
            }
         }
-    //     console.log(this.details)
       })
     }
   },
@@ -92,7 +90,7 @@ export default {
   width: 100%;
   background: #fff
 }
-.MobileHeight {  
+.MobileHeight {
 		border-top-style: solid;
 		box-sizing: content-box;
 	}

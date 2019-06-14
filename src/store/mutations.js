@@ -82,9 +82,6 @@ export default {
     [types.RECORD]: (state, payload) => {
         state.record = payload
     },
-    [types.GETLOCATIONINFO]: (state, payload) => {
-        state.locationMes = payload
-    },
     changeScrollY: (state, payload) => {
         state.changeScrollY = payload
     },
@@ -96,5 +93,8 @@ export default {
     },
     [types.DEFAULTINFORMATION]: (state, payload) => {
         state.defaultInformation = payload
+    },
+    [types.POSITION]: (state, payload) => {
+        state.position = payload
     },
 }

@@ -52,8 +52,9 @@
 
 				<!--车况主体 Start-->
 				<div class="bus_l" v-show="overall">
-					<img v-show="!this.ToS7" style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;" src="../../../static/images/Lovecar/seven.png" alt="" class="bus_righgt">
+					<img v-show="!this.ToS7" style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;" src="../../../static/images/Lovecar/seven1.png" alt="" class="bus_righgt">
 					<img v-show="this.ToS7&&this.nowindow" style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;" src="../../../static/images/Lovecar/lovecar.png" alt="" class="bus_righgt">
+					<img v-show="!this.nowindow" style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;" src="../../../static/images/Lovecar/mfour.png" alt="" class="bus_righgt">
 					<!--左边胎压状态Start-->
 					<span ref='open1' class='busl_r left_1 '>{{Condition.left_top=='undefinedkPa'?'':Condition.left_top}}</span>
 					<span ref='open2' class='busl_r  left_2 '>{{Condition.left_bottom=='undefinedkPa'?'':Condition.left_bottom}}</span>
@@ -172,13 +173,13 @@
 								<span class="pic_txt">座椅</span>
 							</div>
 						</router-link>
-						<router-link v-show="this.WINDOW||this.ToS7" :to="{path:'/lovecar/windowControl',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
+						<router-link v-show="this.WINDOW&&this.ToS7" :to="{path:'/lovecar/windowControl',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc" src="../../../static/images/Wit/chechuang.png" alt="">
 								<span class="pic_txt">车窗</span>
 							</div>
 						</router-link>
-						<router-link v-show="this.WINDOW||!this.ToS7" :to="{path:'/lovecar/windowControl',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
+						<router-link v-show="this.WINDOW&&!this.ToS7" :to="{path:'/lovecar/sevenwindowControl',query:{carcontrol:this.carcontrol}}" tag="div" class="navs air">
 							<div class="navs">
 								<img class="picc" src="../../../static/images/Wit/chechuang.png" alt="">
 								<span class="pic_txt">车窗</span>
@@ -1963,6 +1964,14 @@ export default {
             this.firstEnter = true;
             // this.vinn = this.$store.state.vins;
             this.vinn = this.$store.state.defaultInformation.vin;
+            if(this.$store.state.defaultInformation.seriesName=='瑞风S7-2019款'){
+              this.ToS7=false
+                  //更换爱车主图片,等待图
+            }else if(this.$store.state.defaultInformation.seriesName=='瑞风M4'){
+              //M4车无车窗
+                this.nowindow=false
+                //更换爱车主图片,等待图
+      }
             this.Support();
             this.Carquerry();
     }
@@ -1994,7 +2003,9 @@ export default {
       this.vehiclestatus();
       this.firstEnter = true;
       this.vinn = this.$store.state.defaultInformation.vin;
-      if(this.$store.state.defaultInformation.seriesName=='瑞风S7'){
+      // this.vinn ='LJ166A247K4012474';
+      // this.$store.state.vins='LJ166A247K4012474'
+      if(this.$store.state.defaultInformation.seriesName=='瑞风S7-2019款'){
         this.ToS7=false
             //更换爱车主图片,等待图
       }else if(this.$store.state.defaultInformation.seriesName=='瑞风M4'){

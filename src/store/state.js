@@ -62,7 +62,6 @@ export default {
     show1: false,
     outType: '双色车身',
     LEDType: 'LED前大灯',
-    locationMes: '', //ios获取的地址
     noback: false,
     recordNo: "", //网点评分的RECORDNO
     $flag: false, // 有用别动
@@ -71,4 +70,6 @@ export default {
     enterMaintenance: true, //判断维保预约是否展示
     addiflogin:null,
     member: false, //判断会员是否升级
+    position:{
+    }//拿到定位省份城市经纬度,若拿不到定位为安徽合肥
 }

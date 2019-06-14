@@ -65,7 +65,7 @@
         <div class="now_detail">
           {{content.momentMessage}}
         </div>
-        <div v-for="item in content.momentImgList">
+        <div v-for="(item,index) in content.momentImgList" :key="index">
           <img :src="item" class="now_detailPic" />
         </div>
         <!--详情E-->
@@ -82,7 +82,7 @@
       <!--评论S-->
       <div class="comment" id="commentTop">
         <p class="all_comment">全部评论 ({{conmmentsList.length}})</p>
-        <div class="comment_wrap" v-for="(item,index) in conmmentsList">
+        <div class="comment_wrap" v-for="(item,index) in conmmentsList" :key="index">
           <!--评论者信息S-->
           <div class="comment_userinfo">
             <div class="user_head">
@@ -133,7 +133,7 @@
             <p :class="{'fontStyleItalic': item.deleteFlag == 1}" @click="commentbtnBack(item.id, undefined, item.deleteFlag)">{{item.message}}</p>
             <div v-if="item.reverts && item.reverts.length>0">
               <div class="comment_msg">
-                <div v-for="(back,index) in item.reverts.slice(0,3)">
+                <div v-for="(back,index) in item.reverts.slice(0,3)" :key="index">
                   <span class="font_1">
                     <span>
                       <span @click="changeUserStartId(back.user.user_id)">
@@ -241,7 +241,7 @@
             _this.myList = res.data.data;
 
           } else {
-            
+
           }
         });
       },
@@ -274,7 +274,6 @@
           if (res.data.status) {
             _this.content.issuedDate = res.data.data.issuedDate
             _this.content = res.data.data;
-            console.log(res.data.data)
             if (res.data.data.user.user_id == _this.$store.state.userId) {
               _this.actions[0].name = '删除';
               _this.actions[0].method = _this.deleteNow;
@@ -474,7 +473,7 @@
           if (res.data.status) {
             _this.conmmentsList = res.data.data;
           } else {
-           
+
           }
         });
       },

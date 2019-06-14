@@ -181,7 +181,7 @@
               _this.loadEnd = true;
             }
           } else {
-            console.log(res.data.errorMsg);
+
           }
         });
       },
@@ -216,7 +216,6 @@
         }).then((res) => {
           this.loading = false
           if (res.data.status !== 1) {
-            console.log(res.data.errorMsg)
             return
           }
           this.informationList.push(...res.data.data)
@@ -257,7 +256,6 @@
             }
           } else {
             _this.pageNum = _this.pageNum - 1;
-            console.log(res.data.errorMsg);
           }
         });
       },
@@ -375,7 +373,6 @@
             "uid": this.$store.state.userId,
             "id": from.query.id
           }).then((res) => {
-            // console.log(res)
             if (res.data.status) {
               const {
                 data: {
@@ -391,14 +388,12 @@
               this.informationList[this._index].likeStatus = likeStatus
               this.informationList[this._index].likeNum = likeNum
             } else {
-              console.log(res.data.errorMsg);
             }
           });
         }
       }
     },
     // mounted() {
-    //   console.log('information')
     //   this.$nextTick(function () {
     //     this.getRefreshList()
     //   })

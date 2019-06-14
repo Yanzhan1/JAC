@@ -153,7 +153,6 @@
         });
       },
       changeUserStartId(id) {
-        console.log(id == this.$store.state.userId)
         if (id == this.$store.state.userId) {
           this.$router.push({
             path: '/mystart'
@@ -175,7 +174,6 @@
           if (res.data.status) {
             _this.content = res.data.data;
           } else {
-            console.log(res.data.errorMsg);
           }
         });
       },
@@ -296,9 +294,7 @@
         }).then(function (res) {
           if (res.data.status) {
             _this.conmmentsList = res.data.data;
-            console.log(_this.conmmentsList)
           } else {
-            console.log(res.data.errorMsg);
           }
         });
       },
@@ -371,7 +367,6 @@
         this.indexNum = index;
         var showId = '#share_information' + index;
         $(showId).show();
-        console.log(showId)
         $("#bgShare").show();
         $("#myInput").hide();
       },

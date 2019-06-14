@@ -301,8 +301,6 @@ export default{
     }
 
     this.flag  = true;
-    console.log(" this.$store.state.currentTitle",this.$store.state.currentTitle)
-    console.log(" this.$store.state.powerTitle",this.$store.state.powerTitle)
   },
   methods:{
     carBtn(index,labelTitle,carIntroduceTitle,carIntroduceTitle2){

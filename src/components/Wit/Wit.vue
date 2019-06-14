@@ -324,10 +324,6 @@ export default {
         return "IOS";
       }
     },
-    getIosLocation(locationMes){
-      this.$store.dispatch("GETLOCATIONINFO", locationMes)
-      // this.$store.state.locationMes=locationMes
-    },
     changeTap() {
       var fnl_x, x1, y1, ty_left;
       $(".find_nav_list").css("left", 0);
@@ -492,25 +488,6 @@ export default {
       }
       // this.backwit()
     }
-  },
-  created() {
-    this.$nextTick(()=>{
-      var system = this.isIOSOrAndroid();
-      try{
-
-        if (system == "Android") {
-          this.$store.dispatch("GETLOCATIONINFO", js2android.getLocationInfo())
-          // this.$store.state.locationMes=js2android.getLocationInfo()
-        } else if (system == "IOS") {
-          window.getIosLocation = this.getIosLocation; //ios获取定位信息,放到window对象供ios调用
-          setTimeout(() => {
-            window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
-          }, 0);
-        }
-      }catch(err){
-        console.log('无此方法')
-      }
-    })
   },
   mounted() {
     this.$nextTick(()=>{

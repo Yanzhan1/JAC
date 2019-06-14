@@ -10,11 +10,11 @@
 			<div class="seat-btn">
 				<div class="seat-warm flex-center-between" style="width: 2.2rem;">
 					<span>主驾</span>
-					<mt-switch id="mainDri" @click.native="changeState('主驾')" v-model="value" @change="turn"><span></span></mt-switch>
+					<mt-switch id="mainDri" @click.native="changeState('主驾','主驾按钮')" v-model="value" @change="turn"><span></span></mt-switch>
 				</div>
 				<div class="car-aeration flex-center-between" style="width: 2.2rem;">
 					<span>副驾</span>
-					<mt-switch id="viceDri" @click.native="changeState('副驾')" data-index="2" v-model="aeraValue" @change="ventilatingSwitch"><span></span></mt-switch>
+					<mt-switch id="viceDri" @click.native="changeState('副驾','副驾按钮')" data-index="2" v-model="aeraValue" @change="ventilatingSwitch"><span></span></mt-switch>
 				</div>
 
 			</div>
@@ -42,8 +42,8 @@
 				<span style="left: 4.6rem;top: 1.7rem;">低</span>
 			</div>
 			<div class="curveActive" style="z-index: 100;">
-				<canvas :style="{visibility:value?'visible':'hidden'}" id="leftColorful" @touchend='endleft'></canvas>
-				<canvas :style="{visibility:aeraValue?'visible':'hidden'}"  id="rightColorful" @touchend='endright'></canvas>
+				<canvas width="112" height="112" :style="{visibility:value?'visible':'hidden'}" id="leftColorful" @touchend='endleft'></canvas>
+				<canvas width="112" height="112" :style="{visibility:aeraValue?'visible':'hidden'}"  id="rightColorful" @touchend='endright'></canvas>
 			</div>
 			<div class="curveLoseActive" style="z-index: 50;">
 				<canvas :style="{visibility:value?'hidden':'visible'}" id="leftGray"></canvas>
@@ -65,7 +65,7 @@
 				<div class="seat-active" >
 					<div style="display: flex;margin-bottom: 0.23rem;justify-content: space-around;">
 						<img :style="{visibility:value?'visible':'hidden'}" :src="'./static/images/Lovecar/Chair2@2x.png'" alt="" />
-						<img :style="{visibility:aeraValue?'visible':'hidden'}" :src="'./static/images/Lovecar/Chair2@2x.png'" alt="" />					
+						<img :style="{visibility:aeraValue?'visible':'hidden'}" :src="'./static/images/Lovecar/Chair2@2x.png'" alt="" />
 					</div>
 				</div>
 				<div class="seat-loseactive">
@@ -120,6 +120,7 @@ export default {
   name: "adjustSeatAeration",
   data() {
     return {
+      clickwitch:"",
       //移动端键盘值
       ownKeyBoard: {
         first: "",
@@ -167,26 +168,28 @@ export default {
   methods: {
     //主驾座椅通风开关方法
     turn() {
-      if (this.activeShowImgLeft) {
-        this.value = true;
-      } else {
-        this.value = false;
-      }
+      // if (this.activeShowImgLeft) {
+      //   this.value = true;
+      // } else {
+      //   this.value = false;
+      // }
+      this.value=!this.value
 
       this.popupVisible = !this.popupVisible;
     },
     //副驾座椅通风开关方法
     ventilatingSwitch() {
-      if (this.activeShowImgRight) {
-        this.aeraValue = true;
-      } else {
-        this.aeraValue = false;
-      }
-
+      // if (this.activeShowImgRight) {
+      //   this.aeraValue = true;
+      // } else {
+      //   this.aeraValue = false;
+      // }
+      this.aeraValue=!this.aeraValue
       this.popupVisible = !this.popupVisible;
     },
     //判断点击是左边还是右边
-    changeState(val) {
+    changeState(val,btn) {
+      this.clickwitch=btn
       this.btnContent = val;
     },
     //路由跳转的时候清除轮询loading
@@ -248,37 +251,37 @@ export default {
     //产生曲线
     produCurve() {
       //主驾激活弧线
-      new Createarc({
-        el: "leftColorful", //canvas id
-        vuethis: this, //使用位置的this指向
-        num: "seatTemperSpace", //data数值
-        type: "left", //圆弧方向  left right
-        tempdel: 3, //总差值
-        ratio: 0.3, //宽度比例
-        iscontrol: true, //控制是否能滑动，可以滑动
-        color: {
-          start: "#e22e10", //圆弧下边颜色
-          center: "#f39310",
-          end: "#04e8db", //圆弧上边颜色
-          num: 3
-        }
-      });
+      // new Createarc({
+      //   el: "leftColorful", //canvas id
+      //   vuethis: this, //使用位置的this指向
+      //   num: "seatTemperSpace", //data数值
+      //   type: "left", //圆弧方向  left right
+      //   tempdel: 3, //总差值
+      //   ratio: 0.3, //宽度比例
+      //   iscontrol: true, //控制是否能滑动，可以滑动
+      //   color: {
+      //     start: "#e22e10", //圆弧下边颜色
+      //     center: "#f39310",
+      //     end: "#04e8db", //圆弧上边颜色
+      //     num: 3
+      //   }
+      // });
       //副驾激活弧线
-      new Createarc({
-        el: "rightColorful", //canvas id
-        vuethis: this, //使用位置的this指向
-        num: "fuSeatTemperSpace", //data数值
-        type: "right", //圆弧方向  left right
-        tempdel: 3, //总差值
-        ratio: 0.3, //宽度比例
-        iscontrol: true, //控制是否能滑动，可以滑动
-        color: {
-          start: "#e22e10", //圆弧下边颜色
-          center: "#f39310",
-          end: "#04e8db", //圆弧上边颜色
-          num: 3
-        }
-      });
+      // new Createarc({
+      //   el: "rightColorful", //canvas id
+      //   vuethis: this, //使用位置的this指向
+      //   num: "fuSeatTemperSpace", //data数值
+      //   type: "right", //圆弧方向  left right
+      //   tempdel: 3, //总差值
+      //   ratio: 0.3, //宽度比例
+      //   iscontrol: true, //控制是否能滑动，可以滑动
+      //   color: {
+      //     start: "#e22e10", //圆弧下边颜色
+      //     center: "#f39310",
+      //     end: "#04e8db", //圆弧上边颜色
+      //     num: 3
+      //   }
+      // });
       //主驾未激活弧线
       new Createarc({
         el: "leftGray", //canvas id
@@ -342,10 +345,12 @@ export default {
     },
     //左半边滑动结束触发接口
     endleft() {
+      this.clickwitch='主驾滑动'
       this.httpheatmain();
     },
     //右半边滑动结束触发接口
     endright() {
+      this.clickwitch='副驾滑动'
       this.httpheatnext();
     },
     //重复调用异步接口
@@ -402,12 +407,24 @@ export default {
                           // });
                           if (this.btnContent == "主驾") {
                             //pin码正确激活主驾座椅图
-                            this.activeShowImgLeft = !this.activeShowImgLeft;
-                            this.value = !this.value;
+                            if(this.mainheat){
+                              this.value=true
+                              this.activeShowImgLeft=true
+                            }else{
+                              this.seatTemperSpace=0
+                              this.value=false
+                              this.activeShowImgLeft=false
+                            }
                           } else {
                             //pin码正确激活座椅图
-                            this.activeShowImgRight = !this.activeShowImgRight;
-                            this.aeraValue = !this.aeraValue;
+                            if(this.nextheat){
+                              this.activeShowImgRight =true;
+                              this.aeraValue = true;
+                            }else{
+                              this.fuSeatTemperSpace=0
+                              this.activeShowImgRight = false;
+                              this.aeraValue = false;
+                            }
                           }
                           clearInterval(this.time);
                           localhide();
@@ -441,14 +458,26 @@ export default {
               //   duration: 2000
               // });
               if (this.btnContent == "主驾") {
-                //pin码正确激活主驾座椅图
-                this.activeShowImgLeft = !this.activeShowImgLeft;
-                this.value = !this.value;
-              } else {
-                //pin码正确激活座椅图
-                this.activeShowImgRight = !this.activeShowImgRight;
-                this.aeraValue = !this.aeraValue;
-              }
+                  //pin码正确激活主驾座椅图
+                  if(this.mainheat){
+                    this.value=true
+                    this.activeShowImgLeft=true
+                  }else{
+                    this.seatTemperSpace=0
+                    this.value=false
+                    this.activeShowImgLeft=false
+                  }
+                } else {
+                  //pin码正确激活座椅图
+                  if(this.nextheat){
+                    this.activeShowImgRight =true;
+                    this.aeraValue = true;
+                  }else{
+                    this.fuSeatTemperSpace=0
+                    this.activeShowImgRight = false;
+                    this.aeraValue = false;
+                  }
+                }
               clearInterval(this.time);
               localhide();
             } else if (res.data.status == "FAILED") {
@@ -474,7 +503,7 @@ export default {
     },
     //主驾加热接口
     httpheatmain() {
-      if (this.value) {
+      if(this.clickwitch=='主驾滑动'){
         if (this.windNum[this.seatTemperSpace] == "低") {
           this.mainheat = 1;
         }
@@ -484,9 +513,29 @@ export default {
         if (this.windNum[this.seatTemperSpace] == "高") {
           this.mainheat = 3;
         }
-      } else {
+      }
+       if(this.clickwitch=='主驾按钮'&&!this.value){
+        this.mainheat = 1;
+        new Createarc({
+            el: "leftColorful", //canvas id
+            vuethis: this, //使用位置的this指向
+            num: "seatTemperSpace", //data数值
+            type: "left", //圆弧方向  left right
+            tempdel: 3, //总差值
+            ratio: 0.3, //宽度比例
+            iscontrol: true, //控制是否能滑动，可以滑动
+            color: {
+              start: "#e22e10", //圆弧下边颜色
+              center: "#f39310",
+              end: "#04e8db", //圆弧上边颜色
+              num: 3
+            }
+          });
+      }
+       if(this.clickwitch=='主驾按钮'&&this.value){
         this.mainheat = 0;
       }
+      console.log(this.mainheat,this.value,this.clickwitch)
       var param = {
         vin: this.$store.state.vins,
         operationType: "HOSTSEAT_HEAT",
@@ -527,8 +576,8 @@ export default {
     },
     //副驾加热接口
     httpheatnext() {
-      if (this.aeraValue) {
-        if (this.fuWindNum[this.fuSeatTemperSpace] == "低") {
+      if(this.clickwitch=='副驾滑动'){
+           if (this.fuWindNum[this.fuSeatTemperSpace] == "低") {
           this.nextheat = 1;
         }
         if (this.fuWindNum[this.fuSeatTemperSpace] == "中") {
@@ -537,9 +586,29 @@ export default {
         if (this.fuWindNum[this.fuSeatTemperSpace] == "高") {
           this.nextheat = 3;
         }
-      } else {
+      }
+      if(this.clickwitch=='副驾按钮'&&!this.aeraValue){
+        this.nextheat = 1;
+        new Createarc({
+            el: "rightColorful", //canvas id
+            vuethis: this, //使用位置的this指向
+            num: "fuSeatTemperSpace", //data数值
+            type: "right", //圆弧方向  left right
+            tempdel: 3, //总差值
+            ratio: 0.3, //宽度比例
+            iscontrol: true, //控制是否能滑动，可以滑动
+            color: {
+              start: "#e22e10", //圆弧下边颜色
+              center: "#f39310",
+              end: "#04e8db", //圆弧上边颜色
+              num: 3
+            }
+          });
+      }
+      if(this.clickwitch=='副驾按钮'&&this.aeraValue){
         this.nextheat = 0;
       }
+      console.log(this.clickwitch,this.aeraValue,this.nextheat)
       var param = {
         vin: this.$store.state.vins,
         operationType: "VICESEAT_HEAT",

@@ -77,7 +77,7 @@
 		methods: {
 			up () {
 
-			
+
 			},
 			//获取验证码
 			submitCode() {
@@ -98,7 +98,7 @@
 						duration: 2000
 					});
 					return false;
-				}			
+				}
 				if(this.pin.phone != '' && reg.test(this.pin.phone)){
 					this.showTime = false;
 					this.startTime = new Date().getTime()
@@ -158,19 +158,18 @@
 					return false;
 				} else {
 					if(this.pin.verificationCode == this.Verification) {
-						// if(true){
-						// 	this.$http.post(Newenergy.energyforgetvehiclepin, {
-						// 		newPin: this.pin.newPin,
-						// 		phoneNum: this.pin.phone,
-						// 		requestId:this.body,
-						// 		phoneIdentifyCode: this.pin.verificationCode,
-						// 	}, this.$store.state.tsppin).then((res) => {
-						// 		if(res.data.returnSuccess){
-						// 			this.$router.push('/lovecar/reviseSuccess')
-						// 		}
-						// 	})
-
-						// }else{
+						if(this.$store.state.brandId==5){
+							this.$http.post(Newenergy.energyforgetvehiclepin, {
+								newPin: this.pin.newPin,
+								phoneNum: this.pin.phone,
+								requestId:this.body,
+								phoneIdentifyCode: this.pin.verificationCode,
+							}, this.$store.state.tsppin).then((res) => {
+								if(res.data.returnSuccess){
+									this.$router.push('/lovecar/reviseSuccess')
+								}
+							})
+						}else{
 							this.$http.post(Lovecar.Findcode, {
 								newPin: this.pin.newPin,
 								phoneNum: this.pin.phone,
@@ -182,7 +181,7 @@
 								}
 							})
 
-						// }
+						}
 					} else {
 						Toast({
 							message: '请输入正确的验证码',
@@ -225,8 +224,8 @@
 			let startTime = localStorage.removeItem('startTime') //清除上一次页面存在的startTime的localStorage
 			startTime = localStorage.getItem('startTime')
 			if(startTime) {
-				this.remainingTime = 60 - Math.floor([this.enterPageTime - startTime] / 1000) //剩余时间	
-				if(this.remainingTime <= 0) {			
+				this.remainingTime = 60 - Math.floor([this.enterPageTime - startTime] / 1000) //剩余时间
+				if(this.remainingTime <= 0) {
 					this.showTime = true
 				} else {
 					this.showTime = false
@@ -240,38 +239,38 @@
 
 <style scoped>
 	/*flex布局*/
-	
+
 	.flex-center-between {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 	}
-	
+
 	.flex-center {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 	}
-	
+
 	.flex-align-center {
 		/*垂直居中*/
 		display: flex;
 		align-items: center;
 	}
 	/*单页面公共样式*/
-	
+
 	.revisePinCommon {
 		height: 1.35rem;
 		border-bottom: 1px solid #EFEFEF;
 	}
-	
+
 	.pinInput {
 		width: 2.1rem;
 		margin-left: 0.34rem;
 		outline: none;
 		border: none;
 	}
-	
+
 	.newpinInput {
 		border: none;
 		outline: none;
@@ -279,7 +278,7 @@
 		margin-left: 1rem;
 	}
 	/*message信息提示*/
-	
+
 	.revise-pin-mes {
 		font-size: 0.24rem;
 		line-height: 0.4rem;
@@ -287,26 +286,26 @@
 		width: 90%;
 		margin: 0 auto;
 	}
-	
+
 	.revise-pin-mes>span {
 		display: inline-block;
 		width: 6.69rem;
 		height: 0.65rem;
 	}
-	
+
 	.origin-pin>div {
 		width: 90%;
 		margin: 0 auto;
 	}
 	/*验证码按钮*/
-	
+
 	.verification-code {
 		border: none;
 		outline: none;
 		width: 1.7rem;
 		margin-left: 0.4rem;
 	}
-	
+
 	.origin-pin .btn {
 		color: #444444;
 		border: none;
@@ -317,7 +316,7 @@
 		outline: none;
 	}
 	/*确认提交按钮*/
-	
+
 	.confirmSubmit {
 		position: fixed;
 		bottom: 0;

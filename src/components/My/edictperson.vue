@@ -192,7 +192,6 @@ export default {
               	const data = res.data
               	if (data.code == 0 ) {
               		this.$store.state.integral = data.data
-              		console.log(this.$store.state.integral )
               	} else {
 
               	}
@@ -238,7 +237,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$route.query.Vimg)
     window.getimgsrc = this.getimgsrc;
     //获取用户基本信息
     var param = {

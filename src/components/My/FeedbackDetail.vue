@@ -36,7 +36,7 @@
 				questionTyep: { //意见种类
 					'1': '问题	',
 					'2': '意见'
-				}	
+				}
 			}
 		},
 		methods: {
@@ -47,7 +47,7 @@
 					if(data.code == 0) {
 						this.replyDetailSuggestions = data.data
 this.replyDetailSuggestions.lastModifiedDate = this.replyDetailSuggestions.comSugRe ? operationTime.getTime(this.replyDetailSuggestions.comSugRe.createdDate, 2) : '暂无时间'
-						
+
 					} else {
 						let instance = Toast({
 							message: data.Msg,
@@ -56,22 +56,19 @@ this.replyDetailSuggestions.lastModifiedDate = this.replyDetailSuggestions.comSu
 						});
 					}
 				}).catch((error) => {
-					console.log(error)
 					let instance = Toast({
 						message: '系统异常',
 						position: 'middle',
 						duration: 1000
 					});
 				});
-				
+
 			},
 		    getTime (date) { //转化时间戳
 		    	return operationTime.getTime(date,2)
 		    },
 		},
 		mounted () {
-//			console.log(operationTime.getTime)
-//			var ss = operationTime.getTime(1533607757000, 2);
 			this.init()
 		}
 	}

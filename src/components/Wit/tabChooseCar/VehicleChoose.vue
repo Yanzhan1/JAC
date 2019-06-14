@@ -155,17 +155,10 @@ export default {
         this.carBody = this.whiteDouble;
       }
     }
-    //alert(this.$store.state.priceTitle);
-    //      else if(this.$store.state.colorTitle == '琥珀金'){
-    //
-    //      }
-    console.log("this.$store.state.show1", this.$store.state.show1);
     this.flag = true;
   },
   methods: {
     carBtn(index) {
-      console.log(this.$store.state.show);
-      console.log(this.$store.state.show1);
       this.currentIndex = index;
       if (this.currentIndex == 0) {
         this.$store.state.show = !this.$store.state.show;
@@ -176,7 +169,6 @@ export default {
           : this.increasePrice;
         this.$store.state.priceTitle =
           this.$store.state.priceTitle + this.totalPrice;
-        console.log("this.totalPrice ", this.totalPrice);
       } else if (this.currentIndex == 1) {
         var bodyColor = this.$store.state.colorTitle;
         if (bodyColor == "典雅白") {
@@ -189,7 +181,6 @@ export default {
             : this.increasePrice3;
           this.$store.state.priceTitle =
             this.$store.state.priceTitle + this.totalPrice2;
-          console.log("this.totalPrice2 ", this.totalPrice2);
         } else if (bodyColor == "极光紫") {
           this.carBody = this.purpleNormal;
         } else if (bodyColor == "琥珀金") {

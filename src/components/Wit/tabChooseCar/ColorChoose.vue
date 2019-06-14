@@ -151,7 +151,6 @@
       carBtn(index,labelTitle){
         this.currentIndex = index;
         this.$store.state.colorTitle = labelTitle;
-//        console.log('this.colorTitle',this.colorTitle)
         if(this.$store.state.colorTitle == '极光紫' || this.$store.state.colorTitle == '琥珀金'){
           if(this.$store.state.show1 == true){
             this.$store.state.priceTitle = this.$store.state.priceTitle - 2000;

@@ -117,10 +117,8 @@
           var _this = this;
           this.$http.post(DISCOVERMESSAGE.myRegistrationList, {"uid": this.$store.state.userId}).then(function (res) {
             if (res.data.status) {
-              //console.log(res.data.data)
               _this.myActivityList = res.data.data;
             } else {
-              console.log(res.data.errorMsg);
             }
           });
         },

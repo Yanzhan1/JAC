@@ -14,7 +14,7 @@
         <span v-show="topStatus === 'loading'">Loading...</span>
       </div>
       <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
-        <ul class="wrap_92" v-for="item in fansList">
+        <ul class="wrap_92" v-for="(item,index) in fansList" :key="index">
           <li style="position:relative">
             <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="headPic">
             <img v-else src="../../../static/images/discover/normalhead.png" class="headPic">
@@ -107,13 +107,11 @@
               _this.loadEnd = true;
             }
           } else {
-            console.log(res.data.errorMsg);
           }
         });
       },
       //粉丝刷新翻页
       getNextList: function () {
-        console.log('翻页')
         let _this = this;
         if (this.loadEnd) {
           this.loadBottom();
@@ -129,7 +127,6 @@
           _this.loadEnd = false;
           if (res.data.status) {
             _this.fansList = _this.fansList.concat(res.data.data);
-            console.log(_this.fansList.length+'关注长度')
             var allPages = Math.ceil(res.data.recordsTotal / _this.list);
             if (allPages <= _this.pageNum) {
               _this.loading = true;
@@ -138,7 +135,6 @@
             }
           } else {
             _this.pageNum = _this.pageNum - 1;
-            console.log(res.data.errorMsg);
           }
         });
       },

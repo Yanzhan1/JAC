@@ -62,7 +62,6 @@
 			this.$nextTick(() => {
 				 /*if (!this.scroll) {
 						this.scroll = new BScroll(this.$refs.carWrapper, {})
-						console.log(this.scroll)
 			    }*/
 				this.scroll = new BScroll(this.$refs.carWrapper, {
 					click: true

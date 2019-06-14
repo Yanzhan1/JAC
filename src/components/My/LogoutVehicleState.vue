@@ -40,7 +40,6 @@ export default {
     },
     getStatus(status) {
       //暴露方法给安卓,登入判断
-      // console.log(status)
       this.$store.dispatch("QRCODEPIN", status);
     },
     //暴露方法给ios拿数据
@@ -60,7 +59,6 @@ export default {
           var tS = new Date().getTime() - this.sjc; //时间戳 差
           var tSS = parseInt((tS / 1000) % 60); // 时间差
           if (res.data.returnSuccess == true) {
-            console.log(tSS);
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
               if (tSS >= 5) {

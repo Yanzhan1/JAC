@@ -15,7 +15,7 @@
       <!--我收藏的资讯-->
       <div v-if="contentchoose==1">
         <!--资讯列表S-->
-        <div v-for="(item,index) in articleList">
+        <div v-for="(item,index) in articleList" :key="index">
           <div class="boxInfo">
             <p class="listTitleInfo" @click="goDiscDetail(item.manageId)">
               {{item.manageTitle.slice(0,46)}}

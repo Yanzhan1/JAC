@@ -1,7 +1,7 @@
 <template>
   <div style="height:100%;position:absolute;left:0;top:0;width:100%" class="gobottom">
           <div v-show="region" class="black" @click="choose2"></div> <!-- 遮罩层  -->
-          <div class="bgcolor">                 
+          <div class="bgcolor">
                   <mhead currentTitle="在线订车"></mhead>
                   <ul>
                       <li class="all">
@@ -22,13 +22,13 @@
                               <img src="../../../static/images/next@2x.png" alt="">
                           </div>
                       </li>
-                      
+
                       <li class="all">
                           <span style="width:2rem"><span style="display:inline-block;font-size:.31rem;color:red">*</span>经销商</span>
                           <div class="allflex" @click="Distributor">
                               <span>{{this.Distribution}}</span>
                               <img src="../../../static/images/next@2x.png" alt="" >
-                          </div>        
+                          </div>
                       </li>
                       <li class="name all">
                           <span><span style="display:inline-block;font-size:.31rem;color:red">*</span>姓名</span>
@@ -276,23 +276,23 @@ export default {
         level: 2,
         size:100,
       };
-      
+
       this.$http.post(Wit.searchCountryAreaCodeListPage, data).then(res => {
         this.data = res.data.data.records;
         this.slots3[0].values = [];
         for (var i = 0; i < this.data.length; i++) {
           this.slots3[0].values.push(this.data[i].name);
-          
+
           if(this.city==this.data[i].name){
-            
+
             this.everycode=this.data[i].code
           }
         }
         setTimeout(()=>{
           for (var i = 0; i <  this.slots3[0].values.length; i++) {
-                    
+
                     if(this.city==this.slots3[0].values){
-                      
+
                       this.everycode=this.data[i].code
                     }
           }
@@ -310,14 +310,14 @@ export default {
                 for (var i = 0; i < this.chooseaddress.length; i++) {
                   this.slots2[0].values.push(this.chooseaddress[i].dealerName);
                   this.Idchooseaddress.push(this.chooseaddress[i].no);
-                  
+
                 }
               });
         },0)
-        
+
       });
-      
-      
+
+
     },
     choose3(){
       this.region = false;
@@ -414,7 +414,7 @@ export default {
                     this.codecity=values.id
                   }
                 }
-               
+
             })
         }
         if(this.showchecked){
@@ -492,12 +492,12 @@ export default {
                 if (this.area[0] == this.myaddress[i].name) {
                   this.provinceid = this.myaddress[i].id;
                 }
-      }  
+      }
 
 
       }
 
-      
+
     },
     //选择经销商
     onValuesChange2(picker, values) {
@@ -510,7 +510,7 @@ export default {
         }else{
           this.Distribution = values[0];
         }
-      }  
+      }
         for (var i = 0; i < this.slots2[0].values.length; i++) {
           if (this.Distribution == this.slots2[0].values[i]) {
             this.business = this.chooseaddress[i].dealerCodeDms;
@@ -519,13 +519,13 @@ export default {
     },
     //选择经销市
     onValuesChange3(picker, values) {
-      
+
       this.num++
       if(this.num == 5){
-      
+
         this.city = this.localcity
       }else{
-        
+
         this.city = values;
       for (var i = 0; i < this.data.length; i++) {
         if (this.city == this.data[i].name) {
@@ -533,7 +533,7 @@ export default {
           this.everycode = this.data[i].code;
         }
       }
-      }  
+      }
     },
     getcity(){
       this.$http
@@ -596,44 +596,21 @@ export default {
       });
 
 
-      
- 
+
+
     },
-    //对手机号码进行加密
-    // jiami(val){
-    //   let mobile1=val.slice(0,3);
-    //   let mobile2=val.slice(7,11);
-    //   let newtell=`${mobile1}****${mobile2}`
-    //   this.tell=newtell
-    // },
-    getIosLocation(locationMes) { //IOS调用,H5获取ios定位信息
-				this.localprovince = JSON.parse(locationMes).province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '')
-				this.localcity = JSON.parse(locationMes).city.replace('市', '')
-				this.latitude = JSON.parse(locationMes).latitude //精
-        this.longitude = JSON.parse(locationMes).longitude //韦
-        this.getcity()
-      },
       //拼接
       Pikante(){
         this.vehicleData=this.$route.query.vehicleData+''
-        
+
       }
   },
   created(){
-    		
-      var system = this.isIOSOrAndroid();
-			if(system == 'Android') {
-				var Position = js2android.getLocationInfo() //获取安卓定位信息
-        var NewPosition = JSON.parse(Position)
-        this.localprovince=NewPosition.province.replace('自治区', '').replace('省', '').replace('市', '').replace('壮族', '').replace('回族', '')//当地的省
-        this.localcity= NewPosition.city.replace('市', '')//当地的市
-				this.latitude = NewPosition.latitude //经度
-        this.longitude = NewPosition.longitude //纬度
-        this.getcity()
-			} else if(system == "IOS") {
-        window.webkit.messageHandlers.iOSLocationNotice.postMessage({}); //调用ios方法发送通知ios调用H5方法传
-          window.getIosLocation = this.getIosLocation //ios获取定位信息,放到window对象供ios调用			
-      }
+      this.localprovince=this.$store.state.position.localprovince
+      this.localcity=this.$store.state.position.localcity
+      this.latitude=this.$store.state.position.latitude
+      this.longitude=this.$store.state.position.longitude
+      this.getcity()
   },
   mounted() {
     this.tell=this.$store.state.mobile

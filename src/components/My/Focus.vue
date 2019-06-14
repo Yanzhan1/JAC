@@ -14,7 +14,7 @@
         <span v-show="topStatus === 'loading'">Loading...</span>
       </div>
       <div v-infinite-scroll="getNextList" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
-        <ul  class="wrap_92" v-for="item in focusList">
+        <ul  class="wrap_92" v-for="(item,index) in focusList" :key="index">
           <li >
             <img v-if="item.user && item.user.head_image" :src="item.user.head_image" class="headPic">
             <img v-else src="../../../static/images/discover/normalhead.png" class="headPic">
@@ -116,7 +116,6 @@
             }
           } else {
             _this.pageNum = _this.pageNum - 1;
-            console.log(res.data.errorMsg);
           }
         });
       },
@@ -131,10 +130,8 @@
           "length":10
         }).then(function (res) {
           if (res.data.status) {
-            //console.log(res.data.data);
             _this.list = res.data.data;
           } else {
-            //console.log(res.data.errorMsg);
             MessageBox('提示', res.data.errorMsg);
           }
         });
