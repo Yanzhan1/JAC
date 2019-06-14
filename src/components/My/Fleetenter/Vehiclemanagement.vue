@@ -8,7 +8,7 @@
           </span>
         </header>
         <div style="height:0.88rem" class="MobileHeight"></div>
-        <div class="mui-table-view-cell">
+        <div class="mui-table-view-cell" v-for="(item,index) in this.list" :key="index">
             <div class="mui-slider-right mui-disabled">
               <a class="mui-btn mui-btn-primary" style="background-color:#F4F4F4;">删除车辆</a>
               <a class="mui-btn mui-btn-red">解除司机</a>
@@ -17,19 +17,19 @@
               <div class="mui-table-cell">
                 <div class="box">
                     <div class="top">
-                        <div class="seriesName">帅铃Q3</div>
-                        <div class="plated">沪A 12345</div>
-                        <div class="idvin">VIN:1jsakdjflkdsaf</div>
+                        <div class="seriesName">{{item.model}}</div>
+                        <!-- <div class="plated">{{item.plate}}</div> -->
+                        <div class="idvin">VIN:{{item.vin}}</div>
                     </div>
                     <div class="middle">
-                        <div style="margin-left:.29rem;">里程</div>
+                        <div style="margin-left:.29rem;">车牌</div>
+                        <div>里程</div>
                         <div>油耗</div>
-                        <div>司机</div>
                     </div>
                     <div class="bottom">
-                        <div style="margin-left:.29rem">123KM</div>
-                        <div>11L/h</div>
-                        <div style="color:#49BBFF">洛小鱼</div>
+                        <div style="margin-left:.29rem">{{item.plate}}KM</div>
+                        <div>{{item.mileage}}L/h</div>
+                        <div style="color:#49BBFF">{{item.averageFuelConsumption}}</div>
                     </div>
                 </div>
               </div>
@@ -40,9 +40,33 @@
 
 <script>
 export default {
-    mounted(){
-        $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
+  data(){
+    return{
+      list:[]
     }
+  },
+  methods:{
+    init(){
+      let param={
+        // brandId:this.$store.state.brandId,
+        type:'1',
+        userId:"1333298182",
+        vin:""
+      }
+      this.$http.post(Lightcar.findvehiclelist,param).then(res=>{
+        if(res.data.code==0){
+           this.list=res.data.data
+           console.log(this.list)
+        }
+      })
+    }
+  },
+  created(){
+    this.init()
+  },
+  mounted(){
+      $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
+  }
 }
 </script>
 
@@ -56,14 +80,17 @@ export default {
 }
 .box .top{
   display: flex;
+  justify-content: space-around;
   align-items: center;
   font-weight:bold;
-  color:rgba(136,136,136,1)
+  color:rgba(136,136,136,1);
+  width:100%;
 }
 .box .top .seriesName{
   color:rgba(34,34,34,1);
   font-size: .28rem;
-  margin: 0.1rem .2rem;
+  margin: 0.1rem 0;
+  flex-flow: 1;
 }
 .box .top>div{
   font-size: .22rem;
@@ -91,10 +118,12 @@ export default {
   font-weight:bold;
 }
 .box .top .plated{
-  margin-left: .4rem;
+  margin-left: .2rem;
+  flex-flow: 1
 }
 .box .top .idvin{
-  margin-left: 1.6rem;
+  margin-left: 1rem;
+  flex-flow: 1
 }
 .mui-table-view-cell{
   border-bottom: .01rem solid #eee;
