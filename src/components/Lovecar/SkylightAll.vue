@@ -12,7 +12,7 @@
 				<span style="width: 0.54rem;height: 1px; background: rgba(153,153,153,1);margin-bottom: 0.4rem;"></span>
 			</div>
 		</div>
-				
+
 		<!--天窗主体Start-->
 		<div class="skylight-wrap flex-column-align">
 			<div class="skylight-content flex-center-between">
@@ -27,7 +27,7 @@
 				<button   :class="this.curveState?'noactive':'active'" @click="windowopen">开启</button>
 			</div>
 		</div>
-		
+
 		<!--pin码弹出框Start-->
 		<div class="bgMask" v-if="popupVisible" @click="removeMask"></div>
 		<mt-popup v-model="popupVisible" :modal="false" popup-transition="popup-fade">
@@ -421,7 +421,7 @@ export default {
         extParams: {
           fluctuationType: 1, //档位qg
           // percent: this.windNum[this.skylightSpace].replace(/%/g, ""), //0-100
-          gear: "2" //车窗1是开,2是关
+          gear: gear //车窗1是开,2是关
         }
       };
       this.$http
