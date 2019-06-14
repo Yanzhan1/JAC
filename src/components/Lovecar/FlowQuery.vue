@@ -1,11 +1,11 @@
 <template>
   <div class="flow-query">
-    <header class="header">
+    <header class="header MobileHeight header">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
-			<span class="header-title">流量查询</span>
+			<span class="header-title" style="margin-right: 0.65rem;">流量查询</span>
 			<span class="header-right"></span>
 		</header>
-		<div style="height:0.88rem"></div>
+		<div style="height:.88rem" class="MobileHeight"></div>
     <!-- <mhead currentTitle="流量查询"></mhead> -->
     <div class="line"></div>
     <div class="flow-title">
@@ -103,6 +103,10 @@ export default {
     }
   },
   mounted() {
+     $(".MobileHeight").css({
+      borderTopWidth: this.$store.state.mobileStatusBar,
+      borderTopColor: "#fff"
+    });
     let oDate = new Date();
     let year = oDate.getFullYear();
     let month = oDate.getMonth() + 1;
@@ -194,6 +198,10 @@ export default {
 
 <style scoped>
 /*flex*/
+.MobileHeight {
+  border-top-style: solid;
+  box-sizing: content-box;
+}
 .mint-popup {
   border-radius: 0.1rem;
 }

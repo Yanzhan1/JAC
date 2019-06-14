@@ -5,7 +5,7 @@
 				<img :src="'./static/images/back@2x.png'" style="width: 0.4rem;height: 0.4rem;">
 			</div>
 			<span class="header-title">流量购买</span>
-			<router-link tag="div" class="header-right" to="/myorder">
+			<router-link tag="div" class="header-right" :to="{path:'/myorder',query:{show:1}}">
 				购买记录
 			</router-link>
 		</header>
