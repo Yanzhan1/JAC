@@ -6,7 +6,7 @@
         <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }" style="font-size: 0.3rem;visibility: hidden">下拉刷新</span>
         <span v-show="topStatus === 'loading'">Loading...</span>
       </div>
-      <div v-infinite-scroll="loadmore" infinite-scroll-disabled="loading" infinite-scroll-distance="80">
+      <div v-infinite-scroll="loadmore" :infinite-scroll-disabled="loading" infinite-scroll-distance="80">
         <!--活动列表S-->
         <div v-for="(item) in activityList" :key="item.id">
           <div class="boxInfo">
@@ -177,7 +177,7 @@
        * 上拉加载更多
        */
       loadmore() {
-        if (this.isLastPage) {
+        if (this.isLastPage || this.loading) {
           return
         }
         this.listParams.pageNo++
