@@ -8,7 +8,7 @@
           </span>
         </header>
         <div style="height:0.88rem" class="MobileHeight"></div>
-        <div class="mui-table-view-cell">
+        <!-- <div class="mui-table-view-cell">
             <div class="mui-slider-right mui-disabled">
               <a class="mui-btn mui-btn-primary" style="background-color:#F4F4F4;">删除司机</a>
               <a class="mui-btn mui-btn-red">授权车辆</a>
@@ -30,6 +30,13 @@
                   </div>
               </div>
             </div>
+        </div> -->
+        <div class="box">
+              <div class="left flex cocenter between">
+                  <div class="name">洛小鱼</div>
+                  <div class="phone">15968838382</div>
+                  <div class="detail" @click="todetail">详情 ></div>
+              </div>
         </div>
     </div>
 </template>
@@ -40,6 +47,16 @@ export default {
       return{
 
       }
+  },
+  methods:{
+    todetail(val){
+        this.$router.push({
+          path:'/felltManagement/driverdetail',
+          // query:{
+          //   item:val
+          // }
+        })
+    }
   },
   mounted(){
       $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
@@ -60,6 +77,11 @@ export default {
    display:flex;
    align-items: center;
    justify-content: space-between;
+   border-bottom: .01rem solid #eee;
+}
+.box .left{
+  width: 90%;
+  margin: 0 auto;
 }
 .box .left .name{
     font-size:.28rem;
@@ -72,32 +94,12 @@ export default {
     font-family:'PingFang-SC-Medium';
     font-weight:500;
     color:rgba(85,85,85,1);
-    margin-top: .15rem;
+    margin-left: -2.3rem;
 }
-.box .right{
-  margin-left: 2rem;
-}
-.box .right .title{
-  font-size:.22rem;
-  font-family:'PingFang-SC-Medium';
-  font-weight:500;
-  color:rgba(85,85,85,1);
-}
-.box .right .content{
-  display: flex;
-  align-items: center;
-}
-.box .right .content .name{
-  font-size:.3rem;
-  font-family:'PingFang-SC-Bold';
-  font-weight:bold;
-  color:rgba(73,187,255,1);
-}
-.box .right .content .plate{
-  font-size:.22rem;
-  font-family:'PingFang-SC-Bold';
-  font-weight:bold;
-  color:rgba(136,136,136,1);
-  margin-left: .4rem;
+.box .left .detail{
+    font-size:.24rem;
+    font-family:PingFang-SC-Medium;
+    font-weight:500;
+    color:rgba(73,187,255,1);
 }
 </style>
