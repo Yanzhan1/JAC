@@ -29,7 +29,7 @@
                     <div class="bottom">
                         <div style="margin-left:.29rem">{{item.plate}}KM</div>
                         <div>{{item.mileage}}L/h</div>
-                        <div style="color:#49BBFF">{{item.averageFuelConsumption}}</div>
+                        <div>{{item.averageFuelConsumption}}</div>
                     </div>
                 </div>
               </div>
@@ -80,7 +80,6 @@ export default {
 }
 .box .top{
   display: flex;
-  justify-content: space-around;
   align-items: center;
   font-weight:bold;
   color:rgba(136,136,136,1);
@@ -89,7 +88,7 @@ export default {
 .box .top .seriesName{
   color:rgba(34,34,34,1);
   font-size: .28rem;
-  margin: 0.1rem 0;
+  margin: 0.1rem 0.29rem;
   flex-flow: 1;
 }
 .box .top>div{
@@ -112,17 +111,13 @@ export default {
   margin-top: .1rem;
 }
 .box .bottom>div{
-  margin-left: 1.45rem;
-  font-size: .3rem;
-  color:rgba(34,34,34,1);
+  margin-left: 1rem;
+  font-size: .24rem;
+  color:#555;
   font-weight:bold;
 }
-.box .top .plated{
-  margin-left: .2rem;
-  flex-flow: 1
-}
 .box .top .idvin{
-  margin-left: 1rem;
+  margin-left: 2rem;
   flex-flow: 1
 }
 .mui-table-view-cell{
