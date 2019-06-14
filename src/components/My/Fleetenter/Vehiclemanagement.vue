@@ -8,18 +8,18 @@
           </span>
         </header>
         <div style="height:0.88rem" class="MobileHeight"></div>
-        <div class="mui-table-view-cell" v-for="(item,index) in this.list" :key="index">
+        <!-- <div class="mui-table-view-cell" v-for="(item,index) in this.list" :key="index">
             <div class="mui-slider-right mui-disabled">
               <a class="mui-btn mui-btn-primary" style="background-color:#F4F4F4;">删除车辆</a>
               <a class="mui-btn mui-btn-red">解除司机</a>
             </div>
             <div class="mui-slider-handle">
-              <div class="mui-table-cell">
-                <div class="box">
+              <div class="mui-table-cell"> -->
+                <div class="box" v-for="(item,index) in this.list" :key="index">
                     <div class="top">
                         <div class="seriesName">{{item.model}}</div>
-                        <!-- <div class="plated">{{item.plate}}</div> -->
                         <div class="idvin">VIN:{{item.vin}}</div>
+                        <div class="plated" @click="godetail(item)">详情 ></div>
                     </div>
                     <div class="middle">
                         <div style="margin-left:.29rem;">车牌</div>
@@ -32,9 +32,9 @@
                         <div>{{item.averageFuelConsumption}}</div>
                     </div>
                 </div>
-              </div>
+              <!-- </div>
             </div>
-        </div>
+        </div> -->
       </div>
 </template>
 
@@ -57,6 +57,14 @@ export default {
         if(res.data.code==0){
            this.list=res.data.data
            console.log(this.list)
+        }
+      })
+    },
+    godetail(val){
+      this.$router.push({
+        path:"/felltManagement/vehicledetails",
+        query:{
+            vin:val
         }
       })
     }
@@ -84,6 +92,12 @@ export default {
   font-weight:bold;
   color:rgba(136,136,136,1);
   width:100%;
+}
+.box .top .plated{
+  color: #49BBFF;
+  font-weight: 500;
+  font-size: .24rem;
+  margin-left: 1rem;
 }
 .box .top .seriesName{
   color:rgba(34,34,34,1);
@@ -117,7 +131,7 @@ export default {
   font-weight:bold;
 }
 .box .top .idvin{
-  margin-left: 2rem;
+  margin-left: .5rem;
   flex-flow: 1
 }
 .mui-table-view-cell{

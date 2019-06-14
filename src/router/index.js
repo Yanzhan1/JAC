@@ -186,6 +186,7 @@ const Createateam = lazyLoad('/My/Fleetenter/Createateam.vue')//创建车队
 const Drivermanagemen = lazyLoad('/My/Fleetenter/Drivermanagemen.vue')//司机管理
 const Fleetmodification = lazyLoad('/My/Fleetenter/Fleetmodification.vue')//编辑车队
 const Vehiclemanagement = lazyLoad('/My/Fleetenter/Vehiclemanagement.vue')//车队管理
+const Vehicledetails = lazyLoad('/My/Fleetenter/Vehicledetails.vue')//车队车辆信息页面
 /**
  * 消息
  */
@@ -819,7 +820,7 @@ const router = new Router({
             },
             {
                 path: "/myindex/Management",
-                name: '车队管理',
+                name: '车队管理啊',
                 component: Management
             },
             //车队管理
@@ -847,6 +848,11 @@ const router = new Router({
                 path: "/felltManagement/vehiclemanagement",
                 name: '车队管理',
                 component: Vehiclemanagement
+            },
+            {
+                path: "/felltManagement/vehicledetails",
+                name: '车辆信息',
+                component: Vehicledetails
             },
             // 消息
             {
