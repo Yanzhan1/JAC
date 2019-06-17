@@ -45,7 +45,6 @@ export default {
         no(newVal,oldVal){
           console.log(newVal,oldVal)
           if(newVal){
-            console.log('jinru')
             this.onloaded()
           }
         }

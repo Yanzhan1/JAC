@@ -250,7 +250,7 @@ window.Newenergy = {
         energyvehiclesupportfunction: witlocal + '/vehicleInformation/energy-vehicle-support-function', //流量查询接口
     }
 window.Lightcar={
-        truckvehiclecycflowquery:lightlocal+'/vehicleInformation/truck-vehicle-cyc-flow-query',//流量查询
+        truckvehiclecycflowquery:light+'/vehicleInformation/truck-vehicle-cyc-flow-query',//流量查询
         findteamlist:lightlocal+'/VehicleTeamController/find-team-list',//车队管理列表查询
         findvehiclelist:lightlocal+'/VehicleTeamController/find-vehicle-list',//车队车辆列表查询
 }

@@ -6,11 +6,8 @@
 			<span class="header-right"></span>
 		</header>
 		<div style="height:.88rem" class="MobileHeight"></div>
-    <!-- <mhead currentTitle="流量查询"></mhead> -->
     <div class="line"></div>
     <!-- <mhead currentTitle="车辆体检"></mhead> -->
-    <!-- <h2>诊断时间：06-29 17:33</h2> -->
-    <!-- <mt-button type="primary" size="large" @click.native="bustest">刷新</mt-button> -->
     <mt-loadmore :top-method="loadTop" ref="loadmore" @top-status-change="handleTopChange">
         <div slot="top" class="mint-loadmore-top">
           <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }">↓</span>
