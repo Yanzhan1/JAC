@@ -10,9 +10,9 @@ import App from './App'
 
 import './utils/formateDate'
 
-import './../static/mui/css/mui.css'
-import mui from './../static/mui/js/mui.js'
-Vue.prototype.$mui=mui
+// import './../static/mui/css/mui.css'
+// import mui from './../static/mui/js/mui.js'
+// Vue.prototype.$mui=mui
 
 //导入mint-ui
 import mintui from 'mint-ui'

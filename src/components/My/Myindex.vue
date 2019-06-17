@@ -101,13 +101,13 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt>
       </div>
-      <div class="mylist" @click="tocontrolallcar">
+      <!-- <div class="mylist" @click="tocontrolallcar">
         <div class="flex cocenter">
           <img src="../../../static/images/my/mine_list@2x.png" alt>
           <span>车队管理</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt>
-      </div>
+      </div> -->
       <div class="mylist" @click="tobuy">
         <div class="flex cocenter">
           <img src="../../../static/images/my/shoppingbuy.png" alt>
