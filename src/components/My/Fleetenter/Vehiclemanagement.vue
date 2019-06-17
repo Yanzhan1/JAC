@@ -24,12 +24,12 @@
                     <div class="middle">
                         <div style="margin-left:.29rem;">车牌</div>
                         <div>里程</div>
-                        <div>油耗</div>
+                        <div style="margin-right:.29rem;">油耗</div>
                     </div>
                     <div class="bottom">
-                        <div style="margin-left:.29rem">{{item.plate}}KM</div>
-                        <div>{{item.mileage}}L/h</div>
-                        <div>{{item.averageFuelConsumption}}</div>
+                        <div style="margin-left:.29rem">{{item.plate}}</div>
+                        <div style="margin-right:.7rem">{{item.mileage}}KM</div>
+                        <div style="margin-right:.31rem">{{item.averageFuelConsumption}}L/h</div>
                     </div>
                 </div>
               <!-- </div>
@@ -56,7 +56,6 @@ export default {
       this.$http.post(Lightcar.findvehiclelist,param).then(res=>{
         if(res.data.code==0){
            this.list=res.data.data
-           console.log(this.list)
         }
       })
     },
@@ -64,7 +63,7 @@ export default {
       this.$router.push({
         path:"/felltManagement/vehicledetails",
         query:{
-            vin:val
+            item:val
         }
       })
     }
@@ -85,6 +84,7 @@ export default {
 .box{
   width: 100%;
   height: 1.6rem;
+  border-bottom: .01rem solid #eeeeee;
 }
 .box .top{
   display: flex;
@@ -92,18 +92,18 @@ export default {
   font-weight:bold;
   color:rgba(136,136,136,1);
   width:100%;
+  justify-content: space-between;
 }
 .box .top .plated{
   color: #49BBFF;
   font-weight: 500;
   font-size: .24rem;
-  margin-left: 1rem;
+  margin-right: .29rem;
 }
 .box .top .seriesName{
   color:rgba(34,34,34,1);
   font-size: .28rem;
   margin: 0.1rem 0.29rem;
-  flex-flow: 1;
 }
 .box .top>div{
   font-size: .22rem;
@@ -113,26 +113,26 @@ export default {
 .box .middle{
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 .box .middle>div{
   font-weight:500;
   color:rgba(85,85,85,1);
   font-size: .22rem;
-  margin-left: 2rem;
+  /* margin-left: 2rem; */
 }
 .box .bottom{
   display: flex;
-  margin-top: .1rem;
+  margin-top: .15rem;
+  justify-content: space-between;
 }
 .box .bottom>div{
-  margin-left: 1rem;
   font-size: .24rem;
   color:#555;
   font-weight:bold;
 }
 .box .top .idvin{
-  margin-left: .5rem;
-  flex-flow: 1
+  /* margin-left: .5rem; */
 }
 .mui-table-view-cell{
   border-bottom: .01rem solid #eee;

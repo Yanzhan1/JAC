@@ -18,14 +18,14 @@
         <div class="origin-pin">
           <div class="flex-align-center revisePinCommon">
             <span style="font-size: 0.26rem;color: #444444;">本月总流量:</span>
-            <input :disabled="disabled" type="text" v-model="packageTotalFlow">
+            <input :disabled="disabled"  v-model="packageTotalFlow">
             <div>MB</div>
           </div>
         </div>
         <div class="origin-pin">
           <div class="flex-align-center revisePinCommon">
             <span style="font-size: 0.26rem;color: #444444;">已使用流量:</span>
-            <input :disabled="disabled" type="text" v-model="usedFlow">
+            <input :disabled="disabled"  v-model="usedFlow">
             <div>MB</div>
           </div>
         </div>
@@ -153,6 +153,7 @@ export default {
         )
         .then(res => {
           if (res.data.returnSuccess) {
+            console.log(res.data)
             this.packageTotalFlow = res.data.data[0].packageTotalFlow;
             this.usedFlow = res.data.data[0].usedFlow;
             this.surplusFlow = res.data.data[0].surplusFlow;

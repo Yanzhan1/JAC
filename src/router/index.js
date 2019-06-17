@@ -188,6 +188,8 @@ const Fleetmodification = lazyLoad('/My/Fleetenter/Fleetmodification.vue')//编�
 const Vehiclemanagement = lazyLoad('/My/Fleetenter/Vehiclemanagement.vue')//车队管理
 const Vehicledetails = lazyLoad('/My/Fleetenter/Vehicledetails.vue')//车队车辆信息页面
 const Driverdetail = lazyLoad('/My/Fleetenter/Driverdetail.vue')//司机详情页面
+const AddDriver = lazyLoad('/My/Fleetenter/AddDriver.vue')//司机详情页面
+const Editdriver = lazyLoad('/My/Fleetenter/Editdriver.vue')//司机详情页面
 /**
  * 消息
  */
@@ -859,6 +861,16 @@ const router = new Router({
                 path: "/felltManagement/driverdetail",
                 name: '司机详情',
                 component: Driverdetail
+            },
+            {
+                path: "/felltManagement/addDriver",
+                name: '创建司机',
+                component: AddDriver
+            },
+            {
+                path: "/felltManagement/editdriver",
+                name: '编辑司机',
+                component: Editdriver
             },
             // 消息
             {

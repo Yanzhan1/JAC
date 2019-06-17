@@ -10,8 +10,8 @@
         <div style="height:0.88rem;" class="MobileHeight"></div>
         <div class="information">
             <div class="flex between cocenter top">
-                <div class="carname">帅铃 Q3</div>
-                <div class="dvin">VIN:32874732634732</div>
+                <div class="carname">{{this.list.model}}</div>
+                <div class="dvin">VIN:{{this.list.vin}}</div>
             </div>
             <div class="flex cocenter between middle">
                 <div>车牌</div>
@@ -19,9 +19,9 @@
                 <div>油耗</div>
             </div>
             <div class="flex cocenter between bottom">
-                <div>沪A2133</div>
-                <div>323KM</div>
-                <div>13.3L/H</div>
+                <div>{{this.list.plate}}</div>
+                <div>{{this.list.mileage}}KM</div>
+                <div>{{this.list.averageFuelConsumption}}L/H</div>
             </div>
         </div>
         <div class="bindeddriver">
@@ -42,7 +42,7 @@
 export default {
     data(){
       return{
-
+        list:{},
       }
     },
     methods:{
@@ -50,6 +50,7 @@ export default {
     },
     created(){
          $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
+         this.list=this.$route.query.item
     }
 }
 </script>

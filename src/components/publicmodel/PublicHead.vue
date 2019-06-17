@@ -1,5 +1,5 @@
 <template>
-	<div>		
+	<div>
 		<header class="header MobileHeight bgcolor">
 			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
 			<span class="header-title">{{currentTitle}}</span>
@@ -7,7 +7,7 @@
 		</header>
 		<div style="height:0.88rem" class="MobileHeight"></div>
 	</div>
-	
+
 </template>
 
 <script>
@@ -15,7 +15,7 @@
 		name: 'publicHead',
 		data () {
 			return {
-				
+
 			}
 		},
 		props: {
@@ -26,11 +26,11 @@
 		mounted () {
 			let system = this.isIOSOrAndroid()
 			if (system == 'Android') {
-				$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})	
+				$(".MobileHeight").css({"marginTop": this.$store.state.mobileStatusBar})
 			} else if (system == "IOS") {
 				$(".MobileHeight").css({"marginTop": 0})
 			}
-					
+
 		},
 		methods: {
 			goback () {
@@ -54,5 +54,6 @@
 <style scoped>
 .bgcolor{
 	background:#fff;
+  border-bottom: .01rem solid #eeeeee;
 }
 </style>
