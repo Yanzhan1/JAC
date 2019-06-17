@@ -188,8 +188,11 @@ const Fleetmodification = lazyLoad('/My/Fleetenter/Fleetmodification.vue')//编�
 const Vehiclemanagement = lazyLoad('/My/Fleetenter/Vehiclemanagement.vue')//车队管理
 const Vehicledetails = lazyLoad('/My/Fleetenter/Vehicledetails.vue')//车队车辆信息页面
 const Driverdetail = lazyLoad('/My/Fleetenter/Driverdetail.vue')//司机详情页面
-const AddDriver = lazyLoad('/My/Fleetenter/AddDriver.vue')//司机详情页面
-const Editdriver = lazyLoad('/My/Fleetenter/Editdriver.vue')//司机详情页面
+const AddDriver = lazyLoad('/My/Fleetenter/AddDriver.vue')//增加司机
+const Editdriver = lazyLoad('/My/Fleetenter/Editdriver.vue')//编辑司机
+const Createteamleader = lazyLoad('/My/Fleetenter/Createteamleader.vue')//创建车队长
+const Editteam = lazyLoad('/My/Fleetenter/Editteam.vue')//编辑车队
+const Teamleader = lazyLoad('/My/Fleetenter/Teamleader.vue')//选择车队长
 /**
  * 消息
  */
@@ -871,6 +874,21 @@ const router = new Router({
                 path: "/felltManagement/editdriver",
                 name: '编辑司机',
                 component: Editdriver
+            },
+            {
+                path: "/felltManagement/createteamleader",
+                name: '创建车队长',
+                component: Createteamleader
+            },
+            {
+                path: "/felltManagement/editteam",
+                name: '编辑车队',
+                component: Editteam
+            },
+            {
+                path: "/felltManagement/teamleader",
+                name: '选择车队长',
+                component: Teamleader
             },
             // 消息
             {
