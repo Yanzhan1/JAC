@@ -1,11 +1,11 @@
 <template>
   <div>
-    <header class="header">
-      <img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
-      <span class="header-title">车辆体检</span>
-      <span class="header-right"></span>
-    </header>
-    <div style="height:.88rem"></div>
+    <header class="header MobileHeight header">
+			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
+			<span class="header-title" style="margin-right: 0.65rem;">车辆体检</span>
+			<span class="header-right"></span>
+		</header>
+    <div style="height:.88rem" class="MobileHeight"></div>
     <!-- <mhead currentTitle="车辆体检"></mhead> -->
     <!-- <h2>诊断时间：06-29 17:33</h2> -->
     <!-- <mt-button type="primary" size="large" @click.native="bustest">刷新</mt-button> -->
@@ -54,6 +54,10 @@ export default {
     };
   },
   created() {
+    $(".MobileHeight").css({
+      borderTopWidth: this.$store.state.mobileStatusBar,
+      borderTopColor: "#fff"
+    });
     //进入页面获取一次车辆体检
     this.starttest()
   },
@@ -246,6 +250,10 @@ export default {
 };
 </script>
 <style scoped>
+.MobileHeight {
+  border-top-style: solid;
+  box-sizing: content-box;
+}
 h2 {
   text-align: center;
   font-size: 0.26rem;
