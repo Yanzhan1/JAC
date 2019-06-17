@@ -165,8 +165,9 @@
       <ul v-show="showTyper==2">
         <li
           class="typer-num"
-          v-for="item in keyNums"
+          v-for="(item,index) in keyNums"
           :class="{'is-A': item=='A','is-OK':item=='OK','is-Del':item=='Del'}"
+          :key="index"
           @click="input(item)"
         >{{item}}</li>
       </ul>

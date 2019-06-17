@@ -101,6 +101,13 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt>
       </div>
+      <div class="mylist" @click="tocontrolallcar">
+        <div class="flex cocenter">
+          <img src="../../../static/images/my/mine_list@2x.png" alt>
+          <span>车队管理</span>
+        </div>
+        <img src="../../../static/images/my/next@2x.png" alt>
+      </div>
       <div class="mylist" @click="tobuy">
         <div class="flex cocenter">
           <img src="../../../static/images/my/shoppingbuy.png" alt>
@@ -277,6 +284,12 @@ export default {
         return false;
       }
       this.$router.push("/myindex/wbrecode");
+    },
+    //跳转车队管理
+    tocontrolallcar(){
+        this.$router.push({
+          path:'/felltManagement'
+        })
     },
     // 获取用户总积分
     total() {
@@ -692,7 +705,6 @@ export default {
     // this.RecomendCode(); //获取推荐码
   },
   mounted() {
-    console.log(this.$store.state.addiflogin)
     if (this.$store.state.addiflogin) {
       this.myNum();
       this.IsSign(); //判断是否签到

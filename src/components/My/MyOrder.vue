@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<header class="header MobileHeight header">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.push({path:'/myindex'})">
+			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
 			<span class="header-title" style="margin-right: 0.65rem;">我的订单</span>
 			<span class="header-right"></span>
 		</header>
@@ -147,6 +147,13 @@ export default {
     };
   },
   methods: {
+    goback(){
+      if(this.$route.query.show==1){
+        this.$router.go(-1)
+      }else{
+        this.$router.push({path:'/myindex'})
+      }
+    },
     toDetauls(item) {
       this.$router.push({
         path: "/orderdetails",
@@ -257,7 +264,9 @@ export default {
     //流量订单
     flowbuy() {
       var params = {
-        userName: this.$store.state.mobile
+        userName: this.$store.state.mobile,
+        vin:this.$store.state.defaultInformation.vin,
+        brandId:this.$store.state.brandId
       };
       this.$http
         .post(Lovecar.Getoederlist, params, this.$store.state.tsppin)
@@ -353,7 +362,6 @@ export default {
     // this.getShoppingMall();
   },
   mounted() {
-
     $(".MobileHeight").css({
       borderTopWidth: this.$store.state.mobileStatusBar,
       borderTopColor: "#fff"
@@ -363,7 +371,8 @@ export default {
     //   } else if (isMobile.Android()) {
     //     $('.reminder').css({'top':85})
     //   }
-    if (this.$route.params.show == 1) {
+    console.log(this.$route.params)
+    if (this.$route.query.show == 1) {
       this.showflow();
     }  else  if(this.$route.query.show == 2){
         this.showMaintenance();

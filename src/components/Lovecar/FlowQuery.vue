@@ -1,51 +1,54 @@
 <template>
-	<div class="flow-query">
-		<mhead currentTitle="流量查询"></mhead>
-		<div class="line"></div>
-		<div class="flow-title">
-			<span>流量包名称</span>
-			<span>{{this.Flowpacket}}</span>
-		</div>
-		<div class="line"></div>
-		<div class="flow-wrap">
-			<div v-for="(item,index) in 1" :key="index" class="flow-apnone">
-				<div class="origin-pin">
-					<div class="flex-align-center revisePinCommon">
-						<span style="font-size: 0.26rem;color: #444444;">
-					本月总流量:
-				</span>
-						<input :disabled="disabled" type="text" v-model="packageTotalFlow" /><div>MB</div>
-					</div>
-				</div>
-				<div class="origin-pin">
-					<div class="flex-align-center revisePinCommon">
-						<span style="font-size: 0.26rem;color: #444444;">
-					已使用流量:
-				</span>
-						<input :disabled="disabled" type="text" v-model="usedFlow" /><div>MB</div>
-					</div>
-				</div>
-				<div class="origin-pin">
-					<div class="flex-align-center revisePinCommon">
-						<span style="font-size: 0.26rem;color: #444444;">
-					剩余流量:
-				</span>
-						<input :disabled="disabled"  v-model="surplusFlow" /><div style="margin-left:.26rem">MB</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<button class="bottom-btn" @click="flowbuy">流量购买</button>
-	</div>
+  <div class="flow-query">
+    <header class="header MobileHeight header">
+			<img class="header-left" :src="'./static/images/back@2x.png'" @click="goback">
+			<span class="header-title" style="margin-right: 0.65rem;">流量查询</span>
+			<span class="header-right"></span>
+		</header>
+		<div style="height:.88rem" class="MobileHeight"></div>
+    <!-- <mhead currentTitle="流量查询"></mhead> -->
+    <div class="line"></div>
+    <div class="flow-title">
+      <span>流量包名称</span>
+      <span>{{this.Flowpacket}}</span>
+    </div>
+    <div class="line"></div>
+    <div class="flow-wrap">
+      <div v-for="(item,index) in 1" :key="index" class="flow-apnone">
+        <div class="origin-pin">
+          <div class="flex-align-center revisePinCommon">
+            <span style="font-size: 0.26rem;color: #444444;">本月总流量:</span>
+            <input :disabled="disabled"  v-model="packageTotalFlow">
+            <div>MB</div>
+          </div>
+        </div>
+        <div class="origin-pin">
+          <div class="flex-align-center revisePinCommon">
+            <span style="font-size: 0.26rem;color: #444444;">已使用流量:</span>
+            <input :disabled="disabled"  v-model="usedFlow">
+            <div>MB</div>
+          </div>
+        </div>
+        <div class="origin-pin">
+          <div class="flex-align-center revisePinCommon">
+            <span style="font-size: 0.26rem;color: #444444;">剩余流量:</span>
+            <input :disabled="disabled" v-model="surplusFlow">
+            <div style="margin-left:.26rem">MB</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="bottom-btn" @click="flowbuy">流量购买</button>
+  </div>
 </template>
 
 <script>
-import {Toast} from 'mint-ui'
-import PublicHead from '../publicmodel/PublicHead';
+import { Toast } from "mint-ui";
+import PublicHead from "../publicmodel/PublicHead";
 export default {
   name: "flowQuery",
   components: {
-  	mhead:PublicHead
+    mhead: PublicHead
   },
   data() {
     return {
@@ -59,9 +62,9 @@ export default {
       disabled: true, //展示作用，不能输入
       Closingdate: "2020-07-12", //截止日期
       Flowpacket: "至尊黄金套餐", //流量包名称
-      packageTotalFlow:'',//总流量
-      usedFlow:'',//已使用流量
-      surplusFlow:'',//剩余流量
+      packageTotalFlow: "", //总流量
+      usedFlow: "", //已使用流量
+      surplusFlow: "", //剩余流量
       //移动端键盘值
       ownKeyBoard: {
         first: "",
@@ -83,77 +86,123 @@ export default {
       this.popupVisible = !this.popupVisible;
       this.showTyper = 0;
     },
-    flowbuy(){
-        this.$router.push('/lovecar/FlowBuy')
+    flowbuy() {
+      this.$router.push("/lovecar/FlowBuy");
+    },
+    goback(){
+      if(this.$route.query.id=='traffic'){
+        if (isMobile.iOS()) {
+          var params = {};
+          window.webkit.messageHandlers.exit.postMessage(params);
+        } else if (isMobile.Android()) {
+          js2android.exit();
+        }
+        }else{
+          this.$router.go(-1)
+      }
     }
   },
   mounted() {
-    let oDate=new Date()
-              let year=oDate.getFullYear()
-              let month=oDate.getMonth()+1
-              month=month<10?'0'+month:''+month;
-              let totime=year+month
-              if(this.$store.state.brandId==5){
-                this.$http
-                  .post(
-                    Newenergy.energyvehiclecycflowquery,
-                    {
-                      vin: this.$store.state.vins, //车辆vin码
-                      queryDate:totime//传给后台的查询时间
-                      // vin: 'LJ12EKS10J00001S4', //车辆vin码
-                      // queryDate:'201810'//传给后台的查询时间
-                    },
-                    this.$store.state.tsppin
-                  )
-                  .then(res => {
-                    if(res.data.returnSuccess){
-                      this.packageTotalFlow=res.data.data[0].packageTotalFlow;
-                      this.usedFlow=res.data.data[0].usedFlow;
-                      this.surplusFlow=res.data.data[0].surplusFlow;
-                      this.Flowpacket=res.data.data[0].packageName;
-                    }else{
-                        Toast({
-                          message: res.data.returnErrMsg,
-                          position: "middle",
-                          duration: 1000
-                        });
-                    }
-                });
-              }else{
-
-                this.$http
-                  .post(
-                    Lovecar.Flow,
-                    {
-                      vin: this.$store.state.vins, //车辆vin码
-                      queryDate:totime//传给后台的查询时间
-                      // vin: 'LJ12EKS10J00001S4', //车辆vin码
-                      // queryDate:'201810'//传给后台的查询时间
-                    },
-                    this.$store.state.tsppin
-                  )
-                  .then(res => {
-                    if(res.data.returnSuccess){
-                      this.packageTotalFlow=res.data.data[0].packageTotalFlow;
-                      this.usedFlow=res.data.data[0].usedFlow;
-                      this.surplusFlow=res.data.data[0].surplusFlow;
-                      this.Flowpacket=res.data.data[0].packageName;
-                    }else{
-                      	Toast({
-                          message: res.data.returnErrMsg,
-                          position: "middle",
-                          duration: 1000
-                        });
-                    }
-                  });
-              }
-  },
-
+     $(".MobileHeight").css({
+      borderTopWidth: this.$store.state.mobileStatusBar,
+      borderTopColor: "#fff"
+    });
+    let oDate = new Date();
+    let year = oDate.getFullYear();
+    let month = oDate.getMonth() + 1;
+    month = month < 10 ? "0" + month : "" + month;
+    let totime = year + month;
+    if (this.$store.state.brandId == 5) {
+      this.$http
+        .post(
+          Newenergy.energyvehiclecycflowquery,
+          {
+            vin: this.$store.state.vins, //车辆vin码
+            queryDate: totime //传给后台的查询时间
+            // vin: 'LJ12EKS10J00001S4', //车辆vin码
+            // queryDate:'201810'//传给后台的查询时间
+          },
+          this.$store.state.tsppin
+        )
+        .then(res => {
+          if (res.data.returnSuccess) {
+            this.packageTotalFlow = res.data.data[0].packageTotalFlow;
+            this.usedFlow = res.data.data[0].usedFlow;
+            this.surplusFlow = res.data.data[0].surplusFlow;
+            this.Flowpacket = res.data.data[0].packageName;
+          } else {
+            Toast({
+              message: res.data.returnErrMsg,
+              position: "middle",
+              duration: 1000
+            });
+          }
+        });
+    } else if (this.$store.state.brandId == 1) {
+      this.$http
+        .post(
+          Lightcar.truckvehiclecycflowquery,
+          {
+            vin: this.$store.state.vins, //车辆vin码
+            queryDate: totime, //传给后台的查询时间
+            brandId:this.$store.state.brandId
+            // vin: 'LJ12EKS10J00001S4', //车辆vin码
+            // queryDate:'201810'//传给后台的查询时间
+          },
+          this.$store.state.tsppin
+        )
+        .then(res => {
+          if (res.data.returnSuccess) {
+            console.log(res.data)
+            this.packageTotalFlow = res.data.data[0].packageTotalFlow;
+            this.usedFlow = res.data.data[0].usedFlow;
+            this.surplusFlow = res.data.data[0].surplusFlow;
+            this.Flowpacket = res.data.data[0].packageName;
+          } else {
+            Toast({
+              message: res.data.returnErrMsg,
+              position: "middle",
+              duration: 1000
+            });
+          }
+        });
+    } else {
+      this.$http
+        .post(
+          Lovecar.Flow,
+          {
+            vin: this.$store.state.vins, //车辆vin码
+            queryDate: totime //传给后台的查询时间
+            // vin: 'LJ12EKS10J00001S4', //车辆vin码
+            // queryDate:'201810'//传给后台的查询时间
+          },
+          this.$store.state.tsppin
+        )
+        .then(res => {
+          if (res.data.returnSuccess) {
+            this.packageTotalFlow = res.data.data[0].packageTotalFlow;
+            this.usedFlow = res.data.data[0].usedFlow;
+            this.surplusFlow = res.data.data[0].surplusFlow;
+            this.Flowpacket = res.data.data[0].packageName;
+          } else {
+            Toast({
+              message: res.data.returnErrMsg,
+              position: "middle",
+              duration: 1000
+            });
+          }
+        });
+    }
+  }
 };
 </script>
 
 <style scoped>
 /*flex*/
+.MobileHeight {
+  border-top-style: solid;
+  box-sizing: content-box;
+}
 .mint-popup {
   border-radius: 0.1rem;
 }
@@ -221,8 +270,8 @@ input {
 .flow-wrap {
   padding: 0 0.3rem;
 }
-.flow-wrap input{
- width: 25%;
+.flow-wrap input {
+  width: 25%;
 }
 .apn-title {
   height: 0.86rem;

@@ -60,7 +60,8 @@ export default {
         userid:this.$store.state.userId,
         aaauserid:this.$store.state.aaaid,
         //vin: 'LJ12EKS10J00001S4',
-        packetId: this.placeOrder.packageId
+        packetId: this.placeOrder.packageId,
+        brandId:this.$store.state.brandId
       };
       this.$http
         .post(Lovecar.Productionorder, param, this.$store.state.tsppin)
@@ -80,7 +81,7 @@ export default {
       } else if (isMobile.Android()) {
         js2android.startIcbcPay(tranData, merSignMsg, merCert);
       }
-            
+
           }else{
              Toast({
                   message: res.data.returnErrMsg,
