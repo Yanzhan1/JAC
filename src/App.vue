@@ -56,6 +56,7 @@ export default {
         // 江淮用户系统的需要通过no字段作为用户的唯一标识，所以将no作为userId使用
         // const secUid = Secret.Encrypt(userInfo.no)
         // this.$store.dispatch("userId", secUid);
+        this.$store.dispatch("CARVINS", userInfo.vin);
         this.$store.state.enterMaintenance = true;
         this.$store.dispatch("userId", userInfo.no);
         this.$store.state.addiflogin=true;
@@ -114,7 +115,6 @@ export default {
           }
           this.$store.dispatch("position",position)
         }
-        this.$store.dispatch("CARVINS", userInfo.vin);
         // this.$store.dispatch("nomarlseriseName", userInfo.seriesName);
 
         localStorage.setItem("mobile", JSON.stringify(userInfo.mobile));

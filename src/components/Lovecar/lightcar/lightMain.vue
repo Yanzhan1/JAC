@@ -43,7 +43,6 @@ export default {
     },
     watch:{
         no(newVal,oldVal){
-          console.log(newVal,oldVal)
           if(newVal){
             this.onloaded()
           }
