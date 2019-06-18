@@ -6,7 +6,6 @@
 			<span class="header-right"></span>
 		</header>
 		<div style="height:.88rem" class="MobileHeight"></div>
-    <div class="line"></div>
     <!-- <mhead currentTitle="车辆体检"></mhead> -->
     <mt-loadmore :top-method="loadTop" ref="loadmore" @top-status-change="handleTopChange">
         <div slot="top" class="mint-loadmore-top">
@@ -14,21 +13,9 @@
           <span v-show="topStatus === 'loading'">Loading...</span>
         </div>
         <ul class="ul_content">
-          <li class="flex row between cocenter" >
-            <p class="li_quan">电子转向柱锁</p>
-            <span class="right_pic actives"></span>
-          </li>
-          <li class="flex row between cocenter">
-            <p class="li_quan">电子转向柱锁</p>
-            <span class="right_pic"></span>
-          </li>
-          <li class="flex row between cocenter">
-            <p class="li_quan">电子转向柱锁</p>
-            <span class="right_pic"></span>
-          </li>
-          <li class="flex row between cocenter">
-            <p class="li_quan">电子转向柱锁</p>
-            <span class="right_pic"></span>
+          <li class="flex row between cocenter" v-for="(item,index) in this.allfalse" :key="index">
+            <p class="li_quan">{{item.dtcCode|changename}}</p>
+            <span :class="item.status?'right_pic':'right_pic actives'"></span>
           </li>
         </ul>
     </mt-loadmore>
@@ -49,12 +36,99 @@ export default {
       topStatus: '',
       time: "",
       sjc: "",
+      AutoBrakSystemStatus:true,//自动紧急刹车系统状态
+      laneDepartureSysFailure:true,//车道偏离系统故障
       allfalse:[],//储存所有的车辆体检错误信息
     };
   },
+  filters: {
+    changename(value) {
+      let name
+      if(value=='batteryCharging'){
+        name='蓄电池充电'
+      }
+      else if(value=='OilPressure'){
+        name='机油压力'
+      }
+      else if(value=='ElectronicParking'){
+        name='电子驻车工作'
+      }
+      else if(value=='stabilitySystemShutdown'){
+        name='电子稳定系统关闭'
+      }
+      else if(value=='AutoBrakSystemStatus'){
+        name='自动紧急刹车系统状态'
+      }
+      else if(value=='StartStopSystemNotWork'){
+        name='起停系统未工作'
+      }
+      else if(value=='WindshieldSensorShield'){
+        name='挡风玻璃传感器屏蔽'
+      }
+      else if(value=='TirePressureAnomaly'){
+        name='轮胎气压异常'
+      }
+      else if(value=='airbagFault'){
+        name='安全气囊故障'
+      }
+      else if(value=='electronicParkingFailure'){
+        name='电子驻车故障'
+      }
+      else if(value=='powerSteeringSystemInit'){
+        name='电子助力转向系统初始化'
+      }
+      else if(value=='powerSteeringSystemFailure'){
+        name='电子助力转向系统故障'
+      }
+      else if(value=='AutoParkingFailure'){
+        name='自动驻车故障'
+      }
+      else if(value=='slopeSlowDownFault'){
+        name='陡坡缓降故障'
+      }
+      else if(value=='ElectronicStabilitySysIndication'){
+        name='电子稳定系统指示'
+      }
+      else if(value=='TirePressureMonitoringSysFailure'){
+        name='胎压监测系统故障'
+      }
+      else if(value=='laneDepartureSysFailure'){
+        name='车道偏离系统故障'
+      }
+      else if(value=='AutoEmergencyBrakeSysFailure'){
+        name='自动紧急刹车系统故障'
+      }
+      else if(value=='adaptiveCruiseFault'){
+        name='自适应巡航故障'
+      }
+      else if(value=='transmissionFailure'){
+        name='变速箱故障'
+      }
+      else if(value=='EngineTheftPreventionSysFailure'){
+        name='发动机防盗系统故障'
+      }
+      else if(value=='startStopSystemFailure'){
+        name='起停系统故障'
+      }
+      else if(value=='engineFailure'){
+        name='发动机故障'
+      }
+      else if(value=='engineExhaustSystemFailure'){
+        name='发动机排放系统故障'
+      }
+      else if(value=='blindSpotMonitoringSysFailure'){
+        name='盲点监测系统故障'
+      }
+      return name;
+    }
+  },
   created() {
     //进入页面获取一次车辆体检
-    this.starttest()
+    if(this.$store.state.brandId==1){
+      this.init()
+    }else{
+      this.starttest()
+    }
   },
   mounted(){
     $(".MobileHeight").css({
@@ -75,39 +149,97 @@ export default {
         this.$router.go(-1)
       }
     },
-     handleTopChange(status) {
+    handleTopChange(status) {
         this.topStatus = status;
       },
-      loadTop() {
-          this.bustest()
-          this.$refs.loadmore.onTopLoaded();
-        },
+    loadTop() {
+      // if(this.$store.state.brandId==1){
+        this.lightBustest()
+      // }else{
+      //   this.bustest()
+      // }
+        this.$refs.loadmore.onTopLoaded();
+      },
+    init(){
+        var param = {
+          // vin:this.$store.state.vins,
+          vin:'LJ12EKS32JTEST996',
+          brandId:this.$store.state.brandId
+          };
+          this.$http
+            .post(Lightcar.trucklatelycyccarexamination, param, this.$store.state.tsppin)
+            .then(res => {
+              if (res.data.returnSuccess) {
+                  this.allfalse=res.data.data[0].dtcs
+              } else {
+                  Toast({
+                    message: res.data.returnErrMsg,
+                    position: "middle",
+                    duration: 3000
+                  });
+              }
+            })
+    },
     //进入页面发起的车辆查询
     starttest(){
-       var param = {
-        vin:'LJ12EKS22J4757945',
-        operationType: "CYC_CAR_EXAMINATION",
-      };
-    this.$http
-      .post(Lovecar.Control, param, this.$store.state.tsppin)
-      .then(res => {
-        if (res.data.returnSuccess) {
-          this.getAsyReturn(res.data.operationId);
-        } else {
-            Toast({
-              message: res.data.returnErrMsg,
-              position: "middle",
-              duration: 3000
-            });
-        }
-      })
-      .catch(err => {
-        Toast({
-          message:  res.data.returnErrMsg,
-          position: "middle",
-          duration: 3000
-        });
-      });
+      if(this.$store.state.brandId==1){
+
+          var param = {
+          vin:this.$store.state.vins,
+          operationType: "CYC_CAR_EXAMINATION",
+          };
+          this.$http
+            .post(Lightcar.truckcyccarexamination, param, this.$store.state.tsppin)
+            .then(res => {
+              if (res.data.returnSuccess) {
+                this.getAsyReturn(res.data.operationId);
+              } else {
+                  Toast({
+                    message: res.data.returnErrMsg,
+                    position: "middle",
+                    duration: 3000
+                  });
+              }
+            })
+      }else{
+          var param = {
+          vin:this.$store.state.vins,
+          operationType: "CYC_CAR_EXAMINATION",
+          };
+          this.$http
+            .post(Lovecar.Control, param, this.$store.state.tsppin)
+            .then(res => {
+              if (res.data.returnSuccess) {
+                this.getAsyReturn(res.data.operationId);
+              } else {
+                  Toast({
+                    message: res.data.returnErrMsg,
+                    position: "middle",
+                    duration: 3000
+                  });
+              }
+            })
+      }
+    },
+    lightBustest(){
+         var param = {
+            vin: 'LJ12EKS32JTEST996'
+          };
+          this.$http
+            .post(Lightcar.truckcyccarexamination, param, this.$store.state.tsppin)
+            .then(res => {
+              if (res.data.returnSuccess) {
+                console.log(res)
+                this.getAsyReturn(res.data.operationId);
+              } else {
+                  Toast({
+                    message: res.data.returnErrMsg,
+                    position: "middle",
+                    duration: 3000
+                  });
+              }
+
+            })
     },
     //点击刷新按钮查询车辆体检
     bustest(){
@@ -118,7 +250,7 @@ export default {
       .post(Lovecar.BusTest, param, this.$store.state.tsppin)
       .then(res => {
         if (res.data.returnSuccess) {
-
+           this.getAsyReturn(res.data.operationId);
         } else {
             Toast({
               message: res.data.returnErrMsg,
@@ -185,12 +317,12 @@ export default {
                             localhide();
                           }
                         } else if (res.data.status == "SUCCEED") {
-                          this.allfalse=res.data.data
-                          // Toast({
-                          //   message: "下达指令成功",
-                          //   position: "middle",
-                          //   duration: 3000
-                          // });
+                          this.allfalse=res.data.data[0].dtcs
+                          Toast({
+                            message: "刷新成功",
+                            position: "middle",
+                            duration: 3000
+                          });
                           clearInterval(this.time);
                           localhide();
                         } else if (res.data.status == "FAILED") {
@@ -215,12 +347,12 @@ export default {
                 }, 4000);
               }
             } else if (res.data.status == "SUCCEED") {
-              // Toast({
-              //   message: "下达指令成功",
-              //   position: "middle",
-              //   duration: 3000
-              // });
-              this.allfalse=res.data.data
+              Toast({
+                message: "刷新成功",
+                position: "middle",
+                duration: 3000
+              });
+              this.allfalse=res.data.data[0].dtcs
                clearInterval(this.time);
               localhide();
             } else if (res.data.status == "FAILED") {
@@ -299,6 +431,10 @@ h2 {
   width: 0.4rem;
   height: 0.34rem;
   display: block;
+}
+.header{
+  background: #ffffff;
+  border-bottom: .1rem solid #eeeeee;
 }
 </style>
 

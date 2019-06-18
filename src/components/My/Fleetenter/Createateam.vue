@@ -3,9 +3,15 @@
         <mhead currentTitle="创建车队"></mhead>
         <div class="title">输入车队名称和车队长信息来创建车队</div>
         <div class="flex cocenter box">
-          <div>车队名:</div>
-          <input type="text" placeholder="请输入车队名">
+          <div class="name">车队名:</div>
+          <input type="text" placeholder="请输入车队名" v-model="teamname">
         </div>
+        <div class="flex cocenter box">
+          <div class="name">车队长:</div>
+          <input type="text" placeholder="选择或者创建一个车队长" v-model="teamleader">
+          <img src="/static/images/next@2x.png" alt=""  @click="tochooseleader">
+        </div>
+        <div class="created" @click="create">创建</div>
     </div>
 </template>
 <script>
@@ -13,19 +19,40 @@ import PublicHead from "./../../publicmodel/PublicHead";
 export default {
   data() {
     return {
+      teamname:"",
+      teamleader:'',
     };
   },
   components: {
     mhead: PublicHead
   },
   methods: {
+    create(){
+      this.$router.push({
+        path:"/felltManagement/createteamleader",
+        query:{
+          teamname:this.teamname,
+          teamleader:this.teamleader
+        }
+      })
+    },
+    tochooseleader(){
+          this.$router.push({
+            path:"/felltManagement/teamleader"
+          })
+    }
   },
   mounted(){
+
   }
 };
 </script>
 
 <style scoped>
+input{
+  border:none;
+  outline: none;
+}
 .title{
   width:90%;
   margin: 0 auto;
@@ -41,5 +68,29 @@ export default {
   margin: 0 auto;
   height: .98rem;
   border-bottom: .01rem solid #eeeeee;
+  font-size:.28rem;
+  font-family:PingFang-SC-Medium;
+  font-weight:500;
+  color:rgba(68,68,68,1);
+}
+.box .name{
+
+}
+.box>input{
+  margin-left: .41rem;
+}
+.box>img{
+  width: .14rem;
+  height: .28rem;
+  margin-left: 2rem;
+}
+.created{
+  width: 100%;
+  line-height: .98rem;
+  text-align: center;
+  background: #49BBFF;
+  color: #fff;
+  position: fixed;
+  bottom: 0;
 }
 </style>

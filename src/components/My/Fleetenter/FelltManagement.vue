@@ -31,7 +31,7 @@
               </div>
 
             </div>
-            <div class="bottom" @click="toFleetmodification">编辑车队</div>
+            <div class="bottom" @click="toFleetmodification(item)">编辑车队</div>
           </div>
       </div>
 </template>
@@ -81,9 +81,12 @@ export default {
           path:'/felltManagement/drivermanagemen'
         })
       },
-      toFleetmodification(){
+      toFleetmodification(item){
         this.$router.push({
-          path:'/felltManagement/fleetmodification'
+          path:'/felltManagement/Editteam',
+          query:{
+            item
+          }
         })
       }
     },

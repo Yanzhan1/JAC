@@ -112,6 +112,7 @@ export default {
   margin:0 auto;
   margin-top: .4rem;
   height: 1rem;
+  color: #49BBFF;
 }
 .adddriverbtn img{
   width: .24rem;
