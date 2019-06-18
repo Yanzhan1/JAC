@@ -249,10 +249,13 @@ window.Newenergy = {
         energyvehiclecycflowquery: witlocal + '/vehicleInformation/energy-vehicle-cyc-flow-query', //流量查询接口
         energyvehiclesupportfunction: witlocal + '/vehicleInformation/energy-vehicle-support-function', //流量查询接口
     }
+    //轻卡接口
 window.Lightcar={
         truckvehiclecycflowquery:light+'/vehicleInformation/truck-vehicle-cyc-flow-query',//流量查询
         findteamlist:lightlocal+'/VehicleTeamController/find-team-list',//车队管理列表查询
         findvehiclelist:lightlocal+'/VehicleTeamController/find-vehicle-list',//车队车辆列表查询
+        truckcyccarexamination:light+'/vehicleInformation/truck-cyc-car-examination',//车辆体检
+        trucklatelycyccarexamination:light+'/vehicleInformation/truck-lately-cyc-car-examination',//车辆体检同步接口
 }
     //消息接口
 window.IMFORMATION = {
