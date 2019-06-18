@@ -153,17 +153,16 @@ export default {
         this.topStatus = status;
       },
     loadTop() {
-      // if(this.$store.state.brandId==1){
+      if(this.$store.state.brandId==1){
         this.lightBustest()
-      // }else{
-      //   this.bustest()
-      // }
+      }else{
+        this.bustest()
+      }
         this.$refs.loadmore.onTopLoaded();
       },
     init(){
         var param = {
-          // vin:this.$store.state.vins,
-          vin:'LJ12EKS32JTEST996',
+          vin:this.$store.state.vins,
           brandId:this.$store.state.brandId
           };
           this.$http
@@ -189,7 +188,7 @@ export default {
           operationType: "CYC_CAR_EXAMINATION",
           };
           this.$http
-            .post(Lightcar.truckcyccarexamination, param, this.$store.state.tsppin)
+            .post(Lovecar.BusTest, param, this.$store.state.tsppin)
             .then(res => {
               if (res.data.returnSuccess) {
                 this.getAsyReturn(res.data.operationId);
@@ -223,7 +222,7 @@ export default {
     },
     lightBustest(){
          var param = {
-            vin: 'LJ12EKS32JTEST996'
+            vin: this.$store.state.vins
           };
           this.$http
             .post(Lightcar.truckcyccarexamination, param, this.$store.state.tsppin)
@@ -244,7 +243,7 @@ export default {
     //点击刷新按钮查询车辆体检
     bustest(){
       var param = {
-      vin: 'LJ12EKS22J4757945'
+      vin: this.$store.state.vins
     };
     this.$http
       .post(Lovecar.BusTest, param, this.$store.state.tsppin)
