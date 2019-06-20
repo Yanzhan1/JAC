@@ -31,11 +31,11 @@
               </div>
             </div>
         </div> -->
-        <div class="box">
+        <div class="box" v-for="(item,index) in this.list" :key="index">
               <div class="left flex cocenter between">
-                  <div class="name">洛小鱼</div>
-                  <div class="phone">15968838382</div>
-                  <div class="detail" @click="todetail">详情 ></div>
+                  <div class="name">{{item.driverName}}</div>
+                  <div class="phone">{{item.contactPhone}}</div>
+                  <div class="detail" @click="todetail(item)">详情 ></div>
               </div>
         </div>
     </div>
@@ -45,18 +45,33 @@
 export default {
   data(){
       return{
-
+        list:[]
       }
   },
   methods:{
-    todetail(val){
+    init(){
+      let params={
+        brandId:'1',
+        userId:"1333298182",
+        driverId:""
+      }
+      this.$http.post(Lightcar.finddriverlist,params).then(res=>{
+        if(res.data.code=='0'){
+          this.list=res.data.data
+        }
+      })
+    },
+    todetail(item){
         this.$router.push({
           path:'/felltManagement/driverdetail',
-          // query:{
-          //   item:val
-          // }
+          query:{
+            item
+          }
         })
     }
+  },
+  created(){
+    this.init()
   },
   mounted(){
       $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });

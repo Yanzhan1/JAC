@@ -252,10 +252,13 @@ window.Newenergy = {
     //轻卡接口
 window.Lightcar={
         truckvehiclecycflowquery:light+'/vehicleInformation/truck-vehicle-cyc-flow-query',//流量查询
+        trucklatelycyccarexamination:light+'/vehicleInformation/truck-lately-cyc-car-examination',//车辆体检同步接口
+        truckcyccarexamination:light+'/vehicleInformation/truck-cyc-car-examination',//车辆体检
         findteamlist:lightlocal+'/VehicleTeamController/find-team-list',//车队管理列表查询
         findvehiclelist:lightlocal+'/VehicleTeamController/find-vehicle-list',//车队车辆列表查询
-        truckcyccarexamination:light+'/vehicleInformation/truck-cyc-car-examination',//车辆体检
-        trucklatelycyccarexamination:light+'/vehicleInformation/truck-lately-cyc-car-examination',//车辆体检同步接口
+        finddriverlist:lightlocal+'/VehicleTeamController/find-driver-list',//司机列表
+        findisBindingvehicledriverlist:lightlocal+'/VehicleTeamController/find-isBinding-vehicle-driver-list',//通过车辆查询司机
+        createteam:lightlocal+'/VehicleTeamController/create-team',//新建车队
 }
     //消息接口
 window.IMFORMATION = {

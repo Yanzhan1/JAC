@@ -8,7 +8,7 @@
           </span>
       </header>
       <div style="height:0.88rem" class="MobileHeight"></div>
-      <div class="name">罗效益</div>
+      <div class="name">{{this.detail.driverName}}</div>
       <div class="box flex">
         <div class="title">
             <div>手机号码</div>
@@ -17,10 +17,10 @@
             <div>地址</div>
         </div>
         <div class="content">
-            <div>1132432</div>
-            <div>32832943241111342x</div>
+            <div>{{this.detail.contactPhone}}</div>
+            <div>{{this.detail.id}}</div>
             <div>洛小鱼  12321432543</div>
-            <div>上海田林路啦啦啦啦</div>
+            <div>{{this.detail.address}}</div>
         </div>
       </div>
       <div class="bindeddriver">
@@ -32,7 +32,7 @@
         </div>
         <div class="adddriverbtn flex contentcenter ">
             <img src="/static/images/carteam/adddriver@2x.png" alt="">
-            <div>添加车辆</div>
+            <div @click="bindcar">绑定车辆</div>
         </div>
     </div>
 </template>
@@ -41,14 +41,22 @@
 export default {
   data(){
     return{
-
+      detail:{}
     }
   },
   methods:{
-
+    bindcar(){
+      this.$router.push({
+        path:'/felltManagement/bindcar'
+      })
+    }
   },
   created(){
     $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
+    console.log(this.$route.query)
+    if(this.$route.query){
+      this.detail=this.$route.query.item
+    }
   }
 }
 </script>

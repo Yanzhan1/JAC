@@ -8,8 +8,12 @@
         </div>
         <div class="flex cocenter box">
           <div class="name">车队长:</div>
-          <input type="text" placeholder="选择或者创建一个车队长" v-model="teamleader">
-          <img src="/static/images/next@2x.png" alt=""  @click="tochooseleader">
+          <input type="text" placeholder="请输入车队长姓名" v-model="teamleader">
+          <!-- <img src="/static/images/next@2x.png" alt=""  @click="tochooseleader"> -->
+        </div>
+        <div class="flex cocenter box">
+          <div class="name">电话:</div>
+          <input type="text" placeholder="请输入手机号" v-model="leaderphone">
         </div>
         <div class="created" @click="create">创建</div>
     </div>
@@ -21,6 +25,7 @@ export default {
     return {
       teamname:"",
       teamleader:'',
+      leaderphone:'',
     };
   },
   components: {
@@ -28,19 +33,28 @@ export default {
   },
   methods: {
     create(){
-      this.$router.push({
-        path:"/felltManagement/createteamleader",
-        query:{
-          teamname:this.teamname,
-          teamleader:this.teamleader
-        }
+      let param={
+          brandId:'1',
+          teamName:this.teamname,
+          contact:this.teamleader,
+          contactPhone:this.leaderphone
+      }
+      this.$http.post(Lightcar.createteam,param).then(res=>{
+          console.log(res)
       })
+      // this.$router.push({
+      //   path:"/felltManagement/createteamleader",
+      //   query:{
+      //     teamname:this.teamname,
+      //     teamleader:this.teamleader
+      //   }
+      // })
     },
-    tochooseleader(){
-          this.$router.push({
-            path:"/felltManagement/teamleader"
-          })
-    }
+    // tochooseleader(){
+    //       this.$router.push({
+    //         path:"/felltManagement/teamleader"
+    //       })
+    // }
   },
   mounted(){
 
@@ -82,7 +96,7 @@ input{
 .box>img{
   width: .14rem;
   height: .28rem;
-  margin-left: 2rem;
+  margin-left: 1.7rem;
 }
 .created{
   width: 100%;

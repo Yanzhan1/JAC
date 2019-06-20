@@ -2,12 +2,12 @@
       <div>
         <header class="header MobileHeight">
           <img class="header-left" :src="'./static/images/back@2x.png'" @click="goindex">
-          <span class="header-title" style="margin-left:.6rem">车队管理</span>
+          <span class="header-title">车队管理</span>
           <span >
-            <router-link tag="div" style="color:#49BBFF" to="/felltManagement/createateam">创建车队</router-link>
+            <router-link tag="div" to="/felltManagement/createateam" style="color:#49BBFF" >创建车队</router-link>
           </span>
         </header>
-        <div style="height:0.88rem" class="MobileHeight"></div>
+        <div style="height:.88rem" class="MobileHeight"></div>
         <div class="control">
             <div class="carcontrol" @click="toVehiclemanagement">车辆管理</div>
             <div style="color:#EEEEEE">|</div>
@@ -94,28 +94,38 @@ export default {
       this.init()
     },
     mounted(){
+      console.log(this.$store.state.mobileStatusBar)
       $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
     }
 }
 </script>
 
 <style scoped>
+  .header{
+    background: #ffffff;
+  }
   .MobileHeight{
     background: #ffffff;
   }
   .control{
+    position: fixed;
+    width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
     line-height: .88rem;
     border-top: .01rem solid #EEEEEE;
     border-bottom: .01rem solid #EEEEEE;
+    background: #ffffff;
+    z-index: 2;
   }
   .control>div{
     color: #49BBFF;
     font-size: .28rem;
   }
   .showcarteam{
+    position: relative;
+    top: .88rem;
     width:90%;
     margin: 0 auto;
     background:rgba(255,255,255,1);
@@ -141,7 +151,7 @@ export default {
     text-align: center;
     background:rgba(73,187,255,1);
     box-shadow:0px 0px 8px 0px rgba(0, 0, 0, 0.1);
-    border-radius:.1rem;
+    border-radius:.1rem 0;
   }
   .showcarteam .top .title_leader{
     font-family:'PingFang-SC-Medium';

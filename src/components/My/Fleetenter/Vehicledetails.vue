@@ -33,12 +33,13 @@
         </div>
         <div class="adddriverbtn flex contentcenter ">
             <img src="/static/images/carteam/adddriver@2x.png" alt="">
-            <div>添加司机</div>
+            <div @click="bindingDriver">绑定司机</div>
         </div>
     </div>
 </template>
 
 <script>
+import {Toast} from 'mint-ui'
 export default {
     data(){
       return{
@@ -46,11 +47,34 @@ export default {
       }
     },
     methods:{
+        init(){
+          let param={
+            vin:this.list.vin
+          }
+          this.$http.post(Lightcar.findisBindingvehicledriverlist,param).then(res=>{
+              if(res.data.code=0){
 
+              }else{
+                Toast({
+                  message: res.data.msg,
+                  duration: 2000,
+                  position: "middle"
+                });
+              }
+          })
+        },
+        bindingDriver(){
+          this.$router.push({
+            path:"/felltManagement/binddriver"
+          })
+        }
     },
     created(){
          $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
          this.list=this.$route.query.item
+    },
+    mounted(){
+      this.init()
     }
 }
 </script>
