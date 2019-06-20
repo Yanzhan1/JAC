@@ -1802,6 +1802,9 @@ export default {
                 } else if (this.type == 2) {
                   // 后备箱接口
                   this.isTrues ? (this.backnum = 1) : (this.backnum = 2);
+                  if(!this.ToS7){
+                    this.backnum=2
+                  }
                   var param = {
                     vin: this.$store.state.vins,
                     operationType: "TRUNK",

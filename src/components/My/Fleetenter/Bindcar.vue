@@ -7,7 +7,7 @@
             <div class="vin">VIN:1253214321</div>
           </div>
           <div class="middle">浙AAA</div>
-          <img class="right" src="/static/images/nextblue@2x.png" alt="" @click="choose">
+          <img class="right" src="/static/images/nextblue@2x.png" alt="" @click="choose(item)">
            <!-- <label class="chooseimages" :class="index==currentIndex?'active':''" @click="choose(index)"></label> -->
         </div>
         <mt-datetime-picker
@@ -36,6 +36,7 @@
           date-format="{value} 日"
           hourFormat="{value}时"
           minuteFormat="{value}分"
+          @confirm="end"
           >
         </mt-datetime-picker>
     </div>
@@ -48,7 +49,9 @@ export default {
     return {
       currentIndex:-1,
       pickerValuestart:'',
-      pickerValueend:''
+      pickerValueend:'',
+      starttime:'',//传给后台的开始时间戳
+      endtime:'',//传给后台的结束时间戳
     };
   },
   components: {
@@ -60,8 +63,17 @@ export default {
       // this.currentIndex=val
       this.openPickerstart()
     },
-    sure(){
-      alert('提交')
+    addstyle(){
+      let newNode = document.createElement("span");
+      newNode.innerHTML = "设置开始时间";
+      $('.mint-datetime-cancel')[0].parentNode.insertBefore(newNode, $('.mint-datetime-cancel')[0].nextSibling)
+      $('.picker-toolbar')[0].style.cssText="display:flex;justify-content:space-between;align-items: center"
+      $('.mint-datetime-cancel')[0].nextSibling.style.cssText='width:2.5rem;text-align:center;font-size:.28rem;'
+      let newNodenext = document.createElement("span");
+      newNodenext.innerHTML = "设置结束时间";
+       $('.mint-datetime-cancel')[1].parentNode.insertBefore(newNodenext, $('.mint-datetime-cancel')[1].nextSibling)
+      $('.picker-toolbar')[1].style.cssText="display:flex;justify-content:space-between;align-items: center"
+      $('.mint-datetime-cancel')[1].nextSibling.style.cssText='width:2.5rem;text-align:center;font-size:.28rem;'
     },
     openPickerstart() {
         this.$refs.pickerstart.open();
@@ -70,13 +82,20 @@ export default {
         this.$refs.pickerend.open();
     },
     start(){
+      this.starttime=this.pickerValuestart.getTime()
       this.openPickerend()
     },
     end(){
-
+      this.endtime=this.pickerValueend
     }
   },
+  created(){
+
+  },
   mounted(){
+    setTimeout(()=>{
+      this.addstyle()
+    },500)
   }
 };
 </script>
@@ -132,5 +151,4 @@ export default {
   background-size: 100%;
   background-repeat: no-repeat;
 }
-
 </style>
