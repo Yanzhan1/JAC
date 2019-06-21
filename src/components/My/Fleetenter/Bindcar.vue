@@ -21,9 +21,9 @@
           date-format="{value} 日"
           hourFormat="{value}时"
           minuteFormat="{value}分"
+          :startDate="startDate"
           @confirm="start"
           >
-          <div style="position:absolute;z-index:99999">jajdfkdsajflkdsajfjsjfkdsjflkjdsafdsajflkjads</div>
         </mt-datetime-picker>
         <mt-datetime-picker
           v-model="pickerValueend"
@@ -36,6 +36,7 @@
           date-format="{value} 日"
           hourFormat="{value}时"
           minuteFormat="{value}分"
+          :startDate='startnext'
           @confirm="end"
           >
         </mt-datetime-picker>
@@ -52,6 +53,8 @@ export default {
       pickerValueend:'',
       starttime:'',//传给后台的开始时间戳
       endtime:'',//传给后台的结束时间戳
+      startDate:new Date(),
+      startnext:new Date(),
     };
   },
   components: {
@@ -83,6 +86,7 @@ export default {
     },
     start(){
       this.starttime=this.pickerValuestart.getTime()
+      this.startnext=new Date(operationTime.getTime(this.starttime,2))
       this.openPickerend()
     },
     end(){

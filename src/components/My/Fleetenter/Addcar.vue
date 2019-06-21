@@ -7,7 +7,7 @@
             <div class="vin">VIN:1253214321</div>
           </div>
           <div class="middle">浙AAA</div>
-           <label class="chooseimages" :class="index==currentIndex?'active':''" @click="choose(index)"></label>
+           <label class="chooseimages" :class="labeldata.indexOf(index)!=-1?'active':''" @click="choose(index)"></label>
         </div>
         <div class="sure" @click="sure">确定</div>
     </div>
@@ -17,7 +17,8 @@ import PublicHead from "./../../publicmodel/PublicHead";
 export default {
   data() {
     return {
-      currentIndex:-1
+      labeldata:[],
+      again:[]
     };
   },
   components: {
@@ -25,14 +26,30 @@ export default {
   },
   methods: {
     choose(val){
-      console.log(val)
-      this.currentIndex=val
+      this.labeldata.push(val)
+      let newarr=this.labeldata.sort()
+      this.again=[]
+      for(let i=0;i<newarr.length;i++){
+          if(newarr[i]==newarr[i+1]){
+              this.again.push(newarr[i])
+          }
+      }
+      for(let val of this.again){
+          for(let i=0;i<this.labeldata.length;i++){
+              if(this.labeldata[i]==val){
+                  this.labeldata.splice(i,1)
+                  i--
+              }
+          }
+      }
+      console.log(this.labeldata)
     },
     sure(){
       alert('提交')
     }
   },
   mounted(){
+
   }
 };
 </script>
