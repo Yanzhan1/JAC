@@ -27,7 +27,7 @@
                     <span>{{item.vehicleNum}}</span>
                   </div>
                 </div>
-                <img src="/static/images/carteam/goldBody.png" alt=""/>
+                <img src="/static/images/carteam/JAC@2x.png" alt=""/>
               </div>
 
             </div>
@@ -139,8 +139,8 @@ export default {
     justify-content: space-between;
   }
   .showcarteam .top>img{
-    width: 3.04rem;
-    height: 1.95rem;
+    width: 2.48rem;
+    height: .66rem;
   }
   .showcarteam .top .title{
     width: 2rem;

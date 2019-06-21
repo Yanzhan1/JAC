@@ -19,6 +19,7 @@
     </div>
 </template>
 <script>
+import { Toast } from 'mint-ui';
 import PublicHead from "./../../publicmodel/PublicHead";
 export default {
   data() {
@@ -40,15 +41,17 @@ export default {
           contactPhone:this.leaderphone
       }
       this.$http.post(Lightcar.createteam,param).then(res=>{
-          console.log(res)
+          if(res.data.code==0){
+            Toast({
+							message: '创建车队成功',
+							position: 'middle',
+							duration: 1000
+						});
+            this.$router.push({
+              path:"/felltManagement/FelltManagement"
+            })
+          }
       })
-      // this.$router.push({
-      //   path:"/felltManagement/createteamleader",
-      //   query:{
-      //     teamname:this.teamname,
-      //     teamleader:this.teamleader
-      //   }
-      // })
     },
     // tochooseleader(){
     //       this.$router.push({

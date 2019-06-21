@@ -42,7 +42,6 @@ export default {
               }
           }
       }
-      console.log(this.labeldata)
     },
     sure(){
       alert('提交')

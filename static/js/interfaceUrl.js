@@ -259,6 +259,9 @@ window.Lightcar={
         finddriverlist:lightlocal+'/VehicleTeamController/find-driver-list',//司机列表
         findisBindingvehicledriverlist:lightlocal+'/VehicleTeamController/find-isBinding-vehicle-driver-list',//通过车辆查询司机
         createteam:lightlocal+'/VehicleTeamController/create-team',//新建车队
+        updatevehicleinfo:lightlocal+'/VehicleTeamController/update-vehicle-info',//修改车牌
+        updatedriverinfo:lightlocal+'/VehicleTeamController/update-driver-info',//修改司机信息
+        createdriver:lightlocal+'/VehicleTeamController/create-driver',//新增司机
 }
     //消息接口
 window.IMFORMATION = {
