@@ -146,8 +146,8 @@ import store from './store'
 import $ from 'jquery'
 //
 //手机端调试工具,发布提交时必须注释掉
-import Vconsole from 'vconsole'
-new Vconsole()
+// import Vconsole from 'vconsole'
+// new Vconsole()
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
