@@ -48,7 +48,7 @@ export default {
 							duration: 1000
 						});
             this.$router.push({
-              path:"/felltManagement/FelltManagement"
+              path:"/felltManagement"
             })
           }
       })

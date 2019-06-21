@@ -4,27 +4,27 @@
         <input class="inpt" type="text" placeholder="输入司机的基本信息来创建司机" disabled>
         <div class="listdetail">
           <div class="title">司机姓名:</div>
-          <input type="text" placeholder="请输入司机姓名" v-model="this.drivername">
+          <input type="text" placeholder="请输入司机姓名" v-model="drivername">
         </div>
         <div class="listdetail">
           <div class="title">司机电话:</div>
-          <input type="text" placeholder="请输入司机电话" v-model="this.drivercall">
+          <input type="text" placeholder="请输入司机电话" v-model="drivercall">
         </div>
         <div class="listdetail">
           <div class="title">身份证号:</div>
-          <input type="text" placeholder="请输入司机身份证号" v-model="this.driveridcard">
+          <input type="text" placeholder="请输入司机身份证号" v-model="driveridcard">
         </div>
         <div class="listdetail">
           <div class="title">司机地址:</div>
-          <input type="text" placeholder="请输入司机地址" v-model="this.driveradress">
+          <input type="text" placeholder="请输入司机地址" v-model="driveradress">
         </div>
         <div class="listdetail">
           <div class="title">紧急联系人:</div>
-          <input type="text" placeholder="请输入紧急联系人姓名" v-model="this.contact">
+          <input type="text" placeholder="请输入紧急联系人姓名" v-model="contact">
         </div>
         <div class="listdetail">
           <div class="title">电话:</div>
-          <input type="text" placeholder="请输入紧急联系人电话" v-model="this.contactcall">
+          <input type="text" placeholder="请输入紧急联系人电话" v-model="contactcall">
         </div>
         <div class="sub" @click="created">
            创建
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import {Toast} from 'mint-ui'
 import PublicHead from "./../../publicmodel/PublicHead";
 export default {
   data(){
@@ -50,7 +51,24 @@ export default {
   },
   methods:{
     created(){
-      alert('创建司机')
+      let params={
+        brandId:'1',
+        driverName:this.drivername,
+        phone:this.drivercall,
+        identityNum:this.driveridcard,
+        address:this.driveradress,
+        urgentPersonName:this.contact,
+        urgentPersonNum:this.contactcall
+      }
+      this.$http.post(Lightcar.createdriver,params).then((res)=>{
+        if(res.data.code==0){
+          Toast({
+                  message: "创建司机成功",
+                  position: "middle",
+                  duration: 2000
+                });
+        }
+      })
     }
   },
   created(){
