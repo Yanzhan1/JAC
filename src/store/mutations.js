@@ -97,4 +97,10 @@ export default {
     [types.POSITION]: (state, payload) => {
         state.position = payload
     },
+    [types.VEHICLEINFORMATION]: (state, payload) => {
+        state.VehicleInformation = payload
+    },
+    [types.DRIVERINFORMATION]: (state, payload) => {
+        state.driverInformation = payload
+    },
 }

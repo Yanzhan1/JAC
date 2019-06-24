@@ -27,7 +27,13 @@
                     <span>{{item.vehicleNum}}</span>
                   </div>
                 </div>
-                <img src="/static/images/carteam/JAC@2x.png" alt=""/>
+                <div class="choose_default">
+                  <div class="flex default">
+                    <label for="foot-check" class="input-label" :class="index==curindex?'active':''"  @click="default_team(index,item.teamId)"> </label>
+                    <span class="moren" :class="index==curindex?'actived':''">默认</span>
+                  </div>
+                 <img src="/static/images/carteam/JAC@2x.png" alt=""/>
+                </div>
               </div>
 
             </div>
@@ -37,10 +43,12 @@
 </template>
 
 <script>
+import {Toast} from 'mint-ui'
 export default {
 		data() {
 			return {
-        list:[]
+        list:[],
+        curindex:-1,
       };
     },
     methods:{
@@ -50,7 +58,6 @@ export default {
           teamId:'',
           brandId:'1'
         }
-        console.log(Lightcar.findteamlist)
           this.$http
         .post(
           Lightcar.findteamlist,
@@ -63,6 +70,11 @@ export default {
         .then(res => {
           if(res.data.code==0){
             this.list=res.data.data
+            for(let i=0;i<this.list.length;i++){
+              if(this.list[i].defalutTeam==1){
+                  this.curindex=i
+              }
+            }
           }
         });
       },
@@ -88,13 +100,25 @@ export default {
             item
           }
         })
+      },
+      default_team(index,teamId){
+        this.$http.post(Lightcar.setdefaultteam,{teamId:teamId}).then(res=>{
+          if(res.data.code==0){
+            this.curindex=index
+          }else{
+              Toast({
+                  message: res.data.msg,
+                  position: "middle",
+                  duration: 2000
+                });
+          }
+        })
       }
     },
     created(){
       this.init()
     },
     mounted(){
-      console.log(this.$store.state.mobileStatusBar)
       $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
     }
 }
@@ -138,9 +162,10 @@ export default {
     display:flex;
     justify-content: space-between;
   }
-  .showcarteam .top>img{
+  .showcarteam .top img{
     width: 2.48rem;
     height: .66rem;
+    margin-top: .66rem;
   }
   .showcarteam .top .title{
     width: 2rem;
@@ -183,4 +208,38 @@ export default {
     font-size: .28rem;
     color: #49BBFF;
   }
+  .choose_default{
+    margin-top:.15rem;
+    margin-right: .6rem;
+  }
+  .choose_default .default{
+    margin-left: 1.5rem;
+    align-items: center;
+  }
+  .choose_default .default .input-label {
+  display: block;
+  width: 0.24rem;
+  height: 0.24rem;
+  background-image: url("../../../../static/images/Lovecar/loseWindow.png");
+  border-radius: 50%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  margin-right: .1rem;
+}
+ .choose_default .default .input-label.active {
+  background-image: url("../../../../static/images/Lovecar/window2@2x.png");
+  width: 0.24rem;
+  height: 0.24rem;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+.choose_default .default .moren{
+  font-size:.22rem;
+  font-family:PingFang-SC-Medium;
+  font-weight:500;
+  color: #000;
+}
+.choose_default .default .moren.actived{
+  color: #49BBFF;
+}
 </style>

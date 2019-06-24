@@ -1,12 +1,12 @@
 <template>
   	<div>
         <mhead currentTitle="添加车辆"></mhead>
-        <div class="flex cocenter between list" v-for="(item,index) in 5" :key="index">
+        <div class="flex cocenter between list" v-for="(item,index) in this.list" :key="index">
           <div class="left">
-            <div class="plate">宝马xx</div>
-            <div class="vin">VIN:1253214321</div>
+            <div class="plate">{{item.model}}</div>
+            <div class="vin">VIN:{{item.vin}}</div>
           </div>
-          <div class="middle">浙AAA</div>
+          <div class="middle">{{item.plate}}</div>
           <img class="right" src="/static/images/nextblue@2x.png" alt="" @click="choose(item)">
            <!-- <label class="chooseimages" :class="index==currentIndex?'active':''" @click="choose(index)"></label> -->
         </div>
@@ -44,7 +44,7 @@
 </template>
 <script>
 import PublicHead from "./../../publicmodel/PublicHead";
-import { DatetimePicker } from 'mint-ui';
+import { DatetimePicker ,Toast} from 'mint-ui';
 export default {
   data() {
     return {
@@ -53,17 +53,30 @@ export default {
       pickerValueend:'',
       starttime:'',//传给后台的开始时间戳
       endtime:'',//传给后台的结束时间戳
+      beginTime:'',//传给后台的开始时间戳
+      lastTime:'',//传给后台的结束时间戳
       startDate:new Date(),
       startnext:new Date(),
+      list:[],
+      item:{},//每辆车信息
     };
   },
   components: {
     mhead: PublicHead
   },
   methods: {
+    init(){
+      let param={
+        // brandId:this.$store.state.brandId,
+      }
+      this.$http.post(Lightcar.findvehiclelist,param).then(res=>{
+        if(res.data.code==0){
+           this.list=res.data.data
+        }
+      })
+    },
     choose(val){
-      console.log(val)
-      // this.currentIndex=val
+      this.item=val
       this.openPickerstart()
     },
     addstyle(){
@@ -87,13 +100,38 @@ export default {
     start(){
       this.starttime=this.pickerValuestart.getTime()
       this.startnext=new Date(operationTime.getTime(this.starttime,2))
+      this.beginTime=operationTime.getTime(this.starttime,1)
       this.openPickerend()
     },
     end(){
       this.endtime=this.pickerValueend
+      this.lastTime=operationTime.getTime(this.endtime,1)
+      let params={
+              driverId:this.$store.state.driverInformation.id,
+              vin: this.item.vin,
+              beginTime:this.beginTime,
+              endTime:this.lastTime,
+              brandId:'1'
+            }
+      this.$http.post(Lightcar.updateisBindingvehicledriverlist,params).then(res=>{
+        if(res.data.code==0){
+            Toast({
+                  message: this.item.vin+'车辆绑定成功',
+                  duration: 2000,
+                  position: "middle"
+                });
+        }else{
+            Toast({
+                  message: res.data.msg,
+                  duration: 2000,
+                  position: "middle"
+                });
+        }
+      })
     }
   },
   created(){
+    this.init()
 
   },
   mounted(){

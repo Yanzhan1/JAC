@@ -1,13 +1,6 @@
 <template>
     <div>
-        <header class="header MobileHeight">
-          <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-          <span class="header-title" style="margin-left:.6rem">车辆信息</span>
-          <span >
-            <router-link tag="div" style="color:#FF3030" to="/myindex/addBus">删除车辆</router-link>
-          </span>
-        </header>
-        <div style="height:0.88rem;" class="MobileHeight"></div>
+        <mhead currentTitle="车辆信息"></mhead>
         <div class="information">
             <div class="flex between cocenter top">
                 <div class="carname">{{this.list.model}}</div>
@@ -26,24 +19,37 @@
         </div>
         <div class="bindeddriver">
             <div class="title">已绑定司机</div>
-            <div class="flex between drivers cocenter" v-for="(item,index) in 3" :key="index">
-               <div>洛小鱼</div>
-               <img src="/static/images/carteam/deletecar@2x.png" alt="">
+            <div class="flex between drivers cocenter" v-for="(item,index) in this.driverList" :key="index">
+              <div>
+                <div>{{item.driverName}}</div>
+                <div class="timer">{{item.startTime|changTime}}至{{item.overTime|changTime}}</div>
+              </div>
+               <img src="/static/images/carteam/deletecar@2x.png" alt="" @click="deteledrive(ite.driverId)">
             </div>
         </div>
-        <div class="adddriverbtn flex contentcenter ">
+        <div class="adddriverbtn flex contentcenter " @click="bindingDriver">
             <img src="/static/images/carteam/adddriver@2x.png" alt="">
-            <div @click="bindingDriver">绑定司机</div>
+            <div >绑定司机</div>
         </div>
     </div>
 </template>
 
 <script>
 import {Toast} from 'mint-ui'
+import PublicHead from "./../../publicmodel/PublicHead";
 export default {
     data(){
       return{
         list:{},
+        driverList:[],
+      }
+    },
+    components: {
+      mhead: PublicHead
+    },
+    filters:{
+      changTime(val){
+        return operationTime.getTime(new Date(val).getTime(),2)
       }
     },
     methods:{
@@ -51,9 +57,33 @@ export default {
           let param={
             vin:this.list.vin
           }
-          this.$http.post(Lightcar.findisBindingvehicledriverlist,param).then(res=>{
-              if(res.data.code=0){
 
+          this.$http.post(Lightcar.findisBindingvehicledriverlist,param).then(res=>{
+              if(res.data.code==0){
+                this.driverList=res.data.data
+              }else{
+                Toast({
+                  message: res.data.msg,
+                  duration: 2000,
+                  position: "middle"
+                });
+              }
+          })
+        },
+        deteledrive(id){
+          let param={
+            id:id.id,
+            brandId:this.$store.state.brandId
+          }
+
+          this.$http.post(Lightcar.deletevehicledriverrelationship,param).then(res=>{
+              if(res.data.code==0){
+                Toast({
+                  message: '解绑成功',
+                  duration: 2000,
+                  position: "middle"
+                });
+                this.init()
               }else{
                 Toast({
                   message: res.data.msg,
@@ -65,13 +95,13 @@ export default {
         },
         bindingDriver(){
           this.$router.push({
-            path:"/felltManagement/binddriver"
+            path:"/felltManagement/binddriver",
           })
         }
     },
     created(){
          $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
-         this.list=this.$route.query.item
+         this.list=this.$store.state.VehicleInformation
     },
     mounted(){
       this.init()
@@ -129,10 +159,15 @@ export default {
    width: 80%;
    border: .01rem solid #eeeeee;
    margin: 0 auto;
-   height: 1rem;
 }
 .bindeddriver .drivers>div{
   padding: .2rem;
+}
+.bindeddriver .drivers .timer{
+  font-size:.22rem;
+  font-family:PingFang-SC-Medium;
+  font-weight:500;
+  color:rgba(136,136,136,1);
 }
 .bindeddriver .drivers img{
   width: .36rem;

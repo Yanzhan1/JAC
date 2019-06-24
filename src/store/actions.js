@@ -62,5 +62,11 @@ export default {
     },
     position: ({ commit, state }, payload) => {
         commit(types.POSITION, payload)
-    }
+    },
+    VehicleInformation: ({ commit, state }, payload) => {
+        commit(types.VEHICLEINFORMATION, payload)
+    },
+    DriverInformation: ({ commit, state }, payload) => {
+        commit(types.DRIVERINFORMATION, payload)
+    },
 }

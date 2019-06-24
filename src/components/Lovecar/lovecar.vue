@@ -307,7 +307,7 @@ export default {
       tspid: "",
       popupbg: false,
       nowindow:true,//控制车窗有无
-      ToS7:true,
+      ToS7:false,
       allwords: [], //贮存所有的提示语
       popupVisible: false,
       MaskIsshow: false, //黑色遮罩层
@@ -2010,9 +2010,9 @@ export default {
     if (this.userId) {
       this.vehiclestatus();
       this.firstEnter = true;
-      this.vinn = this.$store.state.defaultInformation.vin;
-      // this.vinn ='LJ12EKS99JTEST9M4';
-      // this.$store.state.vins='LJ12EKS99JTEST9M4'
+      // this.vinn = this.$store.state.defaultInformation.vin;
+      this.vinn ='LJ166A247K4012474';
+      this.$store.state.vins='LJ166A247K4012474'
       if(this.$store.state.defaultInformation.seriesName=='瑞风S7-2019款'){
         this.ToS7=false
             //更换爱车主图片,等待图

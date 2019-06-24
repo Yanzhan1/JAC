@@ -4,42 +4,43 @@
           <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
           <span class="header-title" style="margin-left:.6rem">编辑司机</span>
           <span @click="deletedriver">
-            <router-link tag="div" style="color:#FF3030" to="/myindex/addBus">删除司机</router-link>
+            <div style="color:#FF3030">删除司机</div>
           </span>
         </header>
         <div style="height:0.88rem;" class="MobileHeight"></div>
         <input class="inpt" type="text" placeholder="输入司机的基本信息来创建司机" disabled>
         <div class="listdetail">
           <div class="title">司机姓名:</div>
-          <input type="text" placeholder="请输入司机姓名" v-model="this.drivername">
+          <input type="text" placeholder="请输入司机姓名" v-model="drivername">
         </div>
         <div class="listdetail">
           <div class="title">司机电话:</div>
-          <input type="text" placeholder="请输入司机电话" v-model="this.drivercall">
+          <input type="text" placeholder="请输入司机电话" v-model="drivercall">
         </div>
         <div class="listdetail">
           <div class="title">身份证号:</div>
-          <input type="text" placeholder="请输入司机身份证号" v-model="this.driveridcard">
+          <input type="text" placeholder="请输入司机身份证号" v-model="driveridcard">
         </div>
         <div class="listdetail">
           <div class="title">司机地址:</div>
-          <input type="text" placeholder="请输入司机地址" v-model="this.driveradress">
+          <input type="text" placeholder="请输入司机地址" v-model="driveradress">
         </div>
         <div class="listdetail">
           <div class="title">紧急联系人:</div>
-          <input type="text" placeholder="请输入紧急联系人姓名" v-model="this.contact">
+          <input type="text" placeholder="请输入紧急联系人姓名" v-model="contact">
         </div>
         <div class="listdetail">
           <div class="title">电话:</div>
-          <input type="text" placeholder="请输入紧急联系人电话" v-model="this.contactcall">
+          <input type="text" placeholder="请输入紧急联系人电话" v-model="contactcall">
         </div>
         <div class="sub" @click="editsure">
-           创建
+           确认修改
         </div>
     </div>
 </template>
 
 <script>
+import {Toast} from 'mint-ui'
 export default {
   data(){
     return{
@@ -53,7 +54,25 @@ export default {
   },
   methods:{
     deletedriver(){
-      alert('删除司机')
+      let params={
+          driverId:this.$store.state.driverInformation.id,
+          brandId:this.$store.state.brandId
+      }
+      this.$http.post(Lightcar.deletedriver,params).then(res=>{
+        if(res.data.code==0){
+          Toast({
+                message: '删除成功',
+                duration: 2000,
+                position: "middle"
+              });
+        }else{
+          Toast({
+                message: res.data.msg,
+                duration: 2000,
+                position: "middle"
+              });
+        }
+      })
     },
     editsure(){
       alert('确认修改')
@@ -61,6 +80,15 @@ export default {
   },
   created(){
       $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
+      console.log(this.$store.state.driverInformation)
+      if(this.$store.state.driverInformation){
+        this.drivername=this.$store.state.driverInformation.driverName||''
+        this.drivercall=this.$store.state.driverInformation.contactPhone||''
+        this.driveridcard=this.$store.state.driverInformation.identityNum||''
+        this.driveradress=this.$store.state.driverInformation.address||''
+        this.contact=this.$store.state.driverInformation.urgentPersonName||''
+        this.contactcall=this.$store.state.driverInformation.urgentPersonNum||''
+      }
   }
 }
 </script>

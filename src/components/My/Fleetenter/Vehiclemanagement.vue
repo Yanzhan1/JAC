@@ -49,9 +49,6 @@ export default {
     init(){
       let param={
         // brandId:this.$store.state.brandId,
-        type:'1',
-        userId:"1333298182",
-        vin:""
       }
       this.$http.post(Lightcar.findvehiclelist,param).then(res=>{
         if(res.data.code==0){
@@ -66,6 +63,7 @@ export default {
             item:val
         }
       })
+      this.$store.dispatch("VehicleInformation",val)
     }
   },
   created(){

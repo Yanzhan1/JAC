@@ -68,6 +68,7 @@ export default {
             item
           }
         })
+        this.$store.dispatch('DriverInformation',item)
     }
   },
   created(){

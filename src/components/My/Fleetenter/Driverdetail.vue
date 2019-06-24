@@ -18,16 +18,19 @@
         </div>
         <div class="content">
             <div>{{this.detail.contactPhone}}</div>
-            <div>{{this.detail.id}}</div>
-            <div>洛小鱼  12321432543</div>
+            <div>{{this.detail.identityNum}}</div>
+            <div>{{this.detail.urgentPersonName}}  {{this.detail.urgentPersonNum}}</div>
             <div>{{this.detail.address}}</div>
         </div>
       </div>
       <div class="bindeddriver">
             <div class="title">已绑定车辆</div>
-            <div class="flex between drivers cocenter" v-for="(item,index) in 3" :key="index">
-               <div>洛小鱼</div>
-               <img src="/static/images/carteam/deletecar@2x.png" alt="">
+            <div class="flex between drivers cocenter" v-for="(item,index) in this.bindList" :key="index">
+              <div>
+                <div>{{item.plate}}</div>
+                <div class="timer">{{item.startTime|changTime}}至{{item.overTime|changTime}}</div>
+              </div>
+               <img src="/static/images/carteam/deletecar@2x.png" alt="" @click="detelecar(item)">
             </div>
         </div>
         <div class="adddriverbtn flex contentcenter ">
@@ -38,13 +41,53 @@
 </template>
 
 <script>
+import {Toast} from 'mint-ui'
 export default {
   data(){
     return{
-      detail:{}
+      detail:{},
+      bindList:[],
     }
   },
+  filters:{
+      changTime(val){
+        return operationTime.getTime(new Date(val).getTime(),2)
+      }
+  },
   methods:{
+    init(){
+      let params={
+        driverId:this.$store.state.driverInformation.id,
+        brandId:1
+      }
+      this.$http.post(Lightcar.finddriverallotVehicles,params).then(res=>{
+        if(res.data.code==0){
+          this.bindList=res.data.data
+        }
+      })
+    },
+    detelecar(id){
+          let param={
+            id:id.id,
+            brandId:this.$store.state.brandId
+          }
+          this.$http.post(Lightcar.deletevehicledriverrelationship,param).then(res=>{
+              if(res.data.code==0){
+                Toast({
+                  message: '解绑成功',
+                  duration: 2000,
+                  position: "middle"
+                });
+                this.init()
+              }else{
+                Toast({
+                  message: res.data.msg,
+                  duration: 2000,
+                  position: "middle"
+                });
+              }
+          })
+        },
     bindcar(){
       this.$router.push({
         path:'/felltManagement/bindcar'
@@ -53,10 +96,8 @@ export default {
   },
   created(){
     $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
-    console.log(this.$route.query)
-    if(this.$route.query){
-      this.detail=this.$route.query.item
-    }
+    this.detail=this.$store.state.driverInformation
+    this.init()
   }
 }
 </script>
@@ -104,7 +145,12 @@ export default {
    width: 80%;
    border: .01rem solid #eeeeee;
    margin: 0 auto;
-   height: 1rem;
+}
+.bindeddriver .drivers .timer{
+  font-size:.22rem;
+  font-family:PingFang-SC-Medium;
+  font-weight:500;
+  color:rgba(136,136,136,1);
 }
 .bindeddriver .drivers>div{
   padding: .2rem;
