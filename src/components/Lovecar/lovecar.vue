@@ -307,7 +307,7 @@ export default {
       tspid: "",
       popupbg: false,
       nowindow:true,//控制车窗有无
-      ToS7:false,
+      ToS7:true,
       allwords: [], //贮存所有的提示语
       popupVisible: false,
       MaskIsshow: false, //黑色遮罩层
@@ -1060,13 +1060,13 @@ export default {
                             this.isTrues = !this.isTrues;
                             if (this.isTrues) {
                               Toast({
-                                message: this.open_trunk[2].dictValue,
+                                message: this.open_trunk[1].dictValue,
                                 position: "middle",
                                 duration: 3000
                               });
                             } else {
                               Toast({
-                                message: this.open_trunk[1].dictValue,
+                                message: this.open_trunk[2].dictValue,
                                 position: "middle",
                                 duration: 3000
                               });
@@ -1289,14 +1289,14 @@ export default {
                             });
                           } else if (this.type == 2) {
                             if (!this.isTrues) {
-                              Toast({
-                                message: this.open_trunk[2].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
+                              // Toast({
+                              //   message: this.open_trunk[2].dictValue,
+                              //   position: "middle",
+                              //   duration: 2000
+                              // });
                             } else {
                               Toast({
-                                message: this.open_trunk[1].dictValue,
+                                message: this.open_trunk[2].dictValue,
                                 position: "middle",
                                 duration: 2000
                               });
@@ -1589,15 +1589,16 @@ export default {
                   duration: 2000
                 });
               } else if (this.type == 2) {
+                cosole.log(this.open_trunk)
                 if (!this.isTrues) {
-                  Toast({
-                    message: this.open_trunk[2].dictValue,
-                    position: "middle",
-                    duration: 2000
-                  });
+                  // Toast({
+                  //   message: this.open_trunk[2].dictValue,
+                  //   position: "middle",
+                  //   duration: 2000
+                  // });
                 } else {
                   Toast({
-                    message: this.open_trunk[1].dictValue,
+                    message: this.open_trunk[2].dictValue,
                     position: "middle",
                     duration: 2000
                   });
@@ -2010,9 +2011,9 @@ export default {
     if (this.userId) {
       this.vehiclestatus();
       this.firstEnter = true;
-      // this.vinn = this.$store.state.defaultInformation.vin;
-      this.vinn ='LJ166A247K4012474';
-      this.$store.state.vins='LJ166A247K4012474'
+      this.vinn = this.$store.state.defaultInformation.vin;
+      // this.vinn ='LJ166A247K4012474';
+      // this.$store.state.vins='LJ166A247K4012474'
       if(this.$store.state.defaultInformation.seriesName=='瑞风S7-2019款'){
         this.ToS7=false
             //更换爱车主图片,等待图
