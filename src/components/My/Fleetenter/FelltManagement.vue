@@ -18,26 +18,33 @@
               <div class="top">
                 <div>
                   <div class="title">{{item.teamName}}</div>
-                  <div class="title_leader">
+                  <div class="title_leader flex">
                     <span>车队长</span>
+                    <span class="specil">{{item.contact}}</span>
                     <span>车辆数</span>
-                  </div>
-                  <div class="title_name">
-                    <span>{{item.contact}}</span>
-                    <span>{{item.vehicleNum}}</span>
+                    <span class="specil">{{item.vehicleNum}}</span>
                   </div>
                 </div>
                 <div class="choose_default">
                   <div class="flex default">
                     <label for="foot-check" class="input-label" :class="index==curindex?'active':''"  @click="default_team(index,item.teamId)"> </label>
-                    <span class="moren" :class="index==curindex?'actived':''">默认</span>
+                    <span class="moren" :class="index==curindex?'actived':''">默认车队</span>
                   </div>
-                 <img src="/static/images/carteam/JAC@2x.png" alt=""/>
+                  <div class="flex edict" @click="toFleetmodification(item)">
+                    <img src="/static/images/carteam/edit@2x.png" alt="">
+                    <div>编辑车队</div>
+                  </div>
                 </div>
               </div>
 
             </div>
-            <div class="bottom" @click="toFleetmodification(item)">编辑车队</div>
+            <div class="bottom flex" >
+              <div>实时监控</div>
+              <div>历史轨迹</div>
+              <div>流量查询</div>
+              <div>车辆体检</div>
+              <div>驾驶分析</div>
+            </div>
           </div>
       </div>
 </template>
@@ -100,6 +107,7 @@ export default {
             item
           }
         })
+        this.$store.dispatch('FleetInformation',item)
       },
       default_team(index,teamId){
         this.$http.post(Lightcar.setdefaultteam,{teamId:teamId}).then(res=>{
@@ -162,11 +170,6 @@ export default {
     display:flex;
     justify-content: space-between;
   }
-  .showcarteam .top img{
-    width: 2.48rem;
-    height: .66rem;
-    margin-top: .66rem;
-  }
   .showcarteam .top .title{
     width: 2rem;
     height: .6rem;
@@ -182,10 +185,18 @@ export default {
     font-family:'PingFang-SC-Medium';
     color:rgba(136,136,136,1);
     margin-top: .49rem;
+    margin-left: .2rem;
+    align-items: center;
   }
   .showcarteam .top .title_leader span{
-    padding: .4rem;
-    font-size:.2rem !important;
+    font-size:.2rem ;
+    padding: .2rem;
+  }
+  .showcarteam .top .title_leader .specil{
+    font-size:.3rem;
+    font-family:PingFang-SC-Bold;
+    font-weight:bold;
+    color:rgba(34,34,34,1);
   }
   .showcarteam .top .title_name{
     font-family:'PingFang-SC-Bold';
@@ -198,22 +209,23 @@ export default {
     margin: .4rem;
   }
   .showcarteam .bottom{
-    text-align: center;
     height: .8rem;
     background:rgba(255,255,255,1);
     border-radius:.1rem;
     border-top: .01rem solid #eeeeee;
     margin-top: .3rem;
     line-height: .8rem;
-    font-size: .28rem;
-    color: #49BBFF;
+    justify-content: space-around;
+    color:rgba(136,136,136,1)
+  }
+  .showcarteam .bottom>div{
+    font-size: .22rem;
   }
   .choose_default{
     margin-top:.15rem;
-    margin-right: .6rem;
+    margin-right: .3rem;
   }
   .choose_default .default{
-    margin-left: 1.5rem;
     align-items: center;
   }
   .choose_default .default .input-label {
@@ -241,5 +253,20 @@ export default {
 }
 .choose_default .default .moren.actived{
   color: #49BBFF;
+}
+.edict{
+  align-items: center;
+  margin-top: .67rem;
+}
+.showcarteam .top .edict>img{
+  width: .2rem;
+  height: .2rem;
+  margin-right: .1rem;
+}
+.showcarteam .top .edict>div{
+  font-size:.22rem;
+  font-family:PingFang-SC-Medium;
+  font-weight:500;
+  color:rgba(187,187,187,1);
 }
 </style>

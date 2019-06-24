@@ -79,4 +79,7 @@ export default {
     driverInformation:{
 
     },//车队管理里面的单个司机信息
+    FleetInformation:{
+
+    }//车队管理单个车队信息
 }

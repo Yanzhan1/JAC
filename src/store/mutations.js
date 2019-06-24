@@ -103,4 +103,7 @@ export default {
     [types.DRIVERINFORMATION]: (state, payload) => {
         state.driverInformation = payload
     },
+    [types.FLEETINFORMATION]: (state, payload) => {
+        state.FleetInformation = payload
+    },
 }

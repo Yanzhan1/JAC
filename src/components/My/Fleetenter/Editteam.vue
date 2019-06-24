@@ -25,9 +25,9 @@
         </div>
         <div class="bindeddriver">
             <div class="titled">已绑定车辆</div>
-            <div class="flex between drivers cocenter" v-for="(item,index) in 3" :key="index">
-               <div>宝马xxx</div>
-               <div class="plate">浙A xxx</div>
+            <div class="flex between drivers cocenter" v-for="(item,index) in this.list" :key="index">
+               <div>{{item.vin}}</div>
+               <div class="plate">{{item.plate}}</div>
                <img src="/static/images/carteam/deletecar@2x.png" alt="">
             </div>
         </div>
@@ -40,15 +40,28 @@
 </template>
 
 <script>
+import {Toast} from 'mint-ui'
 export default {
   data() {
     return {
       teamname:"",
       teamleader:'',
       leaderphone:'',
+      list:[],
     };
   },
   methods: {
+    init(){
+      let params={
+        teamId:this.$store.state.FleetInformation.teamId,
+        brandId:this.$store.state.brandId
+      }
+      this.$http.post(Lightcar.findbindingteamlist,params).then(res=>{
+          if(res.data.code==0){
+            this.list=res.data.data
+          }
+      })
+    },
     create(){
       // this.$router.push({
       //   path:"/felltManagement/createteamleader",
@@ -64,7 +77,25 @@ export default {
     //       })
     // },
     deteleteam(){
-      alert('删除车队')
+      let params={
+        brandId:this.$store.state.brandId,
+        teamId:this.$store.state.FleetInformation.teamId
+      }
+      this.$http.post(Lightcar.deleteteam,params).then(res=>{
+        if(res.data.code==0){
+          Toast({
+                message: '删除成功',
+                position: "middle",
+                duration: 2000
+              });
+        }else{
+          Toast({
+                message: res.data.msg,
+                position: "middle",
+                duration: 2000
+              });
+        }
+      })
     },
     addcar(){
       this.$router.push({
@@ -73,11 +104,11 @@ export default {
     }
   },
   created(){
-    console.log(this.$route.query.item)
-    if(this.$route.query.item){
-      this.teamname=this.$route.query.item.teamName
-      this.teamleader=this.$route.query.item.contact
-      this.leaderphone=this.$route.query.item.contactPhone
+    if(this.$store.state.FleetInformation){
+      this.teamname=this.$store.state.FleetInformation.teamName
+      this.teamleader=this.$store.state.FleetInformation.contact
+      this.leaderphone=this.$store.state.FleetInformation.contactPhone
+      this.init()
     }
   },
   mounted(){

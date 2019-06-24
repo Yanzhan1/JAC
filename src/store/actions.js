@@ -69,4 +69,7 @@ export default {
     DriverInformation: ({ commit, state }, payload) => {
         commit(types.DRIVERINFORMATION, payload)
     },
+    FleetInformation: ({ commit, state }, payload) => {
+        commit(types.FLEETINFORMATION, payload)
+    },
 }
