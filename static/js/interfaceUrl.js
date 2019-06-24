@@ -256,12 +256,18 @@ window.Lightcar={
         truckcyccarexamination:light+'/vehicleInformation/truck-cyc-car-examination',//车辆体检
         findteamlist:lightlocal+'/VehicleTeamController/find-team-list',//车队管理列表查询
         findvehiclelist:lightlocal+'/VehicleTeamController/find-vehicle-list',//车队车辆列表查询
+        findunbindingteamlist:lightlocal+'/VehicleTeamController/find-unbinding-team-list',//车队未绑定车辆列表查询
         finddriverlist:lightlocal+'/VehicleTeamController/find-driver-list',//司机列表
         findisBindingvehicledriverlist:lightlocal+'/VehicleTeamController/find-isBinding-vehicle-driver-list',//通过车辆查询司机
         createteam:lightlocal+'/VehicleTeamController/create-team',//新建车队
         updatevehicleinfo:lightlocal+'/VehicleTeamController/update-vehicle-info',//修改车牌
         updatedriverinfo:lightlocal+'/VehicleTeamController/update-driver-info',//修改司机信息
         createdriver:lightlocal+'/VehicleTeamController/create-driver',//新增司机
+        setdefaultteam:lightlocal+'/VehicleTeamController/set-default-team',//设置默认车队
+        deletevehicledriverrelationship:lightlocal+'/VehicleTeamController/delete-vehicle-driver-relationship',//删除车辆和司机绑定关系
+        updateisBindingvehicledriverlist:lightlocal+'/VehicleTeamController/update-isBinding-vehicle-driver-list',//为车辆绑定司机
+        finddriverallotVehicles:lightlocal+'/VehicleTeamController/find-driver-allot-Vehicles',//为司机绑定车辆
+        deletedriver:lightlocal+'/VehicleTeamController/delete-driver',//删除司机
 }
     //消息接口
 window.IMFORMATION = {

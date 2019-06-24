@@ -75,7 +75,30 @@ export default {
       })
     },
     editsure(){
-      alert('确认修改')
+      let params={
+        driverId:this.$store.state.driverInformation.id,
+        driverName:this.drivername,
+        phone:this.drivercall,
+        identityNum:this.driveridcard,
+        address:this.driveradress,
+        urgentPersonName:this.contact,
+        urgentPersonNum:this.contactcall
+      }
+        this.$http.post(Lightcar.updatedriverinfo,params).then(res=>{
+            if(res.data.code==0){
+               Toast({
+                message: '修改成功',
+                duration: 2000,
+                position: "middle"
+              });
+            }else{
+               Toast({
+                message: res.data.msg,
+                duration: 2000,
+                position: "middle"
+              });
+            }
+        })
     }
   },
   created(){
