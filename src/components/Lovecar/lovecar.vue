@@ -931,12 +931,18 @@ export default {
                     duration: 2000
                   });
                 } else if (this.type == 2) {
-                  if (this.isTrues) {
-                    Toast({
-                      message: this.open_trunk[2].dictValue,
-                      position: "middle",
-                      duration: 2000
-                    });
+                  if(this.backnum==1){
+                      Toast({
+                        message: this.open_trunk[5].dictValue,
+                        position: "middle",
+                        duration: 3000
+                      });
+                  }else{
+                      Toast({
+                        message: this.open_trunk[2].dictValue,
+                        position: "middle",
+                        duration: 3000
+                      });
                   }
                 } else if (this.type == 3) {
                   Toast({
@@ -993,19 +999,19 @@ export default {
                                 duration: 2000
                               });
                             } else if (this.type == 2) {
-                              if (this.isTrues) {
-                                Toast({
-                                  message: this.open_trunk[2].dictValue,
-                                  position: "middle",
-                                  duration: 2000
-                                });
-                              } else {
-                                Toast({
-                                  message: this.open_trunk[1].dictValue,
-                                  position: "middle",
-                                  duration: 2000
-                                });
-                              }
+                              if(this.backnum==1){
+                                  Toast({
+                                    message: this.open_trunk[5].dictValue,
+                                    position: "middle",
+                                    duration: 3000
+                                  });
+                                }else{
+                                  Toast({
+                                    message: this.open_trunk[2].dictValue,
+                                    position: "middle",
+                                    duration: 3000
+                                  });
+                            }
                             } else if (this.type == 3) {
                               Toast({
                                 message: this.vehicle_launch[3].dictValue,
@@ -1058,18 +1064,18 @@ export default {
                           }
                           if (this.type == 2) {
                             this.isTrues = !this.isTrues;
-                            if (this.isTrues) {
-                              Toast({
-                                message: this.open_trunk[1].dictValue,
-                                position: "middle",
-                                duration: 3000
-                              });
-                            } else {
-                              Toast({
-                                message: this.open_trunk[2].dictValue,
-                                position: "middle",
-                                duration: 3000
-                              });
+                            if(this.backnum==1){
+                                Toast({
+                                  message: this.open_trunk[4].dictValue,
+                                  position: "middle",
+                                  duration: 3000
+                                });
+                            }else{
+                                Toast({
+                                  message: this.open_trunk[1].dictValue,
+                                  position: "middle",
+                                  duration: 3000
+                                });
                             }
                           }
                           if (this.type == 3) {
@@ -1288,18 +1294,18 @@ export default {
                               duration: 2000
                             });
                           } else if (this.type == 2) {
-                            if (!this.isTrues) {
-                              // Toast({
-                              //   message: this.open_trunk[2].dictValue,
-                              //   position: "middle",
-                              //   duration: 2000
-                              // });
-                            } else {
-                              Toast({
-                                message: this.open_trunk[2].dictValue,
-                                position: "middle",
-                                duration: 2000
-                              });
+                            if(this.backnum==1){
+                                Toast({
+                                  message: this.open_trunk[5].dictValue,
+                                  position: "middle",
+                                  duration: 3000
+                                });
+                            }else{
+                                Toast({
+                                  message: this.open_trunk[2].dictValue,
+                                  position: "middle",
+                                  duration: 3000
+                                });
                             }
                           } else if (this.type == 3) {
                             Toast({
@@ -1365,18 +1371,18 @@ export default {
               }
               if (this.type == 2) {
                 this.isTrues = !this.isTrues;
-                if (this.isTrues) {
-                  Toast({
-                    message: this.open_trunk[1].dictValue,
-                    position: "middle",
-                    duration: 3000
-                  });
-                } else {
-                  Toast({
-                    message: this.open_trunk[2].dictValue,
-                    position: "middle",
-                    duration: 3000
-                  });
+                if(this.backnum==1){
+                    Toast({
+                      message: this.open_trunk[4].dictValue,
+                      position: "middle",
+                      duration: 3000
+                    });
+                }else{
+                    Toast({
+                      message: this.open_trunk[1].dictValue,
+                      position: "middle",
+                      duration: 3000
+                    });
                 }
               }
               if (this.type == 3) {
@@ -1589,19 +1595,18 @@ export default {
                   duration: 2000
                 });
               } else if (this.type == 2) {
-                cosole.log(this.open_trunk)
-                if (!this.isTrues) {
-                  // Toast({
-                  //   message: this.open_trunk[2].dictValue,
-                  //   position: "middle",
-                  //   duration: 2000
-                  // });
-                } else {
-                  Toast({
-                    message: this.open_trunk[2].dictValue,
-                    position: "middle",
-                    duration: 2000
-                  });
+                if(this.backnum==1){
+                    Toast({
+                      message: this.open_trunk[5].dictValue,
+                      position: "middle",
+                      duration: 3000
+                    });
+                }else{
+                    Toast({
+                      message: this.open_trunk[2].dictValue,
+                      position: "middle",
+                      duration: 3000
+                    });
                 }
               } else if (this.type == 3) {
                 Toast({
