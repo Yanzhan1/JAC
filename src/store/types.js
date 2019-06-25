@@ -23,4 +23,5 @@ export const DEFAULTINFORMATION = 'DEFAULTINFORMATION' ;// 默认车辆的所有
 export const POSITION = 'POSITION' ;// 默认车辆的所有信息
 export const VEHICLEINFORMATION='VehicleInformation';//车队车辆单个信息
 export const DRIVERINFORMATION='DriverInformation';//车队司机单个信息
-export const FLEETINFORMATION='FleetInformation'
+export const FLEETINFORMATION='FleetInformation';//单个车队信息
+export const FLEETBEHAVIORANALYSIS='FleetBehaviorAnalysis';//单个车队行为分析

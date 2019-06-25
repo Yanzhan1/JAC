@@ -106,4 +106,7 @@ export default {
     [types.FLEETINFORMATION]: (state, payload) => {
         state.FleetInformation = payload
     },
+    [types.FLEETBEHAVIORANALYSIS]: (state, payload) => {
+        state.FleetBehaviorAnalysis = payload
+    },
 }

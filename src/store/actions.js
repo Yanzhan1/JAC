@@ -72,4 +72,7 @@ export default {
     FleetInformation: ({ commit, state }, payload) => {
         commit(types.FLEETINFORMATION, payload)
     },
+    FleetBehaviorAnalysis: ({ commit, state }, payload) => {
+        commit(types.FLEETBEHAVIORANALYSIS, payload)
+    },
 }

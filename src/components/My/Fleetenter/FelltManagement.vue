@@ -43,7 +43,7 @@
               <div>历史轨迹</div>
               <div>流量查询</div>
               <div>车辆体检</div>
-              <div>驾驶分析</div>
+              <div @click="toFleetBehaviorAnalysis(item)">驾驶分析</div>
             </div>
           </div>
       </div>
@@ -94,6 +94,15 @@ export default {
         this.$router.push({
           path:'/felltManagement/vehiclemanagement'
         })
+      },
+      toFleetBehaviorAnalysis(item){
+        this.$router.push({
+          path:'/felltManagement/fleetBehaviorAnalysis',
+          query:{
+            item
+          }
+        })
+        this.$store.dispatch('FleetInformation',item)
       },
       toDrivermanagemen(){
         this.$router.push({

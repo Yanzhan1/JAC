@@ -66,20 +66,13 @@ export default {
     recordNo: "", //网点评分的RECORDNO
     $flag: false, // 有用别动
     code403: 0,
-    defaultInformation: {
-    }, //存贮默认车辆的所有信息
+    defaultInformation: {}, //存贮默认车辆的所有信息
     enterMaintenance: true, //判断维保预约是否展示
     addiflogin:null,
     member: false, //判断会员是否升级
-    position:{
-    },//拿到定位省份城市经纬度,若拿不到定位为安徽合肥
-    VehicleInformation:{
-
-    },//车队管理里面的单辆车信息
-    driverInformation:{
-
-    },//车队管理里面的单个司机信息
-    FleetInformation:{
-
-    }//车队管理单个车队信息
+    position:{},//拿到定位省份城市经纬度,若拿不到定位为安徽合肥
+    VehicleInformation:{},//车队管理里面的单辆车信息
+    driverInformation:{},//车队管理里面的单个司机信息
+    FleetInformation:{},//车队管理单个车队信息
+    FleetBehaviorAnalysis:{},//车队行为分析信息
 }

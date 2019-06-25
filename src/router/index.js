@@ -196,6 +196,11 @@ const Teamleader = lazyLoad('/My/Fleetenter/Teamleader.vue')//选择车队长
 const Binddriver = lazyLoad('/My/Fleetenter/Binddriver.vue')//绑定司机
 const Addcar = lazyLoad('/My/Fleetenter/Addcar.vue')//添加车辆
 const Bindcar = lazyLoad('/My/Fleetenter/Bindcar.vue')//添加车辆
+const VehicleBehaviorAnalysisSurface = lazyLoad('/My/Fleetenter/VehicleBehaviorAnalysisSurface.vue')//车辆驾驶行为分析表
+const VehicleBehaviorAnalysis = lazyLoad('/My/Fleetenter/VehicleBehaviorAnalysis.vue')//车辆驾驶行为分析
+const FleetBehaviorAnalysisSurface = lazyLoad('/My/Fleetenter/FleetBehaviorAnalysisSurface.vue')//车队驾驶行为分析表
+const FleetBehaviorAnalysis = lazyLoad('/My/Fleetenter/FleetBehaviorAnalysis.vue')//车队驾驶行为分析
+const DriverBehaviorAnalysis = lazyLoad('/My/Fleetenter/DriverBehaviorAnalysis.vue')//添加车辆
 /**
  * 消息
  */
@@ -907,6 +912,31 @@ const router = new Router({
                 path: "/felltManagement/bindcar",
                 name: '绑定车辆',
                 component: Bindcar
+            },
+            {
+                path: "/felltManagement/driverBehaviorAnalysis",
+                name: '司机驾驶行为分析',
+                component: DriverBehaviorAnalysis
+            },
+            {
+                path: "/felltManagement/fleetBehaviorAnalysis",
+                name: '车队驾驶行为分析',
+                component: FleetBehaviorAnalysis
+            },
+            {
+                path: "/felltManagement/fleetBehaviorAnalysisSurface",
+                name: '车队驾驶行为分析表',
+                component: FleetBehaviorAnalysisSurface
+            },
+            {
+                path: "/felltManagement/vehicleBehaviorAnalysis",
+                name: '车辆驾驶行为分析',
+                component: VehicleBehaviorAnalysis
+            },
+            {
+                path: "/felltManagement/vehicleBehaviorAnalysisSurface",
+                name: '车辆驾驶行为分析表',
+                component: VehicleBehaviorAnalysisSurface
             },
             // 消息
             {
