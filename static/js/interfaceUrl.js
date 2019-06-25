@@ -268,6 +268,8 @@ window.Lightcar={
         updateisBindingvehicledriverlist:lightlocal+'/VehicleTeamController/update-isBinding-vehicle-driver-list',//为车辆绑定司机
         finddriverallotVehicles:lightlocal+'/VehicleTeamController/find-driver-allot-Vehicles',//为司机绑定车辆
         deletedriver:lightlocal+'/VehicleTeamController/delete-driver',//删除司机
+        findbindingteamlist:lightlocal+'/VehicleTeamController/find-binding-team-list',//车队找车辆
+        deleteteam:lightlocal+'/VehicleTeamController/delete-team',//删除车队
 }
     //消息接口
 window.IMFORMATION = {
