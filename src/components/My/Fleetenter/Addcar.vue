@@ -1,32 +1,44 @@
 <template>
   	<div>
         <mhead currentTitle="添加车辆"></mhead>
-        <div class="flex cocenter between list" v-for="(item,index) in 5" :key="index">
+        <div class="flex cocenter between list" v-for="(item,index) in this.list" :key="index">
           <div class="left">
             <div class="plate">宝马xx</div>
-            <div class="vin">VIN:1253214321</div>
+            <div class="vin">VIN:{{item.vin}}</div>
           </div>
-          <div class="middle">浙AAA</div>
-           <label class="chooseimages" :class="labeldata.indexOf(index)!=-1?'active':''" @click="choose(index)"></label>
+          <div class="middle">{{item.plate}}</div>
+           <label class="chooseimages" :class="labeldata.indexOf(item.id)!=-1?'active':''" @click="choose(item.id)"></label>
         </div>
         <div class="sure" @click="sure">确定</div>
     </div>
 </template>
 <script>
+import {Toast} from 'mint-ui'
 import PublicHead from "./../../publicmodel/PublicHead";
 export default {
   data() {
     return {
       labeldata:[],
-      again:[]
+      again:[],
+      list:[],
     };
   },
   components: {
     mhead: PublicHead
   },
   methods: {
-    choose(val){
-      this.labeldata.push(val)
+    init(){
+      let params={
+        brandId:this.$store.state.brandId
+      }
+      this.$http.post(Lightcar.findunbindingteamlist,params).then(res=>{
+        if(res.data.code==0){
+          this.list=res.data.data
+        }
+      })
+    },
+    choose(id){
+      this.labeldata.push(id)
       let newarr=this.labeldata.sort()
       this.again=[]
       for(let i=0;i<newarr.length;i++){
@@ -44,11 +56,30 @@ export default {
       }
     },
     sure(){
-      alert('提交')
+      let params={
+        teamId:this.$store.state.FleetInformation.teamId,
+        brandId:this.$store.state.brandId,
+        vehicles:this.labeldata
+      }
+      this.$http.post(Lightcar.updatebindingteamlist,params).then(res=>{
+        if(res.data.code==0){
+            Toast({
+							message: '添加成功',
+							position: 'middle',
+							duration: 1000
+						});
+        }else{
+          Toast({
+							message: res.data.msg,
+							position: 'middle',
+							duration: 1000
+						});
+        }
+      })
     }
   },
   mounted(){
-
+    this.init()
   }
 };
 </script>

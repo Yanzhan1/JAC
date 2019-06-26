@@ -50,7 +50,7 @@ export default {
       let param={
         // brandId:this.$store.state.brandId,
       }
-      this.$http.post(Lightcar.findvehiclelist,param).then(res=>{
+      this.$http.post(Lightcar.truckfindvehiclelist,param).then(res=>{
         if(res.data.code==0){
            this.list=res.data.data
         }

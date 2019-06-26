@@ -102,8 +102,6 @@ export default {
     }
   },
   created(){
-      $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
-      console.log(this.$store.state.driverInformation)
       if(this.$store.state.driverInformation){
         this.drivername=this.$store.state.driverInformation.driverName||''
         this.drivercall=this.$store.state.driverInformation.contactPhone||''
@@ -112,6 +110,9 @@ export default {
         this.contact=this.$store.state.driverInformation.urgentPersonName||''
         this.contactcall=this.$store.state.driverInformation.urgentPersonNum||''
       }
+  },
+  mounted(){
+     $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
   }
 }
 </script>

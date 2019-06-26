@@ -26,8 +26,8 @@
                   </div>
                 </div>
                 <div class="choose_default">
-                  <div class="flex default">
-                    <label for="foot-check" class="input-label" :class="index==curindex?'active':''"  @click="default_team(index,item.teamId)"> </label>
+                  <div class="flex default" @click="default_team(index,item.teamId)">
+                    <label for="foot-check" class="input-label" :class="index==curindex?'active':''"> </label>
                     <span class="moren" :class="index==curindex?'actived':''">默认车队</span>
                   </div>
                   <div class="flex edict" @click="toFleetmodification(item)">

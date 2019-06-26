@@ -95,9 +95,11 @@ export default {
     }
   },
   created(){
-    $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
     this.detail=this.$store.state.driverInformation
     this.init()
+  },
+  mounted(){
+     $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
   }
 }
 </script>

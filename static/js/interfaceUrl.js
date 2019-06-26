@@ -255,7 +255,7 @@ window.Lightcar={
         trucklatelycyccarexamination:light+'/vehicleInformation/truck-lately-cyc-car-examination',//车辆体检同步接口
         truckcyccarexamination:light+'/vehicleInformation/truck-cyc-car-examination',//车辆体检
         findteamlist:lightlocal+'/VehicleTeamController/find-team-list',//车队管理列表查询
-        findvehiclelist:lightlocal+'/VehicleTeamController/find-vehicle-list',//车队车辆列表查询
+        truckfindvehiclelist:lightlocal+'/VehicleTeamController/truck-find-vehicle-list',//车队车辆列表查询
         findunbindingteamlist:lightlocal+'/VehicleTeamController/find-unbinding-team-list',//车队未绑定车辆列表查询
         finddriverlist:lightlocal+'/VehicleTeamController/find-driver-list',//司机列表
         findisBindingvehicledriverlist:lightlocal+'/VehicleTeamController/find-isBinding-vehicle-driver-list',//通过车辆查询司机
@@ -270,6 +270,8 @@ window.Lightcar={
         deletedriver:lightlocal+'/VehicleTeamController/delete-driver',//删除司机
         findbindingteamlist:lightlocal+'/VehicleTeamController/find-binding-team-list',//车队找车辆
         deleteteam:lightlocal+'/VehicleTeamController/delete-team',//删除车队
+        updatebindingteamlist:lightlocal+'/VehicleTeamController/update-binding-team-list',//为车队添加车辆
+        updateteaminfo:lightlocal+'/VehicleTeamController/update-team-info',//为车队添加车辆
 }
     //消息接口
 window.IMFORMATION = {

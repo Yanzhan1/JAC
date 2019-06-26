@@ -27,7 +27,7 @@
             <div class="titled">已绑定车辆</div>
             <div class="flex between drivers cocenter" v-for="(item,index) in this.list" :key="index">
                <div>{{item.vin}}</div>
-               <div class="plate">{{item.plate}}</div>
+               <!-- <div class="plate">{{item.plate}}</div> -->
                <img src="/static/images/carteam/deletecar@2x.png" alt="">
             </div>
         </div>
@@ -70,6 +70,28 @@ export default {
       //     teamleader:this.teamleader
       //   }
       // })
+      let params={
+          teamId:this.$store.state.FleetInformation.teamId,
+          brandId:this.$store.state.brandId,
+          teamName:this.teamname,
+          contact:this.teamleader,
+          contactPhone: this.leaderphone
+      }
+      this.$http.post(Lightcar.updateteaminfo,params).then(res=>{
+          if(res.data.code==0){
+              Toast({
+                message: '修改成功',
+                position: "middle",
+                duration: 2000
+              });
+          }else{
+            Toast({
+                message: res.data.msg,
+                position: "middle",
+                duration: 2000
+              });
+          }
+      })
     },
     // tochooseleader(){
     //       this.$router.push({
