@@ -244,28 +244,21 @@ export default {
     bustest(){
       var param = {
       vin: this.$store.state.vins
-    };
-    this.$http
-      .post(Lovecar.BusTest, param, this.$store.state.tsppin)
-      .then(res => {
-        if (res.data.returnSuccess) {
-           this.getAsyReturn(res.data.operationId);
-        } else {
-            Toast({
-              message: res.data.returnErrMsg,
-              position: "middle",
-              duration: 3000
-            });
-        }
+      };
+      this.$http
+        .post(Lovecar.BusTest, param, this.$store.state.tsppin)
+        .then(res => {
+          if (res.data.returnSuccess) {
+            this.getAsyReturn(res.data.operationId);
+          } else {
+              Toast({
+                message: res.data.returnErrMsg,
+                position: "middle",
+                duration: 3000
+              });
+          }
 
-      })
-      .catch(err => {
-        Toast({
-          message:  res.data.returnErrMsg,
-          position: "middle",
-          duration: 3000
-        });
-      });
+        })
     },
     //重复调用的接口
     getAsyReturn(operationId) {
@@ -433,7 +426,6 @@ h2 {
 }
 .header{
   background: #ffffff;
-  border-bottom: .1rem solid #eeeeee;
 }
 </style>
 

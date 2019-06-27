@@ -195,12 +195,13 @@ const Editteam = lazyLoad('/My/Fleetenter/Editteam.vue')//编辑车队
 const Teamleader = lazyLoad('/My/Fleetenter/Teamleader.vue')//选择车队长
 const Binddriver = lazyLoad('/My/Fleetenter/Binddriver.vue')//绑定司机
 const Addcar = lazyLoad('/My/Fleetenter/Addcar.vue')//添加车辆
-const Bindcar = lazyLoad('/My/Fleetenter/Bindcar.vue')//添加车辆
+const Bindcar = lazyLoad('/My/Fleetenter/Bindcar.vue')//绑定车辆
 const VehicleBehaviorAnalysisSurface = lazyLoad('/My/Fleetenter/VehicleBehaviorAnalysisSurface.vue')//车辆驾驶行为分析表
 const VehicleBehaviorAnalysis = lazyLoad('/My/Fleetenter/VehicleBehaviorAnalysis.vue')//车辆驾驶行为分析
 const FleetBehaviorAnalysisSurface = lazyLoad('/My/Fleetenter/FleetBehaviorAnalysisSurface.vue')//车队驾驶行为分析表
 const FleetBehaviorAnalysis = lazyLoad('/My/Fleetenter/FleetBehaviorAnalysis.vue')//车队驾驶行为分析
-const DriverBehaviorAnalysis = lazyLoad('/My/Fleetenter/DriverBehaviorAnalysis.vue')//添加车辆
+const DriverBehaviorAnalysis = lazyLoad('/My/Fleetenter/DriverBehaviorAnalysis.vue')//司机驾驶行为分析
+const ChooseCar = lazyLoad('/My/Fleetenter/ChooseCar.vue')//选择车辆
 /**
  * 消息
  */
@@ -937,6 +938,11 @@ const router = new Router({
                 path: "/felltManagement/vehicleBehaviorAnalysisSurface",
                 name: '车辆驾驶行为分析表',
                 component: VehicleBehaviorAnalysisSurface
+            },
+            {
+                path: "/felltManagement/choosecar",
+                name: '选择车辆',
+                component: ChooseCar
             },
             // 消息
             {

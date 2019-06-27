@@ -75,4 +75,5 @@ export default {
     driverInformation:{},//车队管理里面的单个司机信息
     FleetInformation:{},//车队管理单个车队信息
     FleetBehaviorAnalysis:{},//车队行为分析信息
+    identifier:'',//车队管理跳转原生标识符
 }

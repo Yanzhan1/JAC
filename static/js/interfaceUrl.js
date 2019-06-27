@@ -251,9 +251,9 @@ window.Newenergy = {
     }
     //轻卡接口
 window.Lightcar={
-        truckvehiclecycflowquery:light+'/vehicleInformation/truck-vehicle-cyc-flow-query',//流量查询
-        trucklatelycyccarexamination:light+'/vehicleInformation/truck-lately-cyc-car-examination',//车辆体检同步接口
-        truckcyccarexamination:light+'/vehicleInformation/truck-cyc-car-examination',//车辆体检
+        truckvehiclecycflowquery:lightlocal+'/vehicleInformation/truck-vehicle-cyc-flow-query',//流量查询
+        trucklatelycyccarexamination:lightlocal+'/vehicleInformation/truck-lately-cyc-car-examination',//车辆体检同步接口
+        truckcyccarexamination:lightlocal+'/vehicleInformation/truck-cyc-car-examination',//车辆体检
         findteamlist:lightlocal+'/VehicleTeamController/find-team-list',//车队管理列表查询
         truckfindvehiclelist:lightlocal+'/VehicleTeamController/truck-find-vehicle-list',//车队车辆列表查询
         findunbindingteamlist:lightlocal+'/VehicleTeamController/find-unbinding-team-list',//车队未绑定车辆列表查询
@@ -272,6 +272,8 @@ window.Lightcar={
         deleteteam:lightlocal+'/VehicleTeamController/delete-team',//删除车队
         updatebindingteamlist:lightlocal+'/VehicleTeamController/update-binding-team-list',//为车队添加车辆
         updateteaminfo:lightlocal+'/VehicleTeamController/update-team-info',//为车队添加车辆
+        deletebindingteamlist:lightlocal+'/VehicleTeamController/delete-binding-team-list',//删除车队和车辆的绑定关系
+        truckvehicleasyncresults:lightlocal+'/callBack/truck-vehicle-async-results',//驾驶行为分析回调
 }
     //消息接口
 window.IMFORMATION = {

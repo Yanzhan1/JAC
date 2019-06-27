@@ -28,7 +28,7 @@
             <div class="flex between drivers cocenter" v-for="(item,index) in this.list" :key="index">
                <div>{{item.vin}}</div>
                <!-- <div class="plate">{{item.plate}}</div> -->
-               <img src="/static/images/carteam/deletecar@2x.png" alt="">
+               <img src="/static/images/carteam/deletecar@2x.png" alt="" @click="deletecar(item.id)">
             </div>
         </div>
         <div class="adddriverbtn flex contentcenter " @click="addcar">
@@ -61,6 +61,20 @@ export default {
             this.list=res.data.data
           }
       })
+    },
+    deletecar(id){
+      console.log(id)
+          let params={
+            teamId:this.$store.state.FleetInformation.teamId,
+            brandId:this.$store.state.brandId,
+            vehicles:[id]
+          }
+          this.$http.post(Lightcar.deletebindingteamlist,params).then(res=>{
+              if(res.data.code==0){
+                this.init()
+              }
+          })
+
     },
     create(){
       // this.$router.push({

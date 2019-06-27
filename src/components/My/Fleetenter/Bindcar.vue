@@ -1,6 +1,6 @@
 <template>
   	<div>
-        <mhead currentTitle="添加车辆"></mhead>
+        <mhead currentTitle="绑定车辆"></mhead>
         <div class="flex cocenter between list" v-for="(item,index) in this.list" :key="index">
           <div class="left">
             <div class="plate">{{item.model}}</div>

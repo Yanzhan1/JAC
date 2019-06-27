@@ -3,9 +3,7 @@
         <header class="header MobileHeight">
           <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
           <span class="header-title" style="margin-left:.6rem">车辆管理</span>
-          <span >
-            <router-link tag="div" style="color:#49BBFF" to="/myindex/addBus">添加车辆</router-link>
-          </span>
+          <span ></span>
         </header>
         <div style="height:0.88rem" class="MobileHeight"></div>
         <!-- <div class="mui-table-view-cell" v-for="(item,index) in this.list" :key="index">
@@ -48,7 +46,7 @@ export default {
   methods:{
     init(){
       let param={
-        // brandId:this.$store.state.brandId,
+        brandId:this.$store.state.brandId,
       }
       this.$http.post(Lightcar.truckfindvehiclelist,param).then(res=>{
         if(res.data.code==0){

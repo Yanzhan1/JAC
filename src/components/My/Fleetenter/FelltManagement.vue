@@ -39,10 +39,10 @@
 
             </div>
             <div class="bottom flex" >
-              <div>实时监控</div>
-              <div>历史轨迹</div>
-              <div>流量查询</div>
-              <div>车辆体检</div>
+              <div @click="monitor(item.teamId)">实时监控</div>
+              <div @click="historicalTrack('historicalTrack',item)">历史轨迹</div>
+              <div @click="flowQuery('flowQuery',item)">流量查询</div>
+              <div @click="busTest('busTest',item)">车辆体检</div>
               <div @click="toFleetBehaviorAnalysis(item)">驾驶分析</div>
             </div>
           </div>
@@ -63,16 +63,12 @@ export default {
         let params={
           userid:'1333298182',
           teamId:'',
-          brandId:'1'
+          brandId:this.$store.state.brandId
         }
           this.$http
         .post(
           Lightcar.findteamlist,
-          {
-            userId:'1333298182',
-            teamId:'',
-            brandId:'1'
-          }
+          params
         )
         .then(res => {
           if(res.data.code==0){
@@ -84,6 +80,43 @@ export default {
             }
           }
         });
+      },
+      monitor(teamId){
+        if (isMobile.iOS()) {
+            window.webkit.messageHandlers.myCarteam.postMessage(teamId);
+          } else if (isMobile.Android()) {
+            js2android.myCarteam(teamId);
+          }
+      },
+      historicalTrack(id,item){
+        this.$store.dispatch('FleetInformation',item)
+        this.$store.state.identifier=id
+        this.$router.push({
+          path:"/felltManagement/choosecar",
+          query:{
+            id
+          }
+        })
+      },
+      flowQuery(id,item){
+        this.$store.dispatch('FleetInformation',item)
+        this.$store.state.identifier=id
+        this.$router.push({
+          path:"/felltManagement/choosecar",
+          query:{
+            id
+          }
+        })
+      },
+      busTest(id,item){
+        this.$store.dispatch('FleetInformation',item)
+        this.$store.state.identifier=id
+        this.$router.push({
+          path:"/felltManagement/choosecar",
+          query:{
+            id
+          }
+        })
       },
       goindex(){
         this.$router.push({
