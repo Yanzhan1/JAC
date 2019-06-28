@@ -277,6 +277,7 @@ window.Lightcar={
         teamAnalysisofdriving:light+'/VehicleTeamController/team-Analysis-of-driving',//车队驾驶行为分析
         vehicleAnalysisofdriving:light+'/VehicleTeamController/vehicle-Analysis-of-driving',//车辆驾驶行为分析
         driverAnalysisofdriving:light+'/VehicleTeamController/driver-Analysis-of-driving',//司机驾驶行为分析
+        getpermission:light+'/VehicleTeamController/get-permission',//大客户权限
 }
     //消息接口
 window.IMFORMATION = {
