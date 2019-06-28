@@ -35,7 +35,7 @@ export default {
   methods: {
     create(){
       let param={
-          brandId:'1',
+          brandId:this.$store.state.brandId,
           teamName:this.teamname,
           contact:this.teamleader,
           contactPhone:this.leaderphone

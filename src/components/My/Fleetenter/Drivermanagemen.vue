@@ -51,7 +51,7 @@ export default {
   methods:{
     init(){
       let params={
-        brandId:'1',
+        brandId:this.$store.state.brandId,
         userId:"1333298182",
         driverId:""
       }

@@ -58,7 +58,7 @@ export default {
     init(){
       let params={
         driverId:this.$store.state.driverInformation.id,
-        brandId:1
+        brandId:this.$store.state.brandId
       }
       this.$http.post(Lightcar.finddriverallotVehicles,params).then(res=>{
         if(res.data.code==0){

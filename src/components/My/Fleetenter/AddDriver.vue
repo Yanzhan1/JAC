@@ -52,7 +52,7 @@ export default {
   methods:{
     created(){
       let params={
-        brandId:'1',
+        brandId:this.$store.state.brandId,
         driverName:this.drivername,
         phone:this.drivercall,
         identityNum:this.driveridcard,

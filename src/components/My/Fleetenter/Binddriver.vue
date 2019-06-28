@@ -65,7 +65,7 @@ export default {
   methods: {
     init(){
       let params={
-        brandId:'1',
+        brandId:this.$store.state.brandId,
         userId:"1333298182",
         driverId:""
       }
@@ -111,7 +111,7 @@ export default {
               vin: this.$store.state.VehicleInformation.vin,
               beginTime:this.beginTime,
               endTime:this.lastTime,
-              brandId:'1'
+              brandId:this.$store.state.brandId
             }
       this.$http.post(Lightcar.updateisBindingvehicledriverlist,params).then(res=>{
         if(res.data.code==0){

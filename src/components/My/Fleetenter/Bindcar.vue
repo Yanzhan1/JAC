@@ -67,7 +67,7 @@ export default {
   methods: {
     init(){
       let param={
-        // brandId:this.$store.state.brandId,
+        brandId:this.$store.state.brandId,
       }
       this.$http.post(Lightcar.truckfindvehiclelist,param).then(res=>{
         if(res.data.code==0){
@@ -111,7 +111,7 @@ export default {
               vin: this.item.vin,
               beginTime:this.beginTime,
               endTime:this.lastTime,
-              brandId:'1'
+              brandId:this.$store.state.brandId
             }
       this.$http.post(Lightcar.updateisBindingvehicledriverlist,params).then(res=>{
         if(res.data.code==0){

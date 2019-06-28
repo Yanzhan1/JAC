@@ -83,6 +83,7 @@
       year-format="{value} 年"
       month-format="{value} 月"
       :startDate="startDate"
+      :endDate='endDate'
       @confirm="start"
     ></mt-datetime-picker>
     <mt-datetime-picker
@@ -94,6 +95,7 @@
       year-format="{value} 年"
       month-format="{value} 月"
       :startDate="startnext"
+      :endDate='endnext'
       @confirm="end"
     ></mt-datetime-picker>
   </div>
@@ -110,13 +112,16 @@ export default {
       endtime: "", //传给后台的结束时间戳
       beginTime: "", //传给后台的开始时间
       lastTime: "", //传给后台的结束时间
-      startDate: new Date(),
+      startDate: new Date(operationTime.getTime((new Date().getTime()-1000*60*60*24*31*6), 2)),
       startnext: new Date(),
+      endDate:new Date(),
+      endnext:new Date(),
       myChart: "",
+      // queryTimeList:["2019.1", "2019.2", "2019.3", "2019.4", "2019.5", "2019.6", "2019.7","2019.8",'2019.9','2019.10','2019.11','2019.12','2019.13','2019.14'],//查询的时间x轴
       queryTimeList:["2019.1", "2019.2", "2019.3", "2019.4", "2019.5", "2019.6", "2019.7"],//查询的时间x轴
-      company:'{a0}:{c0}Km',//单位
+      company:'',//单位
       title:'日平均里程',
-      showList:[120, 132, 101, 134, 90, 230, 210],
+      showList:[120, 132, 101, 134, 90, 230, 210,333],
       averagemileage:true,//平均里程
       totalmileage:false,//总里程
       averageFuelConsumption:false,//平均油耗
@@ -320,10 +325,13 @@ export default {
   },
   mounted() {
     $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
-    this.drawLine();
+    this.chooseaveragemileage();
     setTimeout(() => {
       this.addstyle();
     }, 500);
+  },
+  created(){
+
   }
 };
 </script>
