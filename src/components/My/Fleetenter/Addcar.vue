@@ -3,7 +3,7 @@
         <mhead currentTitle="添加车辆"></mhead>
         <div class="flex cocenter between list" v-for="(item,index) in this.list" :key="index">
           <div class="left">
-            <div class="plate">宝马xx</div>
+            <div class="plate">{{item.model}}</div>
             <div class="vin">VIN:{{item.vin}}</div>
           </div>
           <div class="middle">{{item.plate}}</div>

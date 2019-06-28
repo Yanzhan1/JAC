@@ -54,15 +54,21 @@ export default {
         return year + month;
     },
     init(){
-      let endTime=this.changetime(new Date(new Date()-1000*60*60*24*31*6))
-      let startTime=this.changetime(new Date())
+      let startTime=this.changetime(new Date(new Date()-1000*60*60*24*31*6))
+      let endTime=this.changetime(new Date())
       let params={
         teamId:this.$store.state.FleetInformation.teamId,
         beginDate:startTime,
         endDate:endTime
       }
       this.$http.post(Lightcar.driverAnalysisofdriving,params).then(res=>{
-        console.log(res)
+        if(res.data.returnSuccess){
+          this.$http.post(Lightcar.truckvehicleasyncresults,{operationId:res.data.operationId}).then(res=>{
+              if(res.data.returnSuccess){
+                console.log(res.data.data)
+              }
+          })
+        }
       })
     }
   },
