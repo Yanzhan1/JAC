@@ -7,7 +7,7 @@
             <div class="vin">VIN:{{item.vin}}</div>
           </div>
           <div class="middle">{{item.plate}}</div>
-           <img class="right" src="/static/images/nextblue@2x.png" alt="" @click="choose(item)">
+           <img class="right" src="./../../../../static/images/nextblue@2x.png" alt="" @click="choose(item)">
            <!-- <label class="chooseimages" :class="labeldata.indexOf(item.id)!=-1?'active':''" @click="choose(item.id)"></label> -->
         </div>
     </div>

@@ -28,11 +28,11 @@
             <div class="flex between drivers cocenter" v-for="(item,index) in this.list" :key="index">
                <div>{{item.vin}}</div>
                <!-- <div class="plate">{{item.plate}}</div> -->
-               <img src="/static/images/carteam/deletecar@2x.png" alt="" @click="deletecar(item.id)">
+               <img src="./../../../../static/images/carteam/deletecar@2x.png" alt="" @click="deletecar(item.id)">
             </div>
         </div>
         <div class="adddriverbtn flex contentcenter " @click="addcar">
-            <img src="/static/images/carteam/adddriver@2x.png" alt="">
+            <img src="./../../../../static/images/carteam/adddriver@2x.png" alt="">
             <div>添加车辆</div>
         </div>
         <div class="created" @click="create">确认修改</div>

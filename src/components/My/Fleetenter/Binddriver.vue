@@ -4,7 +4,7 @@
         <div class="flex cocenter between list" v-for="(item,index) in list" :key="index">
           <div class="left">{{item.driverName}}</div>
           <div class="middle">{{item.contactPhone}}</div>
-          <img class="right" src="/static/images/nextblue@2x.png" alt="" @click="choose(item)">
+          <img class="right" src="./../../../../static/images/nextblue@2x.png" alt="" @click="choose(item)">
            <!-- <label class="chooseimages" :class="index==currentIndex?'active':''" @click="choose(index)"></label> -->
         </div>
         <mt-datetime-picker

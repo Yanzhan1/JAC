@@ -5,7 +5,7 @@
           <span style="margin-right:3.7rem">这里是元素</span>
         </mt-cell>
         <div class="adddriverbtn flex contentcenter " @click="create">
-            <img src="/static/images/carteam/adddriver@2x.png" alt="">
+            <img src="./../../../../static/images/carteam/adddriver@2x.png" alt="">
             <div>创建的新的车队长</div>
         </div>
     </div>

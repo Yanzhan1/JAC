@@ -30,11 +30,11 @@
                 <div>{{item.plate}}</div>
                 <div class="timer">{{item.startTime|changTime}}至{{item.overTime|changTime}}</div>
               </div>
-               <img src="/static/images/carteam/deletecar@2x.png" alt="" @click="detelecar(item)">
+               <img src="./../../../../static/images/carteam/deletecar@2x.png" alt="" @click="detelecar(item)">
             </div>
         </div>
         <div class="adddriverbtn flex contentcenter ">
-            <img src="/static/images/carteam/adddriver@2x.png" alt="">
+            <img src="./../../../../static/images/carteam/adddriver@2x.png" alt="">
             <div @click="bindcar">绑定车辆</div>
         </div>
     </div>

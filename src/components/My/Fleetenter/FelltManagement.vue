@@ -31,7 +31,7 @@
                     <span class="moren" :class="index==curindex?'actived':''">默认车队</span>
                   </div>
                   <div class="flex edict" @click="toFleetmodification(item)">
-                    <img src="/static/images/carteam/edit@2x.png" alt="">
+                    <img src="./../../../../static/images/carteam/edit@2x.png" alt="">
                     <div>编辑车队</div>
                   </div>
                 </div>

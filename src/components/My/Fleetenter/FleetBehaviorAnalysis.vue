@@ -6,7 +6,7 @@
             <div class="myFleet">{{this.$store.state.FleetInformation.teamName}}</div>
             <div class="flex cocenter detail" @click="todetail()">
                 <span>详情</span>
-                <img src="/static/images/next@2x.png" alt="">
+                <img src="./../../../../static/images/next@2x.png" alt="">
             </div>
         </div>
         <div class="flex cocenter content">

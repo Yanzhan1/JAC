@@ -24,11 +24,11 @@
                 <div>{{item.driverName}}</div>
                 <div class="timer">{{item.startTime|changTime}}至{{item.overTime|changTime}}</div>
               </div>
-               <img src="/static/images/carteam/deletecar@2x.png" alt="" @click="deteledrive(ite.driverId)">
+               <img src="./../../../../static/images/carteam/deletecar@2x.png" alt="" @click="deteledrive(ite.driverId)">
             </div>
         </div>
         <div class="adddriverbtn flex contentcenter " @click="bindingDriver">
-            <img src="/static/images/carteam/adddriver@2x.png" alt="">
+            <img src="./../../../../static/images/carteam/adddriver@2x.png" alt="">
             <div >绑定司机</div>
         </div>
     </div>
