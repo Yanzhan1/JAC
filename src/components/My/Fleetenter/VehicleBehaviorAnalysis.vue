@@ -1,13 +1,13 @@
 <template>
   <div>
     <mhead currentTitle="车辆驾驶行为分析"></mhead>
-    <div class="list" v-for="(item,index) in 3" :key="index">
+    <div class="list">
         <div class="flex between cocenter title">
             <div class="flex cocenter">
               <div class="myFleet">宝马XX</div>
               <div class="plate">浙A9999</div>
             </div>
-            <div class="flex cocenter detail" @click="todetail(item)">
+            <div class="flex cocenter detail" @click="todetail()">
                 <span>详情</span>
                 <img src="/static/images/next@2x.png" alt="">
             </div>
@@ -41,19 +41,46 @@ import PublicHead from "./../../publicmodel/PublicHead";
 export default {
   data(){
     return{
-
+      list:[],
     }
   },
   components: {
     mhead: PublicHead
   },
   methods:{
-    todetail(val){
+    todetail(){
       this.$router.push({
         path:'/felltManagement/VehicleBehaviorAnalysisSurface'
       })
     // this.$store.dispatch('FleetBehaviorAnalysis',val)
+    },
+    changetime(val){
+        let year=val.getFullYear();
+        let month=val.getMonth()+1;
+        month = month < 10 ? "0" + month : "" + month;
+        return year + month;
+    },
+    init(){
+      let startTime=this.changetime(new Date(new Date()-1000*60*60*24*31*6))
+      let endTime=this.changetime(new Date())
+      let params={
+        teamId:this.$store.state.FleetInformation.teamId,
+        beginDate:startTime,
+        endDate:endTime
+      }
+      this.$http.post(Lightcar.vehicleAnalysisofdriving,params).then(res=>{
+        if(res.data.returnSuccess){
+          this.$http.post(Lightcar.truckvehicleasyncresults,{operationId:res.data.operationId}).then(res=>{
+              if(res.data.returnSuccess){
+                this.list=res.data.data
+              }
+          })
+        }
+      })
     }
+  },
+  mounted(){
+    this.init()
   }
 }
 </script>

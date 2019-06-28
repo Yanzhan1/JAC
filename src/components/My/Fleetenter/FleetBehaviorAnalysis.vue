@@ -1,10 +1,10 @@
 <template>
   <div>
     <mhead currentTitle="车队驾驶行为分析"></mhead>
-    <div class="list" v-for="(item,index) in 3" :key="index">
+    <div class="list">
         <div class="flex between cocenter title">
-            <div class="myFleet">我的车队</div>
-            <div class="flex cocenter detail" @click="todetail(item)">
+            <div class="myFleet">{{this.$store.state.FleetInformation.teamName}}</div>
+            <div class="flex cocenter detail" @click="todetail()">
                 <span>详情</span>
                 <img src="/static/images/next@2x.png" alt="">
             </div>
@@ -12,21 +12,21 @@
         <div class="flex cocenter content">
           <div class="first">
             <div class="title_top">总里程</div>
-            <div class="title_bottom">10000Km</div>
+            <div class="title_bottom">{{this.list[this.list.length-1].totalMileage}}Km</div>
             <div class="title_top">日平均里程</div>
-            <div class="title_bottom">100Km</div>
+            <div class="title_bottom">{{this.list[this.list.length-1].averageMileageDay}}Km</div>
           </div>
           <div class="second">
             <div class="title_top">总油耗</div>
-            <div class="title_bottom">8888L</div>
+            <div class="title_bottom">{{this.list[this.list.length-1].totalWear}}L</div>
             <div class="title_top">日平均油耗</div>
-            <div class="title_bottom">88L</div>
+            <div class="title_bottom">{{this.list[this.list.length-1].averageWearDay}}L</div>
           </div>
           <div class="third">
             <div class="title_top">总工作时长</div>
-            <div class="title_bottom">200h</div>
+            <div class="title_bottom">{{this.list[this.list.length-1].totalTime|tohour}}h</div>
             <div class="title_top">日平均工作时长</div>
-            <div class="title_bottom">10h</div>
+            <div class="title_bottom">{{this.list[this.list.length-1].averagTimeDay|tohour}}h</div>
           </div>
         </div>
     </div>
@@ -38,19 +38,52 @@ import PublicHead from "./../../publicmodel/PublicHead";
 export default {
   data(){
     return{
-
+      list:[],//6个月前查询到的数据
     }
   },
   components: {
     mhead: PublicHead
   },
+  filters:{
+    tohour(val){
+      return (val/60/60).toFixed(1)
+    }
+  },
   methods:{
-    todetail(val){
+    todetail(){
       this.$router.push({
         path:'/felltManagement/fleetBehaviorAnalysisSurface'
       })
-    this.$store.dispatch('FleetBehaviorAnalysis',val)
+      this.$store.state.allTime=this.list
+    // this.$store.dispatch('FleetBehaviorAnalysis',val)
+    },
+    changetime(val){
+        let year=val.getFullYear();
+        let month=val.getMonth()+1;
+        month = month < 10 ? "0" + month : "" + month;
+        return year + month;
+    },
+    init(){
+      let startTime=this.changetime(new Date(new Date()-1000*60*60*24*31*6))
+      let endTime=this.changetime(new Date())
+      let params={
+        teamId:this.$store.state.FleetInformation.teamId,
+        beginDate:startTime,
+        endDate:endTime
+      }
+      this.$http.post(Lightcar.teamAnalysisofdriving,params).then(res=>{
+        if(res.data.returnSuccess){
+          this.$http.post(Lightcar.truckvehicleasyncresults,{operationId:res.data.operationId}).then(res=>{
+              if(res.data.returnSuccess){
+                this.list=res.data.data
+              }
+          })
+        }
+      })
     }
+  },
+  mounted(){
+    this.init()
   }
 }
 </script>

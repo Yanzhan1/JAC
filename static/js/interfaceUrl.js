@@ -251,29 +251,32 @@ window.Newenergy = {
     }
     //轻卡接口
 window.Lightcar={
-        truckvehiclecycflowquery:lightlocal+'/vehicleInformation/truck-vehicle-cyc-flow-query',//流量查询
-        trucklatelycyccarexamination:lightlocal+'/vehicleInformation/truck-lately-cyc-car-examination',//车辆体检同步接口
-        truckcyccarexamination:lightlocal+'/vehicleInformation/truck-cyc-car-examination',//车辆体检
-        findteamlist:lightlocal+'/VehicleTeamController/find-team-list',//车队管理列表查询
-        truckfindvehiclelist:lightlocal+'/VehicleTeamController/truck-find-vehicle-list',//车队车辆列表查询
-        findunbindingteamlist:lightlocal+'/VehicleTeamController/find-unbinding-team-list',//车队未绑定车辆列表查询
-        finddriverlist:lightlocal+'/VehicleTeamController/find-driver-list',//司机列表
-        findisBindingvehicledriverlist:lightlocal+'/VehicleTeamController/find-isBinding-vehicle-driver-list',//通过车辆查询司机
-        createteam:lightlocal+'/VehicleTeamController/create-team',//新建车队
-        updatevehicleinfo:lightlocal+'/VehicleTeamController/update-vehicle-info',//修改车牌
-        updatedriverinfo:lightlocal+'/VehicleTeamController/update-driver-info',//修改司机信息
-        createdriver:lightlocal+'/VehicleTeamController/create-driver',//新增司机
-        setdefaultteam:lightlocal+'/VehicleTeamController/set-default-team',//设置默认车队
-        deletevehicledriverrelationship:lightlocal+'/VehicleTeamController/delete-vehicle-driver-relationship',//删除车辆和司机绑定关系
-        updateisBindingvehicledriverlist:lightlocal+'/VehicleTeamController/update-isBinding-vehicle-driver-list',//为车辆绑定司机
-        finddriverallotVehicles:lightlocal+'/VehicleTeamController/find-driver-allot-Vehicles',//为司机绑定车辆
-        deletedriver:lightlocal+'/VehicleTeamController/delete-driver',//删除司机
-        findbindingteamlist:lightlocal+'/VehicleTeamController/find-binding-team-list',//车队找车辆
-        deleteteam:lightlocal+'/VehicleTeamController/delete-team',//删除车队
-        updatebindingteamlist:lightlocal+'/VehicleTeamController/update-binding-team-list',//为车队添加车辆
-        updateteaminfo:lightlocal+'/VehicleTeamController/update-team-info',//为车队添加车辆
-        deletebindingteamlist:lightlocal+'/VehicleTeamController/delete-binding-team-list',//删除车队和车辆的绑定关系
-        truckvehicleasyncresults:lightlocal+'/callBack/truck-vehicle-async-results',//驾驶行为分析回调
+        truckvehiclecycflowquery:light+'/vehicleInformation/truck-vehicle-cyc-flow-query',//流量查询
+        trucklatelycyccarexamination:light+'/vehicleInformation/truck-lately-cyc-car-examination',//车辆体检同步接口
+        truckcyccarexamination:light+'/vehicleInformation/truck-cyc-car-examination',//车辆体检
+        findteamlist:light+'/VehicleTeamController/find-team-list',//车队管理列表查询
+        truckfindvehiclelist:light+'/VehicleTeamController/truck-find-vehicle-list',//车队车辆列表查询
+        findunbindingteamlist:light+'/VehicleTeamController/find-unbinding-team-list',//车队未绑定车辆列表查询
+        finddriverlist:light+'/VehicleTeamController/find-driver-list',//司机列表
+        findisBindingvehicledriverlist:light+'/VehicleTeamController/find-isBinding-vehicle-driver-list',//通过车辆查询司机
+        createteam:light+'/VehicleTeamController/create-team',//新建车队
+        updatevehicleinfo:light+'/VehicleTeamController/update-vehicle-info',//修改车牌
+        updatedriverinfo:light+'/VehicleTeamController/update-driver-info',//修改司机信息
+        createdriver:light+'/VehicleTeamController/create-driver',//新增司机
+        setdefaultteam:light+'/VehicleTeamController/set-default-team',//设置默认车队
+        deletevehicledriverrelationship:light+'/VehicleTeamController/delete-vehicle-driver-relationship',//删除车辆和司机绑定关系
+        updateisBindingvehicledriverlist:light+'/VehicleTeamController/update-isBinding-vehicle-driver-list',//为车辆绑定司机
+        finddriverallotVehicles:light+'/VehicleTeamController/find-driver-allot-Vehicles',//为司机绑定车辆
+        deletedriver:light+'/VehicleTeamController/delete-driver',//删除司机
+        findbindingteamlist:light+'/VehicleTeamController/find-binding-team-list',//车队找车辆
+        deleteteam:light+'/VehicleTeamController/delete-team',//删除车队
+        updatebindingteamlist:light+'/VehicleTeamController/update-binding-team-list',//为车队添加车辆
+        updateteaminfo:light+'/VehicleTeamController/update-team-info',//为车队添加车辆
+        deletebindingteamlist:light+'/VehicleTeamController/delete-binding-team-list',//删除车队和车辆的绑定关系
+        truckvehicleasyncresults:light+'/callBack/truck-vehicle-async-results',//驾驶行为分析回调
+        teamAnalysisofdriving:light+'/VehicleTeamController/team-Analysis-of-driving',//车队驾驶行为分析
+        vehicleAnalysisofdriving:light+'/VehicleTeamController/vehicle-Analysis-of-driving',//车辆驾驶行为分析
+        driverAnalysisofdriving:light+'/VehicleTeamController/driver-Analysis-of-driving',//司机驾驶行为分析
 }
     //消息接口
 window.IMFORMATION = {

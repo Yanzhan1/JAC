@@ -38,7 +38,6 @@ export default {
     },
     choose(id){
       this.$store.state.vins=id.vin
-      this.$store.state.brandId=1
       if(this.$store.state.identifier=='flowQuery'){
           this.$router.push({
             path:"/lovecar/flowQuery"
@@ -60,7 +59,6 @@ export default {
     }
   },
   mounted(){
-    console.log(this.$store.state.identifier)
     this.init()
   }
 };

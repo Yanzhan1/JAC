@@ -101,13 +101,13 @@
         </div>
         <img src="../../../static/images/my/next@2x.png" alt>
       </div>
-      <!-- <div class="mylist" @click="tocontrolallcar">
+      <div class="mylist" @click="tocontrolallcar">
         <div class="flex cocenter">
-          <img src="../../../static/images/my/mine_list@2x.png" alt>
+          <img src="../../../static/images/carteam/mine_team.png" alt>
           <span>车队管理</span>
         </div>
         <img src="../../../static/images/my/next@2x.png" alt>
-      </div> -->
+      </div>
       <div class="mylist" @click="tobuy">
         <div class="flex cocenter">
           <img src="../../../static/images/my/shoppingbuy.png" alt>
@@ -287,6 +287,10 @@ export default {
     },
     //跳转车队管理
     tocontrolallcar(){
+      if (!this.$store.state.addiflogin) {
+        this.toLogin();
+        return false;
+      }
         this.$router.push({
           path:'/felltManagement'
         })

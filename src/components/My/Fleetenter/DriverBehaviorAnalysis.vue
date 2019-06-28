@@ -46,7 +46,28 @@ export default {
         path:'/felltManagement/fleetBehaviorAnalysisSurface'
       })
     this.$store.dispatch('FleetBehaviorAnalysis',val)
+    },
+    changetime(val){
+        let year=val.getFullYear();
+        let month=val.getMonth()+1;
+        month = month < 10 ? "0" + month : "" + month;
+        return year + month;
+    },
+    init(){
+      let endTime=this.changetime(new Date(new Date()-1000*60*60*24*31*6))
+      let startTime=this.changetime(new Date())
+      let params={
+        teamId:this.$store.state.FleetInformation.teamId,
+        beginDate:startTime,
+        endDate:endTime
+      }
+      this.$http.post(Lightcar.driverAnalysisofdriving,params).then(res=>{
+        console.log(res)
+      })
     }
+  },
+  mounted(){
+    this.init()
   }
 }
 </script>

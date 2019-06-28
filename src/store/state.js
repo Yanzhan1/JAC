@@ -76,4 +76,5 @@ export default {
     FleetInformation:{},//车队管理单个车队信息
     FleetBehaviorAnalysis:{},//车队行为分析信息
     identifier:'',//车队管理跳转原生标识符
+    allTime:'',//保存车队驾驶行为分析数据
 }
