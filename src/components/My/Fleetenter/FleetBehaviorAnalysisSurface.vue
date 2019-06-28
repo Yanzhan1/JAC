@@ -330,17 +330,56 @@ export default {
     end() {
       this.endtime = this.pickerValueend;
       this.lastTime = operationTime.getTime(this.endtime, 6);
+      this.chooseTimer(this.beginTime,this.lastTime)
+    },
+    addstyle() {
+      let newNode = document.createElement("span");
+      newNode.innerHTML = "设置开始时间";
+      $(".mint-datetime-cancel")[0].parentNode.insertBefore(
+        newNode,
+        $(".mint-datetime-cancel")[0].nextSibling
+      );
+      $(".picker-toolbar")[0].style.cssText =
+        "display:flex;justify-content:space-between;align-items: center";
+      $(".mint-datetime-cancel")[0].nextSibling.style.cssText =
+        "width:2.5rem;text-align:center;font-size:.28rem;";
+      let newNodenext = document.createElement("span");
+      newNodenext.innerHTML = "设置结束时间";
+      $(".mint-datetime-cancel")[1].parentNode.insertBefore(
+        newNodenext,
+        $(".mint-datetime-cancel")[1].nextSibling
+      );
+      $(".picker-toolbar")[1].style.cssText =
+        "display:flex;justify-content:space-between;align-items: center";
+      $(".mint-datetime-cancel")[1].nextSibling.style.cssText =
+        "width:2.5rem;text-align:center;font-size:.28rem;";
+    },
+    changetime(val){
+        let year=val.getFullYear();
+        let month=val.getMonth()+1;
+        month = month < 10 ? "0" + month : "" + month;
+        return year + month;
+    },
+    //选择时间拿数据
+    chooseTimer(start,end){
       let params={
         teamId:this.$store.state.FleetInformation.teamId,
-        beginDate:this.beginTime,
-        endDate:this.lastTime
+        beginDate:start,
+        endDate:end
       }
       this.$http.post(Lightcar.teamAnalysisofdriving,params).then(res=>{
         if(res.data.returnSuccess){
           this.$http.post(Lightcar.truckvehicleasyncresults,{operationId:res.data.operationId}).then(res=>{
               if(res.data.returnSuccess){
-                this.allDate=res.data.data
+                this.allDate=res.data.data;
                 this.choosedData=res.data.data[res.data.data.length-1]
+                this.alltotalmileage=[]
+                this.alltotalFuelConsumption=[]
+                this.alltotalTime=[]
+                this.allaveragemileage=[]
+                this.allaverageFuelConsumption=[]
+                this.allaverageTime=[]
+                this.allDate_x=[]
                 for(let val of this.allDate){
                   for(let item of Object.keys(val)){
                     if(item=="totalMileage"){
@@ -365,66 +404,23 @@ export default {
                     }
                   }
                 }
-                this.drawLine()
+                this.queryTimeList=this.allDate_x
+                this.showList=this.allaveragemileage
+                this.drawLine();
               }
           })
         }
       })
     },
-    addstyle() {
-      let newNode = document.createElement("span");
-      newNode.innerHTML = "设置开始时间";
-      $(".mint-datetime-cancel")[0].parentNode.insertBefore(
-        newNode,
-        $(".mint-datetime-cancel")[0].nextSibling
-      );
-      $(".picker-toolbar")[0].style.cssText =
-        "display:flex;justify-content:space-between;align-items: center";
-      $(".mint-datetime-cancel")[0].nextSibling.style.cssText =
-        "width:2.5rem;text-align:center;font-size:.28rem;";
-      let newNodenext = document.createElement("span");
-      newNodenext.innerHTML = "设置结束时间";
-      $(".mint-datetime-cancel")[1].parentNode.insertBefore(
-        newNodenext,
-        $(".mint-datetime-cancel")[1].nextSibling
-      );
-      $(".picker-toolbar")[1].style.cssText =
-        "display:flex;justify-content:space-between;align-items: center";
-      $(".mint-datetime-cancel")[1].nextSibling.style.cssText =
-        "width:2.5rem;text-align:center;font-size:.28rem;";
+    init(){
+      let startTime=this.changetime(new Date(new Date()-1000*60*60*24*31*6))
+      let endTime=this.changetime(new Date())
+      this.chooseTimer(startTime,endTime)
     }
   },
   mounted() {
     $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
-    this.allDate=this.$store.state.allTime;
-    this.choosedData=this.$store.state.allTime[this.$store.state.allTime.length-1]
-    for(let val of this.allDate){
-      for(let item of Object.keys(val)){
-        if(item=="totalMileage"){
-          this.alltotalmileage.push(val.totalMileage)
-        }else if(item=="totalWear"){
-          this.alltotalFuelConsumption.push(val.totalWear)
-        }else if(item=="totalTime"){
-          let value=(val.totalTime/60/60).toFixed(1)
-          this.alltotalTime.push(value)
-        }else if(item=="averageMileageDay"){
-          this.allaveragemileage.push(val.averageMileageDay)
-        }else if(item=="averageWearDay"){
-          this.allaverageFuelConsumption.push(val.averageWearDay)
-        }else if(item=="averagTimeDay"){
-          let value=(val.averagTimeDay/60/60).toFixed(1)
-          this.allaverageTime.push(value)
-        }else if(item=="queryDate"){
-          let arr=val.queryDate.split('')
-          arr.splice(4,1,'.')
-          let value=arr.join('')
-          this.allDate_x.push(value)
-        }
-      }
-    }
-    this.queryTimeList=this.allDate_x
-    this.showList=this.allaveragemileage
-    this.drawLine();
+    this.init()
     setTimeout(() => {
       this.addstyle();
     }, 500);

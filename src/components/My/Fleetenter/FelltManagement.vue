@@ -61,7 +61,6 @@ export default {
     methods:{
       init(){
         let params={
-          userid:'1333298182',
           teamId:'',
           brandId:this.$store.state.brandId
         }
@@ -130,7 +129,7 @@ export default {
       },
       toFleetBehaviorAnalysis(item){
         this.$router.push({
-          path:'/felltManagement/fleetBehaviorAnalysis',
+          path:'/felltManagement/FleetBehaviorAnalysisSurface',
           query:{
             item
           }
