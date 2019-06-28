@@ -1,7 +1,7 @@
 <template>
   	<div>
         <mhead currentTitle="绑定司机"></mhead>
-        <div class="flex cocenter between list" v-for="(item,index) in list" :key="index">
+        <div class="flex cocenter between listlist" v-for="(item,index) in list" :key="index">
           <div class="left">{{item.driverName}}</div>
           <div class="middle">{{item.contactPhone}}</div>
           <img class="right" src="./../../../../static/images/nextblue@2x.png" alt="" @click="choose(item)">
@@ -142,30 +142,31 @@ export default {
 </script>
 
 <style scoped>
-.list{
+.listlist{
   height: 1.1rem;
   border-bottom: .01rem solid #eeeeee;
+  background: #ffffff;
 }
-.list .left{
+.listlist .left{
   margin-left: .3rem;
   font-size:.28rem;
   font-family:PingFang-SC-Bold;
   font-weight:bold;
   color:rgba(34,34,34,1);
 }
-.list .middle{
+.listlist .middle{
   font-size:.24rem;
   font-family:PingFang-SC-Medium;
   font-weight:500;
   color:rgba(85,85,85,1);
   margin-right: 3rem;
 }
-.list .right{
+.listlist .right{
   width: .1rem;
   height: .2rem;
   margin-right: .3rem;
 }
-.list .chooseimages {
+.listlist .chooseimages {
   display: block;
   width: 0.44rem;
   height: 0.44rem;
@@ -176,7 +177,10 @@ export default {
   padding: 0.2rem;
   margin-right: .3rem;
 }
-.list .active {
+.llistlist div{
+  border: none;
+}
+.listlist .active {
   background-image: url("/static/images/Lovecar/window2@2x.png");
   width: 0.44rem;
   height: 0.44rem;
