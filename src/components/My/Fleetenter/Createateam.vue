@@ -13,7 +13,7 @@
         </div>
         <div class="flex cocenter box">
           <div class="name">电话:</div>
-          <input type="text" placeholder="请输入手机号" v-model="leaderphone">
+          <input type="number" placeholder="请输入手机号" v-model="leaderphone">
         </div>
         <div class="created" @click="create">创建</div>
     </div>

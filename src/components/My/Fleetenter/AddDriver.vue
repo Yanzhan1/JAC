@@ -8,7 +8,7 @@
         </div>
         <div class="listdetail">
           <div class="title">司机电话:</div>
-          <input type="text" placeholder="请输入司机电话" v-model="drivercall">
+          <input type="number" placeholder="请输入司机电话" v-model="drivercall">
         </div>
         <div class="listdetail">
           <div class="title">身份证号:</div>
@@ -24,7 +24,7 @@
         </div>
         <div class="listdetail">
           <div class="title">电话:</div>
-          <input type="text" placeholder="请输入紧急联系人电话" v-model="contactcall">
+          <input type="number" placeholder="请输入紧急联系人电话" v-model="contactcall">
         </div>
         <div class="sub" @click="created">
            创建

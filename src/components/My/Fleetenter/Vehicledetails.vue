@@ -24,7 +24,7 @@
                 <div>{{item.driverName}}</div>
                 <div class="timer">{{item.startTime|changTime}}至{{item.overTime|changTime}}</div>
               </div>
-               <img src="./../../../../static/images/carteam/deletecar@2x.png" alt="" @click="deteledrive(ite.driverId)">
+               <img src="./../../../../static/images/carteam/deletecar@2x.png" alt="" @click="deteledrive(item.driverId)">
             </div>
         </div>
         <div class="adddriverbtn flex contentcenter " @click="bindingDriver">
@@ -72,7 +72,7 @@ export default {
         },
         deteledrive(id){
           let param={
-            id:id.id,
+            id:id,
             brandId:this.$store.state.brandId
           }
 

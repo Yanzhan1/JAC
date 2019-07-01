@@ -1,11 +1,6 @@
 <template>
       <div>
-        <header class="header MobileHeight">
-          <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-          <span class="header-title" style="margin-left:.6rem">车辆管理</span>
-          <span ></span>
-        </header>
-        <div style="height:0.88rem" class="MobileHeight"></div>
+        <mhead currentTitle="选择车辆"></mhead>
         <!-- <div class="mui-table-view-cell" v-for="(item,index) in this.list" :key="index">
             <div class="mui-slider-right mui-disabled">
               <a class="mui-btn mui-btn-primary" style="background-color:#F4F4F4;">删除车辆</a>
@@ -37,11 +32,15 @@
 </template>
 
 <script>
+import PublicHead from "./../../publicmodel/PublicHead";
 export default {
   data(){
     return{
       list:[]
     }
+  },
+  components: {
+    mhead: PublicHead
   },
   methods:{
     init(){
