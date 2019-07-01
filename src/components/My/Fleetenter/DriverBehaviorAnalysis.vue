@@ -26,7 +26,7 @@
       :endDate="endDate"
       @confirm="start"
     ></mt-datetime-picker>
-    <div class="list" v-for="(item,index) in this.list" :key="index">
+    <div class="listed" v-for="(item,index) in this.list" :key="index">
         <div class="title">
             <div class="myFleet">{{item.driverName}}</div>
         </div>
@@ -147,7 +147,7 @@ export default {
 </script>
 
 <style scoped>
-  .list{
+  .listed{
     width: 6.9rem;
     height: 2.8rem;
     margin: .4rem auto;
@@ -155,24 +155,24 @@ export default {
     box-shadow:0px 0px 12px 0px rgba(0, 0, 0, 0.1);
     border-radius:.1rem;
   }
-  .list .title{
+  .listed .title{
     padding-top: .29rem;
   }
-  .list .title>div{
+  .listed .title>div{
     margin: 0 .36rem;
   }
-  .list .detail img{
+  .listed .detail img{
     width: .1rem;
     height: .2rem;
     margin-left: .1rem;
   }
-  .list .title .myFleet{
+  .listed .title .myFleet{
     font-size:.28rem;
     font-family:PingFang-SC-Bold;
     font-weight:bold;
     color:rgba(73,187,255,1);
   }
-  .list .title .detail>span{
+  .listed .title .detail>span{
     font-size:.24rem;
     font-family:PingFang-SC-Medium;
     font-weight:500;

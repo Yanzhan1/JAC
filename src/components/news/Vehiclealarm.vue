@@ -55,7 +55,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .list{
     padding: .5rem;
     text-align: center;

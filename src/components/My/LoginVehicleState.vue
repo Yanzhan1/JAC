@@ -18,7 +18,7 @@
 	</div>
 </template>
 
-<script>
+<script scoped>
 import { Toast } from "mint-ui";
 import { MessageBox } from "mint-ui";
 import PublicHead from "../publicmodel/PublicHead";
