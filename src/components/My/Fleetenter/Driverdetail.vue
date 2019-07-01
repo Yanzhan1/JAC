@@ -17,10 +17,10 @@
             <div>地址</div>
         </div>
         <div class="content">
-            <div>{{this.detail.contactPhone}}</div>
-            <div>{{this.detail.identityNum}}</div>
-            <div>{{this.detail.urgentPersonName}}  {{this.detail.urgentPersonNum}}</div>
-            <div>{{this.detail.address}}</div>
+            <div>{{this.detail.phone||'暂无数据'}}</div>
+            <div>{{this.detail.identityNum||'暂无数据'}}</div>
+            <div>{{this.detail.urgentPersonName||'暂无数据'}}  {{this.detail.urgentPersonNum||'暂无数据'}}</div>
+            <div>{{this.detail.address||'暂无数据'}}</div>
         </div>
       </div>
       <div class="bindeddriver">

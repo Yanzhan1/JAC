@@ -1,7 +1,7 @@
 <template>
    <div>
         <header class="header MobileHeight">
-          <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+          <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.push('/felltManagement')">
           <span class="header-title" style="margin-left:.6rem">司机管理</span>
           <span >
             <router-link tag="div" style="color:#49BBFF" to="/felltManagement/addDriver">添加司机</router-link>
