@@ -51,6 +51,15 @@ export default {
   },
   methods:{
     created(){
+      let reg=/(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/
+      if(!reg.test(this.driveridcard)){
+          Toast({
+                  message: "请输入有效身份证",
+                  position: "middle",
+                  duration: 2000
+                });
+          return false
+      }
       let params={
         brandId:this.$store.state.brandId,
         driverName:this.drivername,

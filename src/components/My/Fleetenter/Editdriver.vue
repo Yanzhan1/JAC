@@ -76,6 +76,15 @@ export default {
       })
     },
     editsure(){
+      let reg=/(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/
+      if(!reg.test(this.driveridcard)){
+          Toast({
+                  message: "请输入有效身份证",
+                  position: "middle",
+                  duration: 2000
+                });
+          return false
+      }
       let params={
         driverId:this.$store.state.driverInformation.id,
         driverName:this.drivername,
