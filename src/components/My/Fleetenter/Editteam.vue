@@ -77,13 +77,23 @@ export default {
 
     },
     create(){
-      // this.$router.push({
-      //   path:"/felltManagement/createteamleader",
-      //   query:{
-      //     teamname:this.teamname,
-      //     teamleader:this.teamleader
-      //   }
-      // })
+      console.log(this.teamname.length)
+      if(this.teamname.length>7){
+          Toast({
+                message: '请输入长度少于7位数的车队名',
+                position: "middle",
+                duration: 2000
+              });
+              return false
+      }
+      if(this.teamleader.length>5){
+          Toast({
+                message: '请输入长度少于5位数的姓名',
+                position: "middle",
+                duration: 2000
+              });
+              return false
+      }
       let params={
           teamId:this.$store.state.FleetInformation.teamId,
           brandId:this.$store.state.brandId,
