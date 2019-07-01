@@ -24,7 +24,7 @@
                 <div>{{item.driverName}}</div>
                 <div class="timer">{{item.startTime|changTime}}至{{item.overTime|changTime}}</div>
               </div>
-               <img src="./../../../../static/images/carteam/deletecar@2x.png" alt="" @click="deteledrive(item.driverId)">
+               <img src="./../../../../static/images/carteam/deletecar@2x.png" alt="" @click="deteledrive(item.id)">
             </div>
         </div>
         <div class="adddriverbtn flex contentcenter " @click="bindingDriver">
