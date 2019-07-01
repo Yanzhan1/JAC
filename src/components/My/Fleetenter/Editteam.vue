@@ -63,7 +63,6 @@ export default {
       })
     },
     deletecar(id){
-      console.log(id)
           let params={
             teamId:this.$store.state.FleetInformation.teamId,
             brandId:this.$store.state.brandId,
@@ -134,6 +133,7 @@ export default {
                 position: "middle",
                 duration: 2000
               });
+              this.$router.push('/felltManagement')
         }else{
           Toast({
                 message: res.data.msg,

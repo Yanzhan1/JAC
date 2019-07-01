@@ -2,7 +2,7 @@
   <div>
     <header class="header MobileHeight">
       <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-      <span class="header-title" style="margin-left:.6rem">车辆驾驶行为分析</span>
+      <span class="header-title">车辆驾驶行为分析</span>
       <span>
         <img
           @click="chooseDate"

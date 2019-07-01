@@ -65,6 +65,7 @@ export default {
                 duration: 2000,
                 position: "middle"
               });
+              this.$router.push('/felltManagement/drivermanagemen')
         }else{
           Toast({
                 message: res.data.msg,
