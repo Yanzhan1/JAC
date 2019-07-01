@@ -20,7 +20,7 @@
         </div>
         <div class="flex cocenter box">
           <div class="name">电话:</div>
-          <input type="text" placeholder="请输入手机号" v-model="leaderphone">
+          <input type="number" placeholder="请输入手机号" v-model="leaderphone">
           <!-- <img src="/static/images/next@2x.png" alt=""  @click="tochooseleader"> -->
         </div>
         <div class="bindeddriver">
