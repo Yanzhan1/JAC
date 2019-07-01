@@ -1,7 +1,7 @@
 <template>
   	<div>
         <mhead currentTitle="选择车辆"></mhead>
-        <div class="flex cocenter between list" v-for="(item,index) in this.list" :key="index" @click="choose(item)">
+        <div class="flex cocenter between listlist" v-for="(item,index) in this.list" :key="index" @click="choose(item)">
           <div class="left">
             <div class="plate">{{item.model}}</div>
             <div class="vin">VIN:{{item.vin}}</div>
@@ -65,33 +65,26 @@ export default {
 </script>
 
 <style scoped>
-*{
-  border:none
-}
-.list{
+.listlist{
   height: 1.1rem;
   border-bottom: .01rem solid #eeeeee;
 }
-.list div{
-  background:#fff;
-  border:none;
-}
-.list .left{
+.listlist .left{
   margin-left: .3rem;
 }
-.list .left .plate{
+.listlist .left .plate{
   font-size:.28rem;
   font-family:PingFang-SC-Bold;
   font-weight:bold;
   color:rgba(73,187,255,1);
 }
-.list .left .vin{
+.listlist .left .vin{
   font-size:.22rem;
   font-family:PingFang-SC-Medium;
   font-weight:500;
   color:rgba(136,136,136,1);
 }
-.list .middle{
+.listlist .middle{
   font-size:.24rem;
   font-family:PingFang-SC-Medium;
   font-weight:500;
@@ -99,7 +92,7 @@ export default {
   margin-left: 1.5rem;
   margin-top: -.2rem;
 }
-.list .chooseimages {
+.listlist .chooseimages {
   display: block;
   width: 0.44rem;
   height: 0.44rem;
@@ -110,14 +103,14 @@ export default {
   padding: 0.2rem;
   margin-right: .3rem;
 }
-.list .active {
+.listlist .active {
   background-image: url("/static/images/Lovecar/window2@2x.png");
   width: 0.44rem;
   height: 0.44rem;
   background-size: 100%;
   background-repeat: no-repeat;
 }
-.list .right{
+.listlist .right{
   width: .1rem;
   height: .2rem;
   margin-right: .3rem;
