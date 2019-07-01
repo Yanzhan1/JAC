@@ -52,7 +52,24 @@ export default {
   methods:{
     created(){
       let reg=/(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/
-      if(!reg.test(this.driveridcard)){
+      let regg= /^1\d{10}$/;
+			if (!reg.test(this.drivercall)) {
+					Toast({
+						message: '请输入正确的司机手机号码',
+						position: 'middle',
+						duration: 2000
+					});
+					return false;
+				}
+			if (!regg.test(this.contactcall)) {
+					Toast({
+						message: '请输入正确的联系人手机号码',
+						position: 'middle',
+						duration: 2000
+					});
+					return false;
+				}
+      if(!regg.test(this.driveridcard)){
           Toast({
                   message: "请输入有效身份证",
                   position: "middle",

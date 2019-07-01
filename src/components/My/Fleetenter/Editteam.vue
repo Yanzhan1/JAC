@@ -76,7 +76,15 @@ export default {
 
     },
     create(){
-      console.log(this.teamname.length)
+      let regg= /^1\d{10}$/;
+			if (!regg.test(this.leaderphone)) {
+					Toast({
+						message: '请输入正确的司机手机号码',
+						position: 'middle',
+						duration: 2000
+					});
+					return false;
+				}
       if(this.teamname.length>7){
           Toast({
                 message: '请输入长度少于7个中文字符的车队名',
