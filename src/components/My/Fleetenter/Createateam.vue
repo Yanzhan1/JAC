@@ -34,6 +34,22 @@ export default {
   },
   methods: {
     create(){
+      if(this.teamname.length>7){
+          Toast({
+                message: '请输入长度少于7位汉字的车队名',
+                position: "middle",
+                duration: 2000
+              });
+              return false
+      }
+      if(this.teamleader.length>5){
+          Toast({
+                message: '请输入长度少于5位数的姓名',
+                position: "middle",
+                duration: 2000
+              });
+              return false
+      }
       let param={
           brandId:this.$store.state.brandId,
           teamName:this.teamname,

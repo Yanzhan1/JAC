@@ -80,7 +80,7 @@ export default {
       console.log(this.teamname.length)
       if(this.teamname.length>7){
           Toast({
-                message: '请输入长度少于7位数的车队名',
+                message: '请输入长度少于7位汉字的车队名',
                 position: "middle",
                 duration: 2000
               });
