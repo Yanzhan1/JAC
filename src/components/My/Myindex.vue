@@ -287,6 +287,9 @@ export default {
     },
     //跳转车队管理
     tocontrolallcar(){
+      // this.$router.push({
+      //         path:'/felltManagement'
+      //       })
       if (!this.$store.state.addiflogin) {
         this.toLogin();
         return false;

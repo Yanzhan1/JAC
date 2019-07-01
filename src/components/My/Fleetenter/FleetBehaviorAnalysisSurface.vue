@@ -365,11 +365,12 @@ export default {
       let params={
         teamId:this.$store.state.FleetInformation.teamId,
         beginDate:start,
-        endDate:end
+        endDate:end,
+        brandId:this.$store.state.brandId
       }
       this.$http.post(Lightcar.teamAnalysisofdriving,params).then(res=>{
         if(res.data.returnSuccess){
-          this.$http.post(Lightcar.truckvehicleasyncresults,{operationId:res.data.operationId}).then(res=>{
+          this.$http.post(Lightcar.truckvehicleasyncresults,{operationId:res.data.operationId,brandId:this.$store.state.brandId}).then(res=>{
               if(res.data.returnSuccess){
                 this.allDate=res.data.data;
                 this.choosedData=res.data.data[res.data.data.length-1]

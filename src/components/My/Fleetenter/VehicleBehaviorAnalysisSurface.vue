@@ -16,7 +16,7 @@
     <div id="myChart"></div>
     <div>
       <div class="flex cocenter top_title">
-        <div class="mycarteam">宝马XX</div>
+        <div class="mycarteam">{{this.$store.state.FleetInformation.teamName}}</div>
         <div class="flex cocenter" @click="todetail()">
           <div class='detail'>司机详情</div>
           <img style="width:.12rem;height:.24rem;margin:0 .3rem 0 .1rem;" src="./../../../../static/images/next@2x.png" alt="">
@@ -29,7 +29,7 @@
             <img v-else src="./../../../../static/images/carteam/distancedark@2x.png" alt="">
             <div class="lilist">日平均里程</div>
           </div>
-          <div class="right">88Km</div>
+          <div class="right">{{this.choosedData.averageMileageDay}}Km</div>
         </li>
         <li @click="choosetotalmileage" :class="this.totalmileage?'active':''">
           <div class="flex cocenter">
@@ -37,7 +37,7 @@
             <img v-else src="./../../../../static/images/carteam/distancedark@2x.png" alt="">
             <div  class="lilist">当月总里程</div>
           </div>
-          <div class="right">888Km</div>
+          <div class="right">{{this.choosedData.totalMileage}}Km</div>
         </li>
         <li @click="chooseaverageFuelConsumption" :class="this.averageFuelConsumption?'active':''">
           <div class="flex cocenter">
@@ -45,7 +45,7 @@
             <img v-else src="./../../../../static/images/carteam/oildark@2x.png" alt="">
             <div class="lilist">日平均油耗</div>
           </div>
-          <div class="right">88L</div>
+          <div class="right">{{this.choosedData.averageMileageDay}}L</div>
         </li>
         <li @click="choosetotalFuelConsumption" :class="this.totalFuelConsumption?'active':''">
           <div class="flex cocenter">
@@ -53,7 +53,7 @@
             <img v-else src="./../../../../static/images/carteam/oildark@2x.png" alt="">
             <div class="lilist">当月总油耗</div>
           </div>
-          <div class="right">888L</div>
+          <div class="right">{{this.choosedData.totalWear}}L</div>
         </li>
         <li @click="chooseaverageTime" :class="this.averageTime?'active':''">
           <div class="flex cocenter">
@@ -61,7 +61,7 @@
             <img v-else src="./../../../../static/images/carteam/timedark@2x.png" alt="">
             <div class="lilist">日平均工作时长</div>
           </div>
-          <div class="right">8h</div>
+          <div class="right">{{this.choosedData.averagTimeDay|tohour}}h</div>
         </li>
         <li @click="choosetotalTime" :class="this.totalTime?'active':''">
           <div class="flex cocenter">
@@ -69,7 +69,7 @@
             <img v-else src="./../../../../static/images/carteam/timedark@2x.png" alt="">
             <div class="lilist">当月总工作时长</div>
           </div>
-          <div class="right">88h</div>
+          <div class="right">{{this.choosedData.totalTime|tohour}}h</div>
         </li>
       </ul>
     </div>
@@ -83,7 +83,7 @@
       year-format="{value} 年"
       month-format="{value} 月"
       :startDate="startDate"
-      :endDate='endDate'
+      :endDate="endDate"
       @confirm="start"
     ></mt-datetime-picker>
     <mt-datetime-picker
@@ -95,7 +95,7 @@
       year-format="{value} 年"
       month-format="{value} 月"
       :startDate="startnext"
-      :endDate='endnext'
+      :endDate="endnext"
       @confirm="end"
     ></mt-datetime-picker>
   </div>
@@ -117,18 +117,32 @@ export default {
       endDate:new Date(),
       endnext:new Date(),
       myChart: "",
-      // queryTimeList:["2019.1", "2019.2", "2019.3", "2019.4", "2019.5", "2019.6", "2019.7","2019.8",'2019.9','2019.10','2019.11','2019.12','2019.13','2019.14'],//查询的时间x轴
-      queryTimeList:["2019.1", "2019.2", "2019.3", "2019.4", "2019.5", "2019.6", "2019.7"],//查询的时间x轴
-      company:'',//单位
+      queryTimeList:[],//查询的时间x轴
+      company:'{a0}:{c0}Km',//单位
       title:'日平均里程',
-      showList:[120, 132, 101, 134, 90, 230, 210,333],
+      showList:[],
       averagemileage:true,//平均里程
       totalmileage:false,//总里程
       averageFuelConsumption:false,//平均油耗
       totalFuelConsumption:false,//总油耗
       averageTime:false,//平均时长
       totalTime:false,//总时长
+      chart_x:'',
+      choosedData:[],//被选择的数据
+      allDate:[],//eacharts展示数据
+      allaveragemileage:[],//eachars展示平均里程数据
+      alltotalmileage:[],//eachars展示总里程数据
+      allaverageFuelConsumption:[],//eachars展示平均油耗数据
+      alltotalFuelConsumption:[],//eachars展示总油耗数据
+      allaverageTime:[],//eachars展示平均工作时长数据
+      alltotalTime:[],//eachars展示总工作时长数据
+      allDate_x:[],//x轴时间
     };
+  },
+   filters:{
+    tohour(val){
+      return (val/60/60).toFixed(1)
+    }
   },
   methods: {
     chooseaveragemileage(){
@@ -140,6 +154,7 @@ export default {
       this.totalTime=false
       this.title='日平均里程'
       this.company='{a0}:{c0}Km'
+      this.showList=this.allaveragemileage
       this.drawLine()
     },
     choosetotalmileage(){
@@ -151,6 +166,7 @@ export default {
       this.totalTime=false
       this.title='当月总里程'
       this.company='{a0}:{c0}Km'
+      this.showList=this.alltotalmileage
       this.drawLine()
     },
     chooseaverageFuelConsumption(){
@@ -161,6 +177,7 @@ export default {
       this.averageTime=false
       this.totalTime=false
       this.title='日平均油耗'
+      this.showList=this.allaverageFuelConsumption
       this.company='{a0}:{c0}L'
       this.drawLine()
     },
@@ -172,6 +189,7 @@ export default {
       this.averageTime=false
       this.totalTime=false
       this.title='当月总油耗'
+      this.showList=this.alltotalFuelConsumption
       this.company='{a0}:{c0}L'
       this.drawLine()
     },
@@ -183,6 +201,7 @@ export default {
       this.averageTime=true
       this.totalTime=false
       this.title='日平均工作时长'
+      this.showList=this.allaverageTime
       this.company='{a0}:{c0}h'
       this.drawLine()
     },
@@ -194,6 +213,7 @@ export default {
       this.averageTime=false
       this.totalTime=true
       this.title='当月总工作时长'
+      this.showList=this.alltotalTime
       this.company='{a0}:{c0}h'
       this.drawLine()
     },
@@ -213,7 +233,7 @@ export default {
           formatter: this.company
         },
         grid: {
-          left: "-3%",
+          left: "0%",
           right: "6%",
           bottom: "0%",
           containLabel: true
@@ -271,10 +291,22 @@ export default {
           }
         ]
       });
+      let zr=this.myChart.getZr();
+      zr.on('click',(params)=>{
+          var pointInPixel = [params.offsetX, params.offsetY];
+          var pointInGrid = this.myChart.convertFromPixel('grid', pointInPixel);
+
+          if (this.myChart.containPixel('grid', pointInPixel)) {
+              this.chart_x=this.myChart.getOption().xAxis[0].data[pointInGrid[0]]
+              let index=this.queryTimeList.findIndex(item=>item===this.chart_x)
+              this.choosedData=this.allDate[index]
+          }
+
+      })
     },
     todetail(){
       this.$router.push({
-        path:'/felltManagement/DriverBehaviorAnalysis'
+        path:'/felltManagement/driverBehaviorAnalysis'
       })
     },
     chooseDate() {
@@ -298,7 +330,7 @@ export default {
     end() {
       this.endtime = this.pickerValueend;
       this.lastTime = operationTime.getTime(this.endtime, 6);
-      console.log(this.beginTime, this.lastTime);
+      this.chooseTimer(this.beginTime,this.lastTime)
     },
     addstyle() {
       let newNode = document.createElement("span");
@@ -321,17 +353,78 @@ export default {
         "display:flex;justify-content:space-between;align-items: center";
       $(".mint-datetime-cancel")[1].nextSibling.style.cssText =
         "width:2.5rem;text-align:center;font-size:.28rem;";
+    },
+    changetime(val){
+        let year=val.getFullYear();
+        let month=val.getMonth()+1;
+        month = month < 10 ? "0" + month : "" + month;
+        return year + month;
+    },
+    //选择时间拿数据
+    chooseTimer(start,end){
+      let params={
+        teamId:this.$store.state.FleetInformation.teamId,
+        beginDate:start,
+        endDate:end,
+        brandId:this.$store.state.brandId
+      }
+      this.$http.post(Lightcar.vehicleAnalysisofdriving,params).then(res=>{
+        if(res.data.returnSuccess){
+          this.$http.post(Lightcar.truckvehicleasyncresults,{operationId:res.data.operationId,brandId:this.$store.state.brandId}).then(res=>{
+              if(res.data.returnSuccess){
+                this.allDate=res.data.data;
+                this.choosedData=res.data.data[res.data.data.length-1]
+                this.alltotalmileage=[]
+                this.alltotalFuelConsumption=[]
+                this.alltotalTime=[]
+                this.allaveragemileage=[]
+                this.allaverageFuelConsumption=[]
+                this.allaverageTime=[]
+                this.allDate_x=[]
+                for(let val of this.allDate){
+                  for(let item of Object.keys(val)){
+                    if(item=="totalMileage"){
+                      this.alltotalmileage.push(val.totalMileage)
+                    }else if(item=="totalWear"){
+                      this.alltotalFuelConsumption.push(val.totalWear)
+                    }else if(item=="totalTime"){
+                      let value=(val.totalTime/60/60).toFixed(1)
+                      this.alltotalTime.push(value)
+                    }else if(item=="averageMileageDay"){
+                      this.allaveragemileage.push(val.averageMileageDay)
+                    }else if(item=="averageWearDay"){
+                      this.allaverageFuelConsumption.push(val.averageWearDay)
+                    }else if(item=="averagTimeDay"){
+                      let value=(val.averagTimeDay/60/60).toFixed(1)
+                      this.allaverageTime.push(value)
+                    }else if(item=="queryDate"){
+                      let arr=val.queryDate.split('')
+                      arr.splice(4,1,'.')
+                      let value=arr.join('')
+                      this.allDate_x.push(value)
+                    }
+                  }
+                }
+                this.queryTimeList=this.allDate_x
+                this.showList=this.allaveragemileage
+                this.drawLine();
+              }
+          })
+        }
+      })
+    },
+    init(){
+      let startTime=this.changetime(new Date(new Date()-1000*60*60*24*31*6))
+      let endTime=this.changetime(new Date())
+      this.chooseTimer(startTime,endTime)
     }
   },
   mounted() {
     $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
-    this.chooseaveragemileage();
+    this.init()
     setTimeout(() => {
       this.addstyle();
     }, 500);
-  },
-  created(){
-
   }
 };
 </script>
@@ -384,4 +477,3 @@ export default {
   color:#49BBFF
 }
 </style>
-
