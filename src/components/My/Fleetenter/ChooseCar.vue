@@ -65,9 +65,16 @@ export default {
 </script>
 
 <style scoped>
+*{
+  border:none
+}
 .list{
   height: 1.1rem;
   border-bottom: .01rem solid #eeeeee;
+}
+.list div{
+  background:#fff;
+  border:none;
 }
 .list .left{
   margin-left: .3rem;
