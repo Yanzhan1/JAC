@@ -67,7 +67,8 @@ export default {
 							message: '添加成功',
 							position: 'middle',
 							duration: 1000
-						});
+            });
+            this.$router.push('/felltManagement/Editteam')
         }else{
           Toast({
 							message: res.data.msg,

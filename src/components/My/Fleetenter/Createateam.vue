@@ -36,7 +36,7 @@ export default {
     create(){
       if(this.teamname.length>7){
           Toast({
-                message: '请输入长度少于7位汉字的车队名',
+                message: '请输入长度少于7个中文字符的车队名',
                 position: "middle",
                 duration: 2000
               });

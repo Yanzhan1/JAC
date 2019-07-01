@@ -1,7 +1,7 @@
 <template>
     <div>
       <header class="header MobileHeight">
-          <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
+          <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.push('/felltManagement')">
           <span class="header-title" style="margin-left:.6rem">编辑车队</span>
           <span >
             <div style="color:#FF3030" @click="deteleteam">删除车队</div>
@@ -24,7 +24,7 @@
           <!-- <img src="/static/images/next@2x.png" alt=""  @click="tochooseleader"> -->
         </div>
         <div class="bindeddriver">
-            <div class="titled">已绑定车辆</div>
+            <div class="titled" v-show="this.list.length">已绑定车辆</div>
             <div class="flex between drivers cocenter" v-for="(item,index) in this.list" :key="index">
                <div>{{item.vin}}</div>
                <!-- <div class="plate">{{item.plate}}</div> -->
@@ -79,7 +79,7 @@ export default {
       console.log(this.teamname.length)
       if(this.teamname.length>7){
           Toast({
-                message: '请输入长度少于7位汉字的车队名',
+                message: '请输入长度少于7个中文字符的车队名',
                 position: "middle",
                 duration: 2000
               });
