@@ -12,7 +12,9 @@
         >
       </span>
     </header>
-    <div style="height:0.88rem" class="MobileHeight"></div>
+    <div style="height:.88rem" class="MobileHeight"></div>
+    <div class="showTime">当前查询时间:{{this.titleTimer}}</div>
+    <div style="height:.8rem"></div>
     <mt-datetime-picker
       id="timer"
       v-model="pickerValuestart"
@@ -68,11 +70,12 @@ export default {
     return{
       list:[],
       pickerValuestart:'',
-      startDate: new Date(operationTime.getTime((new Date().getTime()-1000*60*60*24*31*6), 2)),
+      startDate: new Date(operationTime.getTime((new Date().getTime()-1000*60*60*24*31*6), 4)),
       endDate:new Date(),
       starttime:'',
       startnext:'',
       beginTime:'',
+      titleTimer:'',
     }
   },
   components: {
@@ -98,8 +101,9 @@ export default {
     },
     start() {
       this.starttime = this.pickerValuestart.getTime();
-      this.startnext = new Date(operationTime.getTime(this.starttime, 2));
+      this.startnext = new Date(operationTime.getTime(this.starttime, 4));
       this.beginTime = operationTime.getTime(this.starttime, 6);
+      this.titleTimer=this.showtitleTimer(new Date(this.starttime))
       this.chooseTimer(this.beginTime)
     },
     changetime(val){
@@ -152,8 +156,14 @@ export default {
         month = month < 10 ? "0" + month : "" + month;
         return year + month;
     },
+    showtitleTimer(val){
+        let year=val.getFullYear();
+        let month=val.getMonth()+1;
+        return year+'年'+month+'月'
+    },
     init(){
       let Timer=this.changetime(new Date())
+      this.titleTimer=this.showtitleTimer(new Date())
       this.chooseTimer(Timer)
     }
   },
@@ -169,12 +179,10 @@ export default {
 
 <style scoped>
   .lists{
-    width: 6.9rem;
     height: 2.8rem;
-    margin: .4rem auto;
     background:rgba(255,255,255,1);
-    box-shadow:0px 0px 12px 0px rgba(0, 0, 0, 0.1);
-    border-radius:.1rem;
+    border-top:0.01rem solid #eeeeee;
+    border-bottom:0.01rem solid #eeeeee;
   }
   .lists .title{
     padding-top: .29rem;
@@ -222,5 +230,18 @@ export default {
   }
   .content>div>div{
     margin: .11rem 0;
+  }
+  .showTime{
+    width: 100%;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    line-height: .8rem;
+    background:rgba(248,248,248,1);
+    z-index: 2;
+    font-size:.24rem;
+    font-family:PingFang-SC-Medium;
+    font-weight:500;
+    color:rgba(85,85,85,1);
   }
 </style>

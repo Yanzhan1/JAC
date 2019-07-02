@@ -112,7 +112,7 @@ export default {
       endtime: "", //传给后台的结束时间戳
       beginTime: "", //传给后台的开始时间
       lastTime: "", //传给后台的结束时间
-      startDate: new Date(operationTime.getTime((new Date().getTime()-1000*60*60*24*31*6), 2)),
+      startDate: new Date(operationTime.getTime((new Date().getTime()-1000*60*60*24*31*6), 4)),
       startnext: new Date(),
       endDate:new Date(),
       endnext:new Date(),
@@ -323,7 +323,7 @@ export default {
     },
     start() {
       this.starttime = this.pickerValuestart.getTime();
-      this.startnext = new Date(operationTime.getTime(this.starttime, 2));
+      this.startnext = new Date(operationTime.getTime(this.starttime, 4));
       this.beginTime = operationTime.getTime(this.starttime, 6);
       this.openPickerend();
     },
