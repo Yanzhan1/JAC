@@ -90,7 +90,7 @@ export default {
             }
         }
         if(this.driveridcard){
-          if(!regg.test(this.driveridcard)){
+          if(!reg.test(this.driveridcard)){
               Toast({
                       message: "请输入有效身份证",
                       position: "middle",
