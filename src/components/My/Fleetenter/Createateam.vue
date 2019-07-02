@@ -8,13 +8,11 @@
           <input type="text" placeholder="请输入车队名" v-model="teamname">
         </div>
         <div class="flex cocenter box">
-          <span>*</span>
           <div class="name">车队长:</div>
           <input type="text" placeholder="请输入车队长姓名" v-model="teamleader">
           <!-- <img src="/static/images/next@2x.png" alt=""  @click="tochooseleader"> -->
         </div>
         <div class="flex cocenter box">
-          <span>*</span>
           <div class="name">电话:</div>
           <input type="number" placeholder="请输入手机号" v-model="leaderphone">
         </div>
@@ -38,22 +36,6 @@ export default {
   methods: {
     create(){
       let regg= /^1\d{10}$/;
-      if(!this.teamleader){
-        Toast({
-              message: '车队长名字不能为空',
-              position: 'middle',
-              duration: 2000
-            });
-            return false;
-      }
-      if(!this.leaderphone){
-        Toast({
-              message: '手机号不能为空',
-              position: 'middle',
-              duration: 2000
-            });
-            return false;
-      }
       if(this.leaderphone){
         if (!regg.test(this.leaderphone)) {
             Toast({
@@ -80,13 +62,15 @@ export default {
               });
               return false
       }
-      if(this.teamleader.length>5){
-          Toast({
-                message: '请输入长度少于5位数的姓名',
-                position: "middle",
-                duration: 2000
-              });
-              return false
+      if(this.teamleader){
+        if(this.teamleader.length>5){
+            Toast({
+                  message: '请输入长度少于5位数的姓名',
+                  position: "middle",
+                  duration: 2000
+                });
+                return false
+        }
       }
       let param={
           brandId:this.$store.state.brandId,

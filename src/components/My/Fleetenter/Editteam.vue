@@ -78,14 +78,16 @@ export default {
     },
     create(){
       let regg= /^1\d{10}$/;
-			if (!regg.test(this.leaderphone)) {
-					Toast({
-						message: '请输入正确的司机手机号码',
-						position: 'middle',
-						duration: 2000
-					});
-					return false;
-				}
+      if(this.leaderphone){
+        if (!regg.test(this.leaderphone)) {
+            Toast({
+              message: '请输入正确的司机手机号码',
+              position: 'middle',
+              duration: 2000
+            });
+            return false;
+          }
+      }
       if(!this.teamname){
           Toast({
                 message: '车队名不能为空',
@@ -102,13 +104,15 @@ export default {
               });
               return false
       }
-      if(this.teamleader.length>5){
-          Toast({
-                message: '请输入长度少于5位数的姓名',
-                position: "middle",
-                duration: 2000
-              });
-              return false
+      if(this.teamleader){
+        if(this.teamleader.length>5){
+            Toast({
+                  message: '请输入长度少于5位数的姓名',
+                  position: "middle",
+                  duration: 2000
+                });
+                return false
+        }
       }
       let params={
           teamId:this.$store.state.FleetInformation.teamId,
