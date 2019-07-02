@@ -13,18 +13,30 @@
           <input type="number" placeholder="请输入司机电话" v-model="drivercall">
         </div>
         <div class="listdetail">
+          <span>*</span>
           <div class="title">身份证号:</div>
           <input type="text" placeholder="请输入司机身份证号" v-model="driveridcard">
         </div>
         <div class="listdetail">
+          <span>*</span>
           <div class="title">司机地址:</div>
           <input type="text" placeholder="请输入司机地址" v-model="driveradress">
         </div>
         <div class="listdetail">
+          <span>*</span>
+          <div class="title">性别:</div>
+          <div class="specilflex">
+              <input type="radio" name="choosea" value="男" checked @click="choosesex"><div>男</div>
+              <input type="radio" name="choosea" value="女" @click="choosesex"><div>女</div>
+          </div>
+        </div>
+        <div class="listdetail">
+          <span>*</span>
           <div class="title">紧急联系人:</div>
           <input type="text" placeholder="请输入紧急联系人姓名" v-model="contact">
         </div>
         <div class="listdetail">
+          <span>*</span>
           <div class="title">电话:</div>
           <input type="number" placeholder="请输入紧急联系人电话" v-model="contactcall">
         </div>
@@ -46,6 +58,7 @@ export default {
       driveradress:'',//司机地址
       contact:'',//紧急联系人
       contactcall:'',//紧急联系人电话
+      smallname:'',
     }
   },
   components: {
@@ -89,6 +102,38 @@ export default {
               return false;
             }
         }
+        if(!this.driveridcard){
+              Toast({
+                    message: '身份证不能为空',
+                    position: 'middle',
+                    duration: 2000
+                  });
+              return false;
+        }
+        if(!this.driveradress){
+              Toast({
+                    message: '司机地址不能为空',
+                    position: 'middle',
+                    duration: 2000
+                  });
+              return false;
+        }
+        if(!this.contact){
+              Toast({
+                    message: '紧急联系人不能为空',
+                    position: 'middle',
+                    duration: 2000
+                  });
+              return false;
+        }
+        if(!this.contactcall){
+              Toast({
+                    message: '紧急联系人电话不能为空',
+                    position: 'middle',
+                    duration: 2000
+                  });
+              return false;
+        }
         if(this.driveridcard){
           if(!reg.test(this.driveridcard)){
               Toast({
@@ -99,6 +144,7 @@ export default {
               return false
           }
         }
+        this.smallname=this.smallname=='男'?1:2
       let params={
         brandId:this.$store.state.brandId,
         driverName:this.drivername,
@@ -106,7 +152,8 @@ export default {
         identityNum:this.driveridcard,
         address:this.driveradress,
         urgentPersonName:this.contact,
-        urgentPersonNum:this.contactcall
+        urgentPersonNum:this.contactcall,
+        sex:this.smallname
       }
       this.$http.post(Lightcar.createdriver,params).then((res)=>{
         if(res.data.code==0){
@@ -124,7 +171,12 @@ export default {
                 });
         }
       })
-    }
+    },
+    //选择性别
+    choosesex() {
+      this.smallname = $("input:radio:checked").val();
+      console.log(this.smallname)
+    },
   },
   created(){
       $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
@@ -175,6 +227,17 @@ input{
 .listdetail>input{
   margin-left: .26rem;
   color: #222;
+}
+.specilflex {
+  width: 3rem;
+  height: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.specilflex > input {
+  width: 1rem;
+  height: .4rem;
 }
 .sub{
   position: fixed;

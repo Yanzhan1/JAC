@@ -10,7 +10,7 @@
       <div style="height:0.88rem" class="MobileHeight"></div>
       <div class="name">{{this.detail.driverName}}</div>
       <div class="box flex">
-        <div class="title">
+        <div class="titled">
             <div>手机号码</div>
             <div>身份证号</div>
             <div>紧急联系人</div>
@@ -51,7 +51,8 @@ export default {
   },
   filters:{
       changTime(val){
-        return operationTime.getTime(new Date(val).getTime(),2)
+        console.log(new Date(val.replace(/-/g, '/')))
+        return operationTime.getTime(new Date(val.replace(/-/g, '/')).getTime(),2)
       }
   },
   methods:{
@@ -119,16 +120,17 @@ export default {
   .box{
     height: 2.8rem;
     width: 100%;
-    border-bottom:.02rem solid #eeeeee
+    border-bottom:.02rem solid #eeeeee;
+    /* align-items: center; */
   }
-  .box .title{
+  .box .titled{
     margin-left: .28rem
   }
-  .box .title>div{
+  .box .titled>div{
     margin: .2rem 0;
   }
   .box .content{
-    margin-left: .28rem
+    margin-left: .28rem !important;
   }
    .box .content>div{
     margin: .2rem 0;

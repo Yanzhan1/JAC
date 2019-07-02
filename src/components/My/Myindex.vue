@@ -287,26 +287,26 @@ export default {
     },
     //跳转车队管理
     tocontrolallcar(){
-      // this.$router.push({
-      //         path:'/felltManagement'
-      //       })
-      if (!this.$store.state.addiflogin) {
-        this.toLogin();
-        return false;
-      }
-      this.$http.post(Lightcar.getpermission,{}).then(res=>{
-        if(res.data.code==0){
-          this.$router.push({
+      this.$router.push({
               path:'/felltManagement'
             })
-        }else{
-            Toast({
-                  message: res.data.msg,
-                  duration: 3000,
-                  position: "middle"
-                });
-        }
-      })
+      // if (!this.$store.state.addiflogin) {
+      //   this.toLogin();
+      //   return false;
+      // }
+      // this.$http.post(Lightcar.getpermission,{}).then(res=>{
+      //   if(res.data.code==0){
+      //     this.$router.push({
+      //         path:'/felltManagement'
+      //       })
+      //   }else{
+      //       Toast({
+      //             message: res.data.msg,
+      //             duration: 3000,
+      //             position: "middle"
+      //           });
+      //   }
+      // })
 
     },
     // 获取用户总积分
