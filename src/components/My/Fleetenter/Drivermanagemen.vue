@@ -1,9 +1,9 @@
 <template>
    <div>
         <header class="header MobileHeight">
-          <img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.push('/felltManagement')">
+          <img class="header-left" :src="'./static/images/back@2x.png'"  style="margin-left:.3rem"  @click="$router.push('/felltManagement')">
           <span class="header-title" style="margin-left:.6rem">司机管理</span>
-          <span >
+          <span style="margin-right:.3rem;">
             <router-link tag="div" style="color:#49BBFF" to="/felltManagement/addDriver">添加司机</router-link>
           </span>
         </header>
@@ -75,12 +75,20 @@ export default {
     this.init()
   },
   mounted(){
-      $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
+      $(".MobileHeight").css({
+      borderTopWidth: this.$store.state.mobileStatusBar,
+      borderTopColor: "#fff"
+    });
   }
 }
 </script>
 
 <style scoped>
+.MobileHeight {
+  border-top-style: solid;
+  box-sizing: content-box;
+  padding: 0;
+}
 .header{
   border-bottom: .01rem solid #eee;
 }
