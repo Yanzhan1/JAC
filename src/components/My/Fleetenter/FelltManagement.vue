@@ -305,7 +305,7 @@ export default {
 }
 .edict{
   align-items: center;
-  margin-top: .67rem;
+  margin-top: .85rem;
 }
 .showcarteam .top .edict>img{
   width: .2rem;
