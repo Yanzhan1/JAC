@@ -11,16 +11,22 @@
       <div class="name">{{this.detail.driverName}}</div>
       <div class="box flex">
         <div class="titled">
+          <div class="flex cocenter">
             <div>手机号码</div>
+            <div class="value">{{this.detail.phone||'暂无数据'}}</div>
+          </div>
+          <div class="flex cocenter">
             <div>身份证号</div>
+            <div class="value">{{this.detail.identityNum||'暂无数据'}}</div>
+          </div>
+          <div class="flex cocenter">
             <div>紧急联系人</div>
+            <div class="value">{{this.detail.urgentPersonName||'暂无数据'}}  {{this.detail.urgentPersonNum||'暂无数据'}}</div>
+          </div>
+          <div class="flex cocenter">
             <div>地址</div>
-        </div>
-        <div class="content">
-            <div>{{this.detail.phone||'暂无数据'}}</div>
-            <div>{{this.detail.identityNum||'暂无数据'}}</div>
-            <div>{{this.detail.urgentPersonName||'暂无数据'}}  {{this.detail.urgentPersonNum||'暂无数据'}}</div>
-            <div>{{this.detail.address||'暂无数据'}}</div>
+            <div class="value">{{this.detail.address||'暂无数据'}}</div>
+          </div>
         </div>
       </div>
       <div class="bindeddriver">
@@ -116,6 +122,9 @@ export default {
     font-weight:bold;
     color:rgba(73,187,255,1);
     margin: .3rem 0 0 .3rem;
+  }
+  .value{
+    margin-left: .5rem;
   }
   .box{
     height: 2.8rem;
