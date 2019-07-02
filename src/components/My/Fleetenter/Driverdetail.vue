@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="bindeddriver">
-            <div class="title">已绑定车辆</div>
+            <div class="title" v-show="this.bindList.length">已绑定车辆</div>
             <div class="flex between drivers cocenter" v-for="(item,index) in this.bindList" :key="index">
               <div>
                 <div>{{item.plate}}</div>

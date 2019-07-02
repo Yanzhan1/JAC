@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="bindeddriver">
-            <div class="title">已绑定司机</div>
+            <div class="title" v-show="this.driverList.length">已绑定司机</div>
             <div class="flex between drivers cocenter" v-for="(item,index) in this.driverList" :key="index">
               <div>
                 <div>{{item.driverName}}</div>
