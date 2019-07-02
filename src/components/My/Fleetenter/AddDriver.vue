@@ -3,10 +3,12 @@
         <mhead  currentTitle="创建司机"></mhead>
         <input class="inpt" type="text" placeholder="输入司机的基本信息来创建司机" disabled>
         <div class="listdetail">
+          <span>*</span>
           <div class="title">司机姓名:</div>
           <input type="text" placeholder="请输入司机姓名" v-model="drivername">
         </div>
         <div class="listdetail">
+          <span>*</span>
           <div class="title">司机电话:</div>
           <input type="number" placeholder="请输入司机电话" v-model="drivercall">
         </div>
@@ -142,9 +144,13 @@ input{
   border-bottom: .01rem solid #eeeeee;
   width: 90%;
   margin: 0 auto;
+  position: relative;
 }
-.listdetail .title{
-
+.listdetail span{
+  position: absolute;
+  color: red;
+  left: -.1rem;
+  top: .17rem;
 }
 .listdetail>input{
   margin-left: .26rem;

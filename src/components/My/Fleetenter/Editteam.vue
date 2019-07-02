@@ -10,6 +10,7 @@
         <div style="height:0.88rem;" class="MobileHeight"></div>
         <div class="title">输入车队名称和车队长信息来创建车队</div>
         <div class="flex cocenter box">
+          <span>*</span>
           <div class="name">车队名:</div>
           <input type="text" placeholder="请输入车队名" v-model="teamname">
         </div>
@@ -195,9 +196,13 @@ input{
   font-family:PingFang-SC-Medium;
   font-weight:500;
   color:rgba(68,68,68,1);
+  position: relative;
 }
-.box .name{
-
+.box span{
+  position: absolute;
+  color: red;
+  left: -.1rem;
+  top: .17rem;
 }
 .box>input{
   margin-left: .41rem;

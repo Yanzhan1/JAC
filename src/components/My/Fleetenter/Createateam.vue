@@ -3,15 +3,18 @@
         <mhead currentTitle="创建车队"></mhead>
         <div class="title">输入车队名称和车队长信息来创建车队</div>
         <div class="flex cocenter box">
+          <span>*</span>
           <div class="name">车队名:</div>
           <input type="text" placeholder="请输入车队名" v-model="teamname">
         </div>
         <div class="flex cocenter box">
+          <span>*</span>
           <div class="name">车队长:</div>
           <input type="text" placeholder="请输入车队长姓名" v-model="teamleader">
           <!-- <img src="/static/images/next@2x.png" alt=""  @click="tochooseleader"> -->
         </div>
         <div class="flex cocenter box">
+          <span>*</span>
           <div class="name">电话:</div>
           <input type="number" placeholder="请输入手机号" v-model="leaderphone">
         </div>
@@ -114,9 +117,13 @@ input{
   font-family:PingFang-SC-Medium;
   font-weight:500;
   color:rgba(68,68,68,1);
+  position: relative;
 }
-.box .name{
-
+.box span{
+  position: absolute;
+  color: red;
+  left: -.1rem;
+  top: .17rem;
 }
 .box>input{
   margin-left: .41rem;

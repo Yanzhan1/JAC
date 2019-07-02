@@ -118,7 +118,7 @@ export default {
   display: block;
   width: 0.44rem;
   height: 0.44rem;
-  background-image: url("/static/images/Lovecar/loseWindow.png");
+  background-image: url("./../../../../static/images/Lovecar/loseWindow.png");
   border-radius: 50%;
   background-size: 100%;
   background-repeat: no-repeat;
@@ -126,7 +126,7 @@ export default {
   margin-right: .3rem;
 }
 .listlist .active {
-  background-image: url("/static/images/Lovecar/window2@2x.png");
+  background-image: url("./../../../../static/images/Lovecar/window2@2x.png");
   width: 0.44rem;
   height: 0.44rem;
   background-size: 100%;
