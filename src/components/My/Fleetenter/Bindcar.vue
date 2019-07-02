@@ -55,7 +55,7 @@ export default {
       endtime:'',//传给后台的结束时间戳
       beginTime:'',//传给后台的开始时间戳
       lastTime:'',//传给后台的结束时间戳
-      startDate:new Date(),
+      startDate:new Date((new Date().getTime()+60000)),
       startnext:new Date(),
       list:[],
       item:{},//每辆车信息
@@ -98,8 +98,8 @@ export default {
         this.$refs.pickerend.open();
     },
     start(){
-      this.starttime=this.pickerValuestart.getTime()
-      this.startnext=new Date(operationTime.getTime(this.starttime,2))
+      this.starttime=this.pickerValuestart.getTime()+60000
+      this.startnext=new Date(Date.parse(operationTime.getTime(this.starttime,1).replace(/-/g, '/')))
       this.beginTime=operationTime.getTime(this.starttime,1)
       this.openPickerend()
     },

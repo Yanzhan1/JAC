@@ -72,7 +72,7 @@ export default {
               });
               return false
       }
-      if(!this.teamname){
+      if(this.teamname.length>7){
           Toast({
                 message: '请输入长度少于7个字符的车队名',
                 position: "middle",

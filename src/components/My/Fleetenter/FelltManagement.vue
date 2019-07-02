@@ -1,9 +1,9 @@
 <template>
       <div>
         <header class="header MobileHeight">
-          <img class="header-left" :src="'./static/images/back@2x.png'" @click="goindex">
+          <img class="header-left" :src="'./static/images/back@2x.png'" style="margin-left:.3rem" @click="goindex">
           <span class="header-title" style="margin-left:.6rem;">车队管理</span>
-          <span >
+          <span style="margin-right:.3rem;">
             <router-link tag="div" to="/felltManagement/createateam" style="color:#49BBFF" >创建车队</router-link>
           </span>
         </header>
@@ -168,7 +168,10 @@ export default {
       this.init()
     },
     mounted(){
-      $(".MobileHeight").css({ marginTop: this.$store.state.mobileStatusBar });
+      $(".MobileHeight").css({
+      borderTopWidth: this.$store.state.mobileStatusBar,
+      borderTopColor: "#fff"
+    });
     }
 }
 </script>
@@ -176,10 +179,15 @@ export default {
 <style scoped>
   .header{
     background: #ffffff;
+    padding: 0;
   }
   .MobileHeight{
     background: #ffffff;
   }
+  .MobileHeight {
+  border-top-style: solid;
+  box-sizing: content-box;
+}
   .control{
     position: fixed;
     width: 100%;
