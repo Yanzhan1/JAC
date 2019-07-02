@@ -55,30 +55,50 @@ export default {
     created(){
       let reg=/(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/
       let regg= /^1\d{10}$/;
-			if (!reg.test(this.drivercall)) {
+      if(!this.drivername){
+        Toast({
+						message: '司机姓名不能为空',
+						position: 'middle',
+						duration: 2000
+					});
+					return false;
+      }
+      if(!this.drivercall){
+        Toast({
+						message: '司机电话不能为空',
+						position: 'middle',
+						duration: 2000
+					});
+					return false;
+      }
+			if (!regg.test(this.drivercall)) {
 					Toast({
 						message: '请输入正确的司机手机号码',
 						position: 'middle',
 						duration: 2000
 					});
 					return false;
-				}
-			if (!regg.test(this.contactcall)) {
-					Toast({
-						message: '请输入正确的联系人手机号码',
-						position: 'middle',
-						duration: 2000
-					});
-					return false;
-				}
-      if(!regg.test(this.driveridcard)){
-          Toast({
-                  message: "请输入有效身份证",
-                  position: "middle",
-                  duration: 2000
-                });
-          return false
-      }
+        }
+        if(this.contactcall){
+          if (!regg.test(this.contactcall)) {
+              Toast({
+                message: '请输入正确的联系人手机号码',
+                position: 'middle',
+                duration: 2000
+              });
+              return false;
+            }
+        }
+        if(this.driveridcard){
+          if(!regg.test(this.driveridcard)){
+              Toast({
+                      message: "请输入有效身份证",
+                      position: "middle",
+                      duration: 2000
+                    });
+              return false
+          }
+        }
       let params={
         brandId:this.$store.state.brandId,
         driverName:this.drivername,

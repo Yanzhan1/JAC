@@ -80,6 +80,22 @@ export default {
     editsure(){
       let reg=/(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/
       let regg= /^1\d{10}$/;
+      if(!this.drivername){
+        Toast({
+						message: '司机姓名不能为空',
+						position: 'middle',
+						duration: 2000
+					});
+					return false;
+      }
+      if(!this.drivercall){
+        Toast({
+						message: '司机电话不能为空',
+						position: 'middle',
+						duration: 2000
+					});
+					return false;
+      }
 			if (!regg.test(this.drivercall)) {
 					Toast({
 						message: '请输入正确的司机手机号码',
@@ -87,23 +103,27 @@ export default {
 						duration: 2000
 					});
 					return false;
-				}
-			if (!regg.test(this.contactcall)) {
-					Toast({
-						message: '请输入正确的联系人手机号码',
-						position: 'middle',
-						duration: 2000
-					});
-					return false;
-				}
-      if(!reg.test(this.driveridcard)){
-          Toast({
-                  message: "请输入有效身份证",
-                  position: "middle",
-                  duration: 2000
-                });
-          return false
-      }
+        }
+        if(this.contactcall){
+          if (!regg.test(this.contactcall)) {
+              Toast({
+                message: '请输入正确的联系人手机号码',
+                position: 'middle',
+                duration: 2000
+              });
+              return false;
+            }
+        }
+        if(this.driveridcard){
+          if(!reg.test(this.driveridcard)){
+              Toast({
+                      message: "请输入有效身份证",
+                      position: "middle",
+                      duration: 2000
+                    });
+              return false
+          }
+        }
       let params={
         driverId:this.$store.state.driverInformation.id,
         driverName:this.drivername,
@@ -138,9 +158,10 @@ export default {
     }
   },
   created(){
+    console.log(this.$store.state.driverInformation)
       if(this.$store.state.driverInformation){
         this.drivername=this.$store.state.driverInformation.driverName||''
-        this.drivercall=this.$store.state.driverInformation.contactPhone||''
+        this.drivercall=this.$store.state.driverInformation.phone||''
         this.driveridcard=this.$store.state.driverInformation.identityNum||''
         this.driveradress=this.$store.state.driverInformation.address||''
         this.contact=this.$store.state.driverInformation.urgentPersonName||''

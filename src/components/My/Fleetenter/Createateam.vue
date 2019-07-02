@@ -38,17 +38,43 @@ export default {
   methods: {
     create(){
       let regg= /^1\d{10}$/;
-			if (!regg.test(this.leaderphone)) {
-					Toast({
-						message: '请输入正确的司机手机号码',
-						position: 'middle',
-						duration: 2000
-					});
-					return false;
-				}
-      if(this.teamname.length>7){
+      if(!this.teamleader){
+        Toast({
+              message: '车队长名字不能为空',
+              position: 'middle',
+              duration: 2000
+            });
+            return false;
+      }
+      if(!this.leaderphone){
+        Toast({
+              message: '手机号不能为空',
+              position: 'middle',
+              duration: 2000
+            });
+            return false;
+      }
+      if(this.leaderphone){
+        if (!regg.test(this.leaderphone)) {
+            Toast({
+              message: '请输入正确的司机手机号码',
+              position: 'middle',
+              duration: 2000
+            });
+            return false;
+          }
+      }
+      if(!this.teamname){
           Toast({
-                message: '请输入长度少于7个中文字符的车队名',
+                message: '车队名不能为空',
+                position: "middle",
+                duration: 2000
+              });
+              return false
+      }
+      if(!this.teamname){
+          Toast({
+                message: '请输入长度少于7个字符的车队名',
                 position: "middle",
                 duration: 2000
               });
@@ -78,6 +104,12 @@ export default {
             this.$router.push({
               path:"/felltManagement"
             })
+          }else{
+            Toast({
+							message: res.data.msg,
+							position: 'middle',
+							duration: 1000
+						});
           }
       })
     },

@@ -86,9 +86,17 @@ export default {
 					});
 					return false;
 				}
+      if(!this.teamname){
+          Toast({
+                message: '车队名不能为空',
+                position: "middle",
+                duration: 2000
+              });
+              return false
+      }
       if(this.teamname.length>7){
           Toast({
-                message: '请输入长度少于7个中文字符的车队名',
+                message: '请输入长度少于7个字符的车队名',
                 position: "middle",
                 duration: 2000
               });

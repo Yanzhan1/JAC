@@ -2,7 +2,7 @@
       <div>
         <header class="header MobileHeight">
           <img class="header-left" :src="'./static/images/back@2x.png'" @click="goindex">
-          <span class="header-title">车队管理</span>
+          <span class="header-title" style="margin-left:.6rem;">车队管理</span>
           <span >
             <router-link tag="div" to="/felltManagement/createateam" style="color:#49BBFF" >创建车队</router-link>
           </span>
