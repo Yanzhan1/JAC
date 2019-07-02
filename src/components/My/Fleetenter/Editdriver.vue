@@ -135,7 +135,7 @@ export default {
       }
         this.$http.post(Lightcar.updatedriverinfo,params).then(res=>{
             if(res.data.code==0){
-              this.$store.state.driverInformation.drivername=this.drivername
+              this.$store.state.driverInformation.driverName=this.drivername
               this.$store.state.driverInformation.phone=this.drivercall
               this.$store.state.driverInformation.identityNum=this.driveridcard
               this.$store.state.driverInformation.address=this.driveradress
