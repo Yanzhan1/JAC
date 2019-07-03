@@ -20,10 +20,12 @@
           <input type="text" placeholder="请输入司机电话" v-model="drivercall">
         </div>
         <div class="listdetail">
+          <span>*</span>
           <div class="title">身份证号:</div>
           <input type="text" placeholder="请输入司机身份证号" v-model="driveridcard">
         </div>
         <div class="listdetail">
+          <span>*</span>
           <div class="title">司机地址:</div>
           <input type="text" placeholder="请输入司机地址" v-model="driveradress">
         </div>
@@ -36,10 +38,12 @@
           </div>
         </div>
         <div class="listdetail">
+          <span>*</span>
           <div class="title">紧急联系人:</div>
           <input type="text" placeholder="请输入紧急联系人姓名" v-model="contact">
         </div>
         <div class="listdetail">
+          <span>*</span>
           <div class="title">电话:</div>
           <input type="text" placeholder="请输入紧急联系人电话" v-model="contactcall">
         </div>
@@ -109,6 +113,22 @@ export default {
 					});
 					return false;
       }
+      if(!this.driveradress){
+        Toast({
+						message: '司机地址不能为空',
+						position: 'middle',
+						duration: 2000
+					});
+					return false;
+      }
+      if(!this.contact){
+        Toast({
+						message: '紧急联系人不能为空',
+						position: 'middle',
+						duration: 2000
+					});
+					return false;
+      }
 			if (!regg.test(this.drivercall)) {
 					Toast({
 						message: '请输入正确的司机手机号码',
@@ -117,7 +137,6 @@ export default {
 					});
 					return false;
         }
-        if(this.contactcall){
           if (!regg.test(this.contactcall)) {
               Toast({
                 message: '请输入正确的联系人手机号码',
@@ -126,8 +145,6 @@ export default {
               });
               return false;
             }
-        }
-        if(this.driveridcard){
           if(!reg.test(this.driveridcard)){
               Toast({
                       message: "请输入有效身份证",
@@ -136,7 +153,6 @@ export default {
                     });
               return false
           }
-        }
       this.smallname=this.smallname=='男'?1:2
       let params={
         driverId:this.$store.state.driverInformation.id,

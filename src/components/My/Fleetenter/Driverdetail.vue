@@ -57,7 +57,6 @@ export default {
   },
   filters:{
       changTime(val){
-        console.log(new Date(val.replace(/-/g, '/')))
         return operationTime.getTime(new Date(val.replace(/-/g, '/')).getTime(),2)
       }
   },

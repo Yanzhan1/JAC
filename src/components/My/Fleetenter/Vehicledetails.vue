@@ -49,7 +49,7 @@ export default {
     },
     filters:{
       changTime(val){
-        return operationTime.getTime(new Date(val).getTime(),2)
+        return operationTime.getTime(new Date(val.replace(/-/g, '/')).getTime(),2)
       }
     },
     methods:{
