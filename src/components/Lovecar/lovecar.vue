@@ -452,6 +452,7 @@ export default {
       } else if (this.carcontrol.doorStsRearLeft == 0) {
         this.doorStsRearLeft = "已关闭";
       }
+
       if(!this.nowindow){
         this.doorStsRearLeft=''
       }
@@ -1216,6 +1217,9 @@ export default {
                             ) {
                               this.windowStsRearRight = "已关闭";
                             }
+                            if(!this.nowindow){
+                              this.doorStsRearLeft=''
+                            }
                             var door = {
                               left_top: this.doorStsFrontLeft,
                               right_top: this.doorStsFrontRight,
@@ -1416,7 +1420,6 @@ export default {
               }
               if (res.data.data) {
                 this.carcontrol = res.data.data;
-
                 Toast({
                   message: this.vehicle_condition[1].dictValue,
                   position: "middle",
@@ -1520,6 +1523,9 @@ export default {
                   this.windowStsRearRight = "已打开";
                 } else if (this.carcontrol.windowStsRearRight == 0) {
                   this.windowStsRearRight = "已关闭";
+                }
+                if(!this.nowindow){
+                  this.doorStsRearLeft=''
                 }
                 var door = {
                   left_top: this.doorStsFrontLeft,
@@ -2017,8 +2023,8 @@ export default {
       this.vehiclestatus();
       this.firstEnter = true;
       this.vinn = this.$store.state.defaultInformation.vin;
-      // this.vinn ='LJ166A247K4012474';
-      // this.$store.state.vins='LJ166A247K4012474'
+      // this.vinn ='LJ12EKS99JTEST9M4';
+      // this.$store.state.vins='LJ12EKS99JTEST9M4'
       if(this.$store.state.defaultInformation.seriesName=='瑞风S7-2019款'){
         this.ToS7=false
             //更换爱车主图片,等待图
