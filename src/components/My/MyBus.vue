@@ -80,7 +80,7 @@ export default {
         js2android.exit();
       }
       }else{
-        this.$router.replace("/myindex")
+        this.$router.go(-1)
       }
     },
     //我的车辆

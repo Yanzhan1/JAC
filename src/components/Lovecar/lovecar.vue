@@ -7,7 +7,7 @@
           class="txt_m"
           style="margin-right: 1.8rem;"
         >&nbsp;&nbsp;&nbsp;&nbsp;{{this.$store.state.defaultInformation.seriesName}}</span>
-        <span class="txt_r" @click="tabCar">切换车辆</span>
+        <span class="txt_r"></span>
       </div>
       <div class="navs navs_h">
         <div class="navs_t">
@@ -1114,9 +1114,9 @@ export default {
         }
       });
     },
-    tabCar(){
-      this.$router.push('/myindex/myBus')
-    },
+    // tabCar(){
+    //   this.$router.push('/myindex/myBus')
+    // },
     //跳转定位
     turnPosition() {
       //js判断手机操作系统(ios或者是Android)
