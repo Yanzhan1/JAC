@@ -17,7 +17,7 @@
           infinite-scroll-disabled="loading"
           infinite-scroll-distance="10">
           <ul class="content">
-            <li class="area" v-for="(item,index) in List" @click="toactivity(item.lid,item.id)" style="">
+            <li class="area" v-for="(item,index) in List" :key="index" @click="toactivity(item.lid,item.id)" style="">
               <div class="content_p">
                 <span class="content_t">{{item.title}}</span>
                 <span class="content_x">{{item.createTime}}</span>
@@ -146,7 +146,7 @@ export default {
   padding: 0;
   margin: 0;
 }
-.MobileHeight {  
+.MobileHeight {
 		border-top-style: solid;
 		box-sizing: content-box;
 	}

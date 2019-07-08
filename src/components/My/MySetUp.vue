@@ -1,11 +1,5 @@
 <template>
 	<div class="my-setup">
-		<!--<header class="header">
-			<img class="header-left" :src="'./static/images/back@2x.png'" @click="$router.go(-1)">
-			<span class="header-title">设置</span>
-			<span class="header-right"></span>
-		</header>
-		<div style="height:0.88rem"></div>-->
 		<mhead currentTitle="设置"></mhead>
 		<!--<mt-cell :title="title">
 			<mt-switch @change="turn" v-model="value"><span></span></mt-switch>
@@ -201,7 +195,7 @@ export default {
   },
   mounted() {
       this.newphone();
-      
+
     // this.getCarLoginState()
   }
 };
