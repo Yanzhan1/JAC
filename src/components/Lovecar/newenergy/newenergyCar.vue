@@ -4,7 +4,7 @@
 			<div class="nav MobileHeight">
 				<div style="color:#fff;font: .3rem/.5rem 'PingFang-SC-Regular'" @click="navtip">更多车控</div>
 				<span class="txt_m" style="margin-right: 1.8rem;">&nbsp;&nbsp;&nbsp;&nbsp;{{this.$store.state.defaultInformation.seriesName}}</span>
-				<span class="txt_r"></span>
+				<span class="txt_r" @click="taCar">切换车辆</span>
 			</div>
 			<div class="navs navs_h">
 				<div class="navs_t">
@@ -421,6 +421,9 @@ export default {
       this.popupbg = false;
       this.popupVisible = false;
       this.IsShow = false;
+    },
+    taCar(){
+      this.$router.push('/myindex/mybus')
     },
     //点击高亮
     fn(type) {
@@ -2386,7 +2389,7 @@ input:focus {
   margin-top: 0.12rem;
 }
 .txt_r {
-  font-size: 0.25rem;
+  font-size: 0.3rem;
   color: #fff;
 }
 .bus_righgt {

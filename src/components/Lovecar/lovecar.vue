@@ -7,7 +7,7 @@
           class="txt_m"
           style="margin-right: 1.8rem;"
         >&nbsp;&nbsp;&nbsp;&nbsp;{{this.$store.state.defaultInformation.seriesName}}</span>
-        <span class="txt_r"></span>
+        <span class="txt_r" @click="tabCar">切换车辆</span>
       </div>
       <div class="navs navs_h">
         <div class="navs_t">
@@ -1113,6 +1113,9 @@ export default {
           }
         }
       });
+    },
+    tabCar(){
+      this.$router.push('/myindex/myBus')
     },
     //跳转定位
     turnPosition() {
@@ -2675,7 +2678,7 @@ input:focus {
 }
 
 .txt_r {
-  font-size: 0.25rem;
+  font-size: 0.3rem;
   color: #fff;
 }
 
