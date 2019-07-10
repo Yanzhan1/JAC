@@ -197,88 +197,6 @@ export default {
     allon() {
       this.fluctuationType = 3;
       this.popupVisible = true;
-      // this.httpwindowall();
-    },
-    end() {
-      this.debouncedGetAnswer();
-      // this.httpwindow();
-    },
-    //路由跳转的时候清除轮询loading
-    goback() {
-      this.$router.go(-1);
-      localhide();
-    },
-    //车窗高度增加
-    // windAdd() {
-    //   if (this.activeShowImg) {
-    //     this.popupVisible = false;
-    //     if (this.windowSpace >= this.windNum.length - 1) {
-    //       this.windowSpace = this.windNum.length - 1;
-    //     } else {
-    //       this.windowSpace++;
-    //       //计数器控制曲线
-    //       new Createarc({
-    //         el: "rightColorful", //canvas id
-    //         vuethis: this, //使用位置的this指向
-    //         num: "windowSpace", //data数值
-    //         type: "right", //圆弧方向  left right
-    //         tempdel: 11, //总差值
-    //         ratio: 0.4, //宽度比例
-    //         iscontrol: true, //控制是否能滑动，可以滑动
-    //         color: {
-    //           start: "#49bbff", //圆弧下边颜色
-    //           end: "#04e8db" //圆弧上边颜色
-    //         }
-    //       });
-    //     }
-    //   } else {
-    //     this.popupVisible = true;
-    //     return;
-    //   }
-    //   this.httpwindow();
-    // },
-    //拿到车窗的提示语
-    getwindowwords() {
-      this.allwords = this.$store.state.GETWORDS;
-      for (let value of this.allwords) {
-        if (value.dictType == "vehicle_window") {
-          this.windowwords = value.sysDictDataVOs;
-        }
-      }
-    },
-    //车窗高度减少
-    // windReduce() {
-    //   if (this.activeShowImg) {
-    //     this.popupVisible = false;
-    //     if (this.windowSpace <= this.winMin) {
-    //       this.windowSpace = 0;
-    //     } else {
-    //       this.windowSpace--;
-    //       //计数器控制曲线
-    //       new Createarc({
-    //         el: "rightColorful", //canvas id
-    //         vuethis: this, //使用位置的this指向
-    //         num: "windowSpace", //data数值
-    //         type: "right", //圆弧方向  left right
-    //         tempdel: 11, //总差值
-    //         ratio: 0.4, //宽度比例
-    //         iscontrol: true, //控制是否能滑动，可以滑动
-    //         color: {
-    //           start: "#49bbff", //圆弧下边颜色
-    //           end: "#04e8db", //圆弧上边颜色
-    //           num: 2
-    //         }
-    //       });
-    //     }
-    //   } else {
-    //     this.popupVisible = true;
-    //     return;
-    //   }
-    //   this.httpwindow();
-    // },
-    //产生曲线
-    produCurve() {
-      //车窗激活弧线
       new Createarc({
         el: "rightColorful", //canvas id
         vuethis: this, //使用位置的this指向
@@ -293,6 +211,41 @@ export default {
           num: 2
         }
       });
+    },
+    end() {
+      this.debouncedGetAnswer();
+    },
+    //路由跳转的时候清除轮询loading
+    goback() {
+      this.$router.go(-1);
+      localhide();
+    },
+    //拿到车窗的提示语
+    getwindowwords() {
+      this.allwords = this.$store.state.GETWORDS;
+      for (let value of this.allwords) {
+        if (value.dictType == "vehicle_window") {
+          this.windowwords = value.sysDictDataVOs;
+        }
+      }
+    },
+    //产生曲线
+    produCurve() {
+      //车窗激活弧线
+      // new Createarc({
+      //   el: "rightColorful", //canvas id
+      //   vuethis: this, //使用位置的this指向
+      //   num: "windowSpace", //data数值
+      //   type: "right", //圆弧方向  left right
+      //   tempdel: 11, //总差值
+      //   ratio: 0.4, //宽度比例
+      //   iscontrol: true, //控制是否能滑动，可以滑动
+      //   color: {
+      //     start: "#49bbff", //圆弧下边颜色
+      //     end: "#04e8db", //圆弧上边颜色
+      //     num: 2
+      //   }
+      // });
       //车窗未激活弧线
       new Createarc({
         el: "rightGray", //canvas id
@@ -702,30 +655,6 @@ export default {
     this.getwindowwords();
     this.produCurve();
     this.inputs();
-    this.$http
-      .post(
-        Lovecar.Carquery,
-        { vins: [this.$store.state.vins] },
-        this.$store.state.tsppin
-      )
-      .then(res => {
-        if (res.data.returnSuccess) {
-          // this.getAsyReturn(res.data.operationId);
-        } else {
-          Toast({
-            message: res.data.returnErrMsg,
-            position: "middle",
-            duration: 2000
-          });
-        }
-      })
-      .catch(err => {
-        Toast({
-          message: res.data.returnErrMsg,
-          position: "middle",
-          duration: 2000
-        });
-      });
   },
   created() {
     this.debouncedGetAnswer = _.debounce(this.httpwindow, 3000);
