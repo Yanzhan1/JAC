@@ -1,4 +1,4 @@
-<template>  
+<template>
     <div>
       <!--nav导航Start-->
       <div class="topb"></div>
@@ -14,16 +14,16 @@
               </li>
               <li>
                 <a href="javascript:;" >经销网点</a>
-              </li>            			
+              </li>
               <!-- <li>
                 <a href="javascript:;">维保预约</a>
               </li>		 -->
               <li v-if="enterMaintenance">
                 <a href="javascript:;">维保预约</a>
-              </li>		
+              </li>
               <li>
                 <a href="javascript:;">维保网点</a>
-              </li>					
+              </li>
               <li class="sideline"></li>
             </ul>
           </div>
@@ -31,7 +31,7 @@
       </div>
       <!--nav导航End-->
       <div
-        class="roadrescue" 
+        class="roadrescue"
               ref="moveDiv"
         >
         <img
@@ -41,14 +41,14 @@
         @touchstart="down"
         @touchmove.prevent="move"
         @touchend="up"
-        @click="confirmRevise" 
+        @click="confirmRevise"
          src="../../../static/images/Wit/loadhelp.png" alt="">
       </div>
       <div @click="bgclick" class="mask" v-if="flag"></div>
       <ul class="ulList" v-if="flag" @click="cancel()">
         <li class="cont flex column contentcenter" @click="call(1)">
           <span style="font-size:.32rem;color:#222">4008-889933</span>
-          <span style="font-size:.22rem;color:#888">(瑞风，和悦)</span>
+          <span style="font-size:.22rem;color:#888">(瑞风，和悦,新能源)</span>
         </li>
         <li class="cont flex column contentcenter" @click="call(2)">
           <span style="font-size:.32rem;color:#222">4008-009933</span>
@@ -76,22 +76,22 @@
             <Allbus></Allbus>
           </li>
           <li class="li_list" @click="Record(3)">
-            <dealer></dealer>					
+            <dealer></dealer>
           </li>
           <!-- <li class="li_list">
-            <preweib></preweib>				
+            <preweib></preweib>
           </li> -->
           <li class="li_list" v-if="enterMaintenance">
-            <preweib v-if="enterMaintenance"></preweib>				
+            <preweib v-if="enterMaintenance"></preweib>
           </li>
           <li class="li_list" @click="Record(4)">
-            <searchnet></searchnet>					
-          </li>          
+            <searchnet></searchnet>
+          </li>
         </ul>
       </div>
       <!--内容End-->
     </div>
- 
+
 </template>
 
 <script>
@@ -115,11 +115,11 @@ export default {
       x: 0,
       y: 0
     },
-    nx: '', 
-    ny: '', 
-    dx: '', 
-    dy: '', 
-    xPum: '', 
+    nx: '',
+    ny: '',
+    dx: '',
+    dy: '',
+    xPum: '',
     yPum: '',
     };
   },
@@ -168,7 +168,7 @@ export default {
               } else if (isMobile.Android()) {
                 var position = js2android.getLocationInfo();
                 var positions = JSON.parse(position);
-  
+
                 this.latitude = positions.latitude;
                 this.longitude = positions.longitude;
                 var param = {
@@ -232,7 +232,7 @@ export default {
       300
     );
     }
-  
+
   },
   down(){
      var touch ;
@@ -272,7 +272,7 @@ export default {
         this.yPum=document.body.clientHeight-this.$refs.moveDiv.offsetHeight*1.7
       }
 
-      
+
       if(this.yPum<0){
         this.yPum=0
       }
@@ -281,7 +281,7 @@ export default {
     }        　
   },
   up(){
-    this.moveFlag = false; 
+    this.moveFlag = false;
     if (!this.moveFlag) {
     }
   },
