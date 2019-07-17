@@ -24,9 +24,9 @@
 		<div class="lovecar-hei" style="height: 3rem;"></div>
 		<!--爱车Start-->
 		<div class="vehicle-condition">
-			<div class="contents">
+			<div class="contents" >
 				<!--车况tap Start-->
-				<div class="content-title">
+				<div class="content-title" v-show="tabshow">
 					<div class="left_bus1">
             <div class="left_bus" @click="fn(4)">
 							<img v-if="activeshow==4" class="pic1" src="../../../../static/images/Lovecar/batteryindex1@2x.png" alt="">
@@ -103,7 +103,13 @@
         </div>
         <!-- 非电池部分主体 -->
 				<div v-show="activeshow!=4" class="bus_l" >
-					<img style="position:absolute;left: 50%; top: .96rem;transform: translate(-50%, 0%);" src="../../../../static/images/Lovecar/newenergyLovecar.png" alt="" class="bus_righgt">
+					<img v-if="!this.IEV7S" style="position:absolute;left: 50%; top: .96rem;transform: translate(-50%, 0%);" src="../../../../static/images/Lovecar/iEVA50.png" alt="" class="bus_righgt">
+					<img v-else-if="!this.IEVA50" style="position:absolute;left: 50%; top: .96rem;transform: translate(-50%, 0%);" src="../../../../static/images/Lovecar/iEVA50.png" alt="" class="bus_righgt">
+					<img v-else-if="!this.IEV6EL_2018" style="position:absolute;left: 50%; top: .96rem;transform: translate(-50%, 0%);" src="../../../../static/images/Lovecar/iEVA50.png" alt="" class="bus_righgt">
+					<img v-else-if="!this.IEV6EL_2019" style="position:absolute;left: 50%; top: .96rem;transform: translate(-50%, 0%);" src="../../../../static/images/Lovecar/iEVA50.png" alt="" class="bus_righgt">
+					<img v-else-if="!this.IEV6ES" style="position:absolute;left: 50%; top: .96rem;transform: translate(-50%, 0%);" src="../../../../static/images/Lovecar/iEVA50.png" alt="" class="bus_righgt">
+					<img v-else-if="!this.IEV7L" style="position:absolute;left: 50%; top: .96rem;transform: translate(-50%, 0%);" src="../../../../static/images/Lovecar/iEVA50.png" alt="" class="bus_righgt">
+					<img v-else style="position:absolute;left: 50%; top: .96rem;transform: translate(-50%, 0%);" src="../../../../static/images/Lovecar/newenergyLovecar.png" alt="" class="bus_righgt">
 					<span ref='open1' class='busl_r left_1 '>{{this.Condition.lfWindowOpen}}</span>
 					<span ref='open2' class='busl_r  left_2 '>{{this.Condition.lrWindowOpen}}</span>
 					<span ref='open3' class='busl_r right_1 '>{{this.Condition.rfWindowOpen}}</span>
@@ -342,6 +348,13 @@ export default {
         // soc: 10
       }, //车控返回的东西
       beforetype: "",
+      tabshow:true,//展示tab切换
+      IEV7S: true,
+      IEVA50: true,
+      IEV6EL_2018: true,
+      IEV6EL_2019: true,
+      IEV6ES: true,
+      IEV7L: true,
       activeshow: 4, //默认第一个高亮
       tspid: "",
       popupbg: false,
@@ -1960,7 +1973,29 @@ export default {
     new Promise(()=>{
       this.getcarvalue();
     })
-
+      if (this.$store.state.defaultInformation.seriesName == "iEV7S") {
+        this.IEV7S = false;
+        this.tabshow=false
+      } else if (this.$store.state.defaultInformation.seriesName == "iEVA50") {
+        this.IEVA50 = false;
+        this.tabshow=false
+      } else if (
+        this.$store.state.defaultInformation.seriesName == "iEV6EL-2018"
+      ) {
+        this.IEV6EL_2018 = false;
+        this.tabshow=false
+      } else if (
+        this.$store.state.defaultInformation.seriesName == "iEV6EL-2019"
+      ) {
+        this.IEV6EL_2019 = false;
+        this.tabshow=false
+      } else if (this.$store.state.defaultInformation.seriesName == "iEV6ES") {
+        this.IEV6ES = false;
+        this.tabshow=false
+      } else if (this.$store.state.defaultInformation.seriesName == "iEV7L") {
+        this.IEV7L = false;
+        this.tabshow=false
+      }
     // this.Carquerry();
   },
   beforeDestroy() {

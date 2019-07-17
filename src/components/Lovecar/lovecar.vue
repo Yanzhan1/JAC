@@ -91,48 +91,6 @@
             class="bus_righgt"
           />
           <img
-            v-else-if="!this.IEV7S"
-            style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;"
-            src="../../../static/images/Lovecar/iEVA50.png"
-            alt
-            class="bus_righgt"
-          />
-          <img
-            v-else-if="!this.IEVA50"
-            style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;"
-            src="../../../static/images/Lovecar/iEVA50.png"
-            alt
-            class="bus_righgt"
-          />
-          <img
-            v-else-if="!this.IEV6EL_2018"
-            style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;"
-            src="../../../static/images/Lovecar/iEVA50.png"
-            alt
-            class="bus_righgt"
-          />
-          <img
-            v-else-if="!this.IEV6EL_2019"
-            style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;"
-            src="../../../static/images/Lovecar/iEVA50.png"
-            alt
-            class="bus_righgt"
-          />
-          <img
-            v-else-if="!this.IEV6ES"
-            style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;"
-            src="../../../static/images/Lovecar/iEVA50.png"
-            alt
-            class="bus_righgt"
-          />
-          <img
-            v-else-if="!this.IEV7L"
-            style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;"
-            src="../../../static/images/Lovecar/iEVA50.png"
-            alt
-            class="bus_righgt"
-          />
-          <img
             v-else
             style="position:absolute;left: 50%; top: 10%;transform: translate(-54%, -2%);margin-top:.5rem;"
             src="../../../static/images/Lovecar/lovecar.png"
@@ -530,7 +488,7 @@
           <img src="../../../static/images/Lovecar/xiupin.png" alt />
           <span>修改PIN</span>
         </router-link>
-        <router-link v-show="this.CAR_EXAMINATION" tag="li" to="/Bus_test">
+        <router-link v-show="this.CAR_EXAMINATION" tag="li" :to="{path:'/Bus_test',query:{customerType:1}}">
           <!-- 暂时解除车辆体检权限调接口 -->
           <!-- <router-link  tag="li" to="/Bus_test"> -->
           <img src="../../../static/images/Lovecar/chejian.png" alt />
@@ -587,12 +545,6 @@ export default {
       popupbg: false,
       nowindow: true, //控制车窗有无
       ToS7: true,
-      IEV7S: true,
-      IEVA50: true,
-      IEV6EL_2018: true,
-      IEV6EL_2019: true,
-      IEV6ES: true,
-      IEV7L: true,
       allwords: [], //贮存所有的提示语
       popupVisible: false,
       MaskIsshow: false, //黑色遮罩层
@@ -2202,22 +2154,6 @@ export default {
         //M4车无车窗
         this.nowindow = false;
         //更换爱车主图片,等待图
-      } else if (this.$store.state.defaultInformation.seriesName == "iEV7S") {
-        this.IEV7S = false;
-      } else if (this.$store.state.defaultInformation.seriesName == "iEVA50") {
-        this.IEVA50 = false;
-      } else if (
-        this.$store.state.defaultInformation.seriesName == "iEV6EL-2018"
-      ) {
-        this.IEV6EL_2018 = false;
-      } else if (
-        this.$store.state.defaultInformation.seriesName == "iEV6EL-2019"
-      ) {
-        this.IEV6EL_2019 = false;
-      } else if (this.$store.state.defaultInformation.seriesName == "iEV6ES") {
-        this.IEV6ES = false;
-      } else if (this.$store.state.defaultInformation.seriesName == "iEV7L") {
-        this.IEV7L = false;
       }
       this.Support();
       this.Carquerry();
@@ -2254,27 +2190,9 @@ export default {
       // this.$store.state.vins='LJ1EEASP7K4009695'
       if (this.$store.state.defaultInformation.seriesName == "瑞风S7-2019款") {
         this.ToS7 = false;
-        //更换爱车主图片,等待图
       } else if (this.$store.state.defaultInformation.seriesName == "瑞风M4") {
         //M4车无车窗
         this.nowindow = false;
-        //更换爱车主图片,等待图
-      } else if (this.$store.state.defaultInformation.seriesName == "iEV7S") {
-        this.IEV7S = false;
-      } else if (this.$store.state.defaultInformation.seriesName == "iEVA50") {
-        this.IEVA50 = false;
-      } else if (
-        this.$store.state.defaultInformation.seriesName == "iEV6EL-2018"
-      ) {
-        this.IEV6EL_2018 = false;
-      } else if (
-        this.$store.state.defaultInformation.seriesName == "iEV6EL-2019"
-      ) {
-        this.IEV6EL_2019 = false;
-      } else if (this.$store.state.defaultInformation.seriesName == "iEV6ES") {
-        this.IEV6ES = false;
-      } else if (this.$store.state.defaultInformation.seriesName == "iEV7L") {
-        this.IEV7L = false;
       }
       this.Support();
       this.Carquerry();
