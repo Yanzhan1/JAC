@@ -81,7 +81,7 @@
           <ul class="betteryStatus">
             <li>
                 <div>
-                  <div>充点插头状态</div>
+                  <div>充电插头状态</div>
                   <span>{{this.chgPlugStatus}}</span>
                 </div>
                 <div>
