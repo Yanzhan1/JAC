@@ -222,7 +222,8 @@ export default {
     },
     lightBustest(){
          var param = {
-            vin: this.$store.state.vins
+            vin: this.$store.state.vins,
+            brandId:this.$store.state.brandId
           };
           this.$http
             .post(Lightcar.truckcyccarexamination, param, this.$store.state.tsppin)
