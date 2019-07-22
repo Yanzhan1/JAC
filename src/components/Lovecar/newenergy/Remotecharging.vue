@@ -32,7 +32,7 @@
         <ul class="comment">
           <li>
             <div>  
-              <div>充电枪状态</div>
+              <div>充点插头状态</div>
               <span>{{this.chgPlugStatus}}</span>
             </div>
             <div>  
@@ -857,10 +857,12 @@ export default {
 
     if (this.carcontrol.chgStatus == 1) {
       this.chgStatus = "慢充充电开始";
+      this.controlcharge=true;
     } else if (this.carcontrol.chgStatus == 2) {
       this.chgStatus = "慢充充电结束";
     } else if (this.carcontrol.chgStatus == 3) {
       this.chgStatus = "快充充电开始";
+      this.controlcharge=true;
     } else if (this.carcontrol.chgStatus == 4) {
       this.chgStatus = "快充充电结束";
     }

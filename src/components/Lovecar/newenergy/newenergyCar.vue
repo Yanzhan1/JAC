@@ -81,7 +81,7 @@
           <ul class="betteryStatus">
             <li>
                 <div>
-                  <div>充电状态</div>
+                  <div>充点插头状态</div>
                   <span>{{this.chgPlugStatus}}</span>
                 </div>
                 <div>
@@ -105,8 +105,7 @@
 				<div v-show="activeshow!=4" class="bus_l" >
 					<img v-if="!this.IEV7S" style="position:absolute;left: 50%; top: .96rem;transform: translate(-50%, 0%);" src="../../../../static/images/Lovecar/iEVA50.png" alt="" class="bus_righgt">
 					<img v-else-if="!this.IEVA50" style="position:absolute;left: 50%; top: .96rem;transform: translate(-50%, 0%);" src="../../../../static/images/Lovecar/iEVA50.png" alt="" class="bus_righgt">
-					<img v-else-if="!this.IEV6EL_2018" style="position:absolute;left: 50%; top: .96rem;transform: translate(-50%, 0%);" src="../../../../static/images/Lovecar/iEVA50.png" alt="" class="bus_righgt">
-					<img v-else-if="!this.IEV6EL_2019" style="position:absolute;left: 50%; top: .96rem;transform: translate(-50%, 0%);" src="../../../../static/images/Lovecar/iEVA50.png" alt="" class="bus_righgt">
+					<img v-else-if="!this.IEV6EL" style="position:absolute;left: 50%; top: .96rem;transform: translate(-50%, 0%);" src="../../../../static/images/Lovecar/iEVA50.png" alt="" class="bus_righgt">
 					<img v-else-if="!this.IEV6ES" style="position:absolute;left: 50%; top: .96rem;transform: translate(-50%, 0%);" src="../../../../static/images/Lovecar/iEVA50.png" alt="" class="bus_righgt">
 					<img v-else-if="!this.IEV7L" style="position:absolute;left: 50%; top: .96rem;transform: translate(-50%, 0%);" src="../../../../static/images/Lovecar/iEVA50.png" alt="" class="bus_righgt">
 					<img v-else style="position:absolute;left: 50%; top: .96rem;transform: translate(-50%, 0%);" src="../../../../static/images/Lovecar/newenergyLovecar.png" alt="" class="bus_righgt">
@@ -189,7 +188,7 @@
 			<!--功能轮播Start-->
 			<mt-swipe  :auto="0" class="icon-container">
 				<!--轮播第一页Start-->
-				<mt-swipe-item>
+				<mt-swipe-item v-if="this.Firstpage">
 					<div class="content">
 						<div v-show="LOCK" class="content_1" @click="doors">
 							<img v-if="this.doorcontrol" class="content_carDoor" :src="'./static/images/Lovecar/lockon.png'" alt="">
@@ -220,7 +219,7 @@
 				</mt-swipe-item>
 				<!--轮播第一页end-->
 				<!--轮播第二页Start-->
-				<mt-swipe-item>
+				<mt-swipe-item v-if="this.Secondpage">
 					<div class="content">
 						<div v-show="REMOTE_NEAR_LIGHT_OPEN_OR_CLOSE"  class="content_1" @click="openNearLight">
 							<img v-if="!this.lightnearcontrol" class="content_carDoor" :src="'./static/images/Lovecar/light_nearopenon@2x.png'" alt="">
@@ -246,7 +245,7 @@
 				</mt-swipe-item>
 				<!--轮播第二页End-->
 				<!--轮播第三页Start-->
-				<mt-swipe-item>
+				<mt-swipe-item v-if="this.Thirdpage">
 					<div class="action-content">
 						<router-link v-show="AIRCONDITIONER"  :to="{path:'/newenergy/newaircondition',query:{carcontrol:this.carcontrol}}"  tag="div" class="navs air">
 							<div class="navs">
@@ -325,10 +324,10 @@
 					<img src="../../../../static/images/Lovecar/dingwei.png" alt="">
 					<span>定位</span>
 				</li>
-				<router-link v-show="FLOW_PACKAGE_QUERY"  tag='li' to="/lovecar/flowQuery">
+				<li v-show="FLOW_PACKAGE_QUERY"  @click="searchFlow">
 					<img src="../../../../static/images/Lovecar/liuliang.png" alt="">
 					<span>流量查询</span>
-				</router-link>
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -347,12 +346,14 @@ export default {
         // doorStsTrunk: 0,
         // soc: 10
       }, //车控返回的东西
+      Firstpage:false,
+      Secondpage:false,
+      Thirdpage:false,
       beforetype: "",
       tabshow:true,//展示tab切换
       IEV7S: true,
       IEVA50: true,
-      IEV6EL_2018: true,
-      IEV6EL_2019: true,
+      IEV6EL: true,
       IEV6ES: true,
       IEV7L: true,
       activeshow: 4, //默认第一个高亮
@@ -434,6 +435,16 @@ export default {
       this.popupbg = false;
       this.popupVisible = false;
       this.IsShow = false;
+    },
+    searchFlow(){
+      let Distinguish={
+              customerType:1,
+              truckTypeId:''
+      }
+      this.$store.dispatch('Distinguish',Distinguish)
+      this.$router.push({
+        path:'/lovecar/flowQuery'
+      })
     },
     // taCar(){
     //   this.$router.push('/myindex/mybus')
@@ -1552,27 +1563,35 @@ export default {
               switch (value.code) {
                   case "REMOTE_NEAR_LIGHT_OPEN_OR_CLOSE":
                      this.REMOTE_NEAR_LIGHT_OPEN_OR_CLOSE = true;
+                     this.Secondpage=true;
                     break;
                   case "REMOTE_HIGH_LIGHT_OPEN_OR_CLOSE":
                     this.REMOTE_HIGH_LIGHT_OPEN_OR_CLOSE = true;
+                    this.Secondpage=true;
                     break;
                   case "REMOTE_CELL_RECHARGE_OPEN_OR_CLOSE":
                     this.REMOTE_CELL_RECHARGE_OPEN_OR_CLOSE = true;
+                    this.Thirdpage=true;
                     break;
                   case "REMOTE_CELL_HOT_OPEN_OR_CLOSE":
                     this.REMOTE_CELL_HOT_OPEN_OR_CLOSE = true;
+                    this.Thirdpage=true;
                     break;
                   case "REMOTE_END_OPEN_OR_CLOSE":
                     this.REMOTE_END_OPEN_OR_CLOSE = true;
+                    this.Firstpage=true;
                     break;
                   case "REMOTE_OPEN_OR_CLOSE_WINDOW":
                     this.REMOTE_OPEN_OR_CLOSE_WINDOW = true;
+                    this.Thirdpage=true;
                     break;
                   case "REMOTE_OPEN_OR_CLOSE_SUNROOF":
                     this.REMOTE_OPEN_OR_CLOSE_SUNROOF = true;
+                    this.Thirdpage=true;
                     break;
                   case "AIRCONDITIONER":
                     this.AIRCONDITIONER = true;
+                    this.Thirdpage=true;
                     break;
                   case "REAL_TIME_VIDEO_VIEW":
                     this.REAL_TIME_VIDEO_VIEW = true;
@@ -1585,9 +1604,11 @@ export default {
                     break;
                   case "LOCK":
                     this.LOCK = true;
+                    this.Firstpage=true;
                     break;
                   case "FIND_VEHICLE":
                     this.FIND_VEHICLE = true;
+                    this.Firstpage=true;
                     break;
                   case "CAR_POINT_QUERY":
                     this.CAR_POINT_QUERY = true;
@@ -1980,14 +2001,9 @@ export default {
         this.IEVA50 = false;
         this.tabshow=false
       } else if (
-        this.$store.state.defaultInformation.seriesName == "iEV6EL-2018"
+        this.$store.state.defaultInformation.seriesName == "iEV6EL"
       ) {
-        this.IEV6EL_2018 = false;
-        this.tabshow=false
-      } else if (
-        this.$store.state.defaultInformation.seriesName == "iEV6EL-2019"
-      ) {
-        this.IEV6EL_2019 = false;
+        this.IEV6EL = false;
         this.tabshow=false
       } else if (this.$store.state.defaultInformation.seriesName == "iEV6ES") {
         this.IEV6ES = false;
