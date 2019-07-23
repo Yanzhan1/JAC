@@ -662,7 +662,7 @@ export default {
 
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              if (tSS >= 56) {
+              if (tSS >= 176) {
                 //超时提示
                 if (this.type == 1) {
                               // this.doorcontrol = true;
@@ -758,7 +758,7 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          if (tSS >= 56) {
+                          if (tSS >= 176) {
                             if (this.type == 1) {
                               // this.doorcontrol = true;
                               Toast({

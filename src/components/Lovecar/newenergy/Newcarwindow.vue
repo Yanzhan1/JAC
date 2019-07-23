@@ -308,7 +308,7 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              if (tSS >= 56) {
+              if (tSS >= 176) {
                 Toast({
                   message: this.windowwords[2].dictValue,
                   position: "middle",
@@ -329,7 +329,7 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          if (tSS >= 56) {
+                          if (tSS >= 176) {
                             Toast({
                               message: this.windowwords[2].dictValue,
                               position: "middle",

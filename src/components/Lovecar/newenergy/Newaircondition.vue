@@ -274,7 +274,7 @@ export default {
           if (res.data.returnSuccess == true) {
             if (res.data.status == "IN_PROGRESS") {
               //60s  后 清除定时器，不在发请求
-              if (tSS >= 56) {
+              if (tSS >= 176) {
                 localhide();
               } else {
                 this.time = setInterval(() => {
@@ -290,7 +290,7 @@ export default {
                       if (res.data.returnSuccess == true) {
                         if (res.data.status == "IN_PROGRESS") {
                           //60s  后 清除定时器，不在发请求
-                          if (tSS >= 56) {
+                          if (tSS >= 176) {
                             if (this.fluctuationType == "1") {
                               Toast({
                                 message: this.windowwords[4].dictValue,
