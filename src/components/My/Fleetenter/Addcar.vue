@@ -56,6 +56,15 @@ export default {
       }
     },
     sure(){
+      console.log(this.labeldata)
+      if(!this.labeldata[0]){
+        Toast({
+							message: '请先选择车辆',
+							position: 'middle',
+							duration: 1000
+            });
+            return false
+      }
       let params={
         teamId:this.$store.state.FleetInformation.teamId,
         brandId:this.$store.state.brandId,
