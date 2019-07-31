@@ -124,10 +124,12 @@ export default {
   },
   created() {
     //进入页面获取一次车辆体检
-    if(this.$store.state.brandId==1){
-      this.init()
-    }else{
-      this.starttest()
+    if(this.$store.state.vins){
+      if(this.$store.state.brandId==1){
+        this.init()
+      }else{
+        this.starttest()
+      }
     }
   },
   mounted(){
@@ -368,6 +370,23 @@ export default {
             localhide();
           }
         });
+    }
+  },
+   computed: {
+    vins() {
+      return this.$store.state.vins;
+    }
+  },
+  watch:{
+    vins(newVal, oldVal){
+      console.log(newVal,'and',oldVal)
+      if(newVal){
+        if(this.$store.state.Distinguish.customerType==2){
+          this.init()
+        }else{
+          this.starttest()
+        }
+      }
     }
   },
   beforeDestroy() {
