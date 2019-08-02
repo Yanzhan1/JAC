@@ -122,21 +122,20 @@ export default {
       return name;
     }
   },
-  created() {
-    //进入页面获取一次车辆体检
-    if(this.$store.state.vins){
-      if(this.$store.state.brandId==1){
-        this.init()
-      }else{
-        this.starttest()
-      }
-    }
-  },
   mounted(){
     $(".MobileHeight").css({
       borderTopWidth: this.$store.state.mobileStatusBar,
       borderTopColor: "#fff"
     });
+    setTimeout(()=>{
+      if(this.$store.state.vins){
+        if(this.$store.state.brandId==1){
+          this.init()
+        }else{
+          this.starttest()
+        }
+      }
+    },300)
   },
   methods: {
     goback(){
@@ -231,7 +230,6 @@ export default {
             .post(Lightcar.truckcyccarexamination, param, this.$store.state.tsppin)
             .then(res => {
               if (res.data.returnSuccess) {
-                console.log(res)
                 this.getAsyReturn(res.data.operationId);
               } else {
                   Toast({
@@ -372,13 +370,15 @@ export default {
         });
     }
   },
-   computed: {
-    vins() {
+  computed: {
+    vinwatch() {
+      console.log(1,this.$store.state.vins)
       return this.$store.state.vins;
     }
   },
   watch:{
-    vins(newVal, oldVal){
+    vinwatch(newVal, oldVal){
+      console.log(2)
       console.log(newVal,'and',oldVal)
       if(newVal){
         if(this.$store.state.Distinguish.customerType==2){
