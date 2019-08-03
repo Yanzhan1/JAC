@@ -99,22 +99,22 @@ export default{
           id:1,
           label:'自由型' ,
           value:'车型:自由型',
-          carTitle:'215/50 R17铝轮 TPMS胎压监测',
-          carTitle2:'皮质多功能方向盘 ESP车身稳定系统'
+          carTitle:'',
+          carTitle2:''
         },
         {
           id:2,
           label:'超越型' ,
           value:'车型:超越型',
-          carTitle:'10.25寸大屏 天窗',
-          carTitle2:'PEPS无钥匙进入及一键启动 智聆车联网3.0系统'
+          carTitle:'',
+          carTitle2:''
         },
         {
           id:3,
           label:'梦想型' ,
           value:'车型:梦想型',
-          carTitle:'主驾驶电动座椅 360全景影像',
-          carTitle2:'TESS爆胎应急安全系统'
+          carTitle:'',
+          carTitle2:''
         },
         {
           id:5,
@@ -127,7 +127,7 @@ export default{
           id:4,
           label:'探索型' ,
           value:'车型:探索型',
-          carTitle:'全景天窗 电动尾门',
+          carTitle:'',
           carTitle2:'',
         }
       ],
@@ -303,8 +303,8 @@ export default{
       }
     } else if(this.$store.state.currentTitle == "梦想型"){
       this.currentIndex = 2;
-      this.$store.state.carIntroduceTitle = '主驾驶电动座椅 360全景影像';
-      this.$store.state.carIntroduceTitle2 = 'TESS爆胎应急安全系统';
+      this.$store.state.carIntroduceTitle = '';
+      this.$store.state.carIntroduceTitle2 = '';
       if(this.$store.state.powerTitle == "1.5T CVT 自动"){
         this.currentIndex5 = 0;
         this.$store.state.priceTitle = 91800;

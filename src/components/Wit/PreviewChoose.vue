@@ -32,6 +32,7 @@
           <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="this.$store.state.colorTitle=='极光紫'" :src="'./static/images/Wit/purpleBody.png'"/>
           <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="this.$store.state.colorTitle=='琥珀金'" :src="'./static/images/Wit/goldBody.png'"/>
           <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="this.$store.state.colorTitle=='拉菲红'" :src="'./static/images/Wit/redBody.png'"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="this.$store.state.colorTitle=='梦想蓝'" :src="'./static/images/Wit/BLUEBody.png'"/>
         </div>
       </div>
       <!--</transition>-->
