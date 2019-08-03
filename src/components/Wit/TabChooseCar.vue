@@ -18,12 +18,12 @@
         <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose'}" >
         颜色
         </router-link>
-        <router-link tag="div" class="tabContent" :to="{path:'/RimChoose'}" >
+        <!-- <router-link tag="div" class="tabContent" :to="{path:'/RimChoose'}" >
           轮辋
         </router-link>
         <router-link tag="div" class="tabContent" :to="{path:'/VehicleChoose'}" >
         选装
-        </router-link>
+        </router-link> -->
       </div>
       <div v-else-if="this.$store.state.currentTitle == '自由型'"  class="tab">
         <router-link tag="div" class="tabContent" :to="{path:'/CarChoose'}" >
@@ -42,12 +42,12 @@
         <router-link tag="div" class="tabContent" :to="{path:'/ColorChoose',query:{lovecar:'notsplovecar'}}" >
         颜色
         </router-link>
-        <router-link tag="div" class="tabContent" :to="{path:'/RimChoose',query:{lovecar:'notsplovecar'}}" >
+        <!-- <router-link tag="div" class="tabContent" :to="{path:'/RimChoose',query:{lovecar:'notsplovecar'}}" >
           轮辋
         </router-link>
         <router-link tag="div" class="tabContent" :to="{path:'/VehicleChoose',query:{lovecar:'notsplovecar'}}" >
         选装
-        </router-link>
+        </router-link> -->
       </div>
       <div v-else-if="this.$store.state.currentTitle == '自由型'"  class="tab">
         <router-link tag="div" class="tabContent" :to="{path:'/CarChoose',query:{lovecar:'notsplovecar'}}" >
@@ -89,7 +89,12 @@ export default {
           id: 4,
           label: "自由型",
           value: "车型:自由型"
-        }
+        },
+        {
+          id: 5,
+          label: "梦想II型",
+          value: "车型:梦想II型"
+        },
       ]
     };
   },

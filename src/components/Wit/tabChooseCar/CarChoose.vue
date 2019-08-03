@@ -26,10 +26,10 @@
     <div style="position: relative;">
       <!--<transition name="slide2">-->
         <div>
-          <img style="width:7rem;height: 3rem;background-size: 100% 100%;position: absolute;left: 0.25rem" v-if="$store.state.currentTitle == '自由型'" :src="'./static/images/Wit/bg1.png'"/>
+          <!-- <img style="width:7rem;height: 3rem;background-size: 100% 100%;position: absolute;left: 0.25rem" v-if="$store.state.currentTitle == '自由型'" :src="'./static/images/Wit/bg1.png'"/>
           <img style="width:7rem;height: 3rem;background-size: 100% 100%;position: absolute;left: 0.25rem" v-if="$store.state.currentTitle == '超越型'" :src="'./static/images/Wit/bg2.png'"/>
           <img style="width:7rem;height: 3rem;background-size: 100% 100%;position: absolute;left: 0.25rem" v-if="$store.state.currentTitle == '梦想型'" :src="'./static/images/Wit/bg3.png'"/>
-          <img style="width:7rem;height: 3rem;background-size: 100% 100%;position: absolute;left: 0.25rem" v-if="$store.state.currentTitle == '探索型'" :src="'./static/images/Wit/bg4.png'"/>
+          <img style="width:7rem;height: 3rem;background-size: 100% 100%;position: absolute;left: 0.25rem" v-if="$store.state.currentTitle == '探索型'" :src="'./static/images/Wit/bg4.png'"/> -->
         </div>
       <!--</transition>-->
       <div class="contentCarpowerBg">
@@ -45,6 +45,9 @@
             {{item.label}}
           </div>
           <div v-if="$store.state.currentTitle == '探索型'" :class="index == currentIndex3 ?'contentCarpowerBtn2':'contentCarpowerBtn'"  v-for="(item,index) in carPowerData2" :key="item.id" @click="carPowerBtn2(index,item.label,item.text)">
+            {{item.label}}
+          </div>
+          <div class="contentCarpowerBtn" v-if="$store.state.currentTitle == '梦想II型'" :class="index == currentIndex6 ?'contentCarpowerBtn2':'contentCarpowerBtn'"  v-for="(item,index) in carPowerData5" :key="item.id" @click="carPowerBtn5(index,item.label,item.text)">
             {{item.label}}
           </div>
         </div>
@@ -78,15 +81,19 @@ export default{
       currentIndex3: 0,
       currentIndex4: 0,
       currentIndex5: 0,
+      currentIndex6: 0,
       powerFlag: false,
-      priceTitle: 88800,//梦想型1.5T CVT 自动价格
-      priceTitle3: 80800,//自由型1.5T CVT 自动
-      priceTitle4:84800,//超越型1.5T CVT 自动
+      priceTitle: 91800,//梦想型1.5T CVT 自动价格
+      priceTitle3: 75800,//自由型1.5T CVT 自动
+      priceTitle4:97800,//超越型1.5T CVT 自动
       priceTitle2: 98800,//探索型1.5T CVT 自动
+      priceTitle5: 91800,//梦想II型1.5T CVT 自动
       powerTitle: '1.5T CVT 自动',//梦想型1.5T CVT 自动
       powerTitle1: '1.5T CVT 自动',//自由型1.5T CVT 自动
       powerTitle3: '1.5T CVT 自动',//超越型1.5T CVT 自动
+      powerTitle4: '1.5T CVT 自动',//梦想II型1.5T CVT 自动
       powerTitle2: '1.5T CVT 自动',//探索型1.5T CVT 自动
+      powerTitle5: '1.5T CVT 自动',//探索型1.5T CVT 自动
       carData:[
         {
           id:1,
@@ -110,6 +117,13 @@ export default{
           carTitle2:'TESS爆胎应急安全系统'
         },
         {
+          id:5,
+          label:'梦想II型' ,
+          value:'车型:梦想II型',
+          carTitle:'',
+          carTitle2:'',
+        },
+        {
           id:4,
           label:'探索型' ,
           value:'车型:探索型',
@@ -122,78 +136,78 @@ export default{
           id:1,
           label:'1.5T CVT 自动' ,
           value:'1.5T CVT 自动',
-          text:80800
+          text:84800
         },
+        // {
+        //   id:2,
+        //   label:'1.6L CVT 自动' ,
+        //   value:'1.6L CVT 自动',
+        //   text:76800
+        // },
         {
           id:2,
-          label:'1.6L CVT 自动' ,
-          value:'1.6L CVT 自动',
-          text:76800
-        },
-        {
-          id:3,
           label:'1.5T 6MT 手动' ,
           value:'1.5T 6MT 手动',
-          text:71800
+          text:75800
         },
-        {
-          id:4,
-          label:'1.6L 6MT 手动' ,
-          value:'1.6L 6MT 手动',
-          text:67800,
-        }
+        // {
+        //   id:4,
+        //   label:'1.6L 6MT 手动' ,
+        //   value:'1.6L 6MT 手动',
+        //   text:67800,
+        // }
       ],
       carPowerData3:[
         {
           id:1,
           label:'1.5T CVT 自动' ,
           value:'1.5T CVT 自动',
-          text:84800
+          text:87800
         },
+        // {
+        //   id:2,
+        //   label:'1.6L CVT 自动' ,
+        //   value:'1.6L CVT 自动',
+        //   text:80800
+        // },
         {
           id:2,
-          label:'1.6L CVT 自动' ,
-          value:'1.6L CVT 自动',
-          text:80800
-        },
-        {
-          id:3,
           label:'1.5T 6MT 手动' ,
           value:'1.5T 6MT 手动',
-          text:75800
+          text:78800
         },
-        {
-          id:4,
-          label:'1.6L 6MT 手动' ,
-          value:'1.6L 6MT 手动',
-          text:71800,
-        }
+        // {
+        //   id:4,
+        //   label:'1.6L 6MT 手动' ,
+        //   value:'1.6L 6MT 手动',
+        //   text:71800,
+        // }
       ],
       carPowerData4:[
         {
           id:1,
           label:'1.5T CVT 自动' ,
           value:'1.5T CVT 自动',
-          text:88800
+          text:91800
         },
+        // {
+        //   id:2,
+        //   label:'1.6L CVT 自动' ,
+        //   value:'1.6L CVT 自动',
+        //   text:84800
+        // },
         {
           id:2,
-          label:'1.6L CVT 自动' ,
-          value:'1.6L CVT 自动',
-          text:84800
-        },
-        {
-          id:3,
           label:'1.5T 6MT 手动' ,
           value:'1.5T 6MT 手动',
-          text:79800
+          text:82800
         },
-        {
-          id:4,
-          label:'1.6L 6MT 手动' ,
-          value:'1.6L 6MT 手动',
-          text:75800,
-        }
+        // {
+        //   id:4,
+        //   label:'1.6L 6MT 手动' ,
+        //   value:'1.6L 6MT 手动',
+        //   text:75800,
+        // }
       ],
       carPowerData2:[
         {
@@ -202,19 +216,39 @@ export default{
           value:'1.5T CVT 自动',
           text:98800
         },
+        // {
+        //   id:2,
+        //   label:'1.6L CVT 自动' ,
+        //   value:'1.6L CVT 自动',
+        //   text:94800
+        // },
         {
           id:2,
-          label:'1.6L CVT 自动' ,
-          value:'1.6L CVT 自动',
-          text:94800
-        },
-        {
-          id:3,
           label:'1.5T 6MT 手动' ,
           value:'1.5T 6MT 手动',
           text:89800
         }
-      ]
+      ],
+      carPowerData5:[
+        {
+          id:1,
+          label:'1.5T CVT 自动' ,
+          value:'1.5T CVT 自动',
+          text:91800
+        },
+        // {
+        //   id:2,
+        //   label:'1.6L CVT 自动' ,
+        //   value:'1.6L CVT 自动',
+        //   text:94800
+        // },
+        {
+          id:2,
+          label:'1.5T 6MT 手动' ,
+          value:'1.5T 6MT 手动',
+          text:82800
+        }
+      ],
     }
 
   },
@@ -228,7 +262,7 @@ export default{
     this.$store.state.currentTitle = '梦想型';
     this.$store.state.colorTitle = '典雅白';
     this.$store.state.powerTitle = '1.5T CVT 自动';
-    this.$store.state.priceTitle = 88800;
+    this.$store.state.priceTitle = 91800;
     this.$store.state.rimTitle ='R17';
     this.$store.state.show = false;
     this.$store.state.show1 = false;
@@ -239,13 +273,13 @@ export default{
       this.$store.state.carIntroduceTitle2 = '皮质多功能方向盘 ESP车身稳定系统';
       if(this.$store.state.powerTitle == "1.5T CVT 自动"){
         this.currentIndex2 = 0;
-        this.$store.state.priceTitle = 80800;
+        this.$store.state.priceTitle = 84800;
       }else if(this.$store.state.powerTitle == "1.6L CVT 自动"){
         this.currentIndex2 = 1;
         this.$store.state.priceTitle = 76800;
       } else if(this.$store.state.powerTitle == "1.5T 6MT 手动"){
         this.currentIndex2 = 2;
-        this.$store.state.priceTitle = 71800;
+        this.$store.state.priceTitle = 75800;
       }else if(this.$store.state.powerTitle == "1.6L 6MT 手动"){
         this.currentIndex2 = 3;
         this.$store.state.priceTitle = 67800;
@@ -256,13 +290,13 @@ export default{
       this.$store.state.carIntroduceTitle2 = 'PEPS无钥匙进入及一键启动 智聆车联网3.0系统';
       if(this.$store.state.powerTitle == "1.5T CVT 自动"){
         this.currentIndex4 = 0;
-        this.$store.state.priceTitle = 84800;
+        this.$store.state.priceTitle = 87800;
       }else if(this.$store.state.powerTitle == "1.6L CVT 自动"){
         this.currentIndex4 = 1;
         this.$store.state.priceTitle = 80800;
       } else if(this.$store.state.powerTitle == "1.5T 6MT 手动"){
         this.currentIndex4 = 2;
-        this.$store.state.priceTitle = 75800;
+        this.$store.state.priceTitle = 78800;
       }else if(this.$store.state.powerTitle == "1.6L 6MT 手动"){
         this.currentIndex4 = 3;
         this.$store.state.priceTitle = 71800;
@@ -273,13 +307,13 @@ export default{
       this.$store.state.carIntroduceTitle2 = 'TESS爆胎应急安全系统';
       if(this.$store.state.powerTitle == "1.5T CVT 自动"){
         this.currentIndex5 = 0;
-        this.$store.state.priceTitle = 88800;
+        this.$store.state.priceTitle = 91800;
       }else if(this.$store.state.powerTitle == "1.6L CVT 自动"){
         this.currentIndex5 = 1;
         this.$store.state.priceTitle = 84800;
       } else if(this.$store.state.powerTitle == "1.5T 6MT 手动"){
         this.currentIndex5 = 2;
-        this.$store.state.priceTitle = 79800;
+        this.$store.state.priceTitle = 82800;
       }else if(this.$store.state.powerTitle == "1.6L 6MT 手动"){
         this.currentIndex5 = 3;
         this.$store.state.priceTitle = 75800;
@@ -298,12 +332,27 @@ export default{
         this.currentIndex3 = 2;
         this.$store.state.priceTitle = 89800;
       }
+    }else if(this.$store.state.currentTitle == "梦想II型"){
+      this.currentIndex = 4;
+      this.$store.state.carIntroduceTitle = '';
+      this.$store.state.carIntroduceTitle2 = '';
+      if(this.$store.state.powerTitle == "1.5T CVT 自动"){
+        this.currentIndex6 = 0;
+        this.$store.state.priceTitle = 91800;
+      }else if(this.$store.state.powerTitle == "1.6L CVT 自动"){
+        this.currentIndex6 = 1;
+        this.$store.state.priceTitle = 94800;
+      } else if(this.$store.state.powerTitle == "1.5T 6MT 手动"){
+        this.currentIndex6 = 2;
+        this.$store.state.priceTitle = 82800;
+      }
     }
 
     this.flag  = true;
   },
   methods:{
     carBtn(index,labelTitle,carIntroduceTitle,carIntroduceTitle2){
+      console.log(index)
       this.currentIndex = index;
       this.$store.state.currentTitle = labelTitle;
       this.$store.state.carIntroduceTitle = carIntroduceTitle;
@@ -313,13 +362,13 @@ export default{
       if(this.$store.state.currentTitle == '自由型'){
           if(this.$store.state.powerTitle == '1.5T CVT 自动'){
             this.currentIndex2 = 0;
-            this.$store.state.priceTitle = 80800;
+            this.$store.state.priceTitle = 84800;
           } else if(this.$store.state.powerTitle == '1.6L CVT 自动'){
             this.currentIndex2 = 1;
-            this.$store.state.priceTitle = 76800;
-          }else if(this.$store.state.powerTitle == '1.5T 6MT 手动'){
-            this.currentIndex2 = 2;
             this.$store.state.priceTitle = 71800;
+          }else if(this.$store.state.powerTitle == '1.5T 6MT 手动'){
+            this.currentIndex2 = 1;
+            this.$store.state.priceTitle = 75800;
           }else if(this.$store.state.powerTitle == '1.6L 6MT 手动'){
             this.currentIndex2 = 3;
             this.$store.state.priceTitle = 67800;
@@ -328,13 +377,13 @@ export default{
       }else if(this.$store.state.currentTitle == '超越型'){
         if(this.$store.state.powerTitle == '1.5T CVT 自动'){
           this.currentIndex4 = 0;
-          this.$store.state.priceTitle = 84800;
+          this.$store.state.priceTitle = 87800;
         } else if(this.$store.state.powerTitle == '1.6L CVT 自动'){
           this.currentIndex4 = 1;
           this.$store.state.priceTitle = 80800;
         }else if(this.$store.state.powerTitle == '1.5T 6MT 手动'){
-          this.currentIndex4 = 2;
-          this.$store.state.priceTitle = 75800;
+          this.currentIndex4 = 1;
+          this.$store.state.priceTitle = 78800;
         }else if(this.$store.state.powerTitle == '1.6L 6MT 手动'){
           this.currentIndex4 = 3;
           this.$store.state.priceTitle = 71800;
@@ -342,13 +391,13 @@ export default{
       }else if(this.$store.state.currentTitle == '梦想型'){
         if(this.$store.state.powerTitle == '1.5T CVT 自动'){
           this.currentIndex5 = 0;
-          this.$store.state.priceTitle = 88800;
+          this.$store.state.priceTitle = 91800;
         } else if(this.$store.state.powerTitle == '1.6L CVT 自动'){
           this.currentIndex5 = 1;
           this.$store.state.priceTitle = 84800;
         }else if(this.$store.state.powerTitle == '1.5T 6MT 手动'){
-          this.currentIndex5 = 2;
-          this.$store.state.priceTitle = 79800;
+          this.currentIndex5 = 1;
+          this.$store.state.priceTitle = 82800;
         }else if(this.$store.state.powerTitle == '1.6L 6MT 手动'){
           this.currentIndex5 = 3;
           this.$store.state.priceTitle = 75800;
@@ -361,8 +410,21 @@ export default{
           this.currentIndex3 = 1;
           this.$store.state.priceTitle = 94800;
         }else if(this.$store.state.powerTitle == '1.5T 6MT 手动'){
-          this.currentIndex3 = 2;
+          this.currentIndex3 = 1;
           this.$store.state.priceTitle = 89800;
+        }else{
+          this.$store.state.priceTitle = 98800;
+        }
+      }else if(this.$store.state.currentTitle == '梦想II型'){
+        if(this.$store.state.powerTitle == '1.5T CVT 自动'){
+          this.currentIndex6 = 0;
+          this.$store.state.priceTitle = 91800;
+        } else if(this.$store.state.powerTitle == '1.6L CVT 自动'){
+          this.currentIndex6= 1;
+          this.$store.state.priceTitle = 94800;
+        }else if(this.$store.state.powerTitle == '1.5T 6MT 手动'){
+          this.currentIndex6 = 1;
+          this.$store.state.priceTitle = 82800;
         }else{
           this.$store.state.priceTitle = 98800;
         }
@@ -370,7 +432,12 @@ export default{
     },
     carPowerBtn(index,labelTitle,text){
 //        alert(labelTitle)
+      console.log(index)
       this.currentIndex2 = index;
+      this.currentIndex3 = index;
+      this.currentIndex4 = index;
+      this.currentIndex5 = index;
+      this.currentIndex6 = index;
       this.$store.state.powerTitle = labelTitle;
       this.priceTitle = text;
       this.$store.state.priceTitle = this.priceTitle
@@ -378,8 +445,12 @@ export default{
     },
     carPowerBtn3(index,labelTitle,text){
 //        alert(labelTitle)
-
+      console.log(index)
+      this.currentIndex2 = index;
+      this.currentIndex3 = index;
       this.currentIndex4 = index;
+      this.currentIndex5 = index;
+      this.currentIndex6 = index;
       this.powerTitle2 = labelTitle;
       this.$store.state.powerTitle = this.powerTitle2;
       this.priceTitle3 = text;
@@ -388,9 +459,13 @@ export default{
     },
     carPowerBtn4(index,labelTitle,text){
 //        alert(labelTitle)
+      this.currentIndex2 = index;
+      this.currentIndex3 = index;
+      this.currentIndex4 = index;
       this.currentIndex5 = index;
-      this.powerTitle3 = labelTitle;
-      this.$store.state.powerTitle = this.powerTitle3;
+      this.currentIndex6 = index;
+      this.powerTitle4 = labelTitle;
+      this.$store.state.powerTitle = this.powerTitle4;
       this.priceTitle4 = text;
       this.$store.state.priceTitle = this.priceTitle4
 
@@ -398,11 +473,28 @@ export default{
     },
     carPowerBtn2(index,labelTitle,text){
 //        alert(labelTitle)
+      this.currentIndex2 = index;
       this.currentIndex3 = index;
+      this.currentIndex4 = index;
+      this.currentIndex5 = index;
+      this.currentIndex6 = index;
       this.powerTitle = labelTitle;
       this.$store.state.powerTitle = labelTitle;
       this.priceTitle2 = text;
       this.$store.state.priceTitle = this.priceTitle2
+
+      this.flag  = true;
+    },
+    carPowerBtn5(index,labelTitle,text){
+      this.currentIndex2 = index;
+      this.currentIndex3 = index;
+      this.currentIndex4 = index;
+      this.currentIndex5 = index;
+      this.currentIndex6 = index;
+      this.powerTitle5 = labelTitle;
+      this.$store.state.powerTitle = this.powerTitle5;
+      this.priceTitle5 = text;
+      this.$store.state.priceTitle = this.priceTitle5
 
       this.flag  = true;
     },

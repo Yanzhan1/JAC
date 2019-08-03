@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div v-if="this.$store.state.currentTitle == '超越型' || this.$store.state.currentTitle == '梦想型' || this.$store.state.currentTitle == '探索型'">
+    <div v-if="this.$store.state.currentTitle == '超越型' || this.$store.state.currentTitle == '梦想型' || this.$store.state.currentTitle == '探索型'||this.$store.state.currentTitle == '梦想II型'">
       <div class="headerHeight"></div>
       <!--<transition name="slide1">-->
       <div class="contentImg">
@@ -20,6 +20,7 @@
             <img v-if="item.label == '典雅白'" class="colorTitle" :class="currentIndex == 1 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/whiteColor.png'">
             <img v-if="item.label == '极光紫'" class="colorTitle" :class="currentIndex == 2 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/purpleColor.png'">
             <img v-if="item.label == '琥珀金'" class="colorTitle" :class="currentIndex == 3 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/goldColor.png'">
+            <img v-if="item.label == '梦想蓝'" class="colorTitle" :class="currentIndex == 4 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/BLUEColor.png'">
             <div class="contentCarBtnTitle" :class="index == currentIndex ?'contentCarBtnTitle2':'contentCarBtnTitle'">{{item.label}}</div>
           </div>
         </div>
@@ -32,7 +33,7 @@
             << 车型选择
           </div>
           <div class="contentColorBtn" @click="RimChooseBtn">
-            轮辋选择 >>
+            选配预览 >>
           </div>
         </div>
       </div>
@@ -57,6 +58,7 @@
             <img v-if="item.label == '典雅白'" class="colorTitle" :class="currentIndex == 1 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/whiteColor.png'">
             <img v-if="item.label == '极光紫'" class="colorTitle" :class="currentIndex == 2 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/purpleColor.png'">
             <img v-if="item.label == '琥珀金'" class="colorTitle" :class="currentIndex == 3 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/goldColor.png'">
+            <img v-if="item.label == '梦想蓝'" class="colorTitle" :class="currentIndex == 4 ?'colorTitle2':'colorTitle'" :src="'./static/images/Wit/BLUEColor.png'">
             <div class="contentCarBtnTitle" :class="index == currentIndex ?'contentCarBtnTitle2':'contentCarBtnTitle'">{{item.label}}</div>
           </div>
         </div>
@@ -103,7 +105,12 @@
             id:3,
             label:'琥珀金' ,
             value:'外观:琥珀金'
-          }
+          },
+          {
+            id:5,
+            label:'梦想蓝' ,
+            value:'外观:梦想蓝'
+          },
         ],
         carColorData:[
           {
@@ -126,6 +133,11 @@
             color:'gold' ,//琥珀金
             img:'./static/images/Wit/gold.png'
           },
+          {
+            id:5,
+            color:'blue' ,//梦想蓝
+            img:'./static/images/Wit/BLUE.png'
+          },
 
         ]
       }
@@ -144,6 +156,8 @@
         this.currentIndex = 2
       }else if(this.$store.state.colorTitle == "琥珀金"){
         this.currentIndex = 3
+      }else if(this.$store.state.colorTitle == "梦想蓝"){
+        this.currentIndex=4
       }
       this.flag  = true;
     },
@@ -164,11 +178,11 @@
         if(this.$store.state.noback){
           
           this.$router.push({
-            path: '/RimChoose'
+            path: '/wit/PreviewChoose'
           })
         }else{
           this.$router.push({
-            path: '/RimChoose',
+            path: '/wit/PreviewChoose',
             query:{lovecar:'notsplovecar'}
           })
         }

@@ -47,7 +47,7 @@
         </div>
       </div>
     </div>
-    <div v-if="this.$store.state.currentTitle == '超越型' || this.$store.state.currentTitle == '梦想型' || this.$store.state.currentTitle == '探索型'">
+    <div v-if="this.$store.state.currentTitle == '超越型' || this.$store.state.currentTitle == '梦想型' || this.$store.state.currentTitle == '探索型'||this.$store.state.currentTitle == '梦想II型' ">
       <div class="headerHeight3"></div>
       <!--<transition name="slide">-->
       <div class="content">
@@ -72,6 +72,7 @@
           <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="this.$store.state.colorTitle=='极光紫'" :src="'./static/images/Wit/purpleBody.png'"/>
           <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="this.$store.state.colorTitle=='琥珀金'" :src="'./static/images/Wit/goldBody.png'"/>
           <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="this.$store.state.colorTitle=='拉菲红'" :src="'./static/images/Wit/redBody.png'"/>
+          <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-else-if="this.$store.state.colorTitle=='梦想蓝'" :src="'./static/images/Wit/BLUEBody.png'"/>
           <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-show="this.$store.state.colorTitle=='典雅白' && this.$store.state.outType == '双色车身'"  :src="whiteDouble"/>
           <img style="width:7.2rem;height: 4rem;background-size: 100% 100%;position: absolute;top: 0" v-show="this.$store.state.colorTitle=='拉菲红' && this.$store.state.outType == '双色车身'"  :src="redDouble"/>
           <img v-if="this.$store.state.rimTitle=='R18'" :src="'./static/images/Wit/R18.png'">
@@ -79,12 +80,10 @@
         </div>
         <!--</transition>-->
       </div>
-      <!--<transition name="slide2">-->
-      <div class="contentCar">
+      <!-- <div class="contentCar">
 
         <div class="contentCarBtn" >
           <div>
-            <!--<img class="leftImg" :src="carWheelCommonR17">-->
             <img class="leftImg2" v-if="this.$store.state.rimTitle =='R17'" :src="carWheelCommonR17">
             <img class="leftImg2" v-else-if="this.$store.state.rimTitle =='R18'" :src="carWheelCommonR18">
           </div>
@@ -103,12 +102,10 @@
             <img class="leftImg3" v-if="this.$store.state.colorTitle=='极光紫'" :src="imgBody3">
             <img class="leftImg3" v-if="this.$store.state.colorTitle=='琥珀金'" :src="imgBody4">
             <img class="leftImg3" v-if="this.$store.state.colorTitle=='拉菲红'" :src="imgBody5">
-            <!--<img class="leftImg" :src="this.show1 ? imgBody1 :carSmallBody">-->
           </div>
           <div class="middleTitle">双色车身&nbsp;&nbsp;¥2000</div>
         </div>
-      </div>
-      <!--</transition>-->
+      </div> -->
       <div class="contentBtn">
         <div class="contentText">
           <div class="priceLabel">{{this.$store.state.priceTitle}}元</div>
